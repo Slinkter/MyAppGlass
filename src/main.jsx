@@ -1,10 +1,22 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+// src/main.jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { ChakraProvider, extendTheme, ColorModeScript } from "@chakra-ui/react";
+import App from "./App";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+// Definición del tema con modo oscuro
+const theme = extendTheme({
+  config: {
+    initialColorMode: "system",
+    useSystemColorMode: true,
+  },
+});
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <ChakraProvider theme={theme}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <App />
+    </ChakraProvider>
+  </React.StrictMode>
+);
