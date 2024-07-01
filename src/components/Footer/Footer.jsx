@@ -1,7 +1,78 @@
 import React from "react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Text,
+  VStack,
+  useColorModeValue,
+  Icon,
+  Heading,
+} from "@chakra-ui/react";
+import { FaWhatsapp, FaCalendar, FaClock, FaMap } from "react-icons/fa";
 
 const Footer = () => {
-  return <div>Footer</div>;
+  const bgColor = useColorModeValue("#e9ecef", "gray.600"); // Light mode bg from original CSS
+  const textColor = useColorModeValue("black", "white");
+
+  return (
+    <>
+      <Box color={textColor} pt="2rem" pb="2rem">
+        <Box bg={bgColor} mx="auto" py={8}>
+          <Flex
+            justifyContent="space-around"
+            direction={{ base: "column", md: "row" }}
+          >
+            <VStack spacing={1} marginBottom={4}>
+              <Heading as="h2" size="xl">
+                CONTACTO
+              </Heading>
+
+              <HStack spacing={2} alignItems="center">
+                <Icon as={FaWhatsapp} />
+                <Text fontSize="xl">996-537-435</Text>
+              </HStack>
+              <HStack spacing={2} alignItems="center">
+                <Icon as={FaWhatsapp} />
+                <Text fontSize="xl">974-278-303</Text>
+              </HStack>
+            </VStack>
+            <VStack spacing={1} marginBottom={4}>
+              <Heading as="h2" size="xl">
+                HORARIOS
+              </Heading>
+
+              <HStack spacing={2} alignItems="center">
+                <Icon as={FaCalendar} />
+                <Text fontSize="xl">Lunes a Sábado</Text>
+              </HStack>
+              <HStack spacing={2} alignItems="center">
+                <Icon as={FaClock} />
+                <Text>9:00 am - 5:00 pm</Text>
+              </HStack>
+            </VStack>
+            <VStack spacing={1} marginBottom={4}>
+              <Heading as="h2" size="xl">
+                DIRECCIÓN
+              </Heading>
+
+              <HStack spacing={2} alignItems="center">
+                <Icon as={FaMap} />
+                <Text>Av. Los Fresnos MZ. H LT. 16</Text>
+              </HStack>
+              <HStack spacing={2} alignItems="center">
+                <Icon as={FaMap} />
+                <Text>La Molina</Text>
+              </HStack>
+            </VStack>
+          </Flex>
+        </Box>
+      </Box>
+      <Flex justifyContent={"center"} alignItems={"center"}>
+        <Text> Copyright ©2024</Text>
+      </Flex>
+    </>
+  );
 };
 
 export default Footer;

@@ -1,7 +1,9 @@
 // src/main.jsx
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ChakraProvider, extendTheme, ColorModeScript } from "@chakra-ui/react";
+
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import HomeView from "./routes/HomeView";
@@ -10,15 +12,10 @@ import ProductView from "./routes/ProductView";
 import UsView from "./routes/UsView";
 import ErrorView from "./routes/ErrorView";
 import TestView from "./routes/TestView";
-import ProjectView from "./routes/ProjectView";
+import ProjectView from "./routes/ProjectView"; //
+import theme from "./theme";
 
 // Definición del tema con modo oscuro
-const theme = extendTheme({
-  config: {
-    initialColorMode: "system",
-    useSystemColorMode: true,
-  },
-});
 
 const router = createBrowserRouter([
   {
