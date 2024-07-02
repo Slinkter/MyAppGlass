@@ -24,7 +24,12 @@ const Footer = () => {
             direction={{ base: "column", md: "row" }}
           >
             <VStack spacing={1} marginBottom={4}>
-              <Heading as="h2" size="xl">
+              <Heading
+                as="h2"
+                size="2xl"
+                fontSize={"2.5rem"}
+                fontWeight={"600"}
+              >
                 CONTACTO
               </Heading>
 
@@ -38,7 +43,12 @@ const Footer = () => {
               </HStack>
             </VStack>
             <VStack spacing={1} marginBottom={4}>
-              <Heading as="h2" size="xl">
+              <Heading
+                as="h2"
+                size="2xl"
+                fontSize={"2.5rem"}
+                fontWeight={"600"}
+              >
                 HORARIOS
               </Heading>
 
@@ -52,7 +62,12 @@ const Footer = () => {
               </HStack>
             </VStack>
             <VStack spacing={1} marginBottom={4}>
-              <Heading as="h2" size="xl">
+              <Heading
+                as="h2"
+                size="2xl"
+                fontSize={"2.5rem"}
+                fontWeight={"600"}
+              >
                 DIRECCIÓN
               </Heading>
 

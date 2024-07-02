@@ -6,7 +6,8 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import React from "react";
-import Tienda from "../components/Tienda";
+import Tienda from "../components/HomePage/Tienda";
+import Feature from "../components/HomePage/Feature";
 
 const HomeView = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -14,6 +15,7 @@ const HomeView = () => {
   return (
     <div>
       HomeView inicio
+      <Feature />
       <Tienda />
       <Box p={4}>
         <Button onClick={toggleColorMode}>

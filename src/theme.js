@@ -11,6 +11,10 @@ const theme = extendTheme({
     heading: `"Lora", serif;`,
     body: `"Lora", serif;`,
   },
+  colors: {
+    textsecond: "#6c757d",
+    textthird: "red",
+  },
 });
 
 export default theme;
