@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "@chakra-ui/react";
+import Franja from "../Franja";
 
 const Tienda = () => {
   const bgColor = useColorModeValue("#e9ecef", "gray.600"); // Light mode bg from original CSS
@@ -22,24 +23,13 @@ const Tienda = () => {
 
   return (
     <div className="">
-      <Box color={textColor} pt="2rem" pb="2rem">
-        <Box bg={bgColor} mx="auto" py={8}>
-          <Flex
-            justifyContent="center"
-            alignItems={"center"}
-            direction={{ base: "column", md: "column" }}
-          >
-            <Heading as="h2" size="2xl" fontSize={"2.5rem"} fontWeight={"600"}>
-              UBICANOS
-            </Heading>
-            <HStack spacing={2} alignItems="center" justifyContent={"center"}>
-              <Text width={isMobile ? "95%" : "95%"} textAlign={"center"}>
-                AV. Los Fresnos MZ H LT 16 - Urb. El Valle - La Molina - Lima
-              </Text>
-            </HStack>
-          </Flex>
-        </Box>
+      <Box>
+        <Franja
+          title={"UBICANOS"}
+          text={"AV. Los Fresnos MZ H LT 16 - Urb. El Valle - La Molina - Lima"}
+        />
       </Box>
+
       <Box mx={"auto"} mt={4} mb={8}>
         <Flex
           justifyContent={"center"}
@@ -48,7 +38,7 @@ const Tienda = () => {
         >
           <AspectRatio
             ratio={16 / 9}
-            width={isMobile ? "95%" : "95%"}
+            width={isMobile ? "95%" : "85%"}
             height={isMobile ? "100%" : "600px"}
           >
             <iframe

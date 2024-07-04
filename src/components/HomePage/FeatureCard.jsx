@@ -12,34 +12,32 @@ import React from "react";
 const FeatureCard = ({ heading, description, icon, href }) => {
   return (
     <Box
-      maxW={{ base: "full", md: "275px" }}
+      maxW={{ base: "full", md: "375px" }}
       w={"full"}
-      borderWidth="1px"
+      borderWidth="2px"
       borderRadius="lg"
       overflow="hidden"
       p={5}
     >
-      <Stack align={"start"} spacing={2}>
+      <Stack align={"center"} spacing={2}>
         <Flex
           w={16}
           h={16}
           align={"center"}
           justify={"center"}
-          color={"white"}
+          justifyContent={"center"}
+          alignContent={"center"}
           rounded={"full"}
           bg={useColorModeValue("gray.100", "gray.700")}
         >
           {icon}
         </Flex>
-        <Box mt={2}>
+        <Box mt={2} align={"center"}>
           <Heading size="md">{heading}</Heading>
           <Text mt={1} fontSize={"sm"}>
             {description}
           </Text>
         </Box>
-        <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
-          Learn more
-        </Button>
       </Stack>
     </Box>
   );

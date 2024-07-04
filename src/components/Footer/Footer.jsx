@@ -35,11 +35,11 @@ const Footer = () => {
 
               <HStack spacing={2} alignItems="center">
                 <Icon as={FaWhatsapp} />
-                <Text fontSize="xl">996-537-435</Text>
+                <Text>996-537-435</Text>
               </HStack>
               <HStack spacing={2} alignItems="center">
                 <Icon as={FaWhatsapp} />
-                <Text fontSize="xl">974-278-303</Text>
+                <Text>974-278-303</Text>
               </HStack>
             </VStack>
             <VStack spacing={1} marginBottom={4}>
@@ -54,7 +54,7 @@ const Footer = () => {
 
               <HStack spacing={2} alignItems="center">
                 <Icon as={FaCalendar} />
-                <Text fontSize="xl">Lunes a Sábado</Text>
+                <Text fontSize="">Lunes a Sábado</Text>
               </HStack>
               <HStack spacing={2} alignItems="center">
                 <Icon as={FaClock} />
@@ -83,7 +83,7 @@ const Footer = () => {
           </Flex>
         </Box>
       </Box>
-      <Flex justifyContent={"center"} alignItems={"center"}>
+      <Flex justifyContent={"center"} alignItems={"center"} mb={"20px"}>
         <Text> Copyright ©2024</Text>
       </Flex>
     </>

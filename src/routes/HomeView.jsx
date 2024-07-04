@@ -8,13 +8,15 @@ import {
 import React from "react";
 import Tienda from "../components/HomePage/Tienda";
 import Feature from "../components/HomePage/Feature";
+import Clients from "../components/HomePage/Clients";
 
 const HomeView = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <div>
-      HomeView inicio
+      Logo tienda descripcion
+      <Clients />
       <Feature />
       <Tienda />
       <Box p={4}>

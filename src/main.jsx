@@ -14,31 +14,37 @@ import ErrorView from "./routes/ErrorView";
 import TestView from "./routes/TestView";
 import ProjectView from "./routes/ProjectView"; //
 import theme from "./theme";
+import Ventana from "./components/VentanaPage/Ventana";
 
 // Definición del tema con modo oscuro
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      { path: "/", element: <HomeView /> },
-      { path: "servicios", element: <ServiceView /> },
-      { path: "productos", element: <ProductView /> },
-      { path: "proyectos", element: <ProjectView /> },
-      { path: "nosotros", element: <UsView /> },
-      { path: "add-service", element: <UsView /> },
-      { path: "add-product", element: <TestView /> },
-      { path: "/:id", element: <TestView /> },
-      { path: "product/:id", element: <TestView /> },
-    ],
-  },
-  { path: "*", element: <ErrorView /> },
+    {
+        path: "/",
+        element: <App />,
+        children: [
+            { path: "/", element: <HomeView /> },
+            {
+                path: "servicios",
+                element: <ServiceView />,
+                children: [{ path: "ventana", element: <Ventana /> }],
+            },
+
+            { path: "productos", element: <ProductView /> },
+            { path: "proyectos", element: <ProjectView /> },
+            { path: "nosotros", element: <UsView /> },
+            { path: "add-service", element: <UsView /> },
+            { path: "add-product", element: <TestView /> },
+            { path: "/:id", element: <TestView /> },
+            { path: "product/:id", element: <TestView /> },
+        ],
+    },
+    { path: "*", element: <ErrorView /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <ChakraProvider theme={theme}>
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-    <RouterProvider router={router} />
-  </ChakraProvider>
+    <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <RouterProvider router={router} />
+    </ChakraProvider>
 );
