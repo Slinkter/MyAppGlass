@@ -17,13 +17,17 @@ import theme from "./theme";
 import Ventana from "./components/VentanaPage/Ventana";
 
 // Definición del tema con modo oscuro
+import "./index.css";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         children: [
-            { path: "/", element: <HomeView /> },
+            {
+                path: "/",
+                element: <HomeView />,
+            },
             {
                 path: "servicios",
                 element: <ServiceView />,

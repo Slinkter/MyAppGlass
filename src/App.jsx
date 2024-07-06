@@ -1,5 +1,3 @@
-// src/App.jsx
-
 import Layout from "./layout/Layout";
 import { Outlet } from "react-router-dom";
 
