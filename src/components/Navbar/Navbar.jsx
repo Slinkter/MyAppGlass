@@ -15,12 +15,13 @@ const Navbar = () => {
     const { isOpen, onToggle } = useDisclosure();
 
     return (
-        <Box p={6} pos={"relative"} alignSelf={"center"} w={"full"}>
+        <Flex p={2} pos={"relative"} w={"full"} flexDir={"row-reverse"}>
             <Flex
                 mx={"auto"}
                 maxW="1200px"
                 justifyContent={{ base: "center", md: "center" }}
                 wrap="wrap"
+                alignSelf={"center"}
             >
                 <Show above="md">
                     <Flex
@@ -57,11 +58,9 @@ const Navbar = () => {
                     </Flex>
                 </Show>
 
-                <Hide above="md">
+                <Hide above="md" alignSelf="left">
                     <IconButton
-                        position={"absolute"}
-                        top={0}
-                        right={1}
+                        position={"relative"}
                         onClick={onToggle}
                         icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
                         variant="outline"
@@ -114,7 +113,7 @@ const Navbar = () => {
                     </Collapse>
                 </Hide>
             </Flex>
-        </Box>
+        </Flex>
     );
 };
 
