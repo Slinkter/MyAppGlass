@@ -2,7 +2,15 @@ import {
     AspectRatio,
     Box,
     Button,
+    ButtonGroup,
+    Card,
+    CardBody,
+    CardFooter,
+    Divider,
+    Heading,
+    Image,
     Stack,
+    Text,
     useColorMode,
 } from "@chakra-ui/react";
 import React from "react";

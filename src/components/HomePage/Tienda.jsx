@@ -23,10 +23,8 @@ const Tienda = () => {
         <>
             <Box>
                 <Franja
-                    title={"UBICANOS"}
-                    text={
-                        "AV. Los Fresnos MZ H LT 16 - Urb. El Valle - La Molina - Lima"
-                    }
+                    title={"TIENDA "}
+                    text={"Av. Los Fresnos MZ. H LT. 16 - La Molina - Lima"}
                 />
             </Box>
 
@@ -37,9 +35,9 @@ const Tienda = () => {
                     direction={{ base: "column", md: "column" }}
                 >
                     <AspectRatio
+                        mx={"auto"}
                         ratio={16 / 9}
-                        lele
-                        width={isMobile ? "95%" : "92%"}
+                        width={isMobile ? "90%" : "82%"}
                         height={isMobile ? "100%" : "500px"}
                     >
                         <iframe
@@ -59,7 +57,7 @@ const Tienda = () => {
                             width={isMobile ? "100%" : "200px"}
                             as="a" // Asegúrate de usar "as='a'" para que funcione como un enlace
                         >
-                            Google maps
+                            Google Mapas
                         </Button>
                     </Link>
                 </Flex>
