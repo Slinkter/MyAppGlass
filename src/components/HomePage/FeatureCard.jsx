@@ -6,22 +6,23 @@ import {
     Stack,
     Text,
     useColorModeValue,
+    useMediaQuery,
 } from "@chakra-ui/react";
 import React from "react";
 
 const FeatureCard = ({ heading, description, icon, href }) => {
+    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Adjust breakpoint as needed
     return (
         <Box
             w={"full"}
             maxW={{ base: "full", md: "375px" }}
             borderWidth="1px"
             overflow="hidden"
-            p={6}
-            boxShadow={{ base: "xl", md: "2xl" }}
+            p={isMobile ? 3 : 6}
+            boxShadow={{ base: "base", md: "lg" }}
             pos={"relative"}
             rounded={"lg"}
             zIndex={1}
-            mt={4}
         >
             <Stack mb={6} pt={2} align={"center"} spacing={2}>
                 <Stack pt={4} align={"center"}>
@@ -30,15 +31,15 @@ const FeatureCard = ({ heading, description, icon, href }) => {
                         h={20}
                         align={"center"}
                         justify={"center"}
-                        justifyContent={"center"}
-                        alignContent={"baseline"}
                         rounded={"full"}
                         bg={useColorModeValue("gray.100", "gray.700")}
                     >
                         {icon}
                     </Flex>
                     <Box mt={2} align={"center"}>
-                        <Heading size="md">{heading}</Heading>
+                        <Heading size="md" mb={3}>
+                            {heading}
+                        </Heading>
                         <Text
                             mt={1}
                             fontSize={"sm"}

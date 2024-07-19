@@ -30,7 +30,7 @@ const Franja = ({ title, text }) => {
                             width={isMobile ? "95%" : "95%"}
                             my={isMobile ? "10px" : "10px"}
                             mt={1}
-                            fontSize={"sm"}
+                            size={"lg"}
                             color={useColorModeValue("gray.500", "white")}
                             align={"center"}
                         >

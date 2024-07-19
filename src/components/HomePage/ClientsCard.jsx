@@ -1,6 +1,49 @@
 import {
     Box,
     Button,
+    ButtonGroup,
+    Card,
+    CardBody,
+    CardFooter,
+    Center,
+    Divider,
+    Heading,
+    Image,
+    Stack,
+    Text,
+    useColorModeValue,
+} from "@chakra-ui/react";
+import React from "react";
+
+const ClientsCard = ({ IMAGE, nameClient, descClient }) => {
+    return (
+        <Box maxW={{ base: "full", md: "375px" }}>
+            <Card maxW={"sm"} boxShadow={"lg"}>
+                <CardBody>
+                    <Image
+                        src={IMAGE}
+                        borderRadius={"lg"}
+                        objectFit={"cover"}
+                        w={"full"}
+                        h={"380px"}
+                    />
+                    <Divider />
+                    <Stack mt={6} spacing={3}>
+                        <Heading size={"md"}>{nameClient}</Heading>
+                        <Text mb={5}>{descClient}</Text>
+                    </Stack>
+                </CardBody>
+            </Card>
+        </Box>
+    );
+};
+
+export default ClientsCard;
+
+/* 
+import {
+    Box,
+    Button,
     Center,
     Heading,
     Image,
@@ -65,3 +108,9 @@ const ClientsCard = ({ IMAGE, nameClient, descClient }) => {
 };
 
 export default ClientsCard;
+
+
+
+
+
+*/

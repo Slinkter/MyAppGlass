@@ -23,37 +23,40 @@ const listClient = [
     {
         imgClient: img01,
         nameClient: "Construtoras",
-        descClient:
-            "Más de 12 proyectos de construcción entregados con soluciones  en vidrio y aluminio.",
+        descClient: "Más de 12 proyectos de construcción entregados .",
     },
     {
         imgClient: img02,
         nameClient: "Negocios",
         descClient:
-            "Servicios de mantenimiento y productos de alta calidad para locales y negocios",
+            "Servicios de mantenimiento y cambio de accecsorios de alta calidad. ",
     },
     {
         imgClient: img03,
         nameClient: "Hogares",
         descClient:
-            "Materiales y servicios profesionales para ventanas, mamparas y puertas de duchas",
+            "Servicio de instalacion de ventanas, mamparas y puertas de duchas.",
     },
 ];
 
 const Clients = () => {
     return (
-        <div>
-            {" "}
+        <>
             <Box>
                 <Franja
-                    title={"Clientes"}
+                    title={"CLIENTES"}
                     text={
-                        "Estamos comprometidos con brindar soluciones en vidrio y aluminio .Contamos con la experiencia y los recursos para satisfacer sus expectativas."
+                        "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
                     }
                 />
             </Box>
             <Container maxW={"8xl"} mt={6} mb={6}>
-                <Flex flexWrap="wrap" gridGap={6} justify="center">
+                <Flex
+                    flexWrap={"wrap"}
+                    gridGap={6}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                >
                     {listClient.map((client) => (
                         <>
                             <ClientsCard
@@ -65,7 +68,7 @@ const Clients = () => {
                     ))}
                 </Flex>
             </Container>
-        </div>
+        </>
     );
 };
 
