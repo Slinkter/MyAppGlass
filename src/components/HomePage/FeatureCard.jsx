@@ -22,7 +22,6 @@ const FeatureCard = ({ heading, description, icon, href }) => {
             boxShadow={{ base: "base", md: "lg" }}
             pos={"relative"}
             rounded={"lg"}
-            zIndex={1}
         >
             <Stack mb={6} pt={2} align={"center"} spacing={2}>
                 <Stack pt={4} align={"center"}>

@@ -29,7 +29,7 @@ const LandPage = () => {
                 w={{ base: "full", md: "95%" }}
                 justifyContent={"center"}
                 alignItems={"center"}
-                h={"91vh"}
+                minH={"100vh"}
             >
                 <Center>
                     <Image
@@ -74,16 +74,6 @@ const LandPage = () => {
                         cristales y aluminios para Constructoras, Negocios y
                         Hogares.
                     </Text>
-                    <Button
-                        leftIcon={<Icon as={FaWhatsapp} />}
-                        size="lg"
-                        mt="24px"
-                        colorScheme="green"
-                    >
-                        <a href="https://wa.me/51996537435?text=Quisiera una cotización para ....">
-                            Solicita un presupuesto ahora
-                        </a>
-                    </Button>
                 </Container>
             </Flex>
         </Box>
