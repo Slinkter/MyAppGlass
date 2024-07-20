@@ -22,7 +22,6 @@ const LandPage = () => {
             backgroundImage="linear-gradient(90deg, rgba(0, 0, 0, .383), rgba(4, 4, 4, .314)),url('https://gyacompany.com/static/media/mainland.b54ee0d75a00a56cd8e6.jpg')"
             backgroundSize="cover"
             backgroundPosition="center"
-            h={"95vh"}
         >
             <Flex
                 mx={"auto"}

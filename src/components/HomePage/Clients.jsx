@@ -1,16 +1,6 @@
 import React from "react";
 import Franja from "../Franja";
-import {
-    Box,
-    Center,
-    Flex,
-    Heading,
-    Image,
-    Stack,
-    Container,
-    Text,
-    useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
 import ClientsCard from "./ClientsCard";
 
 const img01 = "/src/assets/building.jpg";
@@ -40,35 +30,31 @@ const listClient = [
 ];
 
 const Clients = () => {
+    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Adjust breakpoint as needed
     return (
-        <>
-            <Box>
-                <Franja
-                    title={"CLIENTES"}
-                    text={
-                        "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
-                    }
-                />
-            </Box>
-            <Container maxW={"8xl"} mt={6} mb={6}>
-                <Flex
-                    flexWrap={"wrap"}
-                    gridGap={6}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                >
-                    {listClient.map((client) => (
-                        <>
-                            <ClientsCard
-                                IMAGE={client.imgClient}
-                                nameClient={client.nameClient}
-                                descClient={client.descClient}
-                            />
-                        </>
-                    ))}
-                </Flex>
-            </Container>
-        </>
+        <Box minHeight="100vh">
+            <Franja
+                title={"CLIENTES"}
+                text={
+                    "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
+                }
+            />
+            <Flex
+                minHeight={"80vh"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                flexDir={isMobile ? "column" : "row"}
+            >
+                {listClient.map((client, index) => (
+                    <ClientsCard
+                        key={index}
+                        IMAGE={client.imgClient}
+                        nameClient={client.nameClient}
+                        descClient={client.descClient}
+                    />
+                ))}
+            </Flex>
+        </Box>
     );
 };
 

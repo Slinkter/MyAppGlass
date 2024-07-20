@@ -20,25 +20,24 @@ const Tienda = () => {
     const [isMobile] = useMediaQuery("(max-width: 768px)"); // Adjust breakpoint as needed
 
     return (
-        <>
-            <Box>
-                <Franja
-                    title={"TIENDA "}
-                    text={"Av. Los Fresnos MZ. H LT. 16 - La Molina - Lima"}
-                />
-            </Box>
-
-            <Box mx={"auto"} mt={4} mb={8}>
+        <Box height="100vh" display="flex" flexDirection="column">
+            <Franja
+                title="TIENDA"
+                text="Av. Los Fresnos MZ. H LT. 16 - La Molina - Lima"
+                minHeight={"20vh"}
+            />
+            <Box mt={4} mb={8} flex="1">
                 <Flex
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    direction={{ base: "column", md: "column" }}
+                    justifyContent="center"
+                    alignItems="center"
+                    direction="column"
+                    minHeight={"80vh"}
+                    gap={6}
                 >
                     <AspectRatio
-                        mx={"auto"}
                         ratio={16 / 9}
                         width={isMobile ? "90%" : "82%"}
-                        height={isMobile ? "100%" : "500px"}
+                        height={isMobile ? "100%" : "600px"}
                     >
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7802.259991971398!2d-76.94203500000003!3d-12.103251999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c714bd26b5ab%3A0xc27e03d844952799!2sGlass%20%26%20Aluminum%20Company!5e0!3m2!1sen!2spe!4v1704232992639!5m2!1sen!2spe"
@@ -55,14 +54,14 @@ const Tienda = () => {
                             colorScheme="gray"
                             size="lg"
                             width={isMobile ? "100%" : "200px"}
-                            as="a" // Asegúrate de usar "as='a'" para que funcione como un enlace
+                            as="a"
                         >
                             Google Mapas
                         </Button>
                     </Link>
                 </Flex>
             </Box>
-        </>
+        </Box>
     );
 };
 
