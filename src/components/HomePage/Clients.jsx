@@ -12,20 +12,19 @@ const img03 =
 const listClient = [
     {
         imgClient: img01,
-        nameClient: "Construtoras",
+        nameClient: "Constructoras",
         descClient: "Más de 12 proyectos de construcción entregados .",
     },
     {
         imgClient: img02,
         nameClient: "Negocios",
-        descClient:
-            "Servicios de mantenimiento y cambio de accecsorios de alta calidad. ",
+        descClient: "Servicios de mantenimiento en áreas de trabajos ",
     },
     {
         imgClient: img03,
         nameClient: "Hogares",
         descClient:
-            "Servicio de instalacion de ventanas, mamparas y puertas de duchas.",
+            "Servicio de instalación de ventanas, mamparas , puertas de duchas y más.",
     },
 ];
 
@@ -41,7 +40,7 @@ const Clients = () => {
             />
             <Flex
                 minHeight={"80vh"}
-                justifyContent={"center"}
+                justifyContent={"space-evenly"}
                 alignItems={"center"}
                 flexDir={isMobile ? "column" : "row"}
             >
