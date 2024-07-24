@@ -30,9 +30,9 @@ export default function WithSubnavigation() {
                 minH={"60px"}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
-                borderBottom={1}
+                borderBottom={2}
                 borderStyle={"solid"}
-                borderColor={useColorModeValue("gray.200", "gray.900")}
+                borderColor={useColorModeValue("gray.100", "gray.900")}
                 align={"center"}
             >
                 <Flex
@@ -132,13 +132,13 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
             display={"block"}
             p={2}
             rounded={"md"}
-            _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+            _hover={{ bg: useColorModeValue("gray.50", "gray.900") }}
         >
             <Stack direction={"row"} align={"center"}>
                 <Box>
                     <Text
                         transition={"all .3s ease"}
-                        _groupHover={{ color: "pink.400" }}
+                        _groupHover={{ color: "colorredglass" }}
                         fontWeight={500}
                     >
                         {label}
@@ -158,7 +158,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
                     flex={1}
                 >
                     <Icon
-                        color={"pink.400"}
+                        color={"colorredglass"}
                         w={5}
                         h={5}
                         as={ChevronRightIcon}
@@ -280,7 +280,7 @@ const NAV_ITEMS = [
                 href: "#",
             },
             {
-                label: "as servicios",
+                label: "mas servicios",
                 subLabel: "An exclusive list for contract work",
                 href: "#",
             },
@@ -299,123 +299,3 @@ const NAV_ITEMS = [
         href: "#",
     },
 ];
-
-/* import {
-    Box,
-    Flex,
-    Link,
-    IconButton,
-    useDisclosure,
-    Stack,
-    Collapse,
-} from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { Show, Hide } from "@chakra-ui/react";
-
-const Navbar = () => {
-    const { isOpen, onToggle } = useDisclosure();
-
-    return (
-        <Box p={2} pos={"relative"} w={"full"} flexDir={"row-reverse"} h={0}>
-            <Flex
-                mx="auto"
-                maxW="1200px"
-                justifyContent="center"
-                alignItems="center"
-                wrap="wrap"
-            >
-                <Show above="md">
-                    <Flex
-                        direction="row"
-                        display="flex"
-                        mt={0}
-                        justifyContent="center"
-                        alignItems="center"
-                        transition="all 0.3s ease-in"
-                    >
-                        <Stack
-                            direction="row"
-                            spacing={4}
-                            align="center"
-                            justifyContent="center"
-                        >
-                            <Link as={RouterLink} to="/" p={2}>
-                                Inicio
-                            </Link>
-                            <Link as={RouterLink} to="/servicios" p={2}>
-                                Servicios
-                            </Link>
-                            <Link as={RouterLink} to="/producto" p={2}>
-                                Productos
-                            </Link>
-                            <Link as={RouterLink} to="/proyectos" p={2}>
-                                Proyectos
-                            </Link>
-                            <Link as={RouterLink} to="/nosotros" p={2}>
-                                Nosotros
-                            </Link>
-                        </Stack>
-                    </Flex>
-                </Show>
-
-                <Hide above="md">
-                    <Flex
-                        flexDir={"column"}
-                        position={"relative"}
-                        w={"95vw"}
-                        border={"1px solid red"}
-                        height={"auto"}
-                    >
-                        <IconButton
-                            onClick={onToggle}
-                            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-                            variant="outline"
-                            aria-label="Toggle Navigation"
-                            alignSelf="flex-start"
-                            position={"absolute"}
-                            right={0}
-                        />
-
-                        <Collapse in={isOpen} animateOpacity>
-                            <Flex
-                                direction="column"
-                                display={isOpen ? "flex" : "none"}
-                                mt={4}
-                                justifyContent="center"
-                                alignItems="center"
-                                transition="all 0.3s ease-in"
-                            >
-                                <Stack
-                                    direction="column"
-                                    spacing={4}
-                                    align="center"
-                                    justifyContent="center"
-                                >
-                                    <Link as={RouterLink} to="/" p={2}>
-                                        Inicio
-                                    </Link>
-                                    <Link as={RouterLink} to="/servicios" p={2}>
-                                        Servicios
-                                    </Link>
-                                    <Link as={RouterLink} to="/producto" p={2}>
-                                        Productos
-                                    </Link>
-                                    <Link as={RouterLink} to="/proyectos" p={2}>
-                                        Proyectos
-                                    </Link>
-                                    <Link as={RouterLink} to="/nosotros" p={2}>
-                                        Nosotros
-                                    </Link>
-                                </Stack>
-                            </Flex>
-                        </Collapse>
-                    </Flex>
-                </Hide>
-            </Flex>
-        </Box>
-    );
-};
-
-export default Navbar;
- */
