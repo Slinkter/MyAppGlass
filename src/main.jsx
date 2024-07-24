@@ -14,10 +14,11 @@ import ErrorView from "./routes/ErrorView";
 import TestView from "./routes/TestView";
 import ProjectView from "./routes/ProjectView"; //
 import theme from "./theme";
-import Ventana from "./components/VentanaPage/Ventana";
+import Ventana from "./components/ServicePage/VentanaPage/Ventana";
 
 // Definición del tema con modo oscuro
 import "./index.css";
+import Mampara from "./components/ServicePage/MamparaPage/Mampara";
 
 const router = createBrowserRouter([
     {
@@ -31,9 +32,13 @@ const router = createBrowserRouter([
             {
                 path: "servicios",
                 element: <ServiceView />,
-                children: [{ path: "ventana", element: <Ventana /> }],
+                children: [
+                    { path: "ducha", element: <Ventana /> },
+                    { path: "techo", element: <Ventana /> },
+                ],
             },
-
+            { path: "ventana", element: <Ventana /> },
+            { path: "mampara", element: <Mampara /> },
             { path: "productos", element: <ProductView /> },
             { path: "proyectos", element: <ProjectView /> },
             { path: "nosotros", element: <UsView /> },

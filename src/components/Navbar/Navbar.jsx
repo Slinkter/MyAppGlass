@@ -3,7 +3,6 @@ import {
     Flex,
     Text,
     IconButton,
-    Button,
     Stack,
     Collapse,
     Icon,
@@ -11,7 +10,6 @@ import {
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
-    useBreakpointValue,
     useDisclosure,
 } from "@chakra-ui/react";
 import {
@@ -27,7 +25,7 @@ export default function WithSubnavigation() {
     return (
         <Box>
             <Flex
-                minH={"60px"}
+                minH={"50px"}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
                 borderBottom={2}
@@ -250,16 +248,22 @@ const NAV_ITEMS = [
         label: "Home",
         children: [
             {
-                label: "Explore Design Work",
-                subLabel: "Trending Design to inspire you",
+                label: "Clientes",
+                subLabel: "",
                 href: "#",
             },
             {
-                label: "New & Noteworthy",
-                subLabel: "Up-and-coming Designers",
+                label: "Beneficios",
+                subLabel: "",
+                href: "#",
+            },
+            {
+                label: "Ubicacion",
+                subLabel: "",
                 href: "#",
             },
         ],
+        href: "/",
     },
     {
         label: "Servicios",
@@ -267,12 +271,12 @@ const NAV_ITEMS = [
             {
                 label: "Ventanas",
                 subLabel: "Find your dream design job",
-                href: "#",
+                href: "/ventana",
             },
             {
                 label: "Mamparas",
                 subLabel: "An exclusive list for contract work",
-                href: "#",
+                href: "/mampara",
             },
             {
                 label: "Puerta de ducha",
@@ -280,11 +284,12 @@ const NAV_ITEMS = [
                 href: "#",
             },
             {
-                label: "mas servicios",
+                label: "Todos",
                 subLabel: "An exclusive list for contract work",
-                href: "#",
+                href: "/servicios",
             },
         ],
+        href: "/servicios",
     },
     {
         label: "Productos",
