@@ -19,6 +19,7 @@ const FeatureCard = ({ heading, description, icon, href }) => {
         <Card
             w={"full"}
             maxW={{ base: "full", md: "375px" }}
+            h={{ base: "", md: "" }}
             overflow="hidden"
             p={isMobile ? 3 : 6}
             boxShadow={{ base: "base", md: "lg" }}

@@ -38,21 +38,26 @@ const Clients = () => {
                     "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
                 }
             />
-            <Flex
-                minHeight={"80vh"}
-                justifyContent={"space-evenly"}
-                alignItems={"center"}
-                flexDir={isMobile ? "column" : "row"}
-            >
-                {listClient.map((client, index) => (
-                    <ClientsCard
-                        key={index}
-                        IMAGE={client.imgClient}
-                        nameClient={client.nameClient}
-                        descClient={client.descClient}
-                    />
-                ))}
-            </Flex>
+            <Container maxW={"8xl"} mt={6} mb={6}>
+                <Flex
+                    minHeight={"80vh"}
+                    justifyContent={"space-evenly"}
+                    alignItems={"center"}
+                    flexDir={isMobile ? "column" : "row"}
+                    gap={6}
+                >
+                    {listClient.map((client, index) => (
+                        <ClientsCard
+                            key={index}
+                            IMAGE={client.imgClient}
+                            nameClient={client.nameClient}
+                            descClient={client.descClient}
+                            spacingX={isMobile ? "20px" : "30px"}
+                            spacingY={isMobile ? "20px" : "30px"}
+                        />
+                    ))}
+                </Flex>
+            </Container>
         </Box>
     );
 };

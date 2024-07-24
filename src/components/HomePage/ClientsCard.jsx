@@ -18,12 +18,16 @@ import React from "react";
 const ClientsCard = ({ IMAGE, nameClient, descClient, href }) => {
     const [isMobile] = useMediaQuery("(max-width: 768px)"); // Ajusta el punto de quiebre según sea necesario
     return (
-        <Box maxW={{ base: "full", md: "475px" }} p={4}>
+        <Box>
             <Card
+                w={"full"}
+                maxW={{ base: "full", md: "475px" }}
+                h={{ base: "", md: "xl" }}
                 overflow="hidden"
                 p={isMobile ? 3 : 6}
                 boxShadow={{ base: "base", md: "lg" }}
                 pos={"relative"}
+                rounded={"lg"}
             >
                 <CardHeader>
                     <Image

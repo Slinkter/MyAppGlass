@@ -3,11 +3,11 @@ import {
     AspectRatio,
     Box,
     Button,
+    Container,
     Flex,
     useColorModeValue,
     useMediaQuery,
 } from "@chakra-ui/react";
-
 import { Link } from "@chakra-ui/react";
 import Franja from "../Franja";
 import { Icon } from "@chakra-ui/react";
@@ -17,7 +17,7 @@ import { FaMapLocationDot } from "react-icons/fa6";
 const Tienda = () => {
     const bgColor = useColorModeValue("#e9ecef", "gray.600"); // Light mode bg from original CSS
     const textColor = useColorModeValue("black", "white");
-    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Adjust breakpoint as needed
+    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Ajusta el punto de quiebre según sea necesario
 
     return (
         <Box
@@ -30,19 +30,16 @@ const Tienda = () => {
                 text="Av. Los Fresnos MZ. H LT. 16 - La Molina - Lima"
                 minHeight={"20vh"}
             />
-            <Box mt={4} mb={2} flex="1">
+            <Container maxW={"8xl"} mt={6} mb={6}>
                 <Flex
-                    justifyContent="center"
-                    alignItems="center"
-                    direction="column"
-                    minHeight={isMobile ? "" : "80vh"}
-                    mt={2}
-                    p={2}
-                    gap={6}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                    minHeight={{ base: "", md: "80vh" }}
+                    flexDir={"column"}
                 >
                     <AspectRatio
                         ratio={16 / 9}
-                        width={isMobile ? "95%" : "82%"}
+                        width={isMobile ? "100%" : "100%"}
                         height={isMobile ? "300px" : "600px"}
                     >
                         <iframe
@@ -55,7 +52,7 @@ const Tienda = () => {
                         passHref
                     >
                         <Button
-                            mt={isMobile ? "" : "20px"}
+                            mt={isMobile ? "30px" : "20px"}
                             leftIcon={<Icon as={FaMapLocationDot} />}
                             colorScheme="gray"
                             size="lg"
@@ -66,7 +63,7 @@ const Tienda = () => {
                         </Button>
                     </Link>
                 </Flex>
-            </Box>
+            </Container>
         </Box>
     );
 };
