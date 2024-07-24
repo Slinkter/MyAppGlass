@@ -70,9 +70,8 @@ const LandPage = () => {
                         color={"white"}
                         textShadow="1px 1px #000"
                     >
-                        Empresa Comercial Especialista en la instalación de
-                        cristales y aluminios para Constructoras, Negocios y
-                        Hogares.
+                        Empresa Comercial Especialista en la venta e instalación
+                        de cristales y aluminios
                     </Text>
                 </Container>
             </Flex>

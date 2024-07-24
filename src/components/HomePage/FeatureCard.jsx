@@ -33,7 +33,7 @@ const FeatureCard = ({ heading, description, icon, href }) => {
                     align={"center"}
                     justify={"center"}
                     rounded={"full"}
-                    bg={useColorModeValue("gray.100", "gray.700")}
+                    bg={useColorModeValue("gray.100", "gray.400")}
                     mx="auto"
                 >
                     {icon}
