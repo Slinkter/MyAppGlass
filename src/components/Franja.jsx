@@ -22,7 +22,7 @@ const Franja = ({ title, text }) => {
             >
                 <Heading
                     as="h2"
-                    fontSize={isMobile ? "1.5rem" : "2.5rem"}
+                    fontSize={isMobile ? "2.0rem" : "2.5rem"}
                     fontWeight="600"
                 >
                     {title}

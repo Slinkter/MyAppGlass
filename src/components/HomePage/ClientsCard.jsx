@@ -41,7 +41,6 @@ const ClientsCard = ({ IMAGE, nameClient, descClient, href }) => {
                 <CardBody textAlign={"center"}>
                     <Stack spacing={3}>
                         <Heading size={"lg"}>{nameClient}</Heading>
-
                         <Text>{descClient}</Text>
                     </Stack>
                 </CardBody>

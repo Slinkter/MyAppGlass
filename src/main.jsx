@@ -14,38 +14,35 @@ import ErrorView from "./routes/ErrorView";
 import TestView from "./routes/TestView";
 import ProjectView from "./routes/ProjectView"; //
 import theme from "./theme";
-import Ventana from "./components/ServicePage/VentanaPage/Ventana";
-
-// Definición del tema con modo oscuro
+import Ventana from "./components/ServicePage/1-Ventana/Ventana";
+import Mampara from "./components/ServicePage/2-Mampara/Mampara";
+import Ducha from "./components/ServicePage/3-Ducha/Ducha";
+import Parapeto from "./components/ServicePage/4-Parapeto/Parapeto";
+import Baranda from "./components/ServicePage/5-Baranda/Baranda";
+import Balcon from "./components/ServicePage/6-Balcon/Balcon";
+import Techo from "./components/ServicePage/7-Techo/Techo";
+import Pvidrio from "./components/ServicePage/8-PVidrio/Pvidrio";
+import Pserie from "./components/ServicePage/9-PSerie/Pserie";
+import Celosias from "./components/ServicePage/10-Celosias/Celosias";
 import "./index.css";
-import Mampara from "./components/ServicePage/MamparaPage/Mampara";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         children: [
-            {
-                path: "/",
-                element: <HomeView />,
-            },
-            {
-                path: "servicios",
-                element: <ServiceView />,
-                children: [
-                    { path: "ducha", element: <Ventana /> },
-                    { path: "techo", element: <Ventana /> },
-                ],
-            },
-            { path: "ventana", element: <Ventana /> },
-            { path: "mampara", element: <Mampara /> },
-            { path: "productos", element: <ProductView /> },
-            { path: "proyectos", element: <ProjectView /> },
-            { path: "nosotros", element: <UsView /> },
-            { path: "add-service", element: <UsView /> },
-            { path: "add-product", element: <TestView /> },
-            { path: "/:id", element: <TestView /> },
-            { path: "product/:id", element: <TestView /> },
+            { path: "/", element: <HomeView /> },
+            { path: "servicios", element: <ServiceView /> },
+            { path: "/servicios/ventana", element: <Ventana /> },
+            { path: "/servicios/mampara", element: <Mampara /> },
+            { path: "/servicios/ducha", element: <Ducha /> },
+            { path: "/servicios/parapeto", element: <Parapeto /> },
+            { path: "/servicios/baranda", element: <Baranda /> },
+            { path: "/servicios/balcones", element: <Balcon /> },
+            { path: "/servicios/techo", element: <Techo /> },
+            { path: "/servicios/pvidrio", element: <Pvidrio /> },
+            { path: "/servicios/pserie", element: <Pserie /> },
+            { path: "/servicios/celosias", element: <Celosias /> },
         ],
     },
     { path: "*", element: <ErrorView /> },
