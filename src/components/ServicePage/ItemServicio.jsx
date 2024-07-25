@@ -1,47 +1,72 @@
 import React from "react";
-import { Box, Heading, Button, useColorModeValue } from "@chakra-ui/react";
-
+import {
+    Box,
+    Heading,
+    Button,
+    useColorModeValue,
+    Flex,
+    Divider,
+    useMediaQuery,
+    Card,
+    CardHeader,
+    CardBody,
+    Image,
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 function ItemService({ image, name, plink }) {
     const navigate = useNavigate();
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
+
+    // Estado para controlar la animación de desvanecimiento
+    const [show, setShow] = React.useState(false);
+
+    React.useEffect(() => {
+        // Mostrar el componente con una animación de desvanecimiento
+        setShow(true);
+    }, []);
 
     const handleClickProduct = (nameproduct) => {
         navigate(`${nameproduct}`);
     };
 
     return (
-        <Box
-            borderRadius="lg"
+        <Card
+            mb={4}
+            w={"375px"}
+            maxW={{ base: "full", md: "385px" }}
             overflow="hidden"
-            boxShadow="lg"
-            bgImage={`linear-gradient(90deg, rgba(0, 0, 0, 0.283), rgba(4, 4, 4, 0.284)), url(${image})`}
-            bgSize="cover"
-            bgPos="center"
-            minH="55vh"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            textAlign="center"
-            position={"relative"}
-            flexDir={"column"}
+            boxShadow={{ base: "base", md: "lg" }}
+            pos="relative"
+            rounded="lg"
+            opacity={show ? 1 : 0} // Aplicar la animación de desvanecimiento
+            transition="opacity 1.2s ease-in-out" // Duración y tipo de transición
         >
-            <Box p={6} borderRadius="lg" w={80}>
-                <Heading as="h3" size="xl" color="white" mb={2}>
-                    {name}
-                </Heading>
-            </Box>
-            <Box position={"relative"} bottom={0} mb={2}>
+            <CardBody textAlign="center">
+                <Image
+                    src={image}
+                    borderRadius="lg"
+                    objectFit="cover"
+                    w="full"
+                    h={{ base: "320px", md: "385px" }}
+                    mb={4}
+                    shadow={"base"}
+                />
+                <Box mb={2}>
+                    <Heading as="h3" size="lg" fontWeight="600">
+                        {name}
+                    </Heading>
+                </Box>
                 <Button
-                    rightIcon={<ArrowForwardIcon />}
                     colorScheme="red"
+                    rightIcon={<ArrowForwardIcon />}
                     onClick={() => handleClickProduct(plink)}
                 >
                     Catálogo
                 </Button>
-            </Box>
-        </Box>
+            </CardBody>
+        </Card>
     );
 }
 

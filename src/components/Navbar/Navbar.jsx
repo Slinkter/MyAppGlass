@@ -271,17 +271,17 @@ const NAV_ITEMS = [
             {
                 label: "Ventanas",
                 subLabel: "Find your dream design job",
-                href: "/ventana",
+                href: "/servicios/ventana",
             },
             {
                 label: "Mamparas",
                 subLabel: "An exclusive list for contract work",
-                href: "/mampara",
+                href: "/servicios/mampara",
             },
             {
                 label: "Puerta de ducha",
                 subLabel: "An exclusive list for contract work",
-                href: "#",
+                href: "/servicios/ducha",
             },
             {
                 label: "Todos",
