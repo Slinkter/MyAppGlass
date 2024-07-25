@@ -5,12 +5,13 @@ import techopoli from "../../assets/webService/init04.jpg";
 import parapeto from "../../assets/webService/init05a.jpg";
 import baranda from "../../assets/webService/init06.jpg";
 import balcon from "../../assets/webService/init07a.jpg";
-import muro from "../../assets/webService/init08.jpg";
-import lamseg from "../../assets/webService/init09.jpg";
-import areanado from "../../assets/webService/init10.jpg";
 import puertavidrio from "../../assets/webService/init11.jpg";
 import puertaserie from "../../assets/webService/init12.jpg";
 import celocias from "../../assets/webService/init13.jpg";
+
+import muro from "../../assets/webService/init08.jpg";
+import lamseg from "../../assets/webService/init09.jpg";
+import areanado from "../../assets/webService/init10.jpg";
 import frenos from "../../assets/webService/init14.jpg";
 import fachada from "../../assets/webService/init15.jpg";
 import mosquetero from "../../assets/webService/init16.jpg";
