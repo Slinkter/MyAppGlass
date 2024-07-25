@@ -297,7 +297,7 @@ const NAV_ITEMS = [
     },
     {
         label: "Proyectos",
-        href: "#",
+        href: "/proyectos",
     },
     {
         label: "Nosotros",

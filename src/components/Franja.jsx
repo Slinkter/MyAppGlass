@@ -14,7 +14,7 @@ const Franja = ({ title, text }) => {
     const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     return (
-        <Box color={textColor} py={8} bg={bgColor} height="">
+        <Box color={textColor} py={8} bg={bgColor} height="" shadow={"lg"}>
             <Flex
                 justifyContent="center"
                 alignItems="center"

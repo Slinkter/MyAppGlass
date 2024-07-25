@@ -28,6 +28,10 @@ const ClientsCard = ({ IMAGE, nameClient, descClient, href }) => {
                 boxShadow={{ base: "base", md: "lg" }}
                 pos={"relative"}
                 rounded={"lg"}
+                transition="all .3s ease-in-out" // Duración y tipo de transición
+                _hover={{
+                    transform: "scale(1.03)", // Escala al pasar el cursor sobre el componente
+                }}
             >
                 <CardHeader>
                     <Image

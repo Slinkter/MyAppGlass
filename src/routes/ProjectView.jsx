@@ -1,7 +1,12 @@
 import React from "react";
+import Projects from "../components/ProjectPage/Projects";
 
 const ProjectView = () => {
-  return <div>ProjectView</div>;
+    return (
+        <div>
+            <Projects />
+        </div>
+    );
 };
 
 export default ProjectView;

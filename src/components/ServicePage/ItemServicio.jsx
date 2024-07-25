@@ -41,7 +41,10 @@ function ItemService({ image, name, plink }) {
             pos="relative"
             rounded="lg"
             opacity={show ? 1 : 0} // Aplicar la animación de desvanecimiento
-            transition="opacity 1.2s ease-in-out" // Duración y tipo de transición
+            transition="all .3s ease-in-out" // Duración y tipo de transición
+            _hover={{
+                transform: "scale(1.03)", // Escala al pasar el cursor sobre el componente
+            }}
         >
             <CardBody textAlign="center">
                 <Image
