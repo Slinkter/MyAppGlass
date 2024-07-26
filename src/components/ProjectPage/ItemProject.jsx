@@ -49,7 +49,7 @@ const ItemProject = ({ image, residencial, address, year }) => {
                 _hover={{
                     transform: "scale(1.03)", // Escala al pasar el cursor sobre el componente
                 }}
-                h={{ base: "320px", md: "512px" }}
+                h={{ base: "452px", md: "512px" }}
             >
                 <CardBody>
                     <Image
