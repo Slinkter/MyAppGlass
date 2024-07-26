@@ -44,9 +44,9 @@ const router = createBrowserRouter([
             { path: "/servicios/pserie", element: <Pserie /> },
             { path: "/servicios/celosias", element: <Celosias /> },
             { path: "/proyectos", element: <ProjectView /> },
+            { path: "*", element: <ErrorView /> },
         ],
     },
-    { path: "*", element: <ErrorView /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
