@@ -5,6 +5,7 @@ import {
     CardBody,
     CardFooter,
     Divider,
+    Flex,
     Heading,
     Image,
     Stack,
@@ -36,6 +37,7 @@ const ItemProject = ({ image, residencial, address, year }) => {
     return (
         <div>
             <Card
+                mb={4}
                 w={"375px"}
                 maxW={{ base: "full", md: "385px" }}
                 overflow="hidden"
@@ -47,11 +49,12 @@ const ItemProject = ({ image, residencial, address, year }) => {
                 _hover={{
                     transform: "scale(1.03)", // Escala al pasar el cursor sobre el componente
                 }}
+                h={{ base: "320px", md: "512px" }}
             >
                 <CardBody>
                     <Image
                         src={image}
-                        alt="Green double couch with wooden legs"
+                        alt="       "
                         borderRadius="lg"
                         objectFit="cover"
                         w="full"
@@ -60,19 +63,27 @@ const ItemProject = ({ image, residencial, address, year }) => {
                         shadow={"base"}
                     />
 
-                    <Stack mt="6" spacing="3">
-                        <Heading size="md">RESIDENCIAL </Heading>
-
-                        <Heading
-                            size="md"
-                            textTransform={"uppercase"}
-                            color="red.500"
+                    <Stack mt="2" spacing="3">
+                        <Flex
+                            flexDir={"column"}
+                            justifyContent={"space-between"}
                         >
-                            {residencial}
-                        </Heading>
-                        <Divider />
-                        {/*     <Text>{address}</Text> */}
-                        <Text>{year}</Text>
+                            <Flex flexDir={"column"} textAlign={"left"}>
+                                <Heading size="">RESIDENCIAL </Heading>
+
+                                <Heading
+                                    size="md"
+                                    textTransform={"uppercase"}
+                                    color="red.500"
+                                >
+                                    {residencial}
+                                </Heading>
+                            </Flex>
+                            <Flex justifyContent={"space-between"}>
+                                <Text>{address}</Text>
+                                <Text>[{year}]</Text>
+                            </Flex>
+                        </Flex>
                     </Stack>
                 </CardBody>
             </Card>

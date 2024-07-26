@@ -11,6 +11,7 @@ import {
     CardHeader,
     CardBody,
     Image,
+    Stack,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
@@ -45,6 +46,7 @@ function ItemService({ image, name, plink }) {
             _hover={{
                 transform: "scale(1.03)", // Escala al pasar el cursor sobre el componente
             }}
+            maxHh={{ base: "320px", md: "512px" }}
         >
             <CardBody textAlign="center">
                 <Image
@@ -56,18 +58,25 @@ function ItemService({ image, name, plink }) {
                     mb={4}
                     shadow={"base"}
                 />
-                <Box mb={2}>
-                    <Heading as="h3" size="lg" fontWeight="600">
-                        {name}
-                    </Heading>
-                </Box>
-                <Button
-                    colorScheme="red"
-                    rightIcon={<ArrowForwardIcon />}
-                    onClick={() => handleClickProduct(plink)}
-                >
-                    Catálogo
-                </Button>
+                <Stack mt="2" spacing="3">
+                    <Flex
+                        justifyContent={"space-between"}
+                        alignItems={"center"}
+                    >
+                        <Box>
+                            <Heading as="h3" size="md" fontWeight="600">
+                                {name}
+                            </Heading>
+                        </Box>
+                        <Button
+                            colorScheme="red"
+                            rightIcon={<ArrowForwardIcon />}
+                            onClick={() => handleClickProduct(plink)}
+                        >
+                            Catálogo
+                        </Button>
+                    </Flex>
+                </Stack>
             </CardBody>
         </Card>
     );
