@@ -16,7 +16,7 @@ const FloatWhatsapp = () => {
     return (
         <div>
             {" "}
-            <Box position="fixed" bottom="20px" right="20px">
+            <Box position="fixed" bottom="15px" right="15px">
                 <Popover>
                     <PopoverTrigger>
                         <Button

@@ -46,7 +46,7 @@ function ItemService({ image, name, plink }) {
             _hover={{
                 transform: "scale(1.03)", // Escala al pasar el cursor sobre el componente
             }}
-            maxHh={{ base: "320px", md: "512px" }}
+            maxHh={{ base: "452px", md: "512px" }}
         >
             <CardBody textAlign="center">
                 <Image
