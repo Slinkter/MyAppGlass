@@ -10,9 +10,6 @@ import {
     Image,
     Text,
 } from "@chakra-ui/react";
-import { EmailIcon } from "@chakra-ui/icons";
-import { MdSettings } from "react-icons/md";
-import { FaWhatsapp } from "react-icons/fa";
 
 const LandPage = () => {
     const imglogo =
