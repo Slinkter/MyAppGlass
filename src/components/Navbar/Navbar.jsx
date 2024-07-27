@@ -68,6 +68,69 @@ export default function WithSubnavigation() {
     );
 }
 
+/*  */
+const NAV_ITEMS = [
+    {
+        label: "Home",
+        children: [
+            {
+                label: "Clientes",
+                subLabel: "",
+                href: "#",
+            },
+            {
+                label: "Beneficios",
+                subLabel: "",
+                href: "#",
+            },
+            {
+                label: "Ubicacion",
+                subLabel: "",
+                href: "#",
+            },
+        ],
+        href: "/",
+    },
+    {
+        label: "Servicios",
+        children: [
+            {
+                label: "Ventanas",
+                subLabel: "Find your dream design job",
+                href: "/servicios/ventana",
+            },
+            {
+                label: "Mamparas",
+                subLabel: "An exclusive list for contract work",
+                href: "/servicios/mampara",
+            },
+            {
+                label: "Puerta de ducha",
+                subLabel: "An exclusive list for contract work",
+                href: "/servicios/ducha",
+            },
+            {
+                label: "Todos",
+                subLabel: "An exclusive list for contract work",
+                href: "/servicios",
+            },
+        ],
+        href: "#",
+    },
+    {
+        label: "Productos",
+        href: "#",
+    },
+    {
+        label: "Proyectos",
+        href: "/proyectos",
+    },
+    {
+        label: "Nosotros",
+        href: "#",
+    },
+];
+
 const DesktopNav = () => {
     const linkColor = useColorModeValue("gray.600", "gray.200");
     const linkHoverColor = useColorModeValue("gray.800", "white");
@@ -120,7 +183,6 @@ const DesktopNav = () => {
         </Stack>
     );
 };
-
 const DesktopSubNav = ({ label, href, subLabel }) => {
     return (
         <Box
@@ -166,11 +228,11 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
         </Box>
     );
 };
-
+/*  */
 const MobileNav = () => {
     return (
         <Stack
-            bg={useColorModeValue("white", "gray.800")}
+            bg={useColorModeValue("white", "gray.900")}
             p={4}
             display={{ md: "none" }}
         >
@@ -180,6 +242,8 @@ const MobileNav = () => {
         </Stack>
     );
 };
+
+/*  */
 
 const MobileNavItem = ({ label, children, href }) => {
     const { isOpen, onToggle } = useDisclosure();
@@ -242,65 +306,3 @@ const MobileNavItem = ({ label, children, href }) => {
         </Stack>
     );
 };
-
-const NAV_ITEMS = [
-    {
-        label: "Home",
-        children: [
-            {
-                label: "Clientes",
-                subLabel: "",
-                href: "#",
-            },
-            {
-                label: "Beneficios",
-                subLabel: "",
-                href: "#",
-            },
-            {
-                label: "Ubicacion",
-                subLabel: "",
-                href: "#",
-            },
-        ],
-        href: "/",
-    },
-    {
-        label: "Servicios",
-        children: [
-            {
-                label: "Ventanas",
-                subLabel: "Find your dream design job",
-                href: "/servicios/ventana",
-            },
-            {
-                label: "Mamparas",
-                subLabel: "An exclusive list for contract work",
-                href: "/servicios/mampara",
-            },
-            {
-                label: "Puerta de ducha",
-                subLabel: "An exclusive list for contract work",
-                href: "/servicios/ducha",
-            },
-            {
-                label: "Todos",
-                subLabel: "An exclusive list for contract work",
-                href: "/servicios",
-            },
-        ],
-        href: "/servicios",
-    },
-    {
-        label: "Productos",
-        href: "#",
-    },
-    {
-        label: "Proyectos",
-        href: "/proyectos",
-    },
-    {
-        label: "Nosotros",
-        href: "#",
-    },
-];

@@ -1,19 +1,5 @@
-import {
-    AspectRatio,
-    Box,
-    Button,
-    ButtonGroup,
-    Card,
-    CardBody,
-    CardFooter,
-    Divider,
-    Heading,
-    Image,
-    Stack,
-    Text,
-    useColorMode,
-} from "@chakra-ui/react";
 import React from "react";
+import { Box, Button, useColorMode } from "@chakra-ui/react";
 import Tienda from "../components/HomePage/Tienda";
 import Feature from "../components/HomePage/Feature";
 import Clients from "../components/HomePage/Clients";
