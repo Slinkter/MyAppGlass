@@ -38,8 +38,3 @@ const HomeView = () => {
 };
 
 export default HomeView;
-/*   <Box p={4}>
-       <Button onClick={toggleColorMode}>
-           Cambiar a {colorMode === "light" ? "oscuro" : "claro"}
-       </Button>
-   </Box>; */

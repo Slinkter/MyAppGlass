@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
             { path: "/", element: <HomeView /> },
-            { path: "servicios", element: <ServiceView /> },
+            { path: "/servicios", element: <ServiceView /> },
             { path: "/servicios/ventana", element: <Ventana /> },
             { path: "/servicios/mampara", element: <Mampara /> },
             { path: "/servicios/ducha", element: <Ducha /> },
