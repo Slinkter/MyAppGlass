@@ -13,12 +13,12 @@ const listClient = [
     {
         imgClient: img01,
         nameClient: "Constructoras",
-        descClient: "Más de 12 proyectos de construcción entregados .",
+        descClient: "Más de 12 proyectos de construcción entregados.",
     },
     {
         imgClient: img02,
         nameClient: "Negocios",
-        descClient: "Servicios de mantenimiento en áreas de trabajos ",
+        descClient: "Servicios de mantenimiento en áreas de trabajos.",
     },
     {
         imgClient: img03,

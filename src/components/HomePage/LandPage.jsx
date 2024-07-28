@@ -1,12 +1,10 @@
 import React from "react";
 import {
     Box,
-    Button,
     Center,
     Container,
     Flex,
     Heading,
-    Icon,
     Image,
     Text,
 } from "@chakra-ui/react";
@@ -16,14 +14,13 @@ const LandPage = () => {
         "https://gyacompany.com/static/media/logovcr.8a738518d0998756db65.png";
     return (
         <Box
-            backgroundImage="linear-gradient(90deg, rgba(0, 0, 0, .383), rgba(4, 4, 4, .314)),url('https://gyacompany.com/static/media/mainland.b54ee0d75a00a56cd8e6.jpg')"
+            backgroundImage="linear-gradient(90deg, rgba(0, 0, 0, .483), rgba(4, 4, 4, .414)),url('https://gyacompany.com/static/media/mainland.b54ee0d75a00a56cd8e6.jpg')"
             backgroundSize="cover"
             backgroundPosition="center"
         >
             <Flex
-                mx={"auto"}
                 flexDir={{ base: "column", md: "column" }}
-                w={{ base: "full", md: "95%" }}
+                w={{ base: "full", md: "full" }}
                 justifyContent={"center"}
                 alignItems={"center"}
                 minH={"100vh"}
@@ -32,10 +29,7 @@ const LandPage = () => {
                     <Image
                         src={imglogo}
                         alt="Logo"
-                        w={{ base: "55%", md: "35%" }}
-                        boxShadow="2xl"
-                        borderRadius="full"
-                        p={1}
+                        w={{ base: "55%", md: "30%" }}
                     />
                 </Center>
                 <Container textAlign={"center"}>
@@ -47,6 +41,7 @@ const LandPage = () => {
                         color={"white"}
                         textShadow="2px 2px #000"
                         textTransform={"uppercase"}
+                        shadow={"base"}
                     >
                         Vidriería & Aluminio
                     </Heading>
@@ -56,7 +51,8 @@ const LandPage = () => {
                         fontWeight="bold"
                         mt={2}
                         color={"white"}
-                        textShadow="2px 2px #000"
+                        fontStyle={"600"}
+                        textShadow="2px 3px #000"
                     >
                         GLASS & ALUMINUM COMPANY S.A.C.
                     </Heading>
@@ -65,7 +61,7 @@ const LandPage = () => {
                         fontSize="xl"
                         mt={4}
                         color={"white"}
-                        textShadow="1px 1px #000"
+                        textShadow="2px 2px #000"
                     >
                         Empresa Comercial Especialista en la venta e instalación
                         de cristales y aluminios
