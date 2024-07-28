@@ -14,22 +14,23 @@ const Franja = ({ title, text }) => {
     const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     return (
-        <Box color={textColor} py={8} bg={bgColor} height="" shadow={"lg"}>
+        <Box py={8} bg={bgColor} boxShadow="md">
             <Flex
                 justifyContent="center"
                 alignItems="center"
                 direction="column"
             >
                 <Heading
-                    as="h2"
-                    fontSize={isMobile ? "2.0rem" : "2.5rem"}
-                    fontWeight="600"
+                    as="h1"
+                    fontSize={{ base: "4xl", md: "4xl" }}
+                    fontWeight="bold"
+                    color={textColor}
+                    fontStyle={"600"}
                 >
                     {title}
                 </Heading>
                 <Text
                     width={isMobile ? "90%" : "70%"}
-                    my={2}
                     mt={1}
                     fontSize="lg"
                     color={useColorModeValue("gray.500", "white")}

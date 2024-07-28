@@ -8,76 +8,86 @@ import {
     useColorModeValue,
     Icon,
     Heading,
+    useMediaQuery,
 } from "@chakra-ui/react";
 import { FaWhatsapp, FaCalendar, FaClock, FaMap } from "react-icons/fa";
 
 const Footer = () => {
-    const bgColor = useColorModeValue("#e9ecef", "gray.600"); // Light mode bg from original CSS
+    const bgColor = useColorModeValue("#e9ecef", "gray.600");
     const textColor = useColorModeValue("black", "white");
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     return (
         <>
-            <Box color={textColor} pt="2rem" pb="2rem">
-                <Box bg={bgColor} mx="auto" py={8} shadow={"lg"}>
+            <Box color={textColor} my="2rem">
+                <Box bg={bgColor} mx="auto" pt={8} pb={4} boxShadow="md">
                     <Flex
                         justifyContent="space-around"
                         direction={{ base: "column", md: "row" }}
                     >
-                        <VStack spacing={1} marginBottom={4}>
+                        <VStack spacing={2} marginBottom={4}>
                             <Heading
-                                as="h2"
-                                size="2xl"
-                                fontSize={"2.5rem"}
-                                fontWeight={"600"}
+                                as="h1"
+                                fontSize={{ base: "4xl", md: "4xl" }}
+                                fontWeight="bold"
+                                color={textColor}
+                                fontStyle={"600"}
+                                mb={1}
                             >
                                 CONTACTO
                             </Heading>
 
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaWhatsapp} />
-                                <Text>996-537-435</Text>
+                                <Text fontSize={"lg"}>996-537-435</Text>
                             </HStack>
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaWhatsapp} />
-                                <Text>974-278-303</Text>
+                                <Text fontSize={"lg"}>974-278-303</Text>
                             </HStack>
                         </VStack>
-                        <VStack spacing={1} marginBottom={4}>
+                        <VStack spacing={2} marginBottom={4}>
                             <Heading
-                                as="h2"
-                                size="2xl"
-                                fontSize={"2.5rem"}
-                                fontWeight={"600"}
+                                as="h1"
+                                fontSize={{ base: "4xl", md: "4xl" }}
+                                fontWeight="bold"
+                                color={textColor}
+                                fontStyle={"600"}
+                                mb={1}
                             >
                                 HORARIOS
                             </Heading>
 
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaCalendar} />
-                                <Text fontSize="">Lunes a Sábado</Text>
+                                <Text fontSize="md">Lunes a Sábado</Text>
                             </HStack>
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaClock} />
-                                <Text>9:00 am - 5:00 pm</Text>
+                                <Text fontSize="md">9:00 am - 5:00 pm</Text>
                             </HStack>
                         </VStack>
-                        <VStack spacing={1} marginBottom={4}>
+                        <VStack spacing={2} marginBottom={4}>
                             <Heading
-                                as="h2"
-                                size="2xl"
-                                fontSize={"2.5rem"}
-                                fontWeight={"600"}
+                                as="h1"
+                                fontSize={{ base: "4xl", md: "4xl" }}
+                                fontWeight="bold"
+                                color={textColor}
+                                fontStyle={"600"}
+                                mb={1}
                             >
                                 DIRECCIÓN
                             </Heading>
 
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaMap} />
-                                <Text>Av. Los Fresnos MZ. H LT. 16</Text>
+                                <Text fontSize="md">
+                                    Av. Los Fresnos MZ. H LT. 16
+                                </Text>
                             </HStack>
-                            <HStack spacing={2} alignItems="center">
+                            <HStack spacing={2} alignItems="">
                                 <Icon as={FaMap} />
-                                <Text>La Molina</Text>
+                                <Text fontSize="md">La Molina</Text>
                             </HStack>
                         </VStack>
                     </Flex>
