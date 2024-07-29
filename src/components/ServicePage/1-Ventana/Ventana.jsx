@@ -20,35 +20,18 @@ import {
     ShoppingBagIcon,
 } from "@heroicons/react/24/solid";
 
+import vx01 from "../../../assets/webService/s/01.Ventanas/nova/vx01.jpeg";
+import vx02 from "../../../assets/webService/s/01.Ventanas/nova/vx02.jpeg";
+import vx03 from "../../../assets/webService/s/01.Ventanas/nova/vx03.jpeg";
+
+import vs01 from "../../../assets/webService/s/01.Ventanas/serie/IMG_0292.jpeg";
+
 const Ventana = () => {
     const [open, setOpen] = React.useState(0);
 
-    const imagesNova = [
-        "https://gyacompany.com/static/media/vn10.7451a921c216b3ce59d4.jpeg",
-        "https://gyacompany.com/static/media/vn10.7451a921c216b3ce59d4.jpeg",
-        "https://gyacompany.com/static/media/vn10.7451a921c216b3ce59d4.jpeg",
-        "https://gyacompany.com/static/media/vn10.7451a921c216b3ce59d4.jpeg",
-        "https://gyacompany.com/static/media/vn10.7451a921c216b3ce59d4.jpeg",
-        "https://gyacompany.com/static/media/vn10.7451a921c216b3ce59d4.jpeg",
-        "https://gyacompany.com/static/media/vn10.7451a921c216b3ce59d4.jpeg",
-        "https://gyacompany.com/static/media/vn10.7451a921c216b3ce59d4.jpeg",
-        "https://gyacompany.com/static/media/vn10.7451a921c216b3ce59d4.jpeg",
-    ];
+    const imagesNova = [vx01, vx02, vx03];
 
-    const imagesSerie25 = [
-        "https://gyacompany.com/static/media/IMG_0294.ea32b5e568bcfdfb6c73.jpeg",
-        "https://gyacompany.com/static/media/IMG_0300.3cb7bb3eb14e3c836156.jpeg",
-        "https://gyacompany.com/static/media/IMG_0300.3cb7bb3eb14e3c836156.jpeg",
-        "https://gyacompany.com/static/media/IMG_0294.ea32b5e568bcfdfb6c73.jpeg",
-        "https://gyacompany.com/static/media/IMG_0300.3cb7bb3eb14e3c836156.jpeg",
-        "https://gyacompany.com/static/media/IMG_0300.3cb7bb3eb14e3c836156.jpeg",
-        "https://gyacompany.com/static/media/IMG_0294.ea32b5e568bcfdfb6c73.jpeg",
-        "https://gyacompany.com/static/media/IMG_0300.3cb7bb3eb14e3c836156.jpeg",
-        "https://gyacompany.com/static/media/IMG_0300.3cb7bb3eb14e3c836156.jpeg",
-        "https://gyacompany.com/static/media/IMG_0294.ea32b5e568bcfdfb6c73.jpeg",
-        "https://gyacompany.com/static/media/IMG_0300.3cb7bb3eb14e3c836156.jpeg",
-        "https://gyacompany.com/static/media/IMG_0300.3cb7bb3eb14e3c836156.jpeg",
-    ];
+    const imagesSerie25 = [vs01];
 
     return (
         <Box display="flex" flexDirection={{ base: "column", md: "row" }}>
