@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Box,
     Icon,
@@ -13,9 +13,10 @@ import {
     ModalOverlay,
     ModalContent,
     ModalCloseButton,
+    Skeleton,
+    Fade,
     useMediaQuery,
-    Flex,
-    ModalBody,
+    SkeletonCircle,
 } from "@chakra-ui/react";
 import {
     PresentationChartBarIcon,
@@ -34,10 +35,19 @@ import vx08 from "../../../assets/webService/s/01.Ventanas/nova/vn08.jpeg";
 import vs01 from "../../../assets/webService/s/01.Ventanas/serie/IMG_0292.jpeg";
 
 const Ventana = () => {
-    const [open, setOpen] = React.useState(0);
+    const [open, setOpen] = useState(0);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(true); // Set loading to true whenever the selection changes
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 500);
+
+        return () => clearTimeout(timer); // Clear the timer on component unmount or selection change
+    }, [open]); // Re-run the effect when 'open' state changes
 
     const imagesNova = [vx01, vx02, vx03, vx04, vx05, vx06, vx07, vx08];
-
     const imagesSerie25 = [vs01];
 
     return (
@@ -47,15 +57,15 @@ const Ventana = () => {
                 mt="2rem"
                 mr={{ base: "2rem", md: "2rem" }}
                 p={4}
-                boxShadow="lg"
                 bg={useColorModeValue("white", "gray.800")}
-                rounded="md"
                 h={{ base: "auto", md: "80vh" }}
                 w={{ base: "full-20rem", md: "15rem" }}
+                rounded="lg"
+                boxShadow="md"
                 border={"1px solid "}
-                borderColor={"red.100"}
+                borderColor={"gray.100"}
                 _hover={{
-                    borderColor: "red.500",
+                    borderColor: "gray.200",
                 }}
             >
                 <Box mb={2} p={4}>
@@ -72,27 +82,39 @@ const Ventana = () => {
                         icon={PresentationChartBarIcon}
                         label="Nova"
                         onClick={() => setOpen(0)}
+                        loading={loading}
                     />
                     <SidebarItem
                         icon={ShoppingBagIcon}
                         label="Serie 25"
                         onClick={() => setOpen(1)}
+                        loading={loading}
                     />
                 </Stack>
             </Box>
             <Box
-                flex="1"
-                m="2rem"
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                mt="2rem"
+                mr="2rem"
+                mb="2rem"
+                ml={{ base: "2rem", md: "0rem" }}
                 p={4}
-                boxShadow="lg"
                 bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
                 h={{ base: "auto", md: "80vh" }}
+                rounded="lg"
+                boxShadow="md"
+                border={"1px solid "}
+                borderColor={"gray.100"}
+                _hover={{
+                    borderColor: "gray.100",
+                }}
             >
                 {open === 0 ? (
-                    <Gallery images={imagesNova} columns={4} />
+                    <Gallery images={imagesNova} loading={loading} />
                 ) : (
-                    <Gallery images={imagesSerie25} columns={6} />
+                    <Gallery images={imagesSerie25} loading={loading} />
                 )}
             </Box>
         </Box>
@@ -101,71 +123,45 @@ const Ventana = () => {
 
 export default Ventana;
 
-const SidebarItem = ({ icon, label, suffix, onClick }) => {
-    return (
-        <Stack
-            direction="row"
-            align="center"
-            justify="space-between"
-            onClick={onClick}
-            cursor="pointer"
-            p={2}
-            rounded={"md"}
-            _hover={{
-                bg: useColorModeValue("gray.50", "gray.900"),
-                color: "red.500",
-            }}
-            transition={"all .3 ease"}
-        >
-            <Stack direction="row" align="center" spacing={4}>
-                <Icon as={icon} w={5} h={5} />
-                <Text transition={"all .2 ease"} fontWeight={500}>
-                    {label}
-                </Text>
-            </Stack>
-            {suffix}
-        </Stack>
-    );
-};
-
-const Gallery = ({ images, columns }) => {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [selectedImage, setSelectedImage] = React.useState(null);
+const Gallery = ({ images, loading }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
     const [isMobile] = useMediaQuery("(max-width: 768px)");
-    const responsiveColumns = useBreakpointValue({
-        base: 1,
-        sm: 2,
-        md: columns,
-    });
+    const responsiveColumns = useBreakpointValue({ base: 1, md: 4 });
 
     const onClose = () => setIsOpen(false);
 
     return (
         <>
-            <Grid
-                templateColumns={`repeat(${responsiveColumns}, 1fr)`}
-                gap={4}
-                transition={"all .6 ease"}
-            >
+            <Grid templateColumns={`repeat(${responsiveColumns}, 1fr)`} gap={4}>
                 {images.map((src, index) => (
-                    <GridItem key={index} transition={"all .6 ease"}>
-                        <Image
-                            transition={"all .6 ease"}
-                            src={src}
-                            alt={`gallery-${index}`}
-                            boxSize="150px"
-                            borderRadius="lg"
-                            objectFit="cover"
-                            w="full"
-                            h={{ base: "380px", md: "280px" }}
-                            mb={4}
-                            shadow={"base"}
-                            cursor={"pointer"}
-                            onClick={() => {
-                                setSelectedImage(src);
-                                setIsOpen(true);
-                            }}
-                        />
+                    <GridItem key={index}>
+                        {loading ? (
+                            <>
+                                <Skeleton
+                                    w={{ base: "full", md: "18vw" }}
+                                    minH={"34vh"}
+                                    rounded={"lg"}
+                                />
+                            </>
+                        ) : (
+                            <Image
+                                src={src}
+                                alt={`gallery-${index}`}
+                                boxSize="150px"
+                                borderRadius="lg"
+                                objectFit="cover"
+                                w={{ base: "full", md: "18vw" }}
+                                minH={"34vh"}
+                                mb={4}
+                                shadow={"base"}
+                                cursor={"pointer"}
+                                onClick={() => {
+                                    setSelectedImage(src);
+                                    setIsOpen(true);
+                                }}
+                            />
+                        )}
                     </GridItem>
                 ))}
             </Grid>
@@ -178,7 +174,7 @@ const Gallery = ({ images, columns }) => {
                     motionPreset="slideInBottom"
                     size={"xl"}
                 >
-                    <ModalOverlay backdropFilter="blur(10px) " />
+                    <ModalOverlay backdropFilter="blur(10px)" />
                     <ModalContent>
                         <ModalCloseButton />
                         <Image
@@ -194,5 +190,36 @@ const Gallery = ({ images, columns }) => {
                 </Modal>
             )}
         </>
+    );
+};
+
+const SidebarItem = ({ icon, label, suffix, onClick, loading }) => {
+    return (
+        <Stack
+            direction="row"
+            align="center"
+            justify="space-between"
+            onClick={onClick}
+            cursor="pointer"
+            p={2}
+            rounded={"md"}
+            _hover={{
+                bg: useColorModeValue("gray.50", "gray.900"),
+                color: "red.500",
+            }}
+            transition={"all .3s ease"}
+        >
+            <Stack direction="row" align="center" spacing={4}>
+                {loading ? (
+                    <Skeleton height="20px" width="20px" />
+                ) : (
+                    <Icon as={icon} w={5} h={5} />
+                )}
+                <Text transition={"all .2s ease"} fontWeight={500}>
+                    {loading ? <Skeleton height="20px" width="60px" /> : label}
+                </Text>
+            </Stack>
+            {suffix}
+        </Stack>
     );
 };

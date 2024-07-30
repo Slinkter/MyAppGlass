@@ -9,12 +9,13 @@ import {
     Text,
 } from "@chakra-ui/react";
 
+import logoGYA from "../../assets/logovcr.png";
+import bg_home from "../../assets/mainland.jpg";
+
 const LandPage = () => {
-    const imglogo =
-        "https://gyacompany.com/static/media/logovcr.8a738518d0998756db65.png";
     return (
         <Box
-            backgroundImage="linear-gradient(90deg, rgba(0, 0, 0, .483), rgba(4, 4, 4, .414)),url('https://gyacompany.com/static/media/mainland.b54ee0d75a00a56cd8e6.jpg')"
+            backgroundImage={`linear-gradient(90deg, rgba(0, 0, 0, .483), rgba(4, 4, 4, .414)),url(${bg_home})`}
             backgroundSize="cover"
             backgroundPosition="center"
         >
@@ -27,7 +28,7 @@ const LandPage = () => {
             >
                 <Center>
                     <Image
-                        src={imglogo}
+                        src={logoGYA}
                         alt="Logo"
                         w={{ base: "55%", md: "30%" }}
                     />
@@ -41,7 +42,6 @@ const LandPage = () => {
                         color={"white"}
                         textShadow="2px 2px #000"
                         textTransform={"uppercase"}
-                        shadow={"base"}
                     >
                         Vidriería & Aluminio
                     </Heading>
