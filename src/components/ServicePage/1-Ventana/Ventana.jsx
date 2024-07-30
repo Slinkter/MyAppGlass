@@ -14,22 +14,29 @@ import {
     ModalContent,
     ModalCloseButton,
     useMediaQuery,
+    Flex,
+    ModalBody,
 } from "@chakra-ui/react";
 import {
     PresentationChartBarIcon,
     ShoppingBagIcon,
 } from "@heroicons/react/24/solid";
 
-import vx01 from "../../../assets/webService/s/01.Ventanas/nova/vx01.jpeg";
-import vx02 from "../../../assets/webService/s/01.Ventanas/nova/vx02.jpeg";
-import vx03 from "../../../assets/webService/s/01.Ventanas/nova/vx03.jpeg";
+import vx01 from "../../../assets/webService/s/01.Ventanas/nova/vn07.jpeg";
+import vx02 from "../../../assets/webService/s/01.Ventanas/nova/vn11.jpeg";
+import vx03 from "../../../assets/webService/s/01.Ventanas/nova/vn10.jpeg";
+import vx04 from "../../../assets/webService/s/01.Ventanas/nova/vn14.jpeg";
+import vx05 from "../../../assets/webService/s/01.Ventanas/nova/vn15.jpeg";
+import vx06 from "../../../assets/webService/s/01.Ventanas/nova/vx07.jpeg";
+import vx07 from "../../../assets/webService/s/01.Ventanas/nova/vn04.jpeg";
+import vx08 from "../../../assets/webService/s/01.Ventanas/nova/vn08.jpeg";
 
 import vs01 from "../../../assets/webService/s/01.Ventanas/serie/IMG_0292.jpeg";
 
 const Ventana = () => {
     const [open, setOpen] = React.useState(0);
 
-    const imagesNova = [vx01, vx02, vx03];
+    const imagesNova = [vx01, vx02, vx03, vx04, vx05, vx06, vx07, vx08];
 
     const imagesSerie25 = [vs01];
 
@@ -83,7 +90,7 @@ const Ventana = () => {
                 h={{ base: "auto", md: "80vh" }}
             >
                 {open === 0 ? (
-                    <Gallery images={imagesNova} columns={6} />
+                    <Gallery images={imagesNova} columns={4} />
                 ) : (
                     <Gallery images={imagesSerie25} columns={6} />
                 )}
@@ -150,7 +157,7 @@ const Gallery = ({ images, columns }) => {
                             borderRadius="lg"
                             objectFit="cover"
                             w="full"
-                            h={{ base: "380px", md: "180px" }}
+                            h={{ base: "380px", md: "280px" }}
                             mb={4}
                             shadow={"base"}
                             cursor={"pointer"}
@@ -164,18 +171,24 @@ const Gallery = ({ images, columns }) => {
             </Grid>
 
             {!isMobile && (
-                <Modal isOpen={isOpen} onClose={onClose} size="lg">
-                    <ModalOverlay />
+                <Modal
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    isCentered
+                    motionPreset="slideInBottom"
+                    size={"xl"}
+                >
+                    <ModalOverlay backdropFilter="blur(10px) " />
                     <ModalContent>
                         <ModalCloseButton />
                         <Image
                             src={selectedImage}
-                            alt=""
-                            maxH="80vh"
+                            alt={`${selectedImage}`}
                             objectFit="cover"
                             align={"center"}
                             borderRadius="base"
                             shadow={"lg"}
+                            maxH={"100vh"}
                         />
                     </ModalContent>
                 </Modal>
