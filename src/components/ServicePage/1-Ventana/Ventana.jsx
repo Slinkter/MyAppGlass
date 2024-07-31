@@ -156,6 +156,7 @@ const Gallery = ({ images, loading }) => {
                                 mb={4}
                                 shadow={"base"}
                                 cursor={"pointer"}
+                                fallbackSrc="https://via.placeholder.com/150"
                                 onClick={() => {
                                     setSelectedImage(src);
                                     setIsOpen(true);
