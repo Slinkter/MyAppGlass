@@ -16,24 +16,13 @@ import {
     Skeleton,
     useMediaQuery,
 } from "@chakra-ui/react";
-import {
-    PresentationChartBarIcon,
-    ShoppingBagIcon,
-    PaperAirplaneIcon,
-} from "@heroicons/react/24/solid";
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
-import vx01 from "../../../assets/webService/s/01.Ventanas/nova/vn07.jpeg";
-import vx02 from "../../../assets/webService/s/01.Ventanas/nova/vn11.jpeg";
-import vx03 from "../../../assets/webService/s/01.Ventanas/nova/vn10.jpeg";
-import vx04 from "../../../assets/webService/s/01.Ventanas/nova/vn14.jpeg";
-import vx05 from "../../../assets/webService/s/01.Ventanas/nova/vn15.jpeg";
-import vx06 from "../../../assets/webService/s/01.Ventanas/nova/vx07.jpeg";
-import vx07 from "../../../assets/webService/s/01.Ventanas/nova/vn04.jpeg";
-import vx08 from "../../../assets/webService/s/01.Ventanas/nova/vn08.jpeg";
-
-import vs01 from "../../../assets/webService/s/01.Ventanas/serie/IMG_0292.jpeg";
+import { listVentana } from "../../../assets/webService/s/01.Ventanas/db_ventana";
 
 const Ventana = () => {
+    window.document.title = "Ventana";
+
     const [open, setOpen] = useState(0);
     const [loading, setLoading] = useState(true);
 
@@ -46,8 +35,8 @@ const Ventana = () => {
         return () => clearTimeout(timer); // Clear the timer on component unmount or selection change
     }, [open]); // Re-run the effect when 'open' state changes
 
-    const imagesNova = [vx01, vx02, vx03, vx04, vx05, vx06, vx07, vx08];
-    const imagesSerie25 = [vs01];
+    const imagesNova = listVentana.nova;
+    const imagesSerie25 = listVentana.serie;
 
     return (
         <Box display="flex" flexDirection={{ base: "column", md: "row" }}>
@@ -64,7 +53,7 @@ const Ventana = () => {
                 border={"1px solid "}
                 borderColor={useColorModeValue("gray.200", "gray.600")}
                 _hover={{
-                    borderColor: "gray.200",
+                    borderColor: "gray.300",
                     boxShadow: "lg",
                 }}
             >
@@ -108,7 +97,7 @@ const Ventana = () => {
                 border={"1px solid "}
                 borderColor={useColorModeValue("gray.200", "gray.600")}
                 _hover={{
-                    borderColor: "gray.200",
+                    borderColor: "gray.300",
                     boxShadow: "lg",
                 }}
             >
@@ -148,19 +137,20 @@ const Gallery = ({ images, loading }) => {
                             </>
                         ) : (
                             <Image
-                                src={src}
-                                alt={`gallery-${index}`}
-                                boxSize="150px"
-                                borderRadius="lg"
-                                objectFit="cover"
                                 w={{ base: "full", md: "18vw" }}
                                 minH={"24vh"}
                                 h={"24vh"}
-                                mb={4}
+                                rounded={"lg"}
+                                src={src.image}
+                                objectFit="cover"
+                                mb={{ base: 4, md: 0 }}
+                                alt={`gallery-${index}`}
+                                boxSize="150px"
+                                borderRadius="lg"
                                 shadow={"base"}
                                 cursor={"pointer"}
                                 onClick={() => {
-                                    setSelectedImage(src);
+                                    setSelectedImage(src.image);
                                     setIsOpen(true);
                                 }}
                             />
