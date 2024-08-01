@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Box,
     Icon,
@@ -14,13 +14,12 @@ import {
     ModalContent,
     ModalCloseButton,
     Skeleton,
-    Fade,
     useMediaQuery,
-    SkeletonCircle,
 } from "@chakra-ui/react";
 import {
     PresentationChartBarIcon,
     ShoppingBagIcon,
+    PaperAirplaneIcon,
 } from "@heroicons/react/24/solid";
 
 import vx01 from "../../../assets/webService/s/01.Ventanas/nova/vn07.jpeg";
@@ -63,9 +62,10 @@ const Ventana = () => {
                 rounded="lg"
                 boxShadow="md"
                 border={"1px solid "}
-                borderColor={"gray.100"}
+                borderColor={useColorModeValue("gray.200", "gray.600")}
                 _hover={{
                     borderColor: "gray.200",
+                    boxShadow: "lg",
                 }}
             >
                 <Box mb={2} p={4}>
@@ -79,13 +79,13 @@ const Ventana = () => {
                 </Box>
                 <Stack spacing={1}>
                     <SidebarItem
-                        icon={PresentationChartBarIcon}
+                        icon={PaperAirplaneIcon}
                         label="Nova"
                         onClick={() => setOpen(0)}
                         loading={loading}
                     />
                     <SidebarItem
-                        icon={ShoppingBagIcon}
+                        icon={PaperAirplaneIcon}
                         label="Serie 25"
                         onClick={() => setOpen(1)}
                         loading={loading}
@@ -94,8 +94,8 @@ const Ventana = () => {
             </Box>
             <Box
                 display={"flex"}
-                justifyContent={"center"}
-                alignItems={"center"}
+                justifyContent={"start"}
+                alignItems={"start"}
                 mt="2rem"
                 mr="2rem"
                 mb="2rem"
@@ -106,9 +106,10 @@ const Ventana = () => {
                 rounded="lg"
                 boxShadow="md"
                 border={"1px solid "}
-                borderColor={"gray.100"}
+                borderColor={useColorModeValue("gray.200", "gray.600")}
                 _hover={{
-                    borderColor: "gray.100",
+                    borderColor: "gray.200",
+                    boxShadow: "lg",
                 }}
             >
                 {open === 0 ? (
@@ -140,7 +141,8 @@ const Gallery = ({ images, loading }) => {
                             <>
                                 <Skeleton
                                     w={{ base: "full", md: "18vw" }}
-                                    minH={"34vh"}
+                                    minH={"24vh"}
+                                    h={"24vh"}
                                     rounded={"lg"}
                                 />
                             </>
@@ -152,11 +154,11 @@ const Gallery = ({ images, loading }) => {
                                 borderRadius="lg"
                                 objectFit="cover"
                                 w={{ base: "full", md: "18vw" }}
-                                minH={"34vh"}
+                                minH={"24vh"}
+                                h={"24vh"}
                                 mb={4}
                                 shadow={"base"}
                                 cursor={"pointer"}
-                                fallbackSrc="https://via.placeholder.com/150"
                                 onClick={() => {
                                     setSelectedImage(src);
                                     setIsOpen(true);
