@@ -22,23 +22,6 @@ import {
 const NAV_ITEMS = [
     {
         label: "Home",
-        children: [
-            {
-                label: "Clientes",
-                subLabel: "",
-                href: "#",
-            },
-            {
-                label: "Beneficios",
-                subLabel: "",
-                href: "#",
-            },
-            {
-                label: "Ubicacion",
-                subLabel: "",
-                href: "#",
-            },
-        ],
         href: "/",
     },
     {
@@ -68,10 +51,6 @@ const NAV_ITEMS = [
         href: "#",
     },
     {
-        label: "Productos",
-        href: "#",
-    },
-    {
         label: "Proyectos",
         href: "/proyectos",
     },
@@ -85,11 +64,7 @@ export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
 
     return (
-        <Box
-            position={{ base: "", md: "" }}
-            zIndex={{ base: "", md: 999 }}
-            w={"100vw"}
-        >
+        <Box>
             <Flex
                 minH={"50px"}
                 py={{ base: 2 }}

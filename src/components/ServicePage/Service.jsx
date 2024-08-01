@@ -41,6 +41,7 @@ const Service = () => {
                     flexWrap={"wrap"}
                     justifyContent={"center"}
                     alignItems={"center"}
+                    mx={"auto"}
                     gap={6}
                 >
                     {listService.map((servicio) => (
