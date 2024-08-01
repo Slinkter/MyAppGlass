@@ -16,14 +16,11 @@ import {
     Skeleton,
     useMediaQuery,
 } from "@chakra-ui/react";
-import {
-    PresentationChartBarIcon,
-    ShoppingBagIcon,
-    PaperAirplaneIcon,
-} from "@heroicons/react/24/solid";
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
 
 const Mampara = () => {
+    window.document.title = "Mampara";
     const [open, setOpen] = useState(0);
     const [loading, setLoading] = useState(true);
     /*  */
@@ -49,9 +46,9 @@ const Mampara = () => {
                 rounded="lg"
                 boxShadow="md"
                 border={"1px solid "}
-                borderColor={"gray.600"}
+                borderColor={useColorModeValue("gray.200", "gray.600")}
                 _hover={{
-                    borderColor: "gray.500",
+                    borderColor: "gray.300",
                     boxShadow: "lg",
                 }}
             >
@@ -93,9 +90,9 @@ const Mampara = () => {
                 rounded="lg"
                 boxShadow="md"
                 border={"1px solid "}
-                borderColor={"gray.600"}
+                borderColor={useColorModeValue("gray.200", "gray.600")}
                 _hover={{
-                    borderColor: "gray.500",
+                    borderColor: "gray.300",
                     boxShadow: "lg",
                 }}
             >

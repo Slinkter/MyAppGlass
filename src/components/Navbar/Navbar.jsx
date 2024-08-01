@@ -29,22 +29,22 @@ const NAV_ITEMS = [
         children: [
             {
                 label: "Ventanas",
-                subLabel: "Find your dream design job",
+                subLabel: "",
                 href: "/servicios/ventana",
             },
             {
                 label: "Mamparas",
-                subLabel: "An exclusive list for contract work",
+                subLabel: "",
                 href: "/servicios/mampara",
             },
             {
                 label: "Puerta de ducha",
-                subLabel: "An exclusive list for contract work",
+                subLabel: "",
                 href: "/servicios/ducha",
             },
             {
                 label: "Todos",
-                subLabel: "An exclusive list for contract work",
+                subLabel: "",
                 href: "/servicios",
             },
         ],
