@@ -26,9 +26,15 @@ const Parapeto = () => {
     window.document.title = "Parapeto";
     const [loading, setLoading] = useState(true);
 
-    setTimeout(() => {
-        setLoading(false);
-    }, 1000);
+    useEffect(() => {
+        setLoading(true); // Set loading to true whenever the selection changes
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 500);
+
+        return () => clearTimeout(timer); // Clear the timer on component unmount or selection change
+    }, []); // Re-run the effect when 'open' state changes
+
     return (
         <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
             <Box
@@ -80,8 +86,8 @@ const Parapeto = () => {
 
             <Box
                 display={"flex"}
-                justifyContent={"center"}
-                alignItems={"center"}
+                justifyContent={"start"}
+                alignItems={"start"}
                 mt="2rem"
                 mr="2rem"
                 mb="2rem"

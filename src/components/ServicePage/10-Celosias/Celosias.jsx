@@ -71,8 +71,8 @@ const Celosias = () => {
 
             <Box
                 display={"flex"}
-                justifyContent={"center"}
-                alignItems={"center"}
+                justifyContent={"start"}
+                alignItems={"start"}
                 mt="2rem"
                 mr="2rem"
                 mb="2rem"
