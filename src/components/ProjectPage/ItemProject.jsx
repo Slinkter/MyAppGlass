@@ -10,6 +10,7 @@ import {
     Image,
     Stack,
     Text,
+    useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -44,10 +45,14 @@ const ItemProject = ({ image, residencial, address, year }) => {
                 boxShadow={{ base: "base", md: "lg" }}
                 pos="relative"
                 rounded="lg"
+                border={"1px solid "}
+                borderColor={useColorModeValue("gray.200", "gray.600")}
                 opacity={show ? 1 : 0} // Aplicar la animación de desvanecimiento
                 transition="all .3s ease-in-out" // Duración y tipo de transición
                 _hover={{
                     transform: "scale(1.03)", // Escala al pasar el cursor sobre el componente
+                    borderColor: "gray.300",
+                    boxShadow: "lg",
                 }}
                 h={{ base: "452px", md: "512px" }}
             >
