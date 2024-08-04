@@ -15,6 +15,9 @@ import {
     ModalCloseButton,
     Skeleton,
     useMediaQuery,
+    Container,
+    Card,
+    CardBody,
 } from "@chakra-ui/react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
@@ -82,6 +85,7 @@ const Ventana = () => {
                 </Stack>
             </Box>
             <Box
+                flex="1"
                 display={"flex"}
                 justifyContent={"start"}
                 alignItems={"start"}
@@ -117,36 +121,31 @@ const Gallery = ({ images, loading }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [isMobile] = useMediaQuery("(max-width: 768px)");
-    const responsiveColumns = useBreakpointValue({ base: 1, md: 4 });
+    const responsiveColumns = useBreakpointValue({ base: 1, md: 5 });
 
     const onClose = () => setIsOpen(false);
 
     return (
         <>
-            <Grid templateColumns={`repeat(${responsiveColumns}, 1fr)`} gap={4}>
+            <Grid templateColumns={`repeat(${responsiveColumns} ,1fr)`} gap={4}>
                 {images.map((src, index) => (
                     <GridItem key={index}>
                         {loading ? (
-                            <>
-                                <Skeleton
-                                    w={{ base: "full", md: "18vw" }}
-                                    minH={"24vh"}
-                                    h={"24vh"}
-                                    rounded={"lg"}
-                                />
-                            </>
-                        ) : (
-                            <Image
-                                w={{ base: "full", md: "18vw" }}
+                            <Skeleton
+                                w={{ base: "full", md: "full", lg: "18vw" }}
                                 minH={"24vh"}
                                 h={"24vh"}
                                 rounded={"lg"}
+                            />
+                        ) : (
+                            <Image
+                                w={{ base: "full", md: "full", lg: "full" }}
+                                minH={{ base: "44vh", md: "full" }}
+                                h={"24vh"}
+                                rounded={"lg"}
                                 src={src.image}
-                                objectFit="cover"
+                                objectFit={"cover"}
                                 mb={{ base: 4, md: 0 }}
-                                alt={`gallery-${index}`}
-                                boxSize="150px"
-                                borderRadius="lg"
                                 shadow={"base"}
                                 cursor={"pointer"}
                                 onClick={() => {
@@ -165,7 +164,7 @@ const Gallery = ({ images, loading }) => {
                     onClose={onClose}
                     isCentered
                     motionPreset="slideInBottom"
-                    size={"xl"}
+                    size="xl"
                 >
                     <ModalOverlay backdropFilter="blur(10px)" />
                     <ModalContent>
@@ -174,10 +173,10 @@ const Gallery = ({ images, loading }) => {
                             src={selectedImage}
                             alt={`${selectedImage}`}
                             objectFit="cover"
-                            align={"center"}
+                            align="center"
                             borderRadius="base"
-                            shadow={"lg"}
-                            maxH={"100vh"}
+                            shadow="lg"
+                            maxH="100vh"
                         />
                     </ModalContent>
                 </Modal>
@@ -195,12 +194,12 @@ const SidebarItem = ({ icon, label, suffix, onClick, loading }) => {
             onClick={onClick}
             cursor="pointer"
             p={2}
-            rounded={"md"}
+            rounded="md"
             _hover={{
                 bg: useColorModeValue("gray.50", "gray.900"),
                 color: "red.500",
             }}
-            transition={"all .3s ease"}
+            transition="all .3s ease"
         >
             <Stack direction="row" align="center" spacing={4}>
                 {loading ? (
@@ -208,7 +207,7 @@ const SidebarItem = ({ icon, label, suffix, onClick, loading }) => {
                 ) : (
                     <Icon as={icon} w={5} h={5} />
                 )}
-                <Text transition={"all .2s ease"} fontWeight={500}>
+                <Text transition="all .2s ease" fontWeight={500}>
                     {loading ? <Skeleton height="20px" width="60px" /> : label}
                 </Text>
             </Stack>
