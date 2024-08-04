@@ -2,26 +2,23 @@ import React from "react";
 import Franja from "../Franja";
 import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
 import ClientsCard from "./ClientsCard";
-
-const img01 = "/src/assets/building.jpg";
-const img02 =
-    "https://gyacompany.com/static/media/sectoroffices.563027e9e6a4ef74167a.jpg";
-const img03 =
-    "https://gyacompany.com/static/media/sectorhogar.a2bf8c5d2c17aa80a5da.jpg";
+import cliente01 from "../../assets/building.jpg";
+import cliente02 from "../../assets/sectoroffices.jpg";
+import cliente03 from "../../assets/sectorhogar.jpg";
 
 const listClient = [
     {
-        imgClient: img01,
+        imgClient: cliente01,
         nameClient: "Constructoras",
         descClient: "Más de 12 proyectos de construcción entregados.",
     },
     {
-        imgClient: img02,
+        imgClient: cliente02,
         nameClient: "Negocios",
         descClient: "Servicios de mantenimiento en áreas de trabajos.",
     },
     {
-        imgClient: img03,
+        imgClient: cliente03,
         nameClient: "Hogares",
         descClient:
             "Servicio de instalación de ventanas, mamparas , puertas de duchas y más.",
