@@ -25,6 +25,7 @@ import Pvidrio from "./components/ServicePage/8-PVidrio/Pvidrio";
 import Pserie from "./components/ServicePage/9-PSerie/Pserie";
 import Celosias from "./components/ServicePage/10-Celosias/Celosias";
 import "./index.css";
+import ScrollToTop from "./utils/ScrollToTop";
 
 const router = createBrowserRouter([
     {
