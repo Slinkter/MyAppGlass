@@ -15,7 +15,7 @@ const Service = () => {
     const [isMobile] = useMediaQuery("(max-width: 768px)");
     return (
         <Box>
-            <Container maxW={"8xl"} mt={6} mb={6} textAlign="center">
+            <Container maxW={"8xl"} my={6} textAlign="center">
                 <Heading
                     as="h2"
                     fontSize={isMobile ? "2.0rem" : "2.5rem"}

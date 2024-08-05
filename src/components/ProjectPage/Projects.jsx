@@ -16,7 +16,7 @@ const Projects = () => {
 
     return (
         <Box>
-            <Container maxW={"8xl"} mt={6} mb={6} textAlign="center">
+            <Container maxW={"8xl"} my={6} textAlign="center">
                 <Heading
                     as="h2"
                     fontSize={isMobile ? "2.0rem" : "2.5rem"}
@@ -32,8 +32,7 @@ const Projects = () => {
                     color={useColorModeValue("gray.500", "white")}
                     textAlign="center"
                 >
-                    Tenemos una amplia variedad de servicios de instalación en
-                    cristales y aluminios
+                    Tenemos más de 10 proyectos de construcción entregados
                 </Text>
                 <></>
 
