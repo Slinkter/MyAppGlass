@@ -15,7 +15,6 @@ import { FaWhatsapp } from "react-icons/fa";
 const FloatWhatsapp = () => {
     return (
         <div>
-            {" "}
             <Box position="fixed" bottom="15px" right="15px">
                 <Popover>
                     <PopoverTrigger>
@@ -23,10 +22,10 @@ const FloatWhatsapp = () => {
                             colorScheme="teal"
                             variant="solid"
                             borderRadius={"full"}
-                            w={20}
-                            h={20}
+                            w={16}
+                            h={16}
                         >
-                            {<Icon as={FaWhatsapp} w={10} h={10} />}
+                            <Icon as={FaWhatsapp} w={10} h={10} />
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent maxW={"260px"}>
@@ -34,7 +33,8 @@ const FloatWhatsapp = () => {
                         <PopoverCloseButton />
                         <PopoverBody>
                             <a href="https://wa.me/51996537435?text=Quisiera una cotización para ....">
-                                solicitar una presupuesto ahora
+                                ¡Haz clic aquí para solicitar tu presupuesto
+                                ahora!
                             </a>
                         </PopoverBody>
                     </PopoverContent>

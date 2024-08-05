@@ -15,9 +15,7 @@ import {
     ModalCloseButton,
     Skeleton,
     useMediaQuery,
-    Container,
-    Card,
-    CardBody,
+    SkeletonText,
 } from "@chakra-ui/react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
@@ -28,15 +26,16 @@ const Ventana = () => {
 
     const [open, setOpen] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Ajusta el punto de quiebre según sea necesario
 
     useEffect(() => {
-        setLoading(true); // Set loading to true whenever the selection changes
+        setLoading(true);
         const timer = setTimeout(() => {
             setLoading(false);
         }, 500);
 
-        return () => clearTimeout(timer); // Clear the timer on component unmount or selection change
-    }, [open]); // Re-run the effect when 'open' state changes
+        return () => clearTimeout(timer);
+    }, [open]);
 
     const imagesNova = listVentana.nova;
     const imagesSerie25 = listVentana.serie;
@@ -44,17 +43,16 @@ const Ventana = () => {
     return (
         <Box display="flex" flexDirection={{ base: "column", md: "row" }}>
             <Box
-                ml="2rem"
-                mt="2rem"
-                mr={{ base: "2rem", md: "2rem" }}
+                h={{ base: "auto", md: "80vh" }}
+                w={{ base: "auto", md: "20vw" }}
+                m={{ base: "20px" }}
                 p={4}
                 bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
-                w={{ base: "full-20rem", md: "15rem" }}
                 rounded="lg"
                 boxShadow="md"
                 border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
+                borderColor={useColorModeValue("gray.200", "black")}
+                transition="all .2s ease-in-out"
                 _hover={{
                     borderColor: "gray.300",
                     boxShadow: "lg",
@@ -85,17 +83,11 @@ const Ventana = () => {
                 </Stack>
             </Box>
             <Box
-                flex="1"
-                display={"flex"}
-                justifyContent={"start"}
-                alignItems={"start"}
-                mt="2rem"
-                mr="2rem"
-                mb="2rem"
-                ml={{ base: "2rem", md: "0rem" }}
+                h={{ base: "auto", md: "80vh" }}
+                w={{ base: "auto", md: "100vw" }}
+                m={{ base: "20px" }}
                 p={4}
                 bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
                 rounded="lg"
                 boxShadow="md"
                 border={"1px solid "}
@@ -127,27 +119,23 @@ const Gallery = ({ images, loading }) => {
 
     return (
         <>
-            <Grid templateColumns={`repeat(${responsiveColumns} ,1fr)`} gap={4}>
+            <Grid templateColumns={`repeat(${responsiveColumns}, 1fr)`} gap={4}>
                 {images.map((src, index) => (
                     <GridItem key={index}>
                         {loading ? (
-                            <Skeleton
-                                w={{ base: "full", md: "full", lg: "18vw" }}
-                                minH={"24vh"}
-                                h={"24vh"}
-                                rounded={"lg"}
-                            />
+                            <>
+                                <SkeletonText w="full" h="12vh" />
+                                <SkeletonText w="full" h="12vh" />
+                            </>
                         ) : (
                             <Image
-                                w={{ base: "full", md: "full", lg: "full" }}
-                                minH={{ base: "44vh", md: "full" }}
-                                h={"24vh"}
-                                rounded={"lg"}
+                                w="full"
+                                h={{ base: "", md: "24vh" }}
+                                rounded="lg"
                                 src={src.image}
-                                objectFit={"cover"}
-                                mb={{ base: 4, md: 0 }}
-                                shadow={"base"}
-                                cursor={"pointer"}
+                                objectFit="cover"
+                                transition="opacity 0.5s ease-in-out"
+                                opacity={loading ? 0 : 1}
                                 onClick={() => {
                                     setSelectedImage(src.image);
                                     setIsOpen(true);
@@ -171,9 +159,8 @@ const Gallery = ({ images, loading }) => {
                         <ModalCloseButton />
                         <Image
                             src={selectedImage}
-                            alt={`${selectedImage}`}
+                            alt={selectedImage}
                             objectFit="cover"
-                            align="center"
                             borderRadius="base"
                             shadow="lg"
                             maxH="100vh"
@@ -185,7 +172,7 @@ const Gallery = ({ images, loading }) => {
     );
 };
 
-const SidebarItem = ({ icon, label, suffix, onClick, loading }) => {
+const SidebarItem = ({ icon, label, onClick, loading }) => {
     return (
         <Stack
             direction="row"
@@ -211,7 +198,6 @@ const SidebarItem = ({ icon, label, suffix, onClick, loading }) => {
                     {loading ? <Skeleton height="20px" width="60px" /> : label}
                 </Text>
             </Stack>
-            {suffix}
         </Stack>
     );
 };

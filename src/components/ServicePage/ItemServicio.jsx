@@ -3,12 +3,9 @@ import {
     Box,
     Heading,
     Button,
-    useColorModeValue,
     Flex,
-    Divider,
     useMediaQuery,
     Card,
-    CardHeader,
     CardBody,
     Image,
     Stack,
@@ -18,13 +15,10 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 function ItemService({ image, name, plink }) {
     const navigate = useNavigate();
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
 
-    // Estado para controlar la animación de desvanecimiento
     const [show, setShow] = React.useState(false);
 
     React.useEffect(() => {
-        // Mostrar el componente con una animación de desvanecimiento
         setShow(true);
     }, []);
 

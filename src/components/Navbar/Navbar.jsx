@@ -11,17 +11,21 @@ import {
     PopoverContent,
     useColorModeValue,
     useDisclosure,
+    useColorMode,
+    Button,
 } from "@chakra-ui/react";
 import {
     HamburgerIcon,
     CloseIcon,
     ChevronDownIcon,
     ChevronRightIcon,
+    MoonIcon,
+    SunIcon,
 } from "@chakra-ui/icons";
 
 const NAV_ITEMS = [
     {
-        label: "Home",
+        label: "Inicio",
         href: "/",
     },
     {
@@ -62,6 +66,7 @@ const NAV_ITEMS = [
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
+    const { colorMode, toggleColorMode } = useColorMode();
 
     return (
         <Box>
@@ -99,6 +104,17 @@ export default function WithSubnavigation() {
                     <Flex display={{ base: "none", md: "flex" }} ml={10}>
                         <DesktopNav />
                     </Flex>
+                </Flex>
+                <Flex
+                    onClick={toggleColorMode}
+                    w={10}
+                    h={10}
+                    align={"center"}
+                    justify={"center"}
+                    rounded={"full"}
+                    bg={useColorModeValue("gray.200", "gray.400")}
+                >
+                    {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
                 </Flex>
             </Flex>
 

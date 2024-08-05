@@ -6,19 +6,12 @@ import Clients from "../components/HomePage/Clients";
 import LandPage from "../components/HomePage/LandPage";
 
 const HomeView = () => {
-    const { colorMode, toggleColorMode } = useColorMode();
-
     return (
         <Box>
             <LandPage />
             <Clients />
             <Feature />
             <Tienda />
-            <Box p={4}>
-                <Button onClick={toggleColorMode}>
-                    Cambiar a {colorMode === "light" ? "oscuro" : "claro"}
-                </Button>
-            </Box>
         </Box>
     );
 };

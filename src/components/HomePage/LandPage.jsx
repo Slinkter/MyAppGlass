@@ -25,6 +25,7 @@ const LandPage = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
                 minH={"100vh"}
+                pb={20}
             >
                 <Center>
                     <Image
