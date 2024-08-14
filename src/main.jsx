@@ -45,6 +45,7 @@ const router = createBrowserRouter([
             { path: "/servicios/pserie", element: <Pserie /> },
             { path: "/servicios/celosias", element: <Celosias /> },
             { path: "/proyectos", element: <ProjectView /> },
+            { path: "/test", element: <TestView /> },
             { path: "*", element: <ErrorView /> },
         ],
     },
