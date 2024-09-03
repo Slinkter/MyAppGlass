@@ -20,14 +20,13 @@ import {
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 import { listVentana } from "../../../assets/webService/s/01.Ventanas/db_ventana";
-
+window.document.title = "Ventana";
 const Ventana = () => {
-    window.document.title = "Ventana";
-
-    const [open, setOpen] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Ajusta el punto de quiebre según sea necesario
-
+    const [open, setOpen] = useState(0);
+    const imagesNova = listVentana.nova;
+    const imagesSerie25 = listVentana.serie;
+    //
     useEffect(() => {
         setLoading(true);
         const timer = setTimeout(() => {
@@ -37,15 +36,19 @@ const Ventana = () => {
         return () => clearTimeout(timer);
     }, [open]);
 
-    const imagesNova = listVentana.nova;
-    const imagesSerie25 = listVentana.serie;
-
     return (
-        <Box display="flex" flexDirection={{ base: "column", md: "row" }}>
+        <Box
+            display="flex"
+            flexDirection={{ base: "column", md: "row" }}
+            justifyContent={"center"}
+            alignItems={"center"}
+            h={"90dvh"}
+            bg={useColorModeValue("gray.100", "gray.800")}
+        >
             <Box
-                h={{ base: "auto", md: "80vh" }}
                 w={{ base: "auto", md: "20vw" }}
-                m={{ base: "20px" }}
+                h={{ base: "auto", md: "80vh" }}
+                mx={{ base: "20px" }}
                 p={4}
                 bg={useColorModeValue("white", "gray.800")}
                 rounded="lg"
@@ -54,11 +57,10 @@ const Ventana = () => {
                 borderColor={useColorModeValue("gray.200", "black")}
                 transition="all .2s ease-in-out"
                 _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "lg",
+                    boxShadow: "xl",
                 }}
             >
-                <Box mb={2} p={4}>
+                <Box mb={2} p={4} opacity={loading ? 0 : 1}>
                     <Text
                         fontSize="2xl"
                         fontWeight="bold"
@@ -122,26 +124,19 @@ const Gallery = ({ images, loading }) => {
             <Grid templateColumns={`repeat(${responsiveColumns}, 1fr)`} gap={4}>
                 {images.map((src, index) => (
                     <GridItem key={index}>
-                        {loading ? (
-                            <>
-                                <SkeletonText w="full" h="12vh" />
-                                <SkeletonText w="full" h="12vh" />
-                            </>
-                        ) : (
-                            <Image
-                                w="full"
-                                h={{ base: "", md: "24vh" }}
-                                rounded="lg"
-                                src={src.image}
-                                objectFit="cover"
-                                transition="opacity 0.5s ease-in-out"
-                                opacity={loading ? 0 : 1}
-                                onClick={() => {
-                                    setSelectedImage(src.image);
-                                    setIsOpen(true);
-                                }}
-                            />
-                        )}
+                        <Image
+                            w="full"
+                            h={{ base: "", md: "24vh" }}
+                            rounded="lg"
+                            src={src.image}
+                            objectFit="cover"
+                            transition="opacity 0.5s ease-in-out"
+                            opacity={loading ? 0 : 1}
+                            onClick={() => {
+                                setSelectedImage(src.image);
+                                setIsOpen(true);
+                            }}
+                        />
                     </GridItem>
                 ))}
             </Grid>
@@ -182,20 +177,17 @@ const SidebarItem = ({ icon, label, onClick, loading }) => {
             cursor="pointer"
             p={2}
             rounded="md"
+            opacity={loading ? 0 : 1}
+            transition="opacity 0.5s ease-in-out"
             _hover={{
                 bg: useColorModeValue("gray.50", "gray.900"),
                 color: "red.500",
             }}
-            transition="all .3s ease"
         >
             <Stack direction="row" align="center" spacing={4}>
-                {loading ? (
-                    <Skeleton height="20px" width="20px" />
-                ) : (
-                    <Icon as={icon} w={5} h={5} />
-                )}
+                <Icon as={icon} w={5} h={5} />
                 <Text transition="all .2s ease" fontWeight={500}>
-                    {loading ? <Skeleton height="20px" width="60px" /> : label}
+                    {label}
                 </Text>
             </Stack>
         </Stack>

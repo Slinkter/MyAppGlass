@@ -1,19 +1,15 @@
-import vn_01 from "./nova/vn10.jpeg";
-
-import vn_02 from "./nova/vn10.jpeg";
-import vn_03 from "./nova/IMG_2022.jpeg";
-
-import vn_04 from "./nova/vn10.jpeg";
-import vn_05 from "./nova/vn10.jpeg";
-import vn_06 from "./nova/IMG_2109.jpeg";
-
-import vn_07 from "./nova/vn04.jpeg";
-import vn_08 from "./nova/vn11.jpeg";
-import vn_09 from "./nova/vn07.jpeg";
-
-import vn_10 from "./nova/vn03.jpeg";
-import vn_11 from "./nova/IMG_2023.jpeg";
-import vn_12 from "./nova/IMG_2126.jpeg";
+import vn_01 from "./nova/a1.jpeg";
+import vn_02 from "./nova/a2.jpeg";
+import vn_03 from "./nova/a3.jpeg";
+import vn_04 from "./nova/a4.jpeg";
+import vn_05 from "./nova/a5.jpeg";
+import vn_06 from "./nova/a6.jpeg";
+import vn_07 from "./nova/a7.jpeg";
+import vn_08 from "./nova/a8.jpeg";
+import vn_09 from "./nova/a9.jpeg";
+import vn_10 from "./nova/a10.jpeg";
+import vn_11 from "./nova/a11.jpeg";
+import vn_12 from "./nova/a12.jpeg";
 
 import vs_01 from "./serie/IMG_0294.jpeg";
 import vs_02 from "./serie/IMG_0292.jpeg";
