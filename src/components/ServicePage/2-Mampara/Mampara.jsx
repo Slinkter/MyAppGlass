@@ -15,12 +15,13 @@ import {
     ModalCloseButton,
     Skeleton,
     useMediaQuery,
+    SkeletonCircle,
 } from "@chakra-ui/react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
+window.document.title = "Mampara";
 
 const Mampara = () => {
-    window.document.title = "Mampara";
     const [open, setOpen] = useState(0);
     const [loading, setLoading] = useState(true);
     /*  */
@@ -34,31 +35,35 @@ const Mampara = () => {
     }, [open]); // Re-run the effect when 'open' state changes
 
     return (
-        <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
+        <Box
+            display="flex"
+            flexDirection={{ base: "column", md: "row" }}
+            justifyContent={"center"}
+            alignItems={"center"}
+            p={8}
+        >
             <Box
-                ml="2rem"
-                mt="2rem"
-                mr={{ base: "2rem", md: "2rem" }}
+                w={{ base: "full", md: "20vw" }}
+                h={{ base: "auto", md: "80vh" }}
+                m={{ base: "20px" }}
                 p={4}
                 bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
-                w={{ base: "full-20rem", md: "15rem" }}
                 rounded="lg"
                 boxShadow="md"
                 border={"1px solid "}
                 borderColor={useColorModeValue("gray.200", "gray.600")}
                 _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "lg",
+                    boxShadow: "xl",
+                    borderColor: "red.200",
                 }}
             >
-                <Box mb={2} p={4}>
+                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
                     <Text
-                        fontSize={"2xl"}
-                        fontWeight={"bold"}
+                        fontSize="2xl"
+                        fontWeight="bold"
                         color={useColorModeValue("gray.700", "gray.200")}
                     >
-                        Sistema de Mamparas
+                        MAMPARAS
                     </Text>
                 </Box>
                 <Stack spacing={1}>
@@ -77,23 +82,18 @@ const Mampara = () => {
                 </Stack>
             </Box>
             <Box
-                display={"flex"}
-                justifyContent={"start"}
-                alignItems={"start"}
-                mt="2rem"
-                mr="2rem"
-                mb="2rem"
-                ml={{ base: "2rem", md: "0rem" }}
+                h={{ base: "auto", md: "80vh" }}
+                w={{ base: "full", md: "100vw" }}
+                mx={{ base: "20px" }}
                 p={4}
                 bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
                 rounded="lg"
                 boxShadow="md"
                 border={"1px solid "}
                 borderColor={useColorModeValue("gray.200", "gray.600")}
                 _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "lg",
+                    borderColor: "red.200",
+                    boxShadow: "xl",
                 }}
             >
                 {open === 0 ? (
@@ -108,43 +108,78 @@ const Mampara = () => {
 
 export default Mampara;
 
+const SidebarItem = ({ icon, title, onClick, loading }) => {
+    return (
+        <Stack
+            direction="row"
+            align="center"
+            justify="space-between"
+            onClick={onClick}
+            cursor="pointer"
+            p={2}
+            rounded="md"
+            _hover={{
+                bg: useColorModeValue("gray.50", "gray.900"),
+                color: "red.500",
+            }}
+        >
+            {loading && (
+                <Stack direction="row" align="center" spacing={4}>
+                    <SkeletonCircle w={5} h={5} />
+                    <Skeleton height="20px" w={"140px"} />
+                </Stack>
+            )}
+
+            {!loading && (
+                <Stack direction="row" align="center" spacing={4}>
+                    <Icon w={5} h={5} as={icon} />
+                    <Text fontWeight={600}>{title}</Text>
+                </Stack>
+            )}
+        </Stack>
+    );
+};
+
 const Gallery = ({ images, loading }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [isMobile] = useMediaQuery();
-    const resposiveColmns = useBreakpointValue({ base: 1, md: 4 });
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
+    const responsiveColumns = useBreakpointValue({ base: 1, md: 5 });
     const onClose = () => setIsOpen(false);
+
     return (
         <>
-            <Grid templateColumns={`repeat(${resposiveColmns} ,1fr)`} gap={4}>
-                {images.map((src, index) => (
-                    <GridItem key={index}>
-                        {loading ? (
+            <Grid templateColumns={`repeat(${responsiveColumns}, 1fr)`} gap={4}>
+                {loading &&
+                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12].map((_, idx) => (
+                        <GridItem key={idx}>
                             <Skeleton
-                                w={{ base: "full", md: "18vw" }}
-                                minH={"24vh"}
-                                h={"24vh"}
-                                rounded={"lg"}
+                                w="full"
+                                h={{ base: "", md: "24vh" }}
+                                rounded="lg"
                             />
-                        ) : (
+                        </GridItem>
+                    ))}
+
+                {!loading &&
+                    images.map((src, index) => (
+                        <GridItem key={index}>
                             <Image
-                                w={{ base: "full", md: "18vw" }}
-                                minH={"24vh"}
-                                h={"24vh"}
-                                rounded={"lg"}
+                                w="full"
+                                h={{ base: "44vh", md: "24vh" }}
                                 src={src.image}
+                                rounded="lg"
                                 objectFit={"cover"}
-                                mb={{ base: 4, md: 0 }}
-                                shadow={"base"}
+                                transition="opacity 0.5s ease-in-out"
+                                opacity={loading ? 0 : 1}
                                 cursor={"pointer"}
                                 onClick={() => {
                                     setSelectedImage(src.image);
                                     setIsOpen(true);
                                 }}
                             />
-                        )}
-                    </GridItem>
-                ))}
+                        </GridItem>
+                    ))}
             </Grid>
             {!isMobile && (
                 <Modal
@@ -168,38 +203,5 @@ const Gallery = ({ images, loading }) => {
                 </Modal>
             )}
         </>
-    );
-};
-
-const SidebarItem = ({ icon, title, onClick, loading }) => {
-    return (
-        <Stack
-            direction={"row"}
-            align={"center"}
-            justifyContent={"space-between"}
-            onClick={onClick}
-            cursor={"pointer"}
-            p={2}
-            rounded={"md"}
-            _hover={{
-                bg: useColorModeValue("gray.50", "gray.900"),
-                color: "red.500",
-            }}
-            transition={"all .1s ease"}
-        >
-            <Stack direction={"row"} align={"center"} spacing={4}>
-                {loading ? (
-                    <>
-                        <Skeleton height={"20px"} width={"20px"} />
-                        <Skeleton height={"20px"} width={"60px"} />
-                    </>
-                ) : (
-                    <>
-                        <Icon as={icon} w={5} h={5} />
-                        <Text fontWeight={500}>{title}</Text>
-                    </>
-                )}
-            </Stack>
-        </Stack>
     );
 };
