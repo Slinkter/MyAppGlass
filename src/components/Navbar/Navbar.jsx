@@ -101,7 +101,7 @@ export default function WithSubnavigation() {
                     flex={{ base: 1 }}
                     justify={{ base: "center", md: "center" }}
                 >
-                    <Flex display={{ base: "none", md: "flex" }} ml={10}>
+                    <Flex display={{ base: "none", md: "flex" }}>
                         <DesktopNav />
                     </Flex>
                 </Flex>
@@ -156,7 +156,8 @@ const DesktopNav = () => {
 
                         {navItem.children && (
                             <PopoverContent
-                                border={0}
+                                border={"1px solid"}
+                                borderColor={"gray.100"}
                                 boxShadow={"xl"}
                                 bg={popoverContentBgColor}
                                 p={4}
