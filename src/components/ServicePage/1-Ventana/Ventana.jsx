@@ -17,15 +17,19 @@ import {
     useMediaQuery,
     SkeletonCircle,
 } from "@chakra-ui/react";
-import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+//import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import { CheckIcon } from "@heroicons/react/24/solid";
 
 import { listVentana } from "../../../assets/webService/s/01.Ventanas/db_ventana";
-window.document.title = "Ventana";
+window.document.title = "Ventanas";
 const Ventana = () => {
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(0);
     const imagesNova = listVentana.nova;
-    const imagesSerie25 = listVentana.serie;
+    const imagesSerie25 = listVentana.serie25;
+    const imagesSerie31 = listVentana.serie31;
+
     //
     useEffect(() => {
         setLoading(true);
@@ -70,16 +74,54 @@ const Ventana = () => {
                 </Box>
                 <Stack spacing={1}>
                     <SidebarItem
-                        icon={PaperAirplaneIcon}
+                        icon={ChevronRightIcon}
                         label="Sistema Nova"
                         onClick={() => setOpen(0)}
                         loading={loading}
                     />
 
                     <SidebarItem
-                        icon={PaperAirplaneIcon}
+                        icon={ChevronRightIcon}
                         label="Sistema Serie 25"
                         onClick={() => setOpen(1)}
+                        loading={loading}
+                    />
+                    <SidebarItem
+                        icon={ChevronRightIcon}
+                        label="Sistema Serie 31"
+                        onClick={() => setOpen(2)}
+                        loading={loading}
+                    />
+                </Stack>
+
+                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                    <Text
+                        fontSize="2xl"
+                        fontWeight="bold"
+                        color={useColorModeValue("gray.700", "gray.200")}
+                    >
+                        CARACTERÍSTICA
+                    </Text>
+                </Box>
+                <Stack spacing={1}>
+                    <CharItem
+                        icon={CheckIcon}
+                        label="Color : Incoro | Bronce"
+                        loading={loading}
+                    />
+                    <CharItem
+                        icon={CheckIcon}
+                        label="Tipo : Templado | Crudo"
+                        loading={loading}
+                    />
+                    <CharItem
+                        icon={CheckIcon}
+                        label="Aluminio : Natural | Negro"
+                        loading={loading}
+                    />
+                    <CharItem
+                        icon={CheckIcon}
+                        label="Espesor : 6 mm "
                         loading={loading}
                     />
                 </Stack>
@@ -99,10 +141,14 @@ const Ventana = () => {
                     boxShadow: "xl",
                 }}
             >
-                {open === 0 ? (
+                {open === 0 && (
                     <Gallery images={imagesNova} loading={loading} />
-                ) : (
+                )}
+                {open === 1 && (
                     <Gallery images={imagesSerie25} loading={loading} />
+                )}
+                {open === 2 && (
+                    <Gallery images={imagesSerie31} loading={loading} />
                 )}
             </Box>
         </Box>
@@ -126,6 +172,26 @@ const SidebarItem = ({ icon, label, onClick, loading }) => {
                 color: "red.500",
             }}
         >
+            {loading && (
+                <Stack direction="row" align="center" spacing={4}>
+                    <SkeletonCircle w={5} h={5} />
+                    <Skeleton height="20px" w={"140px"} />
+                </Stack>
+            )}
+
+            {!loading && (
+                <Stack direction="row" align="center" spacing={4}>
+                    <Icon w={5} h={5} as={icon} />
+                    <Text fontWeight={600}>{label}</Text>
+                </Stack>
+            )}
+        </Stack>
+    );
+};
+
+const CharItem = ({ icon, label, loading }) => {
+    return (
+        <Stack direction="row" align="center" justify="space-between" p={2}>
             {loading && (
                 <Stack direction="row" align="center" spacing={4}>
                     <SkeletonCircle w={5} h={5} />

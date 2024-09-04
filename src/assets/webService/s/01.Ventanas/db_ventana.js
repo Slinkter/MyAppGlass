@@ -39,19 +39,21 @@ const listVentana = {
         { id: 11, image: vn_11, name: "vn_01" },
         { id: 12, image: vn_12, name: "vn_01" },
     ],
-    serie: [
+    serie25: [
         { id: 1, image: vs_01, name: "vn_01" },
         { id: 2, image: vs_02, name: "vn_01" },
         { id: 3, image: vs_03, name: "vn_01" },
-        { id: 4, image: vs_04, name: "vn_01" },
-        { id: 5, image: vs_05, name: "vn_01" },
-        { id: 6, image: vs_06, name: "vn_01" },
-        { id: 7, image: vs_07, name: "vn_01" },
-        { id: 8, image: vs_08, name: "vn_01" },
-        { id: 9, image: vs_09, name: "vn_01" },
-        { id: 10, image: vs_10, name: "vn_01" },
-        { id: 11, image: vs_11, name: "vn_01" },
-        { id: 12, image: vs_12, name: "vn_01" },
+        { id: 4, image: vs_08, name: "vn_01" },
+        { id: 5, image: vs_04, name: "vn_01" },
+        { id: 6, image: vs_05, name: "vn_01" },
+        { id: 7, image: vs_06, name: "vn_01" },
+        { id: 8, image: vs_09, name: "vn_01" },
+    ],
+    serie31: [
+        { id: 1, image: vs_07, name: "vn_01" },
+        { id: 2, image: vs_10, name: "vn_01" },
+        { id: 3, image: vs_11, name: "vn_01" },
+        { id: 4, image: vs_12, name: "vn_01" },
     ],
 };
 
