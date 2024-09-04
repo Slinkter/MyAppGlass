@@ -46,7 +46,7 @@ const Ventana = () => {
         >
             <Box
                 w={{ base: "full", md: "20vw" }}
-                h={{ base: "auto", md: "80vh" }}
+                h={{ base: "auto", md: "85vh" }}
                 m={{ base: "20px" }}
                 p={4}
                 bg={useColorModeValue("white", "gray.800")}
@@ -85,7 +85,7 @@ const Ventana = () => {
                 </Stack>
             </Box>
             <Box
-                h={{ base: "auto", md: "80vh" }}
+                h={{ base: "auto", md: "85vh" }}
                 w={{ base: "full", md: "100vw" }}
                 mx={{ base: "20px" }}
                 p={4}
@@ -152,7 +152,11 @@ const Gallery = ({ images, loading }) => {
 
     return (
         <>
-            <Grid templateColumns={`repeat(${responsiveColumns}, 1fr)`} gap={4}>
+            <Grid
+                templateColumns={`repeat(${responsiveColumns}, 1fr)`}
+                gap={4}
+                p={2}
+            >
                 {loading &&
                     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12].map((_, idx) => (
                         <GridItem key={idx}>
