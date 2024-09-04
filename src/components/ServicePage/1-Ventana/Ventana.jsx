@@ -76,19 +76,21 @@ const Ventana = () => {
                     <SidebarItem
                         icon={ChevronRightIcon}
                         label="Sistema Nova"
+                        isActive={open === 0} // Activo si open es 0
                         onClick={() => setOpen(0)}
                         loading={loading}
                     />
-
                     <SidebarItem
                         icon={ChevronRightIcon}
                         label="Sistema Serie 25"
+                        isActive={open === 1}
                         onClick={() => setOpen(1)}
                         loading={loading}
                     />
                     <SidebarItem
                         icon={ChevronRightIcon}
                         label="Sistema Serie 31"
+                        isActive={open === 2}
                         onClick={() => setOpen(2)}
                         loading={loading}
                     />
@@ -157,7 +159,7 @@ const Ventana = () => {
 
 export default Ventana;
 
-const SidebarItem = ({ icon, label, onClick, loading }) => {
+const SidebarItem = ({ icon, label, onClick, isActive, loading }) => {
     return (
         <Stack
             direction="row"
@@ -167,19 +169,19 @@ const SidebarItem = ({ icon, label, onClick, loading }) => {
             cursor="pointer"
             p={2}
             rounded="md"
+            bg={isActive ? "red.100" : "transparent"} // Cambia el fondo si está activo
+            color={isActive ? "red.500" : "inherit"} // Cambia el color si está activo
             _hover={{
                 bg: useColorModeValue("gray.50", "gray.900"),
                 color: "red.500",
             }}
         >
-            {loading && (
+            {loading ? (
                 <Stack direction="row" align="center" spacing={4}>
                     <SkeletonCircle w={5} h={5} />
                     <Skeleton height="20px" w={"140px"} />
                 </Stack>
-            )}
-
-            {!loading && (
+            ) : (
                 <Stack direction="row" align="center" spacing={4}>
                     <Icon w={5} h={5} as={icon} />
                     <Text fontWeight={600}>{label}</Text>
@@ -188,7 +190,6 @@ const SidebarItem = ({ icon, label, onClick, loading }) => {
         </Stack>
     );
 };
-
 const CharItem = ({ icon, label, loading }) => {
     return (
         <Stack direction="row" align="center" justify="space-between" p={2}>
