@@ -34,7 +34,6 @@ const Service = () => {
                     Tenemos una amplia variedad de servicios de instalación en
                     cristales y aluminios
                 </Text>
-                <></>
 
                 <Flex
                     flexDir={isMobile ? "column" : "row"}

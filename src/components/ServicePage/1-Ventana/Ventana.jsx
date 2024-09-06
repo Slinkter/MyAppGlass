@@ -22,7 +22,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
 import { listVentana } from "../../../assets/webService/s/01.Ventanas/db_ventana";
-window.document.title = "Ventanas";
+
 const Ventana = () => {
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(0);
