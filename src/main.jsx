@@ -26,7 +26,8 @@ import Pserie from "./components/ServicePage/9-PSerie/Pserie";
 import Celosias from "./components/ServicePage/10-Celosias/Celosias";
 import "./index.css";
 //import ScrollToTop from "./utils/ScrollToTop";
-
+window.document.title =
+    "Vidrieria en La Molina instalación de ventanas, mamparas, puertas de ducha y más. Servicios de mantenimiento y calidad garantizada. tef. 996-537-435";
 const router = createBrowserRouter([
     {
         path: "/",
