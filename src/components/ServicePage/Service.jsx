@@ -18,10 +18,12 @@ const Service = () => {
             <Container maxW={"8xl"} my={6} textAlign="center">
                 <Heading
                     as="h2"
-                    fontSize={isMobile ? "2.0rem" : "2.5rem"}
-                    fontWeight="600"
                     color="red.500"
                     mb={4}
+                    fontSize={{ base: "2xl", md: "4xl" }}
+                    mt={4}
+                    textShadow="1px 1px #000"
+                    textTransform={"uppercase"}
                 >
                     SERVICIOS
                 </Heading>

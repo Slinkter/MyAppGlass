@@ -11,6 +11,7 @@ import {
     useMediaQuery,
 } from "@chakra-ui/react";
 import { FaWhatsapp, FaCalendar, FaClock, FaMap } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 const Footer = () => {
     const bgColor = useColorModeValue("#e9ecef", "gray.600");
@@ -79,21 +80,29 @@ const Footer = () => {
                                 DIRECCIÓN
                             </Heading>
 
-                            <HStack spacing={2} alignItems="center">
+                            <HStack
+                                spacing={2}
+                                alignItems="center"
+                                justifyContent={"center"}
+                            >
                                 <Icon as={FaMap} />
                                 <Text fontSize="md">
                                     Av. Los Fresnos MZ. H LT. 16
                                 </Text>
                             </HStack>
-                            <HStack spacing={2} alignItems="">
-                                <Icon as={FaMap} />
-                                <Text fontSize="md">La Molina</Text>
+                            <HStack
+                                spacing={2}
+                                alignItems="center"
+                                justifyContent={"center"}
+                            >
+                                <Icon as={MdEmail} />
+                                <Text fontSize="md">acueva@gyacompany.com</Text>
                             </HStack>
                         </VStack>
                     </Flex>
                 </Box>
             </Box>
-            <Flex justifyContent={"center"} alignItems={"center"} mb={"20px"}>
+            <Flex justifyContent={"center"} alignItems={"center"} m={"20px"}>
                 <Text> Copyright ©2024</Text>
             </Flex>
         </>

@@ -12,7 +12,6 @@ import {
     useColorModeValue,
     useDisclosure,
     useColorMode,
-    Button,
 } from "@chakra-ui/react";
 import {
     HamburgerIcon,
@@ -58,15 +57,11 @@ const NAV_ITEMS = [
         label: "Proyectos",
         href: "/proyectos",
     },
-    {
-        label: "Nosotros",
-        href: "#",
-    },
 ];
 
 export default function WithSubnavigation() {
-    const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
+    const { isOpen, onToggle } = useDisclosure();
 
     return (
         <Box>
