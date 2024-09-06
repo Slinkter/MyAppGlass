@@ -18,7 +18,6 @@ import {
     SkeletonCircle,
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
 

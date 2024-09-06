@@ -9,6 +9,7 @@ import {
     CardBody,
     Image,
     Stack,
+    useColorModeValue,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
@@ -28,19 +29,26 @@ function ItemService({ image, name, plink }) {
 
     return (
         <Card
-            mb={4}
+            pos="relative"
             w={"375px"}
             maxW={{ base: "full", md: "385px" }}
+            maxH={{ base: "452px", md: "512px" }}
+            mb={4}
+            boxShadow="md"
+            border={"1px solid "}
+            borderColor={useColorModeValue("gray.200", "gray.600")}
             overflow="hidden"
-            boxShadow={{ base: "base", md: "lg" }}
-            pos="relative"
-            rounded="lg"
             opacity={show ? 1 : 0} // Aplicar la animación de desvanecimiento
             transition="all .3s ease-in-out" // Duración y tipo de transición
             _hover={{
-                transform: "scale(1.03)", // Escala al pasar el cursor sobre el componente
+                // Escala al pasar el cursor sobre el componente
+                boxShadow: "xl",
+                borderColor: "gray.300",
+                transform: {
+                    base: "scale(1.00)",
+                    md: "scale(1.02)",
+                },
             }}
-            maxH={{ base: "452px", md: "512px" }}
         >
             <CardBody textAlign="center">
                 <Image

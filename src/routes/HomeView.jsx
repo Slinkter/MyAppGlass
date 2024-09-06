@@ -7,7 +7,7 @@ import LandPage from "../components/HomePage/LandPage";
 
 const HomeView = () => {
     window.document.title =
-        "Vidriería en La Molina |instalación de ventanas, mamparas, puertas de ducha y más. Servicios de mantenimiento y calidad garantizada.";
+        "Vidrieria en La Molina | Vidriería en La Molina  instalación de ventanas, mamparas, puertas de ducha y más. Servicios de mantenimiento y calidad garantizada. tef. 996-537-435";
     return (
         <Box>
             <LandPage />
