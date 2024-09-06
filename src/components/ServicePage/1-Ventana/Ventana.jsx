@@ -18,9 +18,7 @@ import {
     SkeletonCircle,
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-//import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { CheckIcon } from "@heroicons/react/24/solid";
-
 import { listVentana } from "../../../assets/webService/s/01.Ventanas/db_ventana";
 
 const Ventana = () => {
@@ -49,7 +47,7 @@ const Ventana = () => {
             p={8}
         >
             <Box
-                w={{ base: "full", md: "20vw" }}
+                w={{ base: "full", md: "25vw" }}
                 h={{ base: "auto", md: "85vh" }}
                 m={{ base: "20px" }}
                 p={4}
@@ -184,7 +182,7 @@ const SidebarItem = ({ icon, label, onClick, isActive, loading }) => {
             ) : (
                 <Stack direction="row" align="center" spacing={4}>
                     <Icon w={5} h={5} as={icon} />
-                    <Text fontWeight={600}>{label}</Text>
+                    <Text>{label}</Text>
                 </Stack>
             )}
         </Stack>
@@ -203,7 +201,7 @@ const CharItem = ({ icon, label, loading }) => {
             {!loading && (
                 <Stack direction="row" align="center" spacing={4}>
                     <Icon w={5} h={5} as={icon} />
-                    <Text fontWeight={600}>{label}</Text>
+                    <Text>{label}</Text>
                 </Stack>
             )}
         </Stack>

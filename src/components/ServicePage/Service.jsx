@@ -10,9 +10,11 @@ import {
 } from "@chakra-ui/react";
 import ItemService from "./ItemServicio";
 import listService from "./db_service";
-
+window.document.title =
+    "Vidrieria en La Molina instalación de ventanas, mamparas, puertas de ducha y más. Servicios de mantenimiento y calidad garantizada. tef. 996-537-435";
 const Service = () => {
     const [isMobile] = useMediaQuery("(max-width: 768px)");
+
     return (
         <Box>
             <Container maxW={"8xl"} my={6} textAlign="center">
