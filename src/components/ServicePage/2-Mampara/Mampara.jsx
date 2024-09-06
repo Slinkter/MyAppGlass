@@ -21,7 +21,6 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
-window.document.title = "Mampara";
 
 const Mampara = () => {
     const [open, setOpen] = useState(0);
