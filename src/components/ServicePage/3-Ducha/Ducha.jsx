@@ -29,6 +29,7 @@ const Ducha = () => {
     const [open, setOpen] = useState(0);
 
     useEffect(() => {
+        document.title = `Puerta de duchas`;
         setLoading(true);
         const timer = setTimeout(() => {
             setLoading(false);

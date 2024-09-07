@@ -31,6 +31,7 @@ const Ventana = () => {
     //
     useEffect(() => {
         setLoading(true);
+        document.title = `Ventanas`;
         const timer = setTimeout(() => {
             setLoading(false);
         }, 500);

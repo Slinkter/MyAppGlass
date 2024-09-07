@@ -29,6 +29,7 @@ const Balcon = () => {
     const [loading, setLoading] = useState(true);
 
     setTimeout(() => {
+        document.title = `Balcon`;
         setLoading(false);
     }, 1000);
 

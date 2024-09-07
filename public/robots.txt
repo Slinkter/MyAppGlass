@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.tusitioweb.com/sitemap.xml
+Sitemap: https://www.gyacompany.com/sitemap.xml

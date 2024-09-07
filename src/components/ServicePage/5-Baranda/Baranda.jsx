@@ -31,6 +31,7 @@ const Baranda = () => {
     //
     useEffect(() => {
         setLoading(true);
+        document.title = `Baranda`;
         const timer = setTimeout(() => {
             setLoading(false);
         }, 500);
