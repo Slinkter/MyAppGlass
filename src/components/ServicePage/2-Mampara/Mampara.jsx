@@ -20,14 +20,14 @@ import {
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
-window.document.title =
-    "Vidrieria en La Molina instalación de ventanas, mamparas, puertas de ducha y más. Servicios de mantenimiento y calidad garantizada. tef. 996-537-435";
+
 const Mampara = () => {
     const [open, setOpen] = useState(0);
     const [loading, setLoading] = useState(true);
     /*  */
     useEffect(() => {
         setLoading(true); // Set loading to true whenever the selection changes
+        document.title = `Mamparas`;
         const timer = setTimeout(() => {
             setLoading(false);
         }, 500);

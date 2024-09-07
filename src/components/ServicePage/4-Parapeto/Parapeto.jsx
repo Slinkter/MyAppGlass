@@ -33,6 +33,7 @@ const Parapeto = () => {
     //
     useEffect(() => {
         setLoading(true);
+        document.title = `Parapeto`;
         const timer = setTimeout(() => {
             setLoading(false);
         }, 500);
