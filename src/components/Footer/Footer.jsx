@@ -103,7 +103,7 @@ const Footer = () => {
                 </Box>
             </Box>
             <Flex justifyContent={"center"} alignItems={"center"} m={"20px"}>
-                <Text> Copyright ©2024</Text>
+                <Text> Copyright ©2025</Text>
             </Flex>
         </>
     );
