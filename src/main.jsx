@@ -25,6 +25,7 @@ import Pvidrio from "./components/ServicePage/8-PVidrio/Pvidrio";
 import Pserie from "./components/ServicePage/9-PSerie/Pserie";
 import Celosias from "./components/ServicePage/10-Celosias/Celosias";
 import "./index.css";
+import ReclamoForm from "./components/LibroReclamacion/ReclamoForm";
 //import ScrollToTop from "./utils/ScrollToTop";
 
 const router = createBrowserRouter([
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
             { path: "/servicios/pserie", element: <Pserie /> },
             { path: "/servicios/celosias", element: <Celosias /> },
             { path: "/proyectos", element: <ProjectView /> },
+            { path: "/librodereclamacion", element: <ReclamoForm /> },
             { path: "/test", element: <TestView /> },
             { path: "*", element: <ErrorView /> },
         ],
