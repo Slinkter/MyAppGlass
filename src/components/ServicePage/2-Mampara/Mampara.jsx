@@ -214,42 +214,30 @@ const Gallery = ({ images, loading }) => {
                 gap={4}
                 p={2}
             >
-                {loading &&
-                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12].map((_, idx) => (
-                        <GridItem key={idx}>
-                            <Skeleton
-                                w="full"
-                                h={{ base: "", md: "24vh" }}
-                                rounded="lg"
-                            />
-                        </GridItem>
-                    ))}
-
-                {!loading &&
-                    images.map((src, index) => (
-                        <GridItem key={index}>
-                            <Image
-                                w="full"
-                                h={{ base: "44vh", md: "24vh" }}
-                                src={src.image}
-                                rounded="lg"
-                                objectFit={"cover"}
-                                transition="all .2s ease-in-out"
-                                opacity={loading ? 0 : 1}
-                                cursor={"pointer"}
-                                shadow={"base"}
-                                onClick={() => {
-                                    setSelectedImage(src.image);
-                                    setIsOpen(true);
-                                }}
-                                _hover={{
-                                    shadow: "lg",
-                                    transform: {
-                                        base: "scale(1.00)",
-                                        md: "scale(1.02)",
-                                    },
-                                }}
-                            />
+               
+                {   images.map((src) => (
+                        <GridItem key={src.id}>
+                           <FadingImage
+                            w="full"
+                            h={{ base: "44vh", md: "24vh" }}
+                            src={src.image}
+                            rounded="lg"
+                            objectFit={"cover"}
+                            transition="all .2s ease-in-out"
+                            cursor={"pointer"}
+                            shadow={"base"}
+                            onClick={() => {
+                                setSelectedImage(src.image);
+                                setIsOpen(true);
+                            }}
+                            _hover={{
+                                shadow: "lg",
+                                transform: {
+                                    base: "scale(1.00)",
+                                    md: "scale(1.02)",
+                                },
+                            }}
+                        />
                         </GridItem>
                     ))}
             </Grid>
@@ -275,5 +263,24 @@ const Gallery = ({ images, loading }) => {
                 </Modal>
             )}
         </>
+    );
+};
+
+
+const FadingImage = (props) => {
+    const [isLoaded, setIsLoaded] = useState(false);
+    return (
+        <Skeleton
+            isLoaded={isLoaded} // El esqueleto se desvanecerá solo cuando isLoaded sea true
+            w="full"
+            h={{ base: "44vh", md: "24vh" }}
+            rounded="lg"
+            fadeDuration={0.5} // Controla la velocidad de la transición
+        >
+            <Image
+                onLoad={() => setIsLoaded(true)} // Cuando la imagen carga, actualiza el estado
+                {...props} // Pasa todos los props originales (src, onClick, etc.)
+            />
+        </Skeleton>
     );
 };

@@ -1,10 +1,20 @@
 import Layout from "./layout/Layout";
 import { Outlet } from "react-router-dom";
+import ScrollToTop from "./utils/ScrollToTop";
+import { Fragment } from "react";
+
 function App() {
+
+
+
   return (
-    <Layout>
-      <Outlet />
-    </Layout>
+
+     <Fragment> 
+      <ScrollToTop />
+      <Layout>
+        <Outlet />
+      </Layout>
+    </Fragment>
   );
 }
 

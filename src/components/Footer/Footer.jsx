@@ -12,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { FaWhatsapp, FaCalendar, FaClock, FaMap } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { IoBookOutline } from "react-icons/io5";
 
 const Footer = () => {
     const bgColor = useColorModeValue("#e9ecef", "gray.600");
@@ -102,9 +104,19 @@ const Footer = () => {
                     </Flex>
                 </Box>
             </Box>
-            <Flex justifyContent={"center"} alignItems={"center"} m={"20px"}>
+            <VStack spacing={4} m={"20px"}>
                 <Text> Copyright ©2025</Text>
-            </Flex>
+                <Link
+               
+                    to="/librodereclamacion"
+                    _hover={{ textDecoration: "none", color: "red.500" }}
+                >
+                    <HStack align="center" spacing={1}>
+                        <Icon as={IoBookOutline} />
+                        <Text>Libro de Reclamaciones</Text>
+                    </HStack>
+                </Link>
+            </VStack>
         </>
     );
 };
