@@ -26,7 +26,6 @@ import Pserie from "./components/ServicePage/9-PSerie/Pserie";
 import Celosias from "./components/ServicePage/10-Celosias/Celosias";
 import "./index.css";
 import ReclamoForm from "./components/LibroReclamacion/ReclamoForm";
-//import ScrollToTop from "./utils/ScrollToTop";
 
 const router = createBrowserRouter([
     {
