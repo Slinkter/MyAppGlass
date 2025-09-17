@@ -17,6 +17,7 @@ import {
     useMediaQuery,
     SkeletonCircle,
 } from "@chakra-ui/react";
+import { Helmet } from "react-helmet-async";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listVentana } from "../../../assets/webService/s/01.Ventanas/db_ventana";
@@ -28,10 +29,8 @@ const Ventana = () => {
     const imagesSerie25 = listVentana.serie25;
     const imagesSerie31 = listVentana.serie31;
 
-    //
     useEffect(() => {
         setLoading(true);
-        document.title = `Ventanas`;
         const timer = setTimeout(() => {
             setLoading(false);
         }, 500);
@@ -40,119 +39,128 @@ const Ventana = () => {
     }, [open]);
 
     return (
-        <Box
-            display="flex"
-            flexDirection={{ base: "column", md: "row" }}
-            justifyContent={"center"}
-            alignItems={"center"}
-            p={8}
-        >
+        <>
+            <Helmet>
+                <title>Ventanas de Aluminio y Vidrio (Sistemas Nova, Serie 25, Serie 31) | GYA Company</title>
+                <meta 
+                    name="description" 
+                    content="Fabricamos e instalamos ventanas de aluminio y vidrio en La Molina. Ofrecemos sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales." 
+                />
+            </Helmet>
             <Box
-                w={{ base: "full", md: "25vw" }}
-                h={{ base: "auto", md: "85vh" }}
-                m={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    boxShadow: "xl",
-                    borderColor: "gray.300",
-                }}
+                display="flex"
+                flexDirection={{ base: "column", md: "row" }}
+                justifyContent={"center"}
+                alignItems={"center"}
+                p={8}
             >
-                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                    <Text
-                        fontSize="2xl"
-                        fontWeight="bold"
-                        color={useColorModeValue("gray.700", "gray.200")}
-                    >
-                        VENTANAS
-                    </Text>
-                </Box>
-                <Stack spacing={1}>
-                    <SidebarItem
-                        icon={ChevronRightIcon}
-                        label="Sistema Nova"
-                        isActive={open === 0} // Activo si open es 0
-                        onClick={() => setOpen(0)}
-                        loading={loading}
-                    />
-                    <SidebarItem
-                        icon={ChevronRightIcon}
-                        label="Sistema Serie 25"
-                        isActive={open === 1}
-                        onClick={() => setOpen(1)}
-                        loading={loading}
-                    />
-                    <SidebarItem
-                        icon={ChevronRightIcon}
-                        label="Sistema Serie 31"
-                        isActive={open === 2}
-                        onClick={() => setOpen(2)}
-                        loading={loading}
-                    />
-                </Stack>
+                <Box
+                    w={{ base: "full", md: "25vw" }}
+                    h={{ base: "auto", md: "85vh" }}
+                    m={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        boxShadow: "xl",
+                        borderColor: "gray.300",
+                    }}
+                >
+                    <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                        <Text
+                            fontSize="2xl"
+                            fontWeight="bold"
+                            color={useColorModeValue("gray.700", "gray.200")}
+                        >
+                            VENTANAS
+                        </Text>
+                    </Box>
+                    <Stack spacing={1}>
+                        <SidebarItem
+                            icon={ChevronRightIcon}
+                            label="Sistema Nova"
+                            isActive={open === 0} // Activo si open es 0
+                            onClick={() => setOpen(0)}
+                            loading={loading}
+                        />
+                        <SidebarItem
+                            icon={ChevronRightIcon}
+                            label="Sistema Serie 25"
+                            isActive={open === 1}
+                            onClick={() => setOpen(1)}
+                            loading={loading}
+                        />
+                        <SidebarItem
+                            icon={ChevronRightIcon}
+                            label="Sistema Serie 31"
+                            isActive={open === 2}
+                            onClick={() => setOpen(2)}
+                            loading={loading}
+                        />
+                    </Stack>
 
-                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                    <Text
-                        fontSize="2xl"
-                        fontWeight="bold"
-                        color={useColorModeValue("gray.700", "gray.200")}
-                    >
-                        CARACTERÍSTICA
-                    </Text>
+                    <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                        <Text
+                            fontSize="2xl"
+                            fontWeight="bold"
+                            color={useColorModeValue("gray.700", "gray.200")}
+                        >
+                            CARACTERÍSTICA
+                        </Text>
+                    </Box>
+                    <Stack spacing={1}>
+                        <CharItem
+                            icon={CheckIcon}
+                            label="Color : Incoro | Bronce"
+                            loading={loading}
+                        />
+                        <CharItem
+                            icon={CheckIcon}
+                            label="Tipo : Templado | Crudo"
+                            loading={loading}
+                        />
+                        <CharItem
+                            icon={CheckIcon}
+                            label="Aluminio : Natural | Negro"
+                            loading={loading}
+                        />
+                        <CharItem
+                            icon={CheckIcon}
+                            label="Espesor : 6 mm "
+                            loading={loading}
+                        />
+                    </Stack>
                 </Box>
-                <Stack spacing={1}>
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Color : Incoro | Bronce"
-                        loading={loading}
-                    />
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Tipo : Templado | Crudo"
-                        loading={loading}
-                    />
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Aluminio : Natural | Negro"
-                        loading={loading}
-                    />
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Espesor : 6 mm "
-                        loading={loading}
-                    />
-                </Stack>
+                <Box
+                    h={{ base: "auto", md: "85vh" }}
+                    w={{ base: "full", md: "100vw" }}
+                    mx={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "xl",
+                    }}
+                >
+                    {open === 0 && (
+                        <Gallery images={imagesNova} loading={loading} />
+                    )}
+                    {open === 1 && (
+                        <Gallery images={imagesSerie25} loading={loading} />
+                    )}
+                    {open === 2 && (
+                        <Gallery images={imagesSerie31} loading={loading} />
+                    )}
+                </Box>
             </Box>
-            <Box
-                h={{ base: "auto", md: "85vh" }}
-                w={{ base: "full", md: "100vw" }}
-                mx={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "xl",
-                }}
-            >
-                {open === 0 && (
-                    <Gallery images={imagesNova} loading={loading} />
-                )}
-                {open === 1 && (
-                    <Gallery images={imagesSerie25} loading={loading} />
-                )}
-                {open === 2 && (
-                    <Gallery images={imagesSerie31} loading={loading} />
-                )}
-            </Box>
-        </Box>
+        </>
     );
 };
 

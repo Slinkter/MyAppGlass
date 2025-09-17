@@ -20,20 +20,18 @@ import {
     SkeletonCircle,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listParapeto } from "../../../assets/webService/s/05.Parapeto/db_parapeto";
 
 const Parapeto = () => {
-    window.document.title = "Parapeto";
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(0);
 
-    //
     useEffect(() => {
         setLoading(true);
-        document.title = `Parapeto`;
         const timer = setTimeout(() => {
             setLoading(false);
         }, 500);
@@ -42,98 +40,107 @@ const Parapeto = () => {
     }, [open]);
 
     return (
-        <Box
-            display="flex"
-            flexDirection={{ base: "column", md: "row" }}
-            justifyContent={"center"}
-            alignItems={"center"}
-            p={8}
-        >
+        <>
+            <Helmet>
+                <title>Parapetos de Vidrio Templado y Acero | GYA Company</title>
+                <meta 
+                    name="description" 
+                    content="Instalación de parapetos de vidrio templado con estructuras de acero o aluminio. Seguridad y diseño moderno para terrazas, balcones y azoteas en La Molina." 
+                />
+            </Helmet>
             <Box
-                w={{ base: "full", md: "25vw" }}
-                h={{ base: "auto", md: "85vh" }}
-                m={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    boxShadow: "xl",
-                    borderColor: "gray.300",
-                }}
+                display="flex"
+                flexDirection={{ base: "column", md: "row" }}
+                justifyContent={"center"}
+                alignItems={"center"}
+                p={8}
             >
-                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                    <Text
-                        fontSize="2xl"
-                        fontWeight="bold"
-                        color={useColorModeValue("gray.700", "gray.200")}
-                        textStyle={"upp"}
-                    >
-                        Parapeto de Vidrio
-                    </Text>
-                    <Stack spacing={1}>
-                        <SidebarItem
-                            icon={ChevronRightIcon}
-                            label="Sistema "
-                            loading={loading}
-                        />
-                    </Stack>
-
+                <Box
+                    w={{ base: "full", md: "25vw" }}
+                    h={{ base: "auto", md: "85vh" }}
+                    m={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        boxShadow: "xl",
+                        borderColor: "gray.300",
+                    }}
+                >
                     <Box mb={1} p={3} opacity={loading ? 0 : 1}>
                         <Text
                             fontSize="2xl"
                             fontWeight="bold"
                             color={useColorModeValue("gray.700", "gray.200")}
+                            textStyle={"upp"}
                         >
-                            CARACTERÍSTICA
+                            Parapeto de Vidrio
                         </Text>
-                    </Box>
+                        <Stack spacing={1}>
+                            <SidebarItem
+                                icon={ChevronRightIcon}
+                                label="Sistema "
+                                loading={loading}
+                            />
+                        </Stack>
 
-                    <Stack spacing={1}>
-                        <CharItem
-                            label="Vidrio templado de 8mm"
-                            icon={CheckIcon}
-                            loading={loading}
-                        />
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Estructura de Acero"
-                            loading={loading}
-                        />
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Estructura de Aluminio"
-                            loading={loading}
-                        />
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Accesorios "
-                            loading={loading}
-                        />
-                    </Stack>
+                        <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                            <Text
+                                fontSize="2xl"
+                                fontWeight="bold"
+                                color={useColorModeValue("gray.700", "gray.200")}
+                            >
+                                CARACTERÍSTICA
+                            </Text>
+                        </Box>
+
+                        <Stack spacing={1}>
+                            <CharItem
+                                label="Vidrio templado de 8mm"
+                                icon={CheckIcon}
+                                loading={loading}
+                            />
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Estructura de Acero"
+                                loading={loading}
+                            />
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Estructura de Aluminio"
+                                loading={loading}
+                            />
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Accesorios "
+                                loading={loading}
+                            />
+                        </Stack>
+                    </Box>
+                </Box>
+
+                <Box
+                    h={{ base: "auto", md: "85vh" }}
+                    w={{ base: "full", md: "100vw" }}
+                    mx={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "xl",
+                    }}
+                >
+                    <Gallery images={listParapeto.parapeto} loading={loading} />
                 </Box>
             </Box>
-
-            <Box
-                h={{ base: "auto", md: "85vh" }}
-                w={{ base: "full", md: "100vw" }}
-                mx={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "xl",
-                }}
-            >
-                <Gallery images={listParapeto.parapeto} loading={loading} />
-            </Box>
-        </Box>
+        </>
     );
 };
 

@@ -19,79 +19,89 @@ import {
     Flex,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { listCelosias } from "../../../assets/webService/s/13.Celosias/db_celosias";
 
 const Celosias = () => {
-    window.document.title = "Celosias";
     const [loading, setLoading] = useState(true);
 
-    setTimeout(() => {
-        setLoading(false);
-    }, 1000);
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 500);
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
-        <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
-            <Box
-                ml="2rem"
-                mt="2rem"
-                mr={{ base: "2rem", md: "2rem" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
-                w={{ base: "full-20rem", md: "15rem" }}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "lg",
-                }}
-            >
-                <Box mb={2} p={4}>
-                    <Heading as="h2" fontWeight="600" color="red.500" mt={4}>
-                        Celosías de Aluminio
-                    </Heading>
+        <>
+            <Helmet>
+                <title>Celosías de Aluminio para Ventilación | GYA Company</title>
+                <meta 
+                    name="description" 
+                    content="Fabricación e instalación de celosías de aluminio para fachadas y ductos de ventilación. Soluciones funcionales y estéticas para todo tipo de edificios." 
+                />
+            </Helmet>
+            <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
+                <Box
+                    ml="2rem"
+                    mt="2rem"
+                    mr={{ base: "2rem", md: "2rem" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    h={{ base: "auto", md: "80vh" }}
+                    w={{ base: "full-20rem", md: "15rem" }}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "lg",
+                    }}
+                >
+                    <Box mb={2} p={4}>
+                        <Heading as="h2" fontWeight="600" color="red.500" mt={4}>
+                            Celosías de Aluminio
+                        </Heading>
 
-                    <Stack spacing={1}>
-                        <SidebarItem
-                            icon={PaperAirplaneIcon}
-                            title="Estructura de Aluminio"
-                            loading={loading}
-                        />
-                        <SidebarItem
-                            icon={PaperAirplaneIcon}
-                            title="Ventilación de Espacios"
-                            loading={loading}
-                        />
-                    </Stack>
+                        <Stack spacing={1}>
+                            <SidebarItem
+                                icon={PaperAirplaneIcon}
+                                title="Estructura de Aluminio"
+                                loading={loading}
+                            />
+                            <SidebarItem
+                                icon={PaperAirplaneIcon}
+                                title="Ventilación de Espacios"
+                                loading={loading}
+                            />
+                        </Stack>
+                    </Box>
+                </Box>
+
+                <Box
+                    display={"flex"}
+                    justifyContent={"start"}
+                    alignItems={"start"}
+                    mt="2rem"
+                    mr="2rem"
+                    mb="2rem"
+                    ml={{ base: "2rem", md: "0rem" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    h={{ base: "auto", md: "80vh" }}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "lg",
+                    }}
+                >
+                    <Gallery images={listCelosias.celocias} loading={loading} />
                 </Box>
             </Box>
-
-            <Box
-                display={"flex"}
-                justifyContent={"start"}
-                alignItems={"start"}
-                mt="2rem"
-                mr="2rem"
-                mb="2rem"
-                ml={{ base: "2rem", md: "0rem" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "lg",
-                }}
-            >
-                <Gallery images={listCelosias.celocias} loading={loading} />
-            </Box>
-        </Box>
+        </>
     );
 };
 

@@ -19,84 +19,94 @@ import {
     Flex,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { listPuertas } from "../../../assets/webService/s/12.PuertaS/db_puertas";
 
 const Pserie = () => {
-    window.document.title = "Puerta de serie";
     const [loading, setLoading] = useState(true);
 
-    setTimeout(() => {
-        setLoading(false);
-    }, 1000);
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 500);
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
-        <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
-            <Box
-                ml="2rem"
-                mt="2rem"
-                mr={{ base: "2rem", md: "2rem" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
-                w={{ base: "full-20rem", md: "15rem" }}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "lg",
-                }}
-            >
-                <Box mb={2} p={4}>
-                    <Heading as="h2" fontWeight="600" color="red.500" mt={4}>
-                        Puerta de serie
-                    </Heading>
+        <>
+            <Helmet>
+                <title>Puertas de Aluminio Serie | GYA Company</title>
+                <meta 
+                    name="description" 
+                    content="Fabricamos puertas de aluminio en serie con plancha arenada y chapa de aluminio. Soluciones económicas y duraderas para todo tipo de proyectos." 
+                />
+            </Helmet>
+            <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
+                <Box
+                    ml="2rem"
+                    mt="2rem"
+                    mr={{ base: "2rem", md: "2rem" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    h={{ base: "auto", md: "80vh" }}
+                    w={{ base: "full-20rem", md: "15rem" }}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "lg",
+                    }}
+                >
+                    <Box mb={2} p={4}>
+                        <Heading as="h2" fontWeight="600" color="red.500" mt={4}>
+                            Puerta de serie
+                        </Heading>
 
-                    <Stack spacing={1}>
-                        <SidebarItem
-                            icon={PaperAirplaneIcon}
-                            title="Estructura de Aluminio "
-                            loading={loading}
-                        />
-                        <SidebarItem
-                            icon={PaperAirplaneIcon}
-                            title="Chapa bola de Aluminio"
-                            loading={loading}
-                        />
-                        <SidebarItem
-                            icon={PaperAirplaneIcon}
-                            title="Plancha Arenado"
-                            loading={loading}
-                        />
-                    </Stack>
+                        <Stack spacing={1}>
+                            <SidebarItem
+                                icon={PaperAirplaneIcon}
+                                title="Estructura de Aluminio "
+                                loading={loading}
+                            />
+                            <SidebarItem
+                                icon={PaperAirplaneIcon}
+                                title="Chapa bola de Aluminio"
+                                loading={loading}
+                            />
+                            <SidebarItem
+                                icon={PaperAirplaneIcon}
+                                title="Plancha Arenado"
+                                loading={loading}
+                            />
+                        </Stack>
+                    </Box>
+                </Box>
+
+                <Box
+                    display={"flex"}
+                    justifyContent={"start"}
+                    alignItems={"start"}
+                    mt="2rem"
+                    mr="2rem"
+                    mb="2rem"
+                    ml={{ base: "2rem", md: "0rem" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    h={{ base: "auto", md: "80vh" }}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "lg",
+                    }}
+                >
+                    <Gallery images={listPuertas.puertas} loading={loading} />
                 </Box>
             </Box>
-
-            <Box
-                display={"flex"}
-                justifyContent={"start"}
-                alignItems={"start"}
-                mt="2rem"
-                mr="2rem"
-                mb="2rem"
-                ml={{ base: "2rem", md: "0rem" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "lg",
-                }}
-            >
-                <Gallery images={listPuertas.puertas} loading={loading} />
-            </Box>
-        </Box>
+        </>
     );
 };
 

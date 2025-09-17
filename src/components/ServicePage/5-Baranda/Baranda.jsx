@@ -20,6 +20,7 @@ import {
     SkeletonCircle,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listBaranda } from "../../../assets/webService/s/06.Baranda/db_baranda";
@@ -28,10 +29,8 @@ const Baranda = () => {
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(0);
 
-    //
     useEffect(() => {
         setLoading(true);
-        document.title = `Baranda`;
         const timer = setTimeout(() => {
             setLoading(false);
         }, 500);
@@ -40,101 +39,110 @@ const Baranda = () => {
     }, [open]);
 
     return (
-        <Box
-            display="flex"
-            flexDirection={{ base: "column", md: "row" }}
-            justifyContent={"center"}
-            alignItems={"center"}
-            p={8}
-        >
+        <>
+            <Helmet>
+                <title>Barandas de Acero y Vidrio Templado | GYA Company</title>
+                <meta 
+                    name="description" 
+                    content="Diseño e instalación de barandas de acero y vidrio templado para escaleras, balcones y terrazas. Estilo moderno y máxima seguridad para tu proyecto." 
+                />
+            </Helmet>
             <Box
-                w={{ base: "full", md: "25vw" }}
-                h={{ base: "auto", md: "85vh" }}
-                m={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    boxShadow: "xl",
-                    borderColor: "gray.300",
-                }}
+                display="flex"
+                flexDirection={{ base: "column", md: "row" }}
+                justifyContent={"center"}
+                alignItems={"center"}
+                p={8}
             >
-                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                    <Text
-                        fontSize="2xl"
-                        fontWeight="bold"
-                        color={useColorModeValue("gray.700", "gray.200")}
-                    >
-                        BARANDAS
-                    </Text>
-                </Box>
-                <Stack spacing={1}>
-                    <SidebarItem
-                        icon={ChevronRightIcon}
-                        label="Sistema "
-                        loading={loading}
-                    />
-                </Stack>
+                <Box
+                    w={{ base: "full", md: "25vw" }}
+                    h={{ base: "auto", md: "85vh" }}
+                    m={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        boxShadow: "xl",
+                        borderColor: "gray.300",
+                    }}
+                >
+                    <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                        <Text
+                            fontSize="2xl"
+                            fontWeight="bold"
+                            color={useColorModeValue("gray.700", "gray.200")}
+                        >
+                            BARANDAS
+                        </Text>
+                    </Box>
+                    <Stack spacing={1}>
+                        <SidebarItem
+                            icon={ChevronRightIcon}
+                            label="Sistema "
+                            loading={loading}
+                        />
+                    </Stack>
 
-                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                    <Text
-                        fontSize="2xl"
-                        fontWeight="bold"
-                        color={useColorModeValue("gray.700", "gray.200")}
-                    >
-                        CARACTERÍSTICA
-                    </Text>
-                </Box>
-                <Stack spacing={1}>
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Material : Acero "
-                        loading={loading}
-                    />
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Color : Incoro | Bronce"
-                        loading={loading}
-                    />
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Arenado : Lamina"
-                        loading={loading}
-                    />
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Tipo : Templado "
-                        loading={loading}
-                    />
+                    <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                        <Text
+                            fontSize="2xl"
+                            fontWeight="bold"
+                            color={useColorModeValue("gray.700", "gray.200")}
+                        >
+                            CARACTERÍSTICA
+                        </Text>
+                    </Box>
+                    <Stack spacing={1}>
+                        <CharItem
+                            icon={CheckIcon}
+                            label="Material : Acero "
+                            loading={loading}
+                        />
+                        <CharItem
+                            icon={CheckIcon}
+                            label="Color : Incoro | Bronce"
+                            loading={loading}
+                        />
+                        <CharItem
+                            icon={CheckIcon}
+                            label="Arenado : Lamina"
+                            loading={loading}
+                        />
+                        <CharItem
+                            icon={CheckIcon}
+                            label="Tipo : Templado "
+                            loading={loading}
+                        />
 
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Espesor : 8 mm "
-                        loading={loading}
-                    />
-                </Stack>
+                        <CharItem
+                            icon={CheckIcon}
+                            label="Espesor : 8 mm "
+                            loading={loading}
+                        />
+                    </Stack>
+                </Box>
+                <Box
+                    h={{ base: "auto", md: "85vh" }}
+                    w={{ base: "full", md: "100vw" }}
+                    mx={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "xl",
+                    }}
+                >
+                    <Gallery images={listBaranda.baranda} loading={loading} />
+                </Box>
             </Box>
-            <Box
-                h={{ base: "auto", md: "85vh" }}
-                w={{ base: "full", md: "100vw" }}
-                mx={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "xl",
-                }}
-            >
-                <Gallery images={listBaranda.baranda} loading={loading} />
-            </Box>
-        </Box>
+        </>
     );
 };
 

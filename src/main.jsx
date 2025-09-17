@@ -3,6 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ChakraProvider, extendTheme, ColorModeScript } from "@chakra-ui/react";
+import { HelmetProvider } from "react-helmet-async";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
@@ -53,8 +54,10 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <ChakraProvider theme={theme}>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <RouterProvider router={router} />
-    </ChakraProvider>
+    <HelmetProvider>
+        <ChakraProvider theme={theme}>
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+            <RouterProvider router={router} />
+        </ChakraProvider>
+    </HelmetProvider>
 );

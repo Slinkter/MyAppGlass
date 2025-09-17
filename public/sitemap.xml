@@ -1,35 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Home -->
   <url>
     <loc>https://www.gyacompany.com/</loc>
+    <lastmod>2025-09-17</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.gyacompany.com/assets/home.jpg</image:loc>
+      <image:caption>Vidriería en La Molina - Ventanas y Mamparas</image:caption>
+    </image:image>
   </url>
+
+  <!-- Servicios -->
   <url>
     <loc>https://www.gyacompany.com/servicios</loc>
-    <priority>0.8</priority>
+    <lastmod>2025-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.1</priority>
   </url>
+
+  <!-- Ventanas -->
   <url>
     <loc>https://www.gyacompany.com/servicios/ventana</loc>
-    <priority>0.5</priority>
+    <lastmod>2025-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.gyacompany.com/assets/ventanas.jpg</image:loc>
+      <image:caption>Instalación de ventanas de vidrio en La Molina</image:caption>
+    </image:image>
   </url>
+
+  <!-- Mamparas -->
   <url>
     <loc>https://www.gyacompany.com/servicios/mampara</loc>
-    <priority>0.2</priority>
+    <lastmod>2025-09-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.gyacompany.com/assets/mamparas.jpg</image:loc>
+      <image:caption>Mamparas de vidrio templado - Diseños modernos</image:caption>
+    </image:image>
   </url>
+
+  <!-- Puertas de ducha -->
   <url>
     <loc>https://www.gyacompany.com/servicios/ducha</loc>
-    <priority>0.2</priority>
+    <lastmod>2025-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.gyacompany.com/assets/duchas.jpg</image:loc>
+      <image:caption>Puertas de ducha en vidrio templado</image:caption>
+    </image:image>
   </url>
+
+  <!-- Parapetos -->
   <url>
     <loc>https://www.gyacompany.com/servicios/parapeto</loc>
-    <priority>0.2</priority>
+    <lastmod>2025-09-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
+
+  <!-- Barandas -->
   <url>
     <loc>https://www.gyacompany.com/servicios/baranda</loc>
-    <priority>0.2</priority>
+    <lastmod>2025-09-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
+
+  <!-- Proyectos -->
   <url>
     <loc>https://www.gyacompany.com/proyectos</loc>
+    <lastmod>2025-09-14</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 </urlset>
