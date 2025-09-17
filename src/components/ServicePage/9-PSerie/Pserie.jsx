@@ -35,9 +35,9 @@ const Pserie = () => {
         <>
             <Helmet>
                 <title>Puertas de Aluminio Serie | GYA Company</title>
-                <meta 
-                    name="description" 
-                    content="Fabricamos puertas de aluminio en serie con plancha arenada y chapa de aluminio. Soluciones económicas y duraderas para todo tipo de proyectos." 
+                <meta
+                    name="description"
+                    content="Fabricamos puertas de aluminio en serie ."
                 />
             </Helmet>
             <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
@@ -59,7 +59,12 @@ const Pserie = () => {
                     }}
                 >
                     <Box mb={2} p={4}>
-                        <Heading as="h2" fontWeight="600" color="red.500" mt={4}>
+                        <Heading
+                            as="h2"
+                            fontWeight="600"
+                            color="red.500"
+                            mt={4}
+                        >
                             Puerta de serie
                         </Heading>
 

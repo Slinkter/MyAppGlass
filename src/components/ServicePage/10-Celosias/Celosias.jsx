@@ -34,10 +34,12 @@ const Celosias = () => {
     return (
         <>
             <Helmet>
-                <title>Celosías de Aluminio para Ventilación | GYA Company</title>
-                <meta 
-                    name="description" 
-                    content="Fabricación e instalación de celosías de aluminio para fachadas y ductos de ventilación. Soluciones funcionales y estéticas para todo tipo de edificios." 
+                <title>
+                    Celosías de Aluminio para Ventilación | GYA Company
+                </title>
+                <meta
+                    name="description"
+                    content="Fabricación e instalación de celosías de aluminio para fachadas y ductos de ventilación. Soluciones funcionales y estéticas para todo tipo de edificios."
                 />
             </Helmet>
             <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
@@ -59,7 +61,12 @@ const Celosias = () => {
                     }}
                 >
                     <Box mb={2} p={4}>
-                        <Heading as="h2" fontWeight="600" color="red.500" mt={4}>
+                        <Heading
+                            as="h2"
+                            fontWeight="600"
+                            color="red.500"
+                            mt={4}
+                        >
                             Celosías de Aluminio
                         </Heading>
 

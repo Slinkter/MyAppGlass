@@ -10,10 +10,10 @@ const HomeView = () => {
     return (
         <>
             <Helmet>
-                <title>Ventanas de Aluminio y Vidrio | GYA Company</title>
-                <meta 
-                    name="description" 
-                    content="Especialistas en la venta e instalación de ventanas de alta calidad, incluyendo modelos Nova y series personalizadas para tu hogar y oficina." 
+                <title> GYA Company - Empresa de vidrios y Aluminio ...</title>
+                <meta
+                    name="description"
+                    content="Especialistas en la venta e instalación de ventanas de alta calidad, incluyendo modelos Nova y series personalizadas para tu hogar y oficina."
                 />
             </Helmet>
             <Box>

@@ -38,10 +38,10 @@ const Mampara = () => {
     return (
         <>
             <Helmet>
-                <title>Mamparas de Vidrio y Aluminio para Baños y Oficinas | GYA Company</title>
-                <meta 
-                    name="description" 
-                    content="Diseño, fabricación e instalación de mamparas de vidrio templado. Perfectas para duchas, baños y divisiones de oficina. Sistemas Nova y Serie 25." 
+                <title>Mamparas</title>
+                <meta
+                    name="description"
+                    content="Perfectas divisiones de oficina. Sistemas Nova y Serie 25."
                 />
             </Helmet>
             <Box
@@ -223,13 +223,17 @@ const Gallery = ({ images, loading }) => {
                 gap={4}
                 p={2}
             >
-               
-                {   images.map((src) => (
-                        <GridItem key={src.id}>
-                           <FadingImage
+                {images.map((src) => (
+                    <GridItem key={src.id}>
+                        <FadingImage
                             w="full"
                             h={{ base: "44vh", md: "24vh" }}
                             src={src.image}
+                            alt={`Imagen de mampara sistema ${
+                                images === listMampara.nova
+                                    ? "Nova"
+                                    : "Serie 25"
+                            } ${src.id}`}
                             rounded="lg"
                             objectFit={"cover"}
                             transition="all .2s ease-in-out"
@@ -247,8 +251,8 @@ const Gallery = ({ images, loading }) => {
                                 },
                             }}
                         />
-                        </GridItem>
-                    ))}
+                    </GridItem>
+                ))}
             </Grid>
             {!isMobile && (
                 <Modal
@@ -262,7 +266,11 @@ const Gallery = ({ images, loading }) => {
                         <ModalCloseButton />
                         <Image
                             src={selectedImage}
-                            alt={selectedImage}
+                            alt={
+                                selectedImage
+                                    ? `Vista ampliada de ${selectedImage}`
+                                    : "Imagen ampliada"
+                            }
                             objectFit={"cover"}
                             align={"center"}
                             borderRadius={"base"}
@@ -274,7 +282,6 @@ const Gallery = ({ images, loading }) => {
         </>
     );
 };
-
 
 const FadingImage = (props) => {
     const [isLoaded, setIsLoaded] = useState(false);

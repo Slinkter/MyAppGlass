@@ -34,10 +34,13 @@ const Techo = () => {
     return (
         <>
             <Helmet>
-                <title>Techos de Policarbonato y Estructuras de Aluminio | GYA Company</title>
-                <meta 
-                    name="description" 
-                    content="Instalamos techos de policarbonato con estructuras de aluminio para terrazas, patios y cocheras. Soluciones duraderas y con protección UV." 
+                <title>
+                    Techos de Policarbonato y Estructuras de Aluminio | GYA
+                    Company
+                </title>
+                <meta
+                    name="description"
+                    content="Instalamos techos de policarbonato con estructuras de aluminio para terrazas, patios y cocheras."
                 />
             </Helmet>
             <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
@@ -59,7 +62,12 @@ const Techo = () => {
                     }}
                 >
                     <Box mb={2} p={4}>
-                        <Heading as="h2" fontWeight="600" color="red.500" mt={4}>
+                        <Heading
+                            as="h2"
+                            fontWeight="600"
+                            color="red.500"
+                            mt={4}
+                        >
                             Techos de policarbonato
                         </Heading>
 
