@@ -15,7 +15,7 @@ import {
   InputGroup,
   InputLeftAddon,
 } from "@chakra-ui/react";
-import { db } from "../../firebase"; // Import the database connection
+import { db } from "../../firebase/firebase.js"; // Import the database connection
 import { collection, addDoc } from "firebase/firestore"; // Import Firestore functions
 
 // Componente principal del formulario

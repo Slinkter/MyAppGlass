@@ -18,18 +18,17 @@ import {
     SkeletonCircle,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { listDucha } from "../../../assets/webService/s/03.Ducha/db_ducha";
-window.document.title =
-    "Vidrieria en La Molina instalación de ventanas, mamparas, puertas de ducha y más. Servicios de mantenimiento y calidad garantizada. tef. 996-537-435";
+
 const Ducha = () => {
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(0);
 
     useEffect(() => {
-        document.title = `Puerta de duchas`;
         setLoading(true);
         const timer = setTimeout(() => {
             setLoading(false);
@@ -39,104 +38,113 @@ const Ducha = () => {
     }, [open]);
 
     return (
-        <Box
-            display="flex"
-            flexDirection={{ base: "column", md: "row" }}
-            justifyContent={"center"}
-            alignItems={"center"}
-            p={8}
-        >
+        <>
+            <Helmet>
+                <title>Puertas de Ducha de Vidrio Templado | GYA Company</title>
+                <meta 
+                    name="description" 
+                    content="Instalación de puertas para ducha de vidrio templado en La Molina. Modelos corredizos y batientes con sistema KIT y acrílico. Calidad y seguridad para tu baño." 
+                />
+            </Helmet>
             <Box
-                w={{ base: "full", md: "30vw" }}
-                h={{ base: "auto", md: "85vh" }}
-                m={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    boxShadow: "xl",
-                    borderColor: "gray.300",
-                }}
+                display="flex"
+                flexDirection={{ base: "column", md: "row" }}
+                justifyContent={"center"}
+                alignItems={"center"}
+                p={8}
             >
-                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                <Box
+                    w={{ base: "full", md: "30vw" }}
+                    h={{ base: "auto", md: "85vh" }}
+                    m={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        boxShadow: "xl",
+                        borderColor: "gray.300",
+                    }}
+                >
                     <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                        <Text
-                            fontSize="2xl"
-                            fontWeight="bold"
-                            color={useColorModeValue("gray.700", "gray.200")}
-                        >
-                            PUERTA DE DUCHA
-                        </Text>
-                    </Box>
+                        <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                            <Text
+                                fontSize="2xl"
+                                fontWeight="bold"
+                                color={useColorModeValue("gray.700", "gray.200")}
+                            >
+                                PUERTA DE DUCHA
+                            </Text>
+                        </Box>
 
-                    <Stack spacing={1}>
-                        <SidebarItem
-                            icon={ChevronRightIcon}
-                            label="Sistema KIT"
-                            loading={loading}
-                        />
-                        <SidebarItem
-                            icon={ChevronRightIcon}
-                            label="Sistema Acrilico"
-                            loading={loading}
-                        />
-                    </Stack>
-                    <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                        <Text
-                            fontSize="2xl"
-                            fontWeight="bold"
-                            color={useColorModeValue("gray.700", "gray.200")}
-                        >
-                            CARACTERÍSTICA
-                        </Text>
-                    </Box>
+                        <Stack spacing={1}>
+                            <SidebarItem
+                                icon={ChevronRightIcon}
+                                label="Sistema KIT"
+                                loading={loading}
+                            />
+                            <SidebarItem
+                                icon={ChevronRightIcon}
+                                label="Sistema Acrilico"
+                                loading={loading}
+                            />
+                        </Stack>
+                        <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                            <Text
+                                fontSize="2xl"
+                                fontWeight="bold"
+                                color={useColorModeValue("gray.700", "gray.200")}
+                            >
+                                CARACTERÍSTICA
+                            </Text>
+                        </Box>
 
-                    <Stack>
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Color : Incoro | Bronce"
-                            loading={loading}
-                        />
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Tipo : Templado"
-                            loading={loading}
-                        />
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Aluminio : Natural | Negro"
-                            loading={loading}
-                        />
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Espesor : 8 mm "
-                            loading={loading}
-                        />
-                    </Stack>
+                        <Stack>
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Color : Incoro | Bronce"
+                                loading={loading}
+                            />
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Tipo : Templado"
+                                loading={loading}
+                            />
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Aluminio : Natural | Negro"
+                                loading={loading}
+                            />
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Espesor : 8 mm "
+                                loading={loading}
+                            />
+                        </Stack>
+                    </Box>
+                </Box>
+
+                <Box
+                    h={{ base: "auto", md: "85vh" }}
+                    w={{ base: "full", md: "100vw" }}
+                    mx={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "xl",
+                    }}
+                >
+                    <Gallery images={listDucha.kit} loading={loading} />
                 </Box>
             </Box>
-
-            <Box
-                h={{ base: "auto", md: "85vh" }}
-                w={{ base: "full", md: "100vw" }}
-                mx={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "xl",
-                }}
-            >
-                <Gallery images={listDucha.kit} loading={loading} />
-            </Box>
-        </Box>
+        </>
     );
 };
 
