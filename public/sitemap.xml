@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
   <!-- Home -->
   <url>
     <loc>https://www.gyacompany.com/</loc>
@@ -9,17 +8,9 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.gyacompany.com/assets/home.jpg</image:loc>
+      <image:loc>https://www.gyacompany.com/assets/LogoCompanytrans.png</image:loc>
       <image:caption>Vidriería en La Molina - Ventanas y Mamparas</image:caption>
     </image:image>
-  </url>
-
-  <!-- Servicios -->
-  <url>
-    <loc>https://www.gyacompany.com/servicios</loc>
-    <lastmod>2025-09-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.1</priority>
   </url>
 
   <!-- Ventanas -->
@@ -29,7 +20,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://www.gyacompany.com/assets/ventanas.jpg</image:loc>
+      <image:loc>https://www.gyacompany.com/assets/webService/init01.jpg</image:loc>
       <image:caption>Instalación de ventanas de vidrio en La Molina</image:caption>
     </image:image>
   </url>
@@ -41,7 +32,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://www.gyacompany.com/assets/mamparas.jpg</image:loc>
+      <image:loc>https://www.gyacompany.com/assets/webService/init02a.jpg</image:loc>
       <image:caption>Mamparas de vidrio templado - Diseños modernos</image:caption>
     </image:image>
   </url>
@@ -53,7 +44,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://www.gyacompany.com/assets/duchas.jpg</image:loc>
+      <image:loc>https://www.gyacompany.com/assets/webService/init03.jpg</image:loc>
       <image:caption>Puertas de ducha en vidrio templado</image:caption>
     </image:image>
   </url>
@@ -81,4 +72,13 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
+
+  <!-- Libro de Reclamaciones -->
+  <url>
+    <loc>https://www.gyacompany.com/libro-reclamaciones</loc>
+    <lastmod>2025-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
 </urlset>

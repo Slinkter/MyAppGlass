@@ -1,21 +1,30 @@
-import { background, extendTheme } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 import "@fontsource/open-sans";
 import "@fontsource/raleway";
 
 const theme = extendTheme({
-    config: {
-        initialColorMode: "system",
-        useSystemColorMode: true,
-    },
-
     fonts: {
         heading: `"Lora", serif;`,
         body: `"Lora", serif;`,
     },
+
+    config: {
+        initialColorMode: "system",
+        useSystemColorMode: false,
+    },
+
     colors: {
         textsecond: "#6c757d",
         textthird: "red",
         colorredglass: "#ff5757",
+    },
+    styles: {
+        global: (props) => ({
+            body: {
+                bg: props.colorMode === "dark" ? "gray.900" : "white",
+                color: props.colorMode === "dark" ? "gray.100" : "gray.800",
+            },
+        }),
     },
 });
 

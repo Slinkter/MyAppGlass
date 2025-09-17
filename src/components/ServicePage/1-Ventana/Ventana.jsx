@@ -41,10 +41,10 @@ const Ventana = () => {
     return (
         <>
             <Helmet>
-                <title>Ventanas de Aluminio y Vidrio (Sistemas Nova, Serie 25, Serie 31) | GYA Company</title>
-                <meta 
-                    name="description" 
-                    content="Fabricamos e instalamos ventanas de aluminio y vidrio en La Molina. Ofrecemos sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales." 
+                <title>Ventanas Sistemas Nova, Serie 25 y Serie 31</title>
+                <meta
+                    name="description"
+                    content="Fabricamos e instalamos ventanas de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales."
                 />
             </Helmet>
             <Box

@@ -40,10 +40,10 @@ const Ducha = () => {
     return (
         <>
             <Helmet>
-                <title>Puertas de Ducha de Vidrio Templado | GYA Company</title>
-                <meta 
-                    name="description" 
-                    content="Instalación de puertas para ducha de vidrio templado en La Molina. Modelos corredizos y batientes con sistema KIT y acrílico. Calidad y seguridad para tu baño." 
+                <title>Puertas de Ducha </title>
+                <meta
+                    name="description"
+                    content="Instalación de puertas para ducha de vidrio templado en La Molina. Modelos corredizos y batientes con sistema KIT y acrílico. Calidad y seguridad para tu baño."
                 />
             </Helmet>
             <Box
@@ -73,7 +73,10 @@ const Ducha = () => {
                             <Text
                                 fontSize="2xl"
                                 fontWeight="bold"
-                                color={useColorModeValue("gray.700", "gray.200")}
+                                color={useColorModeValue(
+                                    "gray.700",
+                                    "gray.200"
+                                )}
                             >
                                 PUERTA DE DUCHA
                             </Text>
@@ -95,7 +98,10 @@ const Ducha = () => {
                             <Text
                                 fontSize="2xl"
                                 fontWeight="bold"
-                                color={useColorModeValue("gray.700", "gray.200")}
+                                color={useColorModeValue(
+                                    "gray.700",
+                                    "gray.200"
+                                )}
                             >
                                 CARACTERÍSTICA
                             </Text>
