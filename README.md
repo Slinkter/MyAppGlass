@@ -12,6 +12,6 @@ In the project directory, you can run:
 
 ### functions
 
- firebase deploy --only functions   
+ firebase deploy --only functions   
 
 SENDGRID_KEY= "Aquí va tu clave desde Firebase Secret Manager"
