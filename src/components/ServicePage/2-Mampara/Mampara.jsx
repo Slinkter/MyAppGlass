@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
 import {
     Box,
     Icon,
@@ -14,13 +18,8 @@ import {
     ModalContent,
     ModalCloseButton,
     Skeleton,
-    useMediaQuery,
     SkeletonCircle,
 } from "@chakra-ui/react";
-import { Helmet } from "react-helmet-async";
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { CheckIcon } from "@heroicons/react/24/solid";
-import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
 
 const Mampara = () => {
     const [open, setOpen] = useState(0);
@@ -77,53 +76,53 @@ const Mampara = () => {
                     </Box>
                     <Stack spacing={1}>
                         <SidebarItem
-                            icon={ChevronRightIcon}
                             label="Sistema Nova"
                             isActive={open === 0} // Activo si open es 0
                             onClick={() => setOpen(0)}
                             loading={loading}
                         />
                         <SidebarItem
-                            icon={ChevronRightIcon}
                             label="Sistema Serie 25"
                             isActive={open === 1}
                             onClick={() => setOpen(1)}
                             loading={loading}
                         />
                     </Stack>
+                    {/* Separador visual */}
+                    <Box
+                        h="1px"
+                        bg={useColorModeValue("gray.200", "gray.700")}
+                        my={4}
+                    />
                     <Box mb={1} p={3} opacity={loading ? 0 : 1}>
                         <Text
                             fontSize="2xl"
                             fontWeight="bold"
+                            textTransform="uppercase"
                             color={useColorModeValue("gray.700", "gray.200")}
                         >
                             CARACTERÍSTICA
                         </Text>
                     </Box>
                     <Stack spacing={1}>
-                        <CharItem
-                            icon={CheckIcon}
+                        <SidebarItem
                             label="Color : Incoro | Bronce"
                             loading={loading}
                         />
-                        <CharItem
-                            icon={CheckIcon}
+                        <SidebarItem
                             label="Tipo : Templado | Crudo"
                             loading={loading}
                         />
-                        <CharItem
-                            icon={CheckIcon}
+                        <SidebarItem
                             label="Aluminio : Natural | Negro"
                             loading={loading}
                         />
 
-                        <CharItem
-                            icon={CheckIcon}
+                        <SidebarItem
                             label="Diseño : Lamina | Logo"
                             loading={loading}
                         />
-                        <CharItem
-                            icon={CheckIcon}
+                        <SidebarItem
                             label="Espesor : 8 mm "
                             loading={loading}
                         />
@@ -157,12 +156,14 @@ const Mampara = () => {
 
 export default Mampara;
 
-const SidebarItem = ({ icon, label, onClick, isActive, loading }) => {
+const SidebarItem = ({ label, onClick, isActive, loading }) => {
+    // Determina qué ícono usar basado en si el item es interactivo (tiene onClick)
+    const iconToShow = onClick ? ChevronRightIcon : CheckIcon;
     return (
         <Stack
             direction="row"
             align="center"
-            justify="space-between"
+            justifyContent="flex-start" // Alinea los items a la izquierda
             onClick={onClick}
             cursor="pointer"
             p={2}
@@ -180,28 +181,8 @@ const SidebarItem = ({ icon, label, onClick, isActive, loading }) => {
                     <Skeleton height="20px" w={"140px"} />
                 </Stack>
             ) : (
-                <Stack direction="row" align="center" spacing={4}>
-                    <Icon w={5} h={5} as={icon} />
-                    <Text fontWeight={600}>{label}</Text>
-                </Stack>
-            )}
-        </Stack>
-    );
-};
-
-const CharItem = ({ icon, label, loading }) => {
-    return (
-        <Stack direction="row" align="center" justify="space-between" p={2}>
-            {loading && (
-                <Stack direction="row" align="center" spacing={4}>
-                    <SkeletonCircle w={5} h={5} />
-                    <Skeleton height="20px" w={"140px"} />
-                </Stack>
-            )}
-
-            {!loading && (
-                <Stack direction="row" align="center" spacing={4}>
-                    <Icon w={5} h={5} as={icon} />
+                <Stack direction="row" align="center" spacing={3}>
+                    <Icon w={5} h={5} as={iconToShow} />
                     <Text fontWeight={600}>{label}</Text>
                 </Stack>
             )}
@@ -212,7 +193,7 @@ const CharItem = ({ icon, label, loading }) => {
 const Gallery = ({ images, loading }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
+    const isMobile = useBreakpointValue({ base: true, md: false });
     const responsiveColumns = useBreakpointValue({ base: 1, md: 5 });
     const onClose = () => setIsOpen(false);
 
@@ -254,31 +235,29 @@ const Gallery = ({ images, loading }) => {
                     </GridItem>
                 ))}
             </Grid>
-            {!isMobile && (
-                <Modal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    isCentered
-                    motionPreset="slideInBottom"
-                >
-                    <ModalOverlay backdropFilter={"blur(10px)"} />
-                    <ModalContent>
-                        <ModalCloseButton />
-                        <Image
-                            src={selectedImage}
-                            alt={
-                                selectedImage
-                                    ? `Vista ampliada de ${selectedImage}`
-                                    : "Imagen ampliada"
-                            }
-                            objectFit={"cover"}
-                            align={"center"}
-                            borderRadius={"base"}
-                            shadow={"lg"}
-                        />
-                    </ModalContent>
-                </Modal>
-            )}
+            <Modal
+                isOpen={isOpen && !isMobile} // El modal solo se abre si no es móvil
+                onClose={onClose}
+                isCentered
+                motionPreset="slideInBottom"
+            >
+                <ModalOverlay backdropFilter={"blur(10px)"} />
+                <ModalContent>
+                    <ModalCloseButton />
+                    <Image
+                        src={selectedImage}
+                        alt={
+                            selectedImage
+                                ? `Vista ampliada de ${selectedImage}`
+                                : "Imagen ampliada"
+                        }
+                        objectFit={"cover"}
+                        align={"center"}
+                        borderRadius={"base"}
+                        shadow={"lg"}
+                    />
+                </ModalContent>
+            </Modal>
         </>
     );
 };

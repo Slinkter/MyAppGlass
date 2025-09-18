@@ -35,7 +35,7 @@ const listService = [
     {
         id: 3,
         image: puertaducha,
-        name: "Puertas de Ducha ",
+        name: "Duchas ",
         link: "https://www.facebook.com/media/set/?set=a.414060420462826&type=3?from=GoogleBT",
         plink: "/servicios/ducha",
     },
@@ -43,14 +43,14 @@ const listService = [
     {
         id: 4,
         image: parapeto,
-        name: "Parapeto de vidrio",
+        name: "Parapeto",
         link: "https://www.facebook.com/media/set/?set=a.414060023796199&type=3?from=GoogleBT",
         plink: "/servicios/parapeto",
     },
     {
         id: 5,
         image: baranda,
-        name: "Barandas de Acero",
+        name: "Barandas",
         link: "https://www.facebook.com/gyacompany?from=GoogleBT",
         plink: "/servicios/baranda",
     },
