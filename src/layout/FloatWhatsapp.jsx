@@ -32,9 +32,8 @@ const FloatWhatsapp = () => {
                         <PopoverArrow />
                         <PopoverCloseButton />
                         <PopoverBody>
-                            <a href="https://wa.me/51996537435?text=Quisiera una cotización para ....">
-                                ¡Haz clic aquí para solicitar tu presupuesto
-                                ahora!
+                            <a href="https://wa.me/51974278303?text=Quisiera una cotización para ....">
+                                clic aquí para continuar !
                             </a>
                         </PopoverBody>
                     </PopoverContent>

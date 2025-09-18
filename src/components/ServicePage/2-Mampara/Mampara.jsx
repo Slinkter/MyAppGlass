@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
 import {
     Box,
     Icon,
@@ -14,146 +18,152 @@ import {
     ModalContent,
     ModalCloseButton,
     Skeleton,
-    useMediaQuery,
     SkeletonCircle,
 } from "@chakra-ui/react";
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { CheckIcon } from "@heroicons/react/24/solid";
-import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
 
 const Mampara = () => {
     const [open, setOpen] = useState(0);
     const [loading, setLoading] = useState(true);
-    /*  */
+
     useEffect(() => {
-        setLoading(true); // Set loading to true whenever the selection changes
-        document.title = `Mamparas`;
+        setLoading(true);
         const timer = setTimeout(() => {
             setLoading(false);
         }, 500);
 
-        return () => clearTimeout(timer); // Clear the timer on component unmount or selection change
-    }, [open]); // Re-run the effect when 'open' state changes
+        return () => clearTimeout(timer);
+    }, [open]);
 
     return (
-        <Box
-            display="flex"
-            flexDirection={{ base: "column", md: "row" }}
-            justifyContent={"center"}
-            alignItems={"center"}
-            p={8}
-        >
+        <>
+            <Helmet>
+                <title>Mamparas</title>
+                <meta
+                    name="description"
+                    content="Perfectas divisiones de oficina. Sistemas Nova y Serie 25."
+                />
+            </Helmet>
             <Box
-                w={{ base: "full", md: "20vw" }}
-                h={{ base: "auto", md: "85vh" }}
-                m={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    boxShadow: "xl",
-                    borderColor: "gray.300",
-                }}
+                display="flex"
+                flexDirection={{ base: "column", md: "row" }}
+                justifyContent={"center"}
+                alignItems={"center"}
+                p={8}
             >
-                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                    <Text
-                        fontSize="2xl"
-                        fontWeight="bold"
-                        color={useColorModeValue("gray.700", "gray.200")}
-                    >
-                        MAMPARAS
-                    </Text>
-                </Box>
-                <Stack spacing={1}>
-                    <SidebarItem
-                        icon={ChevronRightIcon}
-                        label="Sistema Nova"
-                        isActive={open === 0} // Activo si open es 0
-                        onClick={() => setOpen(0)}
-                        loading={loading}
+                <Box
+                    w={{ base: "full", md: "20vw" }}
+                    h={{ base: "auto", md: "85vh" }}
+                    m={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        boxShadow: "xl",
+                        borderColor: "gray.300",
+                    }}
+                >
+                    <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                        <Text
+                            fontSize="2xl"
+                            fontWeight="bold"
+                            color={useColorModeValue("gray.700", "gray.200")}
+                        >
+                            MAMPARAS
+                        </Text>
+                    </Box>
+                    <Stack spacing={1}>
+                        <SidebarItem
+                            label="Sistema Nova"
+                            isActive={open === 0} // Activo si open es 0
+                            onClick={() => setOpen(0)}
+                            loading={loading}
+                        />
+                        <SidebarItem
+                            label="Sistema Serie 25"
+                            isActive={open === 1}
+                            onClick={() => setOpen(1)}
+                            loading={loading}
+                        />
+                    </Stack>
+                    {/* Separador visual */}
+                    <Box
+                        h="1px"
+                        bg={useColorModeValue("gray.200", "gray.700")}
+                        my={4}
                     />
-                    <SidebarItem
-                        icon={ChevronRightIcon}
-                        label="Sistema Serie 25"
-                        isActive={open === 1}
-                        onClick={() => setOpen(1)}
-                        loading={loading}
-                    />
-                </Stack>
-                <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                    <Text
-                        fontSize="2xl"
-                        fontWeight="bold"
-                        color={useColorModeValue("gray.700", "gray.200")}
-                    >
-                        CARACTERÍSTICA
-                    </Text>
-                </Box>
-                <Stack spacing={1}>
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Color : Incoro | Bronce"
-                        loading={loading}
-                    />
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Tipo : Templado | Crudo"
-                        loading={loading}
-                    />
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Aluminio : Natural | Negro"
-                        loading={loading}
-                    />
+                    <Box mb={1} p={3} opacity={loading ? 0 : 1}>
+                        <Text
+                            fontSize="2xl"
+                            fontWeight="bold"
+                            textTransform="uppercase"
+                            color={useColorModeValue("gray.700", "gray.200")}
+                        >
+                            CARACTERÍSTICA
+                        </Text>
+                    </Box>
+                    <Stack spacing={1}>
+                        <SidebarItem
+                            label="Color : Incoro | Bronce"
+                            loading={loading}
+                        />
+                        <SidebarItem
+                            label="Tipo : Templado | Crudo"
+                            loading={loading}
+                        />
+                        <SidebarItem
+                            label="Aluminio : Natural | Negro"
+                            loading={loading}
+                        />
 
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Diseño : Lamina | Logo"
-                        loading={loading}
-                    />
-                    <CharItem
-                        icon={CheckIcon}
-                        label="Espesor : 8 mm "
-                        loading={loading}
-                    />
-                </Stack>
+                        <SidebarItem
+                            label="Diseño : Lamina | Logo"
+                            loading={loading}
+                        />
+                        <SidebarItem
+                            label="Espesor : 8 mm "
+                            loading={loading}
+                        />
+                    </Stack>
+                </Box>
+                <Box
+                    h={{ base: "auto", md: "85vh" }}
+                    w={{ base: "full", md: "100vw" }}
+                    mx={{ base: "20px" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "xl",
+                    }}
+                >
+                    {open === 0 ? (
+                        <Gallery images={listMampara.nova} loading={loading} />
+                    ) : (
+                        <Gallery images={listMampara.serie} loading={loading} />
+                    )}
+                </Box>
             </Box>
-            <Box
-                h={{ base: "auto", md: "85vh" }}
-                w={{ base: "full", md: "100vw" }}
-                mx={{ base: "20px" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "xl",
-                }}
-            >
-                {open === 0 ? (
-                    <Gallery images={listMampara.nova} loading={loading} />
-                ) : (
-                    <Gallery images={listMampara.serie} loading={loading} />
-                )}
-            </Box>
-        </Box>
+        </>
     );
 };
 
 export default Mampara;
 
-const SidebarItem = ({ icon, label, onClick, isActive, loading }) => {
+const SidebarItem = ({ label, onClick, isActive, loading }) => {
+    // Determina qué ícono usar basado en si el item es interactivo (tiene onClick)
+    const iconToShow = onClick ? ChevronRightIcon : CheckIcon;
     return (
         <Stack
             direction="row"
             align="center"
-            justify="space-between"
+            justifyContent="flex-start" // Alinea los items a la izquierda
             onClick={onClick}
             cursor="pointer"
             p={2}
@@ -171,28 +181,8 @@ const SidebarItem = ({ icon, label, onClick, isActive, loading }) => {
                     <Skeleton height="20px" w={"140px"} />
                 </Stack>
             ) : (
-                <Stack direction="row" align="center" spacing={4}>
-                    <Icon w={5} h={5} as={icon} />
-                    <Text fontWeight={600}>{label}</Text>
-                </Stack>
-            )}
-        </Stack>
-    );
-};
-
-const CharItem = ({ icon, label, loading }) => {
-    return (
-        <Stack direction="row" align="center" justify="space-between" p={2}>
-            {loading && (
-                <Stack direction="row" align="center" spacing={4}>
-                    <SkeletonCircle w={5} h={5} />
-                    <Skeleton height="20px" w={"140px"} />
-                </Stack>
-            )}
-
-            {!loading && (
-                <Stack direction="row" align="center" spacing={4}>
-                    <Icon w={5} h={5} as={icon} />
+                <Stack direction="row" align="center" spacing={3}>
+                    <Icon w={5} h={5} as={iconToShow} />
                     <Text fontWeight={600}>{label}</Text>
                 </Stack>
             )}
@@ -203,7 +193,7 @@ const CharItem = ({ icon, label, loading }) => {
 const Gallery = ({ images, loading }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
+    const isMobile = useBreakpointValue({ base: true, md: false });
     const responsiveColumns = useBreakpointValue({ base: 1, md: 5 });
     const onClose = () => setIsOpen(false);
 
@@ -214,13 +204,17 @@ const Gallery = ({ images, loading }) => {
                 gap={4}
                 p={2}
             >
-               
-                {   images.map((src) => (
-                        <GridItem key={src.id}>
-                           <FadingImage
+                {images.map((src) => (
+                    <GridItem key={src.id}>
+                        <FadingImage
                             w="full"
                             h={{ base: "44vh", md: "24vh" }}
                             src={src.image}
+                            alt={`Imagen de mampara sistema ${
+                                images === listMampara.nova
+                                    ? "Nova"
+                                    : "Serie 25"
+                            } ${src.id}`}
                             rounded="lg"
                             objectFit={"cover"}
                             transition="all .2s ease-in-out"
@@ -238,34 +232,35 @@ const Gallery = ({ images, loading }) => {
                                 },
                             }}
                         />
-                        </GridItem>
-                    ))}
+                    </GridItem>
+                ))}
             </Grid>
-            {!isMobile && (
-                <Modal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    isCentered
-                    motionPreset="slideInBottom"
-                >
-                    <ModalOverlay backdropFilter={"blur(10px)"} />
-                    <ModalContent>
-                        <ModalCloseButton />
-                        <Image
-                            src={selectedImage}
-                            alt={selectedImage}
-                            objectFit={"cover"}
-                            align={"center"}
-                            borderRadius={"base"}
-                            shadow={"lg"}
-                        />
-                    </ModalContent>
-                </Modal>
-            )}
+            <Modal
+                isOpen={isOpen && !isMobile} // El modal solo se abre si no es móvil
+                onClose={onClose}
+                isCentered
+                motionPreset="slideInBottom"
+            >
+                <ModalOverlay backdropFilter={"blur(10px)"} />
+                <ModalContent>
+                    <ModalCloseButton />
+                    <Image
+                        src={selectedImage}
+                        alt={
+                            selectedImage
+                                ? `Vista ampliada de ${selectedImage}`
+                                : "Imagen ampliada"
+                        }
+                        objectFit={"cover"}
+                        align={"center"}
+                        borderRadius={"base"}
+                        shadow={"lg"}
+                    />
+                </ModalContent>
+            </Modal>
         </>
     );
 };
-
 
 const FadingImage = (props) => {
     const [isLoaded, setIsLoaded] = useState(false);

@@ -19,92 +19,99 @@ import {
     Flex,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import { listDucha } from "../../../assets/webService/s/03.Ducha/db_ducha";
 import { listBalcon } from "../../../assets/webService/s/07.Balcones/db_balcon";
 
 const Balcon = () => {
-    window.document.title = "Balcon";
-
     const [loading, setLoading] = useState(true);
 
-    setTimeout(() => {
-        document.title = `Balcon`;
-        setLoading(false);
-    }, 1000);
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 500);
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
-        <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
-            <Box
-                ml="2rem"
-                mt="2rem"
-                mr={{ base: "2rem", md: "2rem" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
-                w={{ base: "full-20rem", md: "15rem" }}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "lg",
-                }}
-            >
-                <Box mb={2} p={4}>
-                    <Heading as="h2" fontWeight="600" color="red.500" mt={4}>
-                        Balcon
-                    </Heading>
+        <>
+            <Helmet>
+                <title>Balcones de Vidrio Templado | GYA Company</title>
+                <meta 
+                    name="description" 
+                    content="Fabricación e instalación de balcones con vidrio templado y accesorios de acero. Diseños modernos y seguros para tu hogar o edificio en La Molina." 
+                />
+            </Helmet>
+            <Box display={"flex"} flexDir={{ base: "column", md: "row" }}>
+                <Box
+                    ml="2rem"
+                    mt="2rem"
+                    mr={{ base: "2rem", md: "2rem" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    h={{ base: "auto", md: "80vh" }}
+                    w={{ base: "full-20rem", md: "15rem" }}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "lg",
+                    }}
+                >
+                    <Box mb={2} p={4}>
+                        <Heading as="h2" fontWeight="600" color="red.500" mt={4}>
+                            Balcon
+                        </Heading>
 
-                    <Stack spacing={1}>
-                        <SidebarItem
-                            icon={PaperAirplaneIcon}
-                            title="Vidrio templado de 8mm"
-                            loading={loading}
-                        />
-                        <SidebarItem
-                            icon={PaperAirplaneIcon}
-                            title="Accesorios de acero cromado"
-                            loading={loading}
-                        />
-                        <SidebarItem
-                            icon={PaperAirplaneIcon}
-                            title="Arenado con diseño"
-                            loading={loading}
-                        />
-                        <SidebarItem
-                            icon={PaperAirplaneIcon}
-                            title="tiempc "
-                            loading={loading}
-                        />
-                    </Stack>
+                        <Stack spacing={1}>
+                            <SidebarItem
+                                icon={PaperAirplaneIcon}
+                                title="Vidrio templado de 8mm"
+                                loading={loading}
+                            />
+                            <SidebarItem
+                                icon={PaperAirplaneIcon}
+                                title="Accesorios de acero cromado"
+                                loading={loading}
+                            />
+                            <SidebarItem
+                                icon={PaperAirplaneIcon}
+                                title="Arenado con diseño"
+                                loading={loading}
+                            />
+                            <SidebarItem
+                                icon={PaperAirplaneIcon}
+                                title="tiempc "
+                                loading={loading}
+                            />
+                        </Stack>
+                    </Box>
+                </Box>
+
+                <Box
+                    display={"flex"}
+                    justifyContent={"start"}
+                    alignItems={"start"}
+                    mt="2rem"
+                    mr="2rem"
+                    mb="2rem"
+                    ml={{ base: "2rem", md: "0rem" }}
+                    p={4}
+                    bg={useColorModeValue("white", "gray.800")}
+                    h={{ base: "auto", md: "80vh" }}
+                    rounded="lg"
+                    boxShadow="md"
+                    border={"1px solid "}
+                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    _hover={{
+                        borderColor: "gray.300",
+                        boxShadow: "lg",
+                    }}
+                >
+                    <Gallery images={listBalcon.balcon} loading={loading} />
                 </Box>
             </Box>
-
-            <Box
-                display={"flex"}
-                justifyContent={"start"}
-                alignItems={"start"}
-                mt="2rem"
-                mr="2rem"
-                mb="2rem"
-                ml={{ base: "2rem", md: "0rem" }}
-                p={4}
-                bg={useColorModeValue("white", "gray.800")}
-                h={{ base: "auto", md: "80vh" }}
-                rounded="lg"
-                boxShadow="md"
-                border={"1px solid "}
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-                _hover={{
-                    borderColor: "gray.300",
-                    boxShadow: "lg",
-                }}
-            >
-                <Gallery images={listBalcon.balcon} loading={loading} />
-            </Box>
-        </Box>
+        </>
     );
 };
 
