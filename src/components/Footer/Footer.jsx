@@ -16,13 +16,13 @@ import { Link } from "react-router-dom";
 import { IoBookOutline } from "react-icons/io5";
 
 const Footer = () => {
-    const bgColor = useColorModeValue("#e9ecef", "gray.600");
-    const textColor = useColorModeValue("black", "white");
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
+    const colorWhite = "gray.200";
+    const colorBlack = "blackAlpha.500";
+    const bgColor = useColorModeValue(colorWhite, colorBlack);
 
     return (
         <>
-            <Box color={textColor} my="2rem">
+            <Box my="2rem">
                 <Box bg={bgColor} mx="auto" pt={8} pb={4} boxShadow="md">
                     <Flex
                         justifyContent="space-around"
@@ -33,7 +33,6 @@ const Footer = () => {
                                 as="h1"
                                 fontSize={{ base: "4xl", md: "4xl" }}
                                 fontWeight="bold"
-                                color={textColor}
                                 fontStyle={"600"}
                                 mb={1}
                             >
@@ -42,11 +41,11 @@ const Footer = () => {
 
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaWhatsapp} />
-                                <Text fontSize={"lg"}>996-537-435</Text>
+                                <Text fontSize={"lg"}>974-278-303</Text>
                             </HStack>
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaWhatsapp} />
-                                <Text fontSize={"lg"}>974-278-303</Text>
+                                <Text fontSize={"lg"}>996-537-435</Text>
                             </HStack>
                         </VStack>
                         <VStack spacing={2} marginBottom={4}>
@@ -54,7 +53,6 @@ const Footer = () => {
                                 as="h1"
                                 fontSize={{ base: "4xl", md: "4xl" }}
                                 fontWeight="bold"
-                                color={textColor}
                                 fontStyle={"600"}
                                 mb={1}
                             >
@@ -75,7 +73,6 @@ const Footer = () => {
                                 as="h1"
                                 fontSize={{ base: "4xl", md: "4xl" }}
                                 fontWeight="bold"
-                                color={textColor}
                                 fontStyle={"600"}
                                 mb={1}
                             >

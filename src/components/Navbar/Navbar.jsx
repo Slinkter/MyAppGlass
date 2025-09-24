@@ -41,15 +41,19 @@ export default function WithSubnavigation() {
     const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen, onToggle } = useDisclosure();
 
+    const colorWhite = "gray.200";
+    const colorBlack = "blackAlpha.500";
+    const bgColor = useColorModeValue(colorWhite, colorBlack);
+
     return (
         <Box>
             <Flex
                 minH={"50px"}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
-                borderBottom={2}
+                borderBottom={1}
                 borderStyle={"solid"}
-                borderColor={useColorModeValue("gray.100", "gray.900")}
+                borderColor={bgColor}
                 align={"center"}
             >
                 <Flex
@@ -84,7 +88,7 @@ export default function WithSubnavigation() {
                     align={"center"}
                     justify={"center"}
                     rounded={"full"}
-                    bg={useColorModeValue("gray.100", "gray.400")}
+                    bg={bgColor}
                     onClick={toggleColorMode}
                 >
                     {colorMode === "light" ? <MoonIcon /> : <SunIcon />}

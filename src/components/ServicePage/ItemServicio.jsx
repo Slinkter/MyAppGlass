@@ -17,6 +17,8 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 function ItemService({ image, name, plink }) {
     const [isLoaded, setIsLoaded] = useState(false);
     const navigate = useNavigate();
+    const colorWhite = "gray.200";
+    const colorBlack = "blackAlpha.500";
 
     return (
         <Card
@@ -24,9 +26,9 @@ function ItemService({ image, name, plink }) {
             maxW={{ base: "full", md: "385px" }}
             maxH={{ base: "452px", md: "512px" }}
             mb={4}
-            boxShadow="md"
-            border="1px solid"
-            borderColor={useColorModeValue("gray.100", "gray.600")}
+            shadow={"xl"}
+            rounded="xl"
+            bg={useColorModeValue(colorWhite, colorBlack)}
             overflow="hidden"
             opacity={isLoaded ? 1 : 0}
             transition="all .3s ease-in-out"
