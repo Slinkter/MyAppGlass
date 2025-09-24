@@ -20,12 +20,31 @@ import {
     Skeleton,
     ModalBody,
     Heading,
+    Flex,
 } from "@chakra-ui/react";
+import { useMediaQuery } from "@chakra-ui/react";
 
 const Mampara = () => {
     const [open, setOpen] = useState(0);
     const colorWhite = "gray.200";
     const colorBlack = "blackAlpha.500";
+
+    const caracteristicas = [
+        { label: "Color: Incoloro , Bronce", icon: CheckIcon },
+        { label: "Tipo: Templado , Crudo", icon: CheckIcon },
+        { label: "Aluminio: Natural , Negro", icon: CheckIcon },
+        { label: "Diseño: Lámina , Logo", icon: CheckIcon },
+        { label: "Espesor: 8mm , 10mm", icon: CheckIcon },
+    ];
+
+    const [isDesktop] = useMediaQuery("(min-width: 48em)"); // 48em es el breakpoint 'md' de Chakra
+
+    // Renderiza las características en el sidebar solo en desktop
+    const caracteristicasSidebar = isDesktop
+        ? caracteristicas
+        : caracteristicas.slice(0, 0); // Array vacío en móvil
+
+    const renderList = open === 0 ? listMampara.nova : listMampara.serie;
 
     return (
         <>
@@ -45,12 +64,12 @@ const Mampara = () => {
                 gap={6}
             >
                 <Box // 1.Sidebar
+                    bg={useColorModeValue(colorWhite, colorBlack)}
                     w={{ base: "full", md: "20vw", lg: "16vw" }}
                     h={{ base: "auto", md: "85vh" }}
                     p={4}
                     rounded="xl"
-                    bg={useColorModeValue(colorWhite, colorBlack)}
-                    shadow={"xl"}
+                    shadow="xl"
                     _hover={{
                         boxShadow: "md",
                         borderColor: "gray.900",
@@ -82,51 +101,43 @@ const Mampara = () => {
                             md: "block",
                         }}
                     >
-                        <Heading as="h3" size="lg" mb={4} p={2}>
+                        <Heading
+                            as="h3"
+                            size="lg"
+                            mb={4}
+                            p={2}
+                            display={{ base: "none", md: "block" }}
+                        >
                             Características
                         </Heading>
                         <Stack spacing={1}>
-                            <SidebarItem
-                                label="Color: Incoloro | Bronce"
-                                icon={CheckIcon}
-                            />
-                            <SidebarItem
-                                label="Tipo: Templado | Crudo"
-                                icon={CheckIcon}
-                            />
-                            <SidebarItem
-                                label="Aluminio: Natural | Negro"
-                                icon={CheckIcon}
-                            />
-                            <SidebarItem
-                                label="Diseño: Lámina | Logo"
-                                icon={CheckIcon}
-                            />
-                            <SidebarItem
-                                label="Espesor: 8mm | 10mm"
-                                icon={CheckIcon}
-                            />
+                            {caracteristicasSidebar.map((item, index) => (
+                                <SidebarItem
+                                    key={index}
+                                    label={item.label}
+                                    icon={item.icon}
+                                />
+                            ))}
                         </Stack>
                     </Box>
                 </Box>
                 <Box // 2.Galería
+                    bg={useColorModeValue(colorWhite, colorBlack)}
                     w={{ base: "full", md: "70vw", lg: "64vw" }}
                     h={{ base: "auto", md: "85vh" }}
                     p={4}
-                    bg={useColorModeValue(colorWhite, colorBlack)}
-                    shadow={"md"}
                     rounded="xl"
+                    shadow="xl"
                     _hover={{
+                        boxShadow: "md",
                         borderColor: "gray.300",
-                        boxShadow: "xl",
                     }}
                     overflowY="auto" // Permite scroll si el contenido es muy largo
                 >
                     <Gallery
-                        images={
-                            open === 0 ? listMampara.nova : listMampara.serie
-                        }
                         systemName={open === 0 ? "Nova" : "Serie 25"}
+                        images={renderList}
+                        caracteristicas={caracteristicas}
                     />
                 </Box>
             </Box>
@@ -169,14 +180,13 @@ const SidebarItem = ({ label, onClick, isActive, icon }) => {
     );
 };
 
-const Gallery = ({ images, systemName }) => {
+const Gallery = ({ images, systemName, caracteristicas }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const responsiveColumns = useBreakpointValue({
         base: 2,
         md: 3,
-        lg: 4,
-        xl: 5,
+        lg: 5,
     });
     const onClose = () => setIsOpen(false);
 
@@ -194,7 +204,7 @@ const Gallery = ({ images, systemName }) => {
                             h={{ base: "150px", md: "200px" }}
                             src={src.image}
                             alt={`Imagen de mampara sistema ${systemName} ${src.id}`}
-                            rounded="lg"
+                            rounded="md"
                             objectFit={"cover"}
                             transition="all .2s ease-in-out"
                             cursor={"pointer"}
@@ -205,7 +215,7 @@ const Gallery = ({ images, systemName }) => {
                             }}
                             _hover={{
                                 shadow: "lg",
-                                transform: "scale(1.03)",
+                                transform: "scale(1.02)",
                             }}
                         />
                     </GridItem>
@@ -215,7 +225,7 @@ const Gallery = ({ images, systemName }) => {
                 isOpen={isOpen}
                 onClose={onClose}
                 isCentered
-                motionPreset="slideInBottom"
+                motionPreset="slideInBottom" // Corregido: motionPreset
                 size="4xl" // Modal más grande
             >
                 <ModalOverlay backdropFilter={"blur(10px)"} />
@@ -225,23 +235,45 @@ const Gallery = ({ images, systemName }) => {
                     rounded="lg"
                 >
                     <ModalCloseButton />
-                    <ModalBody
-                        p={6}
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                    >
-                        <Image
-                            src={selectedImage}
-                            alt={
-                                selectedImage
-                                    ? `Vista ampliada de ${selectedImage}`
-                                    : ""
-                            }
-                            maxH="80vh"
-                            maxW="60vw"
-                            objectFit="contain"
-                        />
+                    <ModalBody p={{ base: 4, md: 6 }}>
+                        <Flex direction={{ base: "column", md: "row" }} gap={6}>
+                            {/* Contenedor para la imagen con tamaño definido */}
+                            <Box
+                                flex="1" // Permite que el contenedor crezca
+                                h={{ base: "50vh", md: "70vh" }} // Altura definida y responsiva
+                                w={{ base: "100%", md: "auto" }} // Ancho responsivo
+                                bg={useColorModeValue("gray.100", "gray.700")}
+                                m={4}
+                                rounded="lg"
+                                overflow="hidden" // Asegura que la imagen no se desborde
+                            >
+                                <Image
+                                    src={selectedImage}
+                                    alt={
+                                        selectedImage
+                                            ? `Vista ampliada de ${selectedImage}`
+                                            : ""
+                                    }
+                                    w="100%"
+                                    h="100%"
+                                    objectFit="cover" // Rellena el contenedor sin distorsionar
+                                />
+                            </Box>
+                            <Box display={{ base: "none", md: "none" }}>
+                                <Heading as="h3" size="lg" mb={4}>
+                                    Características
+                                </Heading>
+                                <Stack spacing={1}>
+                                    {caracteristicas.map((item, index) => (
+                                        <SidebarItem
+                                            key={index}
+                                            label={item.label}
+                                            icon={item.icon}
+                                        />
+                                    ))}
+                                </Stack>
+                            </Box>
+                        </Flex>
                     </ModalBody>
                 </ModalContent>
             </Modal>
