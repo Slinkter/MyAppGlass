@@ -9,7 +9,9 @@ import {
 } from "@chakra-ui/react";
 
 const Franja = ({ title, text }) => {
-    const bgColor = useColorModeValue("#e9ecef", "gray.600");
+    const colorWhite = "gray.200";
+    const colorBlack = "blackAlpha.500";
+    const bgColor = useColorModeValue(colorWhite, colorBlack);
     const textColor = useColorModeValue("black", "white");
     const [isMobile] = useMediaQuery("(max-width: 768px)");
 

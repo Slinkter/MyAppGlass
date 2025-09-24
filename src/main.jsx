@@ -1,14 +1,15 @@
 import ReactDOM from "react-dom/client";
-import { ChakraProvider, extendTheme, ColorModeScript } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { HelmetProvider } from "react-helmet-async";
-
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
+// Views
 import HomeView from "./routes/HomeView";
 import ServiceView from "./routes/ServiceView";
 import ErrorView from "./routes/ErrorView";
 import TestView from "./routes/TestView";
-import ProjectView from "./routes/ProjectView"; //
+import ProjectView from "./routes/ProjectView";
+// Service Pages
 import Ventana from "./components/ServicePage/1-Ventana/Ventana";
 import Mampara from "./components/ServicePage/2-Mampara/Mampara";
 import Ducha from "./components/ServicePage/3-Ducha/Ducha";
@@ -20,6 +21,7 @@ import Pvidrio from "./components/ServicePage/8-PVidrio/Pvidrio";
 import Pserie from "./components/ServicePage/9-PSerie/Pserie";
 import Celosias from "./components/ServicePage/10-Celosias/Celosias";
 import ReclamoForm from "./components/LibroReclamacion/ReclamoForm";
+//
 import theme from "./theme";
 import "./index.css";
 
