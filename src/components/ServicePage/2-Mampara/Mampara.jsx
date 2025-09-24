@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { ChevronRightIcon, TagIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
 import {
@@ -65,7 +65,7 @@ const Mampara = () => {
             >
                 <Box // 1.Sidebar
                     bg={useColorModeValue(colorWhite, colorBlack)}
-                    w={{ base: "full", md: "20vw", lg: "16vw" }}
+                    w={{ base: "full", md: "30vw", lg: "16vw", xl: "16vw" }}
                     h={{ base: "auto", md: "85vh" }}
                     p={4}
                     rounded="xl"
@@ -123,7 +123,7 @@ const Mampara = () => {
                 </Box>
                 <Box // 2.Galería
                     bg={useColorModeValue(colorWhite, colorBlack)}
-                    w={{ base: "full", md: "70vw", lg: "64vw" }}
+                    w={{ base: "full", md: "30vw", lg: "64vw", xl: "64vw" }}
                     h={{ base: "auto", md: "85vh" }}
                     p={4}
                     rounded="xl"
@@ -185,8 +185,9 @@ const Gallery = ({ images, systemName, caracteristicas }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const responsiveColumns = useBreakpointValue({
         base: 2,
-        md: 3,
+        md: 2,
         lg: 5,
+        xl: 5,
     });
     const onClose = () => setIsOpen(false);
 
