@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
     Box,
     Heading,
@@ -11,10 +13,10 @@ import {
     useColorModeValue,
     Skeleton,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
 
-function ItemService({ image, name, plink }) {
+function ItemService(props) {
+    const { image, name, plink } = props;
+
     const [isLoaded, setIsLoaded] = useState(false);
     const navigate = useNavigate();
     const colorWhite = "gray.200";
@@ -46,7 +48,7 @@ function ItemService({ image, name, plink }) {
                     isLoaded={isLoaded}
                     borderRadius="lg"
                     mb={4}
-                    fadeDuration={0.1}
+                    fadeDuration={0.3}
                 >
                     <Image
                         w="full"
