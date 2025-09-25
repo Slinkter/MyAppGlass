@@ -13,7 +13,6 @@ import { Helmet } from "react-helmet-async";
 const Service = () => {
     return (
         <>
-            {" "}
             <Helmet>
                 <title>SERVICIOS</title>
                 <meta
