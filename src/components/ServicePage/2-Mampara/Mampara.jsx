@@ -52,7 +52,7 @@ const Mampara = () => {
                 <title>Mamparas</title>
                 <meta
                     name="description"
-                    content="Perfectas divisiones de oficina. Sistemas Nova y Serie 25."
+                    content="Separador de area o espacio , perfectas divisiones de oficina. Sistemas Nova y Serie 25."
                 />
             </Helmet>
             <Box
