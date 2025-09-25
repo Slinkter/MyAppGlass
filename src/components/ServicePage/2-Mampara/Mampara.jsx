@@ -81,16 +81,16 @@ const Mampara = () => {
                         </Heading>
                         <Stack spacing={1}>
                             <SidebarItem
+                                icon={ChevronRightIcon}
                                 label="Sistema Nova"
                                 isActive={open === 0}
                                 onClick={() => setOpen(0)}
-                                icon={ChevronRightIcon}
                             />
                             <SidebarItem
+                                icon={ChevronRightIcon}
                                 label="Sistema Serie 25"
                                 isActive={open === 1}
                                 onClick={() => setOpen(1)}
-                                icon={ChevronRightIcon}
                             />
                         </Stack>
                     </Box>
@@ -101,13 +101,7 @@ const Mampara = () => {
                             md: "block",
                         }}
                     >
-                        <Heading
-                            as="h3"
-                            size="lg"
-                            mb={4}
-                            p={2}
-                            display={{ base: "none", md: "block" }}
-                        >
+                        <Heading as="h3" size="lg" mb={4} p={2}>
                             Características
                         </Heading>
                         <Stack spacing={1}>
@@ -137,7 +131,6 @@ const Mampara = () => {
                     <Gallery
                         systemName={open === 0 ? "Nova" : "Serie 25"}
                         images={renderList}
-                        caracteristicas={caracteristicas}
                     />
                 </Box>
             </Box>
@@ -147,32 +140,33 @@ const Mampara = () => {
 
 export default Mampara;
 
-const SidebarItem = ({ label, onClick, isActive, icon }) => {
+const SidebarItem = ({ icon, label, onClick, isActive }) => {
     const activeBg = useColorModeValue("red.100", "red.900");
     const activeColor = useColorModeValue("red.600", "red.200");
+
+    const h_activeBg = useColorModeValue("gray.100", "gray.700");
+    const h_activeColor = useColorModeValue("red.500", "red.300");
 
     return (
         <Stack
             direction="row"
-            align="center"
             justifyContent="flex-start"
+            align="center"
+            p={3}
+            rounded="xl"
             onClick={onClick}
             cursor={onClick ? "pointer" : "default"}
-            p={3}
-            rounded="md"
             bg={isActive ? activeBg : "transparent"}
             color={isActive ? activeColor : "inherit"}
+            transition="background-color 0.3s, color 0.3s"
             _hover={{
-                bg: onClick
-                    ? useColorModeValue("gray.100", "gray.700")
-                    : "transparent",
+                bg: onClick ? h_activeBg : "transparent",
                 color: isActive
                     ? activeColor
                     : onClick
-                    ? useColorModeValue("red.500", "red.300")
+                    ? h_activeColor
                     : "inherit",
             }}
-            transition="background-color 0.2s, color 0.2s"
         >
             <Icon w={5} h={5} as={icon} />
             <Text fontWeight={isActive ? 700 : 500}>{label}</Text>
@@ -180,7 +174,7 @@ const SidebarItem = ({ label, onClick, isActive, icon }) => {
     );
 };
 
-const Gallery = ({ images, systemName, caracteristicas }) => {
+const Gallery = ({ images, systemName }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const responsiveColumns = useBreakpointValue({
@@ -260,12 +254,13 @@ const Gallery = ({ images, systemName, caracteristicas }) => {
                                     objectFit="cover" // Rellena el contenedor sin distorsionar
                                 />
                             </Box>
+                            {/* TODO : pendiente  */}
                             <Box display={{ base: "none", md: "none" }}>
                                 <Heading as="h3" size="lg" mb={4}>
-                                    Características
+                                    Características - pendiente
                                 </Heading>
                                 <Stack spacing={1}>
-                                    {caracteristicas.map((item, index) => (
+                                    {[].map((item, index) => (
                                         <SidebarItem
                                             key={index}
                                             label={item.label}
