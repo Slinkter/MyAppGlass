@@ -56,7 +56,7 @@ const RenderSidebar = ({
     return (
         <Box
             bg={bgTheme}
-            w={{ base: "full", md: "30vw", lg: "16vw" }}
+            minW={{ base: "full", md: "16vw", lg: "16vw" }}
             h={{ base: "auto", md: "85vh" }}
             p={4}
             rounded="xl"
