@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
     Container,
     Heading,
@@ -5,8 +6,8 @@ import {
     useColorModeValue,
     Flex,
 } from "@chakra-ui/react";
-import { Helmet } from "react-helmet-async";
 import ItemService from "./ItemServicio";
+//
 import listService from "./db_service";
 
 const Service = () => {

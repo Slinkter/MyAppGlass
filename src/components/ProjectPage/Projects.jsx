@@ -20,23 +20,29 @@ const Projects = () => {
                 <Heading
                     as="h2"
                     color="red.500"
-                    mb={4}
-                    fontSize={{ base: "2xl", md: "4xl" }}
+                    mb={{ base: "2", md: "2" }}
+                    fontSize={{ base: "4xl", md: "4xl" }}
                     mt={4}
-                    textShadow="1px 1px #000"
                     textTransform={"uppercase"}
+                    fontWeight={600}
+                    letterSpacing={"wide"}
+                    textAlign="center"
+                    borderBottom={"4px"}
+                    borderColor={"red.500"}
+                    width={"fit-content"}
+                    mx={"auto"}
                 >
                     PROYECTOS
                 </Heading>
+
                 <Text
-                    mb={8}
-                    fontSize="lg"
-                    color={useColorModeValue("gray.500", "white")}
+                    mb={{ base: "2", md: "4" }}
+                    fontSize={{ base: "2xl", md: "2xl" }}
+                    color={useColorModeValue("gray.600", "white")}
                     textAlign="center"
                 >
                     Tenemos más de 10 proyectos de construcción entregados
                 </Text>
-                <></>
 
                 <Flex
                     flexDir={isMobile ? "column" : "row"}
