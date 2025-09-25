@@ -16,6 +16,7 @@ import {
     Skeleton,
     useMediaQuery,
     SkeletonCircle,
+    Heading,
 } from "@chakra-ui/react";
 import { Helmet } from "react-helmet-async";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
@@ -23,20 +24,12 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import { listVentana } from "../../../assets/webService/s/01.Ventanas/db_ventana";
 
 const Ventana = () => {
-    const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(0);
     const imagesNova = listVentana.nova;
     const imagesSerie25 = listVentana.serie25;
     const imagesSerie31 = listVentana.serie31;
-
-    useEffect(() => {
-        setLoading(true);
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [open]);
+    const colorWhite = "gray.200";
+    const colorBlack = "blackAlpha.500";
 
     return (
         <>
@@ -50,114 +43,89 @@ const Ventana = () => {
             <Box
                 display="flex"
                 flexDirection={{ base: "column", md: "row" }}
-                justifyContent={"center"}
-                alignItems={"center"}
-                p={8}
+                justifyContent={{ base: "", md: "center" }}
+                alignItems={{ base: "stretch", md: "center" }}
+                p={{ base: 4, md: 8 }}
+                gap={6}
             >
-                <Box
-                    w={{ base: "full", md: "25vw" }}
+                <Box // 1.Sidebar
+                    bg={useColorModeValue(colorWhite, colorBlack)}
+                    w={{ base: "full", md: "30vw", lg: "16vw", xl: "16vw" }}
                     h={{ base: "auto", md: "85vh" }}
-                    m={{ base: "20px" }}
                     p={4}
-                    bg={useColorModeValue("white", "gray.800")}
-                    rounded="lg"
-                    boxShadow="md"
-                    border={"1px solid "}
-                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    rounded="xl"
+                    shadow="xl"
                     _hover={{
-                        boxShadow: "xl",
-                        borderColor: "gray.300",
+                        boxShadow: "md",
+                        borderColor: "gray.900",
                     }}
                 >
-                    <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                        <Text
-                            fontSize="2xl"
-                            fontWeight="bold"
-                            color={useColorModeValue("gray.700", "gray.200")}
-                        >
-                            VENTANAS
-                        </Text>
+                    <Box mb={6}>
+                        <Heading as="h3" size="lg" mb={4} p={2}>
+                            Ventanas
+                        </Heading>
+                        <Stack spacing={1}>
+                            <SidebarItem
+                                icon={ChevronRightIcon}
+                                label="Sistema Nova"
+                                isActive={open === 0} // Activo si open es 0
+                                onClick={() => setOpen(0)}
+                            />
+                            <SidebarItem
+                                icon={ChevronRightIcon}
+                                label="Sistema Serie 25"
+                                isActive={open === 1}
+                                onClick={() => setOpen(1)}
+                            />
+                            <SidebarItem
+                                icon={ChevronRightIcon}
+                                label="Sistema Serie 31"
+                                isActive={open === 2}
+                                onClick={() => setOpen(2)}
+                            />
+                        </Stack>
                     </Box>
-                    <Stack spacing={1}>
-                        <SidebarItem
-                            icon={ChevronRightIcon}
-                            label="Sistema Nova"
-                            isActive={open === 0} // Activo si open es 0
-                            onClick={() => setOpen(0)}
-                            loading={loading}
-                        />
-                        <SidebarItem
-                            icon={ChevronRightIcon}
-                            label="Sistema Serie 25"
-                            isActive={open === 1}
-                            onClick={() => setOpen(1)}
-                            loading={loading}
-                        />
-                        <SidebarItem
-                            icon={ChevronRightIcon}
-                            label="Sistema Serie 31"
-                            isActive={open === 2}
-                            onClick={() => setOpen(2)}
-                            loading={loading}
-                        />
-                    </Stack>
 
-                    <Box mb={1} p={3} opacity={loading ? 0 : 1}>
-                        <Text
-                            fontSize="2xl"
-                            fontWeight="bold"
-                            color={useColorModeValue("gray.700", "gray.200")}
-                        >
-                            CARACTERÍSTICA
-                        </Text>
+                    <Box display={{ base: "none", md: "block" }}>
+                        <Heading as="h3" size="lg" mb={4} p={2}>
+                            Características
+                        </Heading>
+                        <Stack spacing={1}>
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Color : Incoro | Bronce"
+                            />
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Tipo : Templado | Crudo"
+                            />
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Aluminio : Natural | Negro"
+                            />
+                            <CharItem
+                                icon={CheckIcon}
+                                label="Espesor : 6 mm "
+                            />
+                        </Stack>
                     </Box>
-                    <Stack spacing={1}>
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Color : Incoro | Bronce"
-                            loading={loading}
-                        />
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Tipo : Templado | Crudo"
-                            loading={loading}
-                        />
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Aluminio : Natural | Negro"
-                            loading={loading}
-                        />
-                        <CharItem
-                            icon={CheckIcon}
-                            label="Espesor : 6 mm "
-                            loading={loading}
-                        />
-                    </Stack>
                 </Box>
                 <Box
+                    bg={useColorModeValue(colorWhite, colorBlack)}
+                    w={{ base: "full", md: "30vw", lg: "64vw", xl: "64vw" }}
                     h={{ base: "auto", md: "85vh" }}
-                    w={{ base: "full", md: "100vw" }}
-                    mx={{ base: "20px" }}
                     p={4}
-                    bg={useColorModeValue("white", "gray.800")}
-                    rounded="lg"
-                    boxShadow="md"
-                    border={"1px solid "}
-                    borderColor={useColorModeValue("gray.200", "gray.600")}
+                    rounded="xl"
+                    shadow="xl"
                     _hover={{
+                        boxShadow: "md",
                         borderColor: "gray.300",
-                        boxShadow: "xl",
                     }}
+                    overflowY="auto"
                 >
-                    {open === 0 && (
-                        <Gallery images={imagesNova} loading={loading} />
-                    )}
-                    {open === 1 && (
-                        <Gallery images={imagesSerie25} loading={loading} />
-                    )}
-                    {open === 2 && (
-                        <Gallery images={imagesSerie31} loading={loading} />
-                    )}
+                    {open === 0 && <Gallery images={imagesNova} />}
+                    {open === 1 && <Gallery images={imagesSerie25} />}
+                    {open === 2 && <Gallery images={imagesSerie31} />}
                 </Box>
             </Box>
         </>
@@ -166,34 +134,35 @@ const Ventana = () => {
 
 export default Ventana;
 
-const SidebarItem = ({ icon, label, onClick, isActive, loading }) => {
+const SidebarItem = ({ icon, label, onClick, isActive }) => {
+    const activeBg = useColorModeValue("red.100", "red.900");
+    const activeColor = useColorModeValue("red.600", "red.200");
+
+    const h_activeBg = useColorModeValue("gray.100", "gray.700");
+    const h_activeColor = useColorModeValue("red.500", "red.300");
     return (
         <Stack
             direction="row"
+            justifyContent={"flex-start"}
             align="center"
-            justify="space-between"
+            p={3}
+            rounded="xl"
             onClick={onClick}
-            cursor="pointer"
-            p={2}
-            rounded="md"
-            bg={isActive ? "red.100" : "transparent"} // Cambia el fondo si está activo
-            color={isActive ? "red.500" : "inherit"} // Cambia el color si está activo
+            cursor={onClick ? "pointer" : "default"}
+            bg={isActive ? activeBg : "default"} // Cambia el fondo si está activo
+            color={isActive ? activeColor : "default"} // Cambia el color si está activo
+            transition={"background-color 0.3s, color 0.3s"}
             _hover={{
-                bg: useColorModeValue("gray.50", "gray.900"),
-                color: "red.500",
+                bg: onClick ? h_activeBg : "",
+                color: isActive
+                    ? activeColor
+                    : onClick
+                    ? h_activeColor
+                    : "inherit",
             }}
         >
-            {loading ? (
-                <Stack direction="row" align="center" spacing={4}>
-                    <SkeletonCircle w={5} h={5} />
-                    <Skeleton height="20px" w={"140px"} />
-                </Stack>
-            ) : (
-                <Stack direction="row" align="center" spacing={4}>
-                    <Icon w={5} h={5} as={icon} />
-                    <Text>{label}</Text>
-                </Stack>
-            )}
+            <Icon w={5} h={5} as={icon} />
+            <Text fontWeight={isActive ? 700 : 500}>{label}</Text>
         </Stack>
     );
 };
@@ -217,11 +186,16 @@ const CharItem = ({ icon, label, loading }) => {
     );
 };
 
-const Gallery = ({ images, loading }) => {
+const Gallery = ({ images }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
-    const responsiveColumns = useBreakpointValue({ base: 1, md: 5 });
+
+    const responsiveColumns = useBreakpointValue({
+        base: 2,
+        md: 2,
+        lg: 5,
+        xl: 5,
+    });
     const onClose = () => setIsOpen(false);
 
     return (
@@ -231,47 +205,32 @@ const Gallery = ({ images, loading }) => {
                 gap={4}
                 p={2}
             >
-                {loading &&
-                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12].map((_, idx) => (
-                        <GridItem key={idx}>
-                            <Skeleton
-                                w="full"
-                                h={{ base: "", md: "24vh" }}
-                                rounded="lg"
-                            />
-                        </GridItem>
-                    ))}
-
-                {!loading &&
-                    images.map((src, index) => (
-                        <GridItem key={index}>
-                            <Image
-                                w="full"
-                                h={{ base: "44vh", md: "24vh" }}
-                                src={src.image}
-                                rounded="lg"
-                                objectFit={"cover"}
-                                transition="all .2s ease-in-out"
-                                opacity={loading ? 0 : 1}
-                                cursor={"pointer"}
-                                shadow={"base"}
-                                onClick={() => {
-                                    setSelectedImage(src.image);
-                                    setIsOpen(true);
-                                }}
-                                _hover={{
-                                    shadow: "lg",
-                                    transform: {
-                                        base: "scale(1.00)",
-                                        md: "scale(1.02)",
-                                    },
-                                }}
-                            />
-                        </GridItem>
-                    ))}
+                {images.map((src, index) => (
+                    <GridItem key={index}>
+                        <FadingImage
+                            w="100%"
+                            h={{ base: "150px", md: "200px" }}
+                            src={src.image}
+                            alt={src.id}
+                            rounded="md"
+                            objectFit="cover"
+                            transition="all 0.2s ease-in-out"
+                            cursor="pointer"
+                            shadow="base"
+                            onClick={() => {
+                                setIsOpen(true);
+                                setSelectedImage(src.image);
+                            }}
+                            _hover={{
+                                shadow: "lg",
+                                transform: "scale(1.02)",
+                            }}
+                        />
+                    </GridItem>
+                ))}
             </Grid>
 
-            {!isMobile && (
+            {
                 <Modal
                     isOpen={isOpen}
                     onClose={onClose}
@@ -292,7 +251,44 @@ const Gallery = ({ images, loading }) => {
                         />
                     </ModalContent>
                 </Modal>
-            )}
+            }
         </>
     );
 };
+
+const FadingImage = (props) => {
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    return (
+        <Skeleton isLoaded={isLoaded} w="full" h="full" fadeDuration={0.5}>
+            <Image onLoad={() => setIsLoaded(true)} {...props} />
+        </Skeleton>
+    );
+};
+
+/* 
+<Image
+                            w="full"
+                            h={{ base: "44vh", md: "24vh" }}
+                            src={src.image}
+                            rounded="lg"
+                            objectFit={"cover"}
+                            transition="all .2s ease-in-out"
+                            opacity={loading ? 0 : 1}
+                            cursor={"pointer"}
+                            shadow={"base"}
+                            onClick={() => {
+                                setSelectedImage(src.image);
+                                setIsOpen(true);
+                            }}
+                            _hover={{
+                                shadow: "lg",
+                                transform: {
+                                    base: "scale(1.00)",
+                                    md: "scale(1.02)",
+                                },
+                            }}
+                        />
+
+
+*/
