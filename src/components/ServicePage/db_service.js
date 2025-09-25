@@ -8,14 +8,6 @@ import balcon from "../../assets/webService/init07a.jpg";
 import puertavidrio from "../../assets/webService/init11.jpg";
 import puertaserie from "../../assets/webService/init12.jpg";
 import celocias from "../../assets/webService/init13.jpg";
-import { listVentana } from "../../assets/webService/s/01.Ventanas/db_ventana";
-
-// import muro from "../../assets/webService/init08.jpg";
-// import lamseg from "../../assets/webService/init09.jpg";
-// import areanado from "../../assets/webService/init10.jpg";
-// import frenos from "../../assets/webService/init14.jpg";
-// import fachada from "../../assets/webService/init15.jpg";
-// import mosquetero from "../../assets/webService/init16.jpg";
 
 const listService = [
     {
@@ -93,5 +85,7 @@ const listService = [
         plink: "/servicios/celosias",
     },
 ];
+
+console.log(listService);
 
 export default listService;

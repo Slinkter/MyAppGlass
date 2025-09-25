@@ -104,7 +104,7 @@ const Footer = () => {
             <VStack spacing={4} m={"20px"}>
                 <Text> Copyright ©2025</Text>
                 <Link
-                    to="/librodereclamacion"
+                    to="/libro-de-reclamacion"
                     _hover={{ textDecoration: "none", color: "red.500" }}
                 >
                     <HStack align="center" spacing={1}>

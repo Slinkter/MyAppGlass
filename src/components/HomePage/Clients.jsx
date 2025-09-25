@@ -31,7 +31,8 @@ const Clients = () => {
         <Box minHeight="100vh">
             <Franja
                 title={"CLIENTES"}
-                text={"Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
+                text={
+                    "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
                 }
             />
             <Container maxW={"8xl"} mt={6} mb={6}>

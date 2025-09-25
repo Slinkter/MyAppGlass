@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     Box,
     Icon,
@@ -14,7 +14,6 @@ import {
     ModalContent,
     ModalCloseButton,
     Skeleton,
-    useMediaQuery,
     SkeletonCircle,
     Heading,
 } from "@chakra-ui/react";
@@ -265,30 +264,3 @@ const FadingImage = (props) => {
         </Skeleton>
     );
 };
-
-/* 
-<Image
-                            w="full"
-                            h={{ base: "44vh", md: "24vh" }}
-                            src={src.image}
-                            rounded="lg"
-                            objectFit={"cover"}
-                            transition="all .2s ease-in-out"
-                            opacity={loading ? 0 : 1}
-                            cursor={"pointer"}
-                            shadow={"base"}
-                            onClick={() => {
-                                setSelectedImage(src.image);
-                                setIsOpen(true);
-                            }}
-                            _hover={{
-                                shadow: "lg",
-                                transform: {
-                                    base: "scale(1.00)",
-                                    md: "scale(1.02)",
-                                },
-                            }}
-                        />
-
-
-*/
