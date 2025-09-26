@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Box,
     Container,
@@ -10,12 +9,18 @@ import {
 } from "@chakra-ui/react";
 import listprojects from "./db_project";
 import ItemProject from "./ItemProject";
+import { Helmet } from "react-helmet-async";
 
 const Projects = () => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
-
     return (
-        <Box>
+        <>
+            <Helmet>
+                <title>Proyectos</title>
+                <meta
+                    name="description"
+                    content=" Tenemos más de 10 proyectos de construcción entregados"
+                />
+            </Helmet>
             <Container maxW={"8xl"} my={6} textAlign="center">
                 <Heading
                     as="h2"
@@ -41,14 +46,15 @@ const Projects = () => {
                     color={useColorModeValue("gray.600", "white")}
                     textAlign="center"
                 >
-                    Tenemos más de 10 proyectos de construcción entregados
+                    Obras Entregadas
                 </Text>
 
                 <Flex
-                    flexDir={isMobile ? "column" : "row"}
+                    direction={{ base: "column", md: "row" }}
                     flexWrap={"wrap"}
                     justifyContent={"center"}
                     alignItems={"center"}
+                    mx={"auto"}
                     gap={6}
                 >
                     {listprojects
@@ -58,7 +64,7 @@ const Projects = () => {
                         .reverse()}
                 </Flex>
             </Container>
-        </Box>
+        </>
     );
 };
 

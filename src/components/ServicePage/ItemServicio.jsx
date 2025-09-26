@@ -21,16 +21,17 @@ function ItemService(props) {
     const navigate = useNavigate();
     const colorWhite = "gray.200";
     const colorBlack = "blackAlpha.500";
+    const bg = useColorModeValue(colorWhite, colorBlack);
 
     return (
         <Card
             w="375px"
-            maxW={{ base: "full", md: "385px" }}
+            maxW={{ base: "full", md: "375px" }}
             maxH={{ base: "452px", md: "512px" }}
             mb={4}
-            shadow={"xl"}
+            boxShadow={"md"}
             rounded="xl"
-            bg={useColorModeValue(colorWhite, colorBlack)}
+            bg={bg}
             overflow="hidden"
             opacity={isLoaded ? 1 : 0}
             transition="all .3s ease-in-out"
@@ -39,7 +40,7 @@ function ItemService(props) {
                 borderColor: "gray.100",
                 transform: {
                     base: "",
-                    md: "scale(1.01)",
+                    md: "scale(1.02)",
                 },
             }}
         >
@@ -47,7 +48,6 @@ function ItemService(props) {
                 <Skeleton
                     isLoaded={isLoaded}
                     borderRadius="lg"
-                    mb={4}
                     fadeDuration={0.3}
                 >
                     <Image
@@ -55,33 +55,37 @@ function ItemService(props) {
                         h={{ base: "320px", md: "385px" }}
                         src={image}
                         alt={`Servicio de ${name}`}
-                        borderRadius="md"
+                        borderRadius="lg"
                         objectFit="cover"
+                        boxShadow={"base"}
                         onLoad={() => setIsLoaded(true)}
                     />
-                </Skeleton>
-                <Stack mt="2" spacing="3">
-                    <Flex justifyContent="space-between" alignItems="center">
-                        <Box>
-                            <Heading
-                                as="h3"
-                                size="md"
-                                fontWeight="600"
-                                textTransform="uppercase"
-                            >
-                                {name}
-                            </Heading>
-                        </Box>
-                        <Button
-                            colorScheme="red"
-                            rightIcon={<ArrowForwardIcon />}
-                            onClick={() => navigate(plink)}
-                            size="md"
+                    <Stack mt="2" spacing="2">
+                        <Flex
+                            justifyContent="space-between"
+                            alignItems="center"
                         >
-                            Catálogo
-                        </Button>
-                    </Flex>
-                </Stack>
+                            <Box>
+                                <Heading
+                                    as="h3"
+                                    size="md"
+                                    fontWeight="600"
+                                    textTransform="uppercase"
+                                >
+                                    {name}
+                                </Heading>
+                            </Box>
+                            <Button
+                                colorScheme="red"
+                                rightIcon={<ArrowForwardIcon />}
+                                onClick={() => navigate(plink)}
+                                size="md"
+                            >
+                                Catálogo
+                            </Button>
+                        </Flex>
+                    </Stack>
+                </Skeleton>
             </CardBody>
         </Card>
     );
