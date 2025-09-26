@@ -11,32 +11,32 @@ const listPuertas = {
         {
             id: 1,
             image: image01,
-            name: "techo",
+            name: "image01",
         },
         {
             id: 2,
             image: image02,
-            name: "techo",
+            name: "image02",
         },
         {
             id: 3,
             image: image03,
-            name: "techo",
+            name: "image03",
         },
         {
             id: 4,
             image: image04,
-            name: "techo",
+            name: "image04",
         },
         {
             id: 5,
             image: image05,
-            name: "techo",
+            name: "image05",
         },
         {
             id: 6,
             image: image06,
-            name: "techo",
+            name: "image06",
         },
     ],
 };

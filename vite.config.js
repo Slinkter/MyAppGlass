@@ -1,30 +1,18 @@
-// vite.config.js
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig({
-    plugins: [
-        react(),
-        ViteImageOptimizer({
-            /* Opciones de configuración para la optimización */
+    plugins: [react()],
 
-            // Configuración para PNG
-            png: {
-                quality: 85, // Calidad del 0 al 100
-            },
-            // Configuración para JPEG
-            jpeg: {
-                quality: 85, // Calidad del 0 al 100
-            },
-            // Configuración para JPG
-            jpg: {
-                quality: 85, // Calidad del 0 al 100
-            },
-            // Crear versiones WebP de tus imágenes
-            webp: {
-                quality: 85, // Calidad del 0 al 100
-            },
-        }),
-    ],
+    // ⚙️ Opcional: configuración del servidor local
+    server: {
+        port: 5173,
+        open: true,
+    },
+
+    // 📦 Opcional: limpia cachés previas del build
+    build: {
+        outDir: "dist",
+        emptyOutDir: true,
+    },
 });

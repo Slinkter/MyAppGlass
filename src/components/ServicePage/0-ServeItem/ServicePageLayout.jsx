@@ -25,7 +25,6 @@ const ServicePageLayout = ({ pageData }) => {
                 display="flex"
                 flexDirection={{ base: "column", md: "row" }}
                 justifyContent={{ base: "", md: "center" }}
-                alignItems={{ base: "stretch", md: "center" }}
                 p={{ base: 4, md: 8 }}
                 gap={6}
             >

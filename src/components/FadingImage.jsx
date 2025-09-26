@@ -5,10 +5,12 @@ const FadingImage = (props) => {
     const [isLoaded, setIsLoaded] = useState(false);
     return (
         <Skeleton
+            borderRadius="lg"
+            mb={4}
             isLoaded={isLoaded} // El esqueleto se desvanecerá solo cuando isLoaded sea true
-            w="full"
-            h="full" // Ocupa la altura del contenedor (GridItem)
-            fadeDuration={0.5} // Controla la velocidad de la transición
+            w="100%"
+            h="100%" // Ocupa la altura del contenedor (GridItem)
+            fadeDuration={0.3} // Controla la velocidad de la transición
         >
             <Image
                 onLoad={() => setIsLoaded(true)} // Cuando la imagen carga, actualiza el estado
