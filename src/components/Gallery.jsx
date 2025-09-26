@@ -9,9 +9,6 @@ import {
     ModalContent,
     ModalCloseButton,
     ModalBody,
-    Card,
-    CardBody,
-    Skeleton,
     Flex,
 } from "@chakra-ui/react";
 
@@ -19,7 +16,6 @@ import { useState } from "react";
 import FadingImage from "./FadingImage";
 
 const Gallery = ({ images }) => {
-    const [isLoaded, setIsLoaded] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const responsiveColumns = useBreakpointValue({
@@ -45,18 +41,18 @@ const Gallery = ({ images }) => {
                             src={src.image}
                             alt={`Imagen de mampara sistema }`}
                             rounded="md"
-                            transition="all .2s ease-in-out"
                             cursor={"pointer"}
                             borderRadius="md"
                             objectFit="cover"
                             shadow={"base"}
+                            transition="all 0.3s ease-in-out"
+                            _hover={{
+                                shadow: "lg",
+                                transform: "scale(1.03)",
+                            }}
                             onClick={() => {
                                 setSelectedImage(src.image);
                                 setIsOpen(true);
-                            }}
-                            _hover={{
-                                shadow: "lg",
-                                transform: "scale(1.02)",
                             }}
                         />
                     </GridItem>

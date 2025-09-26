@@ -34,8 +34,8 @@ const ServicePageLayout = ({ pageData }) => {
                     systems={systems}
                     features={features}
                     bgTheme={bgTheme}
-                    setActiveIndex={setActiveIndex}
                     activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
                 />
                 {/* 2. Galería */}
                 <RenderGallery bgTheme={bgTheme} imageList={activeImageList} />
@@ -44,14 +44,9 @@ const ServicePageLayout = ({ pageData }) => {
     );
 };
 
-const RenderSidebar = ({
-    title,
-    systems,
-    features,
-    setActiveIndex,
-    bgTheme,
-    activeIndex,
-}) => {
+const RenderSidebar = (props) => {
+    const { title, systems, features, setActiveIndex, bgTheme, activeIndex } =
+        props;
     return (
         <Box
             bg={bgTheme}
@@ -59,7 +54,7 @@ const RenderSidebar = ({
             h={{ base: "auto", md: "85vh" }}
             p={4}
             rounded="xl"
-            shadow="xl"
+            shadow="xs"
         >
             <Box mb={6}>
                 <Heading as="h3" size="lg" mb={4} p={2}>
@@ -106,8 +101,9 @@ const RenderGallery = ({ bgTheme, imageList }) => {
             h={{ base: "auto", md: "85vh" }}
             p={4}
             rounded="xl"
-            shadow="xl"
+            shadow="xs"
             overflowY="auto"
+            transition="all .3s ease-in-out"
         >
             <Gallery images={imageList} />
         </Box>
