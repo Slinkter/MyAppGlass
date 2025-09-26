@@ -17,12 +17,14 @@ npm install -g firebase-tools
 ## Instalación
 
 1.  **Clona el repositorio:**
+
     ```bash
     git clone <URL_DEL_REPOSITORIO>
     cd MyAppGlass
     ```
 
 2.  **Instala las dependencias del proyecto principal (frontend):**
+
     ```bash
     pnpm install
     ```
@@ -40,6 +42,7 @@ Las Cloud Functions de este proyecto utilizan SendGrid para enviar correos elect
 
 1.  **Configura el secreto:**
     Ejecuta este comando y, cuando se te solicite, pega tu clave de API de SendGrid.
+
     ```bash
     firebase functions:secrets:set SENDGRID_KEY
     ```
