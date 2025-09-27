@@ -33,8 +33,6 @@ function ItemService(props) {
             rounded="xl"
             bg={bg}
             overflow="hidden"
-            opacity={isLoaded ? 1 : 0}
-            transition="all .3s ease-in-out"
             _hover={{
                 boxShadow: "md",
                 borderColor: "gray.100",

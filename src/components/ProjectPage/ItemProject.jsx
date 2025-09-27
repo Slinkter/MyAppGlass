@@ -48,8 +48,6 @@ const ItemProject = (props) => {
     const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(
         g_maps
     )}&output=embed`;
-    console.log(props);
-    console.log(googleMapsUrl);
 
     return (
         <>
@@ -61,8 +59,6 @@ const ItemProject = (props) => {
                 rounded="xl"
                 bg={bg}
                 overflow="hidden"
-                opacity={isLoaded ? 1 : 0}
-                transition="all .3s ease-in-out"
                 _hover={{
                     boxShadow: "md",
                     borderColor: "gray.100",
@@ -145,16 +141,34 @@ const ItemProject = (props) => {
             <Modal
                 isOpen={isOpen}
                 onClose={onClose}
+                motionPreset="slideInBottom"
                 size={{ base: "full", md: "6xl" }}
-                isCentered
+                scrollBehavior="inside"
             >
-                <ModalOverlay bg="blackAlpha.700" />
+                <ModalOverlay backdropFilter={"blur(10px)"} />
                 <ModalContent
+                    shadow="xl"
+                    rounded={{ base: 0, md: "lg" }}
                     bg={useColorModeValue("gray.50", "gray.800")}
-                    rounded="lg"
                 >
-                    <ModalCloseButton />
-                    <ModalBody p={{ base: 2, md: 4 }}>
+                    <ModalHeader p={4} borderBottomWidth="1px">
+                        <Heading size="lg">{residencial}</Heading>
+                        <Text fontSize="md" color="gray.500">
+                            {name}
+                        </Text>
+                    </ModalHeader>
+                    <ModalCloseButton
+                        size="lg"
+                        bg={useColorModeValue("gray.200", "gray.600")}
+                        _hover={{
+                            bg: useColorModeValue("gray.300", "gray.500"),
+                        }}
+                        rounded="full"
+                        position="absolute"
+                        top={{ base: 4, md: 3 }}
+                        right={{ base: 4, md: 3 }}
+                    />
+                    <ModalBody p={{ base: 4, md: 6 }}>
                         <Flex
                             w="full"
                             h="full"
