@@ -1,6 +1,5 @@
-import React from "react";
 import Franja from "../Franja";
-import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 import ClientsCard from "./ClientsCard";
 import cliente01 from "../../assets/building.jpg";
 import cliente02 from "../../assets/sectoroffices.jpg";
@@ -26,9 +25,8 @@ const listClient = [
 ];
 
 const Clients = () => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Adjust breakpoint as needed
     return (
-        <Box minHeight="100vh">
+        <Box minHeight="100dvh">
             <Franja
                 title={"CLIENTES"}
                 text={
@@ -40,7 +38,7 @@ const Clients = () => {
                     minHeight={"80vh"}
                     justifyContent={"space-evenly"}
                     alignItems={"center"}
-                    flexDir={isMobile ? "column" : "row"}
+                    flexDir={{ base: "column", md: "row" }}
                     gap={6}
                 >
                     {listClient.map((client, index) => (
@@ -49,8 +47,6 @@ const Clients = () => {
                             IMAGE={client.imgClient}
                             nameClient={client.nameClient}
                             descClient={client.descClient}
-                            spacingX={isMobile ? "20px" : "30px"}
-                            spacingY={isMobile ? "20px" : "30px"}
                         />
                     ))}
                 </Flex>

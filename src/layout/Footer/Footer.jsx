@@ -1,14 +1,14 @@
-import React from "react";
 import {
     Box,
-    Flex,
     HStack,
     Text,
     VStack,
     useColorModeValue,
     Icon,
     Heading,
-    useMediaQuery,
+    SimpleGrid,
+    Divider,
+    Center,
 } from "@chakra-ui/react";
 import { FaWhatsapp, FaCalendar, FaClock, FaMap } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
@@ -16,27 +16,26 @@ import { Link } from "react-router-dom";
 import { IoBookOutline } from "react-icons/io5";
 
 const Footer = () => {
-    const colorWhite = "gray.200";
-    const colorBlack = "blackAlpha.500";
-    const bgColor = useColorModeValue(colorWhite, colorBlack);
+    const bgColor = useColorModeValue("gray.100", "gray.900");
+    const textColor = useColorModeValue("gray.700", "gray.200");
 
     return (
         <>
-            <Box my="2rem">
-                <Box bg={bgColor} mx="auto" pt={8} pb={4} boxShadow="md">
-                    <Flex
-                        justifyContent="space-around"
-                        direction={{ base: "column", md: "row" }}
+            <Box as="footer" bg={bgColor} color={textColor} boxShadow="inner">
+                <Box maxW="8xl" mx="auto" pt={10} pb={6} px={6}>
+                    <SimpleGrid
+                        columns={{ base: 1, md: 3 }}
+                        spacing={{ base: 8, md: 4 }}
+                        textAlign="center"
                     >
-                        <VStack spacing={2} marginBottom={4}>
+                        {/* --- Columna Contacto --- */}
+                        <VStack spacing={3} alignItems="center">
                             <Heading
-                                as="h1"
-                                fontSize={{ base: "4xl", md: "4xl" }}
-                                fontWeight="bold"
-                                fontStyle={"600"}
-                                mb={1}
+                                as="h3"
+                                size="md"
+                                textTransform="uppercase"
                             >
-                                CONTACTO
+                                Contacto
                             </Heading>
 
                             <HStack spacing={2} alignItems="center">
@@ -48,15 +47,15 @@ const Footer = () => {
                                 <Text fontSize={"lg"}>996-537-435</Text>
                             </HStack>
                         </VStack>
-                        <VStack spacing={2} marginBottom={4}>
+
+                        {/* --- Columna Horarios --- */}
+                        <VStack spacing={3} alignItems="center">
                             <Heading
-                                as="h1"
-                                fontSize={{ base: "4xl", md: "4xl" }}
-                                fontWeight="bold"
-                                fontStyle={"600"}
-                                mb={1}
+                                as="h3"
+                                size="md"
+                                textTransform="uppercase"
                             >
-                                HORARIOS
+                                Horarios
                             </Heading>
 
                             <HStack spacing={2} alignItems="center">
@@ -68,15 +67,15 @@ const Footer = () => {
                                 <Text fontSize="md">9:00 am - 5:00 pm</Text>
                             </HStack>
                         </VStack>
-                        <VStack spacing={2} marginBottom={4}>
+
+                        {/* --- Columna Dirección --- */}
+                        <VStack spacing={3} alignItems="center">
                             <Heading
-                                as="h1"
-                                fontSize={{ base: "4xl", md: "4xl" }}
-                                fontWeight="bold"
-                                fontStyle={"600"}
-                                mb={1}
+                                as="h3"
+                                size="md"
+                                textTransform="uppercase"
                             >
-                                DIRECCIÓN
+                                Dirección
                             </Heading>
 
                             <HStack
@@ -98,21 +97,28 @@ const Footer = () => {
                                 <Text fontSize="md">acueva@gyacompany.com</Text>
                             </HStack>
                         </VStack>
-                    </Flex>
+                    </SimpleGrid>
+
+                    <Divider my={6} />
+
+                    <Center>
+                        <VStack spacing={3}>
+                            <Text fontSize="sm">
+                                Copyright © {new Date().getFullYear()}
+                            </Text>
+                            <Link to="/libro-de-reclamacion">
+                                <HStack
+                                    _hover={{ color: "red.500" }}
+                                    transition="color 0.2s"
+                                >
+                                    <Icon as={IoBookOutline} />
+                                    <Text>Libro de Reclamaciones</Text>
+                                </HStack>
+                            </Link>
+                        </VStack>
+                    </Center>
                 </Box>
             </Box>
-            <VStack spacing={4} m={"20px"}>
-                <Text> Copyright ©2025</Text>
-                <Link
-                    to="/libro-de-reclamacion"
-                    _hover={{ textDecoration: "none", color: "red.500" }}
-                >
-                    <HStack align="center" spacing={1}>
-                        <Icon as={IoBookOutline} />
-                        <Text>Libro de Reclamaciones</Text>
-                    </HStack>
-                </Link>
-            </VStack>
         </>
     );
 };

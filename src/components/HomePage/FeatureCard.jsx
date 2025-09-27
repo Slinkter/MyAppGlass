@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Card,
     CardBody,
@@ -6,18 +5,15 @@ import {
     Heading,
     Text,
     useColorModeValue,
-    useMediaQuery,
 } from "@chakra-ui/react";
 
 const FeatureCard = ({ heading, description, icon }) => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Ajusta el punto de quiebre según sea necesario
-
     return (
         <Card
             w={"full"}
             maxW={{ base: "full", md: "375px" }}
             h={{ base: "", md: "base" }}
-            p={isMobile ? 3 : 6}
+            p={{ base: 4, md: 6 }}
             rounded={"lg"}
             boxShadow={{ base: "base", md: "lg" }}
             border={"1px solid"}

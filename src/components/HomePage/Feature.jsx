@@ -1,13 +1,5 @@
-import React from "react";
 import FeatureCard from "./FeatureCard";
-import {
-    Box,
-    Container,
-    SimpleGrid,
-    Icon,
-    useMediaQuery,
-    Flex,
-} from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, Icon, Flex } from "@chakra-ui/react";
 import {
     IoIosCalculator,
     IoIosCalendar,
@@ -25,57 +17,55 @@ const features = [
         heading: "Presupuesto Online",
         icon: IoIosCalculator,
         description:
-            "Recibe una estimación rápida y precisa a través de WhatsApp. Contáctanos al 996-537-435.",
+            "Obtén una cotización rápida y precisa por WhatsApp. Escríbenos al 996-537-435 para empezar.",
     },
     {
-        heading: " Visita Técnica",
+        heading: "Visita Técnica",
         icon: IoIosCalendar,
         description:
-            "Coordina una visita técnica sin costo adicional. Nuestro equipo evaluará tus necesidades en persona.",
+            "Agenda una visita técnica gratuita. Nuestro equipo de expertos evaluará tus necesidades en persona.",
     },
     {
-        heading: "Materiales  ",
+        heading: "Materiales",
         icon: IoIosKeypad,
         description:
-            "Ofrecemos una garantía de 3 meses en todos nuestros productos instalados.",
+            "Trabajamos únicamente con materiales de alta calidad para garantizar la durabilidad y seguridad de cada instalación.",
     },
     {
         heading: "Técnicos Capacitados",
         icon: IoMdConstruct,
         description:
-            "Nuestro equipo de operarios está altamente capacitado y cuenta con amplia experiencia en instalaciones.",
+            "Contamos con un equipo de instaladores profesionales con amplia experiencia en el sector.",
     },
     {
         heading: "Garantías",
         icon: IoMdSwap,
         description:
-            "Disfruta de una garantía de 6 meses en todos nuestros productos instalados.",
+            "Tu inversión está protegida. Ofrecemos una garantía de 6 meses en todos nuestros productos y servicios.",
     },
     {
         heading: "Método de pago",
         icon: HiOutlineBanknotes,
         description:
-            "Disponemos de una cuenta corriente empresarial y aceptamos tarjetas de crédito y débito.",
+            "Aceptamos tarjetas de crédito y débito. Además, contamos con una cuenta corriente empresarial para tu comodidad.",
     },
     {
-        heading: "Recibos ",
+        heading: "Recibos",
         icon: IoIosPaper,
         description:
-            "Emitimos boletas y facturas electrónicas inmediatamente después de realizar el pago.",
+            "Emitimos boletas y facturas electrónicas al instante para formalizar tu compra y garantizar tu tranquilidad.",
     },
     {
-        heading: " Promociones ",
+        heading: "Promociones",
         icon: IoMdPricetags,
         description:
-            "Descubre nuestras ofertas y promociones actualizadas cada mes en una variedad de productos y servicios.",
+            "Aprovecha nuestras ofertas y promociones mensuales en una gran variedad de productos y servicios.",
     },
 ];
 
 const Feature = () => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
-
     return (
-        <Box minHeight="100vh">
+        <Box minHeight="100dvh">
             <Franja
                 title={"BENEFICIOS"}
                 text={"¿Por Qué Elegirnos?"}
@@ -87,11 +77,7 @@ const Feature = () => {
                     justifyContent={"center"}
                     minHeight={"80vh"}
                 >
-                    <SimpleGrid
-                        columns={isMobile ? 1 : 4}
-                        spacingX={isMobile ? "20px" : "30px"}
-                        spacingY={isMobile ? "20px" : "30px"}
-                    >
+                    <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8}>
                         {features.map((feature, index) => (
                             <FeatureCard
                                 key={index}

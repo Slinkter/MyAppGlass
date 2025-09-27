@@ -8,9 +8,7 @@ const ServicePageLayout = ({ pageData }) => {
     const { seo, systems, features, imageLists } = pageData;
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const colorWhite = "gray.200";
-    const colorBlack = "blackAlpha.500";
-    const bgTheme = useColorModeValue(colorWhite, colorBlack);
+    const bgTheme = useColorModeValue("gray.200", "blackAlpha.500");
 
     // Selecciona la lista de imágenes basada en el índice activo
     const activeImageList = imageLists[activeIndex] || [];
