@@ -57,6 +57,9 @@ function ItemService(props) {
                         objectFit="cover"
                         boxShadow={"base"}
                         onLoad={() => setIsLoaded(true)}
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
                     />
                     <Stack mt="2" spacing="2">
                         <Flex

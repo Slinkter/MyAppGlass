@@ -57,7 +57,7 @@ const RenderSidebar = (props) => {
             shadow="xs"
         >
             <Box mb={6}>
-                <Heading as="h3" size="lg" mb={4} p={2}>
+                <Heading as="h1" size="lg" mb={4} p={2}>
                     {title}
                 </Heading>
                 <Stack spacing={1}>
