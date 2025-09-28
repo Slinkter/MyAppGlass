@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // 1. Importar useNavigate
 import { db } from "../../firebase/firebase.js"; // Import the database connection
-import { collection, addDoc } from "firebase/firestore"; // Import Firestore functions
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"; // Import Firestore functions
 import {
     Box,
     Button,
@@ -25,6 +25,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
+    useToast, // Importa el hook useToast
 } from "@chakra-ui/react";
 
 const initStateForm = {
@@ -50,9 +51,11 @@ const ReclamoForm = () => {
     // Estado unificado y simplificado del formulario
     const [formData, setFormData] = useState(initStateForm);
     // 2. Hooks para el modal y la navegación
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [newReclamoId, setNewReclamoId] = useState("");
     const navigate = useNavigate();
+    const toast = useToast(); // Inicializa useToast
 
     // Handler genérico para actualizar el estado
     const handleInputsChange = (e) => {
@@ -73,27 +76,25 @@ const ReclamoForm = () => {
     const handleBtnSubmit = async (e) => {
         e.preventDefault();
         if (!formData.aceptaTerminos) {
-            const msj =
-                "Debe declarar que la información es veraz y aceptar la política de privacidad.";
-            alert(msj);
+            // Usa toast en lugar de alert
+            toast({
+                title: "Aceptación requerida",
+                description:
+                    "Debes aceptar la política de privacidad para continuar.",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+            });
             return;
         }
 
+        setIsSubmitting(true); // Deshabilitar botón al iniciar envío
+
         try {
-            const options = {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: false, // Formato de 24 horas
-                timeZone: "America/Lima",
-            };
             const refReclamos = collection(db, "reclamaciones");
             const docRef = await addDoc(refReclamos, {
                 ...formData,
-                fechaReclamo: new Date().toISOString("es-PE", options), // Add timestamp
+                fechaReclamo: serverTimestamp(), // Usar el timestamp del servidor
             });
 
             // 3. Abrir el modal en lugar de usar alert
@@ -102,9 +103,17 @@ const ReclamoForm = () => {
             setFormData(initStateForm); // Limpiar el formulario
         } catch (error) {
             console.error("Error writing document to Firestore: ", error);
-            alert(
-                "Hubo un error al enviar su reclamo. Por favor, intente más tarde."
-            );
+            // Usa toast para mostrar el error
+            toast({
+                title: "Error al enviar",
+                description:
+                    "Hubo un problema al registrar tu reclamo. Por favor, intenta más tarde.",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+        } finally {
+            setIsSubmitting(false); // Rehabilitar el botón al finalizar
         }
     };
 
@@ -335,6 +344,8 @@ const ReclamoForm = () => {
                         colorScheme="red"
                         size="lg"
                         width="full"
+                        isLoading={isSubmitting}
+                        loadingText="Enviando..."
                     >
                         Enviar Reclamo/Queja
                     </Button>

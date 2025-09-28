@@ -7,7 +7,7 @@ Este repositorio contiene el código fuente de la aplicación web oficial para [
 Asegúrate de tener instalado lo siguiente en tu sistema:
 
 -   [Node.js](https://nodejs.org/) (versión 18 o superior)
--   [pnpm](https://pnpm.io/installation) (recomendado) o npm
+-   [pnpm](https://pnpm.io/installation)
 -   [Firebase CLI](https://firebase.google.com/docs/cli#install_the_cli)
 
 ```bash
@@ -47,12 +47,6 @@ Las Cloud Functions de este proyecto utilizan SendGrid para enviar correos elect
     firebase functions:secrets:set SENDGRID_KEY
     ```
 
-2.  **Otorga acceso al secreto (si es la primera vez):**
-    Asegúrate de que tus funciones tengan acceso a la clave.
-    ```bash
-    firebase functions:secrets:access SENDGRID_KEY
-    ```
-
 ## Comandos Principales
 
 ### Iniciar en Modo Desarrollo
@@ -74,6 +68,25 @@ pnpm build
 ## Despliegue en Firebase
 
 Asegúrate de haber iniciado sesión en Firebase (`firebase login`).
+
+### Manejo de Proyectos (Desarrollo/Producción)
+
+Es crucial asegurarse de que estás desplegando en el proyecto de Firebase correcto (por ejemplo, desarrollo o producción).
+
+1.  **Verifica tu proyecto actual**
+    Ejecuta este comando para ver la lista de tus proyectos de Firebase. El que está activo aparecerá marcado.
+
+```bash
+firebase projects:list
+```
+
+2. Cambiar el proyecto activo
+
+Para apuntar a otro proyecto, usa:
+
+```bash
+firebase use <ID_DEL_PROYECTO>
+```
 
 ### Despliegue Completo
 
@@ -108,11 +121,11 @@ Estos comandos eliminan `node_modules`, cachés y carpetas de compilación para 
 ### Para Windows
 
 ```bash
-if exist node_modules ( rd /s /q node_modules ) && if exist functions\node_modules ( rd /s /q functions\node_modules ) && if exist dist ( rd /s /q dist ) && if exist package-lock.json ( del package-lock.json ) && if exist pnpm-lock.yaml ( del pnpm-lock.yaml ) && if exist functions\package-lock.json ( del functions\package-lock.json ) && npm cache clean --force
+if exist node_modules ( rd /s /q node_modules ) && if exist functions\node_modules ( rd /s /q functions\node_modules ) && if exist dist ( rd /s /q dist ) && if exist pnpm-lock.yaml ( del pnpm-lock.yaml ) && pnpm store prune
 ```
 
 ### Para macOS / Linux
 
 ```bash
-rm -rf node_modules functions/node_modules dist && rm -f package-lock.json pnpm-lock.json functions/package-lock.json && npm cache clean --force
+rm -rf node_modules functions/node_modules dist && rm -f pnpm-lock.yaml && pnpm store prune
 ```

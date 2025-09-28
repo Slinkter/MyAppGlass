@@ -5,10 +5,10 @@
         "dev": "vite --mode hosting",
         "dev:hosting": "vite --mode hosting",
         "dev:functions": "vite --mode functions",
-        "build": "vite build",
+        "build": "vite build --mode functions",
         "preview": "vite preview",
         "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-        "predeploy": "npm run build",
+        "predeploy": "pnpm run build",
         "deploy": "gh-pages -d dist"
     },
     "private": true,

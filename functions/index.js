@@ -1,6 +1,5 @@
-
-const {onDocumentCreated} = require("firebase-functions/v2/firestore");
-const {setGlobalOptions} = require("firebase-functions/v2");
+const { onDocumentCreated } = require("firebase-functions/v2/firestore");
+const { setGlobalOptions } = require("firebase-functions/v2");
 const admin = require("firebase-admin");
 const sgMail = require("@sendgrid/mail"); // Moved this line up
 
@@ -8,30 +7,29 @@ const sgMail = require("@sendgrid/mail"); // Moved this line up
 admin.initializeApp();
 
 // Configura la región global para las funciones
-setGlobalOptions({region: "southamerica-west1"});
+setGlobalOptions({ region: "southamerica-west1" });
 
 // Configura la API Key de SendGrid usando Secret Manager
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
-
 exports.enviarCorreoReclamo = onDocumentCreated(
     {
-      document: "reclamaciones/{reclamoId}",
-      secrets: ["SENDGRID_KEY"], // Carga el secreto SENDGRID_KEY
+        document: "reclamaciones/{reclamoId}",
+        secrets: ["SENDGRID_KEY"], // Carga el secreto SENDGRID_KEY
     },
     async (event) => {
-      const snap = event.data;
-      if (!snap) {
-        console.log("No hay datos asociados al evento.");
-        return;
-      }
+        const snap = event.data;
+        if (!snap) {
+            console.log("No hay datos asociados al evento.");
+            return;
+        }
 
-      const data = snap.data();
-      const reclamoId = event.params.reclamoId;
+        const data = snap.data();
+        const reclamoId = event.params.reclamoId;
 
-      console.log(`Iniciando envío para reclamo: ${reclamoId}`);
+        console.log(`Iniciando envío para reclamo: ${reclamoId}`);
 
-      const htmlBody = `
+        const htmlBody = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6;">
           <h2>Hola ${data.nombreCompleto},</h2>
           <p>
@@ -52,26 +50,24 @@ exports.enviarCorreoReclamo = onDocumentCreated(
         </div>
       `;
 
-      const msg = {
-        to: [data.email, "acueva@gyacompany.com"], // Added company email
-        from: {
-          name: "Glass Aluminum Company",
-          email: "acueva@gyacompany.com",
-        },
-        subject: `Confirmación de Reclamo/Queja N° ${reclamoId}`,
-        html: htmlBody,
-      };
+        const msg = {
+            to: [...new Set([data.email, "luis.j.cueva@icloud.com"])], // Added company email
+            from: {
+                name: "Glass Aluminum Company",
+                email: "acueva@gyacompany.com",
+            },
+            subject: `Confirmación de Reclamo/Queja N° ${reclamoId}`,
+            html: htmlBody,
+        };
 
-      try {
-        await sgMail.send(msg);
-        console.log(`Correo enviado a: ${data.email}`);
-      } catch (error) {
-        console.error("Error al enviar correo:", error);
-        if (error.response) {
-          console.error(error.response.body);
+        try {
+            await sgMail.send(msg);
+            console.log(`Correo enviado a: ${data.email}`);
+        } catch (error) {
+            console.error("Error al enviar correo:", error);
+            if (error.response) {
+                console.error(error.response.body);
+            }
         }
-      }
-    },
-
+    }
 );
-
