@@ -1,7 +1,7 @@
 // Layout.jsx
-import Navbar from "./Navbar/Navbar";
-import Footer from "./Footer/Footer";
-import FloatWhatsapp from "./FloatWhatsapp";
+import Navbar from "./common/Navbar";
+import Footer from "./common/Footer";
+import FloatWhatsapp from "./floating-whatsapp";
 
 const Layout = ({ children }) => {
     return (

@@ -1,26 +1,23 @@
 import { Suspense } from "react";
 import Layout from "./layout/Layout";
 import { Outlet } from "react-router-dom";
-import ScrollToTop from "./utils/ScrollToTop";
-import { Flex, Spinner } from "@chakra-ui/react";
+import ScrollToTop from "./utils/scroll-to-top";
+import LoadingFallback from "./components/common/LoadingFallback";
 
+/**
+ * @component
+ * @description Componente principal de la aplicación. Actúa como el layout base
+ * que envuelve todas las rutas, proporcionando elementos comunes como la barra de navegación,
+ * el pie de página y la funcionalidad de scroll al inicio de la página.
+ * También gestiona el fallback de carga para componentes cargados de forma perezosa (lazy-loaded).
+ * @returns {JSX.Element} El componente raíz de la aplicación con el layout y el enrutamiento principal.
+ */
 function App() {
     return (
         <>
             <ScrollToTop />
             <Layout>
-                <Suspense
-                    fallback={
-                        <Flex
-                            w="full"
-                            h="80vh"
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <Spinner size="xl" />
-                        </Flex>
-                    }
-                >
+                <Suspense fallback={<LoadingFallback />}>
                     <Outlet />
                 </Suspense>
             </Layout>
