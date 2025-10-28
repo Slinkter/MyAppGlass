@@ -26,7 +26,7 @@ import FadingImage from "./FadingImage";
 import React from "react";
 const Gallery = React.memo(({ images }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null); // Will store the full image object
     const responsiveColumns = useBreakpointValue({
         base: 1,
         md: 2,
@@ -60,7 +60,7 @@ const Gallery = React.memo(({ images }) => {
                                 transform: "scale(1.03)",
                             }}
                             onClick={() => {
-                                setSelectedImage(src.image);
+                                setSelectedImage(src); // Pass the full image object
                                 setIsOpen(true);
                             }}
                         />
@@ -92,7 +92,7 @@ const Gallery = React.memo(({ images }) => {
                                     src={selectedImage}
                                     alt={
                                         selectedImage
-                                            ? `Vista ampliada de ${selectedImage}`
+                                            ? `Vista ampliada de ${selectedImage.name || selectedImage.image}` // Use name or image URL as fallback
                                             : ""
                                     }
                                     w="100%"
