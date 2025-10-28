@@ -1,5 +1,5 @@
 import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listTecho } from "../../../assets/webService/s/04.Techo/db_techo";
+import { listTecho } from "../../../data/gallery/techo";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
 const Techo = () => {

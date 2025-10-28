@@ -6,8 +6,8 @@ import {
     Container,
     Flex,
     useColorModeValue,
-    useMediaQuery,
 } from "@chakra-ui/react";
+import useIsMobile from "../../hooks/useIsMobile";
 import { Link } from "@chakra-ui/react";
 import Franja from "../Franja";
 import { Icon } from "@chakra-ui/react";
@@ -17,7 +17,7 @@ import { FaMapLocationDot } from "react-icons/fa6";
 const Tienda = () => {
     const bgColor = useColorModeValue("#e9ecef", "gray.600"); // Light mode bg from original CSS
     const textColor = useColorModeValue("black", "white");
-    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Ajusta el punto de quiebre según sea necesario
+    const isMobile = useIsMobile(); // Ajusta el punto de quiebre según sea necesario
 
     return (
         <Box

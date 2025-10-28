@@ -1,10 +1,10 @@
-import t_01 from "./IMG_0032.jpeg";
-import t_02 from "./IMG_0027.jpeg";
-import t_03 from "./IMG_0029.jpeg";
+import t_01 from "../../assets/webService/s/04.Techo/IMG_0032.jpeg";
+import t_02 from "../../assets/webService/s/04.Techo/IMG_0027.jpeg";
+import t_03 from "../../assets/webService/s/04.Techo/IMG_0029.jpeg";
 
-import t_04 from "./techo312.jpeg";
-import t_05 from "./techopoli01.jpeg";
-import t_06 from "./techopoli05.jpeg";
+import t_04 from "../../assets/webService/s/04.Techo/techo312.jpeg";
+import t_05 from "../../assets/webService/s/04.Techo/techopoli01.jpeg";
+import t_06 from "../../assets/webService/s/04.Techo/techopoli05.jpeg";
 
 const listTecho = {
   techo: [

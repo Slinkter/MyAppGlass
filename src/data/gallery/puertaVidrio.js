@@ -1,10 +1,10 @@
-import image01 from "./IMG_1992.jpeg";
-import image02 from "./IMG_1999.jpeg";
-import image03 from "./IMG_2008.jpeg";
+import image01 from "../../assets/webService/s/11.PuertaV/IMG_1992.jpeg";
+import image02 from "../../assets/webService/s/11.PuertaV/IMG_1999.jpeg";
+import image03 from "../../assets/webService/s/11.PuertaV/IMG_2008.jpeg";
 
-import image04 from "./IMG_4534.jpeg";
-import image05 from "./init11.jpg";
-import image06 from "./IMG_20220212_104555.jpeg";
+import image04 from "../../assets/webService/s/11.PuertaV/IMG_4534.jpeg";
+import image05 from "../../assets/webService/s/11.PuertaV/init11.jpg";
+import image06 from "../../assets/webService/s/11.PuertaV/IMG_20220212_104555.jpeg";
 
 const listPuertav = {
     puertav: [

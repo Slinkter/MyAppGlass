@@ -1,18 +1,9 @@
 import React from "react";
-import {
-    Box,
-    Card,
-    CardBody,
-    Heading,
-    Image,
-    Stack,
-    Text,
-    useMediaQuery,
-    useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Card, CardBody, Heading, Image, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const ClientsCard = ({ IMAGE, nameClient, descClient }) => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Ajusta el punto de quiebre según sea necesario
+    const isMobile = useIsMobile(); // Ajusta el punto de quiebre según sea necesario
     const borderColor = useColorModeValue("gray.200", "black");
     return (
         <Card

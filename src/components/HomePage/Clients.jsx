@@ -1,10 +1,11 @@
 import React from "react";
 import Franja from "../Franja";
-import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 import ClientsCard from "./ClientsCard";
 import cliente01 from "../../assets/building.jpg";
 import cliente02 from "../../assets/sectoroffices.jpg";
 import cliente03 from "../../assets/sectorhogar.jpg";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const listClient = [
     {
@@ -26,7 +27,7 @@ const listClient = [
 ];
 
 const Clients = () => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Adjust breakpoint as needed
+    const isMobile = useIsMobile(); // Adjust breakpoint as needed
     return (
         <Box minHeight="100vh">
             <Franja

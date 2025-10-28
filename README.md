@@ -1,118 +1,90 @@
-# Aplicación Web - Glass & Aluminum Company
+# MyAppGlass - Aplicación Web de G&A Company
 
-Este repositorio contiene el código fuente de la aplicación web oficial para [Glass & Aluminum Company](https://gyacompany.com/), construida con React (Vite) y desplegada en Firebase.
+Esta es la aplicación web para Glass & Aluminum Company S.A.C., desarrollada con React y Vite. La aplicación presenta los servicios, proyectos y información de contacto de la empresa.
 
-## Requisitos Previos
+El código fuente ha sido sometido a un proceso de **revitalización integral** para mejorar su arquitectura, rendimiento y mantenibilidad, aplicando principios de desarrollo de software moderno.
 
-Asegúrate de tener instalado lo siguiente en tu sistema:
+## Tecnologías Principales
 
--   [Node.js](https://nodejs.org/) (versión 18 o superior)
--   [pnpm](https://pnpm.io/installation) (recomendado) o npm
--   [Firebase CLI](https://firebase.google.com/docs/cli#install_the_cli)
+*   **React:** Biblioteca para construir interfaces de usuario.
+*   **Vite:** Entorno de desarrollo local ultrarrápido.
+*   **React Router:** Para el enrutamiento del lado del cliente.
+*   **Chakra UI:** Biblioteca de componentes para un diseño de UI rápido y accesible.
+*   **Firebase (Firestore):** Utilizado para la funcionalidad del Libro de Reclamaciones.
+*   **React Helmet Async:** Para la gestión de metadatos del `<head>` y optimización SEO.
 
-```bash
-npm install -g firebase-tools
-```
+## Mejoras Arquitectónicas y de Rendimiento
 
-## Instalación
+Como parte del proceso de refactorización, se implementaron las siguientes mejoras clave:
 
-1.  **Clona el repositorio:**
+1.  **Arquitectura Limpia y Organización de Datos:**
+    *   Se creó un directorio `src/data` para centralizar todos los datos de la aplicación (proyectos, servicios, galerías), separando los datos de la capa de presentación.
+    *   Se eliminó la dispersión de archivos de datos (`db_*.js`) que estaban mezclados con los `assets`.
 
+2.  **Reutilización de Lógica con Custom Hooks:**
+    *   **`useIsMobile`**: Se creó un hook personalizado para centralizar la lógica de detección de dispositivos móviles (`useMediaQuery`), eliminando código duplicado en más de 6 componentes.
+    *   **`useReclamoForm`**: Se abstrajo toda la lógica del complejo formulario del Libro de Reclamaciones a un custom hook, simplificando el componente `ReclamoForm.jsx` a una capa de UI puramente declarativa.
+
+3.  **Optimización de Rendimiento:**
+    *   **Code Splitting por Ruta:** Se implementó `React.lazy` y `Suspense` en el enrutador principal (`main.jsx`). Esto divide la aplicación en fragmentos más pequeños que se cargan bajo demanda, reduciendo drásticamente el tiempo de carga inicial de la página.
+    *   **Componente `Suspense`**: Se añadió un fallback de UI con un `Spinner` para mejorar la experiencia del usuario mientras se cargan las diferentes secciones de la aplicación.
+
+4.  **Documentación y Mantenibilidad:**
+    *   Se añadió **documentación JSDoc** a los componentes y hooks refactorizados para facilitar su comprensión y futuro mantenimiento.
+    *   Se estandarizó el uso de componentes, como `FadingImage`, para asegurar consistencia visual y funcional.
+
+## Cómo Empezar
+
+Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local.
+
+### Prerrequisitos
+
+*   Node.js (versión 18.x o superior)
+*   `pnpm` (o puedes usar `npm` o `yarn`)
+
+### Instalación
+
+1.  Clona el repositorio:
     ```bash
     git clone <URL_DEL_REPOSITORIO>
     cd MyAppGlass
     ```
 
-2.  **Instala las dependencias del proyecto principal (frontend):**
-
+2.  Instala las dependencias:
     ```bash
     pnpm install
     ```
 
-3.  **Instala las dependencias de las Cloud Functions (backend):**
-    ```bash
-    cd functions
-    pnpm install
-    cd ..
-    ```
+### Variables de Entorno
 
-## Configuración del Backend
+Crea un archivo `.env` en la raíz del proyecto y añade tus credenciales de Firebase. Sigue el ejemplo de `.env.example` si existe, o añade las siguientes variables:
 
-Las Cloud Functions de este proyecto utilizan SendGrid para enviar correos electrónicos. Necesitas configurar la clave de la API de SendGrid como un secreto en Firebase.
-
-1.  **Configura el secreto:**
-    Ejecuta este comando y, cuando se te solicite, pega tu clave de API de SendGrid.
-
-    ```bash
-    firebase functions:secrets:set SENDGRID_KEY
-    ```
-
-2.  **Otorga acceso al secreto (si es la primera vez):**
-    Asegúrate de que tus funciones tengan acceso a la clave.
-    ```bash
-    firebase functions:secrets:access SENDGRID_KEY
-    ```
-
-## Comandos Principales
-
-### Iniciar en Modo Desarrollo
-
-Ejecuta la aplicación en un servidor local (`http://localhost:5173`). Se recargará automáticamente al guardar cambios.
-
-```bash
-pnpm dev
+```
+VITE_FIREBASE_API_KEY=...
+VITE_FIREBASE_AUTH_DOMAIN=...
+VITE_FIREBASE_PROJECT_ID=...
+VITE_FIREBASE_STORAGE_BUCKET=...
+VITE_FIREBASE_MESSAGING_SENDER_ID=...
+VITE_FIREBASE_APP_ID=...
+VITE_FIREBASE_MEASUREMENT_ID=...
 ```
 
-### Compilar para Producción
+### Ejecutar la Aplicación
 
-Genera una versión optimizada de la aplicación en la carpeta `dist`.
-
-```bash
-pnpm build
-```
-
-## Despliegue en Firebase
-
-Asegúrate de haber iniciado sesión en Firebase (`firebase login`).
-
-### Despliegue Completo
-
-Sube la aplicación web (Hosting) y las Cloud Functions al mismo tiempo.
+Para iniciar el servidor de desarrollo de Vite:
 
 ```bash
-firebase deploy
+pnpm run dev
 ```
 
-### Desplegar solo las Cloud Functions
+La aplicación estará disponible en `http://localhost:5173` (o el puerto que Vite asigne).
 
-Si solo has hecho cambios en el backend.
+### Build de Producción
+
+Para crear una versión optimizada para producción:
 
 ```bash
-firebase deploy --only functions
+pnpm run build
 ```
 
-### Desplegar solo el Frontend
-
-Si solo has hecho cambios en la aplicación de React.
-
-```bash
-pnpm run build && firebase deploy --only hosting
-```
-
----
-
-## Scripts de Limpieza del Proyecto
-
-Estos comandos eliminan `node_modules`, cachés y carpetas de compilación para dejar el proyecto en un estado limpio.
-
-### Para Windows
-
-```bash
-if exist node_modules ( rd /s /q node_modules ) && if exist functions\node_modules ( rd /s /q functions\node_modules ) && if exist dist ( rd /s /q dist ) && if exist package-lock.json ( del package-lock.json ) && if exist pnpm-lock.yaml ( del pnpm-lock.yaml ) && if exist functions\package-lock.json ( del functions\package-lock.json ) && npm cache clean --force
-```
-
-### Para macOS / Linux
-
-```bash
-rm -rf node_modules functions/node_modules dist && rm -f package-lock.json pnpm-lock.json functions/package-lock.json && npm cache clean --force
-```
+Los archivos estáticos se generarán en el directorio `dist/`.

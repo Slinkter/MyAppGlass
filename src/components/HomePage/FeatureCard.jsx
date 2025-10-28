@@ -1,16 +1,9 @@
 import React from "react";
-import {
-    Card,
-    CardBody,
-    Flex,
-    Heading,
-    Text,
-    useColorModeValue,
-    useMediaQuery,
-} from "@chakra-ui/react";
+import { Card, CardBody, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const FeatureCard = ({ heading, description, icon }) => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Ajusta el punto de quiebre según sea necesario
+    const isMobile = useIsMobile(); // Ajusta el punto de quiebre según sea necesario
 
     return (
         <Card
