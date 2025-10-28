@@ -1,23 +1,30 @@
-import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listPuertas } from "../../../data/gallery/puertaSerie";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { listPuertaSerie } from "../../../data/gallery/puertaSerie";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
-const Pserie = () => {
-    const pageData = {
-        seo: {
-            title: "Puertas de Aluminio ",
-            description: "Fabricamos puertas de aluminio en serie .",
-        },
-        systems: [{ label: "Sistema Unico", icon: ChevronRightIcon }],
-        features: [
-            { label: "Estructura de Aluminio ", icon: CheckIcon },
-            { label: "Chapa bola de Aluminio", icon: CheckIcon },
-            { label: "Plancha Arenado", icon: CheckIcon },
-        ],
-        imageLists: [listPuertas.puertas],
-    };
+const pseriePageData = {
+    seo: {
+        title: "Puertas en Serie",
+        description:
+            "Fabricamos e instalamos puertas en serie de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+    },
+    systems: [
+        { label: "Sistema Nova", icon: ChevronRightIcon },
+        { label: "Sistema Serie 25", icon: ChevronRightIcon },
+        { label: "Sistema Serie 31", icon: ChevronRightIcon },
+    ],
+    features: [
+        { label: "Color: Incoloro, Bronce", icon: CheckIcon },
+        { label: "Tipo: Templado, Crudo", icon: CheckIcon },
+        { label: "Aluminio: Natural, Negro", icon: CheckIcon },
+        { label: "Espesor: 6mm", icon: CheckIcon },
+    ],
+    imageLists: [listPuertaSerie.ps01, listPuertaSerie.ps02, listPuertaSerie.ps03],
+};
 
-    return <ServicePageLayout pageData={pageData} />;
+const Pserie = () => {
+    return <ServicePageLayout pageData={pseriePageData} />;
 };
 
 export default Pserie;

@@ -3,32 +3,28 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import { listMampara } from "../../../data/gallery/mampara";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
-// 1. Definir todos los datos para esta página de servicio
 const mamparaPageData = {
     seo: {
         title: "Mamparas",
         description:
-            "Separador de area o espacio, perfectas divisiones de oficina. Sistemas Nova y Serie 25.",
+            "Fabricamos e instalamos mamparas de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
     },
     systems: [
         { label: "Sistema Nova", icon: ChevronRightIcon },
         { label: "Sistema Serie 25", icon: ChevronRightIcon },
+        { label: "Sistema Serie 31", icon: ChevronRightIcon },
     ],
     features: [
         { label: "Color: Incoloro, Bronce", icon: CheckIcon },
         { label: "Tipo: Templado, Crudo", icon: CheckIcon },
         { label: "Aluminio: Natural, Negro", icon: CheckIcon },
-        { label: "Diseño: Lámina, Logo", icon: CheckIcon },
-        { label: "Espesor: 8mm, 10mm", icon: CheckIcon },
+        { label: "Espesor: 6mm", icon: CheckIcon },
     ],
-    imageLists: [listMampara.nova, listMampara.serie],
+    imageLists: [listMampara.m_serie01, listMampara.m_serie02, listMampara.m_serie03],
 };
 
 const Mampara = () => {
-    return (
-        // 2. Renderizar el layout pasándole los datos
-        <ServicePageLayout pageData={mamparaPageData} />
-    );
+    return <ServicePageLayout pageData={mamparaPageData} />;
 };
 
 export default Mampara;

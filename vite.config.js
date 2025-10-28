@@ -14,5 +14,23 @@ export default defineConfig({
     build: {
         outDir: "dist",
         emptyOutDir: true,
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes("firebase")) {
+                        return "firebase";
+                    }
+                    if (id.includes("@chakra-ui")) {
+                        return "chakra-ui";
+                    }
+                    if (id.includes("framer-motion")) {
+                        return "framer-motion";
+                    }
+                    if (id.includes("node_modules")) {
+                        return "vendor";
+                    }
+                },
+            },
+        },
     },
 });

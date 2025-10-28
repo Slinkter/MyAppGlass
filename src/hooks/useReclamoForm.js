@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDisclosure } from "@chakra-ui/react";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 import { db } from "../firebase/firebase.js";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const initialState = {
     nombreCompleto: "",
@@ -38,6 +38,7 @@ export const useReclamoForm = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [newReclamoId, setNewReclamoId] = useState("");
     const navigate = useNavigate();
+    const toast = useToast();
 
     const handleInputsChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -54,21 +55,48 @@ export const useReclamoForm = () => {
 
     const handleBtnSubmit = async (e) => {
         e.preventDefault();
+
+        const requiredFields = [
+            "nombreCompleto",
+            "domicilio",
+            "email",
+            "telefono",
+            "tipoDocumento",
+            "numeroDocumento",
+            "tipoBien",
+            "tipoSolicitud",
+            "detalle",
+        ];
+
+        for (const field of requiredFields) {
+            if (!formData[field]) {
+                toast({
+                    title: "Campos incompletos",
+                    description: `Por favor, complete el campo requerido: ${field}`,
+                    status: "warning",
+                    duration: 5000,
+                    isClosable: true,
+                });
+                return;
+            }
+        }
+
         if (!formData.aceptaTerminos) {
-            alert("Debe declarar que la información es veraz y aceptar la política de privacidad.");
+            toast({
+                title: "Error de validación",
+                description: "Debe declarar que la información es veraz y aceptar la política de privacidad.",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+            });
             return;
         }
 
         try {
-            const options = {
-                year: "numeric", month: "2-digit", day: "2-digit",
-                hour: "2-digit", minute: "2-digit", second: "2-digit",
-                hour12: false, timeZone: "America/Lima",
-            };
             const refReclamos = collection(db, "reclamaciones");
             const docRef = await addDoc(refReclamos, {
                 ...formData,
-                fechaReclamo: new Date().toISOString("es-PE", options),
+                fechaReclamo: serverTimestamp(),
             });
 
             setNewReclamoId(docRef.id);
@@ -76,7 +104,13 @@ export const useReclamoForm = () => {
             setFormData(initialState);
         } catch (error) {
             console.error("Error writing document to Firestore: ", error);
-            alert("Hubo un error al enviar su reclamo. Por favor, intente más tarde.");
+            toast({
+                title: "Error al enviar reclamo",
+                description: "Hubo un error al enviar su reclamo. Por favor, intente más tarde.",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
         }
     };
 

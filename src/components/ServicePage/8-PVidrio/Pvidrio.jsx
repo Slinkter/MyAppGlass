@@ -1,25 +1,30 @@
-import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listPuertav } from "../../../data/gallery/puertaVidrio";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { listPuertaVidrio } from "../../../data/gallery/puertaVidrio";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
-const Pvidrio = () => {
-    const pageData = {
-        seo: {
-            title: "Puertas de Vidrio ",
-            description:
-                "Fabricamos puertas de vidrio templado batientes y corredizas para interiores y exteriores. Soluciones elegantes y seguras para oficinas y residencias.",
-        },
-        systems: [{ label: "Sistema Unico", icon: ChevronRightIcon }],
-        features: [
-            { label: "Vidrio templado de 8mm", icon: CheckIcon },
-            { label: "Chapa bola ", icon: CheckIcon },
-            { label: "Accesorios ", icon: CheckIcon },
-            { label: "Arenado con diseño", icon: CheckIcon },
-        ],
-        imageLists: [listPuertav.puertav],
-    };
+const pvidrioPageData = {
+    seo: {
+        title: "Puertas de Vidrio",
+        description:
+            "Fabricamos e instalamos puertas de vidrio de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+    },
+    systems: [
+        { label: "Sistema Nova", icon: ChevronRightIcon },
+        { label: "Sistema Serie 25", icon: ChevronRightIcon },
+        { label: "Sistema Serie 31", icon: ChevronRightIcon },
+    ],
+    features: [
+        { label: "Color: Incoloro, Bronce", icon: CheckIcon },
+        { label: "Tipo: Templado, Crudo", icon: CheckIcon },
+        { label: "Aluminio: Natural, Negro", icon: CheckIcon },
+        { label: "Espesor: 6mm", icon: CheckIcon },
+    ],
+    imageLists: [listPuertaVidrio.pv01, listPuertaVidrio.pv02, listPuertaVidrio.pv03],
+};
 
-    return <ServicePageLayout pageData={pageData} />;
+const Pvidrio = () => {
+    return <ServicePageLayout pageData={pvidrioPageData} />;
 };
 
 export default Pvidrio;
