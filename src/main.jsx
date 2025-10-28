@@ -5,48 +5,48 @@ import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 // Views
-const HomeView = lazy(() => import("./routes/HomeView"));
-const ServiceView = lazy(() => import("./routes/ServiceView"));
-const ErrorView = lazy(() => import("./routes/ErrorView"));
-const TestView = lazy(() => import("./routes/TestView"));
-const ProjectView = lazy(() => import("./routes/ProjectView"));
+const HomePage = lazy(() => import("./pages/HomePage"));
+const ServicePage = lazy(() => import("./pages/ServicePage"));
+const ErrorPage = lazy(() => import("./pages/ErrorPage"));
+const TestPage = lazy(() => import("./pages/TestPage"));
+const ProjectPage = lazy(() => import("./pages/ProjectPage"));
 // Service Pages
-const Ventana = lazy(() => import("./components/ServicePage/1-Ventana/Ventana"));
-const Mampara = lazy(() => import("./components/ServicePage/2-Mampara/Mampara"));
-const Ducha = lazy(() => import("./components/ServicePage/3-Ducha/Ducha"));
-const Parapeto = lazy(() => import("./components/ServicePage/4-Parapeto/Parapeto"));
-const Baranda = lazy(() => import("./components/ServicePage/5-Baranda/Baranda"));
-const Balcon = lazy(() => import("./components/ServicePage/6-Balcon/Balcon"));
-const Techo = lazy(() => import("./components/ServicePage/7-Techo/Techo"));
-const Pvidrio = lazy(() => import("./components/ServicePage/8-PVidrio/Pvidrio"));
-const Pserie = lazy(() => import("./components/ServicePage/9-PSerie/Pserie"));
-const Celosias = lazy(() => import("./components/ServicePage/10-Celosias/Celosias"));
-const ReclamoForm = lazy(() => import("./layout/LibroReclamacion/ReclamoForm"));
+const VentanaPage = lazy(() => import("./components/services/service-pages/VentanaPage"));
+const MamparaPage = lazy(() => import("./components/services/service-pages/MamparaPage"));
+const DuchaPage = lazy(() => import("./components/services/service-pages/DuchaPage"));
+const ParapetoPage = lazy(() => import("./components/services/service-pages/ParapetoPage"));
+const BarandaPage = lazy(() => import("./components/services/service-pages/BarandaPage"));
+const BalconPage = lazy(() => import("./components/services/service-pages/BalconPage"));
+const TechoPage = lazy(() => import("./components/services/service-pages/TechoPage"));
+const PvidrioPage = lazy(() => import("./components/services/service-pages/PvidrioPage"));
+const PseriePage = lazy(() => import("./components/services/service-pages/PseriePage"));
+const CelosiasPage = lazy(() => import("./components/services/service-pages/CelosiasPage"));
+const ReclamationForm = lazy(() => import("./layout/reclamation-book/ReclamationForm"));
 //
-import theme from "./theme";
-import "./index.css";
+import theme from "./config/theme";
+import "./styles/global.css";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         children: [
-            { path: "/", element: <HomeView /> },
-            { path: "/servicios", element: <ServiceView /> },
-            { path: "/servicios/ventana", element: <Ventana /> },
-            { path: "/servicios/mampara", element: <Mampara /> },
-            { path: "/servicios/ducha", element: <Ducha /> },
-            { path: "/servicios/parapeto", element: <Parapeto /> },
-            { path: "/servicios/baranda", element: <Baranda /> },
-            { path: "/servicios/balcones", element: <Balcon /> },
-            { path: "/servicios/techo", element: <Techo /> },
-            { path: "/servicios/pvidrio", element: <Pvidrio /> },
-            { path: "/servicios/pserie", element: <Pserie /> },
-            { path: "/servicios/celosias", element: <Celosias /> },
-            { path: "/proyectos", element: <ProjectView /> },
-            { path: "/libro-de-reclamacion", element: <ReclamoForm /> },
-            { path: "/test", element: <TestView /> },
-            { path: "*", element: <ErrorView /> },
+            { path: "/", element: <HomePage /> },
+            { path: "/servicios", element: <ServicePage /> },
+            { path: "/servicios/ventana", element: <VentanaPage /> },
+            { path: "/servicios/mampara", element: <MamparaPage /> },
+            { path: "/servicios/ducha", element: <DuchaPage /> },
+            { path: "/servicios/parapeto", element: <ParapetoPage /> },
+            { path: "/servicios/baranda", element: <BarandaPage /> },
+            { path: "/servicios/balcones", element: <BalconPage /> },
+            { path: "/servicios/techo", element: <TechoPage /> },
+            { path: "/servicios/pvidrio", element: <PvidrioPage /> },
+            { path: "/servicios/pserie", element: <PseriePage /> },
+            { path: "/servicios/celosias", element: <CelosiasPage /> },
+            { path: "/proyectos", element: <ProjectPage /> },
+            { path: "/libro-de-reclamacion", element: <ReclamationForm /> },
+            { path: "/test", element: <TestPage /> },
+            { path: "*", element: <ErrorPage /> },
         ],
     },
 ]);
