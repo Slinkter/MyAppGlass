@@ -1,4 +1,3 @@
-import React from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
     MapPinIcon,
@@ -28,6 +27,7 @@ import {
     Spinner,
 } from "@chakra-ui/react";
 import FadingImage from "../common/FadingImage";
+import React from "react";
 
 /**
  * Componente ItemProject

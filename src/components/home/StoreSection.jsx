@@ -60,4 +60,6 @@ const StoreSection = React.memo(() => {
     );
 });
 
+StoreSection.displayName = "StoreSection";
+
 export default StoreSection;

@@ -1,8 +1,14 @@
+import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listBalcon } from "@/data/gallery/balcon-data";
 import ServicePageLayout from "./ServicePageLayout";
 
+/**
+ * @constant {object} balconPageData
+ * @description Configuration object for the Balcones service page.
+ * Contains SEO, systems, features, and image data for the `ServicePageLayout`.
+ */
 const balconPageData = {
     seo: {
         title: "Balcones",
@@ -21,8 +27,16 @@ const balconPageData = {
     imageLists: [listBalcon.items],
 };
 
-const Balcon = () => {
+/**
+ * @component BalconPage
+ * @description Displays detailed information about the "Balcones" (Balconies) service.
+ * It provides the specific data to the reusable `ServicePageLayout` and is memoized for performance.
+ * @returns {JSX.Element} The rendered layout for the balcones service page.
+ */
+const BalconPage = React.memo(() => {
     return <ServicePageLayout pageData={balconPageData} />;
-};
+});
 
-export default Balcon;
+BalconPage.displayName = "BalconPage";
+
+export default BalconPage;

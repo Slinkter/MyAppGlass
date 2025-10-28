@@ -1,8 +1,14 @@
+import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listPuertav } from "@/data/gallery/puerta-vidrio-data";
 import ServicePageLayout from "./ServicePageLayout";
 
+/**
+ * @constant {object} pvidrioPageData
+ * @description Configuration object for the Puertas de Vidrio service page.
+ * Contains SEO, systems, features, and image data for the `ServicePageLayout`.
+ */
 const pvidrioPageData = {
     seo: {
         title: "Puertas de Vidrio",
@@ -21,8 +27,16 @@ const pvidrioPageData = {
     imageLists: [listPuertav.puertav],
 };
 
-const Pvidrio = () => {
+/**
+ * @component PvidrioPage
+ * @description Displays detailed information about the "Puertas de Vidrio" (Glass Doors) service.
+ * It provides the specific data to the reusable `ServicePageLayout` and is memoized for performance.
+ * @returns {JSX.Element} The rendered layout for the Puertas de Vidrio service page.
+ */
+const PvidrioPage = React.memo(() => {
     return <ServicePageLayout pageData={pvidrioPageData} />;
-};
+});
 
-export default Pvidrio;
+PvidrioPage.displayName = "PvidrioPage";
+
+export default PvidrioPage;

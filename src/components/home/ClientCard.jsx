@@ -48,4 +48,6 @@ const ClientCard = React.memo(({ IMAGE, nameClient, descClient }) => {
     );
 });
 
+ClientCard.displayName = "ClientCard";
+
 export default ClientCard;

@@ -1,3 +1,4 @@
+import React from "react";
 import { Suspense } from "react";
 import Layout from "./layout/Layout";
 import { Outlet } from "react-router-dom";

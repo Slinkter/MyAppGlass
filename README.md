@@ -1,77 +1,118 @@
-# G&A Company - Aplicación Web Corporativa
+# Aplicación Web - Glass & Aluminum Company
 
-Sitio web oficial para G&A Company, una empresa especializada en proyectos de vidriería y aluminio. La aplicación está construida con React y sigue principios de arquitectura limpia para garantizar su mantenibilidad y escalabilidad.
+Este repositorio contiene el código fuente de la aplicación web oficial para [Glass & Aluminum Company](https://gyacompany.com/), construida con React (Vite) y desplegada en Firebase.
 
-## 📜 Descripción del Proyecto
+## Requisitos Previos
 
-Esta aplicación sirve como la cara digital de G&A Company, mostrando sus servicios, proyectos completados y proporcionando información de contacto. Utiliza un stack tecnológico moderno para ofrecer una experiencia de usuario rápida y fluida.
+Asegúrate de tener instalado lo siguiente en tu sistema:
 
--   **Tecnologías Principales:** React, Vite, Redux Toolkit, Chakra UI, React Router.
--   **Principios Clave:** Código Limpio, Arquitectura Limpia, Diseño Atómico.
+- [Node.js](https://nodejs.org/) (versión 18 o superior)
+- [pnpm](https://pnpm.io/installation) (recomendado) o npm
+- [Firebase CLI](https://firebase.google.com/docs/cli#install_the_cli)
 
----
+```bash
+npm install -g firebase-tools
+```
 
-## 🚀 Instalación y Setup
+## Instalación
 
-Sigue estos pasos para configurar el entorno de desarrollo local.
+1. **Clona el repositorio:**
 
-**Requisitos Previos:**
-
--   Node.js (versión 18.x o superior)
--   npm (o un gestor de paquetes como pnpm o yarn)
-
-**Pasos de Instalación:**
-
-1.  **Clona el repositorio:**
     ```bash
     git clone <URL_DEL_REPOSITORIO>
-    cd my-glass-app
+    cd MyAppGlass
     ```
 
-2.  **Instala las dependencias:**
+2. **Instala las dependencias del proyecto principal (frontend):**
+
     ```bash
-    npm install
+    pnpm install
     ```
 
-3.  **Inicia el servidor de desarrollo:**
+3. **Instala las dependencias de las Cloud Functions (backend):**
     ```bash
-    npm run dev
+    cd functions
+    pnpm install
+    cd ..
     ```
 
-4.  Abre tu navegador y visita `http://localhost:5173` para ver la aplicación en funcionamiento.
+## Configuración del Backend
+
+Las Cloud Functions de este proyecto utilizan SendGrid para enviar correos electrónicos. Necesitas configurar la clave de la API de SendGrid como un secreto en Firebase.
+
+1. **Configura el secreto:**
+    Ejecuta este comando y, cuando se te solicite, pega tu clave de API de SendGrid.
+
+    ```bash
+    firebase functions:secrets:set SENDGRID_KEY
+    ```
+
+2. **Otorga acceso al secreto (si es la primera vez):**
+    Asegúrate de que tus funciones tengan acceso a la clave.
+    ```bash
+    firebase functions:secrets:access SENDGRID_KEY
+    ```
+
+## Comandos Principales
+
+### Iniciar en Modo Desarrollo
+
+Ejecuta la aplicación en un servidor local (`http://localhost:5173`). Se recargará automáticamente al guardar cambios.
+
+```bash
+pnpm dev
+```
+
+### Compilar para Producción
+
+Genera una versión optimizada de la aplicación en la carpeta `dist`.
+
+```bash
+pnpm build
+```
+
+## Despliegue en Firebase
+
+Asegúrate de haber iniciado sesión en Firebase (`firebase login`).
+
+### Despliegue Completo
+
+Sube la aplicación web (Hosting) y las Cloud Functions al mismo tiempo.
+
+```bash
+firebase deploy
+```
+
+### Desplegar solo las Cloud Functions
+
+Si solo has hecho cambios en el backend.
+
+```bash
+firebase deploy --only functions
+```
+
+### Desplegar solo el Frontend
+
+Si solo has hecho cambios en la aplicación de React.
+
+```bash
+pnpm run build && firebase deploy --only hosting
+```
 
 ---
 
-## 🏛️ Arquitectura Aplicada
+## Scripts de Limpieza del Proyecto
 
-El proyecto ha sido refactorizado para seguir una arquitectura limpia, promoviendo la **separación de responsabilidades (SoC)** y la **reutilización de código**. Los siguientes patrones son el núcleo de nuestra arquitectura:
+Estos comandos eliminan `node_modules`, cachés y carpetas de compilación para dejar el proyecto en un estado limpio.
 
-### 1. Capa de Servicios (Patrón Repositorio)
+### Para Windows
 
--   **Ubicación:** `src/api/`
+```bash
+if exist node_modules ( rd /s /q node_modules ) && if exist functions\node_modules ( rd /s /q functions\node_modules ) && if exist dist ( rd /s /q dist ) && if exist package-lock.json ( del package-lock.json ) && if exist pnpm-lock.yaml ( del pnpm-lock.yaml ) && if exist functions\package-lock.json ( del functions\package-lock.json ) && npm cache clean --force
+```
 
--   **Descripción:** Toda la lógica de acceso a datos está abstraída en una "capa de servicio". Actualmente, esta capa obtiene datos de archivos `JSON` estáticos, pero está diseñada para ser fácilmente reemplazable. Si en el futuro migramos a una API REST, GraphQL o Firebase, solo necesitaremos modificar los servicios dentro de esta capa, sin tocar la lógica de negocio o los componentes de la UI.
+### Para macOS / Linux
 
--   **Ejemplo:** `src/api/projectService.js` exporta una función `fetchAllProjects()` que es consumida por los thunks de Redux.
-
-### 2. Hooks Personalizados (Custom Hooks)
-
--   **Ubicación:** `src/hooks/`
-
--   **Descripción:** Para evitar la lógica de negocio (como la gestión de estado de Redux) directamente en los componentes, hemos creado hooks personalizados. Estos hooks encapsulan toda la interacción con Redux (`useDispatch`, `useSelector`, `useEffect`) y exponen una API simple y declarativa a los componentes.
-
--   **Ejemplo:** El hook `useProjects()` se encarga de despachar la acción para obtener proyectos y devuelve un objeto `{ projects, isLoading, error }`. Los componentes simplemente consumen este hook sin saber nada sobre Redux.
-
-### 3. Componente `DataLoader` (Gestor de Estados de UI)
-
--   **Ubicación:** `src/components/common/DataLoader.jsx`
-
--   **Descripción:** Para evitar la repetición de lógica de renderizado condicional (mostrar skeletons de carga, mensajes de error, etc.), hemos implementado un componente genérico `DataLoader`. Este componente envuelve a otros y gestiona qué mostrar basado en el estado de `isLoading` y `error`.
-
--   **Beneficio:** Mantiene los componentes de la UI limpios y enfocados únicamente en la presentación de los datos finales, cumpliendo con el principio **DRY (Don't Repeat Yourself)**.
-
-### 4. Rutas de Importación Absolutas
-
--   **Configuración:** `vite.config.js`
-
--   **Descripción:** Se ha configurado un alias `@` que apunta al directorio `src/`. Esto permite importaciones más limpias y mantenibles (ej. `import Component from '@/components/Component';`) en lugar de rutas relativas frágiles como `../../components/Component`.
+```bash
+rm -rf node_modules functions/node_modules dist && rm -f package-lock.json pnpm-lock.json functions/package-lock.json && npm cache clean --force
+```

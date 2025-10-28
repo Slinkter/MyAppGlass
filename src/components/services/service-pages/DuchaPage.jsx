@@ -1,8 +1,14 @@
+import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listDucha } from "@/data/gallery/ducha-data";
 import ServicePageLayout from "./ServicePageLayout";
 
+/**
+ * @constant {object} duchaPageData
+ * @description Configuration object for the Duchas service page.
+ * Contains SEO, systems, features, and image data for the `ServicePageLayout`.
+ */
 const duchaPageData = {
     seo: {
         title: "Duchas",
@@ -22,8 +28,16 @@ const duchaPageData = {
     imageLists: [listDucha.kit],
 };
 
-const Ducha = () => {
+/**
+ * @component DuchaPage
+ * @description Displays detailed information about the "Duchas" (Showers) service.
+ * It provides the specific data to the reusable `ServicePageLayout` and is memoized for performance.
+ * @returns {JSX.Element} The rendered layout for the duchas service page.
+ */
+const DuchaPage = React.memo(() => {
     return <ServicePageLayout pageData={duchaPageData} />;
-};
+});
 
-export default Ducha;
+DuchaPage.displayName = "DuchaPage";
+
+export default DuchaPage;

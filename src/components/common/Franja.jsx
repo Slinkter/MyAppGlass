@@ -50,4 +50,6 @@ const Franja = React.memo(({ title, text }) => {
     );
 });
 
+Franja.displayName = "Franja";
+
 export default Franja;
