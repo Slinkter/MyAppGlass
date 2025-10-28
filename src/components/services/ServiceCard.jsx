@@ -63,7 +63,7 @@ function ItemService(props) {
                             colorScheme="primary"
                             rightIcon={<ArrowForwardIcon />}
                             onClick={() => navigate(plink)}
-                            size="md"
+                            aria-label={`Ver catálogo de ${name}`} // Added aria-label
                         >
                             Catálogo
                         </Button>

@@ -38,6 +38,7 @@ const SidebarItem = React.memo(({ icon, label, onClick, isActive }) => {
                     ? h_activeColor
                     : "inherit",
             }}
+            tabIndex={isActive ? 0 : -1} // Added for keyboard navigation
         >
             <Icon w={5} h={5} as={icon} />
             <Text fontWeight={isActive ? 700 : 500}>{label}</Text>
