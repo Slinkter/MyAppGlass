@@ -5,13 +5,15 @@ export const fetchProjects = createAsyncThunk(
   'projects/fetchProjects',
   async (_, { rejectWithValue }) => {
     try {
+      // Fetch data from local JSON file
       const response = await fetch('/projects.json');
       if (!response.ok) {
-        throw new Error('Error al obtener los proyectos');
+        throw new Error('Failed to fetch local projects data');
       }
-      const data = await response.json();
-      return data;
+      const projects = await response.json();
+      return projects;
     } catch (error) {
+      console.error("Failed to fetch local projects:", error);
       return rejectWithValue(error.message);
     }
   }

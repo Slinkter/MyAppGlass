@@ -1,3 +1,4 @@
+import React from "react";
 import {
     Card,
     CardBody,
@@ -9,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 // ...existing code...
 
-const ClientCard = ({ IMAGE, nameClient, descClient }) => {
+const ClientCard = React.memo(({ IMAGE, nameClient, descClient }) => {
     const borderColor = useColorModeValue("gray.200", "gray.900"); // Using gray.900 for dark mode border
     return (
         <Card
@@ -45,6 +46,6 @@ const ClientCard = ({ IMAGE, nameClient, descClient }) => {
             </CardBody>
         </Card>
     );
-};
+});
 
 export default ClientCard;

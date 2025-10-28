@@ -1,3 +1,4 @@
+import React from "react";
 import { AspectRatio, Box, Button, Container, Flex } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
 import Franja from "../common/Franja";
@@ -11,7 +12,7 @@ import { FaMapLocationDot } from "react-icons/fa6";
  */
 // ...existing code...
 
-const StoreSection = () => {
+const StoreSection = React.memo(() => {
     return (
         <Box
             height={{ base: "auto", md: "100vh" }}
@@ -57,6 +58,6 @@ const StoreSection = () => {
             </Container>
         </Box>
     );
-};
+});
 
 export default StoreSection;

@@ -5,13 +5,15 @@ export const fetchServices = createAsyncThunk(
   'services/fetchServices',
   async (_, { rejectWithValue }) => {
     try {
+      // Fetch data from local JSON file
       const response = await fetch('/services.json');
       if (!response.ok) {
-        throw new Error('Error al obtener los servicios');
+        throw new Error('Failed to fetch local services data');
       }
-      const data = await response.json();
-      return data;
+      const services = await response.json();
+      return services;
     } catch (error) {
+      console.error("Failed to fetch local services:", error);
       return rejectWithValue(error.message);
     }
   }

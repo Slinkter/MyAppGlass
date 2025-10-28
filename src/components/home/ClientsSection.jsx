@@ -1,31 +1,34 @@
+import React, { useEffect } from "react";
 import Franja from "../common/Franja";
-import { Box, Container, Flex } from "@chakra-ui/react";
+import { Box, Container, Flex, Text, Spinner } from "@chakra-ui/react";
 import ClientCard from "./ClientCard";
-import cliente01 from "../../assets/clients/building.jpg";
-import cliente02 from "../../assets/clients/sectoroffices.jpg";
-import cliente03 from "../../assets/clients/sectorhogar.jpg";
-// ...existing code...
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchClients } from '../../features/clients/clientsSlice';
 
-const listClient = [
-    {
-        imgClient: cliente01,
-        nameClient: "Constructoras",
-        descClient: "Más de 12 proyectos de construcción entregados.",
-    },
-    {
-        imgClient: cliente02,
-        nameClient: "Negocios",
-        descClient: "Servicios de mantenimiento en áreas de trabajos.",
-    },
-    {
-        imgClient: cliente03,
-        nameClient: "Hogares",
-        descClient:
-            "Servicio de instalación de ventanas, mamparas , puertas de duchas y más.",
-    },
-];
+const ClientsSection = React.memo(() => {
+    const dispatch = useDispatch();
+    const clients = useSelector((state) => state.clients.items);
+    const clientStatus = useSelector((state) => state.clients.status);
+    const error = useSelector((state) => state.clients.error);
 
-const ClientsSection = () => {
+    useEffect(() => {
+        if (clientStatus === 'idle') {
+            dispatch(fetchClients());
+        }
+    }, [clientStatus, dispatch]);
+
+    if (clientStatus === 'loading') {
+        return (
+            <Box minHeight="100vh" display="flex" justifyContent="center" alignItems="center">
+                <Spinner size="xl" />
+            </Box>
+        );
+    }
+
+    if (clientStatus === 'failed') {
+        return <Text>Error: {error}</Text>;
+    }
+
     return (
         <Box minHeight="100vh">
             <Franja
@@ -42,7 +45,7 @@ const ClientsSection = () => {
                     flexDir={{ base: "column", md: "row" }}
                     gap={6}
                 >
-                    {listClient.map((client, index) => (
+                    {clients.map((client, index) => (
                         <ClientCard
                             key={index}
                             IMAGE={client.imgClient}
@@ -54,6 +57,6 @@ const ClientsSection = () => {
             </Container>
         </Box>
     );
-};
+});
 
 export default ClientsSection;

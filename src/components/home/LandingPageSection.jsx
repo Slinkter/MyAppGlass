@@ -1,3 +1,4 @@
+import React from "react";
 import {
     Box,
     Center,
@@ -18,7 +19,7 @@ import bg_home_desktop from "../../assets/common/mainland.jpg";
  * @component
  * @returns {JSX.Element}
  */
-const LandingPageSection = () => {
+const LandingPageSection = React.memo(() => {
     return (
         <Box
             backgroundImage={{
@@ -100,5 +101,5 @@ const LandingPageSection = () => {
             </Flex>
         </Box>
     );
-};
+});
 export default LandingPageSection;

@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from "@chakra-ui/react";
 import HelmetWrapper from "../components/HelmetWrapper";
 import LandingPageSection from "../components/home/LandingPageSection";
@@ -5,7 +6,7 @@ import ClientsSection from "../components/home/ClientsSection";
 import FeaturesSection from "../components/home/FeaturesSection";
 import StoreSection from "../components/home/StoreSection";
 
-const HomeView = () => {
+const HomeView = React.memo(() => {
     return (
         <>
             <HelmetWrapper
@@ -22,6 +23,6 @@ const HomeView = () => {
             </Box>
         </>
     );
-};
+});
 
 export default HomeView;
