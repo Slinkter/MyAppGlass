@@ -7,51 +7,30 @@ import {
     Collapse,
     useColorModeValue,
     useDisclosure,
-    useColorMode,
 } from "@chakra-ui/react";
 import {
     HamburgerIcon,
     CloseIcon,
-    MoonIcon,
-    SunIcon,
 } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
+import NAV_ITEMS from "../../data/nav-items";
+import ColorModeSwitcher from "../../components/common/ColorModeSwitcher";
 
-const NAV_ITEMS = [
-    {
-        label: "Inicio",
-        href: "/",
-    },
-    {
-        label: "Servicios",
-        href: "/servicios",
-    },
-    {
-        label: "Proyectos",
-        href: "/proyectos",
-    },
-];
-
-export default function WithSubnavigation() {
-    const { colorMode, toggleColorMode } = useColorMode();
+export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
-
-    const colorWhite = "gray.200";
-    const colorBlack = "blackAlpha.500";
-    const bgColor = useColorModeValue(colorWhite, colorBlack);
 
     return (
         <>
-            {/* desktop */}
             <Flex
                 minH={"50px"}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
                 borderBottom={1}
                 borderStyle={"solid"}
-                borderColor={bgColor}
+                borderColor={useColorModeValue("gray.200", "blackAlpha.500")}
                 align={"center"}
             >
-                <Flex // 1.mobil
+                <Flex
                     display={{ base: "flex", md: "none" }}
                     flex={{ base: 1, md: "auto" }}
                     ml={{ base: -2 }}
@@ -69,7 +48,7 @@ export default function WithSubnavigation() {
                         variant={"ghost"}
                     />
                 </Flex>
-                <Flex // 2.desktop
+                <Flex
                     flex={{ base: 1 }}
                     justifyContent={"center"}
                     alignItems={"center"}
@@ -78,27 +57,14 @@ export default function WithSubnavigation() {
                         <DesktopNav />
                     </Flex>
                 </Flex>
-                <Flex // 3.Theme
-                    w={10}
-                    h={10}
-                    justify={"center"}
-                    align={"center"}
-                    rounded={"full"}
-                    bg={bgColor}
-                    onClick={toggleColorMode}
-                >
-                    {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                </Flex>
+                <ColorModeSwitcher />
             </Flex>
-            {/* movil */}
             <Collapse in={isOpen} animateOpacity>
-                <MobileNav />
+                <MobileNav onToggle={onToggle} />
             </Collapse>
         </>
     );
 }
-
-/*  */
 
 const DesktopNav = () => {
     const linkColor = useColorModeValue("gray.600", "gray.200");
@@ -107,28 +73,29 @@ const DesktopNav = () => {
     return (
         <Stack direction={"row"} spacing={4}>
             {NAV_ITEMS.map((navItem) => (
-                <Box
+                <Link
                     key={navItem.label}
-                    as="a"
-                    p={2}
-                    href={navItem.href ?? "#"}
-                    fontSize={"md"}
-                    fontWeight={600}
-                    color={linkColor}
-                    _hover={{
-                        textDecoration: "none",
-                        color: linkHoverColor,
-                    }}
+                    to={navItem.href ?? "#"}
+                    style={{ textDecoration: "none" }}
                 >
-                    {navItem.label}
-                </Box>
+                    <Box
+                        p={2}
+                        fontSize={"md"}
+                        fontWeight={600}
+                        color={linkColor}
+                        _hover={{
+                            color: linkHoverColor,
+                        }}
+                    >
+                        {navItem.label}
+                    </Box>
+                </Link>
             ))}
         </Stack>
     );
 };
 
-/*  */
-const MobileNav = () => {
+const MobileNav = ({ onToggle }) => {
     return (
         <Stack
             bg={useColorModeValue("white", "gray.900")}
@@ -136,36 +103,35 @@ const MobileNav = () => {
             display={{ md: "none" }}
         >
             {NAV_ITEMS.map((navItem) => (
-                <MobileNavItem key={navItem.label} {...navItem} />
+                <MobileNavItem key={navItem.label} {...navItem} onToggle={onToggle} />
             ))}
         </Stack>
     );
 };
 
-/*  */
-
-const MobileNavItem = ({ label, children, href }) => {
-    const { onToggle } = useDisclosure();
-
+const MobileNavItem = ({ label, href, onToggle }) => {
     return (
-        <Stack spacing={4} onClick={children && onToggle}>
-            <Box
-                py={2}
-                as="a"
-                href={href ?? "#"}
-                justifyContent="space-between"
-                alignItems="center"
-                _hover={{
-                    textDecoration: "none",
-                }}
+        <Stack spacing={4} onClick={onToggle}>
+            <Link
+                to={href ?? "#"}
+                style={{ textDecoration: "none" }}
             >
-                <Text
-                    fontWeight={600}
-                    color={useColorModeValue("gray.600", "gray.200")}
+                <Box
+                    py={2}
+                    justifyContent="space-between"
+                    alignItems="center"
+                    _hover={{
+                        textDecoration: "none",
+                    }}
                 >
-                    {label}
-                </Text>
-            </Box>
+                    <Text
+                        fontWeight={600}
+                        color={useColorModeValue("gray.600", "gray.200")}
+                    >
+                        {label}
+                    </Text>
+                </Box>
+            </Link>
         </Stack>
     );
 };
