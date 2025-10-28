@@ -1,76 +1,77 @@
-# MyAppGlass
+# G&A Company - Aplicación Web Corporativa
 
-Sitio web comercial para Glass & Aluminum Company S.A.C.
+Sitio web oficial para G&A Company, una empresa especializada en proyectos de vidriería y aluminio. La aplicación está construida con React y sigue principios de arquitectura limpia para garantizar su mantenibilidad y escalabilidad.
 
-## Descripción y Propósito
+## 📜 Descripción del Proyecto
 
-Este proyecto es una aplicación web de una sola página (SPA) creada con React y Vite. Sirve como el sitio web comercial de Glass & Aluminum Company S.A.C., mostrando los servicios, proyectos y la información de contacto de la empresa. La aplicación está diseñada para ser rápida, receptiva y fácil de mantener.
+Esta aplicación sirve como la cara digital de G&A Company, mostrando sus servicios, proyectos completados y proporcionando información de contacto. Utiliza un stack tecnológico moderno para ofrecer una experiencia de usuario rápida y fluida.
 
-## Instalación y Configuración
+-   **Tecnologías Principales:** React, Vite, Redux Toolkit, Chakra UI, React Router.
+-   **Principios Clave:** Código Limpio, Arquitectura Limpia, Diseño Atómico.
 
-Para ejecutar este proyecto localmente, sigue estos pasos:
+---
+
+## 🚀 Instalación y Setup
+
+Sigue estos pasos para configurar el entorno de desarrollo local.
+
+**Requisitos Previos:**
+
+-   Node.js (versión 18.x o superior)
+-   npm (o un gestor de paquetes como pnpm o yarn)
+
+**Pasos de Instalación:**
 
 1.  **Clona el repositorio:**
-
     ```bash
-    git clone https://github.com/tu-usuario/my-glass-app.git
+    git clone <URL_DEL_REPOSITORIO>
     cd my-glass-app
     ```
 
 2.  **Instala las dependencias:**
-
     ```bash
     npm install
     ```
 
 3.  **Inicia el servidor de desarrollo:**
-
     ```bash
     npm run dev
     ```
 
-Esto iniciará la aplicación en modo de desarrollo y la abrirá en tu navegador en `http://localhost:3000`.
+4.  Abre tu navegador y visita `http://localhost:5173` para ver la aplicación en funcionamiento.
 
-## Arquitectura Aplicada
+---
 
-La arquitectura de este proyecto sigue los principios de Clean Architecture y Clean Code para garantizar la mantenibilidad, escalabilidad y separación de preocupaciones.
+## 🏛️ Arquitectura Aplicada
 
-### Gestión de Estado con Redux Toolkit
+El proyecto ha sido refactorizado para seguir una arquitectura limpia, promoviendo la **separación de responsabilidades (SoC)** y la **reutilización de código**. Los siguientes patrones son el núcleo de nuestra arquitectura:
 
-Para una gestión de estado robusta y escalable, el proyecto utiliza **Redux Toolkit**. Esto centraliza el estado de la aplicación en un único `store` y facilita la gestión de la lógica de negocio y las operaciones asíncronas.
+### 1. Capa de Servicios (Patrón Repositorio)
 
-*   **Slices:** Se han creado "slices" específicos para `projects` y `services` (`src/features/projects/projectsSlice.js` y `src/features/services/servicesSlice.js`). Cada "slice" contiene su estado inicial, reducers para manejar las actualizaciones de estado y `createAsyncThunk` para gestionar la obtención de datos de forma asíncrona.
-*   **`createAsyncThunk`:** Aunque los datos iniciales se obtienen de archivos JSON locales, el uso de `createAsyncThunk` prepara la aplicación para una futura integración con APIs externas (como Firebase Firestore). Esto permite manejar de forma consistente los estados de carga, éxito y error de las operaciones asíncronas.
-*   **`useSelector` y `useDispatch`:** Los componentes (`ProjectsList`, `ServiceList`) interactúan con el store de Redux utilizando los hooks `useSelector` para acceder al estado y `useDispatch` para despachar acciones y thunks.
+-   **Ubicación:** `src/api/`
 
-### Separación de Datos
+-   **Descripción:** Toda la lógica de acceso a datos está abstraída en una "capa de servicio". Actualmente, esta capa obtiene datos de archivos `JSON` estáticos, pero está diseñada para ser fácilmente reemplazable. Si en el futuro migramos a una API REST, GraphQL o Firebase, solo necesitaremos modificar los servicios dentro de esta capa, sin tocar la lógica de negocio o los componentes de la UI.
 
-Los datos de la aplicación, como la lista de proyectos y servicios, se han desacoplado del código de la interfaz de usuario. En lugar de estar codificados en componentes de React, los datos se almacenan en archivos JSON (`src/data/projects.json` y `src/data/services.json`). Estos archivos son la fuente de verdad para los thunks de Redux Toolkit.
+-   **Ejemplo:** `src/api/projectService.js` exporta una función `fetchAllProjects()` que es consumida por los thunks de Redux.
 
-Este enfoque proporciona varias ventajas:
+### 2. Hooks Personalizados (Custom Hooks)
 
-*   **Mantenibilidad:** Los datos se pueden actualizar fácilmente sin tener que modificar el código de los componentes.
-*   **Escalabilidad:** Facilita la transición a un sistema de gestión de contenido (CMS) o una base de datos en el futuro.
-*   **Separación de preocupaciones:** Mantiene la capa de datos separada de la capa de presentación.
+-   **Ubicación:** `src/hooks/`
 
-### Estructura de Componentes
+-   **Descripción:** Para evitar la lógica de negocio (como la gestión de estado de Redux) directamente en los componentes, hemos creado hooks personalizados. Estos hooks encapsulan toda la interacción con Redux (`useDispatch`, `useSelector`, `useEffect`) y exponen una API simple y declarativa a los componentes.
 
-La estructura de componentes está organizada para promover la reutilización y la separación de preocupaciones. Los componentes se dividen en tres categorías:
+-   **Ejemplo:** El hook `useProjects()` se encarga de despachar la acción para obtener proyectos y devuelve un objeto `{ projects, isLoading, error }`. Los componentes simplemente consumen este hook sin saber nada sobre Redux.
 
-*   **Componentes comunes:** Componentes reutilizables que se pueden usar en toda la aplicación (p. ej., botones, entradas, etc.).
-*   **Componentes de diseño:** Componentes que definen la estructura de la página (p. ej., encabezado, pie de página, barra lateral, etc.).
-*   **Componentes de características:** Componentes que son específicos de una característica o página en particular (p ej., `ProjectsList`, `ServiceList`, etc.).
+### 3. Componente `DataLoader` (Gestor de Estados de UI)
 
-## Build y Deploy
+-   **Ubicación:** `src/components/common/DataLoader.jsx`
 
-Para compilar la aplicación para producción, ejecuta el siguiente comando:
+-   **Descripción:** Para evitar la repetición de lógica de renderizado condicional (mostrar skeletons de carga, mensajes de error, etc.), hemos implementado un componente genérico `DataLoader`. Este componente envuelve a otros y gestiona qué mostrar basado en el estado de `isLoading` y `error`.
 
-```bash
-npm run build
-```
+-   **Beneficio:** Mantiene los componentes de la UI limpios y enfocados únicamente en la presentación de los datos finales, cumpliendo con el principio **DRY (Don't Repeat Yourself)**.
 
-Esto creará una versión optimizada de la aplicación en el directorio `dist`. Luego, puedes desplegar el contenido de este directorio en tu proveedor de alojamiento preferido.
+### 4. Rutas de Importación Absolutas
 
-## Contacto
+-   **Configuración:** `vite.config.js`
 
-Para soporte o consultas, por favor contacta a [contacto@glasscompany.com.pe](mailto:contacto@glasscompany.com.pe).
+-   **Descripción:** Se ha configurado un alias `@` que apunta al directorio `src/`. Esto permite importaciones más limpias y mantenibles (ej. `import Component from '@/components/Component';`) en lugar de rutas relativas frágiles como `../../components/Component`.
