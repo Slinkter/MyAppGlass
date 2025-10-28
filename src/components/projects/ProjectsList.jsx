@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
     Container,
     Heading,
@@ -10,21 +10,23 @@ import {
     Box,
     Stack
 } from "@chakra-ui/react";
-import listprojects from "../../data/projects-data";
 import ProjectCard from "./ProjectCard";
 import HelmetWrapper from "../../components/HelmetWrapper";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProjects } from '../../features/projects/projectsSlice';
 
 const Projects = React.memo(() => {
     const textColor = useColorModeValue("gray.600", "gray.100");
-    const [loading, setLoading] = useState(true); // Simulate loading
+    const dispatch = useDispatch();
+    const projects = useSelector((state) => state.projects.items);
+    const projectStatus = useSelector((state) => state.projects.status);
+    const error = useSelector((state) => state.projects.error);
 
     useEffect(() => {
-        // In a real application, this would be set to false after data is fetched
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 1000); // Simulate a 1-second loading time
-        return () => clearTimeout(timer);
-    }, []);
+        if (projectStatus === 'idle') {
+            dispatch(fetchProjects());
+        }
+    }, [projectStatus, dispatch]);
 
     const renderSkeletons = () => {
         return Array.from({ length: 6 }).map((_, index) => (
@@ -55,6 +57,27 @@ const Projects = React.memo(() => {
             </Box>
         ));
     };
+
+    if (projectStatus === 'loading') {
+        return (
+            <Container maxW={"8xl"} my={6} textAlign="center">
+                <Flex
+                    direction={{ base: "column", md: "row" }}
+                    flexWrap={"wrap"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    mx={"auto"}
+                    gap={6}
+                >
+                    {renderSkeletons()}
+                </Flex>
+            </Container>
+        );
+    }
+
+    if (projectStatus === 'failed') {
+        return <Text>Error: {error}</Text>;
+    }
 
     return (
         <>
@@ -100,15 +123,11 @@ const Projects = React.memo(() => {
                     mx={"auto"}
                     gap={6}
                 >
-                    {loading ? (
-                        renderSkeletons()
-                    ) : (
-                        listprojects
-                            .map((project) => (
-                                <ProjectCard key={project.id} {...project} />
-                            ))
-                            .reverse()
-                    )}
+                    {projects
+                        .map((project) => (
+                            <ProjectCard key={project.id} {...project} />
+                        ))
+                        .reverse()}
                 </Flex>
             </Container>
         </>

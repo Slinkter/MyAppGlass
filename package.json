@@ -36,12 +36,14 @@
         "@fontsource/open-sans": "^5.0.28",
         "@fontsource/raleway": "^5.0.19",
         "@heroicons/react": "^2.1.5",
+        "@reduxjs/toolkit": "^2.9.2",
         "firebase": "^12.2.1",
         "framer-motion": "^11.2.12",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-helmet-async": "^2.0.5",
         "react-icons": "^5.2.1",
+        "react-redux": "^9.2.0",
         "react-router-dom": "^6.24.0"
     }
 }
