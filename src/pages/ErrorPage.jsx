@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";

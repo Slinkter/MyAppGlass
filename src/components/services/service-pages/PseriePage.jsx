@@ -1,8 +1,14 @@
+import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listPuertas } from "@/data/gallery/puerta-serie-data";
 import ServicePageLayout from "./ServicePageLayout";
 
+/**
+ * @constant {object} pseriePageData
+ * @description Configuration object for the Puertas en Serie service page.
+ * Contains SEO, systems, features, and image data for the `ServicePageLayout`.
+ */
 const pseriePageData = {
     seo: {
         title: "Puertas en Serie",
@@ -20,8 +26,16 @@ const pseriePageData = {
     imageLists: [listPuertas.puertas],
 };
 
-const Pserie = () => {
+/**
+ * @component PseriePage
+ * @description Displays detailed information about the "Puertas en Serie" (Serialized Doors) service.
+ * It provides the specific data to the reusable `ServicePageLayout` and is memoized for performance.
+ * @returns {JSX.Element} The rendered layout for the Puertas en Serie service page.
+ */
+const PseriePage = React.memo(() => {
     return <ServicePageLayout pageData={pseriePageData} />;
-};
+});
 
-export default Pserie;
+PseriePage.displayName = "PseriePage";
+
+export default PseriePage;

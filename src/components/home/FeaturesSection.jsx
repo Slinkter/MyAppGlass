@@ -5,29 +5,7 @@ import Franja from "../common/Franja";
 import { useFeatures } from "@/hooks/useFeatures";
 import DataLoader from "@/components/common/DataLoader";
 import FeatureListSkeleton from "./FeatureListSkeleton";
-
-// Import all icons needed and map them to a dictionary
-import {
-    IoIosCalculator,
-    IoIosCalendar,
-    IoIosKeypad,
-    IoIosPaper,
-    IoMdConstruct,
-    IoMdPricetags,
-    IoMdSwap,
-} from "react-icons/io";
-import { HiOutlineBanknotes } from "react-icons/hi2";
-
-const iconMap = {
-    IoIosCalculator: IoIosCalculator,
-    IoIosCalendar: IoIosCalendar,
-    IoIosKeypad: IoIosKeypad,
-    IoMdConstruct: IoMdConstruct,
-    IoMdSwap: IoMdSwap,
-    HiOutlineBanknotes: HiOutlineBanknotes,
-    IoIosPaper: IoIosPaper,
-    IoMdPricetags: IoMdPricetags,
-};
+import { iconMap } from "@/data/features.js"; // Import iconMap from the centralized data file
 
 const FeaturesSection = React.memo(() => {
     const { features, isLoading, error } = useFeatures();
@@ -56,10 +34,10 @@ const FeaturesSection = React.memo(() => {
                             spacingY={{ base: "20px", md: "30px" }}
                         >
                             {features.map((feature) => {
-                                const FeatureIcon = iconMap[feature.icon];
+                                const FeatureIcon = iconMap[feature.iconName]; // Use iconName from data
                                 return (
                                     <FeatureCard
-                                        key={feature.id} // Use a unique ID from the data instead of index
+                                        key={feature.id}
                                         heading={feature.heading}
                                         icon={FeatureIcon ? <Icon as={FeatureIcon} w={10} h={10} /> : null}
                                         description={feature.description}
@@ -73,5 +51,7 @@ const FeaturesSection = React.memo(() => {
         </Box>
     );
 });
+
+FeaturesSection.displayName = "FeaturesSection";
 
 export default FeaturesSection;

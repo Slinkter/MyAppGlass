@@ -1,8 +1,14 @@
+import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listBaranda } from "@/data/gallery/baranda-data";
 import ServicePageLayout from "./ServicePageLayout";
 
+/**
+ * @constant {object} barandaPageData
+ * @description Configuration object for the Barandas service page.
+ * Contains SEO, systems, features, and image data for the `ServicePageLayout`.
+ */
 const barandaPageData = {
     seo: {
         title: "Barandas",
@@ -22,8 +28,16 @@ const barandaPageData = {
     imageLists: [listBaranda.baranda],
 };
 
-const Baranda = () => {
+/**
+ * @component BarandaPage
+ * @description Displays detailed information about the "Barandas" (Railings) service.
+ * It provides the specific data to the reusable `ServicePageLayout` and is memoized for performance.
+ * @returns {JSX.Element} The rendered layout for the barandas service page.
+ */
+const BarandaPage = React.memo(() => {
     return <ServicePageLayout pageData={barandaPageData} />;
-};
+});
 
-export default Baranda;
+BarandaPage.displayName = "BarandaPage";
+
+export default BarandaPage;

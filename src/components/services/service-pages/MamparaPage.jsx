@@ -1,8 +1,14 @@
+import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listMampara } from "@/data/gallery/mampara-data";
 import ServicePageLayout from "./ServicePageLayout";
 
+/**
+ * @constant {object} mamparaPageData
+ * @description Configuration object for the Mamparas service page.
+ * Contains SEO, systems, features, and image data for the `ServicePageLayout`.
+ */
 const mamparaPageData = {
     seo: {
         title: "Mamparas",
@@ -22,8 +28,16 @@ const mamparaPageData = {
     imageLists: [listMampara.nova, listMampara.serie],
 };
 
-const Mampara = () => {
+/**
+ * @component MamparaPage
+ * @description Displays detailed information about the "Mamparas" (Screens) service.
+ * It provides the specific data to the reusable `ServicePageLayout` and is memoized for performance.
+ * @returns {JSX.Element} The rendered layout for the mamparas service page.
+ */
+const MamparaPage = React.memo(() => {
     return <ServicePageLayout pageData={mamparaPageData} />;
-};
+});
 
-export default Mampara;
+MamparaPage.displayName = "MamparaPage";
+
+export default MamparaPage;

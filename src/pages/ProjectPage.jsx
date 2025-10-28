@@ -1,3 +1,4 @@
+import React from "react";
 import ProjectsList from "../components/projects/ProjectsList";
 
 const ProjectView = () => {

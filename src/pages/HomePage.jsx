@@ -25,4 +25,6 @@ const HomeView = React.memo(() => {
     );
 });
 
+HomeView.displayName = "HomeView";
+
 export default HomeView;

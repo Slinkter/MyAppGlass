@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from "@chakra-ui/react";
 import StoreSection from "../components/home/StoreSection";
 import FeaturesSection from "../components/home/FeaturesSection";

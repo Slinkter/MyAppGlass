@@ -102,4 +102,7 @@ const LandingPageSection = React.memo(() => {
         </Box>
     );
 });
+
+LandingPageSection.displayName = "LandingPageSection";
+
 export default LandingPageSection;

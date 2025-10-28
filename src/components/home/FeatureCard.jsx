@@ -57,4 +57,6 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
     );
 });
 
+FeatureCard.displayName = "FeatureCard";
+
 export default FeatureCard;

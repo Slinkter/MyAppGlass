@@ -1,8 +1,14 @@
+import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { listTecho } from "@/data/gallery/techo-data";
 import ServicePageLayout from "./ServicePageLayout";
 
+/**
+ * @constant {object} techoPageData
+ * @description Configuration object for the Techos service page.
+ * Contains SEO, systems, features, and image data for the `ServicePageLayout`.
+ */
 const techoPageData = {
     seo: {
         title: "Techos",
@@ -19,8 +25,16 @@ const techoPageData = {
     imageLists: [listTecho.techo],
 };
 
-const Techo = () => {
+/**
+ * @component TechoPage
+ * @description Displays detailed information about the "Techos" (Roofs) service.
+ * It provides the specific data to the reusable `ServicePageLayout` and is memoized for performance.
+ * @returns {JSX.Element} The rendered layout for the techos service page.
+ */
+const TechoPage = React.memo(() => {
     return <ServicePageLayout pageData={techoPageData} />;
-};
+});
 
-export default Techo;
+TechoPage.displayName = "TechoPage";
+
+export default TechoPage;

@@ -1,6 +1,8 @@
-import ServiceList from "../components/services/ServiceList";
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 const ServiceView = () => {
-    return <ServiceList />;};
+    return <Outlet />;
+};
 
 export default ServiceView;

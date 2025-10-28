@@ -1,3 +1,4 @@
+import React from "react";
 // Layout.jsx
 import Navbar from "./common/Navbar";
 import Footer from "./common/Footer";

@@ -45,4 +45,6 @@ const ClientsSection = React.memo(() => {
     );
 });
 
+ClientsSection.displayName = "ClientsSection";
+
 export default ClientsSection;

@@ -1,3 +1,4 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
@@ -11,7 +12,6 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 import FadingImage from "@/components/common/FadingImage";
-import { getServiceImageUrl } from "@/utils/image-loader";
 
 function ServiceCard(props) {
     const { image, name, plink } = props;
@@ -42,7 +42,7 @@ function ServiceCard(props) {
                 <FadingImage
                     w="full"
                     h={{ base: "320px", md: "385px" }}
-                    src={getServiceImageUrl(image)}
+                    src={image}
                     alt={`Servicio de ${name}`}
                     borderRadius="lg"
                     objectFit="cover"
