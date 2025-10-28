@@ -1,26 +1,30 @@
-import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import { listBaranda } from "../../../data/gallery/baranda";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
-const Baranda = () => {
-    const pageData = {
-        seo: {
-            title: "Barandas de Acero ",
-            description:
-                "Diseño e instalación de barandas de acero y vidrio templado para escaleras, balcones y terrazas. Estilo moderno y máxima seguridad para tu proyecto.",
-        },
-        systems: [{ label: "Sistema Unico", icon: ChevronRightIcon }],
-        features: [
-            { label: "Material : Acero ", icon: CheckIcon },
-            { label: "Color : Incoro | Bronce", icon: CheckIcon },
-            { label: "Arenado : Lamina", icon: CheckIcon },
-            { label: "Tipo : Templado ", icon: CheckIcon },
-            { label: "Espesor : 8 mm ", icon: CheckIcon },
-        ],
-        imageLists: [listBaranda.baranda],
-    };
+const barandaPageData = {
+    seo: {
+        title: "Barandas",
+        description:
+            "Fabricamos e instalamos barandas de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+    },
+    systems: [
+        { label: "Sistema Nova", icon: ChevronRightIcon },
+        { label: "Sistema Serie 25", icon: ChevronRightIcon },
+        { label: "Sistema Serie 31", icon: ChevronRightIcon },
+    ],
+    features: [
+        { label: "Color: Incoloro, Bronce", icon: CheckIcon },
+        { label: "Tipo: Templado, Crudo", icon: CheckIcon },
+        { label: "Aluminio: Natural, Negro", icon: CheckIcon },
+        { label: "Espesor: 6mm", icon: CheckIcon },
+    ],
+    imageLists: [listBaranda.baranda01, listBaranda.baranda02, listBaranda.baranda03],
+};
 
-    return <ServicePageLayout pageData={pageData} />;
+const Baranda = () => {
+    return <ServicePageLayout pageData={barandaPageData} />;
 };
 
 export default Baranda;

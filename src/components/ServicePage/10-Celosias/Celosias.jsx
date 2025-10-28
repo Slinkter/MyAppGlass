@@ -1,23 +1,30 @@
-import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import { listCelosias } from "../../../data/gallery/celosias";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
-const Celosias = () => {
-    const pageData = {
-        seo: {
-            title: "Celosías ",
-            description:
-                "Fabricación e instalación de celosías de aluminio para fachadas y ductos de ventilación. Soluciones funcionales y estéticas para todo tipo de edificios.",
-        },
-        systems: [{ label: "Sistema Unico", icon: ChevronRightIcon }],
-        features: [
-            { label: "Estructura de Aluminio", icon: CheckIcon },
-            { label: "Ventilación de Espacios", icon: CheckIcon },
-        ],
-        imageLists: [listCelosias.celocias],
-    };
+const celosiasPageData = {
+    seo: {
+        title: "Celosías",
+        description:
+            "Fabricamos e instalamos celosías de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+    },
+    systems: [
+        { label: "Sistema Nova", icon: ChevronRightIcon },
+        { label: "Sistema Serie 25", icon: ChevronRightIcon },
+        { label: "Sistema Serie 31", icon: ChevronRightIcon },
+    ],
+    features: [
+        { label: "Color: Incoloro, Bronce", icon: CheckIcon },
+        { label: "Tipo: Templado, Crudo", icon: CheckIcon },
+        { label: "Aluminio: Natural, Negro", icon: CheckIcon },
+        { label: "Espesor: 6mm", icon: CheckIcon },
+    ],
+    imageLists: [listCelosias.celosias01, listCelosias.celosias02, listCelosias.celosias03],
+};
 
-    return <ServicePageLayout pageData={pageData} />;
+const Celosias = () => {
+    return <ServicePageLayout pageData={celosiasPageData} />;
 };
 
 export default Celosias;

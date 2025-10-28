@@ -4,6 +4,10 @@ import {
     Text,
     useColorModeValue,
     Flex,
+    Skeleton,
+    SkeletonText,
+    Box,
+    Stack
 } from "@chakra-ui/react";
 import listprojects from "../../data/projects";
 import ItemProject from "./ItemProject";
@@ -15,8 +19,49 @@ import { Helmet } from "react-helmet-async";
  * @component
  * @returns {JSX.Element}
  */
-import React from "react";
+import React, { useState, useEffect } from "react";
 const Projects = React.memo(() => {
+    const textColor = useColorModeValue("gray.600", "gray.100");
+    const [loading, setLoading] = useState(true); // Simulate loading
+
+    useEffect(() => {
+        // In a real application, this would be set to false after data is fetched
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000); // Simulate a 1-second loading time
+        return () => clearTimeout(timer);
+    }, []);
+
+    const renderSkeletons = () => {
+        return Array.from({ length: 6 }).map((_, index) => (
+            <Box
+                key={index}
+                w="375px"
+                maxW={{ base: "full", md: "375px" }}
+                mb={4}
+                boxShadow={"md"}
+                rounded="xl"
+                overflow="hidden"
+                p={4} // Add padding to mimic CardBody
+            >
+                <Skeleton height="320px" borderRadius="lg" mb="4" />
+                <Stack mt="4" spacing="2">
+                    <SkeletonText noOfLines={1} skeletonHeight="20px" width="70%" mb="2" />
+                    <SkeletonText noOfLines={1} skeletonHeight="20px" width="90%" mb="4" />
+                    <Flex alignItems="center" mb="2">
+                        <Skeleton height="20px" width="20px" mr="2" />
+                        <SkeletonText noOfLines={1} skeletonHeight="15px" width="60%" />
+                    </Flex>
+                    <Flex alignItems="center" mb="4">
+                        <Skeleton height="20px" width="20px" mr="2" />
+                        <SkeletonText noOfLines={1} skeletonHeight="15px" width="40%" />
+                    </Flex>
+                    <Skeleton height="40px" width="full" />
+                </Stack>
+            </Box>
+        ));
+    };
+
     return (
         <>
             <Helmet>
@@ -48,7 +93,7 @@ const Projects = React.memo(() => {
                 <Text
                     mb={{ base: "2", md: "4" }}
                     fontSize={{ base: "2xl", md: "2xl" }}
-                    color={useColorModeValue("gray.600", "gray.100")}
+                    color={textColor}
                     textAlign="center"
                 >
                     Obras Entregadas
@@ -62,11 +107,15 @@ const Projects = React.memo(() => {
                     mx={"auto"}
                     gap={6}
                 >
-                    {listprojects
-                        .map((project) => (
-                            <ItemProject key={project.id} {...project} />
-                        ))
-                        .reverse()}
+                    {loading ? (
+                        renderSkeletons()
+                    ) : (
+                        listprojects
+                            .map((project) => (
+                                <ItemProject key={project.id} {...project} />
+                            ))
+                            .reverse()
+                    )}
                 </Flex>
             </Container>
         </>

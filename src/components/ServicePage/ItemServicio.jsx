@@ -48,10 +48,7 @@ function ItemService(props) {
                     boxShadow={"base"}
                 />
                 <Stack mt="2" spacing="2">
-                    <Flex
-                        justifyContent="space-between"
-                        alignItems="center"
-                    >
+                    <Flex justifyContent="space-between" alignItems="center">
                         <Box>
                             <Heading
                                 as="h3"

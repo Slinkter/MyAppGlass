@@ -1,28 +1,30 @@
-import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import { listDucha } from "../../../data/gallery/ducha";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
-const Ducha = () => {
-    const pageData = {
-        seo: {
-            title: "Puertas de Ducha",
-            description:
-                "Instalación de puertas para ducha de vidrio templado en La Molina. Modelos corredizos y batientes con sistema KIT y acrílico. Calidad y seguridad para tu baño.",
-        },
-        systems: [
-            { label: "Sistema KIT", icon: ChevronRightIcon },
-            { label: "Sistema Acrilico", icon: ChevronRightIcon },
-        ],
-        features: [
-            { label: "Color : Incoro | Bronce", icon: CheckIcon },
-            { label: "Tipo : Templado", icon: CheckIcon },
-            { label: "Aluminio : Natural | Negro", icon: CheckIcon },
-            { label: "Espesor : 8 mm ", icon: CheckIcon },
-        ],
-        imageLists: [listDucha.kit, [...listDucha.kit].reverse()], // reversing for variety
-    };
+const duchaPageData = {
+    seo: {
+        title: "Duchas",
+        description:
+            "Fabricamos e instalamos duchas de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+    },
+    systems: [
+        { label: "Sistema Nova", icon: ChevronRightIcon },
+        { label: "Sistema Serie 25", icon: ChevronRightIcon },
+        { label: "Sistema Serie 31", icon: ChevronRightIcon },
+    ],
+    features: [
+        { label: "Color: Incoloro, Bronce", icon: CheckIcon },
+        { label: "Tipo: Templado, Crudo", icon: CheckIcon },
+        { label: "Aluminio: Natural, Negro", icon: CheckIcon },
+        { label: "Espesor: 6mm", icon: CheckIcon },
+    ],
+    imageLists: [listDucha.ducha01, listDucha.ducha02, listDucha.ducha03],
+};
 
-    return <ServicePageLayout pageData={pageData} />;
+const Ducha = () => {
+    return <ServicePageLayout pageData={duchaPageData} />;
 };
 
 export default Ducha;

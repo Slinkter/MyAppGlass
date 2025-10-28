@@ -86,6 +86,4 @@ const listService = [
     },
 ];
 
-console.log(listService);
-
 export default listService;
