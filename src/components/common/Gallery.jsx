@@ -12,18 +12,17 @@ import {
     Flex,
 } from "@chakra-ui/react";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import FadingImage from "./FadingImage";
 
 /**
  * Componente que renderiza una galería de imágenes en una cuadrícula responsive.
  * Al hacer clic en una imagen, se abre un modal para mostrarla en un tamaño más grande.
  *
- * @param {{ images: Array<{id: number|string, image: string}> }} props - Props del componente.
- * @param {Array<{id: number|string, image: string}>} props.images - Un array de objetos, donde cada objeto representa una imagen y debe tener las propiedades `id` e `image` (URL).
+ * @param {{ images: Array<{id: number|string, image: string, name?: string}> }} props - Props del componente.
+ * @param {Array<{id: number|string, image: string, name?: string}>} props.images - Un array de objetos, donde cada objeto representa una imagen y debe tener las propiedades `id` e `image` (URL), y opcionalmente `name`.
  * @returns {JSX.Element}
  */
-import React from "react";
 const Gallery = React.memo(({ images }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null); // Will store the full image object
@@ -42,13 +41,13 @@ const Gallery = React.memo(({ images }) => {
                 gap={4}
                 p={2}
             >
-                {images.map((src) => (
-                    <GridItem key={src.id}>
+                {images.map((imageItem) => (
+                    <GridItem key={imageItem.id}>
                         <FadingImage
                             w="100%" // Make it responsive to GridItem width
                             h={{ base: "320px", md: "200px" }} // Keep height fixed or adjust as needed
-                            src={src.image}
-                            alt={`Imagen de ${src.name}`}
+                            src={imageItem.image}
+                            alt={`Imagen de ${imageItem.name || `galería ${imageItem.id}`}`}
                             rounded="md"
                             cursor={"pointer"}
                             borderRadius="md"
@@ -60,7 +59,7 @@ const Gallery = React.memo(({ images }) => {
                                 transform: "scale(1.03)",
                             }}
                             onClick={() => {
-                                setSelectedImage(src); // Pass the full image object
+                                setSelectedImage(imageItem); // Pass the full image object
                                 setIsOpen(true);
                             }}
                         />
@@ -78,7 +77,7 @@ const Gallery = React.memo(({ images }) => {
                 <ModalContent shadow="xl" rounded="lg">
                     <ModalCloseButton />
                     <ModalBody p={{ base: 4, md: 6 }}>
-                        <Flex direction={{ base: "row", md: "row" }}>
+                        <Flex>
                             {/* Contenedor para la imagen con tamaño definido */}
                             <Box
                                 flex="1" // Permite que el contenedor crezca
@@ -92,7 +91,7 @@ const Gallery = React.memo(({ images }) => {
                                     src={selectedImage?.image}
                                     alt={
                                         selectedImage
-                                            ? `Vista ampliada de ${selectedImage.name || selectedImage.image}` // Use name or image URL as fallback
+                                            ? `Vista ampliada de ${selectedImage.name || `galería ${selectedImage.id}`}` // Use name or image ID as fallback
                                             : ""
                                     }
                                     w="100%"

@@ -4,14 +4,13 @@ import { Link } from "@chakra-ui/react";
 import Franja from "../common/Franja";
 import { Icon } from "@chakra-ui/react";
 import { FaMapLocationDot } from "react-icons/fa6";
+
 /**
- * Componente Tienda
- * Muestra la sección de tienda y productos destacados.
+ * Componente StoreSection
+ * Muestra la sección de la ubicación de la tienda con un mapa interactivo y un enlace a Google Maps.
  * @component
  * @returns {JSX.Element}
  */
-// ...existing code...
-
 const StoreSection = React.memo(() => {
     return (
         <Box

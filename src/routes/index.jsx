@@ -29,11 +29,13 @@ export const router = createBrowserRouter([
         children: [
             { path: "/", element: <HomePage /> },
 
-            { path: "/servicios", element: <ServicePage />,
-              children: [
-                { index: true, element: <ServiceList /> }, // Index route for ServiceList
-                ...serviceRoutes
-              ]
+            {
+                path: "/servicios",
+                element: <ServicePage />,
+                children: [
+                    { index: true, element: <ServiceList /> }, // Index route for ServiceList
+                    ...serviceRoutes,
+                ],
             },
 
             { path: "/proyectos", element: <ProjectPage /> },

@@ -3,14 +3,13 @@ import {
     Card,
     CardBody,
     Heading,
-    Image,
     Stack,
     Text,
     useColorModeValue,
 } from "@chakra-ui/react";
-// ...existing code...
+import FadingImage from "../common/FadingImage";
 
-const ClientCard = React.memo(({ IMAGE, nameClient, descClient }) => {
+const ClientCard = React.memo(({ image, nameClient, descClient }) => {
     const borderColor = useColorModeValue("gray.200", "gray.900"); // Using gray.900 for dark mode border
     return (
         <Card
@@ -28,8 +27,9 @@ const ClientCard = React.memo(({ IMAGE, nameClient, descClient }) => {
             }}
         >
             <CardBody textAlign={"center"}>
-                <Image
-                    src={IMAGE}
+                <FadingImage
+                    src={image}
+                    alt={`Imagen de ${nameClient}`}
                     borderRadius={"lg"}
                     objectFit={"cover"}
                     shadow={"xl"}

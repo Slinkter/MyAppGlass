@@ -6,6 +6,8 @@ import { Skeleton, Image, Box } from "@chakra-ui/react"; // Import Box
  * Muestra una imagen con efecto de fade-in usando Skeleton de Chakra UI.
  * @component
  * @param {Object} props - Props estándar de imagen, incluyendo `w` y `h` para el tamaño.
+ * @param {string} [props.placeholderImageUrl] - URL de la imagen de marcador de posición a mostrar en caso de error.
+ * @param {() => void} [props.onImageError] - Callback function to execute when the image fails to load.
  * @returns {JSX.Element}
  */
 const FadingImage = React.memo((props) => {
@@ -18,17 +20,18 @@ const FadingImage = React.memo((props) => {
     }, [props.src]);
 
     const handleImageError = () => {
-        console.log("Image failed to load:", props.src);
         setHasError(true);
         setIsImageLoaded(true); // Even if error, consider it "loaded" to hide skeleton
+        if (props.onImageError) {
+            props.onImageError();
+        }
     };
 
     const handleImageLoad = () => {
-        console.log("Image loaded successfully:", props.src);
         setIsImageLoaded(true); // Image loaded successfully
     };
 
-    const defaultImageUrl = "https://via.placeholder.com/150?text=Image+Not+Found"; // Placeholder image
+    const finalPlaceholderImageUrl = props.placeholderImageUrl || "https://via.placeholder.com/150?text=Image+Not+Found"; // Placeholder image
 
     // Extract width and height from props to apply to Skeleton
     const { w, h, ...restProps } = props;
@@ -50,7 +53,7 @@ const FadingImage = React.memo((props) => {
             <Image
                 onLoad={handleImageLoad}
                 onError={handleImageError}
-                src={hasError ? defaultImageUrl : props.src}
+                src={hasError ? finalPlaceholderImageUrl : props.src}
                 opacity={isImageLoaded ? 1 : 0} // Fade in effect
                 transition="opacity 0.5s ease-in-out" // Transition for fade in
                 w="100%" // Ensure image takes full width of Box

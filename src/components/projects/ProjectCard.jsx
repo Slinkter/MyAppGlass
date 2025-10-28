@@ -27,6 +27,7 @@ import {
     Spinner,
 } from "@chakra-ui/react";
 import FadingImage from "../common/FadingImage";
+import ProjectDetailItem from "./ProjectDetailItem";
 import React from "react";
 
 /**
@@ -100,9 +101,6 @@ const ProjectCard = React.memo((props) => {
                             justifyContent={"center"}
                             gap={2}
                         >
-                            <Heading size="md" textTransform={"uppercase"}>
-                                residencial
-                            </Heading>
                             <Heading
                                 size="md"
                                 textTransform={"uppercase"}
@@ -226,106 +224,31 @@ const ProjectCard = React.memo((props) => {
                                     Detalles del Proyecto
                                 </Heading>
                                 <Stack spacing={4}>
-                                    <Flex align="center">
-                                        <Icon
-                                            as={HomeIcon}
-                                            w={6}
-                                            h={6}
-                                            mr={3}
-                                            color="primary.500"
-                                        />
-                                        <Box>
-                                            <Text
-                                                fontSize="sm"
-                                                color="gray.500"
-                                            >
-                                                Residencial
-                                            </Text>
-                                            <Text fontWeight="bold">
-                                                {residencial}
-                                            </Text>
-                                        </Box>
-                                    </Flex>
-                                    <Flex align="center">
-                                        <Icon
-                                            as={BuildingOffice2Icon}
-                                            w={6}
-                                            h={6}
-                                            mr={3}
-                                            color="primary.500"
-                                        />
-                                        <Box>
-                                            <Text
-                                                fontSize="sm"
-                                                color="gray.500"
-                                            >
-                                                Constructora
-                                            </Text>
-                                            <Text fontWeight="bold">
-                                                {name}
-                                            </Text>
-                                        </Box>
-                                    </Flex>
-                                    <Flex align="center">
-                                        <Icon
-                                            as={MapIcon}
-                                            w={6}
-                                            h={6}
-                                            mr={3}
-                                            color="primary.500"
-                                        />
-                                        <Box>
-                                            <Text
-                                                fontSize="sm"
-                                                color="gray.500"
-                                            >
-                                                Direccion
-                                            </Text>
-                                            <Text fontWeight="bold">
-                                                {g_maps}
-                                            </Text>
-                                        </Box>
-                                    </Flex>
-                                    <Flex align="center">
-                                        <Icon
-                                            as={MapPinIcon}
-                                            w={6}
-                                            h={6}
-                                            mr={3}
-                                            color="primary.500"
-                                        />
-                                        <Box>
-                                            <Text
-                                                fontSize="sm"
-                                                color="gray.500"
-                                            >
-                                                Distrito
-                                            </Text>
-                                            <Text fontWeight="bold">
-                                                {address}
-                                            </Text>
-                                        </Box>
-                                    </Flex>
-                                    <Flex align="center">
-                                        <Icon
-                                            as={CalendarDaysIcon}
-                                            w={6}
-                                            h={6}
-                                            mr={3}
-                                            color="primary.500"
-                                        />
-                                        <Box>
-                                            <Text
-                                                fontSize="sm"
-                                                color="gray.500"
-                                            >
-                                                Año
-                                            </Text>
-                                            <Text fontWeight="bold">
-                                                {year}
-                                            </Text>
-                                        </Box>
-                                    </Flex>
+                                    <ProjectDetailItem
+                                        icon={HomeIcon}
+                                        label="Residencial"
+                                        value={residencial}
+                                    />
+                                    <ProjectDetailItem
+                                        icon={BuildingOffice2Icon}
+                                        label="Constructora"
+                                        value={name}
+                                    />
+                                    <ProjectDetailItem
+                                        icon={MapIcon}
+                                        label="Direccion"
+                                        value={g_maps}
+                                    />
+                                    <ProjectDetailItem
+                                        icon={MapPinIcon}
+                                        label="Distrito"
+                                        value={address}
+                                    />
+                                    <ProjectDetailItem
+                                        icon={CalendarDaysIcon}
+                                        label="Año"
+                                        value={year}
+                                    />
                                 </Stack>
                             </Box>
                         </Flex>

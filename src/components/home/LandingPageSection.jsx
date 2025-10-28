@@ -24,13 +24,12 @@ const LandingPageSection = React.memo(() => {
         <Box
             backgroundImage={{
                 base: useColorModeValue("gray.50", "gray.800"),
-                md: `linear-gradient(90deg, rgba(0, 0, 0, .483), rgba(4, 4, 4, .414)),url(${bg_home_desktop})`,
+                md: `linear-gradient(90deg, rgba(0, 0, 0, .483), rgba(4, 4, 4, .414)), url(${bg_home_desktop})`,
             }}
             backgroundSize="cover"
             backgroundPosition="center"
         >
             <Flex
-                flexDir={{ base: "column", md: "column" }}
                 w={{ base: "full", md: "full" }}
                 justifyContent={"center"}
                 alignItems={"center"}
