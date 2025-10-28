@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { listBaranda } from "../../../data/gallery/baranda-data";
+import { listBaranda } from "@/data/gallery/baranda-data";
 import ServicePageLayout from "./ServicePageLayout";
 
 const barandaPageData = {

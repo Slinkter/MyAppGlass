@@ -1,33 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Franja from "../common/Franja";
-import { Box, Container, Flex, Text, Spinner } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 import ClientCard from "./ClientCard";
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchClients } from '../../features/clients/clientsSlice';
+import { useClients } from "@/hooks/useClients";
+import DataLoader from "@/components/common/DataLoader";
+import ClientListSkeleton from "./ClientListSkeleton";
 
 const ClientsSection = React.memo(() => {
-    const dispatch = useDispatch();
-    const clients = useSelector((state) => state.clients.items);
-    const clientStatus = useSelector((state) => state.clients.status);
-    const error = useSelector((state) => state.clients.error);
-
-    useEffect(() => {
-        if (clientStatus === 'idle') {
-            dispatch(fetchClients());
-        }
-    }, [clientStatus, dispatch]);
-
-    if (clientStatus === 'loading') {
-        return (
-            <Box minHeight="100vh" display="flex" justifyContent="center" alignItems="center">
-                <Spinner size="xl" />
-            </Box>
-        );
-    }
-
-    if (clientStatus === 'failed') {
-        return <Text>Error: {error}</Text>;
-    }
+    const { clients, isLoading, error } = useClients();
 
     return (
         <Box minHeight="100vh">
@@ -37,24 +17,30 @@ const ClientsSection = React.memo(() => {
                     "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
                 }
             />
-            <Container maxW={"8xl"} mt={6} mb={6}>
-                <Flex
-                    minHeight={"80vh"}
-                    justifyContent={"space-evenly"}
-                    alignItems={"center"}
-                    flexDir={{ base: "column", md: "row" }}
-                    gap={6}
-                >
-                    {clients.map((client, index) => (
-                        <ClientCard
-                            key={index}
-                            IMAGE={client.imgClient}
-                            nameClient={client.nameClient}
-                            descClient={client.descClient}
-                        />
-                    ))}
-                </Flex>
-            </Container>
+            <DataLoader
+                isLoading={isLoading}
+                error={error}
+                loadingComponent={<ClientListSkeleton />}
+            >
+                <Container maxW={"8xl"} mt={6} mb={6}>
+                    <Flex
+                        minHeight={"80vh"}
+                        justifyContent={"space-evenly"}
+                        alignItems={"center"}
+                        flexDir={{ base: "column", md: "row" }}
+                        gap={6}
+                    >
+                        {clients.map((client) => (
+                            <ClientCard
+                                key={client.id} // Use a unique ID from the data instead of index
+                                IMAGE={client.imgClient}
+                                nameClient={client.nameClient}
+                                descClient={client.descClient}
+                            />
+                        ))}
+                    </Flex>
+                </Container>
+            </DataLoader>
         </Box>
     );
 });

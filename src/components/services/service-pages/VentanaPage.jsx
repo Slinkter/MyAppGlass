@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { listVentana } from "../../../data/gallery/ventana-data";
+import { listVentana } from "@/data/gallery/ventana-data";
 import ServicePageLayout from "./ServicePageLayout";
 
 // 1. Definir todos los datos para la página de Ventanas

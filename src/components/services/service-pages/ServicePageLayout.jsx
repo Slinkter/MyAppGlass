@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Box, Stack, useColorModeValue, Heading } from "@chakra-ui/react";
-import SidebarItem from "../../common/SidebarItem";
-import Gallery from "../../common/Gallery";
+import SidebarItem from "@/components/common/SidebarItem";
+import Gallery from "@/components/common/Gallery";
 
 /**
  * Layout reutilizable para las páginas de cada servicio.
