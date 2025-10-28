@@ -1,7 +1,15 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+FadingImage.displayName = "FadingImage";
 import { Skeleton, Image } from "@chakra-ui/react";
 
-const FadingImage = (props) => {
+/**
+ * Componente FadingImage
+ * Muestra una imagen con efecto de fade-in usando Skeleton de Chakra UI.
+ * @component
+ * @param {Object} props - Props estándar de imagen.
+ * @returns {JSX.Element}
+ */
+const FadingImage = React.memo((props) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -23,6 +31,6 @@ const FadingImage = (props) => {
             />
         </Skeleton>
     );
-};
+});
 
 export default FadingImage;

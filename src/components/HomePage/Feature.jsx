@@ -1,6 +1,6 @@
 import FeatureCard from "./FeatureCard";
 import { Box, Container, SimpleGrid, Icon, Flex } from "@chakra-ui/react";
-import useIsMobile from "../../hooks/useIsMobile";
+// ...existing code...
 import {
     IoIosCalculator,
     IoIosCalendar,
@@ -65,8 +65,6 @@ const features = [
 ];
 
 const Feature = () => {
-    const isMobile = useIsMobile();
-
     return (
         <Box minHeight="100vh">
             <Franja
@@ -81,9 +79,9 @@ const Feature = () => {
                     minHeight={"80vh"}
                 >
                     <SimpleGrid
-                        columns={isMobile ? 1 : 4}
-                        spacingX={isMobile ? "20px" : "30px"}
-                        spacingY={isMobile ? "20px" : "30px"}
+                        columns={{ base: 1, md: 4 }}
+                        spacingX={{ base: "20px", md: "30px" }}
+                        spacingY={{ base: "20px", md: "30px" }}
                     >
                         {features.map((feature, index) => (
                             <FeatureCard

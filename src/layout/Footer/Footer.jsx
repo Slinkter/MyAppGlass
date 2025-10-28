@@ -14,9 +14,7 @@ import { Link } from "react-router-dom";
 import { IoBookOutline } from "react-icons/io5";
 
 const Footer = () => {
-    const colorWhite = "gray.200";
-    const colorBlack = "blackAlpha.500";
-    const bgColor = useColorModeValue(colorWhite, colorBlack);
+    const bgColor = useColorModeValue("gray.200", "gray.800");
 
     return (
         <>
@@ -30,8 +28,7 @@ const Footer = () => {
                             <Heading
                                 as="h1"
                                 fontSize={{ base: "4xl", md: "4xl" }}
-                                fontWeight="bold"
-                                fontStyle={"600"}
+                                fontWeight={600}
                                 mb={1}
                             >
                                 CONTACTO
@@ -50,8 +47,7 @@ const Footer = () => {
                             <Heading
                                 as="h1"
                                 fontSize={{ base: "4xl", md: "4xl" }}
-                                fontWeight="bold"
-                                fontStyle={"600"}
+                                fontWeight={600}
                                 mb={1}
                             >
                                 HORARIOS
@@ -70,8 +66,7 @@ const Footer = () => {
                             <Heading
                                 as="h1"
                                 fontSize={{ base: "4xl", md: "4xl" }}
-                                fontWeight="bold"
-                                fontStyle={"600"}
+                                fontWeight={600}
                                 mb={1}
                             >
                                 DIRECCIÓN
@@ -103,7 +98,7 @@ const Footer = () => {
                 <Text> Copyright ©2025</Text>
                 <Link
                     to="/libro-de-reclamacion"
-                    _hover={{ textDecoration: "none", color: "red.500" }}
+                    _hover={{ textDecoration: "none", color: "primary.500" }}
                 >
                     <HStack align="center" spacing={1}>
                         <Icon as={IoBookOutline} />

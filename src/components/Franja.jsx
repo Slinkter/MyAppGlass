@@ -1,11 +1,11 @@
-import {
-    Box,
-    Flex,
-    Heading,
-    Text,
-    useColorModeValue,
-} from "@chakra-ui/react";
-import useIsMobile from "../hooks/useIsMobile";
+import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+/**
+ * Componente Franja
+ * Muestra una franja decorativa en la página.
+ * @component
+ * @returns {JSX.Element}
+ */
+// ...existing code...
 
 /**
  * Muestra una franja de color a lo ancho de la página con un título y un texto descriptivo.
@@ -17,11 +17,8 @@ import useIsMobile from "../hooks/useIsMobile";
  * @returns {JSX.Element}
  */
 const Franja = ({ title, text }) => {
-    const colorWhite = "gray.200";
-    const colorBlack = "blackAlpha.500";
-    const bgColor = useColorModeValue(colorWhite, colorBlack);
-    const textColor = useColorModeValue("black", "white");
-    const isMobile = useIsMobile();
+    const bgColor = useColorModeValue("gray.200", "blackAlpha.500");
+    const textColor = useColorModeValue("gray.800", "gray.100");
 
     return (
         <Box py={8} bg={bgColor} boxShadow="md">
@@ -35,12 +32,11 @@ const Franja = ({ title, text }) => {
                     fontSize={{ base: "4xl", md: "4xl" }}
                     fontWeight="bold"
                     color={textColor}
-                    fontStyle={"600"}
                 >
                     {title}
                 </Heading>
                 <Text
-                    width={isMobile ? "90%" : "70%"}
+                    width={{ base: "90%", md: "70%" }}
                     mt={1}
                     fontSize="lg"
                     color={useColorModeValue("gray.500", "white")}

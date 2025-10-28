@@ -16,9 +16,7 @@ function ItemService(props) {
     const { image, name, plink } = props;
 
     const navigate = useNavigate();
-    const colorWhite = "gray.200";
-    const colorBlack = "blackAlpha.500";
-    const bg = useColorModeValue(colorWhite, colorBlack);
+    const bg = useColorModeValue("gray.200", "gray.800");
 
     return (
         <Card
@@ -31,8 +29,8 @@ function ItemService(props) {
             bg={bg}
             overflow="hidden"
             _hover={{
-                boxShadow: "md",
-                borderColor: "gray.100",
+                boxShadow: "lg",
+                borderColor: "primary.300",
                 transform: {
                     base: "",
                     md: "scale(1.02)",
@@ -65,7 +63,7 @@ function ItemService(props) {
                             </Heading>
                         </Box>
                         <Button
-                            colorScheme="red"
+                            colorScheme="primary"
                             rightIcon={<ArrowForwardIcon />}
                             onClick={() => navigate(plink)}
                             size="md"

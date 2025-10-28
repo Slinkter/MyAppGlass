@@ -17,9 +17,7 @@ const ServicePageLayout = ({ pageData }) => {
     const { seo, systems, features, imageLists } = pageData;
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const colorWhite = "gray.200";
-    const colorBlack = "blackAlpha.500";
-    const bgTheme = useColorModeValue(colorWhite, colorBlack);
+    const bgTheme = useColorModeValue("gray.200", "gray.800");
 
     // Selecciona la lista de imágenes basada en el índice activo
     const activeImageList = imageLists[activeIndex] || [];
@@ -112,7 +110,6 @@ const RenderGallery = ({ bgTheme, imageList }) => {
             rounded="xl"
             shadow="xs"
             overflowY="auto"
-            transition="all .3s ease-in-out"
         >
             <Gallery images={imageList} />
         </Box>

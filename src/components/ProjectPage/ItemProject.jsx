@@ -29,13 +29,25 @@ import {
 } from "@chakra-ui/react";
 import FadingImage from "../FadingImage";
 
-const ItemProject = (props) => {
+/**
+ * Componente ItemProject
+ * Renderiza la tarjeta y modal de un proyecto con detalles y mapa.
+ * @component
+ * @param {Object} props
+ * @param {string} props.image - URL de la imagen del proyecto
+ * @param {string} props.residencial - Nombre del residencial
+ * @param {string} props.address - Dirección del proyecto
+ * @param {string} props.year - Año del proyecto
+ * @param {string} props.g_maps - Dirección para Google Maps
+ * @param {string} props.name - Nombre de la constructora
+ * @returns {JSX.Element}
+ */
+const ItemProject = React.memo((props) => {
     const { image, residencial, address, year, g_maps, name } = props;
     const { isOpen, onOpen: onOpenModal, onClose } = useDisclosure();
     const [isMapLoaded, setIsMapLoaded] = React.useState(false);
 
-    // Hook calls moved to the top level
-    const bg = useColorModeValue("gray.200", "blackAlpha.500");
+    const bg = useColorModeValue("gray.200", "gray.700"); // Adjusted for better dark mode contrast
     const modalContentBg = useColorModeValue("gray.50", "gray.800");
     const modalCloseButtonBg = useColorModeValue("gray.200", "gray.600");
     const modalCloseButtonHoverBg = useColorModeValue("gray.300", "gray.500");
@@ -62,8 +74,8 @@ const ItemProject = (props) => {
                 bg={bg}
                 overflow="hidden"
                 _hover={{
-                    boxShadow: "md",
-                    borderColor: "gray.100",
+                    boxShadow: "lg", // Slightly more pronounced hover effect
+                    borderColor: "primary.300", // Use primary color for border on hover
                     transform: {
                         base: "",
                         md: "scale(1.02)",
@@ -94,7 +106,7 @@ const ItemProject = (props) => {
                             <Heading
                                 size="md"
                                 textTransform={"uppercase"}
-                                color="red.500"
+                                color="primary.500"
                             >
                                 {residencial}
                             </Heading>
@@ -123,7 +135,7 @@ const ItemProject = (props) => {
                         <Button
                             onClick={onOpen}
                             rightIcon={<ArrowForwardIcon />}
-                            colorScheme="teal"
+                            colorScheme="primary"
                             variant="solid"
                             mt={1}
                         >
@@ -220,7 +232,7 @@ const ItemProject = (props) => {
                                             w={6}
                                             h={6}
                                             mr={3}
-                                            color="red.500"
+                                            color="primary.500"
                                         />
                                         <Box>
                                             <Text
@@ -240,7 +252,7 @@ const ItemProject = (props) => {
                                             w={6}
                                             h={6}
                                             mr={3}
-                                            color="red.500"
+                                            color="primary.500"
                                         />
                                         <Box>
                                             <Text
@@ -260,7 +272,7 @@ const ItemProject = (props) => {
                                             w={6}
                                             h={6}
                                             mr={3}
-                                            color="red.500"
+                                            color="primary.500"
                                         />
                                         <Box>
                                             <Text
@@ -280,7 +292,7 @@ const ItemProject = (props) => {
                                             w={6}
                                             h={6}
                                             mr={3}
-                                            color="red.500"
+                                            color="primary.500"
                                         />
                                         <Box>
                                             <Text
@@ -300,7 +312,7 @@ const ItemProject = (props) => {
                                             w={6}
                                             h={6}
                                             mr={3}
-                                            color="red.500"
+                                            color="primary.500"
                                         />
                                         <Box>
                                             <Text
@@ -322,6 +334,7 @@ const ItemProject = (props) => {
             </Modal>
         </>
     );
-};
+});
 
+ItemProject.displayName = "ItemProject";
 export default ItemProject;

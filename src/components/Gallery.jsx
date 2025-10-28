@@ -23,7 +23,8 @@ import FadingImage from "./FadingImage";
  * @param {Array<{id: number|string, image: string}>} props.images - Un array de objetos, donde cada objeto representa una imagen y debe tener las propiedades `id` e `image` (URL).
  * @returns {JSX.Element}
  */
-const Gallery = ({ images }) => {
+import React from "react";
+const Gallery = React.memo(({ images }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const responsiveColumns = useBreakpointValue({
@@ -47,7 +48,7 @@ const Gallery = ({ images }) => {
                             w={{ base: "320px", md: "385px" }}
                             h={{ base: "320px", md: "200px" }}
                             src={src.image}
-                            alt={`Imagen de mampara sistema }`}
+                            alt={`Imagen de ${src.name}`}
                             rounded="md"
                             cursor={"pointer"}
                             borderRadius="md"
@@ -106,6 +107,7 @@ const Gallery = ({ images }) => {
             </Modal>
         </>
     );
-};
+});
 
+Gallery.displayName = "Gallery";
 export default Gallery;

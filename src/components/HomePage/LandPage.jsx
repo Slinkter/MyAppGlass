@@ -12,6 +12,12 @@ import {
 import logoGYA from "../../assets/logovcr.png";
 import bg_home_desktop from "../../assets/mainland.jpg";
 
+/**
+ * Componente LandPage
+ * Muestra la cabecera principal con branding y descripción.
+ * @component
+ * @returns {JSX.Element}
+ */
 const LandPage = () => {
     return (
         <Box
@@ -44,11 +50,14 @@ const LandPage = () => {
                         fontWeight="semibold"
                         mt={4}
                         color={{
-                            base: useColorModeValue("red.500", "red.300"),
+                            base: useColorModeValue(
+                                "primary.500",
+                                "primary.300"
+                            ),
                             md: "white",
                         }}
                         textShadow={{
-                            base: " ",
+                            base: "none",
                             md: "2px 2px #000",
                         }}
                         textTransform={"uppercase"}
@@ -58,15 +67,14 @@ const LandPage = () => {
                     <Heading
                         as="h1"
                         fontSize={{ base: "4xl", md: "6xl" }}
-                        fontWeight="bold"
+                        fontWeight={600}
                         mt={2}
                         color={{
                             base: useColorModeValue("gray.800", "gray.100"),
                             md: "white",
                         }}
-                        fontStyle={"600"}
                         textShadow={{
-                            base: " ",
+                            base: "none",
                             md: "2px 2px #000",
                         }}
                     >
@@ -81,7 +89,7 @@ const LandPage = () => {
                             md: "white",
                         }}
                         textShadow={{
-                            base: " ",
+                            base: "none",
                             md: "2px 2px #000",
                         }}
                     >
@@ -93,5 +101,4 @@ const LandPage = () => {
         </Box>
     );
 };
-
 export default LandPage;
