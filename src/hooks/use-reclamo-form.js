@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDisclosure, useToast } from "@chakra-ui/react";
-import { db } from "../firebase/firebase.js";
+import { db } from "../config/firebase.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const initialState = {

@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
     Container,
     Heading,
@@ -11,15 +12,8 @@ import {
 } from "@chakra-ui/react";
 import listprojects from "../../data/projects-data";
 import ProjectCard from "./ProjectCard";
-import { Helmet } from "react-helmet-async";
+import HelmetWrapper from "../../components/HelmetWrapper";
 
-/**
- * Componente Projects
- * Renderiza la lista de proyectos usando ItemProject.
- * @component
- * @returns {JSX.Element}
- */
-import React, { useState, useEffect } from "react";
 const Projects = React.memo(() => {
     const textColor = useColorModeValue("gray.600", "gray.100");
     const [loading, setLoading] = useState(true); // Simulate loading
@@ -64,13 +58,12 @@ const Projects = React.memo(() => {
 
     return (
         <>
-            <Helmet>
-                <title>Proyectos</title>
-                <meta
-                    name="description"
-                    content=" Tenemos más de 10 proyectos de construcción entregados"
-                />
-            </Helmet>
+            <HelmetWrapper
+                title="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
+                description="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
+                canonicalUrl="https://www.gyacompany.com/proyectos"
+            >
+            </HelmetWrapper>
             <Container maxW={"8xl"} my={6} textAlign="center">
                 <Heading
                     as="h2"

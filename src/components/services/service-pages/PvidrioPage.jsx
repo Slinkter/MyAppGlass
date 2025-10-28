@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { listPuertaVidrio } from "../../../data/gallery/puerta-vidrio-data";
+import { listPuertav } from "../../../data/gallery/puerta-vidrio-data";
 import ServicePageLayout from "./ServicePageLayout";
 
 const pvidrioPageData = {
