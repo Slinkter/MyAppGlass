@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { listMampara } from "../../../data/gallery/mampara-data";
+import { listMampara } from "@/data/gallery/mampara-data";
 import ServicePageLayout from "./ServicePageLayout";
 
 const mamparaPageData = {

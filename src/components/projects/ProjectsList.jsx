@@ -64,11 +64,9 @@ const Projects = React.memo(() => {
                         mx={"auto"}
                         gap={6}
                     >
-                        {projects
-                            .map((project) => (
+                        {[...projects].reverse().map((project) => (
                                 <ProjectCard key={project.id} {...project} />
-                            ))
-                            .reverse()}
+                            ))}
                     </Flex>
                 </Container>
             </DataLoader>

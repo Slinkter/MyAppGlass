@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { listCelosias } from "../../../data/gallery/celosias-data";
+import { listCelosias } from "@/data/gallery/celosias-data";
 import ServicePageLayout from "./ServicePageLayout";
 
 const celosiasPageData = {

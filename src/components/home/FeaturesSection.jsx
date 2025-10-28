@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import FeatureCard from "./FeatureCard";
-import { Box, Container, SimpleGrid, Icon, Flex, Text, Spinner } from "@chakra-ui/react";
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchFeatures } from '../../features/features/featuresSlice';
+import { Box, Container, SimpleGrid, Icon, Flex } from "@chakra-ui/react";
 import Franja from "../common/Franja";
+import { useFeatures } from "@/hooks/useFeatures";
+import DataLoader from "@/components/common/DataLoader";
+import FeatureListSkeleton from "./FeatureListSkeleton";
 
 // Import all icons needed and map them to a dictionary
 import {
@@ -29,28 +30,7 @@ const iconMap = {
 };
 
 const FeaturesSection = React.memo(() => {
-    const dispatch = useDispatch();
-    const features = useSelector((state) => state.features.items);
-    const featureStatus = useSelector((state) => state.features.status);
-    const error = useSelector((state) => state.features.error);
-
-    useEffect(() => {
-        if (featureStatus === 'idle') {
-            dispatch(fetchFeatures());
-        }
-    }, [featureStatus, dispatch]);
-
-    if (featureStatus === 'loading') {
-        return (
-            <Box minHeight="100vh" display="flex" justifyContent="center" alignItems="center">
-                <Spinner size="xl" />
-            </Box>
-        );
-    }
-
-    if (featureStatus === 'failed') {
-        return <Text>Error: {error}</Text>;
-    }
+    const { features, isLoading, error } = useFeatures();
 
     return (
         <Box minHeight="100vh">
@@ -59,31 +39,37 @@ const FeaturesSection = React.memo(() => {
                 text={"¿Por Qué Elegirnos?"}
                 minHeight={"20vh"}
             />
-            <Container maxW={"8xl"} mt={6} mb={6}>
-                <Flex
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    minHeight={"80vh"}
-                >
-                    <SimpleGrid
-                        columns={{ base: 1, md: 4 }}
-                        spacingX={{ base: "20px", md: "30px" }}
-                        spacingY={{ base: "20px", md: "30px" }}
+            <DataLoader
+                isLoading={isLoading}
+                error={error}
+                loadingComponent={<FeatureListSkeleton />}
+            >
+                <Container maxW={"8xl"} mt={6} mb={6}>
+                    <Flex
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        minHeight={"80vh"}
                     >
-                        {features.map((feature, index) => {
-                            const FeatureIcon = iconMap[feature.icon];
-                            return (
-                                <FeatureCard
-                                    key={index}
-                                    heading={feature.heading}
-                                    icon={FeatureIcon ? <Icon as={FeatureIcon} w={10} h={10} /> : null}
-                                    description={feature.description}
-                                />
-                            );
-                        })}
-                    </SimpleGrid>
-                </Flex>
-            </Container>
+                        <SimpleGrid
+                            columns={{ base: 1, md: 4 }}
+                            spacingX={{ base: "20px", md: "30px" }}
+                            spacingY={{ base: "20px", md: "30px" }}
+                        >
+                            {features.map((feature) => {
+                                const FeatureIcon = iconMap[feature.icon];
+                                return (
+                                    <FeatureCard
+                                        key={feature.id} // Use a unique ID from the data instead of index
+                                        heading={feature.heading}
+                                        icon={FeatureIcon ? <Icon as={FeatureIcon} w={10} h={10} /> : null}
+                                        description={feature.description}
+                                    />
+                                );
+                            })}
+                        </SimpleGrid>
+                    </Flex>
+                </Container>
+            </DataLoader>
         </Box>
     );
 });

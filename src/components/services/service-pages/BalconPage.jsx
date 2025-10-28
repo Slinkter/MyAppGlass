@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { listBalcon } from "../../../data/gallery/balcon-data";
+import { listBalcon } from "@/data/gallery/balcon-data";
 import ServicePageLayout from "./ServicePageLayout";
 
 const balconPageData = {

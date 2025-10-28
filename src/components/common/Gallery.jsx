@@ -89,7 +89,7 @@ const Gallery = React.memo(({ images }) => {
                                 overflow="hidden" // Asegura que la imagen no se desborde
                             >
                                 <Image
-                                    src={selectedImage}
+                                    src={selectedImage?.image}
                                     alt={
                                         selectedImage
                                             ? `Vista ampliada de ${selectedImage.name || selectedImage.image}` // Use name or image URL as fallback
