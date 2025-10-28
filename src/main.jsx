@@ -2,26 +2,30 @@ import ReactDOM from "react-dom/client";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import React, { lazy, Suspense } from "react";
 import App from "./App";
-// Views
-import HomeView from "./routes/HomeView";
-import ServiceView from "./routes/ServiceView";
-import ErrorView from "./routes/ErrorView";
-import TestView from "./routes/TestView";
-import ProjectView from "./routes/ProjectView";
-// Service Pages
-import Ventana from "./components/ServicePage/1-Ventana/Ventana";
-import Mampara from "./components/ServicePage/2-Mampara/Mampara";
-import Ducha from "./components/ServicePage/3-Ducha/Ducha";
-import Parapeto from "./components/ServicePage/4-Parapeto/Parapeto";
-import Baranda from "./components/ServicePage/5-Baranda/Baranda";
-import Balcon from "./components/ServicePage/6-Balcon/Balcon";
-import Techo from "./components/ServicePage/7-Techo/Techo";
-import Pvidrio from "./components/ServicePage/8-PVidrio/Pvidrio";
-import Pserie from "./components/ServicePage/9-PSerie/Pserie";
-import Celosias from "./components/ServicePage/10-Celosias/Celosias";
-import ReclamoForm from "./layout/LibroReclamacion/ReclamoForm";
-//
+import LoadingSkeleton from "./components/LoadingSkeleton";
+
+// Lazy-loaded Views
+const HomeView = lazy(() => import("./routes/HomeView"));
+const ServiceView = lazy(() => import("./routes/ServiceView"));
+const ErrorView = lazy(() => import("./routes/ErrorView"));
+const TestView = lazy(() => import("./routes/TestView"));
+const ProjectView = lazy(() => import("./routes/ProjectView"));
+
+// Lazy-loaded Service Pages
+const Ventana = lazy(() => import("./components/ServicePage/1-Ventana/Ventana"));
+const Mampara = lazy(() => import("./components/ServicePage/2-Mampara/Mampara"));
+const Ducha = lazy(() => import("./components/ServicePage/3-Ducha/Ducha"));
+const Parapeto = lazy(() => import("./components/ServicePage/4-Parapeto/Parapeto"));
+const Baranda = lazy(() => import("./components/ServicePage/5-Baranda/Baranda"));
+const Balcon = lazy(() => import("./components/ServicePage/6-Balcon/Balcon"));
+const Techo = lazy(() => import("./components/ServicePage/7-Techo/Techo"));
+const Pvidrio = lazy(() => import("./components/ServicePage/8-PVidrio/Pvidrio"));
+const Pserie = lazy(() => import("./components/ServicePage/9-PSerie/Pserie"));
+const Celosias = lazy(() => import("./components/ServicePage/10-Celosias/Celosias"));
+const ReclamoForm = lazy(() => import("./layout/LibroReclamacion/ReclamoForm"));
+
 import theme from "./theme";
 import "./index.css";
 
@@ -54,7 +58,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <HelmetProvider>
         <ChakraProvider theme={theme}>
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-            <RouterProvider router={router} />
+            <Suspense fallback={<LoadingSkeleton />}>
+                <RouterProvider router={router} />
+            </Suspense>
         </ChakraProvider>
     </HelmetProvider>
 );

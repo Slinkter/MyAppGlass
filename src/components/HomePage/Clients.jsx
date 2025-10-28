@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Franja from "../Franja";
 import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
 import ClientsCard from "./ClientsCard";
@@ -25,7 +25,7 @@ const listClient = [
     },
 ];
 
-const Clients = () => {
+const Clients = memo(function Clients() {
     const [isMobile] = useMediaQuery("(max-width: 768px)"); // Adjust breakpoint as needed
     return (
         <Box minHeight="100vh">
@@ -57,6 +57,6 @@ const Clients = () => {
             </Container>
         </Box>
     );
-};
+});
 
 export default Clients;

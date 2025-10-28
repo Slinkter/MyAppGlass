@@ -9,11 +9,12 @@ const HomeView = () => {
     return (
         <>
             <Helmet>
-                <title> GYA Company - Empresa de vidrios y Aluminio ...</title>
+                <title>Vidriería en La Molina | GYA Company - Servicios de Calidad</title>
                 <meta
                     name="description"
-                    content="Especialistas en la venta e instalación de ventanas de alta calidad, incluyendo modelos Nova y series personalizadas para tu hogar y oficina."
+                    content="Servicios de vidriería en La Molina, Lima. Expertos en instalación y diseño. ¡Cotiza con nosotros y transforma tu espacio con GYA Company!"
                 />
+                <link rel="canonical" href="https://www.gyacompany.com/" />
             </Helmet>
             <Box>
                 <LandPage />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
     Box,
     Card,
@@ -11,7 +11,7 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 
-const ClientsCard = ({ IMAGE, nameClient, descClient }) => {
+const ClientsCard = memo(function ClientsCard({ IMAGE, nameClient, descClient }) {
     const [isMobile] = useMediaQuery("(max-width: 768px)"); // Ajusta el punto de quiebre según sea necesario
     const borderColor = useColorModeValue("gray.200", "black");
     return (
@@ -49,6 +49,6 @@ const ClientsCard = ({ IMAGE, nameClient, descClient }) => {
             </CardBody>
         </Card>
     );
-};
+});
 
 export default ClientsCard;

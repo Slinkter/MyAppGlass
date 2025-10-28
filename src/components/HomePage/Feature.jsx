@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 import FeatureCard from "./FeatureCard";
 import {
     Box,
@@ -71,8 +71,8 @@ const features = [
     },
 ];
 
-const Feature = () => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
+const Feature = memo(function Feature() {
+    const [isMobile] = useMediaQuery("(max-width: 768px)"); // Adjust breakpoint as needed
 
     return (
         <Box minHeight="100vh">
@@ -92,19 +92,25 @@ const Feature = () => {
                         spacingX={isMobile ? "20px" : "30px"}
                         spacingY={isMobile ? "20px" : "30px"}
                     >
-                        {features.map((feature, index) => (
-                            <FeatureCard
-                                key={index}
-                                heading={feature.heading}
-                                icon={<Icon as={feature.icon} w={10} h={10} />}
-                                description={feature.description}
-                            />
-                        ))}
+                        {features.map((feature, index) => {
+                            const memoizedIcon = useMemo(() => (
+                                <Icon as={feature.icon} w={10} h={10} />
+                            ), [feature.icon]);
+
+                            return (
+                                <FeatureCard
+                                    key={index}
+                                    heading={feature.heading}
+                                    icon={memoizedIcon}
+                                    description={feature.description}
+                                />
+                            );
+                        })}
                     </SimpleGrid>
                 </Flex>
             </Container>
         </Box>
     );
-};
+});
 
 export default Feature;
