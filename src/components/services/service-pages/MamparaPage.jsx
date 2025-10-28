@@ -12,7 +12,6 @@ const mamparaPageData = {
     systems: [
         { label: "Sistema Nova", icon: ChevronRightIcon },
         { label: "Sistema Serie 25", icon: ChevronRightIcon },
-        { label: "Sistema Serie 31", icon: ChevronRightIcon },
     ],
     features: [
         { label: "Color: Incoloro, Bronce", icon: CheckIcon },
@@ -20,7 +19,7 @@ const mamparaPageData = {
         { label: "Aluminio: Natural, Negro", icon: CheckIcon },
         { label: "Espesor: 6mm", icon: CheckIcon },
     ],
-    imageLists: [listMampara.m_serie01, listMampara.m_serie02, listMampara.m_serie03],
+    imageLists: [listMampara.nova, listMampara.serie],
 };
 
 const Mampara = () => {

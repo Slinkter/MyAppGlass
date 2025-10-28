@@ -10,17 +10,16 @@ const barandaPageData = {
             "Fabricamos e instalamos barandas de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
     },
     systems: [
-        { label: "Sistema Nova", icon: ChevronRightIcon },
-        { label: "Sistema Serie 25", icon: ChevronRightIcon },
-        { label: "Sistema Serie 31", icon: ChevronRightIcon },
+        { label: "Sistema Unico", icon: ChevronRightIcon },
     ],
     features: [
-        { label: "Color: Incoloro, Bronce", icon: CheckIcon },
-        { label: "Tipo: Templado, Crudo", icon: CheckIcon },
-        { label: "Aluminio: Natural, Negro", icon: CheckIcon },
-        { label: "Espesor: 6mm", icon: CheckIcon },
+        { label: "Material : Acero", icon: CheckIcon },
+        { label: "Color : Incoro | Bronce", icon: CheckIcon },
+        { label: "Arenado : Lamina", icon: CheckIcon },
+        { label: "Tipo : Templado", icon: CheckIcon },
+        { label: "Espesor : 8 mm", icon: CheckIcon },
     ],
-    imageLists: [listBaranda.baranda01, listBaranda.baranda02, listBaranda.baranda03],
+    imageLists: [listBaranda.baranda],
 };
 
 const Baranda = () => {

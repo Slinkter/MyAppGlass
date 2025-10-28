@@ -15,13 +15,13 @@ const FadingImage = React.memo((props) => {
         setHasError(false); // Reset error state when image changes
     }, [props.src]);
 
-    const handleImageError = (e) => {
-        console.log("Image failed to load:", e.target.src);
+    const handleImageError = () => {
+        console.log("Image failed to load:", props.src);
         setHasError(true);
     };
 
-    const handleImageLoad = (e) => {
-        console.log("Image loaded successfully:", e.target.src);
+    const handleImageLoad = () => {
+        console.log("Image loaded successfully:", props.src);
     };
 
     const defaultImageUrl = "https://via.placeholder.com/150?text=Image+Not+Found"; // Placeholder image
