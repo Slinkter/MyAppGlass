@@ -26,10 +26,8 @@ const ventanaPageData = {
 
 const Ventana = () => {
     return (
-        <>
-            <div><ChevronRightIcon style={{ width: '24px', height: '24px' }} /></div>
-            <ServicePageLayout pageData={ventanaPageData} />
-        </>
+        // 2. Renderizar el layout pasándole los datos de Ventanas
+        <ServicePageLayout pageData={ventanaPageData} />
     );
 };
 

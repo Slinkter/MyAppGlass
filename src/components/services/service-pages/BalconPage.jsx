@@ -10,17 +10,15 @@ const balconPageData = {
             "Fabricamos e instalamos balcones de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
     },
     systems: [
-        { label: "Sistema Nova", icon: ChevronRightIcon },
-        { label: "Sistema Serie 25", icon: ChevronRightIcon },
-        { label: "Sistema Serie 31", icon: ChevronRightIcon },
+        { label: "Sistema Unico", icon: ChevronRightIcon },
     ],
     features: [
-        { label: "Color: Incoloro, Bronce", icon: CheckIcon },
-        { label: "Tipo: Templado, Crudo", icon: CheckIcon },
-        { label: "Aluminio: Natural, Negro", icon: CheckIcon },
-        { label: "Espesor: 6mm", icon: CheckIcon },
+        { label: "Vidrio templado de 8mm", icon: CheckIcon },
+        { label: "Accesorios de acero cromado", icon: CheckIcon },
+        { label: "Arenado con diseño", icon: CheckIcon },
+        { label: "tiempc", icon: CheckIcon },
     ],
-    imageLists: [listBalcon.balcon01, listBalcon.balcon02, listBalcon.balcon03],
+    imageLists: [listBalcon.items],
 };
 
 const Balcon = () => {

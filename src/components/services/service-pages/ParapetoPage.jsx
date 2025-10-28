@@ -10,17 +10,15 @@ const parapetoPageData = {
             "Fabricamos e instalamos parapetos de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
     },
     systems: [
-        { label: "Sistema Nova", icon: ChevronRightIcon },
-        { label: "Sistema Serie 25", icon: ChevronRightIcon },
-        { label: "Sistema Serie 31", icon: ChevronRightIcon },
+        { label: "Sistema Unico", icon: ChevronRightIcon },
     ],
     features: [
-        { label: "Color: Incoloro, Bronce", icon: CheckIcon },
-        { label: "Tipo: Templado, Crudo", icon: CheckIcon },
-        { label: "Aluminio: Natural, Negro", icon: CheckIcon },
-        { label: "Espesor: 6mm", icon: CheckIcon },
+        { label: "Vidrio templado de 8mm", icon: CheckIcon },
+        { label: "Estructura de Acero", icon: CheckIcon },
+        { label: "Estructura de Aluminio", icon: CheckIcon },
+        { label: "Accesorios", icon: CheckIcon },
     ],
-    imageLists: [listParapeto.parapeto01, listParapeto.parapeto02, listParapeto.parapeto03],
+    imageLists: [listParapeto.parapeto],
 };
 
 const Parapeto = () => {
