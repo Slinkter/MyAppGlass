@@ -10,9 +10,10 @@ import {
     Stack,
     useColorModeValue,
 } from "@chakra-ui/react";
-import FadingImage from "../common/FadingImage"; // Importar FadingImage
+import FadingImage from "@/components/common/FadingImage";
+import { getServiceImageUrl } from "@/utils/image-loader";
 
-function ItemService(props) {
+function ServiceCard(props) {
     const { image, name, plink } = props;
 
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ function ItemService(props) {
                 <FadingImage
                     w="full"
                     h={{ base: "320px", md: "385px" }}
-                    src={image}
+                    src={getServiceImageUrl(image)}
                     alt={`Servicio de ${name}`}
                     borderRadius="lg"
                     objectFit="cover"
@@ -74,4 +75,4 @@ function ItemService(props) {
     );
 }
 
-export default ItemService;
+export default ServiceCard;
