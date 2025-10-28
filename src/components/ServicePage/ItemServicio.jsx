@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
@@ -8,16 +7,14 @@ import {
     Flex,
     Card,
     CardBody,
-    Image,
     Stack,
     useColorModeValue,
-    Skeleton,
 } from "@chakra-ui/react";
+import FadingImage from "../FadingImage"; // Importar FadingImage
 
 function ItemService(props) {
     const { image, name, plink } = props;
 
-    const [isLoaded, setIsLoaded] = useState(false);
     const navigate = useNavigate();
     const colorWhite = "gray.200";
     const colorBlack = "blackAlpha.500";
@@ -43,47 +40,40 @@ function ItemService(props) {
             }}
         >
             <CardBody textAlign="center">
-                <Skeleton
-                    isLoaded={isLoaded}
+                <FadingImage
+                    w="full"
+                    h={{ base: "320px", md: "385px" }}
+                    src={image}
+                    alt={`Servicio de ${name}`}
                     borderRadius="lg"
-                    fadeDuration={0.3}
-                >
-                    <Image
-                        w="full"
-                        h={{ base: "320px", md: "385px" }}
-                        src={image}
-                        alt={`Servicio de ${name}`}
-                        borderRadius="lg"
-                        objectFit="cover"
-                        boxShadow={"base"}
-                        onLoad={() => setIsLoaded(true)}
-                    />
-                    <Stack mt="2" spacing="2">
-                        <Flex
-                            justifyContent="space-between"
-                            alignItems="center"
-                        >
-                            <Box>
-                                <Heading
-                                    as="h3"
-                                    size="md"
-                                    fontWeight="600"
-                                    textTransform="uppercase"
-                                >
-                                    {name}
-                                </Heading>
-                            </Box>
-                            <Button
-                                colorScheme="red"
-                                rightIcon={<ArrowForwardIcon />}
-                                onClick={() => navigate(plink)}
+                    objectFit="cover"
+                    boxShadow={"base"}
+                />
+                <Stack mt="2" spacing="2">
+                    <Flex
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
+                        <Box>
+                            <Heading
+                                as="h3"
                                 size="md"
+                                fontWeight="600"
+                                textTransform="uppercase"
                             >
-                                Catálogo
-                            </Button>
-                        </Flex>
-                    </Stack>
-                </Skeleton>
+                                {name}
+                            </Heading>
+                        </Box>
+                        <Button
+                            colorScheme="red"
+                            rightIcon={<ArrowForwardIcon />}
+                            onClick={() => navigate(plink)}
+                            size="md"
+                        >
+                            Catálogo
+                        </Button>
+                    </Flex>
+                </Stack>
             </CardBody>
         </Card>
     );

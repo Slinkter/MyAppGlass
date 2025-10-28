@@ -1,9 +1,7 @@
 import {
-    Box,
     Container,
     Heading,
     Text,
-    useMediaQuery,
     useColorModeValue,
     Flex,
 } from "@chakra-ui/react";
