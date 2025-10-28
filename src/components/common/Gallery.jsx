@@ -45,8 +45,8 @@ const Gallery = React.memo(({ images }) => {
                 {images.map((src) => (
                     <GridItem key={src.id}>
                         <FadingImage
-                            w={{ base: "320px", md: "385px" }}
-                            h={{ base: "320px", md: "200px" }}
+                            w="100%" // Make it responsive to GridItem width
+                            h={{ base: "320px", md: "200px" }} // Keep height fixed or adjust as needed
                             src={src.image}
                             alt={`Imagen de ${src.name}`}
                             rounded="md"

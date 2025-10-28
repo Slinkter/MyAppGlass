@@ -1,9 +1,19 @@
 import { useEffect } from "react";
-import { useColorModeValue, Container, Heading, Text, Flex, Skeleton, SkeletonText, Box, Stack } from "@chakra-ui/react";
+import {
+    useColorModeValue,
+    Container,
+    Heading,
+    Text,
+    Flex,
+    Skeleton,
+    SkeletonText,
+    Box,
+    Stack,
+} from "@chakra-ui/react";
 import ItemService from "./ServiceCard";
 import HelmetWrapper from "../../components/HelmetWrapper";
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchServices } from '../../features/services/servicesSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { fetchServices } from "../../features/services/servicesSlice";
 
 const ServiceList = () => {
     const textColor = useColorModeValue("gray.600", "gray.100");
@@ -13,7 +23,7 @@ const ServiceList = () => {
     const error = useSelector((state) => state.services.error);
 
     useEffect(() => {
-        if (serviceStatus === 'idle') {
+        if (serviceStatus === "idle") {
             dispatch(fetchServices());
         }
     }, [serviceStatus, dispatch]);
@@ -34,7 +44,11 @@ const ServiceList = () => {
                 <Stack mt="2" spacing="2">
                     <Flex justifyContent="space-between" alignItems="center">
                         <Box>
-                            <SkeletonText noOfLines={1} skeletonHeight="20px" width="100px" />
+                            <SkeletonText
+                                noOfLines={1}
+                                skeletonHeight="20px"
+                                width="100px"
+                            />
                         </Box>
                         <Skeleton height="40px" width="100px" />
                     </Flex>
@@ -43,7 +57,7 @@ const ServiceList = () => {
         ));
     };
 
-    if (serviceStatus === 'loading') {
+    if (serviceStatus === "loading") {
         return (
             <Container maxW={"8xl"} my={6} textAlign="center">
                 <Flex
@@ -60,7 +74,7 @@ const ServiceList = () => {
         );
     }
 
-    if (serviceStatus === 'failed') {
+    if (serviceStatus === "failed") {
         return <Text>Error: {error}</Text>;
     }
 
@@ -70,8 +84,7 @@ const ServiceList = () => {
                 title="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
                 description="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina."
                 canonicalUrl="https://www.gyacompany.com/servicios"
-            >
-            </HelmetWrapper>
+            ></HelmetWrapper>
             <Container maxW={"8xl"} my={6} textAlign="center">
                 <Heading
                     as="h2"

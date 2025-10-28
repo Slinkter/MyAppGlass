@@ -1,3 +1,4 @@
+import React from "react";
 import {
     Card,
     CardBody,
@@ -17,7 +18,7 @@ import {
  */
 // ...existing code...
 
-const FeatureCard = ({ heading, description, icon }) => {
+const FeatureCard = React.memo(({ heading, description, icon }) => {
     return (
         <Card
             w={"full"}
@@ -54,6 +55,6 @@ const FeatureCard = ({ heading, description, icon }) => {
             </CardBody>
         </Card>
     );
-};
+});
 
 export default FeatureCard;

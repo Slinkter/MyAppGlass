@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 /**
  * Componente Franja
@@ -16,7 +17,7 @@ import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
  * @param {string} props.text - El texto descriptivo o subtítulo que acompaña al título.
  * @returns {JSX.Element}
  */
-const Franja = ({ title, text }) => {
+const Franja = React.memo(({ title, text }) => {
     const bgColor = useColorModeValue("gray.200", "blackAlpha.500");
     const textColor = useColorModeValue("gray.800", "gray.100");
 
@@ -47,6 +48,6 @@ const Franja = ({ title, text }) => {
             </Flex>
         </Box>
     );
-};
+});
 
 export default Franja;

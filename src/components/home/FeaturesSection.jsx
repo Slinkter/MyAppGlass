@@ -1,6 +1,11 @@
+import React, { useEffect } from "react";
 import FeatureCard from "./FeatureCard";
-import { Box, Container, SimpleGrid, Icon, Flex } from "@chakra-ui/react";
-// ...existing code...
+import { Box, Container, SimpleGrid, Icon, Flex, Text, Spinner } from "@chakra-ui/react";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchFeatures } from '../../features/features/featuresSlice';
+import Franja from "../common/Franja";
+
+// Import all icons needed and map them to a dictionary
 import {
     IoIosCalculator,
     IoIosCalendar,
@@ -11,60 +16,42 @@ import {
     IoMdSwap,
 } from "react-icons/io";
 import { HiOutlineBanknotes } from "react-icons/hi2";
-import Franja from "../common/Franja";
 
-const features = [
-    {
-        heading: "Presupuesto Online",
-        icon: IoIosCalculator,
-        description:
-            "Recibe una estimación rápida y precisa a través de WhatsApp. Contáctanos al 996-537-435.",
-    },
-    {
-        heading: " Visita Técnica",
-        icon: IoIosCalendar,
-        description:
-            "Coordina una visita técnica sin costo adicional. Nuestro equipo evaluará tus necesidades en persona.",
-    },
-    {
-        heading: "Materiales  ",
-        icon: IoIosKeypad,
-        description:
-            "Ofrecemos una garantía de 3 meses en todos nuestros productos instalados.",
-    },
-    {
-        heading: "Técnicos Capacitados",
-        icon: IoMdConstruct,
-        description:
-            "Nuestro equipo de operarios está altamente capacitado y cuenta con amplia experiencia en instalaciones.",
-    },
-    {
-        heading: "Garantías",
-        icon: IoMdSwap,
-        description:
-            "Disfruta de una garantía de 6 meses en todos nuestros productos instalados.",
-    },
-    {
-        heading: "Método de pago",
-        icon: HiOutlineBanknotes,
-        description:
-            "Disponemos de una cuenta corriente empresarial y aceptamos tarjetas de crédito y débito.",
-    },
-    {
-        heading: "Recibos ",
-        icon: IoIosPaper,
-        description:
-            "Emitimos boletas y facturas electrónicas inmediatamente después de realizar el pago.",
-    },
-    {
-        heading: " Promociones ",
-        icon: IoMdPricetags,
-        description:
-            "Descubre nuestras ofertas y promociones actualizadas cada mes en una variedad de productos y servicios.",
-    },
-];
+const iconMap = {
+    IoIosCalculator: IoIosCalculator,
+    IoIosCalendar: IoIosCalendar,
+    IoIosKeypad: IoIosKeypad,
+    IoMdConstruct: IoMdConstruct,
+    IoMdSwap: IoMdSwap,
+    HiOutlineBanknotes: HiOutlineBanknotes,
+    IoIosPaper: IoIosPaper,
+    IoMdPricetags: IoMdPricetags,
+};
 
-const FeaturesSection = () => {
+const FeaturesSection = React.memo(() => {
+    const dispatch = useDispatch();
+    const features = useSelector((state) => state.features.items);
+    const featureStatus = useSelector((state) => state.features.status);
+    const error = useSelector((state) => state.features.error);
+
+    useEffect(() => {
+        if (featureStatus === 'idle') {
+            dispatch(fetchFeatures());
+        }
+    }, [featureStatus, dispatch]);
+
+    if (featureStatus === 'loading') {
+        return (
+            <Box minHeight="100vh" display="flex" justifyContent="center" alignItems="center">
+                <Spinner size="xl" />
+            </Box>
+        );
+    }
+
+    if (featureStatus === 'failed') {
+        return <Text>Error: {error}</Text>;
+    }
+
     return (
         <Box minHeight="100vh">
             <Franja
@@ -83,19 +70,22 @@ const FeaturesSection = () => {
                         spacingX={{ base: "20px", md: "30px" }}
                         spacingY={{ base: "20px", md: "30px" }}
                     >
-                        {features.map((feature, index) => (
-                            <FeatureCard
-                                key={index}
-                                heading={feature.heading}
-                                icon={<Icon as={feature.icon} w={10} h={10} />}
-                                description={feature.description}
-                            />
-                        ))}
+                        {features.map((feature, index) => {
+                            const FeatureIcon = iconMap[feature.icon];
+                            return (
+                                <FeatureCard
+                                    key={index}
+                                    heading={feature.heading}
+                                    icon={FeatureIcon ? <Icon as={FeatureIcon} w={10} h={10} /> : null}
+                                    description={feature.description}
+                                />
+                            );
+                        })}
                     </SimpleGrid>
                 </Flex>
             </Container>
         </Box>
     );
-};
+});
 
 export default FeaturesSection;
