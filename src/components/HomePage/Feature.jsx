@@ -1,13 +1,7 @@
 import React from "react";
 import FeatureCard from "./FeatureCard";
-import {
-    Box,
-    Container,
-    SimpleGrid,
-    Icon,
-    useMediaQuery,
-    Flex,
-} from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, Icon, Flex } from "@chakra-ui/react";
+import useIsMobile from "../../hooks/useIsMobile";
 import {
     IoIosCalculator,
     IoIosCalendar,
@@ -72,7 +66,7 @@ const features = [
 ];
 
 const Feature = () => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
+    const isMobile = useIsMobile();
 
     return (
         <Box minHeight="100vh">

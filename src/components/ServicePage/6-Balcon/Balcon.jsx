@@ -1,5 +1,5 @@
 import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listBalcon } from "../../../assets/webService/s/07.Balcones/db_balcon";
+import { listBalcon } from "../../../data/gallery/balcon";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
 const Balcon = () => {

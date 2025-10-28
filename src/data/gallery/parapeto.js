@@ -1,10 +1,10 @@
-import image01 from "./IMG_2724.jpeg";
-import image02 from "./IMG_2728.jpeg";
-import image03 from "./IMG_2742.jpeg";
+import image01 from "../../assets/webService/s/05.Parapeto/IMG_2724.jpeg";
+import image02 from "../../assets/webService/s/05.Parapeto/IMG_2728.jpeg";
+import image03 from "../../assets/webService/s/05.Parapeto/IMG_2742.jpeg";
 
-import image04 from "./IMG_2744.jpeg";
-import image05 from "./parapeto03.jpg";
-import image06 from "./parapeto04.png";
+import image04 from "../../assets/webService/s/05.Parapeto/IMG_2744.jpeg";
+import image05 from "../../assets/webService/s/05.Parapeto/parapeto03.jpg";
+import image06 from "../../assets/webService/s/05.Parapeto/parapeto04.png";
 
 const listParapeto = {
   parapeto: [

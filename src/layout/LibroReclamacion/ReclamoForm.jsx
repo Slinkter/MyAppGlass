@@ -1,12 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // 1. Importar useNavigate
-import { db } from "../../firebase/firebase.js"; // Import the database connection
-import { collection, addDoc } from "firebase/firestore"; // Import Firestore functions
+import { useReclamoForm } from "../../hooks/useReclamoForm";
 import {
     Box,
     Button,
     Checkbox,
-    useDisclosure, // 1. Importar useDisclosure
     FormControl,
     FormLabel,
     Input,
@@ -18,7 +14,7 @@ import {
     SimpleGrid,
     InputGroup,
     InputLeftAddon,
-    Modal, // 1. Importar componentes de Modal
+    Modal,
     ModalOverlay,
     ModalContent,
     ModalHeader,
@@ -27,86 +23,14 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 
-const initStateForm = {
-    // Datos del consumidor
-    nombreCompleto: "",
-    domicilio: "",
-    email: "",
-    telefono: "",
-    tipoDocumento: "",
-    numeroDocumento: "",
-    nombrePadreMadre: "", // Datos de la reclamación
-    tipoBien: "",
-    montoReclamado: "",
-    descripcionBien: "",
-    tipoSolicitud: "", // "Reclamo" o "Queja"
-    detalle: "",
-    pedido: "",
-    aceptaTerminos: false, // Aceptaciones
-};
-
 // Componente principal del formulario
 const ReclamoForm = () => {
-    // Estado unificado y simplificado del formulario
-    const [formData, setFormData] = useState(initStateForm);
-    // 2. Hooks para el modal y la navegación
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [newReclamoId, setNewReclamoId] = useState("");
-    const navigate = useNavigate();
-
-    // Handler genérico para actualizar el estado
-    const handleInputsChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: type === "checkbox" ? checked : value,
-        }));
-    };
-
-    // 4. Función para cerrar el modal y redirigir
-    const handleModalCloseAndRedirect = () => {
-        onClose();
-        navigate("/"); // Redirige a la página de inicio
-    };
-
-    // Handler para el envío del formulario
-    const handleBtnSubmit = async (e) => {
-        e.preventDefault();
-        if (!formData.aceptaTerminos) {
-            const msj =
-                "Debe declarar que la información es veraz y aceptar la política de privacidad.";
-            alert(msj);
-            return;
-        }
-
-        try {
-            const options = {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: false, // Formato de 24 horas
-                timeZone: "America/Lima",
-            };
-            const refReclamos = collection(db, "reclamaciones");
-            const docRef = await addDoc(refReclamos, {
-                ...formData,
-                fechaReclamo: new Date().toISOString("es-PE", options), // Add timestamp
-            });
-
-            // 3. Abrir el modal en lugar de usar alert
-            setNewReclamoId(docRef.id);
-            onOpen();
-            setFormData(initStateForm); // Limpiar el formulario
-        } catch (error) {
-            console.error("Error writing document to Firestore: ", error);
-            alert(
-                "Hubo un error al enviar su reclamo. Por favor, intente más tarde."
-            );
-        }
-    };
+    const {
+        formData,
+        handleInputsChange,
+        handleBtnSubmit,
+        modalProps,
+    } = useReclamoForm();
 
     return (
         <Box
@@ -343,8 +267,8 @@ const ReclamoForm = () => {
 
             {/* 5. JSX del Modal de éxito */}
             <Modal
-                isOpen={isOpen}
-                onClose={handleModalCloseAndRedirect}
+                isOpen={modalProps.isOpen}
+                onClose={modalProps.onClose}
                 isCentered
             >
                 <ModalOverlay />
@@ -354,7 +278,7 @@ const ReclamoForm = () => {
                     <ModalBody>
                         <Text>
                             Su número de seguimiento es:{" "}
-                            <strong>{newReclamoId}</strong>.
+                            <strong>{modalProps.newReclamoId}</strong>.
                         </Text>
                         <Text mt={2}>
                             Se ha enviado una copia de la confirmación a su
@@ -364,7 +288,7 @@ const ReclamoForm = () => {
                     <ModalFooter>
                         <Button
                             colorScheme="red"
-                            onClick={handleModalCloseAndRedirect}
+                            onClick={modalProps.onClose}
                         >
                             Aceptar
                         </Button>

@@ -15,6 +15,14 @@ import {
 import { useState } from "react";
 import FadingImage from "./FadingImage";
 
+/**
+ * Componente que renderiza una galería de imágenes en una cuadrícula responsive.
+ * Al hacer clic en una imagen, se abre un modal para mostrarla en un tamaño más grande.
+ *
+ * @param {{ images: Array<{id: number|string, image: string}> }} props - Props del componente.
+ * @param {Array<{id: number|string, image: string}>} props.images - Un array de objetos, donde cada objeto representa una imagen y debe tener las propiedades `id` e `image` (URL).
+ * @returns {JSX.Element}
+ */
 const Gallery = ({ images }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);

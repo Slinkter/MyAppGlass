@@ -1,5 +1,5 @@
 import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listCelosias } from "../../../assets/webService/s/13.Celosias/db_celosias";
+import { listCelosias } from "../../../data/gallery/celosias";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
 const Celosias = () => {

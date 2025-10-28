@@ -1,5 +1,5 @@
 import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listParapeto } from "../../../assets/webService/s/05.Parapeto/db_parapeto";
+import { listParapeto } from "../../../data/gallery/parapeto";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
 const Parapeto = () => {

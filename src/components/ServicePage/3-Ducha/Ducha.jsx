@@ -1,5 +1,5 @@
 import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listDucha } from "../../../assets/webService/s/03.Ducha/db_ducha";
+import { listDucha } from "../../../data/gallery/ducha";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
 const Ducha = () => {

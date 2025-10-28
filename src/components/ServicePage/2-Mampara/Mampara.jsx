@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { listMampara } from "../../../assets/webService/s/02.Mampara/db_mampara";
+import { listMampara } from "../../../data/gallery/mampara";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
 // 1. Definir todos los datos para esta página de servicio

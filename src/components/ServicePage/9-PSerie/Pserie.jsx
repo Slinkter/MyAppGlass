@@ -1,5 +1,5 @@
 import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listPuertas } from "../../../assets/webService/s/12.PuertaS/db_puertas";
+import { listPuertas } from "../../../data/gallery/puertaSerie";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
 const Pserie = () => {

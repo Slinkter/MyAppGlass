@@ -7,7 +7,7 @@ import {
     useColorModeValue,
     Flex,
 } from "@chakra-ui/react";
-import listprojects from "./db_project";
+import listprojects from "../../data/projects";
 import ItemProject from "./ItemProject";
 import { Helmet } from "react-helmet-async";
 

@@ -1,10 +1,10 @@
-import image01 from "./baranda1.jpg";
-import image02 from "./baranda4.jpg";
-import image03 from "./baranda01.jpeg";
+import image01 from "../../assets/webService/s/06.Baranda/baranda1.jpg";
+import image02 from "../../assets/webService/s/06.Baranda/baranda4.jpg";
+import image03 from "../../assets/webService/s/06.Baranda/baranda01.jpeg";
 
-import image04 from "./IMG_2741.jpeg";
-import image05 from "./IMG_2321.jpeg";
-import image06 from "./IMG_20221222_204253.jpg";
+import image04 from "../../assets/webService/s/06.Baranda/IMG_2741.jpeg";
+import image05 from "../../assets/webService/s/06.Baranda/IMG_2321.jpeg";
+import image06 from "../../assets/webService/s/06.Baranda/IMG_20221222_204253.jpg";
 
 const listBaranda = {
   baranda: [

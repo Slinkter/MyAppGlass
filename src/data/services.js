@@ -1,13 +1,13 @@
-import ventana from "../../assets/webService/init01.jpg";
-import Mampara from "../../assets/webService/init02a.jpg";
-import puertaducha from "../../assets/webService/init03.jpg";
-import techopoli from "../../assets/webService/init04.jpg";
-import parapeto from "../../assets/webService/init05a.jpg";
-import baranda from "../../assets/webService/init06.jpg";
-import balcon from "../../assets/webService/init07a.jpg";
-import puertavidrio from "../../assets/webService/init11.jpg";
-import puertaserie from "../../assets/webService/init12.jpg";
-import celocias from "../../assets/webService/init13.jpg";
+import ventana from "../assets/webService/init01.jpg";
+import Mampara from "../assets/webService/init02a.jpg";
+import puertaducha from "../assets/webService/init03.jpg";
+import techopoli from "../assets/webService/init04.jpg";
+import parapeto from "../assets/webService/init05a.jpg";
+import baranda from "../assets/webService/init06.jpg";
+import balcon from "../assets/webService/init07a.jpg";
+import puertavidrio from "../assets/webService/init11.jpg";
+import puertaserie from "../assets/webService/init12.jpg";
+import celocias from "../assets/webService/init13.jpg";
 
 const listService = [
     {

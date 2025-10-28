@@ -4,6 +4,15 @@ import { Box, Stack, useColorModeValue, Heading } from "@chakra-ui/react";
 import SidebarItem from "../../SidebarItem";
 import Gallery from "../../Gallery";
 
+/**
+ * Layout reutilizable para las páginas de cada servicio.
+ * Organiza el contenido en una barra lateral (Sidebar) para la navegación y las características,
+ * y una galería principal para mostrar las imágenes del servicio seleccionado.
+ *
+ * @param {{ pageData: object }} props - Props del componente.
+ * @param {object} props.pageData - Objeto que contiene toda la información de la página, incluyendo SEO, sistemas, características y listas de imágenes.
+ * @returns {JSX.Element}
+ */
 const ServicePageLayout = ({ pageData }) => {
     const { seo, systems, features, imageLists } = pageData;
     const [activeIndex, setActiveIndex] = useState(0);

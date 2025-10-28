@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import ItemService from "./ItemServicio";
 //
-import listService from "./db_service";
+import listService from "../../data/services";
 
 const Service = () => {
     return (

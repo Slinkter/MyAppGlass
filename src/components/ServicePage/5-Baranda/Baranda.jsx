@@ -1,5 +1,5 @@
 import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listBaranda } from "../../../assets/webService/s/06.Baranda/db_baranda";
+import { listBaranda } from "../../../data/gallery/baranda";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
 const Baranda = () => {

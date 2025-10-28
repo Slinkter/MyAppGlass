@@ -1,5 +1,5 @@
 import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { listPuertav } from "../../../assets/webService/s/11.PuertaV/db_puertav";
+import { listPuertav } from "../../../data/gallery/puertaVidrio";
 import ServicePageLayout from "../0-ServeItem/ServicePageLayout";
 
 const Pvidrio = () => {

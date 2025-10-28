@@ -4,15 +4,24 @@ import {
     Heading,
     Text,
     useColorModeValue,
-    useMediaQuery,
 } from "@chakra-ui/react";
+import useIsMobile from "../hooks/useIsMobile";
 
+/**
+ * Muestra una franja de color a lo ancho de la página con un título y un texto descriptivo.
+ * Es utilizado para separar secciones de contenido de una manera visualmente atractiva.
+ *
+ * @param {{ title: string, text: string }} props - Props del componente.
+ * @param {string} props.title - El título principal que se mostrará en la franja.
+ * @param {string} props.text - El texto descriptivo o subtítulo que acompaña al título.
+ * @returns {JSX.Element}
+ */
 const Franja = ({ title, text }) => {
     const colorWhite = "gray.200";
     const colorBlack = "blackAlpha.500";
     const bgColor = useColorModeValue(colorWhite, colorBlack);
     const textColor = useColorModeValue("black", "white");
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
+    const isMobile = useIsMobile();
 
     return (
         <Box py={8} bg={bgColor} boxShadow="md">
