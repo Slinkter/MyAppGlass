@@ -1,23 +1,17 @@
 import React from "react";
 import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
-/**
- * Componente Franja
- * Muestra una franja decorativa en la página.
- * @component
- * @returns {JSX.Element}
- */
-// ...existing code...
 
 /**
  * Muestra una franja de color a lo ancho de la página con un título y un texto descriptivo.
  * Es utilizado para separar secciones de contenido de una manera visualmente atractiva.
  *
- * @param {{ title: string, text: string }} props - Props del componente.
+ * @param {{ title: string, text: string, headingAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" }} props - Props del componente.
  * @param {string} props.title - El título principal que se mostrará en la franja.
  * @param {string} props.text - El texto descriptivo o subtítulo que acompaña al título.
+ * @param {"h1" | "h2" | "h3" | "h4" | "h5" | "h6"} [props.headingAs="h1"] - El nivel de encabezado HTML para el título.
  * @returns {JSX.Element}
  */
-const Franja = React.memo(({ title, text }) => {
+const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
     const bgColor = useColorModeValue("gray.200", "blackAlpha.500");
     const textColor = useColorModeValue("gray.800", "gray.100");
 
@@ -29,7 +23,7 @@ const Franja = React.memo(({ title, text }) => {
                 direction="column"
             >
                 <Heading
-                    as="h1"
+                    as={headingAs}
                     fontSize={{ base: "4xl", md: "4xl" }}
                     fontWeight="bold"
                     color={textColor}

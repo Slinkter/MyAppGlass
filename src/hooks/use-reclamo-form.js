@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDisclosure, useToast } from "@chakra-ui/react";
-import { db } from "../config/firebase.js";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { reclamoService } from "../api/reclamoService.js";
 
 const initialState = {
     nombreCompleto: "",
@@ -93,13 +92,9 @@ export const useReclamoForm = () => {
         }
 
         try {
-            const refReclamos = collection(db, "reclamaciones");
-            const docRef = await addDoc(refReclamos, {
-                ...formData,
-                fechaReclamo: serverTimestamp(),
-            });
+            const newId = await reclamoService.submitReclamo(formData);
 
-            setNewReclamoId(docRef.id);
+            setNewReclamoId(newId);
             onOpen();
             setFormData(initialState);
         } catch (error) {

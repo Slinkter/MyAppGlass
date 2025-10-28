@@ -33,7 +33,7 @@ const ClientsSection = React.memo(() => {
                         {clients.map((client) => (
                             <ClientCard
                                 key={client.id} // Use a unique ID from the data instead of index
-                                IMAGE={client.imgClient}
+                                image={client.imgClient}
                                 nameClient={client.nameClient}
                                 descClient={client.descClient}
                             />

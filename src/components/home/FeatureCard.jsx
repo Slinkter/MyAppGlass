@@ -12,12 +12,11 @@ import {
  * Tarjeta para mostrar una característica destacada.
  * @component
  * @param {Object} props
- * @param {string} props.label - Etiqueta de la característica
+ * @param {string} props.heading - Encabezado de la característica
+ * @param {string} props.description - Descripción de la característica
  * @param {React.ReactNode} props.icon - Icono a mostrar
  * @returns {JSX.Element}
  */
-// ...existing code...
-
 const FeatureCard = React.memo(({ heading, description, icon }) => {
     return (
         <Card

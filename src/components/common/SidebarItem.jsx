@@ -1,3 +1,4 @@
+import React from "react";
 import { Stack, useColorModeValue, Icon, Text } from "@chakra-ui/react";
 
 /**
@@ -11,7 +12,6 @@ import { Stack, useColorModeValue, Icon, Text } from "@chakra-ui/react";
  * @param {boolean} [props.isActive] - Estado activo del ítem.
  * @returns {JSX.Element}
  */
-import React from "react";
 const SidebarItem = React.memo(({ icon, label, onClick, isActive }) => {
     const activeBg = useColorModeValue("primary.100", "primary.900");
     const activeColor = useColorModeValue("primary.600", "primary.200");

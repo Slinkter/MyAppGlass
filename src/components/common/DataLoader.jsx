@@ -1,6 +1,7 @@
 
 
 import React from "react";
+import ErrorDisplay from "./ErrorDisplay";
 
 /**
  * @component DataLoader
@@ -18,8 +19,7 @@ const DataLoader = ({ isLoading, error, children, loadingComponent }) => {
     }
 
     if (error) {
-        // Podríamos tener un componente de error más elaborado aquí
-        return <div>Error: {typeof error === 'string' ? error : JSON.stringify(error)}</div>;
+        return <ErrorDisplay message={typeof error === 'string' ? error : error.message || JSON.stringify(error)} />;
     }
 
     return children;
