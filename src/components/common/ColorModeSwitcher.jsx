@@ -25,4 +25,6 @@ const ColorModeSwitcher = () => {
     );
 };
 
+ColorModeSwitcher.displayName = 'ColorModeSwitcher';
+
 export default ColorModeSwitcher;

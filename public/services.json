@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "image": "/src/assets/webService/init01.jpg",
+        "name": "Ventanas",
+        "link": "https://bit.ly/3HuT0Eq",
+        "plink": "/servicios/ventana"
+    },
+    {
+        "id": 2,
+        "image": "/src/assets/webService/init02a.jpg",
+        "name": "Mamparas",
+        "link": "https://www.facebook.com/media/set/?set=a.414060650462803&type=3/?from=GoogleBT",
+        "plink": "/servicios/mampara"
+    },
+    {
+        "id": 3,
+        "image": "/src/assets/webService/init03.jpg",
+        "name": "Duchas ",
+        "link": "https://www.facebook.com/media/set/?set=a.414060420462826&type=3?from=GoogleBT",
+        "plink": "/servicios/ducha"
+    },
+    {
+        "id": 4,
+        "image": "/src/assets/webService/init05a.jpg",
+        "name": "Parapeto",
+        "link": "https://www.facebook.com/media/set/?set=a.414060023796199&type=3?from=GoogleBT",
+        "plink": "/servicios/parapeto"
+    },
+    {
+        "id": 5,
+        "image": "/src/assets/webService/init06.jpg",
+        "name": "Barandas",
+        "link": "https://www.facebook.com/gyacompany?from=GoogleBT",
+        "plink": "/servicios/baranda"
+    },
+    {
+        "id": 6,
+        "image": "/src/assets/webService/init07a.jpg",
+        "name": "Balcones",
+        "link": "https://www.facebook.com/media/set/?set=a.414059690462899&type=3?from=GoogleBT",
+        "plink": "/servicios/balcones"
+    },
+    {
+        "id": 7,
+        "image": "/src/assets/webService/init04.jpg",
+        "name": "Techos ",
+        "link": "https://www.facebook.com/media/set/?set=a.414060237129511&type=3?from=GoogleBT",
+        "plink": "/servicios/techo"
+    },
+    {
+        "id": 8,
+        "image": "/src/assets/webService/init11.jpg",
+        "name": "Puerta de Vidrio",
+        "link": "https://www.facebook.com/gyacompany/?from=GoogleBT",
+        "plink": "/servicios/pvidrio"
+    },
+    {
+        "id": 9,
+        "image": "/src/assets/webService/init12.jpg",
+        "name": "Puerta en Serie ",
+        "link": "https://www.facebook.com/gyacompany/?from=GoogleBT",
+        "plink": "/servicios/pserie"
+    },
+    {
+        "id": 10,
+        "image": "/src/assets/webService/init13.jpg",
+        "name": "Celosías",
+        "link": "https://www.facebook.com/gyacompany/?from=GoogleBT",
+        "plink": "/servicios/celosias"
+    }
+]

@@ -1,20 +1,22 @@
-import { useState, useEffect } from "react";
-import { Container, Heading, Text, useColorModeValue, Flex, Skeleton, SkeletonText, Box, Stack } from "@chakra-ui/react";
-import listService from "../../data/services-data";
+import { useEffect } from "react";
+import { useColorModeValue, Container, Heading, Text, Flex, Skeleton, SkeletonText, Box, Stack } from "@chakra-ui/react";
 import ItemService from "./ServiceCard";
 import HelmetWrapper from "../../components/HelmetWrapper";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchServices } from '../../features/services/servicesSlice';
 
 const ServiceList = () => {
     const textColor = useColorModeValue("gray.600", "gray.100");
-    const [loading, setLoading] = useState(true); // Simulate loading
+    const dispatch = useDispatch();
+    const services = useSelector((state) => state.services.items);
+    const serviceStatus = useSelector((state) => state.services.status);
+    const error = useSelector((state) => state.services.error);
 
     useEffect(() => {
-        // In a real application, this would be set to false after data is fetched
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 1000); // Simulate a 1-second loading time
-        return () => clearTimeout(timer);
-    }, []);
+        if (serviceStatus === 'idle') {
+            dispatch(fetchServices());
+        }
+    }, [serviceStatus, dispatch]);
 
     const renderSkeletons = () => {
         return Array.from({ length: 6 }).map((_, index) => (
@@ -40,6 +42,27 @@ const ServiceList = () => {
             </Box>
         ));
     };
+
+    if (serviceStatus === 'loading') {
+        return (
+            <Container maxW={"8xl"} my={6} textAlign="center">
+                <Flex
+                    direction={{ base: "column", md: "row" }}
+                    flexWrap={"wrap"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    mx={"auto"}
+                    gap={6}
+                >
+                    {renderSkeletons()}
+                </Flex>
+            </Container>
+        );
+    }
+
+    if (serviceStatus === 'failed') {
+        return <Text>Error: {error}</Text>;
+    }
 
     return (
         <>
@@ -84,13 +107,9 @@ const ServiceList = () => {
                     mx={"auto"}
                     gap={6}
                 >
-                    {loading ? (
-                        renderSkeletons()
-                    ) : (
-                        listService.map((servicio) => (
-                            <ItemService key={servicio.id} {...servicio} />
-                        ))
-                    )}
+                    {services.map((servicio) => (
+                        <ItemService key={servicio.id} {...servicio} />
+                    ))}
                 </Flex>
             </Container>
         </>
