@@ -1,5 +1,4 @@
 import { Stack, useColorModeValue, Icon, Text } from "@chakra-ui/react";
-import React from "react";
 
 const SidebarItem = ({ icon, label, onClick, isActive }) => {
     const activeBg = useColorModeValue("red.100", "red.900");

@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Box,
     Flex,
@@ -8,7 +7,6 @@ import {
     useColorModeValue,
     Icon,
     Heading,
-    useMediaQuery,
 } from "@chakra-ui/react";
 import { FaWhatsapp, FaCalendar, FaClock, FaMap } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";

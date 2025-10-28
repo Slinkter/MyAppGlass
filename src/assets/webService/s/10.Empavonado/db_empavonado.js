@@ -6,9 +6,7 @@ import image04 from "./e17.jpeg";
 import image05 from "./e6.jpeg";
 import image06 from "./e24.jpeg";
 
-import image07 from "./e26.jpeg";
-import image08 from "./e25.jpeg";
-import image09 from "./e24.jpeg";
+
 
 const listEmpavonado = {
   empavonado: [

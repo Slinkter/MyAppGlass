@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardBody, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 import useIsMobile from "../../hooks/useIsMobile";
 

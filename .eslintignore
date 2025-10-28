@@ -1,0 +1,5 @@
+# Ignore the functions directory
+functions/
+
+# Ignore build output
+dist/

@@ -1,4 +1,3 @@
-import React from "react";
 import Franja from "../Franja";
 import { Box, Container, Flex } from "@chakra-ui/react";
 import ClientsCard from "./ClientsCard";

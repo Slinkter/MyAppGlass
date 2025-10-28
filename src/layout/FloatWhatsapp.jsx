@@ -9,7 +9,6 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@chakra-ui/react";
-import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 
 const FloatWhatsapp = () => {

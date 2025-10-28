@@ -7,8 +7,7 @@ import image05 from "../../assets/webService/s/07.Balcones/IMG_2091.jpeg";
 import image06 from "../../assets/webService/s/07.Balcones/IMG_2097.jpeg";
 
 const listBalcon = {
-    balcon: [
-        {
+  items: [        {
             id: 1,
             image: image01,
             name: "techo",

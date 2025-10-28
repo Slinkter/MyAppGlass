@@ -1,23 +1,18 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
     AspectRatio,
     Box,
     Button,
     Container,
     Flex,
-    useColorModeValue,
 } from "@chakra-ui/react";
-import useIsMobile from "../../hooks/useIsMobile";
 import { Link } from "@chakra-ui/react";
 import Franja from "../Franja";
 import { Icon } from "@chakra-ui/react";
-import { MdSettings } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const Tienda = () => {
-    const bgColor = useColorModeValue("#e9ecef", "gray.600"); // Light mode bg from original CSS
-    const textColor = useColorModeValue("black", "white");
-    const isMobile = useIsMobile(); // Ajusta el punto de quiebre según sea necesario
+    const isMobile = useIsMobile();
 
     return (
         <Box

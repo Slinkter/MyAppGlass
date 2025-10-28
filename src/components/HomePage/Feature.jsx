@@ -1,4 +1,3 @@
-import React from "react";
 import FeatureCard from "./FeatureCard";
 import { Box, Container, SimpleGrid, Icon, Flex } from "@chakra-ui/react";
 import useIsMobile from "../../hooks/useIsMobile";

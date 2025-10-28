@@ -5,10 +5,6 @@ import {
     IconButton,
     Stack,
     Collapse,
-    Icon,
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
     useColorModeValue,
     useDisclosure,
     useColorMode,
@@ -16,8 +12,6 @@ import {
 import {
     HamburgerIcon,
     CloseIcon,
-    ChevronDownIcon,
-    ChevronRightIcon,
     MoonIcon,
     SunIcon,
 } from "@chakra-ui/icons";
