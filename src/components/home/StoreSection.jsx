@@ -42,7 +42,6 @@ const StoreSection = () => {
                     </AspectRatio>
                     <Link
                         href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
-                        passHref
                     >
                         <Button
                             mt={{ base: "30px", md: "20px" }}
@@ -50,7 +49,6 @@ const StoreSection = () => {
                             colorScheme="gray"
                             size="lg"
                             width={{ base: "100%", md: "200px" }}
-                            as="a"
                         >
                             Google Mapas
                         </Button>

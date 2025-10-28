@@ -1,20 +1,8 @@
-import { Helmet } from "react-helmet-async";
-import {
-    Container,
-    Heading,
-    Text,
-    useColorModeValue,
-    Flex,
-    Skeleton,
-    SkeletonText,
-    Box,
-    Stack
-} from "@chakra-ui/react";
-import ItemService from "./ServiceCard";
-//
-import listService from "../../data/services-data";
-
 import { useState, useEffect } from "react";
+import { Container, Heading, Text, useColorModeValue, Flex, Skeleton, SkeletonText, Box, Stack } from "@chakra-ui/react";
+import listService from "../../data/services-data";
+import ItemService from "./ServiceCard";
+import HelmetWrapper from "../../components/HelmetWrapper";
 
 const ServiceList = () => {
     const textColor = useColorModeValue("gray.600", "gray.100");
@@ -55,13 +43,12 @@ const ServiceList = () => {
 
     return (
         <>
-            <Helmet>
-                <title>SERVICIOS</title>
-                <meta
-                    name="description"
-                    content="Tenemos una amplia gama de productos de instalación"
-                />
-            </Helmet>
+            <HelmetWrapper
+                title="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
+                description="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina."
+                canonicalUrl="https://www.gyacompany.com/servicios"
+            >
+            </HelmetWrapper>
             <Container maxW={"8xl"} my={6} textAlign="center">
                 <Heading
                     as="h2"
