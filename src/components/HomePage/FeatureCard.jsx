@@ -1,22 +1,35 @@
-import { Card, CardBody, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
-import useIsMobile from "../../hooks/useIsMobile";
+import {
+    Card,
+    CardBody,
+    Flex,
+    Heading,
+    Text,
+    useColorModeValue,
+} from "@chakra-ui/react";
+/**
+ * Componente FeatureCard
+ * Tarjeta para mostrar una característica destacada.
+ * @component
+ * @param {Object} props
+ * @param {string} props.label - Etiqueta de la característica
+ * @param {React.ReactNode} props.icon - Icono a mostrar
+ * @returns {JSX.Element}
+ */
+// ...existing code...
 
 const FeatureCard = ({ heading, description, icon }) => {
-    const isMobile = useIsMobile(); // Ajusta el punto de quiebre según sea necesario
-
     return (
         <Card
             w={"full"}
             maxW={{ base: "full", md: "375px" }}
-            h={{ base: "", md: "base" }}
-            p={isMobile ? 3 : 6}
+            h={{ base: "auto", md: "base" }}
+            p={{ base: 3, md: 6 }}
             rounded={"lg"}
             boxShadow={{ base: "base", md: "lg" }}
             border={"1px solid"}
-            borderColor={useColorModeValue("gray.200", "black")}
-            transition="all .2s ease-in-out" // Duración y tipo de transición
+            borderColor={useColorModeValue("gray.200", "gray.900")}
             _hover={{
-                transform: "scale(1.02)", // Escala al pasar el cursor sobre el componente
+                transform: "scale(1.02)",
             }}
         >
             <CardBody textAlign="center">
@@ -28,7 +41,7 @@ const FeatureCard = ({ heading, description, icon }) => {
                     align={"center"}
                     justify={"center"}
                     rounded={"full"}
-                    bg={useColorModeValue("gray.200", "gray.400")}
+                    bg={useColorModeValue("gray.200", "gray.700")}
                 >
                     {icon}
                 </Flex>

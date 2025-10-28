@@ -4,7 +4,7 @@ import ClientsCard from "./ClientsCard";
 import cliente01 from "../../assets/building.jpg";
 import cliente02 from "../../assets/sectoroffices.jpg";
 import cliente03 from "../../assets/sectorhogar.jpg";
-import useIsMobile from "../../hooks/useIsMobile";
+// ...existing code...
 
 const listClient = [
     {
@@ -26,7 +26,6 @@ const listClient = [
 ];
 
 const Clients = () => {
-    const isMobile = useIsMobile(); // Adjust breakpoint as needed
     return (
         <Box minHeight="100vh">
             <Franja
@@ -40,7 +39,7 @@ const Clients = () => {
                     minHeight={"80vh"}
                     justifyContent={"space-evenly"}
                     alignItems={"center"}
-                    flexDir={isMobile ? "column" : "row"}
+                    flexDir={{ base: "column", md: "row" }}
                     gap={6}
                 >
                     {listClient.map((client, index) => (
@@ -49,8 +48,6 @@ const Clients = () => {
                             IMAGE={client.imgClient}
                             nameClient={client.nameClient}
                             descClient={client.descClient}
-                            spacingX={isMobile ? "20px" : "30px"}
-                            spacingY={isMobile ? "20px" : "30px"}
                         />
                     ))}
                 </Flex>
