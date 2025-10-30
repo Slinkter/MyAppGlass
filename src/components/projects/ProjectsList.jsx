@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
     Container,
     Heading,
@@ -16,6 +16,8 @@ const Projects = React.memo(() => {
     const textColor = useColorModeValue("gray.600", "gray.100");
     const projectsData = projects;
 
+    const reversedProjects = useMemo(() => [...projectsData].reverse(), [projectsData]);
+
     return (
         <>
             <HelmetWrapper
@@ -23,9 +25,7 @@ const Projects = React.memo(() => {
                 description="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
                 canonicalUrl="https://www.gyacompany.com/proyectos"
             />
-            <DataLoader
-                loadingComponent={<ProjectListSkeleton />}
-            >
+            <DataLoader loadingComponent={<ProjectListSkeleton />}>
                 <Container maxW={"8xl"} my={6} textAlign="center">
                     <Heading
                         as="h2"
@@ -62,9 +62,9 @@ const Projects = React.memo(() => {
                         mx={"auto"}
                         gap={6}
                     >
-                        {[...projects].reverse().map((project) => (
-                                <ProjectCard key={project.id} {...project} />
-                            ))}
+                        {reversedProjects.map((project) => (
+                            <ProjectCard key={project.id} {...project} />
+                        ))}
                     </Flex>
                 </Container>
             </DataLoader>

@@ -28,7 +28,7 @@ const ClientsSection = React.memo(() => {
                         flexDir={{ base: "column", md: "row" }}
                         gap={6}
                     >
-                        {clients.map((client) => (
+                        {clientsData.map((client) => (
                             <ClientCard
                                 key={client.id} // Use a unique ID from the data instead of index
                                 image={client.imgClient}

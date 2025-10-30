@@ -12,6 +12,7 @@ import {
  * @component ProjectListSkeleton
  * @description Muestra una cuadrícula de esqueletos de tarjetas de proyecto para indicar el estado de carga.
  * @returns {JSX.Element}
+ * @remark El uso de `key={index}` es aceptable aquí ya que la lista de esqueletos es estática y su orden no cambia, y no existen IDs únicos para estos elementos de marcador de posición.
  */
 const ProjectListSkeleton = () => {
     const renderSkeletons = () => {
