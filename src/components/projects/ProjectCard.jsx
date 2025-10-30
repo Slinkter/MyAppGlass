@@ -52,20 +52,18 @@ const ProjectCard = React.memo((props) => {
     return (
         <>
             <Card
-                w="375px"
-                maxW={{ base: "full", md: "375px" }}
+                w="sm" // Standardized from "375px" to Chakra token
+                maxW={{ base: "full", md: "sm" }} // Standardized maxW to Chakra token
                 mb={4}
-                boxShadow={"md"}
+                boxShadow="md"
                 rounded="xl"
                 bg={bg}
                 overflow="hidden"
                 _hover={{
-                    boxShadow: "lg",
+                    boxShadow: "xl", // Added shadow for depth
                     borderColor: "primary.300",
-                    transform: {
-                        base: "",
-                        md: "scale(1.02)",
-                    },
+                    transform: "scale(1.015)", // Reduced scale for subtlety
+                    transition: "all 0.3s ease-out", // Smoother transition
                 }}
             >
                 <CardBody textAlign="center">
@@ -74,27 +72,27 @@ const ProjectCard = React.memo((props) => {
                         h={{ base: "320px", md: "325px" }}
                         src={image}
                         alt={`Obra ${residencial}`}
-                        borderRadius="lg"
+                        rounded="lg" // Standardized borderRadius to rounded
                         objectFit="cover"
-                        boxShadow={"base"}
+                        boxShadow="base"
                     />
 
-                    <Stack mt="4" spacing="2">
+                    <Stack mt={4} spacing={2}>
                         <Flex
-                            direction={"column"}
-                            textAlign={"left"}
-                            justifyContent={"center"}
+                            direction="column"
+                            textAlign="left"
+                            justifyContent="center"
                             gap={2}
                         >
                             <Heading
                                 size="md"
-                                textTransform={"uppercase"}
+                                textTransform="uppercase"
                                 color="primary.500"
                             >
                                 {residencial}
                             </Heading>
                         </Flex>
-                        <Flex alignItems={"center"}>
+                        <Flex alignItems="center">
                             <Icon
                                 as={MapPinIcon}
                                 w={5}
@@ -104,7 +102,7 @@ const ProjectCard = React.memo((props) => {
                             />
                             <Text fontSize="sm">{address}</Text>
                         </Flex>
-                        <Flex alignItems={"center"}>
+                        <Flex alignItems="center">
                             <Icon
                                 as={CalendarDaysIcon}
                                 w={5}
