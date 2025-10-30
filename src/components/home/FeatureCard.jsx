@@ -20,16 +20,18 @@ import {
 const FeatureCard = React.memo(({ heading, description, icon }) => {
     return (
         <Card
-            w={"full"}
-            maxW={{ base: "full", md: "375px" }}
+            w="full"
+            maxW={{ base: "full", md: "sm" }} // Standardized maxW to Chakra token
             h={{ base: "auto", md: "base" }}
             p={{ base: 3, md: 6 }}
-            rounded={"lg"}
+            rounded="lg"
             boxShadow={{ base: "base", md: "lg" }}
-            border={"1px solid"}
+            border="1px solid"
             borderColor={useColorModeValue("gray.200", "gray.900")}
             _hover={{
-                transform: "scale(1.02)",
+                transform: "scale(1.015)", // Reduced scale for subtlety
+                boxShadow: "xl", // Added shadow for depth
+                transition: "all 0.3s ease-out", // Smoother transition
             }}
         >
             <CardBody textAlign="center">
@@ -38,9 +40,9 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
                     h={24}
                     mx="auto"
                     mb={4}
-                    align={"center"}
-                    justify={"center"}
-                    rounded={"full"}
+                    align="center"
+                    justify="center"
+                    rounded="full"
                     bg={useColorModeValue("gray.200", "gray.700")}
                 >
                     {icon}
@@ -48,7 +50,7 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
                 <Heading size="md" mb={3}>
                     {heading}
                 </Heading>
-                <Text mt={1} fontSize={"md"} color={"gray.500"}>
+                <Text mt={1} fontSize="md" color="gray.500">
                     {description}
                 </Text>
             </CardBody>

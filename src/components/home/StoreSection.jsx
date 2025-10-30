@@ -21,18 +21,18 @@ const StoreSection = React.memo(() => {
             <Franja
                 title="TIENDA"
                 text="Av. Los Fresnos MZ. H LT. 16 - La Molina - Lima"
-                minHeight={"20vh"}
+                minHeight="20vh"
             />
-            <Container maxW={"8xl"} mt={6} mb={6}>
+            <Container maxW="8xl" mt={6} mb={6}>
                 <Flex
-                    alignItems={"center"}
-                    justifyContent={"center"}
+                    alignItems="center"
+                    justifyContent="center"
                     minHeight={{ base: "auto", md: "80vh" }}
-                    flexDir={"column"}
+                    flexDir="column"
                 >
                     <AspectRatio
                         ratio={16 / 9}
-                        width={{ base: "100%", md: "100%" }}
+                        width={{ base: "full", md: "full" }}
                         height={{ base: "300px", md: "600px" }}
                     >
                         <iframe
@@ -44,11 +44,11 @@ const StoreSection = React.memo(() => {
                         href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
                     >
                         <Button
-                            mt={{ base: "30px", md: "20px" }}
+                            mt={{ base: 8, md: 5 }} // Standardized mt to Chakra tokens
                             leftIcon={<Icon as={FaMapLocationDot} />}
                             colorScheme="gray"
                             size="lg"
-                            width={{ base: "100%", md: "200px" }}
+                            w={{ base: "full", md: "50" }} // Standardized width to Chakra token
                         >
                             Google Mapas
                         </Button>

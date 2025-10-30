@@ -18,16 +18,16 @@ const ClientListSkeleton = () => {
         return Array.from({ length: 3 }).map((_, index) => (
             <Box
                 key={index}
-                w={"full"}
-                maxW={{ base: "full", md: "475px" }}
+                w="full"
+                maxW={{ base: "full", md: "md" }} // Standardized maxW to Chakra token
                 h={{ base: "auto", md: "xl" }}
                 p={{ base: 3, md: 6 }}
                 boxShadow={{ base: "base", md: "lg" }}
-                border={"1px solid"}
-                borderColor={"gray.200"}
-                rounded={"lg"}
+                border="1px solid"
+                borderColor="gray.200"
+                rounded="lg"
             >
-                <Skeleton height={{ base: "260px", md: "375px" }} borderRadius="lg" mb={5} />
+                <Skeleton height={{ base: "260px", md: "375px" }} rounded="lg" mb={5} /> {/* Standardized borderRadius to rounded */}
                 <Stack spacing={3}>
                     <SkeletonText noOfLines={1} skeletonHeight="28px" width="60%" mx="auto" />
                     <SkeletonText noOfLines={2} skeletonHeight="20px" width="80%" mx="auto" mt={2} />
@@ -37,11 +37,11 @@ const ClientListSkeleton = () => {
     };
 
     return (
-        <Container maxW={"8xl"} mt={6} mb={6}>
+        <Container maxW="8xl" mt={6} mb={6}>
             <Flex
-                minHeight={"80vh"}
-                justifyContent={"space-evenly"}
-                alignItems={"center"}
+                minHeight="80vh"
+                justifyContent="space-evenly"
+                alignItems="center"
                 flexDir={{ base: "column", md: "row" }}
                 gap={6}
             >

@@ -15,21 +15,21 @@ const FeaturesSection = React.memo(() => {
             <Franja
                 title={"BENEFICIOS"}
                 text={"¿Por Qué Elegirnos?"}
-                minHeight={"20vh"}
+                minHeight="20vh"
             />
             <DataLoader
                 loadingComponent={<FeatureListSkeleton />}
             >
-                <Container maxW={"8xl"} mt={6} mb={6}>
+                <Container maxW="8xl" mt={6} mb={6}>
                     <Flex
-                        alignItems={"center"}
-                        justifyContent={"center"}
-                        minHeight={"80vh"}
+                        alignItems="center"
+                        justifyContent="center"
+                        minHeight="80vh"
                     >
                         <SimpleGrid
                             columns={{ base: 1, md: 4 }}
-                            spacingX={{ base: "20px", md: "30px" }}
-                            spacingY={{ base: "20px", md: "30px" }}
+                            spacingX={{ base: 5, md: 8 }} // Standardized spacingX to Chakra tokens
+                            spacingY={{ base: 5, md: 8 }} // Standardized spacingY to Chakra tokens
                         >
                             {featuresData.map((feature) => {
                                 const FeatureIcon = iconMap[feature.iconName]; // Use iconName from data

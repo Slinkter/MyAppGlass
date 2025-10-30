@@ -21,21 +21,19 @@ function ServiceCard(props) {
 
     return (
         <Card
-            w="375px"
-            maxW={{ base: "full", md: "375px" }}
+            w="sm" // Standardized from "375px" to Chakra token
+            maxW={{ base: "full", md: "sm" }} // Standardized maxW to Chakra token
             maxH={{ base: "452px", md: "512px" }}
             mb={4}
-            boxShadow={"md"}
+            boxShadow="md"
             rounded="xl"
             bg={bg}
             overflow="hidden"
             _hover={{
-                boxShadow: "lg",
+                boxShadow: "xl", // Added shadow for depth
                 borderColor: "primary.300",
-                transform: {
-                    base: "",
-                    md: "scale(1.02)",
-                },
+                transform: "scale(1.015)", // Reduced scale for subtlety
+                transition: "all 0.3s ease-out", // Smoother transition
             }}
         >
             <CardBody textAlign="center">
@@ -44,11 +42,11 @@ function ServiceCard(props) {
                     h={{ base: "320px", md: "385px" }}
                     src={image}
                     alt={`Servicio de ${name}`}
-                    borderRadius="lg"
+                    rounded="lg" // Standardized borderRadius to rounded
                     objectFit="cover"
-                    boxShadow={"base"}
+                    boxShadow="base"
                 />
-                <Stack mt="2" spacing="2">
+                <Stack mt={2} spacing={2}>
                     <Flex justifyContent="space-between" alignItems="center">
                         <Box>
                             <Heading

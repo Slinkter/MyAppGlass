@@ -36,10 +36,10 @@ const ReclamoForm = () => {
     return (
         <Box
             p={{ base: 4, md: 8 }}
-            maxW="800px"
+            maxW="3xl" // Standardized from "800px" to Chakra token
             mx="auto"
             borderWidth={1}
-            borderRadius="lg"
+            rounded="lg" // Standardized borderRadius to rounded
             boxShadow="lg"
         >
             <Heading as="h2" size="lg" mb={4} textAlign="center">
@@ -47,7 +47,7 @@ const ReclamoForm = () => {
             </Heading>
 
             {/* Sección con datos del proveedor (obligatorio) */}
-            <Box p={4} borderRadius="md" mb={6}>
+            <Box p={4} rounded="md" mb={6}> {/* Standardized borderRadius to rounded */}
                 <Text fontWeight="bold">Razón Social:</Text>
                 <Text mb={2}>GLASS & ALUMINUM COMPANY S.A.C.</Text>{" "}
                 {/* <-- REEMPLAZA CON TUS DATOS */}
@@ -279,7 +279,7 @@ const ReclamoForm = () => {
                     <ModalBody>
                         <Text>
                             Su número de seguimiento es:{" "}
-                            <strong>{modalProps.newReclamoId}</strong>.
+                            <Text as="span" fontWeight="bold">{modalProps.newReclamoId}</Text>. {/* Replaced <strong> with Text */}
                         </Text>
                         <Text mt={2}>
                             Se ha enviado una copia de la confirmación a su

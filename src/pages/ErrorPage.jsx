@@ -25,18 +25,18 @@ const ErrorView = () => {
             <Box
                 textAlign="center"
                 p={8}
-                borderRadius="lg"
+                rounded="lg" // Standardized borderRadius to rounded
                 boxShadow="xl"
                 bg="white"
-                display={"flex"}
-                flexDirection={"column"}
-                alignItems={"center"}
-                justifyContent={"center"}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
             >
                 <Heading as="h1" size="4xl" mb={4} color="red.500">
                     404
                 </Heading>
-                <Heading as="h1" size="2xl" mb={4} color="red.500">
+                <Heading as="h2" size="2xl" mb={4} color="red.500"> {/* Changed to h2 for semantic hierarchy */}
                     Página no encontrada
                 </Heading>
                 <Text fontSize="xl" mb={6}>
