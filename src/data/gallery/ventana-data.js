@@ -1,24 +1,24 @@
-import img_nova_a1 from "../../assets/webService/s/01.Ventanas/nova/a1.jpeg";
-import img_nova_a2 from "../../assets/webService/s/01.Ventanas/nova/a2.jpeg";
-import img_nova_a3 from "../../assets/webService/s/01.Ventanas/nova/a3.jpeg";
-import img_nova_a4 from "../../assets/webService/s/01.Ventanas/nova/a4.jpeg";
-import img_nova_a5 from "../../assets/webService/s/01.Ventanas/nova/a5.jpeg";
-import img_nova_a6 from "../../assets/webService/s/01.Ventanas/nova/a6.jpeg";
-import img_nova_a7 from "../../assets/webService/s/01.Ventanas/nova/a7.jpeg";
-import img_nova_a8 from "../../assets/webService/s/01.Ventanas/nova/a8.jpeg";
-import img_nova_a9 from "../../assets/webService/s/01.Ventanas/nova/a9.jpeg";
-import img_nova_a10 from "../../assets/webService/s/01.Ventanas/nova/a10.jpeg";
-import img_nova_a11 from "../../assets/webService/s/01.Ventanas/nova/a11.jpeg";
-import img_nova_a12 from "../../assets/webService/s/01.Ventanas/nova/a12.jpeg";
-import img_serie_0294 from "../../assets/webService/s/01.Ventanas/serie/IMG_0294.jpeg";
-import img_serie_0292 from "../../assets/webService/s/01.Ventanas/serie/IMG_0292.jpeg";
-import img_serie_0799 from "../../assets/webService/s/01.Ventanas/serie/IMG_0799.jpeg";
-import img_serie_0300 from "../../assets/webService/s/01.Ventanas/serie/IMG_0300.jpeg";
-import img_serie_0304 from "../../assets/webService/s/01.Ventanas/serie/IMG_0304.jpeg";
- import img_serie_0303 from "../../assets/webService/s/01.Ventanas/serie/IMG_0303.jpeg";import img_serie_9209 from "../../assets/webService/s/01.Ventanas/serie/IMG_9209.jpeg";
-import img_serie_110742 from "../../assets/webService/s/01.Ventanas/serie/IMG_20211026_110742.jpeg";
-import img_serie_110803 from "../../assets/webService/s/01.Ventanas/serie/IMG_20211026_110803.jpeg";
-import img_serie_114159 from "../../assets/webService/s/01.Ventanas/serie/IMG_20211026_114159.jpeg";
+import img_nova_a1 from "../../assets/services/products/01.Ventanas/nova/a1.jpeg";
+import img_nova_a2 from "../../assets/services/products/01.Ventanas/nova/a2.jpeg";
+import img_nova_a3 from "../../assets/services/products/01.Ventanas/nova/a3.jpeg";
+import img_nova_a4 from "../../assets/services/products/01.Ventanas/nova/a4.jpeg";
+import img_nova_a5 from "../../assets/services/products/01.Ventanas/nova/a5.jpeg";
+import img_nova_a6 from "../../assets/services/products/01.Ventanas/nova/a6.jpeg";
+import img_nova_a7 from "../../assets/services/products/01.Ventanas/nova/a7.jpeg";
+import img_nova_a8 from "../../assets/services/products/01.Ventanas/nova/a8.jpeg";
+import img_nova_a9 from "../../assets/services/products/01.Ventanas/nova/a9.jpeg";
+import img_nova_a10 from "../../assets/services/products/01.Ventanas/nova/a10.jpeg";
+import img_nova_a11 from "../../assets/services/products/01.Ventanas/nova/a11.jpeg";
+import img_nova_a12 from "../../assets/services/products/01.Ventanas/nova/a12.jpeg";
+import img_serie_0294 from "../../assets/services/products/01.Ventanas/serie/IMG_0294.jpeg";
+import img_serie_0292 from "../../assets/services/products/01.Ventanas/serie/IMG_0292.jpeg";
+import img_serie_0799 from "../../assets/services/products/01.Ventanas/serie/IMG_0799.jpeg";
+import img_serie_0300 from "../../assets/services/products/01.Ventanas/serie/IMG_0300.jpeg";
+import img_serie_0304 from "../../assets/services/products/01.Ventanas/serie/IMG_0304.jpeg";
+ import img_serie_0303 from "../../assets/services/products/01.Ventanas/serie/IMG_0303.jpeg";import img_serie_9209 from "../../assets/services/products/01.Ventanas/serie/IMG_9209.jpeg";
+import img_serie_110742 from "../../assets/services/products/01.Ventanas/serie/IMG_20211026_110742.jpeg";
+import img_serie_110803 from "../../assets/services/products/01.Ventanas/serie/IMG_20211026_110803.jpeg";
+import img_serie_114159 from "../../assets/services/products/01.Ventanas/serie/IMG_20211026_114159.jpeg";
 
 const _rawListVentana = {
     nova: [
