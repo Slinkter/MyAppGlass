@@ -55,7 +55,7 @@ const ServiceList = () => {
                         mx={"auto"}
                         gap={6}
                     >
-                        {services.map((servicio) => (
+                        {servicesData.map((servicio) => (
                             <ItemService key={servicio.id} {...servicio} />
                         ))}
                     </Flex>

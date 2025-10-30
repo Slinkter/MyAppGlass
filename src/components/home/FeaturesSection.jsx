@@ -31,7 +31,7 @@ const FeaturesSection = React.memo(() => {
                             spacingX={{ base: "20px", md: "30px" }}
                             spacingY={{ base: "20px", md: "30px" }}
                         >
-                            {features.map((feature) => {
+                            {featuresData.map((feature) => {
                                 const FeatureIcon = iconMap[feature.iconName]; // Use iconName from data
                                 return (
                                     <FeatureCard
