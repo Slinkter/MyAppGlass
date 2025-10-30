@@ -2,13 +2,13 @@ import React from "react";
 import { useColorModeValue, Container, Heading, Text, Flex } from "@chakra-ui/react";
 import ItemService from "./ServiceCard";
 import HelmetWrapper from "@/components/HelmetWrapper";
-import { useServices } from "@/hooks/useServices";
+import { services } from "@/data/services";
 import DataLoader from "@/components/common/DataLoader";
 import ServiceListSkeleton from "./ServiceListSkeleton";
 
 const ServiceList = () => {
     const textColor = useColorModeValue("gray.600", "gray.100");
-    const { services, isLoading, error } = useServices();
+    const servicesData = services;
 
     return (
         <>
@@ -18,8 +18,6 @@ const ServiceList = () => {
                 canonicalUrl="https://www.gyacompany.com/servicios"
             />
             <DataLoader
-                isLoading={isLoading}
-                error={error}
                 loadingComponent={<ServiceListSkeleton />}
             >
                 <Container maxW={"8xl"} my={6} textAlign="center">

@@ -8,13 +8,13 @@ import {
 } from "@chakra-ui/react";
 import ProjectCard from "@/components/projects/ProjectCard";
 import HelmetWrapper from "@/components/HelmetWrapper";
-import { useProjects } from "@/hooks/useProjects";
+import { projects } from "@/data/projects";
 import DataLoader from "@/components/common/DataLoader";
 import ProjectListSkeleton from "@/components/projects/ProjectListSkeleton";
 
 const Projects = React.memo(() => {
     const textColor = useColorModeValue("gray.600", "gray.100");
-    const { projects, isLoading, error } = useProjects();
+    const projectsData = projects;
 
     return (
         <>
@@ -24,8 +24,6 @@ const Projects = React.memo(() => {
                 canonicalUrl="https://www.gyacompany.com/proyectos"
             />
             <DataLoader
-                isLoading={isLoading}
-                error={error}
                 loadingComponent={<ProjectListSkeleton />}
             >
                 <Container maxW={"8xl"} my={6} textAlign="center">
