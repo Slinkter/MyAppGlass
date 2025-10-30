@@ -2,13 +2,13 @@ import React from "react";
 import FeatureCard from "./FeatureCard";
 import { Box, Container, SimpleGrid, Icon, Flex } from "@chakra-ui/react";
 import Franja from "../common/Franja";
-import { useFeatures } from "@/hooks/useFeatures";
+import { features, iconMap } from "@/data/features.js";
 import DataLoader from "@/components/common/DataLoader";
 import FeatureListSkeleton from "./FeatureListSkeleton";
-import { iconMap } from "@/data/features.js"; // Import iconMap from the centralized data file
+
 
 const FeaturesSection = React.memo(() => {
-    const { features, isLoading, error } = useFeatures();
+    const featuresData = features;
 
     return (
         <Box minHeight="100vh">
@@ -18,8 +18,6 @@ const FeaturesSection = React.memo(() => {
                 minHeight={"20vh"}
             />
             <DataLoader
-                isLoading={isLoading}
-                error={error}
                 loadingComponent={<FeatureListSkeleton />}
             >
                 <Container maxW={"8xl"} mt={6} mb={6}>

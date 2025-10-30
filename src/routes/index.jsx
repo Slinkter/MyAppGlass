@@ -6,9 +6,9 @@ import ServiceList from "../components/services/ServiceList"; // New import
 // Views
 const HomePage = lazy(() => import("../pages/HomePage"));
 const ServicePage = lazy(() => import("../pages/ServicePage"));
-import ErrorPage from "../pages/ErrorPage";
-const TestPage = lazy(() => import("../pages/TestPage"));
 const ProjectPage = lazy(() => import("../pages/ProjectPage"));
+const TestPage = lazy(() => import("../pages/TestPage"));
+import ErrorPage from "../pages/ErrorPage";
 
 // Service Pages
 
@@ -21,14 +21,10 @@ const ReclamationForm = lazy(() =>
 export const router = createBrowserRouter([
     {
         path: "/",
-
         element: <App />,
-
         errorElement: <ErrorPage />,
-
         children: [
             { path: "/", element: <HomePage /> },
-
             {
                 path: "/servicios",
                 element: <ServicePage />,
@@ -37,7 +33,6 @@ export const router = createBrowserRouter([
                     ...serviceRoutes,
                 ],
             },
-
             { path: "/proyectos", element: <ProjectPage /> },
             { path: "/libro-de-reclamacion", element: <ReclamationForm /> },
             { path: "/test", element: <TestPage /> },

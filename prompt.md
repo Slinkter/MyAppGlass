@@ -106,3 +106,5 @@ Eres un ingeniero de software. Vas a realizar una auditoría profunda del proyec
 -   PR 1: useFetchData + ItemList refactor + tests unitarios básicos.
 -   PR 2: Optimización de imágenes (convertir a webp, lazy-loading).
 -   PR 3: ESLint/Prettier + configuración básica JSDoc.
+
+"Tu rol es un Ingeniero Arquitecto React. Tu misión es eliminar la duplicación masiva en las páginas de servicio. 1. Crea un componente 'ServicePageContainer.jsx' que cargue los datos estáticos de forma dinámica (basado en un slug de ruta/URL). 2. Este nuevo contenedor debe reemplazar la lógica de todos los archivos \*Page.jsx duplicados. 3. El componente debe ser creado en el directorio de servicio. 4. Devuelve el CÓDIGO COMPLETO de 'ServicePageContainer.jsx' y una lista de los archivos originales que deben ser ELIMINADOS (ej. VentanaPage.jsx, MamparaPage.jsx)." @src no te olvides que el proyecto tiene router bien estructura no lo malogres

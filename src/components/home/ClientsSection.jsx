@@ -2,12 +2,12 @@ import React from "react";
 import Franja from "../common/Franja";
 import { Box, Container, Flex } from "@chakra-ui/react";
 import ClientCard from "./ClientCard";
-import { useClients } from "@/hooks/useClients";
+import { clients } from "@/data/clients";
 import DataLoader from "@/components/common/DataLoader";
 import ClientListSkeleton from "./ClientListSkeleton";
 
 const ClientsSection = React.memo(() => {
-    const { clients, isLoading, error } = useClients();
+    const clientsData = clients;
 
     return (
         <Box minHeight="100vh">
@@ -18,8 +18,6 @@ const ClientsSection = React.memo(() => {
                 }
             />
             <DataLoader
-                isLoading={isLoading}
-                error={error}
                 loadingComponent={<ClientListSkeleton />}
             >
                 <Container maxW={"8xl"} mt={6} mb={6}>
