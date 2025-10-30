@@ -12,7 +12,7 @@ import {
     Flex,
 } from "@chakra-ui/react";
 
-import React, { useState } from "react";
+import React, { useState } from "react"; // Removed useEffect import
 import FadingImage from "./FadingImage";
 
 /**
@@ -26,6 +26,7 @@ import FadingImage from "./FadingImage";
 const Gallery = React.memo(({ images }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null); // Will store the full image object
+    // Removed loadedImages state and related logic
     const responsiveColumns = useBreakpointValue({
         base: 1,
         md: 2,
@@ -41,7 +42,7 @@ const Gallery = React.memo(({ images }) => {
                 gap={4}
                 p={2}
             >
-                {images.map((imageItem) => (
+                {images.map((imageItem, index) => (
                     <GridItem key={imageItem.id}>
                         <FadingImage
                             w="100%" // Make it responsive to GridItem width
@@ -50,7 +51,6 @@ const Gallery = React.memo(({ images }) => {
                             alt={`Imagen de ${imageItem.name || `galería ${imageItem.id}`}`}
                             rounded="md"
                             cursor={"pointer"}
-                            borderRadius="md"
                             objectFit="cover"
                             shadow={"base"}
                             transition="all 0.3s ease-in-out"
@@ -62,6 +62,7 @@ const Gallery = React.memo(({ images }) => {
                                 setSelectedImage(imageItem); // Pass the full image object
                                 setIsOpen(true);
                             }}
+                            // Removed shouldLoad and onLoadComplete props
                         />
                     </GridItem>
                 ))}
@@ -70,8 +71,8 @@ const Gallery = React.memo(({ images }) => {
                 isOpen={isOpen}
                 onClose={onClose}
                 isCentered
-                motionPreset="slideInBottom" // Corregido: motionPreset
-                size="4xl" // Modal más grande
+                motionPreset="slideInBottom"
+                size="4xl"
             >
                 <ModalOverlay backdropFilter={"blur(10px)"} />
                 <ModalContent shadow="xl" rounded="lg">
@@ -80,24 +81,24 @@ const Gallery = React.memo(({ images }) => {
                         <Flex>
                             {/* Contenedor para la imagen con tamaño definido */}
                             <Box
-                                flex="1" // Permite que el contenedor crezca
-                                w={{ base: "100%", md: "20vh" }} // Ancho responsivo
-                                h={{ base: "100%", md: "70vh" }} // Altura definida y responsiva
+                                flex="1"
+                                w={{ base: "100%", md: "20vh" }}
+                                h={{ base: "100%", md: "70vh" }}
                                 m={4}
                                 rounded="lg"
-                                overflow="hidden" // Asegura que la imagen no se desborde
+                                overflow="hidden"
                             >
                                 <Image
                                     src={selectedImage?.image}
                                     alt={
                                         selectedImage
-                                            ? `Vista ampliada de ${selectedImage.name || `galería ${selectedImage.id}`}` // Use name or image ID as fallback
+                                            ? `Vista ampliada de ${selectedImage.name || `galería ${selectedImage.id}`}`
                                             : ""
                                     }
                                     w="100%"
                                     h="100%"
                                     p="2"
-                                    objectFit="contain" // Rellena el contenedor sin distorsionar
+                                    objectFit="contain"
                                 />
                             </Box>
                         </Flex>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Skeleton, Image, Box } from "@chakra-ui/react"; // Import Box
+import { Skeleton, Image, Box } from "@chakra-ui/react"; // Re-import Skeleton
 
 /**
  * Componente FadingImage
@@ -11,19 +11,21 @@ import { Skeleton, Image, Box } from "@chakra-ui/react"; // Import Box
  * @returns {JSX.Element}
  */
 const FadingImage = React.memo((props) => {
+    const { src, placeholderImageUrl, onImageError, w, h, ...restProps } = props;
+
     const [hasError, setHasError] = useState(false);
-    const [isImageLoaded, setIsImageLoaded] = useState(false); // New state for image loaded
+    const [isImageLoaded, setIsImageLoaded] = useState(false); // Tracks if the actual image has loaded
 
     useEffect(() => {
-        setHasError(false); // Reset error state when image changes
-        setIsImageLoaded(false); // Reset loaded state when image changes
-    }, [props.src]);
+        setHasError(false);
+        setIsImageLoaded(false);
+        // Image loading is now immediate, so src is always set
+    }, [src]); // Depend only on src
 
     const handleImageError = () => {
         setHasError(true);
-        setIsImageLoaded(true); // Even if error, consider it "loaded" to hide skeleton
-        if (props.onImageError) {
-            props.onImageError();
+        if (onImageError) {
+            onImageError();
         }
     };
 
@@ -31,13 +33,12 @@ const FadingImage = React.memo((props) => {
         setIsImageLoaded(true); // Image loaded successfully
     };
 
-    const finalPlaceholderImageUrl = props.placeholderImageUrl || "https://via.placeholder.com/150?text=Image+Not+Found"; // Placeholder image
-
-    // Extract width and height from props to apply to Skeleton
-    const { w, h, ...restProps } = props;
+    // Determine the final src for the Image tag
+    const finalSrc = hasError ? (placeholderImageUrl || "https://via.placeholder.com/150?text=Image+Not+Found") : src; // Use original src
 
     return (
         <Box w={w} h={h} position="relative" overflow="hidden" rounded="md">
+            {/* Skeleton is shown if the image is not yet loaded */}
             {!isImageLoaded && (
                 <Skeleton
                     w="100%"
@@ -50,16 +51,20 @@ const FadingImage = React.memo((props) => {
                     fadeDuration={1}
                 />
             )}
+            {/* Image is always rendered, and src is set immediately */}
             <Image
                 onLoad={handleImageLoad}
                 onError={handleImageError}
-                src={hasError ? finalPlaceholderImageUrl : props.src}
-                opacity={isImageLoaded ? 1 : 0} // Fade in effect
-                transition="opacity 0.5s ease-in-out" // Transition for fade in
-                w="100%" // Ensure image takes full width of Box
-                h="100%" // Ensure image takes full height of Box
-                loading="lazy" // Added for lazy loading
-                {...restProps} // Pass remaining props
+                src={finalSrc || undefined} // Pass undefined if no src to prevent broken image icon
+                opacity={isImageLoaded ? 1 : 0} // Fade in effect only when actually loaded
+                transition="opacity 0.5s ease-in-out"
+                w="100%"
+                h="100%"
+                loading="lazy" // Keep lazy loading for browser optimization
+                {...restProps}
+                position="absolute" // Position absolutely to layer over skeleton
+                top="0"
+                left="0"
             />
         </Box>
     );
