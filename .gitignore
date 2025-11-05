@@ -206,5 +206,9 @@ $RECYCLE.BIN/
 
 # Custom environment files for Vite modes
 .env.hosting
-.env.functions
 .firebase/
+
+# Ignore all environment files
+.env
+.env.*
+.env.local
