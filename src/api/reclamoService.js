@@ -1,11 +1,13 @@
 import { getFunctions, httpsCallable } from "firebase/functions";
+import { app } from "../config/firebase.js"; // Import the initialized app
 
 /**
  * @file reclamoService.js
  * @description Service for invoking Firebase Cloud Functions related to 'reclamo' (claim/complaint) data.
  */
 
-const functions = getFunctions();
+// Initialize functions with the explicit app instance to prevent race conditions.
+const functions = getFunctions(app);
 
 export const reclamoService = {
     /**
@@ -20,7 +22,7 @@ export const reclamoService = {
             const submitReclamoFunction = httpsCallable(functions, 'submitReclamo');
             const result = await submitReclamoFunction(reclamoData);
             // The result.data contains the value returned by the cloud function.
-            return result.data;
+            return result.data.id;
         } catch (error) {
             console.error("Error calling Cloud Function: ", error);
             throw new Error("Failed to submit reclamo via Cloud Function.");
