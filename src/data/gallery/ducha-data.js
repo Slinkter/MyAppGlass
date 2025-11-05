@@ -1,18 +1,18 @@
-import d_01 from "../../assets/webService/s/03.Ducha/ducha04.jpeg";
-import d_02 from "../../assets/webService/s/03.Ducha/ducha08.jpeg";
-import d_03 from "../../assets/webService/s/03.Ducha/ducha07.jpeg";
+import d_01 from "../../assets/services/products/03.Ducha/ducha04.jpeg";
+import d_02 from "../../assets/services/products/03.Ducha/ducha08.jpeg";
+import d_03 from "../../assets/services/products/03.Ducha/ducha07.jpeg";
 
-import d_04 from "../../assets/webService/s/03.Ducha/ducha12.jpeg";
-import d_05 from "../../assets/webService/s/03.Ducha/ducha28.jpeg";
-import d_06 from "../../assets/webService/s/03.Ducha/ducha11.jpeg";
+import d_04 from "../../assets/services/products/03.Ducha/ducha12.jpeg";
+import d_05 from "../../assets/services/products/03.Ducha/ducha28.jpeg";
+import d_06 from "../../assets/services/products/03.Ducha/ducha11.jpeg";
 
-import d_07 from "../../assets/webService/s/03.Ducha/ducha17.jpeg";
-import d_08 from "../../assets/webService/s/03.Ducha/ducha18.jpeg";
-import d_09 from "../../assets/webService/s/03.Ducha/ducha19.jpeg";
+import d_07 from "../../assets/services/products/03.Ducha/ducha17.jpeg";
+import d_08 from "../../assets/services/products/03.Ducha/ducha18.jpeg";
+import d_09 from "../../assets/services/products/03.Ducha/ducha19.jpeg";
 
-import d_10 from "../../assets/webService/s/03.Ducha/ducha22.jpeg";
-import d_11 from "../../assets/webService/s/03.Ducha/ducha24.jpeg";
-import d_12 from "../../assets/webService/s/03.Ducha/ducha10.jpeg";
+import d_10 from "../../assets/services/products/03.Ducha/ducha22.jpeg";
+import d_11 from "../../assets/services/products/03.Ducha/ducha24.jpeg";
+import d_12 from "../../assets/services/products/03.Ducha/ducha10.jpeg";
 
 const listDucha = {
   kit: [

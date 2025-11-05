@@ -23,13 +23,13 @@ export default function Navbar() {
     return (
         <>
             <Flex
-                minH={"50px"}
+                minH="12" // Standardized from "50px" to Chakra token
                 py={{ base: 2 }}
                 px={{ base: 4 }}
                 borderBottom={1}
-                borderStyle={"solid"}
+                borderStyle="solid"
                 borderColor={useColorModeValue("gray.200", "blackAlpha.500")}
-                align={"center"}
+                align="center"
             >
                 <Flex
                     display={{ base: "flex", md: "none" }}
@@ -45,14 +45,14 @@ export default function Navbar() {
                                 <HamburgerIcon w={5} h={5} />
                             )
                         }
-                        aria-label={"Toggle Navigation"}
-                        variant={"ghost"}
+                        aria-label="Toggle Navigation"
+                        variant="ghost"
                     />
                 </Flex>
                 <Flex
                     flex={{ base: 1 }}
-                    justifyContent={"center"}
-                    alignItems={"center"}
+                    justifyContent="center"
+                    alignItems="center"
                 >
                     <Flex display={{ base: "none", md: "flex" }}>
                         <DesktopNav />
@@ -72,7 +72,7 @@ const DesktopNav = () => {
     const linkHoverColor = useColorModeValue("red.400", "red.600");
 
     return (
-        <Stack direction={"row"} spacing={4}>
+        <Stack direction="row" spacing={4}>
             {NAV_ITEMS.map((navItem) => (
                 <Link
                     key={navItem.label}
@@ -81,7 +81,7 @@ const DesktopNav = () => {
                 >
                     <Box
                         p={2}
-                        fontSize={"md"}
+                        fontSize="md"
                         fontWeight={600}
                         color={linkColor}
                         _hover={{

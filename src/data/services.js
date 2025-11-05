@@ -1,13 +1,13 @@
-import init01 from '../assets/webService/general/init01.jpg';
-import init02a from '../assets/webService/general/init02a.jpg';
-import init03 from '../assets/webService/general/init03.jpg';
-import init05a from '../assets/webService/general/init05a.jpg';
-import init06 from '../assets/webService/general/init06.jpg';
-import init07a from '../assets/webService/general/init07a.jpg';
-import init04 from '../assets/webService/general/init04.jpg';
-import init11 from '../assets/webService/general/init11.jpg';
-import init12 from '../assets/webService/general/init12.jpg';
-import init13 from '../assets/webService/general/init13.jpg';
+import init01 from '../assets/services/general/init01.jpg';
+import init02a from '../assets/services/general/init02a.jpg';
+import init03 from '../assets/services/general/init03.jpg';
+import init05a from '../assets/services/general/init05a.jpg';
+import init06 from '../assets/services/general/init06.jpg';
+import init07a from '../assets/services/general/init07a.jpg';
+import init04 from '../assets/services/general/init04.jpg';
+import init11 from '../assets/services/general/init11.jpg';
+import init12 from '../assets/services/general/init12.jpg';
+import init13 from '../assets/services/general/init13.jpg';
 
 export const services = [
     {
