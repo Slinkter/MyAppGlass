@@ -3,9 +3,7 @@ import ReactDOM from "react-dom/client";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider } from "react-router-dom";
-import { Provider } from "react-redux";
 import { Spinner, Center } from "@chakra-ui/react"; // Para el fallback de Suspense
-import { store } from "./app/store";
 import { router } from "./routes";
 
 import theme from "./config/theme";
@@ -20,7 +18,6 @@ const suspenseFallback = (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <Provider store={store}>
             <HelmetProvider>
                 <ChakraProvider theme={theme}>
                     <ColorModeScript
@@ -31,6 +28,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     </React.Suspense>
                 </ChakraProvider>
             </HelmetProvider>
-        </Provider>
     </React.StrictMode>
 );

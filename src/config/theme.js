@@ -34,8 +34,24 @@ const theme = extendTheme({
             800: "#c62828",
             900: "#b71c1c",
         },
-        secondary: "#6c757d", // textsecond
-        accent: "#ff5757", // colorredglass
+        text: {
+            // Semantic color for text
+            secondary: "#6c757d",
+        },
+        brand: {
+            // Semantic color for accent
+            accent: "#ff5757",
+        },
+    },
+    radii: {
+        // Custom border radii tokens
+        card: "lg", // 8px
+        button: "md", // 4px
+        // Add more as needed based on UI audit
+    },
+    space: {
+        // Custom spacing tokens if needed, but Chakra's default is usually sufficient
+        // Example: 'sectionPadding': '4rem',
     },
     config: {
         initialColorMode: "system",
@@ -53,28 +69,32 @@ const theme = extendTheme({
         // Adding default transitions for elements that might use them
         Box: {
             baseStyle: {
-                transitionProperty: "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
+                transitionProperty:
+                    "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
                 transitionDuration: "200ms",
                 transitionTimingFunction: "ease-in-out",
             },
         },
         Flex: {
             baseStyle: {
-                transitionProperty: "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
+                transitionProperty:
+                    "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
                 transitionDuration: "200ms",
                 transitionTimingFunction: "ease-in-out",
             },
         },
         Card: {
             baseStyle: {
-                transitionProperty: "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
+                transitionProperty:
+                    "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
                 transitionDuration: "200ms",
                 transitionTimingFunction: "ease-in-out",
             },
         },
         Button: {
             baseStyle: {
-                transitionProperty: "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
+                transitionProperty:
+                    "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
                 transitionDuration: "200ms",
                 transitionTimingFunction: "ease-in-out",
             },

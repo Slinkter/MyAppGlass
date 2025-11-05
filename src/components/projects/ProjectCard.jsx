@@ -1,11 +1,5 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import {
-    MapPinIcon,
-    CalendarDaysIcon,
-    BuildingOffice2Icon,
-    HomeIcon,
-    MapIcon,
-} from "@heroicons/react/24/solid";
+import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/solid";
 import {
     Card,
     CardBody,
@@ -15,72 +9,61 @@ import {
     Stack,
     Text,
     useColorModeValue,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalCloseButton,
     useDisclosure,
-    Box,
     Icon,
-    Spinner,
 } from "@chakra-ui/react";
 import FadingImage from "../common/FadingImage";
-import ProjectDetailItem from "./ProjectDetailItem";
+import ProjectDetailModal from "./ProjectDetailModal"; // Import the new modal component
 import React from "react";
 
 /**
- * Componente ItemProject
- * Renderiza la tarjeta y modal de un proyecto con detalles y mapa.
- * @component
- * @param {Object} props
- * @param {string} props.image - URL de la imagen del proyecto
- * @param {string} props.residencial - Nombre del residencial
- * @param {string} props.address - Dirección del proyecto
- * @param {string} props.year - Año del proyecto
- * @param {string} props.g_maps - Dirección para Google Maps
- * @param {string} props.name - Nombre de la constructora
- * @returns {JSX.Element}
+ * @component ProjectCard
+ * @description Renders a card for a project, displaying its image, residential name,
+ * address, and year. Clicking a button on the card opens a detailed modal
+ * with more information and a map.
+ *
+ * @param {{
+ *   image: string,
+ *   residencial: string,
+ *   address: string,
+ *   year: string,
+ *   g_maps: string,
+ *   name: string,
+ * }} props - Props for the component.
+ * @param {string} props.image - URL of the project image.
+ * @param {string} props.residencial - Name of the residential project.
+ * @param {string} props.address - Address/district of the project.
+ * @param {string} props.year - Year the project was completed.
+ * @param {string} props.g_maps - Google Maps query string for the project location.
+ * @param {string} props.name - Name of the construction company.
+ * @returns {JSX.Element} The rendered project card.
  */
 const ProjectCard = React.memo((props) => {
     const { image, residencial, address, year, g_maps, name } = props;
     const { isOpen, onOpen: onOpenModal, onClose } = useDisclosure();
-    const [isMapLoaded, setIsMapLoaded] = React.useState(false);
 
-    const bg = useColorModeValue("gray.200", "gray.700"); // Adjusted for better dark mode contrast
-    const modalContentBg = useColorModeValue("gray.50", "gray.800");
-    const modalCloseButtonBg = useColorModeValue("gray.200", "gray.600");
-    const modalCloseButtonHoverBg = useColorModeValue("gray.300", "gray.500");
-    const spinnerContainerBg = useColorModeValue("gray.200", "gray.700");
-    const detailsBoxBg = useColorModeValue("white", "gray.700");
+    const bg = useColorModeValue("gray.200", "gray.700");
 
-    const onOpen = () => {
-        setIsMapLoaded(false);
+    const handleOpenModal = () => {
+        // No need to manage isMapLoaded here, it's handled inside ProjectDetailModal
         onOpenModal();
     };
-
-    const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(
-        g_maps
-    )}&output=embed`;
 
     return (
         <>
             <Card
-                w="375px"
-                maxW={{ base: "full", md: "375px" }}
+                w="sm" // Standardized from "375px" to Chakra token
+                maxW={{ base: "full", md: "sm" }} // Standardized maxW to Chakra token
                 mb={4}
-                boxShadow={"md"}
+                boxShadow="md"
                 rounded="xl"
                 bg={bg}
                 overflow="hidden"
                 _hover={{
-                    boxShadow: "lg", // Slightly more pronounced hover effect
-                    borderColor: "primary.300", // Use primary color for border on hover
-                    transform: {
-                        base: "",
-                        md: "scale(1.02)",
-                    },
+                    boxShadow: "xl", // Added shadow for depth
+                    borderColor: "primary.300",
+                    transform: "scale(1.015)", // Reduced scale for subtlety
+                    transition: "all 0.3s ease-out", // Smoother transition
                 }}
             >
                 <CardBody textAlign="center">
@@ -89,27 +72,27 @@ const ProjectCard = React.memo((props) => {
                         h={{ base: "320px", md: "325px" }}
                         src={image}
                         alt={`Obra ${residencial}`}
-                        borderRadius="lg"
+                        rounded="lg" // Standardized borderRadius to rounded
                         objectFit="cover"
-                        boxShadow={"base"}
+                        boxShadow="base"
                     />
 
-                    <Stack mt="4" spacing="2">
+                    <Stack mt={4} spacing={2}>
                         <Flex
-                            direction={"column"}
-                            textAlign={"left"}
-                            justifyContent={"center"}
+                            direction="column"
+                            textAlign="left"
+                            justifyContent="center"
                             gap={2}
                         >
                             <Heading
                                 size="md"
-                                textTransform={"uppercase"}
+                                textTransform="uppercase"
                                 color="primary.500"
                             >
                                 {residencial}
                             </Heading>
                         </Flex>
-                        <Flex alignItems={"center"}>
+                        <Flex alignItems="center">
                             <Icon
                                 as={MapPinIcon}
                                 w={5}
@@ -119,7 +102,7 @@ const ProjectCard = React.memo((props) => {
                             />
                             <Text fontSize="sm">{address}</Text>
                         </Flex>
-                        <Flex alignItems={"center"}>
+                        <Flex alignItems="center">
                             <Icon
                                 as={CalendarDaysIcon}
                                 w={5}
@@ -131,7 +114,7 @@ const ProjectCard = React.memo((props) => {
                         </Flex>
 
                         <Button
-                            onClick={onOpen}
+                            onClick={handleOpenModal}
                             rightIcon={<ArrowForwardIcon />}
                             colorScheme="primary"
                             variant="solid"
@@ -143,118 +126,15 @@ const ProjectCard = React.memo((props) => {
                 </CardBody>
             </Card>
 
-            <Modal
+            <ProjectDetailModal
                 isOpen={isOpen}
                 onClose={onClose}
-                motionPreset="slideInBottom"
-                size={{ base: "full", md: "6xl" }}
-                scrollBehavior="inside"
-            >
-                <ModalOverlay backdropFilter={"blur(10px)"} />
-                <ModalContent
-                    shadow="xl"
-                    rounded={{ base: 0, md: "lg" }}
-                    bg={modalContentBg}
-                >
-                    <ModalHeader p={4} borderBottomWidth="1px">
-                        <Heading size="lg">{residencial}</Heading>
-                        <Text fontSize="md" color="gray.500">
-                            {name}
-                        </Text>
-                    </ModalHeader>
-                    <ModalCloseButton
-                        size="lg"
-                        bg={modalCloseButtonBg}
-                        _hover={{
-                            bg: modalCloseButtonHoverBg,
-                        }}
-                        rounded="full"
-                        position="absolute"
-                        top={{ base: 4, md: 3 }}
-                        right={{ base: 4, md: 3 }}
-                    />
-                    <ModalBody p={{ base: 4, md: 6 }}>
-                        <Flex
-                            w="full"
-                            h="full"
-                            flexDirection={{ base: "column", md: "row" }}
-                            gap={4}
-                        >
-                            <Box
-                                flex="2"
-                                h={{ base: "300px", md: "500px" }}
-                                position="relative"
-                            >
-                                {!isMapLoaded && (
-                                    <Flex
-                                        position="absolute"
-                                        top="0"
-                                        left="0"
-                                        right="0"
-                                        bottom="0"
-                                        align="center"
-                                        justify="center"
-                                        bg={spinnerContainerBg}
-                                        borderRadius="md"
-                                    >
-                                        <Spinner size="xl" />
-                                    </Flex>
-                                )}
-                                <iframe
-                                    src={googleMapsUrl}
-                                    width="100%"
-                                    height="100%"
-                                    style={{
-                                        border: 0,
-                                        borderRadius: "8px",
-                                    }}
-                                    allowFullScreen=""
-                                    loading="lazy"
-                                    onLoad={() => setIsMapLoaded(true)}
-                                ></iframe>
-                            </Box>
-                            <Box
-                                flex="1"
-                                p={{ base: 2, md: 4 }}
-                                bg={detailsBoxBg}
-                                borderRadius="lg"
-                                boxShadow="sm"
-                            >
-                                <Heading size="md" mb={4}>
-                                    Detalles del Proyecto
-                                </Heading>
-                                <Stack spacing={4}>
-                                    <ProjectDetailItem
-                                        icon={HomeIcon}
-                                        label="Residencial"
-                                        value={residencial}
-                                    />
-                                    <ProjectDetailItem
-                                        icon={BuildingOffice2Icon}
-                                        label="Constructora"
-                                        value={name}
-                                    />
-                                    <ProjectDetailItem
-                                        icon={MapIcon}
-                                        label="Direccion"
-                                        value={g_maps}
-                                    />
-                                    <ProjectDetailItem
-                                        icon={MapPinIcon}
-                                        label="Distrito"
-                                        value={address}
-                                    />
-                                    <ProjectDetailItem
-                                        icon={CalendarDaysIcon}
-                                        label="Año"
-                                        value={year}
-                                    />
-                                </Stack>
-                            </Box>
-                        </Flex>
-                    </ModalBody>
-                </ModalContent>
-            </Modal>
+                residencial={residencial}
+                name={name}
+                address={address}
+                year={year}
+                g_maps={g_maps}
+            />
         </>
     );
 });

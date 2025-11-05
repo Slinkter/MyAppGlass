@@ -9,7 +9,7 @@ const TestView = () => {
                 p={2}
                 spacing={6}
                 borderWidth="1px"
-                borderRadius="xl"
+                rounded="xl" // Standardized borderRadius to rounded
                 boxShadow="lg"
                 bgColor="white"
                 color="gray.600"
@@ -27,7 +27,7 @@ const TestView = () => {
                     alignSelf="stretch"
                     borderLeft="4px solid"
                     borderColor="red.400"
-                    borderRadius="full"
+                    rounded="full" // Standardized borderRadius to rounded
                 />
 
                 {/* Info */}

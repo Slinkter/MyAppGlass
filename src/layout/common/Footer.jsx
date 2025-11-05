@@ -19,37 +19,37 @@ const Footer = () => {
 
     return (
         <>
-            <Box my="2rem">
+            <Box my={8}> {/* Changed from "2rem" to token 8 */}
                 <Box bg={bgColor} mx="auto" pt={8} pb={4} boxShadow="md">
                     <Flex
                         justifyContent="space-around"
                         direction={{ base: "column", md: "row" }}
                     >
-                        <VStack spacing={2} marginBottom={4}>
+                        <VStack spacing={2} mb={4}> {/* Changed marginBottom to mb */}
                             <Heading
-                                as="h1"
-                                fontSize={{ base: "4xl", md: "4xl" }}
-                                fontWeight={600}
-                                mb={1}
+                                as="h3" // Changed to h3 as these are sub-sections of the page
+                                fontSize={{ base: "xl", md: "2xl" }} // Adjusted font size
+                                fontWeight="semibold" // Adjusted font weight
+                                mb={2} // Adjusted margin bottom
                             >
                                 CONTACTO
                             </Heading>
 
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaWhatsapp} />
-                                <Text fontSize={"lg"}>974-278-303</Text>
+                                <Text fontSize="md">974-278-303</Text> {/* Changed to md token */}
                             </HStack>
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaWhatsapp} />
-                                <Text fontSize={"lg"}>996-537-435</Text>
+                                <Text fontSize="md">996-537-435</Text> {/* Changed to md token */}
                             </HStack>
                         </VStack>
-                        <VStack spacing={2} marginBottom={4}>
+                        <VStack spacing={2} mb={4}> {/* Changed marginBottom to mb */}
                             <Heading
-                                as="h1"
-                                fontSize={{ base: "4xl", md: "4xl" }}
-                                fontWeight={600}
-                                mb={1}
+                                as="h3" // Changed to h3
+                                fontSize={{ base: "xl", md: "2xl" }} // Adjusted font size
+                                fontWeight="semibold" // Adjusted font weight
+                                mb={2} // Adjusted margin bottom
                             >
                                 HORARIOS
                             </Heading>
@@ -63,12 +63,12 @@ const Footer = () => {
                                 <Text fontSize="md">9:00 am - 5:00 pm</Text>
                             </HStack>
                         </VStack>
-                        <VStack spacing={2} marginBottom={4}>
+                        <VStack spacing={2} mb={4}> {/* Changed marginBottom to mb */}
                             <Heading
-                                as="h1"
-                                fontSize={{ base: "4xl", md: "4xl" }}
-                                fontWeight={600}
-                                mb={1}
+                                as="h3" // Changed to h3
+                                fontSize={{ base: "xl", md: "2xl" }} // Adjusted font size
+                                fontWeight="semibold" // Adjusted font weight
+                                mb={2} // Adjusted margin bottom
                             >
                                 DIRECCIÓN
                             </Heading>
@@ -95,7 +95,7 @@ const Footer = () => {
                     </Flex>
                 </Box>
             </Box>
-            <VStack spacing={4} m={"20px"}>
+            <VStack spacing={4} m={5}> {/* Changed from "20px" to token 5 */}
                 <Text> Copyright ©2025</Text>
                 <Link
                     to="/libro-de-reclamacion"

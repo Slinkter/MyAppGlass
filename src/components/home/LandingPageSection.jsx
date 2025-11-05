@@ -31,6 +31,7 @@ const LandingPageSection = React.memo(() => {
         >
             <Flex
                 w={{ base: "full", md: "full" }}
+                flexDirection={"column"}
                 justifyContent={"center"}
                 alignItems={"center"}
                 minH={"100vh"}
