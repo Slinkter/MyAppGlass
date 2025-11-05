@@ -24,10 +24,10 @@ const initialState = {
  * Hook personalizado para gestionar la lógica del formulario de reclamaciones.
  * Encapsula el estado del formulario, la validación, el envío a Firestore y el manejo del modal de éxito.
  *
- * @returns {{ 
- *  formData: object, 
- *  handleInputsChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void, 
- *  handleBtnSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>, 
+ * @returns {{
+ *  formData: object,
+ *  handleInputsChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void,
+ *  handleBtnSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>,
  *  modalProps: { isOpen: boolean, onClose: () => void, newReclamoId: string },
  *  handleModalCloseAndRedirect: () => void
  * }} - Objeto con el estado y los manejadores del formulario.
@@ -83,7 +83,8 @@ export const useReclamoForm = () => {
         if (!formData.aceptaTerminos) {
             toast({
                 title: "Error de validación",
-                description: "Debe declarar que la información es veraz y aceptar la política de privacidad.",
+                description:
+                    "Debe declarar que la información es veraz y aceptar la política de privacidad.",
                 status: "warning",
                 duration: 5000,
                 isClosable: true,
@@ -101,7 +102,8 @@ export const useReclamoForm = () => {
             console.error("Error writing document to Firestore: ", error);
             toast({
                 title: "Error al enviar reclamo",
-                description: "Hubo un error al enviar su reclamo. Por favor, intente más tarde.",
+                description:
+                    "Hubo un error al enviar su reclamo. Por favor, intente más tarde.",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -113,6 +115,10 @@ export const useReclamoForm = () => {
         formData,
         handleInputsChange,
         handleBtnSubmit,
-        modalProps: { isOpen, onClose: handleModalCloseAndRedirect, newReclamoId },
+        modalProps: {
+            isOpen,
+            onClose: handleModalCloseAndRedirect,
+            newReclamoId,
+        },
     };
 };
