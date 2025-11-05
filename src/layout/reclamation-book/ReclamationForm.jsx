@@ -1,4 +1,3 @@
-import React from "react";
 import { useReclamoForm } from "../../hooks/use-reclamo-form";
 import {
     Box,
@@ -26,12 +25,8 @@ import {
 
 // Componente principal del formulario
 const ReclamoForm = () => {
-    const {
-        formData,
-        handleInputsChange,
-        handleBtnSubmit,
-        modalProps,
-    } = useReclamoForm();
+    const { formData, handleInputsChange, handleBtnSubmit, modalProps } =
+        useReclamoForm();
 
     return (
         <Box
@@ -47,7 +42,8 @@ const ReclamoForm = () => {
             </Heading>
 
             {/* Sección con datos del proveedor (obligatorio) */}
-            <Box p={4} rounded="md" mb={6}> {/* Standardized borderRadius to rounded */}
+            <Box p={4} rounded="md" mb={6}>
+                {/* Standardized borderRadius to rounded */}
                 <Text fontWeight="bold">Razón Social:</Text>
                 <Text mb={2}>GLASS & ALUMINUM COMPANY S.A.C.</Text>{" "}
                 {/* <-- REEMPLAZA CON TUS DATOS */}
@@ -279,7 +275,10 @@ const ReclamoForm = () => {
                     <ModalBody>
                         <Text>
                             Su número de seguimiento es:{" "}
-                            <Text as="span" fontWeight="bold">{modalProps.newReclamoId}</Text>. {/* Replaced <strong> with Text */}
+                            <Text as="span" fontWeight="bold">
+                                {modalProps.newReclamoId}
+                            </Text>
+                            . {/* Replaced <strong> with Text */}
                         </Text>
                         <Text mt={2}>
                             Se ha enviado una copia de la confirmación a su
@@ -287,10 +286,7 @@ const ReclamoForm = () => {
                         </Text>
                     </ModalBody>
                     <ModalFooter>
-                        <Button
-                            colorScheme="red"
-                            onClick={modalProps.onClose}
-                        >
+                        <Button colorScheme="red" onClick={modalProps.onClose}>
                             Aceptar
                         </Button>
                     </ModalFooter>
