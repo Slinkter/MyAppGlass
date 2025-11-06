@@ -99,13 +99,30 @@ export const useReclamoForm = () => {
             onOpen();
             setFormData(initialState);
         } catch (error) {
-            console.error("Error writing document to Firestore: ", error);
-            toast({
+            console.error("Error submitting reclamo: ", error);
+
+            // Default error message
+            let toastConfig = {
                 title: "Error al enviar reclamo",
                 description:
-                    "Hubo un error al enviar su reclamo. Por favor, intente más tarde.",
+                    "Hubo un error al procesar su solicitud. Por favor, intente más tarde.",
                 status: "error",
-                duration: 5000,
+            };
+
+            // Customize message for specific backend errors
+            if (error.code === "functions/invalid-argument") {
+                toastConfig = {
+                    title: "Datos inválidos",
+                    description:
+                        error.message ||
+                        "Algunos campos del formulario son inválidos. Por favor, revíselos.",
+                    status: "warning",
+                };
+            }
+
+            toast({
+                ...toastConfig,
+                duration: 6000,
                 isClosable: true,
             });
         }

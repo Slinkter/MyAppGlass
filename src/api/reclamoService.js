@@ -1,31 +1,39 @@
-import { getFunctions, httpsCallable } from "firebase/functions";
-import { app } from "../config/firebase.js"; // Import the initialized app
-
 /**
  * @file reclamoService.js
- * @description Service for invoking Firebase Cloud Functions related to 'reclamo' (claim/complaint) data.
+ * @description Service for submitting 'reclamo' (claim/complaint) data to the backend.
  */
 
-// Initialize functions with the explicit app instance to prevent race conditions.
-const functions = getFunctions(app);
+// The URL of the HTTP-triggered Cloud Function.
+const SUBMIT_RECLAMO_URL = "https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitReclamo";
 
 export const reclamoService = {
     /**
-     * Submits a new reclamo by calling the 'submitReclamo' Cloud Function.
-     * This function will handle saving the data to Firestore and sending a confirmation email.
+     * Submits a new reclamo by sending a POST request to the 'submitReclamo' HTTP Cloud Function.
      * @param {object} reclamoData - The data for the reclamo to be submitted.
-     * @returns {Promise<any>} A promise that resolves with the result from the Cloud Function.
-     * @throws {Error} If there is an error calling the function.
+     * @returns {Promise<string>} A promise that resolves with the new reclamo ID from the function.
+     * @throws {Error} If the request fails or the function returns an error.
      */
     submitReclamo: async (reclamoData) => {
         try {
-            const submitReclamoFunction = httpsCallable(functions, 'submitReclamo');
-            const result = await submitReclamoFunction(reclamoData);
-            // The result.data contains the value returned by the cloud function.
-            return result.data.id;
+            const response = await fetch(SUBMIT_RECLAMO_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reclamoData),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            return result.id;
+
         } catch (error) {
-            console.error("Error calling Cloud Function: ", error);
-            throw new Error("Failed to submit reclamo via Cloud Function.");
+            console.error("Error calling HTTP Cloud Function: ", error);
+            throw new Error("Failed to submit reclamo via HTTP Cloud Function.");
         }
     },
 };
