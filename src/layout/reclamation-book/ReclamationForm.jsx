@@ -22,6 +22,7 @@ import {
     ModalBody,
     ModalCloseButton,
 } from "@chakra-ui/react";
+import { companyData } from "../../config/company-data";
 
 // Componente principal del formulario
 const ReclamoForm = () => {
@@ -45,13 +46,13 @@ const ReclamoForm = () => {
             <Box p={4} rounded="md" mb={6}>
                 {/* Standardized borderRadius to rounded */}
                 <Text fontWeight="bold">Razón Social:</Text>
-                <Text mb={2}>GLASS & ALUMINUM COMPANY S.A.C.</Text>{" "}
+                <Text mb={2}>{companyData.razonSocial}</Text>{" "}
                 {/* <-- REEMPLAZA CON TUS DATOS */}
                 <Text fontWeight="bold">RUC:</Text>
-                <Text mb={2}>20606432870</Text>{" "}
+                <Text mb={2}>{companyData.ruc}</Text>{" "}
                 {/* <-- REEMPLAZA CON TUS DATOS */}
                 <Text fontWeight="bold">Dirección:</Text>
-                <Text>Av.Los Fresnos MZ H Lt.16 - La Molina</Text>{" "}
+                <Text>{companyData.direccion}</Text>{" "}
                 {/* <-- REEMPLAZA CON TUS DATOS */}
             </Box>
 

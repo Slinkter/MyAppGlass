@@ -1,1 +1,0 @@
-firebase functions:config:set resend.apikey="re_JR9JTWgG_JhaRtq54TWhbXq921tBKBb2m"
