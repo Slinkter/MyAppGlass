@@ -21,19 +21,35 @@ const initialState = {
 };
 
 /**
- * Hook personalizado para gestionar la lógica del formulario de reclamaciones.
- * Encapsula el estado del formulario, la validación, el envío a Firestore y el manejo del modal de éxito.
- *
- * @returns {{
- *  formData: object,
- *  handleInputsChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void,
- *  handleBtnSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>,
- *  modalProps: { isOpen: boolean, onClose: () => void, newReclamoId: string },
- *  handleModalCloseAndRedirect: () => void
- * }} - Objeto con el estado y los manejadores del formulario.
+ * Validates the form data and returns an errors object.
+ * @param {object} formData - The current state of the form.
+ * @returns {object} An object containing error messages for invalid fields.
+ */
+const validateForm = (formData) => {
+    const errors = {};
+    if (!formData.nombreCompleto.trim()) errors.nombreCompleto = "El nombre completo es requerido.";
+    if (!formData.domicilio.trim()) errors.domicilio = "El domicilio es requerido.";
+    if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = "El formato del email es inválido.";
+    if (!formData.telefono.trim()) errors.telefono = "El teléfono es requerido.";
+    if (!formData.tipoDocumento) errors.tipoDocumento = "Debe seleccionar un tipo de documento.";
+    if (!formData.numeroDocumento.trim()) errors.numeroDocumento = "El número de documento es requerido.";
+    if (!formData.tipoBien) errors.tipoBien = "Debe seleccionar un tipo de bien.";
+    if (!formData.descripcionBien.trim()) errors.descripcionBien = "La descripción es requerida.";
+    if (!formData.tipoSolicitud) errors.tipoSolicitud = "Debe seleccionar un tipo de solicitud.";
+    if (!formData.detalle.trim()) errors.detalle = "El detalle de la solicitud es requerido.";
+    if (!formData.pedido.trim()) errors.pedido = "El pedido es requerido.";
+    if (!formData.aceptaTerminos) errors.aceptaTerminos = "Debe aceptar los términos y la política de privacidad.";
+
+    return errors;
+};
+
+/**
+ * Custom hook to manage the logic of the reclamation form.
+ * Encapsulates form state, validation, submission, and success modal handling.
  */
 export const useReclamoForm = () => {
     const [formData, setFormData] = useState(initialState);
+    const [errors, setErrors] = useState({});
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [newReclamoId, setNewReclamoId] = useState("");
     const navigate = useNavigate();
@@ -45,6 +61,10 @@ export const useReclamoForm = () => {
             ...prev,
             [name]: type === "checkbox" ? checked : value,
         }));
+        // Clear the error for the field being edited
+        if (errors[name]) {
+            setErrors((prev) => ({ ...prev, [name]: null }));
+        }
     };
 
     const handleModalCloseAndRedirect = () => {
@@ -54,82 +74,33 @@ export const useReclamoForm = () => {
 
     const handleBtnSubmit = async (e) => {
         e.preventDefault();
+        const validationErrors = validateForm(formData);
+        setErrors(validationErrors);
 
-        const requiredFields = [
-            "nombreCompleto",
-            "domicilio",
-            "email",
-            "telefono",
-            "tipoDocumento",
-            "numeroDocumento",
-            "tipoBien",
-            "tipoSolicitud",
-            "detalle",
-        ];
+        const isFormValid = Object.keys(validationErrors).length === 0;
 
-        for (const field of requiredFields) {
-            if (!formData[field]) {
+        if (isFormValid) {
+            try {
+                const newId = await reclamoService.submitReclamo(formData);
+                setNewReclamoId(newId);
+                onOpen();
+                setFormData(initialState); // Reset form on success
+            } catch (error) {
+                console.error("Error submitting reclamo: ", error);
                 toast({
-                    title: "Campos incompletos",
-                    description: `Por favor, complete el campo requerido: ${field}`,
-                    status: "warning",
-                    duration: 5000,
+                    title: "Error al enviar reclamo",
+                    description: error.message || "Hubo un error al procesar su solicitud. Por favor, intente más tarde.",
+                    status: "error",
+                    duration: 6000,
                     isClosable: true,
                 });
-                return;
             }
-        }
-
-        if (!formData.aceptaTerminos) {
-            toast({
-                title: "Error de validación",
-                description:
-                    "Debe declarar que la información es veraz y aceptar la política de privacidad.",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-            });
-            return;
-        }
-
-        try {
-            const newId = await reclamoService.submitReclamo(formData);
-
-            setNewReclamoId(newId);
-            onOpen();
-            setFormData(initialState);
-        } catch (error) {
-            console.error("Error submitting reclamo: ", error);
-
-            // Default error message
-            let toastConfig = {
-                title: "Error al enviar reclamo",
-                description:
-                    "Hubo un error al procesar su solicitud. Por favor, intente más tarde.",
-                status: "error",
-            };
-
-            // Customize message for specific backend errors
-            if (error.code === "functions/invalid-argument") {
-                toastConfig = {
-                    title: "Datos inválidos",
-                    description:
-                        error.message ||
-                        "Algunos campos del formulario son inválidos. Por favor, revíselos.",
-                    status: "warning",
-                };
-            }
-
-            toast({
-                ...toastConfig,
-                duration: 6000,
-                isClosable: true,
-            });
         }
     };
 
     return {
         formData,
+        errors,
         handleInputsChange,
         handleBtnSubmit,
         modalProps: {

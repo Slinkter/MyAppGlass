@@ -3,8 +3,8 @@
  * @description Service for submitting 'reclamo' (claim/complaint) data to the backend.
  */
 
-// The URL of the HTTP-triggered Cloud Function.
-const SUBMIT_RECLAMO_URL = "https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitReclamo";
+// The URL of the HTTP-triggered Cloud Function for gya-reclamos project.
+const SUBMIT_RECLAMO_URL = "https://us-central1-gya-reclamos.cloudfunctions.net/submitReclamo";
 
 export const reclamoService = {
     /**
@@ -33,7 +33,8 @@ export const reclamoService = {
 
         } catch (error) {
             console.error("Error calling HTTP Cloud Function: ", error);
-            throw new Error("Failed to submit reclamo via HTTP Cloud Function.");
+            // Re-throw a more specific error for the UI to handle
+            throw new Error(error.message || "Failed to submit reclamo via HTTP Cloud Function.");
         }
     },
 };
