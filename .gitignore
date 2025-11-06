@@ -212,3 +212,11 @@ $RECYCLE.BIN/
 .env
 .env.*
 .env.local
+# ----------------------------------------------------------------
+# ARCHIVOS DE ENTORNO Y SECRETOS
+# NUNCA subir archivos .env a Git.
+# ----------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
