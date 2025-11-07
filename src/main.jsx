@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider } from "react-router-dom";
-import { Spinner, Center } from "@chakra-ui/react"; // Para el fallback de Suspense
-import { router } from "./routes";
+import { HelmetProvider } from "react-helmet-async";
+import { ChakraProvider } from "@chakra-ui/react";
+import { ColorModeScript } from "@chakra-ui/react";
+import { Spinner, Center } from "@chakra-ui/react";
 
+import { router } from "./routes";
 import theme from "./config/theme";
 import "./styles/global.css";
 
@@ -18,15 +19,15 @@ const suspenseFallback = (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-            <HelmetProvider>
-                <ChakraProvider theme={theme}>
-                    <ColorModeScript
-                        initialColorMode={theme.config.initialColorMode}
-                    />
-                    <React.Suspense fallback={suspenseFallback}>
-                        <RouterProvider router={router} />
-                    </React.Suspense>
-                </ChakraProvider>
-            </HelmetProvider>
+        <HelmetProvider>
+            <ChakraProvider theme={theme}>
+                <ColorModeScript
+                    initialColorMode={theme.config.initialColorMode}
+                />
+                <React.Suspense fallback={suspenseFallback}>
+                    <RouterProvider router={router} />
+                </React.Suspense>
+            </ChakraProvider>
+        </HelmetProvider>
     </React.StrictMode>
 );
