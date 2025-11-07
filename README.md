@@ -54,6 +54,22 @@ Las Cloud Functions utilizan la API de **Resend** para el envío de correos elec
     firebase functions:secrets:access RESEND_API_KEY
     ```
 
+### Verificar Secretos (Opcional)
+
+Si necesitas confirmar que un secreto está guardado correctamente sin exponer su valor, usa:
+
+```bash
+# Muestra la información y versiones del secreto (no muestra la clave)
+firebase functions:secrets:get RESEND_API_KEY
+```
+
+Si necesitas ver el valor real de la clave para una verificación visual (¡úsalo con cuidado!):
+
+```bash
+# Muestra el valor de la última versión del secreto
+firebase functions:secrets:access RESEND_API_KEY
+```
+
 ## Comandos Disponibles
 
 ### Desarrollo Local

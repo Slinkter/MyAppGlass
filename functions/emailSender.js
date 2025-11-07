@@ -2,61 +2,99 @@ const { HttpsError } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const { Resend } = require("resend");
 
-/**
- * Lógica de negocio para enviar un correo.
- * Esta no es la función de Firebase, sino un helper modular y testeable.
- *
- * @param {object} emailData Datos del correo.
- * @param {string} emailData.to Tu correo (el destinatario).
- * @param {string} emailData.from Correo del remitente (debe ser un dominio verificado en Resend, ej: 'noreply@tudominio.com').
- * @param {string} emailData.subject Asunto del correo.
- * @param {string} emailData.html Contenido HTML del correo.
- * @returns {Promise<object>} Respuesta de la API de Resend.
- * @throws {HttpsError} Si la validación o el envío fallan.
- */
-async function sendEmailLogic(emailData) {
-  // Inicializamos Resend aquí, para que tenga acceso al secreto en runtime.
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const { to, from, subject, html } = emailData;
+// --- Plantillas de Correo ---
 
-  // --- Validación de Entrada ---
-  if (!to || !from || !subject || !html) {
-    logger.error("Error de validación: Faltan campos requeridos.", {
-      to: to ? "ok" : "falta",
-      from: from ? "ok" : "falta",
-      subject: subject ? "ok" : "falta",
-      html: html ? "ok" : "falta",
-    });
-    throw new HttpsError(
-      "invalid-argument",
-      "La función requiere los campos: to, from, subject, html."
-    );
-  }
+/**
+ * Crea el cuerpo HTML del correo detallado para el administrador.
+ */
+const createAdminEmailHtml = (data) => `
+  <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
+    <h2 style="color: #333;">Nuevo Registro en el Libro de Reclamaciones</h2>
+    <p>Se ha generado un nuevo ${data.tipoSolicitud} a través de la web.</p>
+    
+    <h3 style="border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 30px;">1. Datos del Consumidor</h3>
+    <ul>
+      <li><strong>Nombre Completo:</strong> ${data.nombreCompleto}</li>
+      <li><strong>Domicilio:</strong> ${data.domicilio}</li>
+      <li><strong>Email:</strong> ${data.email}</li>
+      <li><strong>Teléfono:</strong> ${data.telefono}</li>
+      <li><strong>Documento:</strong> ${data.tipoDocumento} - ${data.numeroDocumento}</li>
+      ${data.nombrePadreMadre ? `<li><strong>Padre/Madre/Tutor:</strong> ${data.nombrePadreMadre}</li>` : ''}
+    </ul>
+
+    <h3 style="border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 30px;">2. Datos del Bien Contratado</h3>
+    <ul>
+      <li><strong>Tipo de Bien:</strong> ${data.tipoBien}</li>
+      <li><strong>Monto Reclamado:</strong> S/. ${data.montoReclamado || 'No especificado'}</li>
+      <li><strong>Descripción:</strong> ${data.descripcionBien}</li>
+    </ul>
+
+    <h3 style="border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 30px;">3. Detalle de la Solicitud</h3>
+    <ul>
+      <li><strong>Tipo de Solicitud:</strong> ${data.tipoSolicitud}</li>
+      <li><strong>Detalle:</strong> <p style="white-space: pre-wrap;">${data.detalle}</p></li>
+      <li><strong>Pedido:</strong> <p style="white-space: pre-wrap;">${data.pedido}</p></li>
+    </ul>
+  </div>
+`;
+
+/**
+ * Crea el cuerpo HTML del correo de confirmación para el cliente.
+ */
+const createClientEmailHtml = (data, reclamoId) => `
+  <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
+    <h2 style="color: #333;">Confirmación de ${data.tipoSolicitud}</h2>
+    <p>Hola ${data.nombreCompleto},</p>
+    <p>Hemos recibido tu <strong>${data.tipoSolicitud}</strong> correctamente. Estamos procesando tu solicitud y te contactaremos a la brevedad.</p>
+    <p>El código de seguimiento de tu solicitud es: <strong>${reclamoId}</strong></p>
+    <p>Gracias por tu paciencia.</p>
+    <br>
+    <p>Atentamente,</p>
+    <p><strong>El equipo de G&A Company</strong></p>
+  </div>
+`;
+
+/**
+ * Lógica de negocio para enviar los correos de reclamo.
+ * @param {object} reclamoData - Los datos completos del formulario.
+ * @returns {Promise<string>} El ID del correo enviado al administrador.
+ */
+async function sendEmailLogic(reclamoData) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  // --- 1. Preparar el correo para el administrador ---
+  const adminEmailPayload = {
+    from: "noreply@gyacompany.com", // Dominio verificado en Resend
+    to: "acueva@gyacompany.com", // Tu correo
+    subject: `Nuevo ${reclamoData.tipoSolicitud} de: ${reclamoData.nombreCompleto}`,
+    html: createAdminEmailHtml(reclamoData),
+  };
 
   try {
-    logger.info(`Intentando enviar correo de ${from} a ${to}...`);
-    const { data: responseData, error } = await resend.emails.send({
-      from,
-      to,
-      subject,
-      html,
-    });
+    // --- 2. Enviar PRIMERO el correo al administrador para obtener un ID ---
+    logger.info(`Enviando correo de reclamo a ${adminEmailPayload.to}...`);
+    const adminEmailResponse = await resend.emails.send(adminEmailPayload);
+    const reclamoId = adminEmailResponse.data.id;
+    logger.info(`Correo para admin enviado. ID: ${reclamoId}`);
 
-    if (error) {
-      logger.error(`La API de Resend devolvió un error:`, error);
-      throw new HttpsError("internal", "La API de Resend no pudo enviar el correo.", error);
-    }
+    // --- 3. Preparar y ENVIAR el correo de confirmación al cliente ---
+    const clientEmailPayload = {
+      from: "noreply@gyacompany.com",
+      to: reclamoData.email, // El correo del cliente
+      subject: `Confirmación de tu ${reclamoData.tipoSolicitud} [ID: ${reclamoId}]`,
+      html: createClientEmailHtml(reclamoData, reclamoId),
+    };
+    
+    logger.info(`Enviando confirmación al cliente ${clientEmailPayload.to}...`);
+    await resend.emails.send(clientEmailPayload);
+    logger.info(`Confirmación para cliente enviada.`);
 
-    logger.info(`Correo enviado a ${to}. ID del mensaje: ${responseData.id}`);
-    return responseData;
+    // Si todo fue bien, devolvemos el ID original para el modal de éxito.
+    return reclamoId;
 
   } catch (error) {
-    logger.error(`Error inesperado al enviar el correo a ${to}:`, error);
-    if (error instanceof HttpsError) {
-      throw error; // Re-lanzar errores HttpsError que ya hemos formateado.
-    }
-    // Envolver errores no esperados en un HttpsError estándar.
-    throw new HttpsError("internal", "Ocurrió un error inesperado al procesar el envío.", error);
+    logger.error("Ocurrió un error durante el envío de correos:", error);
+    throw new HttpsError("internal", "Una de las operaciones de envío de correo falló.", error);
   }
 }
 
