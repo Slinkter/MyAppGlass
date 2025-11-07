@@ -1,6 +1,9 @@
 const { onRequest } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const cors = require("cors")({ origin: true });
+const admin = require("firebase-admin");
+
+admin.initializeApp();
 
 // Importamos la lógica modular que creamos
 const { sendEmailLogic } = require("./emailSender");
@@ -46,7 +49,7 @@ exports.sendContactEmail = onRequest(
         const emailData = request.body;
 
         // Llamamos a nuestra lógica modular para enviar el correo
-        const result = await sendEmailLogic(emailData);
+        const result = await sendEmailLogic(emailData, admin);
 
         response.status(200).json({
           success: true,

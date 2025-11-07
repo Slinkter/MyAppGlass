@@ -1,6 +1,7 @@
 # Aplicación Web - Glass & Aluminum Company
 
-Este repositorio contiene el código fuente de la aplicación web para [Glass & Aluminum Company](https://gyacompany.com/), construida con React (usando Vite) y desplegada en Firebase.
+## Descripción y Propósito
+Esta aplicación web es la plataforma oficial para Glass & Aluminum Company, diseñada para mostrar nuestros servicios, proyectos y facilitar la interacción con nuestros clientes. Construida con React (usando Vite) y desplegada en Firebase, la aplicación busca ofrecer una experiencia de usuario moderna, intuitiva y eficiente, reflejando la calidad y profesionalismo de nuestros trabajos en vidrio y aluminio.
 
 ## Requisitos Previos
 
@@ -110,6 +111,18 @@ Sube tanto el frontend como el backend al mismo tiempo.
 ```bash
 firebase deploy
 ```
+
+---
+
+## Arquitectura Aplicada
+
+Este proyecto está construido sobre una arquitectura moderna de frontend utilizando **React** con **Vite** para un desarrollo rápido y optimizado. La interfaz de usuario se gestiona con **Chakra UI v2**, un framework de componentes que facilita la creación de interfaces accesibles y responsivas.
+
+Se ha implementado un sistema de diseño basado en tokens a través de `src/config/theme.js`, donde se definen y gestionan colores, tipografías y radios de borde personalizados. Esto promueve la consistencia visual y la adherencia a los principios de **Diseño Minimalista** y **Clean Architecture** en la capa de presentación.
+
+Los componentes se organizan siguiendo el principio de **Separación de Intereses**, con componentes comunes (`src/components/common`) diseñados para la reutilización. La gestión de datos se centraliza en `src/data`, y las utilidades en `src/utils`, buscando mantener el código modular y fácil de mantener.
+
+Se ha iniciado un proceso de refactorización para consolidar la paleta de colores y externalizar textos hardcodeados, mejorando la **consistencia del copywriting** y preparando la aplicación para una futura internacionalización.
 
 ---
 

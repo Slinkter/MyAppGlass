@@ -1,14 +1,23 @@
 # Comando para probar la función sendContactEmail localmente.
 # Asegúrate de que el emulador esté corriendo antes de ejecutarlo.
 
-# RECUERDA: Cambiar "TU_EMAIL_PERSONAL@gmail.com" por tu correo.
+# RECUERDA: Cambiar "juan.perez@example.com" por tu correo para recibir la confirmación.
+# Asegúrate de que el email del administrador en functions/emailSender.js sea uno que puedas revisar.
 
 curl -X POST \
   "http://127.0.0.1:5001/gya-app-4c8a9/us-central1/sendContactEmail" \
-  -H "Content-Type: application/json" \
+  -H "Content-Type: application/json; charset=utf-8" \
   -d '{
-        "to": "luis.j.cueva@gmail.com",
-        "from": "acueva@gyacompany.com",
-        "subject": "Prueba CORRECTA desde Firebase",
-        "html": "<h1>¡Funciona!</h1><p>La URL era el problema. Glass Aluminio company</p>"
+        "nombreCompleto": "Liam Cave",
+        "domicilio": "Av. Siempre Viva 742",
+        "email": "luis.j.cueva@icloud.com",
+        "telefono": "987654321",
+        "tipoDocumento": "DNI",
+        "numeroDocumento": "12345678",
+        "tipoSolicitud": "Queja",
+        "tipoBien": "Servicio",
+        "montoReclamado": "50.00",
+        "descripcionBien": "Instalación de ventana con acabado defectuoso.",
+        "detalle": "El servicio de instalación de la ventana no cumplió con las expectativas. El marco presenta rayones y el sellado no es hermético.",
+        "pedido": "Solicito la revisión y corrección de los defectos de instalación, o el reembolso del monto pagado por el servicio."
       }'

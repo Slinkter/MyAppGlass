@@ -9,6 +9,20 @@ import init11 from '../assets/services/general/init11.jpg';
 import init12 from '../assets/services/general/init12.jpg';
 import init13 from '../assets/services/general/init13.jpg';
 
+/**
+ * @typedef {Object} Service
+ * @property {number} id - Unique identifier for the service.
+ * @property {string} image - Path to the service's image.
+ * @property {string} name - The name of the service.
+ * @property {string} [link] - An external URL related to the service (e.g., Facebook page). This is currently ambiguous with `plink`.
+ * @property {string} [plink] - An internal path to the service's detail page within the application. This is currently ambiguous with `link`.
+ */
+
+/**
+ * @constant {Service[]} services - An array of objects, each representing a service offered by the company.
+ * Note: The presence of both `link` (external) and `plink` (internal) for navigation creates an ambiguous strategy.
+ * It is recommended to clarify the primary navigation path for each service or clearly differentiate their purpose in the UI.
+ */
 export const services = [
     {
         id: 1,
