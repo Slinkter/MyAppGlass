@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Skeleton, Image, Box } from "@chakra-ui/react"; // Re-import Skeleton
 
 /**
- * Componente FadingImage
- * Muestra una imagen con efecto de fade-in usando Skeleton de Chakra UI.
- * @component
+ * @component FadingImage
+ * @description Muestra una imagen con efecto de fade-in usando Skeleton de Chakra UI.
  * @param {Object} props - Props estándar de imagen, incluyendo `w` y `h` para el tamaño.
  * @param {string} [props.placeholderImageUrl] - URL de la imagen de marcador de posición a mostrar en caso de error.
  * @param {() => void} [props.onImageError] - Callback function to execute when the image fails to load.

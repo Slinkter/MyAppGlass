@@ -33,21 +33,18 @@ const theme = extendTheme({
             700: "#d32f2f",
             800: "#c62828",
             900: "#b71c1c",
+            accent: "#ff5757", // Moved from brand.accent
         },
         text: {
             // Semantic color for text
             secondary: "#6c757d",
-        },
-        brand: {
-            // Semantic color for accent
-            accent: "#ff5757",
         },
     },
     radii: {
         // Custom border radii tokens
         card: "lg", // 8px
         button: "md", // 4px
-        // Add more as needed based on UI audit
+        // TODO: Expand radii tokens to cover more UI elements (e.g., input, modal, avatar) for consistent styling and minimalist design.
     },
     space: {
         // Custom spacing tokens if needed, but Chakra's default is usually sufficient

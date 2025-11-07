@@ -20,5 +20,19 @@
       "source": "functions",
       "runtime": "nodejs20"
     }
-  ]
+  ],
+  "emulators": {
+    "firestore": {
+      "port": 8081
+    },
+    "functions": {
+      "port": 5001
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "port": 4000
+    }
+  }
 }
