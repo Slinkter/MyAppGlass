@@ -19,8 +19,8 @@ const StoreSection = React.memo(() => {
             flexDirection="column"
         >
             <Franja
-                title="TIENDA"
-                text="Av. Los Fresnos MZ. H LT. 16 - La Molina - Lima"
+                title="TIENDA "
+                text="Av. Los Fresnos MZ. H LT. 1250 - La Molina - Lima"
                 minHeight="20vh"
             />
             <Container maxW="8xl" mt={6} mb={6}>
@@ -40,9 +40,7 @@ const StoreSection = React.memo(() => {
                             allowFullScreen
                         />
                     </AspectRatio>
-                    <Link
-                        href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
-                    >
+                    <Link href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36">
                         <Button
                             mt={{ base: 8, md: 5 }} // Standardized mt to Chakra tokens
                             leftIcon={<Icon as={FaMapLocationDot} />}
