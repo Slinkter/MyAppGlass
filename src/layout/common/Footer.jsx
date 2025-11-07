@@ -19,13 +19,17 @@ const Footer = () => {
 
     return (
         <>
-            <Box my={8}> {/* Changed from "2rem" to token 8 */}
+            <Box my={8}>
+                {" "}
+                {/* Changed from "2rem" to token 8 */}
                 <Box bg={bgColor} mx="auto" pt={8} pb={4} boxShadow="md">
                     <Flex
                         justifyContent="space-around"
                         direction={{ base: "column", md: "row" }}
                     >
-                        <VStack spacing={2} mb={4}> {/* Changed marginBottom to mb */}
+                        <VStack spacing={2} mb={4}>
+                            {" "}
+                            {/* Changed marginBottom to mb */}
                             <Heading
                                 as="h3" // Changed to h3 as these are sub-sections of the page
                                 fontSize={{ base: "xl", md: "2xl" }} // Adjusted font size
@@ -34,17 +38,20 @@ const Footer = () => {
                             >
                                 CONTACTO
                             </Heading>
-
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaWhatsapp} />
-                                <Text fontSize="md">974-278-303</Text> {/* Changed to md token */}
+                                <Text fontSize="md">974-278-303</Text>{" "}
+                                {/* Changed to md token */}
                             </HStack>
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaWhatsapp} />
-                                <Text fontSize="md">996-537-435</Text> {/* Changed to md token */}
+                                <Text fontSize="md">996-537-435</Text>{" "}
+                                {/* Changed to md token */}
                             </HStack>
                         </VStack>
-                        <VStack spacing={2} mb={4}> {/* Changed marginBottom to mb */}
+                        <VStack spacing={2} mb={4}>
+                            {" "}
+                            {/* Changed marginBottom to mb */}
                             <Heading
                                 as="h3" // Changed to h3
                                 fontSize={{ base: "xl", md: "2xl" }} // Adjusted font size
@@ -53,7 +60,6 @@ const Footer = () => {
                             >
                                 HORARIOS
                             </Heading>
-
                             <HStack spacing={2} alignItems="center">
                                 <Icon as={FaCalendar} />
                                 <Text fontSize="md">Lunes a Sábado</Text>
@@ -63,7 +69,9 @@ const Footer = () => {
                                 <Text fontSize="md">9:00 am - 5:00 pm</Text>
                             </HStack>
                         </VStack>
-                        <VStack spacing={2} mb={4}> {/* Changed marginBottom to mb */}
+                        <VStack spacing={2} mb={4}>
+                            {" "}
+                            {/* Changed marginBottom to mb */}
                             <Heading
                                 as="h3" // Changed to h3
                                 fontSize={{ base: "xl", md: "2xl" }} // Adjusted font size
@@ -72,7 +80,6 @@ const Footer = () => {
                             >
                                 DIRECCIÓN
                             </Heading>
-
                             <HStack
                                 spacing={2}
                                 alignItems="center"
@@ -80,7 +87,7 @@ const Footer = () => {
                             >
                                 <Icon as={FaMap} />
                                 <Text fontSize="md">
-                                    Av. Los Fresnos MZ. H LT. 16
+                                    Av. Los Fresnos MZ. H LT. 1250
                                 </Text>
                             </HStack>
                             <HStack
@@ -95,7 +102,9 @@ const Footer = () => {
                     </Flex>
                 </Box>
             </Box>
-            <VStack spacing={4} m={5}> {/* Changed from "20px" to token 5 */}
+            <VStack spacing={4} m={5}>
+                {" "}
+                {/* Changed from "20px" to token 5 */}
                 <Text> Copyright ©2025</Text>
                 <Link
                     to="/libro-de-reclamacion"
