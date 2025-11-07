@@ -6,6 +6,8 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 // Importamos la lógica modular que creamos
+// Cosmetic change to force redeployment
+
 const { sendEmailLogic } = require("./emailSender");
 
 /**
