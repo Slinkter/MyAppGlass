@@ -1,15 +1,12 @@
 const { HttpsError } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const { Resend } = require("resend");
-const { FieldValue } = require('firebase-admin/firestore'); // NEW IMPORT
-// Removed: const admin = require("firebase-admin");
-
-// Removed: const db = admin.firestore();
+const { FieldValue } = require("firebase-admin/firestore"); // NEW IMPORT
 
 // --- Plantillas de Correo ---
 
 /**
- * Crea el cuerpo HTML del correo detallado para el administrador.
+ * Crea  HTML del correo detallado para el administrador.
  */
 const createAdminEmailHtml = (data) => `
   <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
@@ -55,7 +52,7 @@ const createAdminEmailHtml = (data) => `
 `;
 
 /**
- * Crea el cuerpo HTML del correo de confirmación para el cliente.
+ * Crea HTML del correo de confirmación para el cliente.
  */
 const createClientEmailHtml = (data, reclamoId) => `
   <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
@@ -75,11 +72,11 @@ const createClientEmailHtml = (data, reclamoId) => `
  * @param {object} reclamoData - Los datos completos del formulario.
  * @returns {Promise<string>} El ID del correo enviado al administrador.
  */
-async function sendEmailLogic(reclamoData, admin) { // Added admin as argument
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const db = admin.firestore(); // Initialized db here
+async function sendEmailLogic(reclamoData, admin) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const db = admin.firestore(); // Initialized db here
 
-  // Validar que el email del cliente esté presente
+    // Validar que el email del cliente esté presente
     if (!reclamoData.email) {
         logger.error(
             "reclamoData.email no está definido. No se puede enviar el correo de confirmación al cliente."
@@ -93,8 +90,7 @@ async function sendEmailLogic(reclamoData, admin) { // Added admin as argument
     // --- 1. Preparar el correo para el administrador ---
     const adminEmailPayload = {
         from: "noreply@gyacompany.com", // Dominio verificado en Resend
-        /* to: "acueva@gyacompany.com", // Tu correo */
-        to: "luis.j.cueva@gmail.com", // Tu correo
+        to: "acueva@gyacompany.com", // Tu correo
         subject: `Nuevo ${reclamoData.tipoSolicitud} de: ${reclamoData.nombreCompleto}`,
         html: createAdminEmailHtml(reclamoData),
     };
@@ -110,7 +106,7 @@ async function sendEmailLogic(reclamoData, admin) { // Added admin as argument
         const clientEmailPayload = {
             from: "noreply@gyacompany.com",
             to: reclamoData.email, // El correo del cliente
-            subject: `Confirmación de tu ${reclamoData.tipoSolicitud} [ID: ${reclamoId}]`,
+            subject: `Confirmación de tu ${reclamoData.tipoSolicitud}`,
             html: createClientEmailHtml(reclamoData, reclamoId),
         };
 

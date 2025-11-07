@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Rules for the 'libro_de_reclamaciones' collection
+    match /libro_de_reclamaciones/{reclamoId} {
+      // Allow anyone to create a new complaint (write only)
+      allow create: if true;
+      // Deny read, update, delete for all users (including unauthenticated)
+      allow read, update, delete: if false;
+    }
+
+    // Default deny for all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
