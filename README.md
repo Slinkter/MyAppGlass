@@ -1,36 +1,38 @@
 # Aplicación Web - Glass & Aluminum Company
 
-Este repositorio contiene el código fuente de la aplicación web oficial para [Glass & Aluminum Company](https://gyacompany.com/), construida con React (Vite) y desplegada en Firebase.
+Este repositorio contiene el código fuente de la aplicación web para [Glass & Aluminum Company](https://gyacompany.com/), construida con React (usando Vite) y desplegada en Firebase.
 
 ## Requisitos Previos
 
 Asegúrate de tener instalado lo siguiente en tu sistema:
 
-- [Node.js](https://nodejs.org/) (versión 18 o superior)
-- [pnpm](https://pnpm.io/installation) (recomendado) o npm
-- [Firebase CLI](https://firebase.google.com/docs/cli#install_the_cli)
+-   [Node.js](https://nodejs.org/) (se recomienda la versión 20 o superior)
+-   [pnpm](https://pnpm.io/installation) (gestor de paquetes recomendado para este proyecto)
+-   [Firebase CLI](https://firebase.google.com/docs/cli#install_the_cli)
 
 ```bash
+# Instala la CLI de Firebase globalmente
 npm install -g firebase-tools
 ```
 
 ## Instalación
 
-1. **Clona el repositorio:**
-
+1.  **Clona el repositorio:**
     ```bash
     git clone <URL_DEL_REPOSITORIO>
     cd MyAppGlass
     ```
 
-2. **Instala las dependencias del proyecto principal (frontend):**
-
+2.  **Instala todas las dependencias:**
+    Este comando instalará las dependencias tanto para el proyecto principal (frontend) como para las Cloud Functions (backend).
     ```bash
-    pnpm install
+    pnpm install -r
     ```
-
-3. **Instala las dependencias de las Cloud Functions (backend):**
+    *Si prefieres hacerlo manualmente:*
     ```bash
+    # Instala dependencias del frontend
+    pnpm install
+    # Instala dependencias del backend
     cd functions
     pnpm install
     cd ..
@@ -38,81 +40,79 @@ npm install -g firebase-tools
 
 ## Configuración del Backend
 
-Las Cloud Functions de este proyecto utilizan SendGrid para enviar correos electrónicos. Necesitas configurar la clave de la API de SendGrid como un secreto en Firebase.
+Las Cloud Functions utilizan la API de **Resend** para el envío de correos electrónicos. Debes configurar tu clave de API como un secreto en Firebase.
 
-1. **Configura el secreto:**
-    Ejecuta este comando y, cuando se te solicite, pega tu clave de API de SendGrid.
-
+1.  **Guarda el secreto en Firebase:**
+    Ejecuta este comando y, cuando se te solicite, pega tu clave de API de Resend.
     ```bash
-    firebase functions:secrets:set SENDGRID_KEY
+    firebase functions:secrets:set RESEND_API_KEY
     ```
 
-2. **Otorga acceso al secreto (si es la primera vez):**
-    Asegúrate de que tus funciones tengan acceso a la clave.
+2.  **Otorga acceso al secreto (solo la primera vez):**
+    Asegúrate de que el servicio de Cloud Functions tenga permiso para acceder al secreto recién creado.
     ```bash
-    firebase functions:secrets:access SENDGRID_KEY
+    firebase functions:secrets:access RESEND_API_KEY
     ```
 
-## Comandos Principales
+## Comandos Disponibles
 
-### Iniciar en Modo Desarrollo
+### Desarrollo Local
 
-Ejecuta la aplicación en un servidor local (`http://localhost:5173`). Se recargará automáticamente al guardar cambios.
-
+Inicia el servidor de desarrollo de Vite en `http://localhost:5173`. La página se recargará automáticamente al detectar cambios.
 ```bash
 pnpm dev
 ```
 
-### Compilar para Producción
+### Compilación para Producción
 
-Genera una versión optimizada de la aplicación en la carpeta `dist`.
-
+Genera una versión optimizada y minificada de la aplicación en la carpeta `dist`, lista para ser desplegada.
 ```bash
 pnpm build
 ```
 
 ## Despliegue en Firebase
 
-Asegúrate de haber iniciado sesión en Firebase (`firebase login`).
+Antes de desplegar, asegúrate de haber iniciado sesión con tu cuenta de Firebase: `firebase login`.
+
+### Desplegar solo el Frontend (Hosting)
+
+Este comando compila la aplicación de React y sube el contenido de la carpeta `dist` a Firebase Hosting.
+```bash
+pnpm run deploy:hosting
+```
+
+### Desplegar solo el Backend (Functions)
+
+Si solo has realizado cambios en las Cloud Functions.
+```bash
+pnpm run deploy:functions
+```
 
 ### Despliegue Completo
 
-Sube la aplicación web (Hosting) y las Cloud Functions al mismo tiempo.
-
+Sube tanto el frontend como el backend al mismo tiempo.
 ```bash
 firebase deploy
-```
-
-### Desplegar solo las Cloud Functions
-
-Si solo has hecho cambios en el backend.
-
-```bash
-firebase deploy --only functions
-```
-
-### Desplegar solo el Frontend
-
-Si solo has hecho cambios en la aplicación de React.
-
-```bash
-pnpm run build && firebase deploy --only hosting
 ```
 
 ---
 
 ## Scripts de Limpieza del Proyecto
 
-Estos comandos eliminan `node_modules`, cachés y carpetas de compilación para dejar el proyecto en un estado limpio.
+Estos scripts eliminan las carpetas `node_modules`, `dist` y los archivos de bloqueo (`pnpm-lock.yaml`) para restaurar el proyecto a un estado limpio.
 
-### Para Windows
+### Para Windows (PowerShell)
 
-```bash
-if exist node_modules ( rd /s /q node_modules ) && if exist functions\node_modules ( rd /s /q functions\node_modules ) && if exist dist ( rd /s /q dist ) && if exist package-lock.json ( del package-lock.json ) && if exist pnpm-lock.yaml ( del pnpm-lock.yaml ) && if exist functions\package-lock.json ( del functions\package-lock.json ) && npm cache clean --force
+```powershell
+# Elimina directorios
+Remove-Item -Recurse -Force -ErrorAction SilentlyContinue node_modules, functions/node_modules, dist
+# Elimina archivos de bloqueo
+Remove-Item -Force -ErrorAction SilentlyContinue pnpm-lock.yaml, functions/pnpm-lock.yaml
 ```
 
 ### Para macOS / Linux
 
 ```bash
-rm -rf node_modules functions/node_modules dist && rm -f package-lock.json pnpm-lock.json functions/package-lock.json && npm cache clean --force
+# Elimina directorios y archivos de bloqueo
+rm -rf node_modules functions/node_modules dist pnpm-lock.yaml functions/pnpm-lock.yaml
 ```
