@@ -1,11 +1,10 @@
-import React from "react";
 import {
     Container,
     Flex,
     Skeleton,
     SkeletonText,
     Box,
-    Stack
+    Stack,
 } from "@chakra-ui/react";
 
 /**
@@ -27,10 +26,26 @@ const ClientListSkeleton = () => {
                 borderColor="gray.200"
                 rounded="lg"
             >
-                <Skeleton height={{ base: "260px", md: "375px" }} rounded="lg" mb={5} /> {/* Standardized borderRadius to rounded */}
+                <Skeleton
+                    height={{ base: "260px", md: "375px" }}
+                    rounded="lg"
+                    mb={5}
+                />
+                {/* Standardized borderRadius to rounded */}
                 <Stack spacing={3}>
-                    <SkeletonText noOfLines={1} skeletonHeight="28px" width="60%" mx="auto" />
-                    <SkeletonText noOfLines={2} skeletonHeight="20px" width="80%" mx="auto" mt={2} />
+                    <SkeletonText
+                        noOfLines={1}
+                        skeletonHeight="28px"
+                        width="60%"
+                        mx="auto"
+                    />
+                    <SkeletonText
+                        noOfLines={2}
+                        skeletonHeight="20px"
+                        width="80%"
+                        mx="auto"
+                        mt={2}
+                    />
                 </Stack>
             </Box>
         ));

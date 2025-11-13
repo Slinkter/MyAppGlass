@@ -6,7 +6,7 @@ import {
     SkeletonText,
     Box,
     Stack,
-    Flex
+    Flex,
 } from "@chakra-ui/react";
 
 /**
@@ -26,16 +26,21 @@ const FeatureListSkeleton = () => {
                 borderColor="gray.200"
                 textAlign="center"
             >
-                <Skeleton
-                    w={24}
-                    h={24}
-                    mx="auto"
-                    mb={4}
-                    rounded="full"
-                />
+                <Skeleton w={24} h={24} mx="auto" mb={4} rounded="full" />
                 <Stack spacing={3}>
-                    <SkeletonText noOfLines={1} skeletonHeight="24px" width="70%" mx="auto" />
-                    <SkeletonText noOfLines={2} skeletonHeight="20px" width="90%" mx="auto" mt={2} />
+                    <SkeletonText
+                        noOfLines={1}
+                        skeletonHeight="24px"
+                        width="70%"
+                        mx="auto"
+                    />
+                    <SkeletonText
+                        noOfLines={2}
+                        skeletonHeight="20px"
+                        width="90%"
+                        mx="auto"
+                        mt={2}
+                    />
                 </Stack>
             </Box>
         ));
@@ -43,11 +48,7 @@ const FeatureListSkeleton = () => {
 
     return (
         <Container maxW="8xl" mt={6} mb={6}>
-            <Flex
-                alignItems="center"
-                justifyContent="center"
-                minHeight="80vh"
-            >
+            <Flex alignItems="center" justifyContent="center" minHeight="80vh">
                 <SimpleGrid
                     columns={{ base: 1, md: 4 }}
                     spacingX={{ base: 5, md: 8 }} // Standardized spacingX to Chakra tokens

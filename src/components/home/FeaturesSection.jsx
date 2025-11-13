@@ -1,25 +1,22 @@
 import React from "react";
-import FeatureCard from "./FeatureCard";
 import { Box, Container, SimpleGrid, Icon, Flex } from "@chakra-ui/react";
-import Franja from "../common/Franja";
 import { features, iconMap } from "@/data/features.js";
 import DataLoader from "@/components/common/DataLoader";
 import FeatureListSkeleton from "./FeatureListSkeleton";
-
+import Franja from "../common/Franja";
+import FeatureCard from "./FeatureCard";
 
 const FeaturesSection = React.memo(() => {
     const featuresData = features;
 
     return (
-        <Box minHeight="100vh">
+        <Box minHeight="100dvh">
             <Franja
                 title={"BENEFICIOS"}
                 text={"¿Por Qué Elegirnos?"}
                 minHeight="20vh"
             />
-            <DataLoader
-                loadingComponent={<FeatureListSkeleton />}
-            >
+            <DataLoader loadingComponent={<FeatureListSkeleton />}>
                 <Container maxW="8xl" mt={6} mb={6}>
                     <Flex
                         alignItems="center"
@@ -37,7 +34,15 @@ const FeaturesSection = React.memo(() => {
                                     <FeatureCard
                                         key={feature.id}
                                         heading={feature.heading}
-                                        icon={FeatureIcon ? <Icon as={FeatureIcon} w={10} h={10} /> : null}
+                                        icon={
+                                            FeatureIcon ? (
+                                                <Icon
+                                                    as={FeatureIcon}
+                                                    w={10}
+                                                    h={10}
+                                                />
+                                            ) : null
+                                        }
                                         description={feature.description}
                                     />
                                 );
