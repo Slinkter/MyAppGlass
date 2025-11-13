@@ -1,8 +1,7 @@
-import React from "react";
-import { Suspense } from "react";
+import ScrollToTop from "./utils/scroll-to-top";
 import Layout from "./layout/Layout";
 import { Outlet } from "react-router-dom";
-import ScrollToTop from "./utils/scroll-to-top";
+// todo : delete
 import LoadingFallback from "./components/common/LoadingFallback";
 
 /**
@@ -18,9 +17,7 @@ function App() {
         <>
             <ScrollToTop />
             <Layout>
-                <Suspense fallback={<LoadingFallback />}>
-                    <Outlet />
-                </Suspense>
+                <Outlet />
             </Layout>
         </>
     );

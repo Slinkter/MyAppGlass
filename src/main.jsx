@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ColorModeScript } from "@chakra-ui/react";
+import { RouterProvider } from "react-router-dom";
 import { Spinner, Center } from "@chakra-ui/react";
 
 import { router } from "./routes";

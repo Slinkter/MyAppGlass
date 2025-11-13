@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Box,
     Flex,
@@ -9,13 +8,11 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react";
-import {
-    HamburgerIcon,
-    CloseIcon,
-} from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
-import NAV_ITEMS from "../../data/nav-items";
+
 import ColorModeSwitcher from "../../components/common/ColorModeSwitcher";
+import NAV_ITEMS from "../../data/nav-items";
 
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
@@ -31,6 +28,7 @@ export default function Navbar() {
                 borderColor={useColorModeValue("gray.200", "blackAlpha.500")}
                 align="center"
             >
+                {/* MOVIL */}
                 <Flex
                     display={{ base: "flex", md: "none" }}
                     flex={{ base: 1, md: "auto" }}
@@ -38,6 +36,8 @@ export default function Navbar() {
                 >
                     <IconButton
                         onClick={onToggle}
+                        aria-label="Toggle Navigation"
+                        variant="ghost"
                         icon={
                             isOpen ? (
                                 <CloseIcon w={3} h={3} />
@@ -45,10 +45,9 @@ export default function Navbar() {
                                 <HamburgerIcon w={5} h={5} />
                             )
                         }
-                        aria-label="Toggle Navigation"
-                        variant="ghost"
                     />
                 </Flex>
+                {/* DESKTOP */}
                 <Flex
                     flex={{ base: 1 }}
                     justifyContent="center"
@@ -99,12 +98,16 @@ const DesktopNav = () => {
 const MobileNav = ({ onToggle }) => {
     return (
         <Stack
-            bg={useColorModeValue("white", "gray.900")}
-            p={4}
             display={{ md: "none" }}
+            p={4}
+            bg={useColorModeValue("white", "gray.900")}
         >
             {NAV_ITEMS.map((navItem) => (
-                <MobileNavItem key={navItem.label} {...navItem} onToggle={onToggle} />
+                <MobileNavItem
+                    key={navItem.label}
+                    onToggle={onToggle}
+                    {...navItem}
+                />
             ))}
         </Stack>
     );
@@ -113,10 +116,7 @@ const MobileNav = ({ onToggle }) => {
 const MobileNavItem = ({ label, href, onToggle }) => {
     return (
         <Stack spacing={4} onClick={onToggle}>
-            <Link
-                to={href ?? "#"}
-                style={{ textDecoration: "none" }}
-            >
+            <Link to={href ?? "#"} style={{ textDecoration: "none" }}>
                 <Box
                     py={2}
                     justifyContent="space-between"

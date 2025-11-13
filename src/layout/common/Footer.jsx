@@ -20,8 +20,6 @@ const Footer = () => {
     return (
         <>
             <Box my={8}>
-                {" "}
-                {/* Changed from "2rem" to token 8 */}
                 <Box bg={bgColor} mx="auto" pt={8} pb={4} boxShadow="md">
                     <Flex
                         justifyContent="space-around"
@@ -103,8 +101,6 @@ const Footer = () => {
                 </Box>
             </Box>
             <VStack spacing={4} m={5}>
-                {" "}
-                {/* Changed from "20px" to token 5 */}
                 <Text> Copyright ©2025</Text>
                 <Link
                     to="/libro-de-reclamacion"

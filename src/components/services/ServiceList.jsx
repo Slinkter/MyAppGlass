@@ -1,5 +1,11 @@
 import React from "react";
-import { useColorModeValue, Container, Heading, Text, Flex } from "@chakra-ui/react";
+import {
+    useColorModeValue,
+    Container,
+    Heading,
+    Text,
+    Flex,
+} from "@chakra-ui/react";
 import ItemService from "./ServiceCard";
 import HelmetWrapper from "@/components/HelmetWrapper";
 import { services } from "@/data/services";
@@ -17,9 +23,7 @@ const ServiceList = () => {
                 description="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina."
                 canonicalUrl="https://www.gyacompany.com/servicios"
             />
-            <DataLoader
-                loadingComponent={<ServiceListSkeleton />}
-            >
+            <DataLoader loadingComponent={<ServiceListSkeleton />}>
                 <Container maxW={"8xl"} my={6} textAlign="center">
                     <Heading
                         as="h2"

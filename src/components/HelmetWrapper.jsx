@@ -8,11 +8,11 @@ import { Helmet } from "react-helmet-async";
  * descriptions, and canonical URLs, while allowing overrides via props. It also
  * includes essential Open Graph tags for social media sharing.
  *
- * @param {{ 
- *   title?: string, 
- *   description?: string, 
- *   canonicalUrl?: string, 
- *   children?: React.ReactNode 
+ * @param {{
+ *   title?: string,
+ *   description?: string,
+ *   canonicalUrl?: string,
+ *   children?: React.ReactNode
  * }} props - The props for the component.
  * @param {string} [props.title] - The specific title for the page.
  * @param {string} [props.description] - The specific meta description for the page.
@@ -24,7 +24,8 @@ const HelmetWrapper = ({ title, description, canonicalUrl, children }) => {
     // --- SEO Strategy: Defaults optimized for Local SEO ---
     const siteName = "GYA Company";
     const defaultTitle = `Vidriería y Servicios en La Molina | ${siteName}`; // 50 chars
-    const defaultDescription = "Expertos en vidriería en La Molina. Ofrecemos completos servicios de instalación y fabricación para ventanas, mamparas y más. ¡Cotiza tu proyecto hoy!"; // 158 chars
+    const defaultDescription =
+        "vidriería en La Molina. Ofrecemos completos servicios de instalación y fabricación para ventanas, mamparas y más. ¡Cotiza tu proyecto hoy!"; // 158 chars
     const defaultCanonicalUrl = "https://www.gyacompany.com";
 
     // --- Final values to be rendered ---
@@ -53,4 +54,3 @@ const HelmetWrapper = ({ title, description, canonicalUrl, children }) => {
 };
 
 export default HelmetWrapper;
-

@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import ErrorDisplay from "./ErrorDisplay";
 
@@ -19,7 +17,15 @@ const DataLoader = ({ isLoading, error, children, loadingComponent }) => {
     }
 
     if (error) {
-        return <ErrorDisplay message={typeof error === 'string' ? error : error.message || JSON.stringify(error)} />;
+        return (
+            <ErrorDisplay
+                message={
+                    typeof error === "string"
+                        ? error
+                        : error.message || JSON.stringify(error)
+                }
+            />
+        );
     }
 
     return children;

@@ -1,25 +1,23 @@
 import React from "react";
-import Franja from "../common/Franja";
 import { Box, Container, Flex } from "@chakra-ui/react";
-import ClientCard from "./ClientCard";
 import { clients } from "@/data/clients";
 import DataLoader from "@/components/common/DataLoader";
 import ClientListSkeleton from "./ClientListSkeleton";
+import Franja from "../common/Franja";
+import ClientCard from "./ClientCard";
 
 const ClientsSection = React.memo(() => {
     const clientsData = clients;
 
     return (
-        <Box minHeight="100vh">
+        <Box minHeight="100dvh">
             <Franja
                 title={"CLIENTES"}
                 text={
                     "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
                 }
             />
-            <DataLoader
-                loadingComponent={<ClientListSkeleton />}
-            >
+            <DataLoader loadingComponent={<ClientListSkeleton />}>
                 <Container maxW={"8xl"} mt={6} mb={6}>
                     <Flex
                         minHeight={"80vh"}

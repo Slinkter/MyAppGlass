@@ -8,12 +8,7 @@ import { Flex, Spinner } from "@chakra-ui/react";
  */
 const LoadingFallback = () => {
     return (
-        <Flex
-            w="full"
-            h="80vh"
-            justifyContent="center"
-            alignItems="center"
-        >
+        <Flex w="full" h="80vh" justifyContent="center" alignItems="center">
             <Spinner size="xl" />
         </Flex>
     );

@@ -4,8 +4,8 @@ import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const ErrorView = () => {
-    const [countdown, setCountdown] = useState(15);
     const navigate = useNavigate();
+    const [countdown, setCountdown] = useState(15);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -21,22 +21,22 @@ const ErrorView = () => {
     }, [countdown, navigate]);
 
     return (
-        <VStack minH="100vh" justifyContent="center" alignItems="center" p={4}>
+        <VStack minH="100dvh" justifyContent="center" alignItems="center" p={4}>
             <Box
-                textAlign="center"
-                p={8}
-                rounded="lg" // Standardized borderRadius to rounded
-                boxShadow="xl"
                 bg="white"
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
                 justifyContent="center"
+                textAlign="center"
+                p={8}
+                rounded="lg" // Standardized borderRadius to rounded
+                boxShadow="xl"
             >
                 <Heading as="h1" size="4xl" mb={4} color="red.500">
                     404
                 </Heading>
-                <Heading as="h2" size="2xl" mb={4} color="red.500"> {/* Changed to h2 for semantic hierarchy */}
+                <Heading as="h2" size="2xl" mb={4} color="red.500">
                     Página no encontrada
                 </Heading>
                 <Text fontSize="xl" mb={6}>

@@ -30,11 +30,11 @@ const LandingPageSection = React.memo(() => {
             backgroundPosition="center"
         >
             <Flex
+                minH={"100vh"}
                 w={{ base: "full", md: "full" }}
                 flexDirection={"column"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                minH={"100vh"}
                 pb={20}
             >
                 <Center>

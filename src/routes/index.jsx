@@ -1,22 +1,20 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
 import ServiceList from "../components/services/ServiceList"; // New import
+import { serviceRoutes } from "./serviceRoutes";
+import App from "../App";
 
 // Views
 const HomePage = lazy(() => import("../pages/HomePage"));
 const ServicePage = lazy(() => import("../pages/ServicePage"));
 const ProjectPage = lazy(() => import("../pages/ProjectPage"));
 const TestPage = lazy(() => import("../pages/TestPage"));
-import ErrorPage from "../pages/ErrorPage";
-
-// Service Pages
-
-import { serviceRoutes } from "./serviceRoutes";
-
 const ReclamationForm = lazy(() =>
     import("../layout/reclamation-book/ReclamationForm")
 );
+import ErrorPage from "../pages/ErrorPage";
+
+// Service Pages
 
 export const router = createBrowserRouter([
     {
@@ -29,7 +27,7 @@ export const router = createBrowserRouter([
                 path: "/servicios",
                 element: <ServicePage />,
                 children: [
-                    { index: true, element: <ServiceList /> }, // Index route for ServiceList
+                    { index: true, element: <ServiceList /> },
                     ...serviceRoutes,
                 ],
             },

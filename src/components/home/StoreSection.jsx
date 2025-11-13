@@ -42,11 +42,11 @@ const StoreSection = React.memo(() => {
                     </AspectRatio>
                     <Link href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36">
                         <Button
+                            w={{ base: "full", md: "50" }} // Standardized width to Chakra token
+                            size="lg"
                             mt={{ base: 8, md: 5 }} // Standardized mt to Chakra tokens
                             leftIcon={<Icon as={FaMapLocationDot} />}
-                            colorScheme="gray"
-                            size="lg"
-                            w={{ base: "full", md: "50" }} // Standardized width to Chakra token
+                            colorScheme="green"
                         >
                             Google Mapas
                         </Button>
