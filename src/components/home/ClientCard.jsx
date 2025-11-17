@@ -20,13 +20,14 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
             bg={bgColor}
             backdropFilter="blur(10px)" // Suave blur
             border="none" // SIN borde
-            boxShadow="none" // SIN shadow
+            boxShadow="md" // SIN shadow
             borderRadius="2xl"
             color={textColor}
             textAlign="center"
             transition="all 0.3s ease"
             _hover={{
-                transform: "scale(1.015)",
+                transform: "scale(1.02)",
+                boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
             }}
         >
             <FadingImage
@@ -52,4 +53,3 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
 ClientCard.displayName = "ClientCard";
 
 export default ClientCard;
-

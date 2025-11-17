@@ -35,7 +35,7 @@ const Footer = () => {
                     bg={bgColor}
                     backdropFilter="blur(10px)" // Suave blur
                     border="none" // SIN borde
-                    boxShadow="none" // SIN shadow
+                    boxShadow="md" // SIN shadow
                     borderRadius="2xl"
                     transition="all 0.3s ease"
                     color={textColor}

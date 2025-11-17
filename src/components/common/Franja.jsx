@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Flex, Heading, Text, useColorModeValue, Container } from "@chakra-ui/react"; // Import Container
+import {
+    Box,
+    Flex,
+    Heading,
+    Text,
+    useColorModeValue,
+    Container,
+} from "@chakra-ui/react"; // Import Container
 
 /**
  * @component Franja
@@ -10,22 +17,26 @@ import { Box, Flex, Heading, Text, useColorModeValue, Container } from "@chakra-
  * @returns {JSX.Element}
  */
 const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
-    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.1)", "rgba(0, 0, 0, 0.1)"); // More subtle background
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.1)",
+        "rgba(0, 0, 0, 0.1)"
+    ); // More subtle background
     const headingColor = useColorModeValue("gray.900", "white");
     const textColor = useColorModeValue("gray.800", "gray.200");
 
     return (
         <Box
             py={8}
-            // Glassmorphism effects (GlassSection rules)
             bg={bgColor}
-            backdropFilter="blur(10px)" // Suave blur
+            backdropFilter="blur(20px)" // Suave blur
             border="none" // SIN borde
-            boxShadow="none" // SIN shadow
+            boxShadow="lg" // SIN shadow
             borderRadius="2xl"
             transition="all 0.3s ease"
         >
-            <Container maxW="7xl" px={{ base: 4, md: 8 }}> {/* Added Container for consistent width */}
+            <Container maxW="7xl" px={{ base: 4, md: 8 }}>
+                {" "}
+                {/* Added Container for consistent width */}
                 <Flex
                     justifyContent="center"
                     alignItems="center"

@@ -17,24 +17,33 @@ import {
  * @returns {JSX.Element}
  */
 const FeatureCard = React.memo(({ heading, description, icon }) => {
-    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)");
-    const borderColor = useColorModeValue("rgba(255, 255, 255, 0.35)", "rgba(255, 255, 255, 0.15)");
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.25)",
+        "rgba(0, 0, 0, 0.25)"
+    );
+    const borderColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.35)",
+        "rgba(255, 255, 255, 0.15)"
+    );
     const textColor = useColorModeValue("gray.800", "gray.100");
     const secondaryTextColor = useColorModeValue("gray.600", "gray.300");
-    const iconBgColor = useColorModeValue("rgba(255, 255, 255, 0.3)", "rgba(0, 0, 0, 0.3)");
+    const iconBgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.3)",
+        "rgba(0, 0, 0, 0.3)"
+    );
 
     return (
-        <Box // Changed from Card
+        <Box
             w="full"
-            maxW={{ base: "full", md: "sm" }}
-            h={{ base: "auto", md: "base" }}
-            p={{ base: 3, md: 6 }}
+            maxW={{ base: "full", md: "md" }}
+            h={{ base: "auto", md: "auto" }}
+            p={{ base: 4, md: 6 }}
             // GlassItemCard effects
             bg={bgColor}
-            backdropFilter="blur(20px)"
-            border="1px solid"
+            backdropFilter="blur(10px)"
+            border="none" // SIN borde
+            boxShadow="md" // SIN shadow
             borderColor={borderColor}
-            boxShadow="0 4px 30px rgba(0,0,0,0.1)"
             borderRadius="2xl"
             color={textColor}
             transition="all 0.3s ease"
@@ -43,7 +52,7 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
                 boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
             }}
         >
-            <Box textAlign="center"> {/* Replaced CardBody with Box */}
+            <Box textAlign="center">
                 <Flex
                     w={24}
                     h={24}

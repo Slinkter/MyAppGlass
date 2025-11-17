@@ -10,7 +10,7 @@ const ClientsSection = React.memo(() => {
     const clientsData = clients;
 
     return (
-        <Box minHeight="100dvh">
+        <Box>
             <Franja
                 title={"CLIENTES"}
                 text={
@@ -18,10 +18,12 @@ const ClientsSection = React.memo(() => {
                 }
             />
             <DataLoader loadingComponent={<ClientListSkeleton />}>
-                <Container maxW={"7xl"} mt={6} mb={6}> {/* Changed maxW to 7xl */}
+                <Container maxW={"7xl"} mt={12} mb={12} mx={0} px={0}>
                     <SimpleGrid
                         columns={{ base: 1, md: 2, lg: 3 }}
                         spacing={10}
+                        m={0}
+                        p={0}
                     >
                         {clientsData.map((client) => (
                             <ClientCard
