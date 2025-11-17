@@ -32,7 +32,7 @@ const Projects = React.memo(() => {
                 canonicalUrl="https://www.gyacompany.com/proyectos"
             />
             <DataLoader loadingComponent={<ProjectListSkeleton />}>
-                <Container maxW={"8xl"} my={6} textAlign="center">
+                <Container maxW={"7xl"} my={6} textAlign="center">
                     <Heading
                         as="h2"
                         color={headingColor}
@@ -67,6 +67,15 @@ const Projects = React.memo(() => {
                         alignItems={"center"}
                         mx={"auto"}
                         // GlassSection properties
+                        bg={glassSectionBg}
+                        backdropFilter={glassSectionBlur}
+                        border="none" // SIN borde
+                        boxShadow="sm" // Subtle shadow
+                        borderRadius="2xl"
+                        transition="all 0.3s ease"
+                        _hover={{
+                            boxShadow: "md", // More pronounced shadow on hover
+                        }}
                     >
                         {reversedProjects.map((project) => (
                             <ProjectCard key={project.id} {...project} />

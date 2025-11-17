@@ -31,6 +31,7 @@ const Footer = () => {
                     borderRadius="2xl"
                     transition="all 0.3s ease"
                     color={textColor}
+                    maxW="7xl" // Constrain width to align with other content
                     mx="auto"
                     pt={8}
                     pb={4}

@@ -22,7 +22,6 @@ function ServiceCard(props) {
 
     return (
         <Box // Changed from Card
-            w="sm"
             maxW={{ base: "full", md: "sm" }}
             maxH={{ base: "452px", md: "512px" }}
             mb={4}

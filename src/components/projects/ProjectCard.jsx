@@ -45,7 +45,6 @@ const ProjectCard = React.memo((props) => {
     return (
         <>
             <Box // Changed from Card
-                w="sm"
                 maxW={{ base: "full", md: "sm" }}
                 mb={4}
                 overflow="hidden"

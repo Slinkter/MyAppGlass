@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, useColorModeValue, Container } from "@chakra-ui/react"; // Import Container
 
 /**
  * @component Franja
@@ -25,29 +25,31 @@ const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
             borderRadius="2xl"
             transition="all 0.3s ease"
         >
-            <Flex
-                justifyContent="center"
-                alignItems="center"
-                direction="column"
-            >
-                <Heading
-                    as={headingAs}
-                    fontSize={{ base: "4xl", md: "4xl" }}
-                    fontWeight="bold"
-                    color={headingColor}
+            <Container maxW="7xl" px={{ base: 4, md: 8 }}> {/* Added Container for consistent width */}
+                <Flex
+                    justifyContent="center"
+                    alignItems="center"
+                    direction="column"
                 >
-                    {title}
-                </Heading>
-                <Text
-                    width={{ base: "90%", md: "70%" }}
-                    mt={1}
-                    fontSize="lg"
-                    color={textColor}
-                    textAlign="center"
-                >
-                    {text}
-                </Text>
-            </Flex>
+                    <Heading
+                        as={headingAs}
+                        fontSize={{ base: "4xl", md: "4xl" }}
+                        fontWeight="bold"
+                        color={headingColor}
+                    >
+                        {title}
+                    </Heading>
+                    <Text
+                        width={{ base: "90%", md: "70%" }}
+                        mt={1}
+                        fontSize="lg"
+                        color={textColor}
+                        textAlign="center"
+                    >
+                        {text}
+                    </Text>
+                </Flex>
+            </Container>
         </Box>
     );
 });
