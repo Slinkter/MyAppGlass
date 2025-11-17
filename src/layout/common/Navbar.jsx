@@ -40,6 +40,8 @@ export default function Navbar() {
                 align="center"
                 justifyContent="center" // Center the DesktopNav
                 position="relative" // Allow absolute positioning of children
+                maxW="7xl" // Constrain width to align with other content
+                mx="auto" // Center the Navbar
                 // Glassmorphism effects (GlassSection rules)
                 backdropFilter="blur(10px)" // Suave blur
                 border="none" // SIN borde

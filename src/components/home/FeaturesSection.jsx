@@ -30,19 +30,19 @@ const FeaturesSection = React.memo(() => {
                 minHeight="20vh"
             />
             <DataLoader loadingComponent={<FeatureListSkeleton />}>
-                <Container maxW="8xl" mt={6} mb={6}>
+                <Container maxW="7xl" mt={6} mb={6}> {/* Changed maxW to 7xl */}
                     <Flex
                         as="section"
                         alignItems="center"
                         justifyContent="center"
-                        minHeight="80vh"
+                        // Removed minHeight="80vh"
                         // GlassSection properties
 
                         border="none" // SIN borde
                         boxShadow="none" // SIN shadow
                         borderRadius="2xl"
                         transition="all 0.3s ease"
-                        p={{ base: 6, md: 10 }}
+                        // Removed p={{ base: 6, md: 10 }}
                     >
                         <SimpleGrid
                             columns={{ base: 1, md: 4 }}
