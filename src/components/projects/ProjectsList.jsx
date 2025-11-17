@@ -4,7 +4,6 @@ import {
     Heading,
     Text,
     useColorModeValue,
-    Flex,
     SimpleGrid, // Added SimpleGrid
 } from "@chakra-ui/react";
 import ProjectCard from "@/components/projects/ProjectCard";
@@ -23,10 +22,6 @@ const Projects = React.memo(() => {
         () => [...projectsData].reverse(),
         [projectsData]
     );
-
-    // GlassSection styles
-    const glassSectionBg = useColorModeValue("rgba(255, 255, 255, 0.1)", "rgba(0, 0, 0, 0.1)");
-    const glassSectionBlur = "blur(10px)"; // Suave blur
 
     return (
         <>
@@ -66,20 +61,7 @@ const Projects = React.memo(() => {
 
                     <SimpleGrid
                         columns={{ base: 1, md: 2, lg: 3 }} // 1 column on base, 2 on md, 3 on lg
-                        spacing={6} // Adjust spacing as needed
-                        justifyContent={"center"}
-                        alignItems={"center"}
-                        mx={"auto"}
-                        // GlassSection properties
-                        bg={glassSectionBg}
-                        backdropFilter={glassSectionBlur}
-                        border="none" // SIN borde
-                        boxShadow="sm" // Subtle shadow
-                        borderRadius="2xl"
-                        transition="all 0.3s ease"
-                        _hover={{
-                            boxShadow: "md", // More pronounced shadow on hover
-                        }}
+                        spacing={10} // Adjusted as per instruction
                     >
                         {reversedProjects.map((project) => (
                             <ProjectCard key={project.id} {...project} />

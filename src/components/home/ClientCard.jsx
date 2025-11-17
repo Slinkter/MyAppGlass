@@ -39,7 +39,7 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
                 h={{ base: "260px", md: "375px" }}
                 mb={5}
             />
-            <Stack spacing={3} mt={6}> {/* Added mt for spacing */}
+            <Stack spacing={3} mt={6}>
                 <Heading size="lg">{nameClient}</Heading>
                 <Text mt={1} fontSize="md" color={secondaryTextColor} px={6}>
                     {descClient}
@@ -52,3 +52,4 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
 ClientCard.displayName = "ClientCard";
 
 export default ClientCard;
+

@@ -15,14 +15,29 @@ function ServiceCard(props) {
     const { image, name, plink } = props;
     const navigate = useNavigate();
 
-    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.1)", "rgba(0, 0, 0, 0.1)"); // More subtle background
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.1)",
+        "rgba(0, 0, 0, 0.1)"
+    ); // More subtle background
     const textColor = useColorModeValue("gray.800", "gray.100");
     // New glassmorphism styles for the button
-    const buttonGlassBg = useColorModeValue("rgba(193, 20, 20, 0.13)", "rgba(193, 20, 20, 0.13)");
-    const buttonGlassBorder = useColorModeValue("rgba(193, 20, 20, 0.6)", "rgba(193, 20, 20, 0.6)");
+    const buttonGlassBg = useColorModeValue(
+        "rgba(193, 20, 20, 0.13)",
+        "rgba(193, 20, 20, 0.13)"
+    );
+    const buttonGlassBorder = useColorModeValue(
+        "rgba(193, 20, 20, 0.6)",
+        "rgba(193, 20, 20, 0.6)"
+    );
     const buttonGlassColor = useColorModeValue("red.700", "red.300");
-    const buttonGlassHoverBg = useColorModeValue("rgba(193, 20, 20, 0.2)", "rgba(193, 20, 20, 0.2)");
-    const buttonGlassHoverBorder = useColorModeValue("rgba(193, 20, 20, 0.8)", "rgba(193, 20, 20, 0.8)");
+    const buttonGlassHoverBg = useColorModeValue(
+        "rgba(193, 20, 20, 0.2)",
+        "rgba(193, 20, 20, 0.2)"
+    );
+    const buttonGlassHoverBorder = useColorModeValue(
+        "rgba(193, 20, 20, 0.8)",
+        "rgba(193, 20, 20, 0.8)"
+    );
 
     return (
         <Box // Changed from Card
@@ -33,8 +48,8 @@ function ServiceCard(props) {
             // Glassmorphism effects (GlassSection rules)
             bg={bgColor}
             backdropFilter="blur(10px)" // Suave blur
-            border="none" // SIN borde
-            boxShadow="sm" // Subtle shadow
+            border="lg" // SIN borde
+            boxShadow="lg" // Subtle shadow
             borderRadius="2xl"
             color={textColor}
             transition="all 0.3s ease"
@@ -43,7 +58,9 @@ function ServiceCard(props) {
                 transform: "scale(1.02)",
             }}
         >
-            <Box textAlign="center" p={4}> {/* Replaced CardBody with Box and added padding */}
+            <Box textAlign="center" p={4}>
+                {" "}
+                {/* Replaced CardBody with Box and added padding */}
                 <FadingImage
                     w="full"
                     h={{ base: "320px", md: "385px" }}

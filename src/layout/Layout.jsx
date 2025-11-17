@@ -7,15 +7,22 @@ import FloatWhatsapp from "./floating-whatsapp";
 import bg_mainland from "../assets/common/mainland.jpg"; // Corrected import the background image
 
 const Layout = ({ children }) => {
-    const overlayColor = useColorModeValue("rgba(255,255,255,0.6)", "rgba(0,0,0,0.6)"); // Semi-transparent overlay
+    const overlayColor = useColorModeValue(
+        "rgba(250, 250, 250, 0.15)", // Increased opacity for fallback
+        "rgba(0,0,0,0.35)" // Increased opacity for fallback
+    ); // Semi-transparent overlay
 
     return (
         <Box
-            // minH="100vh" // Removed minH
-            backgroundImage={`url(${bg_mainland})`}
-            backgroundSize="cover"
+            minH="100dvh"
+            backgroundImage={{
+                base: `url(${bg_mainland})`,
+                md: `url(${bg_mainland})`,
+            }}
+            backgroundSize={{ base: "cover", md: "cover" }}
             backgroundPosition="center"
-            backgroundAttachment="fixed"
+            backgroundRepeat={"no-repeat"}
+            backgroundAttachment={{ base: "fixed", md: "fixed" }}
             position="relative"
             _before={{
                 content: '""',
@@ -28,9 +35,17 @@ const Layout = ({ children }) => {
                 zIndex: 0,
                 width: "100%", // Ensure it covers the full width
                 height: "100%", // Ensure it covers the full height
+                backdropFilter: "blur(10px)", // Add backdrop-filter
+                WebkitBackdropFilter: "blur(10px)", // Add -webkit-backdrop-filter
             }}
         >
-            <Box maxW="7xl" mx="auto" px={{ base: 4, md: 8 }} position="relative" zIndex={1}>
+            <Box
+                maxW="7xl"
+                mx="auto"
+                px={{ base: 4, md: 8 }}
+                position="relative"
+                zIndex={1}
+            >
                 <Navbar />
                 <main>{children}</main>
                 <Footer />

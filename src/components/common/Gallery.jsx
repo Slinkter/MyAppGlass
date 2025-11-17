@@ -34,8 +34,14 @@ const Gallery = React.memo(({ images }) => {
     });
     const onClose = () => setIsOpen(false);
 
-    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)");
-    const borderColor = useColorModeValue("rgba(255, 255, 255, 0.35)", "rgba(255, 255, 255, 0.15)");
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.25)",
+        "rgba(0, 0, 0, 0.25)"
+    );
+    const borderColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.35)",
+        "rgba(255, 255, 255, 0.15)"
+    );
 
     return (
         <>
@@ -50,7 +56,9 @@ const Gallery = React.memo(({ images }) => {
                             w="100%"
                             h={{ base: "320px", md: "200px" }}
                             src={imageItem.image}
-                            alt={`Imagen de ${imageItem.name || `galería ${imageItem.id}`}`}
+                            alt={`Imagen de ${
+                                imageItem.name || `galería ${imageItem.id}`
+                            }`}
                             rounded="md"
                             cursor={"pointer"}
                             objectFit="cover"
@@ -90,7 +98,7 @@ const Gallery = React.memo(({ images }) => {
                             <Box
                                 flex="1"
                                 w={{ base: "100%", md: "20vh" }}
-                                h={{ base: "100%", md: "70vh" }}
+                                h={{ base: "auto", md: "70vh" }}
                                 m={4}
                                 rounded="lg"
                                 overflow="hidden"
@@ -99,7 +107,10 @@ const Gallery = React.memo(({ images }) => {
                                     src={selectedImage?.image}
                                     alt={
                                         selectedImage
-                                            ? `Vista ampliada de ${selectedImage.name || `galería ${selectedImage.id}`}`
+                                            ? `Vista ampliada de ${
+                                                  selectedImage.name ||
+                                                  `galería ${selectedImage.id}`
+                                              }`
                                             : ""
                                     }
                                     w="100%"
