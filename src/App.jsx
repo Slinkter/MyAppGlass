@@ -10,6 +10,7 @@ import { Outlet } from "react-router-dom";
  * También gestiona el fallback de carga para componentes cargados de forma perezosa (lazy-loaded).
  * @returns {JSX.Element} El componente raíz de la aplicación con el layout y el enrutamiento principal.
  */
+
 function App() {
     return (
         <>

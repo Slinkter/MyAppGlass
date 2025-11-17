@@ -19,14 +19,6 @@ import { FaMapLocationDot } from "react-icons/fa6";
  * @returns {JSX.Element}
  */
 const StoreSection = React.memo(() => {
-    const bgColor = useColorModeValue(
-        "rgba(255, 255, 255, 0.25)",
-        "rgba(0, 0, 0, 0.25)"
-    );
-    const borderColor = useColorModeValue(
-        "rgba(255, 255, 255, 0.35)",
-        "rgba(255, 255, 255, 0.15)"
-    );
     const buttonBg = useColorModeValue(
         "rgba(255, 255, 255, 0.4)",
         "rgba(0, 0, 0, 0.4)"
@@ -59,7 +51,6 @@ const StoreSection = React.memo(() => {
                     minHeight={{ base: "auto", md: "80vh" }}
                     flexDir="column" // Contenedor de cristal
                     p={{ base: 4, md: 8 }}
-                    // Glassmorphism effects
                 >
                     <AspectRatio
                         ratio={16 / 9}

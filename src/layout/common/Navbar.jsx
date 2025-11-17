@@ -1,28 +1,26 @@
 import {
     Box,
     Flex,
-    Text,
     IconButton,
     Stack,
-    Collapse,
     useColorModeValue,
-    useDisclosure,
     useColorMode, // Import useColorMode
+    Link, // Import Link from Chakra UI
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { Link, useLocation } from "react-router-dom"; // Import useLocation
+import { Link as RouterLink, useLocation } from "react-router-dom"; // Alias Link from react-router-dom as RouterLink
+// Removed Heroicons SunIcon and MoonIcon
 import {
-    HomeIcon,
-    WrenchScrewdriverIcon,
-    FolderOpenIcon,
-    SunIcon,
-    MoonIcon,
-} from "@heroicons/react/24/solid"; // Import Heroicons
+    FaWhatsapp,
+    FaTools,
+    FaFolderOpen,
+    FaSun,
+    FaMoon,
+} from "react-icons/fa"; // Import WhatsApp, Tools, Folder, Sun, Moon icons
+import { AiFillHome } from "react-icons/ai"; // Import Home icon
 
 import NAV_ITEMS from "../../data/nav-items";
 
 export default function Navbar() {
-    const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode(); // Use useColorMode
     const location = useLocation(); // Use useLocation
 
@@ -36,15 +34,22 @@ export default function Navbar() {
     const inactiveColor = useColorModeValue("gray.600", "gray.400");
 
     const mobileNavItems = [
-        { label: "Inicio", icon: HomeIcon, href: "/" },
-        { label: "Servicios", icon: WrenchScrewdriverIcon, href: "/servicios" },
-        { label: "Proyectos", icon: FolderOpenIcon, href: "/proyectos" },
+        { label: "Inicio", icon: AiFillHome, href: "/" }, // Changed to AiFillHome
+        { label: "Servicios", icon: FaTools, href: "/servicios" }, // Changed to FaTools
+        { label: "Proyectos", icon: FaFolderOpen, href: "/proyectos" }, // Changed to FaFolderOpen
     ];
 
     return (
         <>
             {/* Desktop Navbar */}
-            <Box as="header" position="sticky" top="6" zIndex="sticky" py={4} display={{ base: "none", md: "block" }}>
+            <Box
+                as="header"
+                position="sticky"
+                top="6"
+                zIndex="sticky"
+                py={4}
+                display={{ base: "none", md: "block" }}
+            >
                 <Flex
                     as="nav"
                     bg={bgColor}
@@ -57,7 +62,7 @@ export default function Navbar() {
                     position="relative" // Allow absolute positioning of children
                     maxW="7xl" // Constrain width to align with other content
                     mx="auto" // Center the Navbar
-                    // Glassmorphism effects (GlassSection rules)
+                    // Glassmorphism effects
                     backdropFilter="blur(10px)" // Suave blur
                     border="none" // SIN borde
                     boxShadow="none" // SIN shadow
@@ -77,9 +82,9 @@ export default function Navbar() {
                         aria-label="Toggle Color Mode"
                         icon={
                             colorMode === "light" ? (
-                                <MoonIcon size="24" />
+                                <FaMoon size="24" /> // Changed to FaMoon
                             ) : (
-                                <SunIcon size="24" />
+                                <FaSun size="24" /> // Changed to FaSun
                             )
                         }
                         onClick={toggleColorMode}
@@ -116,7 +121,9 @@ export default function Navbar() {
                 alignItems="center"
             >
                 {mobileNavItems.map((item) => (
-                    <Link to={item.href} key={item.label}>
+                    <RouterLink to={item.href} key={item.label}>
+                        {" "}
+                        {/* Changed to RouterLink */}
                         <IconButton
                             variant="ghost"
                             aria-label={item.label}
@@ -128,16 +135,33 @@ export default function Navbar() {
                             }
                             _hover={{ bg: "transparent", color: activeColor }}
                         />
-                    </Link>
+                    </RouterLink>
                 ))}
+
+                {/* WhatsApp Icon for Mobile */}
+                <Link
+                    href="https://wa.me/51974278303?text=Quisiera una cotización para ...."
+                    isExternal
+                >
+                    {" "}
+                    {/* Placeholder number, now using Chakra Link */}
+                    <IconButton
+                        variant="ghost"
+                        aria-label="WhatsApp"
+                        icon={<FaWhatsapp size="24" />}
+                        color={inactiveColor}
+                        _hover={{ bg: "transparent", color: activeColor }}
+                    />
+                </Link>
+
                 <IconButton
                     variant="ghost"
                     aria-label="Toggle Color Mode"
                     icon={
                         colorMode === "light" ? (
-                            <MoonIcon size="24" />
+                            <FaMoon size="24" /> // Changed to FaMoon
                         ) : (
-                            <SunIcon size="24" />
+                            <FaSun size="24" /> // Changed to FaSun
                         )
                     }
                     onClick={toggleColorMode}
@@ -156,7 +180,7 @@ const DesktopNav = () => {
     return (
         <Stack direction="row" spacing={4}>
             {NAV_ITEMS.map((navItem) => (
-                <Link
+                <RouterLink // Changed to RouterLink
                     key={navItem.label}
                     to={navItem.href ?? "#"}
                     style={{ textDecoration: "none" }}
@@ -173,18 +197,8 @@ const DesktopNav = () => {
                     >
                         {navItem.label}
                     </Box>
-                </Link>
+                </RouterLink>
             ))}
         </Stack>
     );
-};
-
-const MobileNav = ({ onToggle }) => {
-    // This component is no longer used in the new mobile navigation strategy
-    return null;
-};
-
-const MobileNavItem = ({ label, href, onToggle }) => {
-    // This component is no longer used in the new mobile navigation strategy
-    return null;
 };

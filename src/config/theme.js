@@ -71,6 +71,19 @@ const theme = extendTheme({
                 transitionDuration: "200ms",
                 transitionTimingFunction: "ease-in-out",
             },
+            variants: {
+                glassmorphism: (props) => ({
+                    backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)", // For Safari support
+                    // Fallback background color with increased opacity
+                    // This will be visible if backdrop-filter is not supported
+                    bg: props.colorMode === "dark" ? "rgba(0, 0, 0, 0.8)" : "rgba(255, 255, 255, 0.8)",
+                    border: "none", // Assuming no border for glassmorphism
+                    boxShadow: "none", // Assuming no shadow for glassmorphism
+                    borderRadius: "2xl", // Assuming a common border radius
+                    transition: "all 0.3s ease",
+                }),
+            },
         },
         Flex: {
             baseStyle: {
