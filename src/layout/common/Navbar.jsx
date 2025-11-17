@@ -7,93 +7,145 @@ import {
     Collapse,
     useColorModeValue,
     useDisclosure,
+    useColorMode, // Import useColorMode
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
+import {
+    HomeIcon,
+    WrenchScrewdriverIcon,
+    FolderOpenIcon,
+    SunIcon,
+    MoonIcon,
+} from "@heroicons/react/24/solid"; // Import Heroicons
 
-import ColorModeSwitcher from "../../components/common/ColorModeSwitcher";
 import NAV_ITEMS from "../../data/nav-items";
 
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
+    const { colorMode, toggleColorMode } = useColorMode(); // Use useColorMode
+    const location = useLocation(); // Use useLocation
 
     // Glassmorphism styles
     const bgColor = useColorModeValue(
         "rgba(255, 255, 255, 0.1)",
         "rgba(0, 0, 0, 0.1)"
     ); // More subtle background
-    const borderColor = useColorModeValue(
-        "rgba(255, 255, 255, 0.35)",
-        "rgba(255, 255, 255, 0.15)"
-    ); // Keep border for MobileNav if needed
     const textColor = useColorModeValue("gray.800", "gray.100");
+    const activeColor = useColorModeValue("primary.600", "primary.300");
+    const inactiveColor = useColorModeValue("gray.600", "gray.400");
+
+    const mobileNavItems = [
+        { label: "Inicio", icon: HomeIcon, href: "/" },
+        { label: "Servicios", icon: WrenchScrewdriverIcon, href: "/servicios" },
+        { label: "Proyectos", icon: FolderOpenIcon, href: "/proyectos" },
+    ];
 
     return (
-        <Box as="header" position="sticky" top="6" zIndex="sticky" py={4}>
+        <>
+            {/* Desktop Navbar */}
+            <Box as="header" position="sticky" top="6" zIndex="sticky" py={4} display={{ base: "none", md: "block" }}>
+                <Flex
+                    as="nav"
+                    bg={bgColor}
+                    color={textColor}
+                    minH="60px"
+                    py={{ base: 2 }}
+                    px={{ base: 4 }}
+                    align="center"
+                    justifyContent="center" // Center the DesktopNav
+                    position="relative" // Allow absolute positioning of children
+                    maxW="7xl" // Constrain width to align with other content
+                    mx="auto" // Center the Navbar
+                    // Glassmorphism effects (GlassSection rules)
+                    backdropFilter="blur(10px)" // Suave blur
+                    border="none" // SIN borde
+                    boxShadow="none" // SIN shadow
+                    borderRadius="2xl"
+                    transition="all 0.3s ease"
+                >
+                    {/* DESKTOP */}
+                    <Flex
+                        flex={{ base: 1 }} // Take up available space
+                        justifyContent="center" // Center the DesktopNav
+                        alignItems="center"
+                        display={{ base: "none", md: "flex" }} // Only show on desktop
+                    >
+                        <DesktopNav />
+                    </Flex>
+                    <IconButton
+                        aria-label="Toggle Color Mode"
+                        icon={
+                            colorMode === "light" ? (
+                                <MoonIcon size="24" />
+                            ) : (
+                                <SunIcon size="24" />
+                            )
+                        }
+                        onClick={toggleColorMode}
+                        variant="ghost"
+                        color={inactiveColor}
+                        _hover={{ bg: "transparent", color: activeColor }}
+                        position="absolute"
+                        right="4"
+                        top="50%"
+                        transform="translateY(-50%)"
+                        display={{ base: "none", md: "block" }} // Only show on desktop
+                    />
+                </Flex>
+            </Box>
+
+            {/* Mobile Bottom Navbar (Styled like desktop Navbar) */}
             <Flex
-                as="nav"
+                display={{ base: "flex", md: "none" }} // Only show on mobile
+                position="fixed"
+                bottom="4" // Margin from bottom
+                left="4" // Margin from left
+                right="4" // Margin from right
+                zIndex="sticky"
                 bg={bgColor}
-                color={textColor}
-                minH="60px"
-                py={{ base: 2 }}
-                px={{ base: 4 }}
-                align="center"
-                justifyContent="center" // Center the DesktopNav
-                position="relative" // Allow absolute positioning of children
-                maxW="7xl" // Constrain width to align with other content
-                mx="auto" // Center the Navbar
-                // Glassmorphism effects (GlassSection rules)
-                backdropFilter="blur(10px)" // Suave blur
+                backdropFilter="blur(10px)"
                 border="none" // SIN borde
                 boxShadow="none" // SIN shadow
                 borderRadius="2xl"
                 transition="all 0.3s ease"
+                py={2} // Vertical padding
+                px={2} // Horizontal padding
+                minH="50px" // Compact height
+                justifyContent="space-around"
+                alignItems="center"
             >
-                {/* MOVIL */}
-                <Flex
-                    display={{ base: "flex", md: "none" }}
-                    flex={{ base: 1, md: "auto" }}
-                    ml={{ base: -2 }}
-                >
-                    <IconButton
-                        onClick={onToggle}
-                        aria-label="Toggle Navigation"
-                        variant="ghost"
-                        _hover={{
-                            bg: useColorModeValue(
-                                "whiteAlpha.400",
-                                "blackAlpha.400"
-                            ),
-                        }}
-                        icon={
-                            isOpen ? (
-                                <CloseIcon w={3} h={3} />
-                            ) : (
-                                <HamburgerIcon w={5} h={5} />
-                            )
-                        }
-                    />
-                </Flex>
-                {/* DESKTOP */}
-                <Flex
-                    flex={{ base: 1 }} // Take up available space
-                    justifyContent="center" // Center the DesktopNav
-                    alignItems="center"
-                    display={{ base: "none", md: "flex" }} // Only show on desktop
-                >
-                    <DesktopNav />
-                </Flex>
-                <ColorModeSwitcher
-                    position="absolute"
-                    right="4"
-                    top="50%"
-                    transform="translateY(-50%)"
+                {mobileNavItems.map((item) => (
+                    <Link to={item.href} key={item.label}>
+                        <IconButton
+                            variant="ghost"
+                            aria-label={item.label}
+                            icon={<item.icon size="24" />}
+                            color={
+                                location.pathname === item.href
+                                    ? activeColor
+                                    : inactiveColor
+                            }
+                            _hover={{ bg: "transparent", color: activeColor }}
+                        />
+                    </Link>
+                ))}
+                <IconButton
+                    variant="ghost"
+                    aria-label="Toggle Color Mode"
+                    icon={
+                        colorMode === "light" ? (
+                            <MoonIcon size="24" />
+                        ) : (
+                            <SunIcon size="24" />
+                        )
+                    }
+                    onClick={toggleColorMode}
+                    color={inactiveColor}
+                    _hover={{ bg: "transparent", color: activeColor }}
                 />
             </Flex>
-            <Collapse in={isOpen} animateOpacity>
-                <MobileNav onToggle={onToggle} />
-            </Collapse>
-        </Box>
+        </>
     );
 }
 
@@ -128,60 +180,11 @@ const DesktopNav = () => {
 };
 
 const MobileNav = ({ onToggle }) => {
-    // Glassmorphism styles (GlassSection rules)
-    const bgColor = useColorModeValue(
-        "rgba(255, 255, 255, 0.1)",
-        "rgba(0, 0, 0, 0.1)"
-    ); // More subtle background
-    const borderColor = useColorModeValue(
-        "rgba(255, 255, 255, 0.35)",
-        "rgba(255, 255, 255, 0.15)"
-    );
-
-    return (
-        <Stack
-            display={{ md: "none" }}
-            p={4}
-            mt={2}
-            // Glassmorphism effects (GlassSection rules)
-            bg={bgColor}
-            backdropFilter="blur(10px)" // Suave blur
-            border="none" // SIN borde
-            boxShadow="none" // SIN shadow
-            borderRadius="2xl"
-            transition="all 0.3s ease"
-        >
-            {NAV_ITEMS.map((navItem) => (
-                <MobileNavItem
-                    key={navItem.label}
-                    onToggle={onToggle}
-                    {...navItem}
-                />
-            ))}
-        </Stack>
-    );
+    // This component is no longer used in the new mobile navigation strategy
+    return null;
 };
 
 const MobileNavItem = ({ label, href, onToggle }) => {
-    return (
-        <Stack spacing={4} onClick={onToggle}>
-            <Link to={href ?? "#"} style={{ textDecoration: "none" }}>
-                <Box
-                    py={2}
-                    justifyContent="space-between"
-                    alignItems="center"
-                    _hover={{
-                        textDecoration: "none",
-                    }}
-                >
-                    <Text
-                        fontWeight={600}
-                        color={useColorModeValue("gray.700", "gray.200")}
-                    >
-                        {label}
-                    </Text>
-                </Box>
-            </Link>
-        </Stack>
-    );
+    // This component is no longer used in the new mobile navigation strategy
+    return null;
 };
