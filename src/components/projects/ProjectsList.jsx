@@ -31,7 +31,7 @@ const Projects = React.memo(() => {
                 canonicalUrl="https://www.gyacompany.com/proyectos"
             />
             <DataLoader loadingComponent={<ProjectListSkeleton />}>
-                <Container maxW={"7xl"} my={6} textAlign="center">
+                <Container maxW={"7xl"} mt={12} mb={12} mx={0} px={0}>
                     <Heading
                         as="h2"
                         color={headingColor}

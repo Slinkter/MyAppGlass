@@ -7,7 +7,6 @@ import FeaturesSection from "../components/home/FeaturesSection";
 import StoreSection from "../components/home/StoreSection";
 
 const HomeView = React.memo(() => {
-
     return (
         <>
             <HelmetWrapper

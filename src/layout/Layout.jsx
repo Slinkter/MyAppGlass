@@ -8,8 +8,8 @@ import bg_mainland from "../assets/common/mainland.jpg"; // Corrected import the
 
 const Layout = ({ children }) => {
     const overlayColor = useColorModeValue(
-        "rgba(250, 250, 250, 0.15)", // Increased opacity for fallback
-        "rgba(0,0,0,0.35)" // Increased opacity for fallback
+        "rgba(250, 250, 250, 0.3)", // Increased opacity for fallback
+        "rgba(0, 0, 0, 0.66)" // Increased opacity for fallback
     ); // Semi-transparent overlay
 
     return (
@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
             backgroundSize={{ base: "cover", md: "cover" }}
             backgroundPosition="center"
             backgroundRepeat={"no-repeat"}
-            backgroundAttachment={{ base: "fixed", md: "fixed" }}
+            backgroundAttachment={{ base: "scroll", md: "fixed" }}
             position="relative"
             _before={{
                 content: '""',
@@ -33,10 +33,8 @@ const Layout = ({ children }) => {
                 bottom: 0,
                 bg: overlayColor,
                 zIndex: 0,
-                width: "100%", // Ensure it covers the full width
-                height: "100%", // Ensure it covers the full height
-                backdropFilter: "blur(10px)", // Add backdrop-filter
-                WebkitBackdropFilter: "blur(10px)", // Add -webkit-backdrop-filter
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
             }}
         >
             <Box

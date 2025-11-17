@@ -35,7 +35,7 @@ const StoreSection = React.memo(() => {
 
     return (
         <Box
-            height={{ base: "auto", md: "100vh" }}
+            height={{ base: "auto", md: "auto" }}
             display="flex"
             flexDirection="column"
         >
@@ -44,18 +44,18 @@ const StoreSection = React.memo(() => {
                 text="Av. Los Fresnos MZ. H LT. 1250 - La Molina - Lima"
                 minHeight="20vh"
             />
-            <Container maxW="8xl" mt={6} mb={6}>
+            <Container maxW={"7xl"} mt={12} mb={12} mx={0} px={0}>
                 <Flex
                     alignItems="center"
                     justifyContent="center"
-                    minHeight={{ base: "auto", md: "80vh" }}
+                    minHeight={{ base: "auto", md: "auto" }}
                     flexDir="column" // Contenedor de cristal
-                    p={{ base: 4, md: 8 }}
+                    textAlign={"center"}
                 >
                     <AspectRatio
                         ratio={16 / 9}
                         width={{ base: "full", md: "full" }}
-                        height={{ base: "300px", md: "600px" }}
+                        height={{ base: "auto", md: "600px" }}
                         rounded="lg"
                         overflow="hidden"
                         boxShadow="lg"
@@ -70,14 +70,15 @@ const StoreSection = React.memo(() => {
                         isExternal
                     >
                         <Button
-                            w={{ base: "full", md: "50" }} // Standardized width to Chakra token
-                            size="lg"
-                            mt={{ base: 8, md: 5 }} // Standardized mt to Chakra tokens
+                            mt={{ base: 8, md: 5 }}
                             leftIcon={<Icon as={FaMapLocationDot} />}
                             bg={buttonBg}
                             color={textColor}
                             _hover={{ bg: buttonHoverBg }}
                             _active={{ bg: buttonActiveBg }}
+                            type="submit"
+                            colorScheme="primary"
+                            width={{ base: "full", md: "lg" }}
                         >
                             Google Mapas
                         </Button>

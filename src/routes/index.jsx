@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-// import ServiceList from "../components/services/ServiceList"; // Removed
-// import { serviceRoutes } from "./serviceRoutes"; // Removed
+// import ServiceList from "../components/services/ServiceList"; // Removed direct import
+import { serviceRoutes } from "./serviceRoutes";
 import App from "../App";
 
 // Views
@@ -12,9 +12,12 @@ const TestPage = lazy(() => import("../pages/TestPage"));
 const ReclamationForm = lazy(() =>
     import("../layout/reclamation-book/ReclamationForm")
 );
-const CompanyPoliciesPage = lazy(() => import("../pages/CompanyPoliciesPage")); // New import
-const BankAccountsPage = lazy(() => import("../pages/BankAccountsPage")); // New import
+const CompanyPoliciesPage = lazy(() => import("../pages/CompanyPoliciesPage"));
+const BankAccountsPage = lazy(() => import("../pages/BankAccountsPage"));
 import ErrorPage from "../pages/ErrorPage";
+
+// Lazy-load ServiceList
+const ServiceList = lazy(() => import("../components/services/ServiceList"));
 
 // Service Pages
 
@@ -27,12 +30,16 @@ export const router = createBrowserRouter([
             { index: true, element: <HomePage /> },
             {
                 path: "servicios",
-                element: <ServicePage />, // ServicePage now directly renders ServiceList
+                element: <ServicePage />,
+                children: [
+                    { index: true, element: <ServiceList /> }, // Render ServiceList at /servicios
+                    ...serviceRoutes,
+                ],
             },
             { path: "proyectos", element: <ProjectPage /> },
             { path: "libro-de-reclamacion", element: <ReclamationForm /> },
-            { path: "politicas-empresa", element: <CompanyPoliciesPage /> }, // New route
-            { path: "cuentas-bancarias", element: <BankAccountsPage /> }, // New route
+            { path: "politicas-empresa", element: <CompanyPoliciesPage /> },
+            { path: "cuentas-bancarias", element: <BankAccountsPage /> },
             { path: "test", element: <TestPage /> },
         ],
     },

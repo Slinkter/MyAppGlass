@@ -1,11 +1,12 @@
 import React from "react";
 import { Box } from "@chakra-ui/react"; // Import Box
-import ServiceList from "../components/services/ServiceList"; // Import ServiceList
+// Removed ServiceList import
+import { Outlet } from "react-router-dom"; // Import Outlet
 
 const ServiceView = () => {
     return (
         <Box as="section" p={4}>
-            <ServiceList />
+            <Outlet /> {/* Render child routes here */}
         </Box>
     );
 };

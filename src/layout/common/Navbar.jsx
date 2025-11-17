@@ -41,7 +41,6 @@ export default function Navbar() {
 
     return (
         <>
-            {/* Desktop Navbar */}
             <Box
                 as="header"
                 position="sticky"
@@ -65,9 +64,9 @@ export default function Navbar() {
                     // Glassmorphism effects
                     backdropFilter="blur(10px)" // Suave blur
                     border="none" // SIN borde
-                    boxShadow="none" // SIN shadow
                     borderRadius="2xl"
                     transition="all 0.3s ease"
+                    boxShadow="sm" // SIN shadow
                 >
                     {/* DESKTOP */}
                     <Flex

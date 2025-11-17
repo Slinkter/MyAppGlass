@@ -4,7 +4,7 @@ import {
     Container,
     Heading,
     Text,
-    SimpleGrid, // Added SimpleGrid
+    SimpleGrid,
 } from "@chakra-ui/react";
 import ItemService from "./ServiceCard";
 import HelmetWrapper from "@/components/HelmetWrapper";
