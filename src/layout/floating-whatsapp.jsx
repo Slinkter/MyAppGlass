@@ -15,7 +15,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 const FloatWhatsapp = () => {
     return (
-        <Box position="fixed" bottom={4} right={4}>
+        <Box position="fixed" bottom={4} right={4} display={{ base: 'flex', md: 'flex' }}>
             <Popover>
                 <PopoverTrigger>
                     <Button

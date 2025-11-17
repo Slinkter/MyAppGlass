@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Box,
     Flex,
@@ -9,13 +8,22 @@ import {
     Icon,
     Heading,
 } from "@chakra-ui/react";
-import { FaWhatsapp, FaCalendar, FaClock, FaMap } from "react-icons/fa";
+import {
+    FaWhatsapp,
+    FaCalendar,
+    FaClock,
+    FaMap,
+    FaLandmark,
+} from "react-icons/fa"; // Added FaLandmark
 import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { IoBookOutline } from "react-icons/io5";
+import { IoBookOutline, IoDocumentTextOutline } from "react-icons/io5"; // Added IoDocumentTextOutline
 
 const Footer = () => {
-    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.1)", "rgba(0, 0, 0, 0.1)"); // More subtle background
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.1)",
+        "rgba(0, 0, 0, 0.1)"
+    ); // More subtle background
     const textColor = useColorModeValue("gray.800", "gray.100");
     const headingColor = useColorModeValue("gray.900", "white");
     const copyrightColor = useColorModeValue("gray.600", "gray.400");
@@ -108,19 +116,73 @@ const Footer = () => {
                                 <Text fontSize="md">acueva@gyacompany.com</Text>
                             </HStack>
                         </VStack>
+                        <VStack spacing={2} mb={{ base: 6, md: 4 }}>
+                            <Heading
+                                as="h3"
+                                fontSize={{ base: "xl", md: "2xl" }}
+                                fontWeight="semibold"
+                                mb={2}
+                                color={headingColor}
+                            >
+                                LINKS
+                            </Heading>
+                            <Link to="/politicas-empresa">
+                                <HStack
+                                    spacing={2}
+                                    alignItems="center"
+                                    _hover={{
+                                        color: useColorModeValue(
+                                            "primary.600",
+                                            "primary.300"
+                                        ),
+                                    }}
+                                >
+                                    <Icon as={IoDocumentTextOutline} />
+                                    <Text fontSize="md">
+                                        Políticas de la Empresa
+                                    </Text>
+                                </HStack>
+                            </Link>
+                            <Link to="/libro-de-reclamacion">
+                                <HStack
+                                    spacing={2}
+                                    alignItems="center"
+                                    _hover={{
+                                        color: useColorModeValue(
+                                            "primary.600",
+                                            "primary.300"
+                                        ),
+                                    }}
+                                >
+                                    <Icon as={IoBookOutline} />
+                                    <Text fontSize="md">
+                                        Libro de Reclamaciones
+                                    </Text>
+                                </HStack>
+                            </Link>
+                            <Link to="/cuentas-bancarias">
+                                <HStack
+                                    spacing={2}
+                                    alignItems="center"
+                                    _hover={{
+                                        color: useColorModeValue(
+                                            "primary.600",
+                                            "primary.300"
+                                        ),
+                                    }}
+                                >
+                                    <Icon as={FaLandmark} />
+                                    <Text fontSize="md">Cuentas Bancarias</Text>
+                                </HStack>
+                            </Link>
+                        </VStack>
                     </Flex>
                 </Box>
             </Box>
-            <VStack spacing={4} m={5} color={copyrightColor}>
-                <Text> Copyright ©2025</Text>
-                <Link
-                    to="/libro-de-reclamacion"
-                >
-                    <HStack align="center" spacing={1} _hover={{ color: useColorModeValue("primary.600", "primary.300") }}>
-                        <Icon as={IoBookOutline} />
-                        <Text>Libro de Reclamaciones</Text>
-                    </HStack>
-                </Link>
+            <VStack color={copyrightColor}>
+                <Text mt={2} mb={6}>
+                    Copyright ©2025
+                </Text>
             </VStack>
         </>
     );
