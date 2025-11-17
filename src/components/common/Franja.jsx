@@ -7,17 +7,24 @@ import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
  * Es utilizado para separar secciones de contenido de una manera visualmente atractiva.
  *
  * @param {{ title: string, text: string, headingAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" }} props - Props del componente.
- * @param {string} props.title - El título principal que se mostrará en la franja.
- * @param {string} props.text - El texto descriptivo o subtítulo que acompaña al título.
- * @param {"h1" | "h2" | "h3" | "h4" | "h5" | "h6"} [props.headingAs="h1"] - El nivel de encabezado HTML para el título.
  * @returns {JSX.Element}
  */
 const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
-    const bgColor = useColorModeValue("gray.200", "blackAlpha.500");
-    const textColor = useColorModeValue("gray.800", "gray.100");
+    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.1)", "rgba(0, 0, 0, 0.1)"); // More subtle background
+    const headingColor = useColorModeValue("gray.900", "white");
+    const textColor = useColorModeValue("gray.800", "gray.200");
 
     return (
-        <Box py={8} bg={bgColor} boxShadow="md">
+        <Box
+            py={8}
+            // Glassmorphism effects (GlassSection rules)
+            bg={bgColor}
+            backdropFilter="blur(10px)" // Suave blur
+            border="none" // SIN borde
+            boxShadow="none" // SIN shadow
+            borderRadius="2xl"
+            transition="all 0.3s ease"
+        >
             <Flex
                 justifyContent="center"
                 alignItems="center"
@@ -27,7 +34,7 @@ const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
                     as={headingAs}
                     fontSize={{ base: "4xl", md: "4xl" }}
                     fontWeight="bold"
-                    color={textColor}
+                    color={headingColor}
                 >
                     {title}
                 </Heading>
@@ -35,7 +42,7 @@ const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
                     width={{ base: "90%", md: "70%" }}
                     mt={1}
                     fontSize="lg"
-                    color={useColorModeValue("gray.500", "white")}
+                    color={textColor}
                     textAlign="center"
                 >
                     {text}

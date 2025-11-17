@@ -1,8 +1,6 @@
 import ScrollToTop from "./utils/scroll-to-top";
 import Layout from "./layout/Layout";
 import { Outlet } from "react-router-dom";
-// todo : delete
-import LoadingFallback from "./components/common/LoadingFallback";
 
 /**
  * @component

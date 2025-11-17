@@ -22,6 +22,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
+    useColorModeValue,
 } from "@chakra-ui/react";
 import { companyData } from "../../config/company-data";
 
@@ -30,20 +31,52 @@ const ReclamoForm = () => {
     const { formData, errors, handleInputsChange, handleBtnSubmit, modalProps } =
         useReclamoForm();
 
+    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)");
+    const borderColor = useColorModeValue("rgba(255, 255, 255, 0.35)", "rgba(255, 255, 255, 0.15)");
+    const textColor = useColorModeValue("gray.800", "gray.100");
+    const headingColor = useColorModeValue("gray.900", "white");
+    
+    const inputBg = useColorModeValue("rgba(255, 255, 255, 0.4)", "rgba(0, 0, 0, 0.4)");
+    const inputBorder = useColorModeValue("rgba(255, 255, 255, 0.5)", "rgba(0, 0, 0, 0.5)");
+    const placeholderColor = useColorModeValue("gray.500", "gray.400");
+
+    const inputStyles = {
+        bg: inputBg,
+        borderColor: inputBorder,
+        _placeholder: { color: placeholderColor },
+        _hover: { borderColor: useColorModeValue("gray.400", "gray.500") },
+        _focus: {
+            borderColor: useColorModeValue("purple.500", "purple.300"),
+            boxShadow: `0 0 0 1px ${useColorModeValue("primary.500", "primary.300")}`,
+        },
+    };
+    
+    const selectStyles = {
+        ...inputStyles,
+        "option": {
+            background: useColorModeValue("#FFFFFF", "#2D3748") // white, gray.700
+        }
+    }
+
     return (
         <Box
             p={{ base: 4, md: 8 }}
             maxW="3xl"
             mx="auto"
-            borderWidth={1}
-            rounded="lg"
-            boxShadow="lg"
+            // Glassmorphism effects
+            bg={bgColor}
+            backdropFilter="blur(20px)"
+            border="1px solid"
+            borderColor={borderColor}
+            boxShadow="0 4px 30px rgba(0,0,0,0.1)"
+            borderRadius="2xl"
+            color={textColor}
         >
-            <Heading as="h2" size="lg" mb={4} textAlign="center">
+            <Heading as="h2" size="lg" mb={4} textAlign="center" color={headingColor}>
                 Libro de Reclamaciones Virtual
             </Heading>
 
-            <Box p={4} rounded="md" mb={6}>
+            <Box bg={inputBg} rounded="md" p={4} mb={6} borderWidth={1} borderColor={borderColor}>
                 <Text fontWeight="bold">Razón Social:</Text>
                 <Text mb={2}>{companyData.razonSocial}</Text>
                 <Text fontWeight="bold">RUC:</Text>
@@ -54,7 +87,7 @@ const ReclamoForm = () => {
 
             <form onSubmit={handleBtnSubmit}>
                 <Stack spacing={5}>
-                    <Heading as="h3" size="md" borderBottomWidth={2} pb={2}>
+                    <Heading as="h3" size="md" borderBottomWidth={2} pb={2} color={headingColor}>
                         1. Identificación del consumidor
                     </Heading>
                     <FormControl isRequired isInvalid={!!errors.nombreCompleto}>
@@ -63,6 +96,7 @@ const ReclamoForm = () => {
                             name="nombreCompleto"
                             value={formData.nombreCompleto}
                             onChange={handleInputsChange}
+                            {...inputStyles}
                         />
                         <FormErrorMessage>{errors.nombreCompleto}</FormErrorMessage>
                     </FormControl>
@@ -72,6 +106,7 @@ const ReclamoForm = () => {
                             name="domicilio"
                             value={formData.domicilio}
                             onChange={handleInputsChange}
+                            {...inputStyles}
                         />
                         <FormErrorMessage>{errors.domicilio}</FormErrorMessage>
                     </FormControl>
@@ -83,6 +118,7 @@ const ReclamoForm = () => {
                                 name="email"
                                 value={formData.email}
                                 onChange={handleInputsChange}
+                                {...inputStyles}
                             />
                             <FormErrorMessage>{errors.email}</FormErrorMessage>
                         </FormControl>
@@ -93,6 +129,7 @@ const ReclamoForm = () => {
                                 name="telefono"
                                 value={formData.telefono}
                                 onChange={handleInputsChange}
+                                {...inputStyles}
                             />
                             <FormErrorMessage>{errors.telefono}</FormErrorMessage>
                         </FormControl>
@@ -105,6 +142,7 @@ const ReclamoForm = () => {
                                 value={formData.tipoDocumento}
                                 onChange={handleInputsChange}
                                 placeholder="Seleccionar"
+                                sx={selectStyles}
                             >
                                 <option value="DNI">DNI</option>
                                 <option value="CE">CE</option>
@@ -118,6 +156,7 @@ const ReclamoForm = () => {
                                 name="numeroDocumento"
                                 value={formData.numeroDocumento}
                                 onChange={handleInputsChange}
+                                {...inputStyles}
                             />
                             <FormErrorMessage>{errors.numeroDocumento}</FormErrorMessage>
                         </FormControl>
@@ -130,10 +169,11 @@ const ReclamoForm = () => {
                             name="nombrePadreMadre"
                             value={formData.nombrePadreMadre}
                             onChange={handleInputsChange}
+                            {...inputStyles}
                         />
                     </FormControl>
 
-                    <Heading as="h3" size="md" borderBottomWidth={2} pb={2} pt={4}>
+                    <Heading as="h3" size="md" borderBottomWidth={2} pb={2} pt={4} color={headingColor}>
                         2. Identificación del bien contratado
                     </Heading>
                     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
@@ -144,6 +184,7 @@ const ReclamoForm = () => {
                                 value={formData.tipoBien}
                                 onChange={handleInputsChange}
                                 placeholder="Seleccionar"
+                                sx={selectStyles}
                             >
                                 <option value="producto">Producto</option>
                                 <option value="servicio">Servicio</option>
@@ -153,12 +194,13 @@ const ReclamoForm = () => {
                         <FormControl>
                             <FormLabel>Monto Reclamado (S/.)</FormLabel>
                             <InputGroup>
-                                <InputLeftAddon>S/.</InputLeftAddon>
+                                <InputLeftAddon {...inputStyles}>S/.</InputLeftAddon>
                                 <Input
                                     type="number"
                                     name="montoReclamado"
                                     value={formData.montoReclamado}
                                     onChange={handleInputsChange}
+                                    {...inputStyles}
                                 />
                             </InputGroup>
                         </FormControl>
@@ -169,11 +211,12 @@ const ReclamoForm = () => {
                             name="descripcionBien"
                             value={formData.descripcionBien}
                             onChange={handleInputsChange}
+                            {...inputStyles}
                         />
                         <FormErrorMessage>{errors.descripcionBien}</FormErrorMessage>
                     </FormControl>
 
-                    <Heading as="h3" size="md" borderBottomWidth={2} pb={2} pt={4}>
+                    <Heading as="h3" size="md" borderBottomWidth={2} pb={2} pt={4} color={headingColor}>
                         3. Detalle de su solicitud
                     </Heading>
                     <FormControl isRequired isInvalid={!!errors.tipoSolicitud}>
@@ -183,6 +226,7 @@ const ReclamoForm = () => {
                             value={formData.tipoSolicitud}
                             onChange={handleInputsChange}
                             placeholder="Seleccionar"
+                            sx={selectStyles}
                         >
                             <option value="Reclamo">Reclamo: Disconformidad con el producto o servicio.</option>
                             <option value="Queja">Queja: Malestar respecto a la atención.</option>
@@ -196,6 +240,7 @@ const ReclamoForm = () => {
                             value={formData.detalle}
                             onChange={handleInputsChange}
                             placeholder="Describa aquí qué sucedió..."
+                            {...inputStyles}
                         />
                         <FormErrorMessage>{errors.detalle}</FormErrorMessage>
                     </FormControl>
@@ -206,14 +251,15 @@ const ReclamoForm = () => {
                             value={formData.pedido}
                             onChange={handleInputsChange}
                             placeholder="Ej: Devolución del dinero, cambio del producto, etc."
+                            {...inputStyles}
                         />
                         <FormErrorMessage>{errors.pedido}</FormErrorMessage>
                     </FormControl>
 
-                    <Heading as="h3" size="md" borderBottomWidth={2} pb={2} pt={4}>
+                    <Heading as="h3" size="md" borderBottomWidth={2} pb={2} pt={4} color={headingColor}>
                         4. Declaración y Envío
                     </Heading>
-                    <Text fontSize="sm" color="gray.600">
+                    <Text fontSize="sm" color={useColorModeValue("gray.600", "gray.300")}>
                         * La respuesta a la presente será remitida al correo electrónico consignado en un plazo no mayor a 15 días hábiles, según el D.S. N° 006-2014-PCM.
                     </Text>
                     <FormControl isRequired isInvalid={!!errors.aceptaTerminos}>
@@ -227,15 +273,23 @@ const ReclamoForm = () => {
                         <FormErrorMessage>{errors.aceptaTerminos}</FormErrorMessage>
                     </FormControl>
 
-                    <Button type="submit" colorScheme="red" size="lg" width="full">
+                    <Button type="submit" colorScheme="primary" size="lg" width="full">
                         Enviar Reclamo/Queja
                     </Button>
                 </Stack>
             </form>
 
             <Modal isOpen={modalProps.isOpen} onClose={modalProps.onClose} isCentered>
-                <ModalOverlay />
-                <ModalContent>
+                <ModalOverlay backdropFilter="blur(20px)" />
+                <ModalContent
+                    bg={bgColor}
+                    backdropFilter="blur(20px)"
+                    border="1px solid"
+                    borderColor={borderColor}
+                    boxShadow="0 4px 30px rgba(0,0,0,0.1)"
+                    borderRadius="2xl"
+                    color={textColor}
+                >
                     <ModalHeader>¡Reclamo enviado con éxito!</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
@@ -251,7 +305,7 @@ const ReclamoForm = () => {
                         </Text>
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme="red" onClick={modalProps.onClose}>
+                        <Button colorScheme="primary" onClick={modalProps.onClose}>
                             Aceptar
                         </Button>
                     </ModalFooter>

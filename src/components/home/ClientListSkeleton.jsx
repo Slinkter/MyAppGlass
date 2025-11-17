@@ -18,20 +18,21 @@ const ClientListSkeleton = () => {
             <Box
                 key={index}
                 w="full"
-                maxW={{ base: "full", md: "md" }} // Standardized maxW to Chakra token
+                maxW={{ base: "full", md: "md" }}
                 h={{ base: "auto", md: "xl" }}
                 p={{ base: 3, md: 6 }}
-                boxShadow={{ base: "base", md: "lg" }}
-                border="1px solid"
-                borderColor="gray.200"
-                rounded="lg"
+                bg='whiteAlpha.200'
+                backdropFilter='blur(10px)'
+                border='1px solid'
+                borderColor='whiteAlpha.300'
+                shadow='lg'
+                rounded='xl'
             >
                 <Skeleton
                     height={{ base: "260px", md: "375px" }}
                     rounded="lg"
                     mb={5}
                 />
-                {/* Standardized borderRadius to rounded */}
                 <Stack spacing={3}>
                     <SkeletonText
                         noOfLines={1}

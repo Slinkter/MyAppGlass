@@ -20,11 +20,13 @@ const FeatureListSkeleton = () => {
             <Box
                 key={index}
                 p={{ base: 3, md: 6 }}
-                rounded="lg"
-                boxShadow={{ base: "base", md: "lg" }}
-                border="1px solid"
-                borderColor="gray.200"
                 textAlign="center"
+                bg='whiteAlpha.200'
+                backdropFilter='blur(10px)'
+                border='1px solid'
+                borderColor='whiteAlpha.300'
+                shadow='lg'
+                rounded='xl'
             >
                 <Skeleton w={24} h={24} mx="auto" mb={4} rounded="full" />
                 <Stack spacing={3}>
@@ -51,8 +53,8 @@ const FeatureListSkeleton = () => {
             <Flex alignItems="center" justifyContent="center" minHeight="80vh">
                 <SimpleGrid
                     columns={{ base: 1, md: 4 }}
-                    spacingX={{ base: 5, md: 8 }} // Standardized spacingX to Chakra tokens
-                    spacingY={{ base: 5, md: 8 }} // Standardized spacingY to Chakra tokens
+                    spacingX={{ base: 5, md: 8 }}
+                    spacingY={{ base: 5, md: 8 }}
                 >
                     {renderSkeletons()}
                 </SimpleGrid>

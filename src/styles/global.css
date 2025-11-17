@@ -1,7 +1,24 @@
-* {
+html, body, #root {
+    height: 100%;
     margin: 0;
     padding: 0;
+}
+
+* {
     box-sizing: border-box;
     scroll-behavior: smooth;
     scrollbar-width: thin;
+}
+
+body {
+    /* Remove animated gradient background */
+    background-color: transparent; /* Ensure no default background color interferes */
+    background-image: none;
+    background-attachment: fixed;
+    animation: none;
+}
+
+/* Estilos para el modo claro */
+body.light-mode {
+    /* No specific background changes for light mode here, handled by Layout */
 }

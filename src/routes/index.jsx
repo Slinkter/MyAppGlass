@@ -22,19 +22,18 @@ export const router = createBrowserRouter([
         element: <App />,
         errorElement: <ErrorPage />,
         children: [
-            { path: "/", element: <HomePage /> },
+            { index: true, element: <HomePage /> },
             {
-                path: "/servicios",
+                path: "servicios",
                 element: <ServicePage />,
                 children: [
                     { index: true, element: <ServiceList /> },
                     ...serviceRoutes,
                 ],
             },
-            { path: "/proyectos", element: <ProjectPage /> },
-            { path: "/libro-de-reclamacion", element: <ReclamationForm /> },
-            { path: "/test", element: <TestPage /> },
-            { path: "*", element: <ErrorPage /> },
+            { path: "proyectos", element: <ProjectPage /> },
+            { path: "libro-de-reclamacion", element: <ReclamationForm /> },
+            { path: "test", element: <TestPage /> },
         ],
     },
 ]);
