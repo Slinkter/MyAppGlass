@@ -5,6 +5,7 @@ import {
     Heading,
     Text,
     Flex,
+    SimpleGrid, // Added SimpleGrid
 } from "@chakra-ui/react";
 import ItemService from "./ServiceCard";
 import HelmetWrapper from "@/components/HelmetWrapper";
@@ -13,8 +14,17 @@ import DataLoader from "@/components/common/DataLoader";
 import ServiceListSkeleton from "./ServiceListSkeleton";
 
 const ServiceList = () => {
-    const textColor = useColorModeValue("gray.600", "gray.100");
+    const headingColor = useColorModeValue("primary.700", "primary.300");
+    const textColor = useColorModeValue("gray.700", "gray.200");
+    const borderColor = useColorModeValue("primary.500", "primary.300");
     const servicesData = services;
+
+    // GlassSection styles
+    const glassSectionBg = useColorModeValue(
+        "rgba(255, 255, 255, 0.1)",
+        "rgba(0, 0, 0, 0.1)"
+    );
+    const glassSectionBlur = "blur(10px)"; // Suave blur
 
     return (
         <>
@@ -27,7 +37,7 @@ const ServiceList = () => {
                 <Container maxW={"8xl"} my={6} textAlign="center">
                     <Heading
                         as="h2"
-                        color="primary.500"
+                        color={headingColor}
                         mb={{ base: "2", md: "2" }}
                         fontSize={{ base: "4xl", md: "4xl" }}
                         mt={4}
@@ -36,7 +46,7 @@ const ServiceList = () => {
                         letterSpacing={"wide"}
                         textAlign="center"
                         borderBottom={"4px"}
-                        borderColor={"primary.500"}
+                        borderColor={borderColor}
                         width={"fit-content"}
                         mx={"auto"}
                     >
@@ -51,18 +61,17 @@ const ServiceList = () => {
                         Fabricación & Instalación
                     </Text>
 
-                    <Flex
-                        direction={{ base: "column", md: "row" }}
-                        flexWrap={"wrap"}
+                    <SimpleGrid
+                        columns={{ base: 1, md: 2, lg: 3 }} // 1 column on base, 2 on md, 3 on lg
+                        spacing={6} // Adjust spacing as needed
                         justifyContent={"center"}
                         alignItems={"center"}
                         mx={"auto"}
-                        gap={6}
                     >
                         {servicesData.map((servicio) => (
                             <ItemService key={servicio.id} {...servicio} />
                         ))}
-                    </Flex>
+                    </SimpleGrid>
                 </Container>
             </DataLoader>
         </>

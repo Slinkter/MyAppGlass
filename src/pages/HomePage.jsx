@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 import HelmetWrapper from "../components/HelmetWrapper";
 import LandingPageSection from "../components/home/LandingPageSection";
 import ClientsSection from "../components/home/ClientsSection";
@@ -7,6 +7,16 @@ import FeaturesSection from "../components/home/FeaturesSection";
 import StoreSection from "../components/home/StoreSection";
 
 const HomeView = React.memo(() => {
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.25)",
+        "rgba(0, 0, 0, 0.25)"
+    );
+    const borderColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.35)",
+        "rgba(255, 255, 255, 0.15)"
+    );
+    const textColor = useColorModeValue("gray.800", "gray.100");
+
     return (
         <>
             <HelmetWrapper

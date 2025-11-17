@@ -1,8 +1,7 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/solid";
 import {
-    Card,
-    CardBody,
+    Box, // Changed from Card
     Button,
     Flex,
     Heading,
@@ -13,7 +12,7 @@ import {
     Icon,
 } from "@chakra-ui/react";
 import FadingImage from "../common/FadingImage";
-import ProjectDetailModal from "./ProjectDetailModal"; // Import the new modal component
+import ProjectDetailModal from "./ProjectDetailModal";
 import React from "react";
 
 /**
@@ -30,49 +29,46 @@ import React from "react";
  *   g_maps: string,
  *   name: string,
  * }} props - Props for the component.
- * @param {string} props.image - URL of the project image.
- * @param {string} props.residencial - Name of the residential project.
- * @param {string} props.address - Address/district of the project.
- * @param {string} props.year - Year the project was completed.
- * @param {string} props.g_maps - Google Maps query string for the project location.
- * @param {string} props.name - Name of the construction company.
  * @returns {JSX.Element} The rendered project card.
  */
 const ProjectCard = React.memo((props) => {
     const { image, residencial, address, year, g_maps, name } = props;
     const { isOpen, onOpen: onOpenModal, onClose } = useDisclosure();
 
-    const bg = useColorModeValue("gray.200", "gray.700");
-
-    const handleOpenModal = () => {
-        // No need to manage isMapLoaded here, it's handled inside ProjectDetailModal
-        onOpenModal();
-    };
+    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.1)", "rgba(0, 0, 0, 0.1)"); // More subtle background
+    const textColor = useColorModeValue("gray.800", "gray.100");
+    const iconColor = useColorModeValue("gray.500", "gray.400");
+    const headingColor = useColorModeValue("primary.700", "primary.300");
+    const buttonBg = useColorModeValue("rgba(255, 255, 255, 0.4)", "rgba(0, 0, 0, 0.4)");
+    const buttonHoverBg = useColorModeValue("rgba(255, 255, 255, 0.6)", "rgba(0, 0, 0, 0.6)");
 
     return (
         <>
-            <Card
-                w="sm" // Standardized from "375px" to Chakra token
-                maxW={{ base: "full", md: "sm" }} // Standardized maxW to Chakra token
+            <Box // Changed from Card
+                w="sm"
+                maxW={{ base: "full", md: "sm" }}
                 mb={4}
-                boxShadow="md"
-                rounded="xl"
-                bg={bg}
                 overflow="hidden"
+                // GlassItemCard effects (GlassSection rules)
+                bg={bgColor}
+                backdropFilter="blur(10px)" // Suave blur
+                border="none" // SIN borde
+                boxShadow="sm" // Subtle shadow
+                borderRadius="2xl"
+                color={textColor}
+                transition="all 0.3s ease"
                 _hover={{
-                    boxShadow: "xl", // Added shadow for depth
-                    borderColor: "primary.300",
-                    transform: "scale(1.015)", // Reduced scale for subtlety
-                    transition: "all 0.3s ease-out", // Smoother transition
+                    boxShadow: "md", // More pronounced shadow on hover
+                    transform: "scale(1.02)",
                 }}
             >
-                <CardBody textAlign="center">
+                <Box textAlign="center" p={4}> {/* Replaced CardBody with Box and added padding */}
                     <FadingImage
                         w="full"
                         h={{ base: "320px", md: "325px" }}
                         src={image}
                         alt={`Obra ${residencial}`}
-                        rounded="lg" // Standardized borderRadius to rounded
+                        rounded="lg"
                         objectFit="cover"
                         boxShadow="base"
                     />
@@ -87,7 +83,7 @@ const ProjectCard = React.memo((props) => {
                             <Heading
                                 size="md"
                                 textTransform="uppercase"
-                                color="primary.500"
+                                color={headingColor}
                             >
                                 {residencial}
                             </Heading>
@@ -98,7 +94,7 @@ const ProjectCard = React.memo((props) => {
                                 w={5}
                                 h={5}
                                 mr={2}
-                                color="gray.500"
+                                color={iconColor}
                             />
                             <Text fontSize="sm">{address}</Text>
                         </Flex>
@@ -108,23 +104,25 @@ const ProjectCard = React.memo((props) => {
                                 w={5}
                                 h={5}
                                 mr={2}
-                                color="gray.500"
+                                color={iconColor}
                             />
                             <Text fontSize="sm">{year}</Text>
                         </Flex>
 
                         <Button
-                            onClick={handleOpenModal}
+                            onClick={onOpenModal}
                             rightIcon={<ArrowForwardIcon />}
-                            colorScheme="primary"
                             variant="solid"
                             mt={1}
+                            bg={buttonBg}
+                            color={textColor}
+                            _hover={{ bg: buttonHoverBg }}
                         >
                             Ver en Google Maps
                         </Button>
                     </Stack>
-                </CardBody>
-            </Card>
+                </Box>
+            </Box>
 
             <ProjectDetailModal
                 isOpen={isOpen}
