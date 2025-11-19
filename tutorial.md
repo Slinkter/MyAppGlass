@@ -11,9 +11,7 @@ This tutorial provides a comprehensive guide to understanding and building a mod
     *   `@chakra-ui/icons`
     *   `@chakra-ui/react`
     *   `@chakra-ui/transition`
-*   **State Management**:
-    *   `@reduxjs/toolkit`: Official, opinionated, batteries-included toolset for efficient Redux development.
-    *   `react-redux`: Official React bindings for Redux.
+
 *   **Routing**:
     *   `react-router-dom`: DOM bindings for React Router.
 *   **Styling & Animation**:
@@ -89,11 +87,7 @@ This tutorial provides a comprehensive guide to understanding and building a mod
 
 ### Data Flow (Frontend)
 *   **Component-based**: Data flows primarily from parent to child components via props.
-*   **State Management (Redux Toolkit)**: For global state, Redux Toolkit is used. This implies a unidirectional data flow:
-    *   **Actions**: Dispatched by components to describe events.
-    *   **Reducers**: Pure functions that take the current state and an action, and return a new state.
-    *   **Store**: Holds the application's state.
-    *   **Selectors**: Used by components to extract specific pieces of state from the store.
+
 *   **API Integration**: `src/api/reclamoService.js` suggests direct API calls from the frontend, likely using `fetch` or a similar library, to interact with backend services (e.g., Firebase Functions).
 *   **Static Data**: `src/data/` provides static content directly to components.
 
@@ -139,8 +133,7 @@ This tutorial provides a comprehensive guide to understanding and building a mod
     *   **Container/Presentational**: Pages (`src/pages/`) often act as containers, fetching data and passing it to presentational components (`src/components/`).
     *   **Compound Components**: Chakra UI itself uses this pattern.
     *   **Render Props/Higher-Order Components (HOCs)**: Less explicit, but custom hooks often replace the need for HOCs.
-*   **State Management Patterns**:
-    *   **Redux (Flux-like)**: Centralized state management with a single source of truth, unidirectional data flow.
+
 *   **API Integration Patterns**:
     *   **Service Layer**: `src/api/reclamoService.js` suggests a dedicated layer for API calls, abstracting data fetching logic.
 *   **Theming Pattern**: Chakra UI's theming system allows for consistent design application.
@@ -174,7 +167,7 @@ This approach guarantees that the Glassmorphism effect renders correctly on a wi
 *   **Documentation**: While some JSDoc comments exist, a more comprehensive documentation (e.g., Storybook for components, API documentation) could enhance developer experience.
 *   **Backend Security**: Ensure Firebase Functions have proper authentication, authorization, and input validation to prevent vulnerabilities.
 *   **Environment Variables**: Ensure sensitive information (e.g., API keys) is properly managed using environment variables and not hardcoded. (The `cross-env` usage suggests this is already being done for `VITE_API_URL`).
-*   **Redux Toolkit Best Practices**: If Redux Toolkit is used extensively, ensure best practices like "slices" and "thunks" are consistently applied.
+
 
 ## Step-by-Step Tutorial Outline (How to Build This Project from Scratch)
 
@@ -197,16 +190,12 @@ This section would detail the process of setting up, developing, and deploying t
     *   Apply MorphGlass styling using `useColorModeValue`, `backdropFilter`, `bg`, `border`, `boxShadow`, `borderRadius`.
     *   Implement hover effects.
     *   Use `FadingImage` for image loading.
-5.  **State Management with Redux Toolkit**:
-    *   Set up Redux store.
-    *   Create slices for different features (e.g., projects, services).
-    *   Dispatch actions and select state in components.
-6.  **Firebase Integration**:
+5.  **Firebase Integration**:
     *   Set up a Firebase project.
     *   Install Firebase SDK.
     *   Initialize Firebase in `src/config/firebase.js`.
     *   Implement client-side interactions (e.g., data fetching from Firestore, if used).
-7.  **Firebase Functions (Backend)**:
+6.  **Firebase Functions (Backend)**:
     *   Initialize Firebase Functions.
     *   Write a simple HTTP function (e.g., `sendContactEmail`).
     *   Deploy functions.

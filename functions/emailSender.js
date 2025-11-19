@@ -90,7 +90,7 @@ async function sendEmailLogic(reclamoData, admin) {
     // --- 1. Preparar el correo para el administrador ---
     const adminEmailPayload = {
         from: "noreply@gyacompany.com", // Dominio verificado en Resend
-        to: "acueva@gyacompany.com", // Tu correo
+        to: process.env.ADMIN_EMAIL || "acueva@gyacompany.com", // Tu correo (Configurar ADMIN_EMAIL en variables de entorno)
         subject: `Nuevo ${reclamoData.tipoSolicitud} de: ${reclamoData.nombreCompleto}`,
         html: createAdminEmailHtml(reclamoData),
     };
