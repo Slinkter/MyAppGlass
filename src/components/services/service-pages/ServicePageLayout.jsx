@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Box, Stack, useColorModeValue, Heading } from "@chakra-ui/react";
+import { Box, Stack, Heading, useColorModeValue } from "@chakra-ui/react";
 import SidebarItem from "@/components/common/SidebarItem";
 import Gallery from "@/components/common/Gallery";
 
@@ -17,8 +17,6 @@ import Gallery from "@/components/common/Gallery";
 const ServicePageLayout = ({ pageData }) => {
     const { seo, systems, features, imageLists } = pageData;
     const [activeIndex, setActiveIndex] = useState(0);
-
-    const bgTheme = useColorModeValue("gray.200", "gray.800");
 
     // Selecciona la lista de imágenes basada en el índice activo
     const activeImageList = imageLists[activeIndex] || [];
@@ -41,28 +39,36 @@ const ServicePageLayout = ({ pageData }) => {
                     title={seo.title}
                     systems={systems}
                     features={features}
-                    bgTheme={bgTheme}
                     activeIndex={activeIndex}
                     setActiveIndex={setActiveIndex}
                 />
                 {/* 2. Galería */}
-                <RenderGallery bgTheme={bgTheme} imageList={activeImageList} />
+                <RenderGallery imageList={activeImageList} />
             </Box>
         </>
     );
 };
 
 const RenderSidebar = (props) => {
-    const { title, systems, features, setActiveIndex, bgTheme, activeIndex } =
+    const { title, systems, features, setActiveIndex, activeIndex } =
         props;
+    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)");
+    const borderColor = useColorModeValue("rgba(255, 255, 255, 0.35)", "rgba(255, 255, 255, 0.15)");
+    const textColor = useColorModeValue("gray.800", "gray.100");
+
     return (
         <Box
-            bg={bgTheme}
+            bg={bgColor}
+            backdropFilter="blur(20px)"
+            border="1px solid"
+            borderColor={borderColor}
+            boxShadow="0 4px 30px rgba(0,0,0,0.1)"
+            borderRadius="2xl"
+            transition="all 0.3s ease"
+            color={textColor}
             minW={{ base: "full", md: "16vw", lg: "16vw" }}
             h={{ base: "auto", md: "85vh" }}
             p={4}
-            rounded="xl"
-            shadow="xs"
         >
             <Box mb={6}>
                 <Heading as="h3" size="lg" mb={4} p={2}>
@@ -101,15 +107,24 @@ const RenderSidebar = (props) => {
     );
 };
 
-const RenderGallery = ({ bgTheme, imageList }) => {
+const RenderGallery = ({ imageList }) => {
+    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)");
+    const borderColor = useColorModeValue("rgba(255, 255, 255, 0.35)", "rgba(255, 255, 255, 0.15)");
+    const textColor = useColorModeValue("gray.800", "gray.100");
+
     return (
         <Box
-            bg={bgTheme}
+            bg={bgColor}
+            backdropFilter="blur(20px)"
+            border="1px solid"
+            borderColor={borderColor}
+            boxShadow="0 4px 30px rgba(0,0,0,0.1)"
+            borderRadius="2xl"
+            transition="all 0.3s ease"
+            color={textColor}
             w={{ base: "full", md: "64vw" }}
             h={{ base: "auto", md: "85vh" }}
             p={4}
-            rounded="xl"
-            shadow="xs"
             overflowY="auto"
         >
             <Gallery images={imageList} />

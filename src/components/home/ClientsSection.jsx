@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Flex } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid } from "@chakra-ui/react";
 import { clients } from "@/data/clients";
 import DataLoader from "@/components/common/DataLoader";
 import ClientListSkeleton from "./ClientListSkeleton";
@@ -10,7 +10,7 @@ const ClientsSection = React.memo(() => {
     const clientsData = clients;
 
     return (
-        <Box minHeight="100dvh">
+        <Box>
             <Franja
                 title={"CLIENTES"}
                 text={
@@ -18,13 +18,12 @@ const ClientsSection = React.memo(() => {
                 }
             />
             <DataLoader loadingComponent={<ClientListSkeleton />}>
-                <Container maxW={"8xl"} mt={6} mb={6}>
-                    <Flex
-                        minHeight={"80vh"}
-                        justifyContent={"space-evenly"}
-                        alignItems={"center"}
-                        flexDir={{ base: "column", md: "row" }}
-                        gap={6}
+                <Container maxW={"7xl"} mt={12} mb={12} mx={0} px={0}>
+                    <SimpleGrid
+                        columns={{ base: 1, md: 2, lg: 3 }}
+                        spacing={10}
+                        m={0}
+                        p={0}
                     >
                         {clientsData.map((client) => (
                             <ClientCard
@@ -34,7 +33,7 @@ const ClientsSection = React.memo(() => {
                                 descClient={client.descClient}
                             />
                         ))}
-                    </Flex>
+                    </SimpleGrid>
                 </Container>
             </DataLoader>
         </Box>

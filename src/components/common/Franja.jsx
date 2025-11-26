@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+    Box,
+    Flex,
+    Heading,
+    Text,
+    useColorModeValue,
+    Container,
+} from "@chakra-ui/react"; // Import Container
 
 /**
  * @component Franja
@@ -7,40 +14,53 @@ import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
  * Es utilizado para separar secciones de contenido de una manera visualmente atractiva.
  *
  * @param {{ title: string, text: string, headingAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" }} props - Props del componente.
- * @param {string} props.title - El título principal que se mostrará en la franja.
- * @param {string} props.text - El texto descriptivo o subtítulo que acompaña al título.
- * @param {"h1" | "h2" | "h3" | "h4" | "h5" | "h6"} [props.headingAs="h1"] - El nivel de encabezado HTML para el título.
  * @returns {JSX.Element}
  */
 const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
-    const bgColor = useColorModeValue("gray.200", "blackAlpha.500");
-    const textColor = useColorModeValue("gray.800", "gray.100");
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.1)",
+        "rgba(0, 0, 0, 0.1)"
+    ); // More subtle background
+    const headingColor = useColorModeValue("gray.900", "white");
+    const textColor = useColorModeValue("gray.800", "gray.200");
 
     return (
-        <Box py={8} bg={bgColor} boxShadow="md">
-            <Flex
-                justifyContent="center"
-                alignItems="center"
-                direction="column"
-            >
-                <Heading
-                    as={headingAs}
-                    fontSize={{ base: "4xl", md: "4xl" }}
-                    fontWeight="bold"
-                    color={textColor}
+        <Box
+            py={8}
+            bg={bgColor}
+            backdropFilter="blur(20px)" // Suave blur
+            border="none" // SIN borde
+            boxShadow="lg" // SIN shadow
+            borderRadius="2xl"
+            transition="all 0.3s ease"
+        >
+            <Container maxW="7xl" px={{ base: 4, md: 8 }}>
+                {" "}
+                {/* Added Container for consistent width */}
+                <Flex
+                    justifyContent="center"
+                    alignItems="center"
+                    direction="column"
                 >
-                    {title}
-                </Heading>
-                <Text
-                    width={{ base: "90%", md: "70%" }}
-                    mt={1}
-                    fontSize="lg"
-                    color={useColorModeValue("gray.500", "white")}
-                    textAlign="center"
-                >
-                    {text}
-                </Text>
-            </Flex>
+                    <Heading
+                        as={headingAs}
+                        fontSize={{ base: "4xl", md: "4xl" }}
+                        fontWeight="bold"
+                        color={headingColor}
+                    >
+                        {title}
+                    </Heading>
+                    <Text
+                        width={{ base: "90%", md: "70%" }}
+                        mt={1}
+                        fontSize="lg"
+                        color={textColor}
+                        textAlign="center"
+                    >
+                        {text}
+                    </Text>
+                </Flex>
+            </Container>
         </Box>
     );
 });

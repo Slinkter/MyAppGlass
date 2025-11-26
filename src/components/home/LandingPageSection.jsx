@@ -2,7 +2,6 @@ import React from "react";
 import {
     Box,
     Center,
-    Container,
     Flex,
     Heading,
     Image,
@@ -11,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 
 import logoGYA from "../../assets/branding/logovcr.png";
-import bg_home_desktop from "../../assets/common/mainland.jpg";
 
 /**
  * Componente LandPage
@@ -21,14 +19,7 @@ import bg_home_desktop from "../../assets/common/mainland.jpg";
  */
 const LandingPageSection = React.memo(() => {
     return (
-        <Box
-            backgroundImage={{
-                base: useColorModeValue("gray.50", "gray.800"),
-                md: `linear-gradient(90deg, rgba(0, 0, 0, .483), rgba(4, 4, 4, .414)), url(${bg_home_desktop})`,
-            }}
-            backgroundSize="cover"
-            backgroundPosition="center"
-        >
+        <Box>
             <Flex
                 minH={"100vh"}
                 w={{ base: "full", md: "full" }}
@@ -44,23 +35,18 @@ const LandingPageSection = React.memo(() => {
                         w={{ base: "55%", md: "30%" }}
                     />
                 </Center>
-                <Container textAlign={"center"}>
+                <Box
+                    textAlign={"center"}
+                    p={{ base: 6, md: 10 }}
+                    mt={8}
+                    maxW="4xl"
+                    // Glassmorphism effects
+                >
                     <Heading
                         as="h2"
                         fontSize={{ base: "2xl", md: "3xl" }}
                         fontWeight="semibold"
-                        mt={4}
-                        color={{
-                            base: useColorModeValue(
-                                "primary.500",
-                                "primary.300"
-                            ),
-                            md: "white",
-                        }}
-                        textShadow={{
-                            base: "none",
-                            md: "2px 2px #000",
-                        }}
+                        color={useColorModeValue("primary.700", "primary.300")}
                         textTransform={"uppercase"}
                     >
                         Vidriería & Aluminio
@@ -68,36 +54,22 @@ const LandingPageSection = React.memo(() => {
                     <Heading
                         as="h1"
                         fontSize={{ base: "4xl", md: "6xl" }}
-                        fontWeight={600}
+                        fontWeight="bold"
                         mt={2}
-                        color={{
-                            base: useColorModeValue("gray.800", "gray.100"),
-                            md: "white",
-                        }}
-                        textShadow={{
-                            base: "none",
-                            md: "2px 2px #000",
-                        }}
+                        color={useColorModeValue("gray.900", "white")}
                     >
                         GLASS & ALUMINUM COMPANY S.A.C.
                     </Heading>
 
                     <Text
                         fontSize="xl"
-                        mt={4}
-                        color={{
-                            base: useColorModeValue("gray.600", "gray.300"),
-                            md: "white",
-                        }}
-                        textShadow={{
-                            base: "none",
-                            md: "2px 2px #000",
-                        }}
+                        mt={6}
+                        color={useColorModeValue("gray.800", "gray.200")}
                     >
                         Empresa Comercial Especialista en la venta e instalación
                         de cristales y aluminios
                     </Text>
-                </Container>
+                </Box>
             </Flex>
         </Box>
     );

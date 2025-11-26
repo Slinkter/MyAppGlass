@@ -22,10 +22,14 @@ const ProjectListSkeleton = () => {
                 w="375px"
                 maxW={{ base: "full", md: "375px" }}
                 mb={4}
-                boxShadow={"md"}
-                rounded="xl"
+                bg='whiteAlpha.200'
+                backdropFilter='blur(10px)'
+                border='1px solid'
+                borderColor='whiteAlpha.300'
+                shadow='lg'
+                rounded='xl'
                 overflow="hidden"
-                p={4} // Add padding to mimic CardBody
+                p={4}
             >
                 <Skeleton height="320px" borderRadius="lg" mb="4" />
                 <Stack mt="4" spacing="2">

@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Icon, Box, Text } from "@chakra-ui/react";
+import { Flex, Icon, Box, Text, useColorModeValue } from "@chakra-ui/react";
 
 /**
  * @component ProjectDetailItem
@@ -10,12 +10,13 @@ import { Flex, Icon, Box, Text } from "@chakra-ui/react";
  *   label: string, 
  *   value: string 
  * }} props - The props for the component.
- * @param {React.ElementType} props.icon - The icon component to display (e.g., `HomeIcon`).
- * @param {string} props.label - The label for the detail (e.g., "Residencial").
- * @param {string} props.value - The value of the detail (e.g., "Edificio Torre Sipan").
  * @returns {JSX.Element}
  */
 const ProjectDetailItem = ({ icon, label, value }) => {
+    const iconColor = useColorModeValue("primary.600", "primary.300");
+    const labelColor = useColorModeValue("gray.500", "gray.400");
+    const valueColor = useColorModeValue("gray.800", "white");
+
     return (
         <Flex align="center">
             <Icon
@@ -23,16 +24,16 @@ const ProjectDetailItem = ({ icon, label, value }) => {
                 w={6}
                 h={6}
                 mr={3}
-                color="primary.500"
+                color={iconColor}
             />
             <Box>
                 <Text
                     fontSize="sm"
-                    color="gray.500"
+                    color={labelColor}
                 >
                     {label}
                 </Text>
-                <Text fontWeight="bold">
+                <Text fontWeight="bold" color={valueColor}>
                     {value}
                 </Text>
             </Box>

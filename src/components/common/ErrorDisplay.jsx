@@ -11,21 +11,33 @@ import { ERROR_MESSAGES } from '../../utils/constants';
  *   message?: string, 
  *   onRetry?: () => void 
  * }} props - The props for the component.
- * @param {string} [props.message] - The error message to display. Defaults to a generic message.
- * @param {() => void} [props.onRetry] - Callback function to execute when the retry button is clicked.
  * @returns {JSX.Element}
  */
 const ErrorDisplay = ({ message, onRetry }) => {
   return (
-    <VStack spacing={4} p={4} borderWidth="1px" borderRadius="lg" borderColor="primary.300" bg="primary.50">
-      <Text fontSize="lg" fontWeight="bold" color="primary.600">
+    <VStack
+      spacing={4}
+      p={4}
+      bg='whiteAlpha.200'
+      backdropFilter='blur(10px)'
+      border='1px solid'
+      borderColor='whiteAlpha.300'
+      shadow='lg'
+      rounded='xl'
+      color='white'
+    >
+      <Text fontSize="lg" fontWeight="bold" color="red.300">
         Error:
       </Text>
-      <Text color="primary.500">
+      <Text>
         {message || ERROR_MESSAGES.UNEXPECTED_ERROR}
       </Text>
       {onRetry && (
-        <Button colorScheme="primary" onClick={onRetry}>
+        <Button
+          bg='whiteAlpha.300'
+          _hover={{ bg: 'whiteAlpha.400' }}
+          onClick={onRetry}
+        >
           Reintentar
         </Button>
       )}

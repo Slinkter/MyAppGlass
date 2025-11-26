@@ -4,7 +4,7 @@ import ProjectsList from "../components/projects/ProjectsList";
 
 const ProjectView = () => {
     return (
-        <Box> {/* Replaced <div> with <Box> */}
+        <Box as="section" p={4}>
             <ProjectsList />
         </Box>
     );

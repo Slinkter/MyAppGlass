@@ -1,6 +1,9 @@
 # Aplicación Web - Glass & Aluminum Company
 
+## formeateo de macos
+
 ## Descripción y Propósito
+
 Esta aplicación web es la plataforma oficial para Glass & Aluminum Company, diseñada para mostrar nuestros servicios, proyectos y facilitar la interacción con nuestros clientes. Construida con React (usando Vite) y desplegada en Firebase, la aplicación busca ofrecer una experiencia de usuario moderna, intuitiva y eficiente, reflejando la calidad y profesionalismo de nuestros trabajos en vidrio y aluminio.
 
 ## Requisitos Previos
@@ -19,6 +22,7 @@ npm install -g firebase-tools
 ## Instalación
 
 1.  **Clona el repositorio:**
+
     ```bash
     git clone <URL_DEL_REPOSITORIO>
     cd MyAppGlass
@@ -29,7 +33,7 @@ npm install -g firebase-tools
     ```bash
     pnpm install -r
     ```
-    *Si prefieres hacerlo manualmente:*
+    _Si prefieres hacerlo manualmente:_
     ```bash
     # Instala dependencias del frontend
     pnpm install
@@ -45,6 +49,7 @@ Las Cloud Functions utilizan la API de **Resend** para el envío de correos elec
 
 1.  **Guarda el secreto en Firebase:**
     Ejecuta este comando y, cuando se te solicite, pega tu clave de API de Resend.
+
     ```bash
     firebase functions:secrets:set RESEND_API_KEY
     ```
@@ -76,6 +81,7 @@ firebase functions:secrets:access RESEND_API_KEY
 ### Desarrollo Local
 
 Inicia el servidor de desarrollo de Vite en `http://localhost:5173`. La página se recargará automáticamente al detectar cambios.
+
 ```bash
 pnpm dev
 ```
@@ -83,6 +89,7 @@ pnpm dev
 ### Compilación para Producción
 
 Genera una versión optimizada y minificada de la aplicación en la carpeta `dist`, lista para ser desplegada.
+
 ```bash
 pnpm build
 ```
@@ -94,6 +101,7 @@ Antes de desplegar, asegúrate de haber iniciado sesión con tu cuenta de Fireba
 ### Desplegar solo el Frontend (Hosting)
 
 Este comando compila la aplicación de React y sube el contenido de la carpeta `dist` a Firebase Hosting.
+
 ```bash
 pnpm run deploy:hosting
 ```
@@ -101,6 +109,7 @@ pnpm run deploy:hosting
 ### Desplegar solo el Backend (Functions)
 
 Si solo has realizado cambios en las Cloud Functions.
+
 ```bash
 pnpm run deploy:functions
 ```
@@ -108,6 +117,7 @@ pnpm run deploy:functions
 ### Despliegue Completo
 
 Sube tanto el frontend como el backend al mismo tiempo.
+
 ```bash
 firebase deploy
 ```

@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, useColorModeValue, Icon, Text } from "@chakra-ui/react";
+import { Stack, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 
 /**
  * Componente SidebarItem
@@ -13,11 +13,10 @@ import { Stack, useColorModeValue, Icon, Text } from "@chakra-ui/react";
  * @returns {JSX.Element}
  */
 const SidebarItem = React.memo(({ icon, label, onClick, isActive }) => {
-    const activeBg = useColorModeValue("primary.100", "primary.900");
-    const activeColor = useColorModeValue("primary.600", "primary.200");
-
-    const h_activeBg = useColorModeValue("gray.100", "gray.700");
-    const h_activeColor = useColorModeValue("primary.500", "primary.300");
+    const activeBg = useColorModeValue("rgba(255, 255, 255, 0.5)", "rgba(0, 0, 0, 0.5)");
+    const activeColor = useColorModeValue("primary.700", "primary.300");
+    const hoverBg = useColorModeValue("rgba(255, 255, 255, 0.3)", "rgba(0, 0, 0, 0.3)");
+    const inactiveColor = useColorModeValue("gray.800", "gray.100");
 
     return (
         <Stack
@@ -29,16 +28,12 @@ const SidebarItem = React.memo(({ icon, label, onClick, isActive }) => {
             onClick={onClick}
             cursor={onClick ? "pointer" : "default"}
             bg={isActive ? activeBg : "transparent"}
-            color={isActive ? activeColor : "inherit"}
+            color={isActive ? activeColor : inactiveColor}
+            transition="background-color 0.2s ease-in-out"
             _hover={{
-                bg: onClick ? h_activeBg : "transparent",
-                color: isActive
-                    ? activeColor
-                    : onClick
-                    ? h_activeColor
-                    : "inherit",
+                bg: onClick ? hoverBg : "transparent",
             }}
-            tabIndex={isActive ? 0 : -1} // Added for keyboard navigation
+            tabIndex={isActive ? 0 : -1}
         >
             <Icon w={5} h={5} as={icon} />
             <Text fontWeight={isActive ? 700 : 500}>{label}</Text>
