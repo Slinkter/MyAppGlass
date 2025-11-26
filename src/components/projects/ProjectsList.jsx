@@ -4,7 +4,7 @@ import {
     Heading,
     Text,
     useColorModeValue,
-    Flex,
+    SimpleGrid, // Added SimpleGrid
 } from "@chakra-ui/react";
 import ProjectCard from "@/components/projects/ProjectCard";
 import HelmetWrapper from "@/components/HelmetWrapper";
@@ -13,10 +13,15 @@ import DataLoader from "@/components/common/DataLoader";
 import ProjectListSkeleton from "@/components/projects/ProjectListSkeleton";
 
 const Projects = React.memo(() => {
-    const textColor = useColorModeValue("gray.600", "gray.100");
+    const headingColor = useColorModeValue("primary.700", "primary.300");
+    const textColor = useColorModeValue("gray.700", "gray.200");
+    const borderColor = useColorModeValue("primary.500", "primary.300");
     const projectsData = projects;
 
-    const reversedProjects = useMemo(() => [...projectsData].reverse(), [projectsData]);
+    const reversedProjects = useMemo(
+        () => [...projectsData].reverse(),
+        [projectsData]
+    );
 
     return (
         <>
@@ -26,10 +31,10 @@ const Projects = React.memo(() => {
                 canonicalUrl="https://www.gyacompany.com/proyectos"
             />
             <DataLoader loadingComponent={<ProjectListSkeleton />}>
-                <Container maxW={"8xl"} my={6} textAlign="center">
+                <Container maxW={"7xl"} mt={12} mb={12} mx={0} px={0}>
                     <Heading
                         as="h2"
-                        color="primary.500"
+                        color={headingColor}
                         mb={{ base: "2", md: "2" }}
                         fontSize={{ base: "4xl", md: "4xl" }}
                         mt={4}
@@ -38,7 +43,7 @@ const Projects = React.memo(() => {
                         letterSpacing={"wide"}
                         textAlign="center"
                         borderBottom={"4px"}
-                        borderColor={"primary.500"}
+                        borderColor={borderColor}
                         width={"fit-content"}
                         mx={"auto"}
                     >
@@ -54,18 +59,14 @@ const Projects = React.memo(() => {
                         Obras Entregadas
                     </Text>
 
-                    <Flex
-                        direction={{ base: "column", md: "row" }}
-                        flexWrap={"wrap"}
-                        justifyContent={"center"}
-                        alignItems={"center"}
-                        mx={"auto"}
-                        gap={6}
+                    <SimpleGrid
+                        columns={{ base: 1, md: 2, lg: 3 }} // 1 column on base, 2 on md, 3 on lg
+                        spacing={10} // Adjusted as per instruction
                     >
                         {reversedProjects.map((project) => (
                             <ProjectCard key={project.id} {...project} />
                         ))}
-                    </Flex>
+                    </SimpleGrid>
                 </Container>
             </DataLoader>
         </>

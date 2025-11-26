@@ -1,8 +1,6 @@
 import ScrollToTop from "./utils/scroll-to-top";
 import Layout from "./layout/Layout";
 import { Outlet } from "react-router-dom";
-// todo : delete
-import LoadingFallback from "./components/common/LoadingFallback";
 
 /**
  * @component
@@ -12,6 +10,7 @@ import LoadingFallback from "./components/common/LoadingFallback";
  * También gestiona el fallback de carga para componentes cargados de forma perezosa (lazy-loaded).
  * @returns {JSX.Element} El componente raíz de la aplicación con el layout y el enrutamiento principal.
  */
+
 function App() {
     return (
         <>

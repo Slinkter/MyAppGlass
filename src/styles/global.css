@@ -1,7 +1,20 @@
-* {
+html, body, #root {
+    height: 100%;
     margin: 0;
     padding: 0;
+}
+
+* {
     box-sizing: border-box;
     scroll-behavior: smooth;
     scrollbar-width: thin;
+}
+
+body {
+    @apply font-['Roboto',_sans-serif];
+}
+
+/* Estilos para el modo claro */
+body.light-mode {
+    /* No specific background changes for light mode here, handled by Layout */
 }

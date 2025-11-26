@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import ServiceList from "../components/services/ServiceList"; // New import
+// import ServiceList from "../components/services/ServiceList"; // Removed direct import
 import { serviceRoutes } from "./serviceRoutes";
 import App from "../App";
 
@@ -12,7 +12,12 @@ const TestPage = lazy(() => import("../pages/TestPage"));
 const ReclamationForm = lazy(() =>
     import("../layout/reclamation-book/ReclamationForm")
 );
+const CompanyPoliciesPage = lazy(() => import("../pages/CompanyPoliciesPage"));
+const BankAccountsPage = lazy(() => import("../pages/BankAccountsPage"));
 import ErrorPage from "../pages/ErrorPage";
+
+// Lazy-load ServiceList
+const ServiceList = lazy(() => import("../components/services/ServiceList"));
 
 // Service Pages
 
@@ -22,19 +27,20 @@ export const router = createBrowserRouter([
         element: <App />,
         errorElement: <ErrorPage />,
         children: [
-            { path: "/", element: <HomePage /> },
+            { index: true, element: <HomePage /> },
             {
-                path: "/servicios",
+                path: "servicios",
                 element: <ServicePage />,
                 children: [
-                    { index: true, element: <ServiceList /> },
+                    { index: true, element: <ServiceList /> }, // Render ServiceList at /servicios
                     ...serviceRoutes,
                 ],
             },
-            { path: "/proyectos", element: <ProjectPage /> },
-            { path: "/libro-de-reclamacion", element: <ReclamationForm /> },
-            { path: "/test", element: <TestPage /> },
-            { path: "*", element: <ErrorPage /> },
+            { path: "proyectos", element: <ProjectPage /> },
+            { path: "libro-de-reclamacion", element: <ReclamationForm /> },
+            { path: "politicas-empresa", element: <CompanyPoliciesPage /> },
+            { path: "cuentas-bancarias", element: <BankAccountsPage /> },
+            { path: "test", element: <TestPage /> },
         ],
     },
 ]);

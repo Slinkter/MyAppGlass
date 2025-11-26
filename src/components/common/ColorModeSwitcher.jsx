@@ -1,10 +1,9 @@
 import React from "react";
-import { IconButton, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { IconButton, useColorMode } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 const ColorModeSwitcher = () => {
     const { colorMode, toggleColorMode } = useColorMode();
-    const bgColor = useColorModeValue("gray.200", "blackAlpha.500");
 
     return (
         <IconButton
@@ -12,11 +11,15 @@ const ColorModeSwitcher = () => {
             fontSize="lg"
             aria-label={`Switch to ${colorMode === "light" ? "dark" : "light"} mode`}
             variant="ghost"
-            color="current"
+            color="white"
             marginLeft="2"
             onClick={toggleColorMode}
             icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            bg={bgColor}
+            bg='whiteAlpha.200'
+            backdropFilter='blur(10px)'
+            border='1px solid'
+            borderColor='whiteAlpha.300'
+            _hover={{ bg: 'whiteAlpha.300' }}
             rounded="full"
             w={10}
             h={10}
