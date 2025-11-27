@@ -157,7 +157,7 @@ export const projects = [
     image: obra13,
     residencial: "Vittorie",
     name: "GRUPO DYM CONSTRUCTORA S.A.C.",
-    address: "SURQUILLO",
+    address: "Surquillo",
     numdpto: "57",
     year: "Diciembre 2024 ",
     g_maps: "Avenida Principal 915, Lima 15038, Peru",
