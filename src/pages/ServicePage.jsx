@@ -10,7 +10,7 @@ import { Outlet } from "react-router-dom";
  */
 const ServicePage = () => {
   return (
-    <Box as="section" p={4}>
+    <Box as="section" py={4}>
       <Outlet />
     </Box>
   );

@@ -1,4 +1,3 @@
-import React from "react";
 import ItemGridLayout from "@/components/common/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import ServiceListSkeleton from "./ServiceListSkeleton";

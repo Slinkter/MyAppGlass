@@ -1,43 +1,38 @@
 import React from "react";
 import { Box, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react";
-import FadingImage from "../common/FadingImage";
+import FadingImage from "@/components/common/FadingImage";
 
+/**
+ * ClientCard Component
+ * Muestra una tarjeta de cliente/testimonio con imagen y descripción.
+ */
 const ClientCard = React.memo(({ image, nameClient, descClient }) => {
-  const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.25)",
-    "rgba(0, 0, 0, 0.25)"
-  );
-  const borderColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.72)",
-    "rgba(255, 255, 255, 0.15)"
-  );
-  const textColor = useColorModeValue("gray.800", "gray.100");
-  const secondaryTextColor = useColorModeValue("gray.600", "gray.300");
+  // Configuración centralizada de estilos
+  const styles = {
+    bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
+    text: useColorModeValue("gray.800", "gray.100"),
+    secondaryText: useColorModeValue("gray.600", "gray.300"),
+  };
 
   return (
     <Box
       w="full"
       maxW={{ base: "full", md: "md" }}
-      h={{ base: "auto", md: "auto" }}
-      maxH={{ base: "452px", md: "512px" }}
+      h="auto"
       mb={4}
-      p={{ base: 4, md: 6 }}
       overflow="hidden"
-      // GlassItemCard effects
-      bg={bgColor}
-      backdropFilter="blur(10px)" // Suave blur
-      border="lg" // SIN borde
-      boxShadow="lg" // Subtle shadow
+      bg={styles.bg}
+      backdropFilter="blur(10px)"
       borderRadius="2xl"
-      borderColor={borderColor}
-      color={textColor}
+      boxShadow="lg"
+      color={styles.text}
       transition="all 0.3s ease"
       _hover={{
         transform: "scale(1.02)",
         boxShadow: "xl",
       }}
     >
-      <Box textAlign="center" p={2}>
+      <Box p={2}>
         <FadingImage
           w="full"
           h={{ base: "260px", md: "375px" }}
@@ -47,17 +42,17 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
           objectFit="cover"
           shadow="lg"
         />
-        <Stack spacing={3} mt={6}>
-          <Heading size="lg">{nameClient}</Heading>
-          <Text mt={1} fontSize="md" color={secondaryTextColor} px={6}>
-            {descClient}
-          </Text>
-        </Stack>
       </Box>
+
+      <Stack spacing={3} p={6} pt={2} textAlign="center">
+        <Heading size="lg">{nameClient}</Heading>
+        <Text fontSize="md" color={styles.secondaryText}>
+          {descClient}
+        </Text>
+      </Stack>
     </Box>
   );
 });
 
 ClientCard.displayName = "ClientCard";
-
 export default ClientCard;

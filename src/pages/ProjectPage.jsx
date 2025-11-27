@@ -10,7 +10,7 @@ import ProjectsList from "../components/projects/ProjectsList";
  */
 const ProjectPage = () => {
   return (
-    <Box as="section" p={4}>
+    <Box as="section" py={4}>
       <ProjectsList />
     </Box>
   );

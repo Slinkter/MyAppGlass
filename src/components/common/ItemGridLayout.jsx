@@ -9,37 +9,6 @@ import {
 import HelmetWrapper from "@/components/HelmetWrapper";
 import DataLoader from "@/components/common/DataLoader";
 
-/**
- * @component ItemGridLayout
- * @description Componente genérico reutilizable para mostrar listas de items en grid.
- * Unifica la estructura de ServiceList y ProjectsList eliminando duplicación.
- *
- * @param {{
- *   title: string,
- *   subtitle: string,
- *   items: Array<any>,
- *   ItemComponent: React.ComponentType,
- *   SkeletonComponent: React.ComponentType,
- *   seoTitle: string,
- *   seoDescription: string,
- *   seoCanonicalUrl: string,
- *   columns?: {base: number, md: number, lg: number},
- *   spacing?: number,
- *   containerProps?: object
- * }} props
- *
- * @example
- * <ItemGridLayout
- *   title="SERVICIOS"
- *   subtitle="Fabricación & Instalación"
- *   items={services}
- *   ItemComponent={ServiceCard}
- *   SkeletonComponent={ServiceListSkeleton}
- *   seoTitle="Servicios - GYA Company"
- *   seoDescription="Nuestros servicios..."
- *   seoCanonicalUrl="https://www.gyacompany.com/servicios"
- * />
- */
 const ItemGridLayout = ({
   title,
   subtitle,
@@ -65,7 +34,14 @@ const ItemGridLayout = ({
         canonicalUrl={seoCanonicalUrl}
       />
       <DataLoader loadingComponent={<SkeletonComponent />}>
-        <Container maxW="7xl" my={6} textAlign="center" {...containerProps}>
+        <Container
+          maxW="7xl"
+          my={6}
+          p={0}
+          mx={0}
+          textAlign="center"
+          {...containerProps}
+        >
           <Heading
             as="h2"
             color={headingColor}
