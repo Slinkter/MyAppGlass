@@ -11,33 +11,20 @@ import {
 
 import logoGYA from "../../assets/branding/logovcr.png";
 
-/**
- * Componente LandPage
- * Muestra la cabecera principal con branding y descripción.
- * @component
- * @returns {JSX.Element}
- */
 const LandingPageSection = React.memo(() => {
   return (
-    <Box>
+    <Box m={0} p={0}>
       <Flex
-        minH={"100vh"}
-        w={{ base: "full", md: "full" }}
+        w={"full"}
+        minH={"100dvh"}
         flexDirection={"column"}
         justifyContent={"center"}
         alignItems={"center"}
-        pb={20}
       >
         <Center>
-          <Image src={logoGYA} alt="Logo" w={{ base: "55%", md: "30%" }} />
+          <Image src={logoGYA} alt="Logo" w={{ base: "45%", md: "30%" }} />
         </Center>
-        <Box
-          textAlign={"center"}
-          p={{ base: 6, md: 10 }}
-          mt={8}
-          maxW="4xl"
-          // Glassmorphism effects
-        >
+        <Box textAlign={"center"} p={{ base: 2, lg: 10 }} mt={6} maxW="4xl">
           <Heading
             as="h2"
             fontSize={{ base: "2xl", md: "3xl" }}
@@ -60,7 +47,7 @@ const LandingPageSection = React.memo(() => {
           <Text
             fontSize="xl"
             mt={6}
-            color={useColorModeValue("gray.800", "gray.200")}
+            color={useColorModeValue("gray.900", "gray.300")}
           >
             Empresa Comercial Especialista en la venta e instalación de
             cristales y aluminios

@@ -11,26 +11,17 @@ import {
 } from "@chakra-ui/react";
 import FadingImage from "@/components/common/FadingImage";
 
-/**
- * @component ServiceCard
- * @description Renders a card for a service, displaying its image, name,
- * and a button to navigate to the service's detail page.
- * Optimized with React.memo to prevent unnecessary re-renders.
- *
- * @param {{
- *   image: string,
- *   name: string,
- *   plink: string,
- * }} props - Props for the component.
- * @returns {JSX.Element} The rendered service card.
- */
-const ServiceCard = React.memo((props) => {
-  const { image, name, plink } = props;
+const ServiceCard = React.memo(({ image, name, plink }) => {
   const navigate = useNavigate();
 
+  const borderColor = useColorModeValue(
+    "rgba(255, 255, 255, 0.25)",
+    "rgba(0, 0, 0, 0.25)"
+  );
+
   const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.1)",
-    "rgba(0, 0, 0, 0.1)"
+    "rgba(255, 255, 255, 0.25)",
+    "rgba(0, 0, 0, 0.25)"
   ); // More subtle background
   const textColor = useColorModeValue("gray.800", "gray.100");
   // New glassmorphism styles for the button
@@ -38,19 +29,8 @@ const ServiceCard = React.memo((props) => {
     "rgba(193, 20, 20, 0.13)",
     "rgba(193, 20, 20, 0.13)"
   );
-  const buttonGlassBorder = useColorModeValue(
-    "rgba(193, 20, 20, 0.6)",
-    "rgba(193, 20, 20, 0.6)"
-  );
-  const buttonGlassColor = useColorModeValue("red.700", "red.300");
-  const buttonGlassHoverBg = useColorModeValue(
-    "rgba(193, 20, 20, 0.2)",
-    "rgba(193, 20, 20, 0.2)"
-  );
-  const buttonGlassHoverBorder = useColorModeValue(
-    "rgba(193, 20, 20, 0.8)",
-    "rgba(193, 20, 20, 0.8)"
-  );
+
+  const btnTextColor = useColorModeValue("red.700", "red.300");
 
   return (
     <Box // Changed from Card
@@ -59,7 +39,7 @@ const ServiceCard = React.memo((props) => {
       h={{ base: "auto", md: "auto" }}
       maxH={{ base: "452px", md: "512px" }}
       mb={4}
-      p={{ base: 2, md: 2 }}
+      p={{ base: 4, md: 6 }}
       overflow="hidden"
       // Glassmorphism effects (GlassSection rules)
       bg={bgColor}
@@ -67,14 +47,16 @@ const ServiceCard = React.memo((props) => {
       border="lg" // SIN borde
       boxShadow="lg" // Subtle shadow
       borderRadius="2xl"
+      textAlign="none"
+      borderColor={borderColor}
       color={textColor}
       transition="all 0.3s ease"
       _hover={{
         transform: "scale(1.02)",
-        boxShadow: "md", // More pronounced shadow on hover
+        boxShadow: "xl",
       }}
     >
-      <Box textAlign="center" p={4}>
+      <Box textAlign="center" p={2}>
         <FadingImage
           w="full"
           h={{ base: "320px", md: "385px" }}
@@ -84,35 +66,30 @@ const ServiceCard = React.memo((props) => {
           objectFit="cover"
           boxShadow="base"
         />
-        <Stack mt={2} spacing={2}>
-          <Flex justifyContent="space-between" alignItems="center">
-            <Box>
-              <Heading
-                as="h3"
-                size="md"
-                fontWeight="600"
-                textTransform="uppercase"
-              >
-                {name}
-              </Heading>
-            </Box>
+        <Stack mt={4} spacing={2}>
+          <Flex
+            direction="column"
+            textAlign="left"
+            justifyContent="center"
+            gap={2}
+          >
+            <Heading
+              as="h3"
+              size="md"
+              fontWeight="600"
+              textTransform="uppercase"
+            >
+              {name}
+            </Heading>
             <Button
+              mt={1}
               rightIcon={<ArrowForwardIcon />}
               onClick={() => navigate(plink)}
               aria-label={`Ver catálogo de ${name}`}
               bg={buttonGlassBg}
-              color={buttonGlassColor}
-              backdropFilter="blur(3.9px)"
+              color={btnTextColor}
               border="1px solid"
-              borderColor={buttonGlassBorder}
-              borderRadius="16px"
-              boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
-              _hover={{
-                bg: buttonGlassHoverBg,
-                borderColor: buttonGlassHoverBorder,
-                boxShadow: "0 6px 40px rgba(0, 0, 0, 0.15)", // Slightly more pronounced hover shadow
-              }}
-              transition="all 0.2s ease-in-out"
+              borderColor={borderColor}
             >
               Catálogo
             </Button>
