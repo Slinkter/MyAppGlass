@@ -1,103 +1,87 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   Box,
   Heading,
   Button,
-  Flex,
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
 import FadingImage from "@/components/common/FadingImage";
 
+/**
+ * ServiceCard Component
+ * Muestra una tarjeta de servicio con imagen, título y enlace al catálogo.
+ */
 const ServiceCard = React.memo(({ image, name, plink }) => {
-  const navigate = useNavigate();
-
-  const borderColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.25)",
-    "rgba(0, 0, 0, 0.25)"
-  );
-
-  const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.25)",
-    "rgba(0, 0, 0, 0.25)"
-  ); // More subtle background
-  const textColor = useColorModeValue("gray.800", "gray.100");
-  // New glassmorphism styles for the button
-  const buttonGlassBg = useColorModeValue(
-    "rgba(193, 20, 20, 0.13)",
-    "rgba(193, 20, 20, 0.13)"
-  );
-
-  const btnTextColor = useColorModeValue("red.700", "red.300");
+  // Configuración de colores y estilos para Glassmorphism
+  const styles = {
+    border: useColorModeValue(
+      "rgba(255, 255, 255, 0.25)",
+      "rgba(0, 0, 0, 0.25)"
+    ),
+    bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
+    text: useColorModeValue("gray.800", "gray.100"),
+    btnBg: useColorModeValue(
+      "rgba(193, 20, 20, 0.13)",
+      "rgba(193, 20, 20, 0.13)"
+    ),
+    btnText: useColorModeValue("red.700", "red.300"),
+  };
 
   return (
-    <Box // Changed from Card
+    <Box
       w="full"
       maxW={{ base: "full", md: "md" }}
-      h={{ base: "auto", md: "auto" }}
-      maxH={{ base: "452px", md: "512px" }}
+      h="auto"
       mb={4}
-      p={{ base: 4, md: 6 }}
       overflow="hidden"
-      // Glassmorphism effects (GlassSection rules)
-      bg={bgColor}
-      backdropFilter="blur(10px)" // Suave blur
-      border="lg" // SIN borde
-      boxShadow="lg" // Subtle shadow
+      bg={styles.bg}
+      backdropFilter="blur(10px)"
       borderRadius="2xl"
-      textAlign="none"
-      borderColor={borderColor}
-      color={textColor}
+      borderColor={styles.border}
+      boxShadow="lg"
+      color={styles.text}
       transition="all 0.3s ease"
       _hover={{
         transform: "scale(1.02)",
         boxShadow: "xl",
+        color: "red.500",
       }}
     >
-      <Box textAlign="center" p={2}>
-        <FadingImage
-          w="full"
-          h={{ base: "320px", md: "385px" }}
-          src={image}
-          alt={`Servicio de ${name}`}
-          rounded="lg"
-          objectFit="cover"
-          boxShadow="base"
-        />
-        <Stack mt={4} spacing={2}>
-          <Flex
-            direction="column"
-            textAlign="left"
-            justifyContent="center"
-            gap={2}
-          >
-            <Heading
-              as="h3"
-              size="md"
-              fontWeight="600"
-              textTransform="uppercase"
-            >
-              {name}
-            </Heading>
-            <Button
-              mt={1}
-              rightIcon={<ArrowForwardIcon />}
-              onClick={() => navigate(plink)}
-              aria-label={`Ver catálogo de ${name}`}
-              bg={buttonGlassBg}
-              color={btnTextColor}
-              border="1px solid"
-              borderColor={borderColor}
-            >
-              Catálogo
-            </Button>
-          </Flex>
-        </Stack>
-      </Box>
+      <FadingImage
+        w="full"
+        h={{ base: "320px", md: "385px" }}
+        src={image}
+        alt={`Servicio de ${name}`}
+        objectFit="cover"
+      />
+
+      <Stack p={{ base: 4, md: 6 }} spacing={3} textAlign="left">
+        <Heading as="h3" size="md" fontWeight="600" textTransform="uppercase">
+          {name}
+        </Heading>
+
+        <Button
+          as={RouterLink}
+          to={plink}
+          rightIcon={<ArrowForwardIcon />}
+          bg={styles.btnBg}
+          color={styles.btnText}
+          aria-label={`Ver catálogo de ${name}`}
+          width="full"
+          _hover={{
+            bg: "red.600",
+            color: "white",
+          }}
+        >
+          Catálogo
+        </Button>
+      </Stack>
     </Box>
   );
 });
+
 ServiceCard.displayName = "ServiceCard";
 export default ServiceCard;

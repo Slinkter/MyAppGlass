@@ -80,17 +80,21 @@ src/
 ├── pages/          # Vistas principales (Rutas)
 ├── routes/         # Definición de rutas y Lazy Loading
 └── utils/          # Funciones auxiliares puras (Helpers)
+functions/          # Backend Serverless (Firebase Functions)
+│   ├── index.js    # Punto de entrada de las funciones
+│   └── emailSender.js # Lógica de envío de correos (Resend)
 ```
 
 ### Principios Aplicados
 
 1.  **Separación de Intereses (SoC):** La lógica de negocio (Hooks/API) está separada de la presentación (Componentes).
-2.  **Atomic Design (Adaptado):**
+2.  **Arquitectura Serverless:** El backend reside en `functions/`, desacoplado del frontend pero integrado en el mismo repositorio (Monorepo).
+3.  **Atomic Design (Adaptado):**
     - _Átomos_: `FadingImage`, `HelmetWrapper`.
     - _Moléculas_: `ProjectCard`, `ServiceCard`.
     - _Organismos_: `ProjectsList`, `ServicesSection`.
     - _Plantillas_: `Layout`.
-3.  **Single Source of Truth:** Los datos de la empresa (teléfonos, dirección) se centralizan en `config/company-data.js`.
+4.  **Single Source of Truth:** Los datos de la empresa (teléfonos, dirección) se centralizan en `config/company-data.js`.
 
 ---
 
@@ -191,7 +195,45 @@ pnpm run preview
 
 ---
 
-## 📄 Licencia
+## � Comandos de Despliegue (Cheat Sheet)
+
+Notas rápidas para recordar cómo subir los cambios a producción:
+
+### 1. Desplegar Solo Frontend (Hosting)
+
+Úsalo cuando solo has modificado archivos en `src/`.
+
+```bash
+# Opción A (Script configurado):
+npm run deploy:hosting
+
+# Opción B (Manual):
+npm run build
+firebase deploy --only hosting
+```
+
+### 2. Desplegar Solo Backend (Functions)
+
+Úsalo cuando solo has modificado archivos en `functions/`.
+
+```bash
+# Opción A (Script configurado):
+npm run deploy:functions
+
+# Opción B (Manual):
+firebase deploy --only functions
+```
+
+### 3. Desplegar Todo
+
+```bash
+npm run build
+firebase deploy
+```
+
+---
+
+## �📄 Licencia
 
 Este proyecto es propiedad de **Glass & Aluminum Company S.A.C.**
 Desarrollado con ❤️ y estándares de ingeniería de software.
