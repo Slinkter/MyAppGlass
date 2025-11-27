@@ -11,18 +11,18 @@ import ErrorDisplay from "@/components/common/ErrorDisplay"; // Assuming you hav
  * @returns {JSX.Element} The rendered ServicePageLayout with dynamic data, or an error message.
  */
 const ServicePageContainer = () => {
-    const { serviceSlug } = useParams();
-    const pageData = servicePageDataMap[serviceSlug];
+  const { serviceSlug } = useParams();
+  const pageData = servicePageDataMap[serviceSlug];
 
-    if (!pageData) {
-        return (
-            <ErrorDisplay
-                message={`No se encontraron datos para el servicio: "${serviceSlug}". Por favor, verifique la URL.`}
-            />
-        );
-    }
+  if (!pageData) {
+    return (
+      <ErrorDisplay
+        message={`No se encontraron datos para el servicio: "${serviceSlug}". Por favor, verifique la URL.`}
+      />
+    );
+  }
 
-    return <ServicePageLayout pageData={pageData} />;
+  return <ServicePageLayout pageData={pageData} />;
 };
 
 export default ServicePageContainer;
