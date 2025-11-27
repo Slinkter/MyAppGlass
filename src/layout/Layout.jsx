@@ -4,25 +4,29 @@ import Navbar from "./common/Navbar";
 import Footer from "./common/Footer";
 import FloatWhatsapp from "./floating-whatsapp";
 
-import bg_mainland from "../assets/common/mainland.jpg"; // Corrected import the background image
+// ✅ Importamos las nuevas imágenes generadas
+import bg_desktop from "../assets/common/glass_bg_desktop.png";
+import bg_mobile from "../assets/common/glass_bg_mobile.png";
 
 const Layout = ({ children }) => {
+  // Overlay para mejorar legibilidad y efecto glass
   const overlayColor = useColorModeValue(
-    "rgba(250, 250, 250, 0.3)", // Increased opacity for fallback
-    "rgba(0, 0, 0, 0.66)" // Increased opacity for fallback
+    "rgba(255, 255, 255, 0.4)", // Modo claro: Capa blanca suave
+    "rgba(0, 0, 0, 0.6)" // Modo oscuro: Capa oscura
   );
 
   return (
     <Box
       minH="100dvh"
+      // 🚀 RESPONSIVE BACKGROUND
       backgroundImage={{
-        base: `url(${bg_mainland})`,
-        md: `url(${bg_mainland})`,
+        base: `url(${bg_mobile})`, // Móvil: Usa imagen vertical
+        md: `url(${bg_desktop})`, // Desktop: Usa imagen horizontal
       }}
-      backgroundSize={{ base: "cover", md: "cover" }}
+      backgroundSize="cover"
       backgroundPosition="center"
-      backgroundRepeat={"no-repeat"}
-      backgroundAttachment={{ base: "scroll", md: "fixed" }}
+      backgroundRepeat="no-repeat"
+      backgroundAttachment={{ base: "scroll", md: "fixed" }} // Fixed solo en desktop para performance
       position="relative"
       _before={{
         content: '""',
@@ -33,8 +37,9 @@ const Layout = ({ children }) => {
         bottom: 0,
         bg: overlayColor,
         zIndex: 0,
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
+        // Efecto de desenfoque sutil en el fondo para resaltar el contenido
+        backdropFilter: "blur(5px)",
+        WebkitBackdropFilter: "blur(5px)",
       }}
     >
       <Box

@@ -15,30 +15,18 @@ import FadingImage from "../common/FadingImage";
 import ProjectDetailModal from "./ProjectDetailModal";
 import React from "react";
 
-/**
- * @component ProjectCard
- * @description Renders a card for a project, displaying its image, residential name,
- * address, and year. Clicking a button on the card opens a detailed modal
- * with more information and a map.
- *
- * @param {{
- *   image: string,
- *   residencial: string,
- *   address: string,
- *   year: string,
- *   g_maps: string,
- *   name: string,
- * }} props - Props for the component.
- * @returns {JSX.Element} The rendered project card.
- */
 const ProjectCard = React.memo((props) => {
   const { image, residencial, address, year, g_maps, name } = props;
   const { isOpen, onOpen: onOpenModal, onClose } = useDisclosure();
 
   const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.1)",
-    "rgba(0, 0, 0, 0.1)"
+    "rgba(255, 255, 255, 0.25)",
+    "rgba(0, 0, 0, 0.25)"
   ); // More subtle background
+  const borderColor = useColorModeValue(
+    "rgba(255, 255, 255, 0.72)",
+    "rgba(255, 255, 255, 0.15)"
+  );
   const textColor = useColorModeValue("gray.800", "gray.100");
   const iconColor = useColorModeValue("gray.500", "gray.400");
   const headingColor = useColorModeValue("primary.700", "primary.300");
@@ -57,7 +45,7 @@ const ProjectCard = React.memo((props) => {
         w="full"
         maxW={{ base: "full", md: "md" }}
         h={{ base: "auto", md: "auto" }}
-        maxH={{ base: "452px", md: "512px" }}
+        maxH={{ base: "auto", md: "auto" }}
         mb={4}
         p={{ base: 2, md: 2 }}
         overflow="hidden"
@@ -67,6 +55,7 @@ const ProjectCard = React.memo((props) => {
         border="lg" // SIN borde
         boxShadow="lg" // Subtle shadow
         borderRadius="2xl"
+        borderColor={borderColor}
         color={textColor}
         transition="all 0.3s ease"
         _hover={{

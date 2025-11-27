@@ -7,37 +7,32 @@ import Franja from "../common/Franja";
 import ClientCard from "./ClientCard";
 
 const ClientsSection = React.memo(() => {
-    const clientsData = clients;
+  const clientsData = clients;
 
-    return (
-        <Box>
-            <Franja
-                title={"CLIENTES"}
-                text={
-                    "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
-                }
-            />
-            <DataLoader loadingComponent={<ClientListSkeleton />}>
-                <Container maxW={"7xl"} mt={12} mb={12} mx={0} px={0}>
-                    <SimpleGrid
-                        columns={{ base: 1, md: 2, lg: 3 }}
-                        spacing={10}
-                        m={0}
-                        p={0}
-                    >
-                        {clientsData.map((client) => (
-                            <ClientCard
-                                key={client.id} // Use a unique ID from the data instead of index
-                                image={client.imgClient}
-                                nameClient={client.nameClient}
-                                descClient={client.descClient}
-                            />
-                        ))}
-                    </SimpleGrid>
-                </Container>
-            </DataLoader>
-        </Box>
-    );
+  return (
+    <Box>
+      <Franja
+        title={"CLIENTES"}
+        text={
+          "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
+        }
+      />
+      <DataLoader loadingComponent={<ClientListSkeleton />}>
+        <Container maxW={"7xl"} mt={12} mb={12}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+            {clientsData.map((client) => (
+              <ClientCard
+                key={client.id} // Use a unique ID from the data instead of index
+                image={client.imgClient}
+                nameClient={client.nameClient}
+                descClient={client.descClient}
+              />
+            ))}
+          </SimpleGrid>
+        </Container>
+      </DataLoader>
+    </Box>
+  );
 });
 
 ClientsSection.displayName = "ClientsSection";
