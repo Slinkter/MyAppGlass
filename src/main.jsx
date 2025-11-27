@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import { ChakraProvider } from "@chakra-ui/react";
-import { ColorModeScript } from "@chakra-ui/react";
 import { RouterProvider } from "react-router-dom";
 import { Spinner, Center } from "@chakra-ui/react";
 
@@ -23,7 +22,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <HelmetProvider>
       <ChakraProvider theme={theme}>
         <ColorModeManager />
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <React.Suspense fallback={suspenseFallback}>
           <RouterProvider router={router} />
         </React.Suspense>

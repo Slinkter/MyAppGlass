@@ -1,97 +1,103 @@
-import init01 from '../assets/services/general/init01.jpg';
-import init02a from '../assets/services/general/init02a.jpg';
-import init03 from '../assets/services/general/init03.jpg';
-import init05a from '../assets/services/general/init05a.jpg';
-import init06 from '../assets/services/general/init06.jpg';
-import init07a from '../assets/services/general/init07a.jpg';
-import init04 from '../assets/services/general/init04.jpg';
-import init11 from '../assets/services/general/init11.jpg';
-import init12 from '../assets/services/general/init12.jpg';
-import init13 from '../assets/services/general/init13.jpg';
+import init01 from "../assets/services/general/init01.jpg";
+import init02a from "../assets/services/general/init02a.jpg";
+import init03 from "../assets/services/general/init03.jpg";
+import init05a from "../assets/services/general/init05a.jpg";
+import init06 from "../assets/services/general/init06.jpg";
+import init07a from "../assets/services/general/init07a.jpg";
+import init04 from "../assets/services/general/init04.jpg";
+import init11 from "../assets/services/general/init11.jpg";
+import init12 from "../assets/services/general/init12.jpg";
+import init13 from "../assets/services/general/init13.jpg";
 
 /**
  * @typedef {Object} Service
- * @property {number} id - Unique identifier for the service.
- * @property {string} image - Path to the service's image.
- * @property {string} name - The name of the service.
- * @property {string} [link] - An external URL related to the service (e.g., Facebook page). This is currently ambiguous with `plink`.
- * @property {string} [plink] - An internal path to the service's detail page within the application. This is currently ambiguous with `link`.
+ * @property {number} id - Unique identifier for the service
+ * @property {string} image - Path to the service's preview image
+ * @property {string} name - Display name of the service
+ * @property {string} link - External URL (e.g., Facebook gallery) for additional information
+ * @property {string} plink - Internal route path to the service's detail page within the application
  */
 
 /**
- * @constant {Service[]} services - An array of objects, each representing a service offered by the company.
- * Note: The presence of both `link` (external) and `plink` (internal) for navigation creates an ambiguous strategy.
- * It is recommended to clarify the primary navigation path for each service or clearly differentiate their purpose in the UI.
+ * @constant {Service[]} services
+ * @description Array of services offered by Glass & Aluminum Company.
+ * Each service includes a preview image, name, and navigation links.
+ *
+ * Navigation Strategy:
+ * - `link`: External URL for social media galleries or additional resources
+ * - `plink`: Internal route for the service detail page (primary navigation)
+ *
+ * The application primarily uses `plink` for navigation within the site.
  */
 export const services = [
-    {
-        id: 1,
-        image: init01,
-        name: "Ventanas",
-        link: "https://bit.ly/3HuT0Eq",
-        plink: "/servicios/ventana"
-    },
-    {
-        id: 2,
-        image: init02a,
-        name: "Mamparas",
-        link: "https://www.facebook.com/media/set/?set=a.414060650462803&type=3/?from=GoogleBT",
-        plink: "/servicios/mampara"
-    },
-    {
-        id: 3,
-        image: init03,
-        name: "Duchas ",
-        link: "https://www.facebook.com/media/set/?set=a.414060420462826&type=3?from=GoogleBT",
-        plink: "/servicios/ducha"
-    },
-    {
-        id: 4,
-        image: init05a,
-        name: "Parapeto",
-        link: "https://www.facebook.com/media/set/?set=a.414060023796199&type=3?from=GoogleBT",
-        plink: "/servicios/parapeto"
-    },
-    {
-        id: 5,
-        image: init06,
-        name: "Barandas",
-        link: "https://www.facebook.com/gyacompany?from=GoogleBT",
-        plink: "/servicios/baranda"
-    },
-    {
-        id: 6,
-        image: init07a,
-        name: "Balcones",
-        link: "https://www.facebook.com/media/set/?set=a.414059690462899&type=3?from=GoogleBT",
-        plink: "/servicios/balcones"
-    },
-    {
-        id: 7,
-        image: init04,
-        name: "Techos ",
-        link: "https://www.facebook.com/media/set/?set=a.414060237129511&type=3?from=GoogleBT",
-        plink: "/servicios/techo"
-    },
-    {
-        id: 8,
-        image: init11,
-        name: "Puerta de Vidrio",
-        link: "https://www.facebook.com/gyacompany/?from=GoogleBT",
-        plink: "/servicios/pvidrio"
-    },
-    {
-        id: 9,
-        image: init12,
-        name: "Puerta en Serie ",
-        link: "https://www.facebook.com/gyacompany/?from=GoogleBT",
-        plink: "/servicios/pserie"
-    },
-    {
-        id: 10,
-        image: init13,
-        name: "Celosías",
-        link: "https://www.facebook.com/gyacompany/?from=GoogleBT",
-        plink: "/servicios/celosias"
-    }
+  {
+    id: 1,
+    image: init01,
+    name: "Ventanas",
+    link: "https://bit.ly/3HuT0Eq",
+    plink: "/servicios/ventana",
+  },
+  {
+    id: 2,
+    image: init02a,
+    name: "Mamparas",
+    link: "https://www.facebook.com/media/set/?set=a.414060650462803&type=3/?from=GoogleBT",
+    plink: "/servicios/mampara",
+  },
+  {
+    id: 3,
+    image: init03,
+    name: "Duchas ",
+    link: "https://www.facebook.com/media/set/?set=a.414060420462826&type=3?from=GoogleBT",
+    plink: "/servicios/ducha",
+  },
+  {
+    id: 4,
+    image: init05a,
+    name: "Parapeto",
+    link: "https://www.facebook.com/media/set/?set=a.414060023796199&type=3?from=GoogleBT",
+    plink: "/servicios/parapeto",
+  },
+  {
+    id: 5,
+    image: init06,
+    name: "Barandas",
+    link: "https://www.facebook.com/gyacompany?from=GoogleBT",
+    plink: "/servicios/baranda",
+  },
+  {
+    id: 6,
+    image: init07a,
+    name: "Balcones",
+    link: "https://www.facebook.com/media/set/?set=a.414059690462899&type=3?from=GoogleBT",
+    plink: "/servicios/balcones",
+  },
+  {
+    id: 7,
+    image: init04,
+    name: "Techos ",
+    link: "https://www.facebook.com/media/set/?set=a.414060237129511&type=3?from=GoogleBT",
+    plink: "/servicios/techo",
+  },
+  {
+    id: 8,
+    image: init11,
+    name: "Puerta de Vidrio",
+    link: "https://www.facebook.com/gyacompany/?from=GoogleBT",
+    plink: "/servicios/pvidrio",
+  },
+  {
+    id: 9,
+    image: init12,
+    name: "Puerta en Serie ",
+    link: "https://www.facebook.com/gyacompany/?from=GoogleBT",
+    plink: "/servicios/pserie",
+  },
+  {
+    id: 10,
+    image: init13,
+    name: "Celosías",
+    link: "https://www.facebook.com/gyacompany/?from=GoogleBT",
+    plink: "/servicios/celosias",
+  },
 ];
