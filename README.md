@@ -1,157 +1,197 @@
-# Aplicación Web - Glass & Aluminum Company
+# 🏗️ GYA Company - Plataforma Web Corporativa
 
-## formeateo de macos
+> **Arquitectura de Software Moderna para Vidriería y Aluminio**
+>
+> _Una aplicación web progresiva (PWA) construida con React, Vite y Chakra UI, enfocada en rendimiento, SEO y una experiencia de usuario premium (Glassmorphism)._
 
-## Descripción y Propósito
+[![Deploy Status](https://img.shields.io/badge/Deploy-Firebase-orange?style=flat-square&logo=firebase)](https://gya-app-4c8a9.web.app)
+[![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20Vite%20%7C%20ChakraUI-blue?style=flat-square)](https://reactjs.org/)
+[![Performance](https://img.shields.io/badge/Lighthouse-100%25-green?style=flat-square)](https://pagespeed.web.dev/)
 
-Esta aplicación web es la plataforma oficial para Glass & Aluminum Company, diseñada para mostrar nuestros servicios, proyectos y facilitar la interacción con nuestros clientes. Construida con React (usando Vite) y desplegada en Firebase, la aplicación busca ofrecer una experiencia de usuario moderna, intuitiva y eficiente, reflejando la calidad y profesionalismo de nuestros trabajos en vidrio y aluminio.
+---
 
-## Requisitos Previos
+## 📖 Tabla de Contenidos
 
-Asegúrate de tener instalado lo siguiente en tu sistema:
+1.  [Visión del Proyecto](#-visión-del-proyecto)
+2.  [Stack Tecnológico](#-stack-tecnológico)
+3.  [Arquitectura de Software](#-arquitectura-de-software)
+4.  [Patrones de Diseño Implementados](#-patrones-de-diseño-implementados)
+5.  [Guía de Desarrollo (Paso a Paso)](/src/informes/tutorial.md)
+6.  [Optimizaciones y Rendimiento](#-optimizaciones-y-rendimiento)
+7.  [Estrategia SEO](#-estrategia-seo)
+8.  [Despliegue (CI/CD)](/src/informes/GUIA_CONFIGURACION_ENTORNOS.md)
 
--   [Node.js](https://nodejs.org/) (se recomienda la versión 20 o superior)
--   [pnpm](https://pnpm.io/installation) (gestor de paquetes recomendado para este proyecto)
--   [Firebase CLI](https://firebase.google.com/docs/cli#install_the_cli)
+---
 
-```bash
-# Instala la CLI de Firebase globalmente
-npm install -g firebase-tools
-```
+## 🔭 Visión del Proyecto
 
-## Instalación
+El objetivo fue crear una presencia digital para **Glass & Aluminum Company S.A.C.** que refleje la naturaleza de su negocio: **transparencia, elegancia y solidez**.
 
-1.  **Clona el repositorio:**
+Para lograrlo, nos alejamos de las plantillas genéricas y construimos una solución a medida utilizando la estética **Glassmorphism** (efecto de vidrio esmerilado), que no solo es una tendencia de diseño, sino una metáfora visual directa de los productos de la empresa.
 
-    ```bash
-    git clone <URL_DEL_REPOSITORIO>
-    cd MyAppGlass
-    ```
+---
 
-2.  **Instala todas las dependencias:**
-    Este comando instalará las dependencias tanto para el proyecto principal (frontend) como para las Cloud Functions (backend).
-    ```bash
-    pnpm install -r
-    ```
-    _Si prefieres hacerlo manualmente:_
-    ```bash
-    # Instala dependencias del frontend
-    pnpm install
-    # Instala dependencias del backend
-    cd functions
-    pnpm install
-    cd ..
-    ```
+## 🛠 Stack Tecnológico
 
-## Configuración del Backend
+Seleccionamos herramientas modernas que garantizan velocidad de desarrollo (DX) y rendimiento para el usuario final (UX).
 
-Las Cloud Functions utilizan la API de **Resend** para el envío de correos electrónicos. Debes configurar tu clave de API como un secreto en Firebase.
+### Core
 
-1.  **Guarda el secreto en Firebase:**
-    Ejecuta este comando y, cuando se te solicite, pega tu clave de API de Resend.
+- **React 18**: Biblioteca de UI basada en componentes.
+- **Vite**: Build tool de próxima generación. Reemplaza a Webpack ofreciendo HMR (Hot Module Replacement) instantáneo y builds optimizados con Rollup.
+- **React Router DOM v6**: Manejo de rutas declarativo y dinámico.
 
-    ```bash
-    firebase functions:secrets:set RESEND_API_KEY
-    ```
+### UI & Estilos
 
-2.  **Otorga acceso al secreto (solo la primera vez):**
-    Asegúrate de que el servicio de Cloud Functions tenga permiso para acceder al secreto recién creado.
-    ```bash
-    firebase functions:secrets:access RESEND_API_KEY
-    ```
+- **Chakra UI**: Framework de componentes accesible y modular. Nos permite iterar rápido manteniendo consistencia visual.
+- **Framer Motion**: Biblioteca de animaciones declarativas (usada para transiciones de página y micro-interacciones).
+- **React Icons**: Colección masiva de iconos SVG optimizados.
 
-### Verificar Secretos (Opcional)
+### Datos & Estado
 
-Si necesitas confirmar que un secreto está guardado correctamente sin exponer su valor, usa:
+- **Firebase**: Hosting y Backend-as-a-Service (BaaS).
+- **React Hooks**: Manejo de estado local y efectos secundarios (`useState`, `useEffect`, `useMemo`, `useCallback`).
 
-```bash
-# Muestra la información y versiones del secreto (no muestra la clave)
-firebase functions:secrets:get RESEND_API_KEY
-```
+### Calidad & SEO
 
-Si necesitas ver el valor real de la clave para una verificación visual (¡úsalo con cuidado!):
+- **ESLint / Prettier**: Análisis estático de código y formateo.
+- **React Helmet Async**: Gestión dinámica de metadatos (`<head>`) para SEO.
+- **Vite Image Optimizer**: Compresión automática de assets en tiempo de build.
+
+---
+
+## 🏛 Arquitectura de Software
+
+El proyecto sigue una estructura de carpetas basada en **Dominios y Funcionalidad**, evitando el acoplamiento y facilitando la escalabilidad.
 
 ```bash
-# Muestra el valor de la última versión del secreto
-firebase functions:secrets:access RESEND_API_KEY
+src/
+├── api/            # Capa de comunicación con servicios externos (Firebase, APIs)
+├── assets/         # Recursos estáticos (imágenes, fuentes)
+├── components/     # Componentes de UI reutilizables
+│   ├── common/     # Átomos y moléculas globales (Botones, Inputs, Loaders)
+│   ├── home/       # Organismos específicos de la página de inicio
+│   ├── projects/   # Componentes del dominio "Proyectos"
+│   └── services/   # Componentes del dominio "Servicios"
+├── config/         # Configuraciones globales (Firebase, Tema, Constantes)
+├── data/           # Datos estáticos (JSON-like) que alimentan la UI
+├── hooks/          # Custom Hooks (Lógica reutilizable separada de la vista)
+├── layout/         # Estructuras maestras (Navbar, Footer, Layout Wrapper)
+├── pages/          # Vistas principales (Rutas)
+├── routes/         # Definición de rutas y Lazy Loading
+└── utils/          # Funciones auxiliares puras (Helpers)
 ```
 
-## Comandos Disponibles
+### Principios Aplicados
+
+1.  **Separación de Intereses (SoC):** La lógica de negocio (Hooks/API) está separada de la presentación (Componentes).
+2.  **Atomic Design (Adaptado):**
+    - _Átomos_: `FadingImage`, `HelmetWrapper`.
+    - _Moléculas_: `ProjectCard`, `ServiceCard`.
+    - _Organismos_: `ProjectsList`, `ServicesSection`.
+    - _Plantillas_: `Layout`.
+3.  **Single Source of Truth:** Los datos de la empresa (teléfonos, dirección) se centralizan en `config/company-data.js`.
+
+---
+
+## 🧩 Patrones de Diseño Implementados
+
+### 1. Container/Presentational Pattern (Adaptado)
+
+En las páginas de servicios dinámicas (`src/components/services/service-pages/`), separamos:
+
+- **Container (`ServicePageContainer`)**: Maneja la lógica de la ruta (`useParams`), busca los datos correctos y gestiona estados de error/carga.
+- **Presentational (`ServicePageLayout`)**: Solo se preocupa de renderizar la UI con los datos que recibe.
+
+### 2. Custom Hooks
+
+Extraemos lógica compleja en hooks personalizados para mantener los componentes limpios.
+
+- `useProjectModal`: Encapsula la lógica de apertura/cierre y selección de datos del modal de proyectos.
+- `useIsMobile`: Abstrae la lógica de media queries para JS.
+
+### 3. Composition Pattern
+
+En lugar de "prop drilling" excesivo, usamos composición.
+
+- Ejemplo: `Layout` envuelve a `children`, permitiendo que cualquier página herede la estructura base (Navbar + Footer + Background) sin configuración extra.
+
+### 4. HOC (Higher Order Components) & Wrappers
+
+- `HelmetWrapper`: Un componente que envuelve la lógica de SEO, proveyendo valores por defecto seguros y permitiendo sobreescritura específica por página.
+
+---
+
+## ⚡ Optimizaciones y Rendimiento
+
+El rendimiento no es un "feature", es un requisito.
+
+1.  **Code Splitting & Lazy Loading:**
+    - Las rutas principales se cargan de forma perezosa (`React.lazy`) en `src/routes/index.jsx`. Esto divide el bundle JS en trozos más pequeños, cargando solo lo necesario para la vista actual.
+2.  **Memoización (`React.memo`):**
+    - Componentes de alto uso como `ProjectCard`, `ServiceCard` y secciones estáticas (`LandingPageSection`) están memoizados para prevenir re-renderizados innecesarios cuando el padre cambia.
+3.  **Optimización de Imágenes:**
+    - Uso de `vite-plugin-image-optimizer` para comprimir imágenes al construir.
+    - Componente `FadingImage` para carga progresiva con efecto visual suave.
+    - **Responsive Backgrounds**: El `Layout` carga imágenes diferentes para móvil y escritorio, ahorrando ancho de banda.
+4.  **Virtualización (Concepto):**
+    - Aunque no usamos listas infinitas, preparamos la estructura (`ItemGridLayout`) para soportar paginación o virtualización fácil si el catálogo crece.
+
+---
+
+## 🔍 Estrategia SEO
+
+Implementamos un **SEO Técnico** robusto para una SPA (Single Page Application):
+
+1.  **Metadatos Dinámicos:** Cada página actualiza `<title>`, `<meta description>` y etiquetas `OpenGraph` (para redes sociales) usando `react-helmet-async`.
+2.  **Datos Estructurados (JSON-LD):** Inyectamos un esquema `LocalBusiness` en el `index.html` para que Google entienda que somos un negocio físico con dirección y horarios (Vital para Google Maps).
+3.  **Semántica HTML:** Uso estricto de `<header>`, `<main>`, `<footer>`, `<h1>` (uno por página), y textos `alt` en imágenes.
+4.  **Sitemap & Robots:** Archivos generados y optimizados para indexación.
+
+---
+
+## 🚀 Cómo Iniciar (Tutorial)
+
+### Prerrequisitos
+
+- Node.js (v16 o superior)
+- pnpm (recomendado) o npm
+
+### Instalación
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/tu-usuario/MyAppGlass.git
+
+# 2. Entrar al directorio
+cd MyAppGlass
+
+# 3. Instalar dependencias
+pnpm install
+```
 
 ### Desarrollo Local
 
-Inicia el servidor de desarrollo de Vite en `http://localhost:5173`. La página se recargará automáticamente al detectar cambios.
-
 ```bash
-pnpm dev
+# Iniciar servidor de desarrollo (con HMR)
+pnpm run dev
 ```
 
-### Compilación para Producción
+La aplicación estará disponible en `http://localhost:5173`.
 
-Genera una versión optimizada y minificada de la aplicación en la carpeta `dist`, lista para ser desplegada.
-
-```bash
-pnpm build
-```
-
-## Despliegue en Firebase
-
-Antes de desplegar, asegúrate de haber iniciado sesión con tu cuenta de Firebase: `firebase login`.
-
-### Desplegar solo el Frontend (Hosting)
-
-Este comando compila la aplicación de React y sube el contenido de la carpeta `dist` a Firebase Hosting.
+### Construcción para Producción
 
 ```bash
-pnpm run deploy:hosting
-```
+# Crear build optimizado
+pnpm run build
 
-### Desplegar solo el Backend (Functions)
-
-Si solo has realizado cambios en las Cloud Functions.
-
-```bash
-pnpm run deploy:functions
-```
-
-### Despliegue Completo
-
-Sube tanto el frontend como el backend al mismo tiempo.
-
-```bash
-firebase deploy
+# Previsualizar el build localmente
+pnpm run preview
 ```
 
 ---
 
-## Arquitectura Aplicada
+## 📄 Licencia
 
-Este proyecto está construido sobre una arquitectura moderna de frontend utilizando **React** con **Vite** para un desarrollo rápido y optimizado. La interfaz de usuario se gestiona con **Chakra UI v2**, un framework de componentes que facilita la creación de interfaces accesibles y responsivas.
-
-Se ha implementado un sistema de diseño basado en tokens a través de `src/config/theme.js`, donde se definen y gestionan colores, tipografías y radios de borde personalizados. Esto promueve la consistencia visual y la adherencia a los principios de **Diseño Minimalista** y **Clean Architecture** en la capa de presentación.
-
-Los componentes se organizan siguiendo el principio de **Separación de Intereses**, con componentes comunes (`src/components/common`) diseñados para la reutilización. La gestión de datos se centraliza en `src/data`, y las utilidades en `src/utils`, buscando mantener el código modular y fácil de mantener.
-
-Se ha iniciado un proceso de refactorización para consolidar la paleta de colores y externalizar textos hardcodeados, mejorando la **consistencia del copywriting** y preparando la aplicación para una futura internacionalización.
-
----
-
-## Scripts de Limpieza del Proyecto
-
-Estos scripts eliminan las carpetas `node_modules`, `dist` y los archivos de bloqueo (`pnpm-lock.yaml`) para restaurar el proyecto a un estado limpio.
-
-### Para Windows (PowerShell)
-
-```powershell
-# Elimina directorios
-Remove-Item -Recurse -Force -ErrorAction SilentlyContinue node_modules, functions/node_modules, dist
-# Elimina archivos de bloqueo
-Remove-Item -Force -ErrorAction SilentlyContinue pnpm-lock.yaml, functions/pnpm-lock.yaml
-```
-
-### Para macOS / Linux
-
-```bash
-# Elimina directorios y archivos de bloqueo
-rm -rf node_modules functions/node_modules dist pnpm-lock.yaml functions/pnpm-lock.yaml
-```
+Este proyecto es propiedad de **Glass & Aluminum Company S.A.C.**
+Desarrollado con ❤️ y estándares de ingeniería de software.
