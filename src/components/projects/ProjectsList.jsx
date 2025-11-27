@@ -1,77 +1,33 @@
 import React, { useMemo } from "react";
-import {
-    Container,
-    Heading,
-    Text,
-    useColorModeValue,
-    SimpleGrid, // Added SimpleGrid
-} from "@chakra-ui/react";
+import ItemGridLayout from "@/components/common/ItemGridLayout";
 import ProjectCard from "@/components/projects/ProjectCard";
-import HelmetWrapper from "@/components/HelmetWrapper";
-import { projects } from "@/data/projects";
-import DataLoader from "@/components/common/DataLoader";
 import ProjectListSkeleton from "@/components/projects/ProjectListSkeleton";
+import { projects } from "@/data/projects";
 
-const Projects = React.memo(() => {
-    const headingColor = useColorModeValue("primary.700", "primary.300");
-    const textColor = useColorModeValue("gray.700", "gray.200");
-    const borderColor = useColorModeValue("primary.500", "primary.300");
-    const projectsData = projects;
+/**
+ * @component ProjectsList
+ * @description Lista de proyectos usando el componente genérico ItemGridLayout.
+ * Muestra todos los proyectos completados en orden inverso (más recientes primero).
+ *
+ * @returns {JSX.Element} Grid de proyectos con SEO y loading state
+ */
+const ProjectsList = React.memo(() => {
+  // Invertir el orden de proyectos para mostrar los más recientes primero
+  const reversedProjects = useMemo(() => [...projects].reverse(), [projects]);
 
-    const reversedProjects = useMemo(
-        () => [...projectsData].reverse(),
-        [projectsData]
-    );
-
-    return (
-        <>
-            <HelmetWrapper
-                title="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
-                description="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
-                canonicalUrl="https://www.gyacompany.com/proyectos"
-            />
-            <DataLoader loadingComponent={<ProjectListSkeleton />}>
-                <Container maxW={"7xl"} mt={12} mb={12} mx={0} px={0}>
-                    <Heading
-                        as="h2"
-                        color={headingColor}
-                        mb={{ base: "2", md: "2" }}
-                        fontSize={{ base: "4xl", md: "4xl" }}
-                        mt={4}
-                        textTransform={"uppercase"}
-                        fontWeight={600}
-                        letterSpacing={"wide"}
-                        textAlign="center"
-                        borderBottom={"4px"}
-                        borderColor={borderColor}
-                        width={"fit-content"}
-                        mx={"auto"}
-                    >
-                        PROYECTOS
-                    </Heading>
-
-                    <Text
-                        mb={{ base: "2", md: "4" }}
-                        fontSize={{ base: "2xl", md: "2xl" }}
-                        color={textColor}
-                        textAlign="center"
-                    >
-                        Obras Entregadas
-                    </Text>
-
-                    <SimpleGrid
-                        columns={{ base: 1, md: 2, lg: 3 }} // 1 column on base, 2 on md, 3 on lg
-                        spacing={10} // Adjusted as per instruction
-                    >
-                        {reversedProjects.map((project) => (
-                            <ProjectCard key={project.id} {...project} />
-                        ))}
-                    </SimpleGrid>
-                </Container>
-            </DataLoader>
-        </>
-    );
+  return (
+    <ItemGridLayout
+      title="PROYECTOS"
+      subtitle="Obras Entregadas"
+      items={reversedProjects}
+      ItemComponent={ProjectCard}
+      SkeletonComponent={ProjectListSkeleton}
+      seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
+      seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
+      seoCanonicalUrl="https://www.gyacompany.com/proyectos"
+    />
+  );
 });
 
-Projects.displayName = "Projects";
-export default Projects;
+ProjectsList.displayName = "ProjectsList";
+export default ProjectsList;

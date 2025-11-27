@@ -12,14 +12,14 @@ import { Outlet } from "react-router-dom";
  */
 
 function App() {
-    return (
-        <>
-            <ScrollToTop />
-            <Layout>
-                <Outlet />
-            </Layout>
-        </>
-    );
+  return (
+    <>
+      <ScrollToTop />
+      <Layout>
+        <Outlet />
+      </Layout>
+    </>
+  );
 }
 
 export default App;
