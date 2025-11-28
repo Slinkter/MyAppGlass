@@ -50,37 +50,32 @@ const ServicePageLayout = ({ pageData }) => {
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
       </Helmet>
-
-      <Box
-        minH="100vh"
-        p={{ base: 4, md: 8 }}
-        bgGradient={useColorModeValue(
-          "linear(to-br, gray.50, gray.100)",
-          "linear(to-br, gray.900, black)"
-        )}
-      >
+      <Box p={{ base: 0, md: 4, lg: 2 }} w="100%" overflowX="hidden">
         <Grid
-          templateColumns={{ base: "1fr", lg: "380px 1fr" }}
-          maxW="1800px"
+          templateColumns={{ base: "minmax(0, 1fr)", lg: "1fr 3fr" }}
+          maxW="100%"
           mx="auto"
-          gap={8}
+          gap={{ base: 3, md: 5, lg: 6 }}
           alignItems="start"
+          px={{ base: 3, md: 0 }}
+          py={{ base: 3, md: 0 }}
         >
           {/* CARD 1: PANEL DE CONTROL (Sidebar con toda la info) */}
-          <GridItem>
+          <GridItem w="100%" minW={0}>
             <GlassCard
-              styles={glassStyles}
-              h={{ base: "auto", md: "85vh" }}
-              overflow="hidden"
               display="flex"
               flexDirection="column"
+              styles={glassStyles}
+              h={{ base: "auto", lg: "85vh" }}
+              overflow={{ base: "visible", lg: "hidden" }}
+              w="100%"
             >
               <VStack
-                spacing={6}
+                spacing={{ base: 4, md: 5, lg: 6 }}
                 align="stretch"
                 flex="1"
-                overflowY="auto"
-                pr={2}
+                pr={{ base: 0, lg: 2 }}
+                overflowY={{ base: "visible", lg: "auto" }}
                 css={{
                   "&::-webkit-scrollbar": {
                     width: "6px",
@@ -101,8 +96,8 @@ const ServicePageLayout = ({ pageData }) => {
                 <Box>
                   <Heading
                     as="h3"
-                    size="md"
-                    mb={4}
+                    size={{ base: "sm", md: "md" }}
+                    mb={{ base: 3, md: 4 }}
                     color={glassStyles.headingColor}
                     letterSpacing="tight"
                   >
@@ -121,40 +116,17 @@ const ServicePageLayout = ({ pageData }) => {
                   </Stack>
                 </Box>
 
-                <Divider borderColor={glassStyles.border} />
-
                 {/* Sección: Información del Sistema */}
                 <Box>
-                  <Text
-                    fontSize="xs"
-                    fontWeight="bold"
-                    textTransform="uppercase"
-                    letterSpacing="wider"
-                    color={glassStyles.accent}
-                    mb={2}
-                  >
-                    Sistema Seleccionado
-                  </Text>
                   <Heading
                     as="h2"
-                    size="lg"
+                    size={{ base: "md", md: "lg" }}
                     color={glassStyles.headingColor}
-                    mb={3}
+                    mb={{ base: 2, md: 3 }}
                   >
                     {activeSystem?.label}
                   </Heading>
-                  <Text
-                    fontSize="sm"
-                    color={glassStyles.text}
-                    lineHeight="relaxed"
-                  >
-                    Diseñado para la excelencia. Este sistema combina estética
-                    moderna con funcionalidad robusta, ideal para proyectos que
-                    exigen lo mejor en calidad y durabilidad.
-                  </Text>
                 </Box>
-
-                <Divider borderColor={glassStyles.border} />
 
                 {/* Sección: Especificaciones Técnicas */}
                 {features && features.length > 0 && (
@@ -166,17 +138,20 @@ const ServicePageLayout = ({ pageData }) => {
                       letterSpacing="wider"
                       color={glassStyles.text}
                       opacity={0.7}
-                      mb={4}
+                      mb={{ base: 3, md: 4 }}
                     >
                       Especificaciones Técnicas
                     </Text>
-                    <Grid templateColumns="repeat(2, 1fr)" gap={3}>
+                    <Grid
+                      templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }}
+                      gap={{ base: 2, md: 3 }}
+                    >
                       {features.map((item, index) => (
                         <VStack
                           key={index}
                           align="start"
                           spacing={1}
-                          p={3}
+                          p={{ base: 2, md: 3 }}
                           bg={useColorModeValue(
                             "whiteAlpha.500",
                             "whiteAlpha.50"
@@ -188,12 +163,12 @@ const ServicePageLayout = ({ pageData }) => {
                           <HStack spacing={2}>
                             <Icon
                               as={item.icon}
-                              w={4}
-                              h={4}
+                              w={{ base: 3, md: 4 }}
+                              h={{ base: 3, md: 4 }}
                               color={glassStyles.accent}
                             />
                             <Text
-                              fontSize="xs"
+                              fontSize={{ base: "2xs", md: "xs" }}
                               color={glassStyles.text}
                               fontWeight="bold"
                               opacity={0.7}
@@ -202,10 +177,10 @@ const ServicePageLayout = ({ pageData }) => {
                             </Text>
                           </HStack>
                           <Text
-                            fontSize="sm"
+                            fontSize={{ base: "xs", md: "sm" }}
                             fontWeight="semibold"
                             color={glassStyles.headingColor}
-                            pl={6}
+                            pl={{ base: 5, md: 6 }}
                           >
                             {item.label.split(":")[1] || "Estándar"}
                           </Text>
@@ -220,7 +195,7 @@ const ServicePageLayout = ({ pageData }) => {
                 {/* Sección: Call to Action */}
                 <Box>
                   <Button
-                    size="lg"
+                    size={{ base: "md", md: "lg" }}
                     w="full"
                     bg={glassStyles.accent}
                     color="white"
@@ -253,14 +228,14 @@ const ServicePageLayout = ({ pageData }) => {
           </GridItem>
 
           {/* CARD 2: GALERÍA DE IMÁGENES */}
-          <GridItem>
+          <GridItem w="100%" minW={0}>
             <GlassCard
               styles={glassStyles}
-              h={{ base: "500px", md: "85vh" }}
-              p={0}
+              h={{ base: "360px", sm: "410px", md: "500px", lg: "85vh" }}
               overflow="hidden"
+              p={{ base: 2, md: 4, lg: 6 }}
             >
-              <Box h="100%" p={6}>
+              <Box h="100%" w="100%" minW={0} maxW="100%">
                 <Gallery images={activeImageList} />
               </Box>
             </GlassCard>
@@ -276,11 +251,11 @@ const GlassCard = ({ children, styles, ...props }) => (
   <Box
     bg={styles.bg}
     backdropFilter="blur(20px)"
-    borderRadius="3xl"
+    borderRadius={{ base: "2xl", md: "3xl" }}
     border="1px solid"
     borderColor={styles.border}
-    boxShadow="2xl"
-    p={6}
+    boxShadow={{ base: "xl", md: "2xl" }}
+    p={{ base: 4, md: 6 }}
     transition="all 0.3s ease"
     {...props}
   >

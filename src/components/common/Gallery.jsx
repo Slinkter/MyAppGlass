@@ -59,17 +59,20 @@ const Gallery = React.memo(({ images }) => {
     <>
       <Flex
         direction={{ base: "column", md: "row" }}
-        gap={{ base: 3, md: 4 }}
+        gap={{ base: 2, md: 3, lg: 4 }}
         h="100%"
         w="100%"
+        minW={0}
+        maxW="100%"
       >
         {/* 1. Visor Principal con Controles */}
         <Box
           flex="1"
-          h={{ base: "400px", md: "100%" }}
+          h={{ base: "280px", sm: "320px", md: "100%" }}
           w="100%"
+          minW={0}
           position="relative"
-          borderRadius="xl"
+          borderRadius={{ base: "lg", md: "xl" }}
           overflow="hidden"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -79,7 +82,7 @@ const Gallery = React.memo(({ images }) => {
           <Box
             w="100%"
             h="100%"
-            cursor="zoom-in"
+            cursor="select"
             onClick={onOpenModal}
             position="relative"
             overflow="hidden"
@@ -100,9 +103,9 @@ const Gallery = React.memo(({ images }) => {
             <>
               {/* Botón Anterior */}
               <IconButton
-                icon={<ChevronLeftIcon boxSize={6} />}
+                icon={<ChevronLeftIcon boxSize={{ base: 5, md: 6 }} />}
                 position="absolute"
-                left={4}
+                left={{ base: 2, md: 4 }}
                 top="50%"
                 transform="translateY(-50%)"
                 onClick={handlePrevious}
@@ -110,7 +113,7 @@ const Gallery = React.memo(({ images }) => {
                 transition="opacity 0.3s ease"
                 bg="blackAlpha.600"
                 color="white"
-                size="lg"
+                size={{ base: "md", md: "lg" }}
                 rounded="full"
                 _hover={{
                   bg: "blackAlpha.800",
@@ -122,9 +125,9 @@ const Gallery = React.memo(({ images }) => {
 
               {/* Botón Siguiente */}
               <IconButton
-                icon={<ChevronRightIcon boxSize={6} />}
+                icon={<ChevronRightIcon boxSize={{ base: 5, md: 6 }} />}
                 position="absolute"
-                right={4}
+                right={{ base: 2, md: 4 }}
                 top="50%"
                 transform="translateY(-50%)"
                 onClick={handleNext}
@@ -132,7 +135,7 @@ const Gallery = React.memo(({ images }) => {
                 transition="opacity 0.3s ease"
                 bg="blackAlpha.600"
                 color="white"
-                size="lg"
+                size={{ base: "md", md: "lg" }}
                 rounded="full"
                 _hover={{
                   bg: "blackAlpha.800",
@@ -145,16 +148,20 @@ const Gallery = React.memo(({ images }) => {
               {/* Contador de Imágenes */}
               <Box
                 position="absolute"
-                top={4}
-                right={4}
+                top={{ base: 2, md: 4 }}
+                right={{ base: 2, md: 4 }}
                 bg="blackAlpha.700"
                 backdropFilter="blur(8px)"
-                px={3}
+                px={{ base: 2, md: 3 }}
                 py={1}
                 borderRadius="full"
                 zIndex={2}
               >
-                <Text fontSize="sm" color="white" fontWeight="medium">
+                <Text
+                  fontSize={{ base: "xs", md: "sm" }}
+                  color="white"
+                  fontWeight="medium"
+                >
                   {selectedIndex + 1} / {images.length}
                 </Text>
               </Box>
@@ -162,17 +169,21 @@ const Gallery = React.memo(({ images }) => {
               {/* Indicadores de Navegación (Dots) */}
               <HStack
                 position="absolute"
-                bottom={4}
+                bottom={{ base: 2, md: 4 }}
                 left="50%"
                 transform="translateX(-50%)"
-                spacing={2}
+                spacing={{ base: 1.5, md: 2 }}
                 zIndex={2}
               >
                 {images.map((_, index) => (
                   <Box
                     key={index}
-                    w={selectedIndex === index ? "24px" : "8px"}
-                    h="8px"
+                    w={
+                      selectedIndex === index
+                        ? { base: "20px", md: "24px" }
+                        : { base: "6px", md: "8px" }
+                    }
+                    h={{ base: "6px", md: "8px" }}
                     bg={selectedIndex === index ? dotActiveColor : dotColor}
                     borderRadius="full"
                     cursor="pointer"
@@ -192,27 +203,30 @@ const Gallery = React.memo(({ images }) => {
         {/* 2. Carrusel de Miniaturas */}
         <Flex
           direction={{ base: "row", md: "column" }}
-          gap={2}
-          w={{ base: "100%", md: "120px" }}
-          h={{ base: "90px", md: "100%" }}
+          gap={{ base: 1, md: 2 }}
+          w={{ base: "100%", md: "100px", lg: "120px" }}
+          h={{ base: "60px", sm: "70px", md: "100%" }}
+          minW={0}
+          maxW="100%"
+          scrollBehavior="smooth"
           overflowX={{ base: "auto", md: "hidden" }}
           overflowY={{ base: "hidden", md: "auto" }}
           pr={{ base: 0, md: 1 }}
           pb={{ base: 2, md: 0 }}
           css={{
             "&::-webkit-scrollbar": {
-              width: "6px",
+              width: "4px",
               height: "6px",
             },
             "&::-webkit-scrollbar-track": {
-              background: "transparent",
+              background: "rgba(255, 255, 255, 0.05)",
             },
             "&::-webkit-scrollbar-thumb": {
-              background: "rgba(255, 255, 255, 0.2)",
+              background: "rgba(255, 255, 255, 0.3)",
               borderRadius: "24px",
             },
             "&::-webkit-scrollbar-thumb:hover": {
-              background: "rgba(255, 255, 255, 0.3)",
+              background: "rgba(255, 255, 255, 0.5)",
             },
           }}
         >
@@ -220,12 +234,12 @@ const Gallery = React.memo(({ images }) => {
             <Box
               key={img.id}
               flexShrink={0}
-              w={{ base: "90px", md: "100%" }}
-              h={{ base: "100%", md: "90px" }}
+              w={{ base: "60px", sm: "70px", md: "100%" }}
+              h={{ base: "100%", md: "80px", lg: "90px" }}
               cursor="pointer"
-              borderRadius="lg"
+              borderRadius={{ base: "md", md: "lg" }}
               overflow="hidden"
-              border="3px solid"
+              border={{ base: "2px solid", md: "3px solid" }}
               borderColor={
                 selectedIndex === index ? activeBorderColor : "transparent"
               }
@@ -253,46 +267,6 @@ const Gallery = React.memo(({ images }) => {
           ))}
         </Flex>
       </Flex>
-
-      {/* Modal de Zoom Premium */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={onCloseModal}
-        isCentered
-        size="full"
-        motionPreset="scale"
-      >
-        <ModalOverlay backdropFilter="blur(20px)" bg="blackAlpha.900" />
-        <ModalContent bg="transparent" boxShadow="none" m={0}>
-          <ModalCloseButton
-            color="white"
-            zIndex={10}
-            size="lg"
-            bg="blackAlpha.600"
-            rounded="full"
-            pos="absolute"
-            top={6}
-            right={6}
-            _hover={{ bg: "blackAlpha.800", transform: "scale(1.1)" }}
-          />
-          <ModalBody
-            p={0}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            h="100vh"
-          >
-            <Image
-              src={currentImage.image}
-              alt="Imagen ampliada"
-              maxH="95%"
-              maxW="95%"
-              objectFit="contain"
-              borderRadius="lg"
-            />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
     </>
   );
 });
