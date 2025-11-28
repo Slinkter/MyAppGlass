@@ -1,13 +1,13 @@
 # Documentación Técnica: Libro de Reclamaciones Virtual
 
-| Metadato                  | Detalle                                      |
-| :------------------------ | :------------------------------------------- |
-| **Proyecto**              | GYA Glass & Aluminum Web App                 |
-| **Módulo**                | Atención al Cliente / Legal                  |
-| **Versión del Documento** | 1.0.0                                        |
-| **Fecha**                 | 28/11/2025                                   |
-| **Autor**                 | Senior Fullstack Web Architect (Antigravity) |
-| **Estado**                | Implementado y Validado                      |
+| Metadato | Detalle |
+| :------------------------ | :-------------------------git ------------------ |
+| **Proyecto** | GYA Glass & Aluminum Web App |
+| **Módulo** | Atención al Cliente / Legal |
+| **Versión del Documento** | 1.0.0 |
+| **Fecha** | 28/11/2025 |
+| **Autor** | Luis Cueva |
+| **Estado** | Implementado y Validado |
 
 ---
 

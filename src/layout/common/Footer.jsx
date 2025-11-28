@@ -7,6 +7,7 @@ import {
   useColorModeValue,
   Icon,
   Heading,
+  Image,
 } from "@chakra-ui/react";
 import {
   FaWhatsapp,
@@ -17,7 +18,8 @@ import {
 } from "react-icons/fa"; // Added FaLandmark
 import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { IoBookOutline, IoDocumentTextOutline } from "react-icons/io5"; // Added IoDocumentTextOutline
+import { IoDocumentTextOutline } from "react-icons/io5"; // Added IoDocumentTextOutline
+import LibroReclamacionesIcon from "../../assets/libro.svg";
 
 const Footer = () => {
   const bgColor = useColorModeValue(
@@ -116,7 +118,7 @@ const Footer = () => {
               >
                 LINKS
               </Heading>
-              <Link to="/politicas-empresa">
+              <Link to="/politicas-empresa" style={{ textDecoration: "none" }}>
                 <HStack
                   spacing={2}
                   alignItems="center"
@@ -128,7 +130,10 @@ const Footer = () => {
                   <Text fontSize="md">Políticas de la Empresa</Text>
                 </HStack>
               </Link>
-              <Link to="/libro-de-reclamacion">
+              <Link
+                to="/libro-de-reclamacion"
+                style={{ textDecoration: "none" }}
+              >
                 <HStack
                   spacing={2}
                   alignItems="center"
@@ -136,11 +141,16 @@ const Footer = () => {
                     color: useColorModeValue("primary.600", "primary.300"),
                   }}
                 >
-                  <Icon as={IoBookOutline} />
+                  <Image
+                    src={LibroReclamacionesIcon}
+                    alt="Libro de Reclamaciones"
+                    h="30px"
+                    w="auto"
+                  />
                   <Text fontSize="md">Libro de Reclamaciones</Text>
                 </HStack>
               </Link>
-              <Link to="/cuentas-bancarias">
+              <Link to="/cuentas-bancarias" style={{ textDecoration: "none" }}>
                 <HStack
                   spacing={2}
                   alignItems="center"
