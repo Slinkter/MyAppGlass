@@ -20,12 +20,12 @@ const createAdminEmailHtml = (data) => `
       <li><strong>Email:</strong> ${data.email}</li>
       <li><strong>Teléfono:</strong> ${data.telefono}</li>
       <li><strong>Documento:</strong> ${data.tipoDocumento} - ${
-    data.numeroDocumento
+  data.numeroDocumento
 }</li>
       ${
-          data.nombrePadreMadre
-              ? `<li><strong>Padre/Madre/Tutor:</strong> ${data.nombrePadreMadre}</li>`
-              : ""
+        data.nombrePadreMadre
+          ? `<li><strong>Padre/Madre/Tutor:</strong> ${data.nombrePadreMadre}</li>`
+          : ""
       }
     </ul>
 
@@ -33,7 +33,7 @@ const createAdminEmailHtml = (data) => `
     <ul>
       <li><strong>Tipo de Bien:</strong> ${data.tipoBien}</li>
       <li><strong>Monto Reclamado:</strong> S/. ${
-          data.montoReclamado || "No especificado"
+        data.montoReclamado || "No especificado"
       }</li>
       <li><strong>Descripción:</strong> ${data.descripcionBien}</li>
     </ul>
@@ -42,10 +42,10 @@ const createAdminEmailHtml = (data) => `
     <ul>
       <li><strong>Tipo de Solicitud:</strong> ${data.tipoSolicitud}</li>
       <li><strong>Detalle:</strong> <p style="white-space: pre-wrap;">${
-          data.detalle
+        data.detalle
       }</p></li>
       <li><strong>Pedido:</strong> <p style="white-space: pre-wrap;">${
-          data.pedido
+        data.pedido
       }</p></li>
     </ul>
   </div>
@@ -73,76 +73,88 @@ const createClientEmailHtml = (data, reclamoId) => `
  * @returns {Promise<string>} El ID del correo enviado al administrador.
  */
 async function sendEmailLogic(reclamoData, admin) {
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    const db = admin.firestore(); // Initialized db here
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const db = admin.firestore(); // Initialized db here
 
-    // Validar que el email del cliente esté presente
-    if (!reclamoData.email) {
-        logger.error(
-            "reclamoData.email no está definido. No se puede enviar el correo de confirmación al cliente."
-        );
-        throw new HttpsError(
-            "invalid-argument",
-            "El email del cliente es requerido para enviar la confirmación."
-        );
-    }
+  // Validar campos obligatorios para el Libro de Reclamaciones
+  const requiredFields = [
+    "nombreCompleto",
+    "tipoDocumento",
+    "numeroDocumento",
+    "domicilio",
+    "email",
+    "telefono",
+    "tipoBien",
+    "descripcionBien",
+    "tipoSolicitud",
+    "detalle",
+    "pedido",
+  ];
 
-    // --- 1. Preparar el correo para el administrador ---
-    const adminEmailPayload = {
-        from: "noreply@gyacompany.com", // Dominio verificado en Resend
-        to: "acueva@gyacompany.com", // Tu correo
-        subject: `Nuevo ${reclamoData.tipoSolicitud} de: ${reclamoData.nombreCompleto}`,
-        html: createAdminEmailHtml(reclamoData),
+  const missingFields = requiredFields.filter((field) => !reclamoData[field]);
+
+  if (missingFields.length > 0) {
+    logger.error(`Faltan campos obligatorios: ${missingFields.join(", ")}`);
+    throw new HttpsError(
+      "invalid-argument",
+      `Faltan los siguientes campos obligatorios: ${missingFields.join(", ")}`
+    );
+  }
+
+  // --- 1. Preparar el correo para el administrador ---
+  const adminEmailPayload = {
+    from: "noreply@gyacompany.com", // Dominio verificado en Resend
+    to: "acueva@gyacompany.com", // Tu correo
+    subject: `Nuevo ${reclamoData.tipoSolicitud} de: ${reclamoData.nombreCompleto}`,
+    html: createAdminEmailHtml(reclamoData),
+  };
+
+  try {
+    // --- 2. Enviar PRIMERO el correo al administrador para obtener un ID ---
+    logger.info(`Enviando correo de reclamo a ${adminEmailPayload.to}...`);
+    const adminEmailResponse = await resend.emails.send(adminEmailPayload);
+    const reclamoId = adminEmailResponse.data.id;
+    logger.info(`Correo para admin enviado. ID: ${reclamoId}`);
+
+    // --- 3. Preparar y ENVIAR el correo de confirmación al cliente ---
+    const clientEmailPayload = {
+      from: "noreply@gyacompany.com",
+      to: reclamoData.email, // El correo del cliente
+      subject: `Confirmación de tu ${reclamoData.tipoSolicitud}`,
+      html: createClientEmailHtml(reclamoData, reclamoId),
     };
 
-    try {
-        // --- 2. Enviar PRIMERO el correo al administrador para obtener un ID ---
-        logger.info(`Enviando correo de reclamo a ${adminEmailPayload.to}...`);
-        const adminEmailResponse = await resend.emails.send(adminEmailPayload);
-        const reclamoId = adminEmailResponse.data.id;
-        logger.info(`Correo para admin enviado. ID: ${reclamoId}`);
+    logger.info(`Enviando confirmación al cliente ${clientEmailPayload.to}...`);
+    await resend.emails.send(clientEmailPayload);
+    logger.info(`Confirmación para cliente enviada.`);
 
-        // --- 3. Preparar y ENVIAR el correo de confirmación al cliente ---
-        const clientEmailPayload = {
-            from: "noreply@gyacompany.com",
-            to: reclamoData.email, // El correo del cliente
-            subject: `Confirmación de tu ${reclamoData.tipoSolicitud}`,
-            html: createClientEmailHtml(reclamoData, reclamoId),
-        };
+    // --- 4. Guardar el reclamo en Firestore ---
+    logger.info(`Guardando reclamo con ID: ${reclamoId} en Firestore...`);
+    await db
+      .collection("libro_de_reclamaciones")
+      .doc(reclamoId)
+      .set({
+        ...reclamoData,
+        reclamoId: reclamoId, // Guardamos el ID de Resend también en Firestore
+        timestamp: FieldValue.serverTimestamp(), // USE NEW IMPORT // Marca de tiempo del servidor
+      });
+    logger.info(`Reclamo ${reclamoId} guardado exitosamente en Firestore.`);
 
-        logger.info(
-            `Enviando confirmación al cliente ${clientEmailPayload.to}...`
-        );
-        await resend.emails.send(clientEmailPayload);
-        logger.info(`Confirmación para cliente enviada.`);
-
-        // --- 4. Guardar el reclamo en Firestore ---
-        logger.info(`Guardando reclamo con ID: ${reclamoId} en Firestore...`);
-        await db
-            .collection("libro_de_reclamaciones")
-            .doc(reclamoId)
-            .set({
-                ...reclamoData,
-                reclamoId: reclamoId, // Guardamos el ID de Resend también en Firestore
-                timestamp: FieldValue.serverTimestamp(), // USE NEW IMPORT // Marca de tiempo del servidor
-            });
-        logger.info(`Reclamo ${reclamoId} guardado exitosamente en Firestore.`);
-
-        // Si todo fue bien, devolvemos el ID original para el modal de éxito.
-        return reclamoId;
-    } catch (error) {
-        logger.error(
-            "Ocurrió un error durante el envío de correos o al guardar en Firestore:",
-            error
-        );
-        throw new HttpsError(
-            "internal",
-            "Una de las operaciones de envío de correo o guardado en Firestore falló.",
-            error
-        );
-    }
+    // Si todo fue bien, devolvemos el ID original para el modal de éxito.
+    return reclamoId;
+  } catch (error) {
+    logger.error(
+      "Ocurrió un error durante el envío de correos o al guardar en Firestore:",
+      error
+    );
+    throw new HttpsError(
+      "internal",
+      "Una de las operaciones de envío de correo o guardado en Firestore falló.",
+      error
+    );
+  }
 }
 
 module.exports = {
-    sendEmailLogic,
+  sendEmailLogic,
 };
