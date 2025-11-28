@@ -27,6 +27,7 @@ export default function Navbar() {
         top="6"
         zIndex="sticky"
         py={4}
+        px={{ base: 4, md: 0 }}
         display={{ base: "none", md: "block" }}
       >
         <Flex
