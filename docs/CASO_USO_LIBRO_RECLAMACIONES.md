@@ -54,43 +54,57 @@ La solución utiliza una arquitectura **Serverless** para el backend y **SPA (Si
 
 ```mermaid
 sequenceDiagram
+    autonumber
     participant U as Usuario
     participant F as Frontend (React)
     participant B as Backend (Firebase Functions)
     participant R as Resend API
     participant DB as Firestore
-    participant A as Admin (Email)
 
-    U->>F: 1. Rellena Formulario y Click "Enviar"
-    F->>F: 2. Valida campos obligatorios (useReclamoForm)
+    Note over U, F: Inicio del Flujo
+
+    U->>F: Completa Formulario y Click "Enviar"
+    F->>F: Validación Local (useReclamoForm)
 
     alt Datos Inválidos
-        F-->>U: Muestra errores en UI
+        F-->>U: Muestra errores de validación
     else Datos Válidos
-        F->>B: 3. POST /sendContactEmail (JSON)
+        F->>B: POST /sendContactEmail (payload)
         activate B
 
-        B->>B: 4. Valida integridad de datos (emailSender.js)
+        B->>B: Validación Backend (emailSender.js)
 
-        alt Datos Incompletos
-            B-->>F: Error 400 (Bad Request)
-            F-->>U: Notifica error
-        else Datos Completos
-            B->>R: 5. Enviar Email Admin
-            R-->>A: Entrega Correo
-            R-->>B: Retorna ID de Email (reclamoId)
+        alt Datos Incompletos / Error
+            B-->>F: Error 400 / 500
+            F-->>U: Muestra mensaje de error
+        else Datos Correctos
+            rect rgb(240, 255, 240)
+                Note right of B: Procesamiento Secuencial
+                
+                %% 1. Email Admin
+                B->>R: Enviar Email al Admin
+                activate R
+                R-->>B: Retorna ID (reclamoId)
+                deactivate R
+                
+                %% 2. Email Cliente
+                B->>R: Enviar Confirmación al Cliente
+                activate R
+                R-->>B: Confirmación de Envío
+                deactivate R
 
-            B->>R: 6. Enviar Email Confirmación Cliente
-            R-->>U: Entrega Correo
+                %% 3. Guardar en Firestore
+                B->>DB: Guardar Reclamo (ID: reclamoId)
+                activate DB
+                DB-->>B: Confirmación de Guardado
+                deactivate DB
+            end
 
-            B->>DB: 7. Guardar Documento (ID: reclamoId)
-            DB-->>B: Confirmación de Guardado
-
-            B-->>F: 8. Respuesta 200 OK + reclamoId
+            B-->>F: Respuesta 200 OK + reclamoId
         end
         deactivate B
 
-        F->>U: 9. Muestra Modal de Éxito con Código
+        F->>U: Muestra Modal de Éxito (con reclamoId)
     end
 ```
 
