@@ -45,7 +45,7 @@ const Gallery = React.memo(({ images }) => {
     setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  const activeBorderColor = useColorModeValue("blue.500", "blue.300");
+  const activeBorderColor = useColorModeValue("red.500", "red.300");
   const dotColor = useColorModeValue("gray.300", "whiteAlpha.400");
   const dotActiveColor = useColorModeValue("blue.600", "blue.300");
 
@@ -53,7 +53,12 @@ const Gallery = React.memo(({ images }) => {
     return null;
   }
 
-  const currentImage = images[selectedIndex];
+  // Validación de seguridad: Asegurar que el índice esté dentro de los límites
+  // Esto previene crashes cuando cambiamos de una lista larga a una corta
+  const safeIndex = selectedIndex >= images.length ? 0 : selectedIndex;
+  const currentImage = images[safeIndex];
+
+  if (!currentImage) return null;
 
   return (
     <>
@@ -203,63 +208,45 @@ const Gallery = React.memo(({ images }) => {
         {/* 2. Carrusel de Miniaturas */}
         <Flex
           direction={{ base: "row", md: "column" }}
-          gap={{ base: 1, md: 2 }}
-          w={{ base: "100%", md: "100px", lg: "120px" }}
+          gap={{ base: 2, md: 2 }}
+          w={{ base: "100%", md: "100px", lg: "100px" }}
           h={{ base: "60px", sm: "70px", md: "100%" }}
           minW={0}
           maxW="100%"
           scrollBehavior="smooth"
           overflowX={{ base: "auto", md: "hidden" }}
-          overflowY={{ base: "hidden", md: "auto" }}
-          pr={{ base: 0, md: 1 }}
-          pb={{ base: 2, md: 0 }}
-          css={{
-            "&::-webkit-scrollbar": {
-              width: "4px",
-              height: "6px",
-            },
-            "&::-webkit-scrollbar-track": {
-              background: "rgba(255, 255, 255, 0.05)",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              background: "rgba(255, 255, 255, 0.3)",
-              borderRadius: "24px",
-            },
-            "&::-webkit-scrollbar-thumb:hover": {
-              background: "rgba(255, 255, 255, 0.5)",
-            },
-          }}
+          overflowY={{ base: "hidden", md: "scroll" }}
         >
           {images.map((img, index) => (
             <Box
               key={img.id}
               flexShrink={0}
-              w={{ base: "60px", sm: "70px", md: "100%" }}
+              w={{ base: "60px", sm: "70px", md: "90%" }}
               h={{ base: "100%", md: "80px", lg: "90px" }}
               cursor="pointer"
-              borderRadius={{ base: "md", md: "lg" }}
-              overflow="hidden"
-              border={{ base: "2px solid", md: "3px solid" }}
+              borderRadius={{ base: "lg", md: "lg" }}
               borderColor={
-                selectedIndex === index ? activeBorderColor : "transparent"
+                selectedIndex === index ? "transparent" : activeBorderColor
               }
               transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-              _hover={{
-                borderColor: activeBorderColor,
-                transform: "scale(1.05)",
-                boxShadow: "lg",
-              }}
               onClick={() => setSelectedIndex(index)}
               position="relative"
+              overflow="hidden"
+              _hover={{
+                borderColor: activeBorderColor,
+                boxShadow: "lg",
+                border: "1px solid",
+              }}
             >
               <Image
-                src={img.image}
-                alt={`Miniatura ${index + 1}`}
                 w="100%"
                 h="100%"
+                src={img.image}
+                overflow="hidden"
+                alt={`Miniatura ${index + 1}`}
                 objectFit="cover"
                 loading="lazy"
-                opacity={selectedIndex === index ? 1 : 0.6}
+                opacity={selectedIndex === index ? 1 : 0.5}
                 transition="opacity 0.3s ease"
                 _hover={{ opacity: 1 }}
               />

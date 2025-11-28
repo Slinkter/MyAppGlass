@@ -1,14 +1,16 @@
+import React, { Suspense } from "react";
 import { useParams } from "react-router-dom";
-import ServicePageLayout from "./ServicePageLayout";
 import { servicePageDataMap } from "@/data/servicePageDataMap";
-import ErrorDisplay from "@/components/common/ErrorDisplay"; // Assuming you have an ErrorDisplay component
+import ErrorDisplay from "@/components/common/ErrorDisplay";
+import ServiceSkeleton from "./components/ServiceSkeleton";
+
+// Lazy load del layout para mejorar el tiempo de carga inicial
+const ServicePageLayout = React.lazy(() => import("./ServicePageLayout"));
 
 /**
  * @component ServicePageContainer
- * @description A container component that dynamically loads service page data
- * based on the URL slug and renders the ServicePageLayout.
- * This component replaces the individual *Page.jsx files, centralizing data loading.
- * @returns {JSX.Element} The rendered ServicePageLayout with dynamic data, or an error message.
+ * @description Contenedor que maneja la carga de datos y la carga diferida (lazy loading)
+ * del layout de la página de servicios.
  */
 const ServicePageContainer = () => {
   const { serviceSlug } = useParams();
@@ -22,7 +24,11 @@ const ServicePageContainer = () => {
     );
   }
 
-  return <ServicePageLayout pageData={pageData} />;
+  return (
+    <Suspense fallback={<ServiceSkeleton />}>
+      <ServicePageLayout pageData={pageData} />
+    </Suspense>
+  );
 };
 
 export default ServicePageContainer;
