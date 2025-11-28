@@ -70,11 +70,12 @@ const createClientEmailHtml = (data, reclamoId) => `
 /**
  * Lógica de negocio para enviar los correos de reclamo.
  * @param {object} reclamoData - Los datos completos del formulario.
+ * @param {object} admin - Instancia de firebase-admin.
  * @returns {Promise<string>} El ID del correo enviado al administrador.
  */
 async function sendEmailLogic(reclamoData, admin) {
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const db = admin.firestore(); // Initialized db here
+  const db = admin.firestore();
 
   // Validar campos obligatorios para el Libro de Reclamaciones
   const requiredFields = [
@@ -89,6 +90,8 @@ async function sendEmailLogic(reclamoData, admin) {
     "tipoSolicitud",
     "detalle",
     "pedido",
+    "aceptaTerminos",
+    "autorizaEmail",
   ];
 
   const missingFields = requiredFields.filter((field) => !reclamoData[field]);
@@ -98,6 +101,18 @@ async function sendEmailLogic(reclamoData, admin) {
     throw new HttpsError(
       "invalid-argument",
       `Faltan los siguientes campos obligatorios: ${missingFields.join(", ")}`
+    );
+  }
+
+  // Validar consentimientos explícitos (deben ser true)
+  if (
+    reclamoData.aceptaTerminos !== true ||
+    reclamoData.autorizaEmail !== true
+  ) {
+    logger.error("El usuario no aceptó los términos o no autorizó el email.");
+    throw new HttpsError(
+      "permission-denied",
+      "Debe aceptar los términos y autorizar el envío de la respuesta por email."
     );
   }
 
@@ -136,7 +151,7 @@ async function sendEmailLogic(reclamoData, admin) {
       .set({
         ...reclamoData,
         reclamoId: reclamoId, // Guardamos el ID de Resend también en Firestore
-        timestamp: FieldValue.serverTimestamp(), // USE NEW IMPORT // Marca de tiempo del servidor
+        timestamp: FieldValue.serverTimestamp(), // Marca de tiempo del servidor
       });
     logger.info(`Reclamo ${reclamoId} guardado exitosamente en Firestore.`);
 

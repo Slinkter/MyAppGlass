@@ -318,6 +318,17 @@ const ReclamoForm = () => {
               consignado en un plazo no mayor a 15 días hábiles, según el D.S.
               N° 006-2014-PCM.
             </Text>
+            <FormControl isRequired isInvalid={!!errors.autorizaEmail} mb={4}>
+              <Checkbox
+                name="autorizaEmail"
+                isChecked={formData.autorizaEmail}
+                onChange={handleInputsChange}
+              >
+                Autorizo que la respuesta a mi reclamo sea enviada al correo
+                electrónico consignado.
+              </Checkbox>
+              <FormErrorMessage>{errors.autorizaEmail}</FormErrorMessage>
+            </FormControl>
             <FormControl isRequired isInvalid={!!errors.aceptaTerminos}>
               <Checkbox
                 name="aceptaTerminos"
