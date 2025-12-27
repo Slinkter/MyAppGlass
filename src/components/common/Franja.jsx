@@ -29,7 +29,6 @@ const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
             border="none" // SIN borde
             boxShadow="lg" // SIN shadow
             borderRadius="2xl"
-            transition="all 0.3s ease"
         >
             <Container maxW="7xl" px={{ base: 4, md: 8 }}>
                 {" "}

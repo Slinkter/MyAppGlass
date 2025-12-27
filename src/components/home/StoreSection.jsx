@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     AspectRatio,
     Box,
@@ -6,6 +6,7 @@ import {
     Container,
     Flex,
     useColorModeValue,
+    Spinner,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
 import Franja from "@/components/common/Franja";
@@ -19,6 +20,8 @@ import { FaMapLocationDot } from "react-icons/fa6";
  * @returns {JSX.Element}
  */
 const StoreSection = React.memo(() => {
+    const [isMapLoaded, setIsMapLoaded] = useState(false);
+
     const buttonBg = useColorModeValue(
         "rgba(255, 255, 255, 0.4)",
         "rgba(0, 0, 0, 0.4)"
@@ -32,6 +35,8 @@ const StoreSection = React.memo(() => {
         "rgba(0, 0, 0, 0.8)"
     );
     const textColor = useColorModeValue("gray.800", "white");
+    const spinnerColor = useColorModeValue("primary.500", "primary.300");
+    const spinnerBg = useColorModeValue("gray.100", "gray.800");
 
     return (
         <Box
@@ -44,27 +49,61 @@ const StoreSection = React.memo(() => {
                 text="Av. Los Fresnos MZ. H LT. 1250 - La Molina - Lima"
                 minHeight="20vh"
             />
-            <Container maxW={"7xl"} mt={12} mb={12} mx={0} px={0}>
+            <Container maxW={"7xl"} mt={12} mb={12} px={{ base: 4, md: 8 }}>
                 <Flex
                     alignItems="center"
                     justifyContent="center"
                     minHeight={{ base: "auto", md: "auto" }}
-                    flexDir="column" // Contenedor de cristal
+                    flexDir="column"
                     textAlign={"center"}
                 >
-                    <AspectRatio
-                        ratio={16 / 9}
+                    <Box
+                        position="relative"
                         width={{ base: "full", md: "full" }}
-                        height={{ base: "auto", md: "600px" }}
-                        rounded="lg"
+                        rounded="2xl"
                         overflow="hidden"
-                        boxShadow="lg"
+                        boxShadow="xl"
+                        bg={spinnerBg}
                     >
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7802.259991971398!2d-76.94203500000003!3d-12.103251999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c714bd26b5ab%3A0xc27e03d844952799!2sGlass%20%26%20Aluminum%20Company!5e0!3m2!1sen!2spe!4v1704232992639!5m2!1sen!2spe"
-                            allowFullScreen
-                        />
-                    </AspectRatio>
+                        <AspectRatio
+                            ratio={16 / 9}
+                            width="full"
+                            height={{ base: "auto", md: "600px" }}
+                        >
+                            <>
+                                {!isMapLoaded && (
+                                    <Flex
+                                        position="absolute"
+                                        top="0"
+                                        left="0"
+                                        right="0"
+                                        bottom="0"
+                                        align="center"
+                                        justify="center"
+                                        zIndex={1}
+                                    >
+                                        <Spinner
+                                            size="xl"
+                                            color={spinnerColor}
+                                            thickness="4px"
+                                            emptyColor="gray.200"
+                                        />
+                                    </Flex>
+                                )}
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7802.259991971398!2d-76.94203500000003!3d-12.103251999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c714bd26b5ab%3A0xc27e03d844952799!2sGlass%20%26%20Aluminum%20Company!5e0!3m2!1sen!2spe!4v1704232992639!5m2!1sen!2spe"
+                                    allowFullScreen
+                                    loading="lazy"
+                                    onLoad={() => setIsMapLoaded(true)}
+                                    style={{
+                                        opacity: isMapLoaded ? 1 : 0,
+                                        transition: "opacity 0.6s ease-in-out",
+                                        border: 0,
+                                    }}
+                                />
+                            </>
+                        </AspectRatio>
+                    </Box>
                     <Link
                         href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
                         isExternal

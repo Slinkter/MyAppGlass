@@ -29,11 +29,18 @@ const ServiceSkeleton = () => {
                 {/* CARD 1: SKELETON DEL SIDEBAR */}
                 <GridItem w="100%" minW={0}>
                     <GlassCard
-                        h={{ base: "auto", lg: "85vh" }}
                         display="flex"
                         flexDirection="column"
+                        h={{ base: "auto", lg: "85vh" }}
+                        overflow={{ base: "visible", lg: "hidden" }}
+                        w="100%"
+                        p={4}
                     >
-                        <VStack spacing={6} align="stretch" flex="1">
+                        <VStack
+                            spacing={{ base: 4, md: 5, lg: 6 }}
+                            align="stretch"
+                            flex="1"
+                        >
                             {/* Título del Servicio */}
                             <Box>
                                 <Skeleton
@@ -113,6 +120,7 @@ const ServiceSkeleton = () => {
                             md: "500px",
                             lg: "85vh",
                         }}
+                        overflow="hidden"
                         p={{ base: 2, md: 4, lg: 6 }}
                     >
                         <VStack h="100%" spacing={4}>

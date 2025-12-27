@@ -11,19 +11,24 @@ import {
     useColorModeValue,
     useDisclosure,
     Icon,
+    Skeleton,
 } from "@chakra-ui/react";
 import FadingImage from "@/components/common/FadingImage";
 import ProjectDetailModal from "./ProjectDetailModal";
 
-/**
- * ProjectCard Component
- * Muestra una tarjeta de proyecto con detalles (dirección, año) y un modal de mapa.
- */
 const ProjectCard = React.memo(
-    ({ image, residencial, address, year, g_maps, name }) => {
+    ({
+        image,
+        residencial,
+        address,
+        year,
+        g_maps,
+        name,
+        isLoading,
+        photosObra = [],
+    }) => {
         const { isOpen, onOpen, onClose } = useDisclosure();
 
-        // Configuración centralizada de estilos
         const styles = {
             bg: useColorModeValue(
                 "rgba(255, 255, 255, 0.25)",
@@ -59,78 +64,120 @@ const ProjectCard = React.memo(
                     borderRadius="2xl"
                     boxShadow="lg"
                     color={styles.text}
-                    transition="all 0.3s ease"
-                    _hover={{
-                        transform: "scale(1.02)",
-                        boxShadow: "xl",
-                    }}
+                    transition="transform 0.3s ease, box-shadow 0.3s ease"
+                    _hover={
+                        !isLoading && {
+                            transform: "scale(1.02)",
+                            boxShadow: "xl",
+                        }
+                    }
+                    borderWidth="1px"
+                    borderColor={styles.border}
                 >
-                    <FadingImage
-                        w="full"
-                        h={{ base: "320px", md: "325px" }}
-                        src={image}
-                        alt={`Obra ${residencial}`}
-                        objectFit="cover"
-                        showOverlay={false} // Deshabilitar overlay de texto y botón
-                    />
+                    {isLoading ? (
+                        <Skeleton
+                            height={{ base: "320px", md: "325px" }}
+                            w="full"
+                            borderRadius="none"
+                        />
+                    ) : (
+                        <FadingImage
+                            w="full"
+                            h={{ base: "320px", md: "325px" }}
+                            src={image}
+                            alt={`Obra ${residencial}`}
+                            objectFit="cover"
+                            showOverlay={false}
+                        />
+                    )}
 
                     <Stack p={4} spacing={3}>
-                        <Heading
-                            size="md"
-                            textTransform="uppercase"
-                            color={styles.heading}
-                            textAlign="center"
-                        >
-                            {residencial}
-                        </Heading>
-
-                        <Stack spacing={2} fontSize="sm">
-                            <Flex alignItems="center">
-                                <Icon
-                                    as={MapPinIcon}
-                                    w={5}
-                                    h={5}
-                                    mr={2}
-                                    color={styles.icon}
+                        {isLoading ? (
+                            <>
+                                {/* Heading Skeleton */}
+                                <Skeleton height="24px" width="60%" mx="auto" />
+                                {/* Details Skeleton */}
+                                <Stack spacing={2}>
+                                    <Flex alignItems="center">
+                                        <Skeleton boxSize="20px" mr={2} />
+                                        <Skeleton height="16px" width="80%" />
+                                    </Flex>
+                                    <Flex alignItems="center">
+                                        <Skeleton boxSize="20px" mr={2} />
+                                        <Skeleton height="16px" width="40%" />
+                                    </Flex>
+                                </Stack>
+                                {/* Button Skeleton */}
+                                <Skeleton
+                                    height="40px"
+                                    width="full"
+                                    borderRadius="md"
+                                    mt={2}
                                 />
-                                <Text noOfLines={1}>{address}</Text>
-                            </Flex>
-                            <Flex alignItems="center">
-                                <Icon
-                                    as={CalendarDaysIcon}
-                                    w={5}
-                                    h={5}
-                                    mr={2}
-                                    color={styles.icon}
-                                />
-                                <Text>{year}</Text>
-                            </Flex>
-                        </Stack>
+                            </>
+                        ) : (
+                            <>
+                                <Heading
+                                    size="md"
+                                    textTransform="uppercase"
+                                    color={styles.heading}
+                                    textAlign="center"
+                                >
+                                    {residencial}
+                                </Heading>
 
-                        <Button
-                            onClick={onOpen}
-                            rightIcon={<ArrowForwardIcon />}
-                            variant="solid"
-                            width="full"
-                            bg={styles.btnBg}
-                            color={styles.text}
-                            _hover={{ bg: styles.btnHover }}
-                            mt={2}
-                        >
-                            Ver en Google Maps
-                        </Button>
+                                <Stack spacing={2} fontSize="sm">
+                                    <Flex alignItems="center">
+                                        <Icon
+                                            as={MapPinIcon}
+                                            w={5}
+                                            h={5}
+                                            mr={2}
+                                            color={styles.icon}
+                                        />
+                                        <Text noOfLines={1}>{address}</Text>
+                                    </Flex>
+                                    <Flex alignItems="center">
+                                        <Icon
+                                            as={CalendarDaysIcon}
+                                            w={5}
+                                            h={5}
+                                            mr={2}
+                                            color={styles.icon}
+                                        />
+                                        <Text>{year}</Text>
+                                    </Flex>
+                                </Stack>
+
+                                <Button
+                                    onClick={onOpen}
+                                    rightIcon={<ArrowForwardIcon />}
+                                    variant="solid"
+                                    width="full"
+                                    bg={styles.btnBg}
+                                    color={styles.text}
+                                    _hover={{ bg: styles.btnHover }}
+                                    mt={2}
+                                >
+                                    Ver en Google Maps
+                                </Button>
+                            </>
+                        )}
                     </Stack>
                 </Box>
 
-                <ProjectDetailModal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    residencial={residencial}
-                    name={name}
-                    address={address}
-                    year={year}
-                    g_maps={g_maps}
-                />
+                {!isLoading && (
+                    <ProjectDetailModal
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        residencial={residencial}
+                        name={name}
+                        address={address}
+                        year={year}
+                        g_maps={g_maps}
+                        photos={photosObra}
+                    />
+                )}
             </>
         );
     }

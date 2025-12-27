@@ -121,7 +121,7 @@ const Gallery = React.memo(({ images }) => {
                                 top="50%"
                                 transform="translateY(-50%)"
                                 onClick={handleNext}
-                                opacity={isHovered ? 1 : 0}
+                                opacity={{ base: 1, md: isHovered ? 1 : 0 }}
                                 transition="opacity 0.3s ease"
                                 bg="blackAlpha.600"
                                 color="white"

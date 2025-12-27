@@ -38,7 +38,7 @@ const ServiceCard = React.memo(({ image, name, plink }) => {
             borderColor={styles.border}
             boxShadow="lg"
             color={styles.text}
-            transition="all 0.3s ease"
+            transition="transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease"
             _hover={{
                 transform: "scale(1.02)",
                 boxShadow: "xl",

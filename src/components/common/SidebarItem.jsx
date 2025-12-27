@@ -25,7 +25,7 @@ const SidebarItem = React.memo(({ icon, label, onClick, isActive }) => {
                 color={isActive ? activeColor : inactiveColor}
                 // Use transform for smooth GPU-accelerated movement instead of padding shifts
                 transform={isActive ? "translateX(4px)" : "none"}
-                transition="all 0.2s ease-out"
+                transition="background 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out"
                 tabIndex={onClick ? 0 : -1}
                 role={onClick ? "button" : "presentation"}
                 aria-current={isActive ? "page" : undefined}

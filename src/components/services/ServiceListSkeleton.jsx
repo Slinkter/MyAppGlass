@@ -1,11 +1,10 @@
 import React from "react";
 import {
     Container,
-    Flex,
+    SimpleGrid,
     Skeleton,
-    SkeletonText,
     Box,
-    Stack,
+    useColorModeValue,
 } from "@chakra-ui/react";
 
 /**
@@ -14,56 +13,47 @@ import {
  * @returns {JSX.Element}
  */
 const ServiceListSkeleton = () => {
-    const renderSkeletons = () => {
-        return Array.from({ length: 6 }).map((_, index) => (
-            <Box
-                key={index}
-                w="375px"
-                maxW={{ base: "full", md: "375px" }}
-                mb={4}
-                bg="whiteAlpha.200"
-                backdropFilter="blur(10px)"
-                border="1px solid"
-                borderColor="whiteAlpha.300"
-                shadow="lg"
-                rounded="xl"
-                overflow="hidden"
-                p={4}
-            >
-                <Skeleton height="320px" borderRadius="lg" mb="4" />
-                <Stack mt="2" spacing="2">
-                    <Flex justifyContent="space-between" alignItems="center">
-                        <Box>
-                            <SkeletonText
-                                noOfLines={1}
-                                skeletonHeight="20px"
-                                width="100px"
-                            />
-                        </Box>
-                        <Skeleton height="40px" width="100px" />
-                    </Flex>
-                </Stack>
-            </Box>
-        ));
-    };
+    // Styles matching ServiceCard
+    const cardBorderColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.25)",
+        "rgba(0, 0, 0, 0.25)"
+    );
+    const cardBg = useColorModeValue(
+        "rgba(255, 255, 255, 0.25)",
+        "rgba(0, 0, 0, 0.25)"
+    );
 
     return (
-        <Container maxW={"8xl"} my={6} textAlign="center">
+        <Container maxW="7xl" my={6} p={0} mx={0} textAlign="center">
             {/* Title Skeleton */}
-            <Skeleton height="40px" width="200px" mx="auto" mb={2} mt={4} />
+            <Skeleton height="50px" width="300px" mx="auto" mb={2} mt={4} />
             {/* Subtitle Skeleton */}
-            <Skeleton height="24px" width="300px" mx="auto" mb={10} />
+            <Skeleton height="30px" width="400px" mx="auto" mb={10} />
 
-            <Flex
-                direction={{ base: "column", md: "row" }}
-                flexWrap={"wrap"}
-                justifyContent={"center"}
-                alignItems={"center"}
-                mx={"auto"}
-                gap={6}
-            >
-                {renderSkeletons()}
-            </Flex>
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+                {Array.from({ length: 6 }).map((_, index) => (
+                    <Box
+                        key={index}
+                        w="full"
+                        maxW={{ base: "full", md: "md" }}
+                        h="auto"
+                        mb={4}
+                        overflow="hidden"
+                        bg={cardBg}
+                        backdropFilter="blur(10px)"
+                        borderRadius="2xl"
+                        borderWidth="1px"
+                        borderColor={cardBorderColor}
+                        boxShadow="lg"
+                    >
+                        <Skeleton
+                            height={{ base: "320px", md: "385px" }}
+                            w="full"
+                            borderRadius="none"
+                        />
+                    </Box>
+                ))}
+            </SimpleGrid>
         </Container>
     );
 };
