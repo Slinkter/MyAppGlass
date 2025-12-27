@@ -29,9 +29,9 @@ const Gallery = React.memo(({ images }) => {
         imageCount,
     } = useGallery(images);
 
-    const activeBorderColor = useColorModeValue("red.500", "red.300");
+    const activeBorderColor = useColorModeValue("primary.500", "primary.300");
     const dotColor = useColorModeValue("gray.300", "whiteAlpha.400");
-    const dotActiveColor = useColorModeValue("blue.600", "blue.300");
+    const dotActiveColor = useColorModeValue("primary.600", "primary.300");
 
     if (!images || imageCount === 0) {
         return null;
@@ -74,6 +74,7 @@ const Gallery = React.memo(({ images }) => {
                             w="100%"
                             h="100%"
                             objectFit="cover"
+                            showOverlay={false} // Deshabilitar overlay de texto y botón
                             transition="transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
                             transform={isHovered ? "scale(1.05)" : "scale(1)"}
                         />

@@ -22,7 +22,7 @@ const ServiceCard = React.memo(({ image, name, plink }) => {
             "rgba(193, 20, 20, 0.13)",
             "rgba(193, 20, 20, 0.13)"
         ),
-        btnText: useColorModeValue("red.700", "red.300"),
+        btnText: useColorModeValue("primary.700", "primary.300"),
     };
 
     return (
@@ -42,7 +42,7 @@ const ServiceCard = React.memo(({ image, name, plink }) => {
             _hover={{
                 transform: "scale(1.02)",
                 boxShadow: "xl",
-                color: "red.500",
+                color: "primary.500",
             }}
         >
             <FadingImage
