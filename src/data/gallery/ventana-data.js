@@ -19,9 +19,9 @@ import img_serie_0304 from "@/assets/services/products/01.Ventanas/serie/IMG_030
 import img_serie_0303 from "@/assets/services/products/01.Ventanas/serie/IMG_0303.jpeg";
 import img_serie_9209 from "@/assets/services/products/01.Ventanas/serie/IMG_9209.jpeg";
 /* serie31 */
-import img_serie31_110742 from "@/assets/services/products/01.Ventanas/serie31/IMG_20211026_110742.jpeg";
-import img_serie31_110803 from "@/assets/services/products/01.Ventanas/serie31/IMG_20211026_110803.jpeg";
-import img_serie31_114159 from "@/assets/services/products/01.Ventanas/serie31/IMG_20211026_114159.jpeg";
+import img_serie_110742 from "@/assets/services/products/01.Ventanas/serie31/IMG_20211026_110742.jpeg";
+import img_serie_110803 from "@/assets/services/products/01.Ventanas/serie31/IMG_20211026_110803.jpeg";
+import img_serie_114159 from "@/assets/services/products/01.Ventanas/serie31/IMG_20211026_114159.jpeg";
 
 const _rawListVentana = {
     nova: [
@@ -52,9 +52,9 @@ const _rawListVentana = {
         { id: 8, image: img_serie_9209, name: "vs25_08" },
     ],
     serie31: [
-        { id: 1, image: img_serie31_110742, name: "vs31_01" },
-        { id: 2, image: img_serie31_110803, name: "vs31_02" },
-        { id: 3, image: img_serie31_114159, name: "vs31_03" },
+        { id: 1, image: img_serie_110742, name: "vs31_01" },
+        { id: 2, image: img_serie_110803, name: "vs31_02" },
+        { id: 3, image: img_serie_114159, name: "vs31_03" },
     ],
 };
 

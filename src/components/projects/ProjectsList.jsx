@@ -9,7 +9,6 @@ import { getProjects } from "@/services/projectService";
  * @component ProjectsList
  * @description Lista de proyectos usando el componente genérico ItemGridLayout.
  * Muestra todos los proyectos completados en orden inverso (más recientes primero).
- *
  * @returns {JSX.Element} Grid de proyectos con SEO y loading state
  */
 const ProjectsList = React.memo(() => {
@@ -34,7 +33,7 @@ const ProjectsList = React.memo(() => {
     }, []);
 
     // Invertir el orden de proyectos para mostrar los más recientes primero
-    const reversedProjects = useMemo(() => [...projects].reverse(), [projects]);
+    const itemsInfo = useMemo(() => [...projects].reverse(), [projects]);
 
     return (
         <DataLoader
@@ -45,11 +44,11 @@ const ProjectsList = React.memo(() => {
             <ItemGridLayout
                 title="PROYECTOS"
                 subtitle="Obras Entregadas"
-                items={reversedProjects}
-                ItemComponent={ProjectCard}
                 seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
                 seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
                 seoCanonicalUrl="https://www.gyacompany.com/proyectos"
+                ItemComponent={ProjectCard}
+                items={itemsInfo}
             />
         </DataLoader>
     );
