@@ -39,6 +39,12 @@ const theme = extendTheme({
             // Semantic color for text
             secondary: "#6c757d",
         },
+        franja: {
+            bg: {
+                light: "rgba(255, 255, 255, 0.1)",
+                dark: "rgba(0, 0, 0, 0.1)",
+            },
+        },
     },
     radii: {
         // Custom border radii tokens
@@ -51,7 +57,7 @@ const theme = extendTheme({
         // Example: 'sectionPadding': '4rem',
     },
     config: {
-        initialColorMode: "system",
+        initialColorMode: "dark",
         useSystemColorMode: false,
     },
     styles: {
@@ -75,7 +81,7 @@ const theme = extendTheme({
                     WebkitBackdropFilter: "blur(10px)",
                     border: "none",
                     borderRadius: "2xl", // Matches Navbar's borderRadius
-                    boxShadow: "sm",     // Matches Navbar's boxShadow
+                    boxShadow: "sm", // Matches Navbar's boxShadow
                     transition: "all 0.3s ease",
                 }),
             },

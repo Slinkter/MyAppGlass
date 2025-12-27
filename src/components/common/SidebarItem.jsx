@@ -6,15 +6,9 @@ import { Stack, Icon, Text, useColorModeValue, Box } from "@chakra-ui/react";
  * Con indicador visual elegante y animaciones suaves
  */
 const SidebarItem = React.memo(({ icon, label, onClick, isActive }) => {
-    const activeBg = useColorModeValue(
-        "rgba(59, 130, 246, 0.1)",
-        "rgba(59, 130, 246, 0.15)"
-    );
-    const activeColor = useColorModeValue("blue.600", "blue.300");
-    const hoverBg = useColorModeValue(
-        "rgba(59, 130, 246, 0.05)",
-        "rgba(59, 130, 246, 0.08)"
-    );
+    const activeBg = useColorModeValue("primary.50", "whiteAlpha.200");
+    const activeColor = useColorModeValue("primary.600", "primary.300");
+    const hoverBg = useColorModeValue("primary.50", "whiteAlpha.100");
     const inactiveColor = useColorModeValue("gray.700", "gray.300");
 
     return (
@@ -24,23 +18,29 @@ const SidebarItem = React.memo(({ icon, label, onClick, isActive }) => {
                 justifyContent="flex-start"
                 align="flex-start"
                 p={3}
-                pl={isActive ? 5 : 3}
                 rounded="xl"
                 onClick={onClick}
                 cursor={onClick ? "pointer" : "default"}
                 bg={isActive ? activeBg : "transparent"}
                 color={isActive ? activeColor : inactiveColor}
-                transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                // Use transform for smooth GPU-accelerated movement instead of padding shifts
+                transform={isActive ? "translateX(4px)" : "none"}
+                transition="all 0.2s ease-out"
                 tabIndex={onClick ? 0 : -1}
                 role={onClick ? "button" : "presentation"}
                 aria-current={isActive ? "page" : undefined}
                 _hover={{
                     bg: onClick ? hoverBg : "transparent",
+                    // Consistent indentation on hover/active prevents "jumping"
                     transform: onClick ? "translateX(4px)" : "none",
-                    pl: onClick ? (isActive ? 5 : 4) : 3,
                 }}
                 _active={{
-                    transform: onClick ? "scale(0.98)" : "none",
+                    // Subtle scale effect on click, maintaining indentation if active
+                    transform: onClick
+                        ? isActive
+                            ? "translateX(4px) scale(0.98)"
+                            : "translateX(4px) scale(0.98)"
+                        : "none",
                 }}
             >
                 <Icon

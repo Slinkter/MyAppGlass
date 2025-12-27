@@ -17,10 +17,7 @@ import {
  * @returns {JSX.Element}
  */
 const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
-    const bgColor = useColorModeValue(
-        "rgba(255, 255, 255, 0.1)",
-        "rgba(0, 0, 0, 0.1)"
-    ); // More subtle background
+    const bgColor = useColorModeValue("franja.bg.light", "franja.bg.dark");
     const headingColor = useColorModeValue("gray.900", "white");
     const textColor = useColorModeValue("gray.800", "gray.200");
 

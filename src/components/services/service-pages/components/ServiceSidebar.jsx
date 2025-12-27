@@ -5,8 +5,6 @@ import {
     Stack,
     VStack,
     Text,
-    HStack,
-    Icon,
     Divider,
     Button,
     useColorModeValue,
@@ -14,10 +12,8 @@ import {
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import SidebarItem from "@/components/common/SidebarItem";
 import GlassCard from "@/components/common/GlassCard";
+import SpecItem from "./SpecItem";
 
-/**
- * Panel lateral con información del servicio, navegación de sistemas y especificaciones.
- */
 const ServiceSidebar = (props) => {
     const {
         seo,
@@ -30,10 +26,8 @@ const ServiceSidebar = (props) => {
 
     const headingColor = useColorModeValue("gray.900", "white");
     const textColor = useColorModeValue("gray.600", "gray.400");
-    const accentColor = useColorModeValue("blue.600", "blue.300");
+    const accentColor = useColorModeValue("primary.600", "primary.300");
     const borderColor = useColorModeValue("whiteAlpha.300", "whiteAlpha.100");
-    const itemBg = useColorModeValue("whiteAlpha.200", "whiteAlpha.50");
-    const iconBg = useColorModeValue("blue.50", "whiteAlpha.100");
 
     return (
         <GlassCard
@@ -89,51 +83,18 @@ const ServiceSidebar = (props) => {
                         >
                             Especificaciones Técnicas
                         </Text>
-                        <Stack spacing={3}>
-                            {features.map((item, index) => (
-                                <HStack
-                                    key={index}
-                                    p={3}
-                                    bg={itemBg}
-                                    borderRadius="lg"
-                                    border="1px solid"
-                                    borderColor={borderColor}
-                                    align="center"
-                                    justify="space-between"
-                                    spacing={4}
-                                >
-                                    <HStack spacing={3} align="center" flex="1">
-                                        <Box
-                                            p={2}
-                                            bg={iconBg}
-                                            color={accentColor}
-                                            borderRadius="md"
-                                        >
-                                            <Icon as={item.icon} w={4} h={4} />
-                                        </Box>
-                                        <Text
-                                            fontSize="sm"
-                                            fontWeight="medium"
-                                            color={textColor}
-                                            whiteSpace="normal"
-                                            wordBreak="break-word"
-                                        >
-                                            {item.label.split(":")[0]}
-                                        </Text>
-                                    </HStack>
-                                    <Text
-                                        fontSize="sm"
-                                        fontWeight="bold"
-                                        color={headingColor}
-                                        textAlign="right"
-                                        whiteSpace="normal"
-                                        wordBreak="break-word"
-                                        maxW="40%"
-                                    >
-                                        {item.label.split(":")[1] || "Estándar"}
-                                    </Text>
-                                </HStack>
-                            ))}
+                        <Stack spacing={2}>
+                            {features.map((item, index) => {
+                                const [label, value] = item.label.split(":");
+                                return (
+                                    <SpecItem
+                                        key={index}
+                                        icon={item.icon}
+                                        label={label}
+                                        value={value || "Estándar"}
+                                    />
+                                );
+                            })}
                         </Stack>
                     </Box>
                 )}
@@ -155,7 +116,7 @@ const ServiceSidebar = (props) => {
                         color="white"
                         rightIcon={<ArrowForwardIcon />}
                         _hover={{
-                            bg: useColorModeValue("blue.700", "blue.400"),
+                            bg: useColorModeValue("primary.700", "primary.400"),
                             transform: "translateY(-2px)",
                             boxShadow: "xl",
                             textDecoration: "none",

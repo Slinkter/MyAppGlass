@@ -29,6 +29,7 @@ const FadingImage = React.memo((props) => {
         onImageError,
         w,
         h,
+        showOverlay = true, // Default to true to maintain existing behavior
         ...restProps
     } = props;
 
@@ -54,9 +55,9 @@ const FadingImage = React.memo((props) => {
     const headingColor = useColorModeValue("gray.800", "white");
     const buttonStyles = {
         bg: useColorModeValue("whiteAlpha.900", "whiteAlpha.200"),
-        color: useColorModeValue("red.600", "red.300"),
+        color: useColorModeValue("primary.600", "primary.300"),
         _hover: {
-            bg: useColorModeValue("red.600", "red.500"),
+            bg: useColorModeValue("primary.600", "primary.500"),
             color: "white",
         },
     };
@@ -81,61 +82,71 @@ const FadingImage = React.memo((props) => {
                 _groupHover={{ transform: "scale(1.1)" }}
                 {...restProps}
             />
-            {/* Overlay que se muestra al hacer hover */}
-            <Box
-                position="absolute"
-                top="0"
-                left="0"
-                w="100%"
-                h="100%"
-                bg={overlayBg}
-                zIndex={1}
-                opacity={0}
-                transition="opacity 0.3s ease-in-out"
-                _groupHover={{ opacity: 1 }}
-            />
+            {/* Renderizar overlay y contenido solo si showOverlay es true */}
+            {showOverlay && (
+                <>
+                    <Box
+                        position="absolute"
+                        top="0"
+                        left="0"
+                        w="100%"
+                        h="100%"
+                        bg={overlayBg}
+                        zIndex={1}
+                        opacity={0}
+                        transition="opacity 0.3s ease-in-out"
+                        _groupHover={{ opacity: 1 }}
+                    />
 
-            <Stack
-                p={{ base: 4, md: 6 }}
-                spacing={3}
-                textAlign="center"
-                position="absolute"
-                bottom="0" // Alineado abajo
-                left="0"
-                w="100%"
-                zIndex={2}
-            >
-                <Heading
-                    as="h3"
-                    size="md"
-                    fontWeight="600"
-                    textTransform="uppercase"
-                    color={headingColor}
-                    opacity={0}
-                    transform="translateY(20px)"
-                    transition="all 0.3s ease-out"
-                    _groupHover={{ opacity: 1, transform: "translateY(0)" }}
-                >
-                    {name}
-                </Heading>
+                    <Stack
+                        p={{ base: 4, md: 6 }}
+                        spacing={3}
+                        textAlign="center"
+                        position="absolute"
+                        bottom="0"
+                        left="0"
+                        w="100%"
+                        zIndex={2}
+                    >
+                        <Heading
+                            as="h3"
+                            size="md"
+                            fontWeight="600"
+                            textTransform="uppercase"
+                            color={headingColor}
+                            opacity={0}
+                            transform="translateY(20px)"
+                            transition="all 0.3s ease-out"
+                            _groupHover={{
+                                opacity: 1,
+                                transform: "translateY(0)",
+                            }}
+                        >
+                            {name}
+                        </Heading>
 
-                <Button
-                    as={RouterLink}
-                    to={plink}
-                    rightIcon={<ArrowForwardIcon />}
-                    aria-label={`Ver catálogo de ${name}`}
-                    width="full"
-                    opacity={0}
-                    transform="translateY(20px)"
-                    transition="all 0.3s ease-out 0.1s"
-                    _groupHover={{ opacity: 1, transform: "translateY(0)" }}
-                    bg={buttonStyles.bg}
-                    color={buttonStyles.color}
-                    _hover={buttonStyles._hover}
-                >
-                    Catálogo
-                </Button>
-            </Stack>
+                        <Button
+                            as={RouterLink}
+                            to={plink}
+                            rightIcon={<ArrowForwardIcon />}
+                            aria-label={`Ver catálogo de ${name}`}
+                            width="full"
+                            opacity={0}
+                            transform="translateY(20px)"
+                            transition="all 0.3s ease-out 0.1s"
+                            _groupHover={{
+                                opacity: 1,
+                                transform: "translateY(0)",
+                            }}
+                            bg={buttonStyles.bg}
+                            color={buttonStyles.color}
+                            _hover={buttonStyles._hover}
+                        >
+                            Catálogo
+                        </Button>
+                    </Stack>
+                </>
+            )}
         </Box>
     );
 });

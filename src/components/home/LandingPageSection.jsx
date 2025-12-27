@@ -16,7 +16,7 @@ const MotionImage = motion(Image);
 const MotionVStack = motion(VStack);
 
 const LandingPageSection = React.memo(() => {
-    const accentColor = useColorModeValue("red.600", "red.300");
+    const accentColor = useColorModeValue("primary.600", "primary.300");
     const textColor = useColorModeValue("gray.800", "white");
     const subTextColor = useColorModeValue("gray.600", "gray.400");
 

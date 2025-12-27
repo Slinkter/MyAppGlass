@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Heading, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import {
+    Box,
+    Heading,
+    Text,
+    VStack,
+    useColorModeValue,
+} from "@chakra-ui/react";
 import { useNavigate, useLocation, useRouteError } from "react-router-dom"; // Import useLocation and useRouteError
 
 const ErrorView = () => {
@@ -8,10 +14,16 @@ const ErrorView = () => {
     const error = useRouteError(); // Get route error data
     const [countdown, setCountdown] = useState(15);
 
-    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)");
-    const borderColor = useColorModeValue("rgba(255, 255, 255, 0.35)", "rgba(255, 255, 255, 0.15)");
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.25)",
+        "rgba(0, 0, 0, 0.25)"
+    );
+    const borderColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.35)",
+        "rgba(255, 255, 255, 0.15)"
+    );
     const textColor = useColorModeValue("gray.800", "gray.100");
-    const headingColor = useColorModeValue("red.500", "red.300");
+    const headingColor = useColorModeValue("primary.500", "primary.300");
     const countdownColor = useColorModeValue("primary.600", "primary.300");
 
     useEffect(() => {
