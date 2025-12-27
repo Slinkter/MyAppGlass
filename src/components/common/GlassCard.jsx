@@ -1,26 +1,32 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 
 /**
  * Componente Base para Tarjetas de Vidrio (Glassmorphism)
- * @param {Object} props
- * @param {Object} props.styles - Objeto de estilos proveniente de useGlassStyles
- * @param {React.ReactNode} props.children - Contenido de la tarjeta
+ * Proporciona un efecto de "liquid glass" consistente con la barra de navegación.
+ * @param {Object} props - Props que se pasarán al componente Box de Chakra.
+ * @param {React.ReactNode} props.children - Contenido de la tarjeta.
  */
-const GlassCard = ({ children, styles, ...props }) => (
-  <Box
-    bg={styles.bg}
-    backdropFilter="blur(20px)"
-    borderRadius={{ base: "2xl", md: "3xl" }}
-    border="1px solid"
-    borderColor={styles.border}
-    boxShadow={{ base: "xl", md: "2xl" }}
-    p={{ base: 4, md: 6 }}
-    transition="all 0.3s ease"
-    {...props}
-  >
-    {children}
-  </Box>
-);
+const GlassCard = ({ children, ...props }) => {
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.1)",
+        "rgba(0, 0, 0, 0.1)"
+    );
+
+    return (
+        <Box
+            bg={bgColor}
+            backdropFilter="blur(10px)"
+            WebkitBackdropFilter="blur(10px)"
+            borderRadius="2xl"
+            boxShadow="sm"
+            transition="all 0.3s ease"
+            border="none"
+            {...props}
+        >
+            {children}
+        </Box>
+    );
+};
 
 export default GlassCard;

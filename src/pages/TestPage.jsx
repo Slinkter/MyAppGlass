@@ -8,11 +8,17 @@ import {
     VStack,
     useColorModeValue,
 } from "@chakra-ui/react";
-import logoGlass from "../assets/branding/LogoCompanytrans.png";
+import logoGlass from "@/assets/branding/LogoCompanytrans.png";
 
 const TestView = () => {
-    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)");
-    const borderColor = useColorModeValue("rgba(255, 255, 255, 0.35)", "rgba(255, 255, 255, 0.15)");
+    const bgColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.25)",
+        "rgba(0, 0, 0, 0.25)"
+    );
+    const borderColor = useColorModeValue(
+        "rgba(255, 255, 255, 0.35)",
+        "rgba(255, 255, 255, 0.15)"
+    );
     const textColor = useColorModeValue("gray.800", "gray.100");
     const secondaryTextColor = useColorModeValue("gray.700", "gray.200");
     const accentColor = useColorModeValue("primary.600", "primary.300");

@@ -8,7 +8,7 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
-import Franja from "../common/Franja";
+import Franja from "@/components/common/Franja";
 import { Icon } from "@chakra-ui/react";
 import { FaMapLocationDot } from "react-icons/fa6";
 

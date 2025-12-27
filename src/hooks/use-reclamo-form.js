@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDisclosure, useToast } from "@chakra-ui/react";
-import { reclamoService } from "../api/reclamoService.js";
+import { reclamoService } from "@/api/reclamoService.js";
 
 const initialState = {
   nombreCompleto: "",

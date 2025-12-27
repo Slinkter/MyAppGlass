@@ -5,13 +5,8 @@ html, body, #root {
 }
 
 * {
-    box-sizing: border-box;
     scroll-behavior: smooth;
     scrollbar-width: thin;
-}
-
-body {
-    @apply font-['Roboto',_sans-serif];
 }
 
 /* Estilos para el modo claro */

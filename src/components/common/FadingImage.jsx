@@ -1,70 +1,141 @@
 import React, { useState, useEffect } from "react";
-import { Skeleton, Image, Box } from "@chakra-ui/react"; // Re-import Skeleton
+import {
+    Image,
+    Box,
+    Heading,
+    Button,
+    Stack,
+    useColorModeValue,
+} from "@chakra-ui/react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Link as RouterLink } from "react-router-dom";
 
 /**
  * @component FadingImage
- * @description Muestra una imagen con efecto de fade-in usando Skeleton de Chakra UI.
- * @param {Object} props - Props estándar de imagen, incluyendo `w` y `h` para el tamaño.
- * @param {string} [props.placeholderImageUrl] - URL de la imagen de marcador de posición a mostrar en caso de error.
- * @param {() => void} [props.onImageError] - Callback function to execute when the image fails to load.
+ * @description Muestra una imagen con un overlay y texto que aparecen al hacer hover.
+ * Maneja errores de carga de imagen y es compatible con modos claro/oscuro.
+ * @param {Object} props - Props del componente.
  * @returns {JSX.Element}
  */
+
+const imgF = "https://via.placeholder.com/300?text=Imagen+no+disponible";
+
 const FadingImage = React.memo((props) => {
-    const { src, placeholderImageUrl, onImageError, w, h, ...restProps } = props;
+    const {
+        name,
+        plink,
+        src,
+        placeholderImageUrl,
+        onImageError,
+        w,
+        h,
+        ...restProps
+    } = props;
 
-    const [hasError, setHasError] = useState(false);
-    const [isImageLoaded, setIsImageLoaded] = useState(false); // Tracks if the actual image has loaded
+    // Estado interno para manejar la URL de la imagen, permitiendo un fallback en caso de error.
+    const [imageSrc, setImageSrc] = useState(src);
 
+    // Sincroniza el estado si la prop 'src' cambia.
     useEffect(() => {
-        setHasError(false);
-        setIsImageLoaded(false);
-        // Image loading is now immediate, so src is always set
-    }, [src]); // Depend only on src
+        setImageSrc(src);
+    }, [src]);
 
+    // Manejador para cuando la imagen principal falla al cargar.
     const handleImageError = () => {
-        setHasError(true);
-        if (onImageError) {
-            onImageError();
-        }
+        if (onImageError) onImageError();
+        setImageSrc(placeholderImageUrl || imgF);
     };
 
-    const handleImageLoad = () => {
-        setIsImageLoaded(true); // Image loaded successfully
+    // Estilos dinámicos para compatibilidad con modos claro y oscuro.
+    const overlayBg = useColorModeValue(
+        "linear-gradient(to top, rgba(240, 240, 240, 0.95), rgba(255,255,255,0))", // Gradiente claro para light mode
+        "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0))" // Gradiente oscuro para dark mode
+    );
+    const headingColor = useColorModeValue("gray.800", "white");
+    const buttonStyles = {
+        bg: useColorModeValue("whiteAlpha.900", "whiteAlpha.200"),
+        color: useColorModeValue("red.600", "red.300"),
+        _hover: {
+            bg: useColorModeValue("red.600", "red.500"),
+            color: "white",
+        },
     };
-
-    // Determine the final src for the Image tag
-    const finalSrc = hasError ? (placeholderImageUrl || "https://via.placeholder.com/150?text=Image+Not+Found") : src; // Use original src
 
     return (
-        <Box w={w} h={h} position="relative" overflow="hidden" rounded="md">
-            {/* Skeleton is shown if the image is not yet loaded */}
-            {!isImageLoaded && (
-                <Skeleton
-                    w="100%"
-                    h="100%"
-                    position="absolute"
-                    top="0"
-                    left="0"
-                    startColor="gray.100"
-                    endColor="gray.300"
-                    fadeDuration={1}
-                />
-            )}
-            {/* Image is always rendered, and src is set immediately */}
+        <Box
+            w={w}
+            h={h}
+            position="relative"
+            overflow="hidden"
+            rounded="md"
+            role="group"
+        >
             <Image
-                onLoad={handleImageLoad}
                 onError={handleImageError}
-                src={finalSrc || undefined} // Pass undefined if no src to prevent broken image icon
-                opacity={isImageLoaded ? 1 : 0} // Fade in effect only when actually loaded
-                transition="opacity 0.5s ease-in-out"
+                src={imageSrc || undefined}
                 w="100%"
                 h="100%"
-                loading="lazy" // Keep lazy loading for browser optimization
+                objectFit="cover"
+                loading="lazy"
+                transition="transform 0.4s ease-in-out"
+                _groupHover={{ transform: "scale(1.1)" }}
                 {...restProps}
-                position="absolute" // Position absolutely to layer over skeleton
+            />
+            {/* Overlay que se muestra al hacer hover */}
+            <Box
+                position="absolute"
                 top="0"
                 left="0"
+                w="100%"
+                h="100%"
+                bg={overlayBg}
+                zIndex={1}
+                opacity={0}
+                transition="opacity 0.3s ease-in-out"
+                _groupHover={{ opacity: 1 }}
             />
+
+            <Stack
+                p={{ base: 4, md: 6 }}
+                spacing={3}
+                textAlign="center"
+                position="absolute"
+                bottom="0" // Alineado abajo
+                left="0"
+                w="100%"
+                zIndex={2}
+            >
+                <Heading
+                    as="h3"
+                    size="md"
+                    fontWeight="600"
+                    textTransform="uppercase"
+                    color={headingColor}
+                    opacity={0}
+                    transform="translateY(20px)"
+                    transition="all 0.3s ease-out"
+                    _groupHover={{ opacity: 1, transform: "translateY(0)" }}
+                >
+                    {name}
+                </Heading>
+
+                <Button
+                    as={RouterLink}
+                    to={plink}
+                    rightIcon={<ArrowForwardIcon />}
+                    aria-label={`Ver catálogo de ${name}`}
+                    width="full"
+                    opacity={0}
+                    transform="translateY(20px)"
+                    transition="all 0.3s ease-out 0.1s"
+                    _groupHover={{ opacity: 1, transform: "translateY(0)" }}
+                    bg={buttonStyles.bg}
+                    color={buttonStyles.color}
+                    _hover={buttonStyles._hover}
+                >
+                    Catálogo
+                </Button>
+            </Stack>
         </Box>
     );
 });

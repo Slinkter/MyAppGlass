@@ -1,6 +1,6 @@
-import React, { Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useParams } from "react-router-dom";
-import { servicePageDataMap } from "@/data/servicePageDataMap";
+import { getServicePageData } from "@/services/serviceService";
 import ErrorDisplay from "@/components/common/ErrorDisplay";
 import ServiceSkeleton from "./components/ServiceSkeleton";
 
@@ -13,22 +13,43 @@ const ServicePageLayout = React.lazy(() => import("./ServicePageLayout"));
  * del layout de la página de servicios.
  */
 const ServicePageContainer = () => {
-  const { serviceSlug } = useParams();
-  const pageData = servicePageDataMap[serviceSlug];
+    const { serviceSlug } = useParams();
+    const [pageData, setPageData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  if (!pageData) {
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setIsLoading(true);
+                const data = await getServicePageData(serviceSlug);
+                setPageData(data);
+            } catch (err) {
+                setError(
+                    err.message ||
+                        `No se encontraron datos para el servicio: "${serviceSlug}".`
+                );
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [serviceSlug]);
+
+    if (isLoading) {
+        return <ServiceSkeleton />;
+    }
+
+    if (error) {
+        return <ErrorDisplay message={error} />;
+    }
+
     return (
-      <ErrorDisplay
-        message={`No se encontraron datos para el servicio: "${serviceSlug}". Por favor, verifique la URL.`}
-      />
+        <Suspense fallback={<ServiceSkeleton />}>
+            <ServicePageLayout pageData={pageData} />
+        </Suspense>
     );
-  }
-
-  return (
-    <Suspense fallback={<ServiceSkeleton />}>
-      <ServicePageLayout pageData={pageData} />
-    </Suspense>
-  );
 };
 
 export default ServicePageContainer;

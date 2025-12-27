@@ -4,7 +4,6 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 import Gallery from "@/components/common/Gallery";
 import GlassCard from "@/components/common/GlassCard";
 import ServiceSidebar from "./components/ServiceSidebar";
-import { useGlassStyles } from "@/hooks/useGlassStyles";
 
 /**
  * ServicePageLayout - Diseño de 2 Cards
@@ -21,9 +20,6 @@ const ServicePageLayout = ({ pageData }) => {
 
   const activeImageList = imageLists[activeIndex] || [];
   const activeSystem = systems[activeIndex];
-
-  // Hook de estilos personalizados
-  const glassStyles = useGlassStyles();
 
   return (
     <>
@@ -51,14 +47,12 @@ const ServicePageLayout = ({ pageData }) => {
               setActiveIndex={setActiveIndex}
               activeSystem={activeSystem}
               features={features}
-              glassStyles={glassStyles}
             />
           </GridItem>
 
           {/* CARD 2: GALERÍA DE IMÁGENES */}
           <GridItem w="100%" minW={0}>
             <GlassCard
-              styles={glassStyles}
               h={{ base: "360px", sm: "410px", md: "500px", lg: "85vh" }}
               overflow="hidden"
               p={{ base: 2, md: 4, lg: 6 }}
