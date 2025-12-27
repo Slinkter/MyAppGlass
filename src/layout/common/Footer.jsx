@@ -19,7 +19,7 @@ import {
 import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5"; // Added IoDocumentTextOutline
-import LibroReclamacionesIcon from "../../assets/libro.svg";
+import LibroReclamacionesIcon from "@/assets/libro.svg";
 
 const Footer = () => {
   const bgColor = useColorModeValue(

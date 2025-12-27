@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack, Box, useColorModeValue } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import NAV_ITEMS from "../../data/nav-items";
+import NAV_ITEMS from "@/data/nav-items";
 
 /**
  * @component DesktopNav

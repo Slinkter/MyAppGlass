@@ -5,7 +5,7 @@ import {
     Skeleton,
     SkeletonText,
     Box,
-    Stack
+    Stack,
 } from "@chakra-ui/react";
 
 /**
@@ -22,26 +22,44 @@ const ProjectListSkeleton = () => {
                 w="375px"
                 maxW={{ base: "full", md: "375px" }}
                 mb={4}
-                bg='whiteAlpha.200'
-                backdropFilter='blur(10px)'
-                border='1px solid'
-                borderColor='whiteAlpha.300'
-                shadow='lg'
-                rounded='xl'
+                bg="whiteAlpha.200"
+                backdropFilter="blur(10px)"
+                border="1px solid"
+                borderColor="whiteAlpha.300"
+                shadow="lg"
+                rounded="xl"
                 overflow="hidden"
                 p={4}
             >
                 <Skeleton height="320px" borderRadius="lg" mb="4" />
                 <Stack mt="4" spacing="2">
-                    <SkeletonText noOfLines={1} skeletonHeight="20px" width="70%" mb="2" />
-                    <SkeletonText noOfLines={1} skeletonHeight="20px" width="90%" mb="4" />
+                    <SkeletonText
+                        noOfLines={1}
+                        skeletonHeight="20px"
+                        width="70%"
+                        mb="2"
+                    />
+                    <SkeletonText
+                        noOfLines={1}
+                        skeletonHeight="20px"
+                        width="90%"
+                        mb="4"
+                    />
                     <Flex alignItems="center" mb="2">
                         <Skeleton height="20px" width="20px" mr="2" />
-                        <SkeletonText noOfLines={1} skeletonHeight="15px" width="60%" />
+                        <SkeletonText
+                            noOfLines={1}
+                            skeletonHeight="15px"
+                            width="60%"
+                        />
                     </Flex>
                     <Flex alignItems="center" mb="4">
                         <Skeleton height="20px" width="20px" mr="2" />
-                        <SkeletonText noOfLines={1} skeletonHeight="15px" width="40%" />
+                        <SkeletonText
+                            noOfLines={1}
+                            skeletonHeight="15px"
+                            width="40%"
+                        />
                     </Flex>
                     <Skeleton height="40px" width="full" />
                 </Stack>
@@ -51,6 +69,11 @@ const ProjectListSkeleton = () => {
 
     return (
         <Container maxW={"8xl"} my={6} textAlign="center">
+            {/* Title Skeleton */}
+            <Skeleton height="40px" width="200px" mx="auto" mb={2} mt={4} />
+            {/* Subtitle Skeleton */}
+            <Skeleton height="24px" width="300px" mx="auto" mb={10} />
+
             <Flex
                 direction={{ base: "column", md: "row" }}
                 flexWrap={"wrap"}

@@ -1,6 +1,6 @@
 import { IoIosCalculator, IoIosCalendar, IoIosKeypad, IoMdConstruct, IoMdPricetags, IoMdSwap, IoIosPaper } from "react-icons/io";
 import { HiOutlineBanknotes } from "react-icons/hi2";
-import { FEATURE_TEXTS } from "../utils/constants";
+import { FEATURE_TEXTS } from "@/utils/constants";
 
 /**
  * @typedef {Object} Feature

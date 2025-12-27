@@ -1,84 +1,92 @@
-# GYA Glass & Aluminum - Web Application
+# GYA Glass & Aluminum - Aplicación Web Corporativa
 
-Aplicación web moderna y de alto rendimiento para GYA Glass & Aluminum, especializada en vidriería y estructuras de aluminio.
+![GYA Logo](https://www.gyacompany.com/assets/logovcr-5381f09e.png)
 
-## 🚀 Tecnologías y Arquitectura
+Aplicación web de alto rendimiento para GYA Glass & Aluminum S.A.C., una empresa especializada en el diseño, fabricación e instalación de estructuras de vidrio y aluminio. El sitio sirve como portafolio de proyectos, catálogo de servicios y canal de contacto principal.
 
-Este proyecto utiliza una arquitectura **Clean Code** basada en componentes funcionales de React y Hooks personalizados.
+## 🚀 Arquitectura y Stack Tecnológico
+
+Este proyecto está construido sobre una arquitectura moderna, desacoplada y orientada a componentes, priorizando la mantenibilidad, escalabilidad y rendimiento.
 
 ### Stack Tecnológico
 
-- **Core:** React 18 (Vite)
-- **UI Framework:** Chakra UI
-- **Estilos:** Emotion (vía Chakra) + Glassmorphism personalizado
-- **Routing:** React Router DOM v6
-- **Hosting:** Firebase Hosting
+-   **Core Framework:** [React 18](https://reactjs.org/)
+-   **Bundler & Dev Server:** [Vite](https://vitejs.dev/)
+-   **UI Framework:** [Chakra UI](https://chakra-ui.com/)
+-   **Animaciones:** [Framer Motion](https://www.framer.com/motion/)
+-   **Routing:** [React Router DOM v6](https://reactrouter.com/)
+-   **SEO:** [React Helmet Async](https://github.com/staylor/react-helmet-async)
+-   **Hosting & Funciones Serverless:** [Firebase](https://firebase.google.com/)
 
-### �️ Arquitectura del Proyecto
+### Arquitectura de Software
 
-La aplicación sigue una estructura modular para facilitar el mantenimiento y la escalabilidad:
+La aplicación ha sido refactorizada para seguir un patrón más robusto y escalable:
+
+1.  **Capa de Presentación (UI):** Compuesta por componentes de React. Los componentes son funcionales y utilizan Hooks para gestionar su estado. La UI se construye de forma declarativa utilizando el sistema de componentes de Chakra UI.
+2.  **Capa de Servicios:** La lógica de obtención de datos está abstraída en una capa de servicios (`src/services`). Los componentes ya no acceden a los datos estáticos directamente; en su lugar, consumen datos a través de funciones asíncronas, simulando una llamada a una API. Esto desacopla la UI del origen de los datos y prepara la aplicación para una futura integración con un Headless CMS.
+3.  **Sistema de Diseño Centralizado:** Todos los estilos, fuentes y tokens de diseño están centralizados en el objeto de tema de Chakra UI (`src/config/theme.js`), asegurando una consistencia visual total y facilitando cambios de diseño globales.
+
+## 📂 Estructura de Directorios
+
+La estructura de archivos está organizada por funcionalidad para facilitar la navegación y el mantenimiento.
 
 ```
 src/
-├── components/
-│   ├── common/           # Componentes reutilizables (Gallery, GlassCard, etc.)
-│   ├── services/         # Componentes específicos de páginas de servicios
-│   │   └── components/   # Sub-componentes (ServiceSidebar, ServiceSkeleton)
-│   └── home/             # Componentes de la página de inicio
-├── hooks/                # Custom Hooks (useGlassStyles, etc.)
-├── layout/               # Layout principal (Navbar, Footer)
-├── pages/                # Páginas principales (vistas)
-└── data/                 # Datos estáticos y configuración
+├── api/                  # Configuración y servicios de API externos (Formulario de Reclamaciones)
+├── assets/               # Imágenes, logos y otros archivos estáticos
+├── components/           # Componentes React reutilizables
+│   ├── common/           # Componentes genéricos (DataLoader, Gallery, etc.)
+│   └── ...               # Componentes agrupados por feature (home, projects, etc.)
+├── config/               # Configuración de la aplicación (Firebase, tema de Chakra UI)
+├── data/                 # (Legado) Archivos de datos estáticos (consumidos por la capa de servicios)
+├── doc/                  # Documentación del proyecto (guías de estilo, etc.)
+├── hooks/                # Hooks de React personalizados
+├── layout/               # Componentes de layout principal (Navbar, Footer)
+├── pages/                # Componentes que actúan como vistas de página completas
+├── services/             # Capa de abstracción de datos
+├── styles/               # Estilos globales mínimos
+└── utils/                # Funciones de utilidad genéricas
 ```
 
-### ✨ Características Clave
+## ✨ Características Clave del Codebase
 
-1.  **Diseño Glassmorphism Premium:**
+-   **Component-Driven Development:** UI construida a partir de pequeños componentes reutilizables.
+-   **Abstracción de Datos:** Los componentes son agnósticos al origen de los datos, gracias a la capa de servicios.
+-   **Carga Asíncrona:** Los datos de las secciones principales se cargan de forma asíncrona, mostrando elegantes skeletons de carga para mejorar la UX.
+-   **Rendimiento Optimizado:**
+    -   **Code Splitting:** Las páginas se cargan bajo demanda con `React.lazy` y `Suspense`.
+    -   **Optimización de Imágenes:** `vite-plugin-image-optimizer` se utiliza para comprimir y optimizar las imágenes durante el build.
+-   **Guía de Estilos Definida:** El uso de Chakra UI está estandarizado en el documento [Guía de Estilos de Chakra UI](./doc/chakra-ui-style-guidelines.md).
 
-    - Implementado a través del hook `useGlassStyles`.
-    - Componentes visuales consistentes con `GlassCard`.
+## 🛠️ Instalación y Desarrollo Local
 
-2.  **Optimización de Rendimiento (Performance):**
+Para ejecutar el proyecto en un entorno de desarrollo local, siga estos pasos.
 
-    - **Lazy Loading:** Las páginas de servicios se cargan bajo demanda usando `React.lazy` y `Suspense`.
-    - **Skeletons:** Experiencia de carga fluida con `ServiceSkeleton` que imita el layout real.
-    - **Imágenes Optimizadas:** Componente `FadingImage` con carga perezosa (`loading="lazy"`) y placeholders.
+1.  **Prerrequisitos:**
+    -   Node.js (v18 o superior)
+    -   `pnpm` como gestor de paquetes (recomendado)
 
-3.  **Responsive Design Avanzado:**
-    - Layouts adaptativos que cambian drásticamente entre móvil y escritorio para mejor UX.
-    - Galería con scroll horizontal nativo en móviles y vertical en escritorio.
-
-## 🛠️ Instalación y Desarrollo
-
-1.  **Instalar dependencias:**
-
+2.  **Instalar dependencias:**
     ```bash
     pnpm install
     ```
 
-2.  **Iniciar servidor de desarrollo:**
-
+3.  **Iniciar el servidor de desarrollo:**
+    La aplicación estará disponible en `http://localhost:5173`.
     ```bash
     pnpm run dev
     ```
 
-3.  **Construir para producción:**
+### Scripts Disponibles
 
-    ```bash
-    pnpm run build
-    ```
+-   `pnpm dev`: Inicia el servidor de desarrollo.
+-   `pnpm build`: Compila la aplicación para producción.
+-   `pnpm preview`: Sirve localmente el build de producción.
+-   `pnpm lint`: Analiza el código en busca de errores con ESLint.
+-   `pnpm deploy:hosting`: Despliega la aplicación a Firebase Hosting.
+-   `pnpm deploy:functions`: Despliega las funciones serverless a Firebase Functions.
 
-4.  **Desplegar a Firebase:**
-    ```bash
-    pnpm run deploy:hosting
-    ```
+## 📝 Mantenimiento y Actualizaciones
 
-## 📝 Notas de Mantenimiento
-
-- **Agregar nuevos servicios:** Actualizar `src/data/servicePageDataMap.js`.
-- **Modificar estilos base:** Editar `src/hooks/useGlassStyles.js`.
-- **Cambiar layout de servicios:** Modificar `src/components/services/service-pages/ServicePageLayout.jsx`.
-
----
-
-Desarrollado con ❤️ y Clean Code.
+-   **Para modificar contenido (proyectos, servicios, etc.):** Actualmente, se deben editar los archivos en `src/data/`. El plan a largo plazo es migrar esta data a un Headless CMS, momento en el cual solo se necesitará actualizar la capa de servicios en `src/services/`.
+-   **Para modificar estilos o añadir variantes:** Edite el archivo `src/config/theme.js` siguiendo las directrices del [documento de estilos](./doc/chakra-ui-style-guidelines.md).

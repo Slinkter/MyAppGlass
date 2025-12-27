@@ -63,50 +63,21 @@ const theme = extendTheme({
         }),
     },
     components: {
-        // Adding default transitions for elements that might use them
-        Box: {
-            baseStyle: {
-                transitionProperty:
-                    "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
-                transitionDuration: "200ms",
-                transitionTimingFunction: "ease-in-out",
-            },
+        Card: {
             variants: {
-                glassmorphism: (props) => ({
+                glass: (props) => ({
+                    // Styles from Navbar
+                    bg:
+                        props.colorMode === "dark"
+                            ? "rgba(0, 0, 0, 0.1)"
+                            : "rgba(255, 255, 255, 0.1)",
                     backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)", // For Safari support
-                    // Fallback background color with increased opacity
-                    // This will be visible if backdrop-filter is not supported
-                    bg: props.colorMode === "dark" ? "rgba(0, 0, 0, 0.8)" : "rgba(255, 255, 255, 0.8)",
-                    border: "none", // Assuming no border for glassmorphism
-                    boxShadow: "none", // Assuming no shadow for glassmorphism
-                    borderRadius: "2xl", // Assuming a common border radius
+                    WebkitBackdropFilter: "blur(10px)",
+                    border: "none",
+                    borderRadius: "2xl", // Matches Navbar's borderRadius
+                    boxShadow: "sm",     // Matches Navbar's boxShadow
                     transition: "all 0.3s ease",
                 }),
-            },
-        },
-        Flex: {
-            baseStyle: {
-                transitionProperty:
-                    "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
-                transitionDuration: "200ms",
-                transitionTimingFunction: "ease-in-out",
-            },
-        },
-        Card: {
-            baseStyle: {
-                transitionProperty:
-                    "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
-                transitionDuration: "200ms",
-                transitionTimingFunction: "ease-in-out",
-            },
-        },
-        Button: {
-            baseStyle: {
-                transitionProperty:
-                    "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
-                transitionDuration: "200ms",
-                transitionTimingFunction: "ease-in-out",
             },
         },
     },

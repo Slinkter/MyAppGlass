@@ -1,10 +1,10 @@
-import image01 from "../../assets/services/products/07.Balcones/IMG_0753.jpeg";
-import image02 from "../../assets/services/products/07.Balcones/IMG_0759.jpeg";
-import image03 from "../../assets/services/products/07.Balcones/IMG_2094.jpeg";
+import image01 from "@/assets/services/products/07.Balcones/IMG_0753.jpeg";
+import image02 from "@/assets/services/products/07.Balcones/IMG_0759.jpeg";
+import image03 from "@/assets/services/products/07.Balcones/IMG_2094.jpeg";
 
-import image04 from "../../assets/services/products/07.Balcones/IMG_0755.jpeg";
-import image05 from "../../assets/services/products/07.Balcones/IMG_2091.jpeg";
-import image06 from "../../assets/services/products/07.Balcones/IMG_2097.jpeg";
+import image04 from "@/assets/services/products/07.Balcones/IMG_0755.jpeg";
+import image05 from "@/assets/services/products/07.Balcones/IMG_2091.jpeg";
+import image06 from "@/assets/services/products/07.Balcones/IMG_2097.jpeg";
 
 const listBalcon = {
   items: [        {

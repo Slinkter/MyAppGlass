@@ -1,23 +1,23 @@
-import mn_01 from "../../assets/services/products/02.Mampara/mampara79.jpeg";
-import mn_02 from "../../assets/services/products/02.Mampara/mampara85.jpeg";
-import mn_03 from "../../assets/services/products/02.Mampara/mampara53.jpeg";
+import mn_01 from "@/assets/services/products/02.Mampara/mampara79.jpeg";
+import mn_02 from "@/assets/services/products/02.Mampara/mampara85.jpeg";
+import mn_03 from "@/assets/services/products/02.Mampara/mampara53.jpeg";
 
-import mn_04 from "../../assets/services/products/02.Mampara/mampara52.jpeg";
-import mn_05 from "../../assets/services/products/02.Mampara/mampara22.jpeg";
-import mn_06 from "../../assets/services/products/02.Mampara/mampara77.jpeg";
+import mn_04 from "@/assets/services/products/02.Mampara/mampara52.jpeg";
+import mn_05 from "@/assets/services/products/02.Mampara/mampara22.jpeg";
+import mn_06 from "@/assets/services/products/02.Mampara/mampara77.jpeg";
 
-import mn_07 from "../../assets/services/products/02.Mampara/mampara76.jpeg";
-import mn_08 from "../../assets/services/products/02.Mampara/mampara78.jpeg";
-import mn_09 from "../../assets/services/products/02.Mampara/mampara12.jpeg";
+import mn_07 from "@/assets/services/products/02.Mampara/mampara76.jpeg";
+import mn_08 from "@/assets/services/products/02.Mampara/mampara78.jpeg";
+import mn_09 from "@/assets/services/products/02.Mampara/mampara12.jpeg";
 
-import mn_10 from "../../assets/services/products/02.Mampara/mampara23.jpeg";
-import mn_11 from "../../assets/services/products/02.Mampara/mampara18.jpeg";
-import mn_12 from "../../assets/services/products/02.Mampara/mampara26.jpeg";
-import mn_13 from "../../assets/services/products/02.Mampara/mampara15.jpeg";
+import mn_10 from "@/assets/services/products/02.Mampara/mampara23.jpeg";
+import mn_11 from "@/assets/services/products/02.Mampara/mampara18.jpeg";
+import mn_12 from "@/assets/services/products/02.Mampara/mampara26.jpeg";
+import mn_13 from "@/assets/services/products/02.Mampara/mampara15.jpeg";
 
-import ms_01 from "../../assets/services/products/02.Mampara/m_serie01.jpeg";
-import ms_02 from "../../assets/services/products/02.Mampara/m_serie02.jpeg";
-import ms_03 from "../../assets/services/products/02.Mampara/m_serie03.jpeg";
+import ms_01 from "@/assets/services/products/02.Mampara/m_serie01.jpeg";
+import ms_02 from "@/assets/services/products/02.Mampara/m_serie02.jpeg";
+import ms_03 from "@/assets/services/products/02.Mampara/m_serie03.jpeg";
 
 const listMampara = {
     nova: [
