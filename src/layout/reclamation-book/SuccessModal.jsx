@@ -13,22 +13,14 @@ import {
 
 /**
  * @component SuccessModal
- * @description Modal component to display success message after form submission.
- * Shows the tracking number and confirmation message.
+ * @description Modal de éxito que confirma el envío del reclamo.
+ * Muestra el número de seguimiento generado y confirma el envío del correo.
  *
- * @param {{
- *   isOpen: boolean,
- *   onClose: () => void,
- *   trackingId: string
- * }} props - Component props
- * @returns {JSX.Element} The rendered success modal
- *
- * @example
- * <SuccessModal
- *   isOpen={isOpen}
- *   onClose={handleClose}
- *   trackingId="REC-2025-001"
- * />
+ * @param {Object} props - Propiedades del componente.
+ * @param {boolean} props.isOpen - Estado de visibilidad del modal.
+ * @param {function} props.onClose - Función para cerrar el modal.
+ * @param {string} props.trackingId - Código de seguimiento generado para el reclamo (ej: REC-2025-001).
+ * @returns {JSX.Element} Modal de confirmación.
  */
 const SuccessModal = ({ isOpen, onClose, trackingId }) => {
   const bgColor = useColorModeValue(

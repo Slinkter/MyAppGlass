@@ -12,6 +12,7 @@ const ProjectPage = () => {
   return (
     <Box as="section" py={4}>
       <ProjectsList />
+      {/* <Box>Test Project Page Loading</Box> */}
     </Box>
   );
 };

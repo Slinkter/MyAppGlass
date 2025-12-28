@@ -3,7 +3,11 @@ import ErrorDisplay from "./ErrorDisplay";
 
 /**
  * @component DataLoader
- * @description Un componente de orden superior para manejar de forma genérica los estados de carga, error y éxito de una operación de datos.
+ * @description Componente Contenedor (Wrapper) que utiliza el patrón de composición (Children) para manejar estados de UI.
+ * NOTA: Técnicamente NO es un HOC (Higher-Order Component), sino un "Guard Component" o Wrapper que renderiza condicionalmente.
+ * - Si `isLoading` es true -> Muestra el `loadingComponent`.
+ * - Si `error` existe -> Muestra el mensaje de error.
+ * - Estado base -> Renderiza los `children` (contenido principal).
  * @param {{isLoading: boolean, error: any, children: React.ReactNode, loadingComponent: React.ReactNode}} props
  * @param {boolean} props.isLoading - Si es true, se muestra el `loadingComponent`.
  * @param {*} props.error - Si existe, se muestra un mensaje de error.
