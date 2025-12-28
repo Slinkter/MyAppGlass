@@ -6,10 +6,13 @@ import GlassCard from "@/components/common/GlassCard";
 import ServiceSidebar from "./components/ServiceSidebar";
 
 /**
- * ServicePageLayout - Diseño de 2 Cards
- * Arquitectura Refactorizada:
- * - Card 1 (Izquierda): ServiceSidebar (Panel de Control)
- * - Card 2 (Derecha): Galería de Imágenes Premium
+ * @component ServicePageLayout
+ * @description Layout visual principal para la página de detalle de servicio.
+ * Estructura la página en dos columnas: Sidebar (izq) y Galería (der).
+ *
+ * @param {Object} props - Propiedades del componente.
+ * @param {Object} props.pageData - Datos completos de la página (SEO, sistemas, features, imágenes).
+ * @returns {JSX.Element} Layout renderizado.
  */
 const ServicePageLayout = ({ pageData }) => {
   const { seo, systems, features, imageLists } = pageData;

@@ -2,18 +2,21 @@ import { Heading, Box, useColorModeValue } from "@chakra-ui/react";
 
 /**
  * @component FormSection
- * @description Reusable section component for forms with a heading and border.
- * Provides consistent styling for form sections.
+ * @description Componente de sección reutilizable para formularios con un título y borde inferior.
+ * Proporciona estilos consistentes para las secciones de un formulario.
  *
  * @param {{
  *   title: string,
  *   children: React.ReactNode,
  *   pt?: string | number
- * }} props - Component props
- * @returns {JSX.Element} The rendered form section
+ * }} props - Propiedades del componente.
+ * @param {string} props.title - Título de la sección.
+ * @param {React.ReactNode} props.children - Contenido del formulario dentro de la sección.
+ * @param {string|number} [props.pt=4] - Padding top opcional (por defecto 4).
+ * @returns {JSX.Element} La sección de formulario renderizada.
  *
  * @example
- * <FormSection title="Personal Information">
+ * <FormSection title="Información Personal">
  *   <FormControl>...</FormControl>
  * </FormSection>
  */
