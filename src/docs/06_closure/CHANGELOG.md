@@ -7,6 +7,24 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-12-28
+
+### Optimización de UX/UI
+
+Implementación de Infinite Scroll y animaciones de entrada para mejorar la experiencia de usuario y el rendimiento.
+
+#### `Added`
+
+-   **Infinite Scroll:** Implementado en `ProjectsList`, `ServiceList`, `FeaturesSection` y `ClientsSection` para carga progresiva de contenido.
+-   **ScrollReveal:** Nuevo componente reutilizable en `src/components/common/ScrollReveal.jsx` para animaciones "fade-up" al hacer scroll.
+-   **Documentación:** Nuevo reporte `src/docs/OPTIMIZACION_SCROLL_ANIMACIONES.md` detallando estas mejoras.
+
+#### `Changed`
+
+-   **List Components:** Refactorizados para soportar paginación local y animaciones sin re-renders innecesarios.
+
+---
+
 ## [0.2.0] - 2025-12-27
 
 ### Refactorización Arquitectónica y Estandarización

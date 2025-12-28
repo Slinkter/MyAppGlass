@@ -41,6 +41,7 @@ export default defineConfig({
 
   // 📦 Opcional: limpia cachés previas del build
   build: {
+    target: "es2015", // 📱 FIX: Aumenta compatibilidad con móviles antiguos (Chrome 50+, iOS 10+)
     outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {

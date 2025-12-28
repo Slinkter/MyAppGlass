@@ -14,20 +14,20 @@ import PALMER13 from "@/assets/projects/OBRAPALMER/PALMER13.jpeg";
 import PALMER14 from "@/assets/projects/OBRAPALMER/PALMER14.jpeg";
 
 const palmer = [
-    PALMER01,
-    PALMER02,
-    PALMER03,
-    PALMER04,
-    PALMER05,
-    PALMER06,
-    PALMER07,
-    PALMER08,
-    PALMER09,
-    PALMER10,
-    PALMER11,
-    PALMER12,
-    PALMER13,
-    PALMER14,
+  PALMER01,
+  PALMER02,
+  /* PALMER03, */
+  PALMER04,
+  PALMER05,
+  PALMER06,
+  /*    PALMER07, */
+  PALMER08,
+  PALMER09,
+  PALMER10,
+  PALMER11,
+  PALMER12,
+  PALMER13,
+  PALMER14,
 ];
 
 export default palmer;

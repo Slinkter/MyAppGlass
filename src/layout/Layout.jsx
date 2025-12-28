@@ -5,8 +5,8 @@ import Footer from "./common/Footer";
 import FloatWhatsapp from "./floating-whatsapp";
 
 // ✅ Importamos las nuevas imágenes generadas
-import bg_desktop from "@/assets/common/glass_bg_desktop.png";
-import bg_mobile from "@/assets/common/glass_bg_mobile.png";
+import bg_desktop from "@/assets/common/mainland.jpg";
+import bg_mobile from "@/assets/common/glass_bg_desktop.png";
 
 /**
  * Componente: Layout
