@@ -12,23 +12,23 @@ import ErrorDisplay from "./ErrorDisplay";
  * @returns {JSX.Element} El componente de carga, el mensaje de error o el contenido principal.
  */
 const DataLoader = ({ isLoading, error, loadingComponent, children }) => {
-    if (isLoading) {
-        return loadingComponent;
-    }
+  if (isLoading) {
+    return loadingComponent;
+  }
 
-    if (error) {
-        return (
-            <ErrorDisplay
-                message={
-                    typeof error === "string"
-                        ? error
-                        : error.message || JSON.stringify(error)
-                }
-            />
-        );
-    }
+  if (error) {
+    return (
+      <ErrorDisplay
+        message={
+          typeof error === "string"
+            ? error
+            : error.message || JSON.stringify(error)
+        }
+      />
+    );
+  }
 
-    return children;
+  return children;
 };
 
 export default DataLoader;
