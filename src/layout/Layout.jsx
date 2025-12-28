@@ -57,6 +57,8 @@ const Layout = ({ children }) => {
         backdropFilter: "blur(5px)",
         WebkitBackdropFilter: "blur(5px)",
       }}
+      m={0}
+      p={0}
     >
       <Box
         position="relative"

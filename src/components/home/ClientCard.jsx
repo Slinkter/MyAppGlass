@@ -17,8 +17,18 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
   // Configuración centralizada de estilos
   const styles = {
     bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
+    border: useColorModeValue(
+      "rgba(255, 255, 255, 0.52)",
+      "rgba(255, 255, 255, 0.15)"
+    ),
     text: useColorModeValue("gray.800", "gray.100"),
-    secondaryText: useColorModeValue("gray.600", "gray.300"),
+    icon: useColorModeValue("gray.500", "gray.400"),
+    heading: useColorModeValue("primary.700", "primary.300"),
+    btnBg: useColorModeValue("rgba(255, 255, 255, 0.4)", "rgba(0, 0, 0, 0.4)"),
+    btnHover: useColorModeValue(
+      "rgba(255, 255, 255, 0.6)",
+      "rgba(0, 0, 0, 0.6)"
+    ),
   };
 
   return (

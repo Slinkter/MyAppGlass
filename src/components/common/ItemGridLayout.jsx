@@ -61,10 +61,9 @@ const ItemGridLayout = (props) => {
         canonicalUrl={seoCanonicalUrl}
       />
       <Container
-        maxW="10xl"
-        my={6}
-        p={0}
-        mx={0}
+        maxW={"7xl"}
+        mt={6}
+        mb={0}
         textAlign="center"
         {...containerProps}
       >

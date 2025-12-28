@@ -1,11 +1,19 @@
 import React from "react";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Stack,
+  Heading,
+  Button,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Link as RouterLink } from "react-router-dom";
 import FadingImage from "@/components/common/FadingImage";
 
 /**
  * @component ServiceCard
  * @description Muestra una tarjeta individual de servicio con imagen, título y enlace al catálogo.
- * Utiliza estilos de glassmorphism consistentes con el resto de la aplicación.
+ * Utiliza estilos de glassmorphism consistentes con el resto de la aplicación, siguiendo el formato de ProjectCard.
  *
  * @param {Object} props - Propiedades del componente.
  * @param {string} props.image - URL de la imagen del servicio.
@@ -16,17 +24,14 @@ import FadingImage from "@/components/common/FadingImage";
 const ServiceCard = React.memo(({ image, name, plink }) => {
   // Configuración de colores y estilos para Glassmorphism
   const styles = {
-    border: useColorModeValue(
-      "rgba(255, 255, 255, 0.25)",
-      "rgba(0, 0, 0, 0.25)"
-    ),
     bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
+    heading: useColorModeValue("primary.700", "primary.300"),
     text: useColorModeValue("gray.800", "gray.100"),
-    btnBg: useColorModeValue(
-      "rgba(193, 20, 20, 0.13)",
-      "rgba(193, 20, 20, 0.13)"
+    btnBg: useColorModeValue("rgba(255, 255, 255, 0.4)", "rgba(0, 0, 0, 0.4)"),
+    btnHover: useColorModeValue(
+      "rgba(255, 255, 255, 0.6)",
+      "rgba(0, 0, 0, 0.6)"
     ),
-    btnText: useColorModeValue("primary.700", "primary.300"),
   };
 
   return (
@@ -39,26 +44,50 @@ const ServiceCard = React.memo(({ image, name, plink }) => {
       bg={styles.bg}
       backdropFilter="blur(10px)"
       borderRadius="2xl"
-      borderColor={styles.border}
       boxShadow="lg"
       color={styles.text}
-      transition="transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease"
+      transition="transform 0.3s ease, box-shadow 0.3s ease"
       _hover={{
         transform: "scale(1.02)",
         boxShadow: "xl",
-        color: "primary.500",
       }}
     >
-      <FadingImage
-        w="full"
-        h={{ base: "320px", md: "385px" }}
-        src={image}
-        alt={`Servicio de ${name}`}
-        objectFit="cover"
-        name={name}
-        plink={plink}
-        styles={styles}
-      />
+      <Box p={2}>
+        <FadingImage
+          w="full"
+          h={{ base: "245px", md: "375px" }}
+          src={image}
+          alt={`Servicio de ${name}`}
+          objectFit="cover"
+          showOverlay={false}
+        />
+
+        <Stack p={4} spacing={3}>
+          <Heading
+            size="md"
+            textTransform="uppercase"
+            color={styles.heading}
+            fontWeight="bold"
+            textAlign="center"
+          >
+            {name}
+          </Heading>
+
+          <Button
+            as={RouterLink}
+            to={plink}
+            rightIcon={<ArrowForwardIcon />}
+            variant="solid"
+            width="full"
+            bg={styles.btnBg}
+            color={styles.text}
+            _hover={{ bg: styles.btnHover }}
+            mt={2}
+          >
+            Catálogo
+          </Button>
+        </Stack>
+      </Box>
     </Box>
   );
 });

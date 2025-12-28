@@ -16,16 +16,16 @@ import LoadingFallback from "./components/common/LoadingFallback";
  * descarga el código de la nueva ruta.
  */
 function App() {
-    return (
-        <>
-            <ScrollToTop />
-            <Layout>
-                <Suspense fallback={<LoadingFallback />}>
-                    <Outlet />
-                </Suspense>
-            </Layout>
-        </>
-    );
+  return (
+    <>
+      <ScrollToTop />
+      <Layout>
+        <Suspense fallback={<LoadingFallback />}>
+          <Outlet />
+        </Suspense>
+      </Layout>
+    </>
+  );
 }
 
 export default App;

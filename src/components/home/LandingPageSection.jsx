@@ -38,14 +38,14 @@ const LandingPageSection = React.memo(() => {
     <LazyMotion features={domAnimation}>
       <Flex
         w={"full"}
-        minH={"100vh"} // 📱 FIX: 100dvh no es soportado en Android antiguos (cambiado a 100vh)
+        minH={"100dvh"}
         flexDirection={"column"}
         justifyContent={"center"}
         alignItems={"center"}
-        px={4}
+        px={2}
       >
         <MotionVStack
-          spacing={6}
+          spacing={4}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -55,9 +55,9 @@ const LandingPageSection = React.memo(() => {
           <MotionImage
             src={logoGYA}
             alt="Glass & Aluminum Company Logo"
-            w={{ base: "70%", sm: "50%", md: "40%", lg: "36%" }}
+            w={{ base: "55%", sm: "50%", md: "40%", lg: "36%" }}
             maxW="400px"
-            h={{ base: "70%", sm: "50%", md: "40%", lg: "30%" }}
+            h={{ base: "55%", sm: "50%", md: "40%", lg: "30%" }}
             loading="eager"
             fetchpriority="high"
             whileHover={{ scale: 1.05 }}
@@ -96,8 +96,8 @@ const LandingPageSection = React.memo(() => {
               maxW="3xl"
               mx="auto"
             >
-              Empresa comercial especialista en la venta e instalación de
-              cristales y aluminios.
+              Empresa Comercial especializada en la instalación de cristales y
+              aluminios.
             </Text>
           </Box>
         </MotionVStack>

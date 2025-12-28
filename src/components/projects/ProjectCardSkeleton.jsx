@@ -35,30 +35,39 @@ const ProjectCardSkeleton = () => {
       borderWidth="1px"
       borderColor={styles.border}
     >
-      {/* Image Skeleton */}
-      <Skeleton
-        height={{ base: "320px", md: "325px" }}
-        w="full"
-        borderRadius="none"
-      />
+      <Box p={2}>
+        <Skeleton
+          height={{ base: "245px", md: "375px" }}
+          w="full"
+          borderRadius="xl"
+        />
 
-      <Stack p={4} spacing={3}>
-        {/* Heading Skeleton */}
-        <Skeleton height="24px" width="60%" mx="auto" />
-        {/* Details Skeleton */}
-        <Stack spacing={2}>
-          <Flex alignItems="center">
-            <Skeleton boxSize="20px" mr={2} />
-            <Skeleton height="16px" width="80%" />
-          </Flex>
-          <Flex alignItems="center">
-            <Skeleton boxSize="20px" mr={2} />
-            <Skeleton height="16px" width="40%" />
-          </Flex>
+        <Stack p={4} spacing={2}>
+          {/* Heading Skeleton */}
+          <Skeleton height="28px" width="60%" mx="auto" />
+
+          {/* Details Skeleton */}
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={0}
+            mt={2}
+          >
+            <Flex alignItems="center">
+              <Skeleton boxSize="20px" mr={2} />
+              <Skeleton height="16px" width="100px" />
+            </Flex>
+            <Flex alignItems="center">
+              <Skeleton boxSize="20px" mr={2} />
+              <Skeleton height="16px" width="60px" />
+            </Flex>
+          </Stack>
+
+          {/* Button Skeleton */}
+          <Skeleton height="40px" width="full" borderRadius="md" mt={2} />
         </Stack>
-        {/* Button Skeleton */}
-        <Skeleton height="40px" width="full" borderRadius="md" mt={2} />
-      </Stack>
+      </Box>
     </Box>
   );
 };

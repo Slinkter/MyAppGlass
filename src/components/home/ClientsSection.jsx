@@ -17,16 +17,9 @@ import useIntersectionObserver from "@/hooks/useIntersectionObserver";
  * @returns {JSX.Element} Sección completa de clientes.
  */
 const ClientsSection = React.memo(() => {
-  const [clients, setClients] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // Infinite Scroll State
-  const [sentinelRef, setSentinelRef] = useState(null);
-  const isSentinelVisible = useIntersectionObserver(sentinelRef, {
-    threshold: 0.1,
-  });
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [clients, setClients] = useState([]);
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -44,27 +37,15 @@ const ClientsSection = React.memo(() => {
     fetchClients();
   }, []);
 
-  const visibleClients = useMemo(
-    () => clients.slice(0, visibleCount),
-    [clients, visibleCount]
-  );
-  const hasMore = visibleCount < clients.length;
-
-  useEffect(() => {
-    if (isSentinelVisible && hasMore && !isLoading) {
-      setVisibleCount((prev) => Math.min(prev + 6, clients.length));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSentinelVisible, hasMore, isLoading]);
-
   return (
-    <Box>
+    <>
       <Franja
         title={"CLIENTES"}
         text={
           "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
         }
       />
+
       <DataLoader
         isLoading={isLoading}
         error={error}
@@ -72,7 +53,7 @@ const ClientsSection = React.memo(() => {
       >
         <Container maxW={"7xl"} mt={12} mb={0}>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
-            {visibleClients.map((client) => (
+            {clients.map((client) => (
               <ClientCard
                 key={client.id} // Use a unique ID from the data instead of index
                 image={client.imgClient}
@@ -82,25 +63,8 @@ const ClientsSection = React.memo(() => {
             ))}
           </SimpleGrid>
         </Container>
-
-        {/* Sentinel & Spinner */}
-        {!isLoading && hasMore && (
-          <Box
-            ref={setSentinelRef}
-            h="60px"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            mb={12}
-          >
-            <Spinner size="md" color="primary.500" thickness="3px" />
-          </Box>
-        )}
-
-        {/* Spacer */}
-        {!hasMore && !isLoading && <Box h="3rem" />}
       </DataLoader>
-    </Box>
+    </>
   );
 });
 

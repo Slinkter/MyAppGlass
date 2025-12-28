@@ -43,11 +43,10 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
       p={{ base: 4, md: 6 }}
       mb={4}
       overflow="hidden"
-      // GlassItemCard effects
       bg={bgColor}
-      backdropFilter="blur(10px)" // Suave blur
-      border="lg" // SIN borde
-      boxShadow="lg" // Subtle shadow
+      backdropFilter="blur(10px)"
+      border="lg"
+      boxShadow="lg"
       borderRadius="2xl"
       borderColor={borderColor}
       color={textColor}
