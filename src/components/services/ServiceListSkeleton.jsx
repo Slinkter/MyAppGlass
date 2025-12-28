@@ -31,7 +31,7 @@ const ServiceListSkeleton = () => {
             <Skeleton height="30px" width="400px" mx="auto" mb={10} />
 
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
-                {Array.from({ length: 6 }).map((_, index) => (
+                {Array.from({ length: 12 }).map((_, index) => (
                     <Box
                         key={index}
                         w="full"

@@ -11,7 +11,7 @@ import ErrorDisplay from "./ErrorDisplay";
  * @param {React.ReactNode} props.loadingComponent - El componente (ej. Skeletons) a mostrar durante la carga.
  * @returns {JSX.Element} El componente de carga, el mensaje de error o el contenido principal.
  */
-const DataLoader = ({ isLoading, error, children, loadingComponent }) => {
+const DataLoader = ({ isLoading, error, loadingComponent, children }) => {
     if (isLoading) {
         return loadingComponent;
     }

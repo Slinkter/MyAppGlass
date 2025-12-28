@@ -1,25 +1,31 @@
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
 import ScrollToTop from "./utils/scroll-to-top";
 import Layout from "./layout/Layout";
-import { Outlet } from "react-router-dom";
+import LoadingFallback from "./components/common/LoadingFallback";
 
 /**
  * @component
  * @description Componente principal de la aplicación. Actúa como el layout base
- * que envuelve todas las rutas, proporcionando elementos comunes como la barra de navegación,
- * el pie de página y la funcionalidad de scroll al inicio de la página.
- * También gestiona el fallback de carga para componentes cargados de forma perezosa (lazy-loaded).
- * @returns {JSX.Element} El componente raíz de la aplicación con el layout y el enrutamiento principal.
+ * que envuelve todas las rutas.
+ *
+ * IMPORTANTE:
+ * Se envuelve el `<Outlet />` en un `<Suspense>` para manejar la carga de
+ * componentes "Lazy Loaded" (cargados bajo demanda) definidos en el router.
+ * Sin esto, React lanzará un error al intentar suspender la renderización mientras
+ * descarga el código de la nueva ruta.
  */
-
 function App() {
-  return (
-    <>
-      <ScrollToTop />
-      <Layout>
-        <Outlet />
-      </Layout>
-    </>
-  );
+    return (
+        <>
+            <ScrollToTop />
+            <Layout>
+                <Suspense fallback={<LoadingFallback />}>
+                    <Outlet />
+                </Suspense>
+            </Layout>
+        </>
+    );
 }
 
 export default App;

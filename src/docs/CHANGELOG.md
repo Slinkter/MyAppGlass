@@ -7,6 +7,37 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-12-27
+
+### Refactorización Arquitectónica y Estandarización
+
+Se realizó una importante refactorización para mejorar la mantenibilidad, legibilidad y robustez de los componentes visuales clave, siguiendo principios de Clean Code y Component-Based Architecture.
+
+#### `Changed` hiding
+
+-   **Modularización de `ProjectDetailModal`:** Se dividió el componente monolítico (>300 líneas) en tres subcomponentes especializados bajo `src/components/projects/modal/`:
+    -   `MapViewer.jsx`: Manejo aislado del iframe de Google Maps y spinners.
+    -   `ProjectInfo.jsx`: Componente UI puro para mostrar detalles del proyecto.
+    -   `VisualViewer.jsx`: Orquestador visual que maneja el layout responsivo entre Mapa y Galería.
+-   **Refactorización de `Gallery`:** Se desacopló la lógica de visualización en:
+    -   `GalleryViewer.jsx`: Visor principal con controles de navegación.
+    -   `GalleryThumbnails.jsx`: Carrusel de miniaturas separado.
+    -   `Gallery.jsx`: Ahora actúa como un _Container_ limpio.
+-   **Corrección de Altura en Modal:** Se solucionó el bug visual donde la galería estiraba el modal excesivamente. Ahora respeta la altura de la tarjeta de información en escritorio y se adapta en móviles (`380px`/`450px`).
+-   **Nomenclatura de Hooks:** Se renombraron archivos para cumplir con el estándar `camelCase` de React:
+    -   `use-is-mobile.js` → `useIsMobile.js`
+    -   `use-reclamo-form.js` → `useReclamoForm.js`
+
+#### `Added`
+
+-   **PropTypes:** Se instaló e implementó la librería `prop-types` para validación de tipos en tiempo de ejecución, aumentando la seguridad del código.
+-   **Soporte Mobile First en Galería:** Se mejoró la visibilidad de los controles de navegación en dispositivos táctiles (siempre visibles vs hover en desktop).
+
+#### `Fixed`
+
+-   **Importación de Datos de Imágenes:** Se corrigió un error crítico donde `ProjectCard` recibía rutas de imágenes como strings en lugar de objetos, lo que rompía la galería. Se implementó un mapeo de datos correcto en `src/data/projects.js`.
+-   **Prop Drilling:** Se corrigió la discrepancia de nombres de props (`imgs` vs `photosObra`) entre componentes padres e hijos.
+
 ---
 
 ## [0.1.0] - 2025-11-05

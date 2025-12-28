@@ -13,7 +13,7 @@ import { servicePageDataMap } from "@/data/servicePageDataMap";
  */
 export const getServices = async () => {
     // Simula un pequeño retraso de red
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 100));
     return Promise.resolve(services);
 };
 
