@@ -54,8 +54,11 @@ src/
 -   **Carga Asíncrona:** Los datos de las secciones principales se cargan de forma asíncrona, mostrando elegantes skeletons de carga para mejorar la UX.
 -   **Rendimiento Optimizado:**
     -   **Code Splitting:** Las páginas se cargan bajo demanda con `React.lazy` y `Suspense`.
+    -   **Infinite Scroll:** Implementado en listados clave (`Proyectos`, `Servicios`, `Clientes`) para cargar contenido bajo demanda y evitar cuellos de botella en el renderizado inicial.
     -   **Optimización de Imágenes:** `vite-plugin-image-optimizer` se utiliza para comprimir y optimizar las imágenes durante el build.
--   **Guía de Estilos Definida:** El uso de Chakra UI está estandarizado en el documento [Guía de Estilos de Chakra UI](./doc/chakra-ui-style-guidelines.md).
+-   **Experiencia de Usuario (UX/UI):**
+    -   **Animaciones Scroll Reveal:** Componente reutilizable `ScrollReveal` (basado en Framer Motion) que añade transiciones suaves de entrada ("fade up") a los elementos al hacer scroll.
+    -   **Guía de Estilos Definida:** El uso de Chakra UI está estandarizado en el documento [Guía de Estilos de Chakra UI](./doc/chakra-ui-style-guidelines.md).
 
 ## 🛠️ Instalación y Desarrollo Local
 

@@ -139,6 +139,7 @@ Este directorio contiene toda la documentación técnica, informes de auditoría
 **Optimización y Rendimiento:**
 
 - `FASE_2_OPTIMIZACION_RENDIMIENTO.md`
+- `OPTIMIZACION_SCROLL_ANIMACIONES.md` ✨ **[NUEVO]**
 
 **Calidad de Código:**
 
@@ -165,20 +166,20 @@ Este directorio contiene toda la documentación técnica, informes de auditoría
 
 ## 🎯 Guía de Lectura Recomendada
 
-### Para Nuevos Desarrolladores:
+### Para Nuevos Desarrolladores
 
 1. `INFORME_CONSOLIDADO.md` - Visión general
 2. `INFORME_ARQUITECTONICO_FACTORIZACION.md` - Arquitectura
 3. `INFORME_REUTILIZACION.md` - Componentes disponibles
 4. `GUIA_CONFIGURACION_ENTORNOS.md` - Setup
 
-### Para Code Review:
+### Para Code Review
 
 1. `FASE_3_MEJORA_NOMENCLATURA.md` - Convenciones
 2. `FASE_4_DOCUMENTACION_COMPLETA.md` - Estándares de documentación
 3. `INFORME_CONSOLIDADO.md` - Patrones y mejores prácticas
 
-### Para Optimización:
+### Para Optimización
 
 1. `FASE_2_OPTIMIZACION_RENDIMIENTO.md` - Optimizaciones aplicadas
 2. `INFORME_CONSOLIDADO.md` - Recomendaciones futuras

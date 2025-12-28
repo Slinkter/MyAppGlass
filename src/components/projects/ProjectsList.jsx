@@ -1,15 +1,25 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import ItemGridLayout from "@/components/common/ItemGridLayout";
 import ProjectCard from "@/components/projects/ProjectCard";
 import ProjectListSkeleton from "@/components/projects/ProjectListSkeleton";
 import DataLoader from "@/components/common/DataLoader";
 import { getProjects } from "@/services/projectService";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import ScrollReveal from "@/components/common/ScrollReveal";
+
+// Componente wrapper estable para evitar re-renders innecesarios de ScrollReveal
+const ProjectCardWithReveal = (props) => (
+  <ScrollReveal>
+    <ProjectCard {...props} />
+  </ScrollReveal>
+);
 
 /**
  * @component ProjectsList
  * @description Lista de proyectos usando el componente genérico ItemGridLayout.
  * Muestra todos los proyectos completados en orden inverso (más recientes primero).
+ * Implementa Infinite Scroll para optimizar el rendimiento.
  * @returns {JSX.Element} Grid de proyectos con SEO y loading state
  */
 const ProjectsList = React.memo(() => {
@@ -17,6 +27,14 @@ const ProjectsList = React.memo(() => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [projects, setProjects] = useState([]);
+
+  // Ref para el sentinel del Infinite Scroll (Usamos useState para callback ref)
+  const [sentinelRef, setSentinelRef] = useState(null);
+
+  // Pasamos el nodo directamente al hook
+  const isSentinelVisible = useIntersectionObserver(sentinelRef, {
+    threshold: 0.1, // Bajamos umbral para mejor detección
+  });
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -37,13 +55,25 @@ const ProjectsList = React.memo(() => {
   // Invertir el orden de proyectos para mostrar los más recientes primero
   const projectsList = useMemo(() => [...projects].reverse(), [projects]);
 
-  // --- Paginación para optimizar rendimiento ---
+  // --- Lógica de Infinite Scroll ---
   const [visibleCount, setVisibleCount] = useState(6); // Cargar solo 6 al inicio
   const visibleProjects = projectsList.slice(0, visibleCount);
+  const hasMore = visibleCount < projectsList.length;
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 6);
+    if (hasMore) {
+      // Pequeño delay artificial para sentir la carga (opcional) o carga directa
+      setVisibleCount((prev) => Math.min(prev + 6, projectsList.length));
+    }
   };
+
+  // Efecto que reacciona cuando el usuario llega al final
+  useEffect(() => {
+    if (isSentinelVisible && hasMore && !isLoading) {
+      handleLoadMore();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSentinelVisible, hasMore, isLoading]);
 
   return (
     <DataLoader
@@ -59,37 +89,28 @@ const ProjectsList = React.memo(() => {
         seoCanonicalUrl="https://www.gyacompany.com/proyectos"
         // Pasamos solo los visibles
         items={visibleProjects}
-        ItemComponent={ProjectCard}
-        // Pasamos children para el botón de "Ver más"
-        containerProps={{ pb: 12 }} // Espacio extra al final
+        ItemComponent={ProjectCardWithReveal}
+        containerProps={{ pb: 0 }}
       />
 
-      {/* Botón "Ver más" si hay más proyectos para cargar */}
-      {visibleCount < projectsList.length && (
-        <Box display="flex" justifyContent="center" mb={12}>
-          <Button
-            onClick={handleLoadMore}
-            colorScheme="primary"
-            size="lg"
-            variant="solid"
-            rounded="full"
-            px={8}
-            _hover={{
-              transform: "translateY(-2px)",
-              boxShadow: "lg",
-            }}
-          >
-            Ver más proyectos
-          </Button>
+      {/* Sentinel para Infinite Scroll */}
+      {/* Se renderiza solo si hay más elementos para cargar y no estamos cargando inicialmente */}
+      {!isLoading && hasMore && (
+        <Box
+          ref={setSentinelRef}
+          h="60px"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          mb={12}
+        >
+          {/* Spinner opcional para indicar que se están cargando más */}
+          <Spinner size="md" color="primary.500" thickness="3px" />
         </Box>
       )}
 
-      {/* 
-        Nota: Para mantener la consistencia de estilos con Chakra, 
-        lo ideal sería importar Button de itemGridLayout o pasarlo como prop, 
-        pero para no romper la estructura actual de ItemGridLayout, 
-        lo renderizaremos a continuación usando componentes de Chakra si los importamos.
-      */}
+      {/* Si ya no hay más, un espacio al final para estética */}
+      {!hasMore && !isLoading && <Box _h="20px" mb={12} />}
     </DataLoader>
   );
 });
