@@ -10,7 +10,7 @@ import { ColorModeToggle } from "./ColorModeToggle";
 import { motion } from "framer-motion";
 
 // Creamos un componente Flex animado
-const MotionFlex = motion(Flex);
+const MotionFlex = motion.create(Flex);
 
 /**
  * @component MobileNav

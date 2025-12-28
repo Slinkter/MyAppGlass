@@ -12,46 +12,47 @@ import { getProjects } from "@/services/projectService";
  * @returns {JSX.Element} Grid de proyectos con SEO y loading state
  */
 const ProjectsList = React.memo(() => {
-    const [projects, setProjects] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+  /* variable locales */
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [projects, setProjects] = useState([]);
 
-    useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                setIsLoading(true);
-                const data = await getProjects();
-                setProjects(data);
-            } catch (err) {
-                setError(err.message || "Error al cargar los proyectos.");
-            } finally {
-                setIsLoading(false);
-            }
-        };
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getProjects();
+        setProjects(data);
+      } catch (err) {
+        setError(err.message || "Error al cargar los proyectos.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-        fetchProjects();
-    }, []);
+    fetchProjects();
+  }, []);
 
-    // Invertir el orden de proyectos para mostrar los más recientes primero
-    const itemsInfo = useMemo(() => [...projects].reverse(), [projects]);
+  // Invertir el orden de proyectos para mostrar los más recientes primero
+  const projectsList = useMemo(() => [...projects].reverse(), [projects]);
 
-    return (
-        <DataLoader
-            isLoading={isLoading}
-            error={error}
-            loadingComponent={<ProjectListSkeleton />}
-        >
-            <ItemGridLayout
-                title="PROYECTOS"
-                subtitle="Obras Entregadas"
-                seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
-                seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
-                seoCanonicalUrl="https://www.gyacompany.com/proyectos"
-                ItemComponent={ProjectCard}
-                items={itemsInfo}
-            />
-        </DataLoader>
-    );
+  return (
+    <DataLoader
+      isLoading={isLoading}
+      error={error}
+      loadingComponent={<ProjectListSkeleton />}
+    >
+      <ItemGridLayout
+        title="PROYECTOS"
+        subtitle="Obras Entregadas"
+        seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
+        seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
+        seoCanonicalUrl="https://www.gyacompany.com/proyectos"
+        ItemComponent={ProjectCard}
+        items={projectsList}
+      />
+    </DataLoader>
+  );
 });
 
 ProjectsList.displayName = "ProjectsList";
