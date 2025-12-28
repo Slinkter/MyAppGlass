@@ -7,6 +7,35 @@ import {
     SimpleGrid,
 } from "@chakra-ui/react";
 import HelmetWrapper from "@/components/HelmetWrapper";
+
+/**
+ * Componente: ItemGridLayout
+ * --------------------------------------------------------------------
+ * @description
+ * Un layout reutilizable para mostrar colecciones de elementos (Proyectos, Servicios, Features)
+ * en una cuadrícula (Grid) responsiva.
+ *
+ * Funcionalidades:
+ * 1. SEO Automático: Integra `HelmetWrapper` para inyectar títulos y meta-descripciones
+ *    específicas para la página que renderiza la lista.
+ * 2. Encabezado Estandarizado: Muestra un Título y Subtítulo con estilos consistentes.
+ * 3. Grid Adaptable: Usa `SimpleGrid` para ajustar el número de columnas según el dispositivo
+ *    (por defecto: 1 en móvil, 2 en tablet, 3 en escritorio).
+ * 4. Inyección de Componentes: Recibe un `ItemComponent` como prop, lo que le permite
+ *    renderizar cualquier tipo de tarjeta (ProjectCard, ServiceCard, etc.) dinámicamente.
+ *
+ * @param {Object} props
+ * @param {string} props.title - Título principal de la sección.
+ * @param {string} props.subtitle - Texto descriptivo secundario.
+ * @param {Array} props.items - Array de datos a iterar.
+ * @param {React.ElementType} props.ItemComponent - El componente que renderizará cada ítem.
+ * @param {string} props.seoTitle - Título para la etiqueta <title> del navegador.
+ * @param {string} props.seoDescription - Meta descripción para SEO.
+ * @param {string} props.seoCanonicalUrl - URL canónica para SEO.
+ * @param {Object} [props.columns] - Configuración de columnas responsivas para SimpleGrid.
+ * @param {number} [props.spacing] - Espaciado entre elementos del grid.
+ * @param {Object} [props.containerProps] - Props adicionales para el contenedor principal.
+ */
 const ItemGridLayout = (props) => {
     const {
         title,

@@ -13,14 +13,14 @@ import { getServices } from "@/services/serviceService";
  * @returns {JSX.Element} Grid de servicios con SEO y loading state
  */
 const ServiceList = React.memo(() => {
-    const [services, setServices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [services, setServices] = useState([]);
 
     useEffect(() => {
         const fetchServices = async () => {
+            setIsLoading(true);
             try {
-                setIsLoading(true);
                 const data = await getServices();
                 setServices(data);
             } catch (err) {

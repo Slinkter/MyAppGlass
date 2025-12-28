@@ -1,4 +1,4 @@
-import { useReclamoForm } from "@/hooks/use-reclamo-form";
+import { useReclamoForm } from "@/hooks/useReclamoForm";
 import {
     Box,
     Button,

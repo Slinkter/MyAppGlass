@@ -1,7 +1,5 @@
 # GYA Glass & Aluminum - Aplicación Web Corporativa
 
-![GYA Logo](https://www.gyacompany.com/assets/logovcr-5381f09e.png)
-
 Aplicación web de alto rendimiento para GYA Glass & Aluminum S.A.C., una empresa especializada en el diseño, fabricación e instalación de estructuras de vidrio y aluminio. El sitio sirve como portafolio de proyectos, catálogo de servicios y canal de contacto principal.
 
 ## 🚀 Arquitectura y Stack Tecnológico
@@ -25,6 +23,7 @@ La aplicación ha sido refactorizada para seguir un patrón más robusto y escal
 1.  **Capa de Presentación (UI):** Compuesta por componentes de React. Los componentes son funcionales y utilizan Hooks para gestionar su estado. La UI se construye de forma declarativa utilizando el sistema de componentes de Chakra UI.
 2.  **Capa de Servicios:** La lógica de obtención de datos está abstraída en una capa de servicios (`src/services`). Los componentes ya no acceden a los datos estáticos directamente; en su lugar, consumen datos a través de funciones asíncronas, simulando una llamada a una API. Esto desacopla la UI del origen de los datos y prepara la aplicación para una futura integración con un Headless CMS.
 3.  **Sistema de Diseño Centralizado:** Todos los estilos, fuentes y tokens de diseño están centralizados en el objeto de tema de Chakra UI (`src/config/theme.js`), asegurando una consistencia visual total y facilitando cambios de diseño globales.
+4.  **Componentes Modularizados (Clean Code):** Se ha adoptado una arquitectura _feature-based_ y _atomic design_ para componentes complejos como `ProjectDetailModal` y `Gallery`, dividiéndolos en subcomponentes especializados (`VisualViewer`, `ProjectInfo`, etc.) para mejorar la mantenibilidad y legibilidad. Además, se han estandarizado los hooks personalizados y se utiliza `prop-types` para la validación de tipos.
 
 ## 📂 Estructura de Directorios
 
@@ -38,7 +37,7 @@ src/
 │   ├── common/           # Componentes genéricos (DataLoader, Gallery, etc.)
 │   └── ...               # Componentes agrupados por feature (home, projects, etc.)
 ├── config/               # Configuración de la aplicación (Firebase, tema de Chakra UI)
-├── data/                 # (Legado) Archivos de datos estáticos (consumidos por la capa de servicios)
+├── data/                 # Archivos de datos estáticos (consumidos por la capa de servicios)
 ├── doc/                  # Documentación del proyecto (guías de estilo, etc.)
 ├── hooks/                # Hooks de React personalizados
 ├── layout/               # Componentes de layout principal (Navbar, Footer)
@@ -63,10 +62,12 @@ src/
 Para ejecutar el proyecto en un entorno de desarrollo local, siga estos pasos.
 
 1.  **Prerrequisitos:**
+
     -   Node.js (v18 o superior)
     -   `pnpm` como gestor de paquetes (recomendado)
 
 2.  **Instalar dependencias:**
+
     ```bash
     pnpm install
     ```

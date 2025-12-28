@@ -1,50 +1,41 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
     Modal,
     ModalOverlay,
     ModalContent,
     ModalBody,
-    Box,
     Flex,
-    Heading,
-    Stack,
-    Spinner,
     useColorModeValue,
-    Button,
-    ButtonGroup,
-    Icon,
 } from "@chakra-ui/react";
-import {
-    MapPinIcon,
-    CalendarDaysIcon,
-    BuildingOffice2Icon,
-    HomeIcon,
-    MapIcon,
-    PhotoIcon,
-    XMarkIcon,
-} from "@heroicons/react/24/solid";
-import ProjectDetailItem from "./ProjectDetailItem";
-import GlassCard from "@/components/common/GlassCard";
-import Gallery from "@/components/common/Gallery";
+import VisualViewer from "./modal/VisualViewer";
+import ProjectInfo from "./modal/ProjectInfo";
 
 /**
- * @component ProjectDetailModal
- * @description Modal component to display detailed information about a project,
- * including a Google Maps embed and project specifics.
+ * Componente: ProjectDetailModal
+ * --------------------------------------------------------------------
+ * @description
+ * Este componente actúa como un contenedor principal (Smart Component) para la visualización
+ * detallada de un proyecto. Implementa el patrón "Modal" de Chakra UI y orquesta
+ * la lógica de presentación entre dos vistas principales: Mapa de Ubicación y Galería de Fotos.
  *
- * @param {{
- *   isOpen: boolean,
- *   onClose: () => void,
- *   residencial: string,
- *   name: string,
- *   address: string,
- *   year: string,
- *   g_maps: string,
- *   image?: string,
- * }} props - Props for the component.
- * @returns {JSX.Element} The rendered project detail modal.
+ * Responsabilidades:
+ * 1. Gestionar el estado de apertura/cierre del modal.
+ * 2. Determinar qué vista mostrar (Mapa o Galería) mediante el estado `viewMode`.
+ * 3. Preparar la URL segura para el iframe de Google Maps.
+ * 4. Pasar los datos necesarios a los componentes de presentación hijos (`VisualViewer` y `ProjectInfo`).
+ *
+ * @param {Object} props - Propiedades del componente
+ * @param {boolean} props.isOpen - Controla si el modal está visible.
+ * @param {function} props.onClose - Función para cerrar el modal.
+ * @param {string} props.residencial - Nombre del residencial o proyecto.
+ * @param {string} props.name - Nombre de la constructora o cliente.
+ * @param {string} props.address - Dirección corta o distrito.
+ * @param {string} props.year - Año y mes de entrega del proyecto.
+ * @param {string} props.g_maps - Dirección completa para buscar en Google Maps.
+ * @param {Array} props.photos - Array de objetos de imágenes para la galería.
  */
-export default React.memo(function ProjectDetailModal({
+const ProjectDetailModal = ({
     isOpen,
     onClose,
     residencial,
@@ -53,8 +44,7 @@ export default React.memo(function ProjectDetailModal({
     year,
     g_maps,
     photos,
-}) {
-    const [isMapLoaded, setIsMapLoaded] = useState(false);
+}) => {
     const [googleMapsUrl, setGoogleMapsUrl] = useState("");
     const [viewMode, setViewMode] = useState("map"); // 'map' | 'gallery'
 
@@ -68,14 +58,8 @@ export default React.memo(function ProjectDetailModal({
     );
     const textColor = useColorModeValue("gray.800", "gray.100");
 
-    const spinnerBg = useColorModeValue("gray.100", "gray.800");
-
-    // Generate mock gallery images since data source is currently single image
-    // In a real scenario, this would come from props.images
-
-    React.useEffect(() => {
+    useEffect(() => {
         if (isOpen) {
-            setIsMapLoaded(false);
             setViewMode("map"); // Reset to map on open
             setGoogleMapsUrl(
                 `https://www.google.com/maps?q=${encodeURIComponent(
@@ -112,197 +96,38 @@ export default React.memo(function ProjectDetailModal({
                         flexDirection={{ base: "column", lg: "row" }}
                         gap={{ base: 6, lg: 8 }}
                     >
-                        {/* Visual Section: Map or Gallery */}
-                        <Box
-                            flex="3"
-                            h={{
-                                base: "380px",
-                                sm: "420px",
-                                md: "450px",
-                                lg: "auto",
-                            }}
-                            position="relative"
-                            borderRadius="2xl"
-                            overflow="hidden"
-                            boxShadow="lg"
-                            bg={spinnerBg}
-                        >
-                            <Box
-                                position="absolute"
-                                top="0"
-                                left="0"
-                                w="100%"
-                                h="100%"
-                            >
-                                {viewMode === "map" ? (
-                                    <>
-                                        {!isMapLoaded && (
-                                            <Flex
-                                                position="absolute"
-                                                top="0"
-                                                left="0"
-                                                right="0"
-                                                bottom="0"
-                                                align="center"
-                                                justify="center"
-                                                bg={spinnerBg}
-                                                zIndex={1}
-                                            >
-                                                <Spinner
-                                                    size="xl"
-                                                    color="primary.500"
-                                                    thickness="4px"
-                                                />
-                                            </Flex>
-                                        )}
-                                        <iframe
-                                            src={googleMapsUrl}
-                                            width="100%"
-                                            height="100%"
-                                            style={{
-                                                border: 0,
-                                                opacity: isMapLoaded ? 1 : 0,
-                                                transition:
-                                                    "opacity 0.5s ease-in-out",
-                                            }}
-                                            allowFullScreen=""
-                                            loading="lazy"
-                                            onLoad={() => setIsMapLoaded(true)}
-                                        ></iframe>
-                                    </>
-                                ) : (
-                                    <Gallery images={photos} />
-                                )}
-                            </Box>
-                        </Box>
+                        <VisualViewer
+                            viewMode={viewMode}
+                            googleMapsUrl={googleMapsUrl}
+                            photos={photos}
+                        />
 
-                        {/* Details Section using GlassCard */}
-                        <GlassCard
-                            flex="2"
-                            p={{ base: 5, md: 6 }}
-                            minH={{ lg: "450px" }}
-                            display="flex"
-                            flexDirection="column"
-                            justifyContent="center"
-                            gap={6}
-                        >
-                            {/* View Switcher */}
-                            <ButtonGroup w="full" isAttached variant="outline">
-                                <Button
-                                    w="full"
-                                    leftIcon={<Icon as={MapIcon} />}
-                                    onClick={() => setViewMode("map")}
-                                    isActive={viewMode === "map"}
-                                    bg={
-                                        viewMode === "map"
-                                            ? "primary.500"
-                                            : "transparent"
-                                    }
-                                    color={
-                                        viewMode === "map" ? "white" : "inherit"
-                                    }
-                                    _hover={{
-                                        bg:
-                                            viewMode === "map"
-                                                ? "primary.600"
-                                                : "whiteAlpha.200",
-                                    }}
-                                    _active={{
-                                        bg: "primary.600",
-                                    }}
-                                >
-                                    Ubicación
-                                </Button>
-                                <Button
-                                    w="full"
-                                    leftIcon={<Icon as={PhotoIcon} />}
-                                    onClick={() => setViewMode("gallery")}
-                                    isActive={viewMode === "gallery"}
-                                    bg={
-                                        viewMode === "gallery"
-                                            ? "primary.500"
-                                            : "transparent"
-                                    }
-                                    color={
-                                        viewMode === "gallery"
-                                            ? "white"
-                                            : "inherit"
-                                    }
-                                    _hover={{
-                                        bg:
-                                            viewMode === "gallery"
-                                                ? "primary.600"
-                                                : "whiteAlpha.200",
-                                    }}
-                                    _active={{
-                                        bg: "primary.600",
-                                    }}
-                                >
-                                    Galería
-                                </Button>
-                            </ButtonGroup>
-
-                            <Box>
-                                <Heading
-                                    size="md"
-                                    mb={6}
-                                    borderBottom="2px solid"
-                                    borderColor="primary.500"
-                                    pb={2}
-                                    display="inline-block"
-                                    width="fit-content"
-                                >
-                                    Detalles del Proyecto
-                                </Heading>
-                                <Stack spacing={5}>
-                                    <ProjectDetailItem
-                                        icon={HomeIcon}
-                                        label="Residencial"
-                                        value={residencial}
-                                    />
-                                    <ProjectDetailItem
-                                        icon={BuildingOffice2Icon}
-                                        label="Constructora"
-                                        value={name}
-                                    />
-                                    <ProjectDetailItem
-                                        icon={MapIcon}
-                                        label="Dirección"
-                                        value={g_maps}
-                                    />
-                                    <ProjectDetailItem
-                                        icon={MapPinIcon}
-                                        label="Distrito"
-                                        value={address}
-                                    />
-                                    <ProjectDetailItem
-                                        icon={CalendarDaysIcon}
-                                        label="Año"
-                                        value={year}
-                                    />
-                                </Stack>
-                            </Box>
-
-                            {/* Close Button - Mobile Friendly Integration */}
-                            <Button
-                                onClick={onClose}
-                                leftIcon={<Icon as={XMarkIcon} />}
-                                variant="outline"
-                                colorScheme="red"
-                                size="sm"
-                                w="full"
-                                _hover={{
-                                    bg: "red.500",
-                                    color: "white",
-                                    borderColor: "red.500",
-                                }}
-                            >
-                                Cerrar Ventana
-                            </Button>
-                        </GlassCard>
+                        <ProjectInfo
+                            residencial={residencial}
+                            name={name}
+                            address={address}
+                            year={year}
+                            g_maps={g_maps}
+                            viewMode={viewMode}
+                            setViewMode={setViewMode}
+                            onClose={onClose}
+                        />
                     </Flex>
                 </ModalBody>
             </ModalContent>
         </Modal>
     );
-});
+};
+
+ProjectDetailModal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    residencial: PropTypes.string,
+    name: PropTypes.string,
+    address: PropTypes.string,
+    year: PropTypes.string,
+    g_maps: PropTypes.string,
+    photos: PropTypes.array,
+};
+
+export default React.memo(ProjectDetailModal);
