@@ -46,7 +46,7 @@ const ProjectCard = React.memo((props) => {
   const styles = {
     bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
     border: useColorModeValue(
-      "rgba(255, 255, 255, 0.72)",
+      "rgba(255, 255, 255, 0.52)",
       "rgba(255, 255, 255, 0.15)"
     ),
     text: useColorModeValue("gray.800", "gray.100"),
@@ -73,63 +73,68 @@ const ProjectCard = React.memo((props) => {
         boxShadow="lg"
         color={styles.text}
         transition="transform 0.3s ease, box-shadow 0.3s ease"
-        borderWidth="1px"
-        borderColor={styles.border}
         _hover={{
           transform: "scale(1.02)",
           boxShadow: "xl",
         }}
       >
-        <FadingImage
-          w="full"
-          h={{ base: "320px", md: "325px" }}
-          src={image}
-          alt={`Obra ${residencial}`}
-          objectFit="cover"
-          showOverlay={false}
-        />
+        <Box p={2}>
+          <FadingImage
+            w="full"
+            h={{ base: "245px", md: "375px" }}
+            src={image}
+            alt={`Obra ${residencial}`}
+            objectFit="cover"
+            showOverlay={false}
+          />
 
-        <Stack p={4} spacing={3}>
-          <Heading
-            size="md"
-            textTransform="uppercase"
-            color={styles.heading}
-            fontWeight="bold"
-            textAlign="center"
-          >
-            {residencial}
-          </Heading>
+          <Stack p={4} spacing={2}>
+            <Heading
+              size="md"
+              textTransform="uppercase"
+              color={styles.heading}
+              fontWeight="bold"
+              textAlign="center"
+            >
+              {residencial}
+            </Heading>
 
-          <Stack spacing={2} fontSize="sm">
-            <Flex alignItems="center">
-              <Icon as={MapPinIcon} w={5} h={5} mr={2} color={styles.icon} />
-              <Text noOfLines={1}>{address}</Text>
-            </Flex>
-            <Flex alignItems="center">
-              <Icon
-                as={CalendarDaysIcon}
-                w={5}
-                h={5}
-                mr={2}
-                color={styles.icon}
-              />
-              <Text>{year}</Text>
-            </Flex>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              fontSize="sm"
+            >
+              <Flex alignItems="center">
+                <Icon as={MapPinIcon} w={5} h={5} mr={2} color={styles.icon} />
+                <Text noOfLines={1}>{address}</Text>
+              </Flex>
+              <Flex alignItems="center">
+                <Icon
+                  as={CalendarDaysIcon}
+                  w={5}
+                  h={5}
+                  mr={2}
+                  color={styles.icon}
+                />
+                <Text>{year}</Text>
+              </Flex>
+            </Stack>
+
+            <Button
+              onClick={onOpen}
+              rightIcon={<ArrowForwardIcon />}
+              variant="solid"
+              width="full"
+              bg={styles.btnBg}
+              color={styles.text}
+              _hover={{ bg: styles.btnHover }}
+              mt={2}
+            >
+              Google Maps
+            </Button>
           </Stack>
-
-          <Button
-            onClick={onOpen}
-            rightIcon={<ArrowForwardIcon />}
-            variant="solid"
-            width="full"
-            bg={styles.btnBg}
-            color={styles.text}
-            _hover={{ bg: styles.btnHover }}
-            mt={2}
-          >
-            Google Maps
-          </Button>
-        </Stack>
+        </Box>
       </Box>
       {/* modal */}
       <ProjectDetailModal

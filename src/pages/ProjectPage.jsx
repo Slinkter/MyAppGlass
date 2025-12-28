@@ -10,7 +10,7 @@ import ProjectsList from "@/components/projects/ProjectsList";
  */
 const ProjectPage = () => {
   return (
-    <Box as="section" py={4}>
+    <Box as="section" py={1}>
       <ProjectsList />
       {/* <Box>Test Project Page Loading</Box> */}
     </Box>
