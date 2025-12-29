@@ -89,7 +89,7 @@ const ProjectCard = React.memo((props) => {
                 <Box p={2}>
                     <FadingImage
                         w="full"
-                        h={{ base: "245px", md: "375px" }}
+                        h={{ base: "275px", md: "375px" }}
                         src={image}
                         alt={`Obra ${residencial}`}
                         objectFit="cover"

@@ -64,7 +64,7 @@ const ServiceCard = React.memo(({ image, name, plink }) => {
             <Box p={2}>
                 <FadingImage
                     w="full"
-                    h={{ base: "245px", md: "375px" }}
+                    h={{ base: "275px", md: "375px" }}
                     src={image}
                     alt={`Servicio de ${name}`}
                     objectFit="cover"

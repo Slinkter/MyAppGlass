@@ -164,6 +164,24 @@ const Footer = () => {
                                 </HStack>
                             </Link>
                             <Link
+                                to="/cuentas-bancarias"
+                                style={{ textDecoration: "none" }}
+                            >
+                                <HStack
+                                    spacing={2}
+                                    alignItems="center"
+                                    _hover={{
+                                        color: useColorModeValue(
+                                            "primary.600",
+                                            "primary.300"
+                                        ),
+                                    }}
+                                >
+                                    <Icon as={FaLandmark} />
+                                    <Text fontSize="md">Cuentas Bancarias</Text>
+                                </HStack>
+                            </Link>
+                            <Link
                                 to="/libro-de-reclamacion"
                                 style={{ textDecoration: "none" }}
                             >
@@ -186,24 +204,6 @@ const Footer = () => {
                                     <Text fontSize="md">
                                         Libro de Reclamaciones
                                     </Text>
-                                </HStack>
-                            </Link>
-                            <Link
-                                to="/cuentas-bancarias"
-                                style={{ textDecoration: "none" }}
-                            >
-                                <HStack
-                                    spacing={2}
-                                    alignItems="center"
-                                    _hover={{
-                                        color: useColorModeValue(
-                                            "primary.600",
-                                            "primary.300"
-                                        ),
-                                    }}
-                                >
-                                    <Icon as={FaLandmark} />
-                                    <Text fontSize="md">Cuentas Bancarias</Text>
                                 </HStack>
                             </Link>
                         </VStack>

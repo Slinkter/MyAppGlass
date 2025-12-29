@@ -1,10 +1,275 @@
 import React from "react";
-import { Box, Heading, Text, VStack, Container, useColorModeValue } from "@chakra-ui/react";
+import {
+    Box,
+    Heading,
+    Text,
+    VStack,
+    Container,
+    useColorModeValue,
+    Card,
+    Image,
+    CardBody,
+    Stack,
+    SimpleGrid,
+    HStack,
+    Icon,
+    Tooltip,
+    IconButton,
+    useToast,
+    Flex,
+} from "@chakra-ui/react";
+import {
+    FaBuilding,
+    FaIdCard,
+    FaMapMarkerAlt,
+    FaEnvelope,
+    FaCopy,
+    FaCheck,
+} from "react-icons/fa";
 import HelmetWrapper from "@/components/HelmetWrapper";
+import bbvaLogo from "@/assets/bbva.svg";
+import bnLogo from "@/assets/banconacion.svg";
+
+const CopyButton = ({ value, label }) => {
+    const toast = useToast();
+    const [hasCopied, setHasCopied] = React.useState(false);
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(value);
+        setHasCopied(true);
+        toast({
+            title: "Copiado",
+            description: `${label} copiado al portapapeles.`,
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "top-right",
+        });
+        setTimeout(() => setHasCopied(false), 2000);
+    };
+
+    return (
+        <Tooltip label={`Copiar ${label}`} hasArrow>
+            <IconButton
+                size="sm"
+                icon={hasCopied ? <FaCheck /> : <FaCopy />}
+                aria-label={`Copiar ${label}`}
+                onClick={handleCopy}
+                variant="ghost"
+                colorScheme={hasCopied ? "green" : "gray"}
+                isRound
+            />
+        </Tooltip>
+    );
+};
+
+const InfoItem = ({ icon, label, value, copyable = false }) => {
+    const bg = useColorModeValue("white", "gray.800");
+    const borderColor = useColorModeValue("gray.100", "gray.600");
+    const iconColor = useColorModeValue("primary.500", "primary.300");
+
+    return (
+        <HStack
+            bg={bg}
+            p={4}
+            h={{ base: "120px", md: "100px" }}
+            borderRadius="xl"
+            borderWidth="1px"
+            borderColor={borderColor}
+            boxShadow="sm"
+            spacing={4}
+            align="center"
+            transition="all 0.3s"
+            _hover={{ transform: "translateY(-2px)", boxShadow: "md" }}
+        >
+            <Flex
+                align="center"
+                justify="center"
+                w={10}
+                h={10}
+                borderRadius="full"
+                bg={useColorModeValue("primary.50", "whiteAlpha.200")}
+                color={iconColor}
+                flexShrink={0}
+            >
+                <Icon as={icon} boxSize={5} />
+            </Flex>
+            <Box flex="1">
+                <Text
+                    fontSize="xs"
+                    fontWeight="bold"
+                    textTransform="uppercase"
+                    color="gray.500"
+                    letterSpacing="wider"
+                >
+                    {label}
+                </Text>
+                <Text
+                    fontSize="md"
+                    fontWeight="medium"
+                    color={useColorModeValue("gray.800", "white")}
+                >
+                    {value}
+                </Text>
+            </Box>
+            {copyable && <CopyButton value={value} label={label} />}
+        </HStack>
+    );
+};
+
+const BankAccountCard = ({
+    logo,
+    bankName,
+    accountType,
+    accounts,
+    logoBg = "gray.50",
+}) => {
+    const cardBg = useColorModeValue("white", "gray.800");
+    const borderColor = useColorModeValue("gray.200", "gray.600");
+
+    return (
+        <Card
+            h={{ base: "auto", md: "245px" }}
+            direction={{ base: "column", md: "row" }}
+            overflow="hidden"
+            variant="outline"
+            bg={cardBg}
+            borderColor={borderColor}
+            borderRadius="2xl"
+            boxShadow="md"
+            transition="all 0.3s"
+            _hover={{ shadow: "lg" }}
+        >
+            <Flex
+                align="center"
+                justify="center"
+                bg={useColorModeValue(logoBg, "whiteAlpha.900")}
+                p={6}
+                minW={{ md: "220px" }}
+                maxW={{ md: "240px" }}
+                borderRightWidth={{ md: "1px" }}
+                borderBottomWidth={{ base: "1px", md: "0" }}
+                borderColor={borderColor}
+            >
+                <Image
+                    objectFit="contain"
+                    w="full"
+                    h="auto"
+                    maxH="60px"
+                    src={logo}
+                    alt={`Logo ${bankName}`}
+                />
+            </Flex>
+
+            <CardBody p={{ base: 5, md: 6 }}>
+                <Stack spacing={4}>
+                    <Box>
+                        <Text
+                            fontSize="sm"
+                            fontWeight="bold"
+                            color={useColorModeValue(
+                                "primary.600",
+                                "primary.300"
+                            )}
+                            textTransform="uppercase"
+                            letterSpacing="wide"
+                            mb={1}
+                        >
+                            {bankName}
+                        </Text>
+                        <Heading size="md" fontWeight="bold">
+                            {accountType}
+                        </Heading>
+                    </Box>
+
+                    <Stack
+                        spacing={3}
+                        divider={
+                            <Box
+                                borderBottomWidth="1px"
+                                borderColor={useColorModeValue(
+                                    "gray.100",
+                                    "gray.600"
+                                )}
+                            />
+                        }
+                    >
+                        {accounts.map((acc, idx) => (
+                            <Flex
+                                key={idx}
+                                justify="space-between"
+                                align="center"
+                                wrap="wrap"
+                                gap={2}
+                            >
+                                <Box>
+                                    <Text
+                                        fontSize="xs"
+                                        color="gray.500"
+                                        fontWeight="bold"
+                                    >
+                                        {acc.label}
+                                    </Text>
+                                    <Text
+                                        fontFamily="mono"
+                                        fontSize="md"
+                                        fontWeight="medium"
+                                    >
+                                        {acc.value}
+                                    </Text>
+                                    {acc.note && (
+                                        <Text
+                                            fontSize="xs"
+                                            color="orange.500"
+                                            fontStyle="italic"
+                                            mt={0.5}
+                                        >
+                                            {acc.note}
+                                        </Text>
+                                    )}
+                                </Box>
+                                <CopyButton
+                                    value={acc.value}
+                                    label={acc.label}
+                                />
+                            </Flex>
+                        ))}
+                    </Stack>
+                </Stack>
+            </CardBody>
+        </Card>
+    );
+};
 
 const BankAccountsPage = () => {
-    const textColor = useColorModeValue("gray.800", "gray.100");
+    const textColor = useColorModeValue("gray.600", "gray.300");
     const headingColor = useColorModeValue("primary.700", "primary.300");
+
+    const fiscalData = [
+        {
+            icon: FaBuilding,
+            label: "Razón Social",
+            value: "Glass & Aluminum Company S.A.C.",
+            copyable: true,
+        },
+        {
+            icon: FaIdCard,
+            label: "R.U.C",
+            value: "20606432870",
+            copyable: true,
+        },
+        {
+            icon: FaMapMarkerAlt,
+            label: "Dirección Fiscal",
+            value: "Av. Los Fresnos Mz H Lt 16 (1250), Urb. El Valle - La Molina, Lima.",
+        },
+        {
+            icon: FaEnvelope,
+            label: "Facturación",
+            value: "acueva@gyacompany.com",
+            copyable: true,
+        },
+    ];
 
     return (
         <>
@@ -13,68 +278,122 @@ const BankAccountsPage = () => {
                 description="Información detallada de cuentas bancarias y datos fiscales para pagos y facturación a GYA Company."
                 canonicalUrl="https://www.gyacompany.com/cuentas-bancarias"
             />
-            <Container maxW="7xl" py={10}>
-                <VStack spacing={8} align="start">
-                    <Heading as="h1" size="2xl" color={headingColor}>
-                        Cuentas Bancarias y Datos de Facturación
-                    </Heading>
-                    <Text fontSize="lg" color={textColor}>
-                        En GYA Company, valoramos la transparencia y facilitamos sus procesos de pago y facturación. A continuación, encontrará nuestra información bancaria y fiscal detallada, esencial para sus transacciones, incluyendo aquellas sujetas a retenciones (detracciones).
-                        Esta información es crucial para la confianza y claridad, especialmente para nuestros clientes corporativos.
-                    </Text>
-
-                    {/* Sección de Identificación Fiscal */}
-                    <Box width="100%">
-                        <Heading as="h2" size="xl" mb={4} color={headingColor}>
-                            Identificación Fiscal
+            <Container maxW="7xl" py={{ base: 8, md: 12 }}>
+                <VStack spacing={10} align="stretch">
+                    {/* Header Section */}
+                    <Box
+                        textAlign={{ base: "left", md: "center" }}
+                        maxW="4xl"
+                        mx="auto"
+                    >
+                        <Heading
+                            as="h1"
+                            size={{ base: "xl", md: "2xl" }}
+                            color={headingColor}
+                            mb={4}
+                            lineHeight="shorter"
+                        >
+                            Cuentas Bancarias y <br />
+                            <Text
+                                as="span"
+                                color={useColorModeValue("gray.800", "white")}
+                            >
+                                Datos de Facturación
+                            </Text>
                         </Heading>
-                        <VStack align="start" spacing={2}>
-                            <Text fontSize="md" color={textColor}>
-                                <Text as="span" fontWeight="bold">Razón Social:</Text> Glass & Aluminum Company S.A.C.
-                            </Text>
-                            <Text fontSize="md" color={textColor}>
-                                <Text as="span" fontWeight="bold">R.U.C:</Text> 20606432870
-                            </Text>
-                            <Text fontSize="md" color={textColor}>
-                                <Text as="span" fontWeight="bold">Dirección Fiscal:</Text> Av. Los Fresnos Mz H Lt 16 (1250), Urb. El Valle - La Molina, Lima.
-                            </Text>
-                            <Text fontSize="md" color={textColor}>
-                                <Text as="span" fontWeight="bold">Correo de Facturación:</Text> acueva@gyacompany.com
-                            </Text>
-                        </VStack>
-                    </Box>
-
-                    {/* Sección de Cuentas Bancarias (Soles) */}
-                    <Box width="100%">
-                        <Heading as="h2" size="xl" mb={4} color={headingColor}>
-                            Cuentas Bancarias (Soles)
-                        </Heading>
-                        <VStack align="start" spacing={2}>
-                            <Text fontSize="md" color={textColor}>
-                                <Text as="span" fontWeight="bold">Banco:</Text> BBVA
-                            </Text>
-                            <Text fontSize="md" color={textColor}>
-                                <Text as="span" fontWeight="bold">N° Cuenta:</Text> 0011-0106-0100041622
-                            </Text>
-                            <Text fontSize="md" color={textColor}>
-                                <Text as="span" fontWeight="bold">CCI:</Text> 011-106-000100041622-20
-                            </Text>
-                        </VStack>
-                    </Box>
-
-                    {/* Sección de Cuenta de Detracciones */}
-                    <Box width="100%">
-                        <Heading as="h2" size="xl" mb={4} color={headingColor}>
-                            Cuenta de Detracciones (Banco de la Nación)
-                        </Heading>
-                        <Text fontSize="md" color={textColor}>
-                            <Text as="span" fontWeight="bold">N° Cuenta:</Text> 00-066-173291 (Obligatorio para facturas sujetas a detracción)
+                        <Text
+                            fontSize={{ base: "md", md: "lg" }}
+                            color={textColor}
+                        >
+                            Facilitamos sus transacciones con información clara
+                            y accesible. Encuentre a continuación nuestros datos
+                            fiscales y bancarios para gestionar sus pagos con
+                            seguridad y confianza.
                         </Text>
                     </Box>
 
-                    <Text fontSize="lg" color={textColor}>
-                        Para cualquier consulta adicional o confirmación de pagos, no dude en contactarnos a <Text as="span" fontWeight="bold">acueva@gyacompany.com</Text>.
-                    </Text>
+                    {/* Fiscal Identification Section */}
+                    <Box>
+                        <Heading
+                            as="h2"
+                            size="lg"
+                            mb={6}
+                            color={useColorModeValue("gray.700", "white")}
+                        >
+                            Identificación Fiscal
+                        </Heading>
+                        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+                            {fiscalData.map((item, index) => (
+                                <InfoItem key={index} {...item} />
+                            ))}
+                        </SimpleGrid>
+                    </Box>
+
+                    {/* Bank Accounts Section */}
+                    <Box>
+                        <Heading
+                            as="h2"
+                            size="lg"
+                            mb={6}
+                            color={useColorModeValue("gray.700", "white")}
+                        >
+                            Cuentas Bancarias
+                        </Heading>
+                        <Stack spacing={6}>
+                            <BankAccountCard
+                                logo={bbvaLogo}
+                                bankName="BBVA Perú"
+                                accountType="Cuenta Corriente en Soles"
+                                logoBg="white"
+                                accounts={[
+                                    {
+                                        label: "N° Cuenta",
+                                        value: "0011-0106-0100041622",
+                                    },
+                                    {
+                                        label: "CCI",
+                                        value: "011-106-000100041622-20",
+                                    },
+                                ]}
+                            />
+
+                            <BankAccountCard
+                                logo={bnLogo}
+                                bankName="Banco de la Nación"
+                                accountType="Cuenta de Detracciones"
+                                logoBg="white"
+                                accounts={[
+                                    {
+                                        label: "N° Cuenta",
+                                        value: "00-066-173291",
+                                        note: "(Obligatorio para facturas sujetas a detracción)",
+                                    },
+                                ]}
+                            />
+                        </Stack>
+                    </Box>
+
+                    {/* Footer / Contact Hint */}
+                    <Box
+                        bg={useColorModeValue("blue.50", "whiteAlpha.100")}
+                        p={6}
+                        borderRadius="xl"
+                        textAlign="center"
+                    >
+                        <Text fontSize="md" color={textColor}>
+                            ¿Necesita confirmar un pago o requiere asistencia
+                            adicional?
+                            <Text
+                                as="span"
+                                display="block"
+                                mt={1}
+                                fontWeight="bold"
+                                color={headingColor}
+                            >
+                                Contáctenos en: acueva@gyacompany.com
+                            </Text>
+                        </Text>
+                    </Box>
                 </VStack>
             </Container>
         </>
