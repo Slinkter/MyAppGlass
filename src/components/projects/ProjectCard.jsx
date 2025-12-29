@@ -11,7 +11,6 @@ import {
     useColorModeValue,
     useDisclosure,
     Icon,
-    Skeleton,
 } from "@chakra-ui/react";
 import FadingImage from "@/components/common/FadingImage";
 import ProjectDetailModal from "./ProjectDetailModal";
@@ -76,7 +75,7 @@ const ProjectCard = React.memo((props) => {
                 mb={4}
                 overflow="hidden"
                 bg={styles.bg}
-                backdropFilter="blur(10px)"
+                /*  backdropFilter="blur(10px)" */
                 borderRadius="2xl"
                 boxShadow="lg"
                 color={styles.text}
@@ -88,23 +87,15 @@ const ProjectCard = React.memo((props) => {
                 }}
             >
                 <Box p={2}>
-                    <Skeleton
-                        isLoaded={isImageLoaded}
-                        startColor="rgba(255,255,255,0.1)"
-                        endColor="rgba(255,255,255,0.3)"
-                        fadeDuration={0.4}
-                        borderRadius="lg"
-                    >
-                        <FadingImage
-                            w="full"
-                            h={{ base: "245px", md: "375px" }}
-                            src={image}
-                            alt={`Obra ${residencial}`}
-                            objectFit="cover"
-                            showOverlay={false}
-                            onLoad={() => setIsImageLoaded(true)}
-                        />
-                    </Skeleton>
+                    <FadingImage
+                        w="full"
+                        h={{ base: "245px", md: "375px" }}
+                        src={image}
+                        alt={`Obra ${residencial}`}
+                        objectFit="cover"
+                        showOverlay={false}
+                        onLoad={() => setIsImageLoaded(true)}
+                    />
 
                     <Stack
                         p={4}

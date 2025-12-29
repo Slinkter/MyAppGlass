@@ -5,7 +5,6 @@ import {
     Heading,
     Button,
     useColorModeValue,
-    Skeleton,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
@@ -51,7 +50,7 @@ const ServiceCard = React.memo(({ image, name, plink }) => {
             mb={4}
             overflow="hidden"
             bg={styles.bg}
-            backdropFilter="blur(10px)"
+            /*  backdropFilter="blur(10px)" */
             borderRadius="2xl"
             boxShadow="lg"
             color={styles.text}
@@ -63,23 +62,15 @@ const ServiceCard = React.memo(({ image, name, plink }) => {
             }}
         >
             <Box p={2}>
-                <Skeleton
-                    isLoaded={isImageLoaded}
-                    startColor="rgba(255,255,255,0.1)"
-                    endColor="rgba(255,255,255,0.3)"
-                    fadeDuration={0.4}
-                    borderRadius="lg"
-                >
-                    <FadingImage
-                        w="full"
-                        h={{ base: "245px", md: "375px" }}
-                        src={image}
-                        alt={`Servicio de ${name}`}
-                        objectFit="cover"
-                        showOverlay={false}
-                        onLoad={() => setIsImageLoaded(true)}
-                    />
-                </Skeleton>
+                <FadingImage
+                    w="full"
+                    h={{ base: "245px", md: "375px" }}
+                    src={image}
+                    alt={`Servicio de ${name}`}
+                    objectFit="cover"
+                    showOverlay={false}
+                    onLoad={() => setIsImageLoaded(true)}
+                />
 
                 <Stack
                     p={4}

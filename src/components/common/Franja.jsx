@@ -24,11 +24,11 @@ const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
     return (
         <Box
             py={8}
-            bg={bgColor}
-            backdropFilter="blur(20px)" // Suave blur
-            border="none" // SIN borde
+            /* bg={bgColor} */
+            /* backdropFilter="blur(20px)" // Suave blur */
+            /*  border="none" // SIN borde
             boxShadow="lg" // SIN shadow
-            borderRadius="2xl"
+            borderRadius="2xl" */
         >
             <Container maxW="7xl" px={{ base: 4, md: 8 }}>
                 {" "}
@@ -43,6 +43,7 @@ const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
                         fontSize={{ base: "4xl", md: "4xl" }}
                         fontWeight="bold"
                         color={headingColor}
+                        borderBottom="1px solid"
                     >
                         {title}
                     </Heading>
