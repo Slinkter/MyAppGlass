@@ -44,7 +44,6 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
             mb={4}
             overflow="hidden"
             bg={bgColor}
-            backdropFilter="blur(10px)"
             border="lg"
             boxShadow="lg"
             borderRadius="2xl"
