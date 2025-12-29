@@ -9,15 +9,15 @@ export default defineConfig({
         ViteImageOptimizer({
             // Configuración para JPG
             jpg: {
-                quality: 70, // Calidad de compresión (0-100)
+                quality: 50, // Calidad de compresión (0-100)
             },
             // Configuración para PNG
             png: {
-                quality: 70,
+                quality: 50,
             },
             // Configuración para WebP (formato moderno)
             webp: {
-                quality: 70,
+                quality: 50,
             },
             // ⚠️ IMPORTANTE: Opciones de Sharp para corregir orientación
             // Esta es la clave para solucionar el problema de imágenes volteadas
