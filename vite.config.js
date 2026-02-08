@@ -58,6 +58,10 @@ export default defineConfig({
                     if (id.includes("framer-motion")) {
                         return "framer-motion";
                     }
+                    // Separate react-icons into a dedicated chunk
+                    if (id.includes("react-icons")) {
+                        return "react-icons";
+                    }
                     // Group React and ReactDOM into a separate chunk
                     if (id.includes("react") || id.includes("react-dom")) {
                         return "react-vendor";
