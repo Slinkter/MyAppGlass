@@ -201,6 +201,7 @@ const Footer = () => {
                                                                         h="30px"
                                                                         w="auto"
                                                                         loading="lazy"
+                                                                        decoding="async"
                                                                     />                                    <Text fontSize="md">
                                         Libro de Reclamaciones
                                     </Text>
