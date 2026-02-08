@@ -43,6 +43,7 @@ const MapViewer = ({ url }) => {
                 </Flex>
             )}
             <iframe
+                title="Google Maps Location"
                 src={url}
                 width="100%"
                 height="100%"
