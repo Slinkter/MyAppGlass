@@ -6,7 +6,6 @@ import { HStack, Text, useColorModeValue } from "@chakra-ui/react";
  * @description Muestra una especificación técnica individual (Clave: Valor) con icono.
  *
  * @param {Object} props - Propiedades del componente.
- * @param {React.ElementType} props.icon - Icono a mostrar.
  * @param {string} props.label - Etiqueta de la especificación.
  * @param {string} props.value - Valor de la especificación.
  * @returns {JSX.Element} Ítem de especificación.
