@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { fileURLToPath, URL } from "url";
+import { visualizer } from "rollup-plugin-visualizer"; // New import
 
 export default defineConfig({
     plugins: [
@@ -31,6 +32,7 @@ export default defineConfig({
                 rotate: true, // Auto-rotación basada en EXIF
             },
         }),
+        visualizer({ open: true }), // New plugin
     ],
 
     // ⚙️ Opcional: configuración del servidor local
