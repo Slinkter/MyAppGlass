@@ -3,6 +3,7 @@ import pluginJs from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
+import pluginJsxA11y from "eslint-plugin-jsx-a11y"; // New import
 
 export default [
   {
@@ -24,6 +25,7 @@ export default [
       react: pluginReact,
       "react-hooks": pluginReactHooks,
       "react-refresh": pluginReactRefresh,
+      "jsx-a11y": pluginJsxA11y, // New plugin
     },
     settings: {
       react: {
@@ -34,6 +36,7 @@ export default [
       ...pluginJs.configs.recommended.rules,
       ...pluginReact.configs.recommended.rules,
       ...pluginReactHooks.configs.recommended.rules,
+      ...pluginJsxA11y.configs.recommended.rules, // New accessibility rules
       "react/jsx-no-target-blank": "off",
       "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^React$" }],
       "react/prop-types": "off",
