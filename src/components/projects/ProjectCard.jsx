@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, lazy, Suspense } from "react"; // Added lazy, Suspense
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/solid";
 import {
@@ -13,7 +13,10 @@ import {
     Icon,
 } from "@chakra-ui/react";
 import FadingImage from "@/components/common/FadingImage";
-import ProjectDetailModal from "./ProjectDetailModal";
+// import ProjectDetailModal from "./ProjectDetailModal"; // Removed this line
+import ModalSkeleton from "./modal/ModalSkeleton"; // New import
+
+const LazyProjectDetailModal = lazy(() => import('./ProjectDetailModal')); // Moved here
 
 // Re-using the Project typedef from projectService.js
 /**
@@ -76,7 +79,7 @@ const ProjectCard = React.memo((props) => {
     } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [isImageLoaded, setIsImageLoaded] = React.useState(false);
-    const handleImageLoad = React.useCallback(() => setIsImageLoaded(true), []);
+    const handleImageLoad = useCallback(() => setIsImageLoaded(true), []);
 
     const styles = {
         bg: useColorModeValue(
@@ -191,16 +194,20 @@ const ProjectCard = React.memo((props) => {
                 </Box>
             </Box>
             {/* modal */}
-            <ProjectDetailModal
-                isOpen={isOpen}
-                onClose={onClose}
-                residencial={residencial}
-                name={name}
-                address={address}
-                year={year}
-                g_maps={g_maps}
-                photos={photosObra}
-            />
+            {isOpen && ( // Only render Suspense and Lazy component if modal is open
+                <Suspense fallback={<ModalSkeleton />}>
+                    <LazyProjectDetailModal
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        residencial={residencial}
+                        name={name}
+                        address={address}
+                        year={year}
+                        g_maps={g_maps}
+                        photos={photosObra}
+                    />
+                </Suspense>
+            )}
         </>
     );
 });
