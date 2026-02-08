@@ -44,6 +44,7 @@ const TestView = () => {
                     alt="gyacompany"
                     boxSize="140px"
                     objectFit="contain"
+                    loading="lazy"
                 />
 
                 {/* Divider */}
