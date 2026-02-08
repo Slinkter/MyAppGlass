@@ -133,8 +133,8 @@
 ### Component Accessibility
 - [x] Add ARIA labels to `Gallery.jsx` navigation buttons
 - [x] Add keyboard navigation to `Gallery.jsx`
-- [/] Add `role="dialog"` and `aria-modal` to `ProjectDetailModal.jsx`
-- [ ] Implement focus trap in `ProjectDetailModal.jsx`
+- [x] Add `role="dialog"` and `aria-modal` to `ProjectDetailModal.jsx`
+- [/] Implement focus trap in `ProjectDetailModal.jsx`
 - [ ] Add `aria-current` to `Navbar.jsx` active links
 - [ ] Improve keyboard navigation in `Navbar.jsx`
 - [ ] Add `aria-invalid` and `aria-describedby` to `ReclamationForm.jsx`
@@ -196,14 +196,14 @@
 
 ## 📊 Progress Tracking
 
-**Overall Progress:** 48/100 tasks completed
+**Overall Progress:** 49/100 tasks completed
 
 ### By Phase
 - Phase 1 (Linting): 6/6 ✅
 - Phase 2 (JSDoc): 20/20 📚
 - Phase 3 (Performance): 15/15 ✅
 - Phase 4 (Testing): 0/15 ❌
-- Phase 5 (Accessibility): 5/10 ♿
+- Phase 5 (Accessibility): 6/10 ♿
 
 ---
 
