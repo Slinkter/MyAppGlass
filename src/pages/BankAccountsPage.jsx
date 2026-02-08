@@ -159,6 +159,7 @@ const BankAccountCard = ({
                     src={logo}
                     alt={`Logo ${bankName}`}
                     loading="lazy"
+                    decoding="async"
                 />
             </Flex>
 
