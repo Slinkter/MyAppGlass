@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useGallery } from "@/hooks/useGallery";
 import GalleryViewer from "./gallery/GalleryViewer";
@@ -41,6 +41,23 @@ const Gallery = React.memo(({ images }) => {
     currentImage,
     imageCount,
   } = useGallery(images);
+
+  // Add keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowLeft") {
+        handlePrevious();
+      } else if (event.key === "ArrowRight") {
+        handleNext();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handlePrevious, handleNext]); // Depend on memoized handlers
 
   if (!images || imageCount === 0) {
     return null;
