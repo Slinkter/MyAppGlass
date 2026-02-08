@@ -47,7 +47,7 @@
 
 ### Components (Projects, Services, Home)
 - [x] Update JSDoc in `ProjectCard.jsx`
-- [ ] Update JSDoc in `ProjectDetailModal.jsx`
+- [x] Update JSDoc in `ProjectDetailModal.jsx`
 - [ ] Update JSDoc in `ServiceCard.jsx`
 - [ ] Update JSDoc in `ClientCard.jsx`
 - [ ] Update JSDoc in `FeatureCard.jsx`
@@ -196,11 +196,11 @@
 
 ## 📊 Progress Tracking
 
-**Overall Progress:** 24/100 tasks completed
+**Overall Progress:** 25/100 tasks completed
 
 ### By Phase
 - Phase 1 (Linting): 6/6 ✅
-- Phase 2 (JSDoc): 17/20 📚
+- Phase 2 (JSDoc): 18/20 📚
 
 ---
 
@@ -219,7 +219,7 @@
 ## 📝 Notes
 
 - Mark tasks as `[/]` when in progress
-- Mark tasks as `[x]` when completed
-- Update progress tracking after each task
+- Mark tasks as `[x]` cuando estén completadas
+- Actualizar el contador de progreso al final del archivo
 - Create git commits after completing each phase
 - Run verification checks after each phase
