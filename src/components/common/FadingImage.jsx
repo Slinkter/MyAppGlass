@@ -131,6 +131,7 @@ const FadingImage = React.memo((props) => {
                     h="100%"
                     objectFit="cover"
                     loading="lazy"
+                    decoding="async"
                     transition="transform 0.4s ease-in-out, opacity 0.3s ease-in-out"
                     opacity={isLoaded ? 1 : 0} // Fade in effect
                     _groupHover={{ transform: "scale(1.1)" }}
