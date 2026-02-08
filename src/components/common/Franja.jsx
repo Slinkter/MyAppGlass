@@ -24,7 +24,6 @@ const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
     return (
         <Box
             py={8}
-            /* bg={bgColor} */
             /* backdropFilter="blur(20px)" // Suave blur */
             /*  border="none" // SIN borde
             boxShadow="lg" // SIN shadow
