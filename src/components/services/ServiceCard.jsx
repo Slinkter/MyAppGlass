@@ -10,16 +10,44 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
 import FadingImage from "@/components/common/FadingImage";
 
+// Re-using the Service typedef from serviceService.js
+/**
+ * @typedef {Object} Service - Representa un servicio individual en la lista general.
+ * @property {number} id - Identificador único del servicio.
+ * @property {string} image - Ruta o URL de la imagen principal del servicio.
+ * @property {string} name - Nombre del servicio.
+ * @property {string} link - Enlace externo relacionado con el servicio (ej. Facebook).
+ * @property {string} plink - Enlace interno a la página de detalles del servicio (slug).
+ */
+
 /**
  * @component ServiceCard
  * @description Muestra una tarjeta individual de servicio con imagen, título y enlace al catálogo.
  * Utiliza estilos de glassmorphism consistentes con el resto de la aplicación, siguiendo el formato de ProjectCard.
  *
- * @param {Object} props - Propiedades del componente.
- * @param {string} props.image - URL de la imagen del servicio.
- * @param {string} props.name - Nombre del servicio.
- * @param {string} props.plink - Enlace a la página de detalle del servicio.
+ * @param {Service} props - El objeto de servicio a mostrar en la tarjeta.
  * @returns {JSX.Element} Tarjeta de servicio renderizada.
+ *
+ * @example
+ * // Ejemplo de uso en un componente padre
+ * import { Box } from "@chakra-ui/react";
+ * import ServiceCard from "./ServiceCard";
+ *
+ * const sampleService = {
+ *   id: 1,
+ *   image: "/assets/services/sample.jpg",
+ *   name: "Ventanas de Aluminio",
+ *   link: "https://facebook.com/ventanas",
+ *   plink: "/servicios/ventanas-aluminio"
+ * };
+ *
+ * function ServiceList() {
+ *   return (
+ *     <Box p={4}>
+ *       <ServiceCard {...sampleService} />
+ *     </Box>
+ *   );
+ * }
  */
 const ServiceCard = React.memo(({ image, name, plink }) => {
     const [isImageLoaded, setIsImageLoaded] = React.useState(false);
