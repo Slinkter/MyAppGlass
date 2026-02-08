@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode development",
-    "build": "cross-env VITE_API_URL=https://us-central1-gya-app-4c8a9.cloudfunctions.net/sendContactEmail vite build --mode production",
+    "build": "vite build --mode production",
     "preview": "vite preview",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "predeploy": "pnpm run build",
