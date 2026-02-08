@@ -15,10 +15,7 @@ import {
  */
 const ServiceListSkeleton = () => {
     // Styles matching ServiceCard
-    const cardBorderColor = useColorModeValue(
-        "rgba(255, 255, 255, 0.25)",
-        "rgba(0, 0, 0, 0.25)"
-    );
+
     const cardBg = useColorModeValue(
         "rgba(255, 255, 255, 0.25)",
         "rgba(0, 0, 0, 0.25)"

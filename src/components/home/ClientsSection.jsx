@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Box, Container, SimpleGrid, Spinner } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { Container, SimpleGrid } from "@chakra-ui/react";
 import { getClients } from "@/services/clientService";
 import DataLoader from "@/components/common/DataLoader";
 import ClientListSkeleton from "./ClientListSkeleton";
 import Franja from "@/components/common/Franja";
 import ClientCard from "./ClientCard";
-import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+
 
 /**
  * @component ClientsSection

@@ -1,10 +1,10 @@
 import PALMER01 from "@/assets/projects/OBRAPALMER/PALMER01.jpeg";
 import PALMER02 from "@/assets/projects/OBRAPALMER/PALMER02.jpeg";
-import PALMER03 from "@/assets/projects/OBRAPALMER/PALMER03.jpeg";
+
 import PALMER04 from "@/assets/projects/OBRAPALMER/PALMER04.jpeg";
 import PALMER05 from "@/assets/projects/OBRAPALMER/PALMER05.jpeg";
 import PALMER06 from "@/assets/projects/OBRAPALMER/PALMER06.jpeg";
-import PALMER07 from "@/assets/projects/OBRAPALMER/PALMER07.jpeg";
+
 import PALMER08 from "@/assets/projects/OBRAPALMER/PALMER08.jpeg";
 import PALMER09 from "@/assets/projects/OBRAPALMER/PALMER09.jpeg";
 import PALMER10 from "@/assets/projects/OBRAPALMER/PALMER10.jpeg";
