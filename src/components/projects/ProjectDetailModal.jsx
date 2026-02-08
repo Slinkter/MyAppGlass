@@ -11,11 +11,27 @@ import {
 import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
 
+// Re-using the Project typedef from projectService.js
 /**
- * Componente: ProjectDetailModal
- * --------------------------------------------------------------------
- * @description
- * Este componente actúa como un contenedor principal (Smart Component) para la visualización
+ * @typedef {Object} Project - Representa la estructura de un proyecto individual.
+ * @property {number} id - Identificador único del proyecto.
+ * @property {string} image - Ruta de la imagen principal del proyecto.
+ * @property {string} residencial - Nombre del edificio o residencial.
+ * @property {string} name - Nombre de la empresa o cliente.
+ * @property {string} address - Dirección del proyecto.
+ * @property {string} numdpto - Número de departamentos asociados al proyecto.
+ * @property {string} year - Año de ejecución del proyecto.
+ * @property {string} g_maps - Enlace o dirección de Google Maps del proyecto.
+ * @property {Array<Object>} photosObra - Array de objetos de imagen de la obra.
+ */
+
+/**
+ * @typedef {'map' | 'gallery'} ViewMode - Representa el modo de visualización actual del modal (mapa o galería).
+ */
+
+/**
+ * @component ProjectDetailModal
+ * @description Este componente actúa como un contenedor principal (Smart Component) para la visualización
  * detallada de un proyecto. Implementa el patrón "Modal" de Chakra UI y orquesta
  * la lógica de presentación entre dos vistas principales: Mapa de Ubicación y Galería de Fotos.
  *
@@ -25,15 +41,44 @@ import ProjectInfo from "./modal/ProjectInfo";
  * 3. Preparar la URL segura para el iframe de Google Maps.
  * 4. Pasar los datos necesarios a los componentes de presentación hijos (`VisualViewer` y `ProjectInfo`).
  *
- * @param {Object} props - Propiedades del componente
+ * @param {Object} props - Propiedades del componente.
  * @param {boolean} props.isOpen - Controla si el modal está visible.
- * @param {function} props.onClose - Función para cerrar el modal.
+ * @param {function(): void} props.onClose - Función para cerrar el modal.
  * @param {string} props.residencial - Nombre del residencial o proyecto.
  * @param {string} props.name - Nombre de la constructora o cliente.
  * @param {string} props.address - Dirección corta o distrito.
  * @param {string} props.year - Año y mes de entrega del proyecto.
  * @param {string} props.g_maps - Dirección completa para buscar en Google Maps.
- * @param {Array} props.photos - Array de objetos de imágenes para la galería.
+ * @param {Array<Object>} props.photos - Array de objetos de imágenes para la galería del proyecto (tipo ProjectImage[]).
+ * @returns {JSX.Element} El componente Modal que muestra los detalles del proyecto.
+ *
+ * @example
+ * // Ejemplo de uso en un componente padre:
+ * import { useDisclosure, Button } from '@chakra-ui/react';
+ * import ProjectDetailModal from './ProjectDetailModal';
+ *
+ * const sampleProjectData = {
+ *   residencial: "Residencial Central",
+ *   name: "Constructora X",
+ *   address: "Calle Falsa 123",
+ *   year: "2024",
+ *   g_maps: "Centro de la Ciudad",
+ *   photos: [{ id: 1, image: "/path/to/img1.jpg", name: "Fachada" }],
+ * };
+ *
+ * function MyComponent() {
+ *   const { isOpen, onOpen, onClose } = useDisclosure();
+ *   return (
+ *     <>
+ *       <Button onClick={onOpen}>Ver Detalles del Proyecto</Button>
+ *       <ProjectDetailModal
+ *         isOpen={isOpen}
+ *         onClose={onClose}
+ *         {...sampleProjectData}
+ *       />
+ *     </>
+ *   );
+ * }
  */
 const ProjectDetailModal = ({
   isOpen,
