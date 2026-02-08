@@ -22,9 +22,15 @@ const initialState = {
 };
 
 /**
- * Validates the form data and returns an errors object.
- * @param {object} formData - The current state of the form.
- * @returns {object} An object containing error messages for invalid fields.
+ * @typedef {Object.<string, string>} FormErrors - Objeto de errores del formulario donde la clave es el nombre del campo y el valor es el mensaje de error.
+ */
+
+/**
+ * Valida los datos del formulario de reclamo y devuelve un objeto con los errores encontrados.
+ * Cada campo se valida individualmente y se agrega un mensaje de error si no cumple con los criterios.
+ *
+ * @param {object} formData - El objeto con los datos actuales del formulario de reclamo.
+ * @returns {FormErrors} Un objeto que contiene mensajes de error para los campos inválidos.
  */
 const validateForm = (formData) => {
   const errors = {};
@@ -58,8 +64,42 @@ const validateForm = (formData) => {
 };
 
 /**
- * Custom hook to manage the logic of the reclamation form.
- * Encapsulates form state, validation, submission, and success modal handling.
+ * @typedef {Object} ReclamoFormData
+ * @property {string} nombreCompleto
+ * @property {string} domicilio
+ * @property {string} email
+ * @property {string} telefono
+ * @property {string} tipoDocumento
+ * @property {string} numeroDocumento
+ * @property {string} nombrePadreMadre
+ * @property {string} tipoBien
+ * @property {string} montoReclamado
+ * @property {string} descripcionBien
+ * @property {string} tipoSolicitud
+ * @property {string} detalle
+ * @property {string} pedido
+ * @property {boolean} aceptaTerminos
+ * @property {boolean} autorizaEmail
+ */
+
+/**
+ * @typedef {Object} UseReclamoFormReturn
+ * @property {ReclamoFormData} formData - El estado actual de los datos del formulario.
+ * @property {FormErrors} errors - Un objeto con los mensajes de error de validación por campo.
+ * @property {function(React.ChangeEvent<HTMLInputElement>): void} handleInputsChange - Manejador genérico para cambios en los campos de entrada del formulario.
+ * @property {function(React.FormEvent<HTMLFormElement>): Promise<void>} handleBtnSubmit - Manejador para el envío del formulario, que incluye validación y lógica de envío a la API.
+ * @property {object} modalProps - Propiedades para controlar un modal de éxito.
+ * @property {boolean} modalProps.isOpen - Indica si el modal de éxito está abierto.
+ * @property {function(): void} modalProps.onClose - Función para cerrar el modal de éxito y redirigir.
+ * @property {string} modalProps.newReclamoId - ID del reclamo recién creado, si la solicitud fue exitosa.
+ */
+
+/**
+ * Custom hook para gestionar toda la lógica del formulario de reclamo.
+ * Encapsula el estado del formulario, la validación, el envío a la API y el manejo del modal de éxito.
+ * Proporciona todas las propiedades y funciones necesarias para un formulario de reclamo completo.
+ *
+ * @returns {UseReclamoFormReturn} Un objeto con el estado del formulario, errores, manejadores y propiedades del modal.
  */
 export const useReclamoForm = () => {
   const [formData, setFormData] = useState(initialState);
