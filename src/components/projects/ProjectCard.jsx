@@ -76,6 +76,7 @@ const ProjectCard = React.memo((props) => {
     } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [isImageLoaded, setIsImageLoaded] = React.useState(false);
+    const handleImageLoad = React.useCallback(() => setIsImageLoaded(true), []);
 
     const styles = {
         bg: useColorModeValue(
@@ -127,7 +128,7 @@ const ProjectCard = React.memo((props) => {
                         alt={`Obra ${residencial}`}
                         objectFit="cover"
                         showOverlay={false}
-                        onLoad={() => setIsImageLoaded(true)}
+                        onLoad={handleImageLoad}
                     />
 
                     <Stack
