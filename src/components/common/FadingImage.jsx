@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
+import PropTypes from "prop-types";
 
 /**
  * @component FadingImage
@@ -29,6 +30,8 @@ import { Link as RouterLink } from "react-router-dom";
  * @param {boolean} [props.showOverlay=true] - Si es `true`, muestra el overlay interactivo al hacer hover.
  * @param {function} [props.onLoad] - Función de callback que se ejecuta cuando la imagen principal carga exitosamente.
  * @param {Object} [props.restProps] - Cualquier otra propiedad pasada se aplica directamente al componente `Image` de Chakra UI.
+ * @param {string} [props.srcset] - Atributo `srcset` para imágenes responsivas.
+ * @param {string} [props.sizes] - Atributo `sizes` para imágenes responsivas.
  * @returns {JSX.Element} Componente de imagen con efecto de fundido y overlay.
  *
  * @example
@@ -66,6 +69,8 @@ const FadingImage = React.memo((props) => {
         h,
         showOverlay = true, // Default to true to maintain existing behavior
         onLoad, // Destructure onLoad to handle it internally
+        srcset, // New prop
+        sizes,  // New prop
         ...restProps
     } = props;
 
@@ -135,6 +140,8 @@ const FadingImage = React.memo((props) => {
                     transition="transform 0.4s ease-in-out, opacity 0.3s ease-in-out"
                     opacity={isLoaded ? 1 : 0} // Fade in effect
                     _groupHover={{ transform: "scale(1.1)" }}
+                    srcset={srcset} // Pass new prop
+                    sizes={sizes}   // Pass new prop
                     {...restProps}
                 />
             </Skeleton>
@@ -209,5 +216,19 @@ const FadingImage = React.memo((props) => {
 });
 
 FadingImage.displayName = "FadingImage";
+
+FadingImage.propTypes = {
+    name: PropTypes.string.isRequired,
+    plink: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    placeholderImageUrl: PropTypes.string,
+    onImageError: PropTypes.func,
+    w: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    h: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    showOverlay: PropTypes.bool,
+    onLoad: PropTypes.func,
+    srcset: PropTypes.string,
+    sizes: PropTypes.string,
+};
 
 export default FadingImage;
