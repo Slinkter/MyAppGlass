@@ -58,9 +58,16 @@ export default defineConfig({
                     if (id.includes("framer-motion")) {
                         return "framer-motion";
                     }
+                    // Group React and ReactDOM into a separate chunk
+                    if (id.includes("react") || id.includes("react-dom")) {
+                        return "react-vendor";
+                    }
+                    // Catch-all for other node_modules
                     if (id.includes("node_modules")) {
                         return "vendor";
                     }
+                    // Default chunk for everything else
+                    return "main";
                 },
             },
         },
