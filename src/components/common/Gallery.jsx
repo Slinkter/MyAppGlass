@@ -6,13 +6,29 @@ import GalleryViewer from "./gallery/GalleryViewer";
 import GalleryThumbnails from "./gallery/GalleryThumbnails";
 
 /**
+ * @typedef {Object} GalleryImage
+ * @property {string|number} id - Identificador único de la imagen.
+ * @property {string} image - URL o path de la imagen.
+ * @property {string} [name] - Nombre opcional de la imagen.
+ */
+
+/**
  * @component Gallery
  * @description Galería de producto premium de alta calidad.
  * Diseño inspirado en configuradores de lujo (Apple, Tesla) con navegación, contador, dots y transiciones suaves.
  *
  * @param {Object} props - Propiedades del componente.
- * @param {Array<{id: string|number, image: string, name?: string}>} props.images - Array de objetos de imagen a mostrar.
+ * @param {GalleryImage[]} props.images - Array de objetos de imagen a mostrar.
  * @returns {JSX.Element|null} El componente de galería o null si no hay imágenes.
+ *
+ * @example
+ * // Ejemplo de uso en un componente padre:
+ * <Gallery
+ *   images={[
+ *     { id: 1, image: "/path/to/image1.jpg", name: "Image One" },
+ *     { id: 2, image: "/path/to/image2.jpg", name: "Image Two" },
+ *   ]}
+ * />
  */
 const Gallery = React.memo(({ images }) => {
   const {
