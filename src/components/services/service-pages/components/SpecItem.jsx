@@ -1,5 +1,5 @@
 import React from "react";
-import { HStack, Text, Box, Icon, useColorModeValue } from "@chakra-ui/react";
+import { HStack, Text, useColorModeValue } from "@chakra-ui/react";
 
 /**
  * @component SpecItem
@@ -11,10 +11,10 @@ import { HStack, Text, Box, Icon, useColorModeValue } from "@chakra-ui/react";
  * @param {string} props.value - Valor de la especificación.
  * @returns {JSX.Element} Ítem de especificación.
  */
-const SpecItem = ({ icon, label, value }) => {
+const SpecItem = ({ label, value }) => {
     const bg = useColorModeValue("whiteAlpha.500", "whiteAlpha.50");
     const borderColor = useColorModeValue("blackAlpha.100", "whiteAlpha.100");
-    const iconBg = useColorModeValue("primary.50", "whiteAlpha.100");
+
     const iconColor = useColorModeValue("primary.600", "primary.300");
     const labelColor = useColorModeValue("gray.600", "gray.400");
     const valueColor = useColorModeValue("gray.800", "gray.100");
