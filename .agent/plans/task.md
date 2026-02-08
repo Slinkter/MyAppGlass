@@ -133,7 +133,7 @@
 ### Component Accessibility
 - [x] Add ARIA labels to `Gallery.jsx` navigation buttons
 - [x] Add keyboard navigation to `Gallery.jsx`
-- [ ] Add `role="dialog"` and `aria-modal` to `ProjectDetailModal.jsx`
+- [/] Add `role="dialog"` and `aria-modal` to `ProjectDetailModal.jsx`
 - [ ] Implement focus trap in `ProjectDetailModal.jsx`
 - [ ] Add `aria-current` to `Navbar.jsx` active links
 - [ ] Improve keyboard navigation in `Navbar.jsx`
