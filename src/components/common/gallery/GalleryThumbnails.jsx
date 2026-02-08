@@ -41,6 +41,7 @@ const GalleryThumbnailItem = React.memo(
                 alt={`Miniatura ${index + 1}`}
                 objectFit="cover"
                 loading="lazy"
+                decoding="async"
                 opacity={isSelected ? 1 : 0.5}
                 transition="opacity 0.3s ease"
                 _hover={{ opacity: 1 }}
