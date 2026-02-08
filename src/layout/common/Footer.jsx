@@ -195,13 +195,13 @@ const Footer = () => {
                                         ),
                                     }}
                                 >
-                                    <Image
-                                        src={LibroReclamacionesIcon}
-                                        alt="Libro de Reclamaciones"
-                                        h="30px"
-                                        w="auto"
-                                    />
-                                    <Text fontSize="md">
+                                                                    <Image
+                                                                        src={LibroReclamacionesIcon}
+                                                                        alt="Libro de Reclamaciones"
+                                                                        h="30px"
+                                                                        w="auto"
+                                                                        loading="lazy"
+                                                                    />                                    <Text fontSize="md">
                                         Libro de Reclamaciones
                                     </Text>
                                 </HStack>
