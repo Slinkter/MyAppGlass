@@ -2,16 +2,42 @@ import React from "react";
 import { Box, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import FadingImage from "@/components/common/FadingImage";
 
+// Re-using the Client typedef from clientService.js
+/**
+ * @typedef {object} Client
+ * @property {number} id - Unique identifier for the client.
+ * @property {string} imgClient - The imported image URL for the client.
+ * @property {string} nameClient - The name of the client category (e.g., "Constructoras").
+ * @property {string} descClient - A description of the client category.
+ */
+
 /**
  * @component ClientCard
  * @description Muestra una tarjeta de cliente/testimonio con imagen y descripción.
  * Utiliza efectos de desenfoque (glassmorphism) y animaciones hover.
  *
- * @param {Object} props - Propiedades del componente.
- * @param {string} props.image - URL de la imagen del cliente.
- * @param {string} props.nameClient - Nombre del cliente o empresa.
- * @param {string} props.descClient - Descripción o testimonio.
+ * @param {Client} props - Objeto de cliente a mostrar en la tarjeta.
  * @returns {JSX.Element} Tarjeta de cliente renderizada.
+ *
+ * @example
+ * // Ejemplo de uso en un componente padre
+ * import { Box } from "@chakra-ui/react";
+ * import ClientCard from "./ClientCard";
+ *
+ * const sampleClient = {
+ *   id: 1,
+ *   imgClient: "/assets/clients/building.jpg",
+ *   nameClient: "Constructoras",
+ *   descClient: "Más de 12 proyectos de construcción entregados."
+ * };
+ *
+ * function ClientList() {
+ *   return (
+ *     <Box p={4}>
+ *       <ClientCard {...sampleClient} />
+ *     </Box>
+ *   );
+ * }
  */
 const ClientCard = React.memo(({ image, nameClient, descClient }) => {
     // Configuración centralizada de estilos
