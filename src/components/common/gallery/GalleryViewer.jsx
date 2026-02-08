@@ -175,6 +175,7 @@ const GalleryViewer = ({
                                     bg: dotActiveColor,
                                     transform: "scale(1.2)",
                                 }}
+                                aria-label={`Seleccionar imagen ${index + 1}`}
                             />
                         ))}
                     </HStack>
