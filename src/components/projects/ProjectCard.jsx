@@ -15,20 +15,53 @@ import {
 import FadingImage from "@/components/common/FadingImage";
 import ProjectDetailModal from "./ProjectDetailModal";
 
+// Re-using the Project typedef from projectService.js
+/**
+ * @typedef {Object} Project - Representa la estructura de un proyecto individual.
+ * @property {number} id - Identificador único del proyecto.
+ * @property {string} image - Ruta de la imagen principal del proyecto.
+ * @property {string} residencial - Nombre del edificio o residencial.
+ * @property {string} name - Nombre de la empresa o cliente.
+ * @property {string} address - Dirección del proyecto.
+ * @property {string} numdpto - Número de departamentos asociados al proyecto.
+ * @property {string} year - Año de ejecución del proyecto.
+ * @property {string} g_maps - Enlace o dirección de Google Maps del proyecto.
+ * @property {Array<Object>} photosObra - Array de objetos de imagen de la obra.
+ */
+
 /**
  * @component ProjectCard
- * @description Tarjeta individual de proyecto que muestra una imagen, título, dirección y año.
- * Incluye funcionalidad para abrir un modal con más detalles y botón a Google Maps.
+ * @description Tarjeta individual que muestra un resumen de un proyecto, incluyendo una imagen,
+ * el nombre de la residencial, dirección y año. Ofrece la funcionalidad para ver más detalles
+ * en un modal y navegar a la ubicación en Google Maps.
  *
- * @param {Object} props - Propiedades del componente.
- * @param {string} props.image - URL de la imagen principal del proyecto.
- * @param {string} props.residencial - Nombre de la residencial o proyecto.
- * @param {string} props.address - Dirección del proyecto.
- * @param {string|number} props.year - Año de realización.
- * @param {string} props.g_maps - URL de Google Maps.
- * @param {string} props.name - Nombre interno o adicional del proyecto.
- * @param {Array<string>} [props.photosObra] - Array de fotos adicionales para el modal.
- * @returns {JSX.Element} Tarjeta del proyecto.
+ * @param {Project} props - Objeto completo del proyecto a mostrar.
+ * @returns {JSX.Element} Un componente de tarjeta que representa un proyecto.
+ *
+ * @example
+ * // Ejemplo de uso en un componente padre
+ * import { Box } from "@chakra-ui/react";
+ * import ProjectCard from "./ProjectCard";
+ *
+ * const sampleProject = {
+ *   id: 1,
+ *   image: "/assets/projects/sample.jpg",
+ *   residencial: "Residencial Ejemplo",
+ *   name: "Desarrollos Modernos S.A.C.",
+ *   address: "Av. Siempre Viva 123",
+ *   numdpto: "10",
+ *   year: "2023",
+ *   g_maps: "https://maps.google.com/?q=Av.+Siempre+Viva+123",
+ *   photosObra: [{ id: 1, image: "/assets/gallery/sample1.jpg" }]
+ * };
+ *
+ * function ProjectList() {
+ *   return (
+ *     <Box p={4}>
+ *       <ProjectCard {...sampleProject} />
+ *     </Box>
+ *   );
+ * }
  */
 const ProjectCard = React.memo((props) => {
     /*  */
