@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box, useColorModeValue, Link } from "@chakra-ui/react";
 import Navbar from "./common/Navbar";
 import Footer from "./common/Footer";
 import FloatWhatsapp from "./floating-whatsapp";
@@ -60,6 +60,34 @@ const Layout = ({ children }) => {
       m={0}
       p={0}
     >
+      {/* Skip Link */}
+      <Link
+        href="#main-content"
+        sx={{
+          position: "absolute",
+          top: "-1000px",
+          left: "-1000px",
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+          ":focus": {
+            position: "static",
+            width: "auto",
+            height: "auto",
+            display: "inline-block",
+            p: "8px",
+            m: "8px",
+            border: "2px solid",
+            borderColor: "blue.500",
+            borderRadius: "md",
+            bg: "white",
+            color: "blue.700",
+            zIndex: "9999",
+          },
+        }}
+      >
+        Saltar al contenido principal
+      </Link>
       <Box
         position="relative"
         maxW="7xl"
@@ -68,7 +96,7 @@ const Layout = ({ children }) => {
         zIndex={1}
       >
         <Navbar />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
       </Box>
 
