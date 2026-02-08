@@ -1,9 +1,31 @@
 import { useState, useEffect, useMemo } from "react";
 
 /**
+ * @typedef {Object} GalleryImage
+ * @property {string|number} id - Identificador único de la imagen.
+ * @property {string} image - URL o path de la imagen.
+ * @property {string} [name] - Nombre opcional de la imagen.
+ */
+
+/**
+ * @typedef {Object} UseGalleryReturn
+ * @property {number} selectedIndex - El índice de la imagen actualmente seleccionada.
+ * @property {function(number): void} setSelectedIndex - Función para establecer el índice de la imagen seleccionada.
+ * @property {boolean} isModalOpen - Indica si el modal de la galería está abierto.
+ * @property {function(): void} onOpenModal - Función para abrir el modal de la galería.
+ * @property {function(): void} onCloseModal - Función para cerrar el modal de la galería.
+ * @property {boolean} isHovered - Indica si el componente está siendo hovereado.
+ * @property {function(boolean): void} setIsHovered - Función para establecer el estado de hover.
+ * @property {function(Event): void} handlePrevious - Manejador para navegar a la imagen anterior.
+ * @property {function(Event): void} handleNext - Manejador para navegar a la imagen siguiente.
+ * @property {GalleryImage} [currentImage] - El objeto de la imagen actualmente seleccionada.
+ * @property {number} imageCount - El número total de imágenes en la galería.
+ */
+
+/**
  * Hook para gestionar la lógica y el estado de un componente de galería de imágenes.
- * @param {Array} images - El array de imágenes a mostrar.
- * @returns {object} Un objeto con el estado de la galería y los manejadores de eventos.
+ * @param {GalleryImage[]} images - Un array de objetos de imagen a mostrar en la galería.
+ * @returns {UseGalleryReturn} Un objeto con el estado de la galería y los manejadores de eventos.
  */
 export const useGallery = (images) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
