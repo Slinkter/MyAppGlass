@@ -10,7 +10,8 @@
     "deploy": "gh-pages -d dist",
     "deploy:hosting": "pnpm run build && firebase deploy --only hosting",
     "deploy:functions": "firebase deploy --only functions",
-    "clean": "pnpm dlx rimraf node_modules dist functions/node_modules"
+    "clean": "pnpm dlx rimraf node_modules dist functions/node_modules",
+    "analyze": "pnpm run build"
   },
   "private": true,
   "name": "my-glass-app",
