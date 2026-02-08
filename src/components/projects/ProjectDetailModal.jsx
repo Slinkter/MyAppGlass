@@ -126,6 +126,8 @@ const ProjectDetailModal = ({
     >
       <ModalOverlay backdropFilter={"blur(10px)"} />
       <ModalContent
+        role="dialog"
+        aria-modal="true"
         borderRadius={{ base: 0, md: "2xl" }}
         bg={modalBg}
         backdropFilter="blur(20px)"
