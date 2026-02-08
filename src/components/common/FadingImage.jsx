@@ -13,10 +13,44 @@ import { Link as RouterLink } from "react-router-dom";
 
 /**
  * @component FadingImage
- * @description Muestra una imagen con un overlay y texto que aparecen al hacer hover.
- * Maneja errores de carga de imagen y es compatible con modos claro/oscuro.
- * @param {Object} props - Props del componente.
- * @returns {JSX.Element}
+ * @description Muestra una imagen con un efecto de fundido y un overlay interactivo.
+ * Al pasar el ratón por encima, se revela un título y un botón de catálogo,
+ * creando un efecto visual atractivo para productos o proyectos.
+ * El componente maneja estados de carga, errores de imagen y es compatible con modos claro/oscuro.
+ *
+ * @param {Object} props - Propiedades del componente.
+ * @param {string} props.name - Título o nombre asociado a la imagen, que se muestra en el overlay.
+ * @param {string} props.plink - URL de destino para el botón "Catálogo".
+ * @param {string} props.src - URL de la imagen principal a mostrar.
+ * @param {string} [props.placeholderImageUrl] - URL de una imagen de respaldo a mostrar si `src` falla. Por defecto, usa `imgF`.
+ * @param {function} [props.onImageError] - Función de callback que se ejecuta cuando la imagen principal falla al cargar.
+ * @param {string|number} [props.w] - Ancho del contenedor de la imagen. Acepta valores de Chakra UI (ej. "100%", "200px").
+ * @param {string|number} [props.h] - Altura del contenedor de la imagen. Acepta valores de Chakra UI (ej. "100%", "150px").
+ * @param {boolean} [props.showOverlay=true] - Si es `true`, muestra el overlay interactivo al hacer hover.
+ * @param {function} [props.onLoad] - Función de callback que se ejecuta cuando la imagen principal carga exitosamente.
+ * @param {Object} [props.restProps] - Cualquier otra propiedad pasada se aplica directamente al componente `Image` de Chakra UI.
+ * @returns {JSX.Element} Componente de imagen con efecto de fundido y overlay.
+ *
+ * @example
+ * // Ejemplo de uso básico de FadingImage
+ * <FadingImage
+ *   name="Producto Destacado"
+ *   plink="/productos/destacado"
+ *   src="https://example.com/imagen-destacada.jpg"
+ *   w="300px"
+ *   h="200px"
+ * />
+ *
+ * @example
+ * // FadingImage con imagen de placeholder y manejo de error
+ * <FadingImage
+ *   name="Proyecto Especial"
+ *   plink="/proyectos/especial"
+ *   src="/assets/projects/special-project.jpg"
+ *   placeholderImageUrl="/assets/common/placeholder.png"
+ *   onImageError={() => console.error("Error al cargar imagen del proyecto")}
+ *   showOverlay={false} // Deshabilita el overlay si solo se quiere la imagen con efecto de carga
+ * />
  */
 
 const imgF = "https://placehold.co/300x300?text=Imagen+no+disponible";
