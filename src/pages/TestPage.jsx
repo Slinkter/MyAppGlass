@@ -45,6 +45,7 @@ const TestView = () => {
                     boxSize="140px"
                     objectFit="contain"
                     loading="lazy"
+                    decoding="async"
                 />
 
                 {/* Divider */}
