@@ -14,6 +14,17 @@ import { ERROR_MESSAGES } from "../../utils/constants";
  * @param {string} [props.message] - Mensaje de error a mostrar. Si no se provee, usa un mensaje por defecto.
  * @param {function} [props.onRetry] - Función opcional a ejecutar al hacer clic en el botón de reintentar.
  * @returns {JSX.Element} Elemento UI de error.
+ *
+ * @example
+ * // Ejemplo de uso básico con un mensaje de error
+ * <ErrorDisplay message="No se pudo cargar la información." />
+ *
+ * @example
+ * // Ejemplo de uso con un mensaje personalizado y un botón de reintento
+ * <ErrorDisplay
+ *   message="Hubo un problema de conexión."
+ *   onRetry={() => console.log("Reintentando operación...")}
+ * />
  */
 const ErrorDisplay = ({ message, onRetry }) => {
   return (
