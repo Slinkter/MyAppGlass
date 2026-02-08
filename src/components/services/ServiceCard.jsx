@@ -51,6 +51,7 @@ import FadingImage from "@/components/common/FadingImage";
  */
 const ServiceCard = React.memo(({ image, name, plink }) => {
     const [isImageLoaded, setIsImageLoaded] = React.useState(false);
+    const handleImageLoad = React.useCallback(() => setIsImageLoaded(true), []);
 
     // Configuración de colores y estilos para Glassmorphism
     const styles = {
@@ -97,7 +98,7 @@ const ServiceCard = React.memo(({ image, name, plink }) => {
                     alt={`Servicio de ${name}`}
                     objectFit="cover"
                     showOverlay={false}
-                    onLoad={() => setIsImageLoaded(true)}
+                    onLoad={handleImageLoad}
                 />
 
                 <Stack
