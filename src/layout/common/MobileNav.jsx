@@ -62,7 +62,11 @@ const MobileNav = () => {
       }}
     >
       {mobileNavItems.map((item) => (
-        <RouterLink to={item.href} key={item.label}>
+        <RouterLink
+          to={item.href}
+          key={item.label}
+          aria-current={location.pathname === item.href ? "page" : undefined} // Add aria-current
+        >
           <IconButton
             variant="ghost"
             aria-label={item.label}
