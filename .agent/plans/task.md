@@ -10,7 +10,7 @@
 **Priority:** 🔴 High | **Time:** 30-45 minutes
 
 ### Linting Fixes
-- [ ] Fix unused variable `bgColor` in `Franja.jsx`
+- [x] Fix unused variable `bgColor` in `Franja.jsx`
 - [ ] Remove unused imports in `ClientsSection.jsx` (`useMemo`, `Box`, `Spinner`, `useIntersectionObserver`)
 - [ ] Fix unused variable `cardBorderColor` in `ServiceListSkeleton.jsx`
 - [ ] Remove unused imports and variables in `SpecItem.jsx` (`Box`, `Icon`, `icon`, `iconBg`)
@@ -197,10 +197,10 @@
 
 ## 📊 Progress Tracking
 
-**Overall Progress:** 1/100 tasks completed
+**Overall Progress:** 2/100 tasks completed
 
 ### By Phase
-- Phase 1 (Linting): 1/6 ✅
+- Phase 1 (Linting): 2/6 ✅
 
 ---
 
