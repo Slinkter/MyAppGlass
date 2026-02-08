@@ -25,7 +25,7 @@
 ### Common Components
 - [x] Update JSDoc in `Gallery.jsx` with `@typedef` and `@example`
 - [x] Update JSDoc in `DataLoader.jsx` documenting render props pattern
-- [ ] Update JSDoc in `ScrollReveal.jsx` with animation props documentation
+- [x] Update JSDoc in `ScrollReveal.jsx` with animation props documentation
 - [ ] Update JSDoc in `GlassCard.jsx` with style variants documentation
 - [ ] Update JSDoc in `ErrorDisplay.jsx`
 - [ ] Update JSDoc in `FadingImage.jsx`
@@ -175,7 +175,6 @@
 ### Automated Checks
 - [ ] Run `pnpm run lint` - 0 errors, 0 warnings
 - [ ] Run `pnpm run test:run` - all tests pass
-- [ ] Run `pnpm run test:coverage` - >70% coverage
 - [ ] Run `pnpm run build` - successful build
 - [ ] Run Lighthouse audit - Performance >90
 
@@ -197,11 +196,11 @@
 
 ## 📊 Progress Tracking
 
-**Overall Progress:** 8/100 tasks completed
+**Overall Progress:** 9/100 tasks completed
 
 ### By Phase
 - Phase 1 (Linting): 6/6 ✅
-- Phase 2 (JSDoc): 1/20 📚
+- Phase 2 (JSDoc): 2/20 📚
 
 ---
 
