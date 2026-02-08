@@ -2,22 +2,29 @@ import { Heading, Box, useColorModeValue } from "@chakra-ui/react";
 
 /**
  * @component FormSection
- * @description Componente de sección reutilizable para formularios con un título y borde inferior.
- * Proporciona estilos consistentes para las secciones de un formulario.
+ * @description Un componente de sección reutilizable diseñado para agrupar campos de formulario
+ * con un título claro y un estilo visual consistente, incluyendo un borde inferior.
+ * Facilita la organización de formularios complejos.
  *
- * @param {{
- *   title: string,
- *   children: React.ReactNode,
- *   pt?: string | number
- * }} props - Propiedades del componente.
- * @param {string} props.title - Título de la sección.
- * @param {React.ReactNode} props.children - Contenido del formulario dentro de la sección.
- * @param {string|number} [props.pt=4] - Padding top opcional (por defecto 4).
- * @returns {JSX.Element} La sección de formulario renderizada.
+ * @param {Object} props - Propiedades del componente.
+ * @param {string} props.title - El título que se mostrará en la parte superior de la sección del formulario.
+ * @param {React.ReactNode} props.children - El contenido principal del formulario, que se renderizará dentro de esta sección.
+ * @param {string|number} [props.pt=4] - Espaciado superior (padding-top) de la sección. Se rige por el sistema de espaciado de Chakra UI.
+ * @returns {JSX.Element} La sección de formulario renderizada con el título y el contenido proporcionados.
  *
  * @example
- * <FormSection title="Información Personal">
- *   <FormControl>...</FormControl>
+ * // Ejemplo de uso básico de FormSection
+ * <FormSection title="Datos de Contacto">
+ *   <Stack spacing={4}>
+ *     <Input placeholder="Nombre" />
+ *     <Input placeholder="Correo Electrónico" />
+ *   </Stack>
+ * </FormSection>
+ *
+ * @example
+ * // FormSection con un padding superior personalizado
+ * <FormSection title="Configuración Avanzada" pt={8}>
+ *   <Switch>Habilitar opción</Switch>
  * </FormSection>
  */
 const FormSection = ({ title, children, pt = 4 }) => {
