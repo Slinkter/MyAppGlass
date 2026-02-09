@@ -10,9 +10,15 @@ const ProjectPage = lazy(() => import("@/pages/ProjectPage"));
 const TestPage = lazy(() => import("@/pages/TestPage"));
 const CompanyPoliciesPage = lazy(() => import("@/pages/CompanyPoliciesPage"));
 const BankAccountsPage = lazy(() => import("@/pages/BankAccountsPage"));
-const ServiceList = lazy(() => import("@features/services").then(module => ({ default: module.ServiceList })));
+const ServiceList = lazy(() =>
+  import("@features/services").then((module) => ({
+    default: module.ServiceList,
+  })),
+);
 const ReclamationForm = lazy(() =>
-  import("@/layout/reclamation-book/ReclamationForm")
+  import("@features/reclamation-book").then((module) => ({
+    default: module.ReclamationForm,
+  })),
 );
 //
 import ErrorPage from "@/pages/ErrorPage";
@@ -45,5 +51,5 @@ export const router = createBrowserRouter(
     future: {
       v7_startTransition: true,
     },
-  }
+  },
 );
