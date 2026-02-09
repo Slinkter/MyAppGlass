@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, SimpleGrid } from "@chakra-ui/react";
-import { getClients } from "@/services/clientService";
+import { useAsyncData } from "@shared/hooks/data/useAsyncData";
+import { getClients } from "../services/clientService";
 import DataLoader from "@shared/components/DataLoader/DataLoader";
 import ClientListSkeleton from "./ClientListSkeleton";
 import Franja from "@/components/common/Franja";
@@ -17,25 +18,7 @@ import ClientCard from "./ClientCard";
  * @returns {JSX.Element} Sección completa de clientes.
  */
 const ClientsSection = React.memo(() => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [clients, setClients] = useState([]);
-
-  useEffect(() => {
-    const fetchClients = async () => {
-      try {
-        setIsLoading(true);
-        const data = await getClients();
-        setClients(data);
-      } catch (err) {
-        setError(err.message || "Error al cargar los clientes.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchClients();
-  }, []);
+  const { data: clients, isLoading, error } = useAsyncData(getClients);
 
   return (
     <>
