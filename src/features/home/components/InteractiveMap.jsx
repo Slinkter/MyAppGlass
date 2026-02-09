@@ -19,7 +19,7 @@ import {
 import { getProjects } from "@/features/projects";
 import { FaBuilding } from "react-icons/fa"; // Import FaBuilding
 
-import logo from "@/assets/branding/logovcr.png";
+import logo from "@/assets/branding/LogoCompanytrans.png";
 
 // --- CORRECCIÓN FRAMER MOTION ---
 const MotionBox = motion.create(Box);
