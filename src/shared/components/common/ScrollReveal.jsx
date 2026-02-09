@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Box } from "@chakra-ui/react";
 
 // Crear componente Box animado con Framer Motion
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 /**
  * @component ScrollReveal

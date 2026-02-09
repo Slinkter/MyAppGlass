@@ -3,22 +3,26 @@
  * @description Datos de ejemplo para los clientes.
  */
 
+import buildingImg from "@/assets/clients/building.jpg";
+import sectorhogarImg from "@/assets/clients/sectorhogar.jpg";
+import sectorofficesImg from "@/assets/clients/sectoroffices.jpg";
+
 export const clients = [
   {
     id: 1,
-    imgClient: "/src/assets/clients/building.jpg", // Placeholder image
+    imgClient: buildingImg, // Imported image
     nameClient: "Constructoras",
     descClient: "Servicios especializados para grandes proyectos de construcción.",
   },
   {
     id: 2,
-    imgClient: "/src/assets/clients/sectorhogar.jpg", // Placeholder image
+    imgClient: sectorhogarImg, // Imported image
     nameClient: "Sector Hogar",
     descClient: "Soluciones de vidrio para viviendas y proyectos residenciales.",
   },
   {
     id: 3,
-    imgClient: "/src/assets/clients/sectoroffices.jpg", // Placeholder image
+    imgClient: sectorofficesImg, // Imported image
     nameClient: "Oficinas y Comercios",
     descClient: "Instalaciones de vidrio y espejos para espacios comerciales y corporativos.",
   },
