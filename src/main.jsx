@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { Spinner, Center } from "@chakra-ui/react";
-import ColorModeManager from "@shared/components/common/ColorModeManager";
+import darkModeManager from "./config/darkModeManager"; // Import the custom dark mode manager
 import { router } from "./routes";
 import theme from "./config/theme";
 import "./styles/global.css";
@@ -36,10 +36,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     {/* HelmetProvider: Gestiona los tags <head> (SEO) de forma asíncrona */}
     <HelmetProvider>
       {/* ChakraProvider: Inyecta el sistema de diseño y tema personalizado */}
-      <ChakraProvider theme={theme}>
-        {/* ColorModeManager: Componente invisible que sincroniza el tema con el sistema operativo */}
-        <ColorModeManager />
-
+      <ChakraProvider theme={theme} colorModeManager={darkModeManager}>
         {/* RouterProvider: Maneja el enrutamiento de la SPA usando la nueva Data API de React Router */}
         <RouterProvider router={router} fallbackElement={suspenseFallback} />
       </ChakraProvider>

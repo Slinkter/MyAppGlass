@@ -6,7 +6,6 @@ import { FaWhatsapp } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { BsBuildings } from "react-icons/bs";
 import { MdHomeRepairService } from "react-icons/md";
-import { ColorModeToggle } from "./ColorModeToggle";
 import { motion } from "framer-motion";
 
 // Creamos un componente Flex animado
@@ -97,8 +96,6 @@ const MobileNav = () => {
           whileTap={{ scale: 0.9 }}
         />
       </Link>
-
-      <ColorModeToggle as={motion.button} whileTap={{ scale: 0.9 }} />
     </MotionFlex>
   );
 };
