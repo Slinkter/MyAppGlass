@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Box, Container, SimpleGrid, Icon, Spinner } from "@chakra-ui/react";
-import { getFeatures } from "@/services/featureService";
+import { useAsyncData } from '@shared/hooks/data/useAsyncData';
+import { getFeatures } from '../services/featureService';
 import DataLoader from "@shared/components/DataLoader/DataLoader";
 import FeatureListSkeleton from "./FeatureListSkeleton";
 import Franja from "@/components/common/Franja";
@@ -17,12 +18,7 @@ import ScrollReveal from "@/components/common/ScrollReveal";
  * @returns {JSX.Element} Sección de beneficios renderizada.
  */
 const FeaturesSection = React.memo(() => {
-    const [featuresData, setFeaturesData] = useState({
-        features: [],
-        iconMap: {},
-    });
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data: featuresData, isLoading, error } = useAsyncData(getFeatures);
 
     // Infinite Scroll State
     const [sentinelRef, setSentinelRef] = useState(null);
@@ -31,21 +27,7 @@ const FeaturesSection = React.memo(() => {
     });
     const [visibleCount, setVisibleCount] = useState(4); // Start with 4
 
-    useEffect(() => {
-        const fetchFeatures = async () => {
-            try {
-                setIsLoading(true);
-                const data = await getFeatures();
-                setFeaturesData(data);
-            } catch (err) {
-                setError(err.message || "Error al cargar las características.");
-            } finally {
-                setIsLoading(false);
-            }
-        };
 
-        fetchFeatures();
-    }, []);
 
     const { features, iconMap } = featuresData;
     const visibleFeatures = useMemo(
