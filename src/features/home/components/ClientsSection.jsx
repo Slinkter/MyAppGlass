@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Container, SimpleGrid } from "@chakra-ui/react";
 import { useAsyncData } from "@shared/hooks/data/useAsyncData";
 import { getClients } from "../services/clientService";

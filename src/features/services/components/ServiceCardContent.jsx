@@ -5,7 +5,6 @@ import {
   Heading,
   Button,
   useColorModeValue,
-  Text,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, SimpleGrid, Icon, Spinner } from "@chakra-ui/react";
 import { useAsyncData } from "@shared/hooks/data/useAsyncData";
 import { getFeatures } from "../services/featureService";
