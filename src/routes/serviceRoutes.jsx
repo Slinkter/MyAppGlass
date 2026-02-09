@@ -1,4 +1,4 @@
-import ServicePageContainer from "@features/services/components/ServicePageContainer";
+import { ServicePageContainer } from "@features/services";
 
 export const serviceRoutes = [
     { path: ":serviceSlug", element: <ServicePageContainer /> },
