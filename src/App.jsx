@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import ScrollToTop from "./utils/scroll-to-top";
 import { Layout } from "./layout/MainLayout";
-import LoadingFallback from "./components/common/LoadingFallback";
+import LoadingFallback from "@shared/components/common/LoadingFallback";
 
 /**
  * @component
