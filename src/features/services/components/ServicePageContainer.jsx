@@ -2,7 +2,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { getServicePageData } from "../services/serviceService";
 import ErrorDisplay from "@shared/components/DataLoader/ErrorDisplay";
-import ServiceSkeleton from "./components/ServiceSkeleton";
+import ServiceSkeleton from "./ServiceSkeleton";
 
 // Lazy load del layout para mejorar el tiempo de carga inicial
 const ServicePageLayout = React.lazy(() => import("./ServicePageLayout"));
