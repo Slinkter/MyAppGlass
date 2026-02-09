@@ -8,6 +8,7 @@ import ColorModeManager from "./components/common/ColorModeManager";
 import { router } from "./routes";
 import theme from "./config/theme";
 import "./styles/global.css";
+import reportWebVitals from './utils/webVitals';
 
 // El fallback de Suspense se mostrará mientras se carga el código del componente diferido.
 // Esto mejora la UX mostrando algo al usuario inmediatamente en lugar de una pantalla blanca.
@@ -48,3 +49,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </HelmetProvider>
     </React.StrictMode>
 );
+
+// Al final del archivo
+if (import.meta.env.PROD) {
+  import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+    getCLS(reportWebVitals);
+    getFID(reportWebVitals);
+    getFCP(reportWebVitals);
+    getLCP(reportWebVitals);
+    getTTFB(reportWebVitals);
+  });
+}

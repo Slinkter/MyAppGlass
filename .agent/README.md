@@ -33,6 +33,22 @@ Este directorio contiene planes y documentación para ser ejecutados por agentes
 
 **Tiempo Total Estimado:** 13-19 horas
 
+### 2. Plan de Refactorización Feature-Based Architecture
+
+**Archivo:** `plans/refactoring_plan.md`  
+**Instrucciones:** `plans/GEMINI_INSTRUCTIONS.md`  
+**Diagnóstico:** `plans/technical_diagnosis.md`
+
+**Objetivo:** Migrar proyecto de arquitectura type-based a feature-based sin testing ni TypeScript.
+
+**Fases:**
+1. 📦 **FASE 1:** Preparación (2-3 días) - Estructura y configuración
+2. 🔄 **FASE 2:** Migración por Features (1.5 semanas) - Projects, Services, Home, ReclamationBook
+3. 🎨 **FASE 3:** Shared Components (4 días) - Refactorizar FadingImage, Hooks
+4. 🧹 **FASE 4:** Layout y Limpieza (3 días) - Reorganizar y actualizar imports
+
+**Tiempo Total Estimado:** 2-3 semanas
+
 ## 🚀 Cómo Usar con Gemini CLI
 
 ### Opción 1: Ejecutar Plan Completo
@@ -122,7 +138,7 @@ El archivo `plans/task.md` contiene una lista de verificación de todas las tare
 
 | Fecha | Agente | Fase Ejecutada | Estado | Notas |
 |-------|--------|----------------|--------|-------|
-| - | - | - | - | Pendiente primera ejecución |
+| 2026-02-08 | Gemini CLI | Fase 1 | Completada | Linting y limpieza de código |
 
 ---
 
