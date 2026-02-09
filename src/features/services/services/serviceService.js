@@ -4,8 +4,8 @@
  * Proporciona funciones para obtener la lista general de servicios y los datos detallados de páginas de servicio individuales.
  */
 
-import { services } from "@/data/services";
-import { servicePageDataMap } from "@/data/servicePageDataMap";
+import { services } from "../data/services";
+import { servicePageDataMap } from "../data/servicePageDataMap";
 
 /**
  * @typedef {Object} Service - Representa un servicio individual en la lista general.
