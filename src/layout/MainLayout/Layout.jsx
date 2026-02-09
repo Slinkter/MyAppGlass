@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, useColorModeValue, Link } from "@chakra-ui/react";
-import Navbar from "./common/Navbar";
-import Footer from "./common/Footer";
-import FloatWhatsapp from "./floating-whatsapp";
+import { Navbar } from "../Navbar";
+import { Footer } from "../Footer";
+import { FloatingWhatsApp } from "../FloatingActions";
 
 // ✅ Importamos las nuevas imágenes generadas
 import bg_desktop from "@/assets/common/mainland.jpg";
@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
   // Overlay para mejorar legibilidad y efecto glass
   const bgColor = useColorModeValue(
     "rgba(255, 255, 255, 0.4)", // Modo claro: Capa blanca suave
-    "rgba(0, 0, 0, 0.6)" // Modo oscuro: Capa oscura
+    "rgba(0, 0, 0, 0.6)", // Modo oscuro: Capa oscura
   );
 
   return (
@@ -100,7 +100,7 @@ const Layout = ({ children }) => {
         <Footer />
       </Box>
 
-      <FloatWhatsapp />
+      <FloatingWhatsApp />
     </Box>
   );
 };
