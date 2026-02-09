@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
-import { motion } from "framer-motion"; // Importación necesaria para la corrección
 import { GoogleMap, useJsApiLoader, OverlayView } from "@react-google-maps/api";
 import {
   Box,
@@ -19,10 +18,7 @@ import {
 import { getProjects } from "@/features/projects";
 import { FaBuilding } from "react-icons/fa"; // Import FaBuilding
 
-import logo from "@/assets/branding/LogoCompanytrans.png";
-
-// --- CORRECCIÓN FRAMER MOTION ---
-const MotionBox = motion.create(Box);
+import logo from "@/assets/branding/logovcr.png";
 
 const containerStyle = {
   width: "100%",
@@ -81,7 +77,8 @@ const CustomMarker = ({
             {...(isSvg
               ? typeof iconContent === "string"
                 ? { dangerouslySetInnerHTML: { __html: iconContent } }
-                : { // Render React Icon component using Chakra's Icon within a styled Box
+                : {
+                    // Render React Icon component using Chakra's Icon within a styled Box
                     children: (
                       <Box
                         bg="#3182CE" // Blue background
@@ -93,7 +90,8 @@ const CustomMarker = ({
                         w="100%"
                         h="100%"
                       >
-                        <Icon as={iconContent} color="white" w="60%" h="60%" /> {/* White icon inside */}
+                        <Icon as={iconContent} color="white" w="60%" h="60%" />{" "}
+                        {/* White icon inside */}
                       </Box>
                     ),
                   }

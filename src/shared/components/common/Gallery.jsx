@@ -76,8 +76,6 @@ const Gallery = React.memo(({ images }) => {
         imageCount={imageCount}
         selectedIndex={selectedIndex}
         setSelectedIndex={setSelectedIndex}
-        isHovered={isHovered}
-        setIsHovered={setIsHovered}
         handlePrevious={handlePrevious}
         handleNext={handleNext}
       />

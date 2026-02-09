@@ -56,7 +56,7 @@ export default [
     },
     rules: {
       "no-undef": "off", // Temporarily turn off no-undef for functions to avoid conflicts with commonjs
-      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^(req|res|next)$" }], // Adjust for common function parameters
+      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^(req|res|next|Resend)$" }], // Adjust for common function parameters and Resend
     },
   },
   {

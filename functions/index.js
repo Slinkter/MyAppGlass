@@ -8,18 +8,10 @@ admin.initializeApp();
 // Importamos la lógica modular que creamos
 // Cosmetic change to force redeployment
 
-const { sendEmailLogic } = require("./emailSender");
+// Importamos la lógica modular que creamos
+// Cosmetic change to force redeployment
 
-/**
- * Función de prueba para verificar que los despliegues funcionan.
- */
-exports.helloWorldV2 = onRequest((request, response) => {
-  logger.info("Hello logs!", { structuredData: true });
-  response.json({
-    message: "¡Hola desde Firebase!",
-    timestamp: new Date().toISOString(),
-  });
-});
+const { sendEmailLogic } = require("./emailSender");
 
 /**
  * Función HTTP para enviar un correo desde un formulario de contacto.
