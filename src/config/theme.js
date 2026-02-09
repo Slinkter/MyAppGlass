@@ -50,7 +50,9 @@ const theme = extendTheme({
         // Custom border radii tokens
         card: "lg", // 8px
         button: "md", // 4px
-        // TODO: Expand radii tokens to cover more UI elements (e.g., input, modal, avatar) for consistent styling and minimalist design.
+        input: "md", // 4px
+        modal: "2xl", // 16px
+        avatar: "full", // 100% (circular)
     },
     space: {
         // Custom spacing tokens if needed, but Chakra's default is usually sufficient
