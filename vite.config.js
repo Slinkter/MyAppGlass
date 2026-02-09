@@ -79,6 +79,9 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),
+            "@features": fileURLToPath(new URL("./src/features", import.meta.url)),
+            "@shared": fileURLToPath(new URL("./src/shared", import.meta.url)),
+            "@layout": fileURLToPath(new URL("./src/layout", import.meta.url)),
         },
     },
 });
