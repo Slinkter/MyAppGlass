@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
+import PropTypes from "prop-types"; // Import PropTypes
 
 /**
  * Componente: ItemGridLayout
@@ -99,7 +100,7 @@ const ItemGridLayout = (props) => {
 
         {/* Variantes de animación para efecto escalonado */}
         <SimpleGrid
-          as={motion.div}
+          as={motion.create('div')}
           columns={columns}
           spacing={spacing}
           initial="hidden"
@@ -134,6 +135,19 @@ const ItemGridLayout = (props) => {
       </Container>
     </>
   );
+};
+
+ItemGridLayout.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired,
+  items: PropTypes.array.isRequired,
+  ItemComponent: PropTypes.elementType.isRequired,
+  seoTitle: PropTypes.string.isRequired,
+  seoDescription: PropTypes.string.isRequired,
+  seoCanonicalUrl: PropTypes.string.isRequired,
+  columns: PropTypes.object,
+  spacing: PropTypes.number,
+  containerProps: PropTypes.object,
 };
 
 export default ItemGridLayout;

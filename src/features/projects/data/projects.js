@@ -19,7 +19,7 @@ export const projects = [
   {
     id: 1,
     image: obra01,
-    residencial: " Edificio Torre Sipan",
+    residencial: "Edificio Torre Sipan",
     name: "Inversiones Beraca S.A.C.",
     address: "Miraflores",
     numdpto: "20",
@@ -54,7 +54,7 @@ export const projects = [
     image: obra04,
     residencial: " Edificio Verástegui  ",
     name: "GHS CONSTRUCTORA S.A.C.",
-    address: "San Jua de Miraflores",
+    address: "San Juan de Miraflores",
     numdpto: "26",
     year: "Noviembre 2020",
     g_maps: "C. Ignacio Seminario 903, Lima 15824, Peru",
@@ -65,7 +65,7 @@ export const projects = [
     image: obra05,
     residencial: " Puente Verde",
     name: "Grupo DyM Constructora S.A.C.",
-    address: "Ate  ",
+    address: "Ate",
     numdpto: "18",
     year: "Junio 2019",
     g_maps: "Av. el Banco N° 214, Ate 15026",
@@ -76,7 +76,7 @@ export const projects = [
     image: obra06,
     residencial: " El Prado",
     name: "Grupo DyM Constructora S.A.C.",
-    address: "Ate  ",
+    address: "Ate",
     numdpto: "24",
     year: "Febrero 2020",
     g_maps: "Av. Javier Prado Este 7845, Ate 15012",
@@ -162,17 +162,17 @@ export const projects = [
   {
     id: 14,
     image: obra14,
-    residencial: "Palmer ",
+    residencial: "Palmer",
     name: "GRUPO DYM CONSTRUCTORA S.A.C.",
     address: "Breña",
     numdpto: "102",
     year: "Junio 2025 ",
     g_maps: "Jr. Jorge Chávez 1039, Breña 15083, Peru",
     photosObra:
-      palmer?.map((img, index) => ({
+      palmer.map((img, index) => ({
         id: index,
         image: img,
         name: `Proyeto Palmer ${index + 1}`,
-      })) || [],
+      })) ,
   },
 ];

@@ -14,15 +14,12 @@ import FadingImage from "../FadingImage";
  * @component GalleryViewer
  * @description Visor principal de la galería de imágenes.
  * Muestra la imagen seleccionada en grande con controles de navegación (flechas, dots, contador).
- * Soporta zoom al hacer hover.
  *
  * @param {Object} props - Propiedades del componente.
  * @param {Object} props.currentImage - Objeto de la imagen actual a mostrar.
  * @param {number} props.imageCount - Total de imágenes en la galería.
  * @param {number} props.selectedIndex - Índice actual.
  * @param {function} props.setSelectedIndex - Función para cambiar el índice manualmente (dots).
- * @param {boolean} props.isHovered - Estado de hover del contenedor principal.
- * @param {function} props.setIsHovered - Setter del estado de hover.
  * @param {function} props.handlePrevious - Función para ir a la imagen anterior.
  * @param {function} props.handleNext - Función para ir a la imagen siguiente.
  * @returns {JSX.Element} Visor de imagen principal.
@@ -195,8 +192,6 @@ GalleryViewer.propTypes = {
     imageCount: PropTypes.number.isRequired,
     selectedIndex: PropTypes.number.isRequired,
     setSelectedIndex: PropTypes.func.isRequired,
-    isHovered: PropTypes.bool.isRequired,
-    setIsHovered: PropTypes.func.isRequired,
     handlePrevious: PropTypes.func.isRequired,
     handleNext: PropTypes.func.isRequired,
 };
