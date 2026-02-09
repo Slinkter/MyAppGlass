@@ -1,4 +1,4 @@
-import { useReclamoForm } from "@/hooks/useReclamoForm";
+import { useReclamoForm } from "@features/reclamation-book";
 import {
   Box,
   Button,
@@ -34,22 +34,22 @@ const ReclamoForm = () => {
 
   const bgColor = useColorModeValue(
     "rgba(255, 255, 255, 0.25)",
-    "rgba(0, 0, 0, 0.25)"
+    "rgba(0, 0, 0, 0.25)",
   );
   const borderColor = useColorModeValue(
     "rgba(255, 255, 255, 0.35)",
-    "rgba(255, 255, 255, 0.15)"
+    "rgba(255, 255, 255, 0.15)",
   );
   const textColor = useColorModeValue("gray.800", "gray.100");
   const headingColor = useColorModeValue("gray.900", "white");
 
   const inputBg = useColorModeValue(
     "rgba(255, 255, 255, 0.4)",
-    "rgba(0, 0, 0, 0.4)"
+    "rgba(0, 0, 0, 0.4)",
   );
   const inputBorder = useColorModeValue(
     "rgba(255, 255, 255, 0.5)",
-    "rgba(0, 0, 0, 0.5)"
+    "rgba(0, 0, 0, 0.5)",
   );
   const placeholderColor = useColorModeValue("gray.500", "gray.400");
 

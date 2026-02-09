@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { useGallery } from "@/hooks/useGallery";
+import { useGallery } from "@shared/hooks/ui/useGallery";
 import GalleryViewer from "./gallery/GalleryViewer";
 import GalleryThumbnails from "./gallery/GalleryThumbnails";
 
@@ -100,7 +100,7 @@ Gallery.propTypes = {
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       image: PropTypes.string.isRequired,
       name: PropTypes.string,
-    })
+    }),
   ),
 };
 
