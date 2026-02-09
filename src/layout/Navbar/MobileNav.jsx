@@ -8,6 +8,8 @@ import { BsBuildings } from "react-icons/bs";
 import { MdHomeRepairService } from "react-icons/md";
 import { motion } from "framer-motion";
 
+import { companyData } from "@/config/company-data"; // Import companyData
+
 // Creamos un componente Flex animado
 const MotionFlex = motion.create(Flex);
 
@@ -32,6 +34,8 @@ const MobileNav = () => {
     { label: "Servicios", icon: MdHomeRepairService, href: "/servicios" },
     { label: "Proyectos", icon: BsBuildings, href: "/proyectos" },
   ];
+
+  const whatsappLink = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;
 
   return (
     <MotionFlex
@@ -83,7 +87,7 @@ const MobileNav = () => {
 
       {/* WhatsApp Icon */}
       <Link
-        href="https://wa.me/51974278303?text=Quisiera una cotización para ...."
+        href={whatsappLink}
         isExternal
       >
         <IconButton

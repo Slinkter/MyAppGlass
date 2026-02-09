@@ -9,6 +9,7 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 import logoGlass from "@/assets/branding/LogoCompanytrans.png";
+import { companyData } from "@/config/company-data"; // Import companyData
 
 const TestView = () => {
     const bgColor = useColorModeValue(
@@ -59,20 +60,20 @@ const TestView = () => {
                 {/* Info */}
                 <VStack align="flex-start" spacing={0}>
                     <Text color={accentColor} fontWeight="bold" fontSize="lg">
-                        GLASS & ALUMINUM COMPANY S.A.C.
+                        {companyData.companyName}
                     </Text>
                     <Text
                         fontSize="xl"
                         color={secondaryTextColor}
                         fontWeight="semibold"
                     >
-                        Juan Carlos Cueva Carrasco
+                        {companyData.contactPerson}
                     </Text>
                     <Text color={accentColor} fontWeight="medium">
-                        Gerente General
+                        {companyData.contactTitle}
                     </Text>
                     <Text fontSize="sm" color={accentColor}>
-                        996-537-435
+                        {companyData.contactPhone}
                     </Text>
                 </VStack>
             </HStack>

@@ -27,8 +27,8 @@ import {
   FaCheck,
 } from "react-icons/fa";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
-import bbvaLogo from "@/assets/bbva.svg";
-import bnLogo from "@/assets/banconacion.svg";
+import { companyData } from "@/config/company-data"; // Import companyData
+import { bankAccountsData } from "../data/bank-accounts"; // Import bankAccountsData
 
 const CopyButton = ({ value, label }) => {
   const toast = useToast();
@@ -234,25 +234,24 @@ const BankAccountsPage = () => {
     {
       icon: FaBuilding,
       label: "Razón Social",
-      value: "Glass & Aluminum Company S.A.C.",
+      value: companyData.razonSocial,
       copyable: true,
     },
     {
       icon: FaIdCard,
       label: "R.U.C",
-      value: "20606432870",
+      value: companyData.ruc,
       copyable: true,
     },
     {
       icon: FaMapMarkerAlt,
       label: "Dirección Fiscal",
-      value:
-        "Av. Los Fresnos Mz H Lt 16 (1250), Urb. El Valle - La Molina, Lima.",
+      value: companyData.direccion,
     },
     {
       icon: FaEnvelope,
       label: "Facturación",
-      value: "acueva@gyacompany.com",
+      value: companyData.contactEmail,
       copyable: true,
     },
   ];
@@ -315,36 +314,9 @@ const BankAccountsPage = () => {
               Cuentas Bancarias
             </Heading>
             <Stack spacing={6}>
-              <BankAccountCard
-                logo={bbvaLogo}
-                bankName="BBVA Perú"
-                accountType="Cuenta Corriente en Soles"
-                logoBg="white"
-                accounts={[
-                  {
-                    label: "N° Cuenta",
-                    value: "0011-0106-0100041622",
-                  },
-                  {
-                    label: "CCI",
-                    value: "011-106-000100041622-20",
-                  },
-                ]}
-              />
-
-              <BankAccountCard
-                logo={bnLogo}
-                bankName="Banco de la Nación"
-                accountType="Cuenta de Detracciones"
-                logoBg="white"
-                accounts={[
-                  {
-                    label: "N° Cuenta",
-                    value: "00-066-173291",
-                    note: "(Obligatorio para facturas sujetas a detracción)",
-                  },
-                ]}
-              />
+              {bankAccountsData.map((bankAccount, index) => (
+                <BankAccountCard key={index} {...bankAccount} />
+              ))}
             </Stack>
           </Box>
 
@@ -364,7 +336,7 @@ const BankAccountsPage = () => {
                 fontWeight="bold"
                 color={headingColor}
               >
-                Contáctenos en: acueva@gyacompany.com
+                Contáctenos en: {companyData.contactEmail}
               </Text>
             </Text>
           </Box>
