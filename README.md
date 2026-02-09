@@ -18,33 +18,111 @@ Este proyecto está construido sobre una arquitectura moderna, desacoplada y ori
 
 ### Arquitectura de Software
 
-La aplicación ha sido refactorizada para seguir un patrón más robusto y escalable:
+La aplicación ha sido refactorizada para seguir un patrón **Feature-Based Architecture** (FBA) combinado con principios SOLID:
 
-1.  **Capa de Presentación (UI):** Compuesta por componentes de React. Los componentes son funcionales y utilizan Hooks para gestionar su estado. La UI se construye de forma declarativa utilizando el sistema de componentes de Chakra UI.
-2.  **Capa de Servicios:** La lógica de obtención de datos está abstraída en una capa de servicios (`src/services`). Los componentes ya no acceden a los datos estáticos directamente; en su lugar, consumen datos a través de funciones asíncronas, simulando una llamada a una API. Esto desacopla la UI del origen de los datos y prepara la aplicación para una futura integración con un Headless CMS.
-3.  **Sistema de Diseño Centralizado:** Todos los estilos, fuentes y tokens de diseño están centralizados en el objeto de tema de Chakra UI (`src/config/theme.js`), asegurando una consistencia visual total y facilitando cambios de diseño globales.
-4.  **Componentes Modularizados (Clean Code):** Se ha adoptado una arquitectura _feature-based_ y _atomic design_ para componentes complejos como `ProjectDetailModal` y `Gallery`, dividiéndolos en subcomponentes especializados (`VisualViewer`, `ProjectInfo`, etc.) para mejorar la mantenibilidad y legibilidad. Además, se han estandarizado los hooks personalizados y se utiliza `prop-types` para la validación de tipos.
+1.  **Feature-Based Organization:** El código está organizado por funcionalidad (`projects/`, `services/`, `home/`, `reclamation-book/`), no por tipo de archivo. Cada feature es autónoma y contiene sus componentes, hooks y servicios. Esto mejora significativamente la escalabilidad y mantenibilidad.
+
+2.  **Shared Code Separation:** Todo código reutilizable vive en `src/shared/`, incluyendo componentes genéricos, hooks personalizados, y utilidades. Esto elimina duplicación y centraliza la lógica común.
+
+3.  **Capa de Presentación (UI):** Compuesta por componentes de React funcionales que utilizan Hooks. Los componentes siguen filosofía de composición y se dividen en "presentational" (sin lógica) y "container" (con lógica) para máxima reutilización.
+
+4.  **Capa de Servicios:** La lógica de obtención de datos está abstraída en una capa de servicios (`src/features/*/services`). Los componentes no acceden a datos estáticos directamente; consumen datos a través de funciones asíncronas, simulando una llamada a API. Esto desacopla la UI del origen de los datos.
+
+5.  **Sistema de Diseño Centralizado:** Todos los estilos, fuentes y tokens de diseño están centralizados en `src/config/theme.js`, asegurando consistencia visual total y facilitando cambios globales.
+
+6.  **Componentes Modularizados:** Se utiliza "atomic design" para componentes complejos, dividiéndolos en subcomponentes especializados (ej: `ProjectDetailModal` → `VisualViewer`, `ProjectInfo`). Se estandarizan hooks personalizados y se validan tipos con `prop-types`.
 
 ## 📂 Estructura de Directorios
 
-La estructura de archivos está organizada por funcionalidad para facilitar la navegación y el mantenimiento.
+La estructura de archivos está organizada bajo **Feature-Based Architecture** para facilitar la navegación, mantenimiento y escalabilidad del proyecto.
 
 ```
 src/
-├── api/                  # Configuración y servicios de API externos (Formulario de Reclamaciones)
-├── assets/               # Imágenes, logos y otros archivos estáticos
-├── components/           # Componentes React reutilizables
-│   ├── common/           # Componentes genéricos (DataLoader, Gallery, etc.)
-│   └── ...               # Componentes agrupados por feature (home, projects, etc.)
-├── config/               # Configuración de la aplicación (Firebase, tema de Chakra UI)
-├── data/                 # Archivos de datos estáticos (consumidos por la capa de servicios)
-├── doc/                  # Documentación del proyecto (guías de estilo, etc.)
-├── hooks/                # Hooks de React personalizados
-├── layout/               # Componentes de layout principal (Navbar, Footer)
-├── pages/                # Componentes que actúan como vistas de página completas
-├── services/             # Capa de abstracción de datos
-├── styles/               # Estilos globales mínimos
-└── utils/                # Funciones de utilidad genéricas
+├── features/                     # Funcionalidades organizadas por dominio
+│   ├── projects/                 # Proyectos y galería de trabajos
+│   │   ├── components/           # ProjectCard, ProjectsList, ProjectDetailModal
+│   │   ├── hooks/                # useProjectModal
+│   │   ├── services/             # Lógica API de proyectos
+│   │   └── index.js              # Barrel exports
+│   ├── services/                 # Servicios y productos
+│   │   ├── components/           # ServiceCard, ServiceList, ServiceSidebar
+│   │   ├── services/             # Lógica API de servicios
+│   │   └── index.js              # Barrel exports
+│   ├── home/                     # Secciones de la página principal
+│   │   ├── components/           # ClientsSection, FeaturesSection, StoreSection
+│   │   ├── services/             # Lógica AsyncData
+│   │   └── index.js              # Barrel exports
+│   └── reclamation-book/         # Libro de reclamaciones
+│       ├── components/           # Form sections (PersonalInfo, Product, etc.)
+│       ├── hooks/                # useReclamoForm
+│       ├── api/                  # Peticiones API
+│       └── index.js              # Barrel exports
+├── shared/                       # Código compartido entre features
+│   ├── components/               # Componentes reutilizables
+│   │   ├── common/               # FadingImage, Gallery, GlassCard, Franja, etc.
+│   │   ├── Image/                # ImageWithFallback, ImageOverlay
+│   │   ├── Layout/               # ItemGridLayout, DataLoader
+│   │   ├── HelmetWrapper.jsx     # SEO wrapper
+│   │   └── ...
+│   ├── hooks/                    # Hooks personalizados categorizados
+│   │   ├── ui/                   # useGallery, useIsMobile
+│   │   ├── observers/            # useIntersectionObserver
+│   │   └── data/                 # useAsyncData
+│   ├── config/                   # Tokens de diseño
+│   └── utils/                    # Funciones utilitarias
+├── layout/                       # Componentes de layout principal
+│   ├── Navbar/                   # Navbar, DesktopNav, MobileNav, ColorModeToggle
+│   ├── Footer/                   # Footer
+│   ├── MainLayout/               # Layout principal
+│   └── FloatingActions/          # FloatingWhatsApp button
+├── pages/                        # Componentes de página (vistas)
+├── routes/                       # Configuración de routing
+├── config/                       # Configuración global (Firebase, Theme)
+├── assets/                       # Imágenes, logos, recursos estáticos
+├── styles/                       # Estilos globales
+├── data/                         # Datos estáticos (clients, features, etc.)
+├── utils/                        # Funciones de utilidad
+├── docs/                         # Documentación del proyecto
+└── App.jsx                       # Componente raíz
+```
+
+### Patrón Feature-Based Architecture
+
+Cada feature (`projects`, `services`, `home`, `reclamation-book`) es una unidad independiente y cohesiva que contiene:
+
+- **Components:** Componentes específicos de la feature, organizados en subdirectorios si son complejos
+- **Hooks:** Lógica personalizada y estado exclusivo de la feature
+- **Services:** Acceso a datos, llamadas API, o servicios de la feature
+- **Index.js:** Barrel export que expone la API pública de la feature
+
+Esta arquitectura permite que cada feature sea:
+
+- ✅ **Independiente:** Puede ser desarrollada, testada y mantenida por separado
+- ✅ **Escalable:** Nuevas features pueden agregarse sin afectar existentes
+- ✅ **Reutilizable:** Código compartido vive en `src/shared/`
+- ✅ **Fácil de navegar:** Todo lo relacionado a una feature está en su carpeta
+
+### Path Aliases
+
+Para evitar imports relativos complicados, se han configurado aliases en `vite.config.js`:
+
+```javascript
+"@features": "./src/features",      // ✅ Importar desde features
+"@shared": "./src/shared",          // ✅ Importar desde shared
+"@layout": "./src/layout",          // ✅ Importar desde layout
+"@": "./src"                        // ✅ Fallback para src/
+```
+
+**Ejemplos de uso:**
+
+```javascript
+// ✅ CORRECTO - Usando aliases
+import { ProjectCard } from "@features/projects";
+import { FadingImage } from "@shared/components/common";
+import { Navbar } from "@layout/Navbar";
+
+// ❌ EVITAR - Múltiples ../ relativos
+import ProjectCard from "../../../features/projects/components/ProjectCard";
 ```
 
 ## ✨ Características Clave del Codebase
