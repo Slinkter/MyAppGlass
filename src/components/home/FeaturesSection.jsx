@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Box, Container, SimpleGrid, Icon, Spinner } from "@chakra-ui/react";
 import { getFeatures } from "@/services/featureService";
-import DataLoader from "@/components/common/DataLoader";
+import DataLoader from "@shared/components/DataLoader/DataLoader";
 import FeatureListSkeleton from "./FeatureListSkeleton";
 import Franja from "@/components/common/Franja";
 import FeatureCard from "./FeatureCard";
