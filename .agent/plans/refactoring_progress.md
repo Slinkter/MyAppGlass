@@ -7,7 +7,7 @@
 - [x] Alias configurados
 
 ## FASE 2: Features
-- [ ] 2.1 Projects
+- [x] 2.1 Projects
 - [ ] 2.2 Services
 - [ ] 2.3 Home
 - [ ] 2.4 ReclamationBook
