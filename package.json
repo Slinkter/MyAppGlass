@@ -43,6 +43,7 @@
     "@fontsource/open-sans": "^5.2.7",
     "@fontsource/raleway": "^5.2.8",
     "@heroicons/react": "^2.2.0",
+    "@react-google-maps/api": "^2.20.8",
     "firebase": "^12.9.0",
     "framer-motion": "^11.18.2",
     "prop-types": "^15.8.1",
