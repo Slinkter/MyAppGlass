@@ -1,16 +1,19 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import {
   Box,
   Button,
   Container,
   Flex,
   useColorModeValue,
+  Spinner,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
 import Franja from "@shared/components/common/Franja";
 import { Icon } from "@chakra-ui/react";
 import { FaMapLocationDot } from "react-icons/fa6";
-import InteractiveMap from "./InteractiveMap";
+
+// Carga perezosa del mapa para evitar errores de inicialización en producción
+const InteractiveMap = lazy(() => import("./InteractiveMap"));
 
 /**
  * Componente StoreSection
@@ -54,7 +57,22 @@ const StoreSection = React.memo(() => {
           textAlign={"center"}
         >
           {/* Mapa interactivo con marcadores */}
-          <InteractiveMap />
+          <Suspense
+            fallback={
+              <Flex
+                align="center"
+                justify="center"
+                h={{ base: "400px", md: "600px" }}
+                w="full"
+                bg={useColorModeValue("gray.100", "gray.800")}
+                rounded="2xl"
+              >
+                <Spinner size="xl" color="primary.500" thickness="4px" />
+              </Flex>
+            }
+          >
+            <InteractiveMap />
+          </Suspense>
 
           {/* Botón para abrir en Google Maps */}
           <Link href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36" isExternal>

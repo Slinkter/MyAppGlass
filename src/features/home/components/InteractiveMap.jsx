@@ -42,7 +42,7 @@ const mainStore = {
  * @description Mapa interactivo usando Google Maps JS API que muestra marcadores
  * personalizados para la tienda y proyectos.
  */
-const InteractiveMap = React.memo(() => {
+function InteractiveMapComponent() {
   const [projects, setProjects] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [map, setMap] = useState(null);
@@ -65,7 +65,7 @@ const InteractiveMap = React.memo(() => {
         console.log(`📍 Geocodificando ${data.length} proyectos...`);
         
         // Geocodificar cada dirección usando Google Geocoding API
-        const geocodePromises = data.map(async (project, index) => {
+        const geocodePromises = data.map(async (project) => {
           if (!project.g_maps) {
             console.warn(`⚠️ Proyecto ${project.residencial} no tiene dirección g_maps`);
             return null;
@@ -73,6 +73,11 @@ const InteractiveMap = React.memo(() => {
           
           try {
             const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+            if (!apiKey) {
+              console.error("❌ Google Maps API Key no encontrada en el entorno");
+              return null;
+            }
+
             const response = await fetch(
               `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
                 project.g_maps
@@ -122,7 +127,7 @@ const InteractiveMap = React.memo(() => {
 
   // Ajustar el mapa para mostrar todos los marcadores cuando carguen los proyectos
   useEffect(() => {
-    if (map && projects.length > 0) {
+    if (map && projects.length > 0 && window.google) {
       const bounds = new window.google.maps.LatLngBounds();
       // Añadir tienda principal
       bounds.extend(mainStore.position);
@@ -141,40 +146,50 @@ const InteractiveMap = React.memo(() => {
 
   // Íconos personalizados usando SVG embebidos (se crean solo cuando la API está cargada)
   const icons = useMemo(() => {
-    if (!isLoaded || !window.google) return null;
+    if (!isLoaded || !window.google || !window.google.maps) return null;
 
-    return {
-      store: {
-        url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" viewBox="0 0 40 50">
-            <path d="M20 0C12.3 0 6 6.3 6 14c0 10.5 14 26 14 26s14-15.5 14-26c0-7.7-6.3-14-14-14z" fill="#FF6B35"/>
-            <circle cx="20" cy="14" r="8" fill="#FFFFFF"/>
-            <path d="M20 8c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 10c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z" fill="#FF6B35"/>
-          </svg>
-        `),
-        scaledSize: new window.google.maps.Size(40, 50),
-        anchor: new window.google.maps.Point(20, 50),
-      },
-      project: {
-        url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="45" viewBox="0 0 35 45">
-            <path d="M17.5 0C11 0 5.5 5.5 5.5 12c0 9 12 23 12 23s12-14 12-23c0-6.5-5.5-12-12-12z" fill="#4299E1"/>
-            <rect x="12" y="8" width="11" height="10" fill="#FFFFFF"/>
-            <rect x="13" y="9" width="2" height="2" fill="#4299E1"/>
-            <rect x="16" y="9" width="2" height="2" fill="#4299E1"/>
-            <rect x="20" y="9" width="2" height="2" fill="#4299E1"/>
-            <rect x="13" y="12" width="2" height="2" fill="#4299E1"/>
-            <rect x="16" y="12" width="2" height="2" fill="#4299E1"/>
-            <rect x="20" y="12" width="2" height="2" fill="#4299E1"/>
-            <rect x="13" y="15" width="2" height="2" fill="#4299E1"/>
-            <rect x="16" y="15" width="2" height="2" fill="#4299E1"/>
-            <rect x="20" y="15" width="2" height="2" fill="#4299E1"/>
-          </svg>
-        `),
-        scaledSize: new window.google.maps.Size(35, 45),
-        anchor: new window.google.maps.Point(17.5, 45),
-      }
-    };
+    try {
+      return {
+        store: {
+          url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+              <!-- Pin Background -->
+              <path d="M22.5 0C14.5 0 8 6.5 8 14.5C8 25.4 22.5 42 22.5 42S37 25.4 37 14.5C37 6.5 30.5 0 22.5 0Z" fill="#FF6B35" stroke="white" stroke-width="2"/>
+              <!-- Wrench/Tool Icon -->
+              <g transform="translate(13, 7) scale(0.8)" fill="white">
+                <path d="M19.7,3.1c-2.4-2.4-6.3-2.4-8.7,0l-1.3,1.3l-1.3-1.3c-2.4-2.4-6.3-2.4-8.7,0c-2.4,2.4-2.4,6.3,0,8.7L10,21.5l10.3-10.3l-1.3-1.3l1.3-1.3C22.1,6.5,22.1,3.1,19.7,3.1z M17,9l-1.3,1.3l-2.7-2.7L14.3,6.3C15,5.6,15,4.4,14.3,3.7c-0.7-0.7-1.9-0.7-2.7,0l-1.3,1.3l-2.7-2.7l1.3-1.3C9.6,0.3,10.8,0.3,11.5,1s0.7,1.9,0,2.7L10.3,5l2.7,2.7l1.3-1.3c0.7-0.7,1.9-0.7,2.7,0S17.7,8.3,17,9z"/>
+              </g>
+            </svg>
+          `),
+          scaledSize: new window.google.maps.Size(45, 45),
+          anchor: new window.google.maps.Point(22.5, 42),
+        },
+        project: {
+          url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+              <!-- Pin Background -->
+              <path d="M20 0C13.4 0 8 5.4 8 12C8 21 20 35 20 35S32 21 32 12C32 5.4 26.6 0 20 0Z" fill="#3182CE" stroke="white" stroke-width="1.5"/>
+              <!-- Building Symbol -->
+              <rect x="15" y="6" width="10" height="12" fill="white" rx="1"/>
+              <rect x="16" y="8" width="2" height="2" fill="#3182CE"/>
+              <rect x="19" y="8" width="2" height="2" fill="#3182CE"/>
+              <rect x="22" y="8" width="2" height="2" fill="#3182CE"/>
+              <rect x="16" y="11" width="2" height="2" fill="#3182CE"/>
+              <rect x="19" y="11" width="2" height="2" fill="#3182CE"/>
+              <rect x="22" y="11" width="2" height="2" fill="#3182CE"/>
+              <rect x="16" y="14" width="2" height="2" fill="#3182CE"/>
+              <rect x="19" y="14" width="2" height="2" fill="#3182CE"/>
+              <rect x="22" y="14" width="2" height="2" fill="#3182CE"/>
+            </svg>
+          `),
+          scaledSize: new window.google.maps.Size(40, 40),
+          anchor: new window.google.maps.Point(20, 35),
+        }
+      };
+    } catch (e) {
+      console.error("Error creating Google Maps objects:", e);
+      return null;
+    }
   }, [isLoaded]);
 
   if (loadError) {
@@ -274,7 +289,7 @@ const InteractiveMap = React.memo(() => {
             position={selectedMarker.position}
             onCloseClick={() => setSelectedMarker(null)}
           >
-            <Box p={2} maxW="250px" color="black">
+            <Box p={2} maxW="250px" color="black" textAlign="left">
               <HStack mb={2}>
                 <Badge
                   colorScheme={
@@ -284,10 +299,10 @@ const InteractiveMap = React.memo(() => {
                   {selectedMarker.type === "store" ? "TIENDA" : "PROYECTO"}
                 </Badge>
               </HStack>
-              <Heading size="xs" mb={1}>
+              <Heading size="xs" mb={1} color="gray.800">
                 {selectedMarker.name || selectedMarker.residencial}
               </Heading>
-              <Text fontSize="xs" mb={2}>
+              <Text fontSize="xs" mb={2} color="gray.600">
                 {selectedMarker.address}
               </Text>
               {selectedMarker.g_maps && (
@@ -311,8 +326,9 @@ const InteractiveMap = React.memo(() => {
       </GoogleMap>
     </Box>
   );
-});
+}
 
+const InteractiveMap = React.memo(InteractiveMapComponent);
 InteractiveMap.displayName = "InteractiveMap";
 
 export default InteractiveMap;
