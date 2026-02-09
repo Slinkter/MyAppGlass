@@ -6,7 +6,7 @@ import {
   useColorModeValue,
   SimpleGrid,
 } from "@chakra-ui/react";
-import HelmetWrapper from "@/components/HelmetWrapper";
+import HelmetWrapper from "@shared/components/HelmetWrapper";
 
 /**
  * Componente: ItemGridLayout

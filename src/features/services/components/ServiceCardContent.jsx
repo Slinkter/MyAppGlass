@@ -1,28 +1,35 @@
 import React from "react";
-import { Box, Stack, Heading, Button, useColorModeValue, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Stack,
+  Heading,
+  Button,
+  useColorModeValue,
+  Text,
+} from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
-import FadingImage from "@/components/common/FadingImage";
+import FadingImage from "@shared/components/common/FadingImage";
 
 /**
  * @component ServiceCardContent
  * @description Presentational component for the content of the service card.
  */
-const ServiceCardContent = ({ image, name, plink, isImageLoaded, handleImageLoad }) => {
+const ServiceCardContent = ({
+  image,
+  name,
+  plink,
+  isImageLoaded,
+  handleImageLoad,
+}) => {
   const styles = {
-    bg: useColorModeValue(
-      "rgba(255, 255, 255, 0.25)",
-      "rgba(0, 0, 0, 0.25)"
-    ),
+    bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
     heading: useColorModeValue("primary.700", "primary.300"),
     text: useColorModeValue("gray.800", "gray.100"),
-    btnBg: useColorModeValue(
-      "rgba(255, 255, 255, 0.4)",
-      "rgba(0, 0, 0, 0.4)"
-    ),
+    btnBg: useColorModeValue("rgba(255, 255, 255, 0.4)", "rgba(0, 0, 0, 0.4)"),
     btnHover: useColorModeValue(
       "rgba(255, 255, 255, 0.6)",
-      "rgba(0, 0, 0, 0.6)"
+      "rgba(0, 0, 0, 0.6)",
     ),
   };
 
@@ -39,8 +46,8 @@ const ServiceCardContent = ({ image, name, plink, isImageLoaded, handleImageLoad
       transition="transform 0.3s ease, box-shadow 0.3s ease"
       style={{ willChange: "transform, opacity" }}
       _hover={{
-          transform: "scale(1.02)",
-          boxShadow: "xl",
+        transform: "scale(1.02)",
+        boxShadow: "xl",
       }}
     >
       <Box p={2}>

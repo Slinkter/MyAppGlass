@@ -7,7 +7,6 @@ import {
   SimpleGrid,
   Select,
   Heading,
-  Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
 

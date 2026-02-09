@@ -4,10 +4,10 @@ import { useAsyncData } from "@shared/hooks/data/useAsyncData";
 import { getFeatures } from "../services/featureService";
 import DataLoader from "@shared/components/DataLoader/DataLoader";
 import FeatureListSkeleton from "./FeatureListSkeleton";
-import Franja from "@/components/common/Franja";
+import Franja from "@shared/components/common/Franja";
 import FeatureCard from "./FeatureCard";
 import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
-import ScrollReveal from "@/components/common/ScrollReveal";
+import ScrollReveal from "@shared/components/common/ScrollReveal";
 
 /**
  * @component FeaturesSection

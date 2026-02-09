@@ -8,7 +8,7 @@ import {
   Skeleton,
   SkeletonCircle,
 } from "@chakra-ui/react";
-import GlassCard from "@/components/common/GlassCard";
+import GlassCard from "@shared/components/common/GlassCard";
 
 /**
  * @component ServiceSkeleton

@@ -1,18 +1,36 @@
 import React, { useState } from "react";
-import { Box, Stack, Heading, Text, Flex, Icon, useColorModeValue, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Stack,
+  Heading,
+  Text,
+  Flex,
+  Icon,
+  useColorModeValue,
+  Button,
+} from "@chakra-ui/react";
 import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/solid";
-import FadingImage from "@/components/common/FadingImage";
+import FadingImage from "@shared/components/common/FadingImage";
 
 /**
  * @component ProjectCardContent
  * @description Presentational component para el contenido de la tarjeta de proyecto
  */
-const ProjectCardContent = ({ image, residencial, address, year, onOpenModal }) => {
+const ProjectCardContent = ({
+  image,
+  residencial,
+  address,
+  year,
+  onOpenModal,
+}) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  
+
   const styles = {
     bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
-    border: useColorModeValue("rgba(255, 255, 255, 0.52)", "rgba(255, 255, 255, 0.15)"),
+    border: useColorModeValue(
+      "rgba(255, 255, 255, 0.52)",
+      "rgba(255, 255, 255, 0.15)",
+    ),
     text: useColorModeValue("gray.800", "gray.100"),
     icon: useColorModeValue("gray.500", "gray.400"),
     heading: useColorModeValue("primary.700", "primary.300"),
@@ -38,8 +56,18 @@ const ProjectCardContent = ({ image, residencial, address, year, onOpenModal }) 
           onLoad={() => setIsImageLoaded(true)}
         />
 
-        <Stack p={4} spacing={2} opacity={isImageLoaded ? 1 : 0} transition="opacity 0.4s">
-          <Heading size="md" color={styles.heading} textAlign="center" textTransform="uppercase">
+        <Stack
+          p={4}
+          spacing={2}
+          opacity={isImageLoaded ? 1 : 0}
+          transition="opacity 0.4s"
+        >
+          <Heading
+            size="md"
+            color={styles.heading}
+            textAlign="center"
+            textTransform="uppercase"
+          >
             {residencial}
           </Heading>
 
@@ -49,7 +77,13 @@ const ProjectCardContent = ({ image, residencial, address, year, onOpenModal }) 
               <Text noOfLines={1}>{address}</Text>
             </Flex>
             <Flex alignItems="center">
-              <Icon as={CalendarDaysIcon} w={5} h={5} mr={2} color={styles.icon} />
+              <Icon
+                as={CalendarDaysIcon}
+                w={5}
+                h={5}
+                mr={2}
+                color={styles.icon}
+              />
               <Text>{year}</Text>
             </Flex>
           </Stack>
