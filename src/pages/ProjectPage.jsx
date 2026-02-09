@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
-import ProjectsList from "@/components/projects/ProjectsList";
+import { ProjectsList } from "@features/projects";
 
 /**
  * @component ProjectPage
