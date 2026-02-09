@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
-import { ColorModeToggle } from "./ColorModeToggle";
 
 /**
  * @component Navbar
@@ -55,13 +54,6 @@ export default function Navbar() {
                     >
                         <DesktopNav />
                     </Flex>
-
-                    <ColorModeToggle
-                        position="absolute"
-                        right="4"
-                        top="50%"
-                        transform="translateY(-50%)"
-                    />
                 </Flex>
             </Box>
 
