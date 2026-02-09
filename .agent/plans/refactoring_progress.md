@@ -12,15 +12,20 @@
   - [x] Archivos movidos
   - [x] ProjectCard refactorizado
   - [x] Barrel exports creado
-- [ ] 2.2 Services
-- [ ] 2.3 Home
-- [ ] 2.4 ReclamationBook
+- [x] 2.2 Services
+- [x] 2.3 Home
+- [x] 2.4 ReclamationBook
 
 ## FASE 3: Shared
-- [ ] FadingImage refactorizado
-- [ ] Hooks organizados
+- [x] FadingImage refactorizado
+- [x] Hooks organizados
 
 ## FASE 4: Finalización
-- [ ] Layout reorganizado
-- [ ] Imports actualizados
-- [ ] README actualizado
+- [x] Layout reorganizado
+- [x] Imports actualizados
+- [x] README actualizado
+
+## ✅ VERIFICACIÓN FINAL
+- [x] Linter pasa (pnpm run lint)
+- [x] Build funciona (pnpm run build)
+- [ ] Dev server inicia (pnpm run dev)

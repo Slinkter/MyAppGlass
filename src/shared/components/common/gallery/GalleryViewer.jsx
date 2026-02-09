@@ -65,9 +65,14 @@ const GalleryViewer = ({
                     mx="auto"
                     objectFit="cover"
                     showOverlay={false}
-                    transition="transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
+                    loading="eager" // Prioridad alta para imagen principal
+                    fetchpriority="high" // HTML5 priority hint
+                    transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                     _groupHover={{ transform: "scale(1.00)" }}
-                    style={{ willChange: "transform" }}
+                    style={{ 
+                        willChange: "transform",
+                        transform: "translateZ(0)", // Force GPU acceleration
+                    }}
                 />
             </Box>
 

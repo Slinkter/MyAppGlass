@@ -3,7 +3,7 @@
  * @description Servicio para obtener datos de proyectos desde una fuente de datos local.
  */
 
-import { projects } from "@/data/proyectos/palmer";
+import { projects } from "../data/projects";
 
 /**
  * @typedef {Object} ProjectImage
