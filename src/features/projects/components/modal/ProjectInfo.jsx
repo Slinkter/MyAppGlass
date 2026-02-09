@@ -17,7 +17,7 @@ import {
   CalendarDaysIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
-import GlassCard from "@/components/common/GlassCard";
+import GlassCard from "@shared/components/common/GlassCard";
 import ProjectDetailItem from "../ProjectDetailItem";
 
 /**

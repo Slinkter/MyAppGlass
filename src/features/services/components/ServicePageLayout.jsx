@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
-import Gallery from "@/components/common/Gallery";
-import GlassCard from "@/components/common/GlassCard";
+import Gallery from "@shared/components/common/Gallery";
+import GlassCard from "@shared/components/common/GlassCard";
 import ServiceSidebar from "./ServiceSidebar";
 
 /**

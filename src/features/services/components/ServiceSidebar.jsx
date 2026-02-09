@@ -10,8 +10,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import SidebarItem from "@/components/common/SidebarItem";
-import GlassCard from "@/components/common/GlassCard";
+import SidebarItem from "@shared/components/common/SidebarItem";
+import GlassCard from "@shared/components/common/GlassCard";
 import SpecItem from "./SpecItem";
 
 /**

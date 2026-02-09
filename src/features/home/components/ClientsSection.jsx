@@ -4,7 +4,7 @@ import { useAsyncData } from "@shared/hooks/data/useAsyncData";
 import { getClients } from "../services/clientService";
 import DataLoader from "@shared/components/DataLoader/DataLoader";
 import ClientListSkeleton from "./ClientListSkeleton";
-import Franja from "@/components/common/Franja";
+import Franja from "@shared/components/common/Franja";
 import ClientCard from "./ClientCard";
 
 /**

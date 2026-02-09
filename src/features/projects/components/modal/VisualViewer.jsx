@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, useColorModeValue } from "@chakra-ui/react";
-import Gallery from "@/components/common/Gallery";
+import Gallery from "@shared/components/common/Gallery";
 import MapViewer from "./MapViewer";
 
 /**
