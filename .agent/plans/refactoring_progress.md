@@ -2,9 +2,9 @@
 
 ## FASE 1: Preparación
 - [x] Branch creado
-- [ ] Estructura de carpetas
-- [ ] Design tokens
-- [ ] Alias configurados
+- [x] Estructura de carpetas
+- [x] Design tokens
+- [x] Alias configurados
 
 ## FASE 2: Features
 - [ ] 2.1 Projects
