@@ -28,6 +28,4 @@ const palmer = [
   PALMER14,
 ];
 
-
-export const projects = palmer;
 export default palmer;

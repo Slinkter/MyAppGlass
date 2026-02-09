@@ -74,8 +74,8 @@ const createClientEmailHtml = (data, reclamoId) => `
  * @returns {Promise<string>} El ID del correo enviado al administrador.
  */
 async function sendEmailLogic(reclamoData, admin) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
   const db = admin.firestore();
+  const adminEmail = functions.config().admin.email; // Get admin email from config
 
   // Validar campos obligatorios para el Libro de Reclamaciones
   const requiredFields = [
@@ -119,7 +119,7 @@ async function sendEmailLogic(reclamoData, admin) {
   // --- 1. Preparar el correo para el administrador ---
   const adminEmailPayload = {
     from: "noreply@gyacompany.com", // Dominio verificado en Resend
-    to: "acueva@gyacompany.com", // Tu correo
+    to: adminEmail, // Use the configurable admin email
     subject: `Nuevo ${reclamoData.tipoSolicitud} de: ${reclamoData.nombreCompleto}`,
     html: createAdminEmailHtml(reclamoData),
   };

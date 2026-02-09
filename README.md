@@ -1,7 +1,4 @@
 pnpm run build
-npx serve dist -s
-
-# o
 
 python -m http.server 5000 --directory dist
 
