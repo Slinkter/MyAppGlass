@@ -6,7 +6,7 @@ import DataLoader from "@shared/components/DataLoader/DataLoader";
 import FeatureListSkeleton from "./FeatureListSkeleton";
 import Franja from "@/components/common/Franja";
 import FeatureCard from "./FeatureCard";
-import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
 import ScrollReveal from "@/components/common/ScrollReveal";
 
 /**
