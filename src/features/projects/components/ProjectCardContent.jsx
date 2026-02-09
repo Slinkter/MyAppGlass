@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Box, Stack, Heading, Text, Flex, Icon, useColorModeValue } from "@chakra-ui/react";
+import { Box, Stack, Heading, Text, Flex, Icon, useColorModeValue, Button } from "@chakra-ui/react";
 import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/solid";
-import FadingImage from "@shared/components/Image/FadingImage";
+import FadingImage from "@/components/common/FadingImage";
 
 /**
  * @component ProjectCardContent

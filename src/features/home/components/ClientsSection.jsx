@@ -7,7 +7,6 @@ import ClientListSkeleton from "./ClientListSkeleton";
 import Franja from "@/components/common/Franja";
 import ClientCard from "./ClientCard";
 
-
 /**
  * @component ClientsSection
  * @description Sección de "Clientes" en la página principal.
@@ -36,7 +35,7 @@ const ClientsSection = React.memo(() => {
       >
         <Container maxW={"7xl"} mt={12} mb={0}>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
-            {clients.map((client) => (
+            {(clients || []).map((client) => (
               <ClientCard
                 key={client.id} // Use a unique ID from the data instead of index
                 image={client.imgClient}

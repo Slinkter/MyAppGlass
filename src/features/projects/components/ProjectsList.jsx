@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Box, Spinner } from "@chakra-ui/react";
-import ItemGridLayout from "@/components/common/ItemGridLayout";
-import ProjectCard from "@/components/projects/ProjectCard";
-import ProjectListSkeleton from "@/components/projects/ProjectListSkeleton";
-import DataLoader from "@/components/common/DataLoader";
-import { getProjects } from "@/services/projectService";
+import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
+import ProjectCard from "./ProjectCard";
+import ProjectListSkeleton from "./ProjectListSkeleton";
+import DataLoader from "@/shared/components/DataLoader/DataLoader";
+import { getProjects } from "../services/projectService";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 // Componente wrapper eliminado para optimización
 

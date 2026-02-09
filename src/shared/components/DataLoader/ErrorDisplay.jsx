@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, Button, VStack } from "@chakra-ui/react";
-import { ERROR_MESSAGES } from "../../utils/constants";
+import { ERROR_MESSAGES } from "@/utils/constants";
 
 /**
  * @component ErrorDisplay

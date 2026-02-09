@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Stack, Heading, Button, useColorModeValue, Text } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
-import FadingImage from "@shared/components/Image/FadingImage"; // Use new alias
+import FadingImage from "@/components/common/FadingImage";
 
 /**
  * @component ServiceCardContent

@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import Gallery from "@/components/common/Gallery";
 import GlassCard from "@/components/common/GlassCard";
-import ServiceSidebar from "./components/ServiceSidebar";
+import ServiceSidebar from "./ServiceSidebar";
 
 /**
  * @component ServicePageLayout
