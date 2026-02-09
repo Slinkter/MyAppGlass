@@ -23,7 +23,7 @@ const ImageWithFallback = React.memo(
     onError,
     w,
     h,
-    srcset,
+    srcSet,
     sizes,
     ...restProps
   }) => {
@@ -31,14 +31,26 @@ const ImageWithFallback = React.memo(
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-      setImageSrc(src);
-      setIsLoaded(false);
-    }, [src]);
+      if (src) {
+        setImageSrc(src);
+        setIsLoaded(false);
+      } else {
+        setImageSrc(fallbackSrc || imgF);
+        // Let the fallback load naturally
+        setIsLoaded(false);
+      }
+    }, [src, fallbackSrc]);
 
     const handleImageError = () => {
       if (onError) onError();
+      // If we are already on fallback/placeholder, don't loop
+      if (imageSrc === (fallbackSrc || imgF)) {
+        setIsLoaded(true); // Force show to avoid eternal skeleton if fallback fails
+        return;
+      }
       setImageSrc(fallbackSrc || imgF);
-      setIsLoaded(true);
+      // Don't set isLoaded(true) here, wait for fallback to load
+      // ensuring handleLoad fires and notifies parent
     };
 
     const handleLoad = (e) => {
@@ -73,7 +85,7 @@ const ImageWithFallback = React.memo(
             decoding="async"
             transition="transform 0.4s ease-in-out, opacity 0.3s ease-in-out"
             opacity={isLoaded ? 1 : 0}
-            srcset={srcset}
+            srcSet={srcSet}
             sizes={sizes}
             {...restProps}
           />

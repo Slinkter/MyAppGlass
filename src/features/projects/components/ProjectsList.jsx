@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Box, Spinner } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import ProjectListSkeleton from "./ProjectListSkeleton";
 import DataLoader from "@/shared/components/DataLoader/DataLoader";
 import { getProjects } from "../services/projectService";
-import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
-// Componente wrapper eliminado para optimización
 
 /**
  * @component ProjectsList
  * @description Lista de proyectos usando el componente genérico ItemGridLayout.
  * Muestra todos los proyectos completados en orden inverso (más recientes primero).
- * Implementa Infinite Scroll para optimizar el rendimiento.
+ * Con animación escalonada para mejor experiencia visual.
  * @returns {JSX.Element} Grid de proyectos con SEO y loading state
  */
 const ProjectsList = React.memo(() => {
@@ -20,14 +17,6 @@ const ProjectsList = React.memo(() => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [projects, setProjects] = useState([]);
-
-  // Ref para el sentinel del Infinite Scroll (Usamos useState para callback ref)
-  const [sentinelRef, setSentinelRef] = useState(null);
-
-  // Pasamos el nodo directamente al hook
-  const isSentinelVisible = useIntersectionObserver(sentinelRef, {
-    threshold: 0.1, // Bajamos umbral para mejor detección
-  });
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -48,26 +37,6 @@ const ProjectsList = React.memo(() => {
   // Invertir el orden de proyectos para mostrar los más recientes primero
   const projectsList = useMemo(() => [...projects].reverse(), [projects]);
 
-  // --- Lógica de Infinite Scroll ---
-  const [visibleCount, setVisibleCount] = useState(6); // Cargar solo 6 al inicio
-  const visibleProjects = projectsList.slice(0, visibleCount);
-  const hasMore = visibleCount < projectsList.length;
-
-  const handleLoadMore = () => {
-    if (hasMore) {
-      // Pequeño delay artificial para sentir la carga (opcional) o carga directa
-      setVisibleCount((prev) => Math.min(prev + 6, projectsList.length));
-    }
-  };
-
-  // Efecto que reacciona cuando el usuario llega al final
-  useEffect(() => {
-    if (isSentinelVisible && hasMore && !isLoading) {
-      handleLoadMore();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSentinelVisible, hasMore, isLoading]);
-
   return (
     <DataLoader
       isLoading={isLoading}
@@ -80,30 +49,10 @@ const ProjectsList = React.memo(() => {
         seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
         seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
         seoCanonicalUrl="https://www.gyacompany.com/proyectos"
-        // Pasamos solo los visibles
-        items={visibleProjects}
+        items={projectsList}
         ItemComponent={ProjectCard}
-        containerProps={{ pb: 0 }}
+        containerProps={{ pb: 12 }}
       />
-
-      {/* Sentinel para Infinite Scroll */}
-      {/* Se renderiza solo si hay más elementos para cargar y no estamos cargando inicialmente */}
-      {!isLoading && hasMore && (
-        <Box
-          ref={setSentinelRef}
-          h="60px"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          mb={12}
-        >
-          {/* Spinner opcional para indicar que se están cargando más */}
-          <Spinner size="md" color="primary.500" thickness="3px" />
-        </Box>
-      )}
-
-      {/* Si ya no hay más, un espacio al final para estética */}
-      {!hasMore && !isLoading && <Box _h="20px" mb={12} />}
     </DataLoader>
   );
 });

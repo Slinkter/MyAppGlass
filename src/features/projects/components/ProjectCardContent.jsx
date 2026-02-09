@@ -17,7 +17,7 @@ import FadingImage from "@shared/components/common/FadingImage";
  * @description Presentational component para el contenido de la tarjeta de proyecto
  */
 const ProjectCardContent = ({
-  image,
+  image = "",
   residencial,
   address,
   year,

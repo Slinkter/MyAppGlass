@@ -6,6 +6,7 @@ import {
   useColorModeValue,
   SimpleGrid,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 
 /**
@@ -95,9 +96,39 @@ const ItemGridLayout = (props) => {
           {subtitle}
         </Text>
 
-        <SimpleGrid columns={columns} spacing={spacing}>
-          {items.map((item) => (
-            <ItemComponent key={item.id} {...item} />
+
+        {/* Variantes de animación para efecto escalonado */}
+        <SimpleGrid
+          as={motion.div}
+          columns={columns}
+          spacing={spacing}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.1, // Delay de 0.1s entre cada card
+              },
+            },
+          }}
+        >
+          {items.map((item, index) => (
+            <motion.div
+              key={item.id || index}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.5,
+                    ease: "easeOut",
+                  },
+                },
+              }}
+            >
+              <ItemComponent {...item} />
+            </motion.div>
           ))}
         </SimpleGrid>
       </Container>

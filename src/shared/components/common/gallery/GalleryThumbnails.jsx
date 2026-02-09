@@ -22,15 +22,17 @@ const GalleryThumbnailItem = React.memo(
             h={{ base: "100%", md: "80px", lg: "90px" }}
             cursor="pointer"
             borderRadius={{ base: "lg", md: "lg" }}
-            borderColor={isSelected ? "transparent" : activeBorderColor}
-            transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+            transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)" // Más rápido
+            border={isSelected ? "2px solid" : "1px solid transparent"}
+            borderColor={isSelected ? activeBorderColor : "transparent"}
+            boxShadow={isSelected ? "md" : "none"}
             onClick={onClick}
             position="relative"
             overflow="hidden"
             _hover={{
                 borderColor: activeBorderColor,
                 boxShadow: "lg",
-                border: "1px solid",
+                transform: "scale(1.05)", // Pequeño zoom en hover
             }}
         >
             <Image
@@ -42,9 +44,12 @@ const GalleryThumbnailItem = React.memo(
                 objectFit="cover"
                 loading="lazy"
                 decoding="async"
-                opacity={isSelected ? 1 : 0.5}
-                transition="opacity 0.3s ease"
+                opacity={isSelected ? 1 : 0.6} // Más contraste
+                transition="opacity 0.2s ease, transform 0.2s ease"
                 _hover={{ opacity: 1 }}
+                style={{
+                    transform: "translateZ(0)", // GPU acceleration
+                }}
             />
         </Box>
     )

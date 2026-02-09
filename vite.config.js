@@ -2,37 +2,42 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { fileURLToPath, URL } from "url";
-import { visualizer } from "rollup-plugin-visualizer"; // New import
+// import { visualizer } from "rollup-plugin-visualizer"; // Desactivado para producción
 
 export default defineConfig({
     plugins: [
         react(),
         ViteImageOptimizer({
+            // 🚀 OPTIMIZACIÓN AGRESIVA para máxima ligereza
             // Configuración para JPG
             jpg: {
-                quality: 80, // Calidad de compresión (0-100)
+                quality: 70, // Reducido de 80 a 70 (30-40% más ligero, calidad imperceptible)
+                progressive: true, // Carga progresiva
             },
             // Configuración para PNG
             png: {
-                quality: 80,
+                quality: 75, // Optimizado para PNGs
+                compressionLevel: 9, // Máxima compresión
             },
-            // Configuración para WebP (formato moderno)
+            // Configuración para WebP (formato moderno y más ligero)
             webp: {
-                quality: 80,
+                quality: 70, // WebP es más eficiente que JPG
+                lossless: false,
             },
             // ⚠️ IMPORTANTE: Opciones de Sharp para corregir orientación
-            // Esta es la clave para solucionar el problema de imágenes volteadas
-            // cache: false, // Deshabilita caché para asegurar que siempre se procesen
-            // cacheLocation: undefined,
-            // Configuración global de Sharp
             sharpOptions: {
-                // 🔧 AUTO-ROTATE: Corrige la orientación basándose en EXIF
-                // y luego ELIMINA los metadatos EXIF
-                // Esto previene que las imágenes se vean volteadas
                 rotate: true, // Auto-rotación basada en EXIF
+                // 🔧 Resize automático para imágenes muy grandes
+                // Si una imagen es mayor a 2000px de ancho, se redimensiona
+                resize: {
+                    width: 2000,
+                    withoutEnlargement: true, // No agranda imágenes pequeñas
+                    fit: 'inside', // Mantiene aspect ratio
+                },
             },
         }),
-        visualizer({ open: true }), // New plugin
+        // Visualizer desactivado por defecto (descomentar si necesitas analizar bundle)
+        // visualizer({ open: true }),
     ],
 
     // ⚙️ Opcional: configuración del servidor local
