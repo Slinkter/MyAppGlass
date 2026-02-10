@@ -36,7 +36,6 @@ import { clients } from "@/data/clients";
  * loadClients();
  */
 export const getClients = async () => {
-    // Simula un pequeño retraso de red
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    return Promise.resolve(clients);
+  // Simula un pequeño retraso de red
+  return Promise.resolve(clients);
 };
