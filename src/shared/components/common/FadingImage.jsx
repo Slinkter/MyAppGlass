@@ -34,6 +34,7 @@ const FadingImage = React.memo((props) => {
     onLoad,
     srcSet,
     sizes,
+    forceShow,
     ...restProps
   } = props;
 
@@ -55,6 +56,7 @@ const FadingImage = React.memo((props) => {
         h="100%"
         srcSet={srcSet}
         sizes={sizes}
+        forceShow={forceShow}
         {...restProps}
       />
 
@@ -71,8 +73,16 @@ FadingImage.propTypes = {
   src: PropTypes.string.isRequired,
   placeholderImageUrl: PropTypes.string,
   onImageError: PropTypes.func,
-  w: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-  h: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+  w: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+  ]),
+  h: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+  ]),
   showOverlay: PropTypes.bool,
   onLoad: PropTypes.func,
   srcSet: PropTypes.string,

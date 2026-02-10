@@ -48,8 +48,6 @@ import { features, iconMap } from "@/data/features";
  * }
  * loadFeatures();
  */
-export const getFeatures = async () => {
-    // Simula un pequeño retraso de red
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    return Promise.resolve({ features, iconMap });
+export const getFeatures = () => {
+  return { features, iconMap };
 };

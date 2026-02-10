@@ -49,7 +49,6 @@ import { servicePageDataMap } from "../data/servicePageDataMap";
  * @property {Array<GalleryImage[]>} imageLists - Array de listas de imágenes para las galerías de la página del servicio.
  */
 
-
 /**
  * Obtiene la lista de todos los servicios disponibles.
  * Simula una llamada a una API o una operación asíncrona.
@@ -70,10 +69,8 @@ import { servicePageDataMap } from "../data/servicePageDataMap";
  * }
  * fetchAllServices();
  */
-export const getServices = async () => {
-    // Simula un pequeño retraso de red
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    return Promise.resolve(services);
+export const getServices = () => {
+  return services;
 };
 
 /**
@@ -100,11 +97,11 @@ export const getServices = async () => {
  * fetchServicePage("ventana"); // Obtener datos para la página de "Ventanas"
  */
 export const getServicePageData = async (slug) => {
-    // Simula un pequeño retraso de red
-    await new Promise((resolve) => setTimeout(resolve, 200));
-    const pageData = servicePageDataMap[slug];
-    if (!pageData) {
-        return Promise.reject(new Error("Página de servicio no encontrada."));
-    }
-    return Promise.resolve(pageData);
+  // Simula un pequeño retraso de red
+  await new Promise((resolve) => setTimeout(resolve, 200));
+  const pageData = servicePageDataMap[slug];
+  if (!pageData) {
+    return Promise.reject(new Error("Página de servicio no encontrada."));
+  }
+  return Promise.resolve(pageData);
 };

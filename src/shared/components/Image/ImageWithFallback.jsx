@@ -25,32 +25,38 @@ const ImageWithFallback = React.memo(
     h,
     srcSet,
     sizes,
+    forceShow,
     ...restProps
   }) => {
     const [imageSrc, setImageSrc] = useState(src);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(forceShow || false); // Skip loading if forced
+    const imageRef = React.useRef(null);
 
     useEffect(() => {
       if (src) {
         setImageSrc(src);
-        setIsLoaded(false);
+        // Check if already loaded (cached) by browser
+        if (imageRef.current && imageRef.current.complete) {
+          setIsLoaded(true);
+          // We do NOT call onLoad here to avoid loops or setting state during render phase issues,
+          // but we ensure the skeleton is hidden.
+          if (onLoad) onLoad();
+        } else {
+          setIsLoaded(false);
+        }
       } else {
         setImageSrc(fallbackSrc || imgF);
-        // Let the fallback load naturally
         setIsLoaded(false);
       }
-    }, [src, fallbackSrc]);
+    }, [src, fallbackSrc, onLoad]);
 
     const handleImageError = () => {
       if (onError) onError();
-      // If we are already on fallback/placeholder, don't loop
       if (imageSrc === (fallbackSrc || imgF)) {
-        setIsLoaded(true); // Force show to avoid eternal skeleton if fallback fails
+        setIsLoaded(true);
         return;
       }
       setImageSrc(fallbackSrc || imgF);
-      // Don't set isLoaded(true) here, wait for fallback to load
-      // ensuring handleLoad fires and notifies parent
     };
 
     const handleLoad = (e) => {
@@ -75,6 +81,7 @@ const ImageWithFallback = React.memo(
           endColor={useColorModeValue("gray.300", "gray.600")}
         >
           <Image
+            ref={imageRef}
             onError={handleImageError}
             onLoad={handleLoad}
             src={imageSrc || undefined}

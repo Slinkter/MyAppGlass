@@ -1,12 +1,21 @@
-import React from "react";
-import { Box, useColorModeValue, Link } from "@chakra-ui/react";
+import { Suspense, lazy } from "react";
+import {
+  Box,
+  useColorModeValue,
+  Link,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
-import { FloatingWhatsApp } from "../FloatingActions";
+// import { FloatingWhatsApp } from "../FloatingActions";
+const FloatingWhatsApp = lazy(() =>
+  import("../FloatingActions").then((module) => ({
+    default: module.FloatingWhatsApp,
+  })),
+);
 
 // ✅ Importamos las nuevas imágenes generadas
 import bg_desktop from "@/assets/common/mainland.jpg";
-import bg_mobile from "@/assets/common/glass_bg_desktop.png";
 
 /**
  * Componente: Layout
@@ -20,7 +29,7 @@ import bg_mobile from "@/assets/common/glass_bg_desktop.png";
  * 2. Efecto Glassmorphism Global: Aplica un overlay (`_before`) con desenfoque
  *    y color semitransparente para garantizar que el texto sea legible sobre el fondo.
  * 3. Estructura Semántica: Organiza el contenido en Navbar, Main y Footer.
- * 4. Botón Flotante: Incluye el widget de WhatsApp global.
+ * 4. Botón Flotante: Incluye el widget de WhatsApp global, cargado perezosamente y solo en escritorio.
  *
  * @param {Object} props
  * @param {React.ReactNode} props.children - El contenido de la página actual (vistas).
@@ -32,18 +41,19 @@ const Layout = ({ children }) => {
     "rgba(0, 0, 0, 0.6)", // Modo oscuro: Capa oscura
   );
 
+  const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
+
   return (
     <Box
       minH="100dvh"
       backgroundImage={{
-        base: `url(${bg_mobile})`, // Móvil: Usa imagen vertical
-        md: `url(${bg_desktop})`, // Desktop: Usa imagen horizontal
+        base: `url(${bg_desktop})`, // Use desktop image for both
+        md: `url(${bg_desktop})`,
       }}
       backgroundSize="cover"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundAttachment={{ base: "scroll", md: "fixed" }} // Fixed solo en desktop para performance
-      // bg={useColorModeValue("gray.50", "gray.900")}
       position="relative"
       _before={{
         content: '""',
@@ -100,7 +110,11 @@ const Layout = ({ children }) => {
         <Footer />
       </Box>
 
-      <FloatingWhatsApp />
+      {showFloatingWhatsApp && (
+        <Suspense fallback={null}>
+          <FloatingWhatsApp />
+        </Suspense>
+      )}
     </Box>
   );
 };

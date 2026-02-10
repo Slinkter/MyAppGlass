@@ -14,13 +14,7 @@ import FadingImage from "@shared/components/common/FadingImage";
  * @component ServiceCardContent
  * @description Presentational component for the content of the service card.
  */
-const ServiceCardContent = ({
-  image,
-  name,
-  plink,
-  isImageLoaded,
-  handleImageLoad,
-}) => {
+const ServiceCardContent = ({ image, name, plink, forceShow }) => {
   const styles = {
     bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
     heading: useColorModeValue("primary.700", "primary.300"),
@@ -57,13 +51,13 @@ const ServiceCardContent = ({
           alt={`Servicio de ${name}`}
           objectFit="cover"
           showOverlay={false}
-          onLoad={handleImageLoad}
+          forceShow={forceShow}
         />
 
         <Stack
           p={4}
           spacing={3}
-          opacity={isImageLoaded ? 1 : 0}
+          opacity={1}
           transition="opacity 0.4s ease-in-out"
         >
           <Heading

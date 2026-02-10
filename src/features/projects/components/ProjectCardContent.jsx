@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Stack,
@@ -22,9 +22,8 @@ const ProjectCardContent = ({
   address,
   year,
   onOpenModal,
+  forceShow,
 }) => {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-
   const styles = {
     bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
     border: useColorModeValue(
@@ -53,15 +52,10 @@ const ProjectCardContent = ({
           src={image}
           alt={`Obra ${residencial}`}
           showOverlay={false}
-          onLoad={() => setIsImageLoaded(true)}
+          forceShow={forceShow}
         />
 
-        <Stack
-          p={4}
-          spacing={2}
-          opacity={isImageLoaded ? 1 : 0}
-          transition="opacity 0.4s"
-        >
+        <Stack p={4} spacing={2} opacity={1} transition="opacity 0.4s">
           <Heading
             size="md"
             color={styles.heading}

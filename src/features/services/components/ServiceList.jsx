@@ -1,57 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
-import ServiceListSkeleton from "./ServiceListSkeleton";
-import DataLoader from "@shared/components/DataLoader/DataLoader";
 import { getServices } from "../services/serviceService";
 
 /**
  * @component ServiceList
- * @description Lista de servicios usando el componente genérico ItemGridLayout.
+ * @description Lista de servicios renderizada de forma síncrona y estática.
+ * Al usar datos locales e imágenes optimizadas en el bundle, no necesitamos estados de carga complejos.
  * Muestra todos los servicios ofrecidos por la empresa en un grid responsive.
- * Con animación escalonada para mejor experiencia visual.
- *
- * @returns {JSX.Element} Grid de servicios con SEO y loading state
  */
 const ServiceList = React.memo(() => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [services, setServices] = useState([]);
+  // Obtenemos los datos directamente (síncrono)
+  const services = getServices();
 
-    useEffect(() => {
-        const fetchServices = async () => {
-            setIsLoading(true);
-            try {
-                const data = await getServices();
-                setServices(data);
-            } catch (err) {
-                setError(err.message || "Error al cargar los servicios.");
-            } finally {
-                setIsLoading(false);
-            }
-        };
+  // Añadimos la propiedad 'preloaded' o 'forceShow' para indicar que deben mostrarse ya
+  // Aunque al ser síncrono, ImageWithFallback manejará la carga natural del navegador.
+  // Pasamos forceShow={true} para saltarnos transiciones innecesarias si la imagen ya está en caché.
+  const preparedServices = useMemo(() => {
+    return services.map((s) => ({ ...s, preloaded: true }));
+  }, [services]);
 
-        fetchServices();
-    }, []);
-
-    return (
-        <DataLoader
-            isLoading={isLoading}
-            error={error}
-            loadingComponent={<ServiceListSkeleton />}
-        >
-            <ItemGridLayout
-                title="SERVICIOS"
-                subtitle="Fabricación & Instalación"
-                seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
-                seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina."
-                seoCanonicalUrl="https://www.gyacompany.com/servicios"
-                items={services}
-                ItemComponent={ServiceCard}
-                containerProps={{ pb: 12 }}
-            />
-        </DataLoader>
-    );
+  return (
+    <ItemGridLayout
+      title="SERVICIOS"
+      subtitle="Fabricación & Instalación"
+      seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
+      seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina."
+      seoCanonicalUrl="https://www.gyacompany.com/servicios"
+      containerProps={{ pb: 12 }}
+    >
+      {preparedServices.map((service, index) => (
+        <ItemGridLayout.Item key={service.id}>
+          <ServiceCard
+            {...service}
+            // LCP Optimization: Load first 2 images eagerly
+            loading={index < 2 ? "eager" : "lazy"}
+            fetchPriority={index < 2 ? "high" : "auto"}
+          />
+        </ItemGridLayout.Item>
+      ))}
+    </ItemGridLayout>
+  );
 });
 
 ServiceList.displayName = "ServiceList";

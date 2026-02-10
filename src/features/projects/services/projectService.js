@@ -45,7 +45,6 @@ import { projects } from "../data/projects";
  * }
  * loadProjects();
  */
-export const getProjects = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return Promise.resolve(projects);
+export const getProjects = () => {
+  return projects;
 };

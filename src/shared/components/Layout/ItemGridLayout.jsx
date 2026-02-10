@@ -8,49 +8,49 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
+
+// Animation Variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
 
 /**
  * Componente: ItemGridLayout
  * --------------------------------------------------------------------
  * @description
- * Un layout reutilizable para mostrar colecciones de elementos (Proyectos, Servicios, Features)
- * en una cuadrícula (Grid) responsiva.
- *
- * Funcionalidades:
- * 1. SEO Automático: Integra `HelmetWrapper` para inyectar títulos y meta-descripciones
- *    específicas para la página que renderiza la lista.
- * 2. Encabezado Estandarizado: Muestra un Título y Subtítulo con estilos consistentes.
- * 3. Grid Adaptable: Usa `SimpleGrid` para ajustar el número de columnas según el dispositivo
- *    (por defecto: 1 en móvil, 2 en tablet, 3 en escritorio).
- * 4. Inyección de Componentes: Recibe un `ItemComponent` como prop, lo que le permite
- *    renderizar cualquier tipo de tarjeta (ProjectCard, ServiceCard, etc.) dinámicamente.
- *
- * @param {Object} props
- * @param {string} props.title - Título principal de la sección.
- * @param {string} props.subtitle - Texto descriptivo secundario.
- * @param {Array} props.items - Array de datos a iterar.
- * @param {React.ElementType} props.ItemComponent - El componente que renderizará cada ítem.
- * @param {string} props.seoTitle - Título para la etiqueta <title> del navegador.
- * @param {string} props.seoDescription - Meta descripción para SEO.
- * @param {string} props.seoCanonicalUrl - URL canónica para SEO.
- * @param {Object} [props.columns] - Configuración de columnas responsivas para SimpleGrid.
- * @param {number} [props.spacing] - Espaciado entre elementos del grid.
- * @param {Object} [props.containerProps] - Props adicionales para el contenedor principal.
+ * Un layout reutilizable para mostrar colecciones de elementos.
+ * Refactorizado para usar Patrón de Composición (Compound Components).
  */
-const ItemGridLayout = (props) => {
-  const {
-    title,
-    subtitle,
-    items,
-    ItemComponent,
-    seoTitle,
-    seoDescription,
-    seoCanonicalUrl,
-    columns = { base: 1, md: 2, lg: 3 },
-    spacing = 10,
-    containerProps = {},
-  } = props;
+const ItemGridLayout = ({
+  title,
+  subtitle,
+  children,
+  seoTitle,
+  seoDescription,
+  seoCanonicalUrl,
+  columns = { base: 1, md: 2, lg: 3 },
+  spacing = 10,
+  containerProps = {},
+}) => {
   const headingColor = useColorModeValue("primary.700", "primary.300");
   const textColor = useColorModeValue("gray.700", "gray.200");
   const borderColor = useColorModeValue("primary.500", "primary.300");
@@ -97,51 +97,31 @@ const ItemGridLayout = (props) => {
           {subtitle}
         </Text>
 
-
-        {/* Variantes de animación para efecto escalonado */}
         <SimpleGrid
-          as={motion.create('div')}
+          as={motion.div}
           columns={columns}
           spacing={spacing}
           initial="hidden"
           animate="visible"
-          variants={{
-            visible: {
-              transition: {
-                staggerChildren: 0.1, // Delay de 0.1s entre cada card
-              },
-            },
-          }}
+          variants={containerVariants}
         >
-          {items.map((item, index) => (
-            <motion.div
-              key={item.id || index}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    duration: 0.5,
-                    ease: "easeOut",
-                  },
-                },
-              }}
-            >
-              <ItemComponent {...item} />
-            </motion.div>
-          ))}
+          {children}
         </SimpleGrid>
       </Container>
     </>
   );
 };
 
+const ItemGridItem = ({ children }) => {
+  return <motion.div variants={itemVariants}>{children}</motion.div>;
+};
+
+ItemGridLayout.Item = ItemGridItem;
+
 ItemGridLayout.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  items: PropTypes.array.isRequired,
-  ItemComponent: PropTypes.elementType.isRequired,
+  children: PropTypes.node.isRequired,
   seoTitle: PropTypes.string.isRequired,
   seoDescription: PropTypes.string.isRequired,
   seoCanonicalUrl: PropTypes.string.isRequired,

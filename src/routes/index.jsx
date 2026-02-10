@@ -1,6 +1,7 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { serviceRoutes } from "@/routes/serviceRoutes";
+import ErrorFallback from "@shared/components/common/ErrorFallback";
 import App from "@/App";
 
 // Views
@@ -20,15 +21,21 @@ const ReclamationForm = lazy(() =>
     default: module.ReclamationForm,
   })),
 );
-//
-import ErrorPage from "@/pages/ErrorPage";
+
+// ErrorPage Loading Fallback - Logic moved to ErrorFallback.jsx
+
+const ErrorPage = lazy(() => import("@/pages/ErrorPage"));
 
 export const router = createBrowserRouter(
   [
     {
       path: "/",
       element: <App />,
-      errorElement: <ErrorPage />,
+      errorElement: (
+        <Suspense fallback={<ErrorFallback />}>
+          <ErrorPage />
+        </Suspense>
+      ),
       children: [
         { index: true, element: <HomePage /> },
         {

@@ -3,7 +3,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import ProjectCardContent from "./ProjectCardContent";
 import ModalSkeleton from "./modal/ModalSkeleton";
 
-const LazyProjectDetailModal = lazy(() => import('./ProjectDetailModal'));
+const LazyProjectDetailModal = lazy(() => import("./ProjectDetailModal"));
 
 /**
  * @component ProjectCard
@@ -11,7 +11,16 @@ const LazyProjectDetailModal = lazy(() => import('./ProjectDetailModal'));
  */
 const ProjectCard = React.memo((props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { residencial, name, address, year, g_maps, photosObra, image } = props;
+  const {
+    residencial,
+    name,
+    address,
+    year,
+    g_maps,
+    photosObra,
+    image,
+    preloaded,
+  } = props;
 
   return (
     <>
@@ -21,8 +30,9 @@ const ProjectCard = React.memo((props) => {
         address={address}
         year={year}
         onOpenModal={onOpen}
+        forceShow={preloaded}
       />
-      
+
       {isOpen && (
         <Suspense fallback={<ModalSkeleton />}>
           <LazyProjectDetailModal
