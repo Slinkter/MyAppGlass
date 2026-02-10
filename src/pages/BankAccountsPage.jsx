@@ -1,3 +1,9 @@
+/**
+ * @file BankAccountsPage.jsx
+ * @description Informational page displaying company fiscal data and bank account details for payments.
+ * @module pages
+ */
+
 import React from "react";
 import {
   Box,

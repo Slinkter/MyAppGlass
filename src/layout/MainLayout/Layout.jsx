@@ -1,13 +1,22 @@
+/**
+ * @file Layout.jsx
+ * @description Root layout wrapper that establishes the visual baseline and global structure of the application.
+ * @module layout/Layout
+ * @remarks
+ * - Implements a responsive background strategy using high-quality assets.
+ * - Applies a global glassmorphism overlay to ensure content legibility across all pages.
+ * - Integrates core navigation (Navbar) and information (Footer) components into a centered, constrained layout.
+ */
+
 import { Suspense, lazy } from "react";
 import {
   Box,
   useColorModeValue,
-  Link,
   useBreakpointValue,
+  Link,
 } from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
-// import { FloatingWhatsApp } from "../FloatingActions";
 const FloatingWhatsApp = lazy(() =>
   import("../FloatingActions").then((module) => ({
     default: module.FloatingWhatsApp,
@@ -18,21 +27,11 @@ const FloatingWhatsApp = lazy(() =>
 import bg_desktop from "@/assets/common/mainland.jpg";
 
 /**
- * Componente: Layout
- * --------------------------------------------------------------------
- * @description
- * Envoltorio principal (Wrapper) de la aplicación que define la estructura visual base.
- *
- * Características principales:
- * 1. Fondo Responsivo: Cambia dinámicamente entre `bg_mobile` y `bg_desktop`
- *    según el breakpoint, optimizando la carga y composición visual.
- * 2. Efecto Glassmorphism Global: Aplica un overlay (`_before`) con desenfoque
- *    y color semitransparente para garantizar que el texto sea legible sobre el fondo.
- * 3. Estructura Semántica: Organiza el contenido en Navbar, Main y Footer.
- * 4. Botón Flotante: Incluye el widget de WhatsApp global, cargado perezosamente y solo en escritorio.
- *
- * @param {Object} props
- * @param {React.ReactNode} props.children - El contenido de la página actual (vistas).
+ * @component Layout
+ * @description Root layout wrapper for the application.
+ * @param {object} props - The component props.
+ * @param {React.ReactNode} props.children - The child components to be rendered within the layout.
+ * @returns {JSX.Element} The rendered layout component.
  */
 const Layout = ({ children }) => {
   // Overlay para mejorar legibilidad y efecto glass

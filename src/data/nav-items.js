@@ -1,4 +1,10 @@
 /**
+ * @file nav-items.js
+ * @description Configuration for the main application navigation structure.
+ * @module data
+ */
+
+/**
  * @typedef {Object} NavItem
  * @property {string} label - Display text for the navigation link
  * @property {string} href - Route path for the navigation link

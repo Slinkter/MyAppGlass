@@ -1,3 +1,9 @@
+/**
+ * @file ClientCard.jsx
+ * @description Presentational component for displaying client segments with a glassmorphism aesthetic.
+ * @module home/components
+ */
+
 import React from "react";
 import {
   Box,

@@ -1,14 +1,13 @@
+/**
+ * @file ServiceList.jsx
+ * @description Orchestrator for the services gallery, using `ItemGridLayout` to list all company services.
+ * @module services/components
+ */
+
 import React, { useMemo } from "react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import { getServices } from "../services/serviceService";
-
-/**
- * @component ServiceList
- * @description Lista de servicios renderizada de forma síncrona y estática.
- * Al usar datos locales e imágenes optimizadas en el bundle, no necesitamos estados de carga complejos.
- * Muestra todos los servicios ofrecidos por la empresa en un grid responsive.
- */
 const ServiceList = React.memo(() => {
   // Obtenemos los datos directamente (síncrono)
   const services = getServices();

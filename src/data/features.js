@@ -1,3 +1,9 @@
+/**
+ * @file features.js
+ * @description Configuration for the company's key value propositions and benefits.
+ * @module data
+ */
+
 import {
   IoIosCalculator,
   IoIosCalendar,

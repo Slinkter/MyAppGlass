@@ -1,3 +1,11 @@
+/**
+ * @file HelmetWrapper.jsx
+ * @description SEO orchestrator component that manages document metadata and Open Graph tags.
+ * @module shared/components
+ * @remarks
+ * Encapsulates the SEO strategy for the application, providing sensible defaults while allowing per-page overrides.
+ */
+
 import React from "react";
 import { Helmet } from "react-helmet-async";
 

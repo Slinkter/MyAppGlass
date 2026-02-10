@@ -4,7 +4,6 @@ import {
   useJsApiLoader,
   MarkerF,
   InfoWindowF,
-  OverlayViewF,
 } from "@react-google-maps/api";
 import {
   Box,
@@ -13,13 +12,9 @@ import {
   useColorModeValue,
   Spinner,
   Flex,
-  Tooltip,
-  Image,
-  Icon,
   Card,
 } from "@chakra-ui/react";
 import { getProjects } from "@/features/projects";
-import { FaBuilding } from "react-icons/fa";
 
 import logo from "@/assets/branding/logovcr.png";
 
@@ -40,182 +35,6 @@ const mainStore = {
   client: "Sede Principal",
   position: { lat: -12.103252, lng: -76.942035 },
 };
-
-// --- ERROR BOUNDARY ---
-class MapErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error(
-      "MapOverlay failed, falling back to standard markers:",
-      error,
-      errorInfo,
-    );
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return this.props.fallback;
-    }
-    return this.props.children;
-  }
-}
-
-// --- MODO PREMIUM (OverlayView + Tooltip) ---
-const PremiumMarker = ({ marker, isSelected, onHover, onLeave, isStore }) => {
-  if (!marker.position) return null;
-  return (
-    <OverlayViewF
-      position={marker.position}
-      mapPaneName={OverlayViewF.OVERLAY_MOUSE_TARGET}
-      getPixelPositionOffset={(width, height) => ({
-        x: -(width / 2),
-        y: -height,
-      })}
-    >
-      <Tooltip
-        label={
-          <Box textAlign="left" p={1}>
-            <Heading size="xs" color="blue.200" textTransform="uppercase">
-              {marker.residencial || marker.name}
-            </Heading>
-            <Text fontSize="xs" fontWeight="bold">
-              {marker.g_maps || marker.address}
-            </Text>
-            <Text fontSize="10px" color="gray.300">
-              {marker.client || "Proyecto Realizado"}
-            </Text>
-          </Box>
-        }
-        hasArrow
-        bg="gray.800"
-        color="white"
-        placement="top"
-        borderRadius="md"
-        isOpen={isSelected}
-      >
-        <Box
-          onMouseEnter={() => onHover(marker)}
-          onMouseLeave={onLeave}
-          cursor="pointer"
-          transform={isSelected ? "scale(1.2)" : "scale(1)"}
-          transition="all 0.2s"
-        >
-          {isStore ? (
-            <Image
-              src={logo}
-              alt={marker.name}
-              w="50px"
-              h="50px"
-              objectFit="contain"
-              filter="drop-shadow(0px 4px 4px rgba(0,0,0,0.25))"
-            />
-          ) : (
-            <Box
-              bg="#3182CE"
-              borderRadius="full"
-              border="2px solid white"
-              w="30px"
-              h="30px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              boxShadow="lg"
-            >
-              <Icon as={FaBuilding} color="white" w="60%" h="60%" />
-            </Box>
-          )}
-        </Box>
-      </Tooltip>
-    </OverlayViewF>
-  );
-};
-
-// --- MODO SEGURO (MarkerF + InfoWindowF) ---
-const SafeMarkers = ({
-  projects,
-  mainStore,
-  onHover,
-  onLeave,
-  selectedMarker,
-}) => (
-  <>
-    <MarkerF
-      position={mainStore.position}
-      onMouseOver={() => onHover(mainStore)}
-      onMouseOut={onLeave}
-      icon={
-        window.google
-          ? { url: logo, scaledSize: new window.google.maps.Size(50, 50) }
-          : undefined
-      }
-    />
-    {projects.map((project) => (
-      <MarkerF
-        key={project.id}
-        position={project.position}
-        onMouseOver={() => onHover(project)}
-        onMouseOut={onLeave}
-        icon={
-          window.google
-            ? {
-                path: window.google.maps.SymbolPath.CIRCLE,
-                fillColor: "#3182CE",
-                fillOpacity: 1,
-                strokeColor: "#FFFFFF",
-                strokeWeight: 2,
-                scale: 8,
-              }
-            : undefined
-        }
-      />
-    ))}
-    {selectedMarker && (
-      <InfoWindowF
-        position={selectedMarker.position}
-        onCloseClick={onLeave}
-        options={{
-          pixelOffset: new window.google.maps.Size(0, -30),
-          disableAutoPan: true,
-          headerContent: " ",
-          minWidth: 200,
-        }}
-      >
-        <Card
-          p={3}
-          bg="white"
-          variant="elevated"
-          borderRadius="lg"
-          boxShadow="none"
-          border="none"
-        >
-          <Heading
-            size="xs"
-            color="blue.600"
-            textTransform="uppercase"
-            mb={1}
-            letterSpacing="wide"
-          >
-            {selectedMarker.residencial || selectedMarker.name}
-          </Heading>
-          <Text fontSize="sm" fontWeight="semibold" color="gray.800" mb={1}>
-            {selectedMarker.g_maps || selectedMarker.address}
-          </Text>
-          <Text fontSize="xs" color="gray.500" fontStyle="italic">
-            {selectedMarker.client || "Proyecto Realizado"}
-          </Text>
-        </Card>
-      </InfoWindowF>
-    )}
-  </>
-);
 
 function InteractiveMapComponent() {
   const [projects, setProjects] = useState([]);
@@ -335,35 +154,81 @@ function InteractiveMapComponent() {
           styles: [{ featureType: "poi", stylers: [{ visibility: "off" }] }],
         }}
       >
-        <MapErrorBoundary
-          fallback={
-            <SafeMarkers
-              projects={projects}
-              mainStore={mainStore}
-              onHover={handleMarkerHover}
-              onLeave={handleMarkerLeave}
-              selectedMarker={selectedMarker}
-            />
+        {/* Marcador Tienda Principal */}
+        <MarkerF
+          position={mainStore.position}
+          onMouseOver={() => handleMarkerHover(mainStore)}
+          onMouseOut={handleMarkerLeave}
+          icon={
+            window.google
+              ? {
+                  url: logo,
+                  scaledSize: new window.google.maps.Size(50, 50),
+                }
+              : undefined
           }
-        >
-          {/* INTENTO PREMIUM */}
-          <PremiumMarker
-            marker={mainStore}
-            isSelected={selectedMarker?.id === mainStore.id}
-            onHover={handleMarkerHover}
-            onLeave={handleMarkerLeave}
-            isStore
+        />
+
+        {/* Marcadores de Proyectos */}
+        {projects.map((project) => (
+          <MarkerF
+            key={project.id}
+            position={project.position}
+            onMouseOver={() => handleMarkerHover(project)}
+            onMouseOut={handleMarkerLeave}
+            icon={
+              window.google
+                ? {
+                    path: window.google.maps.SymbolPath.CIRCLE,
+                    fillColor: "#3182CE",
+                    fillOpacity: 1,
+                    strokeColor: "#FFFFFF",
+                    strokeWeight: 2,
+                    scale: 8,
+                  }
+                : undefined
+            }
           />
-          {projects.map((project) => (
-            <PremiumMarker
-              key={project.id}
-              marker={project}
-              isSelected={selectedMarker?.id === project.id}
-              onHover={handleMarkerHover}
-              onLeave={handleMarkerLeave}
-            />
-          ))}
-        </MapErrorBoundary>
+        ))}
+
+        {/* InfoWindow con Card Premium */}
+        {selectedMarker && selectedMarker.position && (
+          <InfoWindowF
+            position={selectedMarker.position}
+            onCloseClick={() => setSelectedMarker(null)}
+            options={{
+              pixelOffset: new window.google.maps.Size(0, -30),
+              disableAutoPan: true,
+              headerContent: " ",
+              minWidth: 200,
+            }}
+          >
+            <Card
+              p={3}
+              bg="white"
+              variant="elevated"
+              borderRadius="lg"
+              boxShadow="none"
+              border="none"
+            >
+              <Heading
+                size="xs"
+                color="blue.600"
+                textTransform="uppercase"
+                mb={1}
+                letterSpacing="wide"
+              >
+                {selectedMarker.residencial || selectedMarker.name}
+              </Heading>
+              <Text fontSize="sm" fontWeight="semibold" color="gray.800" mb={1}>
+                {selectedMarker.g_maps || selectedMarker.address}
+              </Text>
+              <Text fontSize="xs" color="gray.500" fontStyle="italic">
+                {selectedMarker.client || "Proyecto Realizado"}
+              </Text>
+            </Card>
+          </InfoWindowF>
+        )}
       </GoogleMap>
     </Box>
   );

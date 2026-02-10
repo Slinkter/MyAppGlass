@@ -1,3 +1,9 @@
+/**
+ * @file ScrollReveal.jsx
+ * @description Animation wrapper that reveals content as it enters the viewport using staggered fade-ups.
+ * @module shared/components
+ */
+
 import React from "react";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";

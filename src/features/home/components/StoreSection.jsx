@@ -1,3 +1,11 @@
+/**
+ * @file StoreSection.jsx
+ * @description Section component that anchors the physical presence of the store with map integration.
+ * @module home/components
+ * @remarks
+ * The `InteractiveMap` is lazy-loaded within this section to optimize the Initial Page Load.
+ */
+
 import React, { Suspense, lazy } from "react";
 import {
   Box,

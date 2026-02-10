@@ -1,3 +1,9 @@
+/**
+ * @file HomePage.jsx
+ * @description Root view component for the landing page, orchestrating main marketing sections.
+ * @module pages
+ */
+
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import HelmetWrapper from "@shared/components/HelmetWrapper";

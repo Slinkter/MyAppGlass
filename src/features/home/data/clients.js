@@ -1,6 +1,12 @@
-import buildingImg from '../assets/clients/building.jpg';
-import officesImg from '../assets/clients/sectoroffices.jpg';
-import hogarImg from '../assets/clients/sectorhogar.jpg';
+/**
+ * @file clients.js
+ * @description Local data source for homepage client categories.
+ * @module home/data
+ */
+
+import buildingImg from "../assets/clients/building.jpg";
+import officesImg from "../assets/clients/sectoroffices.jpg";
+import hogarImg from "../assets/clients/sectorhogar.jpg";
 
 /**
  * @typedef {object} Client
@@ -20,18 +26,19 @@ export const clients = [
     id: 1,
     imgClient: buildingImg,
     nameClient: "Constructoras",
-    descClient: "Más de 12 proyectos de construcción entregados."
+    descClient: "Más de 12 proyectos de construcción entregados.",
   },
   {
     id: 2,
     imgClient: officesImg,
     nameClient: "Negocios",
-    descClient: "Servicios de mantenimiento en áreas de trabajos."
+    descClient: "Servicios de mantenimiento en áreas de trabajos.",
   },
   {
     id: 3,
     imgClient: hogarImg,
     nameClient: "Hogares",
-    descClient: "Servicio de instalación de ventanas, mamparas , puertas de duchas y más."
-  }
+    descClient:
+      "Servicio de instalación de ventanas, mamparas , puertas de duchas y más.",
+  },
 ];

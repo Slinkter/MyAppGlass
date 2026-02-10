@@ -1,10 +1,16 @@
+/**
+ * @file main.jsx
+ * @description Application entry point that initializes React, Chakra UI, and the routing system.
+ * @module entry
+ */
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { Spinner, Center } from "@chakra-ui/react";
-import darkModeManager from "./config/darkModeManager"; // Import the custom dark mode manager
+import darkModeManager from "./config/darkModeManager";
 import { router } from "./routes";
 import theme from "./config/theme";
 import "./styles/global.css";

@@ -1,52 +1,44 @@
+/**
+ * @file ClientsSection.jsx
+ * @description Orchestrator component for the "Our Clients" section, handling data fetching and grid layout.
+ * @module home/components
+ */
+
 import React from "react";
-import { Container, SimpleGrid } from "@chakra-ui/react";
-import { useAsyncData } from "@shared/hooks/data/useAsyncData";
+import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { getClients } from "../services/clientService";
-import DataLoader from "@shared/components/DataLoader/DataLoader";
-import ClientListSkeleton from "./ClientListSkeleton";
-import Franja from "@shared/components/common/Franja";
 import ClientCard from "./ClientCard";
 
 /**
  * @component ClientsSection
  * @description Sección de "Clientes" en la página principal.
- * Carga una lista de clientes desde un servicio asíncrono y los muestra en una cuadrícula.
- * Maneja estados de carga (Loading) y error.
- * Implementa Infinite Scroll.
+ * Muestra una cuadrícula de categorías de clientes atendidos por la empresa.
+ * Optimizado para carga inmediata (síncrona).
  *
  * @returns {JSX.Element} Sección completa de clientes.
  */
 const ClientsSection = React.memo(() => {
-  const { data: clients, isLoading, error } = useAsyncData(getClients);
+  const clients = getClients();
 
   return (
-    <>
-      <Franja
-        title={"CLIENTES"}
-        text={
-          "Estamos comprometidos con brindar soluciones en vidrio y aluminio ."
-        }
-      />
-
-      <DataLoader
-        isLoading={isLoading}
-        error={error}
-        loadingComponent={<ClientListSkeleton />}
-      >
-        <Container maxW={"7xl"} mt={12} mb={0}>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
-            {(clients || []).map((client) => (
-              <ClientCard
-                key={client.id} // Use a unique ID from the data instead of index
-                image={client.imgClient}
-                nameClient={client.nameClient}
-                descClient={client.descClient}
-              />
-            ))}
-          </SimpleGrid>
-        </Container>
-      </DataLoader>
-    </>
+    <ItemGridLayout
+      title="CLIENTES"
+      subtitle="Estamos comprometidos con brindar soluciones en vidrio y aluminio"
+      seoTitle="Nuestros Clientes - GYA Company"
+      seoDescription="Mira las empresas y sectores que confían en Glass & Aluminum Company S.A.C. para sus proyectos de vidriería."
+      seoCanonicalUrl="https://www.gyacompany.com/clientes"
+      containerProps={{ mt: 0, pt: 8 }}
+    >
+      {(clients || []).map((client) => (
+        <ItemGridLayout.Item key={client.id}>
+          <ClientCard
+            image={client.imgClient}
+            nameClient={client.nameClient}
+            descClient={client.descClient}
+          />
+        </ItemGridLayout.Item>
+      ))}
+    </ItemGridLayout>
   );
 });
 

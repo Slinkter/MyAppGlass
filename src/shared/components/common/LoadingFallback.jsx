@@ -1,3 +1,9 @@
+/**
+ * @file LoadingFallback.jsx
+ * @description Simple loading indicator used as a fallback for `Suspense` boundaries.
+ * @module shared/common
+ */
+
 import React from "react";
 import { Flex, Spinner } from "@chakra-ui/react";
 

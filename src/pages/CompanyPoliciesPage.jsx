@@ -1,3 +1,9 @@
+/**
+ * @file CompanyPoliciesPage.jsx
+ * @description Legal and operational policies page, including service terms and privacy information.
+ * @module pages
+ */
+
 import React from "react";
 import {
   Box,

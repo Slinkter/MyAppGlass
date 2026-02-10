@@ -1,15 +1,16 @@
+/**
+ * @file ProjectsList.jsx
+ * @description Orchestrator for the projects gallery, leveraging `ItemGridLayout` for consistency.
+ * @module projects/components
+ * @remarks
+ * - Implements built-in SEO optimizations via metadata props.
+ * - Handles eager loading for items above the fold (first 2 items) to improve LCP.
+ */
+
 import React, { useMemo } from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { getProjects } from "../services/projectService";
-
-/**
- * @component ProjectsList
- * @description Lista de proyectos usando el componente genérico ItemGridLayout.
- * Muestra todos los proyectos completados en orden inverso (más recientes primero).
- * Con animación escalonada para mejor experiencia visual.
- * @returns {JSX.Element} Grid de proyectos con SEO y loading state
- */
 const ProjectsList = React.memo(() => {
   // Get data synchronously
   const projects = getProjects();

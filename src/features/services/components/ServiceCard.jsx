@@ -1,22 +1,32 @@
+/**
+ * @file ServiceCard.jsx
+ * @description Card component for displaying a service summary, wrapping `ServiceCardContent`.
+ * @module services/components
+ */
+
 import React from "react";
 import ServiceCardContent from "./ServiceCardContent";
 
 /**
- * @typedef {Object} Service - Representa un servicio individual en la lista general.
- * @property {number} id - Identificador único del servicio.
- * @property {string} image - Ruta o URL de la imagen principal del servicio.
- * @property {string} name - Nombre del servicio.
- * @property {string} link - Enlace externo relacionado con el servicio (ej. Facebook).
- * @property {string} plink - Enlace interno a la página de detalles del servicio (slug).
+ * @typedef {Object} Service - Represents an individual service in the general list.
+ * @property {number} id - Unique identifier for the service.
+ * @property {string} image - Path or URL of the main image for the service.
+ * @property {string} name - Name of the service.
+ * @property {string} link - External link related to the service (e.g., Facebook).
+ * @property {string} plink - Internal link to the service's detail page (slug).
  */
 
 /**
  * @component ServiceCard
- * @description Container component that manages the state and provides props to ServiceCardContent.
- * Displays an individual service card with image, title, and link to the catalog.
+ * @description Displays an individual service card with an image, name, and a link to its detail page.
+ * This component is memoized for performance optimization.
  *
- * @param {Service} props - The service object to display on the card.
- * @returns {JSX.Element} Rendered service card.
+ * @param {object} props - The properties for the ServiceCard component.
+ * @param {string} props.image - The URL or path to the service's image.
+ * @param {string} props.name - The name of the service.
+ * @param {string} props.plink - The internal path (slug) to the service's detail page.
+ * @param {boolean} [props.preloaded=false] - Indicates if the image should be preloaded or forced to show.
+ * @returns {JSX.Element} The rendered service card.
  */
 const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
   return (

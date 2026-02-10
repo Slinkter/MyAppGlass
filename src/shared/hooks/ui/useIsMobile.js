@@ -1,3 +1,9 @@
+/**
+ * @file useIsMobile.js
+ * @description Utility hook to detect if the current device is a mobile based on viewport width.
+ * @module shared/hooks
+ */
+
 import { useMediaQuery } from "@chakra-ui/react";
 
 /**
@@ -22,9 +28,9 @@ import { useMediaQuery } from "@chakra-ui/react";
  * }
  */
 const useIsMobile = () => {
-    // La media query "(max-width: 768px)" define el punto de quiebre para dispositivos móviles.
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
-    return isMobile;
+  // La media query "(max-width: 768px)" define el punto de quiebre para dispositivos móviles.
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  return isMobile;
 };
 
 export default useIsMobile;

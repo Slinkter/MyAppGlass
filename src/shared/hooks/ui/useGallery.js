@@ -1,3 +1,9 @@
+/**
+ * @file useGallery.js
+ * @description Logic engine for image galleries, managing circular navigation, modals, and selection states.
+ * @module shared/hooks
+ */
+
 import { useState, useEffect, useMemo } from "react";
 
 /**
@@ -28,55 +34,55 @@ import { useState, useEffect, useMemo } from "react";
  * @returns {UseGalleryReturn} Un objeto con el estado de la galería y los manejadores de eventos.
  */
 export const useGallery = (images) => {
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-    // Efecto para resetear el índice si las imágenes cambian
-    useEffect(() => {
-        if (images && images.length > 0) {
-            setSelectedIndex(0);
-        }
-    }, [images]);
+  // Efecto para resetear el índice si las imágenes cambian
+  useEffect(() => {
+    if (images && images.length > 0) {
+      setSelectedIndex(0);
+    }
+  }, [images]);
 
-    const onOpenModal = () => setIsModalOpen(true);
-    const onCloseModal = () => setIsModalOpen(false);
+  const onOpenModal = () => setIsModalOpen(true);
+  const onCloseModal = () => setIsModalOpen(false);
 
-    const handlePrevious = (e) => {
-        e.stopPropagation();
-        setSelectedIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-    };
+  const handlePrevious = (e) => {
+    e.stopPropagation();
+    setSelectedIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
 
-    const handleNext = (e) => {
-        e.stopPropagation();
-        setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    };
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
 
-    const handleSelect = (index) => {
-        setSelectedIndex(index);
-    };
+  const handleSelect = (index) => {
+    setSelectedIndex(index);
+  };
 
-    // Lógica de seguridad para el índice y la imagen actual
-    const safeIndex = useMemo(() => {
-        if (!images || images.length === 0) return 0;
-        return selectedIndex >= images.length ? 0 : selectedIndex;
-    }, [images, selectedIndex]);
+  // Lógica de seguridad para el índice y la imagen actual
+  const safeIndex = useMemo(() => {
+    if (!images || images.length === 0) return 0;
+    return selectedIndex >= images.length ? 0 : selectedIndex;
+  }, [images, selectedIndex]);
 
-    const currentImage = useMemo(() => {
-        return images?.[safeIndex];
-    }, [images, safeIndex]);
+  const currentImage = useMemo(() => {
+    return images?.[safeIndex];
+  }, [images, safeIndex]);
 
-    return {
-        selectedIndex: safeIndex,
-        setSelectedIndex: handleSelect,
-        isModalOpen,
-        onOpenModal,
-        onCloseModal,
-        isHovered,
-        setIsHovered,
-        handlePrevious,
-        handleNext,
-        currentImage,
-        imageCount: images?.length || 0,
-    };
+  return {
+    selectedIndex: safeIndex,
+    setSelectedIndex: handleSelect,
+    isModalOpen,
+    onOpenModal,
+    onCloseModal,
+    isHovered,
+    setIsHovered,
+    handlePrevious,
+    handleNext,
+    currentImage,
+    imageCount: images?.length || 0,
+  };
 };
