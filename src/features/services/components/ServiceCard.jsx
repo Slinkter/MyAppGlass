@@ -18,19 +18,15 @@ import ServiceCardContent from "./ServiceCardContent";
  * @param {Service} props - The service object to display on the card.
  * @returns {JSX.Element} Rendered service card.
  */
-const ServiceCard = React.memo(({ image, name, plink }) => {
-    const [isImageLoaded, setIsImageLoaded] = React.useState(false);
-    const handleImageLoad = React.useCallback(() => setIsImageLoaded(true), []);
-
-    return (
-        <ServiceCardContent
-            image={image}
-            name={name}
-            plink={plink}
-            isImageLoaded={isImageLoaded}
-            handleImageLoad={handleImageLoad}
-        />
-    );
+const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
+  return (
+    <ServiceCardContent
+      image={image}
+      name={name}
+      plink={plink}
+      forceShow={preloaded}
+    />
+  );
 });
 
 ServiceCard.displayName = "ServiceCard";
