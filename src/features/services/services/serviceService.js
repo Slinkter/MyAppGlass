@@ -97,8 +97,6 @@ export const getServices = () => {
  * fetchServicePage("ventana"); // Obtener datos para la página de "Ventanas"
  */
 export const getServicePageData = async (slug) => {
-  // Simula un pequeño retraso de red
-  await new Promise((resolve) => setTimeout(resolve, 200));
   const pageData = servicePageDataMap[slug];
   if (!pageData) {
     return Promise.reject(new Error("Página de servicio no encontrada."));
