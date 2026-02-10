@@ -1,3 +1,9 @@
+/**
+ * @file DataLoader.jsx
+ * @description Declarative data loading wrapper that handles loading, error, and success states.
+ * @module shared/components
+ */
+
 import React from "react";
 import ErrorDisplay from "./ErrorDisplay";
 

@@ -1,4 +1,9 @@
-// src/hooks/useIntersectionObserver.js
+/**
+ * @file useIntersectionObserver.js
+ * @description Hook for detecting element visibility within the viewport using the Intersection Observer API.
+ * @module shared/hooks
+ */
+
 import { useEffect, useState, useRef } from "react";
 
 const useIntersectionObserver = (elementRef, options) => {

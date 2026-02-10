@@ -1,3 +1,11 @@
+/**
+ * @file ImageWithFallback.jsx
+ * @description Enhanced image component with skeleton loaders, fallback handling, and LCP optimizations.
+ * @module shared/components
+ * @remarks
+ * Includes a manual check for `image.complete` to immediately show cached images without a flicker of the skeleton loader.
+ */
+
 import React, { useState, useEffect } from "react";
 import { Image, Box, Skeleton, useColorModeValue } from "@chakra-ui/react";
 

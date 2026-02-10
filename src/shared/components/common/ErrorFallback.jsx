@@ -1,3 +1,9 @@
+/**
+ * @file ErrorFallback.jsx
+ * @description Minimalist loading placeholder specifically for the error route redirection.
+ * @module shared/common
+ */
+
 import React from "react";
 
 const ErrorFallback = () => (

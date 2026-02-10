@@ -1,6 +1,7 @@
 /**
  * @file webVitals.js
- * @description Utilidad para medir y reportar Core Web Vitals
+ * @description Utility for calculating and reporting Core Web Vitals to analytics endpoints.
+ * @module utils/performance
  */
 
 /**
@@ -10,9 +11,9 @@
 const reportWebVitals = (metric) => {
   // Enviar a analytics (Google Analytics, Firebase, etc.)
   if (window.gtag) {
-    window.gtag('event', metric.name, {
+    window.gtag("event", metric.name, {
       value: Math.round(metric.value),
-      event_category: 'Web Vitals',
+      event_category: "Web Vitals",
       event_label: metric.id,
       non_interaction: true,
     });

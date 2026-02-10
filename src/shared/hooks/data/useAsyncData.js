@@ -1,3 +1,9 @@
+/**
+ * @file useAsyncData.js
+ * @description State machine hook for managing asynchronous data fetching operations.
+ * @module shared/hooks
+ */
+
 import { useState, useEffect } from "react";
 
 /**

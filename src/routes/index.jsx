@@ -1,3 +1,9 @@
+/**
+ * @file index.jsx
+ * @description Main router configuration for the application using `react-router-dom`'s data loader API.
+ * @module routes
+ */
+
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { serviceRoutes } from "@/routes/serviceRoutes";

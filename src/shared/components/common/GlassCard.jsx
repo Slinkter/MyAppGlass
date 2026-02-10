@@ -1,3 +1,9 @@
+/**
+ * @file GlassCard.jsx
+ * @description Foundation component for implementing consistent glassmorphism (frosted glass) effects.
+ * @module shared/components
+ */
+
 import React from "react";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 
@@ -27,7 +33,7 @@ import { Box, useColorModeValue } from "@chakra-ui/react";
 const GlassCard = ({ children, ...props }) => {
   const bgColor = useColorModeValue(
     "rgba(255, 255, 255, 0.1)",
-    "rgba(0, 0, 0, 0.1)"
+    "rgba(0, 0, 0, 0.1)",
   );
 
   return (

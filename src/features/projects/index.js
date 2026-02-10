@@ -1,16 +1,17 @@
 /**
  * @file index.js
- * @description Feature Projects - Barrel exports
+ * @description Public API for the Projects feature module.
+ * @module projects
  */
 
 // Components
-export { default as ProjectCard } from './components/ProjectCard';
-export { default as ProjectsList } from './components/ProjectsList';
-export { default as ProjectCardSkeleton } from './components/ProjectCardSkeleton';
-export { default as ProjectListSkeleton } from './components/ProjectListSkeleton';
+export { default as ProjectCard } from "./components/ProjectCard";
+export { default as ProjectsList } from "./components/ProjectsList";
+export { default as ProjectCardSkeleton } from "./components/ProjectCardSkeleton";
+export { default as ProjectListSkeleton } from "./components/ProjectListSkeleton";
 
 // Hooks
-export { useProjectModal } from './hooks/useProjectModal';
+export { useProjectModal } from "./hooks/useProjectModal";
 
 // Services
-export { getProjects } from './services/projectService';
+export { getProjects } from "./services/projectService";

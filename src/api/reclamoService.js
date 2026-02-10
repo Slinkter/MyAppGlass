@@ -1,7 +1,10 @@
 /**
  * @file reclamoService.js
- * @description Servicio para interactuar con la API de reclamos, específicamente para enviar
- * los datos del libro de reclamaciones al backend.
+ * @description Service layer for handling "Libro de Reclamaciones" (complaints book) submissions.
+ * @module api
+ * @remarks
+ * This service directly interacts with the backend API configured via VITE_API_URL.
+ * It handles raw data transformation and HTTP communication for legal compliance documents.
  */
 
 // 1. Obtenemos la URL de la función desde las variables de entorno de Vite.
@@ -75,7 +78,7 @@ export const reclamoService = {
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || `Error del servidor: ${response.status}`
+          result.message || `Error del servidor: ${response.status}`,
         );
       }
 

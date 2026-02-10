@@ -1,7 +1,7 @@
 /**
  * @file clientService.js
- * @description Capa de servicio para la gestión de datos de clientes.
- * Proporciona funciones para obtener la lista de clientes.
+ * @description Service layer for retrieving client-related data for the homepage.
+ * @module home/services
  */
 
 import { clients } from "@/data/clients";
@@ -16,26 +16,10 @@ import { clients } from "@/data/clients";
  */
 
 /**
- * Simula la obtención asíncrona de la lista de clientes.
- * Actualmente, carga los datos desde un archivo local `clients.js`.
+ * Obtiene la lista de clientes de forma síncrona desde data/clients.
  *
- * @returns {Promise<Client[]>} Una promesa que resuelve con un array de objetos de cliente.
- *
- * @example
- * // Ejemplo de uso para obtener todos los clientes:
- * import { getClients } from '@/services/clientService';
- *
- * async function loadClients() {
- *   try {
- *     const clientsList = await getClients();
- *     console.log("Clientes cargados:", clientsList);
- *   } catch (error) {
- *     console.error("Error al cargar clientes:", error);
- *   }
- * }
- * loadClients();
+ * @returns {Client[]} Array de objetos de cliente.
  */
-export const getClients = async () => {
-  // Simula un pequeño retraso de red
-  return Promise.resolve(clients);
+export const getClients = () => {
+  return clients;
 };

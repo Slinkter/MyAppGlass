@@ -1,10 +1,10 @@
-import { features, iconMap } from "@/data/features";
-
 /**
  * @file featureService.js
- * @description Capa de servicio para la gestión de datos de características (features).
- * Proporciona funciones para obtener la lista de características y su mapeo de iconos.
+ * @description Service layer for retrieving company features and their corresponding icons.
+ * @module home/services
  */
+
+import { features, iconMap } from "@/data/features";
 
 // Re-using typedefs from "@/data/features"
 /**

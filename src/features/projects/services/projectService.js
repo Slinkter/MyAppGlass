@@ -1,6 +1,7 @@
 /**
  * @file projectService.js
- * @description Servicio para obtener datos de proyectos desde una fuente de datos local.
+ * @description Service layer for managing and retrieving project portfolio data.
+ * @module projects/services
  */
 
 import { projects } from "../data/projects";
@@ -26,24 +27,9 @@ import { projects } from "../data/projects";
  */
 
 /**
- * Simula la obtención asíncrona de la lista de proyectos.
- * Actualmente, carga los datos desde un archivo local `projects.js`.
+ * Returns the list of all projects and their associated data.
  *
- * @returns {Promise<Project[]>} Una promesa que resuelve con un array de objetos de proyectos.
- *
- * @example
- * // Ejemplo de uso para obtener todos los proyectos:
- * import { getProjects } from '@/services/projectService';
- *
- * async function loadProjects() {
- *   try {
- *     const allProjects = await getProjects();
- *     console.log("Proyectos cargados:", allProjects);
- *   } catch (error) {
- *     console.error("Error al cargar proyectos:", error);
- *   }
- * }
- * loadProjects();
+ * @returns {Project[]} Array of project objects.
  */
 export const getProjects = () => {
   return projects;

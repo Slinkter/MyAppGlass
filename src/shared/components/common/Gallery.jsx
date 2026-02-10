@@ -1,3 +1,9 @@
+/**
+ * @file Gallery.jsx
+ * @description Premium product gallery component featuring navigation, thumbnails, and keyboard support.
+ * @module shared/components
+ */
+
 import { Flex } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";

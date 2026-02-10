@@ -1,3 +1,9 @@
+/**
+ * @file ProjectPage.jsx
+ * @description View component for the portfolio section, rendering the paginated list of projects.
+ * @module pages
+ */
+
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import { ProjectsList } from "@features/projects";

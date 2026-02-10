@@ -1,19 +1,15 @@
+/**
+ * @file ServicePageLayout.jsx
+ * @description Main structure for the detailed service page, splitting view between a sidebar and a gallery.
+ * @module services/components
+ */
+
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import Gallery from "@shared/components/common/Gallery";
 import GlassCard from "@shared/components/common/GlassCard";
 import ServiceSidebar from "./ServiceSidebar";
-
-/**
- * @component ServicePageLayout
- * @description Layout visual principal para la página de detalle de servicio.
- * Estructura la página en dos columnas: Sidebar (izq) y Galería (der).
- *
- * @param {Object} props - Propiedades del componente.
- * @param {Object} props.pageData - Datos completos de la página (SEO, sistemas, features, imágenes).
- * @returns {JSX.Element} Layout renderizado.
- */
 const ServicePageLayout = ({ pageData }) => {
   const { seo, systems, features, imageLists } = pageData;
 

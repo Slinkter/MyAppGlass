@@ -1,3 +1,9 @@
+/**
+ * @file theme.js
+ * @description Application-wide Chakra UI theme extension, defining typography, colors, and global styles.
+ * @module config
+ */
+
 import { extendTheme } from "@chakra-ui/react";
 import "@fontsource/open-sans";
 import "@fontsource/raleway";

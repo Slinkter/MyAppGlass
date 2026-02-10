@@ -14,6 +14,93 @@ import SidebarItem from "@shared/components/common/SidebarItem";
 import GlassCard from "@shared/components/common/GlassCard";
 import SpecItem from "./SpecItem";
 
+const SidebarSection = ({ title, children, show = true }) => {
+  const textColor = useColorModeValue("gray.600", "gray.400");
+  if (!show) return null;
+  return (
+    <Box>
+      <Text
+        fontSize="xs"
+        fontWeight="bold"
+        textTransform="uppercase"
+        letterSpacing="wider"
+        color={textColor}
+        opacity={0.7}
+        mb={{ base: 3, md: 4 }}
+      >
+        {title}
+      </Text>
+      <Stack spacing={2}>{children}</Stack>
+    </Box>
+  );
+};
+
+const NavigationSection = ({ title, systems, activeIndex, onSelect }) => {
+  const headingColor = useColorModeValue("gray.900", "white");
+  return (
+    <Box>
+      <Heading
+        as="h3"
+        size={{ base: "sm", md: "md" }}
+        mb={{ base: 3, md: 4 }}
+        color={headingColor}
+        letterSpacing="tight"
+      >
+        {title}
+      </Heading>
+      <Stack spacing={2}>
+        {systems.map((item, index) => (
+          <SidebarItem
+            key={item.label}
+            icon={item.icon}
+            label={item.label}
+            isActive={activeIndex === index}
+            onClick={() => onSelect(index)}
+          />
+        ))}
+      </Stack>
+    </Box>
+  );
+};
+
+const CTASection = ({ label, accentColor, textColor }) => (
+  <Box>
+    <Button
+      as="a"
+      href={`https://wa.me/51974278303?text=Quisiera una cotización para ${label}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      size={{ base: "md", md: "lg" }}
+      w="full"
+      bg={accentColor}
+      color="white"
+      rightIcon={<ArrowForwardIcon />}
+      _hover={{
+        bg: useColorModeValue("primary.700", "primary.400"),
+        transform: "translateY(-2px)",
+        boxShadow: "xl",
+        textDecoration: "none",
+      }}
+      _active={{
+        transform: "translateY(0)",
+      }}
+      boxShadow="lg"
+      transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+    >
+      Cotizar Ahora
+    </Button>
+    <Text
+      fontSize="xs"
+      color={textColor}
+      textAlign="center"
+      mt={2}
+      opacity={0.7}
+    >
+      Obtén una cotización personalizada en 24 horas
+    </Text>
+  </Box>
+);
+
 /**
  * @component ServiceSidebar
  * @description Barra lateral con controles para la página de servicios.
@@ -32,7 +119,6 @@ const ServiceSidebar = (props) => {
   const { seo, systems, activeIndex, setActiveIndex, activeSystem, features } =
     props;
 
-  const headingColor = useColorModeValue("gray.900", "white");
   const textColor = useColorModeValue("gray.600", "gray.400");
   const accentColor = useColorModeValue("primary.600", "primary.300");
   const borderColor = useColorModeValue("whiteAlpha.300", "whiteAlpha.100");
@@ -53,100 +139,37 @@ const ServiceSidebar = (props) => {
         pr={{ base: 0, lg: 2 }}
         overflowY={{ base: "visible", lg: "auto" }}
       >
-        {/* Sección: Navegación de Sistemas */}
-        <Box>
-          <Heading
-            as="h3"
-            size={{ base: "sm", md: "md" }}
-            mb={{ base: 3, md: 4 }}
-            color={headingColor}
-            letterSpacing="tight"
-          >
-            {seo.title}
-          </Heading>
-          <Stack spacing={2}>
-            {systems.map((item, index) => (
-              <SidebarItem
-                key={item.label}
-                icon={item.icon}
-                label={item.label}
-                isActive={activeIndex === index}
-                onClick={() => setActiveIndex(index)}
-              />
-            ))}
-          </Stack>
-        </Box>
+        <NavigationSection
+          title={seo.title}
+          systems={systems}
+          activeIndex={activeIndex}
+          onSelect={setActiveIndex}
+        />
 
-        {/* Sección: Especificaciones Técnicas */}
-        {features && features.length > 0 && (
-          <Box>
-            <Text
-              fontSize="xs"
-              fontWeight="bold"
-              textTransform="uppercase"
-              letterSpacing="wider"
-              color={textColor}
-              opacity={0.7}
-              mb={{ base: 3, md: 4 }}
-            >
-              Especificaciones Técnicas
-            </Text>
-            <Stack spacing={2}>
-              {features.map((item, index) => {
-                const [label, value] = item.label.split(":");
-                return (
-                  <SpecItem
-                    key={index}
-                    icon={item.icon}
-                    label={label}
-                    value={value || "Estándar"}
-                  />
-                );
-              })}
-            </Stack>
-          </Box>
-        )}
+        <SidebarSection
+          title="Especificaciones Técnicas"
+          show={features && features.length > 0}
+        >
+          {features?.map((item, index) => {
+            const [label, value] = item.label.split(":");
+            return (
+              <SpecItem
+                key={index}
+                icon={item.icon}
+                label={label}
+                value={value || "Estándar"}
+              />
+            );
+          })}
+        </SidebarSection>
 
         <Divider borderColor={borderColor} />
 
-        {/* Sección: Call to Action */}
-        <Box>
-          <Button
-            as="a"
-            href={`https://wa.me/51974278303?text=Quisiera una cotización para ${
-              activeSystem?.label || seo.title
-            }`}
-            target="_blank"
-            rel="noopener noreferrer"
-            size={{ base: "md", md: "lg" }}
-            w="full"
-            bg={accentColor}
-            color="white"
-            rightIcon={<ArrowForwardIcon />}
-            _hover={{
-              bg: useColorModeValue("primary.700", "primary.400"),
-              transform: "translateY(-2px)",
-              boxShadow: "xl",
-              textDecoration: "none",
-            }}
-            _active={{
-              transform: "translateY(0)",
-            }}
-            boxShadow="lg"
-            transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-          >
-            Cotizar Ahora
-          </Button>
-          <Text
-            fontSize="xs"
-            color={textColor}
-            textAlign="center"
-            mt={2}
-            opacity={0.7}
-          >
-            Obtén una cotización personalizada en 24 horas
-          </Text>
-        </Box>
+        <CTASection
+          label={activeSystem?.label || seo.title}
+          accentColor={accentColor}
+          textColor={textColor}
+        />
       </VStack>
     </GlassCard>
   );

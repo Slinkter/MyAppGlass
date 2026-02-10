@@ -1,7 +1,7 @@
 /**
  * @file serviceService.js
- * @description Capa de servicio para la gestión de datos de servicios.
- * Proporciona funciones para obtener la lista general de servicios y los datos detallados de páginas de servicio individuales.
+ * @description Service layer for retrieving service catalog and detail page configurations.
+ * @module services/services
  */
 
 import { services } from "../data/services";

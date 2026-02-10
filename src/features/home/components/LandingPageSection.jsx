@@ -1,3 +1,11 @@
+/**
+ * @file LandingPageSection.jsx
+ * @description Hero section of the application, featuring the company logo and core tagline.
+ * @module home/components
+ * @remarks
+ * Uses `LazyMotion` to reduce the main bundle size by asynchronously loading framer-motion's animation engine.
+ */
+
 import React from "react";
 import {
   Box,
