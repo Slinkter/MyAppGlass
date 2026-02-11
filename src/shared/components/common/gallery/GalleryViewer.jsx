@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-    Box,
-    IconButton,
-    Text,
-    HStack,
-    useColorModeValue,
+  Box,
+  IconButton,
+  Text,
+  HStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { motion, AnimatePresence } from "framer-motion";
 import FadingImage from "../FadingImage";
 
 /**
@@ -25,175 +26,166 @@ import FadingImage from "../FadingImage";
  * @returns {JSX.Element} Visor de imagen principal.
  */
 const GalleryViewer = ({
-    currentImage,
-    imageCount,
-    selectedIndex,
-    setSelectedIndex,
-    handlePrevious,
-    handleNext,
+  currentImage,
+  imageCount,
+  selectedIndex,
+  setSelectedIndex,
+  handlePrevious,
+  handleNext,
 }) => {
-    const dotColor = useColorModeValue("gray.300", "whiteAlpha.400");
-    const dotActiveColor = useColorModeValue("primary.600", "primary.300");
+  const dotActiveColor = useColorModeValue("primary.500", "primary.300");
+  const bgOverlay = useColorModeValue("blackAlpha.50", "blackAlpha.200");
 
-    return (
-        <Box
-            flex="1"
-            h={{ base: "280px", sm: "320px", md: "100%" }}
-            w="100%"
-            minW={0}
-            position="relative"
-            borderRadius={{ base: "lg", md: "xl" }}
-            overflow="hidden"
-            role="group"
+  return (
+    <Box
+      flex="1"
+      h="100%"
+      w="100%"
+      position="relative"
+      borderRadius="2xl"
+      overflow="hidden"
+      bg={bgOverlay}
+      role="group"
+    >
+      {/* Contenedor Animado para Imágenes */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentImage.id}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          style={{ width: "100%", height: "100%" }}
         >
-            {/* Imagen Principal */}
-            <Box
-                w="100%"
-                h="100%"
-                cursor="default"
-                position="relative"
-                overflow="hidden"
+          <FadingImage
+            src={currentImage.image}
+            alt={currentImage.name || "Vista principal"}
+            w="100%"
+            h="100%"
+            objectFit="cover"
+            showOverlay={false}
+            loading="eager"
+            fetchpriority="high"
+            rounded="none"
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Gradiente sutil inferior para mejorar legibilidad de controles */}
+      <Box
+        position="absolute"
+        bottom={0}
+        left={0}
+        right={0}
+        h="40%"
+        bgGradient="linear(to-t, blackAlpha.600, transparent)"
+        pointerEvents="none"
+        opacity={0}
+        _groupHover={{ opacity: 1 }}
+        transition="opacity 0.3s ease"
+      />
+
+      {/* Controles de Navegación */}
+      {imageCount > 1 && (
+        <>
+          <IconButton
+            icon={<ChevronLeftIcon boxSize={8} />}
+            position="absolute"
+            left={4}
+            top="50%"
+            transform="translateY(-50%)"
+            onClick={handlePrevious}
+            variant="ghost"
+            color="white"
+            _hover={{
+              bg: "whiteAlpha.300",
+              transform: "translateY(-50%) scale(1.1)",
+            }}
+            display={{ base: "none", md: "flex" }}
+            aria-label="Anterior"
+            zIndex={10}
+          />
+          <IconButton
+            icon={<ChevronRightIcon boxSize={8} />}
+            position="absolute"
+            right={4}
+            top="50%"
+            transform="translateY(-50%)"
+            onClick={handleNext}
+            variant="ghost"
+            color="white"
+            _hover={{
+              bg: "whiteAlpha.300",
+              transform: "translateY(-50%) scale(1.1)",
+            }}
+            display={{ base: "none", md: "flex" }}
+            aria-label="Siguiente"
+            zIndex={10}
+          />
+
+          {/* Contador Flotante */}
+          <Box
+            position="absolute"
+            top={4}
+            right={4}
+            bg="blackAlpha.700"
+            backdropFilter="blur(10px)"
+            px={4}
+            py={1.5}
+            borderRadius="full"
+            border="1px solid"
+            borderColor="whiteAlpha.300"
+          >
+            <Text
+              fontSize="xs"
+              color="white"
+              fontWeight="bold"
+              letterSpacing="widest"
             >
-                <FadingImage
-                    src={currentImage.image}
-                    alt={currentImage.name || "Vista principal"}
-                    w="100%"
-                    h="100%"
-                    mx="auto"
-                    objectFit="cover"
-                    showOverlay={false}
-                    loading="eager" // Prioridad alta para imagen principal
-                    fetchpriority="high" // HTML5 priority hint
-                    transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-                    _groupHover={{ transform: "scale(1.00)" }}
-                    style={{ 
-                        willChange: "transform",
-                        transform: "translateZ(0)", // Force GPU acceleration
-                    }}
-                />
-            </Box>
+              {selectedIndex + 1}{" "}
+              <Text as="span" opacity={0.5}>
+                /
+              </Text>{" "}
+              {imageCount}
+            </Text>
+          </Box>
 
-            {/* Controles de Navegación (solo si hay más de 1 imagen) */}
-            {imageCount > 1 && (
-                <>
-                    {/* Botón Anterior */}
-                    <IconButton
-                        icon={<ChevronLeftIcon boxSize={{ base: 5, md: 6 }} />}
-                        position="absolute"
-                        left={{ base: 2, md: 4 }}
-                        top="50%"
-                        transform="translateY(-50%)"
-                        onClick={handlePrevious}
-                        opacity={{ base: 1, md: 0 }}
-                        _groupHover={{ opacity: { md: 1 } }}
-                        transition="opacity 0.3s ease"
-                        bg="blackAlpha.600"
-                        color="white"
-                        size={{ base: "md", md: "lg" }}
-                        rounded="full"
-                        _hover={{
-                            bg: "blackAlpha.800",
-                            transform: "translateY(-50%) scale(1.1)",
-                        }}
-                        aria-label="Imagen anterior"
-                        zIndex={2}
-                    />
-
-                    {/* Botón Siguiente */}
-                    <IconButton
-                        icon={<ChevronRightIcon boxSize={{ base: 5, md: 6 }} />}
-                        position="absolute"
-                        right={{ base: 2, md: 4 }}
-                        top="50%"
-                        transform="translateY(-50%)"
-                        onClick={handleNext}
-                        opacity={{ base: 1, md: 0 }}
-                        _groupHover={{ opacity: { md: 1 } }}
-                        transition="opacity 0.3s ease"
-                        bg="blackAlpha.600"
-                        color="white"
-                        size={{ base: "md", md: "lg" }}
-                        rounded="full"
-                        _hover={{
-                            bg: "blackAlpha.800",
-                            transform: "translateY(-50%) scale(1.1)",
-                        }}
-                        aria-label="Imagen siguiente"
-                        zIndex={2}
-                    />
-
-                    {/* Contador de Imágenes */}
-                    <Box
-                        position="absolute"
-                        top={{ base: 2, md: 4 }}
-                        right={{ base: 2, md: 4 }}
-                        bg="blackAlpha.700"
-                        backdropFilter="blur(8px)"
-                        px={{ base: 2, md: 3 }}
-                        py={1}
-                        borderRadius="full"
-                        zIndex={2}
-                    >
-                        <Text
-                            fontSize={{ base: "xs", md: "sm" }}
-                            color="white"
-                            fontWeight="medium"
-                        >
-                            {selectedIndex + 1} / {imageCount}
-                        </Text>
-                    </Box>
-
-                    {/* Indicadores de Navegación (Dots) */}
-                    <HStack
-                        position="absolute"
-                        bottom={{ base: 2, md: 4 }}
-                        left="50%"
-                        transform="translateX(-50%)"
-                        spacing={{ base: 1.5, md: 2 }}
-                        zIndex={2}
-                    >
-                        {Array.from({ length: imageCount }).map((_, index) => (
-                            <Box
-                                key={index}
-                                w={
-                                    selectedIndex === index
-                                        ? { base: "20px", md: "24px" }
-                                        : { base: "6px", md: "8px" }
-                                }
-                                h={{ base: "6px", md: "8px" }}
-                                bg={
-                                    selectedIndex === index
-                                        ? dotActiveColor
-                                        : dotColor
-                                }
-                                borderRadius="full"
-                                cursor="pointer"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setSelectedIndex(index);
-                                }}
-                                transition="all 0.3s ease"
-                                _hover={{
-                                    bg: dotActiveColor,
-                                    transform: "scale(1.2)",
-                                }}
-                                aria-label={`Seleccionar imagen ${index + 1}`}
-                            />
-                        ))}
-                    </HStack>
-                </>
-            )}
-        </Box>
-    );
+          {/* Dots Premium */}
+          <HStack
+            position="absolute"
+            bottom={6}
+            left="50%"
+            transform="translateX(-50%)"
+            spacing={2.5}
+            zIndex={5}
+          >
+            {Array.from({ length: imageCount }).map((_, index) => (
+              <Box
+                key={index}
+                w={selectedIndex === index ? "32px" : "8px"}
+                h="6px"
+                bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
+                borderRadius="full"
+                cursor="pointer"
+                onClick={() => setSelectedIndex(index)}
+                transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                _hover={{ bg: "whiteAlpha.800" }}
+              />
+            ))}
+          </HStack>
+        </>
+      )}
+    </Box>
+  );
 };
 
 GalleryViewer.propTypes = {
-    currentImage: PropTypes.object.isRequired,
-    imageCount: PropTypes.number.isRequired,
-    selectedIndex: PropTypes.number.isRequired,
-    setSelectedIndex: PropTypes.func.isRequired,
-    handlePrevious: PropTypes.func.isRequired,
-    handleNext: PropTypes.func.isRequired,
+  currentImage: PropTypes.object.isRequired,
+  imageCount: PropTypes.number.isRequired,
+  selectedIndex: PropTypes.number.isRequired,
+  setSelectedIndex: PropTypes.func.isRequired,
+  handlePrevious: PropTypes.func.isRequired,
+  handleNext: PropTypes.func.isRequired,
 };
 
 export default GalleryViewer;

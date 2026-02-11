@@ -4,12 +4,14 @@
  * @module shared/components
  */
 
-import { Flex } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
 import { useGallery } from "@shared/hooks/ui/useGallery";
 import GalleryViewer from "./gallery/GalleryViewer";
 import GalleryThumbnails from "./gallery/GalleryThumbnails";
+import { useIsMobile } from "@shared/hooks/ui/useIsMobile";
 
 /**
  * @typedef {Object} GalleryImage
@@ -37,6 +39,7 @@ import GalleryThumbnails from "./gallery/GalleryThumbnails";
  * />
  */
 const Gallery = React.memo(({ images }) => {
+  const isMobile = useIsMobile();
   const {
     selectedIndex,
     setSelectedIndex,
@@ -46,53 +49,60 @@ const Gallery = React.memo(({ images }) => {
     imageCount,
   } = useGallery(images);
 
-  // Add keyboard navigation
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "ArrowLeft") {
-        handlePrevious();
-      } else if (event.key === "ArrowRight") {
-        handleNext();
-      }
+      if (event.key === "ArrowLeft") handlePrevious(event);
+      if (event.key === "ArrowRight") handleNext(event);
     };
-
     window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handlePrevious, handleNext]);
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handlePrevious, handleNext]); // Depend on memoized handlers
-
-  if (!images || imageCount === 0) {
-    return null;
-  }
+  if (!images || imageCount === 0) return null;
 
   return (
-    <Flex
-      direction={{ base: "column", md: "row" }}
-      gap={{ base: 2, md: 3, lg: 4 }}
+    <Box
+      as={motion.div}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       h="100%"
       w="100%"
-      minW={0}
-      maxW="100%"
     >
-      {/* 1. Visor Principal con Controles */}
-      <GalleryViewer
-        currentImage={currentImage}
-        imageCount={imageCount}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
-        handlePrevious={handlePrevious}
-        handleNext={handleNext}
-      />
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        gap={{ base: 4, md: 4, lg: 5 }}
+        h="100%"
+        w="100%"
+        minW={0}
+      >
+        {/* 1. Visor Principal */}
+        <Box flex="1" minW={0} position="relative" h="100%">
+          <GalleryViewer
+            currentImage={currentImage}
+            imageCount={imageCount}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+            handlePrevious={handlePrevious}
+            handleNext={handleNext}
+          />
+        </Box>
 
-      {/* 2. Carrusel de Miniaturas */}
-      <GalleryThumbnails
-        images={images}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
-      />
-    </Flex>
+        {/* 2. Miniaturas */}
+        <Box
+          w={{ base: "100%", md: "110px" }}
+          h={{ base: "80px", md: "100%" }}
+          order={{ base: 2, md: isMobile ? 2 : 1 }}
+        >
+          <GalleryThumbnails
+            images={images}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+          />
+        </Box>
+      </Flex>
+    </Box>
   );
 });
 

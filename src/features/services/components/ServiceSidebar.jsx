@@ -7,6 +7,7 @@ import {
   Text,
   Divider,
   Button,
+  Grid,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
@@ -130,14 +131,28 @@ const ServiceSidebar = (props) => {
       h={{ base: "auto", lg: "85vh" }}
       overflow={{ base: "visible", lg: "hidden" }}
       w="100%"
-      p={4}
+      p={6}
+      borderWidth="1px"
+      borderColor={borderColor}
+      boxShadow="2xl"
     >
       <VStack
-        spacing={{ base: 4, md: 5, lg: 6 }}
+        spacing={{ base: 6, md: 7, lg: 8 }}
         align="stretch"
         flex="1"
         pr={{ base: 0, lg: 2 }}
         overflowY={{ base: "visible", lg: "auto" }}
+        css={{
+          "&::-webkit-scrollbar": { width: "4px" },
+          "&::-webkit-scrollbar-track": { background: "transparent" },
+          "&::-webkit-scrollbar-thumb": {
+            background: useColorModeValue(
+              "rgba(0,0,0,0.1)",
+              "rgba(255,255,255,0.1)",
+            ),
+            borderRadius: "20px",
+          },
+        }}
       >
         <NavigationSection
           title={seo.title}
@@ -150,26 +165,29 @@ const ServiceSidebar = (props) => {
           title="Especificaciones Técnicas"
           show={features && features.length > 0}
         >
-          {features?.map((item, index) => {
-            const [label, value] = item.label.split(":");
-            return (
-              <SpecItem
-                key={index}
-                icon={item.icon}
-                label={label}
-                value={value || "Estándar"}
-              />
-            );
-          })}
+          <Grid templateColumns="repeat(1, 1fr)" gap={3}>
+            {features?.map((item, index) => {
+              const [label, value] = item.label.split(":");
+              return (
+                <SpecItem
+                  key={index}
+                  icon={item.icon}
+                  label={label}
+                  value={value || "Estándar"}
+                />
+              );
+            })}
+          </Grid>
         </SidebarSection>
 
-        <Divider borderColor={borderColor} />
-
-        <CTASection
-          label={activeSystem?.label || seo.title}
-          accentColor={accentColor}
-          textColor={textColor}
-        />
+        <Box mt="auto" pt={4}>
+          <Divider borderColor={borderColor} mb={6} />
+          <CTASection
+            label={activeSystem?.label || seo.title}
+            accentColor={accentColor}
+            textColor={textColor}
+          />
+        </Box>
       </VStack>
     </GlassCard>
   );
