@@ -1,10 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
-import {
-  GoogleMap,
-  useJsApiLoader,
-  MarkerF,
-  InfoWindowF,
-} from "@react-google-maps/api";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
+import { GoogleMap, useJsApiLoader, OverlayView } from "@react-google-maps/api";
 import {
   Box,
   Heading,
@@ -12,9 +7,16 @@ import {
   useColorModeValue,
   Spinner,
   Flex,
-  Card,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverBody,
+  Icon, // Added Icon component
 } from "@chakra-ui/react";
 import { getProjects } from "@/features/projects";
+import { FaBuilding } from "react-icons/fa"; // Import FaBuilding
 
 import logo from "@/assets/branding/logovcr.png";
 
@@ -24,16 +26,116 @@ const containerStyle = {
   borderRadius: "24px",
 };
 
-const center = { lat: -12.103252, lng: -76.942035 };
+const center = { lat: -12.046374, lng: -77.042793 };
 
 const mainStore = {
   id: "store",
-  residencial: "Glass & Aluminum Company",
-  name: "GYA Company S.A.C.",
-  address: "Av. Los Fresnos MZ. H LT. 1250 - La Molina",
+  name: "Glass & Aluminum Company",
+  address: "Av. Los Fresnos MZ. H LT. 1250 - La Molina - Lima",
   type: "store",
   client: "Sede Principal",
   position: { lat: -12.103252, lng: -76.942035 },
+};
+
+// --- COMPONENTE CUSTOM MARKER (UX/UI LIMPIO) ---
+const CustomMarker = ({
+  marker,
+  isSelected,
+  onToggleSelect,
+  iconContent,
+  isSvg,
+  iconSize,
+  map,
+  google,
+}) => {
+  const getPixelPositionOffset = useCallback(
+    (width, height) => ({ x: -(width / 2), y: -height }),
+    [],
+  );
+
+  if (!map || !google) return null;
+
+  return (
+    <OverlayView
+      position={marker.position}
+      mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+      getPixelPositionOffset={getPixelPositionOffset}
+    >
+      <Popover
+        isOpen={isSelected}
+        onClose={() => onToggleSelect(null)}
+        placement="top"
+        isLazy
+        returnFocusOnClose={false}
+      >
+        <PopoverTrigger>
+          <Box
+            cursor="pointer"
+            w={`${iconSize.width}px`}
+            h={`${iconSize.height}px`}
+            // Conditionally render based on isSvg
+            {...(isSvg
+              ? typeof iconContent === "string"
+                ? { dangerouslySetInnerHTML: { __html: iconContent } }
+                : {
+                    // Render React Icon component using Chakra's Icon within a styled Box
+                    children: (
+                      <Box
+                        bg="#3182CE" // Blue background
+                        borderRadius="full" // Circular shape
+                        border="2px solid white" // White stroke
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        w="100%"
+                        h="100%"
+                      >
+                        <Icon as={iconContent} color="white" w="60%" h="60%" />{" "}
+                        {/* White icon inside */}
+                      </Box>
+                    ),
+                  }
+              : { as: "img", src: iconContent, alt: marker.name })}
+            onClick={() => onToggleSelect(marker)}
+            _hover={{ transform: "scale(1.1)", filter: "brightness(1.2)" }}
+            transition="all 0.2s"
+          />
+        </PopoverTrigger>
+        <PopoverContent
+          p={0}
+          maxW="220px"
+          color="black"
+          boxShadow="2xl"
+          rounded="xl"
+          overflow="hidden"
+          border="none"
+        >
+          <PopoverArrow />
+          <PopoverCloseButton size="sm" top={2} />
+          <PopoverBody p={4}>
+            {/* 1. Nombre Residencial */}
+            <Heading
+              size="xs"
+              mb={1}
+              color="blue.600"
+              fontWeight="bold"
+              textTransform="uppercase"
+            >
+              {marker.residencial || marker.name}
+            </Heading>
+            {/* 2. Dirección */}
+            <Text fontSize="xs" mb={2} color="gray.100" fontWeight="medium">
+              {marker.g_maps || marker.address}
+            </Text>
+            {/* 3. Cliente/Constructora */}
+            <Text fontSize="10px" color="gray.500" fontStyle="italic">
+              {marker.client || marker.name}
+            </Text>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    </OverlayView>
+  );
 };
 
 function InteractiveMapComponent() {
@@ -49,12 +151,14 @@ function InteractiveMapComponent() {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
   });
 
+  // --- CORRECCIÓN OBJETO GOOGLE ---
+  const google = window.google;
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const data = getProjects();
+        const data = await getProjects();
         const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-        if (!apiKey) return;
 
         const geocodePromises = data.map(async (project) => {
           if (!project.g_maps) return null;
@@ -68,7 +172,7 @@ function InteractiveMapComponent() {
               return {
                 ...project,
                 type: "project",
-                client: project.name,
+                client: project.name, // Mapeo de cliente
                 position: { lat: location.lat, lng: location.lng },
               };
             }
@@ -83,7 +187,7 @@ function InteractiveMapComponent() {
         );
         setProjects(validProjects);
       } catch (error) {
-        console.error("InteractiveMap Error:", error);
+        console.error(error);
       }
     };
     fetchProjects();
@@ -93,24 +197,35 @@ function InteractiveMapComponent() {
   const onUnmount = useCallback(() => setMap(null), []);
 
   useEffect(() => {
-    if (map && window.google) {
-      const bounds = new window.google.maps.LatLngBounds();
+    if (map && projects.length > 0 && google) {
+      const bounds = new google.maps.LatLngBounds();
       bounds.extend(mainStore.position);
-      if (projects.length > 0) {
-        projects.forEach((p) => bounds.extend(p.position));
-      }
+      projects.forEach((p) => bounds.extend(p.position));
       map.fitBounds(bounds);
     }
-  }, [map, projects]);
+  }, [map, projects, google]);
 
-  const handleMarkerHover = useCallback((marker) => {
-    setSelectedMarker(marker);
+  const handleMarkerToggle = useCallback((marker) => {
+    setSelectedMarker((prev) => (prev?.id === marker?.id ? null : marker));
   }, []);
 
-  const handleMarkerLeave = useCallback(() => {
-    setSelectedMarker(null);
-  }, []);
+  const icons = useMemo(() => {
+    if (!isLoaded || !google) return null;
+    return {
+      store: {
+        iconContent: logo, // Use the imported logo image
+        isSvg: false, // Indicate it's an image, not an SVG string
+        size: { width: 45, height: 45 },
+      },
+      project: {
+        iconContent: FaBuilding, // Use FaBuilding component
+        isSvg: true, // Indicate it's an SVG component
+        size: { width: 40, height: 40 }, // Outer Box size for styling
+      },
+    };
+  }, [isLoaded, google]);
 
+  // --- RENDERIZADO SEGURO ---
   if (loadError)
     return (
       <Flex h="400px" align="center" justify="center">
@@ -118,7 +233,7 @@ function InteractiveMapComponent() {
       </Flex>
     );
 
-  if (!isLoaded) {
+  if (!isLoaded || !google || !icons) {
     return (
       <Flex
         align="center"
@@ -144,91 +259,37 @@ function InteractiveMapComponent() {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={13}
+        zoom={12}
         onLoad={onLoad}
         onUnmount={onUnmount}
         options={{
           mapTypeControl: false,
-          streetViewControl: false,
-          fullscreenControl: true,
           styles: [{ featureType: "poi", stylers: [{ visibility: "off" }] }],
         }}
       >
-        {/* Marcador Tienda Principal */}
-        <MarkerF
-          position={mainStore.position}
-          onMouseOver={() => handleMarkerHover(mainStore)}
-          onMouseOut={handleMarkerLeave}
-          icon={
-            window.google
-              ? {
-                  url: logo,
-                  scaledSize: new window.google.maps.Size(50, 50),
-                }
-              : undefined
-          }
+        <CustomMarker
+          marker={mainStore}
+          isSelected={selectedMarker?.id === mainStore.id}
+          onToggleSelect={handleMarkerToggle}
+          iconContent={icons.store.iconContent} // Pass iconContent
+          isSvg={icons.store.isSvg} // Pass isSvg
+          iconSize={icons.store.size}
+          map={map}
+          google={google}
         />
-
-        {/* Marcadores de Proyectos */}
         {projects.map((project) => (
-          <MarkerF
+          <CustomMarker
             key={project.id}
-            position={project.position}
-            onMouseOver={() => handleMarkerHover(project)}
-            onMouseOut={handleMarkerLeave}
-            icon={
-              window.google
-                ? {
-                    path: window.google.maps.SymbolPath.CIRCLE,
-                    fillColor: "#3182CE",
-                    fillOpacity: 1,
-                    strokeColor: "#FFFFFF",
-                    strokeWeight: 2,
-                    scale: 8,
-                  }
-                : undefined
-            }
+            marker={project}
+            isSelected={selectedMarker?.id === project.id}
+            onToggleSelect={handleMarkerToggle}
+            iconContent={icons.project.iconContent} // Pass iconContent
+            isSvg={icons.project.isSvg} // Pass isSvg
+            iconSize={icons.project.size}
+            map={map}
+            google={google}
           />
         ))}
-
-        {/* InfoWindow con Card Premium */}
-        {selectedMarker && selectedMarker.position && (
-          <InfoWindowF
-            position={selectedMarker.position}
-            onCloseClick={() => setSelectedMarker(null)}
-            options={{
-              pixelOffset: new window.google.maps.Size(0, -30),
-              disableAutoPan: true,
-              headerContent: " ",
-              minWidth: 200,
-            }}
-          >
-            <Card
-              p={3}
-              bg="white"
-              variant="elevated"
-              borderRadius="lg"
-              boxShadow="none"
-              border="none"
-            >
-              <Heading
-                size="xs"
-                color="blue.600"
-                textTransform="uppercase"
-                mb={1}
-                letterSpacing="wide"
-              >
-                {selectedMarker.residencial || selectedMarker.name}
-              </Heading>
-              <Text fontSize="sm" fontWeight="semibold" color="gray.800" mb={1}>
-                {selectedMarker.g_maps || selectedMarker.address}
-              </Text>
-              <Text fontSize="xs" color="gray.500" fontStyle="italic">
-                {selectedMarker.client || "Proyecto Realizado"}
-              </Text>
-            </Card>
-          </InfoWindowF>
-        )}
       </GoogleMap>
     </Box>
   );
