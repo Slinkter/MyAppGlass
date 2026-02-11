@@ -13,7 +13,5 @@ export { default as ServiceSidebar } from "./components/ServiceSidebar";
 export { default as ServiceSkeleton } from "./components/ServiceSkeleton";
 export { default as SpecItem } from "./components/SpecItem";
 
-// Hooks (none found)
-
 // Services
 export * from "./services/serviceService"; // Export all from serviceService.js

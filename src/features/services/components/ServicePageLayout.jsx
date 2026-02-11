@@ -6,7 +6,7 @@
 
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
 import Gallery from "@shared/components/common/Gallery";
 import GlassCard from "@shared/components/common/GlassCard";
 import ServiceSidebar from "./ServiceSidebar";
@@ -49,12 +49,17 @@ const ServicePageLayout = ({ pageData }) => {
             />
           </GridItem>
 
-          {/* CARD 2: GALERÍA DE IMÁGENES */}
           <GridItem w="100%" minW={0}>
             <GlassCard
-              h={{ base: "360px", sm: "410px", md: "500px", lg: "85vh" }}
+              h={{ base: "400px", sm: "450px", md: "550px", lg: "85vh" }}
               overflow="hidden"
-              p={{ base: 2, md: 4, lg: 6 }}
+              p={{ base: 1, md: 2, lg: 3 }}
+              borderWidth="1px"
+              borderColor={useColorModeValue(
+                "whiteAlpha.300",
+                "whiteAlpha.100",
+              )}
+              boxShadow="2xl"
             >
               <Box h="100%" w="100%" minW={0} maxW="100%">
                 <Gallery images={activeImageList} />
