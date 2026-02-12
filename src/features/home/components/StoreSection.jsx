@@ -51,7 +51,7 @@ const StoreSection = React.memo(() => {
       seoTitle="Ubicaciones - GYA Company"
       seoDescription="Encuentra nuestra tienda principal en Lima y explora la ubicación de nuestros proyectos de vidriería y aluminio."
       seoCanonicalUrl="https://www.gyacompany.com/ubicaciones"
-      columns={1}
+      columns={{ base: 1 }}
       spacing={4}
       containerProps={{
         mt: 0,
