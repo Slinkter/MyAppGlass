@@ -32,6 +32,7 @@ const GalleryViewer = ({
   setSelectedIndex,
   handlePrevious,
   handleNext,
+  isPriority, // Add new prop
 }) => {
   const dotActiveColor = useColorModeValue("primary.500", "primary.300");
   const bgOverlay = useColorModeValue("blackAlpha.50", "blackAlpha.200");
@@ -64,8 +65,8 @@ const GalleryViewer = ({
             h="100%"
             objectFit="cover"
             showOverlay={false}
-            loading="eager"
-            fetchpriority="high"
+            loading={isPriority ? "eager" : "lazy"}
+            fetchpriority={isPriority ? "high" : "auto"}
             rounded="none"
           />
         </motion.div>
@@ -186,6 +187,12 @@ GalleryViewer.propTypes = {
   setSelectedIndex: PropTypes.func.isRequired,
   handlePrevious: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
+  isPriority: PropTypes.bool, // Add prop type
+};
+
+// Add default prop
+GalleryViewer.defaultProps = {
+  isPriority: false,
 };
 
 export default GalleryViewer;

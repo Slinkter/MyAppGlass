@@ -2,15 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Flex, Image, useColorModeValue } from "@chakra-ui/react";
 
-/**
- * @component GalleryThumbnails
- * @description Carrusel de miniaturas para la galería de imágenes.
- * Muestra una lista de imágenes pequeñas que permiten navegar al hacer clic.
- * Es responsivo: horizontal en móvil, vertical en escritorio.
- */
 const GalleryThumbnailItem = React.memo(
   ({ img, index, isSelected, onClick, activeBorderColor }) => {
-    // Definir colores para estados inactivos pero en hover
     const hoverBorderColor = useColorModeValue("gray.300", "whiteAlpha.400");
 
     return (
@@ -20,19 +13,16 @@ const GalleryThumbnailItem = React.memo(
         h={{ base: "100%", md: "80px", lg: "90px" }}
         cursor="pointer"
         borderRadius="lg"
-        // Mantiene el borde constante para evitar saltos de layout
         borderWidth="2px"
         borderStyle="solid"
         borderColor={isSelected ? activeBorderColor : "transparent"}
-        // Sombra suave solo cuando está seleccionado
         boxShadow={isSelected ? "md" : "none"}
         onClick={onClick}
         position="relative"
         overflow="hidden"
-        role="group" // Permite controlar la imagen interna al hacer hover en el contenedor
+        role="group"
         transition="all 0.2s ease-out"
         _hover={{
-          // Si ya está seleccionado, no cambia el color. Si no, muestra un borde sutil.
           borderColor: isSelected ? activeBorderColor : hoverBorderColor,
         }}
       >
@@ -44,12 +34,11 @@ const GalleryThumbnailItem = React.memo(
           objectFit="cover"
           loading="lazy"
           decoding="async"
-          // Opacidad: 100% si está seleccionado o en hover, 60% si inactivo
           opacity={isSelected ? 1 : 0.6}
           transition="transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.2s ease"
           _groupHover={{
             opacity: 1,
-            transform: "scale(1.1)", // Zoom suave interno solo en la imagen
+            transform: "scale(1.1)",
           }}
         />
       </Box>
@@ -73,6 +62,7 @@ const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
       scrollBehavior="smooth"
       overflowX={{ base: "auto", md: "hidden" }}
       overflowY={{ base: "hidden", md: "scroll" }}
+      flexShrink={0} // Added to strictly enforce height
     >
       {images.map((img, index) => (
         <GalleryThumbnailItem
