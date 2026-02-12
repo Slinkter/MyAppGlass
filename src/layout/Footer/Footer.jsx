@@ -17,12 +17,12 @@ import {
 } from "@chakra-ui/react";
 import {
   FaWhatsapp,
-  FaCalendar,
-  FaClock,
-  FaMap,
-  FaLandmark,
+  FaRegCalendar,
+  FaRegClock,
+  FaRegMap,
+  FaRegBuilding, // Changed from FaLandmark for outline equivalent
 } from "react-icons/fa"; // Added FaLandmark
-import { MdEmail } from "react-icons/md";
+import { MdOutlineEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5"; // Added IoDocumentTextOutline
 import LibroReclamacionesIcon from "@/assets/libro.svg";
@@ -102,22 +102,22 @@ const Footer = () => {
 
             <FooterSection title="HORARIOS">
               <HStack spacing={2} alignItems="center">
-                <Icon as={FaCalendar} />
+                <Icon as={FaRegCalendar} />
                 <Text fontSize="md">Lunes a Sábado</Text>
               </HStack>
               <HStack spacing={2} alignItems="center">
-                <Icon as={FaClock} />
+                <Icon as={FaRegClock} />
                 <Text fontSize="md">9:00 am - 5:00 pm</Text>
               </HStack>
             </FooterSection>
 
             <FooterSection title="DIRECCIÓN">
               <HStack spacing={2} alignItems="center" justifyContent="center">
-                <Icon as={FaMap} />
+                <Icon as={FaRegMap} />
                 <Text fontSize="md">Av. Los Fresnos MZ. H LT. 1250</Text>
               </HStack>
               <HStack spacing={2} alignItems="center" justifyContent="center">
-                <Icon as={MdEmail} />
+                <Icon as={MdOutlineEmail} />
                 <Text fontSize="md">acueva@gyacompany.com</Text>
               </HStack>
             </FooterSection>
@@ -130,7 +130,7 @@ const Footer = () => {
               />
               <FooterLink
                 to="/cuentas-bancarias"
-                icon={FaLandmark}
+                icon={FaRegBuilding} // Changed from FaLandmark
                 label="Cuentas Bancarias"
               />
               <FooterLink to="/libro-de-reclamacion">
@@ -150,7 +150,7 @@ const Footer = () => {
       </Box>
       <VStack color={copyrightColor}>
         <Text mt={2} mb={6}>
-          Copyright ©2025
+          Copyright ©2026
         </Text>
       </VStack>
     </>

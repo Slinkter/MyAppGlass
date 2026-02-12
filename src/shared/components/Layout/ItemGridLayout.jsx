@@ -5,6 +5,7 @@ import {
   Text,
   useColorModeValue,
   SimpleGrid,
+  VStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
@@ -69,44 +70,44 @@ const ItemGridLayout = ({
         textAlign="center"
         {...containerProps}
       >
-        <Heading
-          as="h2"
-          color={headingColor}
-          mb={{ base: "2", md: "2" }}
-          fontSize={{ base: "4xl", md: "4xl" }}
-          mt={4}
-          textTransform="uppercase"
-          fontWeight={600}
-          letterSpacing="wide"
-          textAlign="center"
-          borderBottom="4px"
-          borderColor={borderColor}
-          width="fit-content"
-          mx="auto"
-        >
-          {title}
-        </Heading>
+        <VStack spacing={4}>
+          <Heading
+            as="h2"
+            color={headingColor}
+            fontSize={{ base: "4xl", md: "4xl" }}
+            textTransform="uppercase"
+            fontWeight={600}
+            letterSpacing="wide"
+            textAlign="center"
+            borderBottom="4px"
+            borderColor={borderColor}
+            width="fit-content"
+            mx="auto"
+          >
+            {title}
+          </Heading>
 
-        <Text
-          mb={{ base: "2", md: "4" }}
-          fontSize={{ base: "2xl", md: "2xl" }}
-          color={textColor}
-          textAlign="center"
-          textTransform="uppercase"
-        >
-          {subtitle}
-        </Text>
+          <Text
+            fontSize={{ base: "2xl", md: "2xl" }}
+            color={textColor}
+            textAlign="center"
+            textTransform="uppercase"
+          >
+            {subtitle}
+          </Text>
 
-        <SimpleGrid
-          as={motion.div}
-          columns={columns}
-          spacing={spacing}
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-        >
-          {children}
-        </SimpleGrid>
+          <SimpleGrid
+            as={motion.div}
+            columns={columns}
+            spacing={spacing}
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            w="full" // Ensure SimpleGrid takes full width within VStack
+          >
+            {children}
+          </SimpleGrid>
+        </VStack>
       </Container>
     </>
   );

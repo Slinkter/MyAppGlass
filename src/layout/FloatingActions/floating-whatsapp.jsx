@@ -3,68 +3,98 @@ import {
   Box,
   Button,
   Icon,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverTrigger,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
   Text,
+  useColorModeValue,
+  Link,
+  VStack,
 } from "@chakra-ui/react";
 import { FaWhatsapp } from "react-icons/fa";
+import { companyData } from "@/config/company-data";
 
 /**
- * @component FloatWhatsapp
- * @description Botón flotante de WhatsApp.
- * Muestra un popover con un mensaje inicial y redirige al chat de WhatsApp.
- * Renderiza solo en pantallas medianas y grandes (display md:flex).
- *
- * @returns {JSX.Element} Widget de WhatsApp.
+ * @component FloatingWhatsApp
+ * @description Botón flotante de WhatsApp que abre un modal con overlay.
+ * @returns {JSX.Element} Widget de WhatsApp rediseñado con funcionalidad de modal.
  */
-const FloatWhatsapp = () => {
+const FloatingWhatsApp = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const whatsappLink = `https://wa.me/${
+    companyData.whatsappNumber
+  }?text=${encodeURIComponent(companyData.whatsappMessage)}`;
+  const modalBg = useColorModeValue("white", "gray.700");
+  const modalColor = useColorModeValue("gray.800", "white");
+
   return (
-    <Box
-      position="fixed"
-      bottom={4}
-      right={4}
-      display={{ base: "none", md: "flex" }}
-    >
-      <Popover>
-        <PopoverTrigger>
-          <Button
-            bg="whiteAlpha.200"
-            backdropFilter="blur(10px)"
-            border="1px solid"
-            borderColor="whiteAlpha.300"
-            color="white"
-            _hover={{ bg: "whiteAlpha.300" }}
-            variant="solid"
-            rounded="full"
-            w={16}
-            h={16}
-          >
-            <Icon as={FaWhatsapp} w={10} h={10} />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent
-          maxW="xs"
-          bg="whiteAlpha.200"
-          backdropFilter="blur(10px)"
-          border="1px solid"
-          borderColor="whiteAlpha.300"
+    <>
+      <Box
+        position="fixed"
+        bottom={4}
+        right={4}
+        zIndex="popover"
+        display={{ base: "none", md: "flex" }}
+      >
+        <Button
+          bg="#25D366" // WhatsApp green
           color="white"
+          _hover={{ bg: "#1DAE54" }}
+          _active={{ bg: "#178B43" }}
+          variant="solid"
+          rounded="full"
+          w={16}
+          h={16}
+          boxShadow="lg"
+          onClick={onOpen}
+          aria-label="Abrir chat de WhatsApp"
         >
-          <PopoverArrow bg="whiteAlpha.200" />
-          <PopoverCloseButton />
-          <PopoverBody>
-            <a href="https://wa.me/51974278303?text=Quisiera una cotización para ....">
-              <Text>clic aquí para continuar !</Text>
-            </a>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-    </Box>
+          <Icon as={FaWhatsapp} w={8} h={8} />
+        </Button>
+      </Box>
+
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent
+          maxW="xs"
+          bg={modalBg}
+          color={modalColor}
+          borderRadius="xl"
+          boxShadow="xl"
+          position="fixed"
+          bottom="90px" // Position above the trigger button
+          right="20px"
+        >
+          <ModalHeader fontWeight="bold" border="0">
+            ¿Necesitas Ayuda?
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack spacing={3} align="start">
+              <Text>
+                Chatea con nosotros en WhatsApp para una cotización o consulta.
+              </Text>
+              <Button
+                as={Link}
+                href={whatsappLink}
+                isExternal
+                w="full"
+                colorScheme="whatsapp"
+                leftIcon={<Icon as={FaWhatsapp} />}
+                onClick={onClose} // Close modal on click
+              >
+                Iniciar Chat
+              </Button>
+            </VStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
-export default FloatWhatsapp;
+export default FloatingWhatsApp;
