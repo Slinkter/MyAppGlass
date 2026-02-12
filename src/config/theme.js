@@ -6,11 +6,7 @@
 
 import { extendTheme } from "@chakra-ui/react";
 import "@fontsource/open-sans";
-import "@fontsource/raleway/400.css";
-import "@fontsource/raleway/500.css";
-import "@fontsource/raleway/600.css";
-import "@fontsource/raleway/700.css";
-import "@fontsource/raleway/800.css";
+import "@fontsource/lora";
 
 const theme = extendTheme({
   fonts: {
