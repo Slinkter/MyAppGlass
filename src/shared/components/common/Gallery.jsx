@@ -1,9 +1,3 @@
-/**
- * @file Gallery.jsx
- * @description Premium product gallery component featuring navigation, thumbnails, and keyboard support.
- * @module shared/components
- */
-
 import { Flex, Box } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
@@ -13,31 +7,6 @@ import GalleryViewer from "./gallery/GalleryViewer";
 import GalleryThumbnails from "./gallery/GalleryThumbnails";
 import { useIsMobile } from "@shared/hooks/ui/useIsMobile";
 
-/**
- * @typedef {Object} GalleryImage
- * @property {string|number} id - Identificador único de la imagen.
- * @property {string} image - URL o path de la imagen.
- * @property {string} [name] - Nombre opcional de la imagen.
- */
-
-/**
- * @component Gallery
- * @description Galería de producto premium de alta calidad.
- * Diseño inspirado en configuradores de lujo (Apple, Tesla) con navegación, contador, dots y transiciones suaves.
- *
- * @param {Object} props - Propiedades del componente.
- * @param {GalleryImage[]} props.images - Array de objetos de imagen a mostrar.
- * @returns {JSX.Element|null} El componente de galería o null si no hay imágenes.
- *
- * @example
- * // Ejemplo de uso en un componente padre:
- * <Gallery
- *   images={[
- *     { id: 1, image: "/path/to/image1.jpg", name: "Image One" },
- *     { id: 2, image: "/path/to/image2.jpg", name: "Image Two" },
- *   ]}
- * />
- */
 const Gallery = React.memo(({ images }) => {
   const isMobile = useIsMobile();
   const {
@@ -49,7 +18,6 @@ const Gallery = React.memo(({ images }) => {
     imageCount,
   } = useGallery(images);
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "ArrowLeft") handlePrevious(event);
@@ -72,13 +40,13 @@ const Gallery = React.memo(({ images }) => {
     >
       <Flex
         direction={{ base: "column", md: "row" }}
-        gap={{ base: 4, md: 4, lg: 5 }}
+        gap={{ base: 2, md: 3, lg: 3 }}
         h="100%"
         w="100%"
         minW={0}
       >
         {/* 1. Visor Principal */}
-        <Box flex="1" minW={0} position="relative" h="100%">
+        <Box flex="1" minH="0" position="relative">
           <GalleryViewer
             currentImage={currentImage}
             imageCount={imageCount}
@@ -86,6 +54,7 @@ const Gallery = React.memo(({ images }) => {
             setSelectedIndex={setSelectedIndex}
             handlePrevious={handlePrevious}
             handleNext={handleNext}
+            isPriority={selectedIndex === 0}
           />
         </Box>
 
@@ -94,6 +63,8 @@ const Gallery = React.memo(({ images }) => {
           w={{ base: "100%", md: "110px" }}
           h={{ base: "80px", md: "100%" }}
           order={{ base: 2, md: isMobile ? 2 : 1 }}
+          flexShrink={0}
+          minH="0"
         >
           <GalleryThumbnails
             images={images}

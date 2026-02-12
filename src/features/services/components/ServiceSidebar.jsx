@@ -1,40 +1,16 @@
 import React from "react";
 import {
   Box,
-  Heading,
   Stack,
   VStack,
   Text,
   Divider,
   Button,
-  Grid,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import SidebarItem from "@shared/components/common/SidebarItem";
 import GlassCard from "@shared/components/common/GlassCard";
-import SpecItem from "./SpecItem";
-
-const SidebarSection = ({ title, children, show = true }) => {
-  const textColor = useColorModeValue("gray.600", "gray.400");
-  if (!show) return null;
-  return (
-    <Box>
-      <Text
-        fontSize="xs"
-        fontWeight="bold"
-        textTransform="uppercase"
-        letterSpacing="wider"
-        color={textColor}
-        opacity={0.7}
-        mb={{ base: 3, md: 4 }}
-      >
-        {title}
-      </Text>
-      <Stack spacing={2}>{children}</Stack>
-    </Box>
-  );
-};
 
 const NavigationSection = ({ title, systems, activeIndex, onSelect }) => {
   const textColor = useColorModeValue("gray.600", "gray.400"); // Use a subtle text color
@@ -115,12 +91,10 @@ const CTASection = ({ label, accentColor, textColor }) => (
  * @param {number} props.activeIndex - Índice del sistema activo.
  * @param {function} props.setActiveIndex - Setter para cambiar el sistema activo.
  * @param {Object} props.activeSystem - Objeto del sistema actualmente seleccionado.
- * @param {Array<Object>} props.features - Lista de especificaciones técnicas.
  * @returns {JSX.Element} Barra lateral renderizada.
  */
 const ServiceSidebar = (props) => {
-  const { seo, systems, activeIndex, setActiveIndex, activeSystem, features } =
-    props;
+  const { seo, systems, activeIndex, setActiveIndex, activeSystem } = props;
 
   const textColor = useColorModeValue("gray.600", "gray.400");
   const accentColor = useColorModeValue("primary.600", "primary.300");
