@@ -9,7 +9,7 @@ import {
   useColorModeValue,
   Button,
 } from "@chakra-ui/react";
-import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/solid";
+import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
 import FadingImage from "@shared/components/common/FadingImage";
 
 /**

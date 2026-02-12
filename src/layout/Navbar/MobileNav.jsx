@@ -1,11 +1,19 @@
 import React from "react";
-import { Flex, IconButton, Link, useColorModeValue } from "@chakra-ui/react";
+import {
+  Flex,
+  IconButton,
+  Link,
+  useColorModeValue,
+  Icon,
+} from "@chakra-ui/react";
 
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa";
-import { AiFillHome } from "react-icons/ai";
-import { BsBuildings } from "react-icons/bs";
-import { MdHomeRepairService } from "react-icons/md";
+import {
+  HomeIcon,
+  WrenchScrewdriverIcon,
+  BuildingOfficeIcon,
+} from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 
 import { companyData } from "@/config/company-data"; // Import companyData
@@ -30,9 +38,13 @@ const MobileNav = () => {
   const inactiveColor = useColorModeValue("gray.600", "gray.400");
 
   const mobileNavItems = [
-    { label: "Inicio", icon: AiFillHome, href: "/" },
-    { label: "Servicios", icon: MdHomeRepairService, href: "/servicios" },
-    { label: "Proyectos", icon: BsBuildings, href: "/proyectos" },
+    { label: "Inicio", icon: HomeIcon, href: "/" },
+    {
+      label: "Servicios",
+      icon: WrenchScrewdriverIcon,
+      href: "/servicios",
+    },
+    { label: "Proyectos", icon: BuildingOfficeIcon, href: "/proyectos" },
   ];
 
   const whatsappLink = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;
@@ -73,7 +85,7 @@ const MobileNav = () => {
           <IconButton
             variant="ghost"
             aria-label={item.label}
-            icon={<item.icon size="24" />}
+            icon={<Icon as={item.icon} w={6} h={6} />}
             color={
               location.pathname === item.href ? activeColor : inactiveColor
             }

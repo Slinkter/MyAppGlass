@@ -10,13 +10,12 @@ import React, { Suspense, lazy } from "react";
 import {
   Box,
   Button,
-  Container,
   Flex,
   useColorModeValue,
   Spinner,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
-import Franja from "@shared/components/common/Franja";
+import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { Icon } from "@chakra-ui/react";
 import { FaMapLocationDot } from "react-icons/fa6";
 
@@ -46,17 +45,24 @@ const StoreSection = React.memo(() => {
   const textColor = useColorModeValue("gray.800", "white");
 
   return (
-    <Box
-      height={{ base: "auto", md: "auto" }}
-      display="flex"
-      flexDirection="column"
+    <ItemGridLayout
+      title="UBICACIONES"
+      subtitle="Nuestra tienda principal y proyectos realizados en Lima"
+      seoTitle="Ubicaciones - GYA Company"
+      seoDescription="Encuentra nuestra tienda principal en Lima y explora la ubicación de nuestros proyectos de vidriería y aluminio."
+      seoCanonicalUrl="https://www.gyacompany.com/ubicaciones"
+      columns={1}
+      spacing={4}
+      containerProps={{
+        mt: 0,
+        pt: 8,
+        minH: "100dvh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
     >
-      <Franja
-        title="UBICACIONES"
-        text="Nuestra tienda principal y proyectos realizados en Lima"
-        minHeight="20vh"
-      />
-      <Container maxW={"7xl"} mt={12} mb={12} px={{ base: 4, md: 8 }}>
+      <Box maxW={"7xl"} mt={4} mb={12} px={{ base: 4, md: 8 }}>
         <Flex
           alignItems="center"
           justifyContent="center"
@@ -99,8 +105,8 @@ const StoreSection = React.memo(() => {
             </Button>
           </Link>
         </Flex>
-      </Container>
-    </Box>
+      </Box>
+    </ItemGridLayout>
   );
 });
 
