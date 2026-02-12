@@ -37,18 +37,20 @@ const SidebarSection = ({ title, children, show = true }) => {
 };
 
 const NavigationSection = ({ title, systems, activeIndex, onSelect }) => {
-  const headingColor = useColorModeValue("gray.900", "white");
+  const textColor = useColorModeValue("gray.600", "gray.400"); // Use a subtle text color
   return (
     <Box>
-      <Heading
-        as="h3"
-        size={{ base: "sm", md: "md" }}
-        mb={{ base: 3, md: 4 }}
-        color={headingColor}
-        letterSpacing="tight"
+      <Text
+        fontSize="md" // Smaller font size
+        fontWeight="bold"
+        textTransform="uppercase" // Keep uppercase for clarity as a label
+        letterSpacing="wider" // Keep wide letter spacing
+        color={textColor} // Use a subtle text color
+        opacity={0.7}
+        mb={3} // Reduced margin-bottom
       >
         {title}
-      </Heading>
+      </Text>
       <Stack spacing={2}>
         {systems.map((item, index) => (
           <SidebarItem
