@@ -6,15 +6,46 @@
 
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Box, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  GridItem,
+  useColorModeValue,
+  Flex,
+  VStack,
+  Heading,
+  Text,
+  Icon,
+} from "@chakra-ui/react";
 import Gallery from "@shared/components/common/Gallery";
 import GlassCard from "@shared/components/common/GlassCard";
 import ServiceSidebar from "./ServiceSidebar";
+import { ClockIcon } from "@heroicons/react/24/outline";
+
+const ComingSoonDisplay = () => {
+  const textColor = useColorModeValue("gray.600", "gray.400");
+  return (
+    <Flex
+      h="100%"
+      w="100%"
+      align="center"
+      justify="center"
+      direction="column"
+    >
+      <VStack spacing={4} textAlign="center">
+        <Icon as={ClockIcon} w={12} h={12} color={textColor} />
+        <Heading size="lg">Próximamente</Heading>
+        <Text color={textColor}>
+          Estamos trabajando para agregar nuevas imágenes a esta sección.
+        </Text>
+      </VStack>
+    </Flex>
+  );
+};
+
 const ServicePageLayout = ({ pageData }) => {
   const { seo, systems, features, imageLists } = pageData;
 
-  // Estado local para la selección de sistemas
-  // Nota: Podría extraerse a un hook useServiceLogic si crece la complejidad
   const [activeIndex, setActiveIndex] = useState(0);
 
   const activeImageList = imageLists[activeIndex] || [];
@@ -62,7 +93,11 @@ const ServicePageLayout = ({ pageData }) => {
               boxShadow="2xl"
             >
               <Box h="100%" w="100%" minW={0} maxW="100%">
-                <Gallery images={activeImageList} />
+                {activeImageList && activeImageList.length > 0 ? (
+                  <Gallery images={activeImageList} />
+                ) : (
+                  <ComingSoonDisplay />
+                )}
               </Box>
             </GlassCard>
           </GridItem>
