@@ -161,25 +161,6 @@ const ServiceSidebar = (props) => {
           onSelect={setActiveIndex}
         />
 
-        <SidebarSection
-          title="Especificaciones Técnicas"
-          show={features && features.length > 0}
-        >
-          <Grid templateColumns="repeat(1, 1fr)" gap={3}>
-            {features?.map((item, index) => {
-              const [label, value] = item.label.split(":");
-              return (
-                <SpecItem
-                  key={index}
-                  icon={item.icon}
-                  label={label}
-                  value={value || "Estándar"}
-                />
-              );
-            })}
-          </Grid>
-        </SidebarSection>
-
         <Box mt="auto" pt={4}>
           <Divider borderColor={borderColor} mb={6} />
           <CTASection

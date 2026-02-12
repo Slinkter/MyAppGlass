@@ -37,6 +37,7 @@ export const servicePageDataMap = {
             { label: "Sistema Nova", icon: ChevronRightIcon },
             { label: "Sistema Serie 25", icon: ChevronRightIcon },
             { label: "Sistema Serie 31", icon: ChevronRightIcon },
+            { label: "Sistema Serie 62", icon: ChevronRightIcon },
         ],
         features: [
             { label: "Color: Incoloro, Bronce", icon: CheckIcon },
@@ -44,7 +45,12 @@ export const servicePageDataMap = {
             { label: "Aluminio: Natural, Negro", icon: CheckIcon },
             { label: "Espesor: 6mm", icon: CheckIcon },
         ],
-        imageLists: [listVentana.nova, listVentana.serie25, listVentana.serie31],
+        imageLists: [
+            listVentana.nova,
+            listVentana.serie25,
+            listVentana.serie31,
+            [],
+        ],
     },
     balcones: {
         seo: {
