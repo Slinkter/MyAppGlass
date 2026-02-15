@@ -29,14 +29,14 @@ const suspenseFallback = (
  * Aquí se configuran los proveedores globales que envuelven a toda la App.
  */
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <HelmetProvider>
       <ChakraProvider theme={theme} colorModeManager={darkModeManager}>
         <RouterProvider router={router} fallbackElement={suspenseFallback} />
       </ChakraProvider>
     </HelmetProvider>
-  </React.StrictMode>,
+  </>,
 );
 
 // Al final del archivo
