@@ -21,26 +21,27 @@ import MapViewer from "./MapViewer";
  *
  * @param {Object} props
  * @param {string} props.viewMode - El modo de visualización actual ('map' o 'gallery').
- * @param {string} props.googleMapsUrl - URL para el componente de mapa.
+ * @param {number} props.lat - Latitud del proyecto.
+ * @param {number} props.lng - Longitud del proyecto.
  * @param {Array} props.photos - Datos de imágenes para la galería.
  */
-const VisualViewer = ({ viewMode, googleMapsUrl, photos }) => {
+const VisualViewer = ({ viewMode, lat, lng, photos }) => {
   const spinnerBg = useColorModeValue("gray.100", "gray.800");
 
   return (
     <Box
       flex={{ base: "none", lg: "3" }}
       w="100%"
-      h={{ base: "380px", sm: "420px", md: "450px", lg: "auto" }}
+      h={{ base: "50dvh", sm: "420px", md: "450px", lg: "auto" }}
       position="relative"
-      borderRadius="2xl"
+      borderRadius={{ base: "0", lg: "2xl" }}
       overflow="hidden"
       boxShadow="lg"
       bg={spinnerBg}
     >
       <Box position="absolute" top="0" left="0" w="100%" h="100%">
         {viewMode === "map" ? (
-          <MapViewer url={googleMapsUrl} />
+          <MapViewer lat={lat} lng={lng} />
         ) : (
           <Gallery images={photos} />
         )}
@@ -51,7 +52,8 @@ const VisualViewer = ({ viewMode, googleMapsUrl, photos }) => {
 
 VisualViewer.propTypes = {
   viewMode: PropTypes.oneOf(["map", "gallery"]).isRequired,
-  googleMapsUrl: PropTypes.string.isRequired,
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
   photos: PropTypes.array,
 };
 

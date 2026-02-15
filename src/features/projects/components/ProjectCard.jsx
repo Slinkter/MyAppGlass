@@ -37,6 +37,8 @@ const ProjectCard = React.memo((props) => {
     photosObra,
     image,
     preloaded,
+    lat,
+    lng,
   } = props;
 
   return (
@@ -60,6 +62,8 @@ const ProjectCard = React.memo((props) => {
             address={address}
             year={year}
             g_maps={g_maps}
+            lat={lat}
+            lng={lng}
             photos={photosObra}
           />
         </Suspense>
