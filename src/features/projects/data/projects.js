@@ -24,7 +24,7 @@ export const projects = [
     address: "Miraflores",
     numdpto: "20",
     year: "Mayo 2012",
-    g_maps: "C. Chiclayo 170, Lima 15074, Peru",
+    g_maps: "C. Chiclayo 170",
     lat: -12.11471777212635, // Manually geocoded
     lng: -77.0305553432827, // Manually geocoded
     photosObra: [],
@@ -37,7 +37,7 @@ export const projects = [
     address: "Lince",
     numdpto: "50",
     year: "Octubre 2015",
-    g_maps: "Manuel Castañeda 237, Lima 15046",
+    g_maps: "Manuel Castañeda 237",
     lat: -12.078399185812227, // Requires manual geocoding
     lng: -77.03037530859106, // Requires manual geocoding
     photosObra: [],
@@ -50,9 +50,9 @@ export const projects = [
     address: "Cajamarca",
     numdpto: "21",
     year: "Enero 2018",
-    g_maps: "Jirón Arequipa 253, Lima 15086",
-    lat: -12.088359011979218, // Requires manual geocoding,
-    lng: -77.07112122816429, // Requires manual geocoding
+    g_maps: "Jr. Arequipa 253",
+    lat: null, // Requires manual geocoding,
+    lng: null, // Requires manual geocoding
     photosObra: [],
   },
   {
@@ -63,7 +63,7 @@ export const projects = [
     address: "San Juan de Miraflores",
     numdpto: "26",
     year: "Noviembre 2020",
-    g_maps: "C. Ignacio Seminario 903, Lima 15824, Peru",
+    g_maps: "C. Ignacio Seminario 903",
     lat: -12.169055001965848,
     lng: -76.96787355273776,
     photosObra: [],
@@ -76,7 +76,7 @@ export const projects = [
     address: "Ate",
     numdpto: "18",
     year: "Junio 2019",
-    g_maps: "Av. el Banco N° 214, Ate 15026",
+    g_maps: "Av. el Banco N° 214",
     lat: -12.062174912994305, // Requires manual geocoding,
     lng: -76.93561104341636, // Requires manual geocoding
     photosObra: [],
@@ -89,7 +89,7 @@ export const projects = [
     address: "Ate",
     numdpto: "24",
     year: "Febrero 2020",
-    g_maps: "Av. Javier Prado Este 7845, Ate 15012",
+    g_maps: "Av. Javier Prado Este 7845",
     lat: -12.052576408736284,
     lng: -76.93825020117286,
     photosObra: [],
@@ -102,7 +102,7 @@ export const projects = [
     address: "Salamanca",
     numdpto: "24",
     year: "Junio 2021 ",
-    g_maps: "Calle 3, Mz. D, de Monterrico, Ate 15022",
+    g_maps: "Calle 3  de Monterrico",
     lat: -12.075676968719952,
     lng: -76.9781046082645,
     photosObra: [],
@@ -115,7 +115,7 @@ export const projects = [
     address: "Magdalena",
     numdpto: "12",
     year: "Agosto de 2021",
-    g_maps: "Av. Parque Gonzales Prada 667, Magdalena del Mar 15076",
+    g_maps: "Av. Parque Gonzales Prada 667",
     lat: -12.090379403944693, // Requires manual geocoding  ,
     lng: -77.06352027607038, // Requires manual geocoding
     photosObra: [],
@@ -128,7 +128,7 @@ export const projects = [
     address: "San Miguel",
     numdpto: "14",
     year: "Febrero 2022",
-    g_maps: "WVCX+9P3, San Miguel 15087",
+    g_maps: "Calle Micaela Bastidas",
     lat: -12.079096840331879, // Requires manual geocoding ,
     lng: -77.1006818116659, // Requires manual geocoding
     photosObra: [],
@@ -141,7 +141,7 @@ export const projects = [
     address: "Magdalena del mar",
     numdpto: "62",
     year: "Mayo 2022 ",
-    g_maps: "Jr. Tacna 1056, Magdalena del Mar 15086",
+    g_maps: "Jr. Tacna 1056",
     lat: -12.088537804676479, // Requires manual geocoding , -77.07036389900647
     lng: -77.07036389900647, // Requires manual geocoding
     photosObra: [],
@@ -154,7 +154,7 @@ export const projects = [
     address: "ATE",
     numdpto: "60",
     year: "Diciembre 2022 ",
-    g_maps: "Av. Javier Prado Este 8111, Ate 15012",
+    g_maps: "Av. Javier Prado Este 8111",
     lat: -12.048744707034889, // Requires manual geocoding ,
     lng: -76.9373761882429, // Requires manual geocoding
     photosObra: [],
@@ -167,7 +167,7 @@ export const projects = [
     address: "Magdalena del mar",
     numdpto: "32",
     year: "Junio 2023 ",
-    g_maps: "Jirón Arequipa 253, Lima 15086",
+    g_maps: "Jr. Arequipa 253",
     lat: -12.088370270820201, // Requires manual geocoding ,
     lng: -77.07116449920997, // Requires manual geocoding
     photosObra: [],
@@ -180,7 +180,7 @@ export const projects = [
     address: "Surquillo",
     numdpto: "57",
     year: "Diciembre 2024 ",
-    g_maps: "Avenida Principal 915, Lima 15038, Peru",
+    g_maps: "Av. Principal 915",
     lat: -12.119551579264126, // Requires manual geocoding ,
     lng: -77.00411297028387, // Requires manual geocoding
     photosObra: [],
@@ -193,7 +193,7 @@ export const projects = [
     address: "Breña",
     numdpto: "102",
     year: "Junio 2025 ",
-    g_maps: "Jr. Jorge Chávez 1039, Breña 15083, Peru",
+    g_maps: "Jr. Jorge Chávez 1045",
     lat: -12.059726700425992, // Requires manual geocoding ,
     lng: -77.0480717850658, // Requires manual geocoding
     photosObra: palmer.map((img, index) => ({

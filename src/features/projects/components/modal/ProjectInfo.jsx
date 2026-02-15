@@ -53,14 +53,18 @@ const ProjectInfo = ({
 }) => {
   return (
     <GlassCard
-      flex={{ base: "none", lg: "2" }}
+      flex={{ base: "1", lg: "2" }}
       w="100%"
       p={{ base: 5, md: 6 }}
       minH={{ lg: "450px" }}
+      h={{ base: "auto", lg: "auto" }}
       display="flex"
       flexDirection="column"
-      justifyContent="center"
+      justifyContent={{ base: "flex-start", lg: "center" }}
       gap={6}
+      overflowY={{ base: "auto", lg: "visible" }}
+      borderRadius={{ base: "0", lg: "2xl" }}
+      boxShadow="none"
     >
       {/* View Switcher */}
       <ButtonGroup w="full" isAttached variant="outline">

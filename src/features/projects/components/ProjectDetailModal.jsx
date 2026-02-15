@@ -5,97 +5,32 @@ import {
   ModalOverlay,
   ModalContent,
   ModalBody,
+  ModalCloseButton,
   Flex,
   useColorModeValue,
 } from "@chakra-ui/react";
 import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
 
-// Re-using the Project typedef from projectService.js
-/**
- * @typedef {Object} Project - Representa la estructura de un proyecto individual.
- * @property {number} id - Identificador único del proyecto.
- * @property {string} image - Ruta de la imagen principal del proyecto.
- * @property {string} residencial - Nombre del edificio o residencial.
- * @property {string} name - Nombre de la empresa o cliente.
- * @property {string} address - Dirección del proyecto.
- * @property {string} numdpto - Número de departamentos asociados al proyecto.
- * @property {string} year - Año de ejecución del proyecto.
- * @property {string} g_maps - Enlace o dirección de Google Maps del proyecto.
- * @property {Array<Object>} photosObra - Array de objetos de imagen de la obra.
- */
+const ProjectDetailModal = (props) => {
+  const {
+    isOpen,
+    onClose,
+    residencial,
+    name,
+    address,
+    year,
+    g_maps,
+    lat,
+    lng,
+    photos,
+  } = props;
 
-/**
- * @typedef {'map' | 'gallery'} ViewMode - Representa el modo de visualización actual del modal (mapa o galería).
- */
-
-/**
- * @component ProjectDetailModal
- * @description Este componente actúa como un contenedor principal (Smart Component) para la visualización
- * detallada de un proyecto. Implementa el patrón "Modal" de Chakra UI y orquesta
- * la lógica de presentación entre dos vistas principales: Mapa de Ubicación y Galería de Fotos.
- *
- * Responsabilidades:
- * 1. Gestionar el estado de apertura/cierre del modal.
- * 2. Determinar qué vista mostrar (Mapa o Galería) mediante el estado `viewMode`.
- * 3. Preparar la URL segura para el iframe de Google Maps.
- * 4. Pasar los datos necesarios a los componentes de presentación hijos (`VisualViewer` y `ProjectInfo`).
- *
- * @param {Object} props - Propiedades del componente.
- * @param {boolean} props.isOpen - Controla si el modal está visible.
- * @param {function(): void} props.onClose - Función para cerrar el modal.
- * @param {string} props.residencial - Nombre del residencial o proyecto.
- * @param {string} props.name - Nombre de la constructora o cliente.
- * @param {string} props.address - Dirección corta o distrito.
- * @param {string} props.year - Año y mes de entrega del proyecto.
- * @param {string} props.g_maps - Dirección completa para buscar en Google Maps.
- * @param {Array<Object>} props.photos - Array de objetos de imágenes para la galería del proyecto (tipo ProjectImage[]).
- * @returns {JSX.Element} El componente Modal que muestra los detalles del proyecto.
- *
- * @example
- * // Ejemplo de uso en un componente padre:
- * import { useDisclosure, Button } from '@chakra-ui/react';
- * import ProjectDetailModal from './ProjectDetailModal';
- *
- * const sampleProjectData = {
- *   residencial: "Residencial Central",
- *   name: "Constructora X",
- *   address: "Calle Falsa 123",
- *   year: "2024",
- *   g_maps: "Centro de la Ciudad",
- *   photos: [{ id: 1, image: "/path/to/img1.jpg", name: "Fachada" }],
- * };
- *
- * function MyComponent() {
- *   const { isOpen, onOpen, onClose } = useDisclosure();
- *   return (
- *     <>
- *       <Button onClick={onOpen}>Ver Detalles del Proyecto</Button>
- *       <ProjectDetailModal
- *         isOpen={isOpen}
- *         onClose={onClose}
- *         {...sampleProjectData}
- *       />
- *     </>
- *   );
- * }
- */
-const ProjectDetailModal = ({
-  isOpen,
-  onClose,
-  residencial,
-  name,
-  address,
-  year,
-  g_maps,
-  photos,
-}) => {
-  const [googleMapsUrl, setGoogleMapsUrl] = useState("");
   const [viewMode, setViewMode] = useState("map"); // 'map' | 'gallery'
 
   const modalBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.92)",
-    "rgba(20, 20, 20, 0.95)"
+    "rgba(255, 255, 255, 0.95)",
+    "rgba(20, 20, 20, 0.98)"
   );
   const borderColor = useColorModeValue(
     "rgba(255, 255, 255, 0.35)",
@@ -106,13 +41,8 @@ const ProjectDetailModal = ({
   useEffect(() => {
     if (isOpen) {
       setViewMode("map"); // Reset to map on open
-      setGoogleMapsUrl(
-        `https://www.google.com/maps?q=${encodeURIComponent(
-          g_maps
-        )}&output=embed`
-      );
     }
-  }, [isOpen, g_maps]);
+  }, [isOpen]);
 
   return (
     <Modal
@@ -135,17 +65,29 @@ const ProjectDetailModal = ({
         borderColor={borderColor}
         boxShadow="2xl"
         color={textColor}
+        maxH={{ base: "100dvh", md: "auto" }}
+        overflow="hidden"
       >
-        <ModalBody p={{ base: 4, md: 6 }} pb={{ base: 6, md: 8 }}>
+        <ModalCloseButton
+          zIndex={10}
+          size="lg"
+          bg={useColorModeValue("whiteAlpha.800", "blackAlpha.600")}
+          _hover={{ bg: "red.500", color: "white" }}
+          borderRadius="full"
+          top={4}
+          right={4}
+        />
+        <ModalBody p={{ base: 0, md: 6 }} pb={{ base: 0, md: 8 }}>
           <Flex
             w="full"
-            h={{ base: "auto", lg: "full" }}
+            h={{ base: "100%", lg: "full" }}
             flexDirection={{ base: "column", lg: "row" }}
-            gap={{ base: 6, lg: 8 }}
+            gap={{ base: 0, lg: 8 }}
           >
             <VisualViewer
               viewMode={viewMode}
-              googleMapsUrl={googleMapsUrl}
+              lat={lat}
+              lng={lng}
               photos={photos}
             />
 
@@ -174,6 +116,8 @@ ProjectDetailModal.propTypes = {
   address: PropTypes.string,
   year: PropTypes.string,
   g_maps: PropTypes.string,
+  lat: PropTypes.number,
+  lng: PropTypes.number,
   photos: PropTypes.array,
 };
 

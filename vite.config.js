@@ -2,29 +2,27 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { fileURLToPath, URL } from "url";
-import { visualizer } from "rollup-plugin-visualizer"; // Bundle analyzer
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   plugins: [
     react(),
     ViteImageOptimizer({
-      // 🚀 OPTIMIZACIÓN AGRESIVA para máxima ligereza
-      // Configuración para JPG
       jpg: {
         quality: 70, // Reducido de 80 a 70 (30-40% más ligero, calidad imperceptible)
         progressive: true, // Carga progresiva
       },
-      // Configuración para PNG
+
       png: {
         quality: 75, // Optimizado para PNGs
         compressionLevel: 9, // Máxima compresión
       },
-      // Configuración para WebP (formato moderno y más ligero)
+
       webp: {
         quality: 70, // WebP es más eficiente que JPG
         lossless: false,
       },
-      // ⚠️ IMPORTANTE: Opciones de Sharp para corregir orientación
+
       sharpOptions: {
         rotate: true, // Auto-rotación basada en EXIF
         // 🔧 Resize automático para imágenes muy grandes
@@ -59,9 +57,6 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       output: {
-        // More granular chunking to keep vendor sizes reasonable while
-        // avoiding circular chunk warnings. Matches are strict to prevent
-        // partial hits (eg. `react-icons` matching `react`).
         manualChunks(id) {
           if (!id) return null;
 
