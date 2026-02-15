@@ -155,42 +155,29 @@ function InteractiveMapComponent() {
   const google = window.google;
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchProjectsAndSetPositions = async () => {
       try {
         const data = await getProjects();
-        const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-        const geocodePromises = data.map(async (project) => {
-          if (!project.g_maps) return null;
-          try {
-            const response = await fetch(
-              `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(project.g_maps)}&key=${apiKey}`,
-            );
-            const result = await response.json();
-            if (result.status === "OK") {
-              const location = result.results[0].geometry.location;
-              return {
-                ...project,
-                type: "project",
-                client: project.name, // Mapeo de cliente
-                position: { lat: location.lat, lng: location.lng },
-              };
-            }
-          } catch (e) {
-            return null;
+        // Process projects to use pre-geocoded lat/lng and filter out invalid ones
+        const projectsWithPositions = data.map((project) => {
+          if (project.lat != null && project.lng != null) {
+            return {
+              ...project,
+              type: "project",
+              client: project.name,
+              position: { lat: project.lat, lng: project.lng },
+            };
           }
-          return null;
-        });
+          return null; // Project without valid lat/lng
+        }).filter((p) => p !== null); // Filter out null entries
 
-        const validProjects = (await Promise.all(geocodePromises)).filter(
-          (p) => p !== null,
-        );
-        setProjects(validProjects);
+        setProjects(projectsWithPositions);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchProjects();
+    fetchProjectsAndSetPositions();
   }, []);
 
   const onLoad = useCallback((mapInstance) => setMap(mapInstance), []);
