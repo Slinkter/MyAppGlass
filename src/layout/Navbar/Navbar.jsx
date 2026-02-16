@@ -7,7 +7,8 @@
 import React from "react";
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import DesktopNav from "./DesktopNav";
-import MobileNav from "./MobileNav";
+import BottomNav from "./BottomNav";
+
 export default function Navbar() {
   // Estilos Glassmorphism para Desktop
   const bgColor = useColorModeValue(
@@ -53,7 +54,7 @@ export default function Navbar() {
       </Box>
 
       {/* MOBILE NAVBAR */}
-      <MobileNav />
+      <BottomNav />
     </>
   );
 }
