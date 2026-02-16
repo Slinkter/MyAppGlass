@@ -8,10 +8,10 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import { 
-  HomeIcon, 
-  WrenchScrewdriverIcon, 
-  BuildingOffice2Icon 
+import {
+  HomeIcon,
+  WrenchScrewdriverIcon,
+  BuildingOffice2Icon,
 } from "@heroicons/react/24/outline";
 import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -35,29 +35,29 @@ const BottomNav = () => {
 
   // Items de Navegación
   const navItems = [
-    { 
-      label: "Inicio", 
-      icon: HomeIcon, 
+    {
+      label: "Inicio",
+      icon: HomeIcon,
       path: "/",
-      isExternal: false
+      isExternal: false,
     },
-    { 
-      label: "Servicios", 
-      icon: WrenchScrewdriverIcon, 
+    {
+      label: "Servicios",
+      icon: WrenchScrewdriverIcon,
       path: "/servicios",
-      isExternal: false
+      isExternal: false,
     },
-    { 
-      label: "Proyectos", 
-      icon: BuildingOffice2Icon, 
+    {
+      label: "Proyectos",
+      icon: BuildingOffice2Icon,
       path: "/proyectos",
-      isExternal: false
+      isExternal: false,
     },
-    { 
-      label: "Contacto", 
-      icon: FaWhatsapp, 
+    {
+      label: "Contacto",
+      icon: FaWhatsapp,
       path: `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`,
-      isExternal: true
+      isExternal: true,
     },
   ];
 
@@ -91,7 +91,7 @@ const BottomNav = () => {
       >
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
-          
+
           return (
             <Link
               key={item.label}
@@ -99,9 +99,9 @@ const BottomNav = () => {
               to={!item.isExternal ? item.path : undefined}
               href={item.isExternal ? item.path : undefined}
               isExternal={item.isExternal}
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: "none" }}
               flex={1} // Ocupa espacio igualitario
-              w={0}    // Fuerza a flex-grow a trabajar desde 0
+              w={0} // Fuerza a flex-grow a trabajar desde 0
               display="flex"
               justifyContent="center"
             >
@@ -128,12 +128,7 @@ const BottomNav = () => {
                   w="40px" // Ancho fijo para el contenedor del icono
                   h="40px" // Alto fijo para asegurar círculo/cuadrado perfecto
                 >
-                  <Icon 
-                    as={item.icon} 
-                    w={5} 
-                    h={5} 
-                    strokeWidth={2.5}
-                  />
+                  <Icon as={item.icon} w={5} h={5} strokeWidth={2.5} />
                 </Flex>
 
                 {/* Text Label */}

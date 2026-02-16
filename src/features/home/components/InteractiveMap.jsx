@@ -52,13 +52,15 @@ function InteractiveMapComponent() {
   return (
     <Box
       position="relative"
-      w="full"
+      w={{ base: "100vw", md: "full" }}
+      mx={{ base: "calc(50% - 50vw)", md: 0 }}
       h={{ base: "450px", md: "650px" }}
-      rounded="2xl"
+      rounded={{ base: "none", md: "2xl" }}
       overflow="hidden"
-      boxShadow="2xl"
-      border="1px solid"
+      boxShadow={{ base: "none", md: "2xl" }}
+      border={{ base: "none", md: "1px solid" }}
       borderColor={borderColor}
+      padding={2}
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
