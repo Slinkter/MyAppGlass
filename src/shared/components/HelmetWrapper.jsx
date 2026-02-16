@@ -8,6 +8,7 @@
 
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import PropTypes from "prop-types";
 
 /**
  * @component HelmetWrapper
@@ -26,9 +27,10 @@ import { Helmet } from "react-helmet-async";
 const HelmetWrapper = ({ title, description, canonicalUrl, children }) => {
   // --- SEO Strategy: Defaults optimized for Local SEO ---
   const siteName = "GYA Company";
-  const defaultTitle = `Vidriería y Servicios en La Molina | ${siteName}`; // 50 chars
+  // Optimized default title for "Vidrieria en la Molina", "Ventana", "Mampara"
+  const defaultTitle = `Vidriería en La Molina | Ventanas y Mamparas | ${siteName}`;
   const defaultDescription =
-    "vidriería en La Molina. Ofrecemos completos servicios de instalación y fabricación para ventanas, mamparas y más. ¡Cotiza tu proyecto hoy!"; // 158 chars
+    "Especialistas en vidriería en La Molina. Instalación y fabricación de ventanas, mamparas, duchas y estructuras de aluminio. Calidad y garantía en La Molina.";
   const defaultCanonicalUrl = "https://www.gyacompany.com";
 
   // --- Final values to be rendered ---
@@ -54,6 +56,13 @@ const HelmetWrapper = ({ title, description, canonicalUrl, children }) => {
       {children}
     </Helmet>
   );
+};
+
+HelmetWrapper.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  canonicalUrl: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default HelmetWrapper;
