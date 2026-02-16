@@ -25,8 +25,6 @@ function InteractiveMapComponent() {
   const projects = useMapProjects();
   const [selectedMarker, setSelectedMarker] = useState(null);
   const { colorMode } = useColorMode();
-  const borderColor = useColorModeValue("gray.200", "gray.700");
-
   const { isLoaded, loadError } = useGoogleMapsLoader();
 
   const google = window.google;
@@ -58,8 +56,6 @@ function InteractiveMapComponent() {
       rounded={{ base: "none", md: "2xl" }}
       overflow="hidden"
       boxShadow={{ base: "none", md: "2xl" }}
-      border={{ base: "none", md: "1px solid" }}
-      borderColor={borderColor}
       padding={2}
     >
       <GoogleMap

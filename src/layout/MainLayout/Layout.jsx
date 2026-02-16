@@ -49,10 +49,11 @@ const Layout = ({ children }) => {
         base: `url(${bg_desktop})`, // Use desktop image for both
         md: `url(${bg_desktop})`,
       }}
+      backgroundColor={"gray.700"}
       backgroundSize="cover"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
-      backgroundAttachment={{ base: "scroll", md: "fixed" }} // Fixed solo en desktop para performance
+      backgroundAttachment={{ base: "fixed", md: "fixed" }} // Fixed solo en desktop para performance
       position="relative"
       _before={{
         content: '""',
@@ -63,13 +64,12 @@ const Layout = ({ children }) => {
         bottom: 0,
         bg: bgColor,
         zIndex: 0,
-        backdropFilter: "blur(5px)",
-        WebkitBackdropFilter: "blur(5px)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
       }}
       m={0}
       p={0}
     >
-      {/* Skip Link */}
       <Link
         href="#main-content"
         sx={{

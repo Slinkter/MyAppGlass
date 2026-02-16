@@ -58,11 +58,6 @@ const ItemGridLayout = ({
 
   return (
     <>
-      <HelmetWrapper
-        title={seoTitle}
-        description={seoDescription}
-        canonicalUrl={seoCanonicalUrl}
-      />
       <Container
         maxW={"7xl"}
         mt={6}

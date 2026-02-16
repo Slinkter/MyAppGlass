@@ -48,9 +48,6 @@ const StoreSection = React.memo(() => {
     <ItemGridLayout
       title="UBICACION"
       subtitle="Vidriería en La Molina - Av. Los Fresnos 1250"
-      seoTitle="Ubicación Vidriería en La Molina | GYA Company"
-      seoDescription="Visita nuestra vidriería en La Molina. Ubicación central para venta de ventanas, mamparas y aluminios. Atendemos a todo Lima."
-      seoCanonicalUrl="https://www.gyacompany.com/ubicaciones"
       columns={{ base: 1 }}
       spacing={4}
       containerProps={{

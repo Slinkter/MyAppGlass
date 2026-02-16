@@ -1,14 +1,10 @@
-pnpm run build
-
-python -m http.server 5000 --directory dist
-
 # GYA Glass & Aluminum - Aplicación Web Corporativa
 
 Aplicación web de alto rendimiento para GYA Glass & Aluminum S.A.C., una empresa especializada en el diseño, fabricación e instalación de estructuras de vidrio y aluminio. El sitio sirve como portafolio de proyectos, catálogo de servicios y canal de contacto principal.
 
 ## 🚀 Arquitectura y Stack Tecnológico
 
-Este proyecto está construido sobre una arquitectura moderna, desacoplada y orientada a componentes, priorizando la mantenibilidad, escalabilidad y rendimiento.
+Este proyecto está construido sobre una arquitectura moderna, desacoplada y orientada a componentes, priorizando la mantenibilidad, escalabilidad, rendimiento y SEO.
 
 ### Stack Tecnológico
 
@@ -18,23 +14,33 @@ Este proyecto está construido sobre una arquitectura moderna, desacoplada y ori
 - **Animaciones:** [Framer Motion](https://www.framer.com/motion/)
 - **Routing:** [React Router DOM v6](https://reactrouter.com/)
 - **SEO:** [React Helmet Async](https://github.com/staylor/react-helmet-async)
+- **Mapas:** [@react-google-maps/api](https://www.npmjs.com/package/@react-google-maps/api)
 - **Hosting & Funciones Serverless:** [Firebase](https://firebase.google.com/)
 
 ### Arquitectura de Software
 
-La aplicación ha sido refactorizada para seguir un patrón **Feature-Based Architecture** (FBA) combinado con principios SOLID:
+La aplicación sigue un patrón **Feature-Based Architecture** (FBA) combinado con principios SOLID y **Vercel React Best Practices**:
 
-1.  **Feature-Based Organization:** El código está organizado por funcionalidad (`projects/`, `services/`, `home/`, `reclamation-book/`), no por tipo de archivo. Cada feature es autónoma y contiene sus componentes, hooks y servicios. Esto mejora significativamente la escalabilidad y mantenibilidad.
+1.  **Feature-Based Organization:** El código está organizado por funcionalidad (`projects/`, `services/`, `home/`, `reclamation-book/`), asegurando que cada módulo sea autónomo y escalable.
 
-2.  **Shared Code Separation:** Todo código reutilizable vive en `src/shared/`, incluyendo componentes genéricos, hooks personalizados, y utilidades. Esto elimina duplicación y centraliza la lógica común.
+2.  **Shared Code Separation:** Todo código reutilizable vive en `src/shared/`, incluyendo componentes genéricos (`GlassCard`, `Gallery`), hooks personalizados y utilidades.
 
-3.  **Capa de Presentación (UI):** Compuesta por componentes de React funcionales que utilizan Hooks. Los componentes siguen filosofía de composición y se dividen en "presentational" (sin lógica) y "container" (con lógica) para máxima reutilización.
+3.  **Hooks Personalizados (Logic Abstraction):** Se han creado hooks específicos para desacoplar la lógica de la vista (e.g., `useServiceData`, `useMapProjects`, `useGoogleMapsLoader`). Esto sigue el principio de *Separation of Concerns*.
 
-4.  **Capa de Servicios:** La lógica de obtención de datos está abstraída en una capa de servicios (`src/features/*/services`). Los componentes no acceden a datos estáticos directamente; consumen datos a través de funciones asíncronas, simulando una llamada a API. Esto desacopla la UI del origen de los datos.
+4.  **Optimización de Rendimiento:**
+    - **Lazy Loading:** Uso extensivo de `React.lazy` y `Suspense` para componentes pesados como el mapa interactivo y modales.
+    - **Memoización:** Uso estratégico de `React.memo` y `useMemo` para evitar re-renderizados innecesarios, especialmente en componentes de lista y formularios.
+    - **Carga Diferida de Imágenes:** Implementación de `loading="lazy"` y `fetchPriority` para mejorar Core Web Vitals (LCP).
 
-5.  **Sistema de Diseño Centralizado:** Todos los estilos, fuentes y tokens de diseño están centralizados en `src/config/theme.js`, asegurando consistencia visual total y facilitando cambios globales.
+5.  **SEO Técnico Avanzado:**
+    - **HelmetWrapper:** Orquestador centralizado de metadatos SEO.
+    - **JSON-LD:** Implementación de datos estructurados `LocalBusiness` para Google Maps y Knowledge Graph.
+    - **Sitemap Dinámico:** Cobertura total de rutas de servicios y proyectos.
 
-6.  **Componentes Modularizados:** Se utiliza "atomic design" para componentes complejos, dividiéndolos en subcomponentes especializados (ej: `ProjectDetailModal` → `VisualViewer`, `ProjectInfo`). Se estandarizan hooks personalizados y se validan tipos con `prop-types`.
+6.  **UX/UI Moderno:**
+    - **Glassmorphism:** Estética consistente de "vidrio líquido" en tarjetas y contenedores.
+    - **Navegación Móvil:** Nueva barra de navegación inferior flotante ("Píldora") optimizada para pulgares.
+    - **Mapas Inmersivos:** Integración de Google Maps a pantalla completa en móviles para mejor experiencia de usuario.
 
 ## 📂 Estructura de Directorios
 
@@ -51,31 +57,30 @@ src/
 │   ├── services/                 # Servicios y productos
 │   │   ├── components/           # ServiceCard, ServiceList, ServiceSidebar
 │   │   ├── services/             # Lógica API de servicios
+│   │   ├── hooks/                # useServiceData (Data Fetching Hook)
 │   │   └── index.js              # Barrel exports
 │   ├── home/                     # Secciones de la página principal
-│   │   ├── components/           # ClientsSection, FeaturesSection, StoreSection
+│   │   ├── components/           # ClientsSection, FeaturesSection, InteractiveMap
+│   │   │   └── map/              # Subcomponentes del mapa (Marker, Loader, etc.)
+│   │   ├── hooks/                # Hooks del mapa (useMapState, useMapBounds)
 │   │   ├── services/             # Lógica AsyncData
 │   │   └── index.js              # Barrel exports
 │   └── reclamation-book/         # Libro de reclamaciones
 │       ├── components/           # Form sections (PersonalInfo, Product, etc.)
 │       ├── hooks/                # useReclamoForm
-│       ├── api/                  # Peticiones API
 │       └── index.js              # Barrel exports
 ├── shared/                       # Código compartido entre features
 │   ├── components/               # Componentes reutilizables
-│   │   ├── common/               # FadingImage, Gallery, GlassCard, Franja, etc.
-│   │   ├── Image/                # ImageWithFallback, ImageOverlay
-│   │   ├── Layout/               # ItemGridLayout, DataLoader
-│   │   ├── HelmetWrapper.jsx     # SEO wrapper
+│   │   ├── common/               # FadingImage, Gallery, GlassCard, etc.
+│   │   ├── Layout/               # ItemGridLayout, HelmetWrapper
 │   │   └── ...
 │   ├── hooks/                    # Hooks personalizados categorizados
 │   │   ├── ui/                   # useGallery, useIsMobile
-│   │   ├── observers/            # useIntersectionObserver
 │   │   └── data/                 # useAsyncData
 │   ├── config/                   # Tokens de diseño
 │   └── utils/                    # Funciones utilitarias
 ├── layout/                       # Componentes de layout principal
-│   ├── Navbar/                   # Navbar, DesktopNav, MobileNav, ColorModeToggle
+│   ├── Navbar/                   # Navbar, DesktopNav, BottomNav (Mobile)
 │   ├── Footer/                   # Footer
 │   ├── MainLayout/               # Layout principal
 │   └── FloatingActions/          # FloatingWhatsApp button
@@ -85,62 +90,19 @@ src/
 ├── assets/                       # Imágenes, logos, recursos estáticos
 ├── styles/                       # Estilos globales
 ├── data/                         # Datos estáticos (clients, features, etc.)
-├── utils/                        # Funciones de utilidad
-├── docs/                         # Documentación del proyecto
+├── utils/                        # Funciones de utilidad (webVitals, constants)
 └── App.jsx                       # Componente raíz
-```
-
-### Patrón Feature-Based Architecture
-
-Cada feature (`projects`, `services`, `home`, `reclamation-book`) es una unidad independiente y cohesiva que contiene:
-
-- **Components:** Componentes específicos de la feature, organizados en subdirectorios si son complejos
-- **Hooks:** Lógica personalizada y estado exclusivo de la feature
-- **Services:** Acceso a datos, llamadas API, o servicios de la feature
-- **Index.js:** Barrel export que expone la API pública de la feature
-
-Esta arquitectura permite que cada feature sea:
-
-- ✅ **Independiente:** Puede ser desarrollada, testada y mantenida por separado
-- ✅ **Escalable:** Nuevas features pueden agregarse sin afectar existentes
-- ✅ **Reutilizable:** Código compartido vive en `src/shared/`
-- ✅ **Fácil de navegar:** Todo lo relacionado a una feature está en su carpeta
-
-### Path Aliases
-
-Para evitar imports relativos complicados, se han configurado aliases en `vite.config.js`:
-
-```javascript
-"@features": "./src/features",      // ✅ Importar desde features
-"@shared": "./src/shared",          // ✅ Importar desde shared
-"@layout": "./src/layout",          // ✅ Importar desde layout
-"@": "./src"                        // ✅ Fallback para src/
-```
-
-**Ejemplos de uso:**
-
-```javascript
-// ✅ CORRECTO - Usando aliases
-import { ProjectCard } from "@features/projects";
-import { FadingImage } from "@shared/components/common";
-import { Navbar } from "@layout/Navbar";
-
-// ❌ EVITAR - Múltiples ../ relativos
-import ProjectCard from "../../../features/projects/components/ProjectCard";
 ```
 
 ## ✨ Características Clave del Codebase
 
-- **Component-Driven Development:** UI construida a partir de pequeños componentes reutilizables.
-- **Abstracción de Datos:** Los componentes son agnósticos al origen de los datos, gracias a la capa de servicios.
-- **Carga Asíncrona:** Los datos de las secciones principales se cargan de forma asíncrona, mostrando elegantes skeletons de carga para mejorar la UX.
-- **Rendimiento Optimizado:**
-  - **Code Splitting:** Las páginas se cargan bajo demanda con `React.lazy` y `Suspense`.
-  - **Infinite Scroll:** Implementado en listados clave (`Proyectos`, `Servicios`, `Clientes`) para cargar contenido bajo demanda y evitar cuellos de botella en el renderizado inicial.
-  - **Optimización de Imágenes:** `vite-plugin-image-optimizer` se utiliza para comprimir y optimizar las imágenes durante el build.
-- **Experiencia de Usuario (UX/UI):**
-  - **Animaciones Scroll Reveal:** Componente reutilizable `ScrollReveal` (basado en Framer Motion) que añade transiciones suaves de entrada ("fade up") a los elementos al hacer scroll.
-  - **Guía de Estilos Definida:** El uso de Chakra UI está estandarizado en el documento [Guía de Estilos de Chakra UI](./doc/chakra-ui-style-guidelines.md).
+- **Component-Driven Development:** UI construida a partir de pequeños componentes reutilizables y atómicos.
+- **Abstracción de Datos:** Los componentes son agnósticos al origen de los datos, gracias a la capa de servicios y custom hooks.
+- **Interactive Maps:** Implementación personalizada de Google Maps con marcadores dinámicos, clustering y diseño responsivo adaptativo.
+- **Mobile-First UX:**
+  - **Bottom Navigation:** Menú inferior estilo "app nativa" para fácil acceso en móviles.
+  - **Full-Width Maps:** Mapas que aprovechan el 100% del ancho de pantalla en dispositivos móviles.
+  - **Tarjetas Optimizadas:** Diseño de tarjetas (Services/Projects) con áreas de toque grandes y feedback visual claro.
 
 ## 🛠️ Instalación y Desarrollo Local
 
@@ -165,13 +127,13 @@ Para ejecutar el proyecto en un entorno de desarrollo local, siga estos pasos.
 ### Scripts Disponibles
 
 - `pnpm dev`: Inicia el servidor de desarrollo.
-- `pnpm build`: Compila la aplicación para producción.
-- `pnpm preview`: Sirve localmente el build de producción.
-- `pnpm lint`: Analiza el código en busca de errores con ESLint.
+- `pnpm build`: Compila la aplicación para producción con optimizaciones.
+- `pnpm preview`: Sirve localmente el build de producción para pruebas.
+- `pnpm lint`: Analiza el código en busca de errores y consistencia de estilo.
 - `pnpm deploy:hosting`: Despliega la aplicación a Firebase Hosting.
 - `pnpm deploy:functions`: Despliega las funciones serverless a Firebase Functions.
 
-## 📝 Mantenimiento y Actualizaciones
+## 📝 Mantenimiento
 
-- **Para modificar contenido (proyectos, servicios, etc.):** Actualmente, se deben editar los archivos en `src/data/`. El plan a largo plazo es migrar esta data a un Headless CMS, momento en el cual solo se necesitará actualizar la capa de servicios en `src/services/`.
-- **Para modificar estilos o añadir variantes:** Edite el archivo `src/config/theme.js` siguiendo las directrices del [documento de estilos](./doc/chakra-ui-style-guidelines.md).
+- **Documentación (JSDoc):** Todo el código sigue estándares estrictos de JSDoc ("Why over What") para facilitar el mantenimiento futuro.
+- **Actualización de Contenido:** Datos estáticos en `src/data/` pueden editarse directamente. Nuevas imágenes deben optimizarse antes de subirse.
