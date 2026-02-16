@@ -6,6 +6,13 @@
 
 import { useColorModeValue } from "@chakra-ui/react";
 
+/**
+ * Hook to get styles for a standard glassmorphism container.
+ * @returns {object} Chakra UI style props object for glass effect.
+ * @remarks
+ * - Uses `useColorModeValue` to adapt colors for light/dark modes.
+ * - Applies `backdropFilter: blur(30px)` for the frosted glass look.
+ */
 export const useLiquidGlassProps = () => {
   const bgColor = useColorModeValue(
     "rgba(255, 255, 255, 0.15)",
@@ -33,6 +40,13 @@ export const useLiquidGlassProps = () => {
   };
 };
 
+/**
+ * Hook to get styles for a glassmorphism button.
+ * @returns {object} Chakra UI style props object for glass button.
+ * @remarks
+ * - Optimized for interactive elements with hover states.
+ * - Uses slightly less blur (15px) than containers for clarity.
+ */
 export const useLiquidGlassButtonProps = () => {
   const buttonBg = useColorModeValue(
     "rgba(255, 255, 255, 0.1)",

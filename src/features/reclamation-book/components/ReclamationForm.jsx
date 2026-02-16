@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Box, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import { companyData } from "@/config/company-data";
 import { useReclamoForm } from "../hooks/useReclamoForm";
@@ -37,24 +37,34 @@ const ReclamationForm = () => {
     "rgba(0, 0, 0, 0.5)",
   );
   const placeholderColor = useColorModeValue("gray.500", "gray.400");
+  const hoverBorderColor = useColorModeValue("gray.400", "gray.500");
+  const focusBorderColor = useColorModeValue("purple.500", "purple.300");
+  const focusBoxShadowColor = useColorModeValue("primary.500", "primary.300");
+  const optionBg = useColorModeValue("#FFFFFF", "#2D3748");
 
-  const inputStyles = {
-    bg: inputBg,
-    borderColor: inputBorder,
-    _placeholder: { color: placeholderColor },
-    _hover: { borderColor: useColorModeValue("gray.400", "gray.500") },
-    _focus: {
-      borderColor: useColorModeValue("purple.500", "purple.300"),
-      boxShadow: `0 0 0 1px ${useColorModeValue("primary.500", "primary.300")}`,
-    },
-  };
+  const inputStyles = useMemo(
+    () => ({
+      bg: inputBg,
+      borderColor: inputBorder,
+      _placeholder: { color: placeholderColor },
+      _hover: { borderColor: hoverBorderColor },
+      _focus: {
+        borderColor: focusBorderColor,
+        boxShadow: `0 0 0 1px ${focusBoxShadowColor}`,
+      },
+    }),
+    [inputBg, inputBorder, placeholderColor, hoverBorderColor, focusBorderColor, focusBoxShadowColor]
+  );
 
-  const selectStyles = {
-    ...inputStyles,
-    option: {
-      background: useColorModeValue("#FFFFFF", "#2D3748"),
-    },
-  };
+  const selectStyles = useMemo(
+    () => ({
+      ...inputStyles,
+      option: {
+        background: optionBg,
+      },
+    }),
+    [inputStyles, optionBg]
+  );
 
   return (
     <Box>

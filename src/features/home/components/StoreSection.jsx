@@ -46,8 +46,8 @@ const StoreSection = React.memo(() => {
 
   return (
     <ItemGridLayout
-      title="UBICACIONES"
-      subtitle="Nuestra tienda principal y proyectos realizados en Lima"
+      title="UBICACION"
+      subtitle="Av. Los Fresnos 1250 - La Molina "
       seoTitle="Ubicaciones - GYA Company"
       seoDescription="Encuentra nuestra tienda principal en Lima y explora la ubicación de nuestros proyectos de vidriería y aluminio."
       seoCanonicalUrl="https://www.gyacompany.com/ubicaciones"
@@ -62,7 +62,7 @@ const StoreSection = React.memo(() => {
         justifyContent: "center",
       }}
     >
-      <Box maxW={"7xl"} mt={4} mb={12} px={{ base: 4, md: 8 }}>
+      <Box maxW={"7xl"} mt={4} mb={12} px={{ base: 0, md: 8 }}>
         <Flex
           alignItems="center"
           justifyContent="center"
@@ -101,7 +101,7 @@ const StoreSection = React.memo(() => {
               colorScheme="primary"
               width={{ base: "full", md: "lg" }}
             >
-              Abrir en Google Maps
+              Ir a Tienda
             </Button>
           </Link>
         </Flex>

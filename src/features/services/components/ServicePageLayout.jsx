@@ -11,37 +11,11 @@ import {
   Grid,
   GridItem,
   useColorModeValue,
-  Flex,
-  VStack,
-  Heading,
-  Text,
-  Icon,
 } from "@chakra-ui/react";
 import Gallery from "@shared/components/common/Gallery";
 import GlassCard from "@shared/components/common/GlassCard";
 import ServiceSidebar from "./ServiceSidebar";
-import { ClockIcon } from "@heroicons/react/24/outline";
-
-const ComingSoonDisplay = () => {
-  const textColor = useColorModeValue("gray.600", "gray.400");
-  return (
-    <Flex
-      h="100%"
-      w="100%"
-      align="center"
-      justify="center"
-      direction="column"
-    >
-      <VStack spacing={4} textAlign="center">
-        <Icon as={ClockIcon} w={12} h={12} color={textColor} />
-        <Heading size="lg">Próximamente</Heading>
-        <Text color={textColor}>
-          Estamos trabajando para agregar nuevas imágenes a esta sección.
-        </Text>
-      </VStack>
-    </Flex>
-  );
-};
+import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 
 const ServicePageLayout = ({ pageData }) => {
   const { seo, systems, features, imageLists } = pageData;

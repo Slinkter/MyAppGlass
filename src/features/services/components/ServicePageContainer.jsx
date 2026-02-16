@@ -1,8 +1,8 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { Suspense } from "react";
 import { useParams } from "react-router-dom";
-import { getServicePageData } from "../services/serviceService";
 import ErrorDisplay from "@shared/components/DataLoader/ErrorDisplay";
 import ServiceSkeleton from "./ServiceSkeleton";
+import { useServiceData } from "../hooks/useServiceData";
 
 // Lazy load del layout para mejorar el tiempo de carga inicial
 const ServicePageLayout = React.lazy(() => import("./ServicePageLayout"));
@@ -14,28 +14,7 @@ const ServicePageLayout = React.lazy(() => import("./ServicePageLayout"));
  */
 const ServicePageContainer = () => {
     const { serviceSlug } = useParams();
-    const [pageData, setPageData] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setIsLoading(true);
-                const data = await getServicePageData(serviceSlug);
-                setPageData(data);
-            } catch (err) {
-                setError(
-                    err.message ||
-                        `No se encontraron datos para el servicio: "${serviceSlug}".`
-                );
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [serviceSlug]);
+    const { pageData, isLoading, error } = useServiceData(serviceSlug);
 
     if (isLoading) {
         return <ServiceSkeleton />;
