@@ -29,7 +29,7 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
     <LinkBox
       as="article"
       position="relative"
-      h={{ base: "300px", md: "400px" }}
+      h={{ base: "300px", md: "480px" }}
       borderRadius="2xl"
       overflow="hidden"
       role="group"
@@ -73,7 +73,15 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
       </Box>
 
       {/* 2. Botón Flotante Centrado con Texto */}
-      <Box position="absolute" bottom={6} left={4} right={4} zIndex={2} display="flex" justifyContent="center">
+      <Box
+        position="absolute"
+        bottom={6}
+        left={4}
+        right={4}
+        zIndex={2}
+        display="flex"
+        justifyContent="center"
+      >
         <Button
           w="full"
           maxW="200px" // Ancho máximo para que no se vea exagerado en desktop
