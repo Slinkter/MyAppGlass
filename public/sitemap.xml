@@ -108,9 +108,25 @@
   <!-- Proyectos -->
   <url>
     <loc>https://www.gyacompany.com/proyectos</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <!-- Preguntas Frecuentes -->
+  <url>
+    <loc>https://www.gyacompany.com/preguntas-frecuentes</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://www.gyacompany.com/blog</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- Libro de Reclamaciones -->

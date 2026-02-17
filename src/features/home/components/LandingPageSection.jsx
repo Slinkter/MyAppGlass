@@ -62,7 +62,7 @@ const LandingPageSection = React.memo(() => {
         >
           <MotionImage
             src={logoGYA}
-            alt="Glass & Aluminum Company Logo"
+            alt="GYA Company - Vidriería Premium en La Molina | Logo"
             w={{ base: "55%", sm: "50%", md: "40%", lg: "36%" }}
             maxW="400px"
             h={{ base: "55%", sm: "50%", md: "40%", lg: "30%" }}
@@ -74,18 +74,6 @@ const LandingPageSection = React.memo(() => {
 
           <Box mt={4}>
             <Heading
-              as="h2"
-              fontSize={{ base: "xl", sm: "2xl", md: "4xl" }}
-              fontWeight="bold"
-              letterSpacing="widest"
-              color={accentColor}
-              textTransform={"uppercase"}
-              mb={2}
-            >
-              Vidriería & Aluminio
-            </Heading>
-
-            <Heading
               as="h1"
               fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
               fontWeight="extrabold"
@@ -96,6 +84,18 @@ const LandingPageSection = React.memo(() => {
               COMPANY S.A.C.
             </Heading>
 
+            <Heading
+              as="h2"
+              fontSize={{ base: "xl", sm: "2xl", md: "4xl" }}
+              fontWeight="bold"
+              letterSpacing="widest"
+              color={accentColor}
+              textTransform={"uppercase"}
+              mb={2}
+            >
+              Vidriería Premium en La Molina
+            </Heading>
+
             <Text
               fontSize={{ base: "lg", md: "2xl" }}
               mt={6}
@@ -104,8 +104,8 @@ const LandingPageSection = React.memo(() => {
               maxW="3xl"
               mx="auto"
             >
-              Empresa Comercial especializada en la instalación de cristales y
-              aluminios.
+              Especialistas en mamparas de vidrio templado, ventanas de aluminio
+              y estructuras de vidrio. Instalación profesional con garantía.
             </Text>
           </Box>
         </MotionVStack>

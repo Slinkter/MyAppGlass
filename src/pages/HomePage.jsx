@@ -18,8 +18,8 @@ const HomeView = React.memo(() => {
   return (
     <>
       <HelmetWrapper
-        title="Vidriería en La Molina | Ventanas, Mamparas y Aluminio - GYA Company"
-        description="Líderes en vidriería en La Molina. Fabricación e instalación experta de ventanas, mamparas, duchas y estructuras de aluminio. Cotiza tu proyecto en La Molina hoy."
+        title="Vidriería en La Molina | GYA Company"
+        description="Vidriería en La Molina especializada en ventanas y mamparas de vidrio templado, puertas de ducha y estructuras de vidrio.Atendemos proyectos comerciales y residenciales en Lima. tel.974-278-303"
         canonicalUrl="https://www.gyacompany.com/"
       ></HelmetWrapper>
       <Box>

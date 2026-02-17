@@ -17,6 +17,8 @@ const ProjectPage = lazy(() => import("@/pages/ProjectPage"));
 const TestPage = lazy(() => import("@/pages/TestPage"));
 const CompanyPoliciesPage = lazy(() => import("@/pages/CompanyPoliciesPage"));
 const BankAccountsPage = lazy(() => import("@/pages/BankAccountsPage"));
+const FAQPage = lazy(() => import("@/pages/FAQPage"));
+const BlogPage = lazy(() => import("@/pages/BlogPage"));
 const ServiceList = lazy(() =>
   import("@features/services").then((module) => ({
     default: module.ServiceList,
@@ -53,6 +55,8 @@ export const router = createBrowserRouter(
           ],
         },
         { path: "proyectos", element: <ProjectPage /> },
+        { path: "preguntas-frecuentes", element: <FAQPage /> },
+        { path: "blog", element: <BlogPage /> },
         { path: "libro-de-reclamacion", element: <ReclamationForm /> },
         { path: "politicas-empresa", element: <CompanyPoliciesPage /> },
         { path: "cuentas-bancarias", element: <BankAccountsPage /> },

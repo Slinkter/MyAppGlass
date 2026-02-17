@@ -54,7 +54,7 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
       >
         <FadingImage
           src={image}
-          alt={`Servicio de ${name}`}
+          alt={`${name} en La Molina - GYA Company | Instalación profesional`}
           objectFit="cover"
           w="100%"
           h="100%"

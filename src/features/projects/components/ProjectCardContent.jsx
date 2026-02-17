@@ -63,7 +63,7 @@ const ProjectCardContent = ({
       >
         <FadingImage
           src={image}
-          alt={`Obra ${residencial}`}
+          alt={`Proyecto de vidriería en ${residencial} - ${address} | GYA Company`}
           objectFit="cover"
           w="100%"
           h="100%"

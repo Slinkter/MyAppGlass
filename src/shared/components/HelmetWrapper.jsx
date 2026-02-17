@@ -25,12 +25,12 @@ import PropTypes from "prop-types";
  * @returns {JSX.Element} Contenedor Helmet configurado.
  */
 const HelmetWrapper = ({ title, description, canonicalUrl, children }) => {
-  // --- SEO Strategy: Defaults optimized for Local SEO ---
+  // --- SEO Strategy: Defaults optimized for Local SEO & GEO ---
   const siteName = "GYA Company";
   // Optimized default title for "Vidrieria en la Molina", "Ventana", "Mampara"
-  const defaultTitle = `Vidriería en La Molina | Ventanas y Mamparas | ${siteName}`;
+  const defaultTitle = `Vidriería Premium en La Molina | Mamparas y Ventanas de Aluminio | ${siteName}`;
   const defaultDescription =
-    "Especialistas en vidriería en La Molina. Instalación y fabricación de ventanas, mamparas, duchas y estructuras de aluminio. Calidad y garantía en La Molina.";
+    "GYA Company: Vidriería premium en La Molina especializada en mamparas de vidrio templado, ventanas de aluminio, puertas de ducha y estructuras de vidrio. Instalación profesional con garantía. Atendemos La Molina, Surco, San Borja y distritos aledaños. Proyectos residenciales y comerciales.";
   const defaultCanonicalUrl = "https://www.gyacompany.com";
 
   // --- Final values to be rendered ---
