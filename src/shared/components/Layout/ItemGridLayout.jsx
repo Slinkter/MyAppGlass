@@ -8,7 +8,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import HelmetWrapper from "@shared/components/HelmetWrapper";
 import PropTypes from "prop-types";
 
 // Animation Variants
@@ -45,9 +44,6 @@ const ItemGridLayout = ({
   title,
   subtitle,
   children,
-  seoTitle,
-  seoDescription,
-  seoCanonicalUrl,
   columns = { base: 1, md: 2, lg: 3 },
   spacing = 10,
   containerProps = {},
@@ -118,9 +114,6 @@ ItemGridLayout.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  seoTitle: PropTypes.string.isRequired,
-  seoDescription: PropTypes.string.isRequired,
-  seoCanonicalUrl: PropTypes.string.isRequired,
   columns: PropTypes.object,
   spacing: PropTypes.number,
   containerProps: PropTypes.object,

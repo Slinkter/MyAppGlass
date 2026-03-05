@@ -7,12 +7,10 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
-import {
-  LandingPageSection,
-  ClientsSection,
-  FeaturesSection,
-  StoreSection,
-} from "@features/home";
+import LandingPageSection from "@features/home/components/LandingPageSection";
+import ClientsSection from "@features/home/components/ClientsSection";
+import FeaturesSection from "@features/home/components/FeaturesSection";
+import StoreSection from "@features/home/components/StoreSection";
 
 const HomeView = React.memo(() => {
   return (

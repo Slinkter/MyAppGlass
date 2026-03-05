@@ -131,7 +131,7 @@ async function sendEmailLogic(reclamoData, admin) {
     const reclamoId = adminEmailResponse.data.id;
     logger.info(`Correo para admin enviado. ID: ${reclamoId}`);
 
-    // --- 3. Preparar y ENVIAR el correo de confirmación al cliente ---
+    // --- 3. Preparar y ENVIAR el correo de confirmación al cliente y Guardar en Firestore ---
     const clientEmailPayload = {
       from: "noreply@gyacompany.com",
       to: reclamoData.email, // El correo del cliente
@@ -139,21 +139,27 @@ async function sendEmailLogic(reclamoData, admin) {
       html: createClientEmailHtml(reclamoData, reclamoId),
     };
 
-    logger.info(`Enviando confirmación al cliente ${clientEmailPayload.to}...`);
-    await resend.emails.send(clientEmailPayload);
-    logger.info(`Confirmación para cliente enviada.`);
+    logger.info(
+      `Enviando confirmación al cliente ${clientEmailPayload.to} y guardando en Firestore...`
+    );
 
-    // --- 4. Guardar el reclamo en Firestore ---
-    logger.info(`Guardando reclamo con ID: ${reclamoId} en Firestore...`);
-    await db
-      .collection("libro_de_reclamaciones")
-      .doc(reclamoId)
-      .set({
-        ...reclamoData,
-        reclamoId: reclamoId, // Guardamos el ID de Resend también en Firestore
-        timestamp: FieldValue.serverTimestamp(), // Marca de tiempo del servidor
-      });
-    logger.info(`Reclamo ${reclamoId} guardado exitosamente en Firestore.`);
+    // Optimized: Parallelize client email and Firestore write (Eliminate Waterfall)
+    await Promise.all([
+      resend.emails.send(clientEmailPayload).then(() => {
+        logger.info(`Confirmación para cliente enviada.`);
+      }),
+      db
+        .collection("libro_de_reclamaciones")
+        .doc(reclamoId)
+        .set({
+          ...reclamoData,
+          reclamoId: reclamoId,
+          timestamp: FieldValue.serverTimestamp(),
+        })
+        .then(() => {
+          logger.info(`Reclamo ${reclamoId} guardado exitosamente en Firestore.`);
+        }),
+    ]);
 
     // Si todo fue bien, devolvemos el ID original para el modal de éxito.
     return reclamoId;

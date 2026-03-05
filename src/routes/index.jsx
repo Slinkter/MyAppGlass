@@ -19,16 +19,8 @@ const CompanyPoliciesPage = lazy(() => import("@/pages/CompanyPoliciesPage"));
 const BankAccountsPage = lazy(() => import("@/pages/BankAccountsPage"));
 const FAQPage = lazy(() => import("@/pages/FAQPage"));
 const BlogPage = lazy(() => import("@/pages/BlogPage"));
-const ServiceList = lazy(() =>
-  import("@features/services").then((module) => ({
-    default: module.ServiceList,
-  })),
-);
-const ReclamationForm = lazy(() =>
-  import("@features/reclamation-book").then((module) => ({
-    default: module.ReclamationForm,
-  })),
-);
+const ServiceList = lazy(() => import("@features/services/components/ServiceList"));
+const ReclamationForm = lazy(() => import("@features/reclamation-book/components/ReclamationForm"));
 
 // ErrorPage Loading Fallback - Logic moved to ErrorFallback.jsx
 
