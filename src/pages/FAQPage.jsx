@@ -129,8 +129,8 @@ const FAQPage = () => {
             {/* FAQ Accordion */}
             <Box bg={cardBg} borderRadius="xl" boxShadow="lg" p={6}>
               <Accordion allowToggle>
-                {faqs.map((faq, index) => (
-                  <AccordionItem key={index} border="none" mb={4}>
+                {faqs.map((faq) => (
+                  <AccordionItem key={faq.question} border="none" mb={4}>
                     <h3>
                       <AccordionButton
                         _expanded={{

@@ -7,8 +7,12 @@ import {
   SimpleGrid,
   VStack,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import PropTypes from "prop-types";
+
+// Static constants to avoid re-renders due to new object references (React Doctor recommendation)
+const DEFAULT_COLUMNS = { base: 1, md: 2, lg: 3 };
+const DEFAULT_CONTAINER_PROPS = {};
 
 // Animation Variants
 const containerVariants = {
@@ -44,9 +48,9 @@ const ItemGridLayout = ({
   title,
   subtitle,
   children,
-  columns = { base: 1, md: 2, lg: 3 },
+  columns = DEFAULT_COLUMNS,
   spacing = 10,
-  containerProps = {},
+  containerProps = DEFAULT_CONTAINER_PROPS,
 }) => {
   const headingColor = useColorModeValue("primary.700", "primary.300");
   const textColor = useColorModeValue("gray.700", "gray.200");
@@ -88,7 +92,7 @@ const ItemGridLayout = ({
           </Text>
 
           <SimpleGrid
-            as={motion.div}
+            as={m.div}
             columns={columns}
             spacing={spacing}
             initial="hidden"
@@ -105,7 +109,7 @@ const ItemGridLayout = ({
 };
 
 const ItemGridItem = ({ children }) => {
-  return <motion.div variants={itemVariants}>{children}</motion.div>;
+  return <m.div variants={itemVariants}>{children}</m.div>;
 };
 
 ItemGridLayout.Item = ItemGridItem;
