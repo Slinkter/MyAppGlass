@@ -40,10 +40,9 @@ const GlassCard = ({ children, ...props }) => {
     <Box
       bg={bgColor}
       backdropFilter="blur(10px)"
-      sx={{ WebkitBackdropFilter: "blur(10px)" }}
       borderRadius="2xl"
       boxShadow="sm"
-      transition="box-shadow 0.3s ease, transform 0.3s ease"
+      transition="all 0.3s ease"
       border="none"
       {...props}
     >

@@ -16,7 +16,7 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { m, LazyMotion, domAnimation } from "framer-motion";
+import { m } from "framer-motion";
 
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
@@ -42,75 +42,72 @@ const LandingPageSection = React.memo(() => {
   const subTextColor = useColorModeValue("gray.600", "gray.400");
 
   return (
-    // Wrap with LazyMotion and provide the 'domAnimation' feature set (no layout animations, just standard DOM ones)
-    <LazyMotion features={domAnimation}>
-      <Flex
-        w={"full"}
-        minH={"100dvh"}
-        flexDirection={"column"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        px={2}
+    <Flex
+      w={"full"}
+      minH={"100dvh"}
+      flexDirection={"column"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      px={2}
+    >
+      <MotionVStack
+        spacing={4}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        textAlign="center"
+        maxW="5xl"
       >
-        <MotionVStack
-          spacing={4}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          textAlign="center"
-          maxW="5xl"
-        >
-          <MotionImage
-            src={logoGYA}
-            alt="GYA Company - Vidriería Premium en La Molina | Logo"
-            w={{ base: "55%", sm: "50%", md: "40%", lg: "36%" }}
-            maxW="400px"
-            h={{ base: "55%", sm: "50%", md: "40%", lg: "30%" }}
-            loading="eager"
-            fetchpriority="high"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          />
+        <MotionImage
+          src={logoGYA}
+          alt="GYA Company - Vidriería Premium en La Molina | Logo"
+          w={{ base: "55%", sm: "50%", md: "40%", lg: "36%" }}
+          maxW="400px"
+          h={{ base: "55%", sm: "50%", md: "40%", lg: "30%" }}
+          loading="eager"
+          fetchpriority="high"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.3 }}
+        />
 
-          <Box mt={4}>
-            <Heading
-              as="h1"
-              fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
-              fontWeight="extrabold"
-              lineHeight="1.1"
-              color={textColor}
-            >
-              GLASS & ALUMINUM <br />
-              COMPANY S.A.C.
-            </Heading>
+        <Box mt={4}>
+          <Heading
+            as="h1"
+            fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
+            fontWeight="extrabold"
+            lineHeight="1.1"
+            color={textColor}
+          >
+            GLASS & ALUMINUM <br />
+            COMPANY S.A.C.
+          </Heading>
 
-            <Heading
-              as="h2"
-              fontSize={{ base: "xl", sm: "2xl", md: "4xl" }}
-              fontWeight="bold"
-              letterSpacing="widest"
-              color={accentColor}
-              textTransform={"uppercase"}
-              mb={2}
-            >
-              Vidriería Premium en La Molina
-            </Heading>
+          <Heading
+            as="h2"
+            fontSize={{ base: "xl", sm: "2xl", md: "4xl" }}
+            fontWeight="bold"
+            letterSpacing="widest"
+            color={accentColor}
+            textTransform={"uppercase"}
+            mb={2}
+          >
+            Vidriería Premium en La Molina
+          </Heading>
 
-            <Text
-              fontSize={{ base: "lg", md: "2xl" }}
-              mt={6}
-              color={subTextColor}
-              fontWeight="medium"
-              maxW="3xl"
-              mx="auto"
-            >
-              Especialistas en mamparas de vidrio templado, ventanas de aluminio
-              y estructuras de vidrio. Instalación profesional con garantía.
-            </Text>
-          </Box>
-        </MotionVStack>
-      </Flex>
-    </LazyMotion>
+          <Text
+            fontSize={{ base: "lg", md: "2xl" }}
+            mt={6}
+            color={subTextColor}
+            fontWeight="medium"
+            maxW="3xl"
+            mx="auto"
+          >
+            Especialistas en mamparas de vidrio templado, ventanas de aluminio
+            y estructuras de vidrio. Instalación profesional con garantía.
+          </Text>
+        </Box>
+      </MotionVStack>
+    </Flex>
   );
 });
 

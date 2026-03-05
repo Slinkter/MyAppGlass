@@ -8,19 +8,18 @@ export const useMapProjects = () => {
     const fetchProjectsAndSetPositions = async () => {
       try {
         const data = await getProjects();
-        const projectsWithPositions = data
-          .map((project) => {
-            if (project.lat != null && project.lng != null) {
-              return {
-                ...project,
-                type: "project",
-                client: project.name,
-                position: { lat: project.lat, lng: project.lng },
-              };
-            }
-            return null;
-          })
-          .filter((p) => p !== null);
+        // Optimized: Combine map and filter into a single pass (js-combine-iterations)
+        const projectsWithPositions = data.reduce((acc, project) => {
+          if (project.lat != null && project.lng != null) {
+            acc.push({
+              ...project,
+              type: "project",
+              client: project.name,
+              position: { lat: project.lat, lng: project.lng },
+            });
+          }
+          return acc;
+        }, []);
 
         setProjects(projectsWithPositions);
       } catch (error) {

@@ -21,7 +21,6 @@ const DesktopNav = () => {
           <RouterLink
             key={navItem.label}
             to={navItem.href ?? "#"}
-            style={{ textDecoration: "none" }}
             aria-current={isActive ? "page" : undefined} // Add aria-current
           >
             <Box
@@ -30,8 +29,10 @@ const DesktopNav = () => {
               fontWeight={600}
               color={linkColor}
               transition="color 0.3s ease"
+              textDecoration="none"
               _hover={{
                 color: linkHoverColor,
+                textDecoration: "none",
               }}
             >
               {navItem.label}

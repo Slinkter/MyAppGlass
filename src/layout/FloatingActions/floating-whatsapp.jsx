@@ -16,6 +16,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { FaWhatsapp } from "react-icons/fa";
+import { m } from "framer-motion";
 import { companyData } from "@/config/company-data";
 
 /**
@@ -41,6 +42,9 @@ const FloatingWhatsApp = () => {
         display={{ base: "none", md: "flex" }}
       >
         <Button
+          as={m.button}
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          whileTap={{ scale: 0.9 }}
           bg="#25D366" // WhatsApp green
           color="white"
           _hover={{ bg: "#1DAE54" }}
@@ -49,9 +53,10 @@ const FloatingWhatsApp = () => {
           rounded="full"
           w={16}
           h={16}
-          boxShadow="lg"
+          boxShadow="2xl"
           onClick={onOpen}
           aria-label="Abrir chat de WhatsApp"
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
           <Icon as={FaWhatsapp} w={8} h={8} />
         </Button>

@@ -14,7 +14,7 @@ import {
   BuildingOffice2Icon,
 } from "@heroicons/react/24/outline";
 import { FaWhatsapp } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { companyData } from "@/config/company-data";
 
 /**
@@ -73,7 +73,7 @@ const BottomNav = () => {
       zIndex="sticky"
     >
       <Flex
-        as={motion.nav}
+        as={m.nav}
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -99,11 +99,12 @@ const BottomNav = () => {
               to={!item.isExternal ? item.path : undefined}
               href={item.isExternal ? item.path : undefined}
               isExternal={item.isExternal}
-              style={{ textDecoration: "none" }}
               flex={1} // Ocupa espacio igualitario
               w={0} // Fuerza a flex-grow a trabajar desde 0
               display="flex"
               justifyContent="center"
+              textDecoration="none"
+              _hover={{ textDecoration: "none" }}
             >
               <Flex
                 direction="column"

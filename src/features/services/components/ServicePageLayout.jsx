@@ -5,7 +5,6 @@
  */
 
 import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
 import {
   Box,
   Grid,
@@ -16,21 +15,23 @@ import Gallery from "@shared/components/common/Gallery";
 import GlassCard from "@shared/components/common/GlassCard";
 import ServiceSidebar from "./ServiceSidebar";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
+import HelmetWrapper from "@shared/components/HelmetWrapper";
 
 const ServicePageLayout = ({ pageData }) => {
   const { seo, systems, features, imageLists } = pageData;
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Derived state (Vercel Best Practice: rerender-derived-state)
   const activeImageList = imageLists[activeIndex] || [];
   const activeSystem = systems[activeIndex];
 
   return (
     <>
-      <Helmet>
-        <title>{seo.title}</title>
-        <meta name="description" content={seo.description} />
-      </Helmet>
+      <HelmetWrapper
+        title={seo.title}
+        description={seo.description}
+      />
 
       <Box p={{ base: 0, md: 4, lg: 2 }} w="100%" overflowX="hidden">
         <Grid
