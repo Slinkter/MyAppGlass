@@ -5,52 +5,61 @@ import {
   useColorModeValue,
   LinkBox,
   LinkOverlay,
-  Button,
   Text,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import FadingImage from "@shared/components/common/FadingImage";
 
+import { m } from "framer-motion";
+
 /**
  * @component ServiceCard
  * @description Tarjeta de servicio con imagen full-body y botón flotante centrado.
- * Diseño minimalista sin flechas, enfocado en la imagen y el título claro.
+ * Diseño minimalista con alta fidelidad, estandarizado con ProjectCard.
  */
 const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
-  // Estilos del Botón Flotante
-  const buttonBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.9)",
-    "rgba(20, 20, 20, 0.8)",
+  // Advanced High-Fidelity Color Palette
+  const glassBg = useColorModeValue(
+    "rgba(255, 255, 255, 0.75)",
+    "rgba(15, 15, 15, 0.70)",
   );
-  const buttonHoverBg = useColorModeValue("white", "black");
+  const glassBorder = useColorModeValue(
+    "rgba(255, 255, 255, 0.5)",
+    "rgba(255, 255, 255, 0.08)",
+  );
   const textColor = useColorModeValue("primary.800", "primary.200");
+  const cardShadow = useColorModeValue(
+    "0 10px 30px -10px rgba(0,0,0,0.1)",
+    "0 20px 40px -20px rgba(0,0,0,0.5)",
+  );
 
   return (
     <LinkBox
-      as="article"
+      as={m.article}
       position="relative"
-      h={{ base: "300px", md: "480px" }}
-      borderRadius="2xl"
+      h={{ base: "320px", md: "520px" }}
+      w="full"
+      borderRadius="3xl"
       overflow="hidden"
       role="group"
-      boxShadow="lg"
-      transition="all 0.3s ease"
-      _hover={{
-        boxShadow: "2xl",
-        transform: "translateY(-4px)",
-      }}
+      boxShadow={cardShadow}
+      initial="initial"
+      whileHover="hover"
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      {/* 1. Imagen de Fondo Full */}
+      {/* 1. High-Fidelity Background Image with Smooth Scale */}
       <Box
+        as={m.div}
         position="absolute"
         top="0"
         left="0"
         w="100%"
         h="100%"
-        transition="transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-        _groupHover={{
-          transform: "scale(1.05)",
+        variants={{
+          initial: { scale: 1 },
+          hover: { scale: 1.08 },
         }}
+        transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
       >
         <FadingImage
           src={image}
@@ -61,44 +70,49 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
           showOverlay={false}
           forceShow={preloaded}
         />
-        {/* Overlay degradado inferior para asegurar contraste del botón si la imagen es clara */}
+        {/* Dynamic Gradient Overlay */}
         <Box
+          as={m.div}
           position="absolute"
-          bottom="0"
-          left="0"
-          w="100%"
-          h="30%"
-          bgGradient="linear(to-t, blackAlpha.400, transparent)"
+          inset="0"
+          bgGradient="linear(to-t, blackAlpha.800, transparent, transparent)"
+          variants={{
+            initial: { opacity: 0.4 },
+            hover: { opacity: 0.6 },
+          }}
         />
       </Box>
 
-      {/* 2. Botón Flotante Centrado con Texto */}
+      {/* 2. Floating High-Fidelity Pill Button */}
       <Box
         position="absolute"
-        bottom={6}
-        left={4}
-        right={4}
+        bottom={8}
+        left={6}
+        right={6}
         zIndex={2}
         display="flex"
         justifyContent="center"
       >
-        <Button
+        <Box
+          as={m.div}
           w="full"
-          maxW="200px" // Ancho máximo para que no se vea exagerado en desktop
-          h="auto"
-          py={3}
-          bg={buttonBg}
-          backdropFilter="blur(8px)"
-          justifyContent="center"
-          alignItems="center"
-          borderRadius="full" // Botón píldora para estética más moderna
-          boxShadow="lg"
-          _groupHover={{
-            bg: buttonHoverBg,
-            transform: "translateY(-2px)",
-            boxShadow: "xl",
+          maxW="240px"
+          bg={glassBg}
+          backdropFilter="blur(16px)"
+          border="1px solid"
+          borderColor={glassBorder}
+          borderRadius="full"
+          py={4}
+          px={6}
+          variants={{
+            initial: { y: 0, opacity: 0.9, scale: 1 },
+            hover: { y: -8, opacity: 1, scale: 1.05 },
           }}
-          transition="all 0.3s ease"
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          boxShadow="2xl"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
           <LinkOverlay
             as={RouterLink}
@@ -110,17 +124,17 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
           >
             <Text
               color={textColor}
-              fontWeight="bold"
+              fontWeight="800"
               fontSize="sm"
               textTransform="uppercase"
-              letterSpacing="widest" // Espaciado elegante
+              letterSpacing="0.2em"
               noOfLines={1}
               textAlign="center"
             >
               {name}
             </Text>
           </LinkOverlay>
-        </Button>
+        </Box>
       </Box>
     </LinkBox>
   );

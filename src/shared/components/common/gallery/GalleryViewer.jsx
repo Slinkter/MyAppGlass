@@ -8,22 +8,13 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import FadingImage from "../FadingImage";
 
 /**
  * @component GalleryViewer
  * @description Visor principal de la galería de imágenes.
  * Muestra la imagen seleccionada en grande con controles de navegación (flechas, dots, contador).
- *
- * @param {Object} props - Propiedades del componente.
- * @param {Object} props.currentImage - Objeto de la imagen actual a mostrar.
- * @param {number} props.imageCount - Total de imágenes en la galería.
- * @param {number} props.selectedIndex - Índice actual.
- * @param {function} props.setSelectedIndex - Función para cambiar el índice manualmente (dots).
- * @param {function} props.handlePrevious - Función para ir a la imagen anterior.
- * @param {function} props.handleNext - Función para ir a la imagen siguiente.
- * @returns {JSX.Element} Visor de imagen principal.
  */
 const GalleryViewer = ({
   currentImage,
@@ -32,7 +23,7 @@ const GalleryViewer = ({
   setSelectedIndex,
   handlePrevious,
   handleNext,
-  isPriority, // Add new prop
+  isPriority = false, // Use JS default parameters
 }) => {
   const dotActiveColor = useColorModeValue("primary.500", "primary.300");
   const bgOverlay = useColorModeValue("blackAlpha.50", "blackAlpha.200");
@@ -50,13 +41,15 @@ const GalleryViewer = ({
     >
       {/* Contenedor Animado para Imágenes */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <Box
+          as={m.div}
           key={currentImage.id}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          style={{ width: "100%", height: "100%" }}
+          w="100%"
+          h="100%"
         >
           <FadingImage
             src={currentImage.image}
@@ -69,7 +62,7 @@ const GalleryViewer = ({
             fetchpriority={isPriority ? "high" : "auto"}
             rounded="none"
           />
-        </motion.div>
+        </Box>
       </AnimatePresence>
 
       {/* Gradiente sutil inferior para mejorar legibilidad de controles */}
@@ -188,11 +181,6 @@ GalleryViewer.propTypes = {
   handlePrevious: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   isPriority: PropTypes.bool, // Add prop type
-};
-
-// Add default prop
-GalleryViewer.defaultProps = {
-  isPriority: false,
 };
 
 export default GalleryViewer;

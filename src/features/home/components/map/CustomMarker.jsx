@@ -141,8 +141,8 @@ const CustomMarker = ({
           <PopoverArrow bg={popoverBg} />
           <PopoverCloseButton size="sm" top={2} right={2} zIndex={2} />
 
-          {/* Header Image or Gradient */}
-          <Box h="6px" w="100%" bgGradient={"null"} />
+          {/* Top accent bar */}
+          <Box h="4px" w="100%" bg={isStore ? "blue.500" : "red.500"} />
 
           <PopoverBody p={4}>
             <VStack align="center" spacing={2}>

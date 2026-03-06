@@ -8,10 +8,17 @@ import {
   Icon,
   useColorModeValue,
   VStack,
+  Divider,
 } from "@chakra-ui/react";
+import { m } from "framer-motion";
 import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
 import FadingImage from "@shared/components/common/FadingImage";
 
+/**
+ * @component ProjectCardContent
+ * @description High-fidelity visual representation of a project card.
+ * Features advanced glassmorphism, dynamic overlays, and fluid spring interactions.
+ */
 const ProjectCardContent = ({
   image = "",
   residencial,
@@ -20,139 +27,186 @@ const ProjectCardContent = ({
   onOpenModal,
   forceShow,
 }) => {
-  // Colores y Estilos
-  const pillBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.95)",
-    "rgba(20, 20, 20, 0.90)",
+  // Advanced High-Fidelity Color Palette
+  const glassBg = useColorModeValue(
+    "rgba(255, 255, 255, 0.75)",
+    "rgba(15, 15, 15, 0.70)",
   );
-  const pillHoverBg = useColorModeValue("white", "black");
-  const headingColor = useColorModeValue("primary.800", "primary.200");
-  const textColor = useColorModeValue("gray.600", "gray.300");
-  const iconColor = useColorModeValue("primary.500", "primary.400");
-  const dateColor = useColorModeValue("gray.500", "gray.400");
+  const glassBorder = useColorModeValue(
+    "rgba(255, 255, 255, 0.5)",
+    "rgba(255, 255, 255, 0.08)",
+  );
+  const headingColor = useColorModeValue("gray.800", "white");
+  const textColor = useColorModeValue("gray.600", "gray.400");
+  const iconColor = useColorModeValue("primary.500", "primary.300");
+  const cardShadow = useColorModeValue(
+    "0 10px 30px -10px rgba(0,0,0,0.1)",
+    "0 20px 40px -20px rgba(0,0,0,0.5)",
+  );
 
   return (
     <Box
-      as="article"
+      as={m.article}
+      whileHover="hover"
+      initial="initial"
       onClick={onOpenModal}
       cursor="pointer"
       position="relative"
-      h={{ base: "380px", md: "480px" }}
+      h={{ base: "400px", md: "520px" }}
       w="full"
-      borderRadius="2xl"
+      borderRadius="3xl"
       overflow="hidden"
-      role="group"
-      boxShadow="lg"
-      transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-      _hover={{
-        boxShadow: "2xl",
-        transform: "translateY(-4px)",
-      }}
+      bg="gray.900"
+      boxShadow={cardShadow}
+      transition={{ type: "spring", stiffness: 400, damping: 30 }}
     >
-      {/* 1. Imagen Full (Hero) */}
+      {/* 0. Border Beam Effect (Hover only) */}
       <Box
+        as={m.div}
+        position="absolute"
+        inset="0"
+        zIndex={5}
+        pointerEvents="none"
+        variants={{
+          initial: { opacity: 0 },
+          hover: { opacity: 1 },
+        }}
+      >
+        <Box
+          as={m.div}
+          position="absolute"
+          inset="-2px"
+          borderRadius="3xl"
+          style={{
+            padding: "2px",
+            background: "conic-gradient(from 0deg, transparent 60%, var(--chakra-colors-primary-400) 80%, transparent 100%)",
+            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+            WebkitMaskComposite: "destination-out",
+            maskComposite: "exclude",
+          }}
+          animate={{
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      </Box>
+
+      {/* 1. High-Fidelity Background Image with Smooth Scale */}
+      <Box
+        as={m.div}
         position="absolute"
         top="0"
         left="0"
         w="100%"
         h="100%"
-        transition="transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-        _groupHover={{
-          transform: "scale(1.05)",
+        variants={{
+          initial: { scale: 1 },
+          hover: { scale: 1.1 },
         }}
+        transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
       >
         <FadingImage
           src={image}
-          alt={`Proyecto de vidriería en ${residencial} - ${address} | GYA Company`}
+          alt={`Proyecto de vidriería en ${residencial} - ${address}`}
           objectFit="cover"
           w="100%"
           h="100%"
           showOverlay={false}
           forceShow={forceShow}
         />
+        {/* Dynamic Gradient Overlay */}
         <Box
+          as={m.div}
           position="absolute"
-          bottom="0"
-          left="0"
-          w="100%"
-          h="40%"
-          bgGradient="linear(to-t, blackAlpha.500, transparent)"
-          opacity={0.6}
+          inset="0"
+          bgGradient="linear(to-t, blackAlpha.900, transparent, transparent)"
+          variants={{
+            initial: { opacity: 0.7 },
+            hover: { opacity: 0.9 },
+          }}
         />
       </Box>
 
-      {/* 2. Píldora de Información Flotante */}
+      {/* 2. Floating High-Fidelity Info Pill */}
       <Box
         position="absolute"
-        bottom={4} // Un poco más pegado al borde inferior
-        left={4}
-        right={4}
+        bottom={6}
+        left={6}
+        right={6}
         zIndex={2}
       >
         <VStack
-          bg={pillBg}
-          backdropFilter="blur(10px)"
-          py={3} // Padding vertical más compacto
-          px={4} // Padding horizontal estándar
-          borderRadius="xl"
-          spacing={2} // Espaciado entre filas reducido para cohesión
+          as={m.div}
+          bg={glassBg}
+          backdropFilter="blur(20px)"
+          border="1px solid"
+          borderColor={glassBorder}
+          py={5}
+          px={6}
+          borderRadius="2xl"
+          spacing={3}
           align="stretch"
-          boxShadow="md"
-          transition="all 0.3s ease"
-          _groupHover={{
-            bg: pillHoverBg,
-            transform: "translateY(-2px)",
-            boxShadow: "lg",
+          variants={{
+            initial: { y: 0, opacity: 0.9 },
+            hover: { 
+              y: -12, 
+              opacity: 1,
+              boxShadow: "0 20px 40px -10px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.1)"
+            },
           }}
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          boxShadow="2xl"
         >
-          {/* Fila 1: Nombre (Centrado) */}
+          {/* Main Title - Refined Typography */}
           <Heading
-            size="xs" // Tamaño más controlado
+            fontSize="sm"
             color={headingColor}
             textTransform="uppercase"
-            fontWeight="bold"
-            letterSpacing="wider"
+            fontWeight="800"
+            letterSpacing="0.15em"
             noOfLines={1}
             textAlign="center"
           >
             {residencial}
           </Heading>
 
-          {/* Fila 2: Ubicación (Izq) y Fecha (Der) */}
-          <HStack justify="space-around" w="full" pt={0.5}>
-            {/* Ubicación */}
-            <HStack spacing={1.5} maxW="65%">
+          <Divider borderColor={glassBorder} opacity={0.5} />
+
+          {/* Details Row */}
+          <HStack justify="space-between" w="full">
+            <HStack spacing={2} flex={1}>
               <Icon
                 as={MapPinIcon}
-                w={3.5}
-                h={3.5}
+                w={4}
+                h={4}
                 color={iconColor}
-                flexShrink={0}
               />
               <Text
                 fontSize="xs"
                 color={textColor}
-                fontWeight="semibold"
+                fontWeight="700"
                 noOfLines={1}
+                letterSpacing="tight"
               >
                 {address}
               </Text>
             </HStack>
 
-            {/* Fecha */}
-            <HStack spacing={1.5}>
+            <HStack spacing={1.5} bg={useColorModeValue("whiteAlpha.500", "whiteAlpha.100")} px={2} py={1} borderRadius="lg">
               <Icon
                 as={CalendarDaysIcon}
                 w={3.5}
                 h={3.5}
-                color={dateColor}
-                flexShrink={0}
+                color={textColor}
               />
               <Text
                 fontSize="xs"
-                color={dateColor}
-                fontWeight="medium"
-                whiteSpace="nowrap"
+                color={textColor}
+                fontWeight="800"
               >
                 {year}
               </Text>

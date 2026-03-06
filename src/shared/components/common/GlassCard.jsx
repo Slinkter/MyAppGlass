@@ -32,21 +32,55 @@ import { Box, useColorModeValue } from "@chakra-ui/react";
  */
 const GlassCard = ({ children, ...props }) => {
   const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.1)",
-    "rgba(0, 0, 0, 0.1)",
+    "rgba(255, 255, 255, 0.35)",
+    "rgba(15, 15, 15, 0.55)",
   );
+  const borderColor = useColorModeValue("whiteAlpha.600", "whiteAlpha.300");
+  const reflectionColor = useColorModeValue("whiteAlpha.500", "whiteAlpha.100");
 
   return (
     <Box
+      position="relative"
       bg={bgColor}
-      backdropFilter="blur(10px)"
+      backdropFilter="blur(20px) saturate(180%)"
       borderRadius="2xl"
-      boxShadow="sm"
-      transition="all 0.3s ease"
-      border="none"
+      border="1px solid"
+      borderColor={borderColor}
+      boxShadow="2xl"
+      overflow="hidden"
+      transition="all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
+      // Gradient Border Reflection
+      _before={{
+        content: '""',
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        pointerEvents: "none",
+        zIndex: 0,
+        borderRadius: "inherit",
+        padding: "1px",
+        background: `linear-gradient(135deg, ${reflectionColor}, transparent 50%, transparent)`,
+        mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+        maskComposite: "exclude",
+        WebkitMaskComposite: "destination-out",
+      }}
+      // Internal Grain Texture
+      _after={{
+        content: '""',
+        position: "absolute",
+        inset: 0,
+        opacity: 0.04,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
       {...props}
     >
-      {children}
+      <Box position="relative" zIndex={1}>
+        {children}
+      </Box>
     </Box>
   );
 };

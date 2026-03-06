@@ -5,13 +5,20 @@
  */
 
 import { extendTheme } from "@chakra-ui/react";
-import "@fontsource/open-sans";
-import "@fontsource/lora";
+import "@fontsource/open-sans/400.css";
+import "@fontsource/open-sans/500.css";
+import "@fontsource/open-sans/600.css";
+import "@fontsource/open-sans/700.css";
+import "@fontsource/open-sans/800.css";
+import "@fontsource/lora/400.css";
+import "@fontsource/lora/500.css";
+import "@fontsource/lora/600.css";
+import "@fontsource/lora/700.css";
 
 const theme = extendTheme({
   fonts: {
     heading: `"Lora", serif`,
-    body: `"Lora", serif`,
+    body: `"Open Sans", sans-serif`,
   },
   fontSizes: {
     xs: "0.75rem",
@@ -32,15 +39,14 @@ const theme = extendTheme({
       200: "#ef9a9a",
       300: "#e57373",
       400: "#ef5350",
-      500: "#f44336", // This is a standard red, similar to the existing red.500
+      500: "#f44336",
       600: "#e53935",
       700: "#d32f2f",
       800: "#c62828",
       900: "#b71c1c",
-      accent: "#ff5757", // Moved from brand.accent
+      accent: "#ff5757",
     },
     text: {
-      // Semantic color for text
       secondary: "#6c757d",
     },
     franja: {
@@ -51,16 +57,11 @@ const theme = extendTheme({
     },
   },
   radii: {
-    // Custom border radii tokens
-    card: "lg", // 8px
-    button: "md", // 4px
-    input: "md", // 4px
-    modal: "2xl", // 16px
-    avatar: "full", // 100% (circular)
-  },
-  space: {
-    // Custom spacing tokens if needed, but Chakra's default is usually sufficient
-    // Example: 'sectionPadding': '4rem',
+    card: "2xl",
+    button: "xl",
+    input: "xl",
+    modal: "3xl",
+    avatar: "full",
   },
   config: {
     initialColorMode: "dark",
@@ -69,25 +70,43 @@ const theme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        bg: props.colorMode === "dark" ? "gray.900" : "white",
+        bg: props.colorMode === "dark" ? "gray.950" : "white",
         color: props.colorMode === "dark" ? "gray.100" : "gray.800",
+        lineHeight: "tall",
+      },
+      "h1, h2, h3, h4": {
+        letterSpacing: "0.05em",
+        fontWeight: "700",
       },
     }),
   },
   components: {
+    Heading: {
+      baseStyle: {
+        fontFamily: "Lora, serif",
+        fontWeight: "700",
+      },
+    },
+    Button: {
+      baseStyle: {
+        fontWeight: "bold",
+        textTransform: "uppercase",
+        letterSpacing: "wider",
+      },
+    },
     Card: {
       variants: {
         glass: (props) => ({
-          // Styles from Navbar
           bg:
             props.colorMode === "dark"
-              ? "rgba(0, 0, 0, 0.1)"
-              : "rgba(255, 255, 255, 0.1)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
-          border: "none",
-          borderRadius: "2xl", // Matches Navbar's borderRadius
-          boxShadow: "sm", // Matches Navbar's boxShadow
+              ? "rgba(10, 10, 10, 0.15)"
+              : "rgba(255, 255, 255, 0.15)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          border: "1px solid",
+          borderColor: props.colorMode === "dark" ? "whiteAlpha.100" : "blackAlpha.100",
+          borderRadius: "3xl",
+          boxShadow: "2xl",
           transition: "all 0.3s ease",
         }),
       },

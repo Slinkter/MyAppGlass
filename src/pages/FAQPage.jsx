@@ -21,7 +21,9 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import { m } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
+import GlassCard from "@shared/components/common/GlassCard";
 
 /**
  * @component FAQPage
@@ -30,11 +32,10 @@ import HelmetWrapper from "@shared/components/HelmetWrapper";
  */
 const FAQPage = () => {
   const bgColor = useColorModeValue("gray.50", "gray.900");
-  const cardBg = useColorModeValue("white", "gray.800");
   const headingColor = useColorModeValue("primary.600", "primary.300");
   const textColor = useColorModeValue("gray.700", "gray.300");
-  const accordionExpandedBg = useColorModeValue("primary.50", "primary.900");
-  const accordionHoverBg = useColorModeValue("gray.50", "gray.700");
+  const accordionExpandedBg = useColorModeValue("primary.50", "whiteAlpha.100");
+  const accordionHoverBg = useColorModeValue("gray.50", "whiteAlpha.50");
   const contactBg = useColorModeValue("primary.50", "primary.900");
 
   // Datos de FAQ estructurados
@@ -106,74 +107,104 @@ const FAQPage = () => {
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </HelmetWrapper>
 
-      <Box bg={bgColor} minH="100vh" py={12}>
-        <Container maxW="container.lg">
-          <VStack spacing={8} align="stretch">
+      <Box bg={bgColor} minH="100vh" py={20} position="relative" overflow="hidden">
+        {/* Background Decorative Element */}
+        <Box
+          position="absolute"
+          top="-10%"
+          right="-10%"
+          w="600px"
+          h="600px"
+          bg="radial-gradient(circle, var(--chakra-colors-primary-500) 0%, transparent 70%)"
+          filter="blur(150px)"
+          opacity={0.05}
+          pointerEvents="none"
+        />
+
+        <Container maxW="container.md">
+          <VStack spacing={12} align="stretch">
             {/* Header */}
             <Box textAlign="center">
               <Heading
                 as="h1"
-                size="2xl"
+                fontSize={{ base: "3xl", md: "5xl" }}
                 color={headingColor}
-                mb={4}
-                fontWeight="extrabold"
+                mb={6}
+                fontWeight="900"
+                letterSpacing="0.2em"
               >
                 Preguntas Frecuentes
               </Heading>
-              <Text fontSize="lg" color={textColor} maxW="2xl" mx="auto">
-                Respuestas a las preguntas más comunes sobre nuestros servicios
-                de vidriería y aluminio en La Molina
+              <Text fontSize="lg" color={textColor} maxW="2xl" mx="auto" fontWeight="500" opacity={0.8}>
+                Respuestas técnicas y comerciales sobre nuestros servicios
+                premium en La Molina.
               </Text>
             </Box>
 
-            {/* FAQ Accordion */}
-            <Box bg={cardBg} borderRadius="xl" boxShadow="lg" p={6}>
-              <Accordion allowToggle>
-                {faqs.map((faq) => (
-                  <AccordionItem key={faq.question} border="none" mb={4}>
-                    <h3>
-                      <AccordionButton
-                        _expanded={{
-                          bg: accordionExpandedBg,
-                          color: headingColor,
-                        }}
-                        borderRadius="lg"
-                        py={4}
-                        px={6}
-                        _hover={{
-                          bg: accordionHoverBg,
-                        }}
-                      >
-                        <Box flex="1" textAlign="left" fontWeight="semibold">
-                          {faq.question}
-                        </Box>
-                        <AccordionIcon />
-                      </AccordionButton>
-                    </h3>
-                    <AccordionPanel pb={4} pt={4} px={6} color={textColor}>
-                      {faq.answer}
-                    </AccordionPanel>
-                  </AccordionItem>
+            {/* FAQ Accordion with Glass Artifacts */}
+            <Accordion allowToggle>
+              <VStack spacing={6} align="stretch">
+                {faqs.map((faq, index) => (
+                  <m.div
+                    key={faq.question}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      delay: index * 0.05, 
+                      type: "spring", 
+                      stiffness: 400, 
+                      damping: 30 
+                    }}
+                  >
+                    <GlassCard boxShadow="xl" _hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}>
+                      <AccordionItem border="none">
+                        <h3>
+                          <AccordionButton
+                            _expanded={{
+                              bg: accordionExpandedBg,
+                              color: headingColor,
+                            }}
+                            borderRadius="xl"
+                            py={5}
+                            px={8}
+                            _hover={{
+                              bg: accordionHoverBg,
+                            }}
+                            transition="all 0.3s ease"
+                          >
+                            <Box flex="1" textAlign="left" fontWeight="700" letterSpacing="0.05em">
+                              {faq.question}
+                            </Box>
+                            <AccordionIcon />
+                          </AccordionButton>
+                        </h3>
+                        <AccordionPanel pb={6} pt={4} px={8} color={textColor} lineHeight="1.8" fontWeight="500">
+                          {faq.answer}
+                        </AccordionPanel>
+                      </AccordionItem>
+                    </GlassCard>
+                  </m.div>
                 ))}
-              </Accordion>
-            </Box>
+              </VStack>
+            </Accordion>
 
             {/* Additional Info */}
-            <Box bg={contactBg} borderRadius="xl" p={6} textAlign="center">
-              <Heading as="h2" size="md" color={headingColor} mb={3}>
+            <GlassCard p={8} textAlign="center" bg={contactBg}>
+              <Heading as="h2" size="md" color={headingColor} mb={4} letterSpacing="0.1em">
                 ¿Tienes más preguntas?
               </Heading>
-              <Text color={textColor}>
-                Contáctanos al{" "}
-                <Text as="span" fontWeight="bold">
+              <Text color={textColor} fontWeight="500">
+                Atención personalizada al{" "}
+                <Text as="span" fontWeight="800" color={headingColor}>
                   +51 996-537-435
                 </Text>{" "}
-                o envíanos un correo a{" "}
-                <Text as="span" fontWeight="bold">
+                o vía{" "}
+                <Text as="span" fontWeight="800" color={headingColor}>
                   acueva@gyacompany.com
                 </Text>
               </Text>
-            </Box>
+            </GlassCard>
           </VStack>
         </Container>
       </Box>

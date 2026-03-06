@@ -26,11 +26,11 @@ const BottomNav = () => {
   const location = useLocation();
 
   // Configuración de Colores
-  const containerBg = useColorModeValue("white", "rgba(20, 20, 20, 0.9)");
-  const containerBorder = useColorModeValue("gray.100", "gray.800");
+  const containerBg = useColorModeValue("rgba(255, 255, 255, 0.7)", "rgba(15, 15, 15, 0.8)");
+  const containerBorder = useColorModeValue("whiteAlpha.600", "whiteAlpha.200");
   const activeIconBg = useColorModeValue("black", "white");
   const activeIconColor = useColorModeValue("white", "black");
-  const inactiveColor = useColorModeValue("gray.400", "gray.500");
+  const inactiveColor = useColorModeValue("gray.500", "gray.400");
   const activeTextColor = useColorModeValue("black", "white");
 
   // Items de Navegación
@@ -64,26 +64,27 @@ const BottomNav = () => {
   return (
     <Box
       position="fixed"
-      bottom={6}
+      bottom={8}
       left={0}
       right={0}
       display={{ base: "flex", md: "none" }}
       justifyContent="center"
-      px={4}
+      px={6}
       zIndex="sticky"
     >
       <Flex
         as={m.nav}
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ type: "spring", stiffness: 400, damping: 30 }}
         align="center"
-        justify="space-between" // Mantiene espaciado uniforme
+        justify="space-between"
         bg={containerBg}
-        px={2} // Reducido para maximizar espacio interno
+        backdropFilter="blur(20px) saturate(180%)"
+        px={3}
         py={3}
-        borderRadius="35px"
-        shadow="xl"
+        borderRadius="full"
+        shadow="2xl"
         w="full"
         maxW="md"
         border="1px solid"
@@ -99,47 +100,49 @@ const BottomNav = () => {
               to={!item.isExternal ? item.path : undefined}
               href={item.isExternal ? item.path : undefined}
               isExternal={item.isExternal}
-              flex={1} // Ocupa espacio igualitario
-              w={0} // Fuerza a flex-grow a trabajar desde 0
+              flex={1}
               display="flex"
               justifyContent="center"
               textDecoration="none"
               _hover={{ textDecoration: "none" }}
             >
               <Flex
+                as={m.div}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 direction="column"
                 align="center"
-                gap={1}
+                gap={1.5}
                 role="group"
                 cursor="pointer"
                 w="full"
               >
-                {/* Icon Container */}
+                {/* Icon Container with High-Contrast Active Indicator */}
                 <Flex
                   align="center"
                   justify="center"
                   p={2}
-                  borderRadius="xl"
+                  borderRadius="full"
                   bg={isActive ? activeIconBg : "transparent"}
                   color={isActive ? activeIconColor : inactiveColor}
-                  transition="all 0.3s ease"
-                  _groupHover={{
-                    color: !isActive && "gray.600",
-                  }}
-                  w="40px" // Ancho fijo para el contenedor del icono
-                  h="40px" // Alto fijo para asegurar círculo/cuadrado perfecto
+                  transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                  boxShadow={isActive ? "0 8px 20px -5px rgba(0,0,0,0.4)" : "none"}
+                  w="44px"
+                  h="44px"
                 >
-                  <Icon as={item.icon} w={5} h={5} strokeWidth={2.5} />
+                  <Icon as={item.icon} w={5} h={5} strokeWidth={isActive ? 2.5 : 2} />
                 </Flex>
 
                 {/* Text Label */}
                 <Text
-                  fontSize="10px"
-                  fontWeight={isActive ? "bold" : "medium"}
+                  fontSize="11px"
+                  fontWeight={isActive ? "800" : "600"}
                   color={isActive ? activeTextColor : inactiveColor}
-                  transition="color 0.3s ease"
+                  transition="all 0.3s ease"
                   textAlign="center"
                   noOfLines={1}
+                  letterSpacing="0.05em"
+                  opacity={isActive ? 1 : 0.7}
                 >
                   {item.label}
                 </Text>
