@@ -52,55 +52,25 @@ const LandingPageSection = React.memo(() => {
       px={2}
       position="relative"
       overflow="hidden"
+      // Replace expensive animated blurs with a static, highly optimized CSS background
+      sx={{
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `
+            radial-gradient(circle at 15% 50%, var(--chakra-colors-primary-900) 0%, transparent 25%),
+            radial-gradient(circle at 85% 30%, rgba(20, 50, 100, 0.4) 0%, transparent 25%)
+          `,
+          opacity: 0.15,
+          pointerEvents: "none",
+          zIndex: 0,
+        }
+      }}
     >
-      {/* Mesh Gradient Background */}
-      <Box position="absolute" inset={0} zIndex={0} pointerEvents="none">
-        <m.div
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          style={{
-            position: "absolute",
-            top: "-10%",
-            left: "-10%",
-            width: "70%",
-            height: "70%",
-            background: "radial-gradient(circle, var(--chakra-colors-primary-500) 0%, transparent 70%)",
-            filter: "blur(120px)",
-            opacity: 0.1,
-          }}
-        />
-        <m.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            x: [0, -100, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          style={{
-            position: "absolute",
-            bottom: "-10%",
-            right: "-10%",
-            width: "70%",
-            height: "70%",
-            background: "radial-gradient(circle, var(--chakra-colors-blue-500) 0%, transparent 70%)",
-            filter: "blur(120px)",
-            opacity: 0.1,
-          }}
-        />
-      </Box>
-
       <MotionVStack
         spacing={8}
         initial={{ opacity: 0, y: 30 }}

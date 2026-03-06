@@ -48,6 +48,6 @@ import { features, iconMap } from "@/data/features";
  * }
  * loadFeatures();
  */
-export const getFeatures = () => {
-  return { features, iconMap };
+export const getFeatures = async () => {
+  return Promise.resolve({ features, iconMap });
 };

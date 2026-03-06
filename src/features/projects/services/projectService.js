@@ -28,9 +28,10 @@ import { projects } from "../data/projects";
 
 /**
  * Returns the list of all projects and their associated data.
+ * Simulates an API call.
  *
- * @returns {Project[]} Array of project objects.
+ * @returns {Promise<Project[]>} Promise resolving to an array of project objects.
  */
-export const getProjects = () => {
-  return projects;
+export const getProjects = async () => {
+  return Promise.resolve(projects);
 };

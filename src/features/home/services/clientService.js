@@ -16,10 +16,11 @@ import { clients } from "@/data/clients";
  */
 
 /**
- * Obtiene la lista de clientes de forma síncrona desde data/clients.
+ * Obtiene la lista de clientes.
+ * Simula una llamada a una API o una operación asíncrona.
  *
- * @returns {Client[]} Array de objetos de cliente.
+ * @returns {Promise<Client[]>} Una promesa que se resuelve con un array de objetos de cliente.
  */
-export const getClients = () => {
-  return clients;
+export const getClients = async () => {
+  return Promise.resolve(clients);
 };

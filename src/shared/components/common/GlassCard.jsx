@@ -42,14 +42,14 @@ const GlassCard = ({ children, ...props }) => {
     <Box
       position="relative"
       bg={bgColor}
-      backdropFilter="blur(20px) saturate(180%)"
+      backdropFilter="blur(16px)"
       borderRadius="2xl"
       border="1px solid"
       borderColor={borderColor}
       boxShadow="2xl"
       overflow="hidden"
-      transition="all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
-      // Gradient Border Reflection
+      transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+      // Gradient Border Reflection (Kept for aesthetic, performance cost is low)
       _before={{
         content: '""',
         position: "absolute",
@@ -65,16 +65,6 @@ const GlassCard = ({ children, ...props }) => {
         mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
         maskComposite: "exclude",
         WebkitMaskComposite: "destination-out",
-      }}
-      // Internal Grain Texture
-      _after={{
-        content: '""',
-        position: "absolute",
-        inset: 0,
-        opacity: 0.04,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        pointerEvents: "none",
-        zIndex: 0,
       }}
       {...props}
     >

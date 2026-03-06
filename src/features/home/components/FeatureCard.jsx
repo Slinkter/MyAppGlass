@@ -66,7 +66,6 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
         hover: { y: -8, scale: 1.02, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2)" },
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      style={{ willChange: "transform, opacity" }}
     >
       <Box textAlign="center">
         <Flex

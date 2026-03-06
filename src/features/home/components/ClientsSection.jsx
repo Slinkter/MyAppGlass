@@ -8,34 +8,46 @@ import React from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { getClients } from "../services/clientService";
 import ClientCard from "./ClientCard";
+import { useAsyncData } from "@/shared/hooks/data/useAsyncData";
+import { Spinner, Center } from "@chakra-ui/react";
+import DataLoader from "@/shared/components/DataLoader/DataLoader";
 
 /**
  * @component ClientsSection
  * @description Sección de "Clientes" en la página principal.
  * Muestra una cuadrícula de categorías de clientes atendidos por la empresa.
- * Optimizado para carga inmediata (síncrona).
  *
  * @returns {JSX.Element} Sección completa de clientes.
  */
 const ClientsSection = React.memo(() => {
-  const clients = getClients();
+  const { data: clients, isLoading, error } = useAsyncData(getClients, []);
 
   return (
-    <ItemGridLayout
-      title="CLIENTES"
-      subtitle="Estamos comprometidos con brindar soluciones en vidrio y aluminio"
-      containerProps={{ mt: 0, pt: 8 }}
+    <DataLoader
+      isLoading={isLoading}
+      error={error}
+      loadingComponent={
+        <Center py={12}>
+          <Spinner size="xl" color="primary.500" />
+        </Center>
+      }
     >
-      {(clients || []).map((client) => (
-        <ItemGridLayout.Item key={client.id}>
-          <ClientCard
-            image={client.imgClient}
-            nameClient={client.nameClient}
-            descClient={client.descClient}
-          />
-        </ItemGridLayout.Item>
-      ))}
-    </ItemGridLayout>
+      <ItemGridLayout
+        title="CLIENTES"
+        subtitle="Estamos comprometidos con brindar soluciones en vidrio y aluminio"
+        containerProps={{ mt: 0, pt: 8 }}
+      >
+        {(clients || []).map((client) => (
+          <ItemGridLayout.Item key={client.id}>
+            <ClientCard
+              image={client.imgClient}
+              nameClient={client.nameClient}
+              descClient={client.descClient}
+            />
+          </ItemGridLayout.Item>
+        ))}
+      </ItemGridLayout>
+    </DataLoader>
   );
 });
 

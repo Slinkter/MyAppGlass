@@ -59,42 +59,26 @@ const ProjectCardContent = ({
       bg="gray.900"
       boxShadow={cardShadow}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
+      // Highly optimized static hover glow instead of expensive infinite rotation
+      _hover={{
+        "&::after": {
+          opacity: 1,
+        }
+      }}
+      sx={{
+        "&::after": {
+          content: '""',
+          position: "absolute",
+          inset: 0,
+          borderRadius: "3xl",
+          boxShadow: "inset 0 0 0 1px var(--chakra-colors-primary-500)",
+          opacity: 0,
+          transition: "opacity 0.3s ease",
+          pointerEvents: "none",
+          zIndex: 5,
+        }
+      }}
     >
-      {/* 0. Border Beam Effect (Hover only) */}
-      <Box
-        as={m.div}
-        position="absolute"
-        inset="0"
-        zIndex={5}
-        pointerEvents="none"
-        variants={{
-          initial: { opacity: 0 },
-          hover: { opacity: 1 },
-        }}
-      >
-        <Box
-          as={m.div}
-          position="absolute"
-          inset="-2px"
-          borderRadius="3xl"
-          style={{
-            padding: "2px",
-            background: "conic-gradient(from 0deg, transparent 60%, var(--chakra-colors-primary-400) 80%, transparent 100%)",
-            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-            WebkitMaskComposite: "destination-out",
-            maskComposite: "exclude",
-          }}
-          animate={{
-            rotate: [0, 360],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      </Box>
-
       {/* 1. High-Fidelity Background Image with Smooth Scale */}
       <Box
         as={m.div}
