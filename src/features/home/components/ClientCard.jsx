@@ -12,6 +12,8 @@ import {
   Text,
   Image,
   useColorModeValue,
+  Fade,
+  SlideFade,
 } from "@chakra-ui/react";
 
 /**
@@ -25,6 +27,7 @@ import {
  * @returns {JSX.Element}
  */
 const ClientCard = React.memo(({ image, nameClient, descClient }) => {
+  const [isLoaded, setIsLoaded] = React.useState(false);
   const styles = {
     bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
     border: useColorModeValue(
@@ -61,31 +64,36 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
       }}
     >
       <Box w="full">
-        <Image
-          w="full"
-          h={{ base: "260px", md: "280px" }}
-          src={image}
-          alt={`Imagen de ${nameClient}`}
-          borderRadius="lg"
-          objectFit="cover"
-          boxShadow="base"
-        />
+        <Fade in={isLoaded}>
+          <Image
+            w="full"
+            h={{ base: "260px", md: "280px" }}
+            src={image}
+            alt={`Imagen de ${nameClient}`}
+            borderRadius="lg"
+            objectFit="cover"
+            boxShadow="base"
+            onLoad={() => setIsLoaded(true)}
+          />
+        </Fade>
       </Box>
 
-      <Stack
-        spacing={2}
-        pt={{ base: 4, md: 6 }}
-        px={{ base: 4, md: 6 }}
-        textAlign="center"
-      >
-        <Heading size={{ base: "md", md: "lg" }} textTransform="uppercase">
-          {nameClient}
-        </Heading>
+      <SlideFade in={isLoaded} offsetY="20px">
+        <Stack
+          spacing={2}
+          pt={{ base: 4, md: 6 }}
+          px={{ base: 4, md: 6 }}
+          textAlign="center"
+        >
+          <Heading size={{ base: "md", md: "lg" }} textTransform="uppercase">
+            {nameClient}
+          </Heading>
 
-        <Text fontSize={{ base: "sm", md: "md" }} color={styles.secondaryText}>
-          {descClient}
-        </Text>
-      </Stack>
+          <Text fontSize={{ base: "sm", md: "md" }} color={styles.secondaryText}>
+            {descClient}
+          </Text>
+        </Stack>
+      </SlideFade>
     </Box>
   );
 });

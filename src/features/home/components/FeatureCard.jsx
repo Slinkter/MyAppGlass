@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, useColorModeValue, ScaleFade } from "@chakra-ui/react";
 
 /**
  * @component FeatureCard
@@ -61,21 +61,23 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
       }}
     >
       <Box w="full">
-        <Flex
-          w={{ base: 14, md: 20 }}
-          h={{ base: 14, md: 20 }}
-          mx="auto"
-          mb={4}
-          align="center"
-          justify="center"
-          rounded="full"
-          bg={styles.iconBg}
-          transition="background 0.3s ease"
-          color={styles.iconColor}
-          _groupHover={{ bg: styles.iconBgHover }}
-        >
-          {icon}
-        </Flex>
+        <ScaleFade in={true} initialScale={0.8} delay={0.2}>
+          <Flex
+            w={{ base: 14, md: 20 }}
+            h={{ base: 14, md: 20 }}
+            mx="auto"
+            mb={4}
+            align="center"
+            justify="center"
+            rounded="full"
+            bg={styles.iconBg}
+            transition="background 0.3s ease"
+            color={styles.iconColor}
+            _groupHover={{ bg: styles.iconBgHover }}
+          >
+            {icon}
+          </Flex>
+        </ScaleFade>
         <Heading size="md" mb={2} textTransform="uppercase">
           {heading}
         </Heading>

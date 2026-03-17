@@ -8,6 +8,9 @@ import {
   Button,
   Text,
   Image,
+  Fade,
+  SlideFade,
+  ScaleFade,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -19,7 +22,8 @@ import { Link as RouterLink } from "react-router-dom";
 const ServiceCard = React.memo((props) => {
   /*  */
 
-  const { image, name, plink, preloaded } = props;
+  const { image, name, plink } = props;
+  const [isLoaded, setIsLoaded] = React.useState(false);
 
   const styles = {
     buttonBg: useColorModeValue(
@@ -35,70 +39,77 @@ const ServiceCard = React.memo((props) => {
       as="article"
       position="relative"
       h={{ base: "280px", md: "420px" }}
-      borderRadius="xl"
+      borderRadius="2xl"
       overflow="hidden"
       role="group"
       boxShadow="lg"
-      transition="all 0.3s ease"
+      transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
       _hover={{
         boxShadow: "2xl",
-        transform: "translateY(-4px)",
+        transform: "translateY(-6px)",
       }}
     >
       {/* 1. Imagen de Fondo Full */}
       <Box
         position="absolute"
-        top="0"
-        left="0"
-        w="100%"
-        h="100%"
-        transition="transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-        _groupHover={{
-          transform: "scale(1.05)",
-        }}
+        inset="0"
+        transition="transform 0.8s ease-in-out"
+        _groupHover={{ transform: "scale(1.1)" }}
       >
-        <Image
-          src={image}
-          alt={`Servicio de ${name}`}
-          objectFit="cover"
-          w="100%"
-          h="100%"
-          // Optimizaciones nativas: carga directa para imágenes locales
-          loading={props.loading || "lazy"}
-          decoding="async"
-          fallbackStrategy="beforeLoadOrError"
-          transition="opacity 0.4s ease-in"
+        <Fade in={isLoaded} style={{ height: "100%" }}>
+          <Image
+            src={image}
+            alt={name}
+            objectFit="cover"
+            w="100%"
+            h="100%"
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setIsLoaded(true)}
+          />
+        </Fade>
+
+        {/* Gradiente sutil para profundidad */}
+        <Box
+          position="absolute"
+          inset="0"
+          bgGradient="linear(to-t, blackAlpha.800, transparent)"
+          opacity={0.6}
+          transition="opacity 0.3s ease"
+          _groupHover={{ opacity: 0.8 }}
         />
       </Box>
 
-      {/* 2. Botón Flotante Centrado con Texto */}
+      {/* 2. Botón Flotante Centrado con Texto Animado */}
       <Box
         position="absolute"
-        bottom={6}
+        bottom={4}
         left={4}
         right={4}
         zIndex={2}
         display="flex"
         justifyContent="center"
       >
-        <Button
-          w="full"
-          maxW="200px" // Ancho máximo para que no se vea exagerado en desktop
-          h="auto"
-          py={3}
-          bg={styles.buttonBg}
-          backdropFilter="blur(8px)"
-          justifyContent="center"
-          alignItems="center"
-          borderRadius="full" // Botón píldora para estética más moderna
-          boxShadow="lg"
-          _groupHover={{
-            bg: styles.buttonHoverBg,
-            transform: "translateY(-2px)",
-            boxShadow: "xl",
-          }}
-          transition="all 0.3s ease"
-        >
+        <SlideFade in={isLoaded} offsetY="20px">
+          <Button
+            w="full"
+            maxW="240px"
+            h="auto"
+            py={{ base: 3, md: 4 }}
+            px={8}
+            bg={styles.buttonBg}
+            backdropFilter="blur(12px)"
+            justifyContent="center"
+            alignItems="center"
+            borderRadius="xl"
+            boxShadow="md"
+            _groupHover={{
+              bg: styles.buttonHoverBg,
+              transform: "translateY(-4px)",
+              boxShadow: "xl",
+            }}
+            transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+          >
           <LinkOverlay
             as={RouterLink}
             to={plink}
@@ -120,7 +131,8 @@ const ServiceCard = React.memo((props) => {
             </Text>
           </LinkOverlay>
         </Button>
-      </Box>
+      </SlideFade>
+    </Box>
     </LinkBox>
   );
 });
