@@ -22,11 +22,7 @@ const ServicePageContainer = () => {
     return <ErrorDisplay message={error} />;
   }
 
-  return (
-    <Suspense fallback={<ServiceSkeleton />}>
-      <ServicePageLayout pageData={pageData} />
-    </Suspense>
-  );
+  return <ServicePageLayout pageData={pageData} />;
 };
 
 export default ServicePageContainer;

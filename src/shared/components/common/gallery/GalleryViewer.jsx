@@ -32,7 +32,7 @@ const GalleryViewer = ({
   setSelectedIndex,
   handlePrevious,
   handleNext,
-  isPriority, // Add new prop
+  isPriority = false,
 }) => {
   const dotActiveColor = useColorModeValue("primary.500", "primary.300");
   const bgOverlay = useColorModeValue("blackAlpha.50", "blackAlpha.200");
@@ -194,11 +194,6 @@ GalleryViewer.propTypes = {
   handlePrevious: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   isPriority: PropTypes.bool, // Add prop type
-};
-
-// Add default prop
-GalleryViewer.defaultProps = {
-  isPriority: false,
 };
 
 export default GalleryViewer;
