@@ -18,8 +18,9 @@ import {
   VStack,
   Text,
   Icon,
+  usePrefersReducedMotion,
+  Link,
 } from "@chakra-ui/react";
-import { Link } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { FaMapLocationDot } from "react-icons/fa6";
 
@@ -34,6 +35,8 @@ const InteractiveMap = lazy(() => import("./InteractiveMap"));
  * @returns {JSX.Element}
  */
 const StoreSection = React.memo(() => {
+  // eslint-disable-next-line no-unused-vars
+  const prefersReducedMotion = usePrefersReducedMotion();
   return (
     <ItemGridLayout
       title="UBICACION"
@@ -94,16 +97,20 @@ const StoreSection = React.memo(() => {
                   <Text fontSize="md">Av. Los Fresnos 1250</Text>
                   <Text fontSize="md">La Molina, Lima</Text>
                 </VStack>
-                <Link href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36" isExternal w="full">
-                  <Button
-                    leftIcon={<Icon as={FaMapLocationDot} />}
-                    colorScheme="primary"
-                    width="full"
-                    size={{ base: "lg", md: "md" }}
-                  >
-                    Abrir en Google Maps
-                  </Button>
-                </Link>
+                <Button
+                  as={Link}
+                  href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
+                  isExternal
+                  leftIcon={<Icon as={FaMapLocationDot} />}
+                  colorScheme="primary"
+                  width="full"
+                  size={{ base: "lg", md: "md" }}
+                  _focus={{ boxShadow: "0 0 0 3px var(--chakra-colors-primary-500)" }}
+                  _active={{ transform: "scale(0.98)" }}
+                  aria-label="Abrir ubicación en Google Maps"
+                >
+                  Abrir en Google Maps
+                </Button>
               </VStack>
             </GridItem>
           </Grid>
