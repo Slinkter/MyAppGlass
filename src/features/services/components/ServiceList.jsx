@@ -27,12 +27,15 @@ const ServiceList = React.memo(() => {
       seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina."
       seoCanonicalUrl="https://www.gyacompany.com/servicios"
       containerProps={{ pb: 12 }}
+      columns={{ base: 2, md: 2, lg: 3 }}
     >
       {preparedServices.map((service, index) => (
         <ItemGridLayout.Item key={service.id}>
           <ServiceCard
-            {...service}
-            // LCP Optimization: Load first 2 images eagerly
+            image={service.image}
+            name={service.name}
+            description={service.description}
+            plink={service.plink}
             loading={index < 2 ? "eager" : "lazy"}
             fetchPriority={index < 2 ? "high" : "auto"}
           />
