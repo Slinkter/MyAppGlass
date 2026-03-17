@@ -62,50 +62,52 @@ const StoreSection = React.memo(() => {
         justifyContent: "center",
       }}
     >
-      <Box maxW={"7xl"} mt={4} mb={12} px={{ base: 0, md: 8 }}>
-        <Flex
-          alignItems="center"
-          justifyContent="center"
-          minHeight={{ base: "auto", md: "auto" }}
-          flexDir="column"
-          textAlign={"center"}
-        >
-          {/* Mapa interactivo con marcadores */}
-          <Suspense
-            fallback={
-              <Flex
-                align="center"
-                justify="center"
-                h={{ base: "400px", md: "600px" }}
-                w="full"
-                bg={useColorModeValue("gray.100", "gray.800")}
-                rounded="2xl"
-              >
-                <Spinner size="xl" color="primary.500" thickness="4px" />
-              </Flex>
-            }
+      <ItemGridLayout.Item>
+        <Box maxW={"7xl"} mt={4} mb={12}>
+          <Flex
+            alignItems="center"
+            justifyContent="center"
+            minHeight={{ base: "auto", md: "auto" }}
+            flexDir="column"
+            textAlign={"center"}
           >
-            <InteractiveMap />
-          </Suspense>
-
-          {/* Botón para abrir en Google Maps */}
-          <Link href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36" isExternal>
-            <Button
-              mt={{ base: 8, md: 5 }}
-              leftIcon={<Icon as={FaMapLocationDot} />}
-              bg={buttonBg}
-              color={textColor}
-              _hover={{ bg: buttonHoverBg }}
-              _active={{ bg: buttonActiveBg }}
-              type="submit"
-              colorScheme="primary"
-              width={{ base: "full", md: "lg" }}
+            {/* Mapa interactivo con marcadores */}
+            <Suspense
+              fallback={
+                <Flex
+                  align="center"
+                  justify="center"
+                  h={{ base: "400px", md: "600px" }}
+                  w="full"
+                  bg={useColorModeValue("gray.100", "gray.800")}
+                  rounded="2xl"
+                >
+                  <Spinner size="xl" color="primary.500" thickness="4px" />
+                </Flex>
+              }
             >
-              Ir a Tienda
-            </Button>
-          </Link>
-        </Flex>
-      </Box>
+              <InteractiveMap />
+            </Suspense>
+
+            {/* Botón para abrir en Google Maps */}
+            <Link href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36" isExternal>
+              <Button
+                mt={{ base: 8, md: 5 }}
+                leftIcon={<Icon as={FaMapLocationDot} />}
+                bg={buttonBg}
+                color={textColor}
+                _hover={{ bg: buttonHoverBg }}
+                _active={{ bg: buttonActiveBg }}
+                type="submit"
+                colorScheme="primary"
+                width={{ base: "full", md: "lg" }}
+              >
+                Ir a Tienda
+              </Button>
+            </Link>
+          </Flex>
+        </Box>
+      </ItemGridLayout.Item>
     </ItemGridLayout>
   );
 });

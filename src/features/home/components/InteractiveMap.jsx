@@ -52,12 +52,12 @@ function InteractiveMapComponent() {
   return (
     <Box
       position="relative"
-      w={{ base: "100vw", md: "full" }}
-      mx={{ base: "calc(50% - 50vw)", md: 0 }}
-      h={{ base: "450px", md: "650px" }}
-      rounded={{ base: "none", md: "2xl" }}
+      w="100%"
+      mx="auto"
+      h={{ base: "400px", md: "600px" }}
+      rounded={{ base: "xl", md: "2xl" }}
       overflow="hidden"
-      boxShadow={{ base: "none", md: "2xl" }}
+      boxShadow="lg"
       border={{ base: "none", md: "1px solid" }}
       borderColor={borderColor}
       padding={2}
