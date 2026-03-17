@@ -110,29 +110,29 @@ const ServiceCard = React.memo((props) => {
             }}
             transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
           >
-          <LinkOverlay
-            as={RouterLink}
-            to={plink}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            w="full"
-          >
-            <Text
-              color={styles.textColor}
-              fontWeight="bold"
-              fontSize={{ base: "xs", md: "sm" }}
-              textTransform="uppercase"
-              letterSpacing="widest"
-              noOfLines={1}
-              textAlign="center"
+            <LinkOverlay
+              as={RouterLink}
+              to={plink}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              w="full"
             >
-              {name}
-            </Text>
-          </LinkOverlay>
-        </Button>
-      </SlideFade>
-    </Box>
+              <Text
+                color={styles.textColor}
+                fontWeight="bold"
+                fontSize={{ base: "xs", md: "sm" }}
+                textTransform="uppercase"
+                letterSpacing="widest"
+                noOfLines={1}
+                textAlign="center"
+              >
+                {name}
+              </Text>
+            </LinkOverlay>
+          </Button>
+        </SlideFade>
+      </Box>
     </LinkBox>
   );
 });
