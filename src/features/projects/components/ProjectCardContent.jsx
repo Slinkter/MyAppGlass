@@ -16,16 +16,14 @@ import {
   Image,
   LinkBox,
   LinkOverlay,
+  Fade,
+  SlideFade,
 } from "@chakra-ui/react";
 import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
 
-const ProjectCardContent = ({
-  image = "",
-  residencial,
-  address,
-  year,
-  onOpenModal,
-}) => {
+const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModal }) => {
+  const [isLoaded, setIsLoaded] = React.useState(false);
+
   const styles = {
     pillBg: useColorModeValue(
       "rgba(255, 255, 255, 0.95)",
@@ -68,16 +66,19 @@ const ProjectCardContent = ({
         transition="transform 0.8s ease-out"
         _groupHover={{ transform: "scale(1.1)" }}
       >
-        <Image
-          src={image}
-          alt={`Obra ${residencial}`}
-          objectFit="cover"
-          w="100%"
-          h="100%"
-          loading="lazy"
-          decoding="async"
-          transition="opacity 0.4s ease-in"
-        />
+        <Fade in={isLoaded} style={{ height: "100%" }}>
+          <Image
+            src={image}
+            alt={`Obra ${residencial}`}
+            objectFit="cover"
+            w="100%"
+            h="100%"
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setIsLoaded(true)}
+            transition="opacity 0.4s ease-in"
+          />
+        </Fade>
         <Box
           position="absolute"
           inset="0"
@@ -90,82 +91,89 @@ const ProjectCardContent = ({
 
       {/* 2. Información Flotante */}
       <Box position="absolute" bottom={4} left={4} right={4} zIndex={2}>
-        <VStack
-          bg={styles.pillBg}
-          backdropFilter="blur(12px)"
-          py={{ base: 3, md: 4 }}
-          px={4}
-          borderRadius="xl"
-          spacing={1}
-          align="center"
-          boxShadow="md"
-          transition="all 0.3s ease"
-          _groupHover={{
-            bg: styles.pillHoverBg,
-            transform: "translateY(-2px)",
-            boxShadow: "lg",
-          }}
-        >
-          <LinkOverlay
-            as="button"
-            onClick={(e) => {
-              e.preventDefault();
-              onOpenModal();
+        <SlideFade in={isLoaded} offsetY="20px">
+          <VStack
+            bg={styles.pillBg}
+            backdropFilter="blur(12px)"
+            py={{ base: 3, md: 4 }}
+            px={4}
+            borderRadius="xl"
+            spacing={1}
+            align="center"
+            boxShadow="md"
+            transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+            _groupHover={{
+              bg: styles.pillHoverBg,
+              transform: "translateY(-4px)",
+              boxShadow: "xl",
             }}
-            w="full"
           >
-            <Heading
-              size="xs"
-              color={styles.headingColor}
-              textTransform="uppercase"
-              fontWeight="bold"
-              letterSpacing="wider"
-              noOfLines={1}
-              textAlign="center"
-              mb={1}
+            <LinkOverlay
+              as="button"
+              onClick={(e) => {
+                e.preventDefault();
+                onOpenModal();
+              }}
+              w="full"
             >
-              {residencial}
-            </Heading>
-          </LinkOverlay>
-
-          <HStack justify="center" w="full" spacing={4} pt={0.5}>
-            <HStack spacing={1} maxW={{ base: "100%", md: "65%" }} justify="center">
-              <Icon
-                as={MapPinIcon}
-                w={3.5}
-                h={3.5}
-                color={styles.iconColor}
-                flexShrink={0}
-              />
-              <Text
-                fontSize="xs"
-                color={styles.textColor}
-                fontWeight="semibold"
+              <Heading
+                size="xs"
+                color={styles.headingColor}
+                textTransform="uppercase"
+                fontWeight="bold"
+                letterSpacing="wider"
                 noOfLines={1}
+                textAlign="center"
+                mb={1}
               >
-                {address}
-              </Text>
-            </HStack>
+                {residencial}
+              </Heading>
+            </LinkOverlay>
 
-            <HStack spacing={1.5} display={{ base: "none", md: "flex" }}>
-              <Icon
-                as={CalendarDaysIcon}
-                w={3.5}
-                h={3.5}
-                color={styles.dateColor}
-                flexShrink={0}
-              />
-              <Text
-                fontSize="xs"
-                color={styles.dateColor}
-                fontWeight="medium"
-                whiteSpace="nowrap"
+            <HStack justify="center" w="full" spacing={4} pt={0.5}>
+              <HStack
+                spacing={1}
+                maxW={{ base: "100%", md: "65%" }}
+                justify="center"
               >
-                {year}
-              </Text>
+                <Icon
+                  as={MapPinIcon}
+                  w={3.5}
+                  h={3.5}
+                  color={styles.iconColor}
+                  flexShrink={0}
+                />
+                <Text
+                  fontSize="xs"
+                  color={styles.textColor}
+                  fontWeight="semibold"
+                  noOfLines={1}
+                  lineHeight="shorter"
+                >
+                  {address}
+                </Text>
+              </HStack>
+
+              <HStack spacing={1.5} display={{ base: "none", md: "flex" }}>
+                <Icon
+                  as={CalendarDaysIcon}
+                  w={3.5}
+                  h={3.5}
+                  color={styles.dateColor}
+                  flexShrink={0}
+                />
+                <Text
+                  fontSize="xs"
+                  color={styles.dateColor}
+                  fontWeight="medium"
+                  whiteSpace="nowrap"
+                >
+                  {year}
+                </Text>
+              </HStack>
             </HStack>
-          </HStack>
-        </VStack>
+          </VStack>
+        </SlideFade>
       </Box>
     </LinkBox>
   );
