@@ -49,7 +49,6 @@ const ProjectCard = React.memo((props) => {
         address={address}
         year={year}
         onOpenModal={onOpen}
-        forceShow={preloaded}
       />
 
       {isOpen && (
