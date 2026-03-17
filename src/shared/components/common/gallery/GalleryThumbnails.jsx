@@ -50,19 +50,52 @@ GalleryThumbnailItem.displayName = "GalleryThumbnailItem";
 
 const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
   const activeBorderColor = useColorModeValue("primary.500", "primary.300");
+  const scrollbarThumb = useColorModeValue("rgba(0,0,0,0.1)", "rgba(255,255,255,0.2)");
+  const containerRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const activeItem = containerRef.current?.children[selectedIndex];
+    if (activeItem) {
+      activeItem.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [selectedIndex]);
 
   return (
     <Flex
+      ref={containerRef}
       direction={{ base: "row", md: "column" }}
-      gap={{ base: 2, md: 2 }}
-      w={{ base: "100%", md: "100px", lg: "100px" }}
-      h={{ base: "60px", sm: "70px", md: "100%" }}
-      minW={0}
-      maxW="100%"
-      scrollBehavior="smooth"
+      gap={3}
+      w="100%"
+      h="100%"
+      px={{ base: 2, md: 1 }}
+      py={{ base: 1, md: 2 }}
       overflowX={{ base: "auto", md: "hidden" }}
-      overflowY={{ base: "hidden", md: "scroll" }}
-      flexShrink={0} // Added to strictly enforce height
+      overflowY={{ base: "hidden", md: "auto" }}
+      css={{
+        "&::-webkit-scrollbar": {
+          width: "5px",
+          height: "5px",
+        },
+        "&::-webkit-scrollbar-track": {
+          background: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: scrollbarThumb,
+          borderRadius: "10px",
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+          background: useColorModeValue("rgba(0,0,0,0.2)", "rgba(255,255,255,0.3)"),
+        },
+        scrollbarWidth: "thin",
+        scrollbarColor: `${scrollbarThumb} transparent`,
+      }}
+      sx={{
+        "-ms-overflow-style": "none",
+      }}
     >
       {images.map((img, index) => (
         <GalleryThumbnailItem

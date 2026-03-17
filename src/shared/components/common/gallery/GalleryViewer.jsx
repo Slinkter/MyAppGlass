@@ -48,15 +48,21 @@ const GalleryViewer = ({
       bg={bgOverlay}
       role="group"
     >
-      {/* Contenedor Animado para Imágenes */}
-      <AnimatePresence mode="wait">
+      {/* Contenedor Animado para Imágenes (Overlapping for faster feel) */}
+      <AnimatePresence>
         <motion.div
           key={currentImage.id}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          style={{ width: "100%", height: "100%" }}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          style={{ 
+            width: "100%", 
+            height: "100%", 
+            position: "absolute",
+            top: 0,
+            left: 0
+           }}
         >
           <FadingImage
             src={currentImage.image}

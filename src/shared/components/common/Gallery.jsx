@@ -1,4 +1,4 @@
-import { Flex, Box } from "@chakra-ui/react";
+import { Flex, Box, useColorModeValue } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
@@ -58,13 +58,16 @@ const Gallery = React.memo(({ images }) => {
           />
         </Box>
 
-        {/* 2. Miniaturas */}
+        {/* 2. Miniaturas (Derecha en desktop, abajo en mobile) */}
         <Box
-          w={{ base: "100%", md: "110px" }}
-          h={{ base: "80px", md: "100%" }}
-          order={{ base: 2, md: isMobile ? 2 : 1 }}
+          w={{ base: "100%", md: "120px", lg: "135px" }} // Added space for scrollbar and breathing room
+          h={{ base: "100px", md: "100%" }}
+          order={{ base: 2, md: 1 }}
           flexShrink={0}
           minH="0"
+          bg={useColorModeValue("blackAlpha.50", "whiteAlpha.50")}
+          borderRadius="2xl"
+          p={1}
         >
           <GalleryThumbnails
             images={images}

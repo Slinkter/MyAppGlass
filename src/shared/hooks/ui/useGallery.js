@@ -72,6 +72,22 @@ export const useGallery = (images) => {
     return images?.[safeIndex];
   }, [images, safeIndex]);
 
+  // Preloading images to improve navigation performance
+  useEffect(() => {
+    if (!images || images.length <= 1) return;
+
+    const preload = (index) => {
+      const img = new Image();
+      img.src = images[index].image;
+    };
+
+    const nextIndex = (safeIndex + 1) % images.length;
+    const prevIndex = (safeIndex - 1 + images.length) % images.length;
+
+    preload(nextIndex);
+    preload(prevIndex);
+  }, [images, safeIndex]);
+
   return {
     selectedIndex: safeIndex,
     setSelectedIndex: handleSelect,
