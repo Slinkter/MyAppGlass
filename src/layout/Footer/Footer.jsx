@@ -48,10 +48,17 @@ const FooterSection = ({ title, children }) => {
 const FooterLink = ({ to, icon, label, children }) => {
   const hoverColor = useColorModeValue("primary.600", "primary.300");
   return (
-    <Link to={to} style={{ textDecoration: "none" }}>
-      <HStack spacing={2} alignItems="center" _hover={{ color: hoverColor }}>
-        {icon && <Icon as={icon} />}
-        {children || <Text fontSize="md">{label}</Text>}
+    <Link to={to} style={{ textDecoration: "none", display: "inline-block" }}>
+      <HStack
+        spacing={3}
+        alignItems="center"
+        py={{ base: 3, md: 1 }}
+        px={{ base: 2, md: 0 }}
+        minH={{ base: "44px", md: "auto" }}
+        _hover={{ color: hoverColor }}
+      >
+        {icon && <Icon as={icon} boxSize={{ base: 6, md: 5 }} />}
+        {children || <Text fontSize={{ base: "lg", md: "md" }}>{label}</Text>}
       </HStack>
     </Link>
   );

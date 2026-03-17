@@ -101,6 +101,7 @@ const StoreSection = React.memo(() => {
                 type="submit"
                 colorScheme="primary"
                 width={{ base: "full", md: "lg" }}
+                size={{ base: "lg", md: "md" }}
               >
                 Ir a Tienda
               </Button>
