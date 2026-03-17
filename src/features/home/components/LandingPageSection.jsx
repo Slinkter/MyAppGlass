@@ -75,7 +75,7 @@ const LandingPageSection = React.memo(() => {
           <Box mt={4}>
             <Heading
               as="h2"
-              fontSize={{ base: "xl", sm: "2xl", md: "4xl" }}
+              fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
               fontWeight="bold"
               letterSpacing="widest"
               color={accentColor}
@@ -87,7 +87,7 @@ const LandingPageSection = React.memo(() => {
 
             <Heading
               as="h1"
-              fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
+              fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
               fontWeight="extrabold"
               lineHeight="1.1"
               color={textColor}
@@ -97,7 +97,7 @@ const LandingPageSection = React.memo(() => {
             </Heading>
 
             <Text
-              fontSize={{ base: "lg", md: "2xl" }}
+              fontSize={{ base: "md", md: "xl" }}
               mt={6}
               color={subTextColor}
               fontWeight="medium"

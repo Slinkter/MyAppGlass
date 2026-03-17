@@ -90,7 +90,7 @@ const ItemGridLayout = ({
             </Heading>
 
             <Text
-              fontSize={{ base: "xl", md: "2xl" }}
+              fontSize={{ base: "md", md: "lg" }}
               color={textColor}
               textAlign="center"
               textTransform="uppercase"
