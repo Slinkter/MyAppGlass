@@ -94,7 +94,7 @@ const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
         scrollbarColor: `${scrollbarThumb} transparent`,
       }}
       sx={{
-        "-ms-overflow-style": "none",
+        msOverflowStyle: "none",
       }}
     >
       {images.map((img, index) => (
