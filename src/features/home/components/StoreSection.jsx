@@ -56,7 +56,7 @@ const StoreSection = React.memo(() => {
       containerProps={{
         mt: 0,
         pt: 8,
-        minH: "100dvh",
+        pb: 8,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
