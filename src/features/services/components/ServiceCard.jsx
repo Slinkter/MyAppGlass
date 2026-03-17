@@ -29,7 +29,7 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
     <LinkBox
       as="article"
       position="relative"
-      h={{ base: "300px", md: "480px" }}
+      h={{ base: "240px", md: "420px" }}
       borderRadius="2xl"
       overflow="hidden"
       role="group"
@@ -111,9 +111,9 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
             <Text
               color={textColor}
               fontWeight="bold"
-              fontSize="sm"
+              fontSize={{ base: "xs", md: "sm" }}
               textTransform="uppercase"
-              letterSpacing="widest" // Espaciado elegante
+              letterSpacing="widest"
               noOfLines={1}
               textAlign="center"
             >
