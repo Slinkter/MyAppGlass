@@ -27,9 +27,11 @@ const DesktopNav = () => {
             <Box
               p={2}
               fontSize="md"
-              fontWeight={600}
-              color={linkColor}
-              transition="color 0.3s ease"
+              fontWeight={isActive ? "bold" : "600"}
+              color={isActive ? linkHoverColor : linkColor}
+              borderBottom={isActive ? "2px solid" : "none"}
+              borderColor={linkHoverColor}
+              transition="all 0.3s ease"
               _hover={{
                 color: linkHoverColor,
               }}

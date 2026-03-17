@@ -77,90 +77,97 @@ const Footer = () => {
   const copyrightColor = useColorModeValue("gray.600", "gray.400");
 
   return (
-    <>
-      <Box as="footer" my={8} px={{ base: 4, md: 0 }}>
-        <Box
-          bg={bgColor}
-          backdropFilter="blur(10px)"
-          boxShadow="md"
-          borderRadius="2xl"
-          transition="all 0.3s ease"
-          color={textColor}
-          maxW="7xl"
-          mx="auto"
-          pt={8}
-          pb={4}
+    <Box as="footer" my={{ base: 4, md: 8 }} px={{ base: 4, md: 0 }}>
+      <Box
+        bg={bgColor}
+        backdropFilter="blur(10px)"
+        boxShadow="md"
+        borderRadius="2xl"
+        color={textColor}
+        maxW="7xl"
+        mx="auto"
+        pt={8}
+        pb={6}
+      >
+        <Flex
+          justifyContent="space-around"
+          direction={{ base: "column", md: "row" }}
+          textAlign={{ base: "center", md: "left" }}
+          px={{ base: 4, md: 8 }}
+          gap={{ base: 2, md: 0 }}
         >
-          <Flex
-            justifyContent="space-around"
-            direction={{ base: "column", md: "row" }}
-            textAlign={{ base: "center", md: "left" }}
-          >
-            <FooterSection title="CONTACTO">
-              <HStack spacing={2} alignItems="center">
-                <Icon as={FaWhatsapp} />
-                <Text fontSize="md">974-278-303</Text>
-              </HStack>
-              <HStack spacing={2} alignItems="center">
-                <Icon as={FaWhatsapp} />
-                <Text fontSize="md">996-537-435</Text>
-              </HStack>
-            </FooterSection>
+          <FooterSection title="CONTACTO">
+            <HStack spacing={2} alignItems="center">
+              <Icon as={FaWhatsapp} />
+              <Text fontSize="md">974-278-303</Text>
+            </HStack>
+            <HStack spacing={2} alignItems="center">
+              <Icon as={FaWhatsapp} />
+              <Text fontSize="md">996-537-435</Text>
+            </HStack>
+          </FooterSection>
 
-            <FooterSection title="HORARIOS">
-              <HStack spacing={2} alignItems="center">
-                <Icon as={FaRegCalendar} />
-                <Text fontSize="md">Lunes a Sábado</Text>
-              </HStack>
-              <HStack spacing={2} alignItems="center">
-                <Icon as={FaRegClock} />
-                <Text fontSize="md">9:00 am - 5:00 pm</Text>
-              </HStack>
-            </FooterSection>
+          <FooterSection title="HORARIOS">
+            <HStack spacing={2} alignItems="center">
+              <Icon as={FaRegCalendar} />
+              <Text fontSize="md">Lunes a Sábado</Text>
+            </HStack>
+            <HStack spacing={2} alignItems="center">
+              <Icon as={FaRegClock} />
+              <Text fontSize="md">9:00 am - 5:00 pm</Text>
+            </HStack>
+          </FooterSection>
 
-            <FooterSection title="DIRECCIÓN">
-              <HStack spacing={2} alignItems="center" justifyContent="center">
-                <Icon as={FaRegMap} />
-                <Text fontSize="md">Av. Los Fresnos MZ. H LT. 1250</Text>
-              </HStack>
-              <HStack spacing={2} alignItems="center" justifyContent="center">
-                <Icon as={MdOutlineEmail} />
-                <Text fontSize="md">acueva@gyacompany.com</Text>
-              </HStack>
-            </FooterSection>
+          <FooterSection title="DIRECCIÓN">
+            <HStack spacing={2} alignItems="center" justifyContent="center">
+              <Icon as={FaRegMap} />
+              <Text fontSize="md">Av. Los Fresnos MZ. H LT. 1250</Text>
+            </HStack>
+            <HStack spacing={2} alignItems="center" justifyContent="center">
+              <Icon as={MdOutlineEmail} />
+              <Text fontSize="md">acueva@gyacompany.com</Text>
+            </HStack>
+          </FooterSection>
 
-            <FooterSection title="LINKS">
-              <FooterLink
-                to="/politicas-empresa"
-                icon={IoDocumentTextOutline}
-                label="Políticas de la Empresa"
+          <FooterSection title="LINKS">
+            <FooterLink
+              to="/politicas-empresa"
+              icon={IoDocumentTextOutline}
+              label="Políticas de la Empresa"
+            />
+            <FooterLink
+              to="/cuentas-bancarias"
+              icon={FaRegBuilding}
+              label="Cuentas Bancarias"
+            />
+            <FooterLink to="/libro-de-reclamacion">
+              <Image
+                src={LibroReclamacionesIcon}
+                alt="Libro de Reclamaciones"
+                h="30px"
+                w="auto"
+                loading="lazy"
+                decoding="async"
               />
-              <FooterLink
-                to="/cuentas-bancarias"
-                icon={FaRegBuilding} // Changed from FaLandmark
-                label="Cuentas Bancarias"
-              />
-              <FooterLink to="/libro-de-reclamacion">
-                <Image
-                  src={LibroReclamacionesIcon}
-                  alt="Libro de Reclamaciones"
-                  h="30px"
-                  w="auto"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <Text fontSize="md">Libro de Reclamaciones</Text>
-              </FooterLink>
-            </FooterSection>
-          </Flex>
-        </Box>
-      </Box>
-      <VStack color={copyrightColor}>
-        <Text mt={2} mb={6}>
-          Copyright ©2026
+              <Text fontSize="md">Libro de Reclamaciones</Text>
+            </FooterLink>
+          </FooterSection>
+        </Flex>
+
+        <Text
+          textAlign="center"
+          fontSize="sm"
+          color={copyrightColor}
+          mt={6}
+          pt={4}
+          borderTop="1px solid"
+          borderColor={useColorModeValue("gray.200", "gray.700")}
+          mx={{ base: 4, md: 8 }}
+        >
+          Copyright ©2026 Glass & Aluminum Company S.A.C. — Todos los derechos reservados.
         </Text>
-      </VStack>
-    </>
+      </Box>
+    </Box>
   );
 };
 

@@ -32,14 +32,14 @@ const ServicePageLayout = ({ pageData }) => {
         <meta name="description" content={seo.description} />
       </Helmet>
 
-      <Box p={{ base: 0, md: 4, lg: 2 }} w="100%" overflowX="hidden">
+      <Box p={{ base: 0, md: 4, lg: 2 }} w="100%" overflowX="hidden" pb={{ base: "80px", md: 0 }}>
         <Grid
           templateColumns={{ base: "minmax(0, 1fr)", lg: "1fr 3fr" }}
           maxW="100%"
           mx="auto"
           gap={{ base: 3, md: 5, lg: 6 }}
           alignItems="start"
-          px={{ base: 3, md: 0 }}
+          px={{ base: 3, md: 8 }}
           py={{ base: 3, md: 0 }}
         >
           {/* CARD 1: PANEL DE CONTROL */}

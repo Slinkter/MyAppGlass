@@ -11,7 +11,6 @@
 import { Suspense, lazy } from "react";
 import {
   Box,
-  useColorModeValue,
   useBreakpointValue,
   Link,
 } from "@chakra-ui/react";

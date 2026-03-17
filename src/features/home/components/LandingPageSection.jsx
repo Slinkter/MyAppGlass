@@ -9,6 +9,7 @@
 import React from "react";
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Image,
@@ -16,6 +17,7 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
@@ -107,6 +109,29 @@ const LandingPageSection = React.memo(() => {
               Empresa Comercial especializada en la instalación de cristales y
               aluminios.
             </Text>
+
+            <m.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              <Link to="/servicios">
+                <Button
+                  mt={8}
+                  size={{ base: "lg", md: "xl" }}
+                  colorScheme="primary"
+                  fontWeight="bold"
+                  px={{ base: 8, md: 12 }}
+                  py={{ base: 4, md: 6 }}
+                  borderRadius="full"
+                  boxShadow="lg"
+                  _hover={{ transform: "translateY(-2px)", boxShadow: "xl" }}
+                  transition="all 0.2s ease"
+                >
+                  Ver Nuestros Servicios →
+                </Button>
+              </Link>
+            </m.div>
           </Box>
         </MotionVStack>
       </Flex>
