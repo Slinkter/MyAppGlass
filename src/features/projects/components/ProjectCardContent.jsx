@@ -93,11 +93,11 @@ const ProjectCardContent = ({
         <VStack
           bg={styles.pillBg}
           backdropFilter="blur(12px)"
-          py={{ base: 2, md: 3 }}
+          py={{ base: 3, md: 4 }}
           px={4}
           borderRadius="xl"
-          spacing={{ base: 1, md: 2 }}
-          align="stretch"
+          spacing={1}
+          align="center"
           boxShadow="md"
           transition="all 0.3s ease"
           _groupHover={{
@@ -122,13 +122,14 @@ const ProjectCardContent = ({
               letterSpacing="wider"
               noOfLines={1}
               textAlign="center"
+              mb={1}
             >
               {residencial}
             </Heading>
           </LinkOverlay>
 
-          <HStack justify="space-around" w="full" pt={0.5}>
-            <HStack spacing={1.5} maxW={{ base: "100%", md: "65%" }}>
+          <HStack justify="center" w="full" spacing={4} pt={0.5}>
+            <HStack spacing={1} maxW={{ base: "100%", md: "65%" }} justify="center">
               <Icon
                 as={MapPinIcon}
                 w={3.5}
