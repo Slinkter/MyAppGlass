@@ -4,15 +4,18 @@
  * @module pages
  */
 
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Box } from "@chakra-ui/react";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
-import {
-  LandingPageSection,
-  ClientsSection,
-  FeaturesSection,
-  StoreSection,
-} from "@features/home";
+import LoadingFallback from "@shared/components/common/LoadingFallback";
+
+// Critical LCP Component (Eager load via direct import avoiding barrel files)
+import LandingPageSection from "@features/home/components/LandingPageSection";
+
+// Below the fold components (Lazy load + avoiding barrel files)
+const ClientsSection = lazy(() => import("@features/home/components/ClientsSection"));
+const FeaturesSection = lazy(() => import("@features/home/components/FeaturesSection"));
+const StoreSection = lazy(() => import("@features/home/components/StoreSection"));
 
 const HomeView = React.memo(() => {
   return (
@@ -24,9 +27,11 @@ const HomeView = React.memo(() => {
       ></HelmetWrapper>
       <Box>
         <LandingPageSection />
-        <ClientsSection />
-        <FeaturesSection />
-        <StoreSection />
+        <Suspense fallback={<LoadingFallback />}>
+          <ClientsSection />
+          <FeaturesSection />
+          <StoreSection />
+        </Suspense>
       </Box>
     </>
   );

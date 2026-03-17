@@ -43,9 +43,6 @@ const Layout = ({ children }) => {
       m={0}
       p={0}
     >
-      m={0}
-      p={0}
-    >
       {/* Skip Link */}
       <Link
         href="#main-content"
