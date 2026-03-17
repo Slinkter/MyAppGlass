@@ -36,8 +36,8 @@ import bg_desktop from "@/assets/common/mainland.jpg";
 const Layout = ({ children }) => {
   // Overlay para mejorar legibilidad y efecto glass
   const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.4)", // Modo claro: Capa blanca suave
-    "rgba(0, 0, 0, 0.6)", // Modo oscuro: Capa oscura
+    { base: "rgba(255, 255, 255, 0.85)", md: "rgba(255, 255, 255, 0.4)" }, // Sin blur pero más opaco en móvil
+    { base: "rgba(0, 0, 0, 0.85)", md: "rgba(0, 0, 0, 0.6)" }, // Capa oscura equivalente
   );
 
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
@@ -63,8 +63,8 @@ const Layout = ({ children }) => {
         bottom: 0,
         bg: bgColor,
         zIndex: 0,
-        backdropFilter: "blur(5px)",
-        WebkitBackdropFilter: "blur(5px)",
+        backdropFilter: { base: "none", md: "blur(5px)" },
+        WebkitBackdropFilter: { base: "none", md: "blur(5px)" },
       }}
       m={0}
       p={0}
