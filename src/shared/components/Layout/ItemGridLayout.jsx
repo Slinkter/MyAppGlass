@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  Container,
-  Heading,
-  Text,
-  useColorModeValue,
-  SimpleGrid,
-  VStack,
-  Box,
-} from "@chakra-ui/react";
+import { Container, Heading, Text, useColorModeValue, SimpleGrid, VStack, Box } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import PropTypes from "prop-types";
 
@@ -33,6 +26,19 @@ const ItemGridLayout = ({
   const textColor = useColorModeValue("gray.700", "gray.200");
   const borderColor = useColorModeValue("primary.500", "primary.300");
 
+  /**
+   * Animation Variants
+   */
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1, // This creates the cascade effect
+      },
+    },
+  };
+
   return (
     <>
       <HelmetWrapper
@@ -40,10 +46,10 @@ const ItemGridLayout = ({
         description={seoDescription}
         canonicalUrl={seoCanonicalUrl}
       />
-      <Container maxW={"7xl"} textAlign="center" {...containerProps}>
-        <VStack spacing={12} w="full">
+      <Container maxW={"7xl"} textAlign="center" mt={6} {...containerProps}>
+        <VStack spacing={6} w="full">
           {/* Cabecera */}
-          <VStack spacing={4}>
+          <VStack spacing={2}>
             <Heading
               as="h2"
               color={headingColor}
@@ -56,22 +62,20 @@ const ItemGridLayout = ({
               borderColor={borderColor}
               width="fit-content"
               mx="auto"
+              my={2}
+              display={{ base: "block", md: "none" }}
             >
               {title}
             </Heading>
-
-            <Text
-              fontSize={{ base: "md", md: "lg" }}
-              color={textColor}
-              textAlign="center"
-              textTransform="uppercase"
-            >
-              {subtitle}
-            </Text>
           </VStack>
 
-          {/* Grilla de Contenido */}
+          {/* Grilla de Contenido Animada */}
           <SimpleGrid
+            as={motion.div}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
             columns={columns}
             spacing={{ base: 4, md: spacing }}
             w="full"
@@ -86,7 +90,23 @@ const ItemGridLayout = ({
 };
 
 const ItemGridItem = ({ children }) => {
-  return <Box w="full">{children}</Box>;
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  return (
+    <Box as={motion.div} variants={itemVariants} w="full">
+      {children}
+    </Box>
+  );
 };
 
 ItemGridLayout.Item = ItemGridItem;

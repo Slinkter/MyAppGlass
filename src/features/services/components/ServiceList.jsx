@@ -8,6 +8,8 @@ import React, { useMemo } from "react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import { getServices } from "../services/serviceService";
+
+/*  */
 const ServiceList = React.memo(() => {
   // Obtenemos los datos directamente (síncrono)
   const services = getServices();
@@ -20,28 +22,29 @@ const ServiceList = React.memo(() => {
   }, [services]);
 
   return (
-    <ItemGridLayout
-      title="SERVICIOS"
-      subtitle="Fabricación & Instalación"
-      seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
-      seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina."
-      seoCanonicalUrl="https://www.gyacompany.com/servicios"
-      containerProps={{ pb: 12 }}
-      columns={{ base: 2, md: 2, lg: 3 }}
-    >
-      {preparedServices.map((service, index) => (
-        <ItemGridLayout.Item key={service.id}>
-          <ServiceCard
-            image={service.image}
-            name={service.name}
-            description={service.description}
-            plink={service.plink}
-            loading={index < 2 ? "eager" : "lazy"}
-            fetchPriority={index < 2 ? "high" : "auto"}
-          />
-        </ItemGridLayout.Item>
-      ))}
-    </ItemGridLayout>
+    <>
+      <ItemGridLayout
+        title="SERVICIOS"
+        subtitle=""
+        seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
+        seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina."
+        seoCanonicalUrl="https://www.gyacompany.com/servicios"
+        columns={{ base: 2, md: 3 }}
+      >
+        {preparedServices.map((service, index) => (
+          <ItemGridLayout.Item key={service.id}>
+            <ServiceCard
+              image={service.image}
+              name={service.name}
+              description={service.description}
+              plink={service.plink}
+              loading={index < 2 ? "eager" : "lazy"}
+              fetchPriority={index < 2 ? "high" : "auto"}
+            />
+          </ItemGridLayout.Item>
+        ))}
+      </ItemGridLayout>
+    </>
   );
 });
 
