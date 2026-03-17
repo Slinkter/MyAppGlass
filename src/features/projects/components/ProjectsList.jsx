@@ -28,6 +28,7 @@ const ProjectsList = React.memo(() => {
       seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
       seoCanonicalUrl="https://www.gyacompany.com/proyectos"
       containerProps={{ pb: 12 }}
+      columns={{ base: 2, md: 3 }}
     >
       {projectsList.map((project, index) => (
         <ItemGridLayout.Item key={project.id}>

@@ -34,7 +34,7 @@ const ServiceCard = React.memo((props) => {
     <LinkBox
       as="article"
       position="relative"
-      h={{ base: "200px", md: "420px" }}
+      h={{ base: "280px", md: "420px" }}
       borderRadius="xl"
       overflow="hidden"
       role="group"
