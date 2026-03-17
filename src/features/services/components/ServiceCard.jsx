@@ -13,14 +13,13 @@ import FadingImage from "@shared/components/common/FadingImage";
 
 /**
  * @component ServiceCard
- * @description Tarjeta de servicio con imagen full-body y botón flotante centrado.
- * Diseño minimalista sin flechas, enfocado en la imagen y el título claro.
+ * @description Tarjeta de servicio con imagen full-body, descripción y botón flotante centrado.
+ * Diseño minimalista sin flechas, enfocado en la imagen, título y descripción clara.
  */
-const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
-  // Estilos del Botón Flotante
+const ServiceCard = React.memo(({ image, name, description: _description, plink, preloaded }) => {
   const buttonBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.9)",
-    "rgba(20, 20, 20, 0.8)",
+    "rgba(255, 255, 255, 0.95)",
+    "rgba(20, 20, 20, 0.85)",
   );
   const buttonHoverBg = useColorModeValue("white", "black");
   const textColor = useColorModeValue("primary.800", "primary.200");
@@ -29,8 +28,8 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
     <LinkBox
       as="article"
       position="relative"
-      h={{ base: "240px", md: "420px" }}
-      borderRadius="2xl"
+      h={{ base: "200px", md: "420px" }}
+      borderRadius="xl"
       overflow="hidden"
       role="group"
       boxShadow="lg"
@@ -129,6 +128,7 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
 ServiceCard.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  description: PropTypes.string,
   plink: PropTypes.string.isRequired,
   preloaded: PropTypes.bool,
 };

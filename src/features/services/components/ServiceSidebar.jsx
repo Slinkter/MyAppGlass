@@ -42,7 +42,7 @@ const NavigationSection = ({ title, systems, activeIndex, onSelect }) => {
   );
 };
 
-const CTASection = ({ label, accentColor, textColor }) => (
+const CTASection = ({ label, accentColor, textColor, isSecondary }) => (
   <Box>
     <Button
       as="a"
@@ -66,7 +66,7 @@ const CTASection = ({ label, accentColor, textColor }) => (
       boxShadow="lg"
       transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
     >
-      Cotizar Ahora
+      {isSecondary ? "Solicitar Cotización" : "Cotizar Ahora"}
     </Button>
     <Text
       fontSize="xs"
@@ -75,7 +75,7 @@ const CTASection = ({ label, accentColor, textColor }) => (
       mt={2}
       opacity={0.7}
     >
-      Obtén una cotización personalizada en 24 horas
+      {isSecondary ? "Te respondemos en breve" : "Obtén una cotización personalizada en 24 horas"}
     </Text>
   </Box>
 );
@@ -136,6 +136,15 @@ const ServiceSidebar = (props) => {
           activeIndex={activeIndex}
           onSelect={setActiveIndex}
         />
+
+        <Box>
+          <CTASection
+            label={activeSystem?.label || seo.title}
+            accentColor={accentColor}
+            textColor={textColor}
+            isSecondary
+          />
+        </Box>
 
         <Box mt="auto" pt={4}>
           <Divider borderColor={borderColor} mb={6} />
