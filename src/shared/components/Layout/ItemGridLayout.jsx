@@ -103,11 +103,12 @@ const ItemGridLayout = ({
           <SimpleGrid
             as={motion.div}
             columns={columns}
-            spacing={spacing}
+            spacing={{ base: 4, md: spacing }}
             initial="hidden"
             animate="visible"
             variants={containerVariants}
             w="full"
+            justifyItems="center"
           >
             {children}
           </SimpleGrid>

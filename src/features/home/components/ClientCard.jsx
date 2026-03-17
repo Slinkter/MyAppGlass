@@ -90,18 +90,18 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
       <Box p={2}>
         <Image
           w="full"
-          h={{ base: "260px", md: "375px" }}
+          h={{ base: "180px", md: "280px" }}
           src={image}
           alt={`Imagen de ${nameClient}`}
           borderRadius="lg"
           objectFit="cover"
-          boxShadow="lg"
+          boxShadow="base"
         />
       </Box>
 
-      <Stack spacing={3} p={6} pt={2} textAlign="center">
-        <Heading size="lg">{nameClient}</Heading>
-        <Text fontSize="md" color={styles.secondaryText}>
+      <Stack spacing={2} p={{ base: 4, md: 6 }} pt={2} textAlign="center">
+        <Heading size={{ base: "md", md: "lg" }}>{nameClient}</Heading>
+        <Text fontSize={{ base: "sm", md: "md" }} color={styles.secondaryText}>
           {descClient}
         </Text>
       </Stack>

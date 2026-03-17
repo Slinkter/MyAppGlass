@@ -45,7 +45,8 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
     <Box
       w="full"
       maxW={{ base: "full", md: "md" }}
-      h={{ base: "265px", md: "275px" }}
+      h="auto"
+      minH={{ base: "auto", md: "260px" }}
       p={{ base: 4, md: 6 }}
       mb={4}
       overflow="hidden"
@@ -56,7 +57,7 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
       borderColor={borderColor}
       color={textColor}
       transition="transform 0.3s ease, box-shadow 0.3s ease"
-      style={{ willChange: "transform, opacity" }} // 🚀 Optimizacion GPU
+      style={{ willChange: "transform, opacity" }}
       _hover={{
         transform: "scale(1.02)",
         boxShadow: "xl",
