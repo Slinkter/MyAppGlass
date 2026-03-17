@@ -70,32 +70,36 @@ const ItemGridLayout = ({
         textAlign="center"
         {...containerProps}
       >
-        <VStack spacing={4}>
-          <Heading
-            as="h2"
-            color={headingColor}
-            fontSize={{ base: "4xl", md: "4xl" }}
-            textTransform="uppercase"
-            fontWeight={600}
-            letterSpacing="wide"
-            textAlign="center"
-            borderBottom="4px"
-            borderColor={borderColor}
-            width="fit-content"
-            mx="auto"
-          >
-            {title}
-          </Heading>
+        <VStack spacing={12} pt={4} w="full">
+          {/* Cabecera */}
+          <VStack spacing={4}>
+            <Heading
+              as="h2"
+              color={headingColor}
+              fontSize={{ base: "3xl", md: "4xl" }}
+              textTransform="uppercase"
+              fontWeight={600}
+              letterSpacing="wide"
+              textAlign="center"
+              borderBottom="4px"
+              borderColor={borderColor}
+              width="fit-content"
+              mx="auto"
+            >
+              {title}
+            </Heading>
 
-          <Text
-            fontSize={{ base: "2xl", md: "2xl" }}
-            color={textColor}
-            textAlign="center"
-            textTransform="uppercase"
-          >
-            {subtitle}
-          </Text>
+            <Text
+              fontSize={{ base: "xl", md: "2xl" }}
+              color={textColor}
+              textAlign="center"
+              textTransform="uppercase"
+            >
+              {subtitle}
+            </Text>
+          </VStack>
 
+          {/* Grilla de Contenido */}
           <SimpleGrid
             as={motion.div}
             columns={columns}
@@ -103,7 +107,7 @@ const ItemGridLayout = ({
             initial="hidden"
             animate="visible"
             variants={containerVariants}
-            w="full" // Ensure SimpleGrid takes full width within VStack
+            w="full"
           >
             {children}
           </SimpleGrid>

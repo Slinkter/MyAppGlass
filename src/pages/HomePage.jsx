@@ -5,7 +5,7 @@
  */
 
 import React, { lazy, Suspense } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import LoadingFallback from "@shared/components/common/LoadingFallback";
 
@@ -25,14 +25,14 @@ const HomeView = React.memo(() => {
         description="GYA Company: Expertos en vidriería y aluminio. Ofrecemos servicios de instalación y fabricación de ventanas, mamparas, duchas y más en La Molina."
         canonicalUrl="https://www.gyacompany.com/"
       ></HelmetWrapper>
-      <Box>
+      <VStack spacing={{ base: 16, md: 32 }} pb={{ base: 16, md: 32 }} align="stretch" w="full">
         <LandingPageSection />
         <Suspense fallback={<LoadingFallback />}>
           <ClientsSection />
           <FeaturesSection />
           <StoreSection />
         </Suspense>
-      </Box>
+      </VStack>
     </>
   );
 });
