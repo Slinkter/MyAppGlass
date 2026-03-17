@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet-async";
 import {
   Box,
@@ -11,7 +11,6 @@ import {
   Container,
   HStack,
   Button,
-  Divider,
   Grid,
   GridItem,
   Flex,
@@ -26,6 +25,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
   const activeBg = useColorModeValue("primary.600", "primary.500");
   const inactiveBg = useColorModeValue("whiteAlpha.400", "whiteAlpha.100");
   const textColor = useColorModeValue("gray.800", "white");
+  const hoverBg = useColorModeValue("blackAlpha.100", "whiteAlpha.200");
 
   if (!systems || systems.length <= 1) return null;
 
@@ -55,7 +55,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
           whiteSpace="nowrap"
           boxShadow={activeIndex === index ? "lg" : "sm"}
           _hover={{
-            bg: activeIndex === index ? activeBg : useColorModeValue("blackAlpha.100", "whiteAlpha.200"),
+            bg: activeIndex === index ? activeBg : hoverBg,
             transform: "translateY(-2px)",
             boxShadow: "md",
           }}

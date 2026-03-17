@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Heading, Text, useColorModeValue, SimpleGrid, VStack, Box } from "@chakra-ui/react";
+import { Container, Heading, useColorModeValue, SimpleGrid, VStack, Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import PropTypes from "prop-types";
@@ -13,7 +13,6 @@ import PropTypes from "prop-types";
  */
 const ItemGridLayout = ({
   title,
-  subtitle,
   children,
   seoTitle,
   seoDescription,
@@ -23,7 +22,6 @@ const ItemGridLayout = ({
   containerProps = {},
 }) => {
   const headingColor = useColorModeValue("primary.700", "primary.300");
-  const textColor = useColorModeValue("gray.700", "gray.200");
   const borderColor = useColorModeValue("primary.500", "primary.300");
 
   /**
@@ -113,7 +111,6 @@ ItemGridLayout.Item = ItemGridItem;
 
 ItemGridLayout.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   seoTitle: PropTypes.string.isRequired,
   seoDescription: PropTypes.string.isRequired,
