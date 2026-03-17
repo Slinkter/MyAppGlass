@@ -6,33 +6,10 @@ import {
   useColorModeValue,
   SimpleGrid,
   VStack,
+  Box,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import PropTypes from "prop-types";
-
-// Animation Variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
 
 /**
  * Componente: ItemGridLayout
@@ -63,14 +40,8 @@ const ItemGridLayout = ({
         description={seoDescription}
         canonicalUrl={seoCanonicalUrl}
       />
-      <Container
-        maxW={"7xl"}
-        mt={6}
-        mb={0}
-        textAlign="center"
-        {...containerProps}
-      >
-        <VStack spacing={12} pt={4} w="full">
+      <Container maxW={"7xl"} textAlign="center" {...containerProps}>
+        <VStack spacing={12} w="full">
           {/* Cabecera */}
           <VStack spacing={4}>
             <Heading
@@ -101,12 +72,8 @@ const ItemGridLayout = ({
 
           {/* Grilla de Contenido */}
           <SimpleGrid
-            as={motion.div}
             columns={columns}
             spacing={{ base: 4, md: spacing }}
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
             w="full"
             justifyItems="center"
           >
@@ -119,11 +86,7 @@ const ItemGridLayout = ({
 };
 
 const ItemGridItem = ({ children }) => {
-  return (
-    <motion.div variants={itemVariants} style={{ width: "100%" }}>
-      {children}
-    </motion.div>
-  );
+  return <Box w="full">{children}</Box>;
 };
 
 ItemGridLayout.Item = ItemGridItem;

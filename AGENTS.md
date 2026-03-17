@@ -1,7 +1,5 @@
 # AGENTS.md - Developer Guide for MyAppGlass
 
-## Project Overview
-
 React 18 + Vite application using Chakra UI, Firebase (Firestore + Cloud Functions), and pnpm.
 
 ## Available Commands
@@ -18,6 +16,15 @@ pnpm preview      # Preview production build locally
 pnpm lint         # ESLint with all rules, fail on warnings
 ```
 
+### Testing
+No test framework configured. When adding tests, use Vitest:
+```bash
+pnpm vitest              # Run all tests
+pnpm vitest run          # Run once (CI mode)
+pnpm vitest run --grep "pattern"  # Run tests matching pattern
+pnpm vitest run --testNamePattern "name"  # Run specific test by name
+```
+
 ### Deployment
 ```bash
 pnpm deploy:hosting    # Build and deploy to Firebase Hosting
@@ -30,9 +37,6 @@ pnpm predeploy         # Build before deployment
 pnpm clean       # Remove node_modules, dist, functions/node_modules
 pnpm analyze     # Build with bundle visualization
 ```
-
-### Testing
-No test framework configured. When adding tests, use Vitest.
 
 ## Code Style Guidelines
 
@@ -57,19 +61,6 @@ No test framework configured. When adding tests, use Vitest.
 4. Path aliases (`@/`, `@features/`, `@shared/`, `@layout/`)
 5. Relative imports
 6. Type imports
-
-```javascript
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Box, Flex, Heading } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { Layout } from "@layout/MainLayout";
-import LoadingFallback from "@shared/components/common/LoadingFallback";
-import { useAuth } from "@features/auth/hooks/useAuth";
-import "./styles/global.css";
-```
 
 ### Naming Conventions
 
@@ -104,18 +95,11 @@ src/
  * @module feature-name
  */
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 
-/**
- * @component ComponentName
- * @param {Object} props
- * @param {string} props.title - Component title
- * @returns {JSX.Element}
- */
 function ComponentName({ title }) {
   const [state, setState] = useState(null);
-
   return <Box><Heading>{title}</Heading></Box>;
 }
 
@@ -127,18 +111,6 @@ export default ComponentName;
 - Provide user-friendly error messages
 - Log errors with context in development
 - Use error boundaries for component-level errors
-
-```javascript
-async function fetchProducts() {
-  try {
-    const snapshot = await getDocs(collection(db, "products"));
-    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    throw new Error("Failed to load products. Please try again.");
-  }
-}
-```
 
 ### React Best Practices
 - Functional components with hooks

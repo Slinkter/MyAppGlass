@@ -5,19 +5,12 @@
  */
 
 import React from "react";
-import {
-  Box, // Changed from Card
-  Flex,
-  Heading,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 
 /**
  * @component FeatureCard
  * @description Tarjeta para mostrar una característica o beneficio de la empresa.
  * Incluye un icono, un título y una descripción breve.
- * Comparte estilos visuales de glassmorphism con ClientCard.
  *
  * @param {Object} props - Propiedades del componente.
  * @param {string} props.heading - Título de la característica.
@@ -26,69 +19,67 @@ import {
  * @returns {JSX.Element} Tarjeta de característica.
  */
 const FeatureCard = React.memo(({ heading, description, icon }) => {
-  const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.25)",
-    "rgba(0, 0, 0, 0.25)",
-  );
-  const borderColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.72)",
-    "rgba(255, 255, 255, 0.15)",
-  );
-  const textColor = useColorModeValue("gray.800", "gray.100");
-  const secondaryTextColor = useColorModeValue("gray.600", "gray.300");
-  const iconBgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.3)",
-    "rgba(0, 0, 0, 0.3)",
-  );
-  const iconColor = useColorModeValue("primary.600", "primary.300");
-  const iconBgHover = useColorModeValue(
-    "rgba(255, 255, 255, 0.5)",
-    "rgba(0, 0, 0, 0.5)",
-  );
+  const styles = {
+    bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
+    border: useColorModeValue(
+      "rgba(255, 255, 255, 0.52)",
+      "rgba(255, 255, 255, 0.15)",
+    ),
+    text: useColorModeValue("gray.800", "gray.100"),
+    secondaryText: useColorModeValue("gray.600", "gray.300"),
+    iconBg: useColorModeValue("rgba(255, 255, 255, 0.3)", "rgba(0, 0, 0, 0.3)"),
+    iconColor: useColorModeValue("primary.600", "primary.300"),
+    iconBgHover: useColorModeValue(
+      "rgba(255, 255, 255, 0.5)",
+      "rgba(0, 0, 0, 0.5)",
+    ),
+  };
 
   return (
     <Box
       role="group"
       w="full"
-      maxW={{ md: "md" }}
-      h="auto"
-      minH={{ base: "auto", md: "260px" }}
+      h="full"
+      minH={{ base: "220px", md: "260px" }}
       p={{ base: 4, md: 6 }}
       mb={4}
       overflow="hidden"
-      bg={bgColor}
-      borderWidth="1px"
-      boxShadow="lg"
+      bg={styles.bg}
       borderRadius="2xl"
-      borderColor={borderColor}
-      color={textColor}
-      transition="transform 0.3s ease, box-shadow 0.3s ease"
-      style={{ willChange: "transform, opacity" }}
+      boxShadow="xl"
+      color={styles.text}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      cursor="default"
       _hover={{
-        transform: "scale(1.02)",
-        boxShadow: "xl",
+        boxShadow: "lg",
+      }}
+      _focus={{
+        boxShadow: "0 0 0 3px var(--chakra-colors-primary-50)",
       }}
     >
-      <Box textAlign="center">
+      <Box w="full">
         <Flex
-          w={{ base: 16, md: 20, lg: 24 }}
-          h={{ base: 16, md: 20, lg: 24 }}
+          w={{ base: 14, md: 20 }}
+          h={{ base: 14, md: 20 }}
           mx="auto"
           mb={4}
           align="center"
           justify="center"
           rounded="full"
-          bg={iconBgColor}
+          bg={styles.iconBg}
           transition="background 0.3s ease"
-          color={iconColor}
-          _groupHover={{ bg: iconBgHover }}
+          color={styles.iconColor}
+          _groupHover={{ bg: styles.iconBgHover }}
         >
           {icon}
         </Flex>
-        <Heading size="md" mb={3} textTransform="uppercase">
+        <Heading size="md" mb={2} textTransform="uppercase">
           {heading}
         </Heading>
-        <Text mt={1} fontSize="md" color={secondaryTextColor}>
+        <Text fontSize="md" color={styles.secondaryText}>
           {description}
         </Text>
       </Box>

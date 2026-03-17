@@ -15,6 +15,7 @@ import {
   Image,
   Text,
   useColorModeValue,
+  usePrefersReducedMotion,
   VStack,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -42,6 +43,15 @@ const LandingPageSection = React.memo(() => {
   const accentColor = useColorModeValue("primary.600", "primary.300");
   const textColor = useColorModeValue("gray.800", "white");
   const subTextColor = useColorModeValue("gray.600", "gray.400");
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  const animationConfig = prefersReducedMotion
+    ? { opacity: 1, y: 0 }
+    : { opacity: 0, y: 30 };
+
+  const buttonAnimation = prefersReducedMotion
+    ? { opacity: 1, y: 0 }
+    : { opacity: 0, y: 20 };
 
   return (
     // Wrap with LazyMotion and provide the 'domAnimation' feature set (no layout animations, just standard DOM ones)
@@ -56,9 +66,9 @@ const LandingPageSection = React.memo(() => {
       >
         <MotionVStack
           spacing={4}
-          initial={{ opacity: 0, y: 30 }}
+          initial={animationConfig}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: "easeOut" }}
           textAlign="center"
           maxW="5xl"
         >
@@ -70,7 +80,7 @@ const LandingPageSection = React.memo(() => {
             h={{ base: "55%", sm: "50%", md: "40%", lg: "30%" }}
             loading="eager"
             fetchpriority="high"
-            whileHover={{ scale: 1.05 }}
+            whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
             transition={{ duration: 0.3 }}
           />
 
@@ -111,9 +121,9 @@ const LandingPageSection = React.memo(() => {
             </Text>
 
             <m.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={buttonAnimation}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
+              transition={{ delay: prefersReducedMotion ? 0 : 0.5, duration: prefersReducedMotion ? 0 : 0.6 }}
             >
               <Link to="/servicios">
                 <Button
@@ -126,7 +136,10 @@ const LandingPageSection = React.memo(() => {
                   borderRadius="full"
                   boxShadow="lg"
                   _hover={{ transform: "translateY(-2px)", boxShadow: "xl" }}
+                  _focus={{ boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.6)" }}
+                  _active={{ transform: "translateY(0)", boxShadow: "md" }}
                   transition="all 0.2s ease"
+                  aria-label="Ver nuestros servicios"
                 >
                   Ver Nuestros Servicios →
                 </Button>

@@ -14,45 +14,17 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-// Re-using the Client typedef from clientService.js
-/**
- * @typedef {object} Client
- * @property {number} id - Unique identifier for the client.
- * @property {string} imgClient - The imported image URL for the client.
- * @property {string} nameClient - The name of the client category (e.g., "Constructoras").
- * @property {string} descClient - A description of the client category.
- */
-
 /**
  * @component ClientCard
- * @description Muestra una tarjeta de cliente/testimonio con imagen y descripción.
- * Utiliza efectos de desenfoque (glassmorphism) y animaciones hover.
+ * @description Muestra una tarjeta de cliente con imagen y descripción.
  *
- * @param {Client} props - Objeto de cliente a mostrar en la tarjeta.
- * @returns {JSX.Element} Tarjeta de cliente renderizada.
- *
- * @example
- * // Ejemplo de uso en un componente padre
- * import { Box } from "@chakra-ui/react";
- * import ClientCard from "./ClientCard";
- *
- * const sampleClient = {
- *   id: 1,
- *   imgClient: "/assets/clients/building.jpg",
- *   nameClient: "Constructoras",
- *   descClient: "Más de 12 proyectos de construcción entregados."
- * };
- *
- * function ClientList() {
- *   return (
- *     <Box p={4}>
- *       <ClientCard {...sampleClient} />
- *     </Box>
- *   );
- * }
+ * @param {Object} props
+ * @param {string} props.image - URL de la imagen
+ * @param {string} props.nameClient - Nombre del cliente
+ * @param {string} props.descClient - Descripción del cliente
+ * @returns {JSX.Element}
  */
 const ClientCard = React.memo(({ image, nameClient, descClient }) => {
-  // Configuración centralizada de estilos
   const styles = {
     bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
     border: useColorModeValue(
@@ -60,37 +32,38 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
       "rgba(255, 255, 255, 0.15)",
     ),
     text: useColorModeValue("gray.800", "gray.100"),
-    icon: useColorModeValue("gray.500", "gray.400"),
-    heading: useColorModeValue("primary.700", "primary.300"),
-    btnBg: useColorModeValue("rgba(255, 255, 255, 0.4)", "rgba(0, 0, 0, 0.4)"),
-    btnHover: useColorModeValue(
-      "rgba(255, 255, 255, 0.6)",
-      "rgba(0, 0, 0, 0.6)",
-    ),
+    secondaryText: useColorModeValue("gray.600", "gray.300"),
   };
 
   return (
     <Box
+      role="group"
       w="full"
-      maxW={{ base: "full", md: "md" }}
-      h="auto"
+      h="full"
+      minH={{ base: "220px", md: "260px" }}
+      p={{ base: 4, md: 6 }}
       mb={4}
       overflow="hidden"
       bg={styles.bg}
-      /* backdropFilter="blur(10px)" */
       borderRadius="2xl"
-      boxShadow="lg"
+      boxShadow="xl"
       color={styles.text}
-      transition="transform 0.3s ease, box-shadow 0.3s ease"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      cursor="default"
       _hover={{
-        transform: "scale(1.02)",
-        boxShadow: "xl",
+        boxShadow: "lg",
+      }}
+      _focus={{
+        boxShadow: "0 0 0 3px var(--chakra-colors-primary-50)",
       }}
     >
-      <Box p={2}>
+      <Box w="full">
         <Image
           w="full"
-          h={{ base: "180px", md: "280px" }}
+          h={{ base: "260px", md: "280px" }}
           src={image}
           alt={`Imagen de ${nameClient}`}
           borderRadius="lg"
@@ -99,8 +72,16 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
         />
       </Box>
 
-      <Stack spacing={2} p={{ base: 4, md: 6 }} pt={2} textAlign="center">
-        <Heading size={{ base: "md", md: "lg" }}>{nameClient}</Heading>
+      <Stack
+        spacing={2}
+        pt={{ base: 4, md: 6 }}
+        px={{ base: 4, md: 6 }}
+        textAlign="center"
+      >
+        <Heading size={{ base: "md", md: "lg" }} textTransform="uppercase">
+          {nameClient}
+        </Heading>
+
         <Text fontSize={{ base: "sm", md: "md" }} color={styles.secondaryText}>
           {descClient}
         </Text>
@@ -110,4 +91,5 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
 });
 
 ClientCard.displayName = "ClientCard";
+
 export default ClientCard;
