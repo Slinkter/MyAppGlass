@@ -64,8 +64,8 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
     >
       <Box textAlign="center">
         <Flex
-          w={24}
-          h={24}
+          w={{ base: 16, md: 20, lg: 24 }}
+          h={{ base: 16, md: 20, lg: 24 }}
           mx="auto"
           mb={4}
           align="center"

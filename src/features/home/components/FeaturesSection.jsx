@@ -39,7 +39,13 @@ const FeaturesSection = React.memo(() => {
             <FeatureCard
               heading={feature.heading}
               icon={
-                FeatureIcon ? <Icon as={FeatureIcon} w={10} h={10} /> : null
+                FeatureIcon ? (
+                  <Icon
+                    as={FeatureIcon}
+                    w={{ base: 8, md: 10 }}
+                    h={{ base: 8, md: 10 }}
+                  />
+                ) : null
               }
               description={feature.description}
             />
