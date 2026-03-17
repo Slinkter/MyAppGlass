@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import { useGallery } from "@shared/hooks/ui/useGallery";
 import GalleryViewer from "./gallery/GalleryViewer";
 import GalleryThumbnails from "./gallery/GalleryThumbnails";
-import { useIsMobile } from "@shared/hooks/ui/useIsMobile";
+
 
 const Gallery = React.memo(({ images }) => {
-  const isMobile = useIsMobile();
+  const bgColor = useColorModeValue("blackAlpha.50", "whiteAlpha.50");
   const {
     selectedIndex,
     setSelectedIndex,
@@ -65,7 +65,7 @@ const Gallery = React.memo(({ images }) => {
           order={{ base: 2, md: 1 }}
           flexShrink={0}
           minH="0"
-          bg={useColorModeValue("blackAlpha.50", "whiteAlpha.50")}
+          bg={bgColor}
           borderRadius="2xl"
           p={1}
         >
