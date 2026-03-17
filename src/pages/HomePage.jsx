@@ -25,7 +25,7 @@ const HomeView = React.memo(() => {
         description="GYA Company: Expertos en vidriería y aluminio. Ofrecemos servicios de instalación y fabricación de ventanas, mamparas, duchas y más en La Molina."
         canonicalUrl="https://www.gyacompany.com/"
       ></HelmetWrapper>
-      <VStack spacing={{ base: 16, md: 32 }} pb={{ base: 16, md: 32 }} align="stretch" w="full">
+      <VStack spacing={{ base: 8, md: 24 }} pb={{ base: 8, md: 24 }} align="stretch" w="full">
         <LandingPageSection />
         <Suspense fallback={<LoadingFallback />}>
           <ClientsSection />
