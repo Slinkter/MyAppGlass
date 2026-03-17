@@ -23,8 +23,7 @@ const FloatingWhatsApp = lazy(() =>
   })),
 );
 
-// ✅ Importamos las nuevas imágenes generadas
-import bg_desktop from "@/assets/common/mainland.jpg";
+
 
 /**
  * @component Layout
@@ -35,37 +34,15 @@ import bg_desktop from "@/assets/common/mainland.jpg";
  */
 const Layout = ({ children }) => {
   // Overlay para mejorar legibilidad y efecto glass
-  const bgColor = useColorModeValue(
-    { base: "rgba(255, 255, 255, 0.85)", md: "rgba(255, 255, 255, 0.4)" }, // Sin blur pero más opaco en móvil
-    { base: "rgba(0, 0, 0, 0.85)", md: "rgba(0, 0, 0, 0.6)" }, // Capa oscura equivalente
-  );
-
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
 
   return (
     <Box
       minH="100dvh"
-      backgroundImage={{
-        base: `url(${bg_desktop})`, // Use desktop image for both
-        md: `url(${bg_desktop})`,
-      }}
-      backgroundSize="cover"
-      backgroundPosition="center"
-      backgroundRepeat="no-repeat"
-      backgroundAttachment={{ base: "scroll", md: "fixed" }} // Fixed solo en desktop para performance
       position="relative"
-      _before={{
-        content: '""',
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        bg: bgColor,
-        zIndex: 0,
-        backdropFilter: { base: "none", md: "blur(5px)" },
-        WebkitBackdropFilter: { base: "none", md: "blur(5px)" },
-      }}
+      m={0}
+      p={0}
+    >
       m={0}
       p={0}
     >
