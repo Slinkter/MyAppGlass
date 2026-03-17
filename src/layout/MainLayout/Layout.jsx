@@ -75,7 +75,8 @@ const Layout = ({ children }) => {
         position="relative"
         maxW="7xl"
         mx="auto"
-        px={{ base: 2, md: 4 }}
+        px={{ base: 3, md: 4 }}
+        pb={{ base: "80px", md: 0 }}
         zIndex={1}
       >
         <Navbar />
