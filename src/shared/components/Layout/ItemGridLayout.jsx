@@ -119,7 +119,11 @@ const ItemGridLayout = ({
 };
 
 const ItemGridItem = ({ children }) => {
-  return <motion.div variants={itemVariants}>{children}</motion.div>;
+  return (
+    <motion.div variants={itemVariants} style={{ width: "100%" }}>
+      {children}
+    </motion.div>
+  );
 };
 
 ItemGridLayout.Item = ItemGridItem;

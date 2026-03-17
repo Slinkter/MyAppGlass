@@ -72,6 +72,12 @@ const theme = extendTheme({
         bg: props.colorMode === "dark" ? "gray.900" : "white",
         color: props.colorMode === "dark" ? "gray.100" : "gray.800",
       },
+      "*:focus-visible": {
+        outline: "3px solid",
+        outlineColor: "primary.500",
+        outlineOffset: "2px",
+        borderRadius: "md",
+      },
     }),
   },
   components: {

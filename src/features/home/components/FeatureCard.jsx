@@ -40,9 +40,15 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
     "rgba(255, 255, 255, 0.3)",
     "rgba(0, 0, 0, 0.3)",
   );
+  const iconColor = useColorModeValue("primary.600", "primary.300");
+  const iconBgHover = useColorModeValue(
+    "rgba(255, 255, 255, 0.5)",
+    "rgba(0, 0, 0, 0.5)",
+  );
 
   return (
     <Box
+      role="group"
       w="full"
       maxW={{ base: "full", md: "md" }}
       h="auto"
@@ -73,6 +79,9 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
           justify="center"
           rounded="full"
           bg={iconBgColor}
+          transition="background 0.3s ease"
+          color={iconColor}
+          _groupHover={{ bg: iconBgHover }}
         >
           {icon}
         </Flex>

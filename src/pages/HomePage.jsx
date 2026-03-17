@@ -5,7 +5,7 @@
  */
 
 import React, { lazy, Suspense } from "react";
-import { Box, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import LoadingFallback from "@shared/components/common/LoadingFallback";
 
