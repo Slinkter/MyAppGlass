@@ -50,14 +50,14 @@ const FeatureCard = React.memo(({ heading, description, icon }) => {
     <Box
       role="group"
       w="full"
-      maxW={{ base: "full", md: "md" }}
+      maxW={{ md: "md" }}
       h="auto"
       minH={{ base: "auto", md: "260px" }}
       p={{ base: 4, md: 6 }}
       mb={4}
       overflow="hidden"
       bg={bgColor}
-      border="lg"
+      borderWidth="1px"
       boxShadow="lg"
       borderRadius="2xl"
       borderColor={borderColor}
