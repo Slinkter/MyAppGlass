@@ -59,8 +59,6 @@ const FadingImage = React.memo((props) => {
         forceShow={forceShow}
         {...restProps}
       />
-
-      {showOverlay && <ImageOverlay name={name} plink={plink} />}
     </Box>
   );
 });

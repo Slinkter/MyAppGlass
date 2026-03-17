@@ -7,22 +7,28 @@ import {
   LinkOverlay,
   Button,
   Text,
+  Image,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import FadingImage from "@shared/components/common/FadingImage";
 
 /**
  * @component ServiceCard
  * @description Tarjeta de servicio con imagen full-body, descripción y botón flotante centrado.
  * Diseño minimalista sin flechas, enfocado en la imagen, título y descripción clara.
  */
-const ServiceCard = React.memo(({ image, name, description: _description, plink, preloaded }) => {
-  const buttonBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.95)",
-    "rgba(20, 20, 20, 0.85)",
-  );
-  const buttonHoverBg = useColorModeValue("white", "black");
-  const textColor = useColorModeValue("primary.800", "primary.200");
+const ServiceCard = React.memo((props) => {
+  /*  */
+
+  const { image, name, plink, preloaded } = props;
+
+  const styles = {
+    buttonBg: useColorModeValue(
+      "rgba(255, 255, 255, 0.95)",
+      "rgba(20, 20, 20, 0.85)",
+    ),
+    buttonHoverBg: useColorModeValue("white", "black"),
+    textColor: useColorModeValue("primary.800", "primary.200"),
+  };
 
   return (
     <LinkBox
@@ -51,23 +57,17 @@ const ServiceCard = React.memo(({ image, name, description: _description, plink,
           transform: "scale(1.05)",
         }}
       >
-        <FadingImage
+        <Image
           src={image}
           alt={`Servicio de ${name}`}
           objectFit="cover"
           w="100%"
           h="100%"
-          showOverlay={false}
-          forceShow={preloaded}
-        />
-        {/* Overlay degradado inferior para asegurar contraste del botón si la imagen es clara */}
-        <Box
-          position="absolute"
-          bottom="0"
-          left="0"
-          w="100%"
-          h="30%"
-          bgGradient="linear(to-t, blackAlpha.400, transparent)"
+          // Optimizaciones nativas: carga directa para imágenes locales
+          loading={props.loading || "lazy"}
+          decoding="async"
+          fallbackStrategy="beforeLoadOrError"
+          transition="opacity 0.4s ease-in"
         />
       </Box>
 
@@ -86,14 +86,14 @@ const ServiceCard = React.memo(({ image, name, description: _description, plink,
           maxW="200px" // Ancho máximo para que no se vea exagerado en desktop
           h="auto"
           py={3}
-          bg={buttonBg}
+          bg={styles.buttonBg}
           backdropFilter="blur(8px)"
           justifyContent="center"
           alignItems="center"
           borderRadius="full" // Botón píldora para estética más moderna
           boxShadow="lg"
           _groupHover={{
-            bg: buttonHoverBg,
+            bg: styles.buttonHoverBg,
             transform: "translateY(-2px)",
             boxShadow: "xl",
           }}
@@ -108,7 +108,7 @@ const ServiceCard = React.memo(({ image, name, description: _description, plink,
             w="full"
           >
             <Text
-              color={textColor}
+              color={styles.textColor}
               fontWeight="bold"
               fontSize={{ base: "xs", md: "sm" }}
               textTransform="uppercase"
