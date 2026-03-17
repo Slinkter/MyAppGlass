@@ -33,7 +33,7 @@ const FooterSection = ({ title, children }) => {
     <VStack spacing={2} mb={{ base: 6, md: 4 }}>
       <Heading
         as="h3"
-        fontSize={{ base: "xl", md: "2xl" }}
+        fontSize={{ base: "lg", md: "xl" }}
         fontWeight="semibold"
         mb={2}
         color={headingColor}
