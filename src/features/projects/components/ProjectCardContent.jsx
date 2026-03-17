@@ -128,7 +128,7 @@ const ProjectCardContent = ({
           </LinkOverlay>
 
           <HStack justify="space-around" w="full" pt={0.5}>
-            <HStack spacing={1.5} maxW="65%">
+            <HStack spacing={1.5} maxW={{ base: "100%", md: "65%" }}>
               <Icon
                 as={MapPinIcon}
                 w={3.5}
@@ -146,7 +146,7 @@ const ProjectCardContent = ({
               </Text>
             </HStack>
 
-            <HStack spacing={1.5}>
+            <HStack spacing={1.5} display={{ base: "none", md: "flex" }}>
               <Icon
                 as={CalendarDaysIcon}
                 w={3.5}
