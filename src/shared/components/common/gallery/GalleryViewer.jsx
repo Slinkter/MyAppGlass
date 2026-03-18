@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { motion, AnimatePresence } from "framer-motion";
+import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import FadingImage from "../FadingImage";
 
 /**
@@ -38,6 +38,7 @@ const GalleryViewer = ({
   const bgOverlay = useColorModeValue("blackAlpha.50", "blackAlpha.200");
 
   return (
+    <LazyMotion features={domAnimation}>
     <Box
       flex="1"
       h="100%"
@@ -50,7 +51,7 @@ const GalleryViewer = ({
     >
       {/* Contenedor Animado para Imágenes (Overlapping for faster feel) */}
       <AnimatePresence>
-        <motion.div
+        <m.div
           key={currentImage.id}
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -75,7 +76,7 @@ const GalleryViewer = ({
             fetchpriority={isPriority ? "high" : "auto"}
             rounded="none"
           />
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {/* Gradiente sutil inferior para mejorar legibilidad de controles */}
@@ -183,6 +184,7 @@ const GalleryViewer = ({
         </>
       )}
     </Box>
+    </LazyMotion>
   );
 };
 

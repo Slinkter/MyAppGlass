@@ -17,18 +17,16 @@ pnpm lint         # ESLint with all rules, fail on warnings
 ```
 
 ### Testing
-No test framework configured. When adding tests, use Vitest:
+No test framework configured. Install Vitest first: `pnpm add -D vitest @vitest/ui`
 ```bash
-pnpm vitest              # Run all tests
-pnpm vitest run          # Run once (CI mode)
-pnpm vitest run --grep "pattern"  # Run tests matching pattern
-pnpm vitest run --testNamePattern "name"  # Run specific test by name
+pnpm vitest run --grep "pattern"         # Run tests matching pattern
+pnpm vitest run --testNamePattern "name" # Run specific test by name
 ```
 
 ### Deployment
 ```bash
 pnpm deploy:hosting    # Build and deploy to Firebase Hosting
-pnpm deploy:functions  # Deploy Firebase Cloud Functions
+pnpm deploy:functions # Deploy Firebase Cloud Functions
 pnpm predeploy         # Build before deployment
 ```
 
@@ -42,13 +40,13 @@ pnpm analyze     # Build with bundle visualization
 
 ### General Principles
 - Use ESM with `import`/`export` syntax
-- Follow ESLint rules in `eslint.config.js`
+- Follow ESLint rules in `eslint.config.js` (uses flat config)
 - Write self-documenting code; avoid unnecessary comments
 - Use TypeScript-like JSDoc patterns for complex functions
 
 ### Formatting
 - 2 spaces for indentation
-- Double quotes for JSX, single quotes elsewhere
+- Double quotes for JSX attributes/elements, single quotes elsewhere
 - Trailing commas in multi-line objects/arrays
 - Max line length: 100 characters (soft limit)
 - Use semicolons
@@ -60,10 +58,9 @@ pnpm analyze     # Build with bundle visualization
 3. Firebase/config
 4. Path aliases (`@/`, `@features/`, `@shared/`, `@layout/`)
 5. Relative imports
-6. Type imports
+6. Type imports (use `import type` when only using types)
 
 ### Naming Conventions
-
 | Type | Convention | Example |
 |------|------------|---------|
 | Components | PascalCase | `HomePage`, `ProductCard` |
@@ -108,25 +105,28 @@ export default ComponentName;
 
 ### Error Handling
 - Use try-catch for async operations
-- Provide user-friendly error messages
-- Log errors with context in development
-- Use error boundaries for component-level errors
+- Provide user-friendly error messages via Chakra toast/alert
+- Log errors with context in development (use `console.error` with context)
+- Use React error boundaries for component-level errors
+- Handle Firebase errors with proper error codes
 
 ### React Best Practices
-- Functional components with hooks
+- Functional components with hooks only
 - Memoize expensive computations with `useMemo`
-- Memoize callbacks with `useCallback` for child components
+- Memoize callbacks with `useCallback` when passing to child components
 - Lazy load routes: `const HomePage = lazy(() => import("./pages/HomePage"));`
-- Small, focused components
+- Prefer small, focused components
 - Extract reusable logic into custom hooks
-- Use `key` prop correctly in lists
+- Use `key` prop correctly in lists (use stable IDs, not array indices)
 - Avoid inline styles; use Chakra UI props/theme tokens
 
 ### Firebase & Firestore
-- Initialize Firebase in `src/config/`
+- Initialize Firebase in `src/config/firebase.js`
 - Use Firestore for real-time data
-- Structure: `collection(db, "name")` -> `doc(db, "name", id)`
-- Use `onSnapshot` for real-time, `getDocs` for static data
+- Collection structure: `collection(db, "name")` -> `doc(db, "name", id)`
+- Use `onSnapshot` for real-time listeners, `getDocs` for one-time fetches
+- Always handle Firebase auth state with `onAuthStateChanged`
+- Use Firebase Security Rules for data validation
 
 ### Path Aliases
 | Alias | Path |
@@ -136,16 +136,15 @@ export default ComponentName;
 | `@shared` | `src/shared/` |
 | `@layout` | `src/layout/` |
 
-### Accessibility
-- Semantic HTML, alt text for images
-- Keyboard navigation
-- Use Chakra UI's accessible components
+### Firebase Cloud Functions
+`functions/` uses CommonJS. Deploy with `pnpm deploy:functions`
 
-### Performance
-- Lazy load routes with `React.lazy()` + `Suspense`
-- Optimize images with Vite image optimizer
-- Avoid unnecessary re-renders with proper useEffect/useMemo deps
-
-## Firebase Functions
-
-`functions/` directory uses CommonJS. Deploy with `pnpm deploy:functions`.
+### Type Safety (JSDoc)
+Use JSDoc annotations for better type inference:
+```javascript
+/**
+ * @param {string} userId
+ * @returns {Promise<User|null>}
+ */
+async function getUser(userId) { ... }
+```

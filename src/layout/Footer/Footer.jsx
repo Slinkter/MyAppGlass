@@ -36,8 +36,9 @@ import logoGYA from "@/assets/branding/LogoCompanytrans.png";
  * @description Unifica FooterItem y FooterLink en un solo estándar de alineación.
  */
 const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
+    const defaultIconColor = useColorModeValue("primary.500", "primary.400");
     const textColor = useColorModeValue("gray.700", "gray.200");
-    const iconColor = customIconColor || useColorModeValue("primary.500", "primary.400");
+    const iconColor = customIconColor || defaultIconColor;
     const hoverColor = useColorModeValue("primary.600", "primary.300");
 
     const content = (
@@ -94,6 +95,8 @@ const Footer = () => {
     const bgColor = useColorModeValue("rgba(255, 255, 255, 0.98)", "rgba(10, 10, 10, 0.98)");
     const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
     const copyrightColor = useColorModeValue("gray.500", "gray.500");
+    const linkTextColor = useColorModeValue("gray.700", "gray.200");
+    const logoFilter = useColorModeValue("none", "brightness(0) invert(1)");
 
     return (
         <Box as="footer" mt={{ base: 16, md: 32 }} mb={{ base: 32, md: 12 }} px={{ base: 4, md: 6 }}>
@@ -126,7 +129,7 @@ const Footer = () => {
                             <Link to="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
                                 <HStack spacing={4} align="center" py={1} _hover={{ transform: "translateX(4px)" }} transition="transform 0.2s">
                                     <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} flexShrink={0} />
-                                    <Text fontSize="sm" fontWeight="600" color={useColorModeValue("gray.700", "gray.200")}>Libro de Reclamaciones</Text>
+                                    <Text fontSize="sm" fontWeight="600" color={linkTextColor}>Libro de Reclamaciones</Text>
                                 </HStack>
                             </Link>
                         </FooterSection>
@@ -135,7 +138,7 @@ const Footer = () => {
                     <Divider borderColor={borderColor} mb={8} />
 
                     <Flex direction="column" align="center" gap={4}>
-                        <Image src={logoGYA} alt="Logo" h="32px" filter={useColorModeValue("none", "brightness(0) invert(1)")} />
+                        <Image src={logoGYA} alt="Logo" h="32px" filter={logoFilter} />
                         <Text fontSize="10px" color={copyrightColor} fontWeight="bold" letterSpacing="0.2em">
                             © 2026 GYA GLASS & ALUMINUM S.A.C.
                         </Text>

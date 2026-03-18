@@ -19,10 +19,15 @@ import { Link as RouterLink } from "react-router-dom";
  * Diseño minimalista sin flechas, enfocado en la imagen, título y descripción clara.
  */
 const ServiceCard = React.memo((props) => {
-  /*  */
-
-  const { image, name, plink } = props;
+  const { image, name, plink, onLoadComplete } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
+
+  const handleImageLoad = React.useCallback(() => {
+    setIsLoaded(true);
+    if (onLoadComplete) {
+      onLoadComplete();
+    }
+  }, [onLoadComplete]);
 
   const styles = {
     buttonBg: useColorModeValue(
@@ -64,7 +69,7 @@ const ServiceCard = React.memo((props) => {
             h="100%"
             loading="lazy"
             decoding="async"
-            onLoad={() => setIsLoaded(true)}
+            onLoad={handleImageLoad}
           />
         </Fade>
 

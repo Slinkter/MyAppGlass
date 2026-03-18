@@ -1,8 +1,10 @@
 import React from "react";
 import { Container, Heading, useColorModeValue, SimpleGrid, VStack, Box } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { LazyMotion, m, domAnimation } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import PropTypes from "prop-types";
+
+const EMPTY_OBJ = {};
 
 /**
  * Componente: ItemGridLayout
@@ -19,7 +21,7 @@ const ItemGridLayout = ({
   seoCanonicalUrl,
   columns = { base: 1, md: 2, lg: 3 },
   spacing = 10,
-  containerProps = {},
+  containerProps = EMPTY_OBJ,
 }) => {
   const headingColor = useColorModeValue("primary.700", "primary.300");
   const borderColor = useColorModeValue("primary.500", "primary.300");
@@ -31,9 +33,6 @@ const ItemGridLayout = ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1, // This creates the cascade effect
-      },
     },
   };
 
@@ -68,8 +67,9 @@ const ItemGridLayout = ({
           </VStack>
 
           {/* Grilla de Contenido Animada */}
+          <LazyMotion features={domAnimation}>
           <SimpleGrid
-            as={motion.div}
+            as={m.div}
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -81,19 +81,21 @@ const ItemGridLayout = ({
           >
             {children}
           </SimpleGrid>
+          </LazyMotion>
         </VStack>
       </Container>
     </>
   );
 };
 
-const ItemGridItem = ({ children }) => {
+const ItemGridItem = ({ children, delay = 0 }) => {
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
+        delay,
         duration: 0.5,
         ease: "easeOut",
       },
@@ -101,9 +103,11 @@ const ItemGridItem = ({ children }) => {
   };
 
   return (
-    <Box as={motion.div} variants={itemVariants} w="full">
+    <LazyMotion features={domAnimation}>
+    <Box as={m.div} variants={itemVariants} w="full">
       {children}
     </Box>
+    </LazyMotion>
   );
 };
 
@@ -118,6 +122,11 @@ ItemGridLayout.propTypes = {
   columns: PropTypes.object,
   spacing: PropTypes.number,
   containerProps: PropTypes.object,
+};
+
+ItemGridItem.propTypes = {
+  children: PropTypes.node.isRequired,
+  delay: PropTypes.number,
 };
 
 export default ItemGridLayout;

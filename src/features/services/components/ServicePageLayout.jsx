@@ -16,7 +16,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { CheckIcon, ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/solid";
-import { motion } from "framer-motion";
+import { LazyMotion, m, domAnimation } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import GlassCard from "@shared/components/common/GlassCard";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
@@ -98,8 +98,8 @@ const BentoBenefits = React.memo(({ benefits }) => {
         Ventajas Clave
       </Heading>
       <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={6}>
-        {benefits.map((benefit, index) => (
-          <HStack key={index} align="start" spacing={3}>
+        {benefits.map((benefit) => (
+          <HStack key={benefit.id || benefit.label} align="start" spacing={3}>
             <Icon as={CheckIcon} color={checkColor} mt={1} />
             <Text fontWeight="semibold" fontSize="sm">{benefit.label}</Text>
           </HStack>
@@ -163,8 +163,9 @@ const ServicePageLayout = ({ pageData }) => {
         <meta name="description" content={seo.description} />
       </Helmet>
 
+      <LazyMotion features={domAnimation}>
       <Box
-        as={motion.div}
+        as={m.div}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
@@ -229,7 +230,8 @@ const ServicePageLayout = ({ pageData }) => {
             </Grid>
           </VStack>
         </Container>
-      </Box>
+        </Box>
+        </LazyMotion>
     </>
   );
 };
