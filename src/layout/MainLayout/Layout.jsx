@@ -1,9 +1,9 @@
 /**
  * @file Layout.jsx
- * @description Root layout wrapper with parallax mainland background.
+ * @description Root layout wrapper with elegant blue-gray gradient background.
  */
 
-import { Suspense, lazy, useState, useEffect } from "react";
+import { Suspense, lazy } from "react";
 import {
   Box,
   useBreakpointValue,
@@ -11,8 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
-import mainlandBg from "@/assets/common/mainland.jpg";
-import mainlandBgMobile from "@/assets/common/mainlandMobile.jpg";
 
 const FloatingWhatsApp = lazy(() =>
   import("../FloatingActions").then((module) => ({
@@ -22,61 +20,14 @@ const FloatingWhatsApp = lazy(() =>
 
 const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
-  const [scrollY, setScrollY] = useState(0);
-  const [docHeight, setDocHeight] = useState(0);
 
-  const bgImage = useBreakpointValue({
-    base: mainlandBgMobile,
-    md: mainlandBg,
+  const bgGradient = useBreakpointValue({
+    base: "linear-gradient(180deg, primary.900 0%, gray.900 50%, primary.800 100%)",
+    md: "linear-gradient(135deg, primary.900 0%, gray.900 40%, primary.800 100%)",
   });
 
-  useEffect(() => {
-    const updateDocHeight = () => {
-      setDocHeight(document.body.offsetHeight);
-    };
-
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    updateDocHeight();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", updateDocHeight);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", updateDocHeight);
-    };
-  }, []);
-
-  const parallaxOffset = scrollY * 0.3;
-  const bgHeight = Math.max(docHeight, window.innerHeight) + 200;
-
   return (
-    <Box minH="100dvh" position="relative">
-      <Box
-        position="fixed"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        zIndex={0}
-        overflow="hidden"
-      >
-        <Box
-          as="img"
-          src={bgImage}
-          alt=""
-          position="absolute"
-          top={-parallaxOffset}
-          left={0}
-          w="100%"
-          h={`${bgHeight}px`}
-          objectFit="cover"
-          objectPosition="center top"
-          pointerEvents="none"
-        />
-      </Box>
-
+    <Box minH="100dvh" position="relative" bgGradient={bgGradient}>
       <Box position="relative" zIndex={1}>
         <Link
           href="#main-content"
