@@ -1,31 +1,39 @@
 /**
  * @file useIntersectionObserver.js
- * @description Hook for detecting element visibility within the viewport using the Intersection Observer API.
+ * @description Hook robusto para detectar visibilidad con fallback para navegadores antiguos.
  * @module shared/hooks
  */
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
-const useIntersectionObserver = (elementRef, options) => {
+const useIntersectionObserver = (elementRef, { root = null, rootMargin = "0px", threshold = 0 } = {}) => {
   const [isVisible, setIsVisible] = useState(false);
-  const observerRef = useRef(null);
 
   useEffect(() => {
-    if (!elementRef || !elementRef.current) return;
+    const node = elementRef?.current;
+    
+    // Fallback para navegadores MUY antiguos sin IntersectionObserver
+    if (typeof window !== "undefined" && !window.IntersectionObserver) {
+      setIsVisible(true);
+      return;
+    }
 
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsVisible(entry.isIntersecting);
-    }, options);
+    if (!node) return;
 
-    observerRef.current = observer;
-    observer.observe(elementRef.current);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { root, rootMargin, threshold }
+    );
+
+    observer.observe(node);
 
     return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
+      if (node) observer.unobserve(node);
+      observer.disconnect();
     };
-  }, [elementRef, options]);
+  }, [elementRef, rootMargin, threshold, root]);
 
   return isVisible;
 };

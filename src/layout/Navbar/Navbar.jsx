@@ -3,18 +3,26 @@
  * @description Responsive navigation header that switches between desktop and mobile views.
  * @module layout/navbar
  */
-
 import React from "react";
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  useColorModeValue,
+  Image,
+  Link,
+} from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 import DesktopNav from "./DesktopNav";
 import BottomNav from "./BottomNav";
+import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
 export default function Navbar() {
-  // Estilos Glassmorphism para Desktop
+  // Estilos High Performance Solid
   const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.1)",
-    "rgba(0, 0, 0, 0.1)",
+    "rgba(255, 255, 255, 0.95)",
+    "rgba(10, 10, 10, 0.95)",
   );
+  const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   const textColor = useColorModeValue("gray.800", "gray.100");
 
   return (
@@ -31,7 +39,7 @@ export default function Navbar() {
       >
         <Flex
           as="nav"
-          bg={bgColor}
+          bg={useColorModeValue("rgba(255, 255, 255, 0.95)", "rgba(15, 15, 15, 0.95)")}
           color={textColor}
           minH="60px"
           py={{ base: 2 }}
@@ -41,11 +49,12 @@ export default function Navbar() {
           position="relative"
           maxW="7xl"
           mx="auto"
-          // Glassmorphism effects
-          backdropFilter="blur(10px)"
-          border="none"
+          // Solid effects
+          backdropFilter="none"
+          border="1px solid"
+          borderColor={borderColor}
           borderRadius="2xl"
-          boxShadow="sm"
+          boxShadow="none"
         >
           <Flex flex={{ base: 1 }} justifyContent="center" alignItems="center">
             <DesktopNav />
