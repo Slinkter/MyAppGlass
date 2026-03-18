@@ -48,7 +48,9 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
       boxShadow="lg"
       transition={{ base: "all 0.2s ease", md: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)" }}
       _hover={{
-        boxShadow: { base: "lg", md: "2xl" },
+        boxShadow: { base: "lg", md: "0 0 40px rgba(72, 132, 206, 0.3)" },
+        outline: { base: "none", md: "2px solid" },
+        outlineColor: { base: "transparent", md: "primary.400" },
         transform: { base: "none", md: "translateY(-6px)" },
       }}
       cursor="pointer"
@@ -64,7 +66,7 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
         position="absolute"
         inset="0"
         transition="transform 0.8s ease-out"
-        _groupHover={{ transform: "scale(1.1)" }}
+        _groupHover={{ transform: { base: "scale(1.1)", md: "translateX(4px) translateY(-2px)" } }}
       >
         <Fade in={isLoaded} style={{ height: "100%" }}>
           <ResponsiveImage
@@ -89,7 +91,36 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
         />
       </Box>
 
-      {/* 2. Información Flotante */}
+      {/* 3. Badge de Año */}
+      <Box
+        position="absolute"
+        top={4}
+        left={4}
+        zIndex={3}
+        opacity={0}
+        transition="opacity 0.3s ease"
+        _groupHover={{ opacity: { base: 0, md: 1 } }}
+      >
+        <Box
+          bg={useColorModeValue("whiteAlpha.900", "blackAlpha.800")}
+          backdropFilter="blur(8px)"
+          px={3}
+          py={1.5}
+          borderRadius="full"
+          boxShadow="md"
+        >
+          <Text
+            fontSize="xs"
+            fontWeight="bold"
+            color={useColorModeValue("primary.700", "primary.200")}
+            letterSpacing="wider"
+          >
+            {year}
+          </Text>
+        </Box>
+      </Box>
+
+      {/* 4. Información Flotante */}
       <Box position="absolute" bottom={4} left={4} right={4} zIndex={2}>
         <SlideFade in={isLoaded} offsetY="20px">
           <VStack
