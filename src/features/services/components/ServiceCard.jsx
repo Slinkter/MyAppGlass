@@ -1,6 +1,6 @@
 /**
  * @file ServiceCard.jsx
- * @description Full-bleed image card with bottom overlay for service names.
+ * @description Minimal card with accent border on hover.
  */
 
 import React from "react";
@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import {
   Box,
   Text,
+  VStack,
   useColorModeValue,
   LinkBox,
   LinkOverlay,
@@ -28,12 +29,11 @@ const ServiceCard = React.memo((props) => {
     }
   }, [onLoadComplete]);
 
-  const overlayBg = useColorModeValue(
-    "linear(to-t, rgba(0,0,0,0.85), rgba(0,0,0,0.6), transparent)",
-    "linear(to-t, rgba(0,0,0,0.9), rgba(0,0,0,0.7), transparent)"
-  );
-  const titleColor = "white";
-  const borderAccent = useColorModeValue("primary.400", "primary.300");
+  const cardBg = useColorModeValue("white", "gray.800");
+  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const accentColor = useColorModeValue("primary.500", "primary.400");
+  const titleColor = useColorModeValue("gray.800", "white");
+  const textColor = useColorModeValue("gray.500", "gray.400");
 
   return (
     <LinkBox
@@ -41,18 +41,21 @@ const ServiceCard = React.memo((props) => {
       role="group"
       cursor="pointer"
       position="relative"
-      h={{ base: "280px", md: "380px" }}
+      h={{ base: "280px", md: "320px" }}
       borderRadius="xl"
       overflow="hidden"
+      bg={cardBg}
+      border="2px solid"
+      borderColor={isHovered ? accentColor : borderColor}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      transition="border-color 0.25s ease"
       _hover={{
-        boxShadow: { md: "xl" },
+        borderColor: accentColor,
       }}
-      transition="box-shadow 0.3s ease"
     >
       <Fade in={isLoaded} style={{ height: "100%" }}>
-        <Box position="relative" h="full" w="full">
+        <Box position="relative" h="65%" overflow="hidden">
           <ResponsiveImage
             src={image}
             alt={name}
@@ -63,54 +66,57 @@ const ServiceCard = React.memo((props) => {
             decoding={index < 3 ? "sync" : "async"}
             onLoad={handleImageLoad}
             isLCP={index < 3}
-            transition="transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-            _groupHover={{ transform: "scale(1.06)" }}
+            transition="transform 0.5s ease"
+            _groupHover={{ transform: "scale(1.05)" }}
           />
 
           <Box
             position="absolute"
             inset="0"
-            bgGradient={overlayBg}
-            transition="opacity 0.3s ease"
+            bgGradient="linear(to-t, blackAlpha.400, transparent 40%)"
           />
-
-          <Box
-            position="absolute"
-            bottom={0}
-            left={0}
-            right={0}
-            h="40%"
-            bgGradient={overlayBg}
-            display="flex"
-            flexDirection="column"
-            justifyContent="flex-end"
-            p={{ base: 4, md: 6 }}
-          >
-            <Box
-              position="absolute"
-              bottom={0}
-              left={0}
-              right={0}
-              h="3px"
-              bg={borderAccent}
-              transform={isHovered ? "scaleX(1)" : "scaleX(0)"}
-              transformOrigin="left"
-              transition="transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-            />
-
-            <Text
-              color={titleColor}
-              fontSize={{ base: "sm", md: "lg" }}
-              fontWeight="700"
-              textTransform="uppercase"
-              letterSpacing="wider"
-              lineHeight="tall"
-            >
-              {name}
-            </Text>
-          </Box>
         </Box>
+
+        <VStack
+          h="35%"
+          p={4}
+          spacing={1}
+          justify="center"
+          align="flex-start"
+        >
+          <Text
+            color={titleColor}
+            fontSize={{ base: "sm", md: "md" }}
+            fontWeight="600"
+            textTransform="uppercase"
+            letterSpacing="wide"
+            noOfLines={1}
+          >
+            {name}
+          </Text>
+
+          <Text
+            color={textColor}
+            fontSize="xs"
+            letterSpacing="normal"
+            textTransform="uppercase"
+          >
+            {isHovered ? "Ver servicio →" : ""}
+          </Text>
+        </VStack>
       </Fade>
+
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        w="4px"
+        h="100%"
+        bg={accentColor}
+        transform={isHovered ? "scaleY(1)" : "scaleY(0)"}
+        transformOrigin="top"
+        transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+      />
 
       <LinkOverlay as={RouterLink} to={plink} />
     </LinkBox>
