@@ -90,7 +90,7 @@ const BottomNav = () => {
           bg={containerBg}
           px={2}
           py={2}
-          borderRadius="xl"
+          borderRadius="2xl"
           shadow="lg"
           w="full"
           maxW="340px"
