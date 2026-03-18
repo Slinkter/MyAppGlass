@@ -1,12 +1,13 @@
 /**
  * @file Layout.jsx
- * @description Root layout wrapper with elegant blue-gray gradient background.
+ * @description Root layout wrapper with glassmorphism background effect.
  */
 
 import { Suspense, lazy } from "react";
 import {
   Box,
   useBreakpointValue,
+  useColorModeValue,
   Link,
 } from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
@@ -21,13 +22,28 @@ const FloatingWhatsApp = lazy(() =>
 const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
 
-  const bgGradient = useBreakpointValue({
-    base: "linear-gradient(180deg, primary.900 0%, gray.900 50%, primary.800 100%)",
-    md: "linear-gradient(135deg, primary.900 0%, gray.900 40%, primary.800 100%)",
-  });
+  const bgGradient = useColorModeValue(
+    "linear-gradient(135deg, blue.50 0%, white 50%, blue.100 100%)",
+    "linear-gradient(135deg, gray.900 0%, gray.800 50%, blue.900 100%)"
+  );
 
   return (
     <Box minH="100dvh" position="relative" bgGradient={bgGradient}>
+      <Box
+        position="fixed"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        zIndex={0}
+        backdropFilter="blur(100px)"
+        bg={useColorModeValue(
+          "rgba(255, 255, 255, 0.7)",
+          "rgba(0, 0, 0, 0.5)"
+        )}
+        pointerEvents="none"
+      />
+
       <Box position="relative" zIndex={1}>
         <Link
           href="#main-content"
