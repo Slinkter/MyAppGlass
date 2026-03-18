@@ -1,54 +1,76 @@
 /**
  * @file Layout.jsx
- * @description Root layout wrapper that establishes the visual baseline and global structure of the application.
- * @module layout/Layout
- * @remarks
- * - Implements a responsive background strategy using high-quality assets.
- * - Applies a global glassmorphism overlay to ensure content legibility across all pages.
- * - Integrates core navigation (Navbar) and information (Footer) components into a centered, constrained layout.
+ * @description Root layout wrapper with parallax background effect.
  */
 
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import {
   Box,
   useBreakpointValue,
   Link,
-  useColorModeValue,
+  Image,
 } from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
+import mainlandBg from "@/assets/common/mainland.jpg";
+import mainlandBgMobile from "@/assets/common/mainlandMobile.jpg";
+
 const FloatingWhatsApp = lazy(() =>
   import("../FloatingActions").then((module) => ({
     default: module.FloatingWhatsApp,
   })),
 );
 
-
-
-/**
- * @component Layout
- * @description Root layout wrapper for the application.
- * @param {object} props - The component props.
- * @param {React.ReactNode} props.children - The child components to be rendered within the layout.
- * @returns {JSX.Element} The rendered layout component.
- */
 const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
+  const [scrollY, setScrollY] = useState(0);
 
-  const bgGradient = useColorModeValue(
-    "linear(to-b, gray.50, white, gray.50)",
-    "linear(to-b, gray.900, gray.800, gray.900)"
-  );
+  const bgImage = useBreakpointValue({
+    base: mainlandBgMobile,
+    md: mainlandBg,
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const parallaxOffset = scrollY * 0.3;
 
   return (
-    <Box
-      minH="100dvh"
-      position="relative"
-      m={0}
-      p={0}
-      bgGradient={bgGradient}
-    >
-      {/* Skip Link */}
+    <Box minH="100dvh" position="relative" m={0} p={0}>
+      <Box
+        position="fixed"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        zIndex={0}
+        overflow="hidden"
+      >
+        <Image
+          src={bgImage}
+          alt=""
+          position="absolute"
+          top={-parallaxOffset}
+          left={0}
+          w="100%"
+          h="calc(100% + 300px)"
+          objectFit="cover"
+          objectPosition="center"
+          pointerEvents="none"
+        />
+        <Box
+          position="absolute"
+          inset={0}
+          bgGradient="linear(to-b, blackAlpha.600, blackAlpha.400, blackAlpha.700)"
+        />
+      </Box>
+
       <Link
         href="#main-content"
         sx={{
@@ -76,6 +98,7 @@ const Layout = ({ children }) => {
       >
         Saltar al contenido principal
       </Link>
+
       <Box
         position="relative"
         maxW="7xl"
