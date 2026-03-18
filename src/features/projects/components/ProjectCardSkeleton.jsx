@@ -32,7 +32,6 @@ const ProjectCardSkeleton = () => {
             mb={4}
             overflow="hidden"
             bg={styles.bg}
-            backdropFilter="blur(10px)"
             borderRadius="2xl"
             boxShadow="lg"
         >

@@ -66,7 +66,6 @@ const BottomNav = () => {
         align="center"
         justify="space-between"
         bg={containerBg}
-        backdropFilter="none"
         px={2}
         py={2}
         borderRadius="full"

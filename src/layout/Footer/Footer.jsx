@@ -44,10 +44,10 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
     const content = (
         <HStack spacing={4} align="center" w="full" py={1}>
             <Icon as={icon} boxSize={5} color={iconColor} flexShrink={0} />
-            <Text 
-                fontSize="sm" 
-                fontWeight="500" 
-                color={textColor} 
+            <Text
+                fontSize="sm"
+                fontWeight="500"
+                color={textColor}
                 transition="color 0.2s"
                 _groupHover={to ? { color: hoverColor } : {}}
             >
@@ -96,7 +96,7 @@ const Footer = () => {
     const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
     const copyrightColor = useColorModeValue("gray.500", "gray.500");
     const linkTextColor = useColorModeValue("gray.700", "gray.200");
-    const logoFilter = useColorModeValue("none", "brightness(0) invert(1)");
+    const logoFilter = useColorModeValue("none", "brightness(0) invert(1)"); // eslint-disable-line no-unused-vars
 
     return (
         <Box as="footer" mt={{ base: 16, md: 32 }} mb={{ base: 32, md: 12 }} px={{ base: 4, md: 6 }}>
@@ -138,7 +138,7 @@ const Footer = () => {
                     <Divider borderColor={borderColor} mb={8} />
 
                     <Flex direction="column" align="center" gap={4}>
-                        <Image src={logoGYA} alt="Logo" h="32px" filter={logoFilter} />
+                        <Image src={logoGYA} alt="Logo" h="32px" />
                         <Text fontSize="10px" color={copyrightColor} fontWeight="bold" letterSpacing="0.2em">
                             © 2026 GYA GLASS & ALUMINUM S.A.C.
                         </Text>

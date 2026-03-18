@@ -49,7 +49,6 @@ const ErrorView = () => {
     <VStack minH="100dvh" justifyContent="center" alignItems="center" p={4}>
       <Box
         bg={bgColor}
-        backdropFilter="blur(20px)"
         border="1px solid"
         borderColor={borderColor}
         boxShadow="0 4px 30px rgba(0,0,0,0.1)"

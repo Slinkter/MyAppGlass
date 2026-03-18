@@ -27,7 +27,6 @@ const CompanyPoliciesPage = () => {
     "rgba(255, 255, 255, 0.1)",
     "rgba(0, 0, 0, 0.1)",
   );
-  const glassSectionBlur = "blur(10px)"; // Suave blur
 
   return (
     <>
@@ -53,7 +52,6 @@ const CompanyPoliciesPage = () => {
           <Box
             width="100%"
             bg={glassSectionBg}
-            backdropFilter={glassSectionBlur}
             border="none"
             boxShadow="sm"
             borderRadius="2xl"
@@ -181,7 +179,6 @@ const CompanyPoliciesPage = () => {
           <Box
             width="100%"
             bg={glassSectionBg}
-            backdropFilter={glassSectionBlur}
             border="none"
             boxShadow="sm"
             borderRadius="2xl"
@@ -304,7 +301,6 @@ const CompanyPoliciesPage = () => {
           <Box
             width="100%"
             bg={glassSectionBg}
-            backdropFilter={glassSectionBlur}
             border="none"
             boxShadow="sm"
             borderRadius="2xl"

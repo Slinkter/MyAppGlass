@@ -137,7 +137,7 @@ const GalleryViewer = ({
             top={4}
             right={4}
             bg="blackAlpha.700"
-            backdropFilter="blur(10px)"
+            // Eliminado backdrop-filter - usar bg sólida en su lugar
             px={4}
             py={1.5}
             borderRadius="full"

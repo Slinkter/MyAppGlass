@@ -32,7 +32,6 @@ const ErrorDisplay = ({ message, onRetry }) => {
       spacing={4}
       p={4}
       bg="whiteAlpha.200"
-      backdropFilter="blur(10px)"
       border="1px solid"
       borderColor="whiteAlpha.300"
       shadow="lg"

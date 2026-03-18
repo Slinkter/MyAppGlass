@@ -35,9 +35,9 @@ const ProjectsList = React.memo(() => {
         <ItemGridLayout.Item key={project.id} delay={index * 0.15}>
           <ProjectCard
             {...project}
-            // LCP Optimization
+            isLCP={index < 3}
             loading={index < 2 ? "eager" : "lazy"}
-            fetchPriority={index < 2 ? "high" : "auto"}
+            fetchpriority={index < 2 ? "high" : "auto"}
           />
         </ItemGridLayout.Item>
       ))}

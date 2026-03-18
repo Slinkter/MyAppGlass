@@ -33,6 +33,7 @@ const ItemGridLayout = ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
+      transition: { staggerChildren: 0.15 },
     },
   };
 
@@ -88,14 +89,13 @@ const ItemGridLayout = ({
   );
 };
 
-const ItemGridItem = ({ children, delay = 0 }) => {
+const ItemGridItem = ({ children }) => {
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        delay,
         duration: 0.5,
         ease: "easeOut",
       },
@@ -104,9 +104,9 @@ const ItemGridItem = ({ children, delay = 0 }) => {
 
   return (
     <LazyMotion features={domAnimation}>
-    <Box as={m.div} variants={itemVariants} w="full">
-      {children}
-    </Box>
+      <Box as={m.div} variants={itemVariants} w="full">
+        {children}
+      </Box>
     </LazyMotion>
   );
 };
@@ -126,7 +126,6 @@ ItemGridLayout.propTypes = {
 
 ItemGridItem.propTypes = {
   children: PropTypes.node.isRequired,
-  delay: PropTypes.number,
 };
 
 export default ItemGridLayout;

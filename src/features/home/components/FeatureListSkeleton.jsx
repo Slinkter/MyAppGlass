@@ -22,7 +22,6 @@ const FeatureListSkeleton = () => {
                 p={{ base: 3, md: 6 }}
                 textAlign="center"
                 bg='whiteAlpha.200'
-                backdropFilter='blur(10px)'
                 border='1px solid'
                 borderColor='whiteAlpha.300'
                 shadow='lg'

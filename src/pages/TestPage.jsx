@@ -29,9 +29,7 @@ const TestView = () => {
             <HStack
                 p={2}
                 spacing={6}
-                // Glassmorphism effects
                 bg={bgColor}
-                backdropFilter="blur(20px)"
                 border="1px solid"
                 borderColor={borderColor}
                 boxShadow="0 4px 30px rgba(0,0,0,0.1)"
