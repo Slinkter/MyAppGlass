@@ -11,8 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
-import mainlandBg from "@/assets/common/mainland.jpg";
-import mainlandBgMobile from "@/assets/common/mainlandMobile.jpg";
+import mainlandBg from "@/assets/common/sectorcontruc.jpg";
+import mainlandBgMobile from "@/assets/common/sectorcontruc.jpg";
 
 const FloatingWhatsApp = lazy(() =>
   import("../FloatingActions").then((module) => ({
