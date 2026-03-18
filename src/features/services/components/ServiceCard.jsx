@@ -1,6 +1,6 @@
 /**
  * @file ServiceCard.jsx
- * @description Minimal card with accent border on hover.
+ * @description Ultra-minimal card with image and centered name overlay.
  */
 
 import React from "react";
@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import {
   Box,
   Text,
-  VStack,
   useColorModeValue,
   LinkBox,
   LinkOverlay,
@@ -20,7 +19,6 @@ import { Link as RouterLink } from "react-router-dom";
 const ServiceCard = React.memo((props) => {
   const { image, name, plink, onLoadComplete, index } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
-  const [isHovered, setIsHovered] = React.useState(false);
 
   const handleImageLoad = React.useCallback(() => {
     setIsLoaded(true);
@@ -29,11 +27,11 @@ const ServiceCard = React.memo((props) => {
     }
   }, [onLoadComplete]);
 
-  const cardBg = useColorModeValue("white", "gray.800");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
-  const accentColor = useColorModeValue("primary.500", "primary.400");
-  const titleColor = useColorModeValue("gray.800", "white");
-  const textColor = useColorModeValue("gray.500", "gray.400");
+  const bgOverlay = useColorModeValue(
+    "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)",
+    "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)"
+  );
+  const textColor = "white";
 
   return (
     <LinkBox
@@ -41,21 +39,16 @@ const ServiceCard = React.memo((props) => {
       role="group"
       cursor="pointer"
       position="relative"
-      h={{ base: "280px", md: "320px" }}
-      borderRadius="xl"
+      h={{ base: "300px", md: "400px" }}
+      borderRadius="lg"
       overflow="hidden"
-      bg={cardBg}
-      border="2px solid"
-      borderColor={isHovered ? accentColor : borderColor}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      transition="border-color 0.25s ease"
       _hover={{
-        borderColor: accentColor,
+        boxShadow: { md: "2xl" },
       }}
+      transition="box-shadow 0.4s ease"
     >
       <Fade in={isLoaded} style={{ height: "100%" }}>
-        <Box position="relative" h="65%" overflow="hidden">
+        <Box position="relative" h="full" w="full">
           <ResponsiveImage
             src={image}
             alt={name}
@@ -66,57 +59,47 @@ const ServiceCard = React.memo((props) => {
             decoding={index < 3 ? "sync" : "async"}
             onLoad={handleImageLoad}
             isLCP={index < 3}
-            transition="transform 0.5s ease"
-            _groupHover={{ transform: "scale(1.05)" }}
+            transition="transform 0.6s ease"
+            _groupHover={{ transform: "scale(1.03)" }}
           />
+
+          <Box position="absolute" inset="0" bgGradient={bgOverlay} />
 
           <Box
             position="absolute"
-            inset="0"
-            bgGradient="linear(to-t, blackAlpha.400, transparent 40%)"
-          />
+            bottom={0}
+            left={0}
+            right={0}
+            p={6}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Text
+              color={textColor}
+              fontSize={{ base: "md", md: "xl" }}
+              fontWeight="600"
+              textTransform="uppercase"
+              letterSpacing="wider"
+              textAlign="center"
+              position="relative"
+              _after={{
+                content: '""',
+                position: "absolute",
+                bottom: "-8px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: isLoaded ? "40px" : "0",
+                height: "2px",
+                bg: "white",
+                transition: "width 0.4s ease",
+              }}
+            >
+              {name}
+            </Text>
+          </Box>
         </Box>
-
-        <VStack
-          h="35%"
-          p={4}
-          spacing={1}
-          justify="center"
-          align="flex-start"
-        >
-          <Text
-            color={titleColor}
-            fontSize={{ base: "sm", md: "md" }}
-            fontWeight="600"
-            textTransform="uppercase"
-            letterSpacing="wide"
-            noOfLines={1}
-          >
-            {name}
-          </Text>
-
-          <Text
-            color={textColor}
-            fontSize="xs"
-            letterSpacing="normal"
-            textTransform="uppercase"
-          >
-            {isHovered ? "Ver servicio →" : ""}
-          </Text>
-        </VStack>
       </Fade>
-
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        w="4px"
-        h="100%"
-        bg={accentColor}
-        transform={isHovered ? "scaleY(1)" : "scaleY(0)"}
-        transformOrigin="top"
-        transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-      />
 
       <LinkOverlay as={RouterLink} to={plink} />
     </LinkBox>
