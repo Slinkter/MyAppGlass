@@ -68,7 +68,10 @@ const LandingPageSection = React.memo(() => {
           spacing={4}
           initial={animationConfig}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: "easeOut" }}
+          transition={{
+            duration: prefersReducedMotion ? 0 : 0.3,
+            ease: "easeOut",
+          }}
           textAlign="center"
           maxW="5xl"
         >
@@ -119,32 +122,6 @@ const LandingPageSection = React.memo(() => {
               Empresa Comercial especializada en la instalación de cristales y
               aluminios.
             </Text>
-
-            <m.div
-              initial={buttonAnimation}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: prefersReducedMotion ? 0 : 0.5, duration: prefersReducedMotion ? 0 : 0.6 }}
-            >
-              <Link to="/servicios">
-                <Button
-                  mt={8}
-                  size={{ base: "lg", md: "xl" }}
-                  colorScheme="primary"
-                  fontWeight="bold"
-                  px={{ base: 8, md: 12 }}
-                  py={{ base: 4, md: 6 }}
-                  borderRadius="full"
-                  boxShadow="lg"
-                  _hover={{ transform: "translateY(-2px)", boxShadow: "xl" }}
-                  _focus={{ boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.6)" }}
-                  _active={{ transform: "translateY(0)", boxShadow: "md" }}
-                  transition="all 0.2s ease"
-                  aria-label="Ver nuestros servicios"
-                >
-                  Ver Nuestros Servicios →
-                </Button>
-              </Link>
-            </m.div>
           </Box>
         </MotionVStack>
       </Flex>

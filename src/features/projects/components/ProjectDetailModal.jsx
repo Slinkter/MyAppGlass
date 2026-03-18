@@ -20,7 +20,6 @@ const ProjectDetailModal = (props) => {
     name,
     address,
     year,
-    g_maps,
     lat,
     lng,
     photos,
@@ -96,7 +95,6 @@ const ProjectDetailModal = (props) => {
               name={name}
               address={address}
               year={year}
-              g_maps={g_maps}
               viewMode={viewMode}
               setViewMode={setViewMode}
               onClose={onClose}
@@ -115,7 +113,6 @@ ProjectDetailModal.propTypes = {
   name: PropTypes.string,
   address: PropTypes.string,
   year: PropTypes.string,
-  g_maps: PropTypes.string,
   lat: PropTypes.number,
   lng: PropTypes.number,
   photos: PropTypes.array,
