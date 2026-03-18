@@ -16,7 +16,7 @@ import { Flex, Icon, Box, Text, useColorModeValue } from "@chakra-ui/react";
  * @returns {JSX.Element} Ítem de detalle renderizado.
  */
 const ProjectDetailItem = ({ icon, label, value }) => {
-  const iconColor = useColorModeValue("primary.600", "primary.300");
+  const iconColor = useColorModeValue("primary.500", "primary.400");
   const labelColor = useColorModeValue("gray.500", "gray.400");
   const valueColor = useColorModeValue("gray.800", "white");
 

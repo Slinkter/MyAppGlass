@@ -7,7 +7,7 @@ import { ClockIcon } from "@heroicons/react/24/outline";
  * @description Placeholder component displayed when content (like a gallery) is not yet available.
  */
 const ComingSoonDisplay = () => {
-  const textColor = useColorModeValue("gray.600", "gray.400");
+  const textColor = useColorModeValue("gray.700", "gray.300");
   return (
     <Flex
       h="100%"

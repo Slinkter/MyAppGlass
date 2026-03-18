@@ -41,10 +41,10 @@ const FloatingWhatsApp = () => {
         display={{ base: "none", md: "flex" }}
       >
         <Button
-          bg="#25D366" // WhatsApp green
+          bg="brand.whatsapp"
           color="white"
-          _hover={{ bg: "#1DAE54" }}
-          _active={{ bg: "#178B43" }}
+          _hover={{ bg: "brand.whatsappHover" }}
+          _active={{ bg: "brand.whatsappActive" }}
           variant="solid"
           rounded="full"
           w={16}

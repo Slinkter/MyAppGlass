@@ -1,13 +1,14 @@
 /**
  * @file BottomNav.jsx
  * @description Smart bottom navigation with animated bubble on scroll.
+ * Uses semantic color tokens for surfaces and icon colors.
+ * @module layout/navbar
  */
 
 import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Flex,
-  useColorModeValue,
   Icon,
   Link,
 } from "@chakra-ui/react";
@@ -45,14 +46,6 @@ const BottomNav = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const containerBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.98)",
-    "rgba(20, 20, 20, 0.98)"
-  );
-  const containerBorder = useColorModeValue("gray.200", "gray.700");
-  const activeIconColor = "white";
-  const inactiveIconColor = useColorModeValue("gray.500", "gray.400");
-
   const navItems = [
     { label: "Inicio", icon: HomeIcon, path: "/" },
     { label: "Servicios", icon: WrenchScrewdriverIcon, path: "/servicios" },
@@ -87,7 +80,7 @@ const BottomNav = () => {
         }}
       >
         <Flex
-          bg={containerBg}
+          bg="surface.bottomNav"
           px={2}
           py={2}
           borderRadius="2xl"
@@ -95,7 +88,7 @@ const BottomNav = () => {
           w="full"
           maxW="340px"
           border="1px solid"
-          borderColor={containerBorder}
+          borderColor="border.default"
           align="center"
           justify="space-around"
         >
@@ -154,7 +147,7 @@ const BottomNav = () => {
                     h={6}
                     position="relative"
                     zIndex={1}
-                    color={isActive ? activeIconColor : inactiveIconColor}
+                    color={isActive ? "white" : "text.subtle"}
                     strokeWidth={isActive ? 2.5 : 2}
                     transition="color 0.3s ease"
                   />

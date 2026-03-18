@@ -38,7 +38,7 @@ const ReclamationForm = () => {
   );
   const placeholderColor = useColorModeValue("gray.500", "gray.400");
   const hoverBorderColor = useColorModeValue("gray.400", "gray.500");
-  const focusBorderColor = useColorModeValue("purple.500", "purple.300");
+  const focusBorderColor = useColorModeValue("primary.500", "primary.300");
   const focusBoxShadowColor = useColorModeValue("primary.500", "primary.300");
   const optionBg = useColorModeValue("#FFFFFF", "#2D3748");
 
