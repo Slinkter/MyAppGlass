@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import {
   Box,
   Text,
-  useColorModeValue,
   LinkBox,
   LinkOverlay,
   Fade,
@@ -28,13 +27,9 @@ const ServiceCard = React.memo((props) => {
     }
   }, [onLoadComplete]);
 
-  const bgOverlay = useColorModeValue(
-    "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)",
-    "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)"
-  );
-  const textColor = "white";
-  const hoverColor = useColorModeValue("primary.500", "primary.400");
-  const hoverUnderlineColor = useColorModeValue("primary.500", "primary.400");
+  // Keep hardcoded gradient because it's rendering on top of an image.
+  const bgOverlay = "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
+  const hoverColor = "text.accent";
 
   return (
     <LinkBox
@@ -49,8 +44,9 @@ const ServiceCard = React.memo((props) => {
       onMouseLeave={() => setIsHovered(false)}
       _hover={{
         boxShadow: { md: "2xl" },
+        transform: "translateY(-4px)"
       }}
-      transition="box-shadow 0.4s ease"
+      transition="box-shadow 0.4s ease, transform 0.4s ease"
     >
       <Fade in={isLoaded} style={{ height: "100%" }}>
         <Box position="relative" h="full" w="full" overflow="hidden">
@@ -82,7 +78,7 @@ const ServiceCard = React.memo((props) => {
             justifyContent="center"
           >
             <Text
-              color={isHovered ? hoverColor : textColor}
+              color={isHovered ? hoverColor : "white"}
               fontSize={{ base: "md", md: "xl" }}
               fontWeight="600"
               textTransform="uppercase"
@@ -98,7 +94,7 @@ const ServiceCard = React.memo((props) => {
                 transform: "translateX(-50%)",
                 width: isLoaded ? "40px" : "0",
                 height: "2px",
-                bg: isHovered ? hoverUnderlineColor : "white",
+                bg: isHovered ? hoverColor : "white",
                 transition: "width 0.4s ease, background 0.3s ease",
               }}
             >

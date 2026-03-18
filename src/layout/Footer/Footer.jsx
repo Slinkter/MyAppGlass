@@ -29,7 +29,6 @@ import { MdOutlineEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
-import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
 /**
  * @component FooterRow

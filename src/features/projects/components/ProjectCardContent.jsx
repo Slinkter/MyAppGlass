@@ -11,7 +11,6 @@ import {
   Text,
   HStack,
   Icon,
-  useColorModeValue,
   LinkBox,
   LinkOverlay,
   Fade,
@@ -21,14 +20,6 @@ import { MapPinIcon } from "@heroicons/react/24/outline";
 
 const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModal, isLCP }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
-
-  const infoBgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.95)",
-    "rgba(20, 20, 20, 0.85)"
-  );
-  const headingColor = useColorModeValue("primary.800", "primary.200");
-  const textColor = useColorModeValue("gray.700", "gray.300");
-  const iconColor = useColorModeValue("primary.500", "primary.400");
 
   return (
     <LinkBox
@@ -48,7 +39,7 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
       _focusVisible={{
         outline: "none",
         ring: "2px",
-        ringColor: "primary.500",
+        ringColor: "ring.primary",
         ringOffset: "2px",
       }}
     >
@@ -80,11 +71,11 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
             left={0}
             right={0}
             p={6}
-            bg={infoBgColor}
+            bg="surface.footer"
           >
             <Heading
               size="sm"
-              color={headingColor}
+              color="text.heading"
               textTransform="uppercase"
               fontWeight="600"
               letterSpacing="wide"
@@ -96,11 +87,11 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
             </Heading>
 
             <HStack justify="center" spacing={1}>
-              <Icon as={MapPinIcon} w={4} h={4} color={iconColor} />
-              <Text fontSize="xs" color={textColor} fontWeight="500" noOfLines={1}>
+              <Icon as={MapPinIcon} w={4} h={4} color="text.accent" />
+              <Text fontSize="xs" color="text.muted" fontWeight="500" noOfLines={1}>
                 {address}
               </Text>
-              <Text fontSize="xs" color={textColor} fontWeight="400" ml={2}>
+              <Text fontSize="xs" color="text.muted" fontWeight="400" ml={2}>
                 · {year}
               </Text>
             </HStack>
