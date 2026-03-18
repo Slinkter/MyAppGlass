@@ -1,6 +1,6 @@
 /**
  * @file Layout.jsx
- * @description Root layout wrapper with elegant multi-tone gradient background.
+ * @description Root layout wrapper - Warm bone/beige with gray gradient
  */
 
 import { Suspense, lazy } from "react";
@@ -22,8 +22,8 @@ const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
 
   const bgGradient = useBreakpointValue({
-    base: "linear-gradient(165deg, primary.800 0%, primary.900 20%, gray.900 40%, primary.700 60%, gray.800 80%, primary.600 100%)",
-    md: "linear-gradient(135deg, primary.800 0%, primary.900 15%, gray.900 30%, primary.700 50%, gray.800 70%, primary.600 85%, gray.700 100%)",
+    base: "linear-gradient(180deg, gray.700 0%, warmGray.700 25%, warmGray.600 50%, gray.600 75%, warmGray.500 100%)",
+    md: "linear-gradient(140deg, gray.700 0%, warmGray.700 15%, warmGray.600 35%, gray.600 55%, warmGray.500 75%, gray.500 100%)",
   });
 
   return (
