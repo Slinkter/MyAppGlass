@@ -1,13 +1,12 @@
 /**
  * @file BottomNav.jsx
- * @description Smart bottom navigation that hides on scroll down, shows on scroll up.
+ * @description Smart bottom navigation with animated bubble on scroll.
  */
 
 import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Flex,
-  Text,
   useColorModeValue,
   Icon,
   Link,
@@ -19,24 +18,24 @@ import {
   BuildingOffice2Icon,
 } from "@heroicons/react/24/outline";
 import { FaWhatsapp } from "react-icons/fa";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { companyData } from "@/config/company-data";
 
 const MotionBox = motion(Box);
 
 const BottomNav = () => {
   const location = useLocation();
-  const [isVisible, setIsVisible] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setIsVisible(false);
+      if (currentScrollY > 50) {
+        setHasScrolled(true);
       } else {
-        setIsVisible(true);
+        setHasScrolled(false);
       }
 
       lastScrollY.current = currentScrollY;
@@ -47,15 +46,12 @@ const BottomNav = () => {
   }, []);
 
   const containerBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.95)",
-    "rgba(20, 20, 20, 0.95)"
+    "rgba(255, 255, 255, 0.98)",
+    "rgba(20, 20, 20, 0.98)"
   );
   const containerBorder = useColorModeValue("gray.200", "gray.700");
-  const activeColor = useColorModeValue("primary.600", "primary.300");
-  const inactiveColor = useColorModeValue("gray.400", "gray.500");
-  const activeBgColor = useColorModeValue("primary.50", "gray.700");
-  const labelColor = useColorModeValue("gray.500", "gray.400");
-  const activeLabelColor = useColorModeValue("primary.600", "primary.300");
+  const activeIconColor = "white";
+  const inactiveIconColor = useColorModeValue("gray.500", "gray.400");
 
   const navItems = [
     { label: "Inicio", icon: HomeIcon, path: "/" },
@@ -71,85 +67,103 @@ const BottomNav = () => {
 
   return (
     <AnimatePresence>
-      {isVisible && (
-        <MotionBox
-          position="fixed"
-          bottom={0}
-          left={0}
-          right={0}
-          display={{ base: "block", md: "none" }}
-          zIndex="sticky"
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ 
-            duration: 0.3, 
-            ease: [0.25, 0.46, 0.45, 0.94] 
-          }}
+      <MotionBox
+        position="fixed"
+        bottom={4}
+        left={0}
+        right={0}
+        display={{ base: "flex", md: "none" }}
+        justifyContent="center"
+        px={6}
+        zIndex="sticky"
+        initial={{ y: 100, opacity: 0 }}
+        animate={{
+          y: hasScrolled ? 0 : 100,
+          opacity: hasScrolled ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.4,
+          ease: [0.25, 0.46, 0.45, 0.94],
+        }}
+      >
+        <Flex
+          bg={containerBg}
+          px={2}
+          py={2}
+          borderRadius="xl"
+          shadow="lg"
+          w="full"
+          maxW="340px"
+          border="1px solid"
+          borderColor={containerBorder}
+          align="center"
+          justify="space-around"
         >
-          <Flex
-            bg={containerBg}
-            backdropFilter="blur(12px)"
-            borderTop="1px solid"
-            borderColor={containerBorder}
-            justify="space-around"
-            align="center"
-            py={3}
-            px={2}
-          >
-            {navItems.map((item) => {
-              const isActive = !item.isExternal && location.pathname === item.path;
+          {navItems.map((item) => {
+            const isActive = !item.isExternal && location.pathname === item.path;
 
-              return (
-                <Link
-                  key={item.label}
-                  as={item.isExternal ? "a" : RouterLink}
-                  to={!item.isExternal ? item.path : undefined}
-                  href={item.isExternal ? item.path : undefined}
-                  isExternal={item.isExternal}
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  flex={1}
-                  py={2}
-                  px={2}
-                  borderRadius="lg"
-                  bg={isActive ? activeBgColor : "transparent"}
-                  style={{
-                    textDecoration: "none",
-                    WebkitTapHighlightColor: "transparent",
-                  }}
-                  onClick={() => {
-                    if (isActive && !item.isExternal) {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  }}
-                >
+            return (
+              <Link
+                key={item.label}
+                as={item.isExternal ? "a" : RouterLink}
+                to={!item.isExternal ? item.path : undefined}
+                href={item.isExternal ? item.path : undefined}
+                isExternal={item.isExternal}
+                style={{
+                  textDecoration: "none",
+                  WebkitTapHighlightColor: "transparent",
+                  outline: "none",
+                }}
+                _focus={{ outline: "none" }}
+                _focusVisible={{ outline: "none" }}
+                flex={1}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                onClick={() => {
+                  if (isActive && !item.isExternal) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
+                minH="48px"
+              >
+                <Box position="relative" px={5} py={2}>
+                  {isActive && hasScrolled && (
+                    <motion.div
+                      layoutId="active-bubble"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: "9999px",
+                        backgroundColor: "var(--chakra-colors-primary-500)",
+                        zIndex: 0,
+                      }}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+
                   <Icon
                     as={item.icon}
-                    w={5}
-                    h={5}
-                    color={isActive ? activeColor : inactiveColor}
+                    w={6}
+                    h={6}
+                    position="relative"
+                    zIndex={1}
+                    color={isActive ? activeIconColor : inactiveIconColor}
                     strokeWidth={isActive ? 2.5 : 2}
-                    mb={1}
+                    transition="color 0.3s ease"
                   />
-                  <Text
-                    fontSize="xs"
-                    fontWeight={isActive ? "600" : "500"}
-                    color={isActive ? activeLabelColor : labelColor}
-                    textTransform="uppercase"
-                    letterSpacing="wider"
-                    lineHeight={1}
-                  >
-                    {item.label}
-                  </Text>
-                </Link>
-              );
-            })}
-          </Flex>
-        </MotionBox>
-      )}
+                </Box>
+              </Link>
+            );
+          })}
+        </Flex>
+      </MotionBox>
     </AnimatePresence>
   );
 };
