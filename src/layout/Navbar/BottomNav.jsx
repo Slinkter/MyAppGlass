@@ -6,6 +6,7 @@ import {
   useColorModeValue,
   Icon,
   Link,
+  VStack,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import {
@@ -25,38 +26,25 @@ import { companyData } from "@/config/company-data";
 const BottomNav = () => {
   const location = useLocation();
 
-  // Configuración de Colores
-  const containerBg = useColorModeValue("white", "rgba(20, 20, 20, 0.9)");
-  const containerBorder = useColorModeValue("gray.100", "gray.800");
-  const activeIconBg = useColorModeValue("black", "white");
-  const activeIconColor = useColorModeValue("white", "black");
-  const inactiveColor = useColorModeValue("gray.400", "gray.500");
-  const activeTextColor = useColorModeValue("black", "white");
+  // Configuración de Colores (High Performance Solid)
+  const containerBg = useColorModeValue(
+    "rgba(255, 255, 255, 0.98)", // Blanco sólido
+    "rgba(15, 15, 15, 0.98)", // Negro sólido
+  );
+  const containerBorder = useColorModeValue("gray.200", "whiteAlpha.200");
+  const bubbleBg = useColorModeValue("primary.500", "primary.500");
+  const activeIconColor = "white"; // Contraste contra la burbuja
+  const inactiveIconColor = useColorModeValue("gray.500", "gray.400");
 
   // Items de Navegación
   const navItems = [
-    {
-      label: "Inicio",
-      icon: HomeIcon,
-      path: "/",
-      isExternal: false,
-    },
-    {
-      label: "Servicios",
-      icon: WrenchScrewdriverIcon,
-      path: "/servicios",
-      isExternal: false,
-    },
-    {
-      label: "Proyectos",
-      icon: BuildingOffice2Icon,
-      path: "/proyectos",
-      isExternal: false,
-    },
+    { label: "Inicio", icon: HomeIcon, path: "/" },
+    { label: "Servicios", icon: WrenchScrewdriverIcon, path: "/servicios" },
+    { label: "Proyectos", icon: BuildingOffice2Icon, path: "/proyectos" },
     {
       label: "Contacto",
       icon: FaWhatsapp,
-      path: `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`,
+      path: `https://wa.me/${companyData.whatsappNumber}`,
       isExternal: true,
     },
   ];
@@ -69,23 +57,24 @@ const BottomNav = () => {
       right={0}
       display={{ base: "flex", md: "none" }}
       justifyContent="center"
-      px={4}
+      px={6}
       zIndex="sticky"
     >
       <Flex
         as={motion.nav}
-        initial={{ y: 100, opacity: 0 }}
+        initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
         align="center"
-        justify="space-between" // Mantiene espaciado uniforme
+        justify="space-between"
         bg={containerBg}
-        px={2} // Reducido para maximizar espacio interno
-        py={3}
-        borderRadius="35px"
-        shadow="xl"
+        backdropFilter="none" // Eliminado blur
+        px={2}
+        py={2}
+        borderRadius="full"
+        shadow="none" // Eliminada sombra
         w="full"
-        maxW="md"
+        maxW="340px"
         border="1px solid"
         borderColor={containerBorder}
       >
@@ -99,63 +88,65 @@ const BottomNav = () => {
               to={!item.isExternal ? item.path : undefined}
               href={item.isExternal ? item.path : undefined}
               isExternal={item.isExternal}
-              style={{ textDecoration: "none" }}
-              flex={1} // Ocupa espacio igualitario
-              w={0} // Fuerza a flex-grow a trabajar desde 0
+              style={{
+                textDecoration: "none",
+                WebkitTapHighlightColor: "transparent", // Quita el cuadro azul en móviles
+                outline: "none", // Evita el borde de focus por defecto
+              }}
+              _focus={{ outline: "none", boxShadow: "none" }} // Chakra UI specific override
+              _focusVisible={{ outline: "none", boxShadow: "none" }} // Previene outline al hacer tap
+              flex={1}
               display="flex"
               justifyContent="center"
+              alignItems="center"
               onClick={() => {
                 if (isActive && !item.isExternal) {
-                  const scrollOptions = { top: 0, left: 0, behavior: "smooth" };
-                  window.scrollTo(scrollOptions);
-                  document.documentElement.scrollTo(scrollOptions);
-                  document.body.scrollTo(scrollOptions);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }}
+              // Asegura un touch target mínimo de 44px
+              minH="44px"
             >
-              <Flex
-                direction="column"
-                align="center"
-                gap={1}
-                role="group"
-                cursor="pointer"
-                w="full"
-              >
-                {/* Icon Container */}
-                <Flex
-                  align="center"
-                  justify="center"
-                  p={2}
-                  borderRadius="xl"
-                  bg={isActive ? activeIconBg : "transparent"}
-                  color={isActive ? activeIconColor : inactiveColor}
-                  transition="all 0.3s ease"
-                  _groupHover={{
-                    color: !isActive && "gray.600",
-                  }}
-                  w="40px" // Ancho fijo para el contenedor del icono
-                  h="40px" // Alto fijo para asegurar círculo/cuadrado perfecto
-                >
-                  <Icon as={item.icon} w={5} h={5} strokeWidth={2.5} />
-                </Flex>
+              <Box position="relative" px={5} py={2} borderRadius="full">
+                {/* Burbuja animada (Background Pill) */}
+                {isActive && (
+                  <motion.div
+                    layoutId="active-bubble"
+                    style={{
+                      position: "absolute",
+                      inset: 0, // Llena el Box padre
+                      borderRadius: "9999px",
+                      backgroundColor: "var(--chakra-colors-primary-500)",
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 30,
+                    }}
+                  />
+                )}
 
-                {/* Text Label */}
-                <Text
-                  fontSize="10px"
-                  fontWeight={isActive ? "bold" : "medium"}
-                  color={isActive ? activeTextColor : inactiveColor}
+                {/* Icono (por encima de la burbuja) */}
+                <Icon
+                  as={item.icon}
+                  w={6}
+                  h={6}
+                  position="relative"
+                  zIndex={1}
+                  color={isActive ? activeIconColor : inactiveIconColor}
+                  strokeWidth={isActive ? 2.5 : 2}
                   transition="color 0.3s ease"
-                  textAlign="center"
-                  noOfLines={1}
-                >
-                  {item.label}
-                </Text>
-              </Flex>
+                  // Pequeño pop al ser seleccionado
+                  transform={isActive ? "scale(1.1)" : "scale(1)"}
+                />
+              </Box>
             </Link>
           );
         })}
       </Flex>
     </Box>
+
+
   );
 };
 

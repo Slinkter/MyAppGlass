@@ -23,9 +23,9 @@ import { m, LazyMotion, domAnimation } from "framer-motion";
 
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
-// Optimized: Use 'm' instead of 'motion' to support LazyMotion
-const MotionImage = m(Image);
-const MotionVStack = m(VStack);
+// Optimized: Use 'm.create' instead of 'm()' to support LazyMotion v11+
+const MotionImage = m.create(Image);
+const MotionVStack = m.create(VStack);
 
 /**
  * @component LandingPageSection

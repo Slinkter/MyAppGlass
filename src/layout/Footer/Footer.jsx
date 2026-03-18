@@ -1,215 +1,149 @@
 /**
  * @file Footer.jsx
- * @description Global application footer containing contact information, schedules, and important internal links.
+ * @description Global application footer unificado para alineación perfecta y rendimiento máximo.
  * @module layout/footer
  */
 
 import {
-  Box,
-  Flex,
-  HStack,
-  Text,
-  VStack,
-  useColorModeValue,
-  Icon,
-  Heading,
-  Image,
-  SimpleGrid,
+    Box,
+    Flex,
+    HStack,
+    Text,
+    VStack,
+    useColorModeValue,
+    Icon,
+    Heading,
+    Image,
+    SimpleGrid,
+    Container,
+    Divider,
 } from "@chakra-ui/react";
 import {
-  FaWhatsapp,
-  FaRegCalendar,
-  FaRegClock,
-  FaRegMap,
-  FaRegBuilding,
+    FaWhatsapp,
+    FaRegCalendar,
+    FaRegClock,
+    FaRegMap,
+    FaRegBuilding,
 } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
-
-const FooterSection = ({ title, children }) => {
-  const headingColor = useColorModeValue("gray.900", "white");
-  return (
-    <VStack
-      align={{ base: "center", md: "flex-start" }}
-      spacing={5}
-      mb={{ base: 6, md: 0 }}
-    >
-      <Heading
-        as="h4"
-        fontSize="sm"
-        fontWeight="bold"
-        color={headingColor}
-        textTransform="uppercase"
-        letterSpacing="widest"
-      >
-        {title}
-      </Heading>
-      <VStack align={{ base: "center", md: "flex-start" }} spacing={4} w="full">
-        {children}
-      </VStack>
-    </VStack>
-  );
-};
-
-const FooterItem = ({ icon, children, customIconColor }) => {
-  const textColor = useColorModeValue("gray.600", "gray.300");
-  const defaultIconColor = useColorModeValue("gray.400", "gray.500");
-
-  return (
-    <HStack
-      spacing={4}
-      alignItems="flex-start"
-      justifyContent={{ base: "center", md: "flex-start" }}
-      w="full"
-    >
-      <Icon
-        as={icon}
-        boxSize={5}
-        color={customIconColor || defaultIconColor}
-        mt={1}
-      />
-      <Box
-        color={textColor}
-        fontSize="sm"
-        lineHeight="tall"
-        textAlign={{ base: "center", md: "left" }}
-      >
-        {children}
-      </Box>
-    </HStack>
-  );
-};
-
-const FooterLink = ({ to, icon, label, children }) => {
-  const hoverColor = useColorModeValue("primary.600", "primary.300");
-  const textColor = useColorModeValue("gray.600", "gray.400");
-
-  return (
-    <Link
-      to={to}
-      style={{ textDecoration: "none", display: "inline-block", width: "100%" }}
-    >
-      <HStack
-        spacing={3}
-        alignItems="center"
-        py={1}
-        color={textColor}
-        transition="all 0.3s ease"
-        justifyContent={{ base: "center", md: "flex-start" }}
-        _hover={{ color: hoverColor, transform: "translateX(4px)" }}
-      >
-        {icon && <Icon as={icon} boxSize={5} />}
-        {children || <Text fontSize="sm">{label}</Text>}
-      </HStack>
-    </Link>
-  );
-};
+import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
 /**
- * @component Footer
- * @description Global application footer.
+ * @component FooterRow
+ * @description Unifica FooterItem y FooterLink en un solo estándar de alineación.
  */
+const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
+    const textColor = useColorModeValue("gray.700", "gray.200");
+    const iconColor = customIconColor || useColorModeValue("primary.500", "primary.400");
+    const hoverColor = useColorModeValue("primary.600", "primary.300");
+
+    const content = (
+        <HStack spacing={4} align="center" w="full" py={1}>
+            <Icon as={icon} boxSize={5} color={iconColor} flexShrink={0} />
+            <Text 
+                fontSize="sm" 
+                fontWeight="500" 
+                color={textColor} 
+                transition="color 0.2s"
+                _groupHover={to ? { color: hoverColor } : {}}
+            >
+                {children}
+            </Text>
+        </HStack>
+    );
+
+    if (to) {
+        return (
+            <Link to={to} style={{ textDecoration: "none", width: "100%" }} target={isExternal ? "_blank" : undefined} className="group">
+                <Box role="group" transition="transform 0.2s" _hover={{ transform: "translateX(4px)" }}>
+                    {content}
+                </Box>
+            </Link>
+        );
+    }
+
+    return content;
+};
+
+const FooterSection = ({ title, children }) => {
+    const headingColor = useColorModeValue("primary.700", "primary.300");
+    return (
+        <VStack align={{ base: "flex-start", md: "flex-start" }} spacing={5} w="full">
+            <Heading
+                as="h4"
+                fontSize="xs"
+                fontWeight="900"
+                color={headingColor}
+                textTransform="uppercase"
+                letterSpacing="0.2em"
+                mb={1}
+            >
+                {title}
+            </Heading>
+            <VStack align="flex-start" spacing={3} w="full">
+                {children}
+            </VStack>
+        </VStack>
+    );
+};
+
 const Footer = () => {
-  const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.4)",
-    "rgba(20, 20, 20, 0.4)",
-  );
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
-  const copyrightColor = useColorModeValue("gray.500", "gray.500");
+    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.98)", "rgba(10, 10, 10, 0.98)");
+    const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+    const copyrightColor = useColorModeValue("gray.500", "gray.500");
 
-  return (
-    <Box as="footer" my={{ base: 4, md: 8 }} px={{ base: 4, md: 0 }}>
-      <Box
-        bg={bgColor}
-        backdropFilter="blur(16px)"
-        border="1px solid"
-        borderColor={borderColor}
-        borderRadius={{ base: "2xl", md: "3xl" }}
-        maxW="7xl"
-        mx="auto"
-        pt={{ base: 10, md: 14 }}
-        pb={6}
-      >
-        <SimpleGrid
-          columns={{ base: 1, sm: 2, lg: 4 }}
-          spacing={{ base: 10, md: 8 }}
-          px={{ base: 6, md: 12 }}
-          mb={10}
-        >
-          <FooterSection title="Contacto">
-            <FooterItem icon={FaWhatsapp} customIconColor="green.400">
-              <Text>974-278-303</Text>
-            </FooterItem>
-            <FooterItem icon={FaWhatsapp} customIconColor="green.400">
-              <Text>996-537-435</Text>
-            </FooterItem>
-          </FooterSection>
+    return (
+        <Box as="footer" mt={{ base: 16, md: 32 }} mb={{ base: 32, md: 12 }} px={{ base: 4, md: 6 }}>
+            <Container maxW="7xl" px={0}>
+                <Box
+                    bg={bgColor}
+                    border="1px solid"
+                    borderColor={borderColor}
+                    borderRadius="3xl"
+                    pt={{ base: 12, md: 16 }}
+                    pb={8}
+                    px={{ base: 8, md: 16 }}
+                >
+                    <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={{ base: 12, md: 16 }} mb={16}>
+                        <FooterSection title="Contacto">
+                            <FooterRow icon={FaWhatsapp} customIconColor="green.500">974 278 303</FooterRow>
+                            <FooterRow icon={FaWhatsapp} customIconColor="green.500">996 537 435</FooterRow>
+                            <FooterRow icon={MdOutlineEmail}>acueva@gyacompany.com</FooterRow>
+                        </FooterSection>
 
-          <FooterSection title="Horarios">
-            <FooterItem icon={FaRegCalendar}>
-              <Text>Lunes a Sábado</Text>
-            </FooterItem>
-            <FooterItem icon={FaRegClock}>
-              <Text>9:00 am - 5:00 pm</Text>
-            </FooterItem>
-          </FooterSection>
+                        <FooterSection title="Horarios">
+                            <FooterRow icon={FaRegCalendar}>Lunes a Sábado</FooterRow>
+                            <FooterRow icon={FaRegClock}>9:00 am – 5:00 pm</FooterRow>
+                            <FooterRow icon={FaRegMap}>La Molina, Lima - Perú</FooterRow>
+                        </FooterSection>
 
-          <FooterSection title="Dirección">
-            <FooterItem icon={FaRegMap}>
-              <Text>Av. Los Fresnos MZ. H LT. 1250</Text>
-            </FooterItem>
-            <FooterItem icon={MdOutlineEmail}>
-              <Text>acueva@gyacompany.com</Text>
-            </FooterItem>
-          </FooterSection>
+                        <FooterSection title="Corporativo">
+                            <FooterRow to="/politicas-empresa" icon={IoDocumentTextOutline}>Políticas de Empresa</FooterRow>
+                            <FooterRow to="/cuentas-bancarias" icon={FaRegBuilding}>Cuentas Bancarias</FooterRow>
+                            <Link to="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
+                                <HStack spacing={4} align="center" py={1} _hover={{ transform: "translateX(4px)" }} transition="transform 0.2s">
+                                    <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} flexShrink={0} />
+                                    <Text fontSize="sm" fontWeight="600" color={useColorModeValue("gray.700", "gray.200")}>Libro de Reclamaciones</Text>
+                                </HStack>
+                            </Link>
+                        </FooterSection>
+                    </SimpleGrid>
 
-          <FooterSection title="Legal">
-            <FooterLink
-              to="/politicas-empresa"
-              icon={IoDocumentTextOutline}
-              label="Políticas de la Empresa"
-            />
-            <FooterLink
-              to="/cuentas-bancarias"
-              icon={FaRegBuilding}
-              label="Cuentas Bancarias"
-            />
-            <FooterLink to="/libro-de-reclamacion">
-              <Image
-                src={LibroReclamacionesIcon}
-                alt="Libro de Reclamaciones"
-                h="24px"
-                w="auto"
-                loading="lazy"
-                decoding="async"
-              />
-              <Text fontSize="sm">Libro de Reclamaciones</Text>
-            </FooterLink>
-          </FooterSection>
-        </SimpleGrid>
-      </Box>
+                    <Divider borderColor={borderColor} mb={8} />
 
-      <Box mt={6} px={{ base: 4, md: 12 }}>
-        <Flex direction={"column"} align="center" justify="center" gap={1}>
-          <Text
-            fontSize="xs"
-            color={copyrightColor}
-            textAlign="center"
-            fontWeight="medium"
-          >
-            Glass & Aluminum Company S.A.C. — Todos los derechos reservados.
-          </Text>
-          <Text fontSize="xs" color={copyrightColor} textAlign="center">
-            Copyright ©2026
-          </Text>
-        </Flex>
-      </Box>
-      {/* Espaciador inferior para coexistir con el BottomNav en móviles */}
-      <Box h={{ base: "40px", md: "20px" }} mb={4} />
-    </Box>
-  );
+                    <Flex direction="column" align="center" gap={4}>
+                        <Image src={logoGYA} alt="Logo" h="32px" filter={useColorModeValue("none", "brightness(0) invert(1)")} />
+                        <Text fontSize="10px" color={copyrightColor} fontWeight="bold" letterSpacing="0.2em">
+                            © 2026 GYA GLASS & ALUMINUM S.A.C.
+                        </Text>
+                    </Flex>
+                </Box>
+            </Container>
+        </Box>
+    );
 };
 
 export default Footer;

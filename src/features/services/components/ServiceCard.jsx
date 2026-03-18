@@ -41,10 +41,10 @@ const ServiceCard = React.memo((props) => {
       borderRadius="2xl"
       overflow="hidden"
       role="group"
-      boxShadow="lg"
+      boxShadow={{ base: "none", md: "lg" }}
       transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
       _hover={{
-        boxShadow: "2xl",
+        boxShadow: { base: "none", md: "2xl" },
         transform: "translateY(-6px)",
       }}
     >
@@ -97,15 +97,15 @@ const ServiceCard = React.memo((props) => {
             py={{ base: 3, md: 4 }}
             px={8}
             bg={styles.buttonBg}
-            backdropFilter="blur(12px)"
+            backdropFilter="none"
             justifyContent="center"
             alignItems="center"
             borderRadius="xl"
-            boxShadow="md"
+            boxShadow={{ base: "none", md: "md" }}
             _groupHover={{
               bg: styles.buttonHoverBg,
               transform: "translateY(-4px)",
-              boxShadow: "xl",
+              boxShadow: { base: "none", md: "xl" },
               color: styles.textColor,
             }}
             transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
