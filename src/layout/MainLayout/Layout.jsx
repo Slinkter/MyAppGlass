@@ -1,6 +1,6 @@
 /**
  * @file Layout.jsx
- * @description Root layout wrapper with glassmorphism background effect.
+ * @description Root layout wrapper with geometric pattern background for architecture company.
  */
 
 import { Suspense, lazy } from "react";
@@ -22,13 +22,11 @@ const FloatingWhatsApp = lazy(() =>
 const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
 
-  const bgGradient = useColorModeValue(
-    "linear-gradient(135deg, blue.50 0%, white 50%, blue.100 100%)",
-    "linear-gradient(135deg, gray.900 0%, gray.800 50%, blue.900 100%)"
-  );
+  const bgColor = useColorModeValue("gray.100", "gray.900");
+  const lineColor = useColorModeValue("primary.200", "primary.900");
 
   return (
-    <Box minH="100dvh" position="relative" bgGradient={bgGradient}>
+    <Box minH="100dvh" position="relative" bg={bgColor}>
       <Box
         position="fixed"
         top={0}
@@ -36,13 +34,48 @@ const Layout = ({ children }) => {
         right={0}
         bottom={0}
         zIndex={0}
-        backdropFilter="blur(100px)"
-        bg={useColorModeValue(
-          "rgba(255, 255, 255, 0.7)",
-          "rgba(0, 0, 0, 0.5)"
-        )}
+        overflow="hidden"
         pointerEvents="none"
-      />
+      >
+        <svg
+          width="100%"
+          height="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ position: "absolute", top: 0, left: 0 }}
+        >
+          <defs>
+            <pattern
+              id="grid"
+              width="60"
+              height="60"
+              patternUnits="userSpaceOnUse"
+              patternTransform="rotate(45)"
+            >
+              <path
+                d="M 60 0 L 0 0 0 60"
+                fill="none"
+                stroke={lineColor}
+                strokeWidth="0.5"
+                opacity="0.3"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+
+        <Box
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          bgGradient={useColorModeValue(
+            "linear-gradient(135deg, white 0%, transparent 50%, white 100%)",
+            "linear-gradient(135deg, transparent 0%, gray.800 50%, transparent 100%)"
+          )}
+          opacity={0.5}
+        />
+      </Box>
 
       <Box position="relative" zIndex={1}>
         <Link
