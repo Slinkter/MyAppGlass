@@ -68,7 +68,7 @@ const BottomNav = () => {
         bg={containerBg}
         px={2}
         py={2}
-        borderRadius="full"
+        borderRadius="xl"
         shadow="none"
         w="full"
         maxW="340px"
@@ -103,7 +103,7 @@ const BottomNav = () => {
               }}
               minH="44px"
             >
-              <Box position="relative" px={5} py={2} borderRadius="full">
+                <Box position="relative" px={5} py={2} borderRadius="xl">
                 {/* Burbuja animada (Background Pill) */}
                 {isActive && (
                   <m.div
