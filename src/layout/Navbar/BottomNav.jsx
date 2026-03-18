@@ -19,7 +19,7 @@ import {
   BuildingOffice2Icon,
 } from "@heroicons/react/24/outline";
 import { FaWhatsapp } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion"; // Import motion directly
 import { companyData } from "@/config/company-data";
 
 const MotionBox = motion(Box);

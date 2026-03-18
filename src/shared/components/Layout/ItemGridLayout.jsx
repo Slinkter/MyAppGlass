@@ -104,7 +104,7 @@ const ItemGridItem = ({ children }) => {
 
   return (
     <LazyMotion features={domAnimation}>
-      <Box as={m.div} variants={itemVariants} w="full" whileTap={{ scale: 0.98 }}>
+      <Box as={m.div} variants={itemVariants} w="full">
         {children}
       </Box>
     </LazyMotion>
