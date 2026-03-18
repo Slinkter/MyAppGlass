@@ -50,7 +50,7 @@ GalleryThumbnailItem.displayName = "GalleryThumbnailItem";
 
 const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
   const activeBorderColor = useColorModeValue("primary.500", "primary.300");
-  const scrollbarThumb = useColorModeValue("rgba(0,0,0,0.1)", "rgba(255,255,255,0.2)");
+  const scrollbarThumb = useColorModeValue("blackAlpha.100", "whiteAlpha.200");
   const containerRef = React.useRef(null);
 
   const handleThumbnailClick = React.useCallback(
@@ -100,7 +100,7 @@ const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
           borderRadius: "10px",
         },
         "&::-webkit-scrollbar-thumb:hover": {
-          background: useColorModeValue("rgba(0,0,0,0.2)", "rgba(255,255,255,0.3)"),
+          background: useColorModeValue("blackAlpha.200", "whiteAlpha.300"),
         },
         scrollbarWidth: "thin",
         scrollbarColor: `${scrollbarThumb} transparent`,

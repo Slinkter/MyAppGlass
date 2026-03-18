@@ -27,7 +27,7 @@ const ErrorView = () => {
     "rgba(255, 255, 255, 0.15)",
   );
   const textColor = useColorModeValue("gray.800", "gray.100");
-  const headingColor = useColorModeValue("primary.500", "primary.300");
+  const headingColor = useColorModeValue("primary.700", "primary.300");
   const countdownColor = useColorModeValue("primary.600", "primary.300");
 
   useEffect(() => {

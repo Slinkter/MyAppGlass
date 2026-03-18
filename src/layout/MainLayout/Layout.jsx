@@ -1,14 +1,11 @@
 /**
  * @file Layout.jsx
- * @description Root layout wrapper - Solid warm gray background (Opción 1)
+ * @description Root layout wrapper. Background uses the `bg.page` semantic token
+ * which ensures correct color in both light and dark modes on all breakpoints.
  */
 
 import { Suspense, lazy } from "react";
-import {
-  Box,
-  useBreakpointValue,
-  Link,
-} from "@chakra-ui/react";
+import { Box, Link, useBreakpointValue } from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
 
@@ -21,13 +18,8 @@ const FloatingWhatsApp = lazy(() =>
 const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
 
-  const bgColor = useBreakpointValue({
-    base: "gray.100",
-    md: "gray.200",
-  });
-
   return (
-    <Box minH="100dvh" position="relative" bg={bgColor}>
+    <Box minH="100dvh" position="relative" bg="bg.page" overflowX="hidden">
       <Box position="relative" zIndex={1}>
         <Link
           href="#main-content"
@@ -46,10 +38,10 @@ const Layout = ({ children }) => {
               p: "8px",
               m: "8px",
               border: "2px solid",
-              borderColor: "blue.500",
+              borderColor: "primary.500",
               borderRadius: "md",
-              bg: "white",
-              color: "blue.700",
+              bg: "bg.section",
+              color: "text.accent",
               zIndex: "9999",
             },
           }}

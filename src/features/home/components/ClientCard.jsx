@@ -1,30 +1,36 @@
 /**
  * @file ClientCard.jsx
  * @description Ultra-minimal card for client segments with image and centered name.
+ * Hover accent color uses the text.accent semantic token.
+ * @module home/components
  */
 
 import React from "react";
 import {
   Box,
   Text,
-  useColorModeValue,
   LinkBox,
   LinkOverlay,
   Fade,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
+/**
+ * @component ClientCard
+ * @description Tarjeta de cliente con imagen de fondo y nombre superpuesto.
+ * @param {Object} props
+ * @param {string} props.image - URL de la imagen de fondo.
+ * @param {string} props.nameClient - Nombre del cliente.
+ * @param {string} props.descClient - Descripción breve del cliente.
+ * @returns {JSX.Element}
+ */
 const ClientCard = React.memo(({ image, nameClient, descClient }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
-  const bgOverlay = useColorModeValue(
-    "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)",
-    "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)"
-  );
-  const textColor = "white";
-  const hoverColor = useColorModeValue("red.500", "red.400");
-  const hoverUnderlineColor = useColorModeValue("red.500", "red.400");
+  // Presentational gradient — intentionally hardcoded dark overlay (not mode-dependent)
+  const bgOverlay =
+    "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
   return (
     <LinkBox
@@ -72,7 +78,7 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
             justifyContent="flex-end"
           >
             <Text
-              color={isHovered ? hoverColor : textColor}
+              color={isHovered ? "text.accent" : "white"}
               fontSize={{ base: "md", md: "xl" }}
               fontWeight="600"
               textTransform="uppercase"
@@ -88,7 +94,7 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
                 transform: "translateX(-50%)",
                 width: isLoaded ? "40px" : "0",
                 height: "2px",
-                bg: isHovered ? hoverUnderlineColor : "white",
+                bg: isHovered ? "text.accent" : "white",
                 transition: "width 0.4s ease, background 0.3s ease",
               }}
             >

@@ -27,7 +27,7 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
     "rgba(20, 20, 20, 0.85)"
   );
   const headingColor = useColorModeValue("primary.800", "primary.200");
-  const textColor = useColorModeValue("gray.600", "gray.400");
+  const textColor = useColorModeValue("gray.700", "gray.300");
   const iconColor = useColorModeValue("primary.500", "primary.400");
 
   return (

@@ -214,7 +214,7 @@ const BankAccountCard = ({
                   {acc.note && (
                     <Text
                       fontSize="xs"
-                      color="orange.500"
+                      color="state.warning"
                       fontStyle="italic"
                       mt={0.5}
                     >

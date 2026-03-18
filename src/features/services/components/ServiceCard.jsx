@@ -33,8 +33,8 @@ const ServiceCard = React.memo((props) => {
     "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)"
   );
   const textColor = "white";
-  const hoverColor = useColorModeValue("red.500", "red.400");
-  const hoverUnderlineColor = useColorModeValue("red.500", "red.400");
+  const hoverColor = useColorModeValue("primary.500", "primary.400");
+  const hoverUnderlineColor = useColorModeValue("primary.500", "primary.400");
 
   return (
     <LinkBox

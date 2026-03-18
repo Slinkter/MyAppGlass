@@ -14,7 +14,7 @@ const SpecItem = ({ label, value }) => {
     const bg = useColorModeValue("whiteAlpha.500", "whiteAlpha.50");
     const borderColor = useColorModeValue("blackAlpha.100", "whiteAlpha.100");
 
-    const iconColor = useColorModeValue("primary.600", "primary.300");
+    const iconColor = useColorModeValue("primary.500", "primary.400");
     const labelColor = useColorModeValue("gray.600", "gray.400");
     const valueColor = useColorModeValue("gray.800", "gray.100");
 

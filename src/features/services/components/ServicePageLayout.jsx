@@ -93,7 +93,7 @@ const BentoBenefits = React.memo(({ benefits }) => {
 
   return (
     <GlassCard p={8} h="full">
-      <Heading size="sm" mb={6} opacity={0.6} textTransform="uppercase" letterSpacing="widest">
+      <Heading size="sm" mb={6} color="gray.600" textTransform="uppercase" letterSpacing="widest">
         Ventajas Clave
       </Heading>
       <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={6}>
