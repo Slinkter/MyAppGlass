@@ -28,6 +28,7 @@ import MapViewer from "./MapViewer";
  */
 const VisualViewer = ({ viewMode, lat, lng, photos }) => {
   const spinnerBg = useColorModeValue("gray.100", "gray.800");
+  const hasValidCoords = typeof lat === "number" && typeof lng === "number";
 
   return (
     <LazyMotion features={domAnimation}>
@@ -43,7 +44,7 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
     >
       <Box position="absolute" top="0" left="0" w="100%" h="100%">
         <AnimatePresence mode="wait">
-          {viewMode === "map" ? (
+          {viewMode === "map" && hasValidCoords ? (
             <m.div
               key="map"
               initial={{ opacity: 0, scale: 0.98 }}
@@ -77,8 +78,8 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
 
 VisualViewer.propTypes = {
   viewMode: PropTypes.oneOf(["map", "gallery"]).isRequired,
-  lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
+  lat: PropTypes.number,
+  lng: PropTypes.number,
   photos: PropTypes.array,
 };
 

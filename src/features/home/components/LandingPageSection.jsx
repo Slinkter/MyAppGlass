@@ -17,12 +17,11 @@ import {
   usePrefersReducedMotion,
   VStack,
 } from "@chakra-ui/react";
-import { m, LazyMotion, domAnimation } from "framer-motion";
-
+import { motion, LazyMotion, domAnimation } from "framer-motion"; // Corrected motion import
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
-const MotionImage = m.create(Image);
-const MotionVStack = m.create(VStack);
+const MotionImage = motion(Image);
+const MotionVStack = motion(VStack);
 
 /**
  * @component LandingPageSection

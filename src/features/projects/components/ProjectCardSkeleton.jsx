@@ -1,10 +1,9 @@
 import React from "react";
 import {
     Box,
-    Flex,
     Stack,
+    HStack,
     Skeleton,
-    useColorModeValue,
 } from "@chakra-ui/react";
 
 /**
@@ -13,64 +12,42 @@ import {
  * Mantiene la misma estructura visual que ProjectCard para evitar saltos de layout.
  */
 const ProjectCardSkeleton = () => {
-    const styles = {
-        bg: useColorModeValue(
-            "rgba(255, 255, 255, 0.25)",
-            "rgba(0, 0, 0, 0.25)"
-        ),
-        border: useColorModeValue(
-            "rgba(255, 255, 255, 0.72)",
-            "rgba(255, 255, 255, 0.15)"
-        ),
-    };
-
     return (
         <Box
+            position="relative"
+            h={{ base: "320px", md: "460px" }}
             w="full"
-            maxW={{ base: "full", md: "md" }}
-            h="auto"
-            mb={4}
-            overflow="hidden"
-            bg={styles.bg}
             borderRadius="2xl"
-            boxShadow="lg"
+            overflow="hidden"
+            bg="bg.subtle"
+            boxShadow="sm"
         >
-            <Box p={2}>
-                <Skeleton
-                    height={{ base: "245px", md: "375px" }}
-                    w="full"
-                    borderRadius="xl"
-                />
+            {/* Main Image Skeleton Area */}
+            <Skeleton h="full" w="full" />
 
-                <Stack p={4} spacing={2}>
-                    {/* Heading Skeleton */}
-                    <Skeleton height="28px" width="60%" mx="auto" />
+            {/* Floating Info Panel Skeleton */}
+            <Box
+                position="absolute"
+                bottom={0}
+                left={0}
+                right={0}
+                m={4}
+                p={5}
+                bg="surface.footer"
+                borderRadius="xl"
+                border="1px solid"
+                borderColor="border.glass"
+                backdropFilter="blur(10px)"
+            >
+                <Stack spacing={3} align="center">
+                    {/* Title Skeleton */}
+                    <Skeleton height="24px" width="70%" />
 
-                    {/* Details Skeleton */}
-                    <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        spacing={0}
-                        mt={2}
-                    >
-                        <Flex alignItems="center">
-                            <Skeleton boxSize="20px" mr={2} />
-                            <Skeleton height="16px" width="100px" />
-                        </Flex>
-                        <Flex alignItems="center">
-                            <Skeleton boxSize="20px" mr={2} />
-                            <Skeleton height="16px" width="60px" />
-                        </Flex>
-                    </Stack>
-
-                    {/* Button Skeleton */}
-                    <Skeleton
-                        height="40px"
-                        width="full"
-                        borderRadius="md"
-                        mt={2}
-                    />
+                    {/* Meta Info Skeleton */}
+                    <HStack justify="center" spacing={4} w="full">
+                        <Skeleton height="14px" width="40%" />
+                        <Skeleton height="14px" width="20%" />
+                    </HStack>
                 </Stack>
             </Box>
         </Box>
