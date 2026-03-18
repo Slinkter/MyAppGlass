@@ -1,6 +1,6 @@
 /**
  * @file Layout.jsx
- * @description Root layout wrapper - Warm bone/beige with gray gradient
+ * @description Root layout wrapper - Solid warm gray background (Opción 1)
  */
 
 import { Suspense, lazy } from "react";
@@ -21,13 +21,13 @@ const FloatingWhatsApp = lazy(() =>
 const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
 
-  const bgGradient = useBreakpointValue({
-    base: "linear-gradient(180deg, gray.700 0%, warmGray.700 25%, warmGray.600 50%, gray.600 75%, warmGray.500 100%)",
-    md: "linear-gradient(140deg, gray.700 0%, warmGray.700 15%, warmGray.600 35%, gray.600 55%, warmGray.500 75%, gray.500 100%)",
+  const bgColor = useBreakpointValue({
+    base: "gray.100",
+    md: "gray.200",
   });
 
   return (
-    <Box minH="100dvh" position="relative" bgGradient={bgGradient}>
+    <Box minH="100dvh" position="relative" bg={bgColor}>
       <Box position="relative" zIndex={1}>
         <Link
           href="#main-content"
