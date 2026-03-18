@@ -38,7 +38,6 @@ export default function Navbar() {
           maxW="7xl"
           mx="auto"
           // Solid effects
-          backdropFilter="none"
           border="1px solid"
           borderColor={borderColor}
           borderRadius="2xl"

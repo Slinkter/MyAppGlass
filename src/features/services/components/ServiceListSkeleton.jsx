@@ -38,7 +38,6 @@ const ServiceListSkeleton = () => {
                         mb={4}
                         overflow="hidden"
                         bg={cardBg}
-                        backdropFilter="blur(10px)"
                         borderRadius="2xl"
                         boxShadow="lg"
                     >

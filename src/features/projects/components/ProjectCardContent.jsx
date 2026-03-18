@@ -13,15 +13,15 @@ import {
   Icon,
   useColorModeValue,
   VStack,
-  Image,
   LinkBox,
   LinkOverlay,
   Fade,
   SlideFade,
 } from "@chakra-ui/react";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
 
-const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModal }) => {
+const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModal, isLCP }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   const styles = {
@@ -46,10 +46,10 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
       overflow="hidden"
       role="group"
       boxShadow="lg"
-      transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+      transition={{ base: "all 0.2s ease", md: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)" }}
       _hover={{
-        boxShadow: "2xl",
-        transform: "translateY(-6px)",
+        boxShadow: { base: "lg", md: "2xl" },
+        transform: { base: "none", md: "translateY(-6px)" },
       }}
       cursor="pointer"
       _focusVisible={{
@@ -67,14 +67,14 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
         _groupHover={{ transform: "scale(1.1)" }}
       >
         <Fade in={isLoaded} style={{ height: "100%" }}>
-          <Image
+          <ResponsiveImage
             src={image}
             alt={`Obra ${residencial}`}
             objectFit="cover"
             w="100%"
             h="100%"
-            loading="lazy"
-            decoding="async"
+            loading={isLCP ? "eager" : "lazy"}
+            decoding={isLCP ? "sync" : "async"}
             onLoad={() => setIsLoaded(true)}
             transition="opacity 0.4s ease-in"
           />
@@ -83,9 +83,9 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
           position="absolute"
           inset="0"
           bgGradient="linear(to-t, blackAlpha.700, transparent)"
-          opacity={0.5}
+          opacity={{ base: 0.4, md: 0.5 }}
           transition="opacity 0.3s"
-          _groupHover={{ opacity: 0.7 }}
+          _groupHover={{ opacity: { base: 0.4, md: 0.7 } }}
         />
       </Box>
 
@@ -94,18 +94,17 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
         <SlideFade in={isLoaded} offsetY="20px">
           <VStack
             bg={styles.pillBg}
-            backdropFilter="blur(12px)"
             py={{ base: 3, md: 4 }}
             px={4}
             borderRadius="xl"
             spacing={1}
             align="center"
             boxShadow="md"
-            transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+            transition={{ base: "all 0.2s ease", md: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)" }}
             _groupHover={{
               bg: styles.pillHoverBg,
-              transform: "translateY(-4px)",
-              boxShadow: "xl",
+              transform: { base: "none", md: "translateY(-4px)" },
+              boxShadow: { base: "md", md: "xl" },
             }}
           >
             <LinkOverlay
@@ -185,6 +184,7 @@ ProjectCardContent.propTypes = {
   address: PropTypes.string.isRequired,
   year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onOpenModal: PropTypes.func.isRequired,
+  isLCP: PropTypes.bool,
 };
 
 export default ProjectCardContent;

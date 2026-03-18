@@ -52,13 +52,12 @@ const ProjectDetailModal = (props) => {
       isCentered
       preserveScrollBarGap
     >
-      <ModalOverlay backdropFilter={"blur(10px)"} />
+      <ModalOverlay />
       <ModalContent
         role="dialog"
         aria-modal="true"
         borderRadius={{ base: 0, md: "2xl" }}
         bg={modalBg}
-        backdropFilter="blur(20px)"
         border="1px solid"
         borderColor={borderColor}
         boxShadow="2xl"

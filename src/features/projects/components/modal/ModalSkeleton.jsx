@@ -42,11 +42,10 @@ const ModalSkeleton = () => {
       isCentered
       preserveScrollBarGap
     >
-      <ModalOverlay backdropFilter={"blur(10px)"} />
+      <ModalOverlay />
       <ModalContent
         borderRadius={{ base: 0, md: "2xl" }}
         bg={modalBg}
-        backdropFilter="blur(20px)"
         border="1px solid"
         borderColor={borderColor}
         boxShadow="2xl"

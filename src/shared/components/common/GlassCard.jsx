@@ -11,7 +11,6 @@ import { Box, useColorModeValue } from "@chakra-ui/react";
  * @component GlassCard
  * @description Componente base para crear tarjetas con efecto de "liquid glass" (glassmorphism).
  * Proporciona un estilo visual consistente que se adapta al modo claro/oscuro de la interfaz,
- * con un fondo translúcido y efecto de desenfoque.
  *
  * @param {Object} props - Propiedades que se pasarán directamente al componente `Box` de Chakra UI.
  * @param {React.ReactNode} props.children - Contenido que se renderizará dentro de la tarjeta.
@@ -32,15 +31,13 @@ import { Box, useColorModeValue } from "@chakra-ui/react";
  */
 const GlassCard = ({ children, ...props }) => {
   const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.1)",
-    "rgba(0, 0, 0, 0.1)",
+    "rgba(255, 255, 255, 0.15)",
+    "rgba(0, 0, 0, 0.15)",
   );
 
   return (
     <Box
       bg={bgColor}
-      backdropFilter="blur(10px)"
-      sx={{ WebkitBackdropFilter: "blur(10px)" }}
       borderRadius="2xl"
       boxShadow="sm"
       transition="box-shadow 0.3s ease, transform 0.3s ease"

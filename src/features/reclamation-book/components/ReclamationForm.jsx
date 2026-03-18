@@ -69,7 +69,6 @@ const ReclamationForm = () => {
         mx="auto"
         mb={8}
         bg={bgColor}
-        backdropFilter="blur(20px)"
         border="1px solid"
         borderColor={borderColor}
         boxShadow="0 4px 30px rgba(0,0,0,0.1)"

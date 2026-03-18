@@ -37,6 +37,7 @@ const ProjectCard = React.memo((props) => {
     image,
     lat,
     lng,
+    isLCP,
   } = props;
 
   return (
@@ -47,6 +48,7 @@ const ProjectCard = React.memo((props) => {
         address={address}
         year={year}
         onOpenModal={onOpen}
+        isLCP={isLCP}
       />
 
       {isOpen && (

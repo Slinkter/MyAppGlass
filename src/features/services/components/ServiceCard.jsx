@@ -7,10 +7,10 @@ import {
   LinkOverlay,
   Button,
   Text,
-  Image,
   Fade,
   SlideFade,
 } from "@chakra-ui/react";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { Link as RouterLink } from "react-router-dom";
 
 /**
@@ -19,7 +19,7 @@ import { Link as RouterLink } from "react-router-dom";
  * Diseño minimalista sin flechas, enfocado en la imagen, título y descripción clara.
  */
 const ServiceCard = React.memo((props) => {
-  const { image, name, plink, onLoadComplete } = props;
+  const { image, name, plink, onLoadComplete, index } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   const handleImageLoad = React.useCallback(() => {
@@ -47,10 +47,10 @@ const ServiceCard = React.memo((props) => {
       overflow="hidden"
       role="group"
       boxShadow={{ base: "none", md: "lg" }}
-      transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+      transition={{ base: "all 0.2s ease", md: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)" }}
       _hover={{
-        boxShadow: { base: "none", md: "2xl" },
-        transform: "translateY(-6px)",
+        boxShadow: { md: "2xl" },
+        transform: { md: "translateY(-6px)" },
       }}
     >
       {/* 1. Imagen de Fondo Full */}
@@ -61,7 +61,7 @@ const ServiceCard = React.memo((props) => {
         _groupHover={{ transform: "scale(1.1)" }}
       >
         <Fade in={isLoaded} style={{ height: "100%" }}>
-          <Image
+          <ResponsiveImage
             src={image}
             alt={name}
             objectFit="cover"
@@ -70,6 +70,7 @@ const ServiceCard = React.memo((props) => {
             loading="lazy"
             decoding="async"
             onLoad={handleImageLoad}
+            isLCP={index < 3}
           />
         </Fade>
 
@@ -77,10 +78,10 @@ const ServiceCard = React.memo((props) => {
         <Box
           position="absolute"
           inset="0"
-          bgGradient="linear(to-t, blackAlpha.800, transparent)"
-          opacity={0.6}
+          bgGradient={{ base: "linear(to-t, blackAlpha.700, transparent)", md: "linear(to-t, blackAlpha.800, transparent)" }}
+          opacity={{ base: 0.5, md: 0.6 }}
           transition="opacity 0.3s ease"
-          _groupHover={{ opacity: 0.8 }}
+          _groupHover={{ opacity: { base: 0.6, md: 0.8 } }}
         />
       </Box>
 
@@ -102,7 +103,6 @@ const ServiceCard = React.memo((props) => {
             py={{ base: 3, md: 4 }}
             px={8}
             bg={styles.buttonBg}
-            backdropFilter="none"
             justifyContent="center"
             alignItems="center"
             borderRadius="xl"
@@ -148,6 +148,7 @@ ServiceCard.propTypes = {
   description: PropTypes.string,
   plink: PropTypes.string.isRequired,
   preloaded: PropTypes.bool,
+  index: PropTypes.number,
 };
 
 ServiceCard.displayName = "ServiceCard";

@@ -50,7 +50,6 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
           px={{ base: 5, md: 8 }}
           h={{ base: "36px", md: "42px" }}
           flexShrink={0}
-          backdropFilter="blur(12px)"
           fontWeight={activeIndex === index ? "bold" : "medium"}
           whiteSpace="nowrap"
           boxShadow={activeIndex === index ? "lg" : "sm"}

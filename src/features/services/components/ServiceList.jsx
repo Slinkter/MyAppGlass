@@ -40,8 +40,9 @@ const ServiceList = React.memo(() => {
             name={service.name}
             description={service.description}
             plink={service.plink}
+            isLCP={index < 3}
             loading={index < 3 ? "eager" : "lazy"}
-            fetchPriority={index < 3 ? "high" : "auto"}
+            fetchpriority={index < 3 ? "high" : "auto"}
           />
         </ItemGridLayout.Item>
       ))}
