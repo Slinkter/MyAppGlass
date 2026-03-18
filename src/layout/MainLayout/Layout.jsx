@@ -1,6 +1,6 @@
 /**
  * @file Layout.jsx
- * @description Root layout wrapper with geometric pattern background for architecture company.
+ * @description Root layout wrapper with gradient and subtle glass texture for architecture company.
  */
 
 import { Suspense, lazy } from "react";
@@ -22,11 +22,13 @@ const FloatingWhatsApp = lazy(() =>
 const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
 
-  const bgColor = useColorModeValue("gray.100", "gray.900");
-  const lineColor = useColorModeValue("primary.200", "primary.900");
+  const bgGradient = useColorModeValue(
+    "linear-gradient(160deg, blue.50 0%, white 30%, blue.100 70%, gray.100 100%)",
+    "linear-gradient(160deg, gray.900 0%, blue.900 40%, gray.800 100%)"
+  );
 
   return (
-    <Box minH="100dvh" position="relative" bg={bgColor}>
+    <Box minH="100dvh" position="relative" bgGradient={bgGradient}>
       <Box
         position="fixed"
         top={0}
@@ -36,6 +38,7 @@ const Layout = ({ children }) => {
         zIndex={0}
         overflow="hidden"
         pointerEvents="none"
+        opacity={0.4}
       >
         <svg
           width="100%"
@@ -44,37 +47,46 @@ const Layout = ({ children }) => {
           style={{ position: "absolute", top: 0, left: 0 }}
         >
           <defs>
+            <filter id="noise">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.8"
+                numOctaves="4"
+                stitchTiles="stitch"
+              />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+          </defs>
+          <rect width="100%" height="100%" filter="url(#noise)" opacity="0.08" />
+        </svg>
+
+        <svg
+          width="100%"
+          height="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ position: "absolute", top: 0, left: 0 }}
+        >
+          <defs>
             <pattern
-              id="grid"
-              width="60"
-              height="60"
+              id="lines"
+              width="100"
+              height="20"
               patternUnits="userSpaceOnUse"
-              patternTransform="rotate(45)"
+              patternTransform="rotate(-5)"
             >
-              <path
-                d="M 60 0 L 0 0 0 60"
-                fill="none"
-                stroke={lineColor}
-                strokeWidth="0.5"
-                opacity="0.3"
+              <line
+                x1="0"
+                y1="10"
+                x2="100"
+                y2="10"
+                stroke={useColorModeValue("primary.300", "primary.700")}
+                strokeWidth="0.3"
+                opacity="0.15"
               />
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
+          <rect width="100%" height="100%" fill="url(#lines)" />
         </svg>
-
-        <Box
-          position="absolute"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          bgGradient={useColorModeValue(
-            "linear-gradient(135deg, white 0%, transparent 50%, white 100%)",
-            "linear-gradient(135deg, transparent 0%, gray.800 50%, transparent 100%)"
-          )}
-          opacity={0.5}
-        />
       </Box>
 
       <Box position="relative" zIndex={1}>
