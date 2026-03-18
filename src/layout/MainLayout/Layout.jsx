@@ -23,6 +23,7 @@ const FloatingWhatsApp = lazy(() =>
 const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
   const [scrollY, setScrollY] = useState(0);
+  const [docHeight, setDocHeight] = useState(0);
 
   const bgImage = useBreakpointValue({
     base: mainlandBgMobile,
@@ -30,15 +31,25 @@ const Layout = ({ children }) => {
   });
 
   useEffect(() => {
+    const updateDocHeight = () => {
+      setDocHeight(document.body.offsetHeight);
+    };
+
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
 
+    updateDocHeight();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", updateDocHeight);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateDocHeight);
+    };
   }, []);
 
-  const parallaxOffset = scrollY * 0.4;
+  const parallaxOffset = scrollY * 0.3;
+  const bgHeight = Math.max(docHeight, window.innerHeight) + 200;
 
   return (
     <Box minH="100dvh" position="relative">
@@ -59,9 +70,9 @@ const Layout = ({ children }) => {
           top={-parallaxOffset}
           left={0}
           w="100%"
-          h="calc(100% + 400px)"
+          h={`${bgHeight}px`}
           objectFit="cover"
-          objectPosition="center"
+          objectPosition="center top"
           pointerEvents="none"
         />
       </Box>
