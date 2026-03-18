@@ -1,6 +1,7 @@
 /**
  * @file LandingPageSection.jsx
  * @description Hero section of the application, featuring the company logo and core tagline.
+ * Uses semantic color tokens — no useColorModeValue required.
  * @module home/components
  * @remarks
  * Uses `LazyMotion` to reduce the main bundle size by asynchronously loading framer-motion's animation engine.
@@ -13,36 +14,30 @@ import {
   Heading,
   Image,
   Text,
-  useColorModeValue,
+  usePrefersReducedMotion,
   VStack,
 } from "@chakra-ui/react";
-import { m, LazyMotion, domAnimation } from "framer-motion";
-
+import { motion, LazyMotion, domAnimation } from "framer-motion"; // Corrected motion import
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
-// Optimized: Use 'm' instead of 'motion' to support LazyMotion
-const MotionImage = m(Image);
-const MotionVStack = m(VStack);
+const MotionImage = motion(Image);
+const MotionVStack = motion(VStack);
 
 /**
  * @component LandingPageSection
  * @description Sección de aterrizaje (Hero) de la página principal.
  * Muestra el logotipo animado, el nombre de la empresa y una breve descripción.
  *
- * OPTIMIZATION NOTE:
- * Uses <LazyMotion> implementation. This significantly reduces the
- * initial JS bundle size by ensuring animation logic is split out
- * from the main thread code.
- *
  * @returns {JSX.Element} Sección Hero renderizada.
  */
 const LandingPageSection = React.memo(() => {
-  const accentColor = useColorModeValue("primary.600", "primary.300");
-  const textColor = useColorModeValue("gray.800", "white");
-  const subTextColor = useColorModeValue("gray.600", "gray.400");
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  const animationConfig = prefersReducedMotion
+    ? { opacity: 1, y: 0 }
+    : { opacity: 0, y: 30 };
 
   return (
-    // Wrap with LazyMotion and provide the 'domAnimation' feature set (no layout animations, just standard DOM ones)
     <LazyMotion features={domAnimation}>
       <Flex
         w={"full"}
@@ -54,9 +49,12 @@ const LandingPageSection = React.memo(() => {
       >
         <MotionVStack
           spacing={4}
-          initial={{ opacity: 0, y: 30 }}
+          initial={animationConfig}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{
+            duration: prefersReducedMotion ? 0 : 0.3,
+            ease: "easeOut",
+          }}
           textAlign="center"
           maxW="5xl"
         >
@@ -68,38 +66,38 @@ const LandingPageSection = React.memo(() => {
             h={{ base: "55%", sm: "50%", md: "40%", lg: "30%" }}
             loading="eager"
             fetchpriority="high"
-            whileHover={{ scale: 1.05 }}
+            whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
             transition={{ duration: 0.3 }}
           />
 
           <Box mt={4}>
             <Heading
               as="h2"
-              fontSize={{ base: "xl", sm: "2xl", md: "4xl" }}
+              fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
               fontWeight="bold"
               letterSpacing="widest"
-              color={accentColor}
+              color="text.accent"
               textTransform={"uppercase"}
               mb={2}
             >
-              Vidriería & Aluminio
+              Vidriería &amp; Aluminio
             </Heading>
 
             <Heading
               as="h1"
-              fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
+              fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
               fontWeight="extrabold"
               lineHeight="1.1"
-              color={textColor}
+              color="text.body"
             >
-              GLASS & ALUMINUM <br />
+              GLASS &amp; ALUMINUM <br />
               COMPANY S.A.C.
             </Heading>
 
             <Text
-              fontSize={{ base: "lg", md: "2xl" }}
+              fontSize={{ base: "md", md: "xl" }}
               mt={6}
-              color={subTextColor}
+              color="text.muted"
               fontWeight="medium"
               maxW="3xl"
               mx="auto"

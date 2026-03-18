@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import { Box, Flex, Image, useColorModeValue } from "@chakra-ui/react";
 
@@ -50,19 +50,64 @@ GalleryThumbnailItem.displayName = "GalleryThumbnailItem";
 
 const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
   const activeBorderColor = useColorModeValue("primary.500", "primary.300");
+  const scrollbarThumb = useColorModeValue("blackAlpha.100", "whiteAlpha.200");
+  const containerRef = React.useRef(null);
+
+  const handleThumbnailClick = React.useCallback(
+    (index) => {
+      setSelectedIndex(index);
+    },
+    [setSelectedIndex],
+  );
+
+  const createClickHandler = React.useCallback(
+    (index) => () => handleThumbnailClick(index),
+    [handleThumbnailClick],
+  );
+
+  useLayoutEffect(() => {
+    const activeItem = containerRef.current?.children[selectedIndex];
+    if (activeItem) {
+      activeItem.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [selectedIndex]);
 
   return (
     <Flex
+      ref={containerRef}
       direction={{ base: "row", md: "column" }}
-      gap={{ base: 2, md: 2 }}
-      w={{ base: "100%", md: "100px", lg: "100px" }}
-      h={{ base: "60px", sm: "70px", md: "100%" }}
-      minW={0}
-      maxW="100%"
-      scrollBehavior="smooth"
+      gap={3}
+      w="100%"
+      h="100%"
+      px={{ base: 2, md: 1 }}
+      py={{ base: 1, md: 2 }}
       overflowX={{ base: "auto", md: "hidden" }}
-      overflowY={{ base: "hidden", md: "scroll" }}
-      flexShrink={0} // Added to strictly enforce height
+      overflowY={{ base: "hidden", md: "auto" }}
+      css={{
+        "&::-webkit-scrollbar": {
+          width: "5px",
+          height: "5px",
+        },
+        "&::-webkit-scrollbar-track": {
+          background: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: scrollbarThumb,
+          borderRadius: "10px",
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+          background: useColorModeValue("blackAlpha.200", "whiteAlpha.300"),
+        },
+        scrollbarWidth: "thin",
+        scrollbarColor: `${scrollbarThumb} transparent`,
+      }}
+      sx={{
+        msOverflowStyle: "none",
+      }}
     >
       {images.map((img, index) => (
         <GalleryThumbnailItem
@@ -70,7 +115,7 @@ const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
           img={img}
           index={index}
           isSelected={selectedIndex === index}
-          onClick={() => setSelectedIndex(index)}
+          onClick={createClickHandler(index)}
           activeBorderColor={activeBorderColor}
         />
       ))}

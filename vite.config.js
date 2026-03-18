@@ -9,28 +9,26 @@ export default defineConfig({
     react(),
     ViteImageOptimizer({
       jpg: {
-        quality: 70, // Reducido de 80 a 70 (30-40% más ligero, calidad imperceptible)
-        progressive: true, // Carga progresiva
+        quality: 80,
+        progressive: true,
       },
 
       png: {
-        quality: 75, // Optimizado para PNGs
-        compressionLevel: 9, // Máxima compresión
+        quality: 80,
+        compressionLevel: 9,
       },
 
       webp: {
-        quality: 70, // WebP es más eficiente que JPG
+        quality: 80,
         lossless: false,
       },
 
       sharpOptions: {
-        rotate: true, // Auto-rotación basada en EXIF
-        // 🔧 Resize automático para imágenes muy grandes
-        // Si una imagen es mayor a 2000px de ancho, se redimensiona
+        rotate: true,
         resize: {
-          width: 2000,
-          withoutEnlargement: true, // No agranda imágenes pequeñas
-          fit: "inside", // Mantiene aspect ratio
+          width: 1920,
+          withoutEnlargement: true,
+          fit: "inside",
         },
       },
     }),

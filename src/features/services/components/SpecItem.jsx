@@ -1,37 +1,25 @@
 import React from "react";
-import { HStack, Text, useColorModeValue } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
 
 /**
  * @component SpecItem
  * @description Muestra una especificación técnica individual (Clave: Valor) con icono.
- *
- * @param {Object} props - Propiedades del componente.
- * @param {string} props.label - Etiqueta de la especificación.
- * @param {string} props.value - Valor de la especificación.
- * @returns {JSX.Element} Ítem de especificación.
  */
 const SpecItem = ({ label, value }) => {
-    const bg = useColorModeValue("whiteAlpha.500", "whiteAlpha.50");
-    const borderColor = useColorModeValue("blackAlpha.100", "whiteAlpha.100");
-
-    const iconColor = useColorModeValue("primary.600", "primary.300");
-    const labelColor = useColorModeValue("gray.600", "gray.400");
-    const valueColor = useColorModeValue("gray.800", "gray.100");
-
     return (
         <HStack
             w="full"
             p={3}
-            bg={bg}
+            bg="surface.container"
             rounded="xl"
             borderWidth="1px"
-            borderColor={borderColor}
+            borderColor="border.default"
             justify="space-between"
             align="center"
             spacing={4}
             transition="all 0.2s"
             _hover={{
-                borderColor: iconColor,
+                borderColor: "text.accent",
                 transform: "translateY(-1px)",
                 shadow: "sm",
             }}
@@ -42,7 +30,7 @@ const SpecItem = ({ label, value }) => {
                     fontWeight="semibold"
                     textTransform="uppercase"
                     letterSpacing="wider"
-                    color={labelColor}
+                    color="text.muted"
                     noOfLines={2}
                 >
                     {label}
@@ -52,7 +40,7 @@ const SpecItem = ({ label, value }) => {
             <Text
                 fontSize="sm"
                 fontWeight="bold"
-                color={valueColor}
+                color="text.body"
                 textAlign="right"
                 noOfLines={2}
                 maxW="50%"

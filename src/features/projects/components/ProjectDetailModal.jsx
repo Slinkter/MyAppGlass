@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import {
   Modal,
@@ -7,7 +7,6 @@ import {
   ModalBody,
   ModalCloseButton,
   Flex,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
@@ -20,7 +19,6 @@ const ProjectDetailModal = (props) => {
     name,
     address,
     year,
-    g_maps,
     lat,
     lng,
     photos,
@@ -28,50 +26,38 @@ const ProjectDetailModal = (props) => {
 
   const [viewMode, setViewMode] = useState("map"); // 'map' | 'gallery'
 
-  const modalBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.95)",
-    "rgba(20, 20, 20, 0.98)"
-  );
-  const borderColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.35)",
-    "rgba(255, 255, 255, 0.15)"
-  );
-  const textColor = useColorModeValue("gray.800", "gray.100");
-
-  useEffect(() => {
-    if (isOpen) {
-      setViewMode("map"); // Reset to map on open
-    }
-  }, [isOpen]);
+  const handleClose = useCallback(() => {
+    setViewMode("map");
+    onClose();
+  }, [onClose]);
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       motionPreset="slideInBottom"
       size={{ base: "full", md: "5xl", lg: "6xl" }}
       scrollBehavior="inside"
       isCentered
       preserveScrollBarGap
     >
-      <ModalOverlay backdropFilter={"blur(10px)"} />
+      <ModalOverlay />
       <ModalContent
         role="dialog"
         aria-modal="true"
         borderRadius={{ base: 0, md: "2xl" }}
-        bg={modalBg}
-        backdropFilter="blur(20px)"
+        bg="surface.card"
         border="1px solid"
-        borderColor={borderColor}
+        borderColor="border.default"
         boxShadow="2xl"
-        color={textColor}
+        color="text.body"
         maxH={{ base: "100dvh", md: "auto" }}
         overflow="hidden"
       >
         <ModalCloseButton
           zIndex={10}
           size="lg"
-          bg={useColorModeValue("whiteAlpha.800", "blackAlpha.600")}
+          bg="surface.containerHover"
           _hover={{ bg: "red.500", color: "white" }}
           borderRadius="full"
           top={4}
@@ -96,7 +82,6 @@ const ProjectDetailModal = (props) => {
               name={name}
               address={address}
               year={year}
-              g_maps={g_maps}
               viewMode={viewMode}
               setViewMode={setViewMode}
               onClose={onClose}
@@ -115,7 +100,6 @@ ProjectDetailModal.propTypes = {
   name: PropTypes.string,
   address: PropTypes.string,
   year: PropTypes.string,
-  g_maps: PropTypes.string,
   lat: PropTypes.number,
   lng: PropTypes.number,
   photos: PropTypes.array,

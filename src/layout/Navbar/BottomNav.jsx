@@ -1,9 +1,14 @@
-import React from "react";
+/**
+ * @file BottomNav.jsx
+ * @description Smart bottom navigation with animated bubble on scroll.
+ * Uses semantic color tokens for surfaces and icon colors.
+ * @module layout/navbar
+ */
+
+import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Flex,
-  Text,
-  useColorModeValue,
   Icon,
   Link,
 } from "@chakra-ui/react";
@@ -14,140 +19,146 @@ import {
   BuildingOffice2Icon,
 } from "@heroicons/react/24/outline";
 import { FaWhatsapp } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion"; // Import motion directly
 import { companyData } from "@/config/company-data";
 
-/**
- * @component BottomNav
- * @description Barra de navegación inferior flotante con diseño de "píldora".
- * Distribuye uniformemente los items usando flexbox.
- */
+const MotionBox = motion(Box);
+
 const BottomNav = () => {
   const location = useLocation();
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const lastScrollY = useRef(0);
 
-  // Configuración de Colores
-  const containerBg = useColorModeValue("white", "rgba(20, 20, 20, 0.9)");
-  const containerBorder = useColorModeValue("gray.100", "gray.800");
-  const activeIconBg = useColorModeValue("black", "white");
-  const activeIconColor = useColorModeValue("white", "black");
-  const inactiveColor = useColorModeValue("gray.400", "gray.500");
-  const activeTextColor = useColorModeValue("black", "white");
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
 
-  // Items de Navegación
+      if (currentScrollY > 50) {
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const navItems = [
+    { label: "Inicio", icon: HomeIcon, path: "/" },
+    { label: "Servicios", icon: WrenchScrewdriverIcon, path: "/servicios" },
+    { label: "Proyectos", icon: BuildingOffice2Icon, path: "/proyectos" },
     {
-      label: "Inicio",
-      icon: HomeIcon,
-      path: "/",
-      isExternal: false,
-    },
-    {
-      label: "Servicios",
-      icon: WrenchScrewdriverIcon,
-      path: "/servicios",
-      isExternal: false,
-    },
-    {
-      label: "Proyectos",
-      icon: BuildingOffice2Icon,
-      path: "/proyectos",
-      isExternal: false,
-    },
-    {
-      label: "Contacto",
+      label: "WhatsApp",
       icon: FaWhatsapp,
-      path: `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`,
+      path: `https://wa.me/${companyData.whatsappNumber}`,
       isExternal: true,
     },
   ];
 
   return (
-    <Box
-      position="fixed"
-      bottom={6}
-      left={0}
-      right={0}
-      display={{ base: "flex", md: "none" }}
-      justifyContent="center"
-      px={4}
-      zIndex="sticky"
-    >
-      <Flex
-        as={motion.nav}
+    <AnimatePresence>
+      <MotionBox
+        position="fixed"
+        bottom={0}
+        pb="calc(1rem + env(safe-area-inset-bottom))"
+        left={0}
+        right={0}
+        display={{ base: "flex", md: "none" }}
+        justifyContent="center"
+        px={6}
+        zIndex="sticky"
         initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        align="center"
-        justify="space-between" // Mantiene espaciado uniforme
-        bg={containerBg}
-        px={2} // Reducido para maximizar espacio interno
-        py={3}
-        borderRadius="35px"
-        shadow="xl"
-        w="full"
-        maxW="md"
-        border="1px solid"
-        borderColor={containerBorder}
+        animate={{
+          y: hasScrolled ? 0 : 100,
+          opacity: hasScrolled ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.4,
+          ease: [0.25, 0.46, 0.45, 0.94],
+        }}
       >
-        {navItems.map((item) => {
-          const isActive = location.pathname === item.path;
+        <Flex
+          bg="surface.bottomNav"
+          px={2}
+          py={2}
+          borderRadius="full"
+          boxShadow="0 8px 32px rgba(0,0,0,0.15)"
+          w="full"
+          maxW="340px"
+          border="1px solid"
+          borderColor="border.default"
+          align="center"
+          justify="space-around"
+        >
+          {navItems.map((item) => {
+            const isActive = !item.isExternal && location.pathname === item.path;
 
-          return (
-            <Link
-              key={item.label}
-              as={item.isExternal ? "a" : RouterLink}
-              to={!item.isExternal ? item.path : undefined}
-              href={item.isExternal ? item.path : undefined}
-              isExternal={item.isExternal}
-              style={{ textDecoration: "none" }}
-              flex={1} // Ocupa espacio igualitario
-              w={0} // Fuerza a flex-grow a trabajar desde 0
-              display="flex"
-              justifyContent="center"
-            >
-              <Flex
-                direction="column"
-                align="center"
-                gap={1}
-                role="group"
-                cursor="pointer"
-                w="full"
+            return (
+              <Link
+                key={item.label}
+                as={item.isExternal ? "a" : RouterLink}
+                to={!item.isExternal ? item.path : undefined}
+                href={item.isExternal ? item.path : undefined}
+                isExternal={item.isExternal}
+                style={{
+                  textDecoration: "none",
+                  WebkitTapHighlightColor: "transparent",
+                  outline: "none",
+                }}
+                _focus={{ outline: "none" }}
+                _focusVisible={{ outline: "none" }}
+                flex={1}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                onClick={() => {
+                  if (isActive && !item.isExternal) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
+                minH="48px"
               >
-                {/* Icon Container */}
-                <Flex
-                  align="center"
-                  justify="center"
-                  p={2}
-                  borderRadius="xl"
-                  bg={isActive ? activeIconBg : "transparent"}
-                  color={isActive ? activeIconColor : inactiveColor}
-                  transition="all 0.3s ease"
-                  _groupHover={{
-                    color: !isActive && "gray.600",
-                  }}
-                  w="40px" // Ancho fijo para el contenedor del icono
-                  h="40px" // Alto fijo para asegurar círculo/cuadrado perfecto
-                >
-                  <Icon as={item.icon} w={5} h={5} strokeWidth={2.5} />
-                </Flex>
+                <Box position="relative" px={5} py={2}>
+                  {isActive && hasScrolled && (
+                    <motion.div
+                      layoutId="active-bubble"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: "9999px",
+                        backgroundColor: "var(--chakra-colors-primary-500)",
+                        zIndex: 0,
+                      }}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      }}
+                    />
+                  )}
 
-                {/* Text Label */}
-                <Text
-                  fontSize="10px"
-                  fontWeight={isActive ? "bold" : "medium"}
-                  color={isActive ? activeTextColor : inactiveColor}
-                  transition="color 0.3s ease"
-                  textAlign="center"
-                  noOfLines={1}
-                >
-                  {item.label}
-                </Text>
-              </Flex>
-            </Link>
-          );
-        })}
-      </Flex>
-    </Box>
+                  <Icon
+                    as={item.icon}
+                    w={6}
+                    h={6}
+                    position="relative"
+                    zIndex={1}
+                    color={isActive ? "white" : "text.subtle"}
+                    strokeWidth={isActive ? 2.5 : 2}
+                    transition="color 0.3s ease"
+                  />
+                </Box>
+              </Link>
+            );
+          })}
+        </Flex>
+      </MotionBox>
+    </AnimatePresence>
   );
 };
 

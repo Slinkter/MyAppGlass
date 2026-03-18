@@ -16,11 +16,19 @@ import { useEffect } from "react";
  * @returns {null} This component renders nothing.
  */
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
+  const { pathname, key } = useLocation();
+  
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    // Intenta múltiples métodos de scroll para asegurar compatibilidad total (Cross-browser)
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      document.body.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    } catch (e) {
+      // Fallback para navegadores antiguos
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, key]);
 
   return null;
 };

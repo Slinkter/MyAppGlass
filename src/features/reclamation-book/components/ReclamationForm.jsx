@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { Box, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import React from "react";
+import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { companyData } from "@/config/company-data";
 import { useReclamoForm } from "../hooks/useReclamoForm";
 import PersonalInfoSection from "./PersonalInfoSection";
@@ -18,53 +18,24 @@ const ReclamationForm = () => {
   const { formData, errors, handleInputsChange, handleBtnSubmit, modalProps } =
     useReclamoForm();
 
-  const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.25)",
-    "rgba(0, 0, 0, 0.25)",
-  );
-  const borderColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.35)",
-    "rgba(255, 255, 255, 0.15)",
-  );
-  const textColor = useColorModeValue("gray.800", "gray.100");
-  const headingColor = useColorModeValue("gray.900", "white");
-  const inputBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.4)",
-    "rgba(0, 0, 0, 0.4)",
-  );
-  const inputBorder = useColorModeValue(
-    "rgba(255, 255, 255, 0.5)",
-    "rgba(0, 0, 0, 0.5)",
-  );
-  const placeholderColor = useColorModeValue("gray.500", "gray.400");
-  const hoverBorderColor = useColorModeValue("gray.400", "gray.500");
-  const focusBorderColor = useColorModeValue("purple.500", "purple.300");
-  const focusBoxShadowColor = useColorModeValue("primary.500", "primary.300");
-  const optionBg = useColorModeValue("#FFFFFF", "#2D3748");
+  const inputStyles = {
+    bg: "surface.container",
+    borderColor: "border.glass",
+    _placeholder: { color: "text.muted" },
+    _hover: { borderColor: "border.strong" },
+    _focus: {
+      borderColor: "ring.primary",
+      boxShadow: `0 0 0 1px var(--chakra-colors-ring-primary)`,
+    },
+  };
 
-  const inputStyles = useMemo(
-    () => ({
-      bg: inputBg,
-      borderColor: inputBorder,
-      _placeholder: { color: placeholderColor },
-      _hover: { borderColor: hoverBorderColor },
-      _focus: {
-        borderColor: focusBorderColor,
-        boxShadow: `0 0 0 1px ${focusBoxShadowColor}`,
-      },
-    }),
-    [inputBg, inputBorder, placeholderColor, hoverBorderColor, focusBorderColor, focusBoxShadowColor]
-  );
-
-  const selectStyles = useMemo(
-    () => ({
-      ...inputStyles,
-      option: {
-        background: optionBg,
-      },
-    }),
-    [inputStyles, optionBg]
-  );
+  const selectStyles = {
+    ...inputStyles,
+    option: {
+      background: "var(--chakra-colors-surface-card)",
+      color: "var(--chakra-colors-text-body)"
+    },
+  };
 
   return (
     <Box>
@@ -74,38 +45,37 @@ const ReclamationForm = () => {
         maxW="3xl"
         mx="auto"
         mb={8}
-        bg={bgColor}
-        backdropFilter="blur(20px)"
+        bg="surface.card"
         border="1px solid"
-        borderColor={borderColor}
+        borderColor="border.default"
         boxShadow="0 4px 30px rgba(0,0,0,0.1)"
         borderRadius="2xl"
-        color={textColor}
+        color="text.body"
       >
         <Heading
           as="h2"
           size="lg"
           mb={4}
           textAlign="center"
-          color={headingColor}
+          color="text.heading"
         >
           Libro de Reclamaciones Virtual
         </Heading>
 
         <Box
-          bg={inputBg}
+          bg="surface.container"
           rounded="md"
           p={4}
           mb={6}
           borderWidth={1}
-          borderColor={borderColor}
+          borderColor="border.glass"
         >
-          <Text fontWeight="bold">Razón Social:</Text>
-          <Text mb={2}>{companyData.razonSocial}</Text>
-          <Text fontWeight="bold">RUC:</Text>
-          <Text mb={2}>{companyData.ruc}</Text>
-          <Text fontWeight="bold">Dirección:</Text>
-          <Text>{companyData.direccion}</Text>
+          <Text fontWeight="bold" color="text.heading">Razón Social:</Text>
+          <Text mb={2} color="text.muted">{companyData.razonSocial}</Text>
+          <Text fontWeight="bold" color="text.heading">RUC:</Text>
+          <Text mb={2} color="text.muted">{companyData.ruc}</Text>
+          <Text fontWeight="bold" color="text.heading">Dirección:</Text>
+          <Text color="text.muted">{companyData.direccion}</Text>
         </Box>
 
         <form onSubmit={handleBtnSubmit}>

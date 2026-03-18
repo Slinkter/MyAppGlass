@@ -1,14 +1,17 @@
-import { Flex, Box } from "@chakra-ui/react";
+import { Flex, Box, useColorModeValue } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { motion } from "framer-motion";
+import { LazyMotion, m, domAnimation } from "framer-motion";
 import { useGallery } from "@shared/hooks/ui/useGallery";
 import GalleryViewer from "./gallery/GalleryViewer";
 import GalleryThumbnails from "./gallery/GalleryThumbnails";
-import { useIsMobile } from "@shared/hooks/ui/useIsMobile";
 
+/**
+ * @component Gallery
+ * @description Galeria de imagenes con pre-carga y skeleton de carga
+ */
 const Gallery = React.memo(({ images }) => {
-  const isMobile = useIsMobile();
+  const bgColor = useColorModeValue("blackAlpha.50", "whiteAlpha.50");
   const {
     selectedIndex,
     setSelectedIndex,
@@ -18,20 +21,45 @@ const Gallery = React.memo(({ images }) => {
     imageCount,
   } = useGallery(images);
 
+  // Pre-cargar imágenes adyacentes en segundo plano
+  useEffect(() => {
+    if (!images || imageCount === 0) return;
+
+    const preloadImage = (src) => {
+      if (!src) return;
+      const img = new window.Image();
+      img.src = src;
+    };
+
+    // Pre-cargar imagen actual, anterior y siguiente
+    const indicesToPreload = [
+      selectedIndex,
+      (selectedIndex - 1 + imageCount) % imageCount,
+      (selectedIndex + 1) % imageCount,
+    ];
+
+    indicesToPreload.forEach((idx) => {
+      if (images[idx]?.image) {
+        preloadImage(images[idx].image);
+      }
+    });
+  }, [selectedIndex, images, imageCount]);
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "ArrowLeft") handlePrevious(event);
       if (event.key === "ArrowRight") handleNext(event);
     };
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown, { passive: true });
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handlePrevious, handleNext]);
 
   if (!images || imageCount === 0) return null;
 
   return (
+    <LazyMotion features={domAnimation}>
     <Box
-      as={motion.div}
+      as={m.div}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -58,13 +86,16 @@ const Gallery = React.memo(({ images }) => {
           />
         </Box>
 
-        {/* 2. Miniaturas */}
+        {/* 2. Miniaturas (Derecha en desktop, abajo en mobile) */}
         <Box
-          w={{ base: "100%", md: "110px" }}
-          h={{ base: "80px", md: "100%" }}
-          order={{ base: 2, md: isMobile ? 2 : 1 }}
+          w={{ base: "100%", md: "120px", lg: "135px" }}
+          h={{ base: "100px", md: "100%" }}
+          order={{ base: 2, md: 1 }}
           flexShrink={0}
           minH="0"
+          bg={bgColor}
+          borderRadius="2xl"
+          p={1}
         >
           <GalleryThumbnails
             images={images}
@@ -74,6 +105,7 @@ const Gallery = React.memo(({ images }) => {
         </Box>
       </Flex>
     </Box>
+    </LazyMotion>
   );
 });
 

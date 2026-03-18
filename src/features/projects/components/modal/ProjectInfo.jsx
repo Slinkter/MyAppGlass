@@ -5,9 +5,10 @@ import {
   Button,
   ButtonGroup,
   Heading,
-  Stack,
+  Grid,
   Icon,
 } from "@chakra-ui/react";
+import { LazyMotion, m, domAnimation } from "framer-motion";
 import {
   MapIcon,
   PhotoIcon,
@@ -15,7 +16,6 @@ import {
   BuildingOffice2Icon,
   MapPinIcon,
   CalendarDaysIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/solid";
 import GlassCard from "@shared/components/common/GlassCard";
 import ProjectDetailItem from "../ProjectDetailItem";
@@ -46,112 +46,130 @@ const ProjectInfo = ({
   name,
   address,
   year,
-  g_maps,
   viewMode,
   setViewMode,
-  onClose,
+
 }) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+  };
+
   return (
-    <GlassCard
-      flex={{ base: "1", lg: "2" }}
-      w="100%"
-      p={{ base: 5, md: 6 }}
-      minH={{ lg: "450px" }}
-      h={{ base: "auto", lg: "auto" }}
-      display="flex"
-      flexDirection="column"
-      justifyContent={{ base: "flex-start", lg: "center" }}
-      gap={6}
-      overflowY={{ base: "auto", lg: "visible" }}
-      borderRadius={{ base: "0", lg: "2xl" }}
-      boxShadow="none"
-    >
-      {/* View Switcher */}
-      <ButtonGroup w="full" isAttached variant="outline">
-        <Button
-          w="full"
-          leftIcon={<Icon as={MapIcon} />}
-          onClick={() => setViewMode("map")}
-          isActive={viewMode === "map"}
-          bg={viewMode === "map" ? "primary.500" : "transparent"}
-          color={viewMode === "map" ? "white" : "inherit"}
-          _hover={{
-            bg: viewMode === "map" ? "primary.600" : "whiteAlpha.200",
-          }}
-          _active={{
-            bg: "primary.600",
-          }}
-        >
-          Ubicación
-        </Button>
-        <Button
-          w="full"
-          leftIcon={<Icon as={PhotoIcon} />}
-          onClick={() => setViewMode("gallery")}
-          isActive={viewMode === "gallery"}
-          bg={viewMode === "gallery" ? "primary.500" : "transparent"}
-          color={viewMode === "gallery" ? "white" : "inherit"}
-          _hover={{
-            bg: viewMode === "gallery" ? "primary.600" : "whiteAlpha.200",
-          }}
-          _active={{
-            bg: "primary.600",
-          }}
-        >
-          Galería
-        </Button>
-      </ButtonGroup>
-
-      <Box>
-        <Heading
-          size="md"
-          mb={6}
-          borderBottom="2px solid"
-          borderColor="primary.500"
-          pb={2}
-          display="inline-block"
-          width="fit-content"
-        >
-          Detalles del Proyecto
-        </Heading>
-        <Stack spacing={5}>
-          <ProjectDetailItem
-            icon={HomeIcon}
-            label="Residencial"
-            value={residencial}
-          />
-          <ProjectDetailItem
-            icon={BuildingOffice2Icon}
-            label="Constructora"
-            value={name}
-          />
-          <ProjectDetailItem icon={MapIcon} label="Dirección" value={g_maps} />
-          <ProjectDetailItem
-            icon={MapPinIcon}
-            label="Distrito"
-            value={address}
-          />
-          <ProjectDetailItem icon={CalendarDaysIcon} label="Año" value={year} />
-        </Stack>
-      </Box>
-
-      {/* Close Button */}
-      <Button
-        onClick={onClose}
-        leftIcon={<Icon as={XMarkIcon} />}
-        variant="outline"
-        colorScheme="red"
-        size="sm"
-        w="full"
-        _hover={{
-          bg: "red.500",
-          color: "white",
-          borderColor: "red.500",
-        }}
+    <LazyMotion features={domAnimation}>
+      <GlassCard
+        flex={{ base: "1", lg: "2" }}
+        w="100%"
+        p={{ base: 5, md: 6 }}
+        h={{ base: "auto", lg: "100%" }}
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+        gap={4}
+        overflowY={{ base: "auto", lg: "visible" }}
+        borderRadius={{ base: "0", lg: "2xl" }}
+        boxShadow="none"
       >
-        Cerrar Ventana
-      </Button>
-    </GlassCard>
+        {/* View Switcher */}
+        <ButtonGroup w="full" isAttached variant="outline">
+          <Button
+            w="full"
+            leftIcon={<Icon as={MapIcon} />}
+            onClick={() => setViewMode("map")}
+            isActive={viewMode === "map"}
+            bg={viewMode === "map" ? "primary.500" : "transparent"}
+            color={viewMode === "map" ? "white" : "inherit"}
+            _hover={{
+              bg: viewMode === "map" ? "primary.600" : "whiteAlpha.200",
+            }}
+            _active={{
+              bg: "primary.600",
+            }}
+          >
+            Ubicación
+          </Button>
+          <Button
+            w="full"
+            leftIcon={<Icon as={PhotoIcon} />}
+            onClick={() => setViewMode("gallery")}
+            isActive={viewMode === "gallery"}
+            bg={viewMode === "gallery" ? "primary.500" : "transparent"}
+            color={viewMode === "gallery" ? "white" : "inherit"}
+            _hover={{
+              bg: viewMode === "gallery" ? "primary.600" : "whiteAlpha.200",
+            }}
+            _active={{
+              bg: "primary.600",
+            }}
+          >
+            Galería
+          </Button>
+        </ButtonGroup>
+
+        <Box as={m.div} initial="hidden" animate="show" variants={containerVariants}>
+          <Heading
+            as={m.h2}
+            variants={itemVariants}
+            size="md"
+            mb={6}
+            borderBottom="2px solid"
+            borderColor="primary.500"
+            pb={2}
+            display="inline-block"
+            width="fit-content"
+          >
+            Detalles del Proyecto
+          </Heading>
+          <Grid
+            templateColumns={{ base: "1fr 1fr", md: "1fr 1fr", lg: "1fr" }}
+            gap={4}
+          >
+            <m.div variants={itemVariants}>
+              <ProjectDetailItem
+                icon={HomeIcon}
+                label="Residencial"
+                value={residencial}
+              />
+            </m.div>
+
+            <m.div variants={itemVariants}>
+              <ProjectDetailItem
+                icon={BuildingOffice2Icon}
+                label="Constructora"
+                value={name}
+              />
+            </m.div>
+
+            <m.div variants={itemVariants}>
+              <ProjectDetailItem
+                icon={MapPinIcon}
+                label="Dirección"
+                value={address}
+              />
+            </m.div>
+
+            <m.div variants={itemVariants}>
+              <ProjectDetailItem
+                icon={CalendarDaysIcon}
+                label="Año"
+                value={year}
+              />
+            </m.div>
+          </Grid>
+        </Box>
+
+      </GlassCard>
+    </LazyMotion>
   );
 };
 
@@ -160,7 +178,6 @@ ProjectInfo.propTypes = {
   name: PropTypes.string,
   address: PropTypes.string,
   year: PropTypes.string,
-  g_maps: PropTypes.string,
   viewMode: PropTypes.oneOf(["map", "gallery"]).isRequired,
   setViewMode: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,

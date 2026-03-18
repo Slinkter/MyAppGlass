@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -8,23 +8,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { motion, AnimatePresence } from "framer-motion";
+import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import FadingImage from "../FadingImage";
 
-/**
- * @component GalleryViewer
- * @description Visor principal de la galería de imágenes.
- * Muestra la imagen seleccionada en grande con controles de navegación (flechas, dots, contador).
- *
- * @param {Object} props - Propiedades del componente.
- * @param {Object} props.currentImage - Objeto de la imagen actual a mostrar.
- * @param {number} props.imageCount - Total de imágenes en la galería.
- * @param {number} props.selectedIndex - Índice actual.
- * @param {function} props.setSelectedIndex - Función para cambiar el índice manualmente (dots).
- * @param {function} props.handlePrevious - Función para ir a la imagen anterior.
- * @param {function} props.handleNext - Función para ir a la imagen siguiente.
- * @returns {JSX.Element} Visor de imagen principal.
- */
+const SWIPE_THRESHOLD = 50;
+
 const GalleryViewer = ({
   currentImage,
   imageCount,
@@ -32,151 +20,237 @@ const GalleryViewer = ({
   setSelectedIndex,
   handlePrevious,
   handleNext,
-  isPriority, // Add new prop
+  isPriority = false,
 }) => {
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+
   const dotActiveColor = useColorModeValue("primary.500", "primary.300");
   const bgOverlay = useColorModeValue("blackAlpha.50", "blackAlpha.200");
 
+  const handleTouchStart = useCallback((e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    setIsDragging(true);
+  }, []);
+
+  const handleTouchMove = useCallback((e) => {
+    if (!isDragging) return;
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const diffX = currentX - touchStartX.current;
+    const diffY = currentY - touchStartY.current;
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      e.preventDefault();
+      setDragOffset(diffX);
+    }
+  }, [isDragging]);
+
+  const handleTouchEnd = useCallback(() => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    if (dragOffset > SWIPE_THRESHOLD) {
+      handlePrevious();
+    } else if (dragOffset < -SWIPE_THRESHOLD) {
+      handleNext();
+    }
+    setDragOffset(0);
+  }, [isDragging, dragOffset, handlePrevious, handleNext]);
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === "ArrowLeft") {
+      handlePrevious();
+    } else if (e.key === "ArrowRight") {
+      handleNext();
+    }
+  }, [handlePrevious, handleNext]);
+
+  const slideTransform = isDragging ? `translateX(${dragOffset}px)` : "translateX(0)";
+
   return (
-    <Box
-      flex="1"
-      h="100%"
-      w="100%"
-      position="relative"
-      borderRadius="2xl"
-      overflow="hidden"
-      bg={bgOverlay}
-      role="group"
-    >
-      {/* Contenedor Animado para Imágenes */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentImage.id}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <FadingImage
-            src={currentImage.image}
-            alt={currentImage.name || "Vista principal"}
-            w="100%"
-            h="100%"
-            objectFit="cover"
-            showOverlay={false}
-            loading={isPriority ? "eager" : "lazy"}
-            fetchpriority={isPriority ? "high" : "auto"}
-            rounded="none"
-          />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Gradiente sutil inferior para mejorar legibilidad de controles */}
+    <LazyMotion features={domAnimation}>
       <Box
-        position="absolute"
-        bottom={0}
-        left={0}
-        right={0}
-        h="40%"
-        bgGradient="linear(to-t, blackAlpha.600, transparent)"
-        pointerEvents="none"
-        opacity={0}
-        _groupHover={{ opacity: 1 }}
-        transition="opacity 0.3s ease"
-      />
-
-      {/* Controles de Navegación */}
-      {imageCount > 1 && (
-        <>
-          <IconButton
-            icon={<ChevronLeftIcon boxSize={8} />}
-            position="absolute"
-            left={4}
-            top="50%"
-            transform="translateY(-50%)"
-            onClick={handlePrevious}
-            variant="ghost"
-            color="white"
-            _hover={{
-              bg: "whiteAlpha.300",
-              transform: "translateY(-50%) scale(1.1)",
+        flex="1"
+        h="100%"
+        w="100%"
+        position="relative"
+        borderRadius="2xl"
+        overflow="hidden"
+        bg={bgOverlay}
+        role="group"
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        _focus={{ outline: "none" }}
+        userSelect="none"
+        touchAction="pan-y"
+      >
+        <AnimatePresence>
+          <m.div
+            key={currentImage.id}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              transform: slideTransform,
+              transition: isDragging ? "none" : "transform 0.3s ease",
             }}
-            display={{ base: "none", md: "flex" }}
-            aria-label="Anterior"
-            zIndex={10}
-          />
-          <IconButton
-            icon={<ChevronRightIcon boxSize={8} />}
-            position="absolute"
-            right={4}
-            top="50%"
-            transform="translateY(-50%)"
-            onClick={handleNext}
-            variant="ghost"
-            color="white"
-            _hover={{
-              bg: "whiteAlpha.300",
-              transform: "translateY(-50%) scale(1.1)",
-            }}
-            display={{ base: "none", md: "flex" }}
-            aria-label="Siguiente"
-            zIndex={10}
-          />
-
-          {/* Contador Flotante */}
-          <Box
-            position="absolute"
-            top={4}
-            right={4}
-            bg="blackAlpha.700"
-            backdropFilter="blur(10px)"
-            px={4}
-            py={1.5}
-            borderRadius="full"
-            border="1px solid"
-            borderColor="whiteAlpha.300"
           >
-            <Text
-              fontSize="xs"
-              color="white"
-              fontWeight="bold"
-              letterSpacing="widest"
-            >
-              {selectedIndex + 1}{" "}
-              <Text as="span" opacity={0.5}>
-                /
-              </Text>{" "}
-              {imageCount}
-            </Text>
-          </Box>
+            <FadingImage
+              src={currentImage.image}
+              alt={currentImage.name || "Vista principal"}
+              w="100%"
+              h="100%"
+              objectFit="cover"
+              showOverlay={false}
+              loading={isPriority ? "eager" : "lazy"}
+              fetchpriority={isPriority ? "high" : "auto"}
+              rounded="none"
+            />
+          </m.div>
+        </AnimatePresence>
 
-          {/* Dots Premium */}
-          <HStack
+        <Box
+          position="absolute"
+          bottom={0}
+          left={0}
+          right={0}
+          h="40%"
+          bgGradient="linear(to-t, blackAlpha.600, transparent)"
+          pointerEvents="none"
+          opacity={0}
+          _groupHover={{ opacity: 1 }}
+          transition="opacity 0.3s ease"
+        />
+
+        {imageCount > 1 && (
+          <>
+            <IconButton
+              icon={<ChevronLeftIcon boxSize={8} />}
+              position="absolute"
+              left={4}
+              top="50%"
+              transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
+              onClick={handlePrevious}
+              variant="ghost"
+              color="white"
+              bg="blackAlpha.500"
+              _hover={{
+                bg: "whiteAlpha.300",
+                transform: "translateY(-50%) scale(1.1)",
+              }}
+              _active={{
+                transform: "translateY(-50%) scale(0.95)",
+              }}
+              display="flex"
+              aria-label="Anterior"
+              zIndex={10}
+              opacity={isDragging ? 0 : 1}
+              transition="opacity 0.2s ease, transform 0.2s ease"
+            />
+            <IconButton
+              icon={<ChevronRightIcon boxSize={8} />}
+              position="absolute"
+              right={4}
+              top="50%"
+              transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
+              onClick={handleNext}
+              variant="ghost"
+              color="white"
+              bg="blackAlpha.500"
+              _hover={{
+                bg: "whiteAlpha.300",
+                transform: "translateY(-50%) scale(1.1)",
+              }}
+              _active={{
+                transform: "translateY(-50%) scale(0.95)",
+              }}
+              display="flex"
+              aria-label="Siguiente"
+              zIndex={10}
+              opacity={isDragging ? 0 : 1}
+              transition="opacity 0.2s ease, transform 0.2s ease"
+            />
+
+            <Box
+              position="absolute"
+              top={4}
+              right={4}
+              bg="blackAlpha.700"
+              px={4}
+              py={1.5}
+              borderRadius="full"
+              border="1px solid"
+              borderColor="whiteAlpha.300"
+            >
+              <Text
+                fontSize="xs"
+                color="white"
+                fontWeight="bold"
+                letterSpacing="widest"
+              >
+                {selectedIndex + 1}{" "}
+                <Text as="span" opacity={0.5}>
+                  /
+                </Text>{" "}
+                {imageCount}
+              </Text>
+            </Box>
+
+            <HStack
+              position="absolute"
+              bottom={6}
+              left="50%"
+              transform="translateX(-50%)"
+              spacing={2.5}
+              zIndex={5}
+            >
+              {Array.from({ length: imageCount }).map((_, index) => (
+                <Box
+                  key={index}
+                  w={selectedIndex === index ? "32px" : "8px"}
+                  h="6px"
+                  bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
+                  borderRadius="full"
+                  cursor="pointer"
+                  onClick={() => setSelectedIndex(index)}
+                  transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                  _hover={{ bg: "whiteAlpha.800" }}
+                />
+              ))}
+            </HStack>
+          </>
+        )}
+
+        {imageCount > 1 && (
+          <Text
             position="absolute"
-            bottom={6}
+            bottom={-8}
             left="50%"
             transform="translateX(-50%)"
-            spacing={2.5}
-            zIndex={5}
+            fontSize="xs"
+            color="gray.500"
+            opacity={0}
+            transition="opacity 0.2s ease"
+            _groupHover={{ opacity: 1 }}
+            pointerEvents="none"
+            display={{ base: "block", md: "none" }}
           >
-            {Array.from({ length: imageCount }).map((_, index) => (
-              <Box
-                key={index}
-                w={selectedIndex === index ? "32px" : "8px"}
-                h="6px"
-                bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
-                borderRadius="full"
-                cursor="pointer"
-                onClick={() => setSelectedIndex(index)}
-                transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
-                _hover={{ bg: "whiteAlpha.800" }}
-              />
-            ))}
-          </HStack>
-        </>
-      )}
-    </Box>
+            Desliza para navegar
+          </Text>
+        )}
+      </Box>
+    </LazyMotion>
   );
 };
 
@@ -187,12 +261,7 @@ GalleryViewer.propTypes = {
   setSelectedIndex: PropTypes.func.isRequired,
   handlePrevious: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
-  isPriority: PropTypes.bool, // Add prop type
-};
-
-// Add default prop
-GalleryViewer.defaultProps = {
-  isPriority: false,
+  isPriority: PropTypes.bool,
 };
 
 export default GalleryViewer;

@@ -16,18 +16,19 @@ export const clients = [
     descClient:
       "Servicios especializados para grandes proyectos de construcción.",
   },
+
   {
     id: 2,
-    imgClient: sectorhogarImg, // Imported image
-    nameClient: "Sector Hogar",
+    imgClient: sectorofficesImg, // Imported image
+    nameClient: " Comercios",
     descClient:
-      "Soluciones de vidrio para viviendas y proyectos residenciales.",
+      "Instalaciones de vidrio y espejos para espacios comerciales y corporativos.",
   },
   {
     id: 3,
-    imgClient: sectorofficesImg, // Imported image
-    nameClient: "Oficinas y Comercios",
+    imgClient: sectorhogarImg, // Imported image
+    nameClient: "Hogar",
     descClient:
-      "Instalaciones de vidrio y espejos para espacios comerciales y corporativos.",
+      "Soluciones de vidrio para viviendas y proyectos residenciales.",
   },
 ];

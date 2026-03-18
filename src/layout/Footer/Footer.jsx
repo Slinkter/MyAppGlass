@@ -1,6 +1,7 @@
 /**
  * @file Footer.jsx
- * @description Global application footer containing contact information, schedules, and important internal links.
+ * @description Global application footer. Uses semantic color tokens for all
+ * surface, text, and border colors — no inline useColorModeValue calls.
  * @module layout/footer
  */
 
@@ -10,151 +11,190 @@ import {
   HStack,
   Text,
   VStack,
-  useColorModeValue,
   Icon,
   Heading,
   Image,
+  SimpleGrid,
+  Container,
+  Divider,
 } from "@chakra-ui/react";
 import {
   FaWhatsapp,
   FaRegCalendar,
   FaRegClock,
   FaRegMap,
-  FaRegBuilding, // Changed from FaLandmark for outline equivalent
-} from "react-icons/fa"; // Added FaLandmark
+  FaRegBuilding,
+} from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { IoDocumentTextOutline } from "react-icons/io5"; // Added IoDocumentTextOutline
+import { IoDocumentTextOutline } from "react-icons/io5";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 
-const FooterSection = ({ title, children }) => {
-  const headingColor = useColorModeValue("gray.900", "white");
-  return (
-    <VStack spacing={2} mb={{ base: 6, md: 4 }}>
-      <Heading
-        as="h3"
-        fontSize={{ base: "xl", md: "2xl" }}
-        fontWeight="semibold"
-        mb={2}
-        color={headingColor}
-      >
-        {title}
-      </Heading>
-      {children}
-    </VStack>
-  );
-};
+/**
+ * @component FooterRow
+ * @description Unified footer item that handles both plain text and link rows.
+ * @param {object} props
+ * @param {React.ElementType} props.icon - Icon component.
+ * @param {React.ReactNode} props.children - Row label.
+ * @param {string} [props.to] - Internal route path (makes the row a link).
+ * @param {boolean} [props.isExternal] - Whether the link opens in a new tab.
+ * @param {string} [props.customIconColor] - Override for the icon color token.
+ */
+const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
+  const iconColor = customIconColor || "text.accent";
 
-const FooterLink = ({ to, icon, label, children }) => {
-  const hoverColor = useColorModeValue("primary.600", "primary.300");
-  return (
-    <Link to={to} style={{ textDecoration: "none" }}>
-      <HStack spacing={2} alignItems="center" _hover={{ color: hoverColor }}>
-        {icon && <Icon as={icon} />}
-        {children || <Text fontSize="md">{label}</Text>}
-      </HStack>
-    </Link>
+  const content = (
+    <HStack spacing={4} align="center" w="full" py={1}>
+      <Icon as={icon} boxSize={5} color={iconColor} flexShrink={0} />
+      <Text
+        fontSize="sm"
+        fontWeight="500"
+        color="text.body"
+        transition="color 0.2s"
+        _groupHover={to ? { color: "text.accent" } : {}}
+      >
+        {children}
+      </Text>
+    </HStack>
   );
+
+  if (to) {
+    return (
+      <Link
+        to={to}
+        style={{ textDecoration: "none", width: "100%" }}
+        target={isExternal ? "_blank" : undefined}
+        className="group"
+      >
+        <Box
+          role="group"
+          transition="transform 0.2s"
+          _hover={{ transform: "translateX(4px)" }}
+        >
+          {content}
+        </Box>
+      </Link>
+    );
+  }
+
+  return content;
 };
 
 /**
- * @component Footer
- * @description Global application footer.
+ * @component FooterSection
+ * @description A labeled column within the footer grid.
+ * @param {object} props
+ * @param {string} props.title - Section heading.
+ * @param {React.ReactNode} props.children - Section rows.
  */
-const Footer = () => {
-  const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.1)",
-    "rgba(0, 0, 0, 0.1)",
-  );
-  const textColor = useColorModeValue("gray.800", "gray.100");
-  const copyrightColor = useColorModeValue("gray.600", "gray.400");
+const FooterSection = ({ title, children }) => (
+  <VStack align={{ base: "flex-start", md: "flex-start" }} spacing={5} w="full">
+    <Heading
+      as="h4"
+      fontSize="xs"
+      fontWeight="900"
+      color="text.accent"
+      textTransform="uppercase"
+      letterSpacing="0.2em"
+      mb={1}
+    >
+      {title}
+    </Heading>
+    <VStack align="flex-start" spacing={3} w="full">
+      {children}
+    </VStack>
+  </VStack>
+);
 
-  return (
-    <>
-      <Box as="footer" my={8} px={{ base: 4, md: 0 }}>
-        <Box
-          bg={bgColor}
-          backdropFilter="blur(10px)"
-          boxShadow="md"
-          borderRadius="2xl"
-          transition="all 0.3s ease"
-          color={textColor}
-          maxW="7xl"
-          mx="auto"
-          pt={8}
-          pb={4}
+/**
+ * @component Footer
+ * @description Site-wide footer with contact info, schedule, and legal links.
+ */
+const Footer = () => (
+  <Box
+    as="footer"
+    mt={{ base: 16, md: 32 }}
+    mb={{ base: 32, md: 12 }}
+    px={{ base: 4, md: 6 }}
+  >
+    <Container maxW="7xl" px={0}>
+      <Box
+        bg="surface.footer"
+        border="1px solid"
+        borderColor="border.default"
+        borderRadius="3xl"
+        pt={{ base: 12, md: 16 }}
+        pb={8}
+        px={{ base: 8, md: 16 }}
+      >
+        <SimpleGrid
+          columns={{ base: 1, sm: 2, lg: 3 }}
+          spacing={{ base: 12, md: 16 }}
+          mb={16}
         >
-          <Flex
-            justifyContent="space-around"
-            direction={{ base: "column", md: "row" }}
-            textAlign={{ base: "center", md: "left" }}
-          >
-            <FooterSection title="CONTACTO">
-              <HStack spacing={2} alignItems="center">
-                <Icon as={FaWhatsapp} />
-                <Text fontSize="md">974-278-303</Text>
-              </HStack>
-              <HStack spacing={2} alignItems="center">
-                <Icon as={FaWhatsapp} />
-                <Text fontSize="md">996-537-435</Text>
-              </HStack>
-            </FooterSection>
+          <FooterSection title="Contacto">
+            <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">
+              974 278 303
+            </FooterRow>
+            <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">
+              996 537 435
+            </FooterRow>
+            <FooterRow icon={MdOutlineEmail}>acueva@gyacompany.com</FooterRow>
+          </FooterSection>
 
-            <FooterSection title="HORARIOS">
-              <HStack spacing={2} alignItems="center">
-                <Icon as={FaRegCalendar} />
-                <Text fontSize="md">Lunes a Sábado</Text>
-              </HStack>
-              <HStack spacing={2} alignItems="center">
-                <Icon as={FaRegClock} />
-                <Text fontSize="md">9:00 am - 5:00 pm</Text>
-              </HStack>
-            </FooterSection>
+          <FooterSection title="Horarios">
+            <FooterRow icon={FaRegCalendar}>Lunes a Sábado</FooterRow>
+            <FooterRow icon={FaRegClock}>9:00 am – 5:00 pm</FooterRow>
+            <FooterRow icon={FaRegMap}>La Molina, Lima - Perú</FooterRow>
+          </FooterSection>
 
-            <FooterSection title="DIRECCIÓN">
-              <HStack spacing={2} alignItems="center" justifyContent="center">
-                <Icon as={FaRegMap} />
-                <Text fontSize="md">Av. Los Fresnos MZ. H LT. 1250</Text>
-              </HStack>
-              <HStack spacing={2} alignItems="center" justifyContent="center">
-                <Icon as={MdOutlineEmail} />
-                <Text fontSize="md">acueva@gyacompany.com</Text>
-              </HStack>
-            </FooterSection>
-
-            <FooterSection title="LINKS">
-              <FooterLink
-                to="/politicas-empresa"
-                icon={IoDocumentTextOutline}
-                label="Políticas de la Empresa"
-              />
-              <FooterLink
-                to="/cuentas-bancarias"
-                icon={FaRegBuilding} // Changed from FaLandmark
-                label="Cuentas Bancarias"
-              />
-              <FooterLink to="/libro-de-reclamacion">
+          <FooterSection title="Corporativo">
+            <FooterRow to="/politicas-empresa" icon={IoDocumentTextOutline}>
+              Políticas de Empresa
+            </FooterRow>
+            <FooterRow to="/cuentas-bancarias" icon={FaRegBuilding}>
+              Cuentas Bancarias
+            </FooterRow>
+            <Link
+              to="/libro-de-reclamacion"
+              style={{ textDecoration: "none", width: "100%" }}
+            >
+              <HStack
+                spacing={4}
+                align="center"
+                py={1}
+                _hover={{ transform: "translateX(4px)" }}
+                transition="transform 0.2s"
+              >
                 <Image
                   src={LibroReclamacionesIcon}
-                  alt="Libro de Reclamaciones"
-                  h="30px"
-                  w="auto"
-                  loading="lazy"
-                  decoding="async"
+                  alt="Libro"
+                  boxSize={5}
+                  flexShrink={0}
                 />
-                <Text fontSize="md">Libro de Reclamaciones</Text>
-              </FooterLink>
-            </FooterSection>
-          </Flex>
-        </Box>
+                <Text fontSize="sm" fontWeight="600" color="text.body">
+                  Libro de Reclamaciones
+                </Text>
+              </HStack>
+            </Link>
+          </FooterSection>
+        </SimpleGrid>
       </Box>
-      <VStack color={copyrightColor}>
-        <Text mt={2} mb={6}>
-          Copyright ©2026
+
+      <Divider borderColor="border.default" border={0} mb={8} />
+
+      <Flex direction="column" align="center" gap={4}>
+        <Text
+          fontSize="10px"
+          color="text.muted"
+          fontWeight="bold"
+          letterSpacing="0.2em"
+        >
+          © 2026
         </Text>
-      </VStack>
-    </>
-  );
-};
+      </Flex>
+    </Container>
+  </Box>
+);
 
 export default Footer;

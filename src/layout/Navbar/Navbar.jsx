@@ -3,20 +3,12 @@
  * @description Responsive navigation header that switches between desktop and mobile views.
  * @module layout/navbar
  */
-
 import React from "react";
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import DesktopNav from "./DesktopNav";
 import BottomNav from "./BottomNav";
 
 export default function Navbar() {
-  // Estilos Glassmorphism para Desktop
-  const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.1)",
-    "rgba(0, 0, 0, 0.1)",
-  );
-  const textColor = useColorModeValue("gray.800", "gray.100");
-
   return (
     <>
       {/* DESKTOP NAVBAR */}
@@ -31,8 +23,8 @@ export default function Navbar() {
       >
         <Flex
           as="nav"
-          bg={bgColor}
-          color={textColor}
+          bg="surface.nav"
+          color="text.body"
           minH="60px"
           py={{ base: 2 }}
           px={{ base: 4 }}
@@ -41,11 +33,10 @@ export default function Navbar() {
           position="relative"
           maxW="7xl"
           mx="auto"
-          // Glassmorphism effects
-          backdropFilter="blur(10px)"
-          border="none"
+          border="1px solid"
+          borderColor="border.nav"
           borderRadius="2xl"
-          boxShadow="sm"
+          boxShadow="none"
         >
           <Flex flex={{ base: 1 }} justifyContent="center" alignItems="center">
             <DesktopNav />

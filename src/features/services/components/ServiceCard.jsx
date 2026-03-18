@@ -1,127 +1,110 @@
+/**
+ * @file ServiceCard.jsx
+ * @description Ultra-minimal card with image and centered name overlay.
+ */
+
 import React from "react";
 import PropTypes from "prop-types";
 import {
   Box,
-  useColorModeValue,
+  Text,
   LinkBox,
   LinkOverlay,
-  Button,
-  Text,
+  Fade,
 } from "@chakra-ui/react";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { Link as RouterLink } from "react-router-dom";
-import FadingImage from "@shared/components/common/FadingImage";
 
-/**
- * @component ServiceCard
- * @description Tarjeta de servicio con imagen full-body y botón flotante centrado.
- * Diseño minimalista sin flechas, enfocado en la imagen y el título claro.
- */
-const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
-  // Estilos del Botón Flotante
-  const buttonBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.9)",
-    "rgba(20, 20, 20, 0.8)",
-  );
-  const buttonHoverBg = useColorModeValue("white", "black");
-  const textColor = useColorModeValue("primary.800", "primary.200");
+const ServiceCard = React.memo((props) => {
+  const { image, name, plink, onLoadComplete, index } = props;
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const handleImageLoad = React.useCallback(() => {
+    setIsLoaded(true);
+    if (onLoadComplete) {
+      onLoadComplete();
+    }
+  }, [onLoadComplete]);
+
+  // Keep hardcoded gradient because it's rendering on top of an image.
+  const bgOverlay = "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
+  const hoverColor = "text.accent";
 
   return (
     <LinkBox
       as="article"
-      position="relative"
-      h={{ base: "300px", md: "480px" }}
-      borderRadius="2xl"
-      overflow="hidden"
       role="group"
-      boxShadow="lg"
-      transition="all 0.3s ease"
+      cursor="pointer"
+      position="relative"
+      h={{ base: "300px", md: "400px" }}
+      borderRadius="xl"
+      overflow="hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       _hover={{
-        boxShadow: "2xl",
-        transform: "translateY(-4px)",
+        boxShadow: { md: "2xl" },
+        transform: "translateY(-4px)"
       }}
+      transition="box-shadow 0.4s ease, transform 0.4s ease"
     >
-      {/* 1. Imagen de Fondo Full */}
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        w="100%"
-        h="100%"
-        transition="transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-        _groupHover={{
-          transform: "scale(1.05)",
-        }}
-      >
-        <FadingImage
-          src={image}
-          alt={`Servicio de ${name}`}
-          objectFit="cover"
-          w="100%"
-          h="100%"
-          showOverlay={false}
-          forceShow={preloaded}
-        />
-        {/* Overlay degradado inferior para asegurar contraste del botón si la imagen es clara */}
-        <Box
-          position="absolute"
-          bottom="0"
-          left="0"
-          w="100%"
-          h="30%"
-          bgGradient="linear(to-t, blackAlpha.400, transparent)"
-        />
-      </Box>
+      <Fade in={isLoaded} style={{ height: "100%" }}>
+        <Box position="relative" h="full" w="full" overflow="hidden">
+          <ResponsiveImage
+            src={image}
+            alt={name}
+            objectFit="cover"
+            w="100%"
+            h="100%"
+            loading={index < 3 ? "eager" : "lazy"}
+            decoding={index < 3 ? "sync" : "async"}
+            onLoad={handleImageLoad}
+            isLCP={index < 3}
+            transform="scale(1.02)"
+            transition="transform 0.6s ease"
+            _groupHover={{ transform: "scale(1.06)" }}
+          />
 
-      {/* 2. Botón Flotante Centrado con Texto */}
-      <Box
-        position="absolute"
-        bottom={6}
-        left={4}
-        right={4}
-        zIndex={2}
-        display="flex"
-        justifyContent="center"
-      >
-        <Button
-          w="full"
-          maxW="200px" // Ancho máximo para que no se vea exagerado en desktop
-          h="auto"
-          py={3}
-          bg={buttonBg}
-          backdropFilter="blur(8px)"
-          justifyContent="center"
-          alignItems="center"
-          borderRadius="full" // Botón píldora para estética más moderna
-          boxShadow="lg"
-          _groupHover={{
-            bg: buttonHoverBg,
-            transform: "translateY(-2px)",
-            boxShadow: "xl",
-          }}
-          transition="all 0.3s ease"
-        >
-          <LinkOverlay
-            as={RouterLink}
-            to={plink}
+          <Box position="absolute" inset="0" bgGradient={bgOverlay} />
+
+          <Box
+            position="absolute"
+            bottom={0}
+            left={0}
+            right={0}
+            p={6}
             display="flex"
             alignItems="center"
             justifyContent="center"
-            w="full"
           >
             <Text
-              color={textColor}
-              fontWeight="bold"
-              fontSize="sm"
+              color={isHovered ? hoverColor : "white"}
+              fontSize={{ base: "md", md: "xl" }}
+              fontWeight="600"
               textTransform="uppercase"
-              letterSpacing="widest" // Espaciado elegante
-              noOfLines={1}
+              letterSpacing="wider"
               textAlign="center"
+              position="relative"
+              transition="color 0.3s ease"
+              _after={{
+                content: '""',
+                position: "absolute",
+                bottom: "-8px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: isLoaded ? "40px" : "0",
+                height: "2px",
+                bg: isHovered ? hoverColor : "white",
+                transition: "width 0.4s ease, background 0.3s ease",
+              }}
             >
               {name}
             </Text>
-          </LinkOverlay>
-        </Button>
-      </Box>
+          </Box>
+        </Box>
+      </Fade>
+
+      <LinkOverlay as={RouterLink} to={plink} />
     </LinkBox>
   );
 });
@@ -129,8 +112,10 @@ const ServiceCard = React.memo(({ image, name, plink, preloaded }) => {
 ServiceCard.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  description: PropTypes.string,
   plink: PropTypes.string.isRequired,
   preloaded: PropTypes.bool,
+  index: PropTypes.number,
 };
 
 ServiceCard.displayName = "ServiceCard";

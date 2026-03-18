@@ -4,7 +4,7 @@
  * @module shared/hooks
  */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 
 /**
  * @typedef {Object} GalleryImage
@@ -48,15 +48,15 @@ export const useGallery = (images) => {
   const onOpenModal = () => setIsModalOpen(true);
   const onCloseModal = () => setIsModalOpen(false);
 
-  const handlePrevious = (e) => {
-    e.stopPropagation();
+  const handlePrevious = useCallback((e) => {
+    e?.stopPropagation();
     setSelectedIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+  }, [images.length]);
 
-  const handleNext = (e) => {
-    e.stopPropagation();
+  const handleNext = useCallback((e) => {
+    e?.stopPropagation();
     setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
+  }, [images.length]);
 
   const handleSelect = (index) => {
     setSelectedIndex(index);
@@ -70,6 +70,22 @@ export const useGallery = (images) => {
 
   const currentImage = useMemo(() => {
     return images?.[safeIndex];
+  }, [images, safeIndex]);
+
+  // Preloading images to improve navigation performance
+  useEffect(() => {
+    if (!images || images.length <= 1) return;
+
+    const preload = (index) => {
+      const img = new Image();
+      img.src = images[index].image;
+    };
+
+    const nextIndex = (safeIndex + 1) % images.length;
+    const prevIndex = (safeIndex - 1 + images.length) % images.length;
+
+    preload(nextIndex);
+    preload(prevIndex);
   }, [images, safeIndex]);
 
   return {

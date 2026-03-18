@@ -11,12 +11,16 @@ import {
   Box,
   Button,
   Flex,
-  useColorModeValue,
+  Grid,
+  GridItem,
   Spinner,
+  VStack,
+  Text,
+  Icon,
+  usePrefersReducedMotion,
+  Link,
 } from "@chakra-ui/react";
-import { Link } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
-import { Icon } from "@chakra-ui/react";
 import { FaMapLocationDot } from "react-icons/fa6";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
@@ -30,20 +34,8 @@ const InteractiveMap = lazy(() => import("./InteractiveMap"));
  * @returns {JSX.Element}
  */
 const StoreSection = React.memo(() => {
-  const buttonBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.4)",
-    "rgba(0, 0, 0, 0.4)",
-  );
-  const buttonHoverBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.6)",
-    "rgba(0, 0, 0, 0.6)",
-  );
-  const buttonActiveBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.8)",
-    "rgba(0, 0, 0, 0.8)",
-  );
-  const textColor = useColorModeValue("gray.800", "white");
-
+  // eslint-disable-next-line no-unused-vars
+  const prefersReducedMotion = usePrefersReducedMotion();
   return (
     <ItemGridLayout
       title="UBICACION"
@@ -53,56 +45,75 @@ const StoreSection = React.memo(() => {
       containerProps={{
         mt: 0,
         pt: 8,
-        minH: "100dvh",
+        pb: 8,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
       }}
     >
-      <Box maxW={"7xl"} mt={4} mb={12} px={{ base: 0, md: 8 }}>
-        <Flex
-          alignItems="center"
-          justifyContent="center"
-          minHeight={{ base: "auto", md: "auto" }}
-          flexDir="column"
-          textAlign={"center"}
-        >
-          {/* Mapa interactivo con marcadores */}
-          <Suspense
-            fallback={
-              <Flex
-                align="center"
-                justify="center"
-                h={{ base: "400px", md: "600px" }}
-                w="full"
-                bg={useColorModeValue("gray.100", "gray.800")}
-                rounded="2xl"
-              >
-                <Spinner size="xl" color="primary.500" thickness="4px" />
-              </Flex>
-            }
+      <ItemGridLayout.Item>
+        <Box w="full" mt={4} mb={12}>
+          <Grid
+            templateColumns={{ base: "1fr", lg: "1fr 280px" }}
+            gap={{ base: 6, lg: 8 }}
+            alignItems="start"
           >
-            <InteractiveMap />
-          </Suspense>
+            <GridItem>
+              <Suspense
+                fallback={
+                  <Flex
+                    align="center"
+                    justify="center"
+                    h={{ base: "400px", md: "600px" }}
+                    w="full"
+                    bg="bg.section"
+                    rounded="2xl"
+                  >
+                    <Spinner size="xl" color="text.accent" thickness="4px" />
+                  </Flex>
+                }
+              >
+                <InteractiveMap />
+              </Suspense>
+            </GridItem>
 
-          {/* Botón para abrir en Google Maps */}
-          <Link href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36" isExternal>
-            <Button
-              mt={{ base: 8, md: 5 }}
-              leftIcon={<Icon as={FaMapLocationDot} />}
-              bg={buttonBg}
-              color={textColor}
-              _hover={{ bg: buttonHoverBg }}
-              _active={{ bg: buttonActiveBg }}
-              type="submit"
-              colorScheme="primary"
-              width={{ base: "full", md: "lg" }}
-            >
-              Ir a Tienda
-            </Button>
-          </Link>
-        </Flex>
-      </Box>
+            <GridItem>
+              <VStack spacing={4} align={{ base: "center", lg: "flex-start" }} pt={{ base: 0, lg: 4 }}>
+                <VStack spacing={1} align={{ base: "center", lg: "flex-start" }}>
+                  <Text fontWeight="bold" fontSize="lg" color="text.body">
+                    Horario de Atención
+                  </Text>
+                  <Text fontSize="md" color="text.muted">Lunes a Sábado</Text>
+                  <Text fontSize="md" color="text.muted">9:00 am – 5:00 pm</Text>
+                </VStack>
+                <VStack spacing={1} align={{ base: "center", lg: "flex-start" }}>
+                  <Text fontWeight="bold" fontSize="lg" color="text.body">
+                    Dirección
+                  </Text>
+                  <Text fontSize="md" color="text.muted">Av. Los Fresnos 1250</Text>
+                  <Text fontSize="md" color="text.muted">La Molina, Lima</Text>
+                </VStack>
+                <Button
+                  as={Link}
+                  href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
+                  isExternal
+                  leftIcon={<Icon as={FaMapLocationDot} />}
+                  bg="primary.500"
+                  color="white"
+                  width="full"
+                  size={{ base: "lg", md: "md" }}
+                  _hover={{ bg: "primary.600" }}
+                  _focus={{ boxShadow: "0 0 0 3px var(--chakra-colors-primary-500)" }}
+                  _active={{ transform: "scale(0.98)" }}
+                  aria-label="Abrir ubicación en Google Maps"
+                >
+                  Abrir en Google Maps
+                </Button>
+              </VStack>
+            </GridItem>
+          </Grid>
+        </Box>
+      </ItemGridLayout.Item>
     </ItemGridLayout>
   );
 });

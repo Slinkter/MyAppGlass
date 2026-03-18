@@ -24,7 +24,6 @@ const LazyProjectDetailModal = lazy(() => import("./ProjectDetailModal"));
  * @param {string} props.g_maps - Google Maps link for the project location.
  * @param {Array<string>} props.photosObra - Array of URLs for project photos.
  * @param {string} props.image - URL for the main project image.
- * @param {boolean} props.preloaded - If true, forces the image to show immediately (e.g., for preloaded content).
  */
 const ProjectCard = React.memo((props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,9 +35,9 @@ const ProjectCard = React.memo((props) => {
     g_maps,
     photosObra,
     image,
-    preloaded,
     lat,
     lng,
+    isLCP,
   } = props;
 
   return (
@@ -49,7 +48,7 @@ const ProjectCard = React.memo((props) => {
         address={address}
         year={year}
         onOpenModal={onOpen}
-        forceShow={preloaded}
+        isLCP={isLCP}
       />
 
       {isOpen && (

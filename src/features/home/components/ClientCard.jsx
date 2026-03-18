@@ -1,113 +1,126 @@
 /**
  * @file ClientCard.jsx
- * @description Presentational component for displaying client segments with a glassmorphism aesthetic.
+ * @description Ultra-minimal card for client segments with image and centered name.
+ * Hover accent color uses the text.accent semantic token.
  * @module home/components
  */
 
 import React from "react";
 import {
   Box,
-  Heading,
-  Stack,
   Text,
-  Image,
-  useColorModeValue,
+  LinkBox,
+  LinkOverlay,
+  Fade,
 } from "@chakra-ui/react";
-
-// Re-using the Client typedef from clientService.js
-/**
- * @typedef {object} Client
- * @property {number} id - Unique identifier for the client.
- * @property {string} imgClient - The imported image URL for the client.
- * @property {string} nameClient - The name of the client category (e.g., "Constructoras").
- * @property {string} descClient - A description of the client category.
- */
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
 /**
  * @component ClientCard
- * @description Muestra una tarjeta de cliente/testimonio con imagen y descripción.
- * Utiliza efectos de desenfoque (glassmorphism) y animaciones hover.
- *
- * @param {Client} props - Objeto de cliente a mostrar en la tarjeta.
- * @returns {JSX.Element} Tarjeta de cliente renderizada.
- *
- * @example
- * // Ejemplo de uso en un componente padre
- * import { Box } from "@chakra-ui/react";
- * import ClientCard from "./ClientCard";
- *
- * const sampleClient = {
- *   id: 1,
- *   imgClient: "/assets/clients/building.jpg",
- *   nameClient: "Constructoras",
- *   descClient: "Más de 12 proyectos de construcción entregados."
- * };
- *
- * function ClientList() {
- *   return (
- *     <Box p={4}>
- *       <ClientCard {...sampleClient} />
- *     </Box>
- *   );
- * }
+ * @description Tarjeta de cliente con imagen de fondo y nombre superpuesto.
+ * @param {Object} props
+ * @param {string} props.image - URL de la imagen de fondo.
+ * @param {string} props.nameClient - Nombre del cliente.
+ * @param {string} props.descClient - Descripción breve del cliente.
+ * @returns {JSX.Element}
  */
 const ClientCard = React.memo(({ image, nameClient, descClient }) => {
-  // Configuración centralizada de estilos
-  const styles = {
-    bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
-    border: useColorModeValue(
-      "rgba(255, 255, 255, 0.52)",
-      "rgba(255, 255, 255, 0.15)",
-    ),
-    text: useColorModeValue("gray.800", "gray.100"),
-    icon: useColorModeValue("gray.500", "gray.400"),
-    heading: useColorModeValue("primary.700", "primary.300"),
-    btnBg: useColorModeValue("rgba(255, 255, 255, 0.4)", "rgba(0, 0, 0, 0.4)"),
-    btnHover: useColorModeValue(
-      "rgba(255, 255, 255, 0.6)",
-      "rgba(0, 0, 0, 0.6)",
-    ),
-  };
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  // Presentational gradient — intentionally hardcoded dark overlay (not mode-dependent)
+  const bgOverlay =
+    "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
   return (
-    <Box
-      w="full"
-      maxW={{ base: "full", md: "md" }}
-      h="auto"
-      mb={4}
+    <LinkBox
+      as="article"
+      role="group"
+      cursor="pointer"
+      position="relative"
+      h={{ base: "300px", md: "400px" }}
+      borderRadius="xl"
       overflow="hidden"
-      bg={styles.bg}
-      /* backdropFilter="blur(10px)" */
-      borderRadius="2xl"
-      boxShadow="lg"
-      color={styles.text}
-      transition="transform 0.3s ease, box-shadow 0.3s ease"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       _hover={{
-        transform: "scale(1.02)",
-        boxShadow: "xl",
+        boxShadow: { md: "2xl" },
       }}
+      transition="box-shadow 0.4s ease"
     >
-      <Box p={2}>
-        <Image
-          w="full"
-          h={{ base: "260px", md: "375px" }}
-          src={image}
-          alt={`Imagen de ${nameClient}`}
-          borderRadius="lg"
-          objectFit="cover"
-          boxShadow="lg"
-        />
-      </Box>
+      <Fade in={isLoaded} style={{ height: "100%" }}>
+        <Box position="relative" h="full" w="full" overflow="hidden">
+          <ResponsiveImage
+            src={image}
+            alt={nameClient}
+            objectFit="cover"
+            w="100%"
+            h="100%"
+            loading="eager"
+            decoding="async"
+            onLoad={() => setIsLoaded(true)}
+            transform="scale(1.02)"
+            transition="transform 0.6s ease"
+            _groupHover={{ transform: "scale(1.06)" }}
+          />
 
-      <Stack spacing={3} p={6} pt={2} textAlign="center">
-        <Heading size="lg">{nameClient}</Heading>
-        <Text fontSize="md" color={styles.secondaryText}>
-          {descClient}
-        </Text>
-      </Stack>
-    </Box>
+          <Box position="absolute" inset="0" bgGradient={bgOverlay} />
+
+          <Box
+            position="absolute"
+            bottom={0}
+            left={0}
+            right={0}
+            p={6}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="flex-end"
+          >
+            <Text
+              color={isHovered ? "text.accent" : "white"}
+              fontSize={{ base: "md", md: "xl" }}
+              fontWeight="600"
+              textTransform="uppercase"
+              letterSpacing="wider"
+              textAlign="center"
+              position="relative"
+              transition="color 0.3s ease"
+              _after={{
+                content: '""',
+                position: "absolute",
+                bottom: "-8px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: isLoaded ? "40px" : "0",
+                height: "2px",
+                bg: isHovered ? "text.accent" : "white",
+                transition: "width 0.4s ease, background 0.3s ease",
+              }}
+            >
+              {nameClient}
+            </Text>
+
+            <Text
+              color="whiteAlpha.800"
+              fontSize="xs"
+              textAlign="center"
+              mt={4}
+              opacity={isHovered ? 1 : 0}
+              transition="opacity 0.3s ease"
+              noOfLines={2}
+            >
+              {descClient}
+            </Text>
+          </Box>
+        </Box>
+      </Fade>
+
+      <LinkOverlay />
+    </LinkBox>
   );
 });
 
 ClientCard.displayName = "ClientCard";
+
 export default ClientCard;

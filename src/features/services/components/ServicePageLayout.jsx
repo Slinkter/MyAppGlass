@@ -1,29 +1,174 @@
-/**
- * @file ServicePageLayout.jsx
- * @description Main structure for the detailed service page, splitting view between a sidebar and a gallery.
- * @module services/components
- */
-
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet-async";
 import {
   Box,
+  VStack,
+  Heading,
+  Text,
+  Icon,
+  SimpleGrid,
+  Container,
+  HStack,
+  Button,
   Grid,
   GridItem,
-  useColorModeValue,
+  Flex,
 } from "@chakra-ui/react";
+import { CheckIcon, ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/solid";
+import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import GlassCard from "@shared/components/common/GlassCard";
-import ServiceSidebar from "./ServiceSidebar";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 
+const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
+  if (!systems || systems.length <= 1) return null;
+
+  return (
+    <Flex
+      gap={{ base: 3, md: 4 }}
+      py={2}
+      px={1}
+      flexWrap="wrap"
+      justify={{ base: "start", md: "center" }}
+      w="full"
+    >
+      {systems.map((system, index) => (
+        <Button
+          key={system.label}
+          onClick={() => onSelect(index)}
+          size={{ base: "sm", md: "md" }}
+          variant={activeIndex === index ? "solid" : "ghost"}
+          bg={activeIndex === index ? "action.activeBg" : "action.inactiveBg"}
+          color={activeIndex === index ? "action.activeColor" : "text.body"}
+          borderRadius="full"
+          px={{ base: 5, md: 8 }}
+          h={{ base: "36px", md: "42px" }}
+          flexShrink={0}
+          fontWeight={activeIndex === index ? "bold" : "medium"}
+          whiteSpace="nowrap"
+          boxShadow={activeIndex === index ? "lg" : "sm"}
+          _hover={{
+            bg: activeIndex === index ? "action.activeBg" : "action.hoverBg",
+            transform: "translateY(-2px)",
+            boxShadow: "md",
+          }}
+          transition="all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+        >
+          {system.label}
+        </Button>
+      ))}
+    </Flex>
+  );
+});
+
+SystemSelector.displayName = "SystemSelector";
+
+const BentoAbout = React.memo(({ about }) => {
+  if (!about) return null;
+
+  return (
+    <GlassCard p={8} h="full" display="flex" flexDirection="column" justifyContent="center">
+      <Heading size="md" mb={4} color="text.accent" textTransform="uppercase" letterSpacing="widest">
+        Concepto
+      </Heading>
+      <Text fontSize="lg" lineHeight="tall" fontWeight="medium" color="text.body">
+        {about.description}
+      </Text>
+    </GlassCard>
+  );
+});
+
+BentoAbout.displayName = "BentoAbout";
+
+const BentoBenefits = React.memo(({ benefits }) => {
+  if (!benefits) return null;
+
+  // Staggered animation wrapper
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+  };
+
+  return (
+    <GlassCard p={8} h="full">
+      <Heading size="sm" mb={6} color="text.muted" textTransform="uppercase" letterSpacing="widest">
+        Ventajas Clave
+      </Heading>
+      <SimpleGrid 
+        as={m.div} 
+        variants={containerVariants} 
+        initial="hidden" 
+        animate="show" 
+        columns={{ base: 1, sm: 2 }} 
+        spacing={6}
+      >
+        {benefits.map((benefit) => (
+          <HStack as={m.div} variants={itemVariants} key={benefit.id || benefit.label} align="start" spacing={3}>
+            <Icon as={CheckIcon} color="text.accent" mt={1} />
+            <Text fontWeight="semibold" fontSize="sm" color="text.body">{benefit.label}</Text>
+          </HStack>
+        ))}
+      </SimpleGrid>
+    </GlassCard>
+  );
+});
+
+BentoBenefits.displayName = "BentoBenefits";
+
+const BentoCTA = React.memo(({ systemName }) => {
+  return (
+    <GlassCard
+      p={8}
+      bgGradient="linear(to-br, primary.600, primary.800)"
+      color="white"
+      h="full"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      textAlign="center"
+    >
+      <Icon as={ChatBubbleBottomCenterTextIcon} boxSize={8} mb={4} />
+      <Heading size="md" mb={2}>¿Listo para iniciar?</Heading>
+      <Text opacity={0.9} mb={6} fontSize="sm">Cotiza tu proyecto de {systemName} hoy mismo.</Text>
+      <Button
+        as="a"
+        href={`https://wa.me/51974278303?text=Hola, me interesa el servicio de ${systemName}`}
+        target="_blank"
+        bg="white"
+        color="primary.700"
+        borderRadius="full"
+        px={10}
+        _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
+      >
+        Cotizar Ahora
+      </Button>
+    </GlassCard>
+  );
+});
+
+BentoCTA.displayName = "BentoCTA";
+
 const ServicePageLayout = ({ pageData }) => {
-  const { seo, systems, features, imageLists } = pageData;
+  const { seo, about, benefits, systems, imageLists } = pageData;
+  const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const activeImageList = React.useMemo(() => imageLists[activeIndex] || [], [imageLists, activeIndex]);
+  const activeSystem = React.useMemo(() => systems[activeIndex], [systems, activeIndex]);
 
-  const activeImageList = imageLists[activeIndex] || [];
-  const activeSystem = systems[activeIndex];
+  const handleSelect = React.useCallback((index) => {
+    setActiveIndex(index);
+  }, []);
 
   return (
     <>
@@ -32,51 +177,94 @@ const ServicePageLayout = ({ pageData }) => {
         <meta name="description" content={seo.description} />
       </Helmet>
 
-      <Box p={{ base: 0, md: 4, lg: 2 }} w="100%" overflowX="hidden">
-        <Grid
-          templateColumns={{ base: "minmax(0, 1fr)", lg: "1fr 3fr" }}
-          maxW="100%"
-          mx="auto"
-          gap={{ base: 3, md: 5, lg: 6 }}
-          alignItems="start"
-          px={{ base: 3, md: 0 }}
-          py={{ base: 3, md: 0 }}
-        >
-          {/* CARD 1: PANEL DE CONTROL */}
-          <GridItem w="100%" minW={0}>
-            <ServiceSidebar
-              seo={seo}
+      <LazyMotion features={domAnimation}>
+      <Box
+        as={m.div}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        <Container maxW="container.xl" pt={{ base: 4, md: 8 }} pb={20}>
+          <VStack spacing={8} align="stretch">
+            {/* Header Superior Minimalista */}
+            <VStack spacing={1} align={{ base: "center", md: "start" }}>
+              <Text
+                fontSize="xs"
+                fontWeight="bold"
+                color="text.accent"
+                letterSpacing="widest"
+                textTransform="uppercase"
+              >
+                Nuestra Experiencia
+              </Text>
+              <Heading size="2xl" fontWeight="black" letterSpacing="tight" color="text.heading">
+                {seo.title}
+              </Heading>
+            </VStack>
+
+            {/* Selector de Sistemas (Pills) */}
+            <SystemSelector
               systems={systems}
               activeIndex={activeIndex}
-              setActiveIndex={setActiveIndex}
-              activeSystem={activeSystem}
-              features={features}
+              onSelect={handleSelect}
             />
-          </GridItem>
 
-          <GridItem w="100%" minW={0}>
-            <GlassCard
-              h={{ base: "400px", sm: "450px", md: "550px", lg: "85vh" }}
+            {/* Galería Principal Inmersiva */}
+            <Box
+              borderRadius="3xl"
               overflow="hidden"
-              p={{ base: 1, md: 2, lg: 3 }}
-              borderWidth="1px"
-              borderColor={useColorModeValue(
-                "whiteAlpha.300",
-                "whiteAlpha.100",
-              )}
               boxShadow="2xl"
+              bg="bg.subtle"
+              h={{ base: "400px", md: "600px" }}
+              position="relative"
+              transition="all 0.5s ease"
             >
-              <Box h="100%" w="100%" minW={0} maxW="100%">
-                {activeImageList && activeImageList.length > 0 ? (
-                  <Gallery images={activeImageList} />
-                ) : (
-                  <ComingSoonDisplay />
-                )}
-              </Box>
-            </GlassCard>
-          </GridItem>
-        </Grid>
-      </Box>
+              <AnimatePresence mode="wait">
+                <m.div
+                  key={`gallery-${activeIndex}`}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  style={{ width: "100%", height: "100%" }}
+                >
+                  {activeImageList.length > 0 ? (
+                    <Gallery images={activeImageList} />
+                  ) : (
+                    <ComingSoonDisplay />
+                  )}
+                </m.div>
+              </AnimatePresence>
+            </Box>
+
+            {/* Bento Grid de Información (Menos texto, mas visual) */}
+            <AnimatePresence mode="wait">
+              <Grid
+                as={m.div}
+                key={`bento-${activeIndex}`}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+                templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
+                templateRows={{ base: "auto", lg: "320px" }}
+                gap={6}
+              >
+                <GridItem colSpan={{ base: 1, lg: 2 }}>
+                  <BentoAbout about={about} />
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <BentoCTA systemName={activeSystem?.label || seo.title} />
+                </GridItem>
+                <GridItem colSpan={{ base: 1, lg: 3 }}>
+                  <BentoBenefits benefits={benefits} />
+                </GridItem>
+              </Grid>
+            </AnimatePresence>
+          </VStack>
+        </Container>
+        </Box>
+        </LazyMotion>
     </>
   );
 };

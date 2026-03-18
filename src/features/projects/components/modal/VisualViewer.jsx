@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, useColorModeValue } from "@chakra-ui/react";
+import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import MapViewer from "./MapViewer";
 
@@ -27,8 +28,10 @@ import MapViewer from "./MapViewer";
  */
 const VisualViewer = ({ viewMode, lat, lng, photos }) => {
   const spinnerBg = useColorModeValue("gray.100", "gray.800");
+  const hasValidCoords = typeof lat === "number" && typeof lng === "number";
 
   return (
+    <LazyMotion features={domAnimation}>
     <Box
       flex={{ base: "none", lg: "3" }}
       w="100%"
@@ -40,20 +43,43 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
       bg={spinnerBg}
     >
       <Box position="absolute" top="0" left="0" w="100%" h="100%">
-        {viewMode === "map" ? (
-          <MapViewer lat={lat} lng={lng} />
-        ) : (
-          <Gallery images={photos} />
-        )}
+        <AnimatePresence mode="wait">
+          {viewMode === "map" && hasValidCoords ? (
+            <m.div
+              key="map"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.3 }}
+              style={{ width: "100%", height: "100%" }}
+            >
+              <MapViewer lat={lat} lng={lng} />
+            </m.div>
+          ) : (
+            <m.div
+              key="gallery"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.3 }}
+              style={{ width: "100%", height: "100%" }}
+            >
+              <Box p={{ base: 4, md: 8 }} w="100%" h="100%">
+                <Gallery images={photos} />
+              </Box>
+            </m.div>
+          )}
+        </AnimatePresence>
       </Box>
     </Box>
+    </LazyMotion>
   );
 };
 
 VisualViewer.propTypes = {
   viewMode: PropTypes.oneOf(["map", "gallery"]).isRequired,
-  lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
+  lat: PropTypes.number,
+  lng: PropTypes.number,
   photos: PropTypes.array,
 };
 

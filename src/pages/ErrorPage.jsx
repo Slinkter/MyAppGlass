@@ -12,12 +12,10 @@ import {
   VStack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useNavigate, useLocation, useRouteError } from "react-router-dom"; // Import useLocation and useRouteError
+import { useNavigate } from "react-router-dom";
 
 const ErrorView = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Get current location
-  const error = useRouteError(); // Get route error data
   const [countdown, setCountdown] = useState(15);
 
   const bgColor = useColorModeValue(
@@ -29,33 +27,28 @@ const ErrorView = () => {
     "rgba(255, 255, 255, 0.15)",
   );
   const textColor = useColorModeValue("gray.800", "gray.100");
-  const headingColor = useColorModeValue("primary.500", "primary.300");
+  const headingColor = useColorModeValue("primary.700", "primary.300");
   const countdownColor = useColorModeValue("primary.600", "primary.300");
 
   useEffect(() => {
-    // Log location and error data for debugging
-    console.log("ErrorPage rendered at location:", location.pathname);
-    if (error) {
-      console.error("Route error:", error);
-    }
-
     const timer = setInterval(() => {
-      setCountdown((prevCount) => prevCount - 1);
+      setCountdown((prevCount) => {
+        if (prevCount <= 1) {
+          clearInterval(timer);
+          navigate("/");
+          return 0;
+        }
+        return prevCount - 1;
+      });
     }, 1000);
 
-    if (countdown === 0) {
-      clearInterval(timer);
-      navigate("/");
-    }
-
     return () => clearInterval(timer);
-  }, [countdown, navigate, location, error]); // Add location and error to dependency array
+  }, [navigate]);
 
   return (
     <VStack minH="100dvh" justifyContent="center" alignItems="center" p={4}>
       <Box
         bg={bgColor}
-        backdropFilter="blur(20px)"
         border="1px solid"
         borderColor={borderColor}
         boxShadow="0 4px 30px rgba(0,0,0,0.1)"

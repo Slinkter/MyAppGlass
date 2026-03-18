@@ -34,7 +34,7 @@ const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
         <Flex justifyContent="center" alignItems="center" direction="column">
           <Heading
             as={headingAs}
-            fontSize={{ base: "4xl", md: "4xl" }}
+            fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
             fontWeight="bold"
             color={headingColor}
             borderBottom="1px solid"
@@ -43,8 +43,8 @@ const Franja = React.memo(({ title, text, headingAs = "h1" }) => {
           </Heading>
           <Text
             width={{ base: "90%", md: "70%" }}
-            mt={1}
-            fontSize="lg"
+            mt={2}
+            fontSize={{ base: "md", md: "lg" }}
             color={textColor}
             textAlign="center"
           >

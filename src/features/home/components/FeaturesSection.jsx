@@ -1,6 +1,6 @@
 /**
  * @file FeaturesSection.jsx
- * @description Container component that renders the list of company services/benefits using staggered animations.
+ * @description Container component that renders the list of company services/benefits.
  * @module home/components
  */
 
@@ -14,13 +14,11 @@ import FeatureCard from "./FeatureCard";
  * @component FeaturesSection
  * @description Sección de "Beneficios" o características en la página principal.
  * Carga dinámicamente las características y sus iconos asociados.
- * Optimizado para carga síncrona y consistente con el diseño de rejilla global.
  *
  * @returns {JSX.Element} Sección de beneficios renderizada.
  */
 
 const FeaturesSection = React.memo(() => {
-  // Get data synchronously
   const { features, iconMap } = getFeatures();
 
   return (
@@ -39,7 +37,13 @@ const FeaturesSection = React.memo(() => {
             <FeatureCard
               heading={feature.heading}
               icon={
-                FeatureIcon ? <Icon as={FeatureIcon} w={10} h={10} /> : null
+                FeatureIcon ? (
+                  <Icon
+                    as={FeatureIcon}
+                    w={{ base: 8, md: 10 }}
+                    h={{ base: 8, md: 10 }}
+                  />
+                ) : null
               }
               description={feature.description}
             />

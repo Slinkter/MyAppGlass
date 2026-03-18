@@ -35,10 +35,9 @@ const SuccessModal = ({ isOpen, onClose, trackingId }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
-      <ModalOverlay backdropFilter="blur(20px)" />
+      <ModalOverlay />
       <ModalContent
         bg={bgColor}
-        backdropFilter="blur(20px)"
         border="1px solid"
         borderColor={borderColor}
         boxShadow="0 4px 30px rgba(0,0,0,0.1)"
