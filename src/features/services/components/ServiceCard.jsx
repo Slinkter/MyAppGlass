@@ -1,17 +1,16 @@
 /**
  * @file ServiceCard.jsx
- * @description Minimalist service card with clean design, focus on content.
- * @module services/components
+ * @description Full-bleed image card with bottom overlay for service names.
  */
 
 import React from "react";
 import PropTypes from "prop-types";
 import {
   Box,
+  Text,
   useColorModeValue,
   LinkBox,
   LinkOverlay,
-  Text,
   Fade,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
@@ -20,6 +19,7 @@ import { Link as RouterLink } from "react-router-dom";
 const ServiceCard = React.memo((props) => {
   const { image, name, plink, onLoadComplete, index } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
 
   const handleImageLoad = React.useCallback(() => {
     setIsLoaded(true);
@@ -28,26 +28,28 @@ const ServiceCard = React.memo((props) => {
     }
   }, [onLoadComplete]);
 
-  const textColor = useColorModeValue("white", "white");
-  const titleBgColor = useColorModeValue(
-    "rgba(0, 0, 0, 0.6)",
-    "rgba(0, 0, 0, 0.7)"
+  const overlayBg = useColorModeValue(
+    "linear(to-t, rgba(0,0,0,0.85), rgba(0,0,0,0.6), transparent)",
+    "linear(to-t, rgba(0,0,0,0.9), rgba(0,0,0,0.7), transparent)"
   );
+  const titleColor = "white";
+  const borderAccent = useColorModeValue("primary.400", "primary.300");
 
   return (
     <LinkBox
       as="article"
-      position="relative"
-      h={{ base: "280px", md: "420px" }}
-      borderRadius="xl"
-      overflow="hidden"
       role="group"
       cursor="pointer"
+      position="relative"
+      h={{ base: "280px", md: "380px" }}
+      borderRadius="xl"
+      overflow="hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       _hover={{
-        transform: "translateY(-4px)",
-        boxShadow: { base: "none", md: "xl" },
+        boxShadow: { md: "xl" },
       }}
-      transition="transform 0.3s ease, box-shadow 0.3s ease"
+      transition="box-shadow 0.3s ease"
     >
       <Fade in={isLoaded} style={{ height: "100%" }}>
         <Box position="relative" h="full" w="full">
@@ -61,14 +63,15 @@ const ServiceCard = React.memo((props) => {
             decoding={index < 3 ? "sync" : "async"}
             onLoad={handleImageLoad}
             isLCP={index < 3}
-            transition="transform 0.6s ease"
-            _groupHover={{ transform: "scale(1.05)" }}
+            transition="transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+            _groupHover={{ transform: "scale(1.06)" }}
           />
 
           <Box
             position="absolute"
             inset="0"
-            bgGradient="linear(to-t, blackAlpha.900 0%, blackAlpha.600 40%, transparent 100%)"
+            bgGradient={overlayBg}
+            transition="opacity 0.3s ease"
           />
 
           <Box
@@ -76,16 +79,32 @@ const ServiceCard = React.memo((props) => {
             bottom={0}
             left={0}
             right={0}
-            p={6}
-            bg={titleBgColor}
+            h="40%"
+            bgGradient={overlayBg}
+            display="flex"
+            flexDirection="column"
+            justifyContent="flex-end"
+            p={{ base: 4, md: 6 }}
           >
+            <Box
+              position="absolute"
+              bottom={0}
+              left={0}
+              right={0}
+              h="3px"
+              bg={borderAccent}
+              transform={isHovered ? "scaleX(1)" : "scaleX(0)"}
+              transformOrigin="left"
+              transition="transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+            />
+
             <Text
-              color={textColor}
+              color={titleColor}
               fontSize={{ base: "sm", md: "lg" }}
-              fontWeight="600"
+              fontWeight="700"
               textTransform="uppercase"
               letterSpacing="wider"
-              textAlign="center"
+              lineHeight="tall"
             >
               {name}
             </Text>
