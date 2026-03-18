@@ -1,6 +1,6 @@
 /**
  * @file ProjectCardContent.jsx
- * @description Diseño premium para la tarjeta de proyecto con optimización LCP y accesibilidad.
+ * @description Minimalist project card with clean design and focus on imagery.
  */
 
 import React from "react";
@@ -12,29 +12,23 @@ import {
   HStack,
   Icon,
   useColorModeValue,
-  VStack,
   LinkBox,
   LinkOverlay,
   Fade,
-  SlideFade,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { MapPinIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 
 const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModal, isLCP }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
 
-  const styles = {
-    pillBg: useColorModeValue(
-      "rgba(255, 255, 255, 0.95)",
-      "rgba(20, 20, 20, 0.90)",
-    ),
-    pillHoverBg: useColorModeValue("white", "black"),
-    headingColor: useColorModeValue("primary.800", "primary.200"),
-    textColor: useColorModeValue("gray.600", "gray.300"),
-    iconColor: useColorModeValue("primary.500", "primary.400"),
-    dateColor: useColorModeValue("gray.500", "gray.400"),
-  };
+  const infoBgColor = useColorModeValue(
+    "rgba(255, 255, 255, 0.95)",
+    "rgba(20, 20, 20, 0.85)"
+  );
+  const headingColor = useColorModeValue("primary.800", "primary.200");
+  const textColor = useColorModeValue("gray.600", "gray.400");
+  const iconColor = useColorModeValue("primary.500", "primary.400");
 
   return (
     <LinkBox
@@ -42,169 +36,84 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
       position="relative"
       h={{ base: "280px", md: "420px" }}
       w="full"
-      borderRadius="2xl"
+      borderRadius="xl"
       overflow="hidden"
       role="group"
-      boxShadow="lg"
-      transition={{ base: "all 0.2s ease", md: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)" }}
-      _hover={{
-        boxShadow: { base: "lg", md: "0 0 40px rgba(72, 132, 206, 0.3)" },
-        outline: { base: "none", md: "2px solid" },
-        outlineColor: { base: "transparent", md: "primary.400" },
-        transform: { base: "none", md: "translateY(-6px)" },
-      }}
       cursor="pointer"
+      _hover={{
+        transform: "translateY(-4px)",
+        boxShadow: { base: "none", md: "xl" },
+      }}
+      transition="transform 0.3s ease, box-shadow 0.3s ease"
       _focusVisible={{
         outline: "none",
-        ring: "3px",
+        ring: "2px",
         ringColor: "primary.500",
         ringOffset: "2px",
       }}
     >
-      {/* 1. Imagen Full Optimized */}
-      <Box
-        position="absolute"
-        inset="0"
-        transition="transform 0.8s ease-out"
-        _groupHover={{ transform: { base: "scale(1.1)", md: "translateX(4px) translateY(-2px)" } }}
-      >
-        <Fade in={isLoaded} style={{ height: "100%" }}>
+      <Fade in={isLoaded} style={{ height: "100%" }}>
+        <Box position="relative" h="full" w="full">
           <ResponsiveImage
             src={image}
-            alt={`Obra ${residencial}`}
+            alt={`Proyecto ${residencial}`}
             objectFit="cover"
             w="100%"
             h="100%"
             loading={isLCP ? "eager" : "lazy"}
             decoding={isLCP ? "sync" : "async"}
             onLoad={() => setIsLoaded(true)}
-            transition="opacity 0.4s ease-in"
+            transition="transform 0.6s ease"
+            _groupHover={{ transform: "scale(1.05)" }}
           />
-        </Fade>
-        <Box
-          position="absolute"
-          inset="0"
-          bgGradient="linear(to-t, blackAlpha.700, transparent)"
-          opacity={{ base: 0.4, md: 0.5 }}
-          transition="opacity 0.3s"
-          _groupHover={{ opacity: { base: 0.4, md: 0.7 } }}
-        />
-      </Box>
 
-      {/* 3. Badge de Año */}
-      <Box
-        position="absolute"
-        top={4}
-        left={4}
-        zIndex={3}
-        opacity={0}
-        transition="opacity 0.3s ease"
-        _groupHover={{ opacity: { base: 0, md: 1 } }}
-      >
-        <Box
-          bg={useColorModeValue("whiteAlpha.900", "blackAlpha.800")}
-          backdropFilter="blur(8px)"
-          px={3}
-          py={1.5}
-          borderRadius="full"
-          boxShadow="md"
-        >
-          <Text
-            fontSize="xs"
-            fontWeight="bold"
-            color={useColorModeValue("primary.700", "primary.200")}
-            letterSpacing="wider"
-          >
-            {year}
-          </Text>
-        </Box>
-      </Box>
+          <Box
+            position="absolute"
+            inset="0"
+            bgGradient="linear(to-t, blackAlpha.900 0%, blackAlpha.600 40%, transparent 100%)"
+          />
 
-      {/* 4. Información Flotante */}
-      <Box position="absolute" bottom={4} left={4} right={4} zIndex={2}>
-        <SlideFade in={isLoaded} offsetY="20px">
-          <VStack
-            bg={styles.pillBg}
-            py={{ base: 3, md: 4 }}
-            px={4}
-            borderRadius="xl"
-            spacing={1}
-            align="center"
-            boxShadow="md"
-            transition={{ base: "all 0.2s ease", md: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)" }}
-            _groupHover={{
-              bg: styles.pillHoverBg,
-              transform: { base: "none", md: "translateY(-4px)" },
-              boxShadow: { base: "md", md: "xl" },
-            }}
+          <Box
+            position="absolute"
+            bottom={0}
+            left={0}
+            right={0}
+            p={6}
+            bg={infoBgColor}
           >
-            <LinkOverlay
-              as="button"
-              onClick={(e) => {
-                e.preventDefault();
-                onOpenModal();
-              }}
-              w="full"
+            <Heading
+              size="sm"
+              color={headingColor}
+              textTransform="uppercase"
+              fontWeight="600"
+              letterSpacing="wide"
+              noOfLines={1}
+              textAlign="center"
+              mb={2}
             >
-              <Heading
-                size="xs"
-                color={styles.headingColor}
-                textTransform="uppercase"
-                fontWeight="bold"
-                letterSpacing="wider"
-                noOfLines={1}
-                textAlign="center"
-                mb={1}
-              >
-                {residencial}
-              </Heading>
-            </LinkOverlay>
+              {residencial}
+            </Heading>
 
-            <HStack justify="center" w="full" spacing={4} pt={0.5}>
-              <HStack
-                spacing={1}
-                maxW={{ base: "100%", md: "65%" }}
-                justify="center"
-              >
-                <Icon
-                  as={MapPinIcon}
-                  w={3.5}
-                  h={3.5}
-                  color={styles.iconColor}
-                  flexShrink={0}
-                />
-                <Text
-                  fontSize="xs"
-                  color={styles.textColor}
-                  fontWeight="semibold"
-                  noOfLines={1}
-                  lineHeight="shorter"
-                >
-                  {address}
-                </Text>
-              </HStack>
-
-              <HStack spacing={1.5} display={{ base: "none", md: "flex" }}>
-                <Icon
-                  as={CalendarDaysIcon}
-                  w={3.5}
-                  h={3.5}
-                  color={styles.dateColor}
-                  flexShrink={0}
-                />
-                <Text
-                  fontSize="xs"
-                  color={styles.dateColor}
-                  fontWeight="medium"
-                  whiteSpace="nowrap"
-                >
-                  {year}
-                </Text>
-              </HStack>
+            <HStack justify="center" spacing={1}>
+              <Icon as={MapPinIcon} w={4} h={4} color={iconColor} />
+              <Text fontSize="xs" color={textColor} fontWeight="500" noOfLines={1}>
+                {address}
+              </Text>
+              <Text fontSize="xs" color={textColor} fontWeight="400" ml={2}>
+                · {year}
+              </Text>
             </HStack>
-          </VStack>
-        </SlideFade>
-      </Box>
+          </Box>
+        </Box>
+      </Fade>
+
+      <LinkOverlay
+        as="button"
+        onClick={(e) => {
+          e.preventDefault();
+          onOpenModal();
+        }}
+      />
     </LinkBox>
   );
 };
