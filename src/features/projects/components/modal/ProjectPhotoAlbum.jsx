@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, Image, useColorModeValue } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
-const MotionBox = motion.create(Box);
+const MotionBox = m.create(Box);
 
 /**
  * @component ProjectPhotoAlbum

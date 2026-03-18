@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import {
   Modal,
@@ -37,16 +37,15 @@ const ProjectDetailModal = (props) => {
   );
   const textColor = useColorModeValue("gray.800", "gray.100");
 
-  useEffect(() => {
-    if (isOpen) {
-      setViewMode("map"); // Reset to map on open
-    }
-  }, [isOpen]);
+  const handleClose = useCallback(() => {
+    setViewMode("map");
+    onClose();
+  }, [onClose]);
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       motionPreset="slideInBottom"
       size={{ base: "full", md: "5xl", lg: "6xl" }}
       scrollBehavior="inside"

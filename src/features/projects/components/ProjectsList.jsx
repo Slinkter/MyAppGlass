@@ -5,6 +5,7 @@
  * @remarks
  * - Implements built-in SEO optimizations via metadata props.
  * - Handles eager loading for items above the fold (first 2 items) to improve LCP.
+ * - Cascade animation effect for each item.
  */
 
 import React, { useMemo } from "react";
@@ -28,10 +29,10 @@ const ProjectsList = React.memo(() => {
       seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
       seoCanonicalUrl="https://www.gyacompany.com/proyectos"
       containerProps={{ pb: 12 }}
-      columns={{ base: 2, md: 3 }}
+      columns={{ base: 1, md: 2, lg: 3 }}
     >
       {projectsList.map((project, index) => (
-        <ItemGridLayout.Item key={project.id}>
+        <ItemGridLayout.Item key={project.id} delay={index * 0.15}>
           <ProjectCard
             {...project}
             // LCP Optimization

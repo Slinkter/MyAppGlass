@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, useColorModeValue } from "@chakra-ui/react";
-import { motion, AnimatePresence } from "framer-motion";
+import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import MapViewer from "./MapViewer";
 
@@ -30,6 +30,7 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
   const spinnerBg = useColorModeValue("gray.100", "gray.800");
 
   return (
+    <LazyMotion features={domAnimation}>
     <Box
       flex={{ base: "none", lg: "3" }}
       w="100%"
@@ -43,7 +44,7 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
       <Box position="absolute" top="0" left="0" w="100%" h="100%">
         <AnimatePresence mode="wait">
           {viewMode === "map" ? (
-            <motion.div
+            <m.div
               key="map"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -52,9 +53,9 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
               style={{ width: "100%", height: "100%" }}
             >
               <MapViewer lat={lat} lng={lng} />
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div
+            <m.div
               key="gallery"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -65,11 +66,12 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
               <Box p={{ base: 4, md: 8 }} w="100%" h="100%">
                 <Gallery images={photos} />
               </Box>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </Box>
     </Box>
+    </LazyMotion>
   );
 };
 

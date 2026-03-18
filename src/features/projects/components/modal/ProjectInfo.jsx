@@ -8,7 +8,7 @@ import {
   Grid,
   Icon,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { LazyMotion, m, domAnimation } from "framer-motion";
 import {
   MapIcon,
   PhotoIcon,
@@ -67,6 +67,7 @@ const ProjectInfo = ({
   };
 
   return (
+    <LazyMotion features={domAnimation}>
     <GlassCard
       flex={{ base: "1", lg: "2" }}
       w="100%"
@@ -116,9 +117,9 @@ const ProjectInfo = ({
         </Button>
       </ButtonGroup>
 
-      <Box as={motion.div} initial="hidden" animate="show" variants={containerVariants}>
+      <Box as={m.div} initial="hidden" animate="show" variants={containerVariants}>
         <Heading
-          as={motion.h2}
+          as={m.h2}
           variants={itemVariants}
           size="md"
           mb={6}
@@ -134,37 +135,37 @@ const ProjectInfo = ({
           templateColumns={{ base: "1fr 1fr", md: "1fr 1fr", lg: "1fr" }} 
           gap={4}
         >
-          <motion.div variants={itemVariants}>
+          <m.div variants={itemVariants}>
             <ProjectDetailItem
               icon={HomeIcon}
               label="Residencial"
               value={residencial}
             />
-          </motion.div>
+          </m.div>
           
-          <motion.div variants={itemVariants}>
+          <m.div variants={itemVariants}>
             <ProjectDetailItem
               icon={BuildingOffice2Icon}
               label="Constructora"
               value={name}
             />
-          </motion.div>
+          </m.div>
           
-          <motion.div variants={itemVariants}>
+          <m.div variants={itemVariants}>
             <ProjectDetailItem 
               icon={MapPinIcon} 
               label="Dirección" 
               value={address} 
             />
-          </motion.div>
+          </m.div>
           
-          <motion.div variants={itemVariants}>
+          <m.div variants={itemVariants}>
             <ProjectDetailItem 
               icon={CalendarDaysIcon} 
               label="Año" 
               value={year} 
             />
-          </motion.div>
+          </m.div>
         </Grid>
       </Box>
 
@@ -185,6 +186,7 @@ const ProjectInfo = ({
         Cerrar Ventana
       </Button>
     </GlassCard>
+    </LazyMotion>
   );
 };
 

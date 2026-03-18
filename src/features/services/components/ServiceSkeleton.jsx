@@ -31,8 +31,8 @@ const ServiceSkeleton = () => {
 
         {/* Pills / Selector Skeleton */}
         <HStack spacing={3} py={2} justify={{ base: "start", md: "center" }} overflow="hidden">
-          {[1, 2, 3, 4].map((i) => (
-            <Skeleton key={i} height="36px" width="120px" borderRadius="full" flexShrink={0} />
+          {["pill-1", "pill-2", "pill-3", "pill-4"].map((key) => (
+            <Skeleton key={key} height="36px" width="120px" borderRadius="full" flexShrink={0} />
           ))}
         </HStack>
 
@@ -74,8 +74,8 @@ const ServiceSkeleton = () => {
             <GlassCard p={8} h="full">
               <Skeleton height="16px" width="20%" mb={6} borderRadius="full" />
               <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={6}>
-                {[1, 2, 3, 4].map((i) => (
-                  <Skeleton key={i} height="20px" borderRadius="md" />
+                {["item-1", "item-2", "item-3", "item-4"].map((key) => (
+                  <Skeleton key={key} height="20px" borderRadius="md" />
                 ))}
               </SimpleGrid>
             </GlassCard>

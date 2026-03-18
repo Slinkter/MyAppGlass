@@ -15,7 +15,7 @@ import {
   BuildingOffice2Icon,
 } from "@heroicons/react/24/outline";
 import { FaWhatsapp } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { LazyMotion, m, domAnimation } from "framer-motion";
 import { companyData } from "@/config/company-data";
 
 /**
@@ -50,6 +50,7 @@ const BottomNav = () => {
   ];
 
   return (
+    <LazyMotion features={domAnimation}>
     <Box
       position="fixed"
       bottom={6}
@@ -61,18 +62,18 @@ const BottomNav = () => {
       zIndex="sticky"
     >
       <Flex
-        as={motion.nav}
+        as={m.nav}
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
         align="center"
         justify="space-between"
         bg={containerBg}
-        backdropFilter="none" // Eliminado blur
+        backdropFilter="none"
         px={2}
         py={2}
         borderRadius="full"
-        shadow="none" // Eliminada sombra
+        shadow="none"
         w="full"
         maxW="340px"
         border="1px solid"
@@ -90,11 +91,11 @@ const BottomNav = () => {
               isExternal={item.isExternal}
               style={{
                 textDecoration: "none",
-                WebkitTapHighlightColor: "transparent", // Quita el cuadro azul en móviles
-                outline: "none", // Evita el borde de focus por defecto
+                WebkitTapHighlightColor: "transparent",
+                outline: "none",
               }}
-              _focus={{ outline: "none", boxShadow: "none" }} // Chakra UI specific override
-              _focusVisible={{ outline: "none", boxShadow: "none" }} // Previene outline al hacer tap
+              _focus={{ outline: "none", boxShadow: "none" }}
+              _focusVisible={{ outline: "none", boxShadow: "none" }}
               flex={1}
               display="flex"
               justifyContent="center"
@@ -104,17 +105,16 @@ const BottomNav = () => {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }}
-              // Asegura un touch target mínimo de 44px
               minH="44px"
             >
               <Box position="relative" px={5} py={2} borderRadius="full">
                 {/* Burbuja animada (Background Pill) */}
                 {isActive && (
-                  <motion.div
+                  <m.div
                     layoutId="active-bubble"
                     style={{
                       position: "absolute",
-                      inset: 0, // Llena el Box padre
+                      inset: 0,
                       borderRadius: "9999px",
                       backgroundColor: "var(--chakra-colors-primary-500)",
                     }}
@@ -145,6 +145,7 @@ const BottomNav = () => {
         })}
       </Flex>
     </Box>
+    </LazyMotion>
 
 
   );
