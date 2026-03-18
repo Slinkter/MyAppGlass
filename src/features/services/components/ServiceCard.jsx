@@ -19,6 +19,7 @@ import { Link as RouterLink } from "react-router-dom";
 const ServiceCard = React.memo((props) => {
   const { image, name, plink, onLoadComplete, index } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
 
   const handleImageLoad = React.useCallback(() => {
     setIsLoaded(true);
@@ -32,6 +33,8 @@ const ServiceCard = React.memo((props) => {
     "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)"
   );
   const textColor = "white";
+  const hoverColor = useColorModeValue("red.500", "red.400");
+  const hoverUnderlineColor = useColorModeValue("red.500", "red.400");
 
   return (
     <LinkBox
@@ -42,6 +45,8 @@ const ServiceCard = React.memo((props) => {
       h={{ base: "300px", md: "400px" }}
       borderRadius="lg"
       overflow="hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       _hover={{
         boxShadow: { md: "2xl" },
       }}
@@ -76,13 +81,14 @@ const ServiceCard = React.memo((props) => {
             justifyContent="center"
           >
             <Text
-              color={textColor}
+              color={isHovered ? hoverColor : textColor}
               fontSize={{ base: "md", md: "xl" }}
               fontWeight="600"
               textTransform="uppercase"
               letterSpacing="wider"
               textAlign="center"
               position="relative"
+              transition="color 0.3s ease"
               _after={{
                 content: '""',
                 position: "absolute",
@@ -91,8 +97,8 @@ const ServiceCard = React.memo((props) => {
                 transform: "translateX(-50%)",
                 width: isLoaded ? "40px" : "0",
                 height: "2px",
-                bg: "white",
-                transition: "width 0.4s ease",
+                bg: isHovered ? hoverUnderlineColor : "white",
+                transition: "width 0.4s ease, background 0.3s ease",
               }}
             >
               {name}
