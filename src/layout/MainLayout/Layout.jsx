@@ -1,13 +1,12 @@
 /**
  * @file Layout.jsx
- * @description Root layout wrapper with gradient and subtle glass texture for architecture company.
+ * @description Root layout wrapper with elegant multi-tone gradient background.
  */
 
 import { Suspense, lazy } from "react";
 import {
   Box,
   useBreakpointValue,
-  useColorModeValue,
   Link,
 } from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
@@ -22,73 +21,13 @@ const FloatingWhatsApp = lazy(() =>
 const Layout = ({ children }) => {
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
 
-  const bgGradient = useColorModeValue(
-    "linear-gradient(160deg, blue.50 0%, white 30%, blue.100 70%, gray.100 100%)",
-    "linear-gradient(160deg, gray.900 0%, blue.900 40%, gray.800 100%)"
-  );
+  const bgGradient = useBreakpointValue({
+    base: "linear-gradient(165deg, primary.800 0%, primary.900 20%, gray.900 40%, primary.700 60%, gray.800 80%, primary.600 100%)",
+    md: "linear-gradient(135deg, primary.800 0%, primary.900 15%, gray.900 30%, primary.700 50%, gray.800 70%, primary.600 85%, gray.700 100%)",
+  });
 
   return (
     <Box minH="100dvh" position="relative" bgGradient={bgGradient}>
-      <Box
-        position="fixed"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        zIndex={0}
-        overflow="hidden"
-        pointerEvents="none"
-        opacity={0.4}
-      >
-        <svg
-          width="100%"
-          height="100%"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ position: "absolute", top: 0, left: 0 }}
-        >
-          <defs>
-            <filter id="noise">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.8"
-                numOctaves="4"
-                stitchTiles="stitch"
-              />
-              <feColorMatrix type="saturate" values="0" />
-            </filter>
-          </defs>
-          <rect width="100%" height="100%" filter="url(#noise)" opacity="0.08" />
-        </svg>
-
-        <svg
-          width="100%"
-          height="100%"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ position: "absolute", top: 0, left: 0 }}
-        >
-          <defs>
-            <pattern
-              id="lines"
-              width="100"
-              height="20"
-              patternUnits="userSpaceOnUse"
-              patternTransform="rotate(-5)"
-            >
-              <line
-                x1="0"
-                y1="10"
-                x2="100"
-                y2="10"
-                stroke={useColorModeValue("primary.300", "primary.700")}
-                strokeWidth="0.3"
-                opacity="0.15"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#lines)" />
-        </svg>
-      </Box>
-
       <Box position="relative" zIndex={1}>
         <Link
           href="#main-content"
