@@ -33,7 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <HelmetProvider>
       <ChakraProvider theme={theme} colorModeManager={darkModeManager}>
-        <RouterProvider router={router} fallbackElement={suspenseFallback} />
+        <RouterProvider router={router} fallbackElement={suspenseFallback} future={{ v7_startTransition: true }} />
       </ChakraProvider>
     </HelmetProvider>
   </>,

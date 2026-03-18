@@ -5,9 +5,10 @@ import {
   Button,
   ButtonGroup,
   Heading,
-  Stack,
+  Grid,
   Icon,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import {
   MapIcon,
   PhotoIcon,
@@ -46,22 +47,35 @@ const ProjectInfo = ({
   name,
   address,
   year,
-  g_maps,
   viewMode,
   setViewMode,
   onClose,
 }) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+  };
+
   return (
     <GlassCard
       flex={{ base: "1", lg: "2" }}
       w="100%"
       p={{ base: 5, md: 6 }}
-      minH={{ lg: "450px" }}
-      h={{ base: "auto", lg: "auto" }}
+      h={{ base: "auto", lg: "100%" }}
       display="flex"
       flexDirection="column"
-      justifyContent={{ base: "flex-start", lg: "center" }}
-      gap={6}
+      justifyContent="space-between"
+      gap={4}
       overflowY={{ base: "auto", lg: "visible" }}
       borderRadius={{ base: "0", lg: "2xl" }}
       boxShadow="none"
@@ -102,8 +116,10 @@ const ProjectInfo = ({
         </Button>
       </ButtonGroup>
 
-      <Box>
+      <Box as={motion.div} initial="hidden" animate="show" variants={containerVariants}>
         <Heading
+          as={motion.h2}
+          variants={itemVariants}
           size="md"
           mb={6}
           borderBottom="2px solid"
@@ -114,25 +130,42 @@ const ProjectInfo = ({
         >
           Detalles del Proyecto
         </Heading>
-        <Stack spacing={5}>
-          <ProjectDetailItem
-            icon={HomeIcon}
-            label="Residencial"
-            value={residencial}
-          />
-          <ProjectDetailItem
-            icon={BuildingOffice2Icon}
-            label="Constructora"
-            value={name}
-          />
-          <ProjectDetailItem icon={MapIcon} label="Dirección" value={g_maps} />
-          <ProjectDetailItem
-            icon={MapPinIcon}
-            label="Distrito"
-            value={address}
-          />
-          <ProjectDetailItem icon={CalendarDaysIcon} label="Año" value={year} />
-        </Stack>
+        <Grid 
+          templateColumns={{ base: "1fr 1fr", md: "1fr 1fr", lg: "1fr" }} 
+          gap={4}
+        >
+          <motion.div variants={itemVariants}>
+            <ProjectDetailItem
+              icon={HomeIcon}
+              label="Residencial"
+              value={residencial}
+            />
+          </motion.div>
+          
+          <motion.div variants={itemVariants}>
+            <ProjectDetailItem
+              icon={BuildingOffice2Icon}
+              label="Constructora"
+              value={name}
+            />
+          </motion.div>
+          
+          <motion.div variants={itemVariants}>
+            <ProjectDetailItem 
+              icon={MapPinIcon} 
+              label="Dirección" 
+              value={address} 
+            />
+          </motion.div>
+          
+          <motion.div variants={itemVariants}>
+            <ProjectDetailItem 
+              icon={CalendarDaysIcon} 
+              label="Año" 
+              value={year} 
+            />
+          </motion.div>
+        </Grid>
       </Box>
 
       {/* Close Button */}
@@ -160,7 +193,6 @@ ProjectInfo.propTypes = {
   name: PropTypes.string,
   address: PropTypes.string,
   year: PropTypes.string,
-  g_maps: PropTypes.string,
   viewMode: PropTypes.oneOf(["map", "gallery"]).isRequired,
   setViewMode: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,

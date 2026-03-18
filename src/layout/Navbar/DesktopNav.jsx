@@ -23,6 +23,14 @@ const DesktopNav = () => {
             to={navItem.href ?? "#"}
             style={{ textDecoration: "none" }}
             aria-current={isActive ? "page" : undefined} // Add aria-current
+            onClick={() => {
+              if (isActive) {
+                const scrollOptions = { top: 0, left: 0, behavior: "smooth" };
+                window.scrollTo(scrollOptions);
+                document.documentElement.scrollTo(scrollOptions);
+                document.body.scrollTo(scrollOptions);
+              }
+            }}
           >
             <Box
               p={2}

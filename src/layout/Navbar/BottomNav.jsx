@@ -104,6 +104,14 @@ const BottomNav = () => {
               w={0} // Fuerza a flex-grow a trabajar desde 0
               display="flex"
               justifyContent="center"
+              onClick={() => {
+                if (isActive && !item.isExternal) {
+                  const scrollOptions = { top: 0, left: 0, behavior: "smooth" };
+                  window.scrollTo(scrollOptions);
+                  document.documentElement.scrollTo(scrollOptions);
+                  document.body.scrollTo(scrollOptions);
+                }
+              }}
             >
               <Flex
                 direction="column"

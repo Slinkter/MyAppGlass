@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, useColorModeValue } from "@chakra-ui/react";
+import { motion, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import MapViewer from "./MapViewer";
 
@@ -40,11 +41,33 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
       bg={spinnerBg}
     >
       <Box position="absolute" top="0" left="0" w="100%" h="100%">
-        {viewMode === "map" ? (
-          <MapViewer lat={lat} lng={lng} />
-        ) : (
-          <Gallery images={photos} />
-        )}
+        <AnimatePresence mode="wait">
+          {viewMode === "map" ? (
+            <motion.div
+              key="map"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.3 }}
+              style={{ width: "100%", height: "100%" }}
+            >
+              <MapViewer lat={lat} lng={lng} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="gallery"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.3 }}
+              style={{ width: "100%", height: "100%" }}
+            >
+              <Box p={{ base: 4, md: 8 }} w="100%" h="100%">
+                <Gallery images={photos} />
+              </Box>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Box>
     </Box>
   );
