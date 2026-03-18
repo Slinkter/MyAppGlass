@@ -13,6 +13,7 @@ import {
   Box,
   useBreakpointValue,
   Link,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
@@ -32,8 +33,12 @@ const FloatingWhatsApp = lazy(() =>
  * @returns {JSX.Element} The rendered layout component.
  */
 const Layout = ({ children }) => {
-  // Overlay para mejorar legibilidad y efecto glass
   const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
+
+  const bgGradient = useColorModeValue(
+    "linear(to-b, gray.50, white, gray.50)",
+    "linear(to-b, gray.900, gray.800, gray.900)"
+  );
 
   return (
     <Box
@@ -41,6 +46,7 @@ const Layout = ({ children }) => {
       position="relative"
       m={0}
       p={0}
+      bgGradient={bgGradient}
     >
       {/* Skip Link */}
       <Link
