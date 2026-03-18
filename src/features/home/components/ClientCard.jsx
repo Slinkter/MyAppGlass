@@ -43,13 +43,15 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
       transition="box-shadow 0.4s ease"
     >
       <Fade in={isLoaded} style={{ height: "100%" }}>
-        <Box position="relative" h="full" w="full">
+        <Box position="relative" h="full" w="full" overflow="hidden" borderRadius="lg">
           <ResponsiveImage
             src={image}
             alt={nameClient}
             objectFit="cover"
-            w="100%"
-            h="100%"
+            w="105%"
+            h="105%"
+            ml="-2.5%"
+            mt="-2.5%"
             loading="eager"
             decoding="async"
             onLoad={() => setIsLoaded(true)}

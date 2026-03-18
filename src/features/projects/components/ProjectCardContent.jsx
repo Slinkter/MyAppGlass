@@ -53,13 +53,15 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
       }}
     >
       <Fade in={isLoaded} style={{ height: "100%" }}>
-        <Box position="relative" h="full" w="full">
+        <Box position="relative" h="full" w="full" overflow="hidden" borderRadius="xl">
           <ResponsiveImage
             src={image}
             alt={`Proyecto ${residencial}`}
             objectFit="cover"
-            w="100%"
-            h="100%"
+            w="105%"
+            h="105%"
+            ml="-2.5%"
+            mt="-2.5%"
             loading={isLCP ? "eager" : "lazy"}
             decoding={isLCP ? "sync" : "async"}
             onLoad={() => setIsLoaded(true)}
