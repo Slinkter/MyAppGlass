@@ -33,7 +33,7 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
       cursor="pointer"
       position="relative"
       h={{ base: "300px", md: "400px" }}
-      borderRadius="lg"
+      borderRadius="xl"
       overflow="hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
