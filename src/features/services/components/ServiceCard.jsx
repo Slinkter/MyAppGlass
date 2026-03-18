@@ -53,21 +53,20 @@ const ServiceCard = React.memo((props) => {
       transition="box-shadow 0.4s ease"
     >
       <Fade in={isLoaded} style={{ height: "100%" }}>
-        <Box position="relative" h="full" w="full" overflow="hidden" borderRadius="lg">
+        <Box position="relative" h="full" w="full" overflow="hidden">
           <ResponsiveImage
             src={image}
             alt={name}
             objectFit="cover"
-            w="105%"
-            h="105%"
-            ml="-2.5%"
-            mt="-2.5%"
+            w="100%"
+            h="100%"
             loading={index < 3 ? "eager" : "lazy"}
             decoding={index < 3 ? "sync" : "async"}
             onLoad={handleImageLoad}
             isLCP={index < 3}
+            transform="scale(1.02)"
             transition="transform 0.6s ease"
-            _groupHover={{ transform: "scale(1.03)" }}
+            _groupHover={{ transform: "scale(1.06)" }}
           />
 
           <Box position="absolute" inset="0" bgGradient={bgOverlay} />
