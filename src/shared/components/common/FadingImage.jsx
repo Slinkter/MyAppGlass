@@ -28,7 +28,6 @@ const FadingImage = React.memo((props) => {
     srcSet,
     sizes,
     forceShow,
-    showOverlay: _showOverlay,
     ...restProps
   } = props;
 

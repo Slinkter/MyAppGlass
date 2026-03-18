@@ -1,5 +1,5 @@
 import { Flex, Box, useColorModeValue } from "@chakra-ui/react";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { LazyMotion, m, domAnimation } from "framer-motion";
 import { useGallery } from "@shared/hooks/ui/useGallery";
@@ -20,8 +20,6 @@ const Gallery = React.memo(({ images }) => {
     currentImage,
     imageCount,
   } = useGallery(images);
-
-  const preloadRef = useRef(null);
 
   // Pre-cargar imágenes adyacentes en segundo plano
   useEffect(() => {

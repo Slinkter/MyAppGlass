@@ -4,24 +4,12 @@
  * @module layout/navbar
  */
 import React from "react";
-import {
-  Box,
-  Flex,
-  useColorModeValue,
-  Image,
-  Link,
-} from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import DesktopNav from "./DesktopNav";
 import BottomNav from "./BottomNav";
-import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
 export default function Navbar() {
   // Estilos High Performance Solid
-  const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.95)",
-    "rgba(10, 10, 10, 0.95)",
-  );
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   const textColor = useColorModeValue("gray.800", "gray.100");
 
