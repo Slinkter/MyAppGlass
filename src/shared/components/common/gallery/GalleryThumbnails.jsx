@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import { Box, Flex, Image, useColorModeValue } from "@chakra-ui/react";
 
@@ -65,7 +65,7 @@ const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
     [handleThumbnailClick],
   );
 
-  React.useEffect(() => {
+  useLayoutEffect(() => {
     const activeItem = containerRef.current?.children[selectedIndex];
     if (activeItem) {
       activeItem.scrollIntoView({

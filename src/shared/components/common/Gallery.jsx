@@ -52,7 +52,7 @@ const Gallery = React.memo(({ images }) => {
       if (event.key === "ArrowLeft") handlePrevious(event);
       if (event.key === "ArrowRight") handleNext(event);
     };
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown, { passive: true });
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handlePrevious, handleNext]);
 
