@@ -7,6 +7,7 @@ import { Suspense, lazy, useState, useEffect } from "react";
 import {
   Box,
   useBreakpointValue,
+  useColorModeValue,
   Link,
   Image,
 } from "@chakra-ui/react";
@@ -108,7 +109,17 @@ const Layout = ({ children }) => {
         zIndex={1}
       >
         <Navbar />
-        <main id="main-content">{children}</main>
+        <Box
+          bg={useColorModeValue(
+            "rgba(255, 255, 255, 0.88)",
+            "rgba(26, 26, 26, 0.85)"
+          )}
+          borderRadius="2xl"
+          p={{ base: 4, md: 6 }}
+          minH="calc(100dvh - 200px)"
+        >
+          <main id="main-content">{children}</main>
+        </Box>
         <Footer />
       </Box>
 
