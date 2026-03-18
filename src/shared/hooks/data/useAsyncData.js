@@ -21,17 +21,27 @@ export const useAsyncData = (fetchFunction, initialData = []) => {
   });
 
   useEffect(() => {
+    let ignore = false;
+
     fetchFunction()
-      .then((data) =>
-        setState({ data: data ?? initialData, isLoading: false, error: null }),
-      )
-      .catch((error) =>
-        setState({
-          data: initialData,
-          isLoading: false,
-          error: error.message || "Error al cargar datos",
-        }),
-      );
+      .then((data) => {
+        if (!ignore) {
+          setState({ data: data ?? initialData, isLoading: false, error: null });
+        }
+      })
+      .catch((error) => {
+        if (!ignore) {
+          setState({
+            data: initialData,
+            isLoading: false,
+            error: error.message || "Error al cargar datos",
+          });
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
   }, [fetchFunction, initialData]);
 
   return state;
