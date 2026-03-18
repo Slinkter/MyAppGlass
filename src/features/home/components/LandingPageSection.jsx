@@ -9,7 +9,6 @@
 import React from "react";
 import {
   Box,
-  Button,
   Flex,
   Heading,
   Image,
@@ -18,7 +17,6 @@ import {
   usePrefersReducedMotion,
   VStack,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
@@ -48,10 +46,6 @@ const LandingPageSection = React.memo(() => {
   const animationConfig = prefersReducedMotion
     ? { opacity: 1, y: 0 }
     : { opacity: 0, y: 30 };
-
-  const buttonAnimation = prefersReducedMotion
-    ? { opacity: 1, y: 0 }
-    : { opacity: 0, y: 20 };
 
   return (
     // Wrap with LazyMotion and provide the 'domAnimation' feature set (no layout animations, just standard DOM ones)

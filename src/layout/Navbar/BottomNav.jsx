@@ -2,11 +2,9 @@ import React from "react";
 import {
   Box,
   Flex,
-  Text,
   useColorModeValue,
   Icon,
   Link,
-  VStack,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import {
@@ -32,7 +30,6 @@ const BottomNav = () => {
     "rgba(15, 15, 15, 0.98)", // Negro sólido
   );
   const containerBorder = useColorModeValue("gray.200", "whiteAlpha.200");
-  const bubbleBg = useColorModeValue("primary.500", "primary.500");
   const activeIconColor = "white"; // Contraste contra la burbuja
   const inactiveIconColor = useColorModeValue("gray.500", "gray.400");
 
