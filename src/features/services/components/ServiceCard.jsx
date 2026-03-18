@@ -9,9 +9,12 @@ import {
   Text,
   Fade,
   SlideFade,
+  Icon,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { Link as RouterLink } from "react-router-dom";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { SparklesIcon } from "@heroicons/react/24/solid";
 
 /**
  * @component ServiceCard
@@ -49,8 +52,10 @@ const ServiceCard = React.memo((props) => {
       boxShadow={{ base: "none", md: "lg" }}
       transition={{ base: "all 0.2s ease", md: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)" }}
       _hover={{
-        boxShadow: { md: "2xl" },
         transform: { md: "translateY(-6px)" },
+        outline: { base: "none", md: "2px solid" },
+        outlineColor: { base: "transparent", md: "primary.400" },
+        boxShadow: { base: "none", md: "0 0 30px rgba(72, 132, 206, 0.4)" },
       }}
     >
       {/* 1. Imagen de Fondo Full */}
@@ -83,6 +88,27 @@ const ServiceCard = React.memo((props) => {
           transition="opacity 0.3s ease"
           _groupHover={{ opacity: { base: 0.6, md: 0.8 } }}
         />
+      </Box>
+
+      {/* 3. Badge Decorativo */}
+      <Box
+        position="absolute"
+        top={4}
+        right={4}
+        zIndex={3}
+        opacity={0}
+        transition="opacity 0.3s ease"
+        _groupHover={{ opacity: { base: 0, md: 1 } }}
+      >
+        <Box
+          bg={useColorModeValue("whiteAlpha.900", "blackAlpha.800")}
+          backdropFilter="blur(8px)"
+          p={2}
+          borderRadius="lg"
+          boxShadow="md"
+        >
+          <Icon as={SparklesIcon} w={5} h={5} color="primary.500" />
+        </Box>
       </Box>
 
       {/* 2. Botón Flotante Centrado con Texto Animado */}
@@ -131,8 +157,12 @@ const ServiceCard = React.memo((props) => {
                 letterSpacing="widest"
                 noOfLines={1}
                 textAlign="center"
+                display="flex"
+                alignItems="center"
+                gap={2}
               >
-                {name}
+                Ver más
+                <Icon as={ArrowRightIcon} w={4} h={4} transition="transform 0.3s ease" _groupHover={{ transform: "translateX(4px)" }} />
               </Text>
             </LinkOverlay>
           </Button>
