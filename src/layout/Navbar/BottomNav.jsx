@@ -62,7 +62,8 @@ const BottomNav = () => {
     <AnimatePresence>
       <MotionBox
         position="fixed"
-        bottom={4}
+        bottom={0}
+        pb="calc(1rem + env(safe-area-inset-bottom))"
         left={0}
         right={0}
         display={{ base: "flex", md: "none" }}
@@ -83,8 +84,8 @@ const BottomNav = () => {
           bg="surface.bottomNav"
           px={2}
           py={2}
-          borderRadius="2xl"
-          shadow="lg"
+          borderRadius="full"
+          boxShadow="0 8px 32px rgba(0,0,0,0.15)"
           w="full"
           maxW="340px"
           border="1px solid"
