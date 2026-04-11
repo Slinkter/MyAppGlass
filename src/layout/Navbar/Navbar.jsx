@@ -21,13 +21,17 @@ export default function Navbar() {
         position="sticky"
         top="6"
         zIndex="sticky"
-        py={4}
+        py={6}
         px={{ base: 4, md: 0 }}
         display={{ base: "none", md: "block" }}
       >
         <Flex
           as="nav"
-          bg={useColorModeValue("rgba(255, 255, 255, 0.95)", "rgba(15, 15, 15, 0.95)")}
+          bg={useColorModeValue(
+            "rgba(255, 255, 255, 0.8)",
+            "rgba(15, 15, 15, 0.8)",
+          )}
+          backdropFilter="blur(12px)"
           color={textColor}
           minH="60px"
           py={{ base: 2 }}
@@ -41,7 +45,7 @@ export default function Navbar() {
           border="1px solid"
           borderColor={borderColor}
           borderRadius="2xl"
-          boxShadow="none"
+          boxShadow="xl"
         >
           <Flex flex={{ base: 1 }} justifyContent="center" alignItems="center">
             <DesktopNav />

@@ -72,10 +72,10 @@ const Layout = ({ children }) => {
       </Link>
       <Box
         position="relative"
-        maxW="7xl"
+        maxW="1440px"
         mx="auto"
-        px={{ base: 3, md: 4 }}
-        pb={{ base: "80px", md: 0 }}
+        px={{ base: "phi_lg", md: "phi_xl" }}
+        pb={{ base: "84px", md: 0 }}
         zIndex={1}
       >
         <Navbar />
