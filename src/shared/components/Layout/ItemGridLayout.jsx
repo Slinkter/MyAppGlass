@@ -89,7 +89,16 @@ const ItemGridLayout = ({
   );
 };
 
+import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
+
 const ItemGridItem = ({ children }) => {
+  const itemRef = React.useRef(null);
+  // Carga el contenido real solo si está a 1000px de distancia
+  const isNearViewport = useIntersectionObserver(itemRef, {
+    rootMargin: "1000px",
+    threshold: 0.01,
+  });
+
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -104,8 +113,19 @@ const ItemGridItem = ({ children }) => {
 
   return (
     <LazyMotion features={domAnimation}>
-      <Box as={m.div} variants={itemVariants} w="full">
-        {children}
+      <Box 
+        ref={itemRef}
+        as={m.div} 
+        variants={itemVariants} 
+        w="full"
+        minH={{ base: "280px", md: "420px" }}
+        /* Aura Virtualization: skips rendering for off-screen items */
+        sx={{
+          contentVisibility: "auto",
+          containIntrinsicSize: { base: "280px", md: "420px" },
+        }}
+      >
+        {isNearViewport ? children : null}
       </Box>
     </LazyMotion>
   );

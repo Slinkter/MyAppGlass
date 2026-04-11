@@ -48,15 +48,15 @@ const theme = extendTheme({
       solid: "#06b6d4",
     },
     surface: {
-      glass: "rgba(255, 255, 255, 0.08)",
-      glassDark: "rgba(15, 23, 42, 0.15)",
+      solid: "#ffffff",
+      solidDark: "#0f172a", // Slate.900
     }
   },
   space: auraSpacing,
   radii: {
-    phi: "1.618rem", // Custom Golden Radius
-    card: "20px",
-    modal: "32px",
+    phi: "1.618rem", 
+    card: "16px",
+    modal: "24px",
   },
   config: {
     initialColorMode: "dark",
@@ -65,43 +65,27 @@ const theme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        bg: props.colorMode === "dark" ? "gray.900" : "white",
+        bg: props.colorMode === "dark" ? "primary.900" : "gray.50",
         color: props.colorMode === "dark" ? "gray.100" : "gray.800",
-        // Performance optimization for animations
         WebkitFontSmoothing: "antialiased",
-        MozOsxFontSmoothing: "grayscale",
-      },
-      "*:focus-visible": {
-        outline: "2px solid",
-        outlineColor: "accent.solid",
-        outlineOffset: "2px",
       },
     }),
   },
   components: {
     Container: {
       baseStyle: {
-        maxW: "1440px", // Master width for Aura Layout
+        maxW: "1440px",
       }
     },
-    Button: {
-      baseStyle: {
-        borderRadius: "phi_sm",
-        fontWeight: "600",
-        transition: "all 0.2s cubic-bezier(.08,.52,.52,1)",
-      },
-    },
-    // Glassmorphism as a component variant
+    // Flat Design Components
     Box: {
       variants: {
         glass: (props) => ({
-          bg: props.colorMode === "dark" ? "surface.glassDark" : "surface.glass",
-          backdropFilter: "blur(12px)",
+          bg: props.colorMode === "dark" ? "primary.800" : "white",
           border: "1px solid",
-          borderColor: props.colorMode === "dark" ? "whiteAlpha.100" : "blackAlpha.100",
+          borderColor: props.colorMode === "dark" ? "whiteAlpha.100" : "gray.200",
           borderRadius: "card",
-          boxShadow: "xl",
-          willChange: "backdrop-filter, background-color",
+          boxShadow: "sm",
         }),
       },
     },
