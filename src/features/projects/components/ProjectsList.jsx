@@ -23,16 +23,19 @@ const ProjectsList = React.memo(() => {
   const allProjects = useMemo(() => [...getProjects()].reverse(), []);
   const [displayCount, setDisplayCount] = useState(6);
   const loaderRef = useRef(null);
-  const isIntersecting = useIntersectionObserver(loaderRef, { threshold: 0.1 });
+  const isIntersecting = useIntersectionObserver(loaderRef, { 
+    threshold: 0.01,
+    rootMargin: "400px" // Carga proactiva: 400px antes de llegar al final
+  });
 
-  // Infinite Scroll Logic: Load 6 more items when the loader is visible
+  // Infinite Scroll Logic: Load more pro-actively
   useEffect(() => {
     if (isIntersecting && displayCount < allProjects.length) {
-      // Delay to ensure smooth transition and allow frame budget for other tasks
-      const timer = setTimeout(() => {
+      // Usamos requestAnimationFrame para sincronizar con el refresco de pantalla
+      const frame = requestAnimationFrame(() => {
         setDisplayCount((prev) => Math.min(prev + 6, allProjects.length));
-      }, 100);
-      return () => clearTimeout(timer);
+      });
+      return () => cancelAnimationFrame(frame);
     }
   }, [isIntersecting, allProjects.length, displayCount]);
 

@@ -5,16 +5,20 @@
 
 - **Primary Goal:** Showcase projects, detail services, and provide a seamless UX for potential clients.
 - **Architecture:** **Feature-Based Architecture (FBA)** combined with SOLID principles.
-- **Tech Stack:** React 18 (SPA), Vite (Bundler), pnpm (Package Manager), Chakra UI v2 (Design System), Framer Motion (Animations), Firebase (Firestore, Auth, Functions, Hosting).
+- **Design System:** **Aura Flat Premium** (Mathematical Golden Ratio spacing, Solid high-performance colors, zero-runtime blur).
+- **Tech Stack:** React 18 (SPA), Vite (Bundler), pnpm (Package Manager), Chakra UI v2, Framer Motion (Animations), Firebase (Firestore, Auth, Functions, Hosting).
 
 ## Tech Stack Details
 - **Core:** React 18 (Functional Components, Hooks).
-- **Styling:** Chakra UI v2, Emotion, Vanilla CSS (Global).
-- **Routing:** React Router DOM v6 (Data Router API).
+- **Styling:** Chakra UI v2, Emotion, Vanilla CSS (Global). Note: Glassmorphism (`backdrop-filter`) has been purged in favor of "Solid Flat" colors to guarantee 60fps on low-end devices.
+- **Routing:** React Router DOM v6 (Data Router API) with Route-level Lazy Loading and Suspense.
 - **State Management:** Custom Hooks for local/feature state, `useAsyncData` for loading states.
 - **SEO:** React Helmet Async.
 - **Backend:** Firebase (Firestore for data, Auth for potential admin, Functions for email/logic).
-- **Performance:** Vite Image Optimizer, Code Splitting (React Lazy/Suspense), Bundle Analyzer.
+- **Performance Engine (Zen-Throttle):**
+  - **O(1) Rendering:** Proactive Infinite Scroll (`useIntersectionObserver`) in lists (Projects, Services).
+  - **Virtualization (DOM Culling):** `content-visibility: auto` and internal observers unmount off-screen items >1000px away.
+  - **Async Assets:** High-compression WebP/JPG (max 1280px), `decoding="async"`, and `Skeleton` UI for zero Cumulative Layout Shift (CLS).
 
 ## Project Structure
 ```text
@@ -52,18 +56,19 @@ Defined in `vite.config.js` and `jsconfig.json`:
 - **Feature-Based Organization:** Organize code by domain (`src/features/`). Each feature should be autonomous.
 - **Component Design:** Use Functional Components. Wrap exports with `React.memo()` and set `.displayName` for better performance and debugging.
 - **Imports:** Avoid barrel files for internal feature components; use direct imports with path aliases (e.g., `import { X } from "@features/home/components/X"`).
-- **Styling:** Use Chakra UI tokens and responsive objects (e.g., `fontSize={{ base: "md", lg: "xl" }}`).
-- **Typography:** Follow standards defined in `UX_UI_IMPROVEMENT_PLAN.md` (H1: `4xl-6xl`, H2: `3xl-4xl`, etc.).
-- **Animations:** Use the `ScrollReveal` wrapper (based on Framer Motion) for entry animations.
-- **SEO:** Use `HelmetWrapper` from `@shared/components/` for meta tags on every page.
-- **Data Fetching:** Abstraction through a service layer in each feature (`src/features/*/services`).
+- **Performance First (Zero-Jank):**
+  - **No Glassmorphism:** Avoid `backdropFilter` and heavy `rgba` overlaps. Use solid semantic colors (`primary.900`, `white`) from the theme.
+  - **Skeletons:** Always use `<Skeleton>` placeholders for images to prevent layout thrashing and maintain a 0 CLS.
+  - **Animation Throttling:** Use passive animations on mobile (opacity only) and avoid vertical displacements (`offsetY`) that trigger heavy layout recalculations.
+- **Styling (Aura Design):** Use Chakra UI tokens based on the Golden Ratio (e.g., `phi_xs`, `phi_sm`, `phi_md`, `phi_lg`, `phi_xl`, `phi_2xl`). 
+- **Data Fetching:** Abstraction through a service layer in each feature (`src/features/*/services`). Use chunked loading (e.g., batches of 6) for large lists.
 - **Accessibility:** Aim for WCAG 2.1 level AA. Ensure touch targets are at least `44px` on mobile.
 
 ## Key Configuration Files
 - `package.json`: Main project configuration and scripts.
-- `vite.config.js`: Vite plugins, build settings, and aliases.
+- `vite.config.js`: Vite plugins, build settings, aliases, and **ViteImageOptimizer** rules (Quality 70, max width 1280px).
 - `jsconfig.json`: JavaScript configuration for IDE path resolution.
-- `src/config/theme.js`: Centralized Chakra UI theme customization.
-- `src/config/firebase.js`: Firebase initialization using environment variables (`VITE_`).
+- `src/config/theme.js`: Centralized Chakra UI theme customization featuring the **Aura Flat Premium** design system.
+- `performance_audit_report.md`: Detailed performance benchmarks, bottleneck resolutions, and architectural optimizations applied to the project.
 - `UX_UI_IMPROVEMENT_PLAN.md`: Contains current backlog, specific coding conventions, and visual polish status.
 - `AGENTS.md`: Documentation for AI agent interactions and skills.

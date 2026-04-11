@@ -19,33 +19,32 @@ export default function Navbar() {
       <Box
         as="header"
         position="sticky"
-        top="6"
+        top="phi_lg"
         zIndex="sticky"
-        py={6}
-        px={{ base: 4, md: 0 }}
+        py="phi_lg"
+        px={{ base: "phi_lg", md: 0 }}
         display={{ base: "none", md: "block" }}
       >
         <Flex
           as="nav"
           bg={useColorModeValue(
-            "rgba(255, 255, 255, 0.8)",
-            "rgba(15, 15, 15, 0.8)",
+            "white",
+            "primary.800",
           )}
-          backdropFilter="blur(12px)"
           color={textColor}
           minH="60px"
-          py={{ base: 2 }}
-          px={{ base: 4 }}
+          py="phi_xs"
+          px="phi_lg"
           align="center"
           justifyContent="center"
           position="relative"
-          maxW="7xl"
+          maxW="1440px"
           mx="auto"
           // Solid effects
           border="1px solid"
           borderColor={borderColor}
-          borderRadius="2xl"
-          boxShadow="xl"
+          borderRadius="card"
+          boxShadow="md"
         >
           <Flex flex={{ base: 1 }} justifyContent="center" alignItems="center">
             <DesktopNav />

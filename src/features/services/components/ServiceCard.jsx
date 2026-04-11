@@ -9,6 +9,7 @@ import {
   Text,
   Fade,
   SlideFade,
+  Skeleton,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { Link as RouterLink } from "react-router-dom";
@@ -31,10 +32,10 @@ const ServiceCard = React.memo((props) => {
 
   const styles = {
     buttonBg: useColorModeValue(
-      "rgba(255, 255, 255, 0.95)",
-      "rgba(20, 20, 20, 0.85)",
+      "white",
+      "primary.800",
     ),
-    buttonHoverBg: useColorModeValue("white", "black"),
+    buttonHoverBg: useColorModeValue("gray.50", "primary.700"),
     textColor: useColorModeValue("primary.800", "primary.200"),
   };
 
@@ -46,44 +47,46 @@ const ServiceCard = React.memo((props) => {
       borderRadius="2xl"
       overflow="hidden"
       role="group"
-      boxShadow={{ base: "none", md: "lg" }}
-      transition={{ base: "all 0.2s ease", md: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)" }}
+      boxShadow="md"
+      transition="all 0.3s ease"
       _hover={{
-        boxShadow: { md: "2xl" },
-        transform: { md: "translateY(-6px)" },
+        boxShadow: "xl",
+        transform: { base: "none", md: "translateY(-4px)" },
       }}
     >
-      {/* 1. Imagen de Fondo Full */}
-      <Box
-        position="absolute"
-        inset="0"
-        transition="transform 0.8s ease-in-out"
-        _groupHover={{ transform: "scale(1.1)" }}
-      >
-        <Fade in={isLoaded} style={{ height: "100%" }}>
-          <ResponsiveImage
-            src={image}
-            alt={name}
-            objectFit="cover"
-            w="100%"
-            h="100%"
-            loading="lazy"
-            decoding="async"
-            onLoad={handleImageLoad}
-            isLCP={index < 3}
-          />
-        </Fade>
-
-        {/* Gradiente sutil para profundidad */}
+      {/* 1. Imagen de Fondo Full con Skeleton */}
+      <Skeleton isLoaded={isLoaded} h="full" w="full">
         <Box
           position="absolute"
           inset="0"
-          bgGradient={{ base: "linear(to-t, blackAlpha.700, transparent)", md: "linear(to-t, blackAlpha.800, transparent)" }}
-          opacity={{ base: 0.5, md: 0.6 }}
-          transition="opacity 0.3s ease"
-          _groupHover={{ opacity: { base: 0.6, md: 0.8 } }}
-        />
-      </Box>
+          transition="transform 0.8s ease-in-out"
+          _groupHover={{ transform: "scale(1.1)" }}
+        >
+          <Fade in={isLoaded} style={{ height: "100%" }}>
+            <ResponsiveImage
+              src={image}
+              alt={name}
+              objectFit="cover"
+              w="100%"
+              h="100%"
+              loading="lazy"
+              decoding="async"
+              onLoad={handleImageLoad}
+              isLCP={index < 3}
+            />
+          </Fade>
+
+          {/* Gradiente sutil para profundidad */}
+          <Box
+            position="absolute"
+            inset="0"
+            bgGradient="linear(to-t, blackAlpha.700, transparent)"
+            opacity={{ base: 0.5, md: 0.6 }}
+            transition="opacity 0.3s ease"
+            _groupHover={{ opacity: { base: 0.6, md: 0.8 } }}
+          />
+        </Box>
+      </Skeleton>
 
       {/* 2. Botón Flotante Centrado con Texto Animado */}
       <Box
@@ -95,7 +98,7 @@ const ServiceCard = React.memo((props) => {
         display="flex"
         justifyContent="center"
       >
-        <SlideFade in={isLoaded} offsetY="20px">
+        <SlideFade in={isLoaded} offsetY={{ base: "0px", md: "20px" }}>
           <Button
             w="full"
             maxW="240px"
@@ -106,14 +109,13 @@ const ServiceCard = React.memo((props) => {
             justifyContent="center"
             alignItems="center"
             borderRadius="xl"
-            boxShadow={{ base: "none", md: "md" }}
+            boxShadow="md"
             _groupHover={{
               bg: styles.buttonHoverBg,
-              transform: "translateY(-4px)",
-              boxShadow: { base: "none", md: "xl" },
+              boxShadow: "lg",
               color: styles.textColor,
             }}
-            transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+            transition="all 0.3s ease"
           >
             <LinkOverlay
               as={RouterLink}

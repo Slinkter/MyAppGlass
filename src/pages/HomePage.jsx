@@ -16,7 +16,7 @@ const StoreSection = lazy(
 
 const HomeView = React.memo(() => {
   return (
-    <VStack>
+    <VStack spacing="phi_2xl" w="full" align="stretch">
       <LandingPageSection />
       <ClientsSection />
       <FeaturesSection />
