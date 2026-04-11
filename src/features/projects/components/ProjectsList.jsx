@@ -8,18 +8,37 @@
  * - Cascade animation effect for each item.
  */
 
-import React, { useMemo } from "react";
-import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
+import React, { useMemo, useState, useRef, useEffect } from "react";
+import { Box } from "@chakra-ui/react";
+import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { getProjects } from "../services/projectService";
-const ProjectsList = React.memo(() => {
-  // Get data synchronously
-  const projects = getProjects();
+import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
 
-  // Invert order and add preloaded flag
+/**
+ * @component ProjectsList
+ * @description Orchestrator for the projects gallery, implementing Infinite Scroll (O1) for high performance.
+ */
+const ProjectsList = React.memo(() => {
+  const allProjects = useMemo(() => [...getProjects()].reverse(), []);
+  const [displayCount, setDisplayCount] = useState(6);
+  const loaderRef = useRef(null);
+  const isIntersecting = useIntersectionObserver(loaderRef, { threshold: 0.1 });
+
+  // Infinite Scroll Logic: Load 6 more items when the loader is visible
+  useEffect(() => {
+    if (isIntersecting && displayCount < allProjects.length) {
+      // Delay to ensure smooth transition and allow frame budget for other tasks
+      const timer = setTimeout(() => {
+        setDisplayCount((prev) => Math.min(prev + 6, allProjects.length));
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isIntersecting, allProjects.length, displayCount]);
+
   const projectsList = useMemo(() => {
-    return [...projects].reverse().map((p) => ({ ...p, preloaded: true }));
-  }, [projects]);
+    return allProjects.slice(0, displayCount).map((p) => ({ ...p, preloaded: true }));
+  }, [allProjects, displayCount]);
 
   return (
     <ItemGridLayout
@@ -32,7 +51,7 @@ const ProjectsList = React.memo(() => {
       columns={{ base: 1, md: 2, lg: 3 }}
     >
       {projectsList.map((project, index) => (
-        <ItemGridLayout.Item key={project.id} delay={index * 0.15}>
+        <ItemGridLayout.Item key={project.id} delay={(index % 6) * 0.1}>
           <ProjectCard
             {...project}
             isLCP={index < 3}
@@ -41,10 +60,14 @@ const ProjectsList = React.memo(() => {
           />
         </ItemGridLayout.Item>
       ))}
+      
+      {/* Intersection Sensor for O1 Rendering */}
+      {displayCount < allProjects.length && (
+        <Box ref={loaderRef} w="full" h="20px" py={10} />
+      )}
     </ItemGridLayout>
   );
 });
 
 ProjectsList.displayName = "ProjectsList";
-
 export default ProjectsList;
