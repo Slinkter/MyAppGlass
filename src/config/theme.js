@@ -84,6 +84,8 @@ const theme = extendTheme({
       // Glass surfaces
       "surface.card":     { default: "rgba(255, 255, 255, 0.25)", _dark: "rgba(15, 23, 42, 0.25)" },
       "surface.nav":      { default: "rgba(255, 255, 255, 0.95)", _dark: "rgba(15, 23, 42, 0.95)" },
+      "surface.icon":     { default: "primary.50", _dark: "whiteAlpha.100" },
+      "surface.iconHover": { default: "primary.100", _dark: "whiteAlpha.200" },
 
       // Borders
       "border.default": { default: "gray.200",        _dark: "whiteAlpha.100" },

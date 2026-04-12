@@ -10,9 +10,6 @@ const ClientsSection = lazy(
 const FeaturesSection = lazy(
     () => import("@features/home/components/FeaturesSection"),
 );
-const StatsSection = lazy(
-    () => import("@features/home/components/StatsSection"),
-);
 const StoreSection = lazy(
     () => import("@features/home/components/StoreSection"),
 );
@@ -23,7 +20,6 @@ const HomeView = React.memo(() => {
             <LandingPageSection />
             <ClientsSection />
             <FeaturesSection />
-            <StatsSection />
             <StoreSection />
         </VStack>
     );

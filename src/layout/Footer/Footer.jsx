@@ -1,6 +1,6 @@
 /**
  * @file Footer.jsx
- * @description Global application footer unificado para alineación perfecta y rendimiento máximo.
+ * @description Global application footer unificado con elevación premium y diseño dimensional.
  * @module layout/footer
  */
 
@@ -36,20 +36,18 @@ import logoGYA from "@/assets/branding/LogoCompanytrans.png";
  * @description Unifica FooterItem y FooterLink en un solo estándar de alineación.
  */
 const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
-    const defaultIconColor = useColorModeValue("primary.500", "primary.400");
-    const textColor = useColorModeValue("gray.700", "gray.200");
-    const iconColor = customIconColor || defaultIconColor;
-    const hoverColor = useColorModeValue("primary.600", "primary.300");
+    const iconColor = customIconColor || "text.accent";
+    const hoverColor = "text.accent";
 
     const content = (
-        <HStack spacing={4} align="center" w="full" py={1}>
+        <HStack spacing={4} align="center" w="full" py={1.5}>
             <Icon as={icon} boxSize={5} color={iconColor} flexShrink={0} />
             <Text
                 fontSize="sm"
-                fontWeight="500"
-                color={textColor}
-                transition="color 0.2s"
-                _groupHover={to ? { color: hoverColor } : {}}
+                fontWeight="600"
+                color="text.body"
+                transition="all 0.2s"
+                _groupHover={to ? { color: hoverColor, transform: "translateX(2px)" } : {}}
             >
                 {children}
             </Text>
@@ -58,8 +56,13 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
 
     if (to) {
         return (
-            <Link to={to} style={{ textDecoration: "none", width: "100%" }} target={isExternal ? "_blank" : undefined} className="group">
-                <Box role="group" transition="transform 0.2s" _hover={{ transform: "translateX(4px)" }}>
+            <Link 
+                to={to} 
+                style={{ textDecoration: "none", width: "100%" }} 
+                target={isExternal ? "_blank" : undefined} 
+                className="group"
+            >
+                <Box role="group" transition="transform 0.2s">
                     {content}
                 </Box>
             </Link>
@@ -70,21 +73,20 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
 };
 
 const FooterSection = ({ title, children }) => {
-    const headingColor = useColorModeValue("primary.700", "primary.300");
     return (
-        <VStack align={{ base: "flex-start", md: "flex-start" }} spacing={5} w="full">
+        <VStack align="flex-start" spacing={6} w="full">
             <Heading
                 as="h4"
                 fontSize="xs"
                 fontWeight="900"
-                color={headingColor}
+                color="text.accent"
                 textTransform="uppercase"
                 letterSpacing="0.2em"
                 mb={1}
             >
                 {title}
             </Heading>
-            <VStack align="flex-start" spacing={3} w="full">
+            <VStack align="flex-start" spacing={2} w="full">
                 {children}
             </VStack>
         </VStack>
@@ -93,10 +95,9 @@ const FooterSection = ({ title, children }) => {
 
 const Footer = () => {
     const bgColor = useColorModeValue("white", "primary.800");
-    const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+    const borderColor = useColorModeValue("gray.100", "whiteAlpha.100");
+    const shadowColor = useColorModeValue("rgba(0,0,0,0.06)", "rgba(0,0,0,0.4)");
     const copyrightColor = useColorModeValue("gray.500", "gray.400");
-    const linkTextColor = useColorModeValue("gray.700", "gray.200");
-    const logoFilter = useColorModeValue("none", "brightness(0) invert(1)"); // eslint-disable-line no-unused-vars
 
     return (
         <Box as="footer" mt={{ base: 16, md: 32 }} mb={{ base: 32, md: 12 }} px={{ base: 4, md: 6 }}>
@@ -106,14 +107,15 @@ const Footer = () => {
                     border="1px solid"
                     borderColor={borderColor}
                     borderRadius="3xl"
+                    boxShadow={`0 15px 50px ${shadowColor}`}
                     pt={{ base: 12, md: 16 }}
-                    pb={8}
+                    pb={10}
                     px={{ base: 8, md: 16 }}
                 >
                     <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={{ base: 12, md: 16 }} mb={16}>
                         <FooterSection title="Contacto">
-                            <FooterRow icon={FaWhatsapp} customIconColor="green.500">974 278 303</FooterRow>
-                            <FooterRow icon={FaWhatsapp} customIconColor="green.500">996 537 435</FooterRow>
+                            <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">974 278 303</FooterRow>
+                            <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">996 537 435</FooterRow>
                             <FooterRow icon={Mail}>acueva@gyacompany.com</FooterRow>
                         </FooterSection>
 
@@ -127,19 +129,25 @@ const Footer = () => {
                             <FooterRow to="/politicas-empresa" icon={FileText}>Políticas de Empresa</FooterRow>
                             <FooterRow to="/cuentas-bancarias" icon={Building}>Cuentas Bancarias</FooterRow>
                             <Link to="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
-                                <HStack spacing={4} align="center" py={1} _hover={{ transform: "translateX(4px)" }} transition="transform 0.2s">
+                                <HStack 
+                                    spacing={4} 
+                                    align="center" 
+                                    py={1.5} 
+                                    _hover={{ transform: "translateX(4px)" }} 
+                                    transition="transform 0.2s"
+                                >
                                     <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} flexShrink={0} />
-                                    <Text fontSize="sm" fontWeight="600" color={linkTextColor}>Libro de Reclamaciones</Text>
+                                    <Text fontSize="sm" fontWeight="600" color="text.body">Libro de Reclamaciones</Text>
                                 </HStack>
                             </Link>
                         </FooterSection>
                     </SimpleGrid>
 
-                    <Divider borderColor={borderColor} mb={8} />
+                    <Divider borderColor={borderColor} mb={10} />
 
-                    <Flex direction="column" align="center" gap={4}>
-                        <Image src={logoGYA} alt="Logo" h="32px" />
-                        <Text fontSize="10px" color={copyrightColor} fontWeight="bold" letterSpacing="0.2em">
+                    <Flex direction="column" align="center" gap={5}>
+                        <Image src={logoGYA} alt="Logo" h="36px" />
+                        <Text fontSize="10px" color={copyrightColor} fontWeight="bold" letterSpacing="0.3em">
                             © {new Date().getFullYear()} GYA GLASS & ALUMINUM S.A.C.
                         </Text>
                     </Flex>
