@@ -20,7 +20,9 @@ const darkModeManager = {
   set: (value) => {
     try {
       localStorage.setItem("chakra-ui-color-mode", value);
-    } catch (e) {}
+    } catch (e) {
+      // localStorage is not available in some environments (e.g., private browsing), so we can safely ignore the error.
+    }
   },
 };
 

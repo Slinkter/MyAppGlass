@@ -1,6 +1,6 @@
 /**
  * @file ServiceCard.jsx
- * @description Card for services inspired by ClientCard for visual consistency.
+ * @description Responsive service card that becomes fully clickable on mobile devices.
  * Features a full-body image, dark overlay, and bottom-centered text.
  * @module services/components
  */
@@ -13,24 +13,23 @@ import {
   LinkOverlay,
   Text,
   Skeleton,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { Link as RouterLink } from "react-router-dom";
 
 /**
  * @component ServiceCard
- * @description Tarjeta de servicio con imagen de fondo y nombre superpuesto.
- * @param {Object} props
- * @param {string} props.image - URL de la imagen de fondo.
- * @param {string} props.name - Nombre del servicio.
- * @param {string} props.description - Descripción breve del servicio.
- * @param {string} props.plink - Link al detalle del servicio.
- * @returns {JSX.Element}
+ * @description Service card that adapts its clickable area for mobile vs. desktop.
+ * On mobile, the entire card is a link. On desktop, only the title is the primary link.
  */
 const ServiceCard = React.memo((props) => {
   const { image, name, description, plink, onLoadComplete, index, loading = "lazy" } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
+
+  // Expands the clickable area on mobile
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const handleImageLoad = React.useCallback(() => {
     setIsLoaded(true);
@@ -97,6 +96,7 @@ const ServiceCard = React.memo((props) => {
               letterSpacing="wider"
               textAlign="center"
               position="relative"
+              zIndex={1} // Ensure title is above the mobile overlay
               transition="color 0.3s ease"
               _after={{
                 content: '""',
@@ -110,9 +110,13 @@ const ServiceCard = React.memo((props) => {
                 transition: "width 0.4s ease, background 0.3s ease",
               }}
             >
-              <LinkOverlay as={RouterLink} to={plink}>
-                {name}
-              </LinkOverlay>
+              {isMobile ? (
+                 name 
+              ) : (
+                <LinkOverlay as={RouterLink} to={plink}>
+                  {name}
+                </LinkOverlay>
+              )}
             </Text>
 
             {description && (
@@ -132,6 +136,9 @@ const ServiceCard = React.memo((props) => {
           </Box>
         </Box>
       </Skeleton>
+      
+      {/* Mobile-only full-card link overlay */}
+      {isMobile && <LinkOverlay as={RouterLink} to={plink} aria-label={`Ver servicio ${name}`} />}
     </LinkBox>
   );
 });
