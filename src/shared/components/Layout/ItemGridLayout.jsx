@@ -53,8 +53,8 @@ const ItemGridLayout = ({
         description={seoDescription}
         canonicalUrl={seoCanonicalUrl}
       />
-      <Container maxW={"7xl"} textAlign="center" mt={6} {...containerProps}>
-        <VStack spacing={6} w="full">
+      <Container maxW={"7xl"} textAlign="center" mt={{ base: 10, md: 16 }} {...containerProps}>
+        <VStack spacing={{ base: 10, md: 12 }} w="full">
           {/* Cabecera */}
           <VStack spacing={3}>
             <Heading
@@ -93,7 +93,7 @@ const ItemGridLayout = ({
             initial="hidden"
             animate="visible"
             columns={columns}
-            spacing={{ base: 4, md: spacing }}
+            spacing={{ base: 10, md: spacing }}
             w="full"
             justifyItems="center"
           >
@@ -108,10 +108,6 @@ const ItemGridLayout = ({
 /**
  * @component ItemGridItem
  * @description Wrapper animado para cada item de la grilla.
- * @remarks
- * La virtualización DOM per-item fue eliminada para resolver una condición de carrera
- * entre el IntersectionObserver del item y el infinite scroll del padre (ServiceList/ProjectsList).
- * El control de cuántos items se montan en el DOM lo gestiona el componente padre mediante `displayCount`.
  */
 const ItemGridItem = ({ children, delay = 0 }) => {
   const itemVariants = {
@@ -132,7 +128,7 @@ const ItemGridItem = ({ children, delay = 0 }) => {
       as={m.div}
       variants={itemVariants}
       w="full"
-      minH={{ base: "280px", md: "420px" }}
+      minH={{ base: "320px", md: "460px" }}
     >
       {children}
     </Box>

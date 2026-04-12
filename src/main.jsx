@@ -20,7 +20,7 @@ import reportWebVitals from "./utils/webVitals";
 // Esto mejora la UX mostrando algo al usuario inmediatamente en lugar de una pantalla blanca.
 const suspenseFallback = (
   <Center h="100vh">
-    <Spinner size="xl" color="blue.500" />
+    <Spinner size="xl" color="text.accent" />
   </Center>
 );
 

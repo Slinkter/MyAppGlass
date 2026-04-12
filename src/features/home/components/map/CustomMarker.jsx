@@ -35,12 +35,13 @@ const CustomMarker = ({
 
   const isStore = marker.type === "store";
 
+  // Neutral ring colors
   const ringColor = isStore
-    ? "rgba(49, 130, 206, 0.4)"
-    : "rgba(56, 178, 172, 0.4)";
+    ? "rgba(113, 113, 122, 0.4)" // Zinc.500
+    : "rgba(161, 161, 170, 0.4)"; // Zinc.400
 
   // Hooks for Popover styles
-  const popoverBg = useColorModeValue("white", "gray.800");
+  const popoverBg = useColorModeValue("white", "primary.900");
   const headingColor = useColorModeValue("gray.800", "white");
   const textColor = useColorModeValue("gray.600", "gray.300");
 
@@ -93,7 +94,7 @@ const CustomMarker = ({
             {isSvg ? (
               // Project Marker
               <Flex
-                bg={isSelected ? "red.600" : "blue.500"}
+                bg={isSelected ? "red.600" : "text.accent"}
                 borderRadius="full"
                 border="2px solid white"
                 align="center"
@@ -148,8 +149,8 @@ const CustomMarker = ({
             <VStack align="center" spacing={2}>
               <Flex align="center" justify="center" w="100%">
                 <Badge
-                  colorScheme={isStore ? "blue" : "red"}
-                  fontSize="1.2em"
+                  colorScheme={isStore ? "primary" : "red"}
+                  fontSize="sm"
                   px={2}
                   py={0.5}
                   borderRadius="full"

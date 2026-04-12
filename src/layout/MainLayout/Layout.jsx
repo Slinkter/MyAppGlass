@@ -56,10 +56,10 @@ const Layout = ({ children }) => {
             p: "8px",
             m: "8px",
             border: "2px solid",
-            borderColor: "blue.500",
+            borderColor: "text.accent",
             borderRadius: "md",
-            bg: "white",
-            color: "blue.700",
+            bg: "bg.page",
+            color: "text.heading",
             zIndex: "9999",
           },
         }}

@@ -12,7 +12,7 @@ const containerStyle = {
 
 const MapViewer = ({ lat, lng }) => {
   const spinnerBg = useColorModeValue("gray.100", "gray.800");
-  const spinnerColor = useColorModeValue("blue.500", "blue.300");
+  const spinnerColor = "text.accent";
   const { isLoaded, loadError } = useGoogleMapsLoader();
 
   const center = useMemo(() => ({ lat, lng }), [lat, lng]);

@@ -5,7 +5,7 @@
  * @module config
  * @remarks
  * - Spacing: Golden Ratio (Fibonacci-based) for natural harmony.
- * - Colors: Slate-based palette for metal and glass aesthetics.
+ * - Colors: Zinc-based palette for metal and glass aesthetics. (Pure Neutral)
  */
 
 import { extendTheme } from "@chakra-ui/react";
@@ -43,18 +43,18 @@ const theme = extendTheme({
 
   // ─── Raw Palette Colors ────────────────────────────────────────────────────
   colors: {
-    // Aura Color System: Slate for Aluminum/Metal
+    // Aura Color System: Zinc Scale (Absolutely neutral grays)
     primary: {
-      50: "#f8fafc",
-      100: "#f1f5f9",
-      200: "#e2e8f0",
-      300: "#cbd5e1",
-      400: "#94a3b8",
-      500: "#64748b",
-      600: "#475569",
-      700: "#334155",
-      800: "#1e293b",
-      900: "#0f172a", // Slate.900: Pure Metal
+      50: "#fafafa",
+      100: "#f4f4f5",
+      200: "#e4e4e7",
+      300: "#d4d4d8",
+      400: "#a1a1aa",
+      500: "#71717a",
+      600: "#52525b",
+      700: "#3f3f46",
+      800: "#27272a",
+      900: "#18181b", // Deep Zinc
     },
     brand: {
       whatsapp: "#25D366",
@@ -66,37 +66,37 @@ const theme = extendTheme({
       success: "green.500",
       warning: "orange.500",
       error: "red.500",
-      info: "blue.500",
+      info: "#71717a", // Zinc.500 instead of blue
     },
     surface: {
       solid: "#ffffff",
-      solidDark: "#0f172a", // Slate.900
+      solidDark: "#09090b", // Absolute Zinc dark
     }
   },
 
   // ─── Semantic Tokens ───────────────────────────────────────────────────────
   semanticTokens: {
     colors: {
-      "bg.page":    { default: "gray.50",    _dark: "primary.900" },
-      "bg.section": { default: "white",      _dark: "primary.800" },
+      "bg.page":    { default: "gray.50",    _dark: "#000000" },
+      "bg.section": { default: "white",      _dark: "#09090b" },
       "bg.subtle":  { default: "blackAlpha.50", _dark: "whiteAlpha.50" },
 
       // Glass surfaces
-      "surface.card":     { default: "rgba(255, 255, 255, 0.25)", _dark: "rgba(15, 23, 42, 0.25)" },
-      "surface.nav":      { default: "rgba(255, 255, 255, 0.95)", _dark: "rgba(15, 23, 42, 0.95)" },
+      "surface.card":     { default: "rgba(255, 255, 255, 0.25)", _dark: "rgba(24, 24, 27, 0.4)" },
+      "surface.nav":      { default: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" },
       "surface.icon":     { default: "primary.50", _dark: "whiteAlpha.100" },
       "surface.iconHover": { default: "primary.100", _dark: "whiteAlpha.200" },
 
       // Borders
       "border.default": { default: "gray.200",        _dark: "whiteAlpha.100" },
       "border.strong":  { default: "gray.300",        _dark: "whiteAlpha.200" },
-      "border.glass":   { default: "rgba(255, 255, 255, 0.35)", _dark: "rgba(255, 255, 255, 0.15)" },
+      "border.glass":   { default: "rgba(255, 255, 255, 0.35)", _dark: "rgba(255, 255, 255, 0.05)" },
 
       // Text
-      "text.body":    { default: "gray.800", _dark: "gray.100" },
+      "text.body":    { default: "gray.800", _dark: "gray.300" },
       "text.heading": { default: "gray.900", _dark: "white"    },
-      "text.muted":   { default: "gray.600", _dark: "gray.300" },
-      "text.subtle":  { default: "gray.500", _dark: "gray.400" },
+      "text.muted":   { default: "gray.600", _dark: "gray.400" },
+      "text.subtle":  { default: "gray.500", _dark: "gray.500" },
       "text.accent":  { default: "primary.600", _dark: "primary.300" },
     },
   },
@@ -110,8 +110,8 @@ const theme = extendTheme({
 
   // ─── Color Mode Config ────────────────────────────────────────────────────
   config: {
-    initialColorMode: "system",
-    useSystemColorMode: true,
+    initialColorMode: "light",
+    useSystemColorMode: false,
   },
 
   // ─── Global Styles ────────────────────────────────────────────────────────
@@ -141,7 +141,7 @@ const theme = extendTheme({
     Box: {
       variants: {
         glass: (props) => ({
-          bg: props.colorMode === "dark" ? "primary.800" : "white",
+          bg: props.colorMode === "dark" ? "primary.900" : "white",
           border: "1px solid",
           borderColor: props.colorMode === "dark" ? "whiteAlpha.100" : "gray.200",
           borderRadius: "card",
