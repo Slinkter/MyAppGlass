@@ -7,8 +7,8 @@ import {
   SimpleGrid,
   Select,
   Heading,
-  useColorModeValue,
 } from "@chakra-ui/react";
+import { useReclamationFormContext } from "./ReclamationFormContext";
 
 const FormField = ({
   label,
@@ -16,7 +16,6 @@ const FormField = ({
   value,
   onChange,
   error,
-  styles,
   isRequired = true,
   type = "text",
 }) => (
@@ -27,7 +26,6 @@ const FormField = ({
       name={name}
       value={value}
       onChange={onChange}
-      {...styles}
     />
     <FormErrorMessage>{error}</FormErrorMessage>
   </FormControl>
@@ -39,7 +37,6 @@ const FormSelect = ({
   value,
   onChange,
   error,
-  styles,
   children,
 }) => (
   <FormControl isRequired isInvalid={!!error}>
@@ -49,7 +46,6 @@ const FormSelect = ({
       value={value}
       onChange={onChange}
       placeholder="Seleccionar"
-      sx={styles}
     >
       {children}
     </Select>
@@ -61,14 +57,8 @@ const FormSelect = ({
  * @component PersonalInfoSection
  * @description Sección de información personal del formulario de reclamaciones
  */
-const PersonalInfoSection = ({
-  formData,
-  handleInputsChange,
-  errors,
-  inputStyles,
-  selectStyles,
-}) => {
-  const headingColor = useColorModeValue("gray.900", "white");
+const PersonalInfoSection = () => {
+  const { formData, handleInputsChange, errors } = useReclamationFormContext();
 
   return (
     <>
@@ -77,7 +67,7 @@ const PersonalInfoSection = ({
         size="md"
         borderBottomWidth={2}
         pb={2}
-        color={headingColor}
+        color="text.heading"
       >
         1. Identificación del consumidor
       </Heading>
@@ -88,7 +78,6 @@ const PersonalInfoSection = ({
         value={formData.nombreCompleto}
         onChange={handleInputsChange}
         error={errors.nombreCompleto}
-        styles={inputStyles}
       />
 
       <FormField
@@ -97,7 +86,6 @@ const PersonalInfoSection = ({
         value={formData.domicilio}
         onChange={handleInputsChange}
         error={errors.domicilio}
-        styles={inputStyles}
       />
 
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
@@ -108,7 +96,6 @@ const PersonalInfoSection = ({
           value={formData.email}
           onChange={handleInputsChange}
           error={errors.email}
-          styles={inputStyles}
         />
 
         <FormField
@@ -118,7 +105,6 @@ const PersonalInfoSection = ({
           value={formData.telefono}
           onChange={handleInputsChange}
           error={errors.telefono}
-          styles={inputStyles}
         />
       </SimpleGrid>
 
@@ -129,7 +115,6 @@ const PersonalInfoSection = ({
           value={formData.tipoDocumento}
           onChange={handleInputsChange}
           error={errors.tipoDocumento}
-          styles={selectStyles}
         >
           <option value="DNI">DNI</option>
           <option value="CE">CE</option>
@@ -142,7 +127,6 @@ const PersonalInfoSection = ({
           value={formData.numeroDocumento}
           onChange={handleInputsChange}
           error={errors.numeroDocumento}
-          styles={inputStyles}
         />
       </SimpleGrid>
 
@@ -151,11 +135,12 @@ const PersonalInfoSection = ({
         name="nombrePadreMadre"
         value={formData.nombrePadreMadre}
         onChange={handleInputsChange}
-        styles={inputStyles}
         isRequired={false}
       />
     </>
   );
 };
+
+export default PersonalInfoSection;
 
 export default PersonalInfoSection;

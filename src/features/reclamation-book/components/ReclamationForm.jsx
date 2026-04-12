@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { companyData } from "@/config/company-data";
-import { useReclamoForm } from "../hooks/useReclamoForm";
+import { ReclamationFormProvider, useReclamationFormContext } from "./ReclamationFormContext";
 import PersonalInfoSection from "./PersonalInfoSection";
 import ProductSection from "./ProductSection";
 import ClaimDetailSection from "./ClaimDetailSection";
@@ -9,33 +9,11 @@ import DeclarationSection from "./DeclarationSection";
 import SuccessModal from "./SuccessModal";
 
 /**
- * @component ReclamationForm
- * @description Formulario principal para el Libro de Reclamaciones Virtual.
- * Contenedor que coordina todas las secciones del formulario.
- * @returns {JSX.Element} Formulario completo con validación
+ * @component ReclamationFormInner
+ * @description Internal component that consumes the context for cleaner logic.
  */
-const ReclamationForm = () => {
-  const { formData, errors, handleInputsChange, handleBtnSubmit, modalProps } =
-    useReclamoForm();
-
-  const inputStyles = {
-    bg: "surface.container",
-    borderColor: "border.glass",
-    _placeholder: { color: "text.muted" },
-    _hover: { borderColor: "border.strong" },
-    _focus: {
-      borderColor: "ring.primary",
-      boxShadow: `0 0 0 1px var(--chakra-colors-ring-primary)`,
-    },
-  };
-
-  const selectStyles = {
-    ...inputStyles,
-    option: {
-      background: "var(--chakra-colors-surface-card)",
-      color: "var(--chakra-colors-text-body)"
-    },
-  };
+const ReclamationFormInner = () => {
+  const { handleBtnSubmit, modalProps } = useReclamationFormContext();
 
   return (
     <Box>
@@ -80,36 +58,10 @@ const ReclamationForm = () => {
 
         <form onSubmit={handleBtnSubmit}>
           <Stack spacing={5}>
-            <PersonalInfoSection
-              formData={formData}
-              handleInputsChange={handleInputsChange}
-              errors={errors}
-              inputStyles={inputStyles}
-              selectStyles={selectStyles}
-            />
-
-            <ProductSection
-              formData={formData}
-              handleInputsChange={handleInputsChange}
-              errors={errors}
-              inputStyles={inputStyles}
-              selectStyles={selectStyles}
-            />
-
-            <ClaimDetailSection
-              formData={formData}
-              handleInputsChange={handleInputsChange}
-              errors={errors}
-              inputStyles={inputStyles}
-              selectStyles={selectStyles}
-            />
-
-            <DeclarationSection
-              formData={formData}
-              handleInputsChange={handleInputsChange}
-              handleBtnSubmit={handleBtnSubmit}
-              errors={errors}
-            />
+            <PersonalInfoSection />
+            <ProductSection />
+            <ClaimDetailSection />
+            <DeclarationSection />
           </Stack>
         </form>
 
@@ -122,5 +74,21 @@ const ReclamationForm = () => {
     </Box>
   );
 };
+
+/**
+ * @component ReclamationForm
+ * @description Formulario principal para el Libro de Reclamaciones Virtual.
+ * Contenedor que coordina todas las secciones del formulario.
+ * @returns {JSX.Element} Formulario completo con validación y contexto centralizado.
+ */
+const ReclamationForm = () => {
+  return (
+    <ReclamationFormProvider>
+      <ReclamationFormInner />
+    </ReclamationFormProvider>
+  );
+};
+
+export default ReclamationForm;
 
 export default ReclamationForm;
