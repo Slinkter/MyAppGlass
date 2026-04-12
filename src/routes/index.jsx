@@ -18,14 +18,14 @@ const TestPage = lazy(() => import("@/pages/TestPage"));
 const CompanyPoliciesPage = lazy(() => import("@/pages/CompanyPoliciesPage"));
 const BankAccountsPage = lazy(() => import("@/pages/BankAccountsPage"));
 const ServiceList = lazy(() =>
-  import("@features/services").then((module) => ({
-    default: module.ServiceList,
-  })),
+    import("@features/services").then((module) => ({
+        default: module.ServiceList,
+    })),
 );
 const ReclamationForm = lazy(() =>
-  import("@features/reclamation-book").then((module) => ({
-    default: module.ReclamationForm,
-  })),
+    import("@features/reclamation-book").then((module) => ({
+        default: module.ReclamationForm,
+    })),
 );
 
 // ErrorPage Loading Fallback - Logic moved to ErrorFallback.jsx
@@ -33,36 +33,36 @@ const ReclamationForm = lazy(() =>
 const ErrorPage = lazy(() => import("@/pages/ErrorPage"));
 
 export const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <App />,
-      errorElement: (
-        <Suspense fallback={<ErrorFallback />}>
-          <ErrorPage />
-        </Suspense>
-      ),
-      children: [
-        { index: true, element: <HomePage /> },
+    [
         {
-          path: "servicios",
-          element: <ServicePage />,
-          children: [
-            { index: true, element: <ServiceList /> }, // Render ServiceList at /servicios
-            ...serviceRoutes,
-          ],
+            path: "/",
+            element: <App />,
+            errorElement: (
+                <Suspense fallback={<ErrorFallback />}>
+                    <ErrorPage />
+                </Suspense>
+            ),
+            children: [
+                { index: true, element: <HomePage /> },
+                {
+                    path: "servicios",
+                    element: <ServicePage />,
+                    children: [
+                        { index: true, element: <ServiceList /> }, // Render ServiceList at /servicios
+                        ...serviceRoutes,
+                    ],
+                },
+                { path: "proyectos", element: <ProjectPage /> },
+                { path: "libro-de-reclamacion", element: <ReclamationForm /> },
+                { path: "politicas-empresa", element: <CompanyPoliciesPage /> },
+                { path: "cuentas-bancarias", element: <BankAccountsPage /> },
+                { path: "test", element: <TestPage /> },
+            ],
         },
-        { path: "proyectos", element: <ProjectPage /> },
-        { path: "libro-de-reclamacion", element: <ReclamationForm /> },
-        { path: "politicas-empresa", element: <CompanyPoliciesPage /> },
-        { path: "cuentas-bancarias", element: <BankAccountsPage /> },
-        { path: "test", element: <TestPage /> },
-      ],
+    ],
+    {
+        future: {
+            v7_startTransition: true,
+        },
     },
-  ],
-  {
-    future: {
-      v7_startTransition: true,
-    },
-  },
 );

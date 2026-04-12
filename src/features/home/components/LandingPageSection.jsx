@@ -8,21 +8,16 @@
 
 import React from "react";
 import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Icon,
-  Image,
-  Text,
-  useColorModeValue,
-  usePrefersReducedMotion,
-  VStack,
+    Box,
+    Flex,
+    Heading,
+    Image,
+    Text,
+    useColorModeValue,
+    usePrefersReducedMotion,
+    VStack,
 } from "@chakra-ui/react";
 import { m } from "framer-motion";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { Link as RouterLink } from "react-router-dom";
 
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
@@ -43,143 +38,89 @@ const MotionVStack = m.create(VStack);
  * @returns {JSX.Element} Sección Hero renderizada.
  */
 const LandingPageSection = React.memo(() => {
-  const accentColor = useColorModeValue("primary.600", "primary.300");
-  const textColor = useColorModeValue("gray.800", "white");
-  const subTextColor = useColorModeValue("gray.600", "gray.400");
-  const prefersReducedMotion = usePrefersReducedMotion();
+    const accentColor = useColorModeValue("primary.600", "primary.300");
+    const textColor = useColorModeValue("gray.800", "white");
+    const subTextColor = useColorModeValue("gray.600", "gray.400");
+    const prefersReducedMotion = usePrefersReducedMotion();
 
-  const animationConfig = prefersReducedMotion
-    ? { opacity: 1, y: 0 }
-    : { opacity: 0, y: 30 };
+    const animationConfig = prefersReducedMotion
+        ? { opacity: 1, y: 0 }
+        : { opacity: 0, y: 30 };
 
-  return (
-    <>
-      <Flex
-        w={"full"}
-        minH={"100dvh"}
-        flexDirection={"column"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        px={2}
-        position="relative"
-      >
-        <MotionVStack
-          spacing={4}
-          initial={animationConfig}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: prefersReducedMotion ? 0 : 0.3,
-            ease: "easeOut",
-          }}
-          textAlign="center"
-          maxW="5xl"
-        >
-          <MotionImage
-            src={logoGYA}
-            alt="Glass & Aluminum Company Logo"
-            w={{ base: "55%", sm: "50%", md: "40%", lg: "36%" }}
-            maxW="400px"
-            h={{ base: "55%", sm: "50%", md: "40%", lg: "30%" }}
-            loading="eager"
-            fetchpriority="high"
-            whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          />
-
-          <Box mt={4}>
-            <Heading
-              as="h2"
-              fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
-              fontWeight="bold"
-              letterSpacing="widest"
-              color={accentColor}
-              textTransform={"uppercase"}
-              mb={2}
+    return (
+        <>
+            <Flex
+                w={"full"}
+                minH={"100dvh"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                px={2}
+                pb={{ base: 28, md: 0 }} // Resuelve superposición con BottomNav
+                position="relative"
             >
-              Vidriería & Aluminio
-            </Heading>
-
-            <Heading
-              as="h1"
-              fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
-              fontWeight="extrabold"
-              lineHeight="1.1"
-              color={textColor}
-            >
-              GLASS & ALUMINUM <br />
-              COMPANY S.A.C.
-            </Heading>
-
-            <Text
-              fontSize={{ base: "md", md: "xl" }}
-              mt={6}
-              color={subTextColor}
-              fontWeight="medium"
-              maxW="3xl"
-              mx="auto"
-            >
-              Empresa Comercial especializada en la instalación de cristales y
-              aluminios.
-            </Text>
-
-            {/* CTAs */}
-            <m.div
-              initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45, duration: prefersReducedMotion ? 0 : 0.4, ease: "easeOut" }}
-            >
-              <HStack spacing={4} mt={8} justify="center" flexWrap="wrap">
-                <Button
-                  as={RouterLink}
-                  to="/servicios"
-                  colorScheme="primary"
-                  size={{ base: "lg", md: "xl" }}
-                  fontWeight="bold"
-                  px={{ base: 8, md: 12 }}
-                  borderRadius="full"
-                  boxShadow="lg"
-                  transition="all 0.2s ease"
-                  _hover={{ transform: "translateY(-2px)", boxShadow: "xl" }}
+                <MotionVStack
+                    spacing={4}
+                    initial={animationConfig}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                        duration: prefersReducedMotion ? 0 : 0.3,
+                        ease: "easeOut",
+                    }}
+                    textAlign="center"
+                    maxW="5xl"
                 >
-                  Ver Servicios
-                </Button>
-                <Button
-                  as={RouterLink}
-                  to="/proyectos"
-                  variant="outline"
-                  colorScheme="primary"
-                  size={{ base: "lg", md: "xl" }}
-                  fontWeight="bold"
-                  px={{ base: 8, md: 12 }}
-                  borderRadius="full"
-                  transition="all 0.2s ease"
-                  _hover={{ transform: "translateY(-2px)" }}
-                >
-                  Ver Proyectos
-                </Button>
-              </HStack>
-            </m.div>
-          </Box>
-        </MotionVStack>
+                    <MotionImage
+                        src={logoGYA}
+                        alt="Glass & Aluminum Company Logo"
+                        w={{ base: "45%", sm: "40%", md: "35%", lg: "30%" }}
+                        maxW="280px"
+                        loading="eager"
+                        fetchpriority="high"
+                        whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
+                    />
 
-        {/* Scroll indicator */}
-        {!prefersReducedMotion && (
-          <Box
-            position="absolute"
-            bottom={8}
-            left="50%"
-            transform="translateX(-50%)"
-            as={m.div}
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-            aria-hidden="true"
-          >
-            <Icon as={ChevronDownIcon} boxSize={8} color="primary.400" opacity={0.65} />
-          </Box>
-        )}
-      </Flex>
-    </>
-  );
+                    <Box mt={4}>
+                        <Heading
+                            as="h2"
+                            fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
+                            fontWeight="bold"
+                            letterSpacing="widest"
+                            color={accentColor}
+                            textTransform={"uppercase"}
+                            mb={2}
+                        >
+                            Vidriería & Aluminio
+                        </Heading>
+
+                        <Heading
+                            as="h1"
+                            fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
+                            fontWeight="extrabold"
+                            lineHeight="1.1"
+                            color={textColor}
+                        >
+                            GLASS & ALUMINUM <br />
+                            COMPANY S.A.C.
+                        </Heading>
+
+                        <Text
+                            fontSize={{ base: "md", md: "xl" }}
+                            mt={6}
+                            color={subTextColor}
+                            fontWeight="medium"
+                            maxW="3xl"
+                            mx="auto"
+                        >
+                            Empresa Comercial especializada en la instalación de
+                            cristales y aluminios.
+                        </Text>
+                    </Box>
+                </MotionVStack>
+            </Flex>
+        </>
+    );
 });
 
 LandingPageSection.displayName = "LandingPageSection";

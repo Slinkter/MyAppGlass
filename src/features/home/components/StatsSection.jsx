@@ -15,7 +15,7 @@ import {
   VStack,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { m } from "framer-motion";
+import { m, animate } from "framer-motion";
 import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
 
 /**
@@ -27,16 +27,16 @@ import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObse
  * @param {string} props.label - Etiqueta descriptiva
  */
 const StatItem = React.memo(({ value, suffix = "+", label }) => {
-  const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
-  const ref = useRef(null);
+  const containerRef = useRef(null);
+  const numberRef = useRef(null);
 
   const textColor = useColorModeValue("gray.800", "white");
   const accentColor = useColorModeValue("primary.600", "primary.300");
   const labelColor = useColorModeValue("gray.500", "gray.400");
 
   useIntersectionObserver(
-    ref,
+    containerRef,
     () => {
       if (!hasStarted) setHasStarted(true);
     },
@@ -46,26 +46,23 @@ const StatItem = React.memo(({ value, suffix = "+", label }) => {
   useEffect(() => {
     if (!hasStarted) return;
 
-    const duration = 1800;
-    const steps = 60;
-    const increment = value / steps;
-    let current = 0;
-    const interval = setInterval(() => {
-      current += increment;
-      if (current >= value) {
-        setCount(value);
-        clearInterval(interval);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
+    // Zero React re-renders: Animating the DOM node directly
+    const controls = animate(0, value, {
+      duration: 1.8,
+      ease: "easeOut",
+      onUpdate(v) {
+        if (numberRef.current) {
+          numberRef.current.textContent = Math.floor(v);
+        }
+      },
+    });
 
-    return () => clearInterval(interval);
+    return () => controls.stop();
   }, [hasStarted, value]);
 
   return (
     <VStack
-      ref={ref}
+      ref={containerRef}
       as={m.div}
       spacing={1}
       align="center"
@@ -76,13 +73,14 @@ const StatItem = React.memo(({ value, suffix = "+", label }) => {
     >
       <Flex align="baseline" gap={1}>
         <Heading
+          ref={numberRef}
           as="p"
           fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
           fontWeight="extrabold"
           color={textColor}
           lineHeight={1}
         >
-          {count}
+          0
         </Heading>
         <Text
           fontSize={{ base: "2xl", md: "3xl" }}

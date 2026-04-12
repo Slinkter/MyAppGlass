@@ -8,7 +8,7 @@ import React, { useMemo, useState, useRef, useEffect } from "react";
 import { Box, Button, HStack, useColorModeValue } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
-import { getServices } from "../services/serviceService";
+import { services } from "../data/services";
 import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
 
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
@@ -18,7 +18,7 @@ const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
  * @description Renderiza la lista de servicios con filtro por categoría e Infinite Scroll (O1).
  */
 const ServiceList = React.memo(() => {
-  const allServices = useMemo(() => getServices(), []);
+  const allServices = useMemo(() => services, []);
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [displayCount, setDisplayCount] = useState(6);
   const loaderRef = useRef(null);
