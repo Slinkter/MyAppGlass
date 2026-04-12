@@ -59,8 +59,8 @@ const theme = extendTheme({
     modal: "24px",
   },
   config: {
-    initialColorMode: "dark",
-    useSystemColorMode: false,
+    initialColorMode: "system",
+    useSystemColorMode: true,
   },
   styles: {
     global: (props) => ({

@@ -3,16 +3,19 @@ import {
   Box,
   Flex,
   useColorModeValue,
+  useColorMode,
   Icon,
   Link,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import {
-  HomeIcon,
-  WrenchScrewdriverIcon,
-  BuildingOffice2Icon,
-} from "@heroicons/react/24/outline";
-import { FaWhatsapp } from "react-icons/fa";
+  Home,
+  Wrench,
+  Building2,
+  Phone,
+  Sun,
+  Moon,
+} from "lucide-react";
 import { m } from "framer-motion";
 import { companyData } from "@/config/company-data";
 
@@ -23,6 +26,7 @@ import { companyData } from "@/config/company-data";
  */
 const BottomNav = () => {
   const location = useLocation();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   // Configuración de Colores (High Performance Solid)
   const containerBg = useColorModeValue(
@@ -35,15 +39,22 @@ const BottomNav = () => {
 
   // Items de Navegación
   const navItems = [
-    { label: "Inicio", icon: HomeIcon, path: "/" },
-    { label: "Servicios", icon: WrenchScrewdriverIcon, path: "/servicios" },
-    { label: "Proyectos", icon: BuildingOffice2Icon, path: "/proyectos" },
+    { label: "Inicio", icon: Home, path: "/" },
+    { label: "Servicios", icon: Wrench, path: "/servicios" },
+    { label: "Proyectos", icon: Building2, path: "/proyectos" },
     {
       label: "Contacto",
-      icon: FaWhatsapp,
+      icon: Phone,
       path: `https://wa.me/${companyData.whatsappNumber}`,
       isExternal: true,
     },
+    // Añadimos el componente de Tema como elemento accionado por evento
+    {
+      label: "Tema",
+      icon: colorMode === "dark" ? Sun : Moon,
+      onClick: toggleColorMode,
+      isAction: true,
+    }
   ];
 
   return (
@@ -54,7 +65,7 @@ const BottomNav = () => {
       right={0}
       display={{ base: "flex", md: "none" }}
       justifyContent="center"
-      px={6}
+      px={4}
       zIndex="sticky"
     >
       <Flex
@@ -63,19 +74,81 @@ const BottomNav = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
         align="center"
-        justify="space-between"
+        justify="space-evenly"
         bg={containerBg}
-        px={2}
-        py={2}
+        px={1}
+        py={1.5}
         borderRadius="full"
         shadow="none"
         w="full"
-        maxW="340px"
+        maxW="400px"
         border="1px solid"
         borderColor={containerBorder}
       >
         {navItems.map((item) => {
-          const isActive = location.pathname === item.path;
+          const isActive = !item.isAction && location.pathname === item.path;
+
+          const innerContent = (
+            <Flex
+              position="relative"
+              w={{ base: "44px", sm: "52px" }}
+              h={{ base: "44px", sm: "48px" }}
+              justify="center"
+              align="center"
+              borderRadius="full"
+            >
+              {isActive && (
+                <m.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    borderRadius: "9999px",
+                    backgroundColor: "var(--chakra-colors-primary-500)",
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 30,
+                  }}
+                />
+              )}
+
+              <Icon
+                as={item.icon}
+                w={{ base: 6, sm: 6 }}
+                h={{ base: 6, sm: 6 }}
+                position="relative"
+                zIndex={1}
+                color={isActive ? activeIconColor : inactiveIconColor}
+                strokeWidth={isActive ? 2.5 : 2}
+                transition="all 0.3s ease"
+                transform={isActive ? "scale(1.1)" : "scale(1)"}
+                _active={{ transform: "scale(0.9)" }}
+              />
+            </Flex>
+          );
+
+          if (item.isAction) {
+            return (
+              <Box
+                key={item.label}
+                as="button"
+                onClick={item.onClick}
+                flex={1}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minH="44px"
+                style={{ WebkitTapHighlightColor: "transparent" }}
+                _focus={{ outline: "none" }}
+                aria-label={`Cambiar a modo ${colorMode === 'dark' ? 'claro' : 'oscuro'}`}
+              >
+                {innerContent}
+              </Box>
+            );
+          }
 
           return (
             <Link
@@ -102,39 +175,7 @@ const BottomNav = () => {
               }}
               minH="44px"
             >
-              <Box position="relative" px={5} py={2} borderRadius="full">
-                {/* Burbuja animada (Background Pill) */}
-                {isActive && (
-                  <m.div
-                    layoutId="active-bubble"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      borderRadius: "9999px",
-                      backgroundColor: "var(--chakra-colors-primary-500)",
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 30,
-                    }}
-                  />
-                )}
-
-                {/* Icono (por encima de la burbuja) */}
-                <Icon
-                  as={item.icon}
-                  w={6}
-                  h={6}
-                  position="relative"
-                  zIndex={1}
-                  color={isActive ? activeIconColor : inactiveIconColor}
-                  strokeWidth={isActive ? 2.5 : 2}
-                  transition="color 0.3s ease"
-                  // Pequeño pop al ser seleccionado
-                  transform={isActive ? "scale(1.1)" : "scale(1)"}
-                />
-              </Box>
+              {innerContent}
             </Link>
           );
         })}

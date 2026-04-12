@@ -19,15 +19,15 @@ import {
     Divider,
 } from "@chakra-ui/react";
 import {
-    FaWhatsapp,
-    FaRegCalendar,
-    FaRegClock,
-    FaRegMap,
-    FaRegBuilding,
-} from "react-icons/fa";
-import { MdOutlineEmail } from "react-icons/md";
+    Calendar,
+    Clock,
+    MapPin,
+    Building,
+    Mail,
+    FileText,
+} from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { IoDocumentTextOutline } from "react-icons/io5";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
@@ -92,9 +92,9 @@ const FooterSection = ({ title, children }) => {
 };
 
 const Footer = () => {
-    const bgColor = useColorModeValue("rgba(255, 255, 255, 0.98)", "rgba(10, 10, 10, 0.98)");
+    const bgColor = useColorModeValue("white", "primary.800");
     const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
-    const copyrightColor = useColorModeValue("gray.500", "gray.500");
+    const copyrightColor = useColorModeValue("gray.500", "gray.400");
     const linkTextColor = useColorModeValue("gray.700", "gray.200");
     const logoFilter = useColorModeValue("none", "brightness(0) invert(1)"); // eslint-disable-line no-unused-vars
 
@@ -114,18 +114,18 @@ const Footer = () => {
                         <FooterSection title="Contacto">
                             <FooterRow icon={FaWhatsapp} customIconColor="green.500">974 278 303</FooterRow>
                             <FooterRow icon={FaWhatsapp} customIconColor="green.500">996 537 435</FooterRow>
-                            <FooterRow icon={MdOutlineEmail}>acueva@gyacompany.com</FooterRow>
+                            <FooterRow icon={Mail}>acueva@gyacompany.com</FooterRow>
                         </FooterSection>
 
                         <FooterSection title="Horarios">
-                            <FooterRow icon={FaRegCalendar}>Lunes a Sábado</FooterRow>
-                            <FooterRow icon={FaRegClock}>9:00 am – 5:00 pm</FooterRow>
-                            <FooterRow icon={FaRegMap}>La Molina, Lima - Perú</FooterRow>
+                            <FooterRow icon={Calendar}>Lunes a Sábado</FooterRow>
+                            <FooterRow icon={Clock}>9:00 am – 5:00 pm</FooterRow>
+                            <FooterRow icon={MapPin}>La Molina, Lima - Perú</FooterRow>
                         </FooterSection>
 
                         <FooterSection title="Corporativo">
-                            <FooterRow to="/politicas-empresa" icon={IoDocumentTextOutline}>Políticas de Empresa</FooterRow>
-                            <FooterRow to="/cuentas-bancarias" icon={FaRegBuilding}>Cuentas Bancarias</FooterRow>
+                            <FooterRow to="/politicas-empresa" icon={FileText}>Políticas de Empresa</FooterRow>
+                            <FooterRow to="/cuentas-bancarias" icon={Building}>Cuentas Bancarias</FooterRow>
                             <Link to="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
                                 <HStack spacing={4} align="center" py={1} _hover={{ transform: "translateX(4px)" }} transition="transform 0.2s">
                                     <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} flexShrink={0} />

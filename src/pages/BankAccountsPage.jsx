@@ -25,13 +25,13 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import {
-  FaBuilding,
-  FaIdCard,
-  FaMapMarkerAlt,
-  FaEnvelope,
-  FaCopy,
-  FaCheck,
-} from "react-icons/fa";
+  Building,
+  Contact,
+  MapPin,
+  Mail,
+  Copy,
+  Check,
+} from "lucide-react";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import { companyData } from "@/config/company-data"; // Import companyData
 import { bankAccountsData } from "../data/bank-accounts"; // Import bankAccountsData
@@ -58,7 +58,7 @@ const CopyButton = ({ value, label }) => {
     <Tooltip label={`Copiar ${label}`} hasArrow>
       <IconButton
         size="sm"
-        icon={hasCopied ? <FaCheck /> : <FaCopy />}
+        icon={hasCopied ? <Check size={16} /> : <Copy size={16} />}
         aria-label={`Copiar ${label}`}
         onClick={handleCopy}
         variant="ghost"
@@ -238,24 +238,24 @@ const BankAccountsPage = () => {
 
   const fiscalData = [
     {
-      icon: FaBuilding,
+      icon: Building,
       label: "Razón Social",
       value: companyData.razonSocial,
       copyable: true,
     },
     {
-      icon: FaIdCard,
+      icon: Contact,
       label: "R.U.C",
       value: companyData.ruc,
       copyable: true,
     },
     {
-      icon: FaMapMarkerAlt,
+      icon: MapPin,
       label: "Dirección Fiscal",
       value: companyData.direccion,
     },
     {
-      icon: FaEnvelope,
+      icon: Mail,
       label: "Facturación",
       value: companyData.contactEmail,
       copyable: true,

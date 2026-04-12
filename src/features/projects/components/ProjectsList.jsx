@@ -9,11 +9,22 @@
  */
 
 import React, { useMemo, useState, useRef, useEffect } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Button, HStack, useColorModeValue } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { getProjects } from "../services/projectService";
 import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
+
+/**
+ * Normaliza nombres de distritos para agruparlos correctamente.
+ */
+const normalizeDistrict = (address) => {
+  if (!address) return "Otros";
+  const name = address.trim().toLowerCase();
+  if (name.includes("magdalena")) return "Magdalena";
+  if (name === "ate") return "Ate";
+  return address.trim().charAt(0).toUpperCase() + address.trim().slice(1).toLowerCase();
+};
 
 /**
  * @component ProjectsList
@@ -21,9 +32,34 @@ import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObse
  */
 const ProjectsList = React.memo(() => {
   const allProjects = useMemo(() => [...getProjects()].reverse(), []);
+  const [activeDistrict, setActiveDistrict] = useState("Todos");
   const [displayCount, setDisplayCount] = useState(6);
   const loaderRef = useRef(null);
   const rafRef = useRef(null);
+
+  const activeBg = useColorModeValue("primary.700", "primary.300");
+  const activeColor = useColorModeValue("white", "primary.900");
+  const inactiveBg = useColorModeValue("gray.100", "whiteAlpha.100");
+  const inactiveColor = useColorModeValue("gray.700", "gray.300");
+  const inactiveHoverBg = useColorModeValue("gray.200", "whiteAlpha.200");
+
+  // Get unique districts
+  const districts = useMemo(() => {
+    const rawDistricts = allProjects.map((p) => normalizeDistrict(p.address));
+    const unique = [...new Set(rawDistricts)].sort();
+    return ["Todos", ...unique];
+  }, [allProjects]);
+
+  // Filter projects by district
+  const filteredProjects = useMemo(() => {
+    if (activeDistrict === "Todos") return allProjects;
+    return allProjects.filter((p) => normalizeDistrict(p.address) === activeDistrict);
+  }, [allProjects, activeDistrict]);
+
+  // Reset display count when filter changes
+  useEffect(() => {
+    setDisplayCount(6);
+  }, [activeDistrict]);
 
   const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
 
@@ -31,9 +67,9 @@ const ProjectsList = React.memo(() => {
     loaderRef,
     () => {
       // Guard: don't schedule if already at full count
-      if (displayCount >= allProjects.length) return;
+      if (displayCount >= filteredProjects.length) return;
       rafRef.current = requestAnimationFrame(() => {
-        setDisplayCount((prev) => Math.min(prev + 6, allProjects.length));
+        setDisplayCount((prev) => Math.min(prev + 6, filteredProjects.length));
       });
     },
     { threshold: 0.01, rootMargin }
@@ -46,9 +82,9 @@ const ProjectsList = React.memo(() => {
     };
   }, []);
 
-  const projectsList = useMemo(() => {
-    return allProjects.slice(0, displayCount).map((p) => ({ ...p, preloaded: true }));
-  }, [allProjects, displayCount]);
+  const preloadedProjects = useMemo(() => {
+    return filteredProjects.slice(0, displayCount).map((p) => ({ ...p, preloaded: true }));
+  }, [filteredProjects, displayCount]);
 
   return (
     <ItemGridLayout
@@ -60,8 +96,37 @@ const ProjectsList = React.memo(() => {
       containerProps={{ pb: 12 }}
       columns={{ base: 1, md: 2, lg: 3 }}
     >
-      {projectsList.map((project, index) => (
-        <ItemGridLayout.Item key={project.id} delay={(index % 6) * 0.1}>
+      {/* Filter Pills */}
+      <Box gridColumn="1 / -1" w="full">
+        <HStack spacing={2} justify="center" flexWrap="wrap" pb={4}>
+          {districts.map((district) => {
+            const isActive = activeDistrict === district;
+            return (
+              <Button
+                key={district}
+                size="sm"
+                px={5}
+                mt={2}
+                borderRadius="full"
+                fontWeight="semibold"
+                fontSize="xs"
+                letterSpacing="wider"
+                textTransform="uppercase"
+                bg={isActive ? activeBg : inactiveBg}
+                color={isActive ? activeColor : inactiveColor}
+                _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
+                transition="all 0.2s ease"
+                onClick={() => setActiveDistrict(district)}
+              >
+                {district}
+              </Button>
+            );
+          })}
+        </HStack>
+      </Box>
+
+      {preloadedProjects.map((project, index) => (
+        <ItemGridLayout.Item key={`${activeDistrict}-${project.id}`} delay={(index % 6) * 0.1}>
           <ProjectCard
             {...project}
             isLCP={index < 3}
@@ -72,7 +137,7 @@ const ProjectsList = React.memo(() => {
       ))}
       
       {/* Intersection Sensor for O1 Rendering */}
-      {displayCount < allProjects.length && (
+      {displayCount < filteredProjects.length && (
         <Box ref={loaderRef} w="full" h="20px" py={10} />
       )}
     </ItemGridLayout>

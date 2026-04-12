@@ -16,20 +16,16 @@ import {
 } from "@chakra-ui/react";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
+import { ThemeToggle } from "../FloatingActions/ThemeToggle";
 const FloatingWhatsApp = lazy(() =>
   import("../FloatingActions").then((module) => ({
     default: module.FloatingWhatsApp,
   })),
 );
 
-
-
 /**
  * @component Layout
  * @description Root layout wrapper for the application.
- * @param {object} props - The component props.
- * @param {React.ReactNode} props.children - The child components to be rendered within the layout.
- * @returns {JSX.Element} The rendered layout component.
  */
 const Layout = ({ children }) => {
   // Overlay para mejorar legibilidad y efecto glass
@@ -88,6 +84,9 @@ const Layout = ({ children }) => {
           <FloatingWhatsApp />
         </Suspense>
       )}
+
+      {/* Theme Toggle is always visible and natively supported by Chakra */}
+      <ThemeToggle />
     </Box>
   );
 };

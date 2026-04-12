@@ -93,7 +93,7 @@ const ItemGridLayout = ({
  * entre el IntersectionObserver del item y el infinite scroll del padre (ServiceList/ProjectsList).
  * El control de cuántos items se montan en el DOM lo gestiona el componente padre mediante `displayCount`.
  */
-const ItemGridItem = ({ children }) => {
+const ItemGridItem = ({ children, delay = 0 }) => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -102,6 +102,7 @@ const ItemGridItem = ({ children }) => {
       transition: {
         duration: 0.4,
         ease: "easeOut",
+        delay,
       },
     },
   };
@@ -133,6 +134,7 @@ ItemGridLayout.propTypes = {
 
 ItemGridItem.propTypes = {
   children: PropTypes.node.isRequired,
+  delay: PropTypes.number,
 };
 
 export default ItemGridLayout;
