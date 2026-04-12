@@ -39,7 +39,7 @@ function InteractiveMapComponent() {
     setSelectedMarker((prev) => (prev?.id === marker?.id ? null : marker));
   }, []);
 
-  const currentMapStyle = colorMode === "light" ? mapStyles.dark : mapStyles.light;
+  const currentMapStyle = colorMode === "light" ? mapStyles.light : mapStyles.dark;
 
   if (loadError) return <MapError />;
 
