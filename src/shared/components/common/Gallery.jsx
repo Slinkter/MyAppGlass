@@ -8,10 +8,9 @@ import GalleryThumbnails from "./gallery/GalleryThumbnails";
 
 /**
  * @component Gallery
- * @description Galeria de imagenes con pre-carga y skeleton de carga
+ * @description Fully integrated image gallery with a seamless thumbnail strip.
  */
 const Gallery = React.memo(({ images }) => {
-  const bgColor = useColorModeValue("blackAlpha.50", "whiteAlpha.50");
   const {
     selectedIndex,
     setSelectedIndex,
@@ -21,7 +20,7 @@ const Gallery = React.memo(({ images }) => {
     imageCount,
   } = useGallery(images);
 
-  // Pre-cargar imágenes adyacentes en segundo plano
+  // Pre-load adjacent images in the background
   useEffect(() => {
     if (!images || imageCount === 0) return;
 
@@ -31,7 +30,6 @@ const Gallery = React.memo(({ images }) => {
       img.src = src;
     };
 
-    // Pre-cargar imagen actual, anterior y siguiente
     const indicesToPreload = [
       selectedIndex,
       (selectedIndex - 1 + imageCount) % imageCount,
@@ -45,6 +43,7 @@ const Gallery = React.memo(({ images }) => {
     });
   }, [selectedIndex, images, imageCount]);
 
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "ArrowLeft") handlePrevious(event);
@@ -58,53 +57,51 @@ const Gallery = React.memo(({ images }) => {
 
   return (
     <LazyMotion features={domAnimation}>
-    <Box
-      as={m.div}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      h="100%"
-      w="100%"
-    >
-      <Flex
-        direction={{ base: "column", md: "row" }}
-        gap={{ base: 2, md: 3, lg: 3 }}
+      <Box
+        as={m.div}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         h="100%"
         w="100%"
-        minW={0}
       >
-        {/* 1. Visor Principal */}
-        <Box flex="1" minH="0" position="relative">
-          <GalleryViewer
-            currentImage={currentImage}
-            imageCount={imageCount}
-            selectedIndex={selectedIndex}
-            setSelectedIndex={setSelectedIndex}
-            handlePrevious={handlePrevious}
-            handleNext={handleNext}
-            isPriority={selectedIndex === 0}
-          />
-        </Box>
-
-        {/* 2. Miniaturas (Derecha en desktop, abajo en mobile) */}
-        <Box
-          w={{ base: "100%", md: "120px", lg: "135px" }}
-          h={{ base: "100px", md: "100%" }}
-          order={{ base: 2, md: 1 }}
-          flexShrink={0}
-          minH="0"
-          bg={bgColor}
-          borderRadius="2xl"
-          p={1}
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          gap={0} // No gap for seamless integration
+          h="100%"
+          w="100%"
+          minW={0}
         >
-          <GalleryThumbnails
-            images={images}
-            selectedIndex={selectedIndex}
-            setSelectedIndex={setSelectedIndex}
-          />
-        </Box>
-      </Flex>
-    </Box>
+          {/* 1. Main Viewer */}
+          <Box flex="1" minH="0" position="relative">
+            <GalleryViewer
+              currentImage={currentImage}
+              imageCount={imageCount}
+              selectedIndex={selectedIndex}
+              setSelectedIndex={setSelectedIndex}
+              handlePrevious={handlePrevious}
+              handleNext={handleNext}
+              isPriority={selectedIndex === 0}
+            />
+          </Box>
+
+          {/* 2. Thumbnails (Right on desktop, bottom on mobile) */}
+          <Box
+            w={{ base: "100%", md: "120px", lg: "135px" }}
+            h={{ base: "100px", md: "100%" }}
+            order={{ base: 2, md: 1 }}
+            flexShrink={0}
+            minH="0"
+            // Removed bg, borderRadius, and p to merge with viewer
+          >
+            <GalleryThumbnails
+              images={images}
+              selectedIndex={selectedIndex}
+              setSelectedIndex={setSelectedIndex}
+            />
+          </Box>
+        </Flex>
+      </Box>
     </LazyMotion>
   );
 });
