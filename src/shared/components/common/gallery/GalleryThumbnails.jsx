@@ -9,7 +9,7 @@ const GalleryThumbnailItem = React.memo(
     return (
       <Box
         flexShrink={0}
-        w={{ base: "60px", sm: "70px", md: "90%" }}
+        w={{ base: "60px", sm: "70px", md: "100%" }}
         h={{ base: "100%", md: "80px", lg: "90px" }}
         cursor="pointer"
         borderRadius="lg"
@@ -50,7 +50,7 @@ GalleryThumbnailItem.displayName = "GalleryThumbnailItem";
 
 const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
   const activeBorderColor = useColorModeValue("primary.500", "primary.300");
-  const scrollbarThumb = useColorModeValue("blackAlpha.100", "whiteAlpha.200");
+  const scrollbarThumbColor = useColorModeValue("blackAlpha.400", "whiteAlpha.300");
   const containerRef = React.useRef(null);
 
   const handleThumbnailClick = React.useCallback(
@@ -83,27 +83,29 @@ const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
       gap={3}
       w="100%"
       h="100%"
-      px={{ base: 2, md: 1 }}
-      py={{ base: 1, md: 2 }}
+      p={0} // No padding
       overflowX={{ base: "auto", md: "hidden" }}
       overflowY={{ base: "hidden", md: "auto" }}
       css={{
         "&::-webkit-scrollbar": {
-          width: "5px",
-          height: "5px",
+          width: "8px",
+          height: "8px",
         },
         "&::-webkit-scrollbar-track": {
           background: "transparent",
         },
         "&::-webkit-scrollbar-thumb": {
-          background: scrollbarThumb,
+          background: "transparent", // Invisible by default
           borderRadius: "10px",
         },
-        "&::-webkit-scrollbar-thumb:hover": {
-          background: useColorModeValue("blackAlpha.200", "whiteAlpha.300"),
+        "&:hover::-webkit-scrollbar-thumb": {
+          background: scrollbarThumbColor, // Visible on hover
         },
         scrollbarWidth: "thin",
-        scrollbarColor: `${scrollbarThumb} transparent`,
+        scrollbarColor: `transparent transparent`,
+        "&:hover": {
+          scrollbarColor: `${scrollbarThumbColor} transparent`,
+        }
       }}
       sx={{
         msOverflowStyle: "none",
