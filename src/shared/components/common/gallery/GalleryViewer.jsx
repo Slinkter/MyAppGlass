@@ -13,6 +13,9 @@ import FadingImage from "../FadingImage";
 
 const SWIPE_THRESHOLD = 50;
 
+// Create a motion-enabled Box component
+const MotionBox = m(Box);
+
 const GalleryViewer = ({
   currentImage,
   imageCount,
@@ -42,6 +45,7 @@ const GalleryViewer = ({
     const currentY = e.touches[0].clientY;
     const diffX = currentX - touchStartX.current;
     const diffY = currentY - touchStartY.current;
+    // Prioritize horizontal swipe for gallery navigation
     if (Math.abs(diffX) > Math.abs(diffY)) {
       e.preventDefault();
       setDragOffset(diffX);
@@ -71,7 +75,7 @@ const GalleryViewer = ({
 
   return (
     <LazyMotion features={domAnimation}>
-      <Box
+      <MotionBox
         flex="1"
         h="100%"
         w="100%"
@@ -249,7 +253,7 @@ const GalleryViewer = ({
             Desliza para navegar
           </Text>
         )}
-      </Box>
+      </MotionBox>
     </LazyMotion>
   );
 };
