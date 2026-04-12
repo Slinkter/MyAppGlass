@@ -1,7 +1,0 @@
-ignoredBuiltDependencies:
-  - '@firebase/util'
-  - esbuild
-  - protobufjs
-
-onlyBuiltDependencies:
-  - sharp
