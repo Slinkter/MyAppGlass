@@ -140,7 +140,7 @@ const Footer = () => {
                     <Flex direction="column" align="center" gap={4}>
                         <Image src={logoGYA} alt="Logo" h="32px" />
                         <Text fontSize="10px" color={copyrightColor} fontWeight="bold" letterSpacing="0.2em">
-                            © 2026 GYA GLASS & ALUMINUM S.A.C.
+                            © {new Date().getFullYear()} GYA GLASS & ALUMINUM S.A.C.
                         </Text>
                     </Flex>
                 </Box>

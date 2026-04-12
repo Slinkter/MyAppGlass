@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Heading, useColorModeValue, SimpleGrid, VStack, Box } from "@chakra-ui/react";
-import { LazyMotion, m, domAnimation } from "framer-motion";
+import { m } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import PropTypes from "prop-types";
 
@@ -61,20 +61,17 @@ const ItemGridLayout = ({
               width="fit-content"
               mx="auto"
               my={2}
-              display={{ base: "block", md: "none" }}
+              display="block"
             >
               {title}
             </Heading>
           </VStack>
 
-          {/* Grilla de Contenido Animada */}
-          <LazyMotion features={domAnimation}>
           <SimpleGrid
             as={m.div}
             variants={containerVariants}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
+            animate="visible"
             columns={columns}
             spacing={{ base: 4, md: spacing }}
             w="full"
@@ -82,52 +79,42 @@ const ItemGridLayout = ({
           >
             {children}
           </SimpleGrid>
-          </LazyMotion>
         </VStack>
       </Container>
     </>
   );
 };
 
-import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
-
+/**
+ * @component ItemGridItem
+ * @description Wrapper animado para cada item de la grilla.
+ * @remarks
+ * La virtualización DOM per-item fue eliminada para resolver una condición de carrera
+ * entre el IntersectionObserver del item y el infinite scroll del padre (ServiceList/ProjectsList).
+ * El control de cuántos items se montan en el DOM lo gestiona el componente padre mediante `displayCount`.
+ */
 const ItemGridItem = ({ children }) => {
-  const itemRef = React.useRef(null);
-  // Carga el contenido real solo si está a 1000px de distancia
-  const isNearViewport = useIntersectionObserver(itemRef, {
-    rootMargin: "1000px",
-    threshold: 0.01,
-  });
-
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
         ease: "easeOut",
       },
     },
   };
 
   return (
-    <LazyMotion features={domAnimation}>
-      <Box 
-        ref={itemRef}
-        as={m.div} 
-        variants={itemVariants} 
-        w="full"
-        minH={{ base: "280px", md: "420px" }}
-        /* Aura Virtualization: skips rendering for off-screen items */
-        sx={{
-          contentVisibility: "auto",
-          containIntrinsicSize: { base: "280px", md: "420px" },
-        }}
-      >
-        {isNearViewport ? children : null}
-      </Box>
-    </LazyMotion>
+    <Box
+      as={m.div}
+      variants={itemVariants}
+      w="full"
+      minH={{ base: "280px", md: "420px" }}
+    >
+      {children}
+    </Box>
   );
 };
 

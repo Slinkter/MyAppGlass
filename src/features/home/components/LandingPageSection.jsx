@@ -9,15 +9,20 @@
 import React from "react";
 import {
   Box,
+  Button,
   Flex,
   Heading,
+  HStack,
+  Icon,
   Image,
   Text,
   useColorModeValue,
   usePrefersReducedMotion,
   VStack,
 } from "@chakra-ui/react";
-import { m, LazyMotion, domAnimation } from "framer-motion";
+import { m } from "framer-motion";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { Link as RouterLink } from "react-router-dom";
 
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
@@ -48,8 +53,7 @@ const LandingPageSection = React.memo(() => {
     : { opacity: 0, y: 30 };
 
   return (
-    // Wrap with LazyMotion and provide the 'domAnimation' feature set (no layout animations, just standard DOM ones)
-    <LazyMotion features={domAnimation}>
+    <>
       <Flex
         w={"full"}
         minH={"100dvh"}
@@ -57,6 +61,7 @@ const LandingPageSection = React.memo(() => {
         justifyContent={"center"}
         alignItems={"center"}
         px={2}
+        position="relative"
       >
         <MotionVStack
           spacing={4}
@@ -116,10 +121,64 @@ const LandingPageSection = React.memo(() => {
               Empresa Comercial especializada en la instalación de cristales y
               aluminios.
             </Text>
+
+            {/* CTAs */}
+            <m.div
+              initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: prefersReducedMotion ? 0 : 0.4, ease: "easeOut" }}
+            >
+              <HStack spacing={4} mt={8} justify="center" flexWrap="wrap">
+                <Button
+                  as={RouterLink}
+                  to="/servicios"
+                  colorScheme="primary"
+                  size={{ base: "lg", md: "xl" }}
+                  fontWeight="bold"
+                  px={{ base: 8, md: 12 }}
+                  borderRadius="full"
+                  boxShadow="lg"
+                  transition="all 0.2s ease"
+                  _hover={{ transform: "translateY(-2px)", boxShadow: "xl" }}
+                >
+                  Ver Servicios
+                </Button>
+                <Button
+                  as={RouterLink}
+                  to="/proyectos"
+                  variant="outline"
+                  colorScheme="primary"
+                  size={{ base: "lg", md: "xl" }}
+                  fontWeight="bold"
+                  px={{ base: 8, md: 12 }}
+                  borderRadius="full"
+                  transition="all 0.2s ease"
+                  _hover={{ transform: "translateY(-2px)" }}
+                >
+                  Ver Proyectos
+                </Button>
+              </HStack>
+            </m.div>
           </Box>
         </MotionVStack>
+
+        {/* Scroll indicator */}
+        {!prefersReducedMotion && (
+          <Box
+            position="absolute"
+            bottom={8}
+            left="50%"
+            transform="translateX(-50%)"
+            as={m.div}
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+            aria-hidden="true"
+          >
+            <Icon as={ChevronDownIcon} boxSize={8} color="primary.400" opacity={0.65} />
+          </Box>
+        )}
       </Flex>
-    </LazyMotion>
+    </>
   );
 });
 

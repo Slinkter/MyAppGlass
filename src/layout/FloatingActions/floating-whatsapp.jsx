@@ -35,15 +35,15 @@ const FloatingWhatsApp = () => {
     <>
       <Box
         position="fixed"
-        bottom={4}
+        bottom={{ base: "90px", md: 4 }}
         right={4}
         zIndex="popover"
-        display={{ base: "none", md: "flex" }}
+        display="flex"
       >
         <Button
-          bg="#25D366" // WhatsApp green
+          bg="#25D366"
           color="white"
-          _hover={{ bg: "#1DAE54" }}
+          _hover={{ bg: "#1DAE54", transform: "scale(1.08)" }}
           _active={{ bg: "#178B43" }}
           variant="solid"
           rounded="full"
@@ -52,6 +52,7 @@ const FloatingWhatsApp = () => {
           boxShadow="lg"
           onClick={onOpen}
           aria-label="Abrir chat de WhatsApp"
+          transition="all 0.2s ease"
         >
           <Icon as={FaWhatsapp} w={8} h={8} />
         </Button>

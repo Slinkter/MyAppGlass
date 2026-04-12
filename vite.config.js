@@ -9,24 +9,24 @@ export default defineConfig({
     react(),
     ViteImageOptimizer({
       jpg: {
-        quality: 80,
+        quality: 70,
         progressive: true,
       },
 
       png: {
-        quality: 80,
+        quality: 70,
         compressionLevel: 9,
       },
 
       webp: {
-        quality: 80,
+        quality: 70,
         lossless: false,
       },
 
       sharpOptions: {
         rotate: true,
         resize: {
-          width: 1920,
+          width: 1280,
           withoutEnlargement: true,
           fit: "inside",
         },

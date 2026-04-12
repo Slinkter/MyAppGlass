@@ -13,7 +13,7 @@ import {
   BuildingOffice2Icon,
 } from "@heroicons/react/24/outline";
 import { FaWhatsapp } from "react-icons/fa";
-import { LazyMotion, m, domAnimation } from "framer-motion";
+import { m } from "framer-motion";
 import { companyData } from "@/config/company-data";
 
 /**
@@ -47,7 +47,6 @@ const BottomNav = () => {
   ];
 
   return (
-    <LazyMotion features={domAnimation}>
     <Box
       position="fixed"
       bottom={6}
@@ -141,9 +140,6 @@ const BottomNav = () => {
         })}
       </Flex>
     </Box>
-    </LazyMotion>
-
-
   );
 };
 

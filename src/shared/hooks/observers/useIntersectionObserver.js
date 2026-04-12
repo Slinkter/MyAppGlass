@@ -1,20 +1,33 @@
 /**
  * @file useIntersectionObserver.js
- * @description Hook robusto para detectar visibilidad con fallback para navegadores antiguos.
+ * @description Hook with callback pattern for reliable infinite scroll.
  * @module shared/hooks
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
-const useIntersectionObserver = (elementRef, { root = null, rootMargin = "0px", threshold = 0 } = {}) => {
-  const [isVisible, setIsVisible] = useState(false);
+/**
+ * @param {React.RefObject} elementRef - Ref to the DOM element to observe
+ * @param {Function} onIntersect - Callback fired each time element intersects
+ * @param {Object} options - IntersectionObserver options
+ */
+const useIntersectionObserver = (
+  elementRef,
+  onIntersect,
+  { root = null, rootMargin = "0px", threshold = 0 } = {}
+) => {
+  const callbackRef = useRef(onIntersect);
+
+  // Keep callback ref fresh without re-creating the observer
+  useEffect(() => {
+    callbackRef.current = onIntersect;
+  }, [onIntersect]);
 
   useEffect(() => {
     const node = elementRef?.current;
-    
-    // Fallback para navegadores MUY antiguos sin IntersectionObserver
+
     if (typeof window !== "undefined" && !window.IntersectionObserver) {
-      setIsVisible(true);
+      callbackRef.current?.();
       return;
     }
 
@@ -22,7 +35,9 @@ const useIntersectionObserver = (elementRef, { root = null, rootMargin = "0px", 
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          callbackRef.current?.();
+        }
       },
       { root, rootMargin, threshold }
     );
@@ -30,12 +45,11 @@ const useIntersectionObserver = (elementRef, { root = null, rootMargin = "0px", 
     observer.observe(node);
 
     return () => {
-      if (node) observer.unobserve(node);
+      observer.unobserve(node);
       observer.disconnect();
     };
   }, [elementRef, rootMargin, threshold, root]);
-
-  return isVisible;
+  // NOTE: onIntersect is intentionally excluded from deps (handled by callbackRef)
 };
 
 export default useIntersectionObserver;
