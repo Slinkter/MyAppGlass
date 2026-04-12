@@ -80,7 +80,6 @@ const GalleryViewer = ({
         h="100%"
         w="100%"
         position="relative"
-        borderRadius="2xl"
         overflow="hidden"
         bg={bgOverlay}
         role="group"
