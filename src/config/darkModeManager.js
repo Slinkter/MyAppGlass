@@ -11,10 +11,17 @@
  * we explicitly ignore 'set' operations to ensure the UI aesthetic remains consistent with the brand's premium dark look.
  */
 const darkModeManager = {
-  /** @returns {"dark"} Always returns dark to prevent switching */
-  get: () => "dark",
-  /** Does nothing to prevent saving alternative modes to localStorage */
-  set: () => {},
+  /** @returns {"light"} Always returns light to start with light theme */
+  get: () => "light",
+  /** Does nothing to prevent saving alternative modes to localStorage if needed, 
+   * or keep it static if you want to force light. 
+   * Given the previous requirement of 'dark only', I will now set it to allow switching 
+   * but starting at light. */
+  set: (value) => {
+    try {
+      localStorage.setItem("chakra-ui-color-mode", value);
+    } catch (e) {}
+  },
 };
 
 export default darkModeManager;

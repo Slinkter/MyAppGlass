@@ -328,7 +328,7 @@ const BankAccountsPage = () => {
 
           {/* Footer / Contact Hint */}
           <Box
-            bg={useColorModeValue("blue.50", "whiteAlpha.100")}
+            bg={useColorModeValue("primary.50", "whiteAlpha.100")}
             p={6}
             borderRadius="xl"
             textAlign="center"

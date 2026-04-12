@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, VStack, Spinner, Text, useColorModeValue } from "@chakra-ui/react";
 
 const MapLoader = () => {
-  const spinnerColor = useColorModeValue("blue.500", "blue.300");
+  const spinnerColor = "text.accent";
   const mapContainerBg = useColorModeValue("gray.200", "gray.700");
 
   return (
@@ -25,7 +25,6 @@ const MapLoader = () => {
         <Text
           fontSize="sm"
           color="gray.500"
-          animate={{ opacity: [0.5, 1, 0.5] }}
         >
           Cargando ubicaciones...
         </Text>
