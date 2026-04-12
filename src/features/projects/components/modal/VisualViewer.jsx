@@ -40,7 +40,7 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
       borderRadius={{ base: "0", lg: "2xl" }}
       overflow="hidden"
       boxShadow="lg"
-      bg={spinnerBg}
+      bg="transparent"
     >
       <Box position="absolute" top="0" left="0" w="100%" h="100%">
         <AnimatePresence mode="wait">
