@@ -11,5 +11,6 @@ export { default as Franja } from "./Franja";
 export { default as Gallery } from "./Gallery";
 export { default as GlassCard } from "./GlassCard";
 export { default as LoadingFallback } from "./LoadingFallback";
+export { default as SectionSkeleton } from "./SectionSkeleton";
 export { default as ScrollReveal } from "./ScrollReveal";
 export { default as SidebarItem } from "./SidebarItem";

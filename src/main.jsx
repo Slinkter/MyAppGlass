@@ -19,9 +19,9 @@ import reportWebVitals from "./utils/webVitals";
 // El fallback de Suspense se mostrará mientras se carga el código del componente diferido.
 // Esto mejora la UX mostrando algo al usuario inmediatamente en lugar de una pantalla blanca.
 const suspenseFallback = (
-  <Center h="100vh">
-    <Spinner size="xl" color="text.accent" />
-  </Center>
+    <Center h="100vh">
+        <Spinner size="xl" color="text.accent" />
+    </Center>
 );
 
 /**
@@ -29,23 +29,27 @@ const suspenseFallback = (
  * Aquí se configuran los proveedores globales que envuelven a toda la App.
  */
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <>
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-    <HelmetProvider>
-      <ChakraProvider theme={theme} colorModeManager={darkModeManager}>
-        <RouterProvider router={router} fallbackElement={suspenseFallback} future={{ v7_startTransition: true }} />
-      </ChakraProvider>
-    </HelmetProvider>
-  </>,
+    <>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <HelmetProvider>
+            <ChakraProvider theme={theme} colorModeManager={darkModeManager}>
+                <RouterProvider
+                    router={router}
+                    fallbackElement={suspenseFallback}
+                    future={{ v7_startTransition: true }}
+                />
+            </ChakraProvider>
+        </HelmetProvider>
+    </>,
 );
 
 // Al final del archivo
 if (import.meta.env.PROD) {
-  import("web-vitals").then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-    getCLS(reportWebVitals);
-    getFID(reportWebVitals);
-    getFCP(reportWebVitals);
-    getLCP(reportWebVitals);
-    getTTFB(reportWebVitals);
-  });
+    import("web-vitals").then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+        getCLS(reportWebVitals);
+        getFID(reportWebVitals);
+        getFCP(reportWebVitals);
+        getLCP(reportWebVitals);
+        getTTFB(reportWebVitals);
+    });
 }
