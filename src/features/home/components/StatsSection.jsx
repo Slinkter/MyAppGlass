@@ -11,7 +11,6 @@ import {
   Flex,
   Heading,
   Text,
-  useColorModeValue,
   VStack,
   SimpleGrid,
 } from "@chakra-ui/react";
@@ -31,9 +30,9 @@ const StatItem = React.memo(({ value, suffix = "+", label }) => {
   const containerRef = useRef(null);
   const numberRef = useRef(null);
 
-  const textColor = useColorModeValue("gray.800", "white");
-  const accentColor = useColorModeValue("primary.600", "primary.300");
-  const labelColor = useColorModeValue("gray.500", "gray.400");
+  const textColor = "text.body";
+  const accentColor = "text.accent";
+  const labelColor = "text.subtle";
 
   useIntersectionObserver(
     containerRef,
@@ -119,8 +118,8 @@ const STATS = [
  * @description Sección de métricas de impacto visual que refuerza la credibilidad.
  */
 const StatsSection = React.memo(() => {
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
-  const bg = useColorModeValue("white", "primary.800");
+  const borderColor = "border.default";
+  const bg = "bg.section";
 
   return (
     <Container maxW="7xl" px={{ base: 4, md: 8 }}>

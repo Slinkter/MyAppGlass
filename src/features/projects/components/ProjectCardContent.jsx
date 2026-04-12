@@ -1,21 +1,20 @@
 /**
  * @file ProjectCardContent.jsx
- * @description Premium minimalist project card featuring glassmorphism and high-performance imagery.
- * Designed to provide a sleek, depth-oriented UI using the Aura Design System.
+ * @description Refactored project card content to match the unified design of ClientCard and ServiceCard.
+ * Features a full-body image, dark overlay, and bottom-centered text for visual coherence.
  */
 
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
-  Badge,
   Box,
   Heading,
   Text,
   HStack,
-  VStack,
   Icon,
   LinkBox,
   LinkOverlay,
+  Skeleton,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { MapPinIcon } from "@heroicons/react/24/outline";
@@ -27,165 +26,124 @@ import { MapPinIcon } from "@heroicons/react/24/outline";
 const ProjectCardContent = React.memo(
   ({ image = "", residencial, address, year, onOpenModal, isLCP }) => {
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+
+    // Presentational gradient — intentionally hardcoded dark overlay (not mode-dependent)
+    const bgOverlay =
+      "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
     return (
       <LinkBox
         as="article"
+        role="group"
+        cursor="pointer"
         position="relative"
         h={{ base: "320px", md: "460px" }}
         w="full"
-        borderRadius="2xl"
+        borderRadius="xl"
         overflow="hidden"
-        role="group"
-        cursor="pointer"
-        bg="bg.subtle"
-        boxShadow="sm"
-        isolation="isolate"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         _hover={{
-          transform: "translateY(-6px)",
-          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)",
+          boxShadow: { md: "2xl" },
+          transform: { base: "none", md: "translateY(-4px)" },
         }}
-        transition="transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
-        _focusVisible={{
-          outline: "none",
-          ring: "3px",
-          ringColor: "primary.500",
-          ringOffset: "2px",
-        }}
+        transition="all 0.4s ease"
       >
-        {/* Premium Image Layer */}
-        <Box
-          position="absolute"
-          inset={0}
-          overflow="hidden"
-          bg="bg.subtle"
-          zIndex={0}
-        >
-          <ResponsiveImage
-            src={image}
-            alt={`Vista del proyecto: ${residencial}`}
-            display="block"
-            position="absolute"
-            inset={0}
-            w="100%"
-            h="100%"
-            objectFit="cover"
-            objectPosition="center"
-            loading={isLCP ? "eager" : "lazy"}
-            decoding={isLCP ? "sync" : "async"}
-            onLoad={() => setIsLoaded(true)}
-            opacity={isLoaded ? 1 : 0}
-            transition="opacity 0.6s ease-in-out, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease"
-            filter="brightness(0.9)"
-            transform={isLoaded ? "scale(1.02)" : "scale(1.1)"}
-            backfaceVisibility="hidden"
-            willChange="transform, filter, opacity"
-            _groupHover={{
-              transform: "scale(1.1)",
-              filter: "brightness(1.05)",
-            }}
-          />
+        <Skeleton isLoaded={isLoaded} h="full" w="full">
+          <Box position="relative" h="full" w="full" overflow="hidden">
+            <ResponsiveImage
+              src={image}
+              alt={`Vista del proyecto: ${residencial}`}
+              objectFit="cover"
+              w="100%"
+              h="100%"
+              loading={isLCP ? "eager" : "lazy"}
+              decoding={isLCP ? "sync" : "async"}
+              onLoad={() => setIsLoaded(true)}
+              transform={isHovered ? "scale(1.06)" : "scale(1.02)"}
+              transition="transform 0.6s ease"
+            />
 
-          {/* Depth Gradient Overlay */}
-          <Box
-            position="absolute"
-            inset={0}
-            bgGradient="linear(to-t, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)"
-            pointerEvents="none"
-            transition="opacity 0.4s ease"
-            zIndex={1}
-          />
-        </Box>
+            <Box position="absolute" inset="0" bgGradient={bgOverlay} />
 
-        {/* Badge Residencial / Comercial */}
-        <Badge
-          position="absolute"
-          top={4}
-          left={4}
-          zIndex={2}
-          colorScheme={residencial?.toLowerCase().includes("residencial") ? "blue" : "orange"}
-          borderRadius="full"
-          px={3}
-          py={1}
-          fontSize="xs"
-          boxShadow="lg"
-        >
-          {residencial?.toLowerCase().includes("residencial") ? "Residencial" : "Comercial"}
-        </Badge>
-
-        {/* Content Layer (Glassmorphism) */}
-        <Box
-          position="absolute"
-          bottom={0}
-          left={0}
-          right={0}
-          m={4}
-          p={5}
-          bg="surface.footer"
-          borderRadius="xl"
-          border="1px solid"
-          borderColor="border.glass"
-          backdropFilter="blur(12px)"
-          zIndex={2}
-          transform="translateY(0)"
-          transition="all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
-          _groupHover={{
-            transform: "translateY(-10px)",
-            bg: "surface.nav",
-            borderColor: "primary.300",
-            boxShadow: "2xl",
-          }}
-        >
-          <VStack spacing={2} align="center">
-            <Heading
-              size="md"
-              color="text.heading"
-              textTransform="capitalize"
-              fontWeight="700"
-              letterSpacing="tight"
-              noOfLines={1}
-              textAlign="center"
-              transition="color 0.3s ease"
-              _groupHover={{ color: "text.accent" }}
+            <Box
+              position="absolute"
+              bottom={0}
+              left={0}
+              right={0}
+              p={6}
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="flex-end"
+              zIndex={2}
             >
-              {residencial}
-            </Heading>
-
-            <HStack justify="center" spacing={3} w="full">
-              <HStack spacing={1}>
-                <Icon as={MapPinIcon} w={3.5} h={3.5} color="text.accent" />
-                <Text
-                  fontSize="xs"
-                  color="text.muted"
-                  fontWeight="600"
-                  noOfLines={1}
+              <Heading
+                as="h3"
+                color={isHovered ? "primary.300" : "white"}
+                fontSize={{ base: "md", md: "xl" }}
+                fontWeight="600"
+                textTransform="uppercase"
+                letterSpacing="wider"
+                textAlign="center"
+                position="relative"
+                transition="color 0.3s ease"
+                noOfLines={1}
+                _after={{
+                  content: '""',
+                  position: "absolute",
+                  bottom: "-8px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: isLoaded ? "40px" : "0",
+                  height: "2px",
+                  bg: isHovered ? "primary.300" : "white",
+                  transition: "width 0.4s ease, background 0.3s ease",
+                }}
+              >
+                <LinkOverlay
+                  as="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onOpenModal();
+                  }}
+                  _focusVisible={{
+                    outline: "none",
+                  }}
                 >
-                  {address}
+                  {residencial}
+                </LinkOverlay>
+              </Heading>
+
+              <HStack
+                justify="center"
+                spacing={3}
+                w="full"
+                mt={6}
+                opacity={isHovered ? 1 : 0}
+                transform={isHovered ? "translateY(0)" : "translateY(10px)"}
+                transition="all 0.3s ease"
+              >
+                <HStack spacing={1}>
+                  <Icon as={MapPinIcon} w={3.5} h={3.5} color="primary.300" />
+                  <Text
+                    fontSize="xs"
+                    color="whiteAlpha.900"
+                    fontWeight="500"
+                    noOfLines={1}
+                  >
+                    {address}
+                  </Text>
+                </HStack>
+                <Box w="1px" h="3" bg="whiteAlpha.400" />
+                <Text fontSize="xs" color="whiteAlpha.900" fontWeight="500">
+                  {year}
                 </Text>
               </HStack>
-              <Box w="1px" h="3" bg="border.strong" opacity={0.5} />
-              <Text fontSize="xs" color="text.muted" fontWeight="500">
-                {year}
-              </Text>
-            </HStack>
-          </VStack>
-        </Box>
-
-        {/* Accessibility Overlay */}
-        <LinkOverlay
-          as="button"
-          position="absolute"
-          inset={0}
-          zIndex={3}
-          aria-label={`Ver detalles del proyecto ${residencial}`}
-          onClick={(e) => {
-            e.preventDefault();
-            onOpenModal();
-          }}
-          _focusVisible={{
-            outline: "none",
-          }}
-        />
+            </Box>
+          </Box>
+        </Skeleton>
       </LinkBox>
     );
   },
