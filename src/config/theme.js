@@ -79,6 +79,7 @@ const theme = extendTheme({
     colors: {
       "bg.page":    { default: "gray.50",    _dark: "#000000" },
       "bg.section": { default: "white",      _dark: "#09090b" },
+      "bg.glass":   { default: "white",      _dark: "primary.900" },
       "bg.subtle":  { default: "blackAlpha.50", _dark: "whiteAlpha.50" },
 
       // Glass surfaces
@@ -90,7 +91,7 @@ const theme = extendTheme({
       // Borders
       "border.default": { default: "gray.200",        _dark: "whiteAlpha.100" },
       "border.strong":  { default: "gray.300",        _dark: "whiteAlpha.200" },
-      "border.glass":   { default: "rgba(255, 255, 255, 0.35)", _dark: "rgba(255, 255, 255, 0.05)" },
+      "border.glass":   { default: "gray.200",        _dark: "whiteAlpha.100" },
 
       // Text
       "text.body":    { default: "gray.800", _dark: "gray.300" },
@@ -140,13 +141,13 @@ const theme = extendTheme({
     },
     Box: {
       variants: {
-        glass: (props) => ({
-          bg: props.colorMode === "dark" ? "primary.900" : "white",
+        glass: {
+          bg: "bg.glass",
           border: "1px solid",
-          borderColor: props.colorMode === "dark" ? "whiteAlpha.100" : "gray.200",
+          borderColor: "border.glass",
           borderRadius: "card",
           boxShadow: "sm",
-        }),
+        },
       },
     },
   },
