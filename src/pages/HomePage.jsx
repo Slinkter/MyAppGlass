@@ -1,9 +1,8 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import { VStack } from "@chakra-ui/react";
+import LandingPageSection from "@features/home/components/LandingPageSection";
+import { SectionSkeleton } from "@shared/components/common";
 
-const LandingPageSection = lazy(
-    () => import("@features/home/components/LandingPageSection"),
-);
 const ClientsSection = lazy(
     () => import("@features/home/components/ClientsSection"),
 );
@@ -18,9 +17,18 @@ const HomeView = React.memo(() => {
     return (
         <VStack spacing="phi_2xl" w="full" align="stretch">
             <LandingPageSection />
-            <ClientsSection />
-            <FeaturesSection />
-            <StoreSection />
+            
+            <Suspense fallback={<SectionSkeleton h="500px" />}>
+                <ClientsSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionSkeleton h="600px" />}>
+                <FeaturesSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionSkeleton h="450px" />}>
+                <StoreSection />
+            </Suspense>
         </VStack>
     );
 });
