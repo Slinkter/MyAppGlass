@@ -64,9 +64,7 @@ const VisualViewer = ({ viewMode, lat, lng, photos }) => {
               transition={{ duration: 0.3 }}
               style={{ width: "100%", height: "100%" }}
             >
-              <Box p={{ base: 4, md: 8 }} w="100%" h="100%">
-                <Gallery images={photos} />
-              </Box>
+              <Gallery images={photos} />
             </m.div>
           )}
         </AnimatePresence>

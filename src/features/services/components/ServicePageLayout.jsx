@@ -13,12 +13,14 @@ import {
   Grid,
   GridItem,
   Flex,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { CheckIcon, ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/solid";
 import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import GlassCard from "@shared/components/common/GlassCard";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
+import BackButton from "@shared/components/navigation/BackButton";
 
 const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
   if (!systems || systems.length <= 1) return null;
@@ -38,8 +40,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
           onClick={() => onSelect(index)}
           size={{ base: "sm", md: "md" }}
           variant={activeIndex === index ? "solid" : "ghost"}
-          bg={activeIndex === index ? "action.activeBg" : "action.inactiveBg"}
-          color={activeIndex === index ? "action.activeColor" : "text.body"}
+          colorScheme={activeIndex === index ? "primary" : "gray"}
           borderRadius="full"
           px={{ base: 5, md: 8 }}
           h={{ base: "36px", md: "42px" }}
@@ -48,7 +49,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
           whiteSpace="nowrap"
           boxShadow={activeIndex === index ? "lg" : "sm"}
           _hover={{
-            bg: activeIndex === index ? "action.activeBg" : "action.hoverBg",
+            bg: activeIndex !== index && "whiteAlpha.100",
             transform: "translateY(-2px)",
             boxShadow: "md",
           }}
@@ -60,7 +61,6 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
     </Flex>
   );
 });
-
 SystemSelector.displayName = "SystemSelector";
 
 const BentoAbout = React.memo(({ about }) => {
@@ -77,26 +77,19 @@ const BentoAbout = React.memo(({ about }) => {
     </GlassCard>
   );
 });
-
 BentoAbout.displayName = "BentoAbout";
 
 const BentoBenefits = React.memo(({ benefits }) => {
   if (!benefits) return null;
 
-  // Staggered animation wrapper
   const containerVariants = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+    show: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, x: -10 },
-    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
   };
 
   return (
@@ -122,7 +115,6 @@ const BentoBenefits = React.memo(({ benefits }) => {
     </GlassCard>
   );
 });
-
 BentoBenefits.displayName = "BentoBenefits";
 
 const BentoCTA = React.memo(({ systemName }) => {
@@ -156,12 +148,12 @@ const BentoCTA = React.memo(({ systemName }) => {
     </GlassCard>
   );
 });
-
 BentoCTA.displayName = "BentoCTA";
 
 const ServicePageLayout = ({ pageData }) => {
   const { seo, about, benefits, systems, imageLists } = pageData;
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const activeImageList = React.useMemo(() => imageLists[activeIndex] || [], [imageLists, activeIndex]);
   const activeSystem = React.useMemo(() => systems[activeIndex], [systems, activeIndex]);
@@ -178,93 +170,90 @@ const ServicePageLayout = ({ pageData }) => {
       </Helmet>
 
       <LazyMotion features={domAnimation}>
-      <Box
-        as={m.div}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <Container maxW="container.xl" pt={{ base: 4, md: 8 }} pb={20}>
-          <VStack spacing={8} align="stretch">
-            {/* Header Superior Minimalista */}
-            <VStack spacing={1} align={{ base: "center", md: "start" }}>
-              <Text
-                fontSize="xs"
-                fontWeight="bold"
-                color="text.accent"
-                letterSpacing="widest"
-                textTransform="uppercase"
-              >
-                Nuestra Experiencia
-              </Text>
-              <Heading size="2xl" fontWeight="black" letterSpacing="tight" color="text.heading">
-                {seo.title}
-              </Heading>
-            </VStack>
-
-            {/* Selector de Sistemas (Pills) */}
-            <SystemSelector
-              systems={systems}
-              activeIndex={activeIndex}
-              onSelect={handleSelect}
-            />
-
-            {/* Galería Principal Inmersiva */}
-            <Box
-              borderRadius="3xl"
-              overflow="hidden"
-              boxShadow="2xl"
-              bg="bg.subtle"
-              h={{ base: "400px", md: "600px" }}
-              position="relative"
-              transition="all 0.5s ease"
-            >
-              <AnimatePresence mode="wait">
-                <m.div
-                  key={`gallery-${activeIndex}`}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                  style={{ width: "100%", height: "100%" }}
+        <Box
+          as={m.div}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <Container maxW="container.xl" pt={{ base: 6, md: 8 }} pb={20}>
+            <VStack spacing={8} align="stretch">
+              <VStack spacing={2} align={{ base: "start" }}>
+                {isMobile && <Box mb={2}><BackButton to="/servicios" /></Box>}
+                <Text
+                  fontSize="xs"
+                  fontWeight="bold"
+                  color="text.accent"
+                  letterSpacing="widest"
+                  textTransform="uppercase"
                 >
-                  {activeImageList.length > 0 ? (
-                    <Gallery images={activeImageList} />
-                  ) : (
-                    <ComingSoonDisplay />
-                  )}
-                </m.div>
-              </AnimatePresence>
-            </Box>
+                  Nuestra Experiencia
+                </Text>
+                <Heading size={{ base: "xl", md: "2xl" }} fontWeight="black" letterSpacing="tight" color="text.heading">
+                  {seo.title}
+                </Heading>
+              </VStack>
 
-            {/* Bento Grid de Información (Menos texto, mas visual) */}
-            <AnimatePresence mode="wait">
-              <Grid
-                as={m.div}
-                key={`bento-${activeIndex}`}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-                templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
-                templateRows={{ base: "auto", lg: "320px" }}
-                gap={6}
+              <SystemSelector
+                systems={systems}
+                activeIndex={activeIndex}
+                onSelect={handleSelect}
+              />
+
+              <Box
+                borderRadius="3xl"
+                overflow="hidden"
+                boxShadow="2xl"
+                bg="bg.subtle"
+                h={{ base: "400px", md: "600px" }}
+                position="relative"
+                transition="all 0.5s ease"
               >
-                <GridItem colSpan={{ base: 1, lg: 2 }}>
-                  <BentoAbout about={about} />
-                </GridItem>
-                <GridItem colSpan={1}>
-                  <BentoCTA systemName={activeSystem?.label || seo.title} />
-                </GridItem>
-                <GridItem colSpan={{ base: 1, lg: 3 }}>
-                  <BentoBenefits benefits={benefits} />
-                </GridItem>
-              </Grid>
-            </AnimatePresence>
-          </VStack>
-        </Container>
+                <AnimatePresence mode="wait">
+                  <m.div
+                    key={`gallery-${activeIndex}`}
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ width: "100%", height: "100%" }}
+                  >
+                    {activeImageList.length > 0 ? (
+                      <Gallery images={activeImageList} />
+                    ) : (
+                      <ComingSoonDisplay />
+                    )}
+                  </m.div>
+                </AnimatePresence>
+              </Box>
+
+              <AnimatePresence mode="wait">
+                <Grid
+                  as={m.div}
+                  key={`bento-${activeIndex}`}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.3 }}
+                  templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
+                  templateRows={{ base: "auto", lg: "320px" }}
+                  gap={6}
+                >
+                  <GridItem colSpan={{ base: 1, lg: 2 }}>
+                    <BentoAbout about={about} />
+                  </GridItem>
+                  <GridItem colSpan={1}>
+                    <BentoCTA systemName={activeSystem?.label || seo.title} />
+                  </GridItem>
+                  <GridItem colSpan={{ base: 1, lg: 3 }}>
+                    <BentoBenefits benefits={benefits} />
+                  </GridItem>
+                </Grid>
+              </AnimatePresence>
+            </VStack>
+          </Container>
         </Box>
-        </LazyMotion>
+      </LazyMotion>
     </>
   );
 };
