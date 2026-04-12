@@ -38,7 +38,7 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
       role="group"
       cursor="pointer"
       position="relative"
-      h={{ base: "300px", md: "400px" }}
+      h={{ base: "320px", md: "460px" }}
       borderRadius="xl"
       overflow="hidden"
       onMouseEnter={() => setIsHovered(true)}
@@ -78,7 +78,7 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
             justifyContent="flex-end"
           >
             <Text
-              color={isHovered ? "text.accent" : "white"}
+              color={isHovered ? "primary.300" : "white"}
               fontSize={{ base: "md", md: "xl" }}
               fontWeight="600"
               textTransform="uppercase"
@@ -94,7 +94,7 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
                 transform: "translateX(-50%)",
                 width: isLoaded ? "40px" : "0",
                 height: "2px",
-                bg: isHovered ? "text.accent" : "white",
+                bg: isHovered ? "primary.300" : "white",
                 transition: "width 0.4s ease, background 0.3s ease",
               }}
             >
@@ -102,8 +102,9 @@ const ClientCard = React.memo(({ image, nameClient, descClient }) => {
             </Text>
 
             <Text
-              color="whiteAlpha.800"
+              color="whiteAlpha.900"
               fontSize="xs"
+              fontWeight="medium"
               textAlign="center"
               mt={4}
               opacity={isHovered ? 1 : 0}

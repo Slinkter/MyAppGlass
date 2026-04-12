@@ -1,3 +1,8 @@
+---
+name: ux-analyst
+description: "Analyze React/Chakra UI components for UX best practices, accessibility, and user experience quality."
+---
+
 # UX Analyst Agent - Skill
 
 ## Purpose

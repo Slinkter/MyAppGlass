@@ -1,5 +1,13 @@
 import React from "react";
-import { Container, Heading, useColorModeValue, SimpleGrid, VStack, Box } from "@chakra-ui/react";
+import {
+  Container,
+  Heading,
+  Text,
+  useColorModeValue,
+  SimpleGrid,
+  VStack,
+  Box,
+} from "@chakra-ui/react";
 import { m } from "framer-motion";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import PropTypes from "prop-types";
@@ -15,6 +23,7 @@ const EMPTY_OBJ = {};
  */
 const ItemGridLayout = ({
   title,
+  subtitle,
   children,
   seoTitle,
   seoDescription,
@@ -23,7 +32,7 @@ const ItemGridLayout = ({
   spacing = 10,
   containerProps = EMPTY_OBJ,
 }) => {
-  const headingColor = useColorModeValue("primary.700", "primary.300");
+  const headingColor = "text.accent";
   const borderColor = useColorModeValue("primary.500", "primary.300");
 
   /**
@@ -47,7 +56,7 @@ const ItemGridLayout = ({
       <Container maxW={"7xl"} textAlign="center" mt={6} {...containerProps}>
         <VStack spacing={6} w="full">
           {/* Cabecera */}
-          <VStack spacing={2}>
+          <VStack spacing={3}>
             <Heading
               as="h2"
               color={headingColor}
@@ -60,11 +69,22 @@ const ItemGridLayout = ({
               borderColor={borderColor}
               width="fit-content"
               mx="auto"
-              my={2}
+              mt={2}
+              mb={1}
               display="block"
             >
               {title}
             </Heading>
+            {subtitle && (
+              <Text
+                color="text.muted"
+                fontSize={{ base: "md", md: "lg" }}
+                maxW="2xl"
+                mx="auto"
+              >
+                {subtitle}
+              </Text>
+            )}
           </VStack>
 
           <SimpleGrid
@@ -123,6 +143,7 @@ ItemGridLayout.Item = ItemGridItem;
 
 ItemGridLayout.propTypes = {
   title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
   children: PropTypes.node.isRequired,
   seoTitle: PropTypes.string.isRequired,
   seoDescription: PropTypes.string.isRequired,
