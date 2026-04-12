@@ -13,7 +13,6 @@ import {
   Flex,
   Grid,
   GridItem,
-  useColorModeValue,
   Spinner,
   VStack,
   Text,
@@ -70,10 +69,10 @@ const StoreSection = React.memo(() => {
                     justify="center"
                     h={{ base: "400px", md: "600px" }}
                     w="full"
-                    bg={useColorModeValue("gray.100", "gray.800")}
+                    bg="bg.section"
                     rounded="2xl"
                   >
-                    <Spinner size="xl" color="primary.500" thickness="4px" />
+                    <Spinner size="xl" color="text.accent" thickness="4px" />
                   </Flex>
                 }
               >
@@ -84,27 +83,29 @@ const StoreSection = React.memo(() => {
             <GridItem>
               <VStack spacing={4} align={{ base: "center", lg: "flex-start" }} pt={{ base: 0, lg: 4 }}>
                 <VStack spacing={1} align={{ base: "center", lg: "flex-start" }}>
-                  <Text fontWeight="bold" fontSize="lg">
+                  <Text fontWeight="bold" fontSize="lg" color="text.body">
                     Horario de Atención
                   </Text>
-                  <Text fontSize="md">Lunes a Sábado</Text>
-                  <Text fontSize="md">9:00 am – 5:00 pm</Text>
+                  <Text fontSize="md" color="text.muted">Lunes a Sábado</Text>
+                  <Text fontSize="md" color="text.muted">9:00 am – 5:00 pm</Text>
                 </VStack>
                 <VStack spacing={1} align={{ base: "center", lg: "flex-start" }}>
-                  <Text fontWeight="bold" fontSize="lg">
+                  <Text fontWeight="bold" fontSize="lg" color="text.body">
                     Dirección
                   </Text>
-                  <Text fontSize="md">Av. Los Fresnos 1250</Text>
-                  <Text fontSize="md">La Molina, Lima</Text>
+                  <Text fontSize="md" color="text.muted">Av. Los Fresnos 1250</Text>
+                  <Text fontSize="md" color="text.muted">La Molina, Lima</Text>
                 </VStack>
                 <Button
                   as={Link}
                   href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
                   isExternal
                   leftIcon={<Icon as={FaMapLocationDot} />}
-                  colorScheme="primary"
+                  bg="primary.500"
+                  color="white"
                   width="full"
                   size={{ base: "lg", md: "md" }}
+                  _hover={{ bg: "primary.600" }}
                   _focus={{ boxShadow: "0 0 0 3px var(--chakra-colors-primary-500)" }}
                   _active={{ transform: "scale(0.98)" }}
                   aria-label="Abrir ubicación en Google Maps"

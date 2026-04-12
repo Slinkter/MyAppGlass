@@ -5,25 +5,23 @@ import {
   VStack,
   Text,
   Divider,
-  Button,
-  useColorModeValue,
+  Button
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import SidebarItem from "@shared/components/common/SidebarItem";
 import GlassCard from "@shared/components/common/GlassCard";
 
 const NavigationSection = ({ title, systems, activeIndex, onSelect }) => {
-  const textColor = useColorModeValue("gray.600", "gray.400"); // Use a subtle text color
   return (
     <Box>
       <Text
-        fontSize="md" // Smaller font size
+        fontSize="md"
         fontWeight="bold"
-        textTransform="uppercase" // Keep uppercase for clarity as a label
-        letterSpacing="wider" // Keep wide letter spacing
-        color={textColor} // Use a subtle text color
+        textTransform="uppercase"
+        letterSpacing="wider"
+        color="text.muted"
         opacity={0.7}
-        mb={3} // Reduced margin-bottom
+        mb={3}
       >
         {title}
       </Text>
@@ -42,7 +40,7 @@ const NavigationSection = ({ title, systems, activeIndex, onSelect }) => {
   );
 };
 
-const CTASection = ({ label, accentColor, textColor, isSecondary }) => (
+const CTASection = ({ label, isSecondary }) => (
   <Box>
     <Button
       as="a"
@@ -51,11 +49,11 @@ const CTASection = ({ label, accentColor, textColor, isSecondary }) => (
       rel="noopener noreferrer"
       size={{ base: "md", md: "lg" }}
       w="full"
-      bg={accentColor}
+      bg="primary.500"
       color="white"
       rightIcon={<ArrowForwardIcon />}
       _hover={{
-        bg: useColorModeValue("primary.700", "primary.400"),
+        bg: "primary.600",
         transform: "translateY(-2px)",
         boxShadow: "xl",
         textDecoration: "none",
@@ -70,7 +68,7 @@ const CTASection = ({ label, accentColor, textColor, isSecondary }) => (
     </Button>
     <Text
       fontSize="xs"
-      color={textColor}
+      color="text.muted"
       textAlign="center"
       mt={2}
       opacity={0.7}
@@ -83,22 +81,9 @@ const CTASection = ({ label, accentColor, textColor, isSecondary }) => (
 /**
  * @component ServiceSidebar
  * @description Barra lateral con controles para la página de servicios.
- * Permite navegar entre sistemas y muestra especificaciones técnicas.
- *
- * @param {Object} props - Propiedades del componente.
- * @param {Object} props.seo - Información SEO y títulos.
- * @param {Array<Object>} props.systems - Lista de sistemas disponibles para el servicio.
- * @param {number} props.activeIndex - Índice del sistema activo.
- * @param {function} props.setActiveIndex - Setter para cambiar el sistema activo.
- * @param {Object} props.activeSystem - Objeto del sistema actualmente seleccionado.
- * @returns {JSX.Element} Barra lateral renderizada.
  */
 const ServiceSidebar = (props) => {
   const { seo, systems, activeIndex, setActiveIndex, activeSystem } = props;
-
-  const textColor = useColorModeValue("gray.600", "gray.400");
-  const accentColor = useColorModeValue("primary.600", "primary.300");
-  const borderColor = useColorModeValue("whiteAlpha.300", "whiteAlpha.100");
 
   return (
     <GlassCard
@@ -109,7 +94,7 @@ const ServiceSidebar = (props) => {
       w="100%"
       p={6}
       borderWidth="1px"
-      borderColor={borderColor}
+      borderColor="border.default"
       boxShadow="2xl"
     >
       <VStack
@@ -122,10 +107,7 @@ const ServiceSidebar = (props) => {
           "&::-webkit-scrollbar": { width: "4px" },
           "&::-webkit-scrollbar-track": { background: "transparent" },
           "&::-webkit-scrollbar-thumb": {
-            background: useColorModeValue(
-              "rgba(0,0,0,0.1)",
-              "rgba(255,255,255,0.1)",
-            ),
+            background: "var(--chakra-colors-bg-subtle)",
             borderRadius: "20px",
           },
         }}
@@ -140,18 +122,14 @@ const ServiceSidebar = (props) => {
         <Box>
           <CTASection
             label={activeSystem?.label || seo.title}
-            accentColor={accentColor}
-            textColor={textColor}
             isSecondary
           />
         </Box>
 
         <Box mt="auto" pt={4}>
-          <Divider borderColor={borderColor} mb={6} />
+          <Divider borderColor="border.default" mb={6} />
           <CTASection
             label={activeSystem?.label || seo.title}
-            accentColor={accentColor}
-            textColor={textColor}
           />
         </Box>
       </VStack>

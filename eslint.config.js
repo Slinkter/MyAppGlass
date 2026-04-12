@@ -48,6 +48,12 @@ export default [
     },
   },
   {
+    files: ["src/features/projects/components/modal/VisualViewer.jsx"],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
+  {
     files: ["functions/**/*.js"], // Apply to all .js files in the functions directory
     languageOptions: {
       globals: {

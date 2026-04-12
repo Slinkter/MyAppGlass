@@ -7,7 +7,6 @@ import {
   ModalBody,
   ModalCloseButton,
   Flex,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
@@ -26,16 +25,6 @@ const ProjectDetailModal = (props) => {
   } = props;
 
   const [viewMode, setViewMode] = useState("map"); // 'map' | 'gallery'
-
-  const modalBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.95)",
-    "rgba(20, 20, 20, 0.98)"
-  );
-  const borderColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.35)",
-    "rgba(255, 255, 255, 0.15)"
-  );
-  const textColor = useColorModeValue("gray.800", "gray.100");
 
   const handleClose = useCallback(() => {
     setViewMode("map");
@@ -57,18 +46,18 @@ const ProjectDetailModal = (props) => {
         role="dialog"
         aria-modal="true"
         borderRadius={{ base: 0, md: "2xl" }}
-        bg={modalBg}
+        bg="surface.card"
         border="1px solid"
-        borderColor={borderColor}
+        borderColor="border.default"
         boxShadow="2xl"
-        color={textColor}
+        color="text.body"
         maxH={{ base: "100dvh", md: "auto" }}
         overflow="hidden"
       >
         <ModalCloseButton
           zIndex={10}
           size="lg"
-          bg={useColorModeValue("whiteAlpha.800", "blackAlpha.600")}
+          bg="surface.containerHover"
           _hover={{ bg: "red.500", color: "white" }}
           borderRadius="full"
           top={4}

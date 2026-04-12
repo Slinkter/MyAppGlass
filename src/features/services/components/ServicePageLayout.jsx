@@ -7,7 +7,6 @@ import {
   Text,
   Icon,
   SimpleGrid,
-  useColorModeValue,
   Container,
   HStack,
   Button,
@@ -16,17 +15,12 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { CheckIcon, ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/solid";
-import { LazyMotion, m, domAnimation } from "framer-motion";
+import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import GlassCard from "@shared/components/common/GlassCard";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 
 const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
-  const activeBg = useColorModeValue("primary.600", "primary.500");
-  const inactiveBg = useColorModeValue("whiteAlpha.400", "whiteAlpha.100");
-  const textColor = useColorModeValue("gray.800", "white");
-  const hoverBg = useColorModeValue("blackAlpha.100", "whiteAlpha.200");
-
   if (!systems || systems.length <= 1) return null;
 
   return (
@@ -44,8 +38,8 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
           onClick={() => onSelect(index)}
           size={{ base: "sm", md: "md" }}
           variant={activeIndex === index ? "solid" : "ghost"}
-          bg={activeIndex === index ? activeBg : inactiveBg}
-          color={activeIndex === index ? "white" : textColor}
+          bg={activeIndex === index ? "action.activeBg" : "action.inactiveBg"}
+          color={activeIndex === index ? "action.activeColor" : "text.body"}
           borderRadius="full"
           px={{ base: 5, md: 8 }}
           h={{ base: "36px", md: "42px" }}
@@ -54,7 +48,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
           whiteSpace="nowrap"
           boxShadow={activeIndex === index ? "lg" : "sm"}
           _hover={{
-            bg: activeIndex === index ? activeBg : hoverBg,
+            bg: activeIndex === index ? "action.activeBg" : "action.hoverBg",
             transform: "translateY(-2px)",
             boxShadow: "md",
           }}
@@ -70,15 +64,14 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
 SystemSelector.displayName = "SystemSelector";
 
 const BentoAbout = React.memo(({ about }) => {
-  const accentColor = useColorModeValue("primary.600", "primary.300");
   if (!about) return null;
 
   return (
     <GlassCard p={8} h="full" display="flex" flexDirection="column" justifyContent="center">
-      <Heading size="md" mb={4} color={accentColor} textTransform="uppercase" letterSpacing="widest">
+      <Heading size="md" mb={4} color="text.accent" textTransform="uppercase" letterSpacing="widest">
         Concepto
       </Heading>
-      <Text fontSize="lg" lineHeight="tall" fontWeight="medium">
+      <Text fontSize="lg" lineHeight="tall" fontWeight="medium" color="text.body">
         {about.description}
       </Text>
     </GlassCard>
@@ -88,19 +81,41 @@ const BentoAbout = React.memo(({ about }) => {
 BentoAbout.displayName = "BentoAbout";
 
 const BentoBenefits = React.memo(({ benefits }) => {
-  const checkColor = useColorModeValue("primary.500", "primary.300");
   if (!benefits) return null;
+
+  // Staggered animation wrapper
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+  };
 
   return (
     <GlassCard p={8} h="full">
-      <Heading size="sm" mb={6} opacity={0.6} textTransform="uppercase" letterSpacing="widest">
+      <Heading size="sm" mb={6} color="text.muted" textTransform="uppercase" letterSpacing="widest">
         Ventajas Clave
       </Heading>
-      <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={6}>
+      <SimpleGrid 
+        as={m.div} 
+        variants={containerVariants} 
+        initial="hidden" 
+        animate="show" 
+        columns={{ base: 1, sm: 2 }} 
+        spacing={6}
+      >
         {benefits.map((benefit) => (
-          <HStack key={benefit.id || benefit.label} align="start" spacing={3}>
-            <Icon as={CheckIcon} color={checkColor} mt={1} />
-            <Text fontWeight="semibold" fontSize="sm">{benefit.label}</Text>
+          <HStack as={m.div} variants={itemVariants} key={benefit.id || benefit.label} align="start" spacing={3}>
+            <Icon as={CheckIcon} color="text.accent" mt={1} />
+            <Text fontWeight="semibold" fontSize="sm" color="text.body">{benefit.label}</Text>
           </HStack>
         ))}
       </SimpleGrid>
@@ -176,13 +191,13 @@ const ServicePageLayout = ({ pageData }) => {
               <Text
                 fontSize="xs"
                 fontWeight="bold"
-                color="primary.500"
+                color="text.accent"
                 letterSpacing="widest"
                 textTransform="uppercase"
               >
                 Nuestra Experiencia
               </Text>
-              <Heading size="2xl" fontWeight="black" letterSpacing="tight">
+              <Heading size="2xl" fontWeight="black" letterSpacing="tight" color="text.heading">
                 {seo.title}
               </Heading>
             </VStack>
@@ -199,34 +214,53 @@ const ServicePageLayout = ({ pageData }) => {
               borderRadius="3xl"
               overflow="hidden"
               boxShadow="2xl"
-              bg="blackAlpha.50"
+              bg="bg.subtle"
               h={{ base: "400px", md: "600px" }}
               position="relative"
               transition="all 0.5s ease"
             >
-              {activeImageList.length > 0 ? (
-                <Gallery images={activeImageList} />
-              ) : (
-                <ComingSoonDisplay />
-              )}
+              <AnimatePresence mode="wait">
+                <m.div
+                  key={`gallery-${activeIndex}`}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  style={{ width: "100%", height: "100%" }}
+                >
+                  {activeImageList.length > 0 ? (
+                    <Gallery images={activeImageList} />
+                  ) : (
+                    <ComingSoonDisplay />
+                  )}
+                </m.div>
+              </AnimatePresence>
             </Box>
 
             {/* Bento Grid de Información (Menos texto, mas visual) */}
-            <Grid
-              templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
-              templateRows={{ base: "auto", lg: "320px" }}
-              gap={6}
-            >
-              <GridItem colSpan={{ base: 1, lg: 2 }}>
-                <BentoAbout about={about} />
-              </GridItem>
-              <GridItem colSpan={1}>
-                <BentoCTA systemName={activeSystem?.label || seo.title} />
-              </GridItem>
-              <GridItem colSpan={{ base: 1, lg: 3 }}>
-                <BentoBenefits benefits={benefits} />
-              </GridItem>
-            </Grid>
+            <AnimatePresence mode="wait">
+              <Grid
+                as={m.div}
+                key={`bento-${activeIndex}`}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+                templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
+                templateRows={{ base: "auto", lg: "320px" }}
+                gap={6}
+              >
+                <GridItem colSpan={{ base: 1, lg: 2 }}>
+                  <BentoAbout about={about} />
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <BentoCTA systemName={activeSystem?.label || seo.title} />
+                </GridItem>
+                <GridItem colSpan={{ base: 1, lg: 3 }}>
+                  <BentoBenefits benefits={benefits} />
+                </GridItem>
+              </Grid>
+            </AnimatePresence>
           </VStack>
         </Container>
         </Box>

@@ -1,100 +1,123 @@
 /**
  * @file ClientCard.jsx
- * @description Presentational component for displaying client segments with a glassmorphism aesthetic.
+ * @description Ultra-minimal card for client segments with image and centered name.
+ * Hover accent color uses the text.accent semantic token.
  * @module home/components
  */
 
 import React from "react";
 import {
   Box,
-  Heading,
-  Stack,
   Text,
-  Image,
-  useColorModeValue,
+  LinkBox,
+  LinkOverlay,
   Fade,
-  SlideFade,
 } from "@chakra-ui/react";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
 /**
  * @component ClientCard
- * @description Muestra una tarjeta de cliente con imagen y descripción.
- *
+ * @description Tarjeta de cliente con imagen de fondo y nombre superpuesto.
  * @param {Object} props
- * @param {string} props.image - URL de la imagen
- * @param {string} props.nameClient - Nombre del cliente
- * @param {string} props.descClient - Descripción del cliente
+ * @param {string} props.image - URL de la imagen de fondo.
+ * @param {string} props.nameClient - Nombre del cliente.
+ * @param {string} props.descClient - Descripción breve del cliente.
  * @returns {JSX.Element}
  */
 const ClientCard = React.memo(({ image, nameClient, descClient }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
-  const styles = {
-    bg: useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)"),
-    border: useColorModeValue(
-      "rgba(255, 255, 255, 0.52)",
-      "rgba(255, 255, 255, 0.15)",
-    ),
-    text: useColorModeValue("gray.800", "gray.100"),
-    secondaryText: useColorModeValue("gray.600", "gray.300"),
-  };
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  // Presentational gradient — intentionally hardcoded dark overlay (not mode-dependent)
+  const bgOverlay =
+    "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
   return (
-    <Box
+    <LinkBox
+      as="article"
       role="group"
-      w="full"
-      h="full"
-      minH={{ base: "220px", md: "260px" }}
-      p={{ base: 4, md: 6 }}
-      mb={4}
+      cursor="pointer"
+      position="relative"
+      h={{ base: "300px", md: "400px" }}
+      borderRadius="xl"
       overflow="hidden"
-      bg={styles.bg}
-      borderRadius="2xl"
-      boxShadow="xl"
-      color={styles.text}
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      cursor="default"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       _hover={{
-        boxShadow: "lg",
+        boxShadow: { md: "2xl" },
       }}
-      _focus={{
-        boxShadow: "0 0 0 3px var(--chakra-colors-primary-50)",
-      }}
+      transition="box-shadow 0.4s ease"
     >
-      <Box w="full">
-        <Fade in={isLoaded}>
-          <Image
-            w="full"
-            h={{ base: "260px", md: "280px" }}
+      <Fade in={isLoaded} style={{ height: "100%" }}>
+        <Box position="relative" h="full" w="full" overflow="hidden">
+          <ResponsiveImage
             src={image}
-            alt={`Imagen de ${nameClient}`}
-            borderRadius="lg"
+            alt={nameClient}
             objectFit="cover"
-            boxShadow="base"
+            w="100%"
+            h="100%"
+            loading="eager"
+            decoding="async"
             onLoad={() => setIsLoaded(true)}
+            transform="scale(1.02)"
+            transition="transform 0.6s ease"
+            _groupHover={{ transform: "scale(1.06)" }}
           />
-        </Fade>
-      </Box>
 
-      <SlideFade in={isLoaded} offsetY="20px">
-        <Stack
-          spacing={2}
-          pt={{ base: 4, md: 6 }}
-          px={{ base: 4, md: 6 }}
-          textAlign="center"
-        >
-          <Heading size={{ base: "md", md: "lg" }} textTransform="uppercase">
-            {nameClient}
-          </Heading>
+          <Box position="absolute" inset="0" bgGradient={bgOverlay} />
 
-          <Text fontSize={{ base: "sm", md: "md" }} color={styles.secondaryText}>
-            {descClient}
-          </Text>
-        </Stack>
-      </SlideFade>
-    </Box>
+          <Box
+            position="absolute"
+            bottom={0}
+            left={0}
+            right={0}
+            p={6}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="flex-end"
+          >
+            <Text
+              color={isHovered ? "text.accent" : "white"}
+              fontSize={{ base: "md", md: "xl" }}
+              fontWeight="600"
+              textTransform="uppercase"
+              letterSpacing="wider"
+              textAlign="center"
+              position="relative"
+              transition="color 0.3s ease"
+              _after={{
+                content: '""',
+                position: "absolute",
+                bottom: "-8px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: isLoaded ? "40px" : "0",
+                height: "2px",
+                bg: isHovered ? "text.accent" : "white",
+                transition: "width 0.4s ease, background 0.3s ease",
+              }}
+            >
+              {nameClient}
+            </Text>
+
+            <Text
+              color="whiteAlpha.800"
+              fontSize="xs"
+              textAlign="center"
+              mt={4}
+              opacity={isHovered ? 1 : 0}
+              transition="opacity 0.3s ease"
+              noOfLines={2}
+            >
+              {descClient}
+            </Text>
+          </Box>
+        </Box>
+      </Fade>
+
+      <LinkOverlay />
+    </LinkBox>
   );
 });
 
