@@ -20,7 +20,7 @@ import { Link as RouterLink } from "react-router-dom";
  * Diseño minimalista sin flechas, enfocado en la imagen, título y descripción clara.
  */
 const ServiceCard = React.memo((props) => {
-  const { image, name, plink, onLoadComplete, index } = props;
+  const { image, name, plink, onLoadComplete, index, loading = "lazy" } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   const handleImageLoad = React.useCallback(() => {
@@ -65,11 +65,11 @@ const ServiceCard = React.memo((props) => {
           <Fade in={isLoaded} style={{ height: "100%" }}>
             <ResponsiveImage
               src={image}
-              alt={name}
+              alt={`Servicio de ${name} - GYA Glass & Aluminum`}
               objectFit="cover"
               w="100%"
               h="100%"
-              loading="lazy"
+              loading={loading}
               decoding="async"
               onLoad={handleImageLoad}
               isLCP={index < 3}

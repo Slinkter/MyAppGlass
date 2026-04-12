@@ -69,6 +69,12 @@ const theme = extendTheme({
         color: props.colorMode === "dark" ? "gray.100" : "gray.800",
         WebkitFontSmoothing: "antialiased",
       },
+      "*:focus-visible": {
+        outline: "3px solid",
+        outlineColor: "primary.400",
+        outlineOffset: "3px",
+        borderRadius: "4px",
+      },
     }),
   },
   components: {

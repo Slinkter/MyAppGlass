@@ -23,21 +23,28 @@ const ProjectsList = React.memo(() => {
   const allProjects = useMemo(() => [...getProjects()].reverse(), []);
   const [displayCount, setDisplayCount] = useState(6);
   const loaderRef = useRef(null);
-  const isIntersecting = useIntersectionObserver(loaderRef, { 
-    threshold: 0.01,
-    rootMargin: "400px" // Carga proactiva: 400px antes de llegar al final
-  });
+  const rafRef = useRef(null);
 
-  // Infinite Scroll Logic: Load more pro-actively
-  useEffect(() => {
-    if (isIntersecting && displayCount < allProjects.length) {
-      // Usamos requestAnimationFrame para sincronizar con el refresco de pantalla
-      const frame = requestAnimationFrame(() => {
+  const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
+
+  useIntersectionObserver(
+    loaderRef,
+    () => {
+      // Guard: don't schedule if already at full count
+      if (displayCount >= allProjects.length) return;
+      rafRef.current = requestAnimationFrame(() => {
         setDisplayCount((prev) => Math.min(prev + 6, allProjects.length));
       });
-      return () => cancelAnimationFrame(frame);
-    }
-  }, [isIntersecting, allProjects.length, displayCount]);
+    },
+    { threshold: 0.01, rootMargin }
+  );
+
+  // Cleanup rAF on unmount
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   const projectsList = useMemo(() => {
     return allProjects.slice(0, displayCount).map((p) => ({ ...p, preloaded: true }));

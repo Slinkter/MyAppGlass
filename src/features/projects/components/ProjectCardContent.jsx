@@ -6,13 +6,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
+  Badge,
   Box,
   Heading,
   Text,
-  HStack,
   Icon,
   useColorModeValue,
-  VStack,
   LinkBox,
   LinkOverlay,
   Fade,
@@ -60,6 +59,25 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
         ringOffset: "2px",
       }}
     >
+      {/* Badge Residencial / Comercial */}
+      <Badge
+        position="absolute"
+        top={3}
+        left={3}
+        zIndex={2}
+        colorScheme={residencial ? "blue" : "orange"}
+        borderRadius="full"
+        px={3}
+        py={1}
+        fontSize="xs"
+        fontWeight="bold"
+        textTransform="uppercase"
+        letterSpacing="wider"
+        boxShadow="sm"
+      >
+        {residencial ? "Residencial" : "Comercial"}
+      </Badge>
+
       {/* 1. Imagen Full Optimized con Skeleton */}
       <Skeleton isLoaded={isLoaded} h="full" w="full">
         <Box
@@ -71,7 +89,7 @@ const ProjectCardContent = ({ image = "", residencial, address, year, onOpenModa
           <Fade in={isLoaded} style={{ height: "100%" }}>
             <ResponsiveImage
               src={image}
-              alt={`Obra ${residencial}`}
+              alt={`Proyecto ${residencial} en ${address} - ${year}`}
               objectFit="cover"
               w="100%"
               h="100%"
