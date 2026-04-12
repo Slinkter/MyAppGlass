@@ -94,20 +94,15 @@ const FooterSection = ({ title, children }) => {
 };
 
 const Footer = () => {
-    const bgColor = useColorModeValue("white", "primary.800");
-    const borderColor = useColorModeValue("gray.100", "whiteAlpha.100");
-    const shadowColor = useColorModeValue("rgba(0,0,0,0.06)", "rgba(0,0,0,0.4)");
-    const copyrightColor = useColorModeValue("gray.500", "gray.400");
-
     return (
         <Box as="footer" mt={{ base: 16, md: 32 }} mb={{ base: 32, md: 12 }} px={{ base: 4, md: 6 }}>
             <Container maxW="7xl" px={0}>
                 <Box
-                    bg={bgColor}
+                    bg="bg.section"
                     border="1px solid"
-                    borderColor={borderColor}
+                    borderColor="border.glass"
                     borderRadius="3xl"
-                    boxShadow={`0 15px 50px ${shadowColor}`}
+                    boxShadow="2xl"
                     pt={{ base: 12, md: 16 }}
                     pb={10}
                     px={{ base: 8, md: 16 }}
@@ -143,11 +138,11 @@ const Footer = () => {
                         </FooterSection>
                     </SimpleGrid>
 
-                    <Divider borderColor={borderColor} mb={10} />
+                    <Divider borderColor="border.glass" mb={10} />
 
                     <Flex direction="column" align="center" gap={5}>
                         <Image src={logoGYA} alt="Logo" h="36px" />
-                        <Text fontSize="10px" color={copyrightColor} fontWeight="bold" letterSpacing="0.3em">
+                        <Text fontSize="10px" color="text.subtle" fontWeight="bold" letterSpacing="0.3em">
                             © {new Date().getFullYear()} GYA GLASS & ALUMINUM S.A.C.
                         </Text>
                     </Flex>

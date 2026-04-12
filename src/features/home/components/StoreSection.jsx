@@ -15,12 +15,14 @@ import {
   GridItem,
   Spinner,
   VStack,
+  HStack,
   Text,
   Icon,
   usePrefersReducedMotion,
   Link,
 } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
+import { MapPin, Clock } from "lucide-react";
 import { FaMapLocationDot } from "react-icons/fa6";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
@@ -39,82 +41,112 @@ const StoreSection = React.memo(() => {
   return (
     <ItemGridLayout
       title="UBICACION"
-      subtitle="Av. Los Fresnos 1250 - La Molina "
+      subtitle="SEDE PRINCIPAL | PROYECTOS ENTREGADOS"
       seoTitle="Ubicaciones - GYA Company"
       seoDescription="Encuentra nuestra tienda principal en Lima y explora la ubicación de nuestros proyectos de vidriería y aluminio."
       seoCanonicalUrl="https://www.gyacompany.com/ubicaciones"
       columns={{ base: 1 }}
-      spacing={4}
+      spacing="phi_md"
       containerProps={{
         mt: 0,
-        pt: 8,
-        pb: 8,
+        py: "phi_xl",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
       }}
     >
       <ItemGridLayout.Item>
-        <Box w="full" mt={4} mb={12}>
-          <Grid
-            templateColumns={{ base: "1fr", lg: "1fr 280px" }}
-            gap={{ base: 6, lg: 8 }}
-            alignItems="start"
+        {/* CONTENEDOR MAESTRO - ACTÚA COMO ANCLA RELATIVA EN DESKTOP */}
+        <Box 
+          w="full" 
+          position="relative" 
+          h={{ base: "auto", lg: "650px" }}
+        >
+          {/* MAPA - ISLA INDEPENDIENTE EN MOBILE, FONDO EN DESKTOP */}
+          <Box 
+            w="full" 
+            h={{ base: "400px", lg: "full" }}
+            borderRadius="2xl"
+            overflow="hidden"
+            border="1px solid"
+            borderColor="border.glass"
+            shadow="lg"
           >
-            <GridItem>
-              <Suspense
-                fallback={
-                  <Flex
-                    align="center"
-                    justify="center"
-                    h={{ base: "400px", md: "600px" }}
-                    w="full"
-                    bg="bg.section"
-                    rounded="2xl"
-                  >
-                    <Spinner size="xl" color="text.accent" thickness="4px" />
-                  </Flex>
-                }
-              >
-                <InteractiveMap />
-              </Suspense>
-            </GridItem>
-
-            <GridItem>
-              <VStack spacing={4} align={{ base: "center", lg: "flex-start" }} pt={{ base: 0, lg: 4 }}>
-                <VStack spacing={1} align={{ base: "center", lg: "flex-start" }}>
-                  <Text fontWeight="bold" fontSize="lg" color="text.body">
-                    Horario de Atención
-                  </Text>
-                  <Text fontSize="md" color="text.muted">Lunes a Sábado</Text>
-                  <Text fontSize="md" color="text.muted">9:00 am – 5:00 pm</Text>
-                </VStack>
-                <VStack spacing={1} align={{ base: "center", lg: "flex-start" }}>
-                  <Text fontWeight="bold" fontSize="lg" color="text.body">
-                    Dirección
-                  </Text>
-                  <Text fontSize="md" color="text.muted">Av. Los Fresnos 1250</Text>
-                  <Text fontSize="md" color="text.muted">La Molina, Lima</Text>
-                </VStack>
-                <Button
-                  as={Link}
-                  href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
-                  isExternal
-                  leftIcon={<Icon as={FaMapLocationDot} />}
-                  bg="primary.500"
-                  color="white"
-                  width="full"
-                  size={{ base: "lg", md: "md" }}
-                  _hover={{ bg: "primary.600" }}
-                  _focus={{ boxShadow: "0 0 0 3px var(--chakra-colors-primary-500)" }}
-                  _active={{ transform: "scale(0.98)" }}
-                  aria-label="Abrir ubicación en Google Maps"
+            <Suspense
+              fallback={
+                <Flex
+                  align="center"
+                  justify="center"
+                  h="full"
+                  w="full"
+                  bg="bg.section"
                 >
-                  Abrir en Google Maps
-                </Button>
-              </VStack>
-            </GridItem>
-          </Grid>
+                  <Spinner size="xl" color="text.accent" thickness="4px" />
+                </Flex>
+              }
+            >
+              <InteractiveMap />
+            </Suspense>
+          </Box>
+
+          {/* FICHA INFORMATIVA - FLOTANTE EN DESKTOP, BLOQUE INDEPENDIENTE EN MOBILE */}
+          <VStack 
+            position={{ base: "relative", lg: "absolute" }}
+            top={{ lg: "phi_xl" }}
+            left={{ lg: "phi_xl" }}
+            zIndex={2}
+            spacing="phi_xl" 
+            align={{ base: "center", lg: "flex-start" }} 
+            p="phi_lg"
+            variant="glass"
+            bg="bg.section"
+            borderRadius="2xl"
+            border="1px solid"
+            borderColor="border.glass"
+            shadow="2xl"
+            w={{ base: "full", lg: "320px" }}
+            mt={{ base: "phi_xl", lg: 0 }}
+          >
+            <VStack spacing="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+              <HStack spacing={3} color="text.accent">
+                <Icon as={Clock} boxSize={5} />
+                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="widest">
+                  Horarios
+                </Text>
+              </HStack>
+              <Box pl={{ base: 0, lg: 8 }}>
+                <Text fontSize="md" color="text.body" fontWeight="medium">Lunes a Sábado</Text>
+                <Text fontSize="sm" color="text.muted">9:00 am – 5:00 pm</Text>
+              </Box>
+            </VStack>
+
+            <VStack spacing="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+              <HStack spacing={3} color="text.accent">
+                <Icon as={MapPin} boxSize={5} />
+                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="widest">
+                  Dirección
+                </Text>
+              </HStack>
+              <Box pl={{ base: 0, lg: 8 }}>
+                <Text fontSize="md" color="text.body" fontWeight="medium">Av. Los Fresnos 1250</Text>
+                <Text fontSize="sm" color="text.muted">La Molina, Lima - Perú</Text>
+              </Box>
+            </VStack>
+
+            <Button
+              as={Link}
+              href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
+              isExternal
+              leftIcon={<Icon as={FaMapLocationDot} />}
+              variant="aura"
+              width="full"
+              size="lg"
+              py={7}
+              aria-label="Cómo llegar a nuestra ubicación principal"
+            >
+              CÓMO LLEGAR
+            </Button>
+          </VStack>
         </Box>
       </ItemGridLayout.Item>
     </ItemGridLayout>

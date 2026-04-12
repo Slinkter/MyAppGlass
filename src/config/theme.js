@@ -219,6 +219,72 @@ const theme = extendTheme({
         variant: "aura",
       },
     },
+    Button: {
+      baseStyle: {
+        fontWeight: "600",
+        textTransform: "uppercase",
+        letterSpacing: "wider",
+        transition: "all 0.3s cubic-bezier(.08,.52,.52,1)",
+      },
+      variants: {
+        aura: {
+          bg: "primary.900",
+          color: "white",
+          borderRadius: "full",
+          px: 8,
+          _hover: {
+            bg: "primary.700",
+            transform: "translateY(-2px)",
+            boxShadow: "xl",
+            _disabled: {
+              bg: "primary.900",
+            },
+          },
+          _active: {
+            bg: "primary.800",
+            transform: "translateY(0)",
+          },
+          _dark: {
+            bg: "primary.100",
+            color: "primary.900",
+            _hover: {
+              bg: "white",
+              boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
+            },
+          },
+        },
+        outline: {
+          border: "2px solid",
+          borderColor: "primary.900",
+          color: "primary.900",
+          borderRadius: "full",
+          _hover: {
+            bg: "primary.50",
+          },
+          _dark: {
+            borderColor: "primary.100",
+            color: "primary.100",
+            _hover: {
+              bg: "whiteAlpha.100",
+            },
+          },
+        },
+        ghost: {
+          borderRadius: "full",
+          _hover: {
+            bg: "blackAlpha.50",
+          },
+          _dark: {
+            _hover: {
+              bg: "whiteAlpha.100",
+            },
+          },
+        },
+      },
+      defaultProps: {
+        variant: "aura",
+      },
+    },
   },
 });
 

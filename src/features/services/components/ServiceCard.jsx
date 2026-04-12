@@ -48,7 +48,7 @@ const ServiceCard = React.memo((props) => {
       role="group"
       cursor="pointer"
       position="relative"
-      h={{ base: "320px", md: "460px" }}
+      h={{ base: "320px", md: "500px" }}
       borderRadius="xl"
       overflow="hidden"
       onMouseEnter={() => setIsHovered(true)}

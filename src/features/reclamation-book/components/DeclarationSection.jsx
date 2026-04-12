@@ -61,7 +61,7 @@ const DeclarationSection = () => {
 
       <Button
         type="submit"
-        colorScheme="primary"
+        variant="aura"
         size="lg"
         width="full"
         onClick={handleBtnSubmit}

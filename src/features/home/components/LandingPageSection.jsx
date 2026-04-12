@@ -10,14 +10,17 @@
 import React from "react";
 import {
     Box,
+    Button,
     Flex,
     Heading,
+    HStack,
     Image,
     Text,
     usePrefersReducedMotion,
     VStack,
 } from "@chakra-ui/react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
+import { Link as RouterLink } from "react-router-dom";
 
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
@@ -107,6 +110,15 @@ const LandingPageSection = React.memo(() => {
                             Empresa Comercial especializada en la instalación de
                             cristales y aluminios.
                         </Text>
+
+                        <HStack spacing={4} mt={10} justify="center" w="full" px={4} flexWrap="wrap">
+                            <Button as={RouterLink} to="/servicios" variant="aura" size="lg">
+                                Ver Servicios
+                            </Button>
+                            <Button as={RouterLink} to="/proyectos" variant="outline" size="lg">
+                                Nuestros Proyectos
+                            </Button>
+                        </HStack>
                     </Box>
                 </MotionVStack>
             </Flex>
