@@ -15,7 +15,6 @@ import {
 import CustomMarker from "./map/CustomMarker";
 import MapLoader from "./map/MapLoader";
 import MapError from "./map/MapError";
-import MapControls from "./map/MapControls";
 
 // --- CONFIG & STYLES ---
 import { containerStyle, center, mainStore } from "./map/mapConfig";
@@ -32,7 +31,6 @@ function InteractiveMapComponent() {
   const google = window.google;
 
   const { map, onLoad, onUnmount } = useMapState();
-  const fitBounds = useMapBounds(map, google, projects);
   const icons = useMapIcons(isLoaded, google);
 
   const handleMarkerToggle = useCallback((marker) => {
@@ -49,16 +47,9 @@ function InteractiveMapComponent() {
 
   return (
     <Box
-      position="relative"
       w="100%"
-      mx="auto"
-      h={{ base: "400px", md: "600px" }}
-      rounded={{ base: "xl", md: "2xl" }}
-      overflow="hidden"
-      boxShadow="lg"
-      border={{ base: "none", md: "1px solid" }}
-      borderColor={borderColor}
-      padding={2}
+      h="100%"
+      position="relative"
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -75,8 +66,6 @@ function InteractiveMapComponent() {
           disableDefaultUI: false,
         }}
       >
-        <MapControls onFitBounds={fitBounds} />
-
         <CustomMarker
           marker={mainStore}
           isSelected={selectedMarker?.id === mainStore.id}

@@ -28,13 +28,8 @@ const BottomNav = () => {
   const location = useLocation();
   const { colorMode, toggleColorMode } = useColorMode();
 
-  // Configuración de Colores (High Performance Solid)
-  const containerBg = useColorModeValue(
-    "rgba(255, 255, 255, 0.98)", // Blanco sólido
-    "rgba(15, 15, 15, 0.98)", // Negro sólido
-  );
-  const containerBorder = useColorModeValue("gray.200", "whiteAlpha.200");
-  const activeIconColor = "white"; // Contraste contra la burbuja
+  // Aura Design System Tokens
+  const activeIconColor = "white"; 
   const inactiveIconColor = useColorModeValue("gray.500", "gray.400");
 
   // Items de Navegación
@@ -75,15 +70,16 @@ const BottomNav = () => {
         transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
         align="center"
         justify="space-evenly"
-        bg={containerBg}
+        bg="surface.nav"
+        backdropFilter="blur(10px)"
         px={1}
         py={1.5}
         borderRadius="full"
-        shadow="none"
+        shadow="xl"
         w="full"
         maxW="400px"
         border="1px solid"
-        borderColor={containerBorder}
+        borderColor="border.glass"
       >
         {navItems.map((item) => {
           const isActive = !item.isAction && location.pathname === item.path;

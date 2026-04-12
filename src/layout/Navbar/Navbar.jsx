@@ -4,15 +4,11 @@
  * @module layout/navbar
  */
 import React from "react";
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import DesktopNav from "./DesktopNav";
 import BottomNav from "./BottomNav";
 
 export default function Navbar() {
-  // Estilos High Performance Solid
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
-  const textColor = useColorModeValue("gray.800", "gray.100");
-
   return (
     <>
       {/* DESKTOP NAVBAR */}
@@ -27,11 +23,9 @@ export default function Navbar() {
       >
         <Flex
           as="nav"
-          bg={useColorModeValue(
-            "white",
-            "primary.800",
-          )}
-          color={textColor}
+          bg="surface.nav"
+          color="text.body"
+          backdropFilter="blur(10px)"
           minH="60px"
           py="phi_xs"
           px="phi_lg"
@@ -40,11 +34,11 @@ export default function Navbar() {
           position="relative"
           maxW="1440px"
           mx="auto"
-          // Solid effects
+          // Aura Glass Effects
           border="1px solid"
-          borderColor={borderColor}
+          borderColor="border.glass"
           borderRadius="card"
-          boxShadow="md"
+          boxShadow="lg"
         >
           <Flex flex={{ base: 1 }} justifyContent="center" alignItems="center">
             <DesktopNav />

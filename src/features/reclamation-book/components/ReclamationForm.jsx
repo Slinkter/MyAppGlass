@@ -23,11 +23,9 @@ const ReclamationFormInner = () => {
         maxW="3xl"
         mx="auto"
         mb={8}
-        bg="surface.card"
-        border="1px solid"
-        borderColor="border.default"
-        boxShadow="0 4px 30px rgba(0,0,0,0.1)"
-        borderRadius="2xl"
+        variant="glass"
+        bg="bg.section"
+        boxShadow="2xl"
         color="text.body"
       >
         <Heading
