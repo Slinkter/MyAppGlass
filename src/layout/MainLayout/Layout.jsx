@@ -14,7 +14,7 @@ import {
   useBreakpointValue,
   Link,
 } from "@chakra-ui/react";
-import { Navbar } from "../Navbar";
+import { AuraNavbar as Navbar } from "../Navbar";
 import { Footer } from "../Footer";
 import { ThemeToggle } from "../FloatingActions/ThemeToggle";
 const FloatingWhatsApp = lazy(() =>
