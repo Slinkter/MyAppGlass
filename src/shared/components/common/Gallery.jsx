@@ -67,7 +67,7 @@ const Gallery = React.memo(({ images }) => {
       >
         <Flex
           direction={{ base: "column", md: "row" }}
-          gap={0} // No gap for seamless integration
+          gap={2} // Small gap for subtle separation
           h="100%"
           w="100%"
           minW={0}
