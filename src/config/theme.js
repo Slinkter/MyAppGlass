@@ -83,15 +83,19 @@ const theme = extendTheme({
       "bg.subtle":  { default: "blackAlpha.50", _dark: "whiteAlpha.50" },
 
       // Glass surfaces
-      "surface.card":     { default: "rgba(255, 255, 255, 0.25)", _dark: "rgba(24, 24, 27, 0.4)" },
-      "surface.nav":      { default: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" },
-      "surface.icon":     { default: "primary.50", _dark: "whiteAlpha.100" },
+      "surface.card":      { default: "rgba(255, 255, 255, 0.25)", _dark: "rgba(24, 24, 27, 0.4)" },
+      "surface.nav":       { default: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" },
+      "surface.container": { default: "white", _dark: "whiteAlpha.100" },
+      "surface.icon":      { default: "primary.50", _dark: "whiteAlpha.100" },
       "surface.iconHover": { default: "primary.100", _dark: "whiteAlpha.200" },
 
       // Borders
       "border.default": { default: "gray.200",        _dark: "whiteAlpha.100" },
       "border.strong":  { default: "gray.300",        _dark: "whiteAlpha.200" },
       "border.glass":   { default: "gray.200",        _dark: "whiteAlpha.100" },
+
+      // Focus
+      "ring.primary": { default: "primary.400", _dark: "primary.500" },
 
       // Text
       "text.body":    { default: "gray.800", _dark: "gray.300" },
@@ -148,6 +152,71 @@ const theme = extendTheme({
           borderRadius: "card",
           boxShadow: "sm",
         },
+      },
+    },
+    Input: {
+      variants: {
+        aura: {
+          field: {
+            bg: "surface.container",
+            border: "1px solid",
+            borderColor: "border.glass",
+            borderRadius: "md",
+            _placeholder: { color: "text.muted" },
+            _hover: { borderColor: "border.strong" },
+            _focus: {
+              borderColor: "ring.primary",
+              boxShadow: "0 0 0 1px var(--chakra-colors-ring-primary)",
+            },
+          },
+        },
+      },
+      defaultProps: {
+        variant: "aura",
+      },
+    },
+    Select: {
+      variants: {
+        aura: {
+          field: {
+            bg: "surface.container",
+            border: "1px solid",
+            borderColor: "border.glass",
+            borderRadius: "md",
+            _placeholder: { color: "text.muted" },
+            _hover: { borderColor: "border.strong" },
+            _focus: {
+              borderColor: "ring.primary",
+              boxShadow: "0 0 0 1px var(--chakra-colors-ring-primary)",
+            },
+            option: {
+              bg: "surface.card",
+              color: "text.body",
+            },
+          },
+        },
+      },
+      defaultProps: {
+        variant: "aura",
+      },
+    },
+    Textarea: {
+      variants: {
+        aura: {
+          bg: "surface.container",
+          border: "1px solid",
+          borderColor: "border.glass",
+          borderRadius: "md",
+          _placeholder: { color: "text.muted" },
+          _hover: { borderColor: "border.strong" },
+          _focus: {
+            borderColor: "ring.primary",
+            boxShadow: "0 0 0 1px var(--chakra-colors-ring-primary)",
+          },
+        },
+      },
+      defaultProps: {
+        variant: "aura",
       },
     },
   },

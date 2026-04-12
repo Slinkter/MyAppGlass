@@ -10,27 +10,15 @@ import {
   Heading,
   InputGroup,
   InputLeftAddon,
-  useColorModeValue,
 } from "@chakra-ui/react";
+import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
  * @component ProductSection
  * @description Sección de información del producto o servicio
- * @param {Object} props - Props del componente
- * @param {Object} props.formData - Datos del formulario
- * @param {Function} props.handleInputsChange - Función para manejar cambios
- * @param {Object} props.errors - Errores de validación
- * @param {Object} props.inputStyles - Estilos aplicados a inputs
- * @param {Object} props.selectStyles - Estilos aplicados a selects
  */
-const ProductSection = ({
-  formData,
-  handleInputsChange,
-  errors,
-  inputStyles,
-  selectStyles,
-}) => {
-  const headingColor = useColorModeValue("gray.900", "white");
+const ProductSection = () => {
+  const { formData, handleInputsChange, errors } = useReclamationFormContext();
 
   return (
     <>
@@ -40,7 +28,7 @@ const ProductSection = ({
         borderBottomWidth={2}
         pb={2}
         pt={4}
-        color={headingColor}
+        color="text.heading"
       >
         2. Identificación del bien contratado
       </Heading>
@@ -53,7 +41,6 @@ const ProductSection = ({
             value={formData.tipoBien}
             onChange={handleInputsChange}
             placeholder="Seleccionar"
-            sx={selectStyles}
           >
             <option value="producto">Producto</option>
             <option value="servicio">Servicio</option>
@@ -64,13 +51,12 @@ const ProductSection = ({
         <FormControl>
           <FormLabel>Monto Reclamado (S/.)</FormLabel>
           <InputGroup>
-            <InputLeftAddon {...inputStyles}>S/.</InputLeftAddon>
+            <InputLeftAddon>S/.</InputLeftAddon>
             <Input
               type="number"
               name="montoReclamado"
               value={formData.montoReclamado}
               onChange={handleInputsChange}
-              {...inputStyles}
             />
           </InputGroup>
         </FormControl>
@@ -82,12 +68,13 @@ const ProductSection = ({
           name="descripcionBien"
           value={formData.descripcionBien}
           onChange={handleInputsChange}
-          {...inputStyles}
         />
         <FormErrorMessage>{errors.descripcionBien}</FormErrorMessage>
       </FormControl>
     </>
   );
 };
+
+export default ProductSection;
 
 export default ProductSection;

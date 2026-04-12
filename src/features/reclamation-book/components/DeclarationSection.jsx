@@ -6,26 +6,15 @@ import {
   Button,
   Text,
   Heading,
-  useColorModeValue,
 } from "@chakra-ui/react";
+import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
  * @component DeclarationSection
  * @description Sección de declaración, aceptación y envío
- * @param {Object} props - Props del componente
- * @param {Object} props.formData - Datos del formulario
- * @param {Function} props.handleInputsChange - Función para manejar cambios
- * @param {Function} props.handleBtnSubmit - Función para enviar formulario
- * @param {Object} props.errors - Errores de validación
  */
-const DeclarationSection = ({
-  formData,
-  handleInputsChange,
-  handleBtnSubmit,
-  errors,
-}) => {
-  const headingColor = useColorModeValue("gray.900", "white");
-  const textColor = useColorModeValue("gray.600", "gray.300");
+const DeclarationSection = () => {
+  const { formData, handleInputsChange, handleBtnSubmit, errors } = useReclamationFormContext();
 
   return (
     <>
@@ -35,12 +24,12 @@ const DeclarationSection = ({
         borderBottomWidth={2}
         pb={2}
         pt={4}
-        color={headingColor}
+        color="text.heading"
       >
         4. Declaración y Envío
       </Heading>
 
-      <Text fontSize="sm" color={textColor}>
+      <Text fontSize="sm" color="text.muted">
         * La respuesta a la presente será remitida al correo electrónico
         consignado en un plazo no mayor a 15 días hábiles, según el D.S. N°
         006-2014-PCM.
@@ -82,5 +71,7 @@ const DeclarationSection = ({
     </>
   );
 };
+
+export default DeclarationSection;
 
 export default DeclarationSection;
