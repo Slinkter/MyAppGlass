@@ -6,14 +6,14 @@
 import React from "react";
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import AuraDesktopNav from "./AuraDesktopNav";
-import BottomNav from "./BottomNav";
+import AuraBottomNav from "./AuraBottomNav";
 
 /**
  * @component AuraNavbar
  * @description Header con estética "Liquid Glass" para MyAppGlass.
  */
 const AuraNavbar = () => {
-  // Configuración de efectos de vidrio premium
+  // ... (keeping previous glassBg and blurAmount)
   const glassBg = useColorModeValue(
     "rgba(255, 255, 255, 0.75)", 
     "rgba(24, 24, 27, 0.65)"
@@ -60,9 +60,9 @@ const AuraNavbar = () => {
         </Flex>
       </Box>
 
-      {/* MOBILE NAVBAR (Sigue siendo BottomNav, adaptado en el futuro si se desea) */}
+      {/* MOBILE NAVBAR (Aura Mobile Dock) */}
       <Box display={{ base: "block", md: "none" }}>
-        <BottomNav />
+        <AuraBottomNav />
       </Box>
     </>
   );
