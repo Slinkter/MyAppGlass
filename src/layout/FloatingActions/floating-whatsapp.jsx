@@ -3,33 +3,35 @@ import {
   Box,
   Button,
   Icon,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
+  Dialog,
   useDisclosure,
   Text,
-  useColorModeValue,
   Link,
   VStack,
 } from "@chakra-ui/react";
 import { FaWhatsapp } from "react-icons/fa";
 import { companyData } from "@/config/company-data";
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 /**
  * @component FloatingWhatsApp
  * @description Botón flotante de WhatsApp que abre un modal con overlay.
+ * Migrado a Chakra UI v3 Dialog.
  * @returns {JSX.Element} Widget de WhatsApp rediseñado con funcionalidad de modal.
  */
 const FloatingWhatsApp = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const whatsappLink = `https://wa.me/${
     companyData.whatsappNumber
   }?text=${encodeURIComponent(companyData.whatsappMessage)}`;
   const modalBg = useColorModeValue("white", "gray.700");
   const modalColor = useColorModeValue("gray.800", "white");
+
+  const handleOpenChange = (details) => {
+    if (!details.open) {
+      onClose();
+    }
+  };
 
   return (
     <>
@@ -58,42 +60,44 @@ const FloatingWhatsApp = () => {
         </Button>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent
-          maxW="xs"
-          bg={modalBg}
-          color={modalColor}
-          borderRadius="xl"
-          boxShadow="xl"
-          position="fixed"
-          bottom="90px" // Position above the trigger button
-          right="20px"
-        >
-          <ModalHeader fontWeight="bold" border="0">
-            ¿Necesitas Ayuda?
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <VStack spacing={3} align="start">
-              <Text>
-                Chatea con nosotros en WhatsApp para una cotización o consulta.
-              </Text>
-              <Button
-                as={Link}
-                href={whatsappLink}
-                isExternal
-                w="full"
-                colorScheme="whatsapp"
-                leftIcon={<Icon as={FaWhatsapp} />}
-                onClick={onClose} // Close modal on click
-              >
-                Iniciar Chat
-              </Button>
-            </VStack>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <Dialog.Root open={open} onOpenChange={handleOpenChange} placement="center">
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content
+            maxW="xs"
+            bg={modalBg}
+            color={modalColor}
+            borderRadius="xl"
+            boxShadow="xl"
+            position="fixed"
+            bottom="90px"
+            right="20px"
+          >
+            <Dialog.Header fontWeight="bold" border="0">
+              ¿Necesitas Ayuda?
+            </Dialog.Header>
+            <Dialog.CloseTrigger />
+            <Dialog.Body>
+              <VStack gap={3} align="start">
+                <Text>
+                  Chatea con nosotros en WhatsApp para una cotización o consulta.
+                </Text>
+                <Button
+                  asChild
+                  w="full"
+                  colorPalette="green"
+                  onClick={onClose}
+                >
+                  <Link href={whatsappLink} isExternal>
+                    <Icon as={FaWhatsapp} mr={2} />
+                    Iniciar Chat
+                  </Link>
+                </Button>
+              </VStack>
+            </Dialog.Body>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Dialog.Root>
     </>
   );
 };

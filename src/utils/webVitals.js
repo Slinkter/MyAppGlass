@@ -20,7 +20,7 @@ const reportWebVitals = (metric) => {
   }
 
   // Log en desarrollo
-  if (import.meta.env.DEV) {
+  if (process.env.NODE_ENV === 'development') {
     console.log(metric);
   }
 };

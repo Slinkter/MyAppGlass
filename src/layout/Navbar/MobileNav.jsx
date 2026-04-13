@@ -1,11 +1,14 @@
+'use client';
+
 /**
  * @file MobileNav.jsx
  * @description High-performance mobile navigation with a classic hamburger menu and full-screen glass overlay.
  */
 import React, { useState, useEffect, useCallback } from "react";
-import { Box, IconButton, VStack, Image, Text, Button, Divider, HStack } from "@chakra-ui/react";
+import { Box, IconButton, VStack, Image, Text, Button, HStack } from "@chakra-ui/react";
 import { Menu, X, MessageSquareText, ShieldCheck, Landmark } from "lucide-react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
@@ -17,14 +20,14 @@ import logoGYA from "@/assets/branding/LogoCompanytrans.png";
  */
 const MobileNav = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   // Close menu on route change
   useEffect(() => {
     setIsOpen(false);
-  }, [location.pathname]);
+  }, [pathname]);
 
   // Lock scroll when menu is open
   useEffect(() => {
@@ -124,10 +127,10 @@ const MobileNav = React.memo(() => {
               {/* PRIMARY LINKS */}
               <VStack spacing={6}>
                 {NAV_ITEMS.map((navItem) => {
-                  const isActive = location.pathname === navItem.href;
+                  const isActive = pathname === navItem.href;
                   return (
                     <Box as={m.div} variants={itemVariants} key={navItem.label}>
-                      <RouterLink to={navItem.href ?? "#"} style={{ textDecoration: "none" }}>
+                      <Link href={navItem.href ?? "#"} style={{ textDecoration: "none" }}>
                         <Text
                           fontFamily="heading"
                           fontSize="3xl"
@@ -150,43 +153,43 @@ const MobileNav = React.memo(() => {
                         >
                           {navItem.label}
                         </Text>
-                      </RouterLink>
+                      </Link>
                     </Box>
                   );
                 })}
               </VStack>
 
               <Box as={m.div} variants={itemVariants} w="full">
-                <Divider borderColor="whiteAlpha.200" w="full" my={2} />
+                <Box borderTop="1px" borderColor="whiteAlpha.200" w="full" my={2} />
               </Box>
 
               {/* SECONDARY LINKS */}
               <VStack spacing={5} w="full" align="center">
                 <Box as={m.div} variants={itemVariants}>
-                  <RouterLink to="/politicas-empresa" style={{ textDecoration: "none" }}>
+                  <Link href="/politicas-empresa" style={{ textDecoration: "none" }}>
                     <HStack spacing={3} color="whiteAlpha.700">
                       <ShieldCheck size={18} />
                       <Text fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="widest">Políticas</Text>
                     </HStack>
-                  </RouterLink>
+                  </Link>
                 </Box>
                 
                 <Box as={m.div} variants={itemVariants}>
-                  <RouterLink to="/cuentas-bancarias" style={{ textDecoration: "none" }}>
+                  <Link href="/cuentas-bancarias" style={{ textDecoration: "none" }}>
                     <HStack spacing={3} color="whiteAlpha.700">
                       <Landmark size={18} />
                       <Text fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="widest">Cuentas Bancarias</Text>
                     </HStack>
-                  </RouterLink>
+                  </Link>
                 </Box>
 
                 <Box as={m.div} variants={itemVariants}>
-                  <RouterLink to="/libro-de-reclamacion" style={{ textDecoration: "none" }}>
+                  <Link href="/libro-de-reclamacion" style={{ textDecoration: "none" }}>
                     <HStack spacing={3} color="whiteAlpha.700">
                       <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} filter="brightness(0) invert(1)" opacity={0.7} />
                       <Text fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="widest">Reclamaciones</Text>
                     </HStack>
-                  </RouterLink>
+                  </Link>
                 </Box>
               </VStack>
 

@@ -5,7 +5,8 @@
  */
 
 import React from "react";
-import { Flex, Spinner, Box, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Spinner, Box } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 /**
  * @component LoadingFallback

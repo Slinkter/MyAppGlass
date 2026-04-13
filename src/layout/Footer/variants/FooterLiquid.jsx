@@ -26,7 +26,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
@@ -45,7 +45,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
 
   if (to) {
     return (
-      <Link to={to} style={{ textDecoration: "none", width: "100%" }} target={isExternal ? "_blank" : undefined} className="group">
+      <Link href={to} style={{ textDecoration: "none", width: "100%" }} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined} className="group">
         <Box role="group">{content}</Box>
       </Link>
     );
@@ -111,7 +111,7 @@ const FooterLiquid = () => {
               <VStack align="flex-start" spacing={1} w="full">
                 <FooterRow to="/politicas-empresa" icon={FileText}>Políticas de Empresa</FooterRow>
                 <FooterRow to="/cuentas-bancarias" icon={Building}>Cuentas Bancarias</FooterRow>
-                <Link to="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
+                <Link href="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
                   <HStack spacing={4} align="center" py={2} _hover={{ transform: "translateX(4px)" }} transition="all 0.3s ease">
                     <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} _dark={{ filter: "brightness(0) invert(1)" }} />
                     <Text fontSize="sm" fontWeight="600" color="text.body">Libro de Reclamaciones</Text>

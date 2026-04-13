@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file Footer.jsx
  * @description Global application footer unificado con elevación premium y diseño dimensional.
@@ -15,7 +17,6 @@ import {
     Image,
     SimpleGrid,
     Container,
-    Divider,
 } from "@chakra-ui/react";
 import {
     Calendar,
@@ -26,7 +27,7 @@ import {
     FileText,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
@@ -34,7 +35,7 @@ import logoGYA from "@/assets/branding/LogoCompanytrans.png";
  * @component FooterRow
  * @description Unifica FooterItem y FooterLink en un solo estándar de alineación.
  */
-const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
+const FooterRow = ({ icon, children, href, isExternal, customIconColor }) => {
     const iconColor = customIconColor || "text.accent";
     const hoverColor = "text.accent";
 
@@ -46,17 +47,17 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
                 fontWeight="600"
                 color="text.body"
                 transition="all 0.2s"
-                _groupHover={to ? { color: hoverColor, transform: "translateX(2px)" } : {}}
+                _groupHover={href ? { color: hoverColor, transform: "translateX(2px)" } : {}}
             >
                 {children}
             </Text>
         </HStack>
     );
 
-    if (to) {
+    if (href) {
         return (
             <Link 
-                to={to} 
+                href={href} 
                 style={{ textDecoration: "none", width: "100%" }} 
                 target={isExternal ? "_blank" : undefined} 
                 className="group"
@@ -120,9 +121,9 @@ const Footer = () => {
                         </FooterSection>
 
                         <FooterSection title="Corporativo">
-                            <FooterRow to="/politicas-empresa" icon={FileText}>Políticas de Empresa</FooterRow>
-                            <FooterRow to="/cuentas-bancarias" icon={Building}>Cuentas Bancarias</FooterRow>
-                            <Link to="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
+                            <FooterRow href="/politicas-empresa" icon={FileText}>Políticas de Empresa</FooterRow>
+                            <FooterRow href="/cuentas-bancarias" icon={Building}>Cuentas Bancarias</FooterRow>
+                            <Link href="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
                                 <HStack 
                                     spacing={4} 
                                     align="center" 
@@ -137,7 +138,7 @@ const Footer = () => {
                         </FooterSection>
                     </SimpleGrid>
 
-                    <Divider borderColor="border.glass" mb={10} />
+                    <Box borderTop="1px" borderColor="border.glass" mb={10} />
 
                     <Flex direction="column" align="center" gap={5}>
                         <Image src={logoGYA} alt="Logo" h="36px" />

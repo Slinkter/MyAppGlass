@@ -7,12 +7,11 @@ import React from "react";
 import {
   Box,
   Flex,
-  useColorModeValue,
-  useColorMode,
   Icon,
-  Link,
 } from "@chakra-ui/react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { useColorModeValue, useColorMode } from "@/components/ui/color-mode";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Home,
   Wrench,
@@ -29,7 +28,7 @@ import { companyData } from "@/config/company-data";
  * @description Dock de navegación móvil con estética "Liquid Glass" y animaciones fluidas.
  */
 const AuraBottomNav = () => {
-  const location = useLocation();
+  const pathname = usePathname();
   const { colorMode, toggleColorMode } = useColorMode();
 
   // Configuración de efectos de vidrio premium para el Dock
@@ -88,7 +87,7 @@ const AuraBottomNav = () => {
         boxShadow="0 8px 32px 0 rgba(0, 0, 0, 0.15)"
       >
         {navItems.map((item) => {
-          const isActive = !item.isAction && location.pathname === item.path;
+          const isActive = !item.isAction && pathname === item.path;
 
           const innerContent = (
             <Flex
@@ -157,10 +156,7 @@ const AuraBottomNav = () => {
           return (
             <Link
               key={item.label}
-              as={item.isExternal ? "a" : RouterLink}
-              to={!item.isExternal ? item.path : undefined}
-              href={item.isExternal ? item.path : undefined}
-              isExternal={item.isExternal}
+              href={item.path}
               style={{
                 textDecoration: "none",
                 WebkitTapHighlightColor: "transparent",
@@ -172,7 +168,7 @@ const AuraBottomNav = () => {
               justifyContent="center"
               alignItems="center"
               onClick={() => {
-                if (isActive && !item.isExternal) {
+                if (isActive) {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }}

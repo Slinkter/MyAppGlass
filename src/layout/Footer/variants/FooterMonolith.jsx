@@ -16,7 +16,6 @@ import {
   Image,
   SimpleGrid,
   Container,
-  Divider,
 } from "@chakra-ui/react";
 import {
   Clock,
@@ -26,7 +25,7 @@ import {
   FileText,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
@@ -42,7 +41,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
 
   if (to) {
     return (
-      <Link to={to} style={{ textDecoration: "none", width: "100%" }} target={isExternal ? "_blank" : undefined}>
+      <Link href={to} style={{ textDecoration: "none", width: "100%" }} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined}>
         {content}
       </Link>
     );
@@ -98,7 +97,7 @@ const FooterMonolith = () => {
           </FooterSection>
         </SimpleGrid>
 
-        <Divider borderColor="whiteAlpha.200" mb={10} />
+        <Box borderTop="1px" borderColor="whiteAlpha.200" mb={10} />
 
         <Flex direction={{ base: "column", md: "row" }} justify="space-between" align="center" gap={6}>
           <Image src={logoGYA} alt="Logo" h="40px" filter="brightness(0) invert(1)" />

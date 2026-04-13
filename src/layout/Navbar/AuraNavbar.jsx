@@ -1,10 +1,13 @@
+"use client";
+
 /**
  * @file AuraNavbar.jsx
  * @description Premium responsive navigation header with Aura Liquid Glass effects.
  * @module layout/navbar
  */
-import React from "react";
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 import AuraDesktopNav from "./AuraDesktopNav";
 import MobileNav from "./MobileNav";
 
@@ -13,11 +16,22 @@ import MobileNav from "./MobileNav";
  * @description Header con estética "Liquid Glass" para MyAppGlass.
  */
 const AuraNavbar = React.memo(() => {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const glassBg = useColorModeValue(
     "rgba(255, 255, 255, 0.75)", 
     "rgba(24, 24, 27, 0.65)"
   );
   const blurAmount = "12px";
+
+  // Evita la hidratación mismatch renderizando un placeholder o nada hasta que el cliente esté listo
+  if (!mounted) {
+    return <Box as="header" position="sticky" top="phi_lg" zIndex="sticky" display={{ base: "none", md: "block" }} />;
+  }
 
   return (
     <>
@@ -42,7 +56,6 @@ const AuraNavbar = React.memo(() => {
           position="relative"
           maxW="fit-content"
           mx="auto"
-          // Aura Liquid Border & Glow
           border="1px solid"
           borderColor="border.glass"
           borderRadius="full"

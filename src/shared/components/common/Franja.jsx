@@ -10,9 +10,9 @@ import {
   Flex,
   Heading,
   Text,
-  useColorModeValue,
   Container,
-} from "@chakra-ui/react"; // Import Container
+} from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 /**
  * @component Franja

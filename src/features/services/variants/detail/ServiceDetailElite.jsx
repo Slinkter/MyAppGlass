@@ -30,7 +30,7 @@ const ServiceDetailElite = ({ pageData }) => {
       {/* 1. CINEMATIC HERO */}
       <Box h="110vh" position="relative" clipPath="inset(0 0 0 0)">
         <MotionBox style={{ scale }} position="absolute" inset={0} zIndex={0}>
-          <Image src={imageLists[3][0]} w="full" h="full" objectFit="cover" filter="brightness(0.4) grayscale(0.2)" />
+          <Image src={imageLists[3][0]} w="full" h="full" objectFit="cover" filter="brightness(0.4) grayscale(0.2)" alt="" />
         </MotionBox>
         
         <Container maxW="7xl" h="full" position="relative" zIndex={1}>
@@ -87,7 +87,7 @@ const ServiceDetailElite = ({ pageData }) => {
           </VStack>
 
           <Box position="relative">
-            <Image src={imageLists[0][0]} borderRadius="sm" filter="contrast(1.1) brightness(0.8)" />
+            <Image src={imageLists[0][0]} borderRadius="sm" filter="contrast(1.1) brightness(0.8)" alt="" />
             <Box position="absolute" bottom="-40px" left="-40px" p={8} bg="orange.300" color="black">
               <Text fontWeight="black" fontSize="4xl" lineHeight="1">99%</Text>
               <Text fontWeight="bold" fontSize="xs" textTransform="uppercase" letterSpacing="widest">Transparencia</Text>

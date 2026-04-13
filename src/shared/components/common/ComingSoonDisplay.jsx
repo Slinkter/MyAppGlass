@@ -1,5 +1,6 @@
 import React from "react";
-import { Flex, VStack, Icon, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, VStack, Icon, Heading, Text } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 import { ClockIcon } from "@heroicons/react/24/outline";
 
 /**

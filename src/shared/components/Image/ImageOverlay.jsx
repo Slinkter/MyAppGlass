@@ -4,10 +4,10 @@ import {
   Heading,
   Button,
   Stack,
-  useColorModeValue,
 } from "@chakra-ui/react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { Link as RouterLink } from "react-router-dom";
+import { useColorModeValue } from "@/components/ui/color-mode";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 /**
  * @component ImageOverlay
@@ -73,25 +73,25 @@ const ImageOverlay = React.memo(({ name, plink }) => {
           {name}
         </Heading>
 
-        <Button
-          as={RouterLink}
-          to={plink}
-          rightIcon={<ArrowForwardIcon />}
-          aria-label={`Ver catálogo de ${name}`}
-          width="full"
-          opacity={0}
-          transform="translateY(20px)"
-          transition="all 0.3s ease-out 0.1s"
-          bg={buttonStyles.bg}
-          color={buttonStyles.color}
-          _hover={buttonStyles._hover}
-          _groupHover={{
-            opacity: 1,
-            transform: "translateY(0)",
-          }}
-        >
-          Catálogo
-        </Button>
+        <Link href={plink} passHref legacyBehavior>
+          <Button
+            as="a"
+            aria-label={`Ver catálogo de ${name}`}
+            width="full"
+            opacity={0}
+            transform="translateY(20px)"
+            transition="all 0.3s ease-out 0.1s"
+            bg={buttonStyles.bg}
+            color={buttonStyles.color}
+            _hover={buttonStyles._hover}
+            _groupHover={{
+              opacity: 1,
+              transform: "translateY(0)",
+            }}
+          >
+            Catálogo <ChevronRight size={18} style={{ marginLeft: '8px' }} />
+          </Button>
+        </Link>
       </Stack>
     </>
   );

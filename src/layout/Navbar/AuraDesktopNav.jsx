@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file AuraDesktopNav.jsx
  * @description Premium desktop navigation with sliding active indicator and glassmorphism.
@@ -5,7 +7,8 @@
  */
 import React from "react";
 import { Stack, Box, Text } from "@chakra-ui/react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { m } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 
@@ -14,7 +17,7 @@ import NAV_ITEMS from "@/data/nav-items";
  * @description Navegación de escritorio con indicador animado "Sliding Capsule".
  */
 const AuraDesktopNav = () => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   return (
     <Stack 
@@ -24,12 +27,12 @@ const AuraDesktopNav = () => {
       align="center"
     >
       {NAV_ITEMS.map((navItem) => {
-        const isActive = location.pathname === navItem.href;
+        const isActive = pathname === navItem.href;
         
         return (
-          <RouterLink
+          <Link
             key={navItem.label}
-            to={navItem.href ?? "#"}
+            href={navItem.href ?? "#"}
             style={{ textDecoration: "none", position: "relative" }}
             aria-current={isActive ? "page" : undefined}
           >
@@ -75,7 +78,7 @@ const AuraDesktopNav = () => {
                 {navItem.label}
               </Text>
             </Box>
-          </RouterLink>
+          </Link>
         );
       })}
     </Stack>

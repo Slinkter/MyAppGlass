@@ -4,7 +4,7 @@
  */
 import React from "react";
 import {
-  Box, VStack, Heading, Text, HStack, Button, Icon, Flex, Divider, SimpleGrid
+  Box, VStack, Heading, Text, HStack, Button, Icon, Flex, SimpleGrid
 } from "@chakra-ui/react";
 import { Layers, Shield, ArrowRight } from "lucide-react";
 import Gallery from "@shared/components/common/Gallery";
@@ -54,7 +54,7 @@ export const ServiceDetailTechnical = ({ pageData }) => {
             </SimpleGrid>
           </VStack>
 
-          <Divider borderColor="border.glass" />
+          <Box borderTop="1px" borderColor="border.glass" />
 
           <SimpleGrid columns={2} spacing={10} w="full">
             <VStack align="flex-start">

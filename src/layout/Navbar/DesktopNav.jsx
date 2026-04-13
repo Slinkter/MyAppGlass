@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file DesktopNav.jsx
  * @description Desktop navigation links with active-state indicator.
@@ -6,7 +8,8 @@
  */
 import React from "react";
 import { Stack, Box } from "@chakra-ui/react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import NAV_ITEMS from "@/data/nav-items";
 
 /**
@@ -15,16 +18,16 @@ import NAV_ITEMS from "@/data/nav-items";
  * Renderiza los links definidos en NAV_ITEMS.
  */
 const DesktopNav = () => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   return (
     <Stack direction="row" spacing={4}>
       {NAV_ITEMS.map((navItem) => {
-        const isActive = location.pathname === navItem.href;
+        const isActive = pathname === navItem.href;
         return (
-          <RouterLink
+          <Link
             key={navItem.label}
-            to={navItem.href ?? "#"}
+            href={navItem.href ?? "#"}
             style={{ textDecoration: "none" }}
             aria-current={isActive ? "page" : undefined}
             onClick={() => {
@@ -50,7 +53,7 @@ const DesktopNav = () => {
             >
               {navItem.label}
             </Box>
-          </RouterLink>
+          </Link>
         );
       })}
     </Stack>

@@ -4,18 +4,18 @@ import {
   Box,
   Heading,
   Text,
-  useColorModeValue,
   Flex,
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverArrow,
-  PopoverCloseButton,
   PopoverBody,
   Icon,
   VStack,
   Badge,
+  CloseButton,
 } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 import { pulseRing, float } from "./mapConfig";
 
 const CustomMarker = ({
@@ -140,7 +140,7 @@ const CustomMarker = ({
           bg={popoverBg}
         >
           <PopoverArrow bg={popoverBg} />
-          <PopoverCloseButton size="sm" top={2} right={2} zIndex={2} />
+          <CloseButton size="sm" top={2} right={2} zIndex={2} />
 
           {/* Header Image or Gradient */}
           <Box h="6px" w="100%" bgGradient={"null"} />

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { reclamoService } from "@/api/reclamoService.js";
 
@@ -106,7 +106,7 @@ export const useReclamoForm = () => {
   const [errors, setErrors] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newReclamoId, setNewReclamoId] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
   const toast = useToast();
 
   const handleInputsChange = (e) => {
@@ -123,7 +123,7 @@ export const useReclamoForm = () => {
 
   const handleModalCloseAndRedirect = () => {
     onClose();
-    navigate("/");
+    router.push("/");
   };
 
   const handleBtnSubmit = async (e) => {

@@ -2,12 +2,11 @@ import React from "react";
 import {
   Box,
   Flex,
-  useColorModeValue,
-  useColorMode,
   Icon,
-  Link,
 } from "@chakra-ui/react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { useColorModeValue, useColorMode } from "@/components/ui/color-mode";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Home,
   Wrench,
@@ -25,7 +24,7 @@ import { companyData } from "@/config/company-data";
  * Distribuye uniformemente los items usando flexbox.
  */
 const BottomNav = () => {
-  const location = useLocation();
+  const pathname = usePathname();
   const { colorMode, toggleColorMode } = useColorMode();
 
   // Aura Design System Tokens
@@ -82,7 +81,7 @@ const BottomNav = () => {
         borderColor="border.glass"
       >
         {navItems.map((item) => {
-          const isActive = !item.isAction && location.pathname === item.path;
+          const isActive = !item.isAction && pathname === item.path;
 
           const innerContent = (
             <Flex
@@ -149,10 +148,7 @@ const BottomNav = () => {
           return (
             <Link
               key={item.label}
-              as={item.isExternal ? "a" : RouterLink}
-              to={!item.isExternal ? item.path : undefined}
-              href={item.isExternal ? item.path : undefined}
-              isExternal={item.isExternal}
+              href={item.path}
               style={{
                 textDecoration: "none",
                 WebkitTapHighlightColor: "transparent",
@@ -165,7 +161,7 @@ const BottomNav = () => {
               justifyContent="center"
               alignItems="center"
               onClick={() => {
-                if (isActive && !item.isExternal) {
+                if (isActive) {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }}

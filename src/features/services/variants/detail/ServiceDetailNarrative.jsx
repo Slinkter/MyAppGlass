@@ -21,7 +21,7 @@ export const ServiceDetailNarrative = ({ pageData }) => {
           style={{ y }} 
           position="absolute" inset={0} zIndex={0} opacity={0.6}
         >
-          <Image src={imageLists[0][0]} w="full" h="full" objectFit="cover" />
+          <Image src={imageLists[0][0]} w="full" h="full" objectFit="cover" alt="" />
         </MotionBox>
         <VStack zIndex={1} spacing={6} textAlign="center" maxW="4xl" px={6}>
           <Text fontSize="sm" fontWeight="bold" letterSpacing="0.5em" color="primary.400" textTransform="uppercase">Excelencia en Cristal</Text>
@@ -34,7 +34,7 @@ export const ServiceDetailNarrative = ({ pageData }) => {
       <Container maxW="7xl" py={32}>
         <Flex direction={{ base: "column", md: "row" }} align="center" gap={20}>
           <Box flex={1}>
-            <Image src={imageLists[1][0]} borderRadius="3xl" shadow="2xl" />
+            <Image src={imageLists[1][0]} borderRadius="3xl" shadow="2xl" alt="" />
           </Box>
           <VStack flex={1} align="flex-start" spacing={8}>
             <Heading size="2xl">Claridad sin límites</Heading>

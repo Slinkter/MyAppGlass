@@ -1,5 +1,6 @@
 import React from "react";
-import { Flex, VStack, Icon, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, VStack, Icon, Text } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 const MapError = () => {

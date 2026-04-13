@@ -1,4 +1,5 @@
-import { Heading, Box, useColorModeValue } from "@chakra-ui/react";
+import { Heading, Box } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 /**
  * @component FormSection

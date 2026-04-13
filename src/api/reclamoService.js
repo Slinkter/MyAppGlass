@@ -8,7 +8,7 @@
  */
 
 // 1. Obtenemos la URL de la función desde las variables de entorno de Vite.
-const SUBMIT_RECLAMO_URL = import.meta.env.VITE_API_URL;
+const SUBMIT_RECLAMO_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Importar el typedef si estuviera exportado, o definirlo aquí para claridad
 /**

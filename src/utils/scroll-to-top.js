@@ -4,7 +4,7 @@
  * @module utils/navigation
  */
 
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 /**
@@ -16,7 +16,7 @@ import { useEffect } from "react";
  * @returns {null} This component renders nothing.
  */
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
   
   useEffect(() => {
     // Una sola llamada es suficiente para navegadores modernos
