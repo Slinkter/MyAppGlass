@@ -1,13 +1,12 @@
 import React, { useState, useCallback } from "react";
 import { GoogleMap } from "@react-google-maps/api";
-import { Box, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { Box, useColorMode } from "@chakra-ui/react";
 
 // --- HOOKS ---
 import {
   useMapProjects,
   useMapIcons,
   useMapState,
-  useMapBounds,
   useGoogleMapsLoader,
 } from "../hooks";
 
@@ -24,7 +23,6 @@ function InteractiveMapComponent() {
   const projects = useMapProjects();
   const [selectedMarker, setSelectedMarker] = useState(null);
   const { colorMode } = useColorMode();
-  const borderColor = useColorModeValue("gray.200", "gray.700");
 
   const { isLoaded, loadError } = useGoogleMapsLoader();
 

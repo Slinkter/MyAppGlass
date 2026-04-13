@@ -73,5 +73,3 @@ const DeclarationSection = () => {
 };
 
 export default DeclarationSection;
-
-export default DeclarationSection;

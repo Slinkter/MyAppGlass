@@ -71,5 +71,3 @@ const ClaimDetailSection = () => {
 };
 
 export default ClaimDetailSection;
-
-export default ClaimDetailSection;

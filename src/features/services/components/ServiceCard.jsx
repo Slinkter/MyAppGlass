@@ -14,6 +14,8 @@ import {
   Text,
   Skeleton,
   useBreakpointValue,
+  Button,
+  VStack,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { Link as RouterLink } from "react-router-dom";
@@ -119,20 +121,35 @@ const ServiceCard = React.memo((props) => {
               )}
             </Text>
 
-            {description && (
-              <Text
-                color="whiteAlpha.900"
+            <VStack
+              mt={6}
+              spacing={4}
+              opacity={isHovered ? 1 : (isMobile ? 1 : 0)}
+              transform={isHovered ? "translateY(0)" : (isMobile ? "translateY(0)" : "translateY(10px)")}
+              transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+              w="full"
+            >
+              <Button
+                as={RouterLink}
+                to={plink}
+                variant="outline"
+                size="sm"
+                color="white"
+                borderColor="whiteAlpha.400"
+                _hover={{ 
+                  bg: "white", 
+                  color: "primary.900",
+                  borderColor: "white"
+                }}
+                textTransform="uppercase"
                 fontSize="xs"
-                fontWeight="medium"
-                textAlign="center"
-                mt={4}
-                opacity={isHovered ? 1 : 0}
-                transition="opacity 0.3s ease"
-                noOfLines={2}
+                letterSpacing="widest"
+                px={8}
+                borderRadius="full"
               >
-                {description}
-              </Text>
-            )}
+                Ver Catálogo
+              </Button>
+            </VStack>
           </Box>
         </Box>
       </Skeleton>

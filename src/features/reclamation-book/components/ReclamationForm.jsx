@@ -88,5 +88,3 @@ const ReclamationForm = () => {
 };
 
 export default ReclamationForm;
-
-export default ReclamationForm;

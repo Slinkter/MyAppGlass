@@ -1,4 +1,4 @@
-import { Flex, Box, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { LazyMotion, m, domAnimation } from "framer-motion";

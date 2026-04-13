@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import MapViewer from "./MapViewer";
@@ -27,7 +27,6 @@ import MapViewer from "./MapViewer";
  * @param {Array} props.photos - Datos de imágenes para la galería.
  */
 const VisualViewer = ({ viewMode, lat, lng, photos }) => {
-  const spinnerBg = useColorModeValue("gray.100", "gray.800");
   const hasValidCoords = typeof lat === "number" && typeof lng === "number";
 
   return (

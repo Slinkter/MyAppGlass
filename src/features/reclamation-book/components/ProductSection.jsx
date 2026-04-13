@@ -76,5 +76,3 @@ const ProductSection = () => {
 };
 
 export default ProductSection;
-
-export default ProductSection;

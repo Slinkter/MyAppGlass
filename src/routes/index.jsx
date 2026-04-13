@@ -15,6 +15,8 @@ const HomePage = lazy(() => import("@/pages/HomePage"));
 const ServicePage = lazy(() => import("@/pages/ServicePage"));
 const ProjectPage = lazy(() => import("@/pages/ProjectPage"));
 const TestPage = lazy(() => import("@/pages/TestPage"));
+const BankAccountsTestPage = lazy(() => import("@/pages/BankAccountsTestPage"));
+const ServicesTestPage = lazy(() => import("@/pages/ServicesTestPage"));
 const CompanyPoliciesPage = lazy(() => import("@/pages/CompanyPoliciesPage"));
 const BankAccountsPage = lazy(() => import("@/pages/BankAccountsPage"));
 const ServiceList = lazy(() =>
@@ -57,6 +59,8 @@ export const router = createBrowserRouter(
                 { path: "politicas-empresa", element: <CompanyPoliciesPage /> },
                 { path: "cuentas-bancarias", element: <BankAccountsPage /> },
                 { path: "test", element: <TestPage /> },
+                { path: "test-banca", element: <BankAccountsTestPage /> },
+                { path: "test-servicios", element: <ServicesTestPage /> },
             ],
         },
     ],

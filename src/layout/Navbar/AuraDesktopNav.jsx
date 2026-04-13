@@ -6,7 +6,7 @@
 import React from "react";
 import { Stack, Box, Text } from "@chakra-ui/react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import { m, AnimatePresence } from "framer-motion";
+import { m } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 
 /**
