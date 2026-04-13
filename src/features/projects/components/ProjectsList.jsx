@@ -16,14 +16,11 @@ import { getProjects } from "../services/projectService";
 import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
 
 /**
- * Normaliza nombres de distritos para agruparlos correctamente.
+ * Normaliza nombres de años para agruparlos correctamente.
  */
-const normalizeDistrict = (address) => {
-  if (!address) return "Otros";
-  const name = address.trim().toLowerCase();
-  if (name.includes("magdalena")) return "Magdalena";
-  if (name === "ate") return "Ate";
-  return address.trim().charAt(0).toUpperCase() + address.trim().slice(1).toLowerCase();
+const normalizeYear = (year) => {
+  if (!year) return "Otros";
+  return String(year).trim();
 };
 
 /**
@@ -32,7 +29,7 @@ const normalizeDistrict = (address) => {
  */
 const ProjectsList = React.memo(() => {
   const allProjects = useMemo(() => [...getProjects()].reverse(), []);
-  const [activeDistrict, setActiveDistrict] = useState("Todos");
+  const [activeYear, setActiveYear] = useState("Todos");
   const [displayCount, setDisplayCount] = useState(6);
   const loaderRef = useRef(null);
   const rafRef = useRef(null);
@@ -43,23 +40,29 @@ const ProjectsList = React.memo(() => {
   const inactiveColor = useColorModeValue("gray.700", "gray.300");
   const inactiveHoverBg = useColorModeValue("gray.200", "whiteAlpha.200");
 
-  // Get unique districts
-  const districts = useMemo(() => {
-    const rawDistricts = allProjects.map((p) => normalizeDistrict(p.address));
-    const unique = [...new Set(rawDistricts)].sort();
+  // Get unique years
+  const years = useMemo(() => {
+    const rawYears = allProjects.map((p) => normalizeYear(p.year));
+    const unique = [...new Set(rawYears)].sort((a, b) => b.localeCompare(a));
+    // Move "Otros" to the end if it exists
+    const othersIndex = unique.indexOf("Otros");
+    if (othersIndex > -1) {
+      unique.splice(othersIndex, 1);
+      unique.push("Otros");
+    }
     return ["Todos", ...unique];
   }, [allProjects]);
 
-  // Filter projects by district
+  // Filter projects by year
   const filteredProjects = useMemo(() => {
-    if (activeDistrict === "Todos") return allProjects;
-    return allProjects.filter((p) => normalizeDistrict(p.address) === activeDistrict);
-  }, [allProjects, activeDistrict]);
+    if (activeYear === "Todos") return allProjects;
+    return allProjects.filter((p) => normalizeYear(p.year) === activeYear);
+  }, [allProjects, activeYear]);
 
   // Reset display count when filter changes
   useEffect(() => {
     setDisplayCount(6);
-  }, [activeDistrict]);
+  }, [activeYear]);
 
   const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
 
@@ -99,11 +102,11 @@ const ProjectsList = React.memo(() => {
       {/* Filter Pills */}
       <Box gridColumn="1 / -1" w="full">
         <HStack spacing={2} justify="center" flexWrap="wrap" pb={4}>
-          {districts.map((district) => {
-            const isActive = activeDistrict === district;
+          {years.map((year) => {
+            const isActive = activeYear === year;
             return (
               <Button
-                key={district}
+                key={year}
                 size="sm"
                 px={5}
                 mt={2}
@@ -116,9 +119,9 @@ const ProjectsList = React.memo(() => {
                 color={isActive ? activeColor : inactiveColor}
                 _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
                 transition="all 0.2s ease"
-                onClick={() => setActiveDistrict(district)}
+                onClick={() => setActiveYear(year)}
               >
-                {district}
+                {year}
               </Button>
             );
           })}
@@ -126,7 +129,7 @@ const ProjectsList = React.memo(() => {
       </Box>
 
       {preloadedProjects.map((project, index) => (
-        <ItemGridLayout.Item key={`${activeDistrict}-${project.id}`} delay={(index % 6) * 0.1}>
+        <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>
           <ProjectCard
             {...project}
             isLCP={index < 3}
