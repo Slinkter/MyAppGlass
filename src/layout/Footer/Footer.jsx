@@ -10,7 +10,6 @@ import {
     HStack,
     Text,
     VStack,
-    useColorModeValue,
     Icon,
     Heading,
     Image,

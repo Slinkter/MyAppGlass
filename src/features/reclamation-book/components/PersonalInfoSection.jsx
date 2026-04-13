@@ -142,5 +142,3 @@ const PersonalInfoSection = () => {
 };
 
 export default PersonalInfoSection;
-
-export default PersonalInfoSection;
