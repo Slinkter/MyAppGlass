@@ -16,11 +16,13 @@ import { getProjects } from "../services/projectService";
 import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
 
 /**
- * Normaliza nombres de años para agruparlos correctamente.
+ * Normaliza nombres de años para extraer solo el año de 4 dígitos (ej. 2024, 2023).
  */
 const normalizeYear = (year) => {
   if (!year) return "Otros";
-  return String(year).trim();
+  const yearString = String(year).trim();
+  const match = yearString.match(/\b(20\d{2})\b/);
+  return match ? match[1] : "Otros";
 };
 
 /**
