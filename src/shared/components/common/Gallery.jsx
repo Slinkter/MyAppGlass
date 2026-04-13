@@ -67,13 +67,20 @@ const Gallery = React.memo(({ images }) => {
       >
         <Flex
           direction={{ base: "column", md: "row" }}
-          gap={2} // Small gap for subtle separation
+          gap={{ base: 4, md: 8 }} // Enhanced gap for separation
           h="100%"
           w="100%"
           minW={0}
         >
           {/* 1. Main Viewer */}
-          <Box flex="1" minH="0" position="relative">
+          <Box 
+            flex="1" 
+            minH="0" 
+            position="relative"
+            borderRadius="3xl"
+            overflow="hidden"
+            boxShadow="2xl"
+          >
             <GalleryViewer
               currentImage={currentImage}
               imageCount={imageCount}

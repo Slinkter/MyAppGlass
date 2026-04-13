@@ -4,7 +4,7 @@
  * Focuses on fluid movement and modern interactivity.
  */
 import React, { useState, useMemo } from "react";
-import { Box, HStack, Button, Text } from "@chakra-ui/react";
+import { Box, HStack, Button } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "../components/ServiceCard";

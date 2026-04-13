@@ -6,7 +6,7 @@
 import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import DesktopNav from "./DesktopNav";
-import BottomNav from "./BottomNav";
+import MobileNav from "./MobileNav";
 
 export default function Navbar() {
   return (
@@ -47,7 +47,7 @@ export default function Navbar() {
       </Box>
 
       {/* MOBILE NAVBAR */}
-      <BottomNav />
+      <MobileNav />
     </>
   );
 }

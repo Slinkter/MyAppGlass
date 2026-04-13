@@ -3,7 +3,7 @@
  * @description Option 2: Aura "Glass Grid" - Borderless cards and focus attenuation.
  */
 import React, { useState } from "react";
-import { Box, SimpleGrid, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import ServiceCard from "../components/ServiceCard";
 import { services } from "../data/services";
 
