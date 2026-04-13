@@ -3,13 +3,11 @@ import PropTypes from "prop-types";
 import { Box, Image, useColorModeValue } from "@chakra-ui/react";
 import { m } from "framer-motion";
 
-const MotionBox = m.create(Box);
-
 /**
  * @component ProjectPhotoAlbum
- * @description Un diseño estilo "Instagram" (Grid 1:1) para visualizar todas las fotos de un proyecto.
+ * @description Optimized Instagram-style grid for project photos.
  */
-const ProjectPhotoAlbum = ({ photos }) => {
+const ProjectPhotoAlbum = React.memo(({ photos }) => {
   const scrollbarThumb = useColorModeValue("blackAlpha.300", "whiteAlpha.300");
 
   if (!photos || photos.length === 0) return null;
@@ -19,9 +17,8 @@ const ProjectPhotoAlbum = ({ photos }) => {
       w="100%"
       h="100%"
       overflowY="auto"
-      p={{ base: 2, md: 4 }}
-      pt={{ base: 4, md: 8 }} 
-      pb={{ base: 64, md: 72 }} // Padding inferior muy amplio para dejar espacio a la píldora informativa en la parte inferior
+      p={{ base: "phi_md", md: "phi_lg" }}
+      pb="phi_3xl"
       sx={{
         "&::-webkit-scrollbar": {
           width: "6px",
@@ -38,33 +35,34 @@ const ProjectPhotoAlbum = ({ photos }) => {
       <Box
         display="grid"
         gridTemplateColumns={{ base: "repeat(3, 1fr)", md: "repeat(4, 1fr)", xl: "repeat(5, 1fr)" }}
-        gap={{ base: "2px", md: "4px" }}
+        gap="phi_xs"
       >
         {photos.map((photo, index) => (
-          <MotionBox
+          <Box
+            as={m.div}
             key={photo.id || index}
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
+            transition={{ duration: 0.3, delay: index * 0.03, ease: "easeOut" }}
             w="100%"
             aspectRatio="1 / 1"
             overflow="hidden"
             position="relative"
             role="group"
             bg="blackAlpha.200"
+            borderRadius="md"
           >
             <Image
               src={photo.image}
               alt={photo.name || `Foto de obra ${index + 1}`}
               w="100%"
-              h="100%" // Mantiene el aspect ratio 1:1 de la caja
+              h="100%"
               objectFit="cover"
               loading="lazy"
               transition="transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)"
               _groupHover={{ transform: "scale(1.05)" }}
             />
             
-            {/* Gradiente sutil para darle una apariencia más premium al colocar el ratón */}
             <Box
               position="absolute"
               inset="0"
@@ -74,15 +72,15 @@ const ProjectPhotoAlbum = ({ photos }) => {
               _groupHover={{ opacity: 0.8 }}
               pointerEvents="none"
             />
-          </MotionBox>
+          </Box>
         ))}
       </Box>
       
-      {/* Spacer para que la última foto no se esconda detrás de los controles inferiores */}
-      <Box h="120px" w="100%" /> 
+      {/* Spacer for bottom docked controls */}
+      <Box h="phi_3xl" w="100%" /> 
     </Box>
   );
-};
+});
 
 ProjectPhotoAlbum.propTypes = {
   photos: PropTypes.arrayOf(
@@ -94,4 +92,6 @@ ProjectPhotoAlbum.propTypes = {
   ).isRequired,
 };
 
-export default React.memo(ProjectPhotoAlbum);
+ProjectPhotoAlbum.displayName = "ProjectPhotoAlbum";
+
+export default ProjectPhotoAlbum;

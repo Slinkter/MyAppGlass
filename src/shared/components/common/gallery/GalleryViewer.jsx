@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import FadingImage from "../FadingImage";
 
 const SWIPE_THRESHOLD = 50;
@@ -16,7 +16,11 @@ const SWIPE_THRESHOLD = 50;
 // Create a motion-enabled Box component
 const MotionBox = m(Box);
 
-const GalleryViewer = ({
+/**
+ * @component GalleryViewer
+ * @description Performance-optimized gallery viewer.
+ */
+const GalleryViewer = React.memo(({
   currentImage,
   imageCount,
   selectedIndex,
@@ -74,188 +78,186 @@ const GalleryViewer = ({
   const slideTransform = isDragging ? `translateX(${dragOffset}px)` : "translateX(0)";
 
   return (
-    <LazyMotion features={domAnimation}>
-      <MotionBox
-        flex="1"
-        h="100%"
-        w="100%"
-        position="relative"
-        overflow="hidden"
-        bg={bgOverlay}
-        role="group"
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        _focus={{ outline: "none" }}
-        userSelect="none"
-        touchAction="pan-y"
-      >
-        <AnimatePresence>
-          <m.div
-            key={currentImage.id}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            style={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
-              top: 0,
-              left: 0,
-              transform: slideTransform,
-              transition: isDragging ? "none" : "transform 0.3s ease",
-            }}
-          >
-            <FadingImage
-              src={currentImage.image}
-              alt={currentImage.name || "Vista principal"}
-              w="100%"
-              h="100%"
-              objectFit="cover"
-              showOverlay={false}
-              loading={isPriority ? "eager" : "lazy"}
-              fetchpriority={isPriority ? "high" : "auto"}
-              rounded="none"
-            />
-          </m.div>
-        </AnimatePresence>
+    <MotionBox
+      flex="1"
+      h="100%"
+      w="100%"
+      position="relative"
+      overflow="hidden"
+      bg={bgOverlay}
+      role="group"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      _focus={{ outline: "none" }}
+      userSelect="none"
+      touchAction="pan-y"
+    >
+      <AnimatePresence mode="wait">
+        <m.div
+          key={currentImage.id}
+          initial={{ opacity: 0, scale: 1.02 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            transform: slideTransform,
+            transition: isDragging ? "none" : "transform 0.3s ease",
+          }}
+        >
+          <FadingImage
+            src={currentImage.image}
+            alt={currentImage.name || "Vista principal"}
+            w="100%"
+            h="100%"
+            objectFit="cover"
+            showOverlay={false}
+            loading={isPriority ? "eager" : "lazy"}
+            fetchpriority={isPriority ? "high" : "auto"}
+            rounded="none"
+          />
+        </m.div>
+      </AnimatePresence>
 
-        <Box
-          position="absolute"
-          bottom={0}
-          left={0}
-          right={0}
-          h="40%"
-          bgGradient="linear(to-t, blackAlpha.600, transparent)"
-          pointerEvents="none"
-          opacity={0}
-          _groupHover={{ opacity: 1 }}
-          transition="opacity 0.3s ease"
-        />
+      <Box
+        position="absolute"
+        bottom={0}
+        left={0}
+        right={0}
+        h="40%"
+        bgGradient="linear(to-t, blackAlpha.600, transparent)"
+        pointerEvents="none"
+        opacity={0}
+        _groupHover={{ opacity: 1 }}
+        transition="opacity 0.3s ease"
+      />
 
-        {imageCount > 1 && (
-          <>
-            <IconButton
-              icon={<ChevronLeftIcon boxSize={8} />}
-              position="absolute"
-              left={4}
-              top="50%"
-              transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
-              onClick={handlePrevious}
-              variant="ghost"
-              color="white"
-              bg="blackAlpha.500"
-              _hover={{
-                bg: "whiteAlpha.300",
-                transform: "translateY(-50%) scale(1.1)",
-              }}
-              _active={{
-                transform: "translateY(-50%) scale(0.95)",
-              }}
-              display="flex"
-              aria-label="Anterior"
-              zIndex={10}
-              opacity={isDragging ? 0 : 1}
-              transition="opacity 0.2s ease, transform 0.2s ease"
-            />
-            <IconButton
-              icon={<ChevronRightIcon boxSize={8} />}
-              position="absolute"
-              right={4}
-              top="50%"
-              transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
-              onClick={handleNext}
-              variant="ghost"
-              color="white"
-              bg="blackAlpha.500"
-              _hover={{
-                bg: "whiteAlpha.300",
-                transform: "translateY(-50%) scale(1.1)",
-              }}
-              _active={{
-                transform: "translateY(-50%) scale(0.95)",
-              }}
-              display="flex"
-              aria-label="Siguiente"
-              zIndex={10}
-              opacity={isDragging ? 0 : 1}
-              transition="opacity 0.2s ease, transform 0.2s ease"
-            />
-
-            <Box
-              position="absolute"
-              top={4}
-              right={4}
-              bg="blackAlpha.700"
-              px={4}
-              py={1.5}
-              borderRadius="full"
-              border="1px solid"
-              borderColor="whiteAlpha.300"
-            >
-              <Text
-                fontSize="xs"
-                color="white"
-                fontWeight="bold"
-                letterSpacing="widest"
-              >
-                {selectedIndex + 1}{" "}
-                <Text as="span" opacity={0.5}>
-                  /
-                </Text>{" "}
-                {imageCount}
-              </Text>
-            </Box>
-
-            <HStack
-              position="absolute"
-              bottom={6}
-              left="50%"
-              transform="translateX(-50%)"
-              spacing={2.5}
-              zIndex={5}
-            >
-              {Array.from({ length: imageCount }).map((_, index) => (
-                <Box
-                  key={index}
-                  w={selectedIndex === index ? "32px" : "8px"}
-                  h="6px"
-                  bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
-                  borderRadius="full"
-                  cursor="pointer"
-                  onClick={() => setSelectedIndex(index)}
-                  transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
-                  _hover={{ bg: "whiteAlpha.800" }}
-                />
-              ))}
-            </HStack>
-          </>
-        )}
-
-        {imageCount > 1 && (
-          <Text
+      {imageCount > 1 && (
+        <>
+          <IconButton
+            icon={<ChevronLeftIcon boxSize={8} />}
             position="absolute"
-            bottom={-8}
+            left={4}
+            top="50%"
+            transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
+            onClick={handlePrevious}
+            variant="ghost"
+            color="white"
+            bg="blackAlpha.500"
+            _hover={{
+              bg: "whiteAlpha.300",
+              transform: "translateY(-50%) scale(1.1)",
+            }}
+            _active={{
+              transform: "translateY(-50%) scale(0.95)",
+            }}
+            display="flex"
+            aria-label="Anterior"
+            zIndex={10}
+            opacity={isDragging ? 0 : 1}
+            transition="opacity 0.2s ease, transform 0.2s ease"
+          />
+          <IconButton
+            icon={<ChevronRightIcon boxSize={8} />}
+            position="absolute"
+            right={4}
+            top="50%"
+            transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
+            onClick={handleNext}
+            variant="ghost"
+            color="white"
+            bg="blackAlpha.500"
+            _hover={{
+              bg: "whiteAlpha.300",
+              transform: "translateY(-50%) scale(1.1)",
+            }}
+            _active={{
+              transform: "translateY(-50%) scale(0.95)",
+            }}
+            display="flex"
+            aria-label="Siguiente"
+            zIndex={10}
+            opacity={isDragging ? 0 : 1}
+            transition="opacity 0.2s ease, transform 0.2s ease"
+          />
+
+          <Box
+            position="absolute"
+            top={4}
+            right={4}
+            bg="blackAlpha.700"
+            px={4}
+            py={1.5}
+            borderRadius="full"
+            border="1px solid"
+            borderColor="whiteAlpha.300"
+          >
+            <Text
+              fontSize="xs"
+              color="white"
+              fontWeight="bold"
+              letterSpacing="widest"
+            >
+              {selectedIndex + 1}{" "}
+              <Text as="span" opacity={0.5}>
+                /
+              </Text>{" "}
+              {imageCount}
+            </Text>
+          </Box>
+
+          <HStack
+            position="absolute"
+            bottom={6}
             left="50%"
             transform="translateX(-50%)"
-            fontSize="xs"
-            color="gray.500"
-            opacity={0}
-            transition="opacity 0.2s ease"
-            _groupHover={{ opacity: 1 }}
-            pointerEvents="none"
-            display={{ base: "block", md: "none" }}
+            spacing={2.5}
+            zIndex={5}
           >
-            Desliza para navegar
-          </Text>
-        )}
-      </MotionBox>
-    </LazyMotion>
+            {Array.from({ length: imageCount }).map((_, index) => (
+              <Box
+                key={index}
+                w={selectedIndex === index ? "32px" : "8px"}
+                h="6px"
+                bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
+                borderRadius="full"
+                cursor="pointer"
+                onClick={() => setSelectedIndex(index)}
+                transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                _hover={{ bg: "whiteAlpha.800" }}
+              />
+            ))}
+          </HStack>
+        </>
+      )}
+
+      {imageCount > 1 && (
+        <Text
+          position="absolute"
+          bottom={-8}
+          left="50%"
+          transform="translateX(-50%)"
+          fontSize="xs"
+          color="gray.500"
+          opacity={0}
+          transition="opacity 0.2s ease"
+          _groupHover={{ opacity: 1 }}
+          pointerEvents="none"
+          display={{ base: "block", md: "none" }}
+        >
+          Desliza para navegar
+        </Text>
+      )}
+    </MotionBox>
   );
-};
+});
 
 GalleryViewer.propTypes = {
   currentImage: PropTypes.object.isRequired,
@@ -266,5 +268,7 @@ GalleryViewer.propTypes = {
   handleNext: PropTypes.func.isRequired,
   isPriority: PropTypes.bool,
 };
+
+GalleryViewer.displayName = "GalleryViewer";
 
 export default GalleryViewer;

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Modal,
@@ -7,10 +7,15 @@ import {
   ModalBody,
   ModalCloseButton,
   Flex,
+  Skeleton,
 } from "@chakra-ui/react";
 import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
 
+/**
+ * @component ProjectDetailModal
+ * @description Refactored for peak performance with deferred content loading.
+ */
 const ProjectDetailModal = (props) => {
   const {
     isOpen,
@@ -25,6 +30,17 @@ const ProjectDetailModal = (props) => {
   } = props;
 
   const [viewMode, setViewMode] = useState("map"); // 'map' | 'gallery'
+  const [isContentReady, setIsContentReady] = useState(false);
+
+  // Defer content rendering to prevent modal opening lag
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => setIsContentReady(true), 350);
+      return () => clearTimeout(timer);
+    } else {
+      setIsContentReady(false);
+    }
+  }, [isOpen]);
 
   const handleClose = useCallback(() => {
     setViewMode("map");
@@ -41,52 +57,63 @@ const ProjectDetailModal = (props) => {
       isCentered
       preserveScrollBarGap
     >
-      <ModalOverlay />
+      <ModalOverlay backdropFilter="blur(8px)" />
       <ModalContent
         role="dialog"
         aria-modal="true"
-        borderRadius={{ base: 0, md: "2xl" }}
-        bg="surface.card"
+        borderRadius={{ base: 0, md: "3xl" }}
+        bg="bg.section"
         border="1px solid"
-        borderColor="border.default"
+        borderColor="border.glass"
         boxShadow="2xl"
         color="text.body"
         maxH={{ base: "100dvh", md: "auto" }}
         overflow="hidden"
+        mx={{ base: 0, md: 4 }}
       >
         <ModalCloseButton
-          zIndex={10}
+          zIndex={100}
           size="lg"
-          bg="surface.containerHover"
-          _hover={{ bg: "red.500", color: "white" }}
+          bg="surface.container"
+          _hover={{ bg: "primary.900", color: "white" }}
+          _dark={{ _hover: { bg: "primary.100", color: "primary.900" } }}
           borderRadius="full"
-          top={4}
-          right={4}
+          top="phi_md"
+          right="phi_md"
+          shadow="md"
         />
-        <ModalBody p={{ base: 0, md: 6 }} pb={{ base: 0, md: 8 }}>
-          <Flex
-            w="full"
-            h={{ base: "100%", lg: "full" }}
-            flexDirection={{ base: "column", lg: "row" }}
-            gap={{ base: 0, lg: 8 }}
+        <ModalBody p={{ base: 0, md: "phi_lg" }}>
+          <Skeleton 
+            isLoaded={isContentReady} 
+            h="full" 
+            w="full" 
+            fadeDuration={0.6}
+            borderRadius="2xl"
           >
-            <VisualViewer
-              viewMode={viewMode}
-              lat={lat}
-              lng={lng}
-              photos={photos}
-            />
+            <Flex
+              w="full"
+              h={{ base: "100%", lg: "full" }}
+              flexDirection={{ base: "column", lg: "row" }}
+              gap={{ base: 0, lg: "phi_lg" }}
+            >
+              <VisualViewer
+                viewMode={viewMode}
+                lat={lat}
+                lng={lng}
+                photos={photos}
+              />
 
-            <ProjectInfo
-              residencial={residencial}
-              name={name}
-              address={address}
-              year={year}
-              viewMode={viewMode}
-              setViewMode={setViewMode}
-              onClose={onClose}
-            />
-          </Flex>
+              <ProjectInfo
+                residencial={residencial}
+                name={name}
+                address={address}
+                year={year}
+                viewMode={viewMode}
+                setViewMode={setViewMode}
+                onClose={onClose}
+              />
+            </Flex>
+          </Skeleton>
         </ModalBody>
       </ModalContent>
     </Modal>
