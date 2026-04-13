@@ -71,7 +71,7 @@ const Layout = ({ children }) => {
         maxW="1440px"
         mx="auto"
         px={{ base: "phi_lg", md: "phi_xl" }}
-        pb={{ base: "84px", md: 0 }}
+        pb="phi_md"
         zIndex={1}
       >
         <Navbar />

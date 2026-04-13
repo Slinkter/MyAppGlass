@@ -15,9 +15,12 @@ import {
   LinkBox,
   LinkOverlay,
   Skeleton,
+  Button,
+  VStack,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { MapPinIcon } from "@heroicons/react/24/outline";
+import { MapPin } from "lucide-react";
 
 /**
  * @component ProjectCardContent
@@ -28,9 +31,12 @@ const ProjectCardContent = React.memo(
     const [isLoaded, setIsLoaded] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
+    // Determines if we should force visibility on mobile
+    const isMobile = useBreakpointValue({ base: true, md: false });
+
     // Presentational gradient — intentionally hardcoded dark overlay (not mode-dependent)
     const bgOverlay =
-      "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
+      "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
     return (
       <LinkBox
@@ -116,31 +122,56 @@ const ProjectCardContent = React.memo(
                 </LinkOverlay>
               </Heading>
 
-              <HStack
-                justify="center"
-                spacing={3}
+              <VStack
+                spacing={4}
                 w="full"
                 mt={6}
-                opacity={isHovered ? 1 : 0}
-                transform={isHovered ? "translateY(0)" : "translateY(10px)"}
-                transition="all 0.3s ease"
+                opacity={isHovered ? 1 : (isMobile ? 1 : 0)}
+                transform={isHovered ? "translateY(0)" : (isMobile ? "translateY(0)" : "translateY(10px)")}
+                transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
               >
-                <HStack spacing={1}>
-                  <Icon as={MapPinIcon} w={3.5} h={3.5} color="primary.300" />
-                  <Text
-                    fontSize="xs"
-                    color="whiteAlpha.900"
-                    fontWeight="500"
-                    noOfLines={1}
-                  >
-                    {address}
+                <HStack justify="center" spacing={3} w="full">
+                  <HStack spacing={1}>
+                    <Icon as={MapPin} w={3.5} h={3.5} color="primary.300" />
+                    <Text
+                      fontSize="xs"
+                      color="whiteAlpha.900"
+                      fontWeight="500"
+                      noOfLines={1}
+                    >
+                      {address}
+                    </Text>
+                  </HStack>
+                  <Box w="1px" h="3" bg="whiteAlpha.400" />
+                  <Text fontSize="xs" color="whiteAlpha.900" fontWeight="500">
+                    {year}
                   </Text>
                 </HStack>
-                <Box w="1px" h="3" bg="whiteAlpha.400" />
-                <Text fontSize="xs" color="whiteAlpha.900" fontWeight="500">
-                  {year}
-                </Text>
-              </HStack>
+
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onOpenModal();
+                  }}
+                  variant="outline"
+                  size="sm"
+                  color="white"
+                  borderColor="whiteAlpha.400"
+                  _hover={{ 
+                    bg: "white", 
+                    color: "primary.900",
+                    borderColor: "white"
+                  }}
+                  textTransform="uppercase"
+                  fontSize="10px"
+                  fontWeight="bold"
+                  letterSpacing="widest"
+                  px={8}
+                  borderRadius="full"
+                >
+                  Detalles Obra
+                </Button>
+              </VStack>
             </Box>
           </Box>
         </Skeleton>

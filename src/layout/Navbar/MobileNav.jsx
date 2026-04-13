@@ -1,31 +1,32 @@
 /**
  * @file MobileNav.jsx
- * @description Premium mobile navigation with a classic hamburger menu and full-screen glass overlay.
+ * @description High-performance mobile navigation with a classic hamburger menu and full-screen glass overlay.
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Box, IconButton, VStack, Image, Text, Button, Divider, HStack } from "@chakra-ui/react";
 import { Menu, X, MessageSquareText, ShieldCheck, Landmark } from "lucide-react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
+import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
-const MotionBox = motion(Box);
-const MotionVStack = motion(VStack);
-const MotionLink = motion(Box);
-
-const MobileNav = () => {
+/**
+ * @component MobileNav
+ * @description Refactored for peak performance using state isolation and optimized animations.
+ */
+const MobileNav = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  // Cierra el menú automáticamente cuando cambia la ruta
+  // Close menu on route change
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
-  // Previene el scroll del body cuando el menú está abierto
+  // Lock scroll when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -37,24 +38,24 @@ const MobileNav = () => {
     };
   }, [isOpen]);
 
-  const handleWhatsAppClick = () => {
+  const handleWhatsAppClick = useCallback(() => {
     const phoneNumber = "51974278303";
     const message = encodeURIComponent("Hola, quisiera solicitar información sobre sus servicios.");
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
-  };
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+      transition: { staggerChildren: 0.08, delayChildren: 0.1 },
     },
-    exit: { opacity: 0, transition: { duration: 0.3 } },
+    exit: { opacity: 0, transition: { duration: 0.2 } },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+    hidden: { opacity: 0, y: 15 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 400, damping: 30 } },
   };
 
   return (
@@ -68,6 +69,8 @@ const MobileNav = () => {
         display={{ base: "block", md: "none" }}
       >
         <IconButton
+          as={m.button}
+          whileTap={{ scale: 0.9 }}
           icon={isOpen ? <X size={24} /> : <Menu size={24} />}
           variant="solid"
           bg={isOpen ? "transparent" : "blackAlpha.500"}
@@ -87,7 +90,8 @@ const MobileNav = () => {
       {/* FULL SCREEN MENU OVERLAY */}
       <AnimatePresence>
         {isOpen && (
-          <MotionBox
+          <Box
+            as={m.div}
             position="fixed"
             top={0}
             left={0}
@@ -98,17 +102,18 @@ const MobileNav = () => {
             zIndex={1050}
             bg="primary.900"
             _dark={{ bg: "black" }}
-            initial={{ opacity: 0, clipPath: "circle(0% at 100% 0)" }}
-            animate={{ opacity: 1, clipPath: "circle(150% at 100% 0)" }}
-            exit={{ opacity: 0, clipPath: "circle(0% at 100% 0)", transition: { duration: 0.4 } }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             display="flex"
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
             px={6}
           >
-            <MotionVStack
+            <VStack
+              as={m.div}
               variants={containerVariants}
               initial="hidden"
               animate="show"
@@ -121,7 +126,7 @@ const MobileNav = () => {
                 {NAV_ITEMS.map((navItem) => {
                   const isActive = location.pathname === navItem.href;
                   return (
-                    <MotionLink variants={itemVariants} key={navItem.label}>
+                    <Box as={m.div} variants={itemVariants} key={navItem.label}>
                       <RouterLink to={navItem.href ?? "#"} style={{ textDecoration: "none" }}>
                         <Text
                           fontFamily="heading"
@@ -146,47 +151,47 @@ const MobileNav = () => {
                           {navItem.label}
                         </Text>
                       </RouterLink>
-                    </MotionLink>
+                    </Box>
                   );
                 })}
               </VStack>
 
-              <MotionBox variants={itemVariants} w="full">
+              <Box as={m.div} variants={itemVariants} w="full">
                 <Divider borderColor="whiteAlpha.200" w="full" my={2} />
-              </MotionBox>
+              </Box>
 
               {/* SECONDARY LINKS */}
               <VStack spacing={5} w="full" align="center">
-                <MotionLink variants={itemVariants}>
+                <Box as={m.div} variants={itemVariants}>
                   <RouterLink to="/politicas-empresa" style={{ textDecoration: "none" }}>
                     <HStack spacing={3} color="whiteAlpha.700">
                       <ShieldCheck size={18} />
                       <Text fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="widest">Políticas</Text>
                     </HStack>
                   </RouterLink>
-                </MotionLink>
+                </Box>
                 
-                <MotionLink variants={itemVariants}>
+                <Box as={m.div} variants={itemVariants}>
                   <RouterLink to="/cuentas-bancarias" style={{ textDecoration: "none" }}>
                     <HStack spacing={3} color="whiteAlpha.700">
                       <Landmark size={18} />
                       <Text fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="widest">Cuentas Bancarias</Text>
                     </HStack>
                   </RouterLink>
-                </MotionLink>
+                </Box>
 
-                <MotionLink variants={itemVariants}>
+                <Box as={m.div} variants={itemVariants}>
                   <RouterLink to="/libro-de-reclamacion" style={{ textDecoration: "none" }}>
                     <HStack spacing={3} color="whiteAlpha.700">
                       <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} filter="brightness(0) invert(1)" opacity={0.7} />
                       <Text fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="widest">Reclamaciones</Text>
                     </HStack>
                   </RouterLink>
-                </MotionLink>
+                </Box>
               </VStack>
 
               {/* CTA WHATSAPP */}
-              <MotionBox variants={itemVariants} w="full" pt={6}>
+              <Box as={m.div} variants={itemVariants} w="full" pt={6}>
                 <Button
                   onClick={handleWhatsAppClick}
                   w="full"
@@ -203,14 +208,27 @@ const MobileNav = () => {
                 >
                   Contactar Asesor
                 </Button>
-              </MotionBox>
+              </Box>
 
-            </MotionVStack>
-          </MotionBox>
+            </VStack>
+
+            <Box
+              as={m.div}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              position="absolute"
+              bottom={10}
+            >
+              <Image src={logoGYA} alt="GYA" h="30px" filter="brightness(0) invert(1)" opacity={0.5} />
+            </Box>
+          </Box>
         )}
       </AnimatePresence>
     </>
   );
-};
+});
+
+MobileNav.displayName = "MobileNav";
 
 export default MobileNav;

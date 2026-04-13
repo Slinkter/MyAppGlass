@@ -12,8 +12,7 @@ import MobileNav from "./MobileNav";
  * @component AuraNavbar
  * @description Header con estética "Liquid Glass" para MyAppGlass.
  */
-const AuraNavbar = () => {
-  // ... (keeping previous glassBg and blurAmount)
+const AuraNavbar = React.memo(() => {
   const glassBg = useColorModeValue(
     "rgba(255, 255, 255, 0.75)", 
     "rgba(24, 24, 27, 0.65)"
@@ -66,6 +65,8 @@ const AuraNavbar = () => {
       </Box>
     </>
   );
-};
+});
+
+AuraNavbar.displayName = "AuraNavbar";
 
 export default AuraNavbar;
