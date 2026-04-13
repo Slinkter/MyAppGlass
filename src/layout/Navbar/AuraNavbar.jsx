@@ -6,7 +6,7 @@
 import React from "react";
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import AuraDesktopNav from "./AuraDesktopNav";
-import AuraBottomNav from "./AuraBottomNav";
+import MobileNav from "./MobileNav";
 
 /**
  * @component AuraNavbar
@@ -60,9 +60,9 @@ const AuraNavbar = () => {
         </Flex>
       </Box>
 
-      {/* MOBILE NAVBAR (Aura Mobile Dock) */}
+      {/* MOBILE NAVBAR (Hamburger Menu) */}
       <Box display={{ base: "block", md: "none" }}>
-        <AuraBottomNav />
+        <MobileNav />
       </Box>
     </>
   );

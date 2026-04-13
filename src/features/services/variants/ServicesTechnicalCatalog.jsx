@@ -3,7 +3,7 @@
  * @description Option 3: Aura "Technical Catalog" - Engineering detail and structured layout.
  */
 import React from "react";
-import { Box, Flex, Text, Heading, VStack, Icon, SimpleGrid, Badge } from "@chakra-ui/react";
+import { Box, Flex, Heading, VStack, Icon, Badge } from "@chakra-ui/react";
 import { services } from "../data/services";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ArrowRight } from "lucide-react";

@@ -50,7 +50,6 @@ GalleryThumbnailItem.displayName = "GalleryThumbnailItem";
 
 const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
   const activeBorderColor = useColorModeValue("primary.500", "primary.300");
-  const scrollbarThumbColor = useColorModeValue("blackAlpha.400", "whiteAlpha.300");
   const containerRef = React.useRef(null);
 
   const handleThumbnailClick = React.useCallback(
@@ -88,27 +87,10 @@ const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
       overflowY={{ base: "hidden", md: "auto" }}
       css={{
         "&::-webkit-scrollbar": {
-          width: "8px",
-          height: "8px",
+          display: "none",
         },
-        "&::-webkit-scrollbar-track": {
-          background: "transparent",
-        },
-        "&::-webkit-scrollbar-thumb": {
-          background: "transparent", // Invisible by default
-          borderRadius: "10px",
-        },
-        "&:hover::-webkit-scrollbar-thumb": {
-          background: scrollbarThumbColor, // Visible on hover
-        },
-        scrollbarWidth: "thin",
-        scrollbarColor: `transparent transparent`,
-        "&:hover": {
-          scrollbarColor: `${scrollbarThumbColor} transparent`,
-        }
-      }}
-      sx={{
-        msOverflowStyle: "none",
+        scrollbarWidth: "none",
+        "-ms-overflow-style": "none",
       }}
     >
       {images.map((img, index) => (

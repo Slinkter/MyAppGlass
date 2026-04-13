@@ -26,7 +26,7 @@ import { Link as RouterLink } from "react-router-dom";
  * On mobile, the entire card is a link. On desktop, only the title is the primary link.
  */
 const ServiceCard = React.memo((props) => {
-  const { image, name, description, plink, onLoadComplete, index, loading = "lazy" } = props;
+  const { image, name, plink, onLoadComplete, index, loading = "lazy" } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
