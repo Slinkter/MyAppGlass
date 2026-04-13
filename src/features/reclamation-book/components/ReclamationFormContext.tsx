@@ -1,10 +1,11 @@
-/* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useContext } from "react";
+"use client";
+
+import React, { createContext, useContext, ReactNode } from "react";
 import { useReclamoForm } from "../hooks/useReclamoForm";
 
-const ReclamationFormContext = createContext(null);
+const ReclamationFormContext = createContext<any>(null);
 
-export const ReclamationFormProvider = ({ children }) => {
+export const ReclamationFormProvider = ({ children }: { children: ReactNode }) => {
   const value = useReclamoForm();
   return (
     <ReclamationFormContext.Provider value={value}>

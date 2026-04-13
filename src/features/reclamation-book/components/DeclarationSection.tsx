@@ -1,12 +1,13 @@
+"use client";
+
 import React from "react";
 import {
-  FormControl,
-  FormErrorMessage,
-  Checkbox,
   Button,
   Text,
   Heading,
 } from "@chakra-ui/react";
+import { Field } from "@/components/ui/field";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
@@ -14,7 +15,7 @@ import { useReclamationFormContext } from "./ReclamationFormContext";
  * @description Sección de declaración, aceptación y envío
  */
 const DeclarationSection = () => {
-  const { formData, handleInputsChange, handleBtnSubmit, errors } = useReclamationFormContext();
+  const { formData, setFieldValue, handleBtnSubmit, errors }: any = useReclamationFormContext();
 
   return (
     <>
@@ -35,36 +36,30 @@ const DeclarationSection = () => {
         006-2014-PCM.
       </Text>
 
-      <FormControl isRequired isInvalid={!!errors.autorizaEmail} mb={4}>
+      <Field invalid={!!errors.autorizaEmail} errorText={errors.autorizaEmail} required>
         <Checkbox
           name="autorizaEmail"
-          isChecked={formData.autorizaEmail}
-          onChange={handleInputsChange}
-        >
-          Autorizo que la respuesta a mi reclamo sea enviada al correo
-          electrónico consignado.
-        </Checkbox>
-        <FormErrorMessage>{errors.autorizaEmail}</FormErrorMessage>
-      </FormControl>
+          checked={formData.autorizaEmail}
+          onCheckedChange={(e) => setFieldValue("autorizaEmail", !!e.checked)}
+          label="Autorizo que la respuesta a mi reclamo sea enviada al correo electrónico consignado."
+        />
+      </Field>
 
-      <FormControl isRequired isInvalid={!!errors.aceptaTerminos}>
+      <Field invalid={!!errors.aceptaTerminos} errorText={errors.aceptaTerminos} required>
         <Checkbox
           name="aceptaTerminos"
-          isChecked={formData.aceptaTerminos}
-          onChange={handleInputsChange}
-        >
-          Declaro que la información proporcionada es veraz y acepto la Política
-          de Privacidad y Protección de Datos.
-        </Checkbox>
-        <FormErrorMessage>{errors.aceptaTerminos}</FormErrorMessage>
-      </FormControl>
+          checked={formData.aceptaTerminos}
+          onCheckedChange={(e) => setFieldValue("aceptaTerminos", !!e.checked)}
+          label="Declaro que la información proporcionada es veraz y acepto la Política de Privacidad y Protección de Datos."
+        />
+      </Field>
 
       <Button
         type="submit"
-        variant="aura"
         size="lg"
         width="full"
         onClick={handleBtnSubmit}
+        colorPalette="blue"
       >
         Enviar Reclamo/Queja
       </Button>

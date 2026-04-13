@@ -1,16 +1,15 @@
+"use client";
+
 import React from "react";
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
   Input,
   SimpleGrid,
-  Select,
   Textarea,
   Heading,
-  InputGroup,
-  InputLeftAddon,
+  Flex,
+  Box,
 } from "@chakra-ui/react";
+import { Field } from "@/components/ui/field";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
@@ -18,7 +17,7 @@ import { useReclamationFormContext } from "./ReclamationFormContext";
  * @description Sección de información del producto o servicio
  */
 const ProductSection = () => {
-  const { formData, handleInputsChange, errors } = useReclamationFormContext();
+  const { formData, handleInputsChange, errors }: any = useReclamationFormContext();
 
   return (
     <>
@@ -33,44 +32,49 @@ const ProductSection = () => {
         2. Identificación del bien contratado
       </Heading>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-        <FormControl isRequired isInvalid={!!errors.tipoBien}>
-          <FormLabel>Tipo de Bien</FormLabel>
-          <Select
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+        <Field label="Tipo de Bien" invalid={!!errors.tipoBien} errorText={errors.tipoBien} required>
+          <select
             name="tipoBien"
             value={formData.tipoBien}
             onChange={handleInputsChange}
-            placeholder="Seleccionar"
+            style={{
+                width: '100%',
+                padding: '8px',
+                borderRadius: '4px',
+                background: 'transparent',
+                border: '1px solid var(--chakra-colors-border-glass)'
+            }}
           >
+            <option value="">Seleccionar</option>
             <option value="producto">Producto</option>
             <option value="servicio">Servicio</option>
-          </Select>
-          <FormErrorMessage>{errors.tipoBien}</FormErrorMessage>
-        </FormControl>
+          </select>
+        </Field>
 
-        <FormControl>
-          <FormLabel>Monto Reclamado (S/.)</FormLabel>
-          <InputGroup>
-            <InputLeftAddon>S/.</InputLeftAddon>
+        <Field label="Monto Reclamado (S/.)">
+          <Flex>
+            <Box px={3} py={2} bg="bg.muted" border="1px solid" borderColor="border.glass" borderRight="none" borderLeftRadius="md">
+              S/.
+            </Box>
             <Input
               type="number"
               name="montoReclamado"
               value={formData.montoReclamado}
               onChange={handleInputsChange}
+              borderLeftRadius="none"
             />
-          </InputGroup>
-        </FormControl>
+          </Flex>
+        </Field>
       </SimpleGrid>
 
-      <FormControl isRequired isInvalid={!!errors.descripcionBien}>
-        <FormLabel>Descripción del Producto o Servicio</FormLabel>
+      <Field label="Descripción del Producto o Servicio" invalid={!!errors.descripcionBien} errorText={errors.descripcionBien} required>
         <Textarea
           name="descripcionBien"
           value={formData.descripcionBien}
           onChange={handleInputsChange}
         />
-        <FormErrorMessage>{errors.descripcionBien}</FormErrorMessage>
-      </FormControl>
+      </Field>
     </>
   );
 };

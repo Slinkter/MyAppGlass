@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import { Flex, Spinner, Box } from "@chakra-ui/react";
-import { useColorModeValue } from "@/components/ui/color-mode";
+import { useColorMode, useColorModeValue } from "@/components/ui/color-mode";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useGoogleMapsLoader } from "@/features/home/hooks"; // Reusing the hook we just created
 import { mapStyles } from "@/features/home/components/map/mapStyles"; // Reusing styles
@@ -21,6 +21,7 @@ const MapViewer = ({ lat, lng }: MapViewerProps) => {
   const spinnerBg = useColorModeValue("gray.100", "gray.800");
   const spinnerColor = "text.accent";
   const { isLoaded, loadError } = useGoogleMapsLoader();
+  const { colorMode } = useColorMode();
 
   const center = useMemo(() => ({ lat, lng }), [lat, lng]);
 
@@ -30,9 +31,9 @@ const MapViewer = ({ lat, lng }: MapViewerProps) => {
       zoomControl: true,
       mapTypeControl: false,
       streetViewControl: false,
-      styles: mapStyles.light, // Or dynamic based on theme if passed
+      styles: colorMode === "dark" ? mapStyles.dark : mapStyles.light,
     }),
-    []
+    [colorMode]
   );
 
   if (loadError) {

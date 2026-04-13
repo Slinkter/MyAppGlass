@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { companyData } from "@/config/company-data";
@@ -13,7 +15,7 @@ import SuccessModal from "./SuccessModal";
  * @description Internal component that consumes the context for cleaner logic.
  */
 const ReclamationFormInner = () => {
-  const { handleBtnSubmit, modalProps } = useReclamationFormContext();
+  const { handleBtnSubmit, modalProps }: any = useReclamationFormContext();
 
   return (
     <Box>
@@ -23,8 +25,10 @@ const ReclamationFormInner = () => {
         maxW="3xl"
         mx="auto"
         mb={8}
-        variant="glass"
-        bg="bg.section"
+        bg="bg.panel"
+        borderWidth="1px"
+        borderColor="border.glass"
+        borderRadius="2xl"
         boxShadow="2xl"
         color="text.body"
       >
@@ -39,7 +43,7 @@ const ReclamationFormInner = () => {
         </Heading>
 
         <Box
-          bg="surface.container"
+          bg="bg.muted"
           rounded="md"
           p={4}
           mb={6}
@@ -55,7 +59,7 @@ const ReclamationFormInner = () => {
         </Box>
 
         <form onSubmit={handleBtnSubmit}>
-          <Stack spacing={5}>
+          <Stack gap={8}>
             <PersonalInfoSection />
             <ProductSection />
             <ClaimDetailSection />
@@ -76,8 +80,6 @@ const ReclamationFormInner = () => {
 /**
  * @component ReclamationForm
  * @description Formulario principal para el Libro de Reclamaciones Virtual.
- * Contenedor que coordina todas las secciones del formulario.
- * @returns {JSX.Element} Formulario completo con validación y contexto centralizado.
  */
 const ReclamationForm = () => {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 import LandingPageSection from "@features/home/components/LandingPageSection";
 import FeaturesSection from "@features/home/components/FeaturesSection";
 import ClientsSection from "@features/home/components/ClientsSection";
@@ -18,11 +18,11 @@ const StoreSection = dynamic(() => import("@features/home/components/StoreSectio
  */
 export default function Home() {
   return (
-    <Box as="main">
+    <VStack as="main" gap="phi_2xl" w="full" align="stretch">
       <LandingPageSection />
-      <FeaturesSection />
       <ClientsSection />
+      <FeaturesSection />
       <StoreSection />
-    </Box>
+    </VStack>
   );
 }

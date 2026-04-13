@@ -1,5 +1,5 @@
 /**
- * @file index.js
+ * @file index.ts
  * @description Feature Reclamation Book - Barrel exports
  */
 
