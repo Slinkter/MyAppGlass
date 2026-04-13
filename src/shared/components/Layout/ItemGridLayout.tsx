@@ -10,16 +10,12 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import { m } from "framer-motion";
-import HelmetWrapper from "@shared/components/HelmetWrapper";
+import { motion } from "framer-motion";
 
 export interface ItemGridLayoutProps {
   title: string;
   subtitle?: string;
   children: React.ReactNode;
-  seoTitle: string;
-  seoDescription: string;
-  seoCanonicalUrl: string;
   columns?: any;
   gap?: number | string;
   containerProps?: any;
@@ -31,9 +27,6 @@ const ItemGridLayout = ({
   title,
   subtitle,
   children,
-  seoTitle,
-  seoDescription,
-  seoCanonicalUrl,
   columns = { base: 1, md: 2, lg: 3 },
   gap = 10,
   containerProps = EMPTY_OBJ,
@@ -50,63 +43,56 @@ const ItemGridLayout = ({
   };
 
   return (
-    <>
-      <HelmetWrapper
-        title={seoTitle}
-        description={seoDescription}
-        canonicalUrl={seoCanonicalUrl}
-      />
-      <Container maxW={"7xl"} textAlign="center" mt={{ base: 10, md: 16 }} {...containerProps}>
-        <VStack gap={{ base: 10, md: 12 }} w="full">
-          <VStack gap={3}>
-            <Heading
-              as="h2"
-              color={headingColor}
-              fontSize={{ base: "3xl", md: "4xl" }}
-              textTransform="uppercase"
-              fontWeight={600}
-              letterSpacing="wide"
-              textAlign="center"
-              borderBottom="4px solid"
-              borderColor={borderColor}
-              width="fit-content"
-              mx="auto"
-              mt={2}
-              mb={1}
-              display="block"
-            >
-              {title}
-            </Heading>
-            {subtitle && (
-              <Text
-                color="text.muted"
-                fontSize={{ base: "md", md: "lg" }}
-                maxW="2xl"
-                mx="auto"
-              >
-                {subtitle}
-              </Text>
-            )}
-          </VStack>
-
-          <SimpleGrid
-            asChild
-            columns={columns}
-            gap={{ base: 10, md: gap }}
-            w="full"
-            justifyItems="center"
+    <Container maxW={"7xl"} textAlign="center" mt={{ base: 10, md: 16 }} {...containerProps}>
+      <VStack gap={{ base: 10, md: 12 }} w="full">
+        <VStack gap={3}>
+          <Heading
+            as="h2"
+            color={headingColor}
+            fontSize={{ base: "3xl", md: "4xl" }}
+            textTransform="uppercase"
+            fontWeight={600}
+            letterSpacing="wide"
+            textAlign="center"
+            borderBottom="4px solid"
+            borderColor={borderColor}
+            width="fit-content"
+            mx="auto"
+            mt={2}
+            mb={1}
+            display="block"
           >
-            <m.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
+            {title}
+          </Heading>
+          {subtitle && (
+            <Text
+              color="text.muted"
+              fontSize={{ base: "md", md: "lg" }}
+              maxW="2xl"
+              mx="auto"
             >
-              {children}
-            </m.div>
-          </SimpleGrid>
+              {subtitle}
+            </Text>
+          )}
         </VStack>
-      </Container>
-    </>
+
+        <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            style={{ width: '100%' }}
+        >
+            <SimpleGrid
+                columns={columns}
+                gap={{ base: 10, md: gap }}
+                w="full"
+                justifyItems="center"
+            >
+                {children}
+            </SimpleGrid>
+        </motion.div>
+      </VStack>
+    </Container>
   );
 };
 
@@ -125,14 +111,10 @@ const ItemGridItem = ({ children, delay = 0 }: { children: React.ReactNode; dela
   };
 
   return (
-    <Box
-      asChild
-      w="full"
-      minH={{ base: "320px", md: "460px" }}
-    >
-      <m.div variants={itemVariants}>
-        {children}
-      </m.div>
+    <Box w="full" minH={{ base: "280px", md: "360px" }}>
+        <motion.div variants={itemVariants} style={{ width: '100%', height: '100%' }}>
+            {children}
+        </motion.div>
     </Box>
   );
 };

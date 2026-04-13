@@ -1,20 +1,20 @@
 'use client';
 
 /**
- * @file Footer.jsx
+ * @file Footer.tsx
  * @description Global application footer unificado con elevación premium y diseño dimensional.
  * @module layout/footer
  */
 
+import React from "react";
 import {
     Box,
     Flex,
     HStack,
-    Text,
+    Text as ChakraText,
     VStack,
     Icon,
     Heading,
-    Image,
     SimpleGrid,
     Container,
 } from "@chakra-ui/react";
@@ -28,21 +28,25 @@ import {
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
+import ResponsiveImage from "@/shared/components/Image/ResponsiveImage";
+
+// @ts-ignore
 import LibroReclamacionesIcon from "@/assets/libro.svg";
+// @ts-ignore
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 
 /**
  * @component FooterRow
  * @description Unifica FooterItem y FooterLink en un solo estándar de alineación.
  */
-const FooterRow = ({ icon, children, href, isExternal, customIconColor }) => {
+const FooterRow = ({ icon, children, href, isExternal, customIconColor }: any) => {
     const iconColor = customIconColor || "text.accent";
     const hoverColor = "text.accent";
 
     const content = (
-        <HStack spacing={4} align="center" w="full" py={1.5}>
+        <HStack gap={4} align="center" w="full" py={1.5}>
             <Icon as={icon} boxSize={5} color={iconColor} flexShrink={0} />
-            <Text
+            <ChakraText
                 fontSize="sm"
                 fontWeight="600"
                 color="text.body"
@@ -50,7 +54,7 @@ const FooterRow = ({ icon, children, href, isExternal, customIconColor }) => {
                 _groupHover={href ? { color: hoverColor, transform: "translateX(2px)" } : {}}
             >
                 {children}
-            </Text>
+            </ChakraText>
         </HStack>
     );
 
@@ -72,9 +76,9 @@ const FooterRow = ({ icon, children, href, isExternal, customIconColor }) => {
     return content;
 };
 
-const FooterSection = ({ title, children }) => {
+const FooterSection = ({ title, children }: any) => {
     return (
-        <VStack align="flex-start" spacing={6} w="full">
+        <VStack align="flex-start" gap={6} w="full">
             <Heading
                 as="h4"
                 fontSize="xs"
@@ -86,7 +90,7 @@ const FooterSection = ({ title, children }) => {
             >
                 {title}
             </Heading>
-            <VStack align="flex-start" spacing={2} w="full">
+            <VStack align="flex-start" gap={2} w="full">
                 {children}
             </VStack>
         </VStack>
@@ -107,7 +111,7 @@ const Footer = () => {
                     pb={10}
                     px={{ base: 8, md: 16 }}
                 >
-                    <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={{ base: 12, md: 16 }} mb={16}>
+                    <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={{ base: 12, md: 16 }} mb={16}>
                         <FooterSection title="Contacto">
                             <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">974 278 303</FooterRow>
                             <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">996 537 435</FooterRow>
@@ -125,26 +129,26 @@ const Footer = () => {
                             <FooterRow href="/cuentas-bancarias" icon={Building}>Cuentas Bancarias</FooterRow>
                             <Link href="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
                                 <HStack 
-                                    spacing={4} 
+                                    gap={4} 
                                     align="center" 
                                     py={1.5} 
                                     _hover={{ transform: "translateX(4px)" }} 
                                     transition="transform 0.2s"
                                 >
-                                    <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} flexShrink={0} />
-                                    <Text fontSize="sm" fontWeight="600" color="text.body">Libro de Reclamaciones</Text>
+                                    <ResponsiveImage src={LibroReclamacionesIcon} alt="Libro" w={5} h={5} flexShrink={0} />
+                                    <ChakraText fontSize="sm" fontWeight="600" color="text.body">Libro de Reclamaciones</ChakraText>
                                 </HStack>
                             </Link>
                         </FooterSection>
                     </SimpleGrid>
 
-                    <Box borderTop="1px" borderColor="border.glass" mb={10} />
+                    <Box borderTopWidth="1px" borderColor="border.glass" mb={10} />
 
                     <Flex direction="column" align="center" gap={5}>
-                        <Image src={logoGYA} alt="Logo" h="36px" />
-                        <Text fontSize="10px" color="text.subtle" fontWeight="bold" letterSpacing="0.3em">
+                        <ResponsiveImage src={logoGYA} alt="Logo" h="36px" w="auto" />
+                        <ChakraText fontSize="10px" color="text.muted" fontWeight="bold" letterSpacing="0.3em">
                             © {new Date().getFullYear()} GYA GLASS & ALUMINUM S.A.C.
-                        </Text>
+                        </ChakraText>
                     </Flex>
                 </Box>
             </Container>

@@ -1,15 +1,15 @@
 "use client";
 
 /**
- * @file AuraDesktopNav.jsx
+ * @file AuraDesktopNav.tsx
  * @description Premium desktop navigation with sliding active indicator and glassmorphism.
  * @module layout/navbar
  */
 import React from "react";
-import { Stack, Box, Text } from "@chakra-ui/react";
+import { Stack, Box, Text as ChakraText } from "@chakra-ui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { m } from "framer-motion";
+import { motion } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 
 /**
@@ -22,7 +22,7 @@ const AuraDesktopNav = () => {
   return (
     <Stack 
       direction="row" 
-      spacing="phi_sm" 
+      gap="phi_sm" 
       position="relative" 
       align="center"
     >
@@ -49,25 +49,28 @@ const AuraDesktopNav = () => {
               {/* Sliding Indicator Background */}
               {isActive && (
                 <Box
-                  as={m.div}
-                  layoutId="aura-nav-indicator"
+                  asChild
                   position="absolute"
                   inset={0}
-                  bg="surface.icon"
+                  bg="bg.muted"
                   borderRadius="full"
                   border="1px solid"
                   borderColor="border.glass"
                   zIndex={-1}
-                  transition={{
-                    type: "spring",
-                    bounce: 0.25,
-                    stiffness: 130,
-                    damping: 18
-                  }}
-                />
+                >
+                  <motion.div
+                    layoutId="aura-nav-indicator"
+                    transition={{
+                      type: "spring",
+                      bounce: 0.25,
+                      stiffness: 130,
+                      damping: 18
+                    }}
+                  />
+                </Box>
               )}
 
-              <Text
+              <ChakraText
                 fontSize="sm"
                 fontWeight={isActive ? "700" : "600"}
                 color={isActive ? "text.accent" : "text.body"}
@@ -76,7 +79,7 @@ const AuraDesktopNav = () => {
                 transition="color 0.3s ease"
               >
                 {navItem.label}
-              </Text>
+              </ChakraText>
             </Box>
           </Link>
         );

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Text as ChakraText } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
 export interface FeatureCardProps {
@@ -73,14 +73,14 @@ const FeatureCard = React.memo(({ heading, description, icon }: FeatureCardProps
         >
           {heading}
         </Heading>
-        <Text 
+        <ChakraText 
           fontSize="sm" 
           color="text.muted" 
           lineHeight="tall"
           fontWeight="500"
         >
           {description}
-        </Text>
+        </ChakraText>
       </Box>
     </Box>
   );

@@ -3,10 +3,15 @@
 import React, { useCallback, useMemo } from "react";
 import { Image, ImageProps } from "@chakra-ui/react";
 
-const BREAKPOINTS = [480, 768, 1200, 1920];
-
-export interface ResponsiveImageProps extends ImageProps {
+interface StaticImageData {
   src: string;
+  height: number;
+  width: number;
+  blurDataURL?: string;
+}
+
+export interface ResponsiveImageProps extends Omit<ImageProps, "src"> {
+  src: string | StaticImageData | { default: StaticImageData };
   alt: string;
   sizes?: string;
   isLCP?: boolean;
@@ -16,14 +21,26 @@ const ResponsiveImage = React.memo(
   ({
     src,
     alt,
-    sizes,
     isLCP = false,
     onLoad,
     ...restProps
   }: ResponsiveImageProps) => {
-    const srcset = useMemo(() => {
-      if (!src) return undefined;
-      return BREAKPOINTS.map((w) => `${src} ${w}w`).join(", ");
+    
+    const finalSrc = useMemo(() => {
+      if (!src) return "";
+      
+      // Handle Next.js static imports (including ESM/CJS interop)
+      if (typeof src === "string") return src;
+      
+      const s = src as any;
+      if (s.src) return s.src;
+      if (s.default && s.default.src) return s.default.src;
+      
+      // Fallback: If it's an object but not a standard Next image, 
+      // check if it's the Vite-style string-in-default
+      if (s.default && typeof s.default === "string") return s.default;
+
+      return String(src);
     }, [src]);
 
     const loading = isLCP ? "eager" : "lazy";
@@ -38,13 +55,10 @@ const ResponsiveImage = React.memo(
 
     return (
       <Image
-        src={src}
+        src={finalSrc}
         alt={alt}
-        srcSet={srcset}
-        sizes={sizes}
         loading={loading}
-        // @ts-ignore
-        fetchpriority={fetchPriority}
+        fetchPriority={fetchPriority}
         decoding="async"
         onLoad={handleLoad}
         {...restProps}

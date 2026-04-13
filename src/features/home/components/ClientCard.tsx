@@ -3,7 +3,7 @@
 import React from "react";
 import {
   Box,
-  Text,
+  Text as ChakraText,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
@@ -67,7 +67,7 @@ const ClientCard = React.memo(({ image, nameClient, descClient }: ClientCardProp
               alignItems="center"
               justifyContent="flex-end"
             >
-               <Text
+               <ChakraText
                  color={isHovered ? "primary.300" : "white"}
                  fontSize={{ base: "md", md: "xl" }}
                  fontWeight="600"
@@ -89,9 +89,9 @@ const ClientCard = React.memo(({ image, nameClient, descClient }: ClientCardProp
                  }}
                  >
                    {nameClient}
-                 </Text>
+                 </ChakraText>
 
-              <Text
+              <ChakraText
                 color="whiteAlpha.900"
                 fontSize="xs"
                 fontWeight="medium"
@@ -101,7 +101,7 @@ const ClientCard = React.memo(({ image, nameClient, descClient }: ClientCardProp
                 transition="opacity 0.3s ease"
               >
                 {descClient}
-              </Text>
+              </ChakraText>
             </Box>
         </Box>
     </Box>

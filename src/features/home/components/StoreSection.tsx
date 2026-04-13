@@ -8,7 +8,7 @@ import {
   Spinner,
   VStack,
   HStack,
-  Text,
+  Text as ChakraText,
   Icon,
 } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
@@ -86,26 +86,26 @@ const StoreSection = React.memo(() => {
             <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
               <HStack gap={3} color="text.accent">
                 <Icon as={Clock} boxSize={5} />
-                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="widest">
+                <ChakraText fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="widest">
                   Horarios
-                </Text>
+                </ChakraText>
               </HStack>
               <Box pl={{ base: 0, lg: 8 }}>
-                <Text fontSize="md" color="text.body" fontWeight="medium">Lunes a Sábado</Text>
-                <Text fontSize="sm" color="text.muted">9:00 am – 5:00 pm</Text>
+                <ChakraText fontSize="md" color="text.body" fontWeight="medium">Lunes a Sábado</ChakraText>
+                <ChakraText fontSize="sm" color="text.muted">9:00 am – 5:00 pm</ChakraText>
               </Box>
             </VStack>
 
             <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
               <HStack gap={3} color="text.accent">
                 <Icon as={MapPin} boxSize={5} />
-                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="widest">
+                <ChakraText fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="widest">
                   Dirección
-                </Text>
+                </ChakraText>
               </HStack>
               <Box pl={{ base: 0, lg: 8 }}>
-                <Text fontSize="md" color="text.body" fontWeight="medium">Av. Los Fresnos 1250</Text>
-                <Text fontSize="sm" color="text.muted">La Molina, Lima - Perú</Text>
+                <ChakraText fontSize="md" color="text.body" fontWeight="medium">Av. Los Fresnos 1250</ChakraText>
+                <ChakraText fontSize="sm" color="text.muted">La Molina, Lima - Perú</ChakraText>
               </Box>
             </VStack>
 

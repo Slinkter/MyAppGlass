@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * @file AuraNavbar.jsx
+ * @file AuraNavbar.tsx
  * @description Premium responsive navigation header with Aura Liquid Glass effects.
  * @module layout/navbar
  */
@@ -30,7 +30,7 @@ const AuraNavbar = React.memo(() => {
 
   // Evita la hidratación mismatch renderizando un placeholder o nada hasta que el cliente esté listo
   if (!mounted) {
-    return <Box as="header" position="sticky" top="phi_lg" zIndex="sticky" display={{ base: "none", md: "block" }} />;
+    return <Box as="header" position="sticky" top="phi_lg" zIndex="sticky" display={{ base: "none", md: "block" }} h="58px" />;
   }
 
   return (
@@ -74,6 +74,7 @@ const AuraNavbar = React.memo(() => {
 
       {/* MOBILE NAVBAR (Hamburger Menu) */}
       <Box display={{ base: "block", md: "none" }}>
+        {/* @ts-ignore */}
         <MobileNav />
       </Box>
     </>

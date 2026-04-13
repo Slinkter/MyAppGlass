@@ -6,11 +6,11 @@ import {
     Button,
     Flex,
     Heading,
+    Text as ChakraText,
     HStack,
-    Image,
-    Text,
     VStack,
 } from "@chakra-ui/react";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import Link from "next/link";
 
 // @ts-ignore
@@ -32,15 +32,13 @@ const LandingPageSection = React.memo(() => {
                 textAlign="center"
                 maxW="5xl"
             >
-                <Image
-                    src={logoGYA?.src || (logoGYA as unknown as string)}
+                <ResponsiveImage
+                    src={logoGYA}
                     alt="Glass & Aluminum Company Logo"
                     w={{ base: "55%", sm: "50%", md: "40%", lg: "36%" }}
                     maxW="400px"
                     h="auto"
-                    loading="eager"
-                    // @ts-ignore
-                    fetchpriority="high"
+                    fetchPriority="high"
                 />
 
                 <Box mt="phi_md">
@@ -67,7 +65,7 @@ const LandingPageSection = React.memo(() => {
                         COMPANY S.A.C.
                     </Heading>
 
-                    <Text
+                    <ChakraText
                         fontSize={{ base: "md", md: "xl" }}
                         mt="phi_lg"
                         color="text.muted"
@@ -77,7 +75,7 @@ const LandingPageSection = React.memo(() => {
                     >
                         Empresa Comercial especializada en la instalación de
                         cristales y aluminios.
-                    </Text>
+                    </ChakraText>
 
                     <HStack gap="phi_md" mt="phi_xl" justify="center" w="full" px={4} flexWrap="wrap">
                         <Button asChild variant="solid" colorPalette="primary" size="lg">

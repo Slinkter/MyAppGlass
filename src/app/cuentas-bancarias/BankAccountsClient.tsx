@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import {
   Box,
   Heading,
-  Text,
+  Text as ChakraText,
   VStack,
   Container,
   Card,
@@ -89,7 +89,7 @@ const InfoItem = ({ icon, label, value, copyable = false }: InfoItemProps) => {
         <Icon as={icon} size="md" />
       </Flex>
       <Box flex="1">
-        <Text
+        <ChakraText
           fontSize="xs"
           fontWeight="bold"
           textTransform="uppercase"
@@ -97,14 +97,14 @@ const InfoItem = ({ icon, label, value, copyable = false }: InfoItemProps) => {
           letterSpacing="wider"
         >
           {label}
-        </Text>
-        <Text
+        </ChakraText>
+        <ChakraText
           fontSize="md"
           fontWeight="medium"
           color={useColorModeValue("gray.800", "white")}
         >
           {value}
-        </Text>
+        </ChakraText>
       </Box>
       {copyable && <CopyButton value={value} label={label} />}
     </HStack>
@@ -168,7 +168,7 @@ const BankAccountCard = ({
       <Card.Body p={{ base: 5, md: 6 }}>
         <Stack gap={4}>
           <Box>
-            <Text
+            <ChakraText
               fontSize="sm"
               fontWeight="bold"
               color={useColorModeValue("primary.600", "primary.300")}
@@ -177,7 +177,7 @@ const BankAccountCard = ({
               mb={1}
             >
               {bankName}
-            </Text>
+            </ChakraText>
             <Heading size="md" fontWeight="bold">
               {accountType}
             </Heading>
@@ -198,21 +198,21 @@ const BankAccountCard = ({
                 pt={idx > 0 ? 3 : 0}
               >
                 <Box>
-                  <Text fontSize="xs" color="gray.500" fontWeight="bold">
+                  <ChakraText fontSize="xs" color="gray.500" fontWeight="bold">
                     {acc.label}
-                  </Text>
-                  <Text fontFamily="mono" fontSize="md" fontWeight="medium">
+                  </ChakraText>
+                  <ChakraText fontFamily="mono" fontSize="md" fontWeight="medium">
                     {acc.value}
-                  </Text>
+                  </ChakraText>
                   {acc.note && (
-                    <Text
+                    <ChakraText
                       fontSize="xs"
                       color="orange.500"
                       fontStyle="italic"
                       mt={0.5}
                     >
                       {acc.note}
-                    </Text>
+                    </ChakraText>
                   )}
                 </Box>
                 <CopyButton value={acc.value} label={acc.label} />
@@ -268,15 +268,15 @@ export const BankAccountsClient = () => {
             lineHeight="shorter"
           >
             Cuentas Bancarias y <br />
-            <Text as="span" color={useColorModeValue("gray.800", "white")}>
+            <ChakraText as="span" color={useColorModeValue("gray.800", "white")}>
               Datos de Facturación
-            </Text>
+            </ChakraText>
           </Heading>
-          <Text fontSize={{ base: "md", md: "lg" }} color={textColor}>
+          <ChakraText fontSize={{ base: "md", md: "lg" }} color={textColor}>
             Facilitamos sus transacciones con información clara y accesible.
             Encuentre a continuación nuestros datos fiscales y bancarios para
             gestionar sus pagos con seguridad y confianza.
-          </Text>
+          </ChakraText>
         </Box>
 
         {/* Fiscal Identification Section */}
@@ -320,9 +320,9 @@ export const BankAccountsClient = () => {
           borderRadius="xl"
           textAlign="center"
         >
-          <Text fontSize="md" color={textColor}>
+          <ChakraText fontSize="md" color={textColor}>
             ¿Necesita confirmar un pago o requiere asistencia adicional?
-            <Text
+            <ChakraText
               as="span"
               display="block"
               mt={1}
@@ -330,8 +330,8 @@ export const BankAccountsClient = () => {
               color={headingColor}
             >
               Contáctenos en: {companyData.contactEmail}
-            </Text>
-          </Text>
+            </ChakraText>
+          </ChakraText>
         </Box>
       </VStack>
     </Container>
