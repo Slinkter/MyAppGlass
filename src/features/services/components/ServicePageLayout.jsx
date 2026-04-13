@@ -25,7 +25,7 @@ import BackButton from "@shared/components/navigation/BackButton";
 // Sustituye al antiguo GlassCard con una estética más profunda y limpia.
 const BentoCard = ({ children, bg, color, ...props }) => (
   <Box
-    p={{ base: 8, lg: 12 }}
+    p={{ base: "phi_md", lg: "phi_lg" }}
     h="full"
     bg={bg || "bg.section"}
     color={color || "text.body"}
@@ -183,22 +183,15 @@ BentoCTA.displayName = "BentoCTA";
 const ServicePageLayout = ({ pageData }) => {
   const { seo, about, benefits, systems, imageLists } = pageData;
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [isGalleryLoaded, setIsGalleryLoaded] = React.useState(false);
+  const [isPending, startTransition] = React.useTransition();
 
   const activeImageList = React.useMemo(() => imageLists[activeIndex] || [], [imageLists, activeIndex]);
   const activeSystem = React.useMemo(() => systems[activeIndex], [systems, activeIndex]);
 
   const handleSelect = React.useCallback((index) => {
-    setIsGalleryLoaded(false);
-    setActiveIndex(index);
-    // Simular un pequeño retardo para asegurar que el Skeleton se muestre
-    // mientras framer-motion y los componentes de imagen reaccionan.
-    setTimeout(() => setIsGalleryLoaded(true), 600);
-  }, []);
-
-  // Set initial load state
-  React.useEffect(() => {
-    setIsGalleryLoaded(true);
+    startTransition(() => {
+      setActiveIndex(index);
+    });
   }, []);
 
   return (
@@ -293,12 +286,6 @@ const ServicePageLayout = ({ pageData }) => {
           </Container>
         </Box>
       </LazyMotion>
-    </>
-  );
-};
-
-export default ServicePageLayout;
-ion>
     </>
   );
 };
