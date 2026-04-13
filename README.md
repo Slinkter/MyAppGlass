@@ -134,13 +134,16 @@ import ProjectCard from "../../../features/projects/components/ProjectCard";
 - **Component-Driven Development:** UI construida a partir de pequeños componentes reutilizables.
 - **Abstracción de Datos:** Los componentes son agnósticos al origen de los datos, gracias a la capa de servicios.
 - **Carga Asíncrona:** Los datos de las secciones principales se cargan de forma asíncrona, mostrando elegantes skeletons de carga para mejorar la UX.
-- **Rendimiento Optimizado:**
+- **Rendimiento Optimizado (Concurrent Rendering):**
+  - **React 18 `useTransition`:** Optimización profunda del renderizado en galerías y cambios de estado pesados, garantizando 60 FPS estables sin bloqueos del Main Thread.
+  - **LCP Prioritization:** Estratificación estricta de imágenes (Eager load para Hero/LCP y Lazy load para Below-the-fold).
   - **Code Splitting:** Las páginas se cargan bajo demanda con `React.lazy` y `Suspense`.
-  - **Infinite Scroll:** Implementado en listados clave (`Proyectos`, `Servicios`, `Clientes`) para cargar contenido bajo demanda y evitar cuellos de botella en el renderizado inicial.
   - **Optimización de Imágenes:** `vite-plugin-image-optimizer` se utiliza para comprimir y optimizar las imágenes durante el build.
-- **Experiencia de Usuario (UX/UI):**
-  - **Animaciones Scroll Reveal:** Componente reutilizable `ScrollReveal` (basado en Framer Motion) que añade transiciones suaves de entrada ("fade up") a los elementos al hacer scroll.
-  - **Guía de Estilos Definida:** El uso de Chakra UI está estandarizado en el documento [Guía de Estilos de Chakra UI](./doc/chakra-ui-style-guidelines.md).
+- **Experiencia de Usuario (Aura Design System):**
+  - **Fibonacci Scale:** Todo el sistema de espaciado (`gap`, `margin`, `padding`) está regido por la Proporción Áurea (Phi) para una armonía visual perfecta y matemáticamente escalable.
+  - **Glassmorphism Premium:** Uso de `backdropFilter`, sombras volumétricas y capas translúcidas (Zinc Scale) para emular la refracción del cristal y el aluminio.
+  - **Mobile-First Full-Screen:** Menú Hamburguesa inmersivo a pantalla completa, eliminando distracciones en la experiencia táctil.
+  - **Test Labs de Alta Gama:** Rutas locales de experimentación visual (`/test`, `/test-banca`, `/test-servicios`, `/test-detalle-servicio`) que actúan como "Laboratorios de Diseño" para probar variantes arquitectónicas en vivo.
 
 ## 🛠️ Instalación y Desarrollo Local
 

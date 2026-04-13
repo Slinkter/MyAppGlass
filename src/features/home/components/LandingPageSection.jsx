@@ -53,7 +53,7 @@ const LandingPageSection = React.memo(() => {
                 position="relative"
             >
                 <MotionVStack
-                    spacing={4}
+                    spacing="phi_md"
                     initial={animationConfig}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
@@ -75,7 +75,7 @@ const LandingPageSection = React.memo(() => {
                         transition={{ duration: 0.3 }}
                     />
 
-                    <Box mt={4}>
+                    <Box mt="phi_md">
                         <Heading
                             as="h2"
                             fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
@@ -83,7 +83,7 @@ const LandingPageSection = React.memo(() => {
                             letterSpacing="widest"
                             color="text.accent"
                             textTransform={"uppercase"}
-                            mb={2}
+                            mb="phi_xs"
                         >
                             Vidriería &amp; Aluminio
                         </Heading>
@@ -101,7 +101,7 @@ const LandingPageSection = React.memo(() => {
 
                         <Text
                             fontSize={{ base: "md", md: "xl" }}
-                            mt={6}
+                            mt="phi_lg"
                             color="text.muted"
                             fontWeight="medium"
                             maxW="3xl"
@@ -111,7 +111,7 @@ const LandingPageSection = React.memo(() => {
                             cristales y aluminios.
                         </Text>
 
-                        <HStack spacing={4} mt={10} justify="center" w="full" px={4} flexWrap="wrap">
+                        <HStack spacing="phi_md" mt="phi_xl" justify="center" w="full" px={4} flexWrap="wrap">
                             <Button as={RouterLink} to="/servicios" variant="aura" size="lg">
                                 Ver Servicios
                             </Button>

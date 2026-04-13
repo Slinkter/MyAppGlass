@@ -13,13 +13,13 @@ import "@fontsource/open-sans";
 import "@fontsource/lora";
 
 const auraSpacing = {
-  phi_xs: "4px",    // 1
-  phi_sm: "8px",    // 2
-  phi_md: "12px",   // 3
-  phi_lg: "20px",   // 5
-  phi_xl: "32px",   // 8
-  phi_2xl: "52px",  // 13
-  phi_3xl: "84px",  // 21
+  phi_xs: "8px",    // F(6)
+  phi_sm: "13px",   // F(7)
+  phi_md: "21px",   // F(8)
+  phi_lg: "34px",   // F(9)
+  phi_xl: "55px",   // F(10)
+  phi_2xl: "89px",  // F(11)
+  phi_3xl: "144px", // F(12)
 };
 
 const theme = extendTheme({

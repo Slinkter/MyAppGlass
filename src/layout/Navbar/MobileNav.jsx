@@ -3,12 +3,11 @@
  * @description Premium mobile navigation with a classic hamburger menu and full-screen glass overlay.
  */
 import React, { useState, useEffect } from "react";
-import { Box, Flex, IconButton, VStack, Image, Text, Button, Divider, HStack } from "@chakra-ui/react";
+import { Box, IconButton, VStack, Image, Text, Button, Divider, HStack } from "@chakra-ui/react";
 import { Menu, X, MessageSquareText, ShieldCheck, Landmark } from "lucide-react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
-import logoGYA from "@/assets/branding/LogoCompanytrans.png";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 
 const MotionBox = motion(Box);
