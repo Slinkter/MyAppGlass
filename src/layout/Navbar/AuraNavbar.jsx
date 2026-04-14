@@ -4,7 +4,7 @@
  * @module layout/navbar
  */
 import React from "react";
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import AuraDesktopNav from "./AuraDesktopNav";
 import MobileNav from "./MobileNav";
 

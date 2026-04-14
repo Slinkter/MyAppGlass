@@ -35,8 +35,8 @@ const MotionBox = motion(Box);
 
 const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
   const content = (
-    <HStack spacing={4} align="center" w="full" py={2}>
-      <Icon as={icon} boxSize={5} color={customIconColor || "text.accent"} />
+    <HStack gap={4} align="center" w="full" py={2}>
+      <Box as={icon} boxSize={5} color={customIconColor || "text.accent"} />
       <Text fontSize="sm" fontWeight="500" color="text.body" _groupHover={{ color: "primary.500", transform: "translateX(4px)" }} transition="all 0.3s ease">
         {children}
       </Text>
@@ -87,32 +87,32 @@ const FooterLiquid = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={12} mb={16}>
-            <VStack align="flex-start" spacing={6}>
+          <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={12} mb={16}>
+            <VStack align="flex-start" gap={6}>
               <Heading size="xs" textTransform="uppercase" letterSpacing="widest" color="text.accent">Contacto</Heading>
-              <VStack align="flex-start" spacing={1} w="full">
+              <VStack align="flex-start" gap={1} w="full">
                 <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">974 278 303</FooterRow>
                 <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">996 537 435</FooterRow>
                 <FooterRow icon={Mail}>acueva@gyacompany.com</FooterRow>
               </VStack>
             </VStack>
 
-            <VStack align="flex-start" spacing={6}>
+            <VStack align="flex-start" gap={6}>
               <Heading size="xs" textTransform="uppercase" letterSpacing="widest" color="text.accent">Sede y Horarios</Heading>
-              <VStack align="flex-start" spacing={1} w="full">
+              <VStack align="flex-start" gap={1} w="full">
                 <FooterRow icon={Calendar}>Lunes a Sábado</FooterRow>
                 <FooterRow icon={Clock}>9:00 am – 5:00 pm</FooterRow>
                 <FooterRow icon={MapPin}>La Molina, Lima - Perú</FooterRow>
               </VStack>
             </VStack>
 
-            <VStack align="flex-start" spacing={6}>
+            <VStack align="flex-start" gap={6}>
               <Heading size="xs" textTransform="uppercase" letterSpacing="widest" color="text.accent">Corporativo</Heading>
-              <VStack align="flex-start" spacing={1} w="full">
+              <VStack align="flex-start" gap={1} w="full">
                 <FooterRow to="/politicas-empresa" icon={FileText}>Políticas de Empresa</FooterRow>
                 <FooterRow to="/cuentas-bancarias" icon={Building}>Cuentas Bancarias</FooterRow>
                 <Link to="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
-                  <HStack spacing={4} align="center" py={2} _hover={{ transform: "translateX(4px)" }} transition="all 0.3s ease">
+                  <HStack gap={4} align="center" py={2} _hover={{ transform: "translateX(4px)" }} transition="all 0.3s ease">
                     <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} _dark={{ filter: "brightness(0) invert(1)" }} />
                     <Text fontSize="sm" fontWeight="600" color="text.body">Libro de Reclamaciones</Text>
                   </HStack>

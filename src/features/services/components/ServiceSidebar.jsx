@@ -4,12 +4,11 @@ import {
   Stack,
   VStack,
   Text,
-  Divider,
-  Button
 } from "@chakra-ui/react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { LuMoveRight } from "react-icons/lu";
 import SidebarItem from "@shared/components/common/SidebarItem";
 import GlassCard from "@shared/components/common/GlassCard";
+import { Button } from "@/components/ui/button";;
 
 const NavigationSection = ({ title, systems, activeIndex, onSelect }) => {
   return (
@@ -25,7 +24,7 @@ const NavigationSection = ({ title, systems, activeIndex, onSelect }) => {
       >
         {title}
       </Text>
-      <Stack spacing={2}>
+      <Stack gap={2}>
         {systems.map((item, index) => (
           <SidebarItem
             key={item.label}
@@ -51,7 +50,6 @@ const CTASection = ({ label, isSecondary }) => (
       w="full"
       bg="primary.500"
       color="white"
-      rightIcon={<ArrowForwardIcon />}
       _hover={{
         bg: "primary.600",
         transform: "translateY(-2px)",
@@ -65,6 +63,7 @@ const CTASection = ({ label, isSecondary }) => (
       transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
     >
       {isSecondary ? "Solicitar Cotización" : "Cotizar Ahora"}
+      <LuMoveRight style={{ marginLeft: "8px" }} />
     </Button>
     <Text
       fontSize="xs"
@@ -98,7 +97,7 @@ const ServiceSidebar = (props) => {
       boxShadow="2xl"
     >
       <VStack
-        spacing={{ base: 6, md: 7, lg: 8 }}
+        gap={{ base: 6, md: 7, lg: 8 }}
         align="stretch"
         flex="1"
         pr={{ base: 0, lg: 2 }}
@@ -127,7 +126,7 @@ const ServiceSidebar = (props) => {
         </Box>
 
         <Box mt="auto" pt={4}>
-          <Divider borderColor="border.default" mb={6} />
+          <Box borderTopWidth="1px" borderColor="border.default" mb={6} />
           <CTASection
             label={activeSystem?.label || seo.title}
           />

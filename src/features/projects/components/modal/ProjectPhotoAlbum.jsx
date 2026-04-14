@@ -1,6 +1,7 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Image, useColorModeValue } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import { m } from "framer-motion";
 
 /**

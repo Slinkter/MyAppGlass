@@ -4,7 +4,7 @@
  */
 import React from "react";
 import {
-  Box, VStack, Heading, Text, Container, HStack, Button, Icon, Flex, Badge, SimpleGrid
+  Box, VStack, Heading, Text, Container, HStack, Button, Flex, Badge, SimpleGrid
 } from "@chakra-ui/react";
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -40,8 +40,8 @@ export const ServiceDetailImmersive = ({ pageData }) => {
           pt={10} pb={20} px={6} zIndex={5}
         >
           <Container maxW="7xl">
-            <VStack align="flex-start" spacing={2}>
-              <Badge colorScheme="primary" variant="solid" borderRadius="full" px={4}>SERVICIO ELITE</Badge>
+            <VStack align="flex-start" gap={2}>
+              <Badge colorPalette="primary" variant="solid" borderRadius="full" px={4}>SERVICIO ELITE</Badge>
               <Heading color="white" size="2xl" letterSpacing="tighter">{seo.title}</Heading>
             </VStack>
           </Container>
@@ -50,7 +50,7 @@ export const ServiceDetailImmersive = ({ pageData }) => {
         {/* SYSTEM SELECTOR OVERLAY */}
         <Box position="absolute" bottom={10} left={0} right={0} zIndex={5}>
           <Container maxW="7xl">
-            <HStack spacing={4} overflowX="auto" pb={4} sx={{ '&::-webkit-scrollbar': { display: 'none' } }}>
+            <HStack gap={4} overflowX="auto" pb={4} sx={{ '&::-webkit-scrollbar': { display: 'none' } }}>
               {systems.map((s, i) => (
                 <Button
                   key={i}
@@ -74,18 +74,18 @@ export const ServiceDetailImmersive = ({ pageData }) => {
       {/* CONTENT SECTION */}
       <Container maxW="7xl" py={20}>
         <Flex direction={{ base: "column", lg: "row" }} gap={16}>
-          <VStack align="flex-start" spacing={8} flex={1}>
-            <VStack align="flex-start" spacing={4}>
+          <VStack align="flex-start" gap={8} flex={1}>
+            <VStack align="flex-start" gap={4}>
               <Text fontSize="sm" fontWeight="900" color="primary.500" textTransform="uppercase" letterSpacing="0.2em">Concepto</Text>
               <Text fontSize="2xl" color="text.body" fontWeight="medium" lineHeight="tall">
                 {about.description}
               </Text>
             </VStack>
             
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} w="full">
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={6} w="full">
               {benefits.map((b, i) => (
                 <HStack key={i} p={4} variant="glass" bg="bg.section" borderRadius="xl" border="1px solid" borderColor="border.glass">
-                  <Icon as={CheckCircle2} color="primary.500" />
+                  <Box as={CheckCircle2} color="primary.500" />
                   <Text fontSize="sm" fontWeight="bold">{b.label}</Text>
                 </HStack>
               ))}
@@ -93,8 +93,8 @@ export const ServiceDetailImmersive = ({ pageData }) => {
           </VStack>
 
           <Box flex={1} maxW={{ lg: "400px" }}>
-            <VStack p={10} bg="primary.900" color="white" borderRadius="3xl" spacing={6} textAlign="center" shadow="2xl">
-              <Icon as={MessageCircle} boxSize={10} />
+            <VStack p={10} bg="primary.900" color="white" borderRadius="3xl" gap={6} textAlign="center" shadow="2xl">
+              <Box as={MessageCircle} boxSize={10} />
               <Heading size="lg">¿Iniciamos tu obra?</Heading>
               <Text opacity={0.8}>Recibe asesoría técnica personalizada para tu proyecto de {systems[activeIndex]?.label}.</Text>
               <Button variant="aura" w="full" size="lg" bg="white" color="primary.900" _hover={{ bg: "primary.50" }}>

@@ -1,9 +1,10 @@
+import { useColorMode } from "@/components/ui/color-mode";
 /**
  * @file ServiceDetailTestPage.jsx
  * @description Showcase for 5 Service Detail page variants using "Ventana" data.
  */
 import React from "react";
-import { Box, Heading, Container, Text, Button, useColorMode, Icon } from "@chakra-ui/react";
+import { Box, Heading, Container, Text, Button } from "@chakra-ui/react";
 import { Sun, Moon, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ServiceDetailImmersive } from "../features/services/variants/detail/ServiceDetailImmersive";
@@ -47,13 +48,15 @@ const ServiceDetailTestPage = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box bg="bg.page" minH="100vh" pb={20}>
-      <Button position="fixed" bottom={4} right={4} zIndex={1000} variant="aura" onClick={toggleColorMode} leftIcon={<Icon as={colorMode === "light" ? Moon : Sun} />}>
-        TEMA {colorMode === "light" ? "OSCURO" : "CLARO"}
+      <Button position="fixed" bottom={4} right={4} zIndex={1000} variant="aura" onClick={toggleColorMode}>
+        <Box as={colorMode === "light" ? Moon : Sun} /> TEMA {colorMode === "light" ? "OSCURO" : "CLARO"}
       </Button>
       
       <Box bg="primary.900" py={12} textAlign="center" color="white">
         <Link to="/test">
-          <Button variant="ghost" color="white" leftIcon={<ArrowLeft size={16} />} mb={4}>Volver al Showcase</Button>
+          <Button variant="ghost" color="white" mb={4}>
+            <ArrowLeft size={16} /> Volver al Showcase
+          </Button>
         </Link>
         <Heading size="xl" letterSpacing="0.2em">DETAIL SERVICE LAB (5 VARIANTS)</Heading>
         <Text opacity={0.7} fontSize="xs" mt={2}>LABORATORIO DE EXCELENCIA UI/UX</Text>

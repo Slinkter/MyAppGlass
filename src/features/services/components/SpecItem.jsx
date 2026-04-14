@@ -16,7 +16,7 @@ const SpecItem = ({ label, value }) => {
             borderColor="border.default"
             justify="space-between"
             align="center"
-            spacing={4}
+            gap={4}
             transition="all 0.2s"
             _hover={{
                 borderColor: "text.accent",
@@ -24,7 +24,7 @@ const SpecItem = ({ label, value }) => {
                 shadow: "sm",
             }}
         >
-            <HStack spacing={3} overflow="hidden">
+            <HStack gap={3} overflow="hidden">
                 <Text
                     fontSize="xs"
                     fontWeight="semibold"

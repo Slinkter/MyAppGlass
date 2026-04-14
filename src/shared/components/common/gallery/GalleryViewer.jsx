@@ -2,14 +2,14 @@ import React, { useState, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
-  IconButton,
   Text,
   HStack,
-  useColorModeValue,
 } from "@chakra-ui/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { m, AnimatePresence } from "framer-motion";
 import FadingImage from "../FadingImage";
+import { useColorModeValue } from "@/components/ui/color-mode";
+
 
 const SWIPE_THRESHOLD = 50;
 
@@ -121,7 +121,7 @@ const GalleryViewer = React.memo(({
             showOverlay={false}
             loading={isPriority ? "eager" : "lazy"}
             fetchpriority={isPriority ? "high" : "auto"}
-            rounded="none"
+            borderRadius="none"
           />
         </m.div>
       </AnimatePresence>
@@ -141,16 +141,17 @@ const GalleryViewer = React.memo(({
 
       {imageCount > 1 && (
         <>
-          <IconButton
-            icon={<ChevronLeftIcon boxSize={8} />}
+          <Box
+            as="button"
             position="absolute"
             left={4}
             top="50%"
             transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
             onClick={handlePrevious}
-            variant="ghost"
             color="white"
             bg="blackAlpha.500"
+            p={2}
+            borderRadius="full"
             _hover={{
               bg: "whiteAlpha.300",
               transform: "translateY(-50%) scale(1.1)",
@@ -163,17 +164,20 @@ const GalleryViewer = React.memo(({
             zIndex={10}
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
-          />
-          <IconButton
-            icon={<ChevronRightIcon boxSize={8} />}
+          >
+            <LuChevronLeft size={32} />
+          </Box>
+          <Box
+            as="button"
             position="absolute"
             right={4}
             top="50%"
             transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
             onClick={handleNext}
-            variant="ghost"
             color="white"
             bg="blackAlpha.500"
+            p={2}
+            borderRadius="full"
             _hover={{
               bg: "whiteAlpha.300",
               transform: "translateY(-50%) scale(1.1)",
@@ -186,7 +190,9 @@ const GalleryViewer = React.memo(({
             zIndex={10}
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
-          />
+          >
+            <LuChevronRight size={32} />
+          </Box>
 
           <Box
             position="absolute"
@@ -218,7 +224,7 @@ const GalleryViewer = React.memo(({
             bottom={6}
             left="50%"
             transform="translateX(-50%)"
-            spacing={2.5}
+            gap={2.5}
             zIndex={5}
           >
             {Array.from({ length: imageCount }).map((_, index) => (

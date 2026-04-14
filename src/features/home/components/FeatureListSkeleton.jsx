@@ -28,7 +28,7 @@ const FeatureListSkeleton = () => {
                 rounded='xl'
             >
                 <Skeleton w={24} h={24} mx="auto" mb={4} rounded="full" />
-                <Stack spacing={3}>
+                <Stack gap={3}>
                     <SkeletonText
                         noOfLines={1}
                         skeletonHeight="24px"

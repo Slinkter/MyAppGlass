@@ -9,21 +9,21 @@ import MapViewer from "./MapViewer";
  * @component VisualViewer
  * @description Performance-optimized visual panel for the project modal.
  */
-const VisualViewer = React.memo(({ viewMode, lat, lng, photos }) => {
+const VisualViewer = React.memo(({ viewMode, lat, lng, photos, projectData }) => {
   const hasValidCoords = typeof lat === "number" && typeof lng === "number";
 
   return (
     <Box
-      flex={{ base: "none", lg: "3" }}
+      flex={{ base: "none", lg: "2" }}
       w="100%"
-      h={{ base: "50dvh", sm: "450px", md: "500px", lg: "auto" }}
+      h={{ base: "50dvh", md: "500px", lg: "full" }}
       position="relative"
       borderRadius={{ base: "0", lg: "2xl" }}
       overflow="hidden"
       boxShadow="lg"
       bg="bg.subtle"
     >
-      <Box position="absolute" top="0" left="0" w="100%" h="100%">
+      <Box position="absolute" inset="0">
         <AnimatePresence mode="wait">
           {viewMode === "map" && hasValidCoords ? (
             <m.div
@@ -34,7 +34,7 @@ const VisualViewer = React.memo(({ viewMode, lat, lng, photos }) => {
               transition={{ duration: 0.25, ease: "easeOut" }}
               style={{ width: "100%", height: "100%" }}
             >
-              <MapViewer lat={lat} lng={lng} />
+              <MapViewer lat={lat} lng={lng} projectData={projectData} />
             </m.div>
           ) : (
             <m.div

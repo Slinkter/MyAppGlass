@@ -1,17 +1,13 @@
 import React from "react";
-import {
-  FormControl,
-  FormErrorMessage,
-  Checkbox,
-  Button,
-  Text,
-  Heading,
-} from "@chakra-ui/react";
+import { Button, Text, Heading } from "@chakra-ui/react";
+import { Field } from "@/components/ui/field";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
  * @component DeclarationSection
  * @description Sección de declaración, aceptación y envío
+ * Migrado a Chakra v3: FormControl+Checkbox → Field + Checkbox snippet (compound component)
  */
 const DeclarationSection = () => {
   const { formData, handleInputsChange, handleBtnSubmit, errors } = useReclamationFormContext();
@@ -19,11 +15,8 @@ const DeclarationSection = () => {
   return (
     <>
       <Heading
-        as="h3"
-        size="md"
-        borderBottomWidth={2}
-        pb={2}
-        pt={4}
+        as="h3" size="md"
+        borderBottomWidth={2} pb={2} pt={4}
         color="text.heading"
       >
         4. Declaración y Envío
@@ -35,33 +28,40 @@ const DeclarationSection = () => {
         006-2014-PCM.
       </Text>
 
-      <FormControl isRequired isInvalid={!!errors.autorizaEmail} mb={4}>
+      {/* v3: Field wrapping Checkbox with errorText prop */}
+      <Field
+        errorText={errors.autorizaEmail}
+        invalid={!!errors.autorizaEmail}
+        mb={4}
+      >
         <Checkbox
           name="autorizaEmail"
-          isChecked={formData.autorizaEmail}
-          onChange={handleInputsChange}
+          checked={formData.autorizaEmail}
+          onCheckedChange={(details) =>
+            handleInputsChange({ target: { name: "autorizaEmail", type: "checkbox", checked: details.checked } })
+          }
         >
-          Autorizo que la respuesta a mi reclamo sea enviada al correo
-          electrónico consignado.
+          Autorizo que la respuesta a mi reclamo sea enviada al correo electrónico consignado.
         </Checkbox>
-        <FormErrorMessage>{errors.autorizaEmail}</FormErrorMessage>
-      </FormControl>
+      </Field>
 
-      <FormControl isRequired isInvalid={!!errors.aceptaTerminos}>
+      <Field
+        errorText={errors.aceptaTerminos}
+        invalid={!!errors.aceptaTerminos}
+      >
         <Checkbox
           name="aceptaTerminos"
-          isChecked={formData.aceptaTerminos}
-          onChange={handleInputsChange}
+          checked={formData.aceptaTerminos}
+          onCheckedChange={(details) =>
+            handleInputsChange({ target: { name: "aceptaTerminos", type: "checkbox", checked: details.checked } })
+          }
         >
-          Declaro que la información proporcionada es veraz y acepto la Política
-          de Privacidad y Protección de Datos.
+          Declaro que la información proporcionada es veraz y acepto la Política de Privacidad y Protección de Datos.
         </Checkbox>
-        <FormErrorMessage>{errors.aceptaTerminos}</FormErrorMessage>
-      </FormControl>
+      </Field>
 
       <Button
         type="submit"
-        variant="aura"
         size="lg"
         width="full"
         onClick={handleBtnSubmit}

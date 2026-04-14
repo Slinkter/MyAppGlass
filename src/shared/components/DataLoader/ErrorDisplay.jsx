@@ -1,41 +1,23 @@
 import React from "react";
-import { Text, Button, VStack } from "@chakra-ui/react";
+import { Text, VStack } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";;
 import { ERROR_MESSAGES } from "@/utils/constants";
 
 /**
  * @component ErrorDisplay
  * @description Componente para mostrar mensajes de error de forma amigable, utilizando la paleta de colores principal para mantener la consistencia.
  * Opcionalmente puede incluir un botón de reintento.
- *
- * @param {{
- *   message?: string,
- *   onRetry?: () => void
- * }} props - Propiedades del componente.
- * @param {string} [props.message] - Mensaje de error a mostrar. Si no se provee, usa un mensaje por defecto.
- * @param {function} [props.onRetry] - Función opcional a ejecutar al hacer clic en el botón de reintentar.
- * @returns {JSX.Element} Elemento UI de error.
- *
- * @example
- * // Ejemplo de uso básico con un mensaje de error
- * <ErrorDisplay message="No se pudo cargar la información." />
- *
- * @example
- * // Ejemplo de uso con un mensaje personalizado y un botón de reintento
- * <ErrorDisplay
- *   message="Hubo un problema de conexión."
- *   onRetry={() => console.log("Reintentando operación...")}
- * />
  */
 const ErrorDisplay = ({ message, onRetry }) => {
   return (
     <VStack
-      spacing={4}
+      gap={4}
       p={4}
       bg="whiteAlpha.200"
       border="1px solid"
       borderColor="whiteAlpha.300"
-      shadow="lg"
-      rounded="xl"
+      boxShadow="lg"
+      borderRadius="xl"
       color="white"
     >
       <Text fontSize="lg" fontWeight="bold" color="primary.300">
@@ -44,6 +26,7 @@ const ErrorDisplay = ({ message, onRetry }) => {
       <Text>{message || ERROR_MESSAGES.UNEXPECTED_ERROR}</Text>
       {onRetry && (
         <Button
+          variant="subtle"
           bg="whiteAlpha.300"
           _hover={{ bg: "whiteAlpha.400" }}
           onClick={onRetry}

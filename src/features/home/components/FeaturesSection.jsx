@@ -5,7 +5,6 @@
  */
 
 import React from "react";
-import { Icon } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { getFeatures } from "../services/featureService";
 import FeatureCard from "./FeatureCard";

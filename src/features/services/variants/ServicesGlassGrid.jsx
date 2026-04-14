@@ -12,7 +12,7 @@ export const ServicesGlassGrid = () => {
 
   return (
     <Box py={10}>
-      <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={0} border="1px solid" borderColor="border.glass" borderRadius="3xl" overflow="hidden">
+      <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={0} border="1px solid" borderColor="border.glass" borderRadius="3xl" overflow="hidden">
         {services.slice(0, 6).map((service) => (
           <Box 
             key={service.id}

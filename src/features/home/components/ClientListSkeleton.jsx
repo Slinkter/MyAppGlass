@@ -32,7 +32,7 @@ const ClientListSkeleton = () => {
                     rounded="lg"
                     mb={5}
                 />
-                <Stack spacing={3}>
+                <Stack gap={3}>
                     <SkeletonText
                         noOfLines={1}
                         skeletonHeight="28px"

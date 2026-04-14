@@ -1,32 +1,17 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React, { useCallback } from "react";
-import { OverlayView } from "@react-google-maps/api";
-import {
-  Box,
-  Heading,
-  Text,
-  useColorModeValue,
-  Flex,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverBody,
-  Icon,
-  VStack,
-  Badge,
-} from "@chakra-ui/react";
-import { pulseRing, float } from "./mapConfig";
+import { OverlayViewF } from "@react-google-maps/api";
+import { Box, Heading, Text, Flex, Popover, Portal, VStack, Badge, Image } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { pulseRing } from "./mapConfig";
 
+/**
+ * @component CustomMarker
+ * @description Marcador de alta fidelidad con animación de rebote y cartel informativo.
+ * Optimizado para Lucide Icons y Chakra v3.
+ */
 const CustomMarker = ({
-  marker,
-  isSelected,
-  onToggleSelect,
-  iconContent,
-  isSvg,
-  iconSize,
-  map,
-  google,
+  marker, isSelected, onToggleSelect, iconContent, isSvg, iconSize, map, google,
 }) => {
   const getPixelPositionOffset = useCallback(
     (width, height) => ({ x: -(width / 2), y: -height }),
@@ -34,153 +19,142 @@ const CustomMarker = ({
   );
 
   const isStore = marker.type === "store";
-
-  // Neutral ring colors
-  const ringColor = isStore
-    ? "rgba(113, 113, 122, 0.4)" // Zinc.500
-    : "rgba(161, 161, 170, 0.4)"; // Zinc.400
-
-  // Hooks for Popover styles
-  const popoverBg = useColorModeValue("white", "primary.900");
+  
+  const popoverBg = useColorModeValue("white", "gray.900");
   const headingColor = useColorModeValue("gray.800", "white");
-  const textColor = useColorModeValue("gray.600", "gray.300");
+  const textColor = useColorModeValue("gray.600", "gray.400");
 
   if (!map || !google) return null;
 
+  const position = marker.position || { lat: marker.lat, lng: marker.lng };
+  if (!position.lat || !position.lng) return null;
+
   return (
-    <OverlayView
-      position={marker.position}
-      mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+    <OverlayViewF
+      position={position}
+      mapPaneName="overlayMouseTarget"
       getPixelPositionOffset={getPixelPositionOffset}
     >
-      <Popover
-        isOpen={isSelected}
-        onClose={() => onToggleSelect(null)}
-        placement="top"
-        isLazy
-        returnFocusOnClose={false}
-        closeOnBlur={true}
+      <Popover.Root
+        open={isSelected}
+        onOpenChange={(e) => { if (!e.open) onToggleSelect(null); }}
+        positioning={{ placement: "top" }}
+        lazyMount
+        unmountOnExit
       >
-        <PopoverTrigger>
+        <Popover.Trigger asChild>
           <Box
-            position="relative"
+            as={motion.div}
+            initial={false}
+            animate={isSelected ? { 
+              y: [0, -15, 0],
+              scale: 1.1,
+              transition: { type: "spring", stiffness: 300, damping: 15 }
+            } : { y: 0, scale: 1 }}
+            whileHover={{ scale: 1.1, y: -5 }}
             onClick={() => onToggleSelect(marker)}
             cursor="pointer"
+            position="relative"
             w={`${iconSize.width}px`}
-            h={`${iconSize.height}px`}
-            transition="all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
-            _hover={{ transform: "scale(1.15) translateY(-2px)" }}
-            animation={
-              isSelected ? `${float} 2s ease-in-out infinite` : undefined
-            }
-            zIndex={isSelected ? 10 : 1}
+            h={`${iconSize.height + 10}px`}
+            zIndex={isSelected ? 100 : 1}
           >
-            {/* Pulse Effect for Store or Selected Items */}
+            {/* Efecto de Pulso en el suelo */}
             {(isStore || isSelected) && (
               <Box
-                position="absolute"
-                top="0"
-                left="0"
-                right="0"
-                bottom="0"
-                borderRadius="full"
-                border="3px solid"
-                borderColor={ringColor}
-                animation={`${pulseRing} 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite`}
-                zIndex={-1}
+                position="absolute" bottom="0" left="50%" transform="translateX(-50%)"
+                w="20px" h="4px" bg="blackAlpha.300" borderRadius="full"
+                animation={`${pulseRing} 2s infinite`}
               />
             )}
 
-            {isSvg ? (
-              // Project Marker
+            {/* PIN PERSONALIZADO */}
+            <Flex direction="column" align="center" gap={0}>
               <Flex
-                bg={isSelected ? "red.600" : "text.accent"}
+                w={`${iconSize.width}px`}
+                h={`${iconSize.width}px`}
+                bg={isSelected ? "primary.600" : (isStore ? "white" : "primary.900")}
                 borderRadius="full"
-                border="2px solid white"
+                border="3px solid"
+                borderColor={isStore ? "primary.500" : "white"}
                 align="center"
                 justify="center"
-                w="100%"
-                h="100%"
-                boxShadow="lg"
-                color="white"
-              >
-                <Icon as={iconContent} w="50%" h="50%" />
-              </Flex>
-            ) : (
-              // Store Marker (Image)
-              <Box
-                w="100%"
-                h="100%"
-                borderRadius="full"
-                border="2px solid white"
                 boxShadow="xl"
                 overflow="hidden"
-                bg="white"
               >
-                <Box
-                  as="img"
-                  src={iconContent}
-                  alt={marker.name}
-                  w="100%"
-                  h="100%"
-                  objectFit="cover"
-                />
-              </Box>
-            )}
+                {isSvg ? (
+                  <Box as={iconContent} color={isSelected ? "white" : "primary.300"} size="20px" />
+                ) : (
+                  <Image src={iconContent} alt={marker.name} w="100%" h="100%" objectFit="cover" />
+                )}
+              </Flex>
+              {/* Punta del Pin */}
+              <Box 
+                w="0" h="0" 
+                borderLeft="8px solid transparent"
+                borderRight="8px solid transparent"
+                borderTop="10px solid"
+                borderTopColor={isSelected ? "primary.600" : (isStore ? "primary.500" : "primary.900")}
+                mt="-2px"
+              />
+            </Flex>
           </Box>
-        </PopoverTrigger>
+        </Popover.Trigger>
 
-        <PopoverContent
-          border="none"
-          boxShadow="dark-lg"
-          borderRadius="xl"
-          overflow="hidden"
-          maxW="280px"
-          _focus={{ outline: "none" }}
-          bg={popoverBg}
-        >
-          <PopoverArrow bg={popoverBg} />
-          <PopoverCloseButton size="sm" top={2} right={2} zIndex={2} />
-
-          {/* Header Image or Gradient */}
-          <Box h="6px" w="100%" bgGradient={"null"} />
-
-          <PopoverBody p={4}>
-            <VStack align="center" spacing={2}>
-              <Flex align="center" justify="center" w="100%">
+        <Portal>
+          <Popover.Positioner>
+            <Popover.Content
+              border="1px solid" borderColor="border.glass"
+              boxShadow="dark-lg" borderRadius="2xl"
+              overflow="hidden" 
+              maxW={{ base: "240px", md: "300px" }} 
+              bg={popoverBg}
+              backdropFilter="blur(16px)"
+            >
+              <Popover.Arrow />
+              
+              {/* CARTEL INFORMATIVO CON IMAGEN */}
+              <Box position="relative" h={{ base: "80px", md: "120px" }} w="full" bg="gray.200">
+                <Image 
+                  src={marker.image || marker.photosObra?.[0]?.image} 
+                  alt={marker.name}
+                  w="100%" h="100%" objectFit="cover"
+                />
+                <Box position="absolute" inset="0" bgGradient="linear(to-t, blackAlpha.800, transparent)" />
                 <Badge
-                  colorScheme={isStore ? "primary" : "red"}
-                  fontSize="sm"
-                  px={2}
-                  py={0.5}
-                  borderRadius="full"
+                  position="absolute" top={2} right={2}
+                  colorPalette={isStore ? "primary" : "blue"}
+                  variant="solid" borderRadius="full"
+                  size="xs"
                 >
-                  {isStore ? "SEDE PRINCIPAL" : "PROYECTO"}
+                  {isStore ? "SEDE" : marker.year || "OBRA"}
                 </Badge>
-              </Flex>
-
-              <Box>
-                <Heading
-                  size="sm"
-                  mb={1}
-                  color={headingColor}
-                  lineHeight="short"
-                  textTransform={"uppercase"}
-                >
-                  {marker.residencial || marker.name}
-                </Heading>
               </Box>
 
-              <Flex align="start" gap={2}>
-                <Text fontSize="xs" color={textColor}>
-                  {marker.g_maps || marker.address}
-                </Text>
-              </Flex>
-            </VStack>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-    </OverlayView>
+              <Popover.Body p={{ base: 3, md: 5 }}>
+                <VStack align="start" gap={1}>
+                  <Heading
+                    size={{ base: "xs", md: "md" }} color={headingColor}
+                    fontFamily="heading" letterSpacing="tight"
+                    noOfLines={1}
+                  >
+                    {marker.residencial || marker.name}
+                  </Heading>
+                  <Text fontSize={{ base: "10px", md: "xs" }} color={textColor} noOfLines={2} lineHeight="shorter">
+                    {marker.address}
+                  </Text>
+                  {!isStore && (
+                    <Text fontSize="9px" fontWeight="900" color="primary.500" textTransform="uppercase" letterSpacing="widest" mt={1}>
+                      INGENIERÍA GYA
+                    </Text>
+                  )}
+                </VStack>
+              </Popover.Body>
+            </Popover.Content>
+          </Popover.Positioner>
+        </Portal>
+      </Popover.Root>
+    </OverlayViewF>
   );
 };
 

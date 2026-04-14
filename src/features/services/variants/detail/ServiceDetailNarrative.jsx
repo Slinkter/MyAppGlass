@@ -23,7 +23,7 @@ export const ServiceDetailNarrative = ({ pageData }) => {
         >
           <Image src={imageLists[0][0]} w="full" h="full" objectFit="cover" />
         </MotionBox>
-        <VStack zIndex={1} spacing={6} textAlign="center" maxW="4xl" px={6}>
+        <VStack zIndex={1} gap={6} textAlign="center" maxW="4xl" px={6}>
           <Text fontSize="sm" fontWeight="bold" letterSpacing="0.5em" color="primary.400" textTransform="uppercase">Excelencia en Cristal</Text>
           <Heading size="4xl" letterSpacing="tighter" lineHeight="0.9">{seo.title}</Heading>
           <Text fontSize="xl" opacity={0.8} fontWeight="medium">{about.description}</Text>
@@ -36,7 +36,7 @@ export const ServiceDetailNarrative = ({ pageData }) => {
           <Box flex={1}>
             <Image src={imageLists[1][0]} borderRadius="3xl" shadow="2xl" />
           </Box>
-          <VStack flex={1} align="flex-start" spacing={8}>
+          <VStack flex={1} align="flex-start" gap={8}>
             <Heading size="2xl">Claridad sin límites</Heading>
             <Text fontSize="lg" color="whiteAlpha.800" lineHeight="tall">
               Diseñamos cada ventana pensando en la luz. El aluminio estructural permite perfiles más delgados, 
@@ -48,7 +48,7 @@ export const ServiceDetailNarrative = ({ pageData }) => {
 
       {/* SECTION 3: THE CONTACT */}
       <Box h="60vh" bgGradient="linear(to-b, transparent, primary.900)" display="flex" alignItems="center" justifyContent="center">
-        <VStack spacing={10}>
+        <VStack gap={10}>
           <Heading size="3xl" textAlign="center">¿Construimos tu visión?</Heading>
           <Box as="button" px={12} py={5} bg="white" color="black" borderRadius="full" fontWeight="bold" fontSize="lg" transition="all 0.3s" _hover={{ transform: "scale(1.05)", shadow: "0 0 30px white" }}>
             HABLEMOS DE TU PROYECTO

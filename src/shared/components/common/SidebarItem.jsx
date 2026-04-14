@@ -1,5 +1,6 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
-import { Stack, Icon, Text, useColorModeValue, Box } from "@chakra-ui/react";
+import { Stack, Icon, Text, Box } from "@chakra-ui/react";
 
 /**
  * @component SidebarItem

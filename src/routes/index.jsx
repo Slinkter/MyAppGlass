@@ -14,6 +14,7 @@ import App from "@/App";
 const HomePage = lazy(() => import("@/pages/HomePage"));
 const ServicePage = lazy(() => import("@/pages/ServicePage"));
 const ProjectPage = lazy(() => import("@/pages/ProjectPage"));
+const ProjectDetailPage = lazy(() => import("@/pages/ProjectDetailPage"));
 const TestPage = lazy(() => import("@/pages/TestPage"));
 const BankAccountsTestPage = lazy(() => import("@/pages/BankAccountsTestPage"));
 const ServicesTestPage = lazy(() => import("@/pages/ServicesTestPage"));
@@ -56,6 +57,7 @@ export const router = createBrowserRouter(
                     ],
                 },
                 { path: "proyectos", element: <ProjectPage /> },
+                { path: "proyectos/:projectId", element: <ProjectDetailPage /> },
                 { path: "libro-de-reclamacion", element: <ReclamationForm /> },
                 { path: "politicas-empresa", element: <CompanyPoliciesPage /> },
                 { path: "cuentas-bancarias", element: <BankAccountsPage /> },

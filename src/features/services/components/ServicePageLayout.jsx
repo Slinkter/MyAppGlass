@@ -5,7 +5,6 @@ import {
   VStack,
   Heading,
   Text,
-  Icon,
   SimpleGrid,
   Container,
   HStack,
@@ -61,7 +60,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }) => {
       css={{
         '&::-webkit-scrollbar': { display: 'none' },
         scrollbarWidth: 'none',
-        '-ms-overflow-style': 'none',
+        msOverflowStyle: 'none',
       }}
     >
       {systems.map((system, index) => (
@@ -127,11 +126,11 @@ const BentoBenefits = React.memo(({ benefits }) => {
         whileInView="show"
         viewport={{ once: true }}
         columns={{ base: 1, sm: 2, lg: 3 }} 
-        spacing={{ base: 4, lg: 8 }}
+        gap={{ base: 4, lg: 8 }}
       >
         {benefits.map((benefit) => (
-          <HStack as={m.div} variants={itemVariants} key={benefit.id || benefit.label} align="flex-start" spacing={4} bg="bg.page" _dark={{ bg: "whiteAlpha.50" }} p={5} borderRadius="xl" border="1px solid" borderColor="border.glass">
-            <Icon as={CheckCircle2} color="primary.500" mt={0.5} boxSize={5} />
+          <HStack as={m.div} variants={itemVariants} key={benefit.id || benefit.label} align="flex-start" gap={4} bg="bg.page" _dark={{ bg: "whiteAlpha.50" }} p={5} borderRadius="xl" border="1px solid" borderColor="border.glass">
+            <Box as={CheckCircle2} color="primary.500" mt={0.5} boxSize={5} />
             <Text fontWeight="semibold" fontSize="sm" color="text.body" _dark={{ color: "whiteAlpha.900" }}>{benefit.label}</Text>
           </HStack>
         ))}
@@ -155,7 +154,7 @@ const BentoCTA = React.memo(({ systemName }) => {
       border="1px solid"
       borderColor="primary.500"
     >
-      <Icon as={MessageSquareText} boxSize={10} mb={6} color="primary.300" _dark={{ color: "primary.500" }} />
+      <Box as={MessageSquareText} boxSize={10} mb={6} color="primary.300" _dark={{ color: "primary.500" }} />
       <Heading size="md" mb={3} letterSpacing="tight">¿Iniciamos tu obra?</Heading>
       <Text opacity={0.8} mb={8} fontSize="sm">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
       <Button
@@ -209,11 +208,11 @@ const ServicePageLayout = ({ pageData }) => {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <Container maxW="7xl" pt={{ base: 8, md: 16 }} pb={32}>
-            <VStack spacing={{ base: 12, lg: 16 }} align="stretch">
+            <VStack gap={{ base: 12, lg: 16 }} align="stretch">
               
               {/* CABECERA Y SELECTOR */}
               <Flex direction={{ base: "column", md: "row" }} justify="space-between" align={{ base: "flex-start", md: "flex-end" }} gap={8}>
-                <VStack spacing={4} align="flex-start">
+                <VStack gap={4} align="flex-start">
                   <Box mb={2}><BackButton to="/servicios" /></Box>
                   <Heading size={{ base: "xl", md: "4xl" }} fontWeight="black" letterSpacing="tight" color="text.heading">
                     {seo.title}
@@ -228,7 +227,7 @@ const ServicePageLayout = ({ pageData }) => {
 
               {/* GALERÍA PRINCIPAL CON SKELETON */}
               <Skeleton
-                isLoaded={!isPending}
+                loading={isPending}
                 borderRadius="3xl"
                 startColor="bg.subtle"
                 endColor="bg.section"

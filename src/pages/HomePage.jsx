@@ -15,7 +15,7 @@ const StoreSection = lazy(
 
 const HomeView = React.memo(() => {
     return (
-        <VStack spacing="phi_2xl" w="full" align="stretch">
+        <VStack gap="phi_2xl" w="full" align="stretch">
             <LandingPageSection />
             
             <Suspense fallback={<SectionSkeleton h="500px" />}>

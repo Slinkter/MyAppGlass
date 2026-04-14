@@ -6,7 +6,7 @@ import {
   ButtonGroup,
   Heading,
   Grid,
-  Icon,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import { LazyMotion, m, domAnimation } from "framer-motion";
@@ -50,60 +50,39 @@ const ProjectInfo = ({
   return (
     <LazyMotion features={domAnimation}>
       <VStack
-        flex={{ base: "1", lg: "2" }}
+        flex={{ base: "none", lg: "1" }}
         w="100%"
         p={{ base: "phi_md", md: "phi_lg" }}
-        h={{ base: "auto", lg: "100%" }}
+        bg="bg.subtle"
+        borderRadius="2xl"
+        border="1px solid"
+        borderColor="border.glass"
+        h={{ base: "auto", lg: "full" }}
         align="stretch"
         justify="space-between"
         gap="phi_md"
-        overflowY={{ base: "auto", lg: "visible" }}
+        overflowY="auto"
       >
-        {/* View Switcher */}
-        <ButtonGroup w="full" isAttached variant="outline" size="md">
-          <Button
-            w="full"
-            leftIcon={<Icon as={Map} />}
-            onClick={() => setViewMode("map")}
-            variant={viewMode === "map" ? "aura" : "outline"}
-            borderRadius="full"
-            borderRightRadius={0}
-          >
-            Ubicación
-          </Button>
-          <Button
-            w="full"
-            leftIcon={<Icon as={Photo} />}
-            onClick={() => setViewMode("gallery")}
-            variant={viewMode === "gallery" ? "aura" : "outline"}
-            borderRadius="full"
-            borderLeftRadius={0}
-          >
-            Galería
-          </Button>
-        </ButtonGroup>
-
         <Box as={m.div} initial="hidden" animate="show" variants={containerVariants}>
           <Heading
             as={m.h2}
             variants={itemVariants}
-            size="sm"
+            size="xs"
             fontWeight="900"
             color="primary.500"
             textTransform="uppercase"
-            letterSpacing="0.2em"
-            mb="phi_md"
-            pb={2}
-            borderBottom="2px solid"
-            borderColor="border.glass"
-            width="fit-content"
+            letterSpacing="0.3em"
+            mb="phi_lg"
+            display="flex"
+            alignItems="center"
+            gap={3}
           >
-            Especificaciones
+            <Box w="20px" h="1px" bg="primary.500" /> Especificaciones Técnicas
           </Heading>
           
           <Grid
             templateColumns={{ base: "1fr", sm: "1fr 1fr", lg: "1fr" }}
-            gap="phi_md"
+            gap={4}
           >
             <Box as={m.div} variants={itemVariants}>
               <ProjectDetailItem
@@ -132,12 +111,41 @@ const ProjectInfo = ({
             <Box as={m.div} variants={itemVariants}>
               <ProjectDetailItem
                 icon={Calendar}
-                label="Año"
+                label="Año Entrega"
                 value={year}
               />
             </Box>
           </Grid>
         </Box>
+
+        {/* View Switcher - Reubicado al pie de la ficha */}
+        <VStack gap={4} w="full" pt={6} borderTop="1px solid" borderColor="border.glass">
+          <Text fontSize="10px" fontWeight="bold" color="text.muted" letterSpacing="0.1em" textTransform="uppercase">
+            Visualización de Obra
+          </Text>
+          <ButtonGroup w="full" gap={2} variant="outline" size="sm">
+            <Button
+              flex="1"
+              onClick={() => setViewMode("map")}
+              variant={viewMode === "map" ? "aura" : "ghost"}
+              borderRadius="full"
+              gap={2}
+              py={5}
+            >
+              <Box as={Map} size={16} /> UBICACIÓN
+            </Button>
+            <Button
+              flex="1"
+              onClick={() => setViewMode("gallery")}
+              variant={viewMode === "gallery" ? "aura" : "ghost"}
+              borderRadius="full"
+              gap={2}
+              py={5}
+            >
+              <Box as={Photo} size={16} /> GALERÍA
+            </Button>
+          </ButtonGroup>
+        </VStack>
       </VStack>
     </LazyMotion>
   );

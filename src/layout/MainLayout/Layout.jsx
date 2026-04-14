@@ -12,11 +12,11 @@ import { Suspense, lazy } from "react";
 import {
   Box,
   useBreakpointValue,
-  Link,
 } from "@chakra-ui/react";
 import { AuraNavbar as Navbar } from "../Navbar";
 import { Footer } from "../Footer";
 import { ThemeToggle } from "../FloatingActions/ThemeToggle";
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 const FloatingWhatsApp = lazy(() =>
   import("../FloatingActions").then((module) => ({
     default: module.FloatingWhatsApp,
@@ -39,7 +39,8 @@ const Layout = ({ children }) => {
       _dark={{ bg: "black" }}
     >
       {/* Skip Link for Accessibility */}
-      <Link
+      <Box
+        as="a"
         href="#main-content"
         position="absolute"
         top="-1000px"
@@ -63,7 +64,7 @@ const Layout = ({ children }) => {
         }}
       >
         Saltar al contenido principal
-      </Link>
+      </Box>
       
       <Box
         position="relative"
@@ -75,7 +76,9 @@ const Layout = ({ children }) => {
       >
         <Navbar />
         <Box as="main" id="main-content">
-          {children}
+          <ComponentErrorBoundary>
+            {children}
+          </ComponentErrorBoundary>
         </Box>
         <Footer />
       </Box>

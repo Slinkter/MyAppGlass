@@ -34,3 +34,13 @@ import { projects } from "../data/projects";
 export const getProjects = () => {
   return projects;
 };
+
+/**
+ * Retrieves a single project by its unique identifier.
+ *
+ * @param {string|number} id - The unique ID of the project to retrieve.
+ * @returns {Project|undefined} The project object or undefined if not found.
+ */
+export const getProjectById = (id) => {
+  return projects.find((project) => String(project.id) === String(id));
+};

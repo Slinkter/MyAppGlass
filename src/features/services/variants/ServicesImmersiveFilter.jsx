@@ -23,9 +23,9 @@ export const ServicesImmersiveFilter = () => {
 
   return (
     <Box py={10}>
-      <HStack justify="center" mb={12} spacing={4} position="sticky" top="100px" zIndex={10}>
+      <HStack justify="center" mb={12} gap={4} position="sticky" top="100px" zIndex={10}>
         <Box variant="glass" p={2} bg="rgba(255,255,255,0.6)" _dark={{ bg: "rgba(0,0,0,0.6)" }} backdropFilter="blur(15px)" borderRadius="full" shadow="xl">
-          <HStack spacing={1}>
+          <HStack gap={1}>
             {CATEGORIES.map(cat => (
               <Button
                 key={cat}
@@ -50,7 +50,7 @@ export const ServicesImmersiveFilter = () => {
         </Box>
       </HStack>
 
-      <ItemGridLayout columns={{ base: 1, sm: 2, md: 3 }} spacing="phi_lg">
+      <ItemGridLayout columns={{ base: 1, sm: 2, md: 3 }} gap="phi_lg">
         <AnimatePresence mode="popLayout">
           {filtered.map((service, index) => (
             <MotionItem

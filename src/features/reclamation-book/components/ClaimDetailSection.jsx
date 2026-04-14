@@ -1,12 +1,13 @@
 import React from "react";
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Select,
   Textarea,
   Heading,
 } from "@chakra-ui/react";
+import { Field } from "@/components/ui/field";
+import {
+  NativeSelectField,
+  NativeSelectRoot,
+} from "@/components/ui/native-select";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
@@ -29,43 +30,54 @@ const ClaimDetailSection = () => {
         3. Detalle de su solicitud
       </Heading>
 
-      <FormControl isRequired isInvalid={!!errors.tipoSolicitud}>
-        <FormLabel>Tipo de Solicitud</FormLabel>
-        <Select
-          name="tipoSolicitud"
-          value={formData.tipoSolicitud}
-          onChange={handleInputsChange}
-          placeholder="Seleccionar"
-        >
-          <option value="Reclamo">
-            Reclamo: Disconformidad con el producto o servicio.
-          </option>
-          <option value="Queja">Queja: Malestar respecto a la atención.</option>
-        </Select>
-        <FormErrorMessage>{errors.tipoSolicitud}</FormErrorMessage>
-      </FormControl>
+      <Field 
+        label="Tipo de Solicitud" 
+        required 
+        invalid={!!errors.tipoSolicitud} 
+        errorText={errors.tipoSolicitud}
+      >
+        <NativeSelectRoot>
+          <NativeSelectField
+            name="tipoSolicitud"
+            value={formData.tipoSolicitud}
+            onChange={handleInputsChange}
+            placeholder="Seleccionar"
+          >
+            <option value="Reclamo">
+              Reclamo: Disconformidad con el producto o servicio.
+            </option>
+            <option value="Queja">Queja: Malestar respecto a la atención.</option>
+          </NativeSelectField>
+        </NativeSelectRoot>
+      </Field>
 
-      <FormControl isRequired isInvalid={!!errors.detalle}>
-        <FormLabel>Detalle de la Solicitud</FormLabel>
+      <Field 
+        label="Detalle de la Solicitud" 
+        required 
+        invalid={!!errors.detalle} 
+        errorText={errors.detalle}
+      >
         <Textarea
           name="detalle"
           value={formData.detalle}
           onChange={handleInputsChange}
           placeholder="Describa aquí qué sucedió..."
         />
-        <FormErrorMessage>{errors.detalle}</FormErrorMessage>
-      </FormControl>
+      </Field>
 
-      <FormControl isRequired isInvalid={!!errors.pedido}>
-        <FormLabel>Pedido del Consumidor</FormLabel>
+      <Field 
+        label="Pedido del Consumidor" 
+        required 
+        invalid={!!errors.pedido} 
+        errorText={errors.pedido}
+      >
         <Textarea
           name="pedido"
           value={formData.pedido}
           onChange={handleInputsChange}
           placeholder="Ej: Devolución del dinero, cambio del producto, etc."
         />
-        <FormErrorMessage>{errors.pedido}</FormErrorMessage>
-      </FormControl>
+      </Field>
     </>
   );
 };

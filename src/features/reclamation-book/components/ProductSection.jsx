@@ -1,16 +1,17 @@
 import React from "react";
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
   Input,
   SimpleGrid,
-  Select,
   Textarea,
   Heading,
-  InputGroup,
-  InputLeftAddon,
+  Group,
+  InputAddon,
 } from "@chakra-ui/react";
+import { Field } from "@/components/ui/field";
+import {
+  NativeSelectField,
+  NativeSelectRoot,
+} from "@/components/ui/native-select";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
@@ -33,44 +34,51 @@ const ProductSection = () => {
         2. Identificación del bien contratado
       </Heading>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-        <FormControl isRequired isInvalid={!!errors.tipoBien}>
-          <FormLabel>Tipo de Bien</FormLabel>
-          <Select
-            name="tipoBien"
-            value={formData.tipoBien}
-            onChange={handleInputsChange}
-            placeholder="Seleccionar"
-          >
-            <option value="producto">Producto</option>
-            <option value="servicio">Servicio</option>
-          </Select>
-          <FormErrorMessage>{errors.tipoBien}</FormErrorMessage>
-        </FormControl>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+        <Field 
+          label="Tipo de Bien" 
+          required 
+          invalid={!!errors.tipoBien} 
+          errorText={errors.tipoBien}
+        >
+          <NativeSelectRoot>
+            <NativeSelectField
+              name="tipoBien"
+              value={formData.tipoBien}
+              onChange={handleInputsChange}
+              placeholder="Seleccionar"
+            >
+              <option value="producto">Producto</option>
+              <option value="servicio">Servicio</option>
+            </NativeSelectField>
+          </NativeSelectRoot>
+        </Field>
 
-        <FormControl>
-          <FormLabel>Monto Reclamado (S/.)</FormLabel>
-          <InputGroup>
-            <InputLeftAddon>S/.</InputLeftAddon>
+        <Field label="Monto Reclamado (S/.)">
+          <Group attached w="full">
+            <InputAddon>S/.</InputAddon>
             <Input
               type="number"
               name="montoReclamado"
               value={formData.montoReclamado}
               onChange={handleInputsChange}
             />
-          </InputGroup>
-        </FormControl>
+          </Group>
+        </Field>
       </SimpleGrid>
 
-      <FormControl isRequired isInvalid={!!errors.descripcionBien}>
-        <FormLabel>Descripción del Producto o Servicio</FormLabel>
+      <Field 
+        label="Descripción del Producto o Servicio" 
+        required 
+        invalid={!!errors.descripcionBien} 
+        errorText={errors.descripcionBien}
+      >
         <Textarea
           name="descripcionBien"
           value={formData.descripcionBien}
           onChange={handleInputsChange}
         />
-        <FormErrorMessage>{errors.descripcionBien}</FormErrorMessage>
-      </FormControl>
+      </Field>
     </>
   );
 };

@@ -1,3 +1,4 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file ProjectsList.jsx
  * @description Orchestrator for the projects gallery, leveraging `ItemGridLayout` for consistency.
@@ -9,7 +10,7 @@
  */
 
 import React, { useMemo, useState, useRef, useEffect } from "react";
-import { Box, Button, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, HStack } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { getProjects } from "../services/projectService";
@@ -103,7 +104,7 @@ const ProjectsList = React.memo(() => {
     >
       {/* Filter Pills */}
       <Box gridColumn="1 / -1" w="full">
-        <HStack spacing={2} justify="center" flexWrap="wrap" pb={4}>
+        <HStack gap={2} justify="center" flexWrap="wrap" pb={4}>
           {years.map((year) => {
             const isActive = activeYear === year;
             return (

@@ -1,6 +1,135 @@
-import { createSystem, defineConfig, defaultConfigs } from "@chakra-ui/react";
+/**
+ * @file index.js
+ * @description Aura Design System - Chakra UI v3 Core Configuration.
+ * Single source of truth for design tokens, component recipes, and semantic themes.
+ * Optimized for GYA Glass & Aluminum aesthetics: Zinc Scale, Fibonacci Spacing, Glassmorphism.
+ */
+
+import { createSystem, defineConfig, defaultConfig, defineRecipe, defineSlotRecipe } from "@chakra-ui/react";
+
+// ─── Component Recipes (v3 Architecture) ───────────────────────────────────
+
+/**
+ * @recipe Button
+ * Custom variants for the Aura system.
+ */
+const buttonRecipe = defineRecipe({
+  base: {
+    fontWeight: "600",
+    textTransform: "uppercase",
+    letterSpacing: "wider",
+    borderRadius: "full",
+    transition: "all 0.3s cubic-bezier(.08,.52,.52,1)",
+  },
+  variants: {
+    variant: {
+      aura: {
+        bg: "primary.900",
+        color: "white",
+        px: "phi_lg",
+        _hover: {
+          bg: "primary.700",
+          transform: "translateY(-2px)",
+          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+        },
+        _active: {
+          bg: "primary.800",
+          transform: "translateY(0)",
+        },
+        _dark: {
+          bg: "primary.100",
+          color: "primary.900",
+          _hover: {
+            bg: "white",
+            boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
+          },
+        },
+      },
+      outline: {
+        borderWidth: "2px",
+        borderColor: "primary.900",
+        color: "primary.900",
+        px: "phi_lg",
+        _hover: {
+          bg: "blackAlpha.50",
+        },
+        _dark: {
+          borderColor: "primary.100",
+          color: "primary.100",
+          _hover: {
+            bg: "whiteAlpha.100",
+          },
+        },
+      },
+      ghost: {
+        color: "text.body",
+        _hover: {
+          bg: "blackAlpha.50",
+        },
+        _dark: {
+          _hover: {
+            bg: "whiteAlpha.100",
+          },
+        },
+      },
+    },
+    size: {
+      xl: {
+        h: "14",
+        minW: "14",
+        fontSize: "lg",
+        px: "phi_xl",
+      },
+    },
+  },
+  defaultVariants: {
+    variant: "aura",
+  },
+});
+
+/**
+ * @recipe Input / Select / Textarea
+ * High-end form fields with Aura styling.
+ */
+const inputRecipe = defineSlotRecipe({
+  slots: ["root", "content", "field"],
+  base: {
+    field: {
+      bg: "surface.container",
+      borderWidth: "1px",
+      borderColor: "border.glass",
+      borderRadius: "md",
+      transition: "all 0.2s ease",
+      _placeholder: { color: "text.muted" },
+      _hover: { borderColor: "border.strong" },
+      _focus: {
+        borderColor: "ring.primary",
+        boxShadow: "0 0 0 1px var(--chakra-colors-ring-primary)",
+      },
+    },
+  },
+  variants: {
+    variant: {
+      aura: {
+        field: {
+          backdropFilter: "blur(8px)",
+        },
+      },
+    },
+  },
+  defaultVariants: {
+    variant: "aura",
+  },
+});
+
+// ─── System Configuration ──────────────────────────────────────────────────
 
 const config = defineConfig({
+  cssVarsRoot: ":where(:root, :host)",
+  conditions: {
+    light: "[data-theme=light] &",
+    dark: "[data-theme=dark] &",
+  },
   theme: {
     tokens: {
       fonts: {
@@ -55,36 +184,65 @@ const config = defineConfig({
     },
     semanticTokens: {
       colors: {
-        "bg.page": {
-          value: { _light: "{colors.gray.50}", _dark: "#000000" },
-        },
-        "bg.section": {
-          value: { _light: "white", _dark: "#121212" },
-        },
-        "bg.glass": {
-          value: { _light: "white", _dark: "{colors.primary.900}" },
-        },
-        "bg.muted": {
-          value: { _light: "{colors.primary.50}", _dark: "{colors.primary.800}" },
-        },
-        "text.body": {
-          value: { _light: "{colors.gray.800}", _dark: "{colors.gray.300}" },
-        },
-        "text.heading": {
-          value: { _light: "{colors.gray.900}", _dark: "white" },
-        },
-        "text.muted": {
-          value: { _light: "{colors.gray.600}", _dark: "{colors.gray.400}" },
-        },
-        "text.accent": {
-          value: { _light: "{colors.primary.600}", _dark: "{colors.primary.300}" },
-        },
-        "border.glass": {
-          value: { _light: "{colors.gray.200}", _dark: "rgba(255, 255, 255, 0.1)" },
-        },
+        "bg.page": { value: { _light: "{colors.gray.50}", _dark: "#09090b" } },
+        "bg.section": { value: { _light: "white", _dark: "#121215" } },
+        "bg.glass": { value: { _light: "white", _dark: "{colors.primary.900}" } },
+        "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
+
+        // Glass surfaces
+        "surface.card": { value: { _light: "rgba(255, 255, 255, 0.25)", _dark: "rgba(24, 24, 27, 0.4)" } },
+        "surface.nav": { value: { _light: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" } },
+        "surface.container": { value: { _light: "white", _dark: "rgba(255,255,255,0.04)" } },
+        "surface.icon": { value: { _light: "{colors.primary.50}", _dark: "rgba(255,255,255,0.04)" } },
+        "surface.iconHover": { value: { _light: "{colors.primary.100}", _dark: "rgba(255,255,255,0.08)" } },
+
+        // Borders
+        "border.default": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.08)" } },
+        "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
+        "border.glass": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.06)" } },
+
+        // Focus
+        "ring.primary": { value: { _light: "{colors.primary.400}", _dark: "{colors.primary.500}" } },
+
+        // Text
+        "text.body": { value: { _light: "{colors.gray.800}", _dark: "{colors.gray.300}" } },
+        "text.heading": { value: { _light: "{colors.gray.900}", _dark: "white" } },
+        "text.muted": { value: { _light: "{colors.gray.600}", _dark: "{colors.gray.400}" } },
+        "text.subtle": { value: { _light: "{colors.gray.500}", _dark: "{colors.gray.500}" } },
+        "text.accent": { value: { _light: "{colors.primary.600}", _dark: "{colors.primary.300}" } },
       },
+    },
+    recipes: {
+      button: buttonRecipe,
+      card: defineRecipe({
+        base: {
+          bg: "surface.card",
+          borderWidth: "1px",
+          borderColor: "border.glass",
+          borderRadius: "card",
+          backdropFilter: "blur(12px)",
+          boxShadow: "sm",
+        },
+        variants: {
+          variant: {
+            glass: {
+              bg: "surface.card",
+              backdropFilter: "blur(16px)",
+            },
+            solid: {
+              bg: "bg.section",
+              borderWidth: "0",
+            }
+          }
+        }
+      })
+    },
+    slotRecipes: {
+      input: inputRecipe,
+      select: inputRecipe,
+      textarea: inputRecipe,
     },
   },
 });
 
-export const system = createSystem(defaultConfigs, config);
+export const system = createSystem(defaultConfig, config);

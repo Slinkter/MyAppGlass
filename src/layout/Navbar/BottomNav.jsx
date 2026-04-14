@@ -1,12 +1,6 @@
+import { useColorMode, useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
-import {
-  Box,
-  Flex,
-  useColorModeValue,
-  useColorMode,
-  Icon,
-  Link,
-} from "@chakra-ui/react";
+import { Box, Flex, Icon, Link } from "@chakra-ui/react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import {
   Home,

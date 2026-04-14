@@ -23,11 +23,10 @@ const BackButton = ({ to = -1 }) => {
       size="sm"
       color="text.muted"
       onClick={() => navigate(to)}
-      leftIcon={<ArrowLeft size={16} />}
       fontWeight="600"
       _hover={{ color: "text.accent" }}
     >
-      Regresar
+      <ArrowLeft size={16} /> Regresar
     </Button>
   );
 };

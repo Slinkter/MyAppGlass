@@ -1,3 +1,4 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file ImageWithFallback.jsx
  * @description Enhanced image component with skeleton loaders, fallback handling, and LCP optimizations.
@@ -8,7 +9,7 @@
  */
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
-import { Image, Box, useColorModeValue } from "@chakra-ui/react";
+import { Image, Box } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 
 const pulse = keyframes`

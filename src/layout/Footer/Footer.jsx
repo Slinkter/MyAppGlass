@@ -4,19 +4,18 @@
  * @module layout/footer
  */
 
-import {
+import { 
     Box,
     Flex,
     HStack,
     Text,
     VStack,
-    Icon,
     Heading,
     Image,
     SimpleGrid,
     Container,
-    Divider,
-} from "@chakra-ui/react";
+    Separator,
+ } from "@chakra-ui/react";
 import {
     Calendar,
     Clock,
@@ -40,7 +39,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
 
     const content = (
         <HStack gap="phi_sm" align="center" w="full" py={1.5}>
-            <Icon as={icon} boxSize={5} color={iconColor} flexShrink={0} />
+            <Box as={icon} boxSize={5} color={iconColor} flexShrink={0} />
             <Text
                 fontSize="sm"
                 fontWeight="600"
@@ -137,7 +136,7 @@ const Footer = () => {
                         </FooterSection>
                     </SimpleGrid>
 
-                    <Divider borderColor="border.glass" mb="phi_md" />
+                    <Separator borderColor="border.glass" mb="phi_md" />
 
                     <Flex direction="column" align="center" gap={5}>
                         <Image src={logoGYA.src || logoGYA} alt="Logo" h="36px" />

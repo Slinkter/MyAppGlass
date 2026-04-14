@@ -1,33 +1,25 @@
-import React from "react";
+import { useColorModeValue } from "@/components/ui/color-mode";
+import React, { useState } from "react";
+import { Box, Button, Text, Link, VStack } from "@chakra-ui/react";
 import {
-  Box,
-  Button,
-  Icon,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Text,
-  useColorModeValue,
-  Link,
-  VStack,
-} from "@chakra-ui/react";
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogBody,
+  DialogCloseTrigger,
+} from "@/components/ui/dialog";
 import { FaWhatsapp } from "react-icons/fa";
 import { companyData } from "@/config/company-data";
 
 /**
  * @component FloatingWhatsApp
  * @description Botón flotante de WhatsApp que abre un modal con overlay.
- * @returns {JSX.Element} Widget de WhatsApp rediseñado con funcionalidad de modal.
+ * Migrado de Modal (v2) → Dialog (v3) y useDisclosure → useState.
  */
 const FloatingWhatsApp = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const whatsappLink = `https://wa.me/${
-    companyData.whatsappNumber
-  }?text=${encodeURIComponent(companyData.whatsappMessage)}`;
+  const [isOpen, setIsOpen] = useState(false);
+  const whatsappLink = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;
   const modalBg = useColorModeValue("white", "gray.700");
   const modalColor = useColorModeValue("gray.800", "white");
 
@@ -46,54 +38,62 @@ const FloatingWhatsApp = () => {
           _hover={{ bg: "#1DAE54", transform: "scale(1.08)" }}
           _active={{ bg: "#178B43" }}
           variant="solid"
-          rounded="full"
+          borderRadius="full"
           w={16}
           h={16}
           boxShadow="lg"
-          onClick={onOpen}
+          onClick={() => setIsOpen(true)}
           aria-label="Abrir chat de WhatsApp"
           transition="all 0.2s ease"
         >
-          <Icon as={FaWhatsapp} w={8} h={8} />
+          {/* v3: icon as child, not as prop */}
+          <Box as={FaWhatsapp} w={8} h={8} />
         </Button>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent
+      {/* v3: Dialog instead of Modal */}
+      <DialogRoot
+        open={isOpen}
+        onOpenChange={(e) => setIsOpen(e.open)}
+        placement="center"
+      >
+        <DialogContent
           maxW="xs"
           bg={modalBg}
           color={modalColor}
           borderRadius="xl"
           boxShadow="xl"
           position="fixed"
-          bottom="90px" // Position above the trigger button
+          bottom="90px"
           right="20px"
         >
-          <ModalHeader fontWeight="bold" border="0">
-            ¿Necesitas Ayuda?
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <VStack spacing={3} align="start">
+          <DialogHeader>
+            <DialogTitle fontWeight="bold">¿Necesitas Ayuda?</DialogTitle>
+          </DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
+            <VStack gap={3} align="start">
               <Text>
                 Chatea con nosotros en WhatsApp para una cotización o consulta.
               </Text>
               <Button
                 as={Link}
                 href={whatsappLink}
-                isExternal
+                target="_blank"
+                rel="noopener noreferrer"
                 w="full"
-                colorScheme="whatsapp"
-                leftIcon={<Icon as={FaWhatsapp} />}
-                onClick={onClose} // Close modal on click
+                bg="#25D366"
+                color="white"
+                _hover={{ bg: "#1DAE54" }}
+                onClick={() => setIsOpen(false)}
               >
+                <Box as={FaWhatsapp} />
                 Iniciar Chat
               </Button>
             </VStack>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+          </DialogBody>
+        </DialogContent>
+      </DialogRoot>
     </>
   );
 };

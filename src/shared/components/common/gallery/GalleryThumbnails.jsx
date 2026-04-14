@@ -1,6 +1,7 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React, { useLayoutEffect } from "react";
 import PropTypes from "prop-types";
-import { Box, Flex, Image, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 
 const GalleryThumbnailItem = React.memo(
   ({ img, index, isSelected, onClick, activeBorderColor }) => {
@@ -90,7 +91,7 @@ const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
           display: "none",
         },
         scrollbarWidth: "none",
-        "-ms-overflow-style": "none",
+        msOverflowStyle: "none",
       }}
     >
       {images.map((img, index) => (

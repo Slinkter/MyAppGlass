@@ -1,5 +1,6 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
-import { Flex, VStack, Icon, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, VStack, Box, Heading, Text } from "@chakra-ui/react";
 import { ClockIcon } from "@heroicons/react/24/outline";
 
 /**
@@ -16,8 +17,8 @@ const ComingSoonDisplay = () => {
       justify="center"
       direction="column"
     >
-      <VStack spacing={4} textAlign="center">
-        <Icon as={ClockIcon} w={12} h={12} color={textColor} />
+      <VStack gap={4} textAlign="center">
+        <Box as={ClockIcon} w={12} h={12} color={textColor} />
         <Heading size="lg">Próximamente</Heading>
         <Text color={textColor}>
           Estamos trabajando para agregar nuevas imágenes a esta sección.

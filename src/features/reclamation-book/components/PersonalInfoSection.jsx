@@ -1,13 +1,14 @@
 import React from "react";
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
   Input,
   SimpleGrid,
-  Select,
   Heading,
 } from "@chakra-ui/react";
+import { Field } from "@/components/ui/field";
+import {
+  NativeSelectField,
+  NativeSelectRoot,
+} from "@/components/ui/native-select";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 
 const FormField = ({
@@ -16,19 +17,22 @@ const FormField = ({
   value,
   onChange,
   error,
-  isRequired = true,
+  required = true,
   type = "text",
 }) => (
-  <FormControl isRequired={isRequired} isInvalid={!!error}>
-    <FormLabel>{label}</FormLabel>
+  <Field 
+    label={label} 
+    invalid={!!error} 
+    errorText={error} 
+    required={required}
+  >
     <Input
       type={type}
       name={name}
       value={value}
       onChange={onChange}
     />
-    <FormErrorMessage>{error}</FormErrorMessage>
-  </FormControl>
+  </Field>
 );
 
 const FormSelect = ({
@@ -39,18 +43,23 @@ const FormSelect = ({
   error,
   children,
 }) => (
-  <FormControl isRequired isInvalid={!!error}>
-    <FormLabel>{label}</FormLabel>
-    <Select
-      name={name}
-      value={value}
-      onChange={onChange}
-      placeholder="Seleccionar"
-    >
-      {children}
-    </Select>
-    <FormErrorMessage>{error}</FormErrorMessage>
-  </FormControl>
+  <Field 
+    label={label} 
+    invalid={!!error} 
+    errorText={error} 
+    required
+  >
+    <NativeSelectRoot>
+      <NativeSelectField
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder="Seleccionar"
+      >
+        {children}
+      </NativeSelectField>
+    </NativeSelectRoot>
+  </Field>
 );
 
 /**
@@ -88,7 +97,7 @@ const PersonalInfoSection = () => {
         error={errors.domicilio}
       />
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
         <FormField
           label="Email"
           type="email"
@@ -108,7 +117,7 @@ const PersonalInfoSection = () => {
         />
       </SimpleGrid>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
         <FormSelect
           label="Tipo de Documento"
           name="tipoDocumento"
@@ -135,7 +144,7 @@ const PersonalInfoSection = () => {
         name="nombrePadreMadre"
         value={formData.nombrePadreMadre}
         onChange={handleInputsChange}
-        isRequired={false}
+        required={false}
       />
     </>
   );

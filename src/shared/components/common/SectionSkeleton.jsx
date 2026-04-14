@@ -1,3 +1,4 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file SectionSkeleton.jsx
  * @description Theme-aware skeleton loader for sections to prevent layout shifts and provide smooth transitions.
@@ -5,15 +6,7 @@
  */
 
 import React from "react";
-import {
-  Skeleton,
-  SkeletonCircle,
-  SkeletonText,
-  Box,
-  VStack,
-  useColorModeValue,
-  Container,
-} from "@chakra-ui/react";
+import { Skeleton, SkeletonCircle, SkeletonText, Box, VStack, Container } from "@chakra-ui/react";
 
 /**
  * @component SectionSkeleton
@@ -40,7 +33,7 @@ const SectionSkeleton = ({ h = "400px", withCircle = false }) => {
         overflow="hidden"
         transition="all 0.3s ease-in-out"
       >
-        <VStack align="stretch" spacing="phi_md" h="full">
+        <VStack align="stretch" gap="phi_md" h="full">
           {withCircle && <SkeletonCircle size="12" startColor={startColor} endColor={endColor} />}
           
           {/* Mock Section Title */}
@@ -56,7 +49,7 @@ const SectionSkeleton = ({ h = "400px", withCircle = false }) => {
           <SkeletonText 
             mt="4" 
             noOfLines={3} 
-            spacing="4" 
+            gap="4" 
             skeletonHeight="3" 
             startColor={startColor} 
             endColor={endColor} 
