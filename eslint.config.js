@@ -66,6 +66,6 @@ export default [
     },
   },
   {
-    ignores: ["dist", ".eslintrc.cjs"],
+    ignores: ["dist", ".eslintrc.cjs", ".next", ".gemini", "node_modules"],
   },
 ];
