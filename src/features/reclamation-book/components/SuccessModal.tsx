@@ -3,7 +3,7 @@
 import React from "react";
 import {
   Button,
-  Text,
+  Text as ChakraText,
 } from "@chakra-ui/react";
 import { useColorModeValue } from '@/components/ui/color-mode';
 import {
@@ -50,16 +50,16 @@ const SuccessModal = ({ isOpen, onClose, trackingId }: SuccessModalProps) => {
           <DialogTitle>¡Reclamo enviado con éxito!</DialogTitle>
         </DialogHeader>
         <DialogBody>
-          <Text>
+          <ChakraText>
             Su número de seguimiento es:{" "}
-            <Text as="span" fontWeight="bold">
+            <ChakraText as="span" fontWeight="bold">
               {trackingId}
-            </Text>
+            </ChakraText>
             .
-          </Text>
-          <Text mt={2}>
+          </ChakraText>
+          <ChakraText mt={2}>
             Se ha enviado una copia de la confirmación a su correo electrónico.
-          </Text>
+          </ChakraText>
         </DialogBody>
         <DialogFooter>
           <Button colorPalette="blue" onClick={onClose}>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Heading, Stack, Text as ChakraText, VStack, SimpleGrid } from "@chakra-ui/react";
 import { companyData } from "@/config/company-data";
 import { ReclamationFormProvider, useReclamationFormContext } from "./ReclamationFormContext";
 import PersonalInfoSection from "./PersonalInfoSection";
@@ -21,42 +21,56 @@ const ReclamationFormInner = () => {
     <Box>
       <br />
       <Box
-        p={{ base: 4, md: 8 }}
-        maxW="3xl"
+        p={{ base: 6, md: 10 }}
+        maxW="4xl"
         mx="auto"
-        mb={8}
+        mb={16}
         bg="bg.panel"
+        backdropFilter="blur(16px)"
         borderWidth="1px"
         borderColor="border.glass"
-        borderRadius="2xl"
-        boxShadow="2xl"
+        borderRadius="3xl"
+        boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.5)"
         color="text.body"
       >
-        <Heading
-          as="h2"
-          size="lg"
-          mb={4}
-          textAlign="center"
-          color="text.heading"
-        >
-          Libro de Reclamaciones Virtual
-        </Heading>
+        <VStack gap={2} mb={10} textAlign="center">
+          <Heading
+            as="h2"
+            size="2xl"
+            color="text.heading"
+            letterSpacing="tight"
+            fontWeight="black"
+          >
+            Libro de Reclamaciones
+          </Heading>
+          <ChakraText color="text.muted" fontSize="lg">
+            Plataforma virtual de atención al consumidor conforme a ley.
+          </ChakraText>
+        </VStack>
 
-        <Box
-          bg="bg.muted"
-          rounded="md"
-          p={4}
-          mb={6}
+        <SimpleGrid
+          columns={{ base: 1, md: 3 }}
+          gap={6}
+          bg="rgba(255, 255, 255, 0.03)"
+          rounded="2xl"
+          p={6}
+          mb={10}
           borderWidth={1}
           borderColor="border.glass"
         >
-          <Text fontWeight="bold" color="text.heading">Razón Social:</Text>
-          <Text mb={2} color="text.muted">{companyData.razonSocial}</Text>
-          <Text fontWeight="bold" color="text.heading">RUC:</Text>
-          <Text mb={2} color="text.muted">{companyData.ruc}</Text>
-          <Text fontWeight="bold" color="text.heading">Dirección:</Text>
-          <Text color="text.muted">{companyData.direccion}</Text>
-        </Box>
+          <Box>
+            <ChakraText fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" mb={1}>RAZÓN SOCIAL</ChakraText>
+            <ChakraText fontWeight="bold" color="text.heading" fontSize="sm">{companyData.razonSocial}</ChakraText>
+          </Box>
+          <Box>
+            <ChakraText fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" mb={1}>RUC</ChakraText>
+            <ChakraText fontWeight="bold" color="text.heading" fontSize="sm">{companyData.ruc}</ChakraText>
+          </Box>
+          <Box>
+            <ChakraText fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" mb={1}>DIRECCIÓN</ChakraText>
+            <ChakraText fontWeight="bold" color="text.heading" fontSize="sm">{companyData.direccion}</ChakraText>
+          </Box>
+        </SimpleGrid>
 
         <form onSubmit={handleBtnSubmit}>
           <Stack gap={8}>

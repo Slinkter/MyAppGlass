@@ -3,7 +3,7 @@
 import React from "react";
 import {
   Button,
-  Text,
+  Text as ChakraText,
   Heading,
 } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
@@ -30,11 +30,11 @@ const DeclarationSection = () => {
         4. Declaración y Envío
       </Heading>
 
-      <Text fontSize="sm" color="text.muted">
+      <ChakraText fontSize="sm" color="text.muted">
         * La respuesta a la presente será remitida al correo electrónico
         consignado en un plazo no mayor a 15 días hábiles, según el D.S. N°
         006-2014-PCM.
-      </Text>
+      </ChakraText>
 
       <Field invalid={!!errors.autorizaEmail} errorText={errors.autorizaEmail} required>
         <Checkbox

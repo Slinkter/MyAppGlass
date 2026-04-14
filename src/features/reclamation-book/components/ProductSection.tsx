@@ -40,10 +40,15 @@ const ProductSection = () => {
             onChange={handleInputsChange}
             style={{
                 width: '100%',
-                padding: '8px',
-                borderRadius: '4px',
-                background: 'transparent',
-                border: '1px solid var(--chakra-colors-border-glass)'
+                padding: '10px 12px',
+                borderRadius: '12px',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid var(--chakra-colors-border-glass)',
+                color: 'inherit',
+                fontSize: '14px',
+                appearance: 'none',
+                cursor: 'pointer',
+                outline: 'none'
             }}
           >
             <option value="">Seleccionar</option>
