@@ -39,7 +39,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
     const hoverColor = "text.accent";
 
     const content = (
-        <HStack spacing={4} align="center" w="full" py={1.5}>
+        <HStack gap="phi_sm" align="center" w="full" py={1.5}>
             <Icon as={icon} boxSize={5} color={iconColor} flexShrink={0} />
             <Text
                 fontSize="sm"
@@ -73,7 +73,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
 
 const FooterSection = ({ title, children }) => {
     return (
-        <VStack align="flex-start" spacing={6} w="full">
+        <VStack align="flex-start" gap="phi_md" w="full">
             <Heading
                 as="h4"
                 fontSize="xs"
@@ -85,7 +85,7 @@ const FooterSection = ({ title, children }) => {
             >
                 {title}
             </Heading>
-            <VStack align="flex-start" spacing={2} w="full">
+            <VStack align="flex-start" gap="phi_xs" w="full">
                 {children}
             </VStack>
         </VStack>
@@ -94,7 +94,7 @@ const FooterSection = ({ title, children }) => {
 
 const Footer = () => {
     return (
-        <Box as="footer" mt={{ base: 16, md: 32 }} mb={{ base: 32, md: 12 }} px={{ base: 4, md: 6 }}>
+        <Box as="footer" mt="phi_2xl" mb={{ base: "phi_2xl", md: "phi_lg" }} px="phi_md">
             <Container maxW="7xl" px={0}>
                 <Box
                     bg="bg.section"
@@ -102,11 +102,11 @@ const Footer = () => {
                     borderColor="border.glass"
                     borderRadius="3xl"
                     boxShadow="2xl"
-                    pt={{ base: 12, md: 16 }}
-                    pb={10}
-                    px={{ base: 8, md: 16 }}
+                    pt={{ base: "phi_lg", md: "phi_xl" }}
+                    pb="phi_md"
+                    px={{ base: "phi_md", md: "phi_xl" }}
                 >
-                    <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={{ base: 12, md: 16 }} mb={16}>
+                    <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={{ base: "phi_lg", md: "phi_xl" }} mb="phi_xl">
                         <FooterSection title="Contacto">
                             <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">974 278 303</FooterRow>
                             <FooterRow icon={FaWhatsapp} customIconColor="brand.whatsapp">996 537 435</FooterRow>
@@ -124,24 +124,24 @@ const Footer = () => {
                             <FooterRow to="/cuentas-bancarias" icon={Building}>Cuentas Bancarias</FooterRow>
                             <Link to="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
                                 <HStack 
-                                    spacing={4} 
+                                    gap="phi_sm" 
                                     align="center" 
                                     py={1.5} 
                                     _hover={{ transform: "translateX(4px)" }} 
                                     transition="transform 0.2s"
                                 >
-                                    <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} flexShrink={0} />
+                                    <Image src={LibroReclamacionesIcon.src || LibroReclamacionesIcon} alt="Libro" boxSize={5} flexShrink={0} />
                                     <Text fontSize="sm" fontWeight="600" color="text.body">Libro de Reclamaciones</Text>
                                 </HStack>
                             </Link>
                         </FooterSection>
                     </SimpleGrid>
 
-                    <Divider borderColor="border.glass" mb={10} />
+                    <Divider borderColor="border.glass" mb="phi_md" />
 
                     <Flex direction="column" align="center" gap={5}>
-                        <Image src={logoGYA} alt="Logo" h="36px" />
-                        <Text fontSize="10px" color="text.subtle" fontWeight="bold" letterSpacing="0.3em">
+                        <Image src={logoGYA.src || logoGYA} alt="Logo" h="36px" />
+                        <Text fontSize="10px" color="text.muted" fontWeight="bold" letterSpacing="0.3em">
                             © {new Date().getFullYear()} GYA GLASS & ALUMINUM S.A.C.
                         </Text>
                     </Flex>

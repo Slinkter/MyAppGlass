@@ -8,39 +8,35 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import { Spinner, Center } from "@chakra-ui/react";
-import darkModeManager from "./config/darkModeManager";
+import { Provider } from "./components/ui/provider";
+import { system } from "./theme";
 import { router } from "./routes";
-import theme from "./config/theme";
 import "./styles/global.css";
 import reportWebVitals from "./utils/webVitals";
 
 // El fallback de Suspense se mostrará mientras se carga el código del componente diferido.
-// Esto mejora la UX mostrando algo al usuario inmediatamente en lugar de una pantalla blanca.
 const suspenseFallback = (
-    <Center h="100vh">
-        <Spinner size="xl" color="text.accent" />
-    </Center>
+    <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {/* Usaremos un div simple mientras migramos el Spinner */}
+        Cargando...
+    </div>
 );
 
 /**
  * Punto de entrada principal de la aplicación React.
- * Aquí se configuran los proveedores globales que envuelven a toda la App.
  */
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    <React.StrictMode>
         <HelmetProvider>
-            <ChakraProvider theme={theme} colorModeManager={darkModeManager}>
+            <Provider value={system}>
                 <RouterProvider
                     router={router}
                     fallbackElement={suspenseFallback}
                     future={{ v7_startTransition: true }}
                 />
-            </ChakraProvider>
+            </Provider>
         </HelmetProvider>
-    </>,
+    </React.StrictMode>,
 );
 
 // Al final del archivo

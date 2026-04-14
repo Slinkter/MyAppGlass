@@ -20,15 +20,15 @@ const ClientsSection = React.memo(() => {
 
   return (
     <ItemGridLayout
-      title="CLIENTES"
-      subtitle="Estamos comprometidos con brindar soluciones en vidrio y aluminio"
+      title="PARTNERS"
+      subtitle="Confianza sólida en cada estructura"
       seoTitle="Nuestros Clientes - GYA Company"
-      seoDescription="Mira las empresas y sectores que confían en Glass & Aluminum Company S.A.C. para sus proyectos de vidriería."
+      seoDescription="Descubre por qué somos los líderes en vidriería y aluminio."
       seoCanonicalUrl="https://www.gyacompany.com/clientes"
-      containerProps={{ mt: 0, pt: 8 }}
+      containerProps={{ mt: 0, pt: 0 }}
     >
-      {clients.map((client) => (
-        <ItemGridLayout.Item key={client.id}>
+      {clients.map((client, index) => (
+        <ItemGridLayout.Item key={client.id} delay={index * 0.1}>
           <ClientCard
             image={client.imgClient}
             nameClient={client.nameClient}

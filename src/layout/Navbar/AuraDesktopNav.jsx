@@ -6,20 +6,16 @@
 import React from "react";
 import { Stack, Box, Text } from "@chakra-ui/react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import { m } from "framer-motion";
+import { motion } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 
-/**
- * @component AuraDesktopNav
- * @description Navegación de escritorio con indicador animado "Sliding Capsule".
- */
 const AuraDesktopNav = () => {
   const location = useLocation();
 
   return (
     <Stack 
       direction="row" 
-      spacing="phi_sm" 
+      gap="phi_sm" 
       position="relative" 
       align="center"
     >
@@ -46,11 +42,11 @@ const AuraDesktopNav = () => {
               {/* Sliding Indicator Background */}
               {isActive && (
                 <Box
-                  as={m.div}
+                  as={motion.div}
                   layoutId="aura-nav-indicator"
                   position="absolute"
                   inset={0}
-                  bg="surface.icon"
+                  bg="bg.muted"
                   borderRadius="full"
                   border="1px solid"
                   borderColor="border.glass"
@@ -66,9 +62,9 @@ const AuraDesktopNav = () => {
 
               <Text
                 fontSize="sm"
-                fontWeight={isActive ? "700" : "600"}
+                fontWeight={isActive ? "800" : "600"}
                 color={isActive ? "text.accent" : "text.body"}
-                letterSpacing="wide"
+                letterSpacing="widest"
                 textTransform="uppercase"
                 transition="color 0.3s ease"
               >

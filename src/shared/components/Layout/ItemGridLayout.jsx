@@ -14,12 +14,14 @@ import PropTypes from "prop-types";
 
 const EMPTY_OBJ = {};
 
+import { motion, AnimatePresence } from "framer-motion";
+
 /**
  * Componente: ItemGridLayout
  * --------------------------------------------------------------------
  * @description
  * Un layout reutilizable para mostrar colecciones de elementos.
- * Refactorizado para usar Patrón de Composición (Compound Components).
+ * Refactorizado para Aura 2.0 y Chakra v3.
  */
 const ItemGridLayout = ({
   title,
@@ -29,12 +31,9 @@ const ItemGridLayout = ({
   seoDescription,
   seoCanonicalUrl,
   columns = { base: 1, md: 2, lg: 3 },
-  spacing = 10,
+  gap = "phi_lg",
   containerProps = EMPTY_OBJ,
 }) => {
-  const headingColor = "text.accent";
-  const borderColor = useColorModeValue("primary.500", "primary.300");
-
   /**
    * Animation Variants
    */
@@ -42,7 +41,7 @@ const ItemGridLayout = ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
@@ -53,34 +52,43 @@ const ItemGridLayout = ({
         description={seoDescription}
         canonicalUrl={seoCanonicalUrl}
       />
-      <Container maxW={"7xl"} textAlign="center" mt={{ base: 10, md: 16 }} {...containerProps}>
-        <VStack spacing={{ base: 10, md: 12 }} w="full">
-          {/* Cabecera */}
-          <VStack spacing={3}>
+      <Container maxW="7xl" textAlign="center" mt="phi_2xl" {...containerProps}>
+        <VStack gap="phi_xl" w="full">
+          {/* Header Section */}
+          <VStack gap="phi_xs">
             <Heading
               as="h2"
-              color={headingColor}
-              fontSize={{ base: "3xl", md: "4xl" }}
-              textTransform="uppercase"
-              fontWeight={600}
-              letterSpacing="wide"
+              color="text.accent"
+              fontSize={{ base: "3xl", md: "5xl" }}
+              fontWeight="900"
+              letterSpacing="0.2em"
               textAlign="center"
-              borderBottom="4px"
-              borderColor={borderColor}
-              width="fit-content"
-              mx="auto"
-              mt={2}
-              mb={1}
-              display="block"
+              textTransform="uppercase"
+              position="relative"
+              pb="phi_xs"
+              _after={{
+                content: '""',
+                position: "absolute",
+                bottom: 0,
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "60px",
+                height: "4px",
+                bg: "text.accent",
+                borderRadius: "full"
+              }}
             >
               {title}
             </Heading>
             {subtitle && (
               <Text
-                color="text.muted"
-                fontSize={{ base: "md", md: "lg" }}
-                maxW="2xl"
+                color="text.body"
+                fontSize={{ base: "md", md: "xl" }}
+                fontWeight="500"
+                maxW="3xl"
                 mx="auto"
+                mt="phi_md"
+                lineHeight="tall"
               >
                 {subtitle}
               </Text>
@@ -88,12 +96,13 @@ const ItemGridLayout = ({
           </VStack>
 
           <SimpleGrid
-            as={m.div}
+            as={motion.div}
             variants={containerVariants}
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
             columns={columns}
-            spacing={{ base: 10, md: spacing }}
+            gap={gap}
             w="full"
             justifyItems="center"
           >
@@ -105,19 +114,15 @@ const ItemGridLayout = ({
   );
 };
 
-/**
- * @component ItemGridItem
- * @description Wrapper animado para cada item de la grilla.
- */
 const ItemGridItem = ({ children, delay = 0 }) => {
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.4,
-        ease: "easeOut",
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1], // Custom easeOutExpo
         delay,
       },
     },
@@ -125,10 +130,10 @@ const ItemGridItem = ({ children, delay = 0 }) => {
 
   return (
     <Box
-      as={m.div}
+      as={motion.div}
       variants={itemVariants}
       w="full"
-      minH={{ base: "320px", md: "460px" }}
+      h="full"
     >
       {children}
     </Box>

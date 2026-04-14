@@ -20,14 +20,10 @@ const InteractiveMap = lazy(() => import("./InteractiveMap"));
 
 /**
  * Componente StoreSection
- * Muestra la sección de la ubicación de la tienda con un mapa interactivo
- * que incluye marcadores de la tienda principal y todos los proyectos realizados.
+ * Muestra la sección de la ubicación de la tienda con un mapa interactivo.
  * @component
- * @returns {JSX.Element}
  */
 const StoreSection = React.memo(() => {
-  // eslint-disable-next-line no-unused-vars
-  const prefersReducedMotion = usePrefersReducedMotion();
   return (
     <ItemGridLayout
       title="UBICACION"
@@ -36,7 +32,7 @@ const StoreSection = React.memo(() => {
       seoDescription="Encuentra nuestra tienda principal en Lima y explora la ubicación de nuestros proyectos de vidriería y aluminio."
       seoCanonicalUrl="https://www.gyacompany.com/ubicaciones"
       columns={{ base: 1 }}
-      spacing="phi_md"
+      gap="phi_md"
       containerProps={{
         mt: 0,
         py: "phi_xl",
@@ -50,27 +46,21 @@ const StoreSection = React.memo(() => {
         <Box 
           w="full" 
           position="relative" 
-          h={{ base: "auto", lg: "650px" }}
+          h={{ base: "auto", lg: "700px" }}
         >
           {/* MAPA - ISLA INDEPENDIENTE EN MOBILE, FONDO EN DESKTOP */}
           <Box 
             w="full" 
             h={{ base: "400px", lg: "full" }}
-            borderRadius="2xl"
+            borderRadius="3xl"
             overflow="hidden"
             border="1px solid"
             borderColor="border.glass"
-            shadow="lg"
+            boxShadow="2xl"
           >
             <Suspense
               fallback={
-                <Flex
-                  align="center"
-                  justify="center"
-                  h="full"
-                  w="full"
-                  bg="bg.section"
-                >
+                <Flex align="center" justify="center" h="full" w="full" bg="bg.section">
                   <Spinner size="xl" color="text.accent" thickness="4px" />
                 </Flex>
               }
@@ -79,59 +69,59 @@ const StoreSection = React.memo(() => {
             </Suspense>
           </Box>
 
-          {/* FICHA INFORMATIVA - FLOTANTE EN DESKTOP, BLOQUE INDEPENDIENTE EN MOBILE */}
+          {/* FICHA INFORMATIVA - FLOTANTE EN DESKTOP */}
           <VStack 
             position={{ base: "relative", lg: "absolute" }}
             top={{ lg: "phi_xl" }}
             left={{ lg: "phi_xl" }}
             zIndex={2}
-            spacing="phi_xl" 
+            gap="phi_xl" 
             align={{ base: "center", lg: "flex-start" }} 
             p="phi_lg"
-            variant="glass"
-            bg="bg.section"
-            borderRadius="2xl"
+            bg="bg.glass"
+            backdropFilter="blur(24px)"
+            borderRadius="3xl"
             border="1px solid"
             borderColor="border.glass"
-            shadow="2xl"
-            w={{ base: "full", lg: "320px" }}
+            boxShadow="2xl"
+            w={{ base: "full", lg: "340px" }}
             mt={{ base: "phi_xl", lg: 0 }}
           >
-            <VStack spacing="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
-              <HStack spacing={3} color="text.accent">
+            <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+              <HStack gap={3} color="text.accent">
                 <Icon as={Clock} boxSize={5} />
-                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="widest">
+                <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
                   Horarios
                 </Text>
               </HStack>
-              <Box pl={{ base: 0, lg: 8 }}>
-                <Text fontSize="md" color="text.body" fontWeight="medium">Lunes a Sábado</Text>
+              <Box pl={{ lg: "32px" }}>
+                <Text fontSize="md" color="text.heading" fontWeight="700">Lunes a Sábado</Text>
                 <Text fontSize="sm" color="text.muted">9:00 am – 5:00 pm</Text>
               </Box>
             </VStack>
 
-            <VStack spacing="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
-              <HStack spacing={3} color="text.accent">
+            <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+              <HStack gap={3} color="text.accent">
                 <Icon as={MapPin} boxSize={5} />
-                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="widest">
+                <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
                   Dirección
                 </Text>
               </HStack>
-              <Box pl={{ base: 0, lg: 8 }}>
-                <Text fontSize="md" color="text.body" fontWeight="medium">Av. Los Fresnos 1250</Text>
+              <Box pl={{ lg: "32px" }}>
+                <Text fontSize="md" color="text.heading" fontWeight="700">Av. Los Fresnos 1250</Text>
                 <Text fontSize="sm" color="text.muted">La Molina, Lima - Perú</Text>
               </Box>
             </VStack>
 
             <Button
-              as={Link}
+              as="a"
               href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
-              isExternal
-              leftIcon={<Icon as={FaMapLocationDot} />}
+              target="_blank"
+              rel="noopener noreferrer"
               variant="aura"
               width="full"
-              size="lg"
-              py={7}
+              size="xl"
+              borderRadius="full"
               aria-label="Cómo llegar a nuestra ubicación principal"
             >
               CÓMO LLEGAR
