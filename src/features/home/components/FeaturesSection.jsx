@@ -23,26 +23,22 @@ const FeaturesSection = React.memo(() => {
 
   return (
     <ItemGridLayout
-      title="BENEFICIOS"
-      subtitle="¿Por Qué Elegirnos?"
+      title="BEYOND QUALITY"
+      subtitle="Innovación y precisión en cada estructura"
       seoTitle="Nuestros Beneficios - GYA Company"
-      seoDescription="Descubre por qué somos los expertos líderes en vidriería y aluminio en La Molina. Calidad, garantía y puntualidad."
+      seoDescription="Descubre por qué somos los líderes en vidriería y aluminio. Calidad, garantía y puntualidad."
       seoCanonicalUrl="https://www.gyacompany.com/beneficios"
-      containerProps={{ mt: 0, pt: 8 }}
+      containerProps={{ mt: 0, pt: 0 }}
     >
-      {features.map((feature) => {
+      {features.map((feature, index) => {
         const FeatureIcon = iconMap[feature.iconName];
         return (
-          <ItemGridLayout.Item key={feature.id}>
+          <ItemGridLayout.Item key={feature.id} delay={index * 0.1}>
             <FeatureCard
               heading={feature.heading}
               icon={
                 FeatureIcon ? (
-                  <Icon
-                    as={FeatureIcon}
-                    w={{ base: 8, md: 10 }}
-                    h={{ base: 8, md: 10 }}
-                  />
+                  <FeatureIcon />
                 ) : null
               }
               description={feature.description}

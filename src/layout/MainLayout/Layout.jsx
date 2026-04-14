@@ -35,47 +35,48 @@ const Layout = ({ children }) => {
     <Box
       minH="100dvh"
       position="relative"
-      m={0}
-      p={0}
+      bg="bg.page"
+      _dark={{ bg: "black" }}
     >
-      {/* Skip Link */}
+      {/* Skip Link for Accessibility */}
       <Link
         href="#main-content"
-        sx={{
-          position: "absolute",
-          top: "-1000px",
-          left: "-1000px",
-          width: "1px",
-          height: "1px",
-          overflow: "hidden",
-          ":focus": {
-            position: "static",
-            width: "auto",
-            height: "auto",
-            display: "inline-block",
-            p: "8px",
-            m: "8px",
-            border: "2px solid",
-            borderColor: "text.accent",
-            borderRadius: "md",
-            bg: "bg.page",
-            color: "text.heading",
-            zIndex: "9999",
-          },
+        position="absolute"
+        top="-1000px"
+        left="-1000px"
+        w="1px"
+        h="1px"
+        overflow="hidden"
+        _focus={{
+          position: "static",
+          width: "auto",
+          height: "auto",
+          display: "inline-block",
+          p: "phi_sm",
+          m: "phi_sm",
+          border: "2px solid",
+          borderColor: "text.accent",
+          borderRadius: "md",
+          bg: "bg.page",
+          color: "text.heading",
+          zIndex: "9999",
         }}
       >
         Saltar al contenido principal
       </Link>
+      
       <Box
         position="relative"
         maxW="1440px"
         mx="auto"
-        px={{ base: "phi_lg", md: "phi_xl" }}
+        px={{ base: "phi_md", md: "phi_xl" }}
         pb="phi_md"
         zIndex={1}
       >
         <Navbar />
-        <main id="main-content">{children}</main>
+        <Box as="main" id="main-content">
+          {children}
+        </Box>
         <Footer />
       </Box>
 
@@ -85,7 +86,6 @@ const Layout = ({ children }) => {
         </Suspense>
       )}
 
-      {/* Theme Toggle is always visible and natively supported by Chakra */}
       <ThemeToggle />
     </Box>
   );

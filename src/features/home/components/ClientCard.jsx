@@ -1,124 +1,93 @@
-/**
- * @file ClientCard.jsx
- * @description Ultra-minimal card for client segments with image and centered name.
- * Hover accent color uses the text.accent semantic token.
- * @module home/components
- */
-
 import React from "react";
-import {
-  Box,
-  Text,
-  LinkBox,
-  LinkOverlay,
-  Fade,
-} from "@chakra-ui/react";
-import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { Box, Text, VStack, Image } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
 /**
  * @component ClientCard
- * @description Tarjeta de cliente con imagen de fondo y nombre superpuesto.
- * @param {Object} props
- * @param {string} props.image - URL de la imagen de fondo.
- * @param {string} props.nameClient - Nombre del cliente.
- * @param {string} props.descClient - Descripción breve del cliente.
- * @returns {JSX.Element}
+ * @description Premium client card with Aura 2.0 aesthetics.
  */
 const ClientCard = React.memo(({ image, nameClient, descClient }) => {
-  const [isLoaded, setIsLoaded] = React.useState(false);
-  const [isHovered, setIsHovered] = React.useState(false);
-
-  // Presentational gradient — intentionally hardcoded dark overlay (not mode-dependent)
   const bgOverlay =
-    "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
+    "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)";
 
   return (
-    <LinkBox
+    <Box
       as="article"
       role="group"
       cursor="pointer"
       position="relative"
-      h={{ base: "320px", md: "500px" }}
-      borderRadius="xl"
+      w="full"
+      h={{ base: "320px", md: "520px" }}
+      borderRadius="3xl"
       overflow="hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      _hover={{
-        boxShadow: { md: "2xl" },
-      }}
-      transition="box-shadow 0.4s ease"
+      boxShadow="sm"
+      _hover={{ boxShadow: "2xl" }}
+      transition="all 0.4s ease"
     >
-      <Fade in={isLoaded} style={{ height: "100%" }}>
-        <Box position="relative" h="full" w="full" overflow="hidden">
-          <ResponsiveImage
-            src={image}
-            alt={nameClient}
-            objectFit="cover"
-            w="100%"
-            h="100%"
-            loading="eager"
-            decoding="async"
-            onLoad={() => setIsLoaded(true)}
-            transform="scale(1.02)"
-            transition="transform 0.6s ease"
-            _groupHover={{ transform: "scale(1.06)" }}
-          />
+      <Box position="relative" h="full" w="full" overflow="hidden">
+        <Image
+          src={image}
+          alt={nameClient}
+          objectFit="cover"
+          w="full"
+          h="full"
+          loading="eager"
+          decoding="async"
+          transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
+          _groupHover={{ transform: "scale(1.1) rotate(1deg)" }}
+        />
 
-          <Box position="absolute" inset="0" bgGradient={bgOverlay} />
+        <Box position="absolute" inset="0" bgGradient={bgOverlay} />
+
+        <VStack
+          position="absolute"
+          bottom={0}
+          left={0}
+          right={0}
+          p="phi_lg"
+          gap="phi_xs"
+          align="center"
+          justify="flex-end"
+          textAlign="center"
+          as={motion.div}
+        >
+          <Text
+            color="white"
+            fontSize={{ base: "lg", md: "2xl" }}
+            fontWeight="900"
+            textTransform="uppercase"
+            letterSpacing="0.2em"
+            position="relative"
+            transition="all 0.3s ease"
+            _groupHover={{ color: "text.accent", transform: "translateY(-4px)" }}
+          >
+            {nameClient}
+          </Text>
 
           <Box
-            position="absolute"
-            bottom={0}
-            left={0}
-            right={0}
-            p={6}
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="flex-end"
+            w="0"
+            h="2px"
+            bg="text.accent"
+            transition="width 0.4s ease"
+            _groupHover={{ w: "60px" }}
+          />
+
+          <Text
+            color="whiteAlpha.800"
+            fontSize="sm"
+            fontWeight="500"
+            mt="phi_xs"
+            opacity={0}
+            transform="translateY(10px)"
+            transition="all 0.4s ease"
+            _groupHover={{ opacity: 1, transform: "translateY(0)" }}
+            noOfLines={2}
           >
-            <Text
-              color={isHovered ? "primary.300" : "white"}
-              fontSize={{ base: "md", md: "xl" }}
-              fontWeight="600"
-              textTransform="uppercase"
-              letterSpacing="wider"
-              textAlign="center"
-              position="relative"
-              transition="color 0.3s ease"
-              _after={{
-                content: '""',
-                position: "absolute",
-                bottom: "-8px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: isLoaded ? "40px" : "0",
-                height: "2px",
-                bg: isHovered ? "primary.300" : "white",
-                transition: "width 0.4s ease, background 0.3s ease",
-              }}
-            >
-              {nameClient}
-            </Text>
-
-            <Text
-              color="whiteAlpha.900"
-              fontSize="xs"
-              fontWeight="medium"
-              textAlign="center"
-              mt={4}
-              opacity={isHovered ? 1 : 0}
-              transition="opacity 0.3s ease"
-              noOfLines={2}
-            >
-              {descClient}
-            </Text>
-          </Box>
-        </Box>
-      </Fade>
-
-      <LinkOverlay />
-    </LinkBox>
+            {descClient}
+          </Text>
+        </VStack>
+      </Box>
+    </Box>
   );
 });
 
