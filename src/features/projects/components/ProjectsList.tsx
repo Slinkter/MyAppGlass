@@ -25,10 +25,10 @@ export interface IProject {
   address: string;
   year: string | number;
   g_maps?: string;
-  photosObra?: { id: number; image: string; name?: string }[];
-  image: string;
-  lat?: number;
-  lng?: number;
+  photosObra?: { id: number; image: any; name?: string }[];
+  image: any;
+  lat?: number | null;
+  lng?: number | null;
   preloaded?: boolean;
 }
 
@@ -112,9 +112,6 @@ const ProjectsList = React.memo(() => {
     <ItemGridLayout
       title="PROYECTOS"
       subtitle="Obras Entregadas"
-      seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
-      seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
-      seoCanonicalUrl="https://www.gyacompany.com/proyectos"
       containerProps={{ pb: 12 }}
       columns={{ base: 1, md: 2, lg: 3 }}
     >

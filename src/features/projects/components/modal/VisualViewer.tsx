@@ -8,8 +8,8 @@ import MapViewer from "./MapViewer";
 
 export interface VisualViewerProps {
   viewMode: "map" | "gallery";
-  lat?: number;
-  lng?: number;
+  lat?: number | null;
+  lng?: number | null;
   photos?: any[];
 }
 

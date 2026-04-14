@@ -18,7 +18,7 @@ const HomeProjectsSection = () => {
             {highlightProjects.map((project, index) => (
                 <ItemGridLayout.Item key={project.id} delay={index * 0.1}>
                     <ProjectCard
-                        project={project}
+                        {...project}
                     />
                 </ItemGridLayout.Item>
             ))}

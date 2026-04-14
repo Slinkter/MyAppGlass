@@ -13,9 +13,6 @@ const FeaturesSection = React.memo(() => {
     <ItemGridLayout
       title="BENEFICIOS"
       subtitle="¿Por Qué Elegirnos?"
-      seoTitle="Nuestros Beneficios - GYA Company"
-      seoDescription="Descubre por qué somos los expertos líderes en vidriería y aluminio en La Molina. Calidad, garantía y puntualidad."
-      seoCanonicalUrl="https://www.gyacompany.com/beneficios"
       containerProps={{ mt: 0, pt: 8 }}
     >
       {features.map((feature: any) => {

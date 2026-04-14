@@ -19,6 +19,9 @@ export interface ItemGridLayoutProps {
   columns?: any;
   gap?: number | string;
   containerProps?: any;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoCanonicalUrl?: string;
 }
 
 const EMPTY_OBJ = {};

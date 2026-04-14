@@ -13,7 +13,7 @@ import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import Link from "next/link";
 
 export interface ServiceCardProps {
-  image: string;
+  image: any;
   name: string;
   description?: string;
   plink: string;

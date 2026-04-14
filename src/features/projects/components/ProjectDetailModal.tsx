@@ -16,8 +16,8 @@ export interface ProjectDetailModalProps {
   name?: string;
   address: string;
   year: string | number;
-  lat?: number;
-  lng?: number;
+  lat?: number | null;
+  lng?: number | null;
   photos?: any[];
   g_maps?: string;
 }

@@ -122,7 +122,6 @@ export const system = createSystem(defaultConfig, {
       body: {
           bg: "bg.page",
           color: "text.body",
-          WebkitFontSmoothing: "antialiased",
       }
   }
 });

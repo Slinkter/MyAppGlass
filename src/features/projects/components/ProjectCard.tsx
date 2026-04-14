@@ -21,10 +21,10 @@ export interface ProjectCardProps {
   address: string;
   year: string | number;
   g_maps?: string;
-  photosObra?: { id: number; image: string; name?: string }[];
-  image?: string;
-  lat?: number;
-  lng?: number;
+  photosObra?: { id: number; image: any; name?: string }[];
+  image?: any;
+  lat?: number | null;
+  lng?: number | null;
   isLCP?: boolean;
 }
 

@@ -24,7 +24,7 @@ import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { MapPin } from "lucide-react";
 
 interface ProjectCardContentProps {
-  image?: string;
+  image?: any;
   residencial: string;
   address: string;
   year: string | number;

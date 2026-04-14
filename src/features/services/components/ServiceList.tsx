@@ -59,9 +59,6 @@ const ServiceList = React.memo(() => {
     <ItemGridLayout
       title="SERVICIOS"
       subtitle=""
-      seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
-      seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina."
-      seoCanonicalUrl="https://www.gyacompany.com/servicios"
       columns={{ base: 1, sm: 2, md: 3 }}
     >
       <Box gridColumn="1 / -1" w="full">
