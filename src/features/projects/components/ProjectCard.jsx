@@ -1,73 +1,30 @@
-/**
- * @file ProjectCard.jsx
- * @description Card component for displaying a project summary, serving as a trigger for a detailed modal.
- * @module projects/components
- * @remarks
- * Uses code splitting for the detail modal to optimize the bundle size of the initial project list.
- */
-
-import React, { lazy, Suspense } from "react";
-import { useDisclosure } from "@chakra-ui/react";
+import React from "react";
 import ProjectCardContent from "./ProjectCardContent";
-import ModalSkeleton from "./modal/ModalSkeleton";
-
-const LazyProjectDetailModal = lazy(() => import("./ProjectDetailModal"));
+import { useNavigate } from "react-router-dom";
 
 /**
  * @component ProjectCard
- * @description Container component for a project card, displaying summary information and triggering a detailed modal on click.
- * @param {object} props - The component props.
- * @param {boolean} props.residencial - Indicates if the project is residential.
- * @param {string} props.name - The name of the project.
- * @param {string} props.address - The address of the project.
- * @param {number} props.year - The year the project was completed.
- * @param {string} props.g_maps - Google Maps link for the project location.
- * @param {Array<string>} props.photosObra - Array of URLs for project photos.
- * @param {string} props.image - URL for the main project image.
+ * @description Container component for a project card that handles navigation to the detail page.
  */
 const ProjectCard = React.memo((props) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
   const {
-    residencial,
-    name,
-    address,
-    year,
-    g_maps,
-    photosObra,
-    image,
-    lat,
-    lng,
-    isLCP,
+    id, residencial, address, year, image, isLCP,
   } = props;
 
-  return (
-    <>
-      <ProjectCardContent
-        image={image}
-        residencial={residencial}
-        address={address}
-        year={year}
-        onOpenModal={onOpen}
-        isLCP={isLCP}
-      />
+  const handleNavigate = () => {
+    navigate(`/proyectos/${id}`);
+  };
 
-      {isOpen && (
-        <Suspense fallback={<ModalSkeleton />}>
-          <LazyProjectDetailModal
-            isOpen={isOpen}
-            onClose={onClose}
-            residencial={residencial}
-            name={name}
-            address={address}
-            year={year}
-            g_maps={g_maps}
-            lat={lat}
-            lng={lng}
-            photos={photosObra}
-          />
-        </Suspense>
-      )}
-    </>
+  return (
+    <ProjectCardContent
+      image={image}
+      residencial={residencial}
+      address={address}
+      year={year}
+      onExplore={handleNavigate}
+      isLCP={isLCP}
+    />
   );
 });
 

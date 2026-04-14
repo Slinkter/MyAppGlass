@@ -1,5 +1,6 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
-import { Flex, Icon, Box, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 
 /**
  * @component ProjectDetailItem
@@ -16,22 +17,31 @@ import { Flex, Icon, Box, Text, useColorModeValue } from "@chakra-ui/react";
  * @returns {JSX.Element} Ítem de detalle renderizado.
  */
 const ProjectDetailItem = ({ icon, label, value }) => {
-  const iconColor = useColorModeValue("primary.500", "primary.400");
-  const labelColor = useColorModeValue("gray.500", "gray.400");
-  const valueColor = useColorModeValue("gray.800", "white");
+  const iconColor = useColorModeValue("primary.600", "primary.300");
+  const cellBg = useColorModeValue("whiteAlpha.600", "whiteAlpha.50");
 
   return (
-    <Flex align="center">
-      <Icon as={icon} w={6} h={6} mr={3} color={iconColor} />
+    <VStack
+      align="start"
+      gap={3}
+      p={4}
+      bg={cellBg}
+      borderRadius="xl"
+      border="1px solid"
+      borderColor="border.glass"
+      transition="all 0.2s"
+      _hover={{ transform: "translateX(2px)", borderColor: "primary.500" }}
+    >
+      <Box as={icon} size={20} color={iconColor} strokeWidth={1.5} />
       <Box>
-        <Text fontSize="sm" color={labelColor}>
+        <Text fontSize="10px" fontWeight="900" color="text.muted" textTransform="uppercase" letterSpacing="0.1em" mb={1}>
           {label}
         </Text>
-        <Text fontWeight="bold" color={valueColor}>
-          {value}
+        <Text fontSize="sm" fontWeight="bold" color="text.heading" noOfLines={2} lineHeight="shorter">
+          {value || "No especificado"}
         </Text>
       </Box>
-    </Flex>
+    </VStack>
   );
 };
 

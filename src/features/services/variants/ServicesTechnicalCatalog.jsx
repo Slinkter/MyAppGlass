@@ -3,7 +3,7 @@
  * @description Option 3: Aura "Technical Catalog" - Engineering detail and structured layout.
  */
 import React from "react";
-import { Box, Flex, Heading, VStack, Icon, Badge } from "@chakra-ui/react";
+import { Box, Flex, Heading, VStack, Badge } from "@chakra-ui/react";
 import { services } from "../data/services";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ArrowRight } from "lucide-react";
@@ -15,19 +15,19 @@ const TechnicalCard = ({ name, category, image }) => (
         <Box w="80px" h="80px" borderRadius="lg" overflow="hidden" shadow="md">
           <ResponsiveImage src={image} objectFit="cover" w="full" h="full" />
         </Box>
-        <VStack align="flex-start" spacing={0}>
-          <Badge variant="subtle" colorScheme="zinc" fontSize="10px" mb={1}>{category}</Badge>
+        <VStack align="flex-start" gap={0}>
+          <Badge variant="subtle" colorPalette="zinc" fontSize="10px" mb={1}>{category}</Badge>
           <Heading size="md" letterSpacing="tight">{name}</Heading>
         </VStack>
       </Flex>
-      <Icon as={ArrowRight} opacity={0.3} />
+      <Box as={ArrowRight} opacity={0.3} />
     </Flex>
   </Box>
 );
 
 export const ServicesTechnicalCatalog = () => (
   <Box py={10} bg="bg.section" borderRadius="2xl" border="1px solid" borderColor="border.glass" overflow="hidden">
-    <VStack align="stretch" spacing={0}>
+    <VStack align="stretch" gap={0}>
       {services.slice(0, 8).map((service) => (
         <TechnicalCard key={service.id} {...service} />
       ))}

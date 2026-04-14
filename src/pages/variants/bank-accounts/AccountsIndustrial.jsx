@@ -4,7 +4,7 @@
  */
 import React from "react";
 import {
-  Box, VStack, HStack, Text, Heading, Image, SimpleGrid, Icon, Flex
+  Box, VStack, HStack, Text, Heading, Image, SimpleGrid, Flex
 } from "@chakra-ui/react";
 import { Copy, Hash } from "lucide-react";
 import { bankAccountsData } from "../../../data/bank-accounts";
@@ -25,17 +25,17 @@ const IndustrialCard = ({ logo, bankName, accountType, accounts }) => (
       </Box>
       <Box p={6} flex={1}>
         <HStack mb={4}>
-          <Icon as={Hash} size={14} />
+          <Box as={Hash} size={14} />
           <Heading size="xs" textTransform="uppercase" letterSpacing="0.2em">{bankName} - {accountType}</Heading>
         </HStack>
-        <VStack align="stretch" spacing={2}>
+        <VStack align="stretch" gap={2}>
           {accounts.map((acc, i) => (
             <HStack key={i} justify="space-between" py={2} borderBottom="1px dashed" borderColor="border.glass">
               <Box>
                 <Text fontSize="10px" fontWeight="black" color="text.subtle">{acc.label}</Text>
                 <Text fontFamily="mono" fontSize="sm">{acc.value}</Text>
               </Box>
-              <Icon as={Copy} boxSize={3} opacity={0.5} cursor="pointer" />
+              <Box as={Copy} boxSize={3} opacity={0.5} cursor="pointer" />
             </HStack>
           ))}
         </VStack>
@@ -46,7 +46,7 @@ const IndustrialCard = ({ logo, bankName, accountType, accounts }) => (
 
 export const AccountsIndustrial = () => (
   <Box py={10}>
-    <SimpleGrid columns={1} spacing={6}>
+    <SimpleGrid columns={1} gap={6}>
       {bankAccountsData.map((bank, i) => <IndustrialCard key={i} {...bank} />)}
     </SimpleGrid>
   </Box>

@@ -1,3 +1,4 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file ServiceList.jsx
  * @description Orchestrator for the services gallery with category filter.
@@ -5,7 +6,7 @@
  */
 
 import React, { useMemo, useState, useRef, useEffect } from "react";
-import { Box, Button, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, HStack } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import { services } from "../data/services";
@@ -76,7 +77,7 @@ const ServiceList = React.memo(() => {
     >
       {/* Filter Pills */}
       <Box gridColumn="1 / -1" w="full">
-        <HStack spacing={2} justify="center" flexWrap="wrap" pb={2}>
+        <HStack gap={2} justify="center" flexWrap="wrap" pb={2}>
           {CATEGORIES.map((cat) => {
             const isActive = activeCategory === cat;
             return (

@@ -39,12 +39,12 @@ const ProjectCardSkeleton = () => {
                 borderColor="border.glass"
                 backdropFilter="blur(10px)"
             >
-                <Stack spacing={3} align="center">
+                <Stack gap={3} align="center">
                     {/* Title Skeleton */}
                     <Skeleton height="24px" width="70%" />
 
                     {/* Meta Info Skeleton */}
-                    <HStack justify="center" spacing={4} w="full">
+                    <HStack justify="center" gap={4} w="full">
                         <Skeleton height="14px" width="40%" />
                         <Skeleton height="14px" width="20%" />
                     </HStack>

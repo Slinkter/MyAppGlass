@@ -1,25 +1,16 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React from 'react';
+import { VStack, SkeletonText, Skeleton, Flex, Spacer, Box } from "@chakra-ui/react";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  VStack,
-  SkeletonText,
-  Skeleton,
-  Flex,
-  Spacer,
-  Box,
-  useColorModeValue
-} from '@chakra-ui/react';
+  DialogRoot,
+  DialogContent,
+  DialogBody,
+} from "@/components/ui/dialog";
 
 /**
  * @component ModalSkeleton
- * @description Un componente esqueleto visual para el modal de detalles del proyecto,
- * que se muestra mientras el contenido real del modal se carga de forma diferida.
- * Simula la estructura básica del modal, incluyendo un visor de imagen/mapa y un panel de información.
- *
- * @returns {JSX.Element} Un esqueleto de modal de proyecto.
+ * @description Skeleton visual para el modal de detalles del proyecto.
+ * Migrado de Modal (v2) → DialogRoot (v3).
  */
 const ModalSkeleton = () => {
   const modalBg = useColorModeValue(
@@ -33,17 +24,12 @@ const ModalSkeleton = () => {
   const textColor = useColorModeValue("gray.800", "gray.100");
 
   return (
-    <Modal
-      isOpen={true} // Siempre abierto para el esqueleto
-      onClose={() => {}} // No funcional para el esqueleto
-      motionPreset="slideInBottom"
+    <DialogRoot
+      open={true}
+      placement="center"
       size={{ base: "full", md: "5xl", lg: "6xl" }}
-      scrollBehavior="inside"
-      isCentered
-      preserveScrollBarGap
     >
-      <ModalOverlay />
-      <ModalContent
+      <DialogContent
         borderRadius={{ base: 0, md: "2xl" }}
         bg={modalBg}
         border="1px solid"
@@ -51,42 +37,37 @@ const ModalSkeleton = () => {
         boxShadow="2xl"
         color={textColor}
       >
-        <ModalBody p={{ base: 4, md: 6 }} pb={{ base: 6, md: 8 }}>
+        <DialogBody p={{ base: 4, md: 6 }} pb={{ base: 6, md: 8 }}>
           <Flex
             w="full"
             h={{ base: "auto", lg: "full" }}
             flexDirection={{ base: "column", lg: "row" }}
             gap={{ base: 6, lg: 8 }}
           >
-            {/* Esqueleto para el VisualViewer (mapa/galería) */}
+            {/* Skeleton para VisualViewer */}
             <Box flex={{ base: "none", lg: 1 }} w="full">
-              <Skeleton height={{ base: "250px", lg: "500px" }} rounded="md" />
+              <Skeleton height={{ base: "250px", lg: "500px" }} borderRadius="md" />
               <Flex mt={4} justify="center" gap={2}>
-                <Skeleton width="80px" height="30px" rounded="md" />
-                <Skeleton width="80px" height="30px" rounded="md" />
+                <Skeleton width="80px" height="30px" borderRadius="md" />
+                <Skeleton width="80px" height="30px" borderRadius="md" />
               </Flex>
             </Box>
 
-            {/* Esqueleto para ProjectInfo */}
-            <VStack
-              flex={{ base: "none", lg: 1 }}
-              w="full"
-              align="flex-start"
-              spacing={4}
-            >
-              <SkeletonText mt="2" noOfLines={1} spacing="4" width="70%" />
-              <SkeletonText mt="2" noOfLines={1} spacing="4" width="50%" />
-              <SkeletonText mt="4" noOfLines={3} spacing="4" width="full" />
+            {/* Skeleton para ProjectInfo */}
+            <VStack flex={{ base: "none", lg: 1 }} w="full" align="flex-start" gap={4}>
+              <SkeletonText mt="2" noOfLines={1} gap="4" width="70%" />
+              <SkeletonText mt="2" noOfLines={1} gap="4" width="50%" />
+              <SkeletonText mt="4" noOfLines={3} gap="4" width="full" />
               <Spacer />
               <Flex w="full" justify="space-between" mt={4}>
-                <Skeleton height="40px" width="45%" rounded="md" />
-                <Skeleton height="40px" width="45%" rounded="md" />
+                <Skeleton height="40px" width="45%" borderRadius="md" />
+                <Skeleton height="40px" width="45%" borderRadius="md" />
               </Flex>
             </VStack>
           </Flex>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+        </DialogBody>
+      </DialogContent>
+    </DialogRoot>
   );
 };
 

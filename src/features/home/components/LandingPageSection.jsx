@@ -18,138 +18,109 @@ import {
     Text,
     VStack,
 } from "@chakra-ui/react";
+import { m, LazyMotion, domAnimation } from "framer-motion";
 import { Link as RouterLink } from "react-router-dom";
-import { motion } from "framer-motion";
+
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
+
+const MotionImage = m(Image);
+const MotionVStack = m(VStack);
 
 /**
  * @component LandingPageSection
- * @description Premium Hero section with Aura 2.0 aesthetics.
+ * @description Sección de aterrizaje (Hero) de la página principal.
+ * Muestra el logotipo animado, el nombre de la empresa y una breve descripción.
+ *
+ * @returns {JSX.Element} Sección Hero renderizada.
  */
 const LandingPageSection = React.memo(() => {
-    return (
-        <Flex
-            w="full"
-            minH="100dvh"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            px="phi_md"
-            position="relative"
-            overflow="hidden"
-        >
-            {/* Liquid Aura Background Effect */}
-            <Box
-                position="absolute"
-                top="-15%"
-                left="-10%"
-                w="600px"
-                h="600px"
-                bgGradient="radial(text.accent, transparent)"
-                opacity={0.05}
-                filter="blur(120px)"
-                zIndex={0}
-                _dark={{ opacity: 0.15 }}
-            />
+    // En Chakra v3, las animaciones se manejan preferiblemente vía motion directamente
+    // o consultando el estado de movimiento reducido si es necesario.
+    
+    const animationConfig = { opacity: 0, y: 30 };
 
-            <VStack
-                as={motion.div}
-                gap="phi_lg"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                textAlign="center"
-                maxW="6xl"
-                zIndex={1}
+    return (
+        <LazyMotion features={domAnimation}>
+            <Flex
+                w={"full"}
+                minH={"100dvh"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                px={2}
+                position="relative"
             >
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
+                <MotionVStack
+                    gap="phi_md"
+                    initial={animationConfig}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                        duration: 0.3,
+                        ease: "easeOut",
+                    }}
+                    textAlign="center"
+                    maxW="5xl"
                 >
-                    <Image
+                    <MotionImage
                         src={logoGYA}
                         alt="Glass & Aluminum Company Logo"
-                        w={{ base: "280px", md: "400px" }}
+                        w={{ base: "55%", sm: "50%", md: "40%", lg: "36%" }}
+                        maxW="400px"
                         h="auto"
                         loading="eager"
-                        fetchPriority="high"
+                        fetchpriority="high"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
                     />
-                </motion.div>
 
-                <VStack gap="phi_md" mt="phi_md">
-                    <motion.div
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3, duration: 0.8 }}
-                    >
+                    <Box mt="phi_md">
                         <Heading
                             as="h2"
-                            fontSize={{ base: "sm", md: "lg" }}
-                            fontWeight="800"
-                            letterSpacing="0.4em"
+                            fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
+                            fontWeight="bold"
+                            letterSpacing="widest"
                             color="text.accent"
-                            textTransform="uppercase"
+                            textTransform={"uppercase"}
                             mb="phi_xs"
                         >
                             Vidriería &amp; Aluminio
                         </Heading>
-                    </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5, duration: 0.8 }}
-                    >
                         <Heading
                             as="h1"
-                            fontSize={{ base: "4xl", md: "6xl", lg: "8xl" }}
-                            fontWeight="900"
-                            lineHeight="1.0"
-                            color="text.heading"
-                            letterSpacing="tight"
+                            fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
+                            fontWeight="extrabold"
+                            lineHeight="1.1"
+                            color="text.body"
                         >
                             GLASS &amp; ALUMINUM <br />
-                            <Box as="span" color="text.accent">COMPANY S.A.C.</Box>
+                            COMPANY S.A.C.
                         </Heading>
-                    </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.7, duration: 0.8 }}
-                    >
                         <Text
-                            fontSize={{ base: "md", md: "2xl" }}
-                            mt="phi_md"
-                            color="text.body"
-                            fontWeight="500"
+                            fontSize={{ base: "md", md: "xl" }}
+                            mt="phi_lg"
+                            color="text.muted"
+                            fontWeight="medium"
                             maxW="3xl"
                             mx="auto"
-                            lineHeight="tall"
                         >
-                            Diseño e ingeniería en arquitectura de cristal.
-                            Espacios que transforman la luz en arte.
+                            Empresa Comercial especializada en la instalación de
+                            cristales y aluminios.
                         </Text>
-                    </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.9, duration: 0.8 }}
-                    >
-                        <HStack gap="phi_md" mt="phi_xl" justify="center" w="full" flexWrap="wrap">
-                            <Button as={RouterLink} to="/servicios" size="xl" borderRadius="full">
-                                Explorar Servicios
+                        <HStack gap="phi_md" mt="phi_xl" justify="center" w="full" px={4} flexWrap="wrap">
+                            <Button as={RouterLink} to="/servicios" variant="aura" size="lg">
+                                Ver Servicios
                             </Button>
-                            <Button as={RouterLink} to="/proyectos" variant="outline" size="xl" borderRadius="full">
-                                Ver Portafolio
+                            <Button as={RouterLink} to="/proyectos" variant="outline" size="lg">
+                                Nuestros Proyectos
                             </Button>
                         </HStack>
-                    </motion.div>
-                </VStack>
-            </VStack>
-        </Flex>
+                    </Box>
+                </MotionVStack>
+            </Flex>
+        </LazyMotion>
     );
 });
 

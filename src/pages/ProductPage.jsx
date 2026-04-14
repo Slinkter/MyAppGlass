@@ -1,7 +1,8 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 
 import React from "react";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 const ProductView = () => {
   const bgColor = useColorModeValue("rgba(255, 255, 255, 0.25)", "rgba(0, 0, 0, 0.25)");

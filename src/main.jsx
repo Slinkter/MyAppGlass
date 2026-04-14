@@ -13,6 +13,7 @@ import { system } from "./theme";
 import { router } from "./routes";
 import "./styles/global.css";
 import reportWebVitals from "./utils/webVitals";
+import DevErrorOverlay from "./shared/components/DevErrorOverlay";
 
 // El fallback de Suspense se mostrará mientras se carga el código del componente diferido.
 const suspenseFallback = (
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <HelmetProvider>
             <Provider value={system}>
+                <DevErrorOverlay />
                 <RouterProvider
                     router={router}
                     fallbackElement={suspenseFallback}

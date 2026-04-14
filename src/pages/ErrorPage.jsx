@@ -1,3 +1,4 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file ErrorPage.jsx
  * @description Custom 404/Error page with an automatic redirect timer to the home page.
@@ -5,13 +6,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const ErrorView = () => {

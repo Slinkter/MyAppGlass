@@ -18,7 +18,7 @@ const DesktopNav = () => {
   const location = useLocation();
 
   return (
-    <Stack direction="row" spacing={4}>
+    <Stack direction="row" gap={4}>
       {NAV_ITEMS.map((navItem) => {
         const isActive = location.pathname === navItem.href;
         return (

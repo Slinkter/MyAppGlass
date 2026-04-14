@@ -3,8 +3,7 @@
  * @description Option 6: Aura "Obsidian Refraction" - The Final Boss. 
  * Inspired by luxury architectural trends 2026 (Digital Materiality).
  */
-import React from "react";
-import { Box, VStack, Heading, Text, Container, Flex, Image, SimpleGrid, Icon, HStack } from "@chakra-ui/react";
+import { Box, VStack, Heading, Text, Container, Flex, Image, SimpleGrid, HStack } from "@chakra-ui/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Diamond, Compass, Zap, Layers } from "lucide-react";
 
@@ -12,8 +11,8 @@ const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
 
 const SpecTag = ({ icon, label, value }) => (
-  <VStack align="flex-start" spacing={1} p={6} border="1px solid" borderColor="whiteAlpha.200" _hover={{ borderColor: "orange.300", bg: "whiteAlpha.50" }} transition="all 0.4s ease">
-    <Icon as={icon} color="orange.300" boxSize={4} />
+  <VStack align="flex-start" gap={1} p={6} border="1px solid" borderColor="whiteAlpha.200" _hover={{ borderColor: "orange.300", bg: "whiteAlpha.50" }} transition="all 0.4s ease">
+    <Box as={icon} color="orange.300" boxSize={4} />
     <Text fontSize="10px" fontWeight="black" color="whiteAlpha.500" textTransform="uppercase" letterSpacing="0.2em">{label}</Text>
     <Text fontSize="sm" fontWeight="bold" color="white">{value}</Text>
   </VStack>
@@ -35,8 +34,8 @@ const ServiceDetailElite = ({ pageData }) => {
         
         <Container maxW="7xl" h="full" position="relative" zIndex={1}>
           <Flex h="full" align="center">
-            <VStack align="flex-start" spacing={8} maxW="3xl">
-              <HStack spacing={4}>
+            <VStack align="flex-start" gap={8} maxW="3xl">
+              <HStack gap={4}>
                 <Box w="40px" h="1px" bg="orange.300" />
                 <Text fontSize="xs" fontWeight="black" letterSpacing="0.4em" color="orange.300">COLLECCIÓN 2026</Text>
               </HStack>
@@ -68,9 +67,9 @@ const ServiceDetailElite = ({ pageData }) => {
 
       {/* 2. TECHNICAL MATERIALITY */}
       <Container maxW="7xl" py={40}>
-        <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={20} align="center">
-          <VStack align="flex-start" spacing={12}>
-            <VStack align="flex-start" spacing={4}>
+        <SimpleGrid columns={{ base: 1, lg: 2 }} gap={20} align="center">
+          <VStack align="flex-start" gap={12}>
+            <VStack align="flex-start" gap={4}>
               <Heading size="2xl" letterSpacing="tight">Materialidad <br /> Digital</Heading>
               <Text color="whiteAlpha.600" fontSize="lg">
                 Nuestros perfiles de aluminio obsidiana no solo sostienen el cristal; definen el espacio. 
@@ -78,7 +77,7 @@ const ServiceDetailElite = ({ pageData }) => {
               </Text>
             </VStack>
             
-            <SimpleGrid columns={2} w="full" spacing={0}>
+            <SimpleGrid columns={2} w="full" gap={0}>
               <SpecTag icon={Diamond} label="Cristal" value="Templado 12mm" />
               <SpecTag icon={Compass} label="Precisión" value="± 0.1mm" />
               <SpecTag icon={Layers} label="Acabado" value="Anodizado Pro" />
@@ -98,7 +97,7 @@ const ServiceDetailElite = ({ pageData }) => {
 
       {/* 3. CALL TO EXCELLENCE */}
       <Box py={40} borderTop="1px solid" borderColor="whiteAlpha.100" bgGradient="linear(to-b, #050505, #101010)">
-        <VStack spacing={12}>
+        <VStack gap={12}>
           <Heading size="3xl" textAlign="center" letterSpacing="-0.02em">Define tu próximo <br /> horizonte.</Heading>
           <Box 
             as="button" 

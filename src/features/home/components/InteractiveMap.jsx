@@ -1,6 +1,7 @@
+import { useColorMode } from "@/components/ui/color-mode";
 import React, { useState, useCallback } from "react";
 import { GoogleMap } from "@react-google-maps/api";
-import { Box, useColorMode } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 // --- HOOKS ---
 import {

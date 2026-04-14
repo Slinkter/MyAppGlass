@@ -1,20 +1,12 @@
 import React from "react";
-import {
-  Container,
-  Heading,
-  Text,
-  useColorModeValue,
-  SimpleGrid,
-  VStack,
-  Box,
-} from "@chakra-ui/react";
-import { m } from "framer-motion";
+import { Container, Heading, Text, SimpleGrid, VStack, Box } from "@chakra-ui/react";
+
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import PropTypes from "prop-types";
 
 const EMPTY_OBJ = {};
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 /**
  * Componente: ItemGridLayout

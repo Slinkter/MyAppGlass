@@ -1,3 +1,4 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file LoadingFallback.jsx
  * @description Simple loading indicator used as a fallback for `Suspense` boundaries.
@@ -5,7 +6,7 @@
  */
 
 import React from "react";
-import { Flex, Spinner, Box, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Spinner, Box } from "@chakra-ui/react";
 
 /**
  * @component LoadingFallback

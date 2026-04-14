@@ -1,12 +1,6 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
-import {
-    Container,
-    SimpleGrid,
-    Skeleton,
-    Box,
-    Stack,
-    useColorModeValue,
-} from "@chakra-ui/react";
+import { Container, SimpleGrid, Skeleton, Box, Stack } from "@chakra-ui/react";
 
 /**
  * @component ServiceListSkeleton
@@ -28,7 +22,7 @@ const ServiceListSkeleton = () => {
             {/* Subtitle Skeleton */}
             <Skeleton height="30px" width="400px" mx="auto" mb={10} />
 
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={10}>
                 {Array.from({ length: 12 }).map((_, index) => (
                     <Box
                         key={index}
@@ -47,7 +41,7 @@ const ServiceListSkeleton = () => {
                                 w="full"
                                 borderRadius="xl"
                             />
-                            <Stack p={4} spacing={3}>
+                            <Stack p={4} gap={3}>
                                 <Skeleton height="28px" width="70%" mx="auto" />
                                 <Skeleton
                                     height="40px"

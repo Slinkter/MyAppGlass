@@ -1,3 +1,4 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file Franja.jsx
  * @description Full-width banner component used as a section header or separator with a custom title and text.
@@ -5,14 +6,7 @@
  */
 
 import React from "react";
-import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  useColorModeValue,
-  Container,
-} from "@chakra-ui/react"; // Import Container
+import { Box, Flex, Heading, Text, Container } from "@chakra-ui/react"; // Import Container
 
 /**
  * @component Franja

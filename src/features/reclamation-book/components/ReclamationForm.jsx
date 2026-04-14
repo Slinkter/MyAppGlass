@@ -55,7 +55,7 @@ const ReclamationFormInner = () => {
         </Box>
 
         <form onSubmit={handleBtnSubmit}>
-          <Stack spacing={5}>
+          <Stack gap={5}>
             <PersonalInfoSection />
             <ProductSection />
             <ClaimDetailSection />

@@ -1,5 +1,6 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
-import { Flex, VStack, Spinner, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, VStack, Spinner, Text } from "@chakra-ui/react";
 
 const MapLoader = () => {
   const spinnerColor = "text.accent";

@@ -1,10 +1,11 @@
+import { useColorMode } from "@/components/ui/color-mode";
 /**
  * @file TestPage.jsx
  * @description Showcase page for Footer design variants (Structural Monolith, Liquid Glass, Grid Precision).
  */
 
 import React from "react";
-import { Box, Heading, Container, VStack, Text, Divider, Button, useColorMode, Icon } from "@chakra-ui/react";
+import { Box, Heading, Container, VStack, Text, Separator, Button } from "@chakra-ui/react";
 import { Sun, Moon } from "lucide-react";
 import FooterMonolith from "../layout/Footer/variants/FooterMonolith";
 import FooterLiquid from "../layout/Footer/variants/FooterLiquid";
@@ -12,7 +13,7 @@ import FooterGrid from "../layout/Footer/variants/FooterGrid";
 
 const SectionHeader = ({ title, description }) => (
   <Container maxW="5xl" py={20} textAlign="center">
-    <VStack spacing={4}>
+    <VStack gap={4}>
       <Heading size="2xl" textTransform="uppercase" letterSpacing="widest" color="text.accent">
         {title}
       </Heading>
@@ -36,10 +37,9 @@ const TestPage = () => {
         zIndex={1000}
         variant="aura"
         onClick={toggleColorMode}
-        leftIcon={<Icon as={colorMode === "light" ? Moon : Sun} />}
         size="sm"
       >
-        MODO {colorMode === "light" ? "OSCURO" : "CLARO"}
+        <Box as={colorMode === "light" ? Moon : Sun} /> MODO {colorMode === "light" ? "OSCURO" : "CLARO"}
       </Button>
 
       <Box bg="primary.900" _dark={{ bg: "black" }} py={12} textAlign="center" color="white">
@@ -54,7 +54,7 @@ const TestPage = () => {
       />
       <FooterMonolith />
 
-      <Divider my={10} borderColor="border.glass" />
+      <Separator my={10} borderColor="border.glass" />
 
       {/* OPTION 2 */}
       <SectionHeader 
@@ -63,7 +63,7 @@ const TestPage = () => {
       />
       <FooterLiquid />
 
-      <Divider my={10} borderColor="border.glass" />
+      <Separator my={10} borderColor="border.glass" />
 
       {/* OPTION 3 */}
       <SectionHeader 

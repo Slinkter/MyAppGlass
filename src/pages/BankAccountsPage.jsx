@@ -1,70 +1,51 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file BankAccountsPage.jsx
  * @description Informational page displaying company fiscal data and bank account details for payments.
  * @module pages
+ * Migrated to Chakra UI v3: useToast→toaster snippet, Card→Box, CardBody→Box, isRound→borderRadius, icon→children
  */
 
 import React from "react";
+import { Box, Heading, Text, VStack, Container, Image, Stack, SimpleGrid, HStack, IconButton, Flex } from "@chakra-ui/react";
+import { Toaster, toaster } from "@/components/ui/toaster";
+import { Tooltip } from "@/components/ui/tooltip";
 import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-  Container,
-  useColorModeValue,
-  Card,
-  Image,
-  CardBody,
-  Stack,
-  SimpleGrid,
-  HStack,
-  Icon,
-  Tooltip,
-  IconButton,
-  useToast,
-  Flex,
-} from "@chakra-ui/react";
-import {
-  Building,
-  Contact,
-  MapPin,
-  Mail,
-  Copy,
-  Check,
+  Building, Contact, MapPin, Mail, Copy, Check,
 } from "lucide-react";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
-import { companyData } from "@/config/company-data"; // Import companyData
-import { bankAccountsData } from "../data/bank-accounts"; // Import bankAccountsData
+import { companyData } from "@/config/company-data";
+import { bankAccountsData } from "../data/bank-accounts";
 
+/** v3: useToast → toaster object from snippet */
 const CopyButton = ({ value, label }) => {
-  const toast = useToast();
   const [hasCopied, setHasCopied] = React.useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(value);
     setHasCopied(true);
-    toast({
+    toaster.create({
       title: "Copiado",
       description: `${label} copiado al portapapeles.`,
-      status: "success",
+      type: "success",
       duration: 2000,
-      isClosable: true,
-      position: "top-right",
     });
     setTimeout(() => setHasCopied(false), 2000);
   };
 
   return (
-    <Tooltip label={`Copiar ${label}`} hasArrow>
+    <Tooltip content={`Copiar ${label}`}>
+      {/* v3: icon → children, isRound → borderRadius="full" */}
       <IconButton
         size="sm"
-        icon={hasCopied ? <Check size={16} /> : <Copy size={16} />}
         aria-label={`Copiar ${label}`}
         onClick={handleCopy}
         variant="ghost"
-        colorScheme={hasCopied ? "green" : "gray"}
-        isRound
-      />
+        colorPalette={hasCopied ? "green" : "gray"}
+        borderRadius="full"
+      >
+        {hasCopied ? <Check size={16} /> : <Copy size={16} />}
+      </IconButton>
     </Tooltip>
   );
 };
@@ -83,38 +64,24 @@ const InfoItem = ({ icon, label, value, copyable = false }) => {
       borderWidth="1px"
       borderColor={borderColor}
       boxShadow="sm"
-      spacing={4}
+      gap={4}
       align="center"
       transition="all 0.3s"
       _hover={{ transform: "translateY(-2px)", boxShadow: "md" }}
     >
       <Flex
-        align="center"
-        justify="center"
-        w={10}
-        h={10}
-        borderRadius="full"
+        align="center" justify="center"
+        w={10} h={10} borderRadius="full"
         bg={useColorModeValue("primary.50", "whiteAlpha.200")}
-        color={iconColor}
-        flexShrink={0}
+        color={iconColor} flexShrink={0}
       >
-        <Icon as={icon} boxSize={5} />
+        <Box as={icon} boxSize={5} />
       </Flex>
       <Box flex="1">
-        <Text
-          fontSize="xs"
-          fontWeight="bold"
-          textTransform="uppercase"
-          color="gray.500"
-          letterSpacing="wider"
-        >
+        <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" color="gray.500" letterSpacing="wider">
           {label}
         </Text>
-        <Text
-          fontSize="md"
-          fontWeight="medium"
-          color={useColorModeValue("gray.800", "white")}
-        >
+        <Text fontSize="md" fontWeight="medium" color={useColorModeValue("gray.800", "white")}>
           {value}
         </Text>
       </Box>
@@ -123,23 +90,20 @@ const InfoItem = ({ icon, label, value, copyable = false }) => {
   );
 };
 
-const BankAccountCard = ({
-  logo,
-  bankName,
-  accountType,
-  accounts,
-  logoBg = "gray.50",
-}) => {
+/** v3: Card/CardBody → Box with manual styling */
+const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray.50" }) => {
   const cardBg = useColorModeValue("white", "gray.800");
   const borderColor = useColorModeValue("gray.200", "gray.600");
+  const dividerColor = useColorModeValue("gray.100", "gray.600");
 
   return (
-    <Card
+    <Box
       h={{ base: "auto", md: "245px" }}
-      direction={{ base: "column", md: "row" }}
+      display="flex"
+      flexDirection={{ base: "column", md: "row" }}
       overflow="hidden"
-      variant="outline"
       bg={cardBg}
+      borderWidth="1px"
       borderColor={borderColor}
       borderRadius="2xl"
       boxShadow="md"
@@ -147,88 +111,57 @@ const BankAccountCard = ({
       _hover={{ shadow: "lg" }}
     >
       <Flex
-        align="center"
-        justify="center"
+        align="center" justify="center"
         bg={useColorModeValue(logoBg, "whiteAlpha.900")}
         p={6}
-        minW={{ md: "220px" }}
-        maxW={{ md: "240px" }}
+        minW={{ md: "220px" }} maxW={{ md: "240px" }}
         borderRightWidth={{ md: "1px" }}
         borderBottomWidth={{ base: "1px", md: "0" }}
         borderColor={borderColor}
       >
         <Image
-          objectFit="contain"
-          w="full"
-          h="auto"
-          maxH="60px"
-          src={logo}
-          alt={`Logo ${bankName}`}
-          loading="lazy"
-          decoding="async"
+          objectFit="contain" w="full" h="auto" maxH="60px"
+          src={logo} alt={`Logo ${bankName}`} loading="lazy" decoding="async"
         />
       </Flex>
 
-      <CardBody p={{ base: 5, md: 6 }}>
-        <Stack spacing={4}>
+      <Box p={{ base: 5, md: 6 }} flex="1">
+        <Stack gap={4}>
           <Box>
             <Text
-              fontSize="sm"
-              fontWeight="bold"
+              fontSize="sm" fontWeight="bold"
               color={useColorModeValue("primary.600", "primary.300")}
-              textTransform="uppercase"
-              letterSpacing="wide"
-              mb={1}
+              textTransform="uppercase" letterSpacing="wide" mb={1}
             >
               {bankName}
             </Text>
-            <Heading size="md" fontWeight="bold">
-              {accountType}
-            </Heading>
+            <Heading size="md" fontWeight="bold">{accountType}</Heading>
           </Box>
 
-          <Stack
-            spacing={3}
-            divider={
-              <Box
-                borderBottomWidth="1px"
-                borderColor={useColorModeValue("gray.100", "gray.600")}
-              />
-            }
-          >
+          <Stack gap={3}>
             {accounts.map((acc, idx) => (
-              <Flex
-                key={idx}
-                justify="space-between"
-                align="center"
-                wrap="wrap"
-                gap={2}
-              >
-                <Box>
-                  <Text fontSize="xs" color="gray.500" fontWeight="bold">
-                    {acc.label}
-                  </Text>
-                  <Text fontFamily="mono" fontSize="md" fontWeight="medium">
-                    {acc.value}
-                  </Text>
-                  {acc.note && (
-                    <Text
-                      fontSize="xs"
-                      color="state.warning"
-                      fontStyle="italic"
-                      mt={0.5}
-                    >
-                      {acc.note}
-                    </Text>
-                  )}
-                </Box>
-                <CopyButton value={acc.value} label={acc.label} />
-              </Flex>
+              <React.Fragment key={idx}>
+                {idx > 0 && (
+                  <Box borderBottomWidth="1px" borderColor={dividerColor} />
+                )}
+                <Flex justify="space-between" align="center" wrap="wrap" gap={2}>
+                  <Box>
+                    <Text fontSize="xs" color="gray.500" fontWeight="bold">{acc.label}</Text>
+                    <Text fontFamily="mono" fontSize="md" fontWeight="medium">{acc.value}</Text>
+                    {acc.note && (
+                      <Text fontSize="xs" color="state.warning" fontStyle="italic" mt={0.5}>
+                        {acc.note}
+                      </Text>
+                    )}
+                  </Box>
+                  <CopyButton value={acc.value} label={acc.label} />
+                </Flex>
+              </React.Fragment>
             ))}
           </Stack>
         </Stack>
-      </CardBody>
-    </Card>
+      </Box>
+    </Box>
   );
 };
 
@@ -237,48 +170,26 @@ const BankAccountsPage = () => {
   const headingColor = useColorModeValue("primary.700", "primary.300");
 
   const fiscalData = [
-    {
-      icon: Building,
-      label: "Razón Social",
-      value: companyData.razonSocial,
-      copyable: true,
-    },
-    {
-      icon: Contact,
-      label: "R.U.C",
-      value: companyData.ruc,
-      copyable: true,
-    },
-    {
-      icon: MapPin,
-      label: "Dirección Fiscal",
-      value: companyData.direccion,
-    },
-    {
-      icon: Mail,
-      label: "Facturación",
-      value: companyData.contactEmail,
-      copyable: true,
-    },
+    { icon: Building, label: "Razón Social", value: companyData.razonSocial, copyable: true },
+    { icon: Contact, label: "R.U.C", value: companyData.ruc, copyable: true },
+    { icon: MapPin, label: "Dirección Fiscal", value: companyData.direccion },
+    { icon: Mail, label: "Facturación", value: companyData.contactEmail, copyable: true },
   ];
 
   return (
     <>
+      <Toaster />
       <HelmetWrapper
         title="Cuentas Bancarias y Datos de Facturación - GYA Company"
         description="Información detallada de cuentas bancarias y datos fiscales para pagos y facturación a GYA Company."
         canonicalUrl="https://www.gyacompany.com/cuentas-bancarias"
       />
       <Container maxW="7xl" py={{ base: 8, md: 12 }}>
-        <VStack spacing={10} align="stretch">
-          {/* Header Section */}
+        <VStack gap={10} align="stretch">
           <Box textAlign={{ base: "left", md: "center" }} maxW="4xl" mx="auto">
             <Heading
-              as="h1"
-              size={{ base: "xl", md: "2xl" }}
-              color={headingColor}
-              mb={4}
-              lineHeight="shorter"
+              as="h1" size={{ base: "xl", md: "2xl" }}
+              color={headingColor} mb={4} lineHeight="shorter"
             >
               Cuentas Bancarias y <br />
               <Text as="span" color={useColorModeValue("gray.800", "white")}>
@@ -292,56 +203,35 @@ const BankAccountsPage = () => {
             </Text>
           </Box>
 
-          {/* Fiscal Identification Section */}
           <Box>
-            <Heading
-              as="h2"
-              size="lg"
-              mb={6}
-              color={useColorModeValue("gray.700", "white")}
-            >
+            <Heading as="h2" size="lg" mb={6} color={useColorModeValue("gray.700", "white")}>
               Identificación Fiscal
             </Heading>
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
               {fiscalData.map((item, index) => (
                 <InfoItem key={index} {...item} />
               ))}
             </SimpleGrid>
           </Box>
 
-          {/* Bank Accounts Section */}
           <Box>
-            <Heading
-              as="h2"
-              size="lg"
-              mb={6}
-              color={useColorModeValue("gray.700", "white")}
-            >
+            <Heading as="h2" size="lg" mb={6} color={useColorModeValue("gray.700", "white")}>
               Cuentas Bancarias
             </Heading>
-            <Stack spacing={6}>
+            <Stack gap={6}>
               {bankAccountsData.map((bankAccount, index) => (
                 <BankAccountCard key={index} {...bankAccount} />
               ))}
             </Stack>
           </Box>
 
-          {/* Footer / Contact Hint */}
           <Box
             bg={useColorModeValue("primary.50", "whiteAlpha.100")}
-            p={6}
-            borderRadius="xl"
-            textAlign="center"
+            p={6} borderRadius="xl" textAlign="center"
           >
             <Text fontSize="md" color={textColor}>
               ¿Necesita confirmar un pago o requiere asistencia adicional?
-              <Text
-                as="span"
-                display="block"
-                mt={1}
-                fontWeight="bold"
-                color={headingColor}
-              >
+              <Text as="span" display="block" mt={1} fontWeight="bold" color={headingColor}>
                 Contáctenos en: {companyData.contactEmail}
               </Text>
             </Text>

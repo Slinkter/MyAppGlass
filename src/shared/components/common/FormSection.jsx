@@ -1,4 +1,5 @@
-import { Heading, Box, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
+import { Heading, Box } from "@chakra-ui/react";
 
 /**
  * @component FormSection
@@ -15,7 +16,7 @@ import { Heading, Box, useColorModeValue } from "@chakra-ui/react";
  * @example
  * // Ejemplo de uso básico de FormSection
  * <FormSection title="Datos de Contacto">
- *   <Stack spacing={4}>
+ *   <Stack gap={4}>
  *     <Input placeholder="Nombre" />
  *     <Input placeholder="Correo Electrónico" />
  *   </Stack>

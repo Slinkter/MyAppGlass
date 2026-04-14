@@ -7,13 +7,9 @@ import {
   VStack,
   HStack,
   Text,
-  Icon,
-  usePrefersReducedMotion,
-  Link,
 } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { MapPin, Clock } from "lucide-react";
-import { FaMapLocationDot } from "react-icons/fa6";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
 const InteractiveMap = lazy(() => import("./InteractiveMap"));
@@ -89,7 +85,7 @@ const StoreSection = React.memo(() => {
           >
             <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
               <HStack gap={3} color="text.accent">
-                <Icon as={Clock} boxSize={5} />
+                <Box as={Clock} boxSize={5} />
                 <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
                   Horarios
                 </Text>
@@ -102,7 +98,7 @@ const StoreSection = React.memo(() => {
 
             <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
               <HStack gap={3} color="text.accent">
-                <Icon as={MapPin} boxSize={5} />
+                <Box as={MapPin} boxSize={5} />
                 <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
                   Dirección
                 </Text>

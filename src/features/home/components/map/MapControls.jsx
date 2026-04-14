@@ -1,10 +1,10 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
 import {
   Box,
   Tooltip,
   Button,
   Icon,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { FaCompass } from "react-icons/fa";
 

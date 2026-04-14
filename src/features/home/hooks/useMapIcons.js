@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { FaBuilding } from "react-icons/fa";
+import { Building2 } from "lucide-react";
 import logo from "@/assets/branding/logovcr.png";
 
 export const useMapIcons = (isLoaded, google) => {
@@ -12,7 +12,7 @@ export const useMapIcons = (isLoaded, google) => {
         size: { width: 50, height: 50 },
       },
       project: {
-        iconContent: FaBuilding,
+        iconContent: Building2,
         isSvg: true,
         size: { width: 36, height: 36 },
       },

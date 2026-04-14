@@ -4,7 +4,7 @@
  */
 import React from "react";
 import {
-  Box, VStack, Heading, Text, Container, HStack, Button, Icon, SimpleGrid, Grid, GridItem, Flex
+  Box, VStack, Heading, Text, Container, HStack, Button, SimpleGrid, Grid, GridItem, Flex
 } from "@chakra-ui/react";
 import { Sparkles, ShieldCheck } from "lucide-react";
 import Gallery from "@shared/components/common/Gallery";
@@ -32,9 +32,9 @@ export const ServiceDetailBentoRefined = ({ pageData }) => {
 
   return (
     <Container maxW="7xl" py={12}>
-      <VStack spacing={8} align="stretch">
+      <VStack gap={8} align="stretch">
         <Flex justify="space-between" align="flex-end" direction={{ base: "column", md: "row" }} gap={6}>
-          <VStack align="flex-start" spacing={2}>
+          <VStack align="flex-start" gap={2}>
             <Text color="primary.500" fontWeight="bold" fontSize="xs" letterSpacing="0.2em">PRODUCTOS GYA</Text>
             <Heading size="2xl">{seo.title}</Heading>
           </VStack>
@@ -62,7 +62,7 @@ export const ServiceDetailBentoRefined = ({ pageData }) => {
           
           <GridItem colSpan={1}>
             <BentoCard bgGradient="linear(to-br, primary.900, primary.700)" color="white">
-              <Icon as={Sparkles} boxSize={8} mb={4} />
+              <Box as={Sparkles} boxSize={8} mb={4} />
               <Heading size="md" mb={2}>Acabado Premium</Heading>
               <Text fontSize="sm" opacity={0.8}>{about.description}</Text>
             </BentoCard>
@@ -70,12 +70,12 @@ export const ServiceDetailBentoRefined = ({ pageData }) => {
 
           <GridItem colSpan={1}>
             <BentoCard>
-              <VStack align="flex-start" spacing={4}>
+              <VStack align="flex-start" gap={4}>
                 <Text fontWeight="bold" fontSize="xs" color="text.accent">BENEFICIOS</Text>
-                <SimpleGrid columns={1} spacing={3} w="full">
+                <SimpleGrid columns={1} gap={3} w="full">
                   {benefits.slice(0, 4).map((b, i) => (
-                    <HStack key={i} spacing={3}>
-                      <Icon as={ShieldCheck} color="primary.500" size={16} />
+                    <HStack key={i} gap={3}>
+                      <Box as={ShieldCheck} color="primary.500" size={16} />
                       <Text fontSize="xs" fontWeight="bold">{b.label}</Text>
                     </HStack>
                   ))}

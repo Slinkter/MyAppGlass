@@ -61,7 +61,7 @@ const ServiceCard = React.memo((props) => {
       }}
       transition="all 0.4s ease"
     >
-      <Skeleton isLoaded={isLoaded} h="full" w="full">
+      <Skeleton loading={!isLoaded} h="full" w="full">
         <Box position="relative" h="full" w="full" overflow="hidden">
           <ResponsiveImage
             src={image}
@@ -123,7 +123,7 @@ const ServiceCard = React.memo((props) => {
 
             <VStack
               mt={6}
-              spacing={4}
+              gap={4}
               opacity={isHovered ? 1 : (isMobile ? 1 : 0)}
               transform={isHovered ? "translateY(0)" : (isMobile ? "translateY(0)" : "translateY(10px)")}
               transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
