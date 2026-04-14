@@ -3,7 +3,7 @@
 import React from "react";
 import {
   Box,
-  Text,
+  Text as ChakraText,
   Skeleton,
   useBreakpointValue,
   Button,
@@ -86,7 +86,7 @@ const ServiceCard = React.memo((props: ServiceCardProps) => {
             alignItems="center"
             justifyContent="flex-end"
           >
-            <Text
+            <ChakraText
               color={isHovered ? "primary.300" : "white"}
               fontSize={{ base: "md", md: "xl" }}
               fontWeight="600"
@@ -115,7 +115,7 @@ const ServiceCard = React.memo((props: ServiceCardProps) => {
                   {name}
                 </Link>
               )}
-            </Text>
+            </ChakraText>
 
             <VStack
               mt={6}

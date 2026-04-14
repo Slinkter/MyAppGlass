@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import {
   Box,
   Heading,
-  Text,
+  Text as ChakraText,
   HStack,
   Icon,
   LinkBox,
@@ -143,19 +143,19 @@ const ProjectCardContent = React.memo(
                 <HStack justify="center" gap={3} w="full">
                   <HStack gap={1}>
                     <Icon as={MapPin} w={3.5} h={3.5} color="primary.300" />
-                    <Text
+                    <ChakraText
                       fontSize="xs"
                       color="whiteAlpha.900"
                       fontWeight="500"
                       lineClamp={1}
                     >
                       {address}
-                    </Text>
+                    </ChakraText>
                   </HStack>
                   <Box w="1px" h="3" bg="whiteAlpha.400" />
-                  <Text fontSize="xs" color="whiteAlpha.900" fontWeight="500">
+                  <ChakraText fontSize="xs" color="whiteAlpha.900" fontWeight="500">
                     {year}
-                  </Text>
+                  </ChakraText>
                 </HStack>
 
                 <Button

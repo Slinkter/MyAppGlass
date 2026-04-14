@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { HStack, Text } from "@chakra-ui/react";
+import { HStack, Text as ChakraText } from "@chakra-ui/react";
 
 export interface SpecItemProps {
   label: string;
@@ -32,7 +32,7 @@ const SpecItem = ({ label, value }: SpecItemProps) => {
       }}
     >
       <HStack gap={3} overflow="hidden">
-        <Text
+        <ChakraText
           fontSize="xs"
           fontWeight="semibold"
           textTransform="uppercase"
@@ -41,10 +41,10 @@ const SpecItem = ({ label, value }: SpecItemProps) => {
           lineClamp={2}
         >
           {label}
-        </Text>
+        </ChakraText>
       </HStack>
 
-      <Text
+      <ChakraText
         fontSize="sm"
         fontWeight="bold"
         color="text.body"
@@ -53,7 +53,7 @@ const SpecItem = ({ label, value }: SpecItemProps) => {
         maxW="50%"
       >
         {value}
-      </Text>
+      </ChakraText>
     </HStack>
   );
 };

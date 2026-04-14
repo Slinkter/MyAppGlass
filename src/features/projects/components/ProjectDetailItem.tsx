@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Flex, Icon, Box, Text } from "@chakra-ui/react";
+import { Flex, Icon, Box, Text as ChakraText } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { LucideIcon } from "lucide-react";
 
@@ -26,12 +26,12 @@ const ProjectDetailItem = ({ icon, label, value }: ProjectDetailItemProps) => {
     <Flex align="center">
       <Icon as={icon} w={6} h={6} mr={3} color={iconColor} />
       <Box>
-        <Text fontSize="sm" color={labelColor}>
+        <ChakraText fontSize="sm" color={labelColor}>
           {label}
-        </Text>
-        <Text fontWeight="bold" color={valueColor}>
+        </ChakraText>
+        <ChakraText fontWeight="bold" color={valueColor}>
           {value}
-        </Text>
+        </ChakraText>
       </Box>
     </Flex>
   );

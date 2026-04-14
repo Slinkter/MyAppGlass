@@ -4,7 +4,7 @@ import React, { useState, useCallback, useRef } from "react";
 import {
   Box,
   IconButton,
-  Text,
+  Text as ChakraText,
   HStack,
 } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
@@ -208,18 +208,18 @@ const GalleryViewer = React.memo(({
             border="1px solid"
             borderColor="whiteAlpha.300"
           >
-            <Text
+            <ChakraText
               fontSize="xs"
               color="white"
               fontWeight="bold"
               letterSpacing="widest"
             >
               {selectedIndex + 1}{" "}
-              <Text as="span" opacity={0.5}>
+              <ChakraText as="span" opacity={0.5}>
                 /
-              </Text>{" "}
+              </ChakraText>{" "}
               {imageCount}
-            </Text>
+            </ChakraText>
           </Box>
 
           <HStack
@@ -248,7 +248,7 @@ const GalleryViewer = React.memo(({
       )}
 
       {imageCount > 1 && (
-        <Text
+        <ChakraText
           position="absolute"
           bottom={-8}
           left="50%"
@@ -262,7 +262,7 @@ const GalleryViewer = React.memo(({
           display={{ base: "block", md: "none" }}
         >
           Desliza para navegar
-        </Text>
+        </ChakraText>
       )}
     </MotionBox>
   );

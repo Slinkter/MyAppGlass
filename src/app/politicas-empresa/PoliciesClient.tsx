@@ -4,7 +4,7 @@ import React from "react";
 import {
   Box,
   Heading,
-  Text,
+  Text as ChakraText,
   VStack,
   Container,
 } from "@chakra-ui/react";
@@ -26,13 +26,13 @@ export const PoliciesClient = () => {
         <Heading as="h1" size="2xl" color={headingColor}>
           Políticas de la Empresa
         </Heading>
-        <Text fontSize="lg" color={textColor}>
+        <ChakraText fontSize="lg" color={textColor}>
           En GYA Company, nos comprometemos con la transparencia y la claridad
           en cada interacción. Para ofrecerle la mejor experiencia y evitar
           cualquier malentendido, hemos estructurado nuestros términos y
           condiciones en dos secciones, diseñadas para atender las necesidades
           específicas de nuestros clientes residenciales y corporativos.
-        </Text>
+        </ChakraText>
 
         {/* Card for Residential Clients */}
         <Box
@@ -49,39 +49,39 @@ export const PoliciesClient = () => {
             <Heading as="h2" size="xl" color={headingColor}>
               Términos y Condiciones: Servicios Residenciales
             </Heading>
-            <Text fontSize="md" color={textColor}>
+            <ChakraText fontSize="md" color={textColor}>
               Estas condiciones están pensadas para la instalación de
               ventanas, mamparas, techos y espejos en domicilios particulares.
-            </Text>
+            </ChakraText>
 
             <Box>
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 1. Validez del Presupuesto
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Nuestros presupuestos para servicios residenciales tienen una
                 validez de{" "}
-                <Text as="span" fontWeight="bold">
+                <ChakraText as="span" fontWeight="bold">
                   5 días hábiles
-                </Text>
+                </ChakraText>
                 , debido a la dinámica de nuestro stock. Le sugerimos
                 confirmar su pedido dentro de este periodo para mantener el
                 precio acordado.
-              </Text>
+              </ChakraText>
             </Box>
 
             <Box>
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 2. Forma de Pago
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Para dar inicio a la fabricación e instalación de su proyecto,
                 operamos bajo la modalidad de pago 50/50:
-              </Text>
+              </ChakraText>
               <Box pl={4} color={textColor}>
-                <Text fontWeight="bold">50% de Anticipo:</Text> Al momento de la firma o aceptación del presupuesto.
-                <Text fontWeight="bold" display="block">50% de Saldo:</Text> Se cancela una vez finalizada la entrega e instalación del trabajo, a su completa satisfacción.
-                <Text fontWeight="bold" display="block">Medios de Pago:</Text> Aceptamos transferencias bancarias sin comisión. Los pagos realizados con tarjeta de crédito o débito están sujetos a un recargo administrativo del 5%.
+                <ChakraText fontWeight="bold">50% de Anticipo:</ChakraText> Al momento de la firma o aceptación del presupuesto.
+                <ChakraText fontWeight="bold" display="block">50% de Saldo:</ChakraText> Se cancela una vez finalizada la entrega e instalación del trabajo, a su completa satisfacción.
+                <ChakraText fontWeight="bold" display="block">Medios de Pago:</ChakraText> Aceptamos transferencias bancarias sin comisión. Los pagos realizados con tarjeta de crédito o débito están sujetos a un recargo administrativo del 5%.
               </Box>
             </Box>
 
@@ -89,28 +89,28 @@ export const PoliciesClient = () => {
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 3. Tiempos de Instalación
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 El plazo estimado para la instalación se detalla en cada
                 presupuesto (usualmente entre 4 a 15 días hábiles, según el
                 producto). Consideramos días hábiles de lunes a viernes,
                 excluyendo feriados.
-              </Text>
+              </ChakraText>
             </Box>
 
             <Box>
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 4. Política de Garantía
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Ofrecemos una garantía de{" "}
-                <Text as="span" fontWeight="bold">
+                <ChakraText as="span" fontWeight="bold">
                   6 meses
-                </Text>{" "}
+                </ChakraText>{" "}
                 para nuestros productos instalados.
-              </Text>
+              </ChakraText>
               <Box pl={4} color={textColor}>
-                <Text fontWeight="bold">Cobertura:</Text> Cubre defectos de fabricación del vidrio, aluminio y posibles fallas en la instalación.
-                <Text fontWeight="bold" display="block">No incluye:</Text> No cubre roturas de vidrio posteriores a la entrega, rayaduras por limpieza inadecuada o daños derivados de un mal uso.
+                <ChakraText fontWeight="bold">Cobertura:</ChakraText> Cubre defectos de fabricación del vidrio, aluminio y posibles fallas en la instalación.
+                <ChakraText fontWeight="bold" display="block">No incluye:</ChakraText> No cubre roturas de vidrio posteriores a la entrega, rayaduras por limpieza inadecuada o daños derivados de un mal uso.
               </Box>
             </Box>
 
@@ -118,15 +118,15 @@ export const PoliciesClient = () => {
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 5. Reclamos
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Cualquier observación debe ser comunicada al momento de la
                 entrega. Aceptamos reclamos justificados hasta{" "}
-                <Text as="span" fontWeight="bold">
+                <ChakraText as="span" fontWeight="bold">
                   30 días calendario
-                </Text>{" "}
+                </ChakraText>{" "}
                 posteriores a la instalación, siempre que se presente su
                 comprobante de pago.
-              </Text>
+              </ChakraText>
             </Box>
           </VStack>
         </Box>
@@ -146,38 +146,38 @@ export const PoliciesClient = () => {
             <Heading as="h2" size="xl" color={headingColor}>
               Términos y Condiciones: Proyectos y Empresas
             </Heading>
-            <Text fontSize="md" color={textColor}>
+            <ChakraText fontSize="md" color={textColor}>
               Estas condiciones están dirigidas a constructoras, arquitectas y
               proyectos de gran envergadura.
-            </Text>
+            </ChakraText>
 
             <Box>
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 1. Validez de la Propuesta
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Nuestra propuesta económica es válida por{" "}
-                <Text as="span" fontWeight="bold">
+                <ChakraText as="span" fontWeight="bold">
                   30 días hábiles
-                </Text>{" "}
+                </ChakraText>{" "}
                 a partir de su fecha de emisión. Transcurrido este plazo, los
                 precios unitarios y las condiciones podrán ser revisados y
                 ajustados conforme a las fluctuaciones del mercado.
-              </Text>
+              </ChakraText>
             </Box>
 
             <Box>
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 2. Plazos de Ejecución
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 El plazo de ejecución se computa en días hábiles (de lunes a
                 viernes) y se inicia al cumplirse dos requisitos: la recepción
                 de la Orden de Servicio/Compra debidamente firmada y la
                 confirmación del abono del anticipo.
-              </Text>
+              </ChakraText>
               <Box pl={4} color={textColor}>
-                <Text fontWeight="bold">Exclusiones:</Text> GYA Company no asume responsabilidad por retrasos derivados de causas ajenas a nuestra gestión, tales como demoras de otros contratistas, restricciones de acceso a las zonas de trabajo o modificaciones en el diseño original solicitadas durante el desarrollo de la obra.
+                <ChakraText fontWeight="bold">Exclusiones:</ChakraText> GYA Company no asume responsabilidad por retrasos derivados de causas ajenas a nuestra gestión, tales como demoras de otros contratistas, restricciones de acceso a las zonas de trabajo o modificaciones en el diseño original solicitadas durante el desarrollo de la obra.
               </Box>
             </Box>
 
@@ -185,14 +185,14 @@ export const PoliciesClient = () => {
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 3. Forma de Pago y Valorizaciones
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Salvo estipulación contractual específica, el esquema de pagos
                 estándar para proyectos se estructura de la siguiente manera:
-              </Text>
+              </ChakraText>
               <Box pl={4} color={textColor}>
-                <Text fontWeight="bold">Anticipo:</Text> Un porcentaje inicial (generalmente entre 10% y 20%) destinado a la programación y planificación de los trabajos.
-                <Text fontWeight="bold" display="block">Materiales:</Text> Pago contra la llegada de los materiales a la obra (entre 20% y 30%).
-                <Text fontWeight="bold" display="block">Avance:</Text> El saldo restante se liquidará mediante valorizaciones periódicas, en función del avance de la instalación en obra.
+                <ChakraText fontWeight="bold">Anticipo:</ChakraText> Un porcentaje inicial (generalmente entre 10% y 20%) destinado a la programación y planificación de los trabajos.
+                <ChakraText fontWeight="bold" display="block">Materiales:</ChakraText> Pago contra la llegada de los materiales a la obra (entre 20% y 30%).
+                <ChakraText fontWeight="bold" display="block">Avance:</ChakraText> El saldo restante se liquidará mediante valorizaciones periódicas, en función del avance de la instalación en obra.
               </Box>
             </Box>
 
@@ -200,30 +200,30 @@ export const PoliciesClient = () => {
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 4. Recepción y Conformidad
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Es responsabilidad del cliente designar a un responsable de
                 calidad o residente de obra para la supervisión y recepción de
                 los avances. Una vez suscrita la conformidad o acta de
                 recepción, no se admitirán reclamos posteriores por daños
                 estéticos o roturas imputables a la intervención de terceros
                 (otros gremios, almacenamiento inapropiado en obra, etc.).
-              </Text>
+              </ChakraText>
             </Box>
 
             <Box>
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 5. Garantía Corporativa
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Nuestros proyectos cuentan con una garantía de{" "}
-                <Text as="span" fontWeight="bold">
+                <ChakraText as="span" fontWeight="bold">
                   12 meses
-                </Text>{" "}
+                </ChakraText>{" "}
                 que ampara defectos de fabricación e instalación. Esta
                 garantía quedará sin efecto ante daños ocasionados por
                 negligencia, accidentes o manipulación por personal no
                 autorizado por nuestra empresa.
-              </Text>
+              </ChakraText>
             </Box>
           </VStack>
         </Box>
@@ -242,33 +242,33 @@ export const PoliciesClient = () => {
             <Heading as="h2" size="xl" color={headingColor}>
               Política de Privacidad y Protección de Datos Personales
             </Heading>
-            <Text fontSize="md" color={textColor}>
+            <ChakraText fontSize="md" color={textColor}>
               La presente política se aplica a todos los bancos de datos
               personales gestionados por{" "}
-              <Text as="span" fontWeight="bold">
+              <ChakraText as="span" fontWeight="bold">
                 {companyData.razonSocial}
-              </Text>
+              </ChakraText>
               , con RUC N° {companyData.ruc} y domicilio en{" "}
               {companyData.direccion}.
-            </Text>
-            <Text fontSize="md" color={textColor}>
+            </ChakraText>
+            <ChakraText fontSize="md" color={textColor}>
               Garantizamos la absoluta confidencialidad de sus datos y
               empleamos altos estándares de seguridad conforme a la Ley de
               Protección de Datos Personales – Ley N° 29733 y su Reglamento
               (Decreto Supremo N° 016-2024-JUS).
-            </Text>
+            </ChakraText>
 
             <Box>
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 1. Objetivo y Finalidad
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Recopilamos sus datos personales (tales como nombre, teléfono,
                 dirección y correo electrónico) únicamente para gestionar la
                 prestación de nuestros servicios de vidriería y aluminio,
                 elaborar presupuestos, coordinar instalaciones y mantenerlo
                 informado sobre el estado de su proyecto.
-              </Text>
+              </ChakraText>
             </Box>
 
             <Box>
@@ -276,9 +276,9 @@ export const PoliciesClient = () => {
                 2. Principios Rectores
               </Heading>
               <Box pl={4} color={textColor}>
-                <Text fontWeight="bold">Consentimiento:</Text> El tratamiento de sus datos siempre mediará su consentimiento previo, expreso e informado.
-                <Text fontWeight="bold" display="block">Finalidad:</Text> Sus datos serán utilizados exclusivamente para los fines del servicio contratado.
-                <Text fontWeight="bold" display="block">Seguridad:</Text> Implementamos medidas técnicas para evitar la pérdida, mal uso o acceso no autorizado a su información.
+                <ChakraText fontWeight="bold">Consentimiento:</ChakraText> El tratamiento de sus datos siempre mediará su consentimiento previo, expreso e informado.
+                <ChakraText fontWeight="bold" display="block">Finalidad:</ChakraText> Sus datos serán utilizados exclusivamente para los fines del servicio contratado.
+                <ChakraText fontWeight="bold" display="block">Seguridad:</ChakraText> Implementamos medidas técnicas para evitar la pérdida, mal uso o acceso no autorizado a su información.
               </Box>
             </Box>
 
@@ -286,7 +286,7 @@ export const PoliciesClient = () => {
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 3. Tratamiento de Datos
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Sus datos serán almacenados en nuestro banco de datos de
                 &quot;Clientes&quot; y podrán ser compartidos estrictamente
                 con personal autorizado y proveedores necesarios para la
@@ -294,20 +294,20 @@ export const PoliciesClient = () => {
                 bajo confidencialidad. No vendemos ni compartimos su
                 información con terceros para fines publicitarios sin su
                 autorización.
-              </Text>
+              </ChakraText>
             </Box>
 
             <Box>
               <Heading as="h3" size="lg" mb={2} color={headingColor}>
                 4. Ejercicio de Derechos del Titular
               </Heading>
-              <Text fontSize="md" color={textColor}>
+              <ChakraText fontSize="md" color={textColor}>
                 Usted puede ejercer sus derechos de Acceso, Rectificación,
                 Cancelación, Oposición, Portabilidad y Tratamiento Objetivo en
                 cualquier momento. Para ello, puede enviar una solicitud a
                 nuestro correo electrónico de contacto o acercarse a nuestra
                 oficina en el horario de atención al público.
-              </Text>
+              </ChakraText>
             </Box>
           </VStack>
         </Box>

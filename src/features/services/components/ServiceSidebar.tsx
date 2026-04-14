@@ -5,7 +5,7 @@ import {
   Box,
   Stack,
   VStack,
-  Text,
+  Text as ChakraText,
   Button
 } from "@chakra-ui/react";
 import { ChevronRight } from "lucide-react";
@@ -15,7 +15,7 @@ import GlassCard from "@shared/components/common/GlassCard";
 const NavigationSection = ({ title, systems, activeIndex, onSelect }: any) => {
   return (
     <Box>
-      <Text
+      <ChakraText
         fontSize="md"
         fontWeight="bold"
         textTransform="uppercase"
@@ -25,7 +25,7 @@ const NavigationSection = ({ title, systems, activeIndex, onSelect }: any) => {
         mb={3}
       >
         {title}
-      </Text>
+      </ChakraText>
       <Stack gap={2}>
         {systems.map((item: any, index: number) => (
           <SidebarItem
@@ -69,7 +69,7 @@ const CTASection = ({ label, isSecondary }: any) => (
         {isSecondary ? "Solicitar Cotización" : "Cotizar Ahora"} <ChevronRight size={18} style={{ marginLeft: '8px' }} />
       </a>
     </Button>
-    <Text
+    <ChakraText
       fontSize="xs"
       color="text.muted"
       textAlign="center"
@@ -77,7 +77,7 @@ const CTASection = ({ label, isSecondary }: any) => (
       opacity={0.7}
     >
       {isSecondary ? "Te respondemos en breve" : "Obtén una cotización personalizada en 24 horas"}
-    </Text>
+    </ChakraText>
   </Box>
 );
 

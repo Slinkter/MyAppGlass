@@ -5,7 +5,7 @@ import {
   Box,
   VStack,
   Heading,
-  Text,
+  Text as ChakraText,
   Icon,
   SimpleGrid,
   Container,
@@ -89,12 +89,12 @@ const BentoAbout = React.memo(({ about }: any) => {
   if (!about) return null;
   return (
     <BentoCard display="flex" flexDirection="column" justifyContent="center">
-      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb={4}>
+      <ChakraText fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb={4}>
         Concepto Técnico
-      </Text>
-      <Text fontSize={{ base: "md", md: "xl" }} lineHeight="tall" fontWeight="medium" _dark={{ color: "whiteAlpha.800" }}>
+      </ChakraText>
+      <ChakraText fontSize={{ base: "md", md: "xl" }} lineHeight="tall" fontWeight="medium" _dark={{ color: "whiteAlpha.800" }}>
         {about.description}
-      </Text>
+      </ChakraText>
     </BentoCard>
   );
 });
@@ -115,9 +115,9 @@ const BentoBenefits = React.memo(({ benefits }: any) => {
 
   return (
     <BentoCard>
-      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb={8}>
+      <ChakraText fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb={8}>
         Ventajas Estructurales
-      </Text>
+      </ChakraText>
       <m.div 
         variants={containerVariants} 
         initial="hidden" 
@@ -132,7 +132,7 @@ const BentoBenefits = React.memo(({ benefits }: any) => {
             <m.div variants={itemVariants} key={benefit.id || benefit.label}>
               <HStack align="flex-start" gap={4} bg="bg.page" _dark={{ bg: "whiteAlpha.50" }} p={5} borderRadius="xl" border="1px solid" borderColor="border.glass">
                 <Icon as={CheckCircle2} color="primary.500" mt={0.5} boxSize={5} />
-                <Text fontWeight="semibold" fontSize="sm" color="text.body" _dark={{ color: "whiteAlpha.900" }}>{benefit.label}</Text>
+                <ChakraText fontWeight="semibold" fontSize="sm" color="text.body" _dark={{ color: "whiteAlpha.900" }}>{benefit.label}</ChakraText>
               </HStack>
             </m.div>
           ))}
@@ -159,7 +159,7 @@ const BentoCTA = React.memo(({ systemName }: any) => {
     >
       <Icon as={MessageSquareText} boxSize={10} mb={6} color="primary.300" _dark={{ color: "primary.500" }} />
       <Heading size="md" mb={3} letterSpacing="tight">¿Iniciamos tu obra?</Heading>
-      <Text opacity={0.8} mb={8} fontSize="sm">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
+      <ChakraText opacity={0.8} mb={8} fontSize="sm">Asesoría técnica exclusiva para tu proyecto de {systemName}.</ChakraText>
       <Button
         asChild
         variant="outline"
