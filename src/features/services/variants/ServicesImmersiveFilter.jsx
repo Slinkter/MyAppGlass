@@ -1,14 +1,14 @@
 /**
  * @file ServicesImmersiveFilter.jsx
- * @description Option 1: Aura "Immersive Filter" - Liquid transitions and floating glass pills.
- * Focuses on fluid movement and modern interactivity.
+ * @description Aura "Immersive Filter" - Refactored with SegmentedControl from Chakra v3.
  */
 import React, { useState, useMemo } from "react";
-import { Box, HStack, Button } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "../components/ServiceCard";
 import { services } from "../data/services";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 
 const MotionItem = motion(ItemGridLayout.Item);
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
@@ -24,29 +24,23 @@ export const ServicesImmersiveFilter = () => {
   return (
     <Box py={10}>
       <HStack justify="center" mb={12} gap={4} position="sticky" top="100px" zIndex={10}>
-        <Box variant="glass" p={2} bg="rgba(255,255,255,0.6)" _dark={{ bg: "rgba(0,0,0,0.6)" }} backdropFilter="blur(15px)" borderRadius="full" shadow="xl">
-          <HStack gap={1}>
-            {CATEGORIES.map(cat => (
-              <Button
-                key={cat}
-                variant="ghost"
-                size="sm"
-                borderRadius="full"
-                px={6}
-                bg={activeCategory === cat ? "primary.900" : "transparent"}
-                color={activeCategory === cat ? "white" : "text.body"}
-                _dark={{ 
-                  bg: activeCategory === cat ? "primary.100" : "transparent",
-                  color: activeCategory === cat ? "primary.900" : "white" 
-                }}
-                _hover={{ bg: activeCategory === cat ? "primary.800" : "blackAlpha.100" }}
-                onClick={() => setActiveCategory(cat)}
-                transition="all 0.3s ease"
-              >
-                {cat}
-              </Button>
-            ))}
-          </HStack>
+        <Box 
+          variant="glass" 
+          p={1} 
+          bg="rgba(255,255,255,0.6)" 
+          _dark={{ bg: "rgba(0,0,0,0.6)" }} 
+          backdropFilter="blur(15px)" 
+          borderRadius="full" 
+          shadow="xl"
+        >
+          <SegmentedControl
+            value={activeCategory}
+            onValueChange={(e) => setActiveCategory(e.value)}
+            items={CATEGORIES}
+            variant="subtle"
+            size="sm"
+            colorPalette="primary"
+          />
         </Box>
       </HStack>
 

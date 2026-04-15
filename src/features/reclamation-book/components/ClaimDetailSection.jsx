@@ -8,6 +8,11 @@ import {
   NativeSelectField,
   NativeSelectRoot,
 } from "@/components/ui/native-select";
+import {
+  FileUploadDropzone,
+  FileUploadList,
+  FileUploadRoot,
+} from "@/components/ui/file-upload";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
@@ -15,7 +20,7 @@ import { useReclamationFormContext } from "./ReclamationFormContext";
  * @description Sección de detalle de la solicitud/reclamo
  */
 const ClaimDetailSection = () => {
-  const { formData, handleInputsChange, errors } = useReclamationFormContext();
+  const { formData, handleInputsChange, handleFileChange, errors } = useReclamationFormContext();
 
   return (
     <>
@@ -77,6 +82,24 @@ const ClaimDetailSection = () => {
           onChange={handleInputsChange}
           placeholder="Ej: Devolución del dinero, cambio del producto, etc."
         />
+      </Field>
+
+      <Field 
+        label="Adjuntar Evidencia (Opcional)"
+        helperText="Puede adjuntar fotos o documentos que sustenten su reclamo (Máx 5MB)."
+      >
+        <FileUploadRoot 
+          maxW="xl" 
+          alignItems="stretch" 
+          maxFiles={3}
+          onFileChange={handleFileChange}
+        >
+          <FileUploadDropzone
+            label="Arrastre sus archivos aquí o haga clic para buscar"
+            description=".png, .jpg, .pdf hasta 5MB"
+          />
+          <FileUploadList clearable showSize />
+        </FileUploadRoot>
       </Field>
     </>
   );

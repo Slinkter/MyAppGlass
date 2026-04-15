@@ -22,7 +22,7 @@ const FeaturesSection = React.memo(() => {
 
   return (
     <ItemGridLayout
-      title="BEYOND QUALITY"
+      title="CALIDAD SUPERIOR"
       subtitle="Innovación y precisión en cada estructura"
       seoTitle="Nuestros Beneficios - GYA Company"
       seoDescription="Descubre por qué somos los líderes en vidriería y aluminio. Calidad, garantía y puntualidad."

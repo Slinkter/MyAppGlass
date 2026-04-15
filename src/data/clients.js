@@ -20,7 +20,7 @@ export const clients = [
   {
     id: 2,
     imgClient: sectorofficesImg, // Imported image
-    nameClient: " Comercios",
+    nameClient: "Comercios",
     descClient:
       "Instalaciones de vidrio y espejos para espacios comerciales y corporativos.",
   },

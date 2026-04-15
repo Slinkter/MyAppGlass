@@ -6,7 +6,7 @@ export const containerStyle = {
   borderRadius: "16px",
 };
 
-export const center = { lat: -12.046374, lng: -77.042793 };
+export const center = { lat: -12.103252, lng: -76.942035 };
 
 export const mainStore = {
   id: "store",

@@ -11,7 +11,7 @@ import { createSystem, defineConfig, defaultConfig, defineRecipe, defineSlotReci
 
 /**
  * @recipe Button
- * Custom variants for the Aura system.
+ * Custom variants for the Aura system with Fibonacci spacing.
  */
 const buttonRecipe = defineRecipe({
   base: {
@@ -74,6 +74,21 @@ const buttonRecipe = defineRecipe({
       },
     },
     size: {
+      sm: {
+        h: "8",
+        px: "phi_sm",
+        fontSize: "xs",
+      },
+      md: {
+        h: "10",
+        px: "phi_md",
+        fontSize: "sm",
+      },
+      lg: {
+        h: "12",
+        px: "phi_lg",
+        fontSize: "md",
+      },
       xl: {
         h: "14",
         minW: "14",
@@ -84,6 +99,7 @@ const buttonRecipe = defineRecipe({
   },
   defaultVariants: {
     variant: "aura",
+    size: "md",
   },
 });
 
@@ -99,6 +115,7 @@ const inputRecipe = defineSlotRecipe({
       borderWidth: "1px",
       borderColor: "border.glass",
       borderRadius: "md",
+      px: "phi_sm",
       transition: "all 0.2s ease",
       _placeholder: { color: "text.muted" },
       _hover: { borderColor: "border.strong" },
@@ -222,6 +239,7 @@ const config = defineConfig({
           borderRadius: "card",
           backdropFilter: "blur(12px)",
           boxShadow: "sm",
+          p: "phi_md",
         },
         variants: {
           variant: {

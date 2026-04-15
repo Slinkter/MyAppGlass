@@ -20,7 +20,7 @@ const ClientsSection = React.memo(() => {
 
   return (
     <ItemGridLayout
-      title="PARTNERS"
+      title="NUESTROS ALIADOS"
       subtitle="Confianza sólida en cada estructura"
       seoTitle="Nuestros Clientes - GYA Company"
       seoDescription="Descubre por qué somos los líderes en vidriería y aluminio."

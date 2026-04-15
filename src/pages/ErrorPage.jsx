@@ -1,8 +1,7 @@
-import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file ErrorPage.jsx
- * @description Custom 404/Error page with an automatic redirect timer to the home page.
- * @module pages
+ * @description Custom 404/Error page with an automatic redirect timer.
+ * Refactored to use semantic tokens for full theme compatibility.
  */
 
 import React, { useEffect, useState } from "react";
@@ -12,18 +11,6 @@ import { useNavigate } from "react-router-dom";
 const ErrorView = () => {
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState(15);
-
-  const bgColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.25)",
-    "rgba(0, 0, 0, 0.25)",
-  );
-  const borderColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.35)",
-    "rgba(255, 255, 255, 0.15)",
-  );
-  const textColor = useColorModeValue("gray.800", "gray.100");
-  const headingColor = useColorModeValue("primary.700", "primary.300");
-  const countdownColor = useColorModeValue("primary.600", "primary.300");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -41,11 +28,11 @@ const ErrorView = () => {
   }, [navigate]);
 
   return (
-    <VStack minH="100dvh" justifyContent="center" alignItems="center" p={4}>
+    <VStack minH="100dvh" justifyContent="center" alignItems="center" p={4} bg="bg.page">
       <Box
-        bg={bgColor}
+        bg="bg.section"
         border="1px solid"
-        borderColor={borderColor}
+        borderColor="border.glass"
         boxShadow="0 4px 30px rgba(0,0,0,0.1)"
         borderRadius="2xl"
         display="flex"
@@ -54,12 +41,12 @@ const ErrorView = () => {
         justifyContent="center"
         textAlign="center"
         p={8}
-        color={textColor}
+        color="text.body"
       >
-        <Heading as="h1" size="4xl" mb={4} color={headingColor}>
+        <Heading as="h1" size="4xl" mb={4} color="text.accent">
           404
         </Heading>
-        <Heading as="h2" size="2xl" mb={4} color={headingColor}>
+        <Heading as="h2" size="2xl" mb={4} color="text.heading">
           Página no encontrada
         </Heading>
         <Text fontSize="xl" mb={6}>
@@ -67,7 +54,7 @@ const ErrorView = () => {
         </Text>
         <Text fontSize="lg">
           Serás redirigido a la página de inicio en{" "}
-          <Text as="span" fontWeight="bold" color={countdownColor}>
+          <Text as="span" fontWeight="bold" color="text.accent">
             {countdown}
           </Text>{" "}
           segundos...

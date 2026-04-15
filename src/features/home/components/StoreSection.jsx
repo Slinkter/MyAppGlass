@@ -22,7 +22,7 @@ const InteractiveMap = lazy(() => import("./InteractiveMap"));
 const StoreSection = React.memo(() => {
   return (
     <ItemGridLayout
-      title="UBICACION"
+      title="UBICACIÓN"
       subtitle="SEDE PRINCIPAL | PROYECTOS ENTREGADOS"
       seoTitle="Ubicaciones - GYA Company"
       seoDescription="Encuentra nuestra tienda principal en Lima y explora la ubicación de nuestros proyectos de vidriería y aluminio."

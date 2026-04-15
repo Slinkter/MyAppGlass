@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { 
-  Box, VStack, Heading, Text, HStack, Button, Icon, Flex, Separator, SimpleGrid
+  Box, VStack, Heading, Text, HStack, Button, Flex, Separator, SimpleGrid
  } from "@chakra-ui/react";
 import { Layers, Shield, ArrowRight } from "lucide-react";
 import Gallery from "@shared/components/common/Gallery";
