@@ -36,7 +36,8 @@ function InteractiveMapComponent() {
     setSelectedMarker((prev) => (prev?.id === marker?.id ? null : marker));
   }, []);
 
-  const currentMapStyle = colorMode === "light" ? mapStyles.light : mapStyles.dark;
+  const currentMapStyle =
+    colorMode === "light" ? mapStyles.light : mapStyles.dark;
 
   if (loadError) return <MapError />;
 
@@ -45,11 +46,7 @@ function InteractiveMapComponent() {
   }
 
   return (
-    <Box
-      w="100%"
-      h="100%"
-      position="relative"
-    >
+    <Box w="100%" h="100%" position="relative">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}

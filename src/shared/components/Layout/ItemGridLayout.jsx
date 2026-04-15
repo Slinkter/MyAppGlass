@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
  * --------------------------------------------------------------------
  * @description
  * Un layout reutilizable para mostrar colecciones de elementos.
- * Refactorizado para Aura 2.0 y Chakra v3.
+ * Refactored for a cleaner, more minimalist UI (Underline removed).
  */
 const ItemGridLayout = ({
   title,
@@ -23,7 +23,7 @@ const ItemGridLayout = ({
   seoDescription,
   seoCanonicalUrl,
   columns = { base: 1, md: 2, lg: 3 },
-  gap = "phi_lg",
+  gap = { base: "phi_md", md: "phi_lg" },
   containerProps = EMPTY_OBJ,
 }) => {
   /**
@@ -44,9 +44,14 @@ const ItemGridLayout = ({
         description={seoDescription}
         canonicalUrl={seoCanonicalUrl}
       />
-      <Container maxW="7xl" textAlign="center" mt="phi_2xl" {...containerProps}>
-        <VStack gap="phi_xl" w="full">
-          {/* Header Section */}
+      <Container 
+        maxW="7xl" 
+        textAlign="center" 
+        mt={{ base: "phi_lg", md: "phi_2xl" }}
+        {...containerProps}
+      >
+        <VStack gap={{ base: "phi_md", md: "phi_xl" }} w="full">
+          {/* Header Section - Underline Removed for a cleaner look */}
           <VStack gap="phi_xs">
             <Heading
               as="h2"
@@ -58,17 +63,6 @@ const ItemGridLayout = ({
               textTransform="uppercase"
               position="relative"
               pb="phi_xs"
-              _after={{
-                content: '""',
-                position: "absolute",
-                bottom: 0,
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "60px",
-                height: "4px",
-                bg: "text.accent",
-                borderRadius: "full"
-              }}
             >
               {title}
             </Heading>
@@ -79,7 +73,7 @@ const ItemGridLayout = ({
                 fontWeight="500"
                 maxW="3xl"
                 mx="auto"
-                mt="phi_md"
+                mt={{ base: "phi_sm", md: "phi_md" }}
                 lineHeight="tall"
               >
                 {subtitle}
@@ -92,7 +86,7 @@ const ItemGridLayout = ({
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-50px" }}
             columns={columns}
             gap={gap}
             w="full"
@@ -108,13 +102,13 @@ const ItemGridLayout = ({
 
 const ItemGridItem = ({ children, delay = 0 }) => {
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: [0.16, 1, 0.3, 1], // Custom easeOutExpo
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1], 
         delay,
       },
     },
@@ -142,7 +136,7 @@ ItemGridLayout.propTypes = {
   seoDescription: PropTypes.string.isRequired,
   seoCanonicalUrl: PropTypes.string.isRequired,
   columns: PropTypes.object,
-  spacing: PropTypes.number,
+  gap: PropTypes.any,
   containerProps: PropTypes.object,
 };
 

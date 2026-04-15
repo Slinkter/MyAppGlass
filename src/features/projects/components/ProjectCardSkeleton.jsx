@@ -3,13 +3,12 @@ import {
     Box,
     Stack,
     HStack,
-    Skeleton,
 } from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 /**
  * @component ProjectCardSkeleton
- * @description Componente de carga (Skeleton) para las tarjetas de proyecto.
- * Mantiene la misma estructura visual que ProjectCard para evitar saltos de layout.
+ * @description Componente de carga (Skeleton) para las tarjetas de proyecto migrado a Chakra v3.
  */
 const ProjectCardSkeleton = () => {
     return (
@@ -40,10 +39,7 @@ const ProjectCardSkeleton = () => {
                 backdropFilter="blur(10px)"
             >
                 <Stack gap={3} align="center">
-                    {/* Title Skeleton */}
                     <Skeleton height="24px" width="70%" />
-
-                    {/* Meta Info Skeleton */}
                     <HStack justify="center" gap={4} w="full">
                         <Skeleton height="14px" width="40%" />
                         <Skeleton height="14px" width="20%" />

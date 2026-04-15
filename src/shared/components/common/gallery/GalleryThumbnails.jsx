@@ -1,12 +1,10 @@
-import { useColorModeValue } from "@/components/ui/color-mode";
 import React, { useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import { Box, Flex, Image } from "@chakra-ui/react";
+import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar } from "@/components/ui/scroll-area";
 
 const GalleryThumbnailItem = React.memo(
-  ({ img, index, isSelected, onClick, activeBorderColor }) => {
-    const hoverBorderColor = useColorModeValue("gray.300", "whiteAlpha.400");
-
+  ({ img, index, isSelected, onClick }) => {
     return (
       <Box
         flexShrink={0}
@@ -16,7 +14,7 @@ const GalleryThumbnailItem = React.memo(
         borderRadius="lg"
         borderWidth="2px"
         borderStyle="solid"
-        borderColor={isSelected ? activeBorderColor : "transparent"}
+        borderColor={isSelected ? "text.accent" : "transparent"}
         boxShadow={isSelected ? "md" : "none"}
         onClick={onClick}
         position="relative"
@@ -24,7 +22,7 @@ const GalleryThumbnailItem = React.memo(
         role="group"
         transition="all 0.2s ease-out"
         _hover={{
-          borderColor: isSelected ? activeBorderColor : hoverBorderColor,
+          borderColor: isSelected ? "text.accent" : "border.strong",
         }}
       >
         <Image
@@ -50,7 +48,6 @@ const GalleryThumbnailItem = React.memo(
 GalleryThumbnailItem.displayName = "GalleryThumbnailItem";
 
 const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
-  const activeBorderColor = useColorModeValue("primary.500", "primary.300");
   const containerRef = React.useRef(null);
 
   const handleThumbnailClick = React.useCallback(
@@ -77,34 +74,27 @@ const GalleryThumbnails = ({ images, selectedIndex, setSelectedIndex }) => {
   }, [selectedIndex]);
 
   return (
-    <Flex
-      ref={containerRef}
-      direction={{ base: "row", md: "column" }}
-      gap={3}
-      w="100%"
-      h="100%"
-      p={0} // No padding
-      overflowX={{ base: "auto", md: "hidden" }}
-      overflowY={{ base: "hidden", md: "auto" }}
-      css={{
-        "&::-webkit-scrollbar": {
-          display: "none",
-        },
-        scrollbarWidth: "none",
-        msOverflowStyle: "none",
-      }}
-    >
-      {images.map((img, index) => (
-        <GalleryThumbnailItem
-          key={img.id}
-          img={img}
-          index={index}
-          isSelected={selectedIndex === index}
-          onClick={createClickHandler(index)}
-          activeBorderColor={activeBorderColor}
-        />
-      ))}
-    </Flex>
+    <ScrollAreaRoot h="full" w="full">
+      <ScrollAreaViewport>
+        <Flex
+          ref={containerRef}
+          direction={{ base: "row", md: "column" }}
+          gap={3}
+          p={1}
+        >
+          {images.map((img, index) => (
+            <GalleryThumbnailItem
+              key={img.id}
+              img={img}
+              index={index}
+              isSelected={selectedIndex === index}
+              onClick={createClickHandler(index)}
+            />
+          ))}
+        </Flex>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar orientation={{ base: "horizontal", md: "vertical" }} />
+    </ScrollAreaRoot>
   );
 };
 

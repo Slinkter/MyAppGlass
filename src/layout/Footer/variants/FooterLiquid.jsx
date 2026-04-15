@@ -11,7 +11,6 @@ import {
   HStack,
   Text,
   VStack,
-  Icon,
   Heading,
   Image,
   SimpleGrid,

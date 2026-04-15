@@ -19,6 +19,7 @@ const initialState = {
   pedido: "",
   aceptaTerminos: false,
   autorizaEmail: false,
+  archivos: [],
 };
 
 /**
@@ -68,6 +69,14 @@ export const useReclamoForm = () => {
     }
   };
 
+  const handleFileChange = (e) => {
+    const { acceptedFiles } = e;
+    setFormData((prev) => ({
+      ...prev,
+      archivos: acceptedFiles,
+    }));
+  };
+
   const handleModalCloseAndRedirect = () => {
     setIsOpen(false);
     navigate("/");
@@ -103,6 +112,7 @@ export const useReclamoForm = () => {
     formData,
     errors,
     handleInputsChange,
+    handleFileChange,
     handleBtnSubmit,
     modalProps: {
       isOpen,

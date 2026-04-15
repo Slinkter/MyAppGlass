@@ -1,192 +1,194 @@
 /**
  * @file MobileNav.jsx
- * @description High-performance mobile navigation with a classic hamburger menu and full-screen glass overlay.
+ * @description UX/UI Architect Edition: Ethereal & Minimalist Navigation.
+ * Refined trigger: Removed all backgrounds and borders for an ultra-clean floating look.
  */
-import React, { useState, useEffect, useCallback } from "react";
-import { Box, IconButton, VStack, Image, Text, Button, Separator, HStack } from "@chakra-ui/react";
-import { Menu, X, MessageSquareText, ShieldCheck, Landmark } from "lucide-react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useCallback, useTransition } from "react";
+import { Box, IconButton, VStack, Image, Text, Button, Separator, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Menu, X, MessageSquareText, ShieldCheck, Landmark, Home } from "lucide-react";
+import { NavLink, useLocation } from "react-router-dom";
 import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/LogoCompanytrans.png";
+import {
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerRoot,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 /**
- * @component MobileNav
- * @description Refactored for peak performance using state isolation and optimized animations.
+ * @component NavItemLarge
  */
+const NavItemLarge = ({ label, href, onClick }) => (
+  <NavLink 
+    to={href} 
+    onClick={onClick}
+    style={{ textDecoration: "none", width: "100%" }}
+  >
+    {({ isActive }) => (
+      <VStack gap={1} align="center" py={4}>
+        <Text
+          fontFamily="heading"
+          fontSize="4xl"
+          fontWeight={isActive ? "900" : "300"}
+          color={isActive ? "text.accent" : "text.body"}
+          textTransform="uppercase"
+          letterSpacing="0.2em"
+          transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+          _hover={{ letterSpacing: "0.25em", color: "text.accent" }}
+        >
+          {label}
+        </Text>
+        <m.div 
+          initial={false}
+          animate={{ width: isActive ? "40px" : "0" }} 
+          style={{ height: "2px", backgroundColor: "var(--chakra-colors-text-accent)" }} 
+        />
+      </VStack>
+    )}
+  </NavLink>
+);
+
+/**
+ * @component UtilityLink
+ */
+const UtilityLink = ({ label, href, icon: Icon, onClick, isImage }) => (
+  <NavLink to={href} onClick={onClick} style={{ textDecoration: "none" }}>
+    <HStack gap={2} color="text.muted" _hover={{ color: "text.accent" }} transition="color 0.2s">
+      {isImage ? (
+        <Image src={Icon} alt={label} boxSize={4} _dark={{ filter: "brightness(0) invert(1)" }} opacity={0.6} />
+      ) : (
+        <Icon size={16} />
+      )}
+      <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" letterSpacing="widest">
+        {label}
+      </Text>
+    </HStack>
+  </NavLink>
+);
+
 const MobileNav = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const location = useLocation();
-
-  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "unset";
-    return () => { document.body.style.overflow = "unset"; };
-  }, [isOpen]);
-
   const handleWhatsAppClick = useCallback(() => {
-    const phoneNumber = "51974278303";
-    const message = encodeURIComponent("Hola, quisiera solicitar información sobre sus servicios.");
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    window.open(`https://wa.me/51974278303?text=${encodeURIComponent("Hola, quisiera información.")}`, "_blank");
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
-    exit: { opacity: 0, transition: { duration: 0.2 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 400, damping: 30 } },
-  };
+  const handleLinkClick = useCallback(() => {
+    startTransition(() => setIsOpen(false));
+  }, []);
 
   return (
-    <>
-      {/* FLOATING HAMBURGER MENU */}
-      <Box position="fixed" top={4} right={4} zIndex={1100} display={{ base: "block", md: "none" }}>
-        {/* v3: icon → children, no isRounded prop */}
-        <IconButton
-          as={m.button}
-          whileTap={{ scale: 0.9 }}
-          variant="solid"
-          bg={isOpen ? "transparent" : "blackAlpha.500"}
-          _dark={{ bg: isOpen ? "transparent" : "whiteAlpha.200" }}
-          backdropFilter={isOpen ? "none" : "blur(10px)"}
-          onClick={toggleMenu}
-          aria-label="Toggle Navigation"
-          color="white"
-          borderRadius="full"
-          size="lg"
-          _hover={{ bg: isOpen ? "transparent" : "blackAlpha.700" }}
-          _active={{ bg: isOpen ? "transparent" : "blackAlpha.800" }}
-          boxShadow={isOpen ? "none" : "xl"}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </IconButton>
+    <DrawerRoot 
+      open={isOpen} 
+      onOpenChange={(e) => setIsOpen(e.open)} 
+      size="full"
+      placement="top"
+    >
+      {/* ULTRA-CLEAN FLOATING TRIGGER (NO BACKGROUND) */}
+      <Box position="fixed" top="phi_md" right="phi_md" zIndex={1100} display={{ base: "block", md: "none" }}>
+        <DrawerTrigger asChild>
+          <IconButton
+            variant="plain" // Totally transparent, no borders or background
+            aria-label="Menú"
+            color={isOpen ? "text.accent" : "text.heading"}
+            _dark={{ color: isOpen ? "text.accent" : "white" }}
+            size="xl"
+            _hover={{ transform: "scale(1.1)" }}
+            _active={{ transform: "scale(0.9)" }}
+            transition="all 0.3s ease"
+          >
+            <m.div
+              initial={false}
+              animate={{ rotate: isOpen ? 90 : 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            >
+              {isOpen ? <X size={28} strokeWidth={1.5} /> : <Menu size={28} strokeWidth={1.5} />}
+            </m.div>
+          </IconButton>
+        </DrawerTrigger>
       </Box>
 
-      {/* FULL SCREEN MENU OVERLAY */}
-      <AnimatePresence>
-        {isOpen && (
-          <Box
-            as={m.div}
-            position="fixed" top={0} left={0} right={0} bottom={0}
-            h="100dvh" w="100vw" zIndex={1050}
-            bg="primary.900" _dark={{ bg: "black" }}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            display="flex" flexDirection="column"
-            justifyContent="center" alignItems="center" px={6}
-          >
-            <VStack
-              as={m.div}
-              variants={containerVariants}
-              initial="hidden" animate="show" exit="exit"
-              gap={8} w="full"
-            >
-              {/* PRIMARY LINKS */}
-              <VStack gap={6}>
-                {NAV_ITEMS.map((navItem) => {
-                  const isActive = location.pathname === navItem.href;
-                  return (
-                    <Box as={m.div} variants={itemVariants} key={navItem.label}>
-                      <RouterLink to={navItem.href ?? "#"} style={{ textDecoration: "none" }}>
-                        <Text
-                          fontFamily="heading" fontSize="3xl"
-                          fontWeight={isActive ? "900" : "500"}
-                          color={isActive ? "primary.300" : "whiteAlpha.800"}
-                          textTransform="uppercase" letterSpacing="widest"
-                          position="relative"
-                          _after={{
-                            content: '""', position: "absolute",
-                            bottom: "-4px", left: "50%",
-                            transform: "translateX(-50%)",
-                            width: isActive ? "40px" : "0", height: "2px",
-                            bg: "primary.300", transition: "width 0.3s ease",
-                          }}
-                        >
-                          {navItem.label}
-                        </Text>
-                      </RouterLink>
-                    </Box>
-                  );
-                })}
-              </VStack>
-
-              <Box as={m.div} variants={itemVariants} w="full">
-                <Separator borderColor="whiteAlpha.200" w="full" my={2} />
-              </Box>
-
-              {/* SECONDARY LINKS */}
-              <VStack gap={5} w="full" align="center">
-                <Box as={m.div} variants={itemVariants}>
-                  <RouterLink to="/politicas-empresa" style={{ textDecoration: "none" }}>
-                    <HStack gap={3} color="whiteAlpha.700">
-                      <ShieldCheck size={18} />
-                      <Text fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="widest">Políticas</Text>
-                    </HStack>
-                  </RouterLink>
-                </Box>
-
-                <Box as={m.div} variants={itemVariants}>
-                  <RouterLink to="/cuentas-bancarias" style={{ textDecoration: "none" }}>
-                    <HStack gap={3} color="whiteAlpha.700">
-                      <Landmark size={18} />
-                      <Text fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="widest">Cuentas Bancarias</Text>
-                    </HStack>
-                  </RouterLink>
-                </Box>
-
-                <Box as={m.div} variants={itemVariants}>
-                  <RouterLink to="/libro-de-reclamacion" style={{ textDecoration: "none" }}>
-                    <HStack gap={3} color="whiteAlpha.700">
-                      <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={5} filter="brightness(0) invert(1)" opacity={0.7} />
-                      <Text fontSize="sm" fontWeight="600" textTransform="uppercase" letterSpacing="widest">Reclamaciones</Text>
-                    </HStack>
-                  </RouterLink>
-                </Box>
-              </VStack>
-
-              {/* CTA WHATSAPP — v3: leftIcon → children */}
-              <Box as={m.div} variants={itemVariants} w="full" pt={6}>
-                <Button
-                  onClick={handleWhatsAppClick}
-                  w="full" variant="outline" size="lg" color="white"
-                  borderColor="whiteAlpha.400"
-                  _hover={{ bg: "white", color: "primary.900" }}
-                  textTransform="uppercase" letterSpacing="widest"
-                  fontSize="xs" borderRadius="full"
+      <DrawerBackdrop backdropFilter="blur(12px)" />
+      
+      <DrawerContent bg="bg.page" p={0}>
+        <DrawerBody display="flex" flexDirection="column" h="full" px="phi_lg" py="phi_xl">
+          
+          <VStack flex="1" justify="center" gap="phi_lg" opacity={isPending ? 0.6 : 1} transition="opacity 0.3s">
+            <AnimatePresence>
+              {NAV_ITEMS.map((item, index) => (
+                <m.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  style={{ width: "100%" }}
                 >
-                  <MessageSquareText size={20} />
-                  Contactar Asesor
-                </Button>
-              </Box>
-            </VStack>
-
-            <Box
-              as={m.div}
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              position="absolute" bottom={10}
+                  <NavItemLarge 
+                    label={item.label} 
+                    href={item.href} 
+                    onClick={handleLinkClick} 
+                  />
+                </m.div>
+              ))}
+            </AnimatePresence>
+            
+            <Button
+              onClick={handleWhatsAppClick}
+              variant="outline"
+              colorPalette="primary"
+              borderRadius="full"
+              size="lg"
+              mt="phi_lg"
+              px="phi_xl"
+              textTransform="uppercase"
+              letterSpacing="0.2em"
+              fontSize="xs"
+              fontWeight="black"
+              borderColor="border.strong"
+              _hover={{ borderColor: "text.accent", bg: "bg.subtle" }}
             >
-              <Image src={logoGYA} alt="GYA" h="30px" filter="brightness(0) invert(1)" opacity={0.5} />
+              <MessageSquareText size={18} /> ASESORÍA EN VIVO
+            </Button>
+          </VStack>
+
+          <VStack gap="phi_md" w="full" mt="auto" pt="phi_lg">
+            <Separator borderColor="border.glass" opacity={0.5} />
+            
+            <SimpleGrid columns={2} gapY="phi_md" gapX={8} w="full" px="phi_md">
+              <UtilityLink label="Políticas" href="/politicas-empresa" icon={ShieldCheck} onClick={handleLinkClick} />
+              <UtilityLink label="Cuentas" href="/cuentas-bancarias" icon={Landmark} onClick={handleLinkClick} />
+              <UtilityLink 
+                label="Libro" 
+                href="/libro-de-reclamacion" 
+                icon={LibroReclamacionesIcon} 
+                onClick={handleLinkClick} 
+                isImage 
+              />
+              <UtilityLink label="Inicio" href="/" icon={Home} onClick={handleLinkClick} />
+            </SimpleGrid>
+
+            <Box pt="phi_md">
+              <Image src={logoGYA} alt="GYA" h="24px" _dark={{ filter: "brightness(0) invert(1)" }} opacity={0.3} />
             </Box>
-          </Box>
-        )}
-      </AnimatePresence>
-    </>
+          </VStack>
+
+        </DrawerBody>
+        <DrawerCloseTrigger top="phi_md" right="phi_md" color="text.accent" visibility="hidden" />
+      </DrawerContent>
+    </DrawerRoot>
   );
 });
 
 MobileNav.displayName = "MobileNav";
-
 export default MobileNav;

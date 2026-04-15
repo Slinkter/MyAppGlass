@@ -1,9 +1,7 @@
-import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file BankAccountsPage.jsx
  * @description Informational page displaying company fiscal data and bank account details for payments.
- * @module pages
- * Migrated to Chakra UI v3: useToast→toaster snippet, Card→Box, CardBody→Box, isRound→borderRadius, icon→children
+ * Refactored to use semantic tokens for full theme compatibility.
  */
 
 import React from "react";
@@ -35,7 +33,6 @@ const CopyButton = ({ value, label }) => {
 
   return (
     <Tooltip content={`Copiar ${label}`}>
-      {/* v3: icon → children, isRound → borderRadius="full" */}
       <IconButton
         size="sm"
         aria-label={`Copiar ${label}`}
@@ -51,18 +48,14 @@ const CopyButton = ({ value, label }) => {
 };
 
 const InfoItem = ({ icon, label, value, copyable = false }) => {
-  const bg = useColorModeValue("white", "gray.800");
-  const borderColor = useColorModeValue("gray.100", "gray.600");
-  const iconColor = useColorModeValue("primary.500", "primary.300");
-
   return (
     <HStack
-      bg={bg}
+      bg="bg.section"
       p={4}
       h={{ base: "120px", md: "100px" }}
       borderRadius="xl"
       borderWidth="1px"
-      borderColor={borderColor}
+      borderColor="border.default"
       boxShadow="sm"
       gap={4}
       align="center"
@@ -72,16 +65,16 @@ const InfoItem = ({ icon, label, value, copyable = false }) => {
       <Flex
         align="center" justify="center"
         w={10} h={10} borderRadius="full"
-        bg={useColorModeValue("primary.50", "whiteAlpha.200")}
-        color={iconColor} flexShrink={0}
+        bg="bg.subtle"
+        color="text.accent" flexShrink={0}
       >
         <Box as={icon} boxSize={5} />
       </Flex>
       <Box flex="1">
-        <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" color="gray.500" letterSpacing="wider">
+        <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" color="text.muted" letterSpacing="wider">
           {label}
         </Text>
-        <Text fontSize="md" fontWeight="medium" color={useColorModeValue("gray.800", "white")}>
+        <Text fontSize="md" fontWeight="medium" color="text.heading">
           {value}
         </Text>
       </Box>
@@ -92,19 +85,15 @@ const InfoItem = ({ icon, label, value, copyable = false }) => {
 
 /** v3: Card/CardBody → Box with manual styling */
 const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray.50" }) => {
-  const cardBg = useColorModeValue("white", "gray.800");
-  const borderColor = useColorModeValue("gray.200", "gray.600");
-  const dividerColor = useColorModeValue("gray.100", "gray.600");
-
   return (
     <Box
       h={{ base: "auto", md: "245px" }}
       display="flex"
       flexDirection={{ base: "column", md: "row" }}
       overflow="hidden"
-      bg={cardBg}
+      bg="bg.section"
       borderWidth="1px"
-      borderColor={borderColor}
+      borderColor="border.default"
       borderRadius="2xl"
       boxShadow="md"
       transition="all 0.3s"
@@ -112,12 +101,13 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
     >
       <Flex
         align="center" justify="center"
-        bg={useColorModeValue(logoBg, "whiteAlpha.900")}
+        bg={logoBg}
+        _dark={{ bg: "whiteAlpha.900" }}
         p={6}
         minW={{ md: "220px" }} maxW={{ md: "240px" }}
         borderRightWidth={{ md: "1px" }}
         borderBottomWidth={{ base: "1px", md: "0" }}
-        borderColor={borderColor}
+        borderColor="border.default"
       >
         <Image
           objectFit="contain" w="full" h="auto" maxH="60px"
@@ -130,26 +120,26 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
           <Box>
             <Text
               fontSize="sm" fontWeight="bold"
-              color={useColorModeValue("primary.600", "primary.300")}
+              color="text.accent"
               textTransform="uppercase" letterSpacing="wide" mb={1}
             >
               {bankName}
             </Text>
-            <Heading size="md" fontWeight="bold">{accountType}</Heading>
+            <Heading size="md" fontWeight="bold" color="text.heading">{accountType}</Heading>
           </Box>
 
           <Stack gap={3}>
             {accounts.map((acc, idx) => (
               <React.Fragment key={idx}>
                 {idx > 0 && (
-                  <Box borderBottomWidth="1px" borderColor={dividerColor} />
+                  <Box borderBottomWidth="1px" borderColor="border.default" />
                 )}
                 <Flex justify="space-between" align="center" wrap="wrap" gap={2}>
                   <Box>
-                    <Text fontSize="xs" color="gray.500" fontWeight="bold">{acc.label}</Text>
-                    <Text fontFamily="mono" fontSize="md" fontWeight="medium">{acc.value}</Text>
+                    <Text fontSize="xs" color="text.muted" fontWeight="bold">{acc.label}</Text>
+                    <Text fontFamily="mono" fontSize="md" fontWeight="medium" color="text.body">{acc.value}</Text>
                     {acc.note && (
-                      <Text fontSize="xs" color="state.warning" fontStyle="italic" mt={0.5}>
+                      <Text fontSize="xs" color="orange.500" fontStyle="italic" mt={0.5}>
                         {acc.note}
                       </Text>
                     )}
@@ -166,9 +156,6 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
 };
 
 const BankAccountsPage = () => {
-  const textColor = useColorModeValue("gray.600", "gray.300");
-  const headingColor = useColorModeValue("primary.700", "primary.300");
-
   const fiscalData = [
     { icon: Building, label: "Razón Social", value: companyData.razonSocial, copyable: true },
     { icon: Contact, label: "R.U.C", value: companyData.ruc, copyable: true },
@@ -189,14 +176,14 @@ const BankAccountsPage = () => {
           <Box textAlign={{ base: "left", md: "center" }} maxW="4xl" mx="auto">
             <Heading
               as="h1" size={{ base: "xl", md: "2xl" }}
-              color={headingColor} mb={4} lineHeight="shorter"
+              color="text.heading" mb={4} lineHeight="shorter"
             >
               Cuentas Bancarias y <br />
-              <Text as="span" color={useColorModeValue("gray.800", "white")}>
+              <Text as="span" color="text.accent">
                 Datos de Facturación
               </Text>
             </Heading>
-            <Text fontSize={{ base: "md", md: "lg" }} color={textColor}>
+            <Text fontSize={{ base: "md", md: "lg" }} color="text.body">
               Facilitamos sus transacciones con información clara y accesible.
               Encuentre a continuación nuestros datos fiscales y bancarios para
               gestionar sus pagos con seguridad y confianza.
@@ -204,7 +191,7 @@ const BankAccountsPage = () => {
           </Box>
 
           <Box>
-            <Heading as="h2" size="lg" mb={6} color={useColorModeValue("gray.700", "white")}>
+            <Heading as="h2" size="lg" mb={6} color="text.heading">
               Identificación Fiscal
             </Heading>
             <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
@@ -215,7 +202,7 @@ const BankAccountsPage = () => {
           </Box>
 
           <Box>
-            <Heading as="h2" size="lg" mb={6} color={useColorModeValue("gray.700", "white")}>
+            <Heading as="h2" size="lg" mb={6} color="text.heading">
               Cuentas Bancarias
             </Heading>
             <Stack gap={6}>
@@ -226,12 +213,12 @@ const BankAccountsPage = () => {
           </Box>
 
           <Box
-            bg={useColorModeValue("primary.50", "whiteAlpha.100")}
+            bg="bg.subtle"
             p={6} borderRadius="xl" textAlign="center"
           >
-            <Text fontSize="md" color={textColor}>
+            <Text fontSize="md" color="text.body">
               ¿Necesita confirmar un pago o requiere asistencia adicional?
-              <Text as="span" display="block" mt={1} fontWeight="bold" color={headingColor}>
+              <Text as="span" display="block" mt={1} fontWeight="bold" color="text.accent">
                 Contáctenos en: {companyData.contactEmail}
               </Text>
             </Text>

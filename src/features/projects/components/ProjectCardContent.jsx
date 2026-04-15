@@ -1,7 +1,7 @@
 /**
  * @file ProjectCardContent.jsx
  * @description Refactored project card content to match the unified design of ClientCard and ServiceCard.
- * Features a full-body image, dark overlay, and bottom-centered text for visual coherence.
+ * Updated to Chakra v3 with semantic tokens and optimized Skeleton.
  */
 
 import React, { useState } from "react";
@@ -13,11 +13,11 @@ import {
   HStack,
   LinkBox,
   LinkOverlay,
-  Skeleton,
   Button,
   VStack,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { MapPin } from "lucide-react";
 
@@ -86,7 +86,7 @@ const ProjectCardContent = React.memo(
             >
               <Heading
                 as="h3"
-                color={isHovered ? "primary.300" : "white"}
+                color={isHovered ? "text.accent" : "white"}
                 fontSize={{ base: "md", md: "xl" }}
                 fontWeight="600"
                 textTransform="uppercase"
@@ -103,7 +103,7 @@ const ProjectCardContent = React.memo(
                   transform: "translateX(-50%)",
                   width: isLoaded ? "40px" : "0",
                   height: "2px",
-                  bg: isHovered ? "primary.300" : "white",
+                  bg: isHovered ? "text.accent" : "white",
                   transition: "width 0.4s ease, background 0.3s ease",
                 }}
               >
@@ -131,7 +131,7 @@ const ProjectCardContent = React.memo(
               >
                 <HStack justify="center" gap={3} w="full">
                   <HStack gap={1}>
-                    <Box as={MapPin} w={3.5} h={3.5} color="primary.300" />
+                    <Box as={MapPin} w={3.5} h={3.5} color="text.accent" />
                     <Text
                       fontSize="xs"
                       color="whiteAlpha.900"

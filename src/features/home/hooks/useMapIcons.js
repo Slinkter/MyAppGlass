@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Building2 } from "lucide-react";
-import logo from "@/assets/branding/logovcr.png";
+import logo from "@/assets/branding/LogoCompanytrans.png";
 
 export const useMapIcons = (isLoaded, google) => {
   return useMemo(() => {
@@ -9,7 +9,7 @@ export const useMapIcons = (isLoaded, google) => {
       store: {
         iconContent: logo,
         isSvg: false,
-        size: { width: 50, height: 50 },
+        size: { width: 60, height: 60 },
       },
       project: {
         iconContent: Building2,

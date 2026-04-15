@@ -1,42 +1,36 @@
-import { useColorModeValue } from "@/components/ui/color-mode";
 /**
  * @file LoadingFallback.jsx
- * @description Simple loading indicator used as a fallback for `Suspense` boundaries.
- * @module shared/common
+ * @description Smooth glass loading state for global route transitions.
+ * Refactored to use semantic tokens.
  */
 
 import React from "react";
-import { Flex, Spinner, Box } from "@chakra-ui/react";
+import { Box, Spinner, Center } from "@chakra-ui/react";
 
-/**
- * @component LoadingFallback
- * @description Premium Aura Loader with Glassmorphism to mask component mounting latency.
- */
-const LoadingFallback = () => {
-  const bgColor = useColorModeValue("white", "primary.900");
-  
-  return (
-    <Flex 
-      position="fixed"
-      inset={0}
-      w="full" 
-      h="100dvh" 
-      justifyContent="center" 
+const LoadingFallback = () => (
+  <Center h="100dvh" w="100vw" bg="bg.page">
+    <Box
+      p={8}
+      bg="bg.section"
+      borderRadius="2xl"
+      borderWidth="1px"
+      borderColor="border.glass"
+      boxShadow="xl"
+      backdropFilter="blur(10px)"
+      display="flex"
+      flexDirection="column"
       alignItems="center"
-      zIndex="popover"
-      bg={bgColor}
+      gap={4}
     >
-      <Box textAlign="center">
-        <Spinner 
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="accent.solid"
-          size="xl" 
-        />
-      </Box>
-    </Flex>
-  );
-};
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="bg.subtle"
+        color="text.accent"
+        size="xl"
+      />
+    </Box>
+  </Center>
+);
 
 export default LoadingFallback;

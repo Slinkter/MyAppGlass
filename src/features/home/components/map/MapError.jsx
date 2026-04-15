@@ -1,29 +1,32 @@
-import { useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
-import { Flex, VStack, Icon, Text } from "@chakra-ui/react";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { Box, VStack } from "@chakra-ui/react";
+import { Alert } from "@/components/ui/alert";
 
-const MapError = () => {
-  const errorBgColor = useColorModeValue("gray.50", "gray.900");
-
+/**
+ * @component MapError
+ * @description Muestra un mensaje de error elegante cuando el mapa no puede cargar.
+ */
+const MapError = ({ message }) => {
   return (
-    <Flex
-      h="400px"
-      align="center"
-      justify="center"
-      bg={errorBgColor}
-      borderRadius="2xl"
+    <Box
+      w="full"
+      h="full"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bg="bg.subtle"
+      p={8}
     >
-      <VStack spacing={3}>
-        <Icon as={FaMapMarkerAlt} boxSize={8} color="red.400" />
-        <Text color="red.500" fontWeight="bold">
-          Error cargando el mapa
-        </Text>
-        <Text fontSize="sm" color="gray.500">
-          Verifique su conexión o clave API
-        </Text>
+      <VStack gap={3}>
+        <Alert
+          status="error"
+          title="Error al cargar el mapa"
+          maxW="md"
+        >
+          {message || "No se pudo establecer conexión con Google Maps."}
+        </Alert>
       </VStack>
-    </Flex>
+    </Box>
   );
 };
 
