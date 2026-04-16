@@ -1,19 +1,18 @@
 /**
  * @file AuraSkeleton.jsx
- * @description Premium skeleton loader with Aura Glassmorphism and pulsating animations.
+ * @description Premium high-fidelity skeleton loaders that mirror the exact physical structure of Aura components.
  */
 import React from "react";
-import { Skeleton, SkeletonCircle, VStack, HStack, Stack, SimpleGrid } from "@chakra-ui/react";
+import { Skeleton, VStack, HStack, Box, SimpleGrid, AspectRatio } from "@chakra-ui/react";
 import AuraSurface from "./AuraSurface";
 
 /**
  * @component AuraSkeleton
- * @description Base primitive for Aura loading states.
+ * @description Base pulsating primitive.
  */
-const AuraSkeleton = ({ variant = "default", ...props }) => {
+const AuraSkeleton = ({ ...props }) => {
   return (
     <Skeleton
-      variant={variant}
       borderRadius="phi"
       startColor="bg.subtle"
       endColor="border.glass"
@@ -23,30 +22,87 @@ const AuraSkeleton = ({ variant = "default", ...props }) => {
 };
 
 /**
- * @component CardSkeleton
- * @description Specialized skeleton for bank accounts and service cards.
+ * @component AuraHeaderSkeleton
+ * @description Mirrors the hybrid immersive header exactly.
  */
-export const CardSkeleton = ({ hasIcon = true }) => (
-  <AuraSurface p="phi_md" w="full" h="120px">
-    <HStack gap="phi_md" h="full" align="center">
-      {hasIcon && <SkeletonCircle size="12" startColor="bg.subtle" endColor="border.glass" />}
-      <VStack align="flex-start" flex="1" gap="phi_xs">
+export const AuraHeaderSkeleton = ({ centered = true }) => (
+  <VStack w="full" gap="phi_lg" pt={{ base: 4, md: 8 }} pb="phi_xl">
+    {/* Navigation Row (Left-anchored) */}
+    <HStack w="full" justify="flex-start" gap="phi_md">
+      <AuraSkeleton h="40px" w="120px" borderRadius="full" />
+      <AuraSkeleton h="12px" w="80px" />
+    </HStack>
+    
+    {/* Title Row (Centered) */}
+    <VStack w="full" align={centered ? "center" : "flex-start"} gap="phi_sm">
+      <AuraSkeleton h={{ base: "32px", md: "48px" }} w={{ base: "80%", md: "500px" }} />
+      <AuraSkeleton h="40px" w="160px" borderRadius="full" />
+    </VStack>
+  </VStack>
+);
+
+/**
+ * @component ProjectCardSkeleton
+ * @description Mirrors the vertical ProjectCard structure with image and text overlay.
+ */
+export const ProjectCardSkeleton = () => (
+  <Box
+    h={{ base: "320px", md: "500px" }}
+    w="full"
+    borderRadius="xl"
+    overflow="hidden"
+    position="relative"
+    bg="bg.section"
+    _dark={{ bg: "whiteAlpha.50" }}
+  >
+    <AuraSkeleton h="full" w="full" />
+    <Box position="absolute" bottom="phi_lg" left="50%" transform="translateX(-50%)" w="full" px="phi_lg">
+      <VStack gap="phi_sm" w="full">
+        <AuraSkeleton h="24px" w="60%" />
         <AuraSkeleton h="12px" w="40%" />
-        <AuraSkeleton h="20px" w="80%" />
+        <AuraSkeleton h="36px" w="140px" borderRadius="full" mt={4} />
+      </VStack>
+    </Box>
+  </Box>
+);
+
+/**
+ * @component ServiceCardSkeleton
+ * @description Mirrors the horizontal ServiceCard structure.
+ */
+export const ServiceCardSkeleton = () => (
+  <AuraSurface p="phi_md" h="140px">
+    <HStack gap="phi_md" h="full" align="center">
+      <AuraSkeleton boxSize="80px" borderRadius="xl" />
+      <VStack align="flex-start" flex="1" gap="phi_xs">
+        <AuraSkeleton h="18px" w="70%" />
+        <AuraSkeleton h="12px" w="90%" />
+        <AuraSkeleton h="12px" w="50%" />
       </VStack>
     </HStack>
   </AuraSurface>
 );
 
 /**
- * @component SectionHeaderSkeleton
+ * @component BentoGridSkeleton
+ * @description Replicates the Bento layout found in details pages.
  */
-export const SectionHeaderSkeleton = () => (
-  <VStack align="flex-start" gap="phi_md" py="phi_lg">
-    <AuraSkeleton h="14px" w="100px" />
-    <AuraSkeleton h="40px" w={{ base: "full", md: "400px" }} />
-    <AuraSkeleton h="16px" w={{ base: "full", md: "600px" }} />
-  </VStack>
+export const BentoGridSkeleton = () => (
+  <SimpleGrid columns={{ base: 1, lg: 3 }} gap="phi_lg" w="full">
+    <AuraSkeleton h="380px" borderRadius="3xl" colSpan={{ base: 1, lg: 2 }} />
+    <AuraSkeleton h="380px" borderRadius="3xl" />
+    <AuraSkeleton h="200px" borderRadius="3xl" colSpan={{ base: 1, lg: 3 }} />
+  </SimpleGrid>
+);
+
+/**
+ * @component GallerySkeleton
+ * @description Large viewer skeleton.
+ */
+export const GallerySkeleton = () => (
+  <AspectRatio ratio={{ base: 4/3, md: 16/9 }} w="full">
+    <AuraSkeleton borderRadius="3xl" />
+  </AspectRatio>
 );
 
 /**
@@ -55,9 +111,9 @@ export const SectionHeaderSkeleton = () => (
  */
 export const BannerSkeleton = () => (
   <AuraSurface p="phi_lg" w="full">
-    <Stack direction={{ base: "column", md: "row" }} gap="phi_lg" align="center">
+    <VStack direction={{ base: "column", md: "row" }} gap="phi_lg" align="center">
       <AuraSkeleton w={{ base: "full", md: "280px" }} h="280px" borderRadius="2xl" />
-      <VStack align="flex-start" flex="1" gap="phi_md">
+      <VStack align="flex-start" flex="1" gap="phi_md" w="full">
         <HStack gap="phi_sm">
           <AuraSkeleton h="24px" w="60px" borderRadius="full" />
           <AuraSkeleton h="24px" w="60px" borderRadius="full" />
@@ -67,19 +123,8 @@ export const BannerSkeleton = () => (
         <AuraSkeleton h="16px" w="80%" />
         <AuraSkeleton h="60px" w="full" borderRadius="xl" />
       </VStack>
-    </Stack>
+    </VStack>
   </AuraSurface>
-);
-
-/**
- * @component SectionSkeleton
- * @description Flexible container for large feature blocks.
- */
-export const SectionSkeleton = ({ h = "500px" }) => (
-  <VStack gap="phi_md" w="full" py="phi_xl">
-    <AuraSkeleton h="32px" w="200px" />
-    <AuraSkeleton h={h} w="full" borderRadius="3xl" />
-  </VStack>
 );
 
 /**
@@ -88,9 +133,59 @@ export const SectionSkeleton = ({ h = "500px" }) => (
 export const GridSkeleton = ({ columns = { base: 1, md: 2 }, count = 4, gap = "phi_md" }) => (
   <SimpleGrid columns={columns} gap={gap} w="full">
     {Array.from({ length: count }).map((_, i) => (
-      <CardSkeleton key={i} />
+      <ServiceCardSkeleton key={i} />
     ))}
   </SimpleGrid>
 );
 
+export const SectionSkeleton = ({ h = "400px" }) => (
+  <VStack w="full" gap="phi_lg" py="phi_xl">
+    <AuraSkeleton h="32px" w="200px" />
+    <AuraSkeleton h={h} w="full" borderRadius="3xl" />
+  </VStack>
+);
+
+/**
+ * @component ProjectPageSkeleton
+ * @description Full silhouette for the portfolio page.
+ */
+export const ProjectPageSkeleton = () => (
+  <VStack w="full" gap="phi_lg" p={{ base: "phi_md", md: "phi_xl" }}>
+    <AuraHeaderSkeleton centered={false} />
+    <HStack gap={4} justify="center" w="full" flexWrap="wrap">
+      <AuraSkeleton h="36px" w="80px" borderRadius="full" />
+      <AuraSkeleton h="36px" w="60px" borderRadius="full" />
+      <AuraSkeleton h="36px" w="60px" borderRadius="full" />
+      <AuraSkeleton h="36px" w="60px" borderRadius="full" />
+    </HStack>
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="phi_lg" w="full">
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+    </SimpleGrid>
+  </VStack>
+);
+
+/**
+ * @component ServicePageSkeleton
+ * @description Full silhouette for the services catalog.
+ */
+export const ServicePageSkeleton = () => (
+  <VStack w="full" gap="phi_lg" p={{ base: "phi_md", md: "phi_xl" }}>
+    <AuraHeaderSkeleton centered={false} />
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="phi_lg" w="full">
+      <ServiceCardSkeleton />
+      <ServiceCardSkeleton />
+      <ServiceCardSkeleton />
+      <ServiceCardSkeleton />
+      <ServiceCardSkeleton />
+      <ServiceCardSkeleton />
+    </SimpleGrid>
+  </VStack>
+);
+
 export default AuraSkeleton;
+

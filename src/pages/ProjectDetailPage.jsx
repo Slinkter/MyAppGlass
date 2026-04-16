@@ -64,7 +64,7 @@ const ViewSelector = React.memo(({ activeMode, onSelect }) => {
 
 ViewSelector.displayName = "ViewSelector";
 
-import AuraSkeleton, { SectionHeaderSkeleton } from "@shared/components/aura/AuraSkeleton";
+import AuraSkeleton, { AuraHeaderSkeleton, GallerySkeleton } from "@shared/components/aura/AuraSkeleton";
 
 /**
  * @page ProjectDetailPage
@@ -93,10 +93,10 @@ const ProjectDetailPage = () => {
   if (isLoading) {
     return (
       <AuraContainer>
-        <VStack gap="phi_lg" align="stretch">
-           <SectionHeaderSkeleton />
-           <AuraSkeleton h={{ base: "420px", md: "700px" }} borderRadius="3xl" />
-           <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap="phi_md">
+        <VStack gap="phi_lg" align="stretch" w="full">
+           <AuraHeaderSkeleton centered={true} />
+           <GallerySkeleton />
+           <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap="phi_md" w="full">
              <AuraSkeleton h="80px" borderRadius="xl" />
              <AuraSkeleton h="80px" borderRadius="xl" />
              <AuraSkeleton h="80px" borderRadius="xl" />

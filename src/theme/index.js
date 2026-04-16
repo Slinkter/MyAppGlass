@@ -143,6 +143,16 @@ const inputRecipe = defineSlotRecipe({
 
 const config = defineConfig({
   cssVarsRoot: ":where(:root, :host)",
+  globalCss: {
+    "html, body": {
+      margin: 0,
+      padding: 0,
+      bg: "bg.page",
+      color: "text.body",
+      transitionProperty: "background-color",
+      transitionDuration: "normal",
+    },
+  },
   conditions: {
     light: "[data-theme=light] &",
     dark: "[data-theme=dark] &",

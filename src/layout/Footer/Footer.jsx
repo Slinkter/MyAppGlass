@@ -144,15 +144,24 @@ const Footer = () => {
 
                     <Separator borderColor="border.glass" mb="phi_md" />
 
-                    <Flex direction="column" align="center" gap="phi_sm">
-                        <Image src={logoGYA.src || logoGYA} alt="Logo" h="36px" mb="phi_xs" />
+                    <Flex direction="column" align="center" gap="phi_sm" pt="phi_md" w="full">
+                        <Image 
+                            src={logoGYA.src || logoGYA} 
+                            alt="Logo GYA" 
+                            h="34px" 
+                            mb="phi_xs" 
+                            opacity={0.8}
+                            _dark={{ filter: "brightness(0) invert(1)" }}
+                        />
                         <Text 
                             fontSize="9px" 
                             color="text.muted" 
-                            fontWeight="700" 
+                            fontWeight="800" 
                             letterSpacing="0.4em"
                             textTransform="uppercase"
                             textAlign="center"
+                            maxW="280px"
+                            lineHeight="1.8"
                         >
                             © {new Date().getFullYear()} GYA GLASS & ALUMINUM S.A.C.
                         </Text>
