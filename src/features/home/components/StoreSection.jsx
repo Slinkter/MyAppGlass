@@ -17,7 +17,7 @@ import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
 import AuraSurface from "@/shared/components/aura/AuraSurface";
-import AuraSkeleton, { CardSkeleton } from "@/shared/components/aura/AuraSkeleton";
+import AuraSkeleton, { ServiceCardSkeleton } from "@/shared/components/aura/AuraSkeleton";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
 const InteractiveMap = lazy(() => import("./InteractiveMap"));
@@ -65,9 +65,6 @@ const StoreSection = React.memo(() => {
       containerProps={{
         mt: 0,
         py: "phi_xl",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
       }}
     >
       <ItemGridLayout.Item>
@@ -97,8 +94,8 @@ const StoreSection = React.memo(() => {
                   borderRadius="inherit"
                 >
                    <VStack gap="phi_lg" w={{ base: "full", lg: "340px" }} p="phi_lg">
-                    <CardSkeleton />
-                    <CardSkeleton />
+                    <ServiceCardSkeleton />
+                    <ServiceCardSkeleton />
                     <AuraSkeleton h="50px" w="full" borderRadius="full" />
                   </VStack>
                 </Flex>
@@ -222,16 +219,14 @@ const StoreSection = React.memo(() => {
                   position="relative"
                   overflow="hidden"
                 >
-                  {/* Imagen de Fondo Completa */}
                   <Box position="absolute" inset={0} zIndex={0}>
-                    <AuraSkeleton h="full" w="full">
-                      <Image 
-                        src={selectedMarker.image || selectedMarker.photosObra?.[0]?.image} 
-                        alt={selectedMarker.name}
-                        w="100%" h="100%" objectFit="cover"
-                        loading="lazy"
-                      />
-                    </AuraSkeleton>
+                    <Image 
+                      src={selectedMarker.image || selectedMarker.photosObra?.[0]?.image} 
+                      alt={selectedMarker.name}
+                      w="100%" h="100%" objectFit="cover"
+                      loading="lazy"
+                      animation="fade-in 0.3s ease-out"
+                    />
                   </Box>
 
                   {/* Gradiente de Legibilidad Ultra-Reforzado */}

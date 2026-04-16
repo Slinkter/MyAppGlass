@@ -34,8 +34,6 @@ const Layout = ({ children }) => {
     <Box
       minH="100dvh"
       position="relative"
-      bg="bg.page"
-      _dark={{ bg: "black" }}
     >
       {/* Skip Link for Accessibility */}
       <Box

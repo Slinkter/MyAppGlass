@@ -17,7 +17,7 @@ import { bankAccountsData } from "../data/bank-accounts";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
 import AuraSurface from "@shared/components/aura/AuraSurface";
-import AuraSkeleton, { SectionHeaderSkeleton, GridSkeleton, BannerSkeleton } from "@shared/components/aura/AuraSkeleton";
+import AuraSkeleton, { AuraHeaderSkeleton, GridSkeleton, BannerSkeleton } from "@shared/components/aura/AuraSkeleton";
 import qrYapePlin from "@/assets/glassqr2026.jpg";
 
 /** v3: useToast → toaster object from snippet */
@@ -77,11 +77,15 @@ const InfoItem = ({ icon, label, value, copyable = false }) => {
         <Text fontSize="xs" fontWeight="700" textTransform="uppercase" color="text.muted" letterSpacing="wide">
           {label}
         </Text>
-        <Text fontSize="md" fontWeight="600" color="text.heading" mt={0.5}>
+        <Text fontSize="md" fontWeight="600" color="text.heading" mt={0.5} lineHeight="shorter">
           {value}
         </Text>
       </Box>
-      {copyable && <CopyButton value={value} label={label} />}
+      {copyable && (
+        <Flex align="center" h="full">
+          <CopyButton value={value} label={label} />
+        </Flex>
+      )}
     </HStack>
   );
 };
@@ -180,7 +184,7 @@ const BankAccountsPage = () => {
     return (
       <AuraContainer>
         <VStack gap={12} align="stretch">
-          <SectionHeaderSkeleton />
+          <AuraHeaderSkeleton centered={false} />
           <Box>
              <AuraSkeleton h="32px" w="250px" mb="phi_lg" />
              <GridSkeleton columns={{ base: 1, md: 2 }} count={4} />

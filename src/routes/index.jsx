@@ -9,6 +9,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { serviceRoutes } from "@/routes/serviceRoutes";
 import ErrorFallback from "@shared/components/common/ErrorFallback";
 import App from "@/App";
+import AuraContainer from "@shared/components/aura/AuraContainer";
 
 // Views
 const HomePage = lazy(() => import("@/pages/HomePage"));
@@ -36,6 +37,12 @@ const ReclamationForm = lazy(() =>
 
 const ErrorPage = lazy(() => import("@/pages/ErrorPage"));
 
+import { 
+    ProjectPageSkeleton, 
+    ServicePageSkeleton, 
+    AuraHeaderSkeleton 
+} from "@shared/components/aura/AuraSkeleton";
+
 export const router = createBrowserRouter(
     [
         {
@@ -52,12 +59,33 @@ export const router = createBrowserRouter(
                     path: "servicios",
                     element: <ServicePage />,
                     children: [
-                        { index: true, element: <ServiceList /> }, // Render ServiceList at /servicios
+                        { 
+                            index: true, 
+                            element: (
+                                <Suspense fallback={<ServicePageSkeleton />}>
+                                    <ServiceList />
+                                </Suspense>
+                            ) 
+                        },
                         ...serviceRoutes,
                     ],
                 },
-                { path: "proyectos", element: <ProjectPage /> },
-                { path: "proyectos/:projectId", element: <ProjectDetailPage /> },
+                { 
+                    path: "proyectos", 
+                    element: (
+                        <Suspense fallback={<ProjectPageSkeleton />}>
+                            <ProjectPage />
+                        </Suspense>
+                    ) 
+                },
+                { 
+                    path: "proyectos/:projectId", 
+                    element: (
+                        <Suspense fallback={<AuraContainer><AuraHeaderSkeleton /></AuraContainer>}>
+                            <ProjectDetailPage />
+                        </Suspense>
+                    ) 
+                },
                 { path: "libro-de-reclamacion", element: <ReclamationForm /> },
                 { path: "politicas-empresa", element: <CompanyPoliciesPage /> },
                 { path: "cuentas-bancarias", element: <BankAccountsPage /> },

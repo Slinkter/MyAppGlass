@@ -50,7 +50,7 @@ const ProjectCardContent = React.memo(
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         _hover={{
-          boxShadow: { md: "2xl" },
+          boxShadow: { md: "glass" },
           transform: { base: "none", md: "translateY(-4px)" },
         }}
         transition="all 0.4s ease"
