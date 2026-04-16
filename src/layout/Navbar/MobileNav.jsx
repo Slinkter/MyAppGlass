@@ -4,7 +4,7 @@
  * Refined trigger: Removed all backgrounds and borders for an ultra-clean floating look.
  */
 import React, { useState, useEffect, useCallback, useTransition } from "react";
-import { Box, IconButton, VStack, Image, Text, Button, Separator, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Box, IconButton, VStack, Image, Text, Separator, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Menu, X, ShieldCheck, Landmark, Home } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { m, AnimatePresence } from "framer-motion";

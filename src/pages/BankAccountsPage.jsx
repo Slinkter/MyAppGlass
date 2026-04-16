@@ -17,6 +17,7 @@ import { bankAccountsData } from "../data/bank-accounts";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
 import AuraSurface from "@shared/components/aura/AuraSurface";
+import AuraSkeleton, { SectionHeaderSkeleton, GridSkeleton, BannerSkeleton } from "@shared/components/aura/AuraSkeleton";
 import qrYapePlin from "@/assets/glassqr2026.jpg";
 
 /** v3: useToast → toaster object from snippet */
@@ -158,8 +159,6 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
     </AuraSurface>
   );
 };
-
-import AuraSkeleton, { SectionHeaderSkeleton, GridSkeleton, BannerSkeleton } from "@shared/components/aura/AuraSkeleton";
 
 const BankAccountsPage = () => {
   const [isLoading, setIsLoading] = React.useState(true);

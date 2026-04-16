@@ -14,23 +14,26 @@ import BackButton from "../navigation/BackButton";
  * @param {string} overline - The small text above the heading.
  * @param {string} backTo - Route path for the back button.
  * @param {React.ReactNode} action - Optional element to show on the right (e.g., ViewSelector).
+ * @param {boolean} centered - Whether to center all text and elements.
  */
-const AuraHeader = ({ title, overline, backTo, action }) => {
+const AuraHeader = ({ title, overline, backTo, action, centered = false }) => {
   return (
     <Flex 
       direction={{ base: "column", md: "row" }} 
-      justify="space-between" 
-      align={{ base: "flex-start", md: "flex-end" }} 
+      justify={centered ? "center" : "space-between"} 
+      align={centered ? "center" : { base: "flex-start", md: "flex-end" }} 
       gap={{ base: "phi_md", md: "phi_lg" }}
       mb={{ base: "phi_lg", md: "phi_xl" }}
+      w="full"
+      textAlign={centered ? "center" : "left"}
     >
-      <VStack gap={{ base: "phi_xs", md: "phi_sm" }} align="flex-start">
+      <VStack gap={{ base: "phi_xs", md: "phi_sm" }} align={centered ? "center" : "flex-start"}>
         {backTo && (
           <Box mb={{ base: 1, md: 2 }}>
             <BackButton to={backTo} />
           </Box>
         )}
-        <VStack align="start" gap={1}>
+        <VStack align={centered ? "center" : "start"} gap={1}>
           {overline && (
             <Text 
               fontSize={{ base: "10px", md: "xs" }} 
