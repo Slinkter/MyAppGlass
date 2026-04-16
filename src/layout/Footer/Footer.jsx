@@ -39,12 +39,19 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
     const hoverColor = "text.accent";
 
     const content = (
-        <HStack gap="phi_sm" align="center" w="full" py={1.5}>
+        <HStack 
+            gap="phi_sm" 
+            align="center" 
+            justify={{ base: "center", sm: "flex-start" }}
+            w="full" 
+            py={1.5}
+        >
             <Box as={icon} boxSize={5} color={iconColor} flexShrink={0} />
             <Text
                 fontSize="sm"
                 fontWeight="500"
                 color="text.body"
+                textAlign={{ base: "center", sm: "left" }}
                 transition="all 0.2s"
                 _groupHover={to ? { color: hoverColor, transform: "translateX(2px)" } : {}}
             >
@@ -73,7 +80,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
 
 const FooterSection = ({ title, children }) => {
     return (
-        <VStack align="flex-start" gap="phi_md" w="full">
+        <VStack align={{ base: "center", sm: "flex-start" }} gap="phi_md" w="full">
             <Heading
                 as="h4"
                 fontSize="xs"
@@ -82,10 +89,11 @@ const FooterSection = ({ title, children }) => {
                 textTransform="uppercase"
                 letterSpacing="0.2em"
                 mb={1}
+                textAlign={{ base: "center", sm: "left" }}
             >
                 {title}
             </Heading>
-            <VStack align="flex-start" gap="phi_xs" w="full">
+            <VStack align={{ base: "center", sm: "flex-start" }} gap="phi_xs" w="full">
                 {children}
             </VStack>
         </VStack>
@@ -122,8 +130,9 @@ const Footer = () => {
                                 <HStack 
                                     gap="phi_sm" 
                                     align="center" 
+                                    justify={{ base: "center", sm: "flex-start" }}
                                     py={1.5} 
-                                    _hover={{ transform: "translateX(4px)" }} 
+                                    _hover={{ transform: { base: "scale(1.02)", sm: "translateX(4px)" } }} 
                                     transition="transform 0.2s"
                                 >
                                     <Image src={LibroReclamacionesIcon.src || LibroReclamacionesIcon} alt="Libro" boxSize={5} flexShrink={0} />
