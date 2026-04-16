@@ -3,7 +3,7 @@
  * @description Premium skeleton loader with Aura Glassmorphism and pulsating animations.
  */
 import React from "react";
-import { Box, Skeleton, SkeletonCircle, SkeletonText, VStack, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Box, Skeleton, SkeletonCircle, SkeletonText, VStack, HStack, Stack, SimpleGrid } from "@chakra-ui/react";
 import AuraSurface from "./AuraSurface";
 
 /**
