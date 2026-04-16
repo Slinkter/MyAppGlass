@@ -89,7 +89,14 @@ const StoreSection = React.memo(() => {
           >
             <Suspense
               fallback={
-                <Flex align="center" justify="center" h="full" w="full" bg="bg.section">
+                <Flex 
+                  align="center" 
+                  justify="center" 
+                  h={{ base: "400px", lg: "700px" }} 
+                  w="full" 
+                  bg="bg.section"
+                  borderRadius="inherit"
+                >
                   <Spinner size="xl" color="text.accent" thickness="2px" />
                 </Flex>
               }

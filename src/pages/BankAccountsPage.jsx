@@ -55,24 +55,28 @@ const InfoItem = ({ icon, label, value, copyable = false }) => {
   return (
     <HStack
       p={4}
-      h={{ base: "120px", md: "100px" }}
       gap={4}
       align="center"
       w="full"
+      borderWidth="1px"
+      borderColor="border.glass"
+      borderRadius="xl"
+      bg="bg.glass"
+      transition="all 0.2s"
+      _hover={{ borderColor: "border.strong", transform: "translateY(-2px)" }}
     >
       <Flex
         align="center" justify="center"
-        w={10} h={10} borderRadius="full"
-        bg="bg.subtle"
-        color="text.accent" flexShrink={0}
+        w={12} h={12} borderRadius="lg"
+        bg="surface.icon" color="text.accent" flexShrink={0}
       >
         <Box as={icon} boxSize={5} />
       </Flex>
       <Box flex="1">
-        <Text fontSize="xs" fontWeight="900" textTransform="uppercase" color="text.muted" letterSpacing="0.2em">
+        <Text fontSize="xs" fontWeight="700" textTransform="uppercase" color="text.muted" letterSpacing="wide">
           {label}
         </Text>
-        <Text fontSize="md" fontWeight="700" color="text.heading">
+        <Text fontSize="md" fontWeight="600" color="text.heading" mt={0.5}>
           {value}
         </Text>
       </Box>
