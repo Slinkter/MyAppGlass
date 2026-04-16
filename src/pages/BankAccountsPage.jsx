@@ -179,6 +179,19 @@ const BankAccountsPage = () => {
             description="Encuentre a continuación nuestros datos fiscales y bancarios para gestionar sus pagos con seguridad y confianza."
           />
 
+          <Box>
+            <Heading as="h2" size="lg" mb="phi_lg" color="text.heading" fontWeight="800">
+              Identificación Fiscal
+            </Heading>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap="phi_md">
+              {fiscalData.map((item, index) => (
+                <AuraSurface key={index} p={0}>
+                   <InfoItem {...item} />
+                </AuraSurface>
+              ))}
+            </SimpleGrid>
+          </Box>
+
           {/* NUEVA SECCIÓN: BILLETERAS DIGITALES (YAPE / PLIN) */}
           <Box>
             <Heading as="h2" size="lg" mb="phi_lg" color="text.heading" fontWeight="800">
@@ -251,19 +264,6 @@ const BankAccountsPage = () => {
                 </VStack>
               </VStack>
             </AuraSurface>
-          </Box>
-
-          <Box>
-            <Heading as="h2" size="lg" mb="phi_lg" color="text.heading" fontWeight="800">
-              Identificación Fiscal
-            </Heading>
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap="phi_md">
-              {fiscalData.map((item, index) => (
-                <AuraSurface key={index} p={0}>
-                   <InfoItem {...item} />
-                </AuraSurface>
-              ))}
-            </SimpleGrid>
           </Box>
 
           <Box>
