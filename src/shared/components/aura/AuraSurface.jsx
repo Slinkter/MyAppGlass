@@ -10,11 +10,10 @@ import { Box, useRecipe } from "@chakra-ui/react";
  * @component AuraSurface
  * @param {string} variant - 'interactive', 'strong', or default.
  */
-const AuraSurface = ({ children, variant, ...props }) => {
-  // Nota: En Chakra v3, si la receta 'glass' está registrada en el sistema,
-  // podemos usarla directamente mediante el prop 'recipe'.
+const AuraSurface = React.forwardRef(({ children, variant, ...props }, ref) => {
   return (
     <Box 
+      ref={ref}
       recipe="glass" 
       variant={variant}
       {...props}
@@ -22,6 +21,8 @@ const AuraSurface = ({ children, variant, ...props }) => {
       {children}
     </Box>
   );
-};
+});
+
+AuraSurface.displayName = "AuraSurface";
 
 export default React.memo(AuraSurface);
