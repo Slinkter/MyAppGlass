@@ -18,6 +18,9 @@ import { AnimatePresence, m } from "framer-motion";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
+import AuraSurface from "@/shared/components/aura/AuraSurface";
+
+// Carga perezosa del mapa para evitar errores de inicialización en producción
 const InteractiveMap = lazy(() => import("./InteractiveMap"));
 
 const MotionVStack = m.create(VStack);
@@ -75,19 +78,16 @@ const StoreSection = React.memo(() => {
           h={{ base: "auto", lg: "700px" }}
         >
           {/* MAPA */}
-          <Box 
+          <AuraSurface 
             w="full" 
             h={{ base: "400px", lg: "full" }}
-            borderRadius="3xl"
+            borderRadius={{ base: "2xl", md: "3xl" }}
             overflow="hidden"
-            border="1px solid"
-            borderColor="border.glass"
-            boxShadow="2xl"
           >
             <Suspense
               fallback={
                 <Flex align="center" justify="center" h="full" w="full" bg="bg.section">
-                  <Spinner size="xl" color="text.accent" thickness="4px" />
+                  <Spinner size="xl" color="text.accent" thickness="2px" />
                 </Flex>
               }
             >
@@ -96,28 +96,22 @@ const StoreSection = React.memo(() => {
                 onMarkerToggle={handleMarkerToggle} 
               />
             </Suspense>
-          </Box>
+          </AuraSurface>
 
           {/* FICHA INFORMATIVA - DINÁMICA EN DESKTOP */}
-          <VStack 
+          <AuraSurface
             ref={infoCardRef}
+            variant="strong"
             position={{ base: "relative", lg: "absolute" }}
             top={{ lg: "phi_xl" }}
             left={{ lg: "phi_xl" }}
             zIndex={10}
             gap={0} 
-            align={{ base: "center", lg: "flex-start" }} 
             p={0}
-            bg="bg.glass"
-            backdropFilter="blur(24px)"
-            borderRadius="3xl"
-            border="1px solid"
-            borderColor="border.glass"
-            boxShadow="2xl"
+            borderRadius={{ base: "2xl", md: "3xl" }}
             w={{ base: "full", lg: "340px" }}
             h={{ lg: "480px" }}
             mt={{ base: "phi_xl", lg: 0 }}
-            overflow="hidden"
             display="flex"
             justifyContent="stretch"
           >
@@ -172,7 +166,6 @@ const StoreSection = React.memo(() => {
                     variant="aura"
                     width="full"
                     size="xl"
-                    borderRadius="full"
                     aria-label="Cómo llegar a nuestra ubicación principal"
                   >
                     CÓMO LLEGAR
@@ -238,7 +231,7 @@ const StoreSection = React.memo(() => {
                         color="white" 
                         letterSpacing="tight" 
                         fontWeight="800"
-                        textShadow="0 2px 10px rgba(0,0,0,0.8)"
+                        shadow="glass.textShadow"
                       >
                         {selectedMarker.residencial || selectedMarker.name}
                       </Heading>
@@ -249,7 +242,7 @@ const StoreSection = React.memo(() => {
                           color="whiteAlpha.900" 
                           fontWeight="600" 
                           lineHeight="tall"
-                          textShadow="0 1px 4px rgba(0,0,0,0.8)"
+                          shadow="glass.textShadow"
                         >
                           {selectedMarker.address}
                         </Text>
@@ -259,7 +252,7 @@ const StoreSection = React.memo(() => {
                 </MotionVStack>
               )}
             </AnimatePresence>
-          </VStack>
+          </AuraSurface>
         </Box>
       </ItemGridLayout.Item>
     </ItemGridLayout>

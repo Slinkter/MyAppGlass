@@ -88,102 +88,94 @@ const ProjectDetailPage = () => {
       />
 
       <LazyMotion features={domAnimation}>
-        <Box
-          as={m.div}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          bg="bg.page"
-          minH="100vh"
-          pb={32}
-        >
-          <Container maxW="7xl" pt={{ base: 20, md: 32 }}>
-            <VStack gap={{ base: 8, lg: 16 }} align="stretch">
-              
-              {/* 1. CABECERA Y SELECTOR (Igual a Servicios) */}
-              <Flex 
-                direction={{ base: "column", md: "row" }} 
-                justify="space-between" 
-                align={{ base: "flex-start", md: "flex-end" }} 
-                gap={{ base: 6, md: 8 }}
-              >
-                <VStack gap={{ base: 2, md: 4 }} align="flex-start">
-                  <Box mb={{ base: 1, md: 2 }}><BackButton to="/proyectos" /></Box>
-                  <VStack align="start" gap={1}>
-                    <Text 
-                      fontSize={{ base: "10px", md: "xs" }} 
-                      fontWeight="900" 
-                      color="primary.500" 
-                      letterSpacing="0.4em" 
-                      textTransform="uppercase"
-                    >
-                      Proyecto de Ingeniería
-                    </Text>
-                    <Heading 
-                      size={{ base: "3xl", md: "4xl" }} 
-                      fontWeight="black" 
-                      letterSpacing="tight" 
-                      color="text.heading" 
-                      fontFamily="heading"
-                    >
-                      {project.residencial}
-                    </Heading>
-                  </VStack>
-                </VStack>
-                <ViewSelector activeMode={viewMode} onSelect={handleSelect} />
-              </Flex>
+import AuraContainer from "@shared/components/aura/AuraContainer";
+import AuraHeader from "@shared/components/aura/AuraHeader";
 
-              {/* 2. VISUALIZADOR PRINCIPAL CON SKELETON */}
-              <Skeleton
-                loading={isPending}
-                borderRadius={{ base: "2xl", md: "3xl" }}
-                h={{ base: "420px", md: "700px" }}
-              >
-                <Box
-                  h="full"
-                  position="relative"
-                  borderRadius={{ base: "2xl", md: "3xl" }}
-                  overflow="hidden"
-                  border="1px solid"
-                  borderColor="border.glass"
-                  boxShadow="2xl"
-                >
-                  <VisualViewer
-                    viewMode={viewMode}
-                    lat={project.lat}
-                    lng={project.lng}
-                    photos={project.photosObra}
-                    projectData={project}
-                  />
-                </Box>
-              </Skeleton>
+/**
+ * @page ProjectDetailPage
+ * @description Inmersive detail page for projects, mirroring the Service Detail architecture.
+ */
+const ProjectDetailPage = () => {
+  const { projectId } = useParams();
+  const project = useMemo(() => getProjectById(projectId), [projectId]);
+  const [viewMode, setViewMode] = useState("map");
+  const [isPending, startTransition] = useTransition();
 
-              {/* 3. BENTO GRID DE ESPECIFICACIONES */}
-              <VStack align="stretch" gap={{ base: 6, md: 8 }}>
-                <Heading
-                  size="xs"
-                  fontWeight="900"
-                  color="primary.500"
-                  textTransform="uppercase"
-                  letterSpacing="0.3em"
-                  display="flex"
-                  alignItems="center"
-                  gap={3}
-                >
-                  <Box w="20px" h="1px" bg="primary.500" /> Especificaciones Técnicas
-                </Heading>
+  const handleSelect = useCallback((mode) => {
+    startTransition(() => {
+      setViewMode(mode);
+    });
+  }, []);
 
-                <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={{ base: 4, md: 6 }}>
-                  <ProjectDetailItem icon={Home} label="Residencial" value={project.residencial} />
-                  <ProjectDetailItem icon={Building2} label="Constructora" value={project.name} />
-                  <ProjectDetailItem icon={MapPin} label="Dirección" value={project.address} />
-                  <ProjectDetailItem icon={Calendar} label="Año Entrega" value={project.year} />
-                </SimpleGrid>
-              </VStack>
+  if (!project) return <ErrorPage />;
 
-            </VStack>
-          </Container>
-        </Box>
-      </LazyMotion>
+  return (
+    <>
+      <HelmetWrapper
+        title={`${project.residencial} - Proyecto | GYA Company`}
+        description={`Ficha técnica y visual del proyecto ${project.residencial}.`}
+      />
+
+      <AuraContainer>
+        <VStack gap={{ base: "phi_lg", lg: "phi_xl" }} align="stretch">
+          
+          <AuraHeader 
+            title={project.residencial}
+            overline="Proyecto de Ingeniería"
+            backTo="/proyectos"
+            action={<ViewSelector activeMode={viewMode} onSelect={handleSelect} />}
+          />
+
+          {/* 2. VISUALIZADOR PRINCIPAL CON SKELETON */}
+          <Skeleton
+            loading={isPending}
+            borderRadius={{ base: "2xl", md: "3xl" }}
+            h={{ base: "420px", md: "700px" }}
+          >
+            <Box
+              h="full"
+              position="relative"
+              borderRadius={{ base: "2xl", md: "3xl" }}
+              overflow="hidden"
+              border="1px solid"
+              borderColor="border.glass"
+              boxShadow="2xl"
+            >
+              <VisualViewer
+                viewMode={viewMode}
+                lat={project.lat}
+                lng={project.lng}
+                photos={project.photosObra}
+                projectData={project}
+              />
+            </Box>
+          </Skeleton>
+
+          {/* 3. BENTO GRID DE ESPECIFICACIONES */}
+          <VStack align="stretch" gap={{ base: "phi_md", md: "phi_lg" }}>
+            <Heading
+              size="xs"
+              fontWeight="900"
+              color="text.accent"
+              textTransform="uppercase"
+              letterSpacing="0.3em"
+              display="flex"
+              alignItems="center"
+              gap={3}
+            >
+              <Box w="20px" h="1px" bg="primary.500" /> Especificaciones Técnicas
+            </Heading>
+
+            <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={{ base: "phi_sm", md: "phi_md" }}>
+              <ProjectDetailItem icon={Home} label="Residencial" value={project.residencial} />
+              <ProjectDetailItem icon={Building2} label="Constructora" value={project.name} />
+              <ProjectDetailItem icon={MapPin} label="Dirección" value={project.address} />
+              <ProjectDetailItem icon={Calendar} label="Año Entrega" value={project.year} />
+            </SimpleGrid>
+          </VStack>
+
+        </VStack>
+      </AuraContainer>
     </>
   );
 };
