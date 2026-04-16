@@ -15,7 +15,6 @@ import {
 } from "@chakra-ui/react";
 import { AuraNavbar as Navbar } from "../Navbar";
 import { Footer } from "../Footer";
-import { ThemeToggle } from "../FloatingActions/ThemeToggle";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 const FloatingWhatsApp = lazy(() =>
   import("../FloatingActions").then((module) => ({
@@ -88,8 +87,6 @@ const Layout = ({ children }) => {
           <FloatingWhatsApp />
         </Suspense>
       )}
-
-      <ThemeToggle />
     </Box>
   );
 };
