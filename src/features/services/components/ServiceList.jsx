@@ -16,15 +16,24 @@ import { LuSearch } from "react-icons/lu";
 
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
 
+import ServiceListSkeleton from "./ServiceListSkeleton";
+
 /**
  * @component ServiceList
  * @description Renderiza la lista de servicios con filtro por categoría e Infinite Scroll.
  */
 const ServiceList = React.memo(() => {
+  const [isLoading, setIsLoading] = useState(true);
   const allServices = useMemo(() => services, []);
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [displayCount, setDisplayCount] = useState(6);
   const loaderRef = useRef(null);
+
+  useEffect(() => {
+    // Simulamos carga premium
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Filter services by active category
   const filteredServices = useMemo(() => {
@@ -36,6 +45,10 @@ const ServiceList = React.memo(() => {
   useEffect(() => {
     setDisplayCount(6);
   }, [activeCategory]);
+
+  if (isLoading) {
+    return <ServiceListSkeleton />;
+  }
 
   const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
 

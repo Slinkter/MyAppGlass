@@ -64,14 +64,23 @@ const ViewSelector = React.memo(({ activeMode, onSelect }) => {
 
 ViewSelector.displayName = "ViewSelector";
 
+import AuraSkeleton, { SectionHeaderSkeleton } from "@shared/components/aura/AuraSkeleton";
+
 /**
  * @page ProjectDetailPage
  */
 const ProjectDetailPage = () => {
   const { projectId } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const project = useMemo(() => getProjectById(projectId), [projectId]);
   const [viewMode, setViewMode] = useState("map");
   const [isPending, startTransition] = useTransition();
+
+  React.useEffect(() => {
+    // Simulamos carga para el efecto premium
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSelect = useCallback((mode) => {
     startTransition(() => {
@@ -80,6 +89,23 @@ const ProjectDetailPage = () => {
   }, []);
 
   if (!project) return <ErrorPage />;
+
+  if (isLoading) {
+    return (
+      <AuraContainer>
+        <VStack gap="phi_lg" align="stretch">
+           <SectionHeaderSkeleton />
+           <AuraSkeleton h={{ base: "420px", md: "700px" }} borderRadius="3xl" />
+           <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap="phi_md">
+             <AuraSkeleton h="80px" borderRadius="xl" />
+             <AuraSkeleton h="80px" borderRadius="xl" />
+             <AuraSkeleton h="80px" borderRadius="xl" />
+             <AuraSkeleton h="80px" borderRadius="xl" />
+           </SimpleGrid>
+        </VStack>
+      </AuraContainer>
+    );
+  }
 
   return (
     <>
@@ -98,20 +124,20 @@ const ProjectDetailPage = () => {
             action={<ViewSelector activeMode={viewMode} onSelect={handleSelect} />}
           />
 
-          {/* 2. VISUALIZADOR PRINCIPAL CON SKELETON */}
-          <Skeleton
-            loading={isPending}
-            borderRadius={{ base: "2xl", md: "3xl" }}
+          {/* 2. VISUALIZADOR PRINCIPAL CON SKELETON (para transiciones de modo) */}
+          <Box
             h={{ base: "420px", md: "700px" }}
+            position="relative"
+            borderRadius={{ base: "2xl", md: "3xl" }}
+            overflow="hidden"
+            border="1px solid"
+            borderColor="border.glass"
+            boxShadow="2xl"
           >
-            <Box
+            <Skeleton
+              loading={isPending}
               h="full"
-              position="relative"
-              borderRadius={{ base: "2xl", md: "3xl" }}
-              overflow="hidden"
-              border="1px solid"
-              borderColor="border.glass"
-              boxShadow="2xl"
+              w="full"
             >
               <VisualViewer
                 viewMode={viewMode}
@@ -120,8 +146,8 @@ const ProjectDetailPage = () => {
                 photos={project.photosObra}
                 projectData={project}
               />
-            </Box>
-          </Skeleton>
+            </Skeleton>
+          </Box>
 
           {/* 3. BENTO GRID DE ESPECIFICACIONES */}
           <VStack align="stretch" gap={{ base: "phi_md", md: "phi_lg" }}>

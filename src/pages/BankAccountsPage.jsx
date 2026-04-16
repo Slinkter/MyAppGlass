@@ -159,13 +159,48 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
   );
 };
 
+import AuraSkeleton, { SectionHeaderSkeleton, GridSkeleton, BannerSkeleton } from "@shared/components/aura/AuraSkeleton";
+
 const BankAccountsPage = () => {
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    // Simulamos carga de datos para mostrar los Skeletons premium
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const fiscalData = [
     { icon: Building, label: "Razón Social", value: companyData.razonSocial, copyable: true },
     { icon: Contact, label: "R.U.C", value: companyData.ruc, copyable: true },
     { icon: MapPin, label: "Dirección Fiscal", value: companyData.direccion },
     { icon: Mail, label: "Facturación", value: companyData.contactEmail, copyable: true },
   ];
+
+  if (isLoading) {
+    return (
+      <AuraContainer>
+        <VStack gap={12} align="stretch">
+          <SectionHeaderSkeleton />
+          <Box>
+             <AuraSkeleton h="32px" w="250px" mb="phi_lg" />
+             <GridSkeleton columns={{ base: 1, md: 2 }} count={4} />
+          </Box>
+          <Box>
+             <AuraSkeleton h="32px" w="250px" mb="phi_lg" />
+             <BannerSkeleton />
+          </Box>
+          <Box>
+             <AuraSkeleton h="32px" w="250px" mb="phi_lg" />
+             <VStack gap="phi_md" w="full">
+               <AuraSkeleton h="160px" w="full" borderRadius="2xl" />
+               <AuraSkeleton h="160px" w="full" borderRadius="2xl" />
+             </VStack>
+          </Box>
+        </VStack>
+      </AuraContainer>
+    );
+  }
 
   return (
     <>

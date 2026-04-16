@@ -3,14 +3,12 @@ import {
   Box,
   Button,
   Flex,
-  Spinner,
   VStack,
   HStack,
   Text,
   Image,
   Badge,
   Heading,
-  Skeleton,
 } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { MapPin, Clock, ArrowLeft } from "lucide-react";
@@ -19,6 +17,7 @@ import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
 import AuraSurface from "@/shared/components/aura/AuraSurface";
+import AuraSkeleton, { CardSkeleton } from "@/shared/components/aura/AuraSkeleton";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
 const InteractiveMap = lazy(() => import("./InteractiveMap"));
@@ -45,7 +44,7 @@ const StoreSection = React.memo(() => {
     if (selectedMarker && infoCardRef.current && window.innerWidth < 992) {
       infoCardRef.current.scrollIntoView({ 
         behavior: "smooth", 
-        block: "nearest",
+        block: "nearest", 
         inline: "nearest" 
       });
     }
@@ -97,7 +96,11 @@ const StoreSection = React.memo(() => {
                   bg="bg.section"
                   borderRadius="inherit"
                 >
-                  <Spinner size="xl" color="text.accent" thickness="2px" />
+                   <VStack gap="phi_lg" w={{ base: "full", lg: "340px" }} p="phi_lg">
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <AuraSkeleton h="50px" w="full" borderRadius="full" />
+                  </VStack>
                 </Flex>
               }
             >
@@ -144,9 +147,9 @@ const StoreSection = React.memo(() => {
                   w="full"
                   flex={1}
                   justifyContent="space-between"
-                  align={{ base: "center", lg: "flex-start" }}
+                  align="center"
                 >
-                  <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+                  <VStack gap="phi_md" align="center" w="full">
                     {/* Sección Horarios */}
                     <VStack 
                       gap="phi_xs" 
@@ -221,14 +224,14 @@ const StoreSection = React.memo(() => {
                 >
                   {/* Imagen de Fondo Completa */}
                   <Box position="absolute" inset={0} zIndex={0}>
-                    <Skeleton h="full" w="full" loading={!selectedMarker.image && !selectedMarker.photosObra?.[0]?.image}>
+                    <AuraSkeleton h="full" w="full">
                       <Image 
                         src={selectedMarker.image || selectedMarker.photosObra?.[0]?.image} 
                         alt={selectedMarker.name}
                         w="100%" h="100%" objectFit="cover"
                         loading="lazy"
                       />
-                    </Skeleton>
+                    </AuraSkeleton>
                   </Box>
 
                   {/* Gradiente de Legibilidad Ultra-Reforzado */}
