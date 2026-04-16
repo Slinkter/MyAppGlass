@@ -78,11 +78,14 @@ const StoreSection = React.memo(() => {
           h={{ base: "auto", lg: "700px" }}
         >
           {/* MAPA */}
-          <AuraSurface 
+          <Box 
             w="full" 
             h={{ base: "400px", lg: "full" }}
             borderRadius={{ base: "2xl", md: "3xl" }}
             overflow="hidden"
+            border="1px solid"
+            borderColor="border.glass"
+            boxShadow="2xl"
           >
             <Suspense
               fallback={
@@ -96,22 +99,28 @@ const StoreSection = React.memo(() => {
                 onMarkerToggle={handleMarkerToggle} 
               />
             </Suspense>
-          </AuraSurface>
+          </Box>
 
           {/* FICHA INFORMATIVA - DINÁMICA EN DESKTOP */}
-          <AuraSurface
+          <VStack 
             ref={infoCardRef}
-            variant="strong"
             position={{ base: "relative", lg: "absolute" }}
             top={{ lg: "phi_xl" }}
             left={{ lg: "phi_xl" }}
             zIndex={10}
             gap={0} 
+            align={{ base: "center", lg: "flex-start" }} 
             p={0}
+            bg="bg.glass"
+            backdropFilter="blur(24px)"
             borderRadius={{ base: "2xl", md: "3xl" }}
+            border="1px solid"
+            borderColor="border.glass"
+            boxShadow="2xl"
             w={{ base: "full", lg: "340px" }}
             h={{ lg: "480px" }}
             mt={{ base: "phi_xl", lg: 0 }}
+            overflow="hidden"
             display="flex"
             justifyContent="stretch"
           >
@@ -130,11 +139,21 @@ const StoreSection = React.memo(() => {
                   justifyContent="space-between"
                   align={{ base: "center", lg: "flex-start" }}
                 >
-                  <VStack gap="phi_xl" align={{ base: "center", lg: "flex-start" }} w="full">
-                    <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+                  <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+                    {/* Sección Horarios */}
+                    <VStack 
+                      gap="phi_xs" 
+                      align={{ base: "center", lg: "flex-start" }} 
+                      w="full"
+                      p="phi_md"
+                      bg="bg.subtle"
+                      borderRadius="2xl"
+                      border="1px solid"
+                      borderColor="border.glass"
+                    >
                       <HStack gap={3} color="text.accent">
                         <Box as={Clock} boxSize={5} />
-                        <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
+                        <Text fontWeight="800" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
                           Horarios
                         </Text>
                       </HStack>
@@ -144,10 +163,20 @@ const StoreSection = React.memo(() => {
                       </Box>
                     </VStack>
 
-                    <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+                    {/* Sección Dirección */}
+                    <VStack 
+                      gap="phi_xs" 
+                      align={{ base: "center", lg: "flex-start" }} 
+                      w="full"
+                      p="phi_md"
+                      bg="bg.subtle"
+                      borderRadius="2xl"
+                      border="1px solid"
+                      borderColor="border.glass"
+                    >
                       <HStack gap={3} color="text.accent">
                         <Box as={MapPin} boxSize={5} />
-                        <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
+                        <Text fontWeight="800" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
                           Dirección
                         </Text>
                       </HStack>
@@ -195,11 +224,17 @@ const StoreSection = React.memo(() => {
                     </Skeleton>
                   </Box>
 
-                  {/* Gradiente de Legibilidad Reforzado */}
+                  {/* Gradiente de Legibilidad Ultra-Reforzado */}
                   <Box 
                     position="absolute" 
                     inset={0} 
-                    bgGradient="linear(to-t, blackAlpha.900 0%, blackAlpha.700 25%, blackAlpha.400 50%, transparent 100%)"
+                    bgGradient="linear(to-t, blackAlpha.950 0%, blackAlpha.800 40%, blackAlpha.400 70%, transparent 100%)"
+                    zIndex={1}
+                  />
+                  <Box 
+                    position="absolute" 
+                    inset={0} 
+                    bg="blackAlpha.300" 
                     zIndex={1}
                   />
 
@@ -225,34 +260,42 @@ const StoreSection = React.memo(() => {
                       </Badge>
                     </Flex>
 
-                    <VStack align="flex-start" gap="phi_xs" mb="phi_xs">
-                      <Heading 
-                        size="md" 
-                        color="white" 
-                        letterSpacing="tight" 
-                        fontWeight="800"
-                        shadow="glass.textShadow"
-                      >
-                        {selectedMarker.residencial || selectedMarker.name}
-                      </Heading>
-                      <HStack align="flex-start" gap={3} w="full">
-                        <Box as={MapPin} boxSize={4} color="orange.300" mt={1} filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))" />
-                        <Text 
-                          fontSize="sm" 
-                          color="whiteAlpha.900" 
-                          fontWeight="600" 
-                          lineHeight="tall"
+                    {/* Info Capsule */}
+                    <AuraSurface
+                      variant="interactive"
+                      p="phi_md"
+                      w="full"
+                      mb="phi_xs"
+                    >
+                      <VStack align="flex-start" gap="phi_xs">
+                        <Heading 
+                          size="md" 
+                          color="white" 
+                          letterSpacing="tight" 
+                          fontWeight="800"
                           shadow="glass.textShadow"
                         >
-                          {selectedMarker.address}
-                        </Text>
-                      </HStack>
-                    </VStack>
+                          {selectedMarker.residencial || selectedMarker.name}
+                        </Heading>
+                        <HStack align="flex-start" gap={3} w="full">
+                          <Box as={MapPin} boxSize={4} color="orange.300" mt={1} filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))" />
+                          <Text 
+                            fontSize="sm" 
+                            color="whiteAlpha.900" 
+                            fontWeight="600" 
+                            lineHeight="tall"
+                            shadow="glass.textShadow"
+                          >
+                            {selectedMarker.address}
+                          </Text>
+                        </HStack>
+                      </VStack>
+                    </AuraSurface>
                   </Flex>
                 </MotionVStack>
               )}
             </AnimatePresence>
-          </AuraSurface>
+          </VStack>
         </Box>
       </ItemGridLayout.Item>
     </ItemGridLayout>

@@ -1,26 +1,27 @@
+/**
+ * @file ProjectDetailPage.jsx
+ * @description Inmersive detail page for projects, mirroring the Service Detail architecture.
+ */
+
 import React, { useMemo, useState, useTransition, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
-  Container,
   Heading,
-  Text,
   VStack,
-  Flex,
-  Button,
-  HStack,
   Skeleton,
   SimpleGrid,
+  HStack,
+  Button,
 } from "@chakra-ui/react";
-import { Map, Image as Photo } from "lucide-react";
+import { Map, Image as Photo, Home, Building2, MapPin, Calendar } from "lucide-react";
 import { getProjectById } from "@features/projects/services/projectService";
 import VisualViewer from "@features/projects/components/modal/VisualViewer";
 import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
-import BackButton from "@shared/components/navigation/BackButton";
 import ErrorPage from "./ErrorPage";
-import { LazyMotion, m, domAnimation } from "framer-motion";
-import { Home, Building2, MapPin, Calendar } from "lucide-react";
+import AuraContainer from "@shared/components/aura/AuraContainer";
+import AuraHeader from "@shared/components/aura/AuraHeader";
 
 /**
  * @component ViewSelector
@@ -60,40 +61,11 @@ const ViewSelector = React.memo(({ activeMode, onSelect }) => {
     </HStack>
   );
 });
+
 ViewSelector.displayName = "ViewSelector";
 
 /**
  * @page ProjectDetailPage
- * @description Inmersive detail page for projects, mirroring the Service Detail architecture.
- */
-const ProjectDetailPage = () => {
-  const { projectId } = useParams();
-  const project = useMemo(() => getProjectById(projectId), [projectId]);
-  const [viewMode, setViewMode] = useState("map");
-  const [isPending, startTransition] = useTransition();
-
-  const handleSelect = useCallback((mode) => {
-    startTransition(() => {
-      setViewMode(mode);
-    });
-  }, []);
-
-  if (!project) return <ErrorPage />;
-
-  return (
-    <>
-      <HelmetWrapper
-        title={`${project.residencial} - Proyecto | GYA Company`}
-        description={`Ficha técnica y visual del proyecto ${project.residencial}.`}
-      />
-
-      <LazyMotion features={domAnimation}>
-import AuraContainer from "@shared/components/aura/AuraContainer";
-import AuraHeader from "@shared/components/aura/AuraHeader";
-
-/**
- * @page ProjectDetailPage
- * @description Inmersive detail page for projects, mirroring the Service Detail architecture.
  */
 const ProjectDetailPage = () => {
   const { projectId } = useParams();
@@ -155,7 +127,7 @@ const ProjectDetailPage = () => {
           <VStack align="stretch" gap={{ base: "phi_md", md: "phi_lg" }}>
             <Heading
               size="xs"
-              fontWeight="900"
+              fontWeight="800"
               color="text.accent"
               textTransform="uppercase"
               letterSpacing="0.3em"
