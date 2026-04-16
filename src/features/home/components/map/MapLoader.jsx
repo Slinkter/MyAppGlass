@@ -10,16 +10,18 @@ const MapLoader = () => {
     <Box
       w="full"
       h="full"
+      minH={{ base: "400px", lg: "700px" }}
       display="flex"
       alignItems="center"
       justifyContent="center"
+      bg="bg.section"
     >
       <Spinner
-        size="lg"
+        size="xl"
         thickness="2px"
         speed="0.8s"
-        color="primary.500"
-        emptyColor="border.glass"
+        color="text.accent"
+        emptyColor="whiteAlpha.100"
       />
     </Box>
   );
