@@ -150,7 +150,7 @@ const StoreSection = React.memo(() => {
                     {/* Sección Horarios */}
                     <VStack 
                       gap="phi_xs" 
-                      align={{ base: "center", lg: "flex-start" }} 
+                      align="center" 
                       w="full"
                       p="phi_md"
                       bg="bg.subtle"
@@ -164,7 +164,7 @@ const StoreSection = React.memo(() => {
                           Horarios
                         </Text>
                       </HStack>
-                      <Box pl={{ lg: "32px" }}>
+                      <Box textAlign="center">
                         <Text fontSize="md" color="text.heading" fontWeight="700">Lunes a Sábado</Text>
                         <Text fontSize="sm" color="text.muted">9:00 am – 5:00 pm</Text>
                       </Box>
@@ -173,7 +173,7 @@ const StoreSection = React.memo(() => {
                     {/* Sección Dirección */}
                     <VStack 
                       gap="phi_xs" 
-                      align={{ base: "center", lg: "flex-start" }} 
+                      align="center" 
                       w="full"
                       p="phi_md"
                       bg="bg.subtle"
@@ -187,7 +187,7 @@ const StoreSection = React.memo(() => {
                           Dirección
                         </Text>
                       </HStack>
-                      <Box pl={{ lg: "32px" }}>
+                      <Box textAlign="center">
                         <Text fontSize="md" color="text.heading" fontWeight="700">Av. Los Fresnos 1250</Text>
                         <Text fontSize="sm" color="text.muted">La Molina, Lima - Perú</Text>
                       </Box>
