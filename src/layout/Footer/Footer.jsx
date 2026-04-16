@@ -16,6 +16,7 @@ import {
     Container,
     Separator,
  } from "@chakra-ui/react";
+import AuraSurface from "@shared/components/aura/AuraSurface";
 import {
     Calendar,
     Clock,
@@ -42,7 +43,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }) => {
             <Box as={icon} boxSize={5} color={iconColor} flexShrink={0} />
             <Text
                 fontSize="sm"
-                fontWeight="600"
+                fontWeight="500"
                 color="text.body"
                 transition="all 0.2s"
                 _groupHover={to ? { color: hoverColor, transform: "translateX(2px)" } : {}}
@@ -76,7 +77,7 @@ const FooterSection = ({ title, children }) => {
             <Heading
                 as="h4"
                 fontSize="xs"
-                fontWeight="900"
+                fontWeight="800"
                 color="text.accent"
                 textTransform="uppercase"
                 letterSpacing="0.2em"
@@ -95,15 +96,11 @@ const Footer = () => {
     return (
         <Box as="footer" mt="phi_2xl" mb={{ base: "phi_2xl", md: "phi_lg" }} px="phi_md">
             <Container maxW="7xl" px={0}>
-                <Box
-                    bg="bg.section"
-                    border="1px solid"
-                    borderColor="border.glass"
-                    borderRadius="3xl"
-                    boxShadow="2xl"
+                <AuraSurface
                     pt={{ base: "phi_lg", md: "phi_xl" }}
                     pb="phi_md"
                     px={{ base: "phi_md", md: "phi_xl" }}
+                    borderRadius="3xl"
                 >
                     <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={{ base: "phi_lg", md: "phi_xl" }} mb="phi_xl">
                         <FooterSection title="Contacto">
@@ -138,13 +135,20 @@ const Footer = () => {
 
                     <Separator borderColor="border.glass" mb="phi_md" />
 
-                    <Flex direction="column" align="center" gap={5}>
-                        <Image src={logoGYA.src || logoGYA} alt="Logo" h="36px" />
-                        <Text fontSize="10px" color="text.muted" fontWeight="bold" letterSpacing="0.3em">
+                    <Flex direction="column" align="center" gap="phi_sm">
+                        <Image src={logoGYA.src || logoGYA} alt="Logo" h="36px" mb="phi_xs" />
+                        <Text 
+                            fontSize="9px" 
+                            color="text.muted" 
+                            fontWeight="700" 
+                            letterSpacing="0.4em"
+                            textTransform="uppercase"
+                            textAlign="center"
+                        >
                             © {new Date().getFullYear()} GYA GLASS & ALUMINUM S.A.C.
                         </Text>
                     </Flex>
-                </Box>
+                </AuraSurface>
             </Container>
         </Box>
     );
