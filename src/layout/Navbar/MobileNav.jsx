@@ -10,7 +10,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
-import logoGYA from "@/assets/branding/logosvg.svg";
+import { ColorModeButton } from "@/components/ui/color-mode";
 import {
   DrawerBackdrop,
   DrawerBody,
@@ -179,7 +179,14 @@ const MobileNav = React.memo(() => {
             </SimpleGrid>
 
             <Box pt="phi_md">
-              <Image src={logoGYA} alt="GYA" h="24px" _dark={{ filter: "brightness(0) invert(1)" }} opacity={0.3} />
+              <ColorModeButton 
+                variant="outline" 
+                size="lg" 
+                color="text.accent"
+                borderRadius="full"
+                borderColor="border.glass"
+                _hover={{ bg: "bg.subtle", transform: "rotate(15deg)" }}
+              />
             </Box>
           </VStack>
 
