@@ -185,19 +185,23 @@ const config = defineConfig({
         },
       },
       spacing: {
-        phi_xs: { value: "8px" },
-        phi_sm: { value: "13px" },
-        phi_md: { value: "21px" },
-        phi_lg: { value: "34px" },
-        phi_xl: { value: "55px" },
-        phi_2xl: { value: "89px" },
-        phi_3xl: { value: "144px" },
+        phi_xs: { value: "0.5rem" },    // 8px
+        phi_sm: { value: "0.8125rem" }, // 13px
+        phi_md: { value: "1.3125rem" }, // 21px
+        phi_lg: { value: "2.125rem" },  // 34px
+        phi_xl: { value: "3.4375rem" }, // 55px
+        phi_2xl: { value: "5.5625rem" }, // 89px
+        phi_3xl: { value: "9rem" },     // 144px
       },
       radii: {
         phi: { value: "1.618rem" },
         card: { value: "16px" },
         modal: { value: "24px" },
       },
+      shadows: {
+        glass: { value: "0 8px 32px 0 rgba(0, 0, 0, 0.08)" },
+        glassHover: { value: "0 12px 40px 0 rgba(0, 0, 0, 0.12)" },
+      }
     },
     semanticTokens: {
       colors: {
@@ -207,7 +211,11 @@ const config = defineConfig({
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
 
         // Glass surfaces
-        "surface.card": { value: { _light: "rgba(255, 255, 255, 0.25)", _dark: "rgba(24, 24, 27, 0.4)" } },
+        "glass.bg": { value: { _light: "rgba(255, 255, 255, 0.25)", _dark: "rgba(24, 24, 27, 0.4)" } },
+        "glass.border": { value: { _light: "rgba(0, 0, 0, 0.08)", _dark: "rgba(255, 255, 255, 0.06)" } },
+        "glass.textShadow": { value: { _light: "0 2px 4px rgba(0,0,0,0.05)", _dark: "0 2px 4px rgba(0,0,0,0.5)" } },
+        
+        "surface.card": { value: "{colors.glass.bg}" },
         "surface.nav": { value: { _light: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" } },
         "surface.container": { value: { _light: "white", _dark: "rgba(255,255,255,0.04)" } },
         "surface.icon": { value: { _light: "{colors.primary.50}", _dark: "rgba(255,255,255,0.04)" } },
@@ -216,7 +224,7 @@ const config = defineConfig({
         // Borders
         "border.default": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.08)" } },
         "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
-        "border.glass": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.06)" } },
+        "border.glass": { value: "{colors.glass.border}" },
 
         // Focus
         "ring.primary": { value: { _light: "{colors.primary.400}", _dark: "{colors.primary.500}" } },
@@ -231,6 +239,32 @@ const config = defineConfig({
     },
     recipes: {
       button: buttonRecipe,
+      glass: defineRecipe({
+        base: {
+          bg: "glass.bg",
+          backdropFilter: "blur(12px)",
+          borderWidth: "1px",
+          borderColor: "glass.border",
+          borderRadius: "card",
+          boxShadow: "glass",
+          transition: "all 0.3s ease",
+        },
+        variants: {
+          variant: {
+            interactive: {
+              _hover: {
+                bg: { _light: "rgba(255,255,255,0.35)", _dark: "rgba(24,24,27,0.5)" },
+                boxShadow: "glassHover",
+                transform: "translateY(-2px)",
+              }
+            },
+            strong: {
+              backdropFilter: "blur(20px)",
+              bg: { _light: "rgba(255,255,255,0.45)", _dark: "rgba(24,24,27,0.6)" },
+            }
+          }
+        }
+      }),
       card: defineRecipe({
         base: {
           bg: "surface.card",

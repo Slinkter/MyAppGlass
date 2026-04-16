@@ -21,10 +21,10 @@ import {
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import { Link as RouterLink } from "react-router-dom";
 
-import logoGYA from "@/assets/branding/LogoCompanytrans.png";
+import logoGYA from "@/assets/branding/logosvg.svg";
 
-const MotionImage = m(Image);
-const MotionVStack = m(VStack);
+const MotionImage = m.create(Image);
+const MotionVStack = m.create(VStack);
 
 /**
  * @component LandingPageSection

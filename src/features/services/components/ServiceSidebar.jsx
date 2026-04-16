@@ -8,7 +8,8 @@ import {
 import { LuMoveRight } from "react-icons/lu";
 import SidebarItem from "@shared/components/common/SidebarItem";
 import GlassCard from "@shared/components/common/GlassCard";
-import { Button } from "@/components/ui/button";;
+import { Button } from "@/components/ui/button";
+import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar } from "@/components/ui/scroll-area";
 
 const NavigationSection = ({ title, systems, activeIndex, onSelect }) => {
   return (
@@ -96,42 +97,37 @@ const ServiceSidebar = (props) => {
       borderColor="border.default"
       boxShadow="2xl"
     >
-      <VStack
-        gap={{ base: 6, md: 7, lg: 8 }}
-        align="stretch"
-        flex="1"
-        pr={{ base: 0, lg: 2 }}
-        overflowY={{ base: "visible", lg: "auto" }}
-        css={{
-          "&::-webkit-scrollbar": { width: "4px" },
-          "&::-webkit-scrollbar-track": { background: "transparent" },
-          "&::-webkit-scrollbar-thumb": {
-            background: "var(--chakra-colors-bg-subtle)",
-            borderRadius: "20px",
-          },
-        }}
-      >
-        <NavigationSection
-          title={seo.title}
-          systems={systems}
-          activeIndex={activeIndex}
-          onSelect={setActiveIndex}
-        />
+      <ScrollAreaRoot flex="1" h="full" type="hover">
+        <ScrollAreaViewport>
+          <VStack
+            gap={{ base: 6, md: 7, lg: 8 }}
+            align="stretch"
+            pr={{ base: 0, lg: 4 }}
+          >
+            <NavigationSection
+              title={seo.title}
+              systems={systems}
+              activeIndex={activeIndex}
+              onSelect={setActiveIndex}
+            />
 
-        <Box>
-          <CTASection
-            label={activeSystem?.label || seo.title}
-            isSecondary
-          />
-        </Box>
+            <Box>
+              <CTASection
+                label={activeSystem?.label || seo.title}
+                isSecondary
+              />
+            </Box>
 
-        <Box mt="auto" pt={4}>
-          <Box borderTopWidth="1px" borderColor="border.default" mb={6} />
-          <CTASection
-            label={activeSystem?.label || seo.title}
-          />
-        </Box>
-      </VStack>
+            <Box mt="auto" pt={4}>
+              <Box borderTopWidth="1px" borderColor="border.default" mb={6} />
+              <CTASection
+                label={activeSystem?.label || seo.title}
+              />
+            </Box>
+          </VStack>
+        </ScrollAreaViewport>
+        <ScrollAreaScrollbar orientation="vertical" />
+      </ScrollAreaRoot>
     </GlassCard>
   );
 };

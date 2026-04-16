@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState, useCallback } from "react";
 import {
   Box,
   Button,
@@ -7,12 +7,20 @@ import {
   VStack,
   HStack,
   Text,
+  Image,
+  Badge,
+  Heading,
+  Skeleton,
 } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
-import { MapPin, Clock } from "lucide-react";
+import { MapPin, Clock, ArrowLeft } from "lucide-react";
+import { AnimatePresence, m } from "framer-motion";
+import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
 const InteractiveMap = lazy(() => import("./InteractiveMap"));
+
+const MotionVStack = m.create(VStack);
 
 /**
  * Componente StoreSection
@@ -20,6 +28,29 @@ const InteractiveMap = lazy(() => import("./InteractiveMap"));
  * @component
  */
 const StoreSection = React.memo(() => {
+  const [selectedMarker, setSelectedMarker] = useState(null);
+  const infoCardRef = React.useRef(null);
+  const isMobile = useIsMobile();
+
+  const handleMarkerToggle = useCallback((marker) => {
+    if (isMobile) return; // Bloquear selección en móvil
+    setSelectedMarker((prev) => (prev?.id === marker?.id ? null : marker));
+  }, [isMobile]);
+
+  // Autofocus/Scroll on mobile when marker is selected
+  React.useEffect(() => {
+    if (selectedMarker && infoCardRef.current && window.innerWidth < 992) {
+      infoCardRef.current.scrollIntoView({ 
+        behavior: "smooth", 
+        block: "nearest",
+        inline: "nearest" 
+      });
+    }
+  }, [selectedMarker]);
+
+  const isStore = selectedMarker?.type === "store";
+  const displaySelected = isMobile ? false : !!selectedMarker;
+
   return (
     <ItemGridLayout
       title="UBICACIÓN"
@@ -38,13 +69,12 @@ const StoreSection = React.memo(() => {
       }}
     >
       <ItemGridLayout.Item>
-        {/* CONTENEDOR MAESTRO - ACTÚA COMO ANCLA RELATIVA EN DESKTOP */}
         <Box 
           w="full" 
           position="relative" 
           h={{ base: "auto", lg: "700px" }}
         >
-          {/* MAPA - ISLA INDEPENDIENTE EN MOBILE, FONDO EN DESKTOP */}
+          {/* MAPA */}
           <Box 
             w="full" 
             h={{ base: "400px", lg: "full" }}
@@ -61,19 +91,23 @@ const StoreSection = React.memo(() => {
                 </Flex>
               }
             >
-              <InteractiveMap />
+              <InteractiveMap 
+                selectedMarker={selectedMarker} 
+                onMarkerToggle={handleMarkerToggle} 
+              />
             </Suspense>
           </Box>
 
-          {/* FICHA INFORMATIVA - FLOTANTE EN DESKTOP */}
+          {/* FICHA INFORMATIVA - DINÁMICA EN DESKTOP */}
           <VStack 
+            ref={infoCardRef}
             position={{ base: "relative", lg: "absolute" }}
             top={{ lg: "phi_xl" }}
             left={{ lg: "phi_xl" }}
-            zIndex={2}
-            gap="phi_xl" 
+            zIndex={10}
+            gap={0} 
             align={{ base: "center", lg: "flex-start" }} 
-            p="phi_lg"
+            p={0}
             bg="bg.glass"
             backdropFilter="blur(24px)"
             borderRadius="3xl"
@@ -81,47 +115,150 @@ const StoreSection = React.memo(() => {
             borderColor="border.glass"
             boxShadow="2xl"
             w={{ base: "full", lg: "340px" }}
+            h={{ lg: "480px" }}
             mt={{ base: "phi_xl", lg: 0 }}
+            overflow="hidden"
+            display="flex"
+            justifyContent="stretch"
           >
-            <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
-              <HStack gap={3} color="text.accent">
-                <Box as={Clock} boxSize={5} />
-                <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
-                  Horarios
-                </Text>
-              </HStack>
-              <Box pl={{ lg: "32px" }}>
-                <Text fontSize="md" color="text.heading" fontWeight="700">Lunes a Sábado</Text>
-                <Text fontSize="sm" color="text.muted">9:00 am – 5:00 pm</Text>
-              </Box>
-            </VStack>
+            <AnimatePresence mode="wait">
+              {!displaySelected ? (
+                <MotionVStack
+                  key="default-info"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                  p="phi_lg"
+                  gap="phi_xl"
+                  w="full"
+                  flex={1}
+                  justifyContent="space-between"
+                  align={{ base: "center", lg: "flex-start" }}
+                >
+                  <VStack gap="phi_xl" align={{ base: "center", lg: "flex-start" }} w="full">
+                    <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+                      <HStack gap={3} color="text.accent">
+                        <Box as={Clock} boxSize={5} />
+                        <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
+                          Horarios
+                        </Text>
+                      </HStack>
+                      <Box pl={{ lg: "32px" }}>
+                        <Text fontSize="md" color="text.heading" fontWeight="700">Lunes a Sábado</Text>
+                        <Text fontSize="sm" color="text.muted">9:00 am – 5:00 pm</Text>
+                      </Box>
+                    </VStack>
 
-            <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
-              <HStack gap={3} color="text.accent">
-                <Box as={MapPin} boxSize={5} />
-                <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
-                  Dirección
-                </Text>
-              </HStack>
-              <Box pl={{ lg: "32px" }}>
-                <Text fontSize="md" color="text.heading" fontWeight="700">Av. Los Fresnos 1250</Text>
-                <Text fontSize="sm" color="text.muted">La Molina, Lima - Perú</Text>
-              </Box>
-            </VStack>
+                    <VStack gap="phi_md" align={{ base: "center", lg: "flex-start" }} w="full">
+                      <HStack gap={3} color="text.accent">
+                        <Box as={MapPin} boxSize={5} />
+                        <Text fontWeight="900" fontSize="xs" textTransform="uppercase" letterSpacing="0.2em">
+                          Dirección
+                        </Text>
+                      </HStack>
+                      <Box pl={{ lg: "32px" }}>
+                        <Text fontSize="md" color="text.heading" fontWeight="700">Av. Los Fresnos 1250</Text>
+                        <Text fontSize="sm" color="text.muted">La Molina, Lima - Perú</Text>
+                      </Box>
+                    </VStack>
+                  </VStack>
 
-            <Button
-              as="a"
-              href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="aura"
-              width="full"
-              size="xl"
-              borderRadius="full"
-              aria-label="Cómo llegar a nuestra ubicación principal"
-            >
-              CÓMO LLEGAR
-            </Button>
+                  <Button
+                    as="a"
+                    href="https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="aura"
+                    width="full"
+                    size="xl"
+                    borderRadius="full"
+                    aria-label="Cómo llegar a nuestra ubicación principal"
+                  >
+                    CÓMO LLEGAR
+                  </Button>
+                </MotionVStack>
+              ) : (
+                <MotionVStack
+                  key={selectedMarker.id || "marker-info"}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  w="full"
+                  h="full"
+                  position="relative"
+                  overflow="hidden"
+                >
+                  {/* Imagen de Fondo Completa */}
+                  <Box position="absolute" inset={0} zIndex={0}>
+                    <Skeleton h="full" w="full" loading={!selectedMarker.image && !selectedMarker.photosObra?.[0]?.image}>
+                      <Image 
+                        src={selectedMarker.image || selectedMarker.photosObra?.[0]?.image} 
+                        alt={selectedMarker.name}
+                        w="100%" h="100%" objectFit="cover"
+                        loading="lazy"
+                      />
+                    </Skeleton>
+                  </Box>
+
+                  {/* Gradiente de Legibilidad Reforzado */}
+                  <Box 
+                    position="absolute" 
+                    inset={0} 
+                    bgGradient="linear(to-t, blackAlpha.900 0%, blackAlpha.700 25%, blackAlpha.400 50%, transparent 100%)"
+                    zIndex={1}
+                  />
+
+                  {/* Contenido Flotante */}
+                  <Flex 
+                    direction="column" 
+                    justify="space-between" 
+                    h="full" 
+                    w="full" 
+                    p="phi_lg" 
+                    zIndex={2}
+                    position="relative"
+                  >
+                    <Flex justify="flex-end" align="center" w="full">
+                      <Badge
+                        colorPalette={isStore ? "primary" : "blue"}
+                        variant="solid"
+                        borderRadius="full"
+                        px={3}
+                        boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                      >
+                        {isStore ? "SEDE CENTRAL" : selectedMarker.year || "OBRA FINALIZADA"}
+                      </Badge>
+                    </Flex>
+
+                    <VStack align="flex-start" gap="phi_xs" mb="phi_xs">
+                      <Heading 
+                        size="md" 
+                        color="white" 
+                        letterSpacing="tight" 
+                        fontWeight="800"
+                        textShadow="0 2px 10px rgba(0,0,0,0.8)"
+                      >
+                        {selectedMarker.residencial || selectedMarker.name}
+                      </Heading>
+                      <HStack align="flex-start" gap={3} w="full">
+                        <Box as={MapPin} boxSize={4} color="orange.300" mt={1} filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))" />
+                        <Text 
+                          fontSize="sm" 
+                          color="whiteAlpha.900" 
+                          fontWeight="600" 
+                          lineHeight="tall"
+                          textShadow="0 1px 4px rgba(0,0,0,0.8)"
+                        >
+                          {selectedMarker.address}
+                        </Text>
+                      </HStack>
+                    </VStack>
+                  </Flex>
+                </MotionVStack>
+              )}
+            </AnimatePresence>
           </VStack>
         </Box>
       </ItemGridLayout.Item>

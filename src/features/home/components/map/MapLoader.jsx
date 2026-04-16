@@ -13,27 +13,14 @@ const MapLoader = () => {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      bg="bg.subtle"
-      borderRadius="xl"
     >
-      <VStack gap={4}>
-        <Spinner
-          size="xl"
-          thickness="4px"
-          speed="0.65s"
-          color="text.accent"
-          emptyColor="border.glass"
-        />
-        <Text
-          fontSize="sm"
-          fontWeight="bold"
-          color="text.muted"
-          textTransform="uppercase"
-          letterSpacing="widest"
-        >
-          Cargando Entorno 3D...
-        </Text>
-      </VStack>
+      <Spinner
+        size="lg"
+        thickness="2px"
+        speed="0.8s"
+        color="primary.500"
+        emptyColor="border.glass"
+      />
     </Box>
   );
 };

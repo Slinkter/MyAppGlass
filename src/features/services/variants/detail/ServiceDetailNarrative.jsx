@@ -6,7 +6,7 @@ import React from "react";
 import { Box, VStack, Heading, Text, Container, Flex, Image } from "@chakra-ui/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 export const ServiceDetailNarrative = ({ pageData }) => {
   const { seo, about, imageLists } = pageData;

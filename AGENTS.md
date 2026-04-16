@@ -17,11 +17,7 @@ pnpm lint         # ESLint with all rules, fail on warnings
 ```
 
 ### Testing
-No test framework configured. Install Vitest first: `pnpm add -D vitest @vitest/ui`
-```bash
-pnpm vitest run --grep "pattern"         # Run tests matching pattern
-pnpm vitest run --testNamePattern "name" # Run specific test by name
-```
+No test framework installed. To add tests: `pnpm add -D vitest @vitest/ui`
 
 ### Deployment
 ```bash

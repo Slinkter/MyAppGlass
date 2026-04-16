@@ -1,11 +1,14 @@
-import { useColorMode, useColorModeValue } from "@/components/ui/color-mode";
-import React, { useMemo, useState, useCallback } from "react";
+import { useColorMode } from "@/components/ui/color-mode";
+import React, { useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
-import { Flex, Spinner, Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { GoogleMap } from "@react-google-maps/api";
 import { useGoogleMapsLoader, useMapIcons, useMapState } from "@/features/home/hooks";
 import { mapStyles } from "@/features/home/components/map/mapStyles";
 import CustomMarker from "@/features/home/components/map/CustomMarker";
+import MapLoader from "@/features/home/components/map/MapLoader";
+import MapError from "@/features/home/components/map/MapError";
+import MapControls from "@/features/home/components/map/MapControls";
 
 const containerStyle = {
   width: "100%",
@@ -14,53 +17,40 @@ const containerStyle = {
 
 const MapViewer = ({ lat, lng, projectData }) => {
   const { colorMode } = useColorMode();
-  const [selectedMarker, setSelectedMarker] = useState(null);
-  
-  const spinnerBg = useColorModeValue("gray.100", "gray.800");
-  const spinnerColor = "text.accent";
-  
   const { isLoaded, loadError } = useGoogleMapsLoader();
   const { map, onLoad, onUnmount } = useMapState();
   const google = window.google;
   const icons = useMapIcons(isLoaded, google);
 
   const center = useMemo(() => ({ lat, lng }), [lat, lng]);
-  const currentMapStyle = colorMode === "light" ? mapStyles.light : mapStyles.dark;
+  
+  const currentMapStyle = useMemo(
+    () => (colorMode === "light" ? mapStyles.light : mapStyles.dark),
+    [colorMode]
+  );
 
-  const handleMarkerToggle = useCallback((marker) => {
-    setSelectedMarker((prev) => (prev?.id === marker?.id ? null : marker));
-  }, []);
+  const handleFitBounds = useCallback(() => {
+    if (map) {
+      map.panTo(center);
+      map.setZoom(15);
+    }
+  }, [map, center]);
 
-  const options = useMemo(
+  const mapOptions = useMemo(
     () => ({
       mapTypeControl: false,
       fullscreenControl: false,
       streetViewControl: false,
-      zoomControl: true,
+      zoomControl: false, 
       styles: currentMapStyle,
       disableDefaultUI: false,
-      mapId: "DEMO_MAP_ID",
     }),
     [currentMapStyle]
   );
 
-  if (loadError) {
-    return (
-      <Flex position="absolute" inset="0" align="center" justify="center" bg={spinnerBg} zIndex={1}>
-        <Box color="red.500">Error loading map</Box>
-      </Flex>
-    );
-  }
+  if (loadError) return <MapError />;
+  if (!isLoaded || !google || !icons) return <MapLoader />;
 
-  if (!isLoaded || !google || !icons) {
-    return (
-      <Flex position="absolute" inset="0" align="center" justify="center" bg={spinnerBg} zIndex={1}>
-        <Spinner size="xl" color={spinnerColor} thickness="4px" />
-      </Flex>
-    );
-  }
-
-  // Preparamos el objeto de marcador para que sea compatible con CustomMarker
   const projectMarker = {
     id: "detail-project",
     lat,
@@ -69,25 +59,28 @@ const MapViewer = ({ lat, lng, projectData }) => {
   };
 
   return (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={15}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-      options={options}
-    >
-      <CustomMarker
-        marker={projectMarker}
-        isSelected={selectedMarker?.id === projectMarker.id}
-        onToggleSelect={handleMarkerToggle}
-        iconContent={icons.project.iconContent}
-        isSvg={icons.project.isSvg}
-        iconSize={icons.project.size}
-        map={map}
-        google={google}
-      />
-    </GoogleMap>
+    <Box w="100%" h="100%" position="relative">
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={15}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+        options={mapOptions}
+      >
+        <CustomMarker
+          marker={projectMarker}
+          isSelected={true}
+          onToggleSelect={() => {}} 
+          iconContent={icons.project.iconContent}
+          isSvg={icons.project.isSvg}
+          iconSize={icons.project.size}
+          map={map}
+          google={google}
+        />
+      </GoogleMap>
+      <MapControls onFitBounds={handleFitBounds} />
+    </Box>
   );
 };
 
@@ -97,4 +90,4 @@ MapViewer.propTypes = {
   projectData: PropTypes.object,
 };
 
-export default MapViewer;
+export default React.memo(MapViewer);

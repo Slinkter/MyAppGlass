@@ -21,7 +21,7 @@ Este documento rastrea el progreso de la actualización de los componentes del p
 - [x] Refactorizar Tooltips para usar la nueva estructura compuesta (`Tooltip.Root`, `Tooltip.Content`).
 
 ## Fase 4: Componentes Interactivos y Compartidos (Shared)
-- [ ] Implementar `ScrollArea` nativo para reemplazar el CSS personalizado de scrollbars (`GalleryThumbnails.jsx`, Sidebar).
+- [x] Implementar `ScrollArea` nativo para reemplazar el CSS personalizado de scrollbars (`GalleryThumbnails.jsx`, Sidebar).
 - [x] Cambiar renderizado condicional lógico (`isOpen && ...`) por el componente declarativo `<Show>` o componentes de control de estado v3.
 - [x] Actualizar el manejo de errores visuales (`ErrorFallback.jsx`, `ErrorPage.jsx`) usando `Alert` o `Blockquote`.
 - [x] Migrar popovers antiguos a la nueva estructura `Popover.Root` y `Popover.Content` (`CustomMarker.jsx`).

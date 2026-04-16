@@ -10,7 +10,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
-import logoGYA from "@/assets/branding/LogoCompanytrans.png";
+import logoGYA from "@/assets/branding/logosvg.svg";
 import {
   DrawerBackdrop,
   DrawerBody,

@@ -2,12 +2,15 @@ import { useColorModeValue } from "@/components/ui/color-mode";
 import React from "react";
 import {
   Box,
-  Tooltip,
   Button,
-  Icon,
 } from "@chakra-ui/react";
-import { FaCompass } from "react-icons/fa";
+import { Tooltip } from "@/components/ui/tooltip";
+import { Compass } from "lucide-react";
 
+/**
+ * MapControls Component
+ * Provides a button to re-center the map view.
+ */
 const MapControls = ({ onFitBounds }) => {
   const btnBg = useColorModeValue("white", "gray.800");
   const btnColor = useColorModeValue("gray.600", "white");
@@ -15,7 +18,7 @@ const MapControls = ({ onFitBounds }) => {
 
   return (
     <Box position="absolute" top={4} right={4} zIndex={10}>
-      <Tooltip label="Centrar mapa" placement="left" hasArrow>
+      <Tooltip content="Centrar mapa" side="left" showArrow>
         <Button
           onClick={onFitBounds}
           bg={btnBg}
@@ -24,12 +27,13 @@ const MapControls = ({ onFitBounds }) => {
           shadow="lg"
           _hover={{ bg: btnHoverBg }}
           borderRadius="lg"
+          aria-label="Re-centrar mapa"
         >
-          <Icon as={FaCompass} boxSize={5} />
+          <Box as={Compass} boxSize={5} />
         </Button>
       </Tooltip>
     </Box>
   );
 };
 
-export default MapControls;
+export default React.memo(MapControls);
