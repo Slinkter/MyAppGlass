@@ -18,7 +18,6 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
       overflow="hidden"
       p={0}
       borderRadius="2xl"
-      p={0}
     >
       <Flex
         align="center" justify="center"
