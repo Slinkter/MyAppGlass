@@ -4,10 +4,82 @@
  * Refactored to use semantic tokens for full theme compatibility.
  */
 
+import React from "react";
+import { Box, Heading, Text, VStack, Container, Image, Stack, SimpleGrid, HStack, IconButton, Flex, Badge } from "@chakra-ui/react";
+import { Toaster, toaster } from "@/components/ui/toaster";
+import { Tooltip } from "@/components/ui/tooltip";
+import {
+  Building, Contact, MapPin, Mail, Copy, Check, Clock,
+} from "lucide-react";
+import HelmetWrapper from "@shared/components/HelmetWrapper";
+import { companyData } from "@/config/company-data";
+import { bankAccountsData } from "../data/bank-accounts";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
 import AuraSurface from "@shared/components/aura/AuraSurface";
 import qrYapePlin from "@/assets/glassqr2026.jpg";
+
+/** v3: useToast → toaster object from snippet */
+const CopyButton = ({ value, label }) => {
+  const [hasCopied, setHasCopied] = React.useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(value);
+    setHasCopied(true);
+    toaster.create({
+      title: "Copiado",
+      description: `${label} copiado al portapapeles.`,
+      type: "success",
+      duration: 2000,
+    });
+    setTimeout(() => setHasCopied(false), 2000);
+  };
+
+  return (
+    <Tooltip content={`Copiar ${label}`}>
+      <IconButton
+        size="sm"
+        aria-label={`Copiar ${label}`}
+        onClick={handleCopy}
+        variant="ghost"
+        colorPalette={hasCopied ? "green" : "gray"}
+        borderRadius="full"
+      >
+        {hasCopied ? <Check size={16} /> : <Copy size={16} />}
+      </IconButton>
+    </Tooltip>
+  );
+};
+
+const InfoItem = ({ icon, label, value, copyable = false }) => {
+  return (
+    <HStack
+      p={4}
+      h={{ base: "120px", md: "100px" }}
+      gap={4}
+      align="center"
+      w="full"
+    >
+      <Flex
+        align="center" justify="center"
+        w={10} h={10} borderRadius="full"
+        bg="bg.subtle"
+        color="text.accent" flexShrink={0}
+      >
+        <Box as={icon} boxSize={5} />
+      </Flex>
+      <Box flex="1">
+        <Text fontSize="xs" fontWeight="900" textTransform="uppercase" color="text.muted" letterSpacing="0.2em">
+          {label}
+        </Text>
+        <Text fontSize="md" fontWeight="700" color="text.heading">
+          {value}
+        </Text>
+      </Box>
+      {copyable && <CopyButton value={value} label={label} />}
+    </HStack>
+  );
+};
 
 /** v3: Card/CardBody → Box with manual styling */
 const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray.50" }) => {
