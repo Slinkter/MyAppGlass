@@ -1,18 +1,18 @@
 import { useMemo } from "react";
-import { Building2 } from "lucide-react";
-import logo from "@/assets/branding/LogoCompanytrans.png";
+import { Building } from "lucide-react";
+import { LogoIcon } from "@/assets/branding/LogoIcon";
 
 export const useMapIcons = (isLoaded, google) => {
   return useMemo(() => {
     if (!isLoaded || !google) return null;
     return {
       store: {
-        iconContent: logo,
-        isSvg: false,
-        size: { width: 60, height: 60 },
+        iconContent: LogoIcon,
+        isSvg: true,
+        size: { width: 36, height: 36 },
       },
       project: {
-        iconContent: Building2,
+        iconContent: Building,
         isSvg: true,
         size: { width: 36, height: 36 },
       },

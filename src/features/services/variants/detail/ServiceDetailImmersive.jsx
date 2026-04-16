@@ -10,7 +10,7 @@ import { CheckCircle2, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 export const ServiceDetailImmersive = ({ pageData }) => {
   const { seo, about, benefits, systems, imageLists } = pageData;

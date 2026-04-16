@@ -7,8 +7,8 @@ import { Box, VStack, Heading, Text, Container, Flex, Image, SimpleGrid, HStack 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Diamond, Compass, Zap, Layers } from "lucide-react";
 
-const MotionBox = motion(Box);
-const MotionHeading = motion(Heading);
+const MotionBox = motion.create(Box);
+const MotionHeading = motion.create(Heading);
 
 const SpecTag = ({ icon, label, value }) => (
   <VStack align="flex-start" gap={1} p={6} border="1px solid" borderColor="whiteAlpha.200" _hover={{ borderColor: "orange.300", bg: "whiteAlpha.50" }} transition="all 0.4s ease">

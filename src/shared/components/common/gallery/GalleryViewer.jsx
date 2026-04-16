@@ -14,7 +14,7 @@ import { useColorModeValue } from "@/components/ui/color-mode";
 const SWIPE_THRESHOLD = 50;
 
 // Create a motion-enabled Box component
-const MotionBox = m(Box);
+const MotionBox = m.create(Box);
 
 /**
  * @component GalleryViewer

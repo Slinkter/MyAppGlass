@@ -5,31 +5,26 @@
  */
 
 import React from "react";
-import { Box, Spinner, Center } from "@chakra-ui/react";
+import { Spinner, Center } from "@chakra-ui/react";
+import { m } from "framer-motion";
 
 const LoadingFallback = () => (
-  <Center h="100dvh" w="100vw" bg="bg.page">
-    <Box
-      p={8}
-      bg="bg.section"
-      borderRadius="2xl"
-      borderWidth="1px"
-      borderColor="border.glass"
-      boxShadow="xl"
-      backdropFilter="blur(10px)"
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      gap={4}
-    >
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="bg.subtle"
-        color="text.accent"
-        size="xl"
-      />
-    </Box>
+  <Center 
+    h="100dvh" 
+    w="100vw" 
+    bg="bg.page"
+    as={m.div}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    <Spinner
+      thickness="2px"
+      speed="0.8s"
+      emptyColor="border.glass"
+      color="primary.500"
+      size="xl"
+    />
   </Center>
 );
 

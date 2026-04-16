@@ -10,7 +10,7 @@ import ServiceCard from "../components/ServiceCard";
 import { services } from "../data/services";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 
-const MotionItem = motion(ItemGridLayout.Item);
+const MotionItem = motion.create(ItemGridLayout.Item);
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
 
 export const ServicesImmersiveFilter = () => {

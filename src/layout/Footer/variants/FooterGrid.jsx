@@ -24,7 +24,7 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
-import logoGYA from "@/assets/branding/LogoCompanytrans.png";
+import logoGYA from "@/assets/branding/logosvg.svg";
 
 const FooterSection = ({ title, children }) => (
   <VStack align="flex-start" gap={6} w="full">

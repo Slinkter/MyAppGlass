@@ -1,9 +1,8 @@
 import { useColorMode } from "@/components/ui/color-mode";
-import React, { useState, useCallback } from "react";
+import React, { useMemo, useCallback } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import { Box } from "@chakra-ui/react";
 
-// --- HOOKS ---
 import {
   useMapProjects,
   useMapIcons,
@@ -11,18 +10,16 @@ import {
   useGoogleMapsLoader,
 } from "../hooks";
 
-// --- COMPONENTS ---
 import CustomMarker from "./map/CustomMarker";
 import MapLoader from "./map/MapLoader";
 import MapError from "./map/MapError";
+import MapControls from "./map/MapControls";
 
-// --- CONFIG & STYLES ---
 import { containerStyle, center, mainStore } from "./map/mapConfig";
 import { mapStyles } from "./map/mapStyles";
 
-function InteractiveMapComponent() {
+function InteractiveMapComponent({ selectedMarker, onMarkerToggle }) {
   const projects = useMapProjects();
-  const [selectedMarker, setSelectedMarker] = useState(null);
   const { colorMode } = useColorMode();
 
   const { isLoaded, loadError } = useGoogleMapsLoader();
@@ -32,12 +29,34 @@ function InteractiveMapComponent() {
   const { map, onLoad, onUnmount } = useMapState();
   const icons = useMapIcons(isLoaded, google);
 
-  const handleMarkerToggle = useCallback((marker) => {
-    setSelectedMarker((prev) => (prev?.id === marker?.id ? null : marker));
-  }, []);
+  const currentMapStyle = useMemo(
+    () => (colorMode === "light" ? mapStyles.light : mapStyles.dark),
+    [colorMode],
+  );
 
-  const currentMapStyle =
-    colorMode === "light" ? mapStyles.light : mapStyles.dark;
+  const handleMarkerToggle = useMemo(
+    () => (marker) => onMarkerToggle(marker),
+    [onMarkerToggle],
+  );
+
+  const handleFitBounds = useCallback(() => {
+    if (map) {
+      map.panTo(center);
+      map.setZoom(12);
+    }
+  }, [map]);
+
+  const mapOptions = useMemo(
+    () => ({
+      mapTypeControl: false,
+      fullscreenControl: false,
+      streetViewControl: false,
+      zoomControl: false,
+      styles: currentMapStyle,
+      disableDefaultUI: false,
+    }),
+    [currentMapStyle],
+  );
 
   if (loadError) return <MapError />;
 
@@ -53,14 +72,7 @@ function InteractiveMapComponent() {
         zoom={12}
         onLoad={onLoad}
         onUnmount={onUnmount}
-        options={{
-          mapTypeControl: false,
-          fullscreenControl: false,
-          streetViewControl: false,
-          zoomControl: false,
-          styles: currentMapStyle,
-          disableDefaultUI: false,
-        }}
+        options={mapOptions}
       >
         <CustomMarker
           marker={mainStore}
@@ -87,6 +99,7 @@ function InteractiveMapComponent() {
           />
         ))}
       </GoogleMap>
+      <MapControls onFitBounds={handleFitBounds} />
     </Box>
   );
 }
