@@ -4,100 +4,21 @@
  * Refactored to use semantic tokens for full theme compatibility.
  */
 
-import React from "react";
-import { Box, Heading, Text, VStack, Container, Image, Stack, SimpleGrid, HStack, IconButton, Flex } from "@chakra-ui/react";
-import { Toaster, toaster } from "@/components/ui/toaster";
-import { Tooltip } from "@/components/ui/tooltip";
-import {
-  Building, Contact, MapPin, Mail, Copy, Check,
-} from "lucide-react";
-import HelmetWrapper from "@shared/components/HelmetWrapper";
-import { companyData } from "@/config/company-data";
-import { bankAccountsData } from "../data/bank-accounts";
-
-/** v3: useToast → toaster object from snippet */
-const CopyButton = ({ value, label }) => {
-  const [hasCopied, setHasCopied] = React.useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(value);
-    setHasCopied(true);
-    toaster.create({
-      title: "Copiado",
-      description: `${label} copiado al portapapeles.`,
-      type: "success",
-      duration: 2000,
-    });
-    setTimeout(() => setHasCopied(false), 2000);
-  };
-
-  return (
-    <Tooltip content={`Copiar ${label}`}>
-      <IconButton
-        size="sm"
-        aria-label={`Copiar ${label}`}
-        onClick={handleCopy}
-        variant="ghost"
-        colorPalette={hasCopied ? "green" : "gray"}
-        borderRadius="full"
-      >
-        {hasCopied ? <Check size={16} /> : <Copy size={16} />}
-      </IconButton>
-    </Tooltip>
-  );
-};
-
-const InfoItem = ({ icon, label, value, copyable = false }) => {
-  return (
-    <HStack
-      bg="bg.section"
-      p={4}
-      h={{ base: "120px", md: "100px" }}
-      borderRadius="xl"
-      borderWidth="1px"
-      borderColor="border.default"
-      boxShadow="sm"
-      gap={4}
-      align="center"
-      transition="all 0.3s"
-      _hover={{ transform: "translateY(-2px)", boxShadow: "md" }}
-    >
-      <Flex
-        align="center" justify="center"
-        w={10} h={10} borderRadius="full"
-        bg="bg.subtle"
-        color="text.accent" flexShrink={0}
-      >
-        <Box as={icon} boxSize={5} />
-      </Flex>
-      <Box flex="1">
-        <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" color="text.muted" letterSpacing="wider">
-          {label}
-        </Text>
-        <Text fontSize="md" fontWeight="medium" color="text.heading">
-          {value}
-        </Text>
-      </Box>
-      {copyable && <CopyButton value={value} label={label} />}
-    </HStack>
-  );
-};
+import AuraContainer from "@shared/components/aura/AuraContainer";
+import AuraHeader from "@shared/components/aura/AuraHeader";
+import AuraSurface from "@shared/components/aura/AuraSurface";
+import qrYapePlin from "@/assets/glassqr2026.jpg";
 
 /** v3: Card/CardBody → Box with manual styling */
 const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray.50" }) => {
   return (
-    <Box
-      h={{ base: "auto", md: "245px" }}
+    <AuraSurface
       display="flex"
       flexDirection={{ base: "column", md: "row" }}
       overflow="hidden"
-      bg="bg.section"
-      borderWidth="1px"
-      borderColor="border.default"
+      p={0}
       borderRadius="2xl"
-      boxShadow="md"
-      transition="all 0.3s"
-      _hover={{ shadow: "lg" }}
+      p={0}
     >
       <Flex
         align="center" justify="center"
@@ -107,7 +28,7 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
         minW={{ md: "220px" }} maxW={{ md: "240px" }}
         borderRightWidth={{ md: "1px" }}
         borderBottomWidth={{ base: "1px", md: "0" }}
-        borderColor="border.default"
+        borderColor="border.glass"
       >
         <Image
           objectFit="contain" w="full" h="auto" maxH="60px"
@@ -119,20 +40,22 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
         <Stack gap={4}>
           <Box>
             <Text
-              fontSize="sm" fontWeight="bold"
+              fontSize="xs" fontWeight="900"
               color="text.accent"
-              textTransform="uppercase" letterSpacing="wide" mb={1}
+              textTransform="uppercase" letterSpacing="0.2em" mb={1}
             >
               {bankName}
             </Text>
-            <Heading size="md" fontWeight="bold" color="text.heading">{accountType}</Heading>
+            <Heading size="md" fontWeight="800" color="text.heading" lineHeight="1.2">
+              {accountType}
+            </Heading>
           </Box>
 
-          <Stack gap={3}>
+          <Stack gap="phi_sm">
             {accounts.map((acc, idx) => (
               <React.Fragment key={idx}>
                 {idx > 0 && (
-                  <Box borderBottomWidth="1px" borderColor="border.default" />
+                  <Box borderBottomWidth="1px" borderColor="border.glass" />
                 )}
                 <Flex justify="space-between" align="center" wrap="wrap" gap={2}>
                   <Box>
@@ -151,7 +74,7 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
           </Stack>
         </Stack>
       </Box>
-    </Box>
+    </AuraSurface>
   );
 };
 
@@ -167,64 +90,134 @@ const BankAccountsPage = () => {
     <>
       <Toaster />
       <HelmetWrapper
-        title="Cuentas Bancarias y Datos de Facturación - GYA Company"
-        description="Información detallada de cuentas bancarias y datos fiscales para pagos y facturación a GYA Company."
+        title="Cuentas Bancarias y Facturación - GYA Company"
+        description="Información detallada de cuentas bancarias y datos fiscales para pagos y facturación."
         canonicalUrl="https://www.gyacompany.com/cuentas-bancarias"
       />
-      <Container maxW="7xl" py={{ base: 8, md: 12 }}>
-        <VStack gap={10} align="stretch">
-          <Box textAlign={{ base: "left", md: "center" }} maxW="4xl" mx="auto">
-            <Heading
-              as="h1" size={{ base: "xl", md: "2xl" }}
-              color="text.heading" mb={4} lineHeight="shorter"
-            >
-              Cuentas Bancarias y <br />
-              <Text as="span" color="text.accent">
-                Datos de Facturación
-              </Text>
+      
+      <AuraContainer>
+        <VStack gap={12} align="stretch">
+          
+          <AuraHeader 
+            title={
+              <>
+                Cuentas Bancarias y <Text as="span" color="text.accent">Facturación</Text>
+              </>
+            }
+            overline="Información Bancaria"
+            description="Encuentre a continuación nuestros datos fiscales y bancarios para gestionar sus pagos con seguridad y confianza."
+          />
+
+          {/* NUEVA SECCIÓN: BILLETERAS DIGITALES (YAPE / PLIN) */}
+          <Box>
+            <Heading as="h2" size="lg" mb="phi_lg" color="text.heading" fontWeight="800">
+              Billeteras Digitales
             </Heading>
-            <Text fontSize={{ base: "md", md: "lg" }} color="text.body">
-              Facilitamos sus transacciones con información clara y accesible.
-              Encuentre a continuación nuestros datos fiscales y bancarios para
-              gestionar sus pagos con seguridad y confianza.
-            </Text>
+            
+            <AuraSurface 
+              variant="interactive" 
+              p={{ base: "phi_md", md: "phi_lg" }}
+              display="flex"
+              flexDirection={{ base: "column", md: "row" }}
+              align="center"
+              gap={{ base: "phi_lg", md: "phi_xl" }}
+            >
+              {/* Contenedor del QR */}
+              <Box 
+                w={{ base: "full", md: "280px" }} 
+                p="phi_sm"
+                bg="white" 
+                borderRadius="2xl" 
+                boxShadow="xl"
+                position="relative"
+                overflow="hidden"
+              >
+                <Image 
+                  src={qrYapePlin} 
+                  alt="QR Transferencias"
+                  w="full"
+                  h="auto"
+                  borderRadius="xl"
+                />
+                <Box 
+                  position="absolute" 
+                  bottom={0} left={0} right={0} 
+                  bg="primary.500" 
+                  h="6px" 
+                />
+              </Box>
+
+              {/* Información de Billeteras */}
+              <VStack align="flex-start" flex="1" gap="phi_md">
+                <HStack gap="phi_sm">
+                  <Badge colorPalette="purple" size="lg" variant="solid" px={3} borderRadius="full">YAPE</Badge>
+                  <Badge colorPalette="blue" size="lg" variant="solid" px={3} borderRadius="full">PLIN</Badge>
+                </HStack>
+                
+                <Box>
+                  <Heading size="md" color="text.heading" fontWeight="800">Pago con Billetera Digital</Heading>
+                  <Text mt={2} color="text.body" fontSize="sm" lineHeight="tall">
+                    Facilitamos sus pagos inmediatos. Escanee el código QR desde su aplicación favorita 
+                    <strong>(Yape, Plin, Tunki u otras aplicaciones bancarias compatibles)</strong> 
+                    para realizar un depósito directo y seguro sin necesidad de números de cuenta complejos.
+                  </Text>
+                </Box>
+
+                <VStack align="flex-start" gap="phi_xs" w="full">
+                  <Text fontSize="xs" fontWeight="900" color="text.accent" textTransform="uppercase" letterSpacing="widest">
+                    Titularidad
+                  </Text>
+                  <HStack 
+                    w="full" p="phi_sm" bg="bg.subtle" borderRadius="xl" 
+                    border="1px solid" borderColor="border.glass" justify="space-between"
+                  >
+                    <VStack align="flex-start" gap={0}>
+                      <Text fontWeight="800" fontSize="md" color="text.heading">GIA & ALUMINIO S.A.C.</Text>
+                      <Text fontSize="xs" color="text.muted">RUC: {companyData.ruc}</Text>
+                    </VStack>
+                    <CopyButton value={companyData.ruc} label="RUC" />
+                  </HStack>
+                </VStack>
+              </VStack>
+            </AuraSurface>
           </Box>
 
           <Box>
-            <Heading as="h2" size="lg" mb={6} color="text.heading">
+            <Heading as="h2" size="lg" mb="phi_lg" color="text.heading" fontWeight="800">
               Identificación Fiscal
             </Heading>
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap="phi_md">
               {fiscalData.map((item, index) => (
-                <InfoItem key={index} {...item} />
+                <AuraSurface key={index} p={0}>
+                   <InfoItem {...item} />
+                </AuraSurface>
               ))}
             </SimpleGrid>
           </Box>
 
           <Box>
-            <Heading as="h2" size="lg" mb={6} color="text.heading">
+            <Heading as="h2" size="lg" mb="phi_lg" color="text.heading" fontWeight="800">
               Cuentas Bancarias
             </Heading>
-            <Stack gap={6}>
+            <Stack gap="phi_md">
               {bankAccountsData.map((bankAccount, index) => (
                 <BankAccountCard key={index} {...bankAccount} />
               ))}
             </Stack>
           </Box>
 
-          <Box
-            bg="bg.subtle"
-            p={6} borderRadius="xl" textAlign="center"
+          <AuraSurface
+            p="phi_lg" textAlign="center" variant="strong"
           >
             <Text fontSize="md" color="text.body">
               ¿Necesita confirmar un pago o requiere asistencia adicional?
-              <Text as="span" display="block" mt={1} fontWeight="bold" color="text.accent">
-                Contáctenos en: {companyData.contactEmail}
+              <Text as="span" display="block" mt={1} fontWeight="800" color="text.accent" letterSpacing="wide">
+                CONTÁCTENOS EN: {companyData.contactEmail}
               </Text>
             </Text>
-          </Box>
+          </AuraSurface>
         </VStack>
-      </Container>
+      </AuraContainer>
     </>
   );
 };
