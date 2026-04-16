@@ -122,11 +122,8 @@ const ProjectDetailPage = () => {
             overline="Proyecto de Ingeniería"
             backTo="/proyectos"
             centered={true}
+            action={<ViewSelector activeMode={viewMode} onSelect={handleSelect} />}
           />
-          
-          <Box mt="-phi_md">
-            <ViewSelector activeMode={viewMode} onSelect={handleSelect} />
-          </Box>
 
           {/* 2. VISUALIZADOR PRINCIPAL CON SKELETON (para transiciones de modo) */}
           <Box
