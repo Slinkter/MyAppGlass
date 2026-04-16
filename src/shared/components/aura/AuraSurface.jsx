@@ -4,7 +4,7 @@
  */
 
 import React from "react";
-import { Box, useRecipe } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 /**
  * @component AuraSurface

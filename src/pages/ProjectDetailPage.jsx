@@ -115,17 +115,23 @@ const ProjectDetailPage = () => {
       />
 
       <AuraContainer>
-        <VStack gap={{ base: "phi_lg", lg: "phi_xl" }} align="stretch">
+        <VStack gap={{ base: "phi_lg", lg: "phi_xl" }} align="center" w="full">
           
           <AuraHeader 
             title={project.residencial}
             overline="Proyecto de Ingeniería"
             backTo="/proyectos"
-            action={<ViewSelector activeMode={viewMode} onSelect={handleSelect} />}
+            centered={true}
           />
+          
+          <Box mt="-phi_md">
+            <ViewSelector activeMode={viewMode} onSelect={handleSelect} />
+          </Box>
 
           {/* 2. VISUALIZADOR PRINCIPAL CON SKELETON (para transiciones de modo) */}
           <Box
+            w="full"
+            maxW="7xl"
             h={{ base: "420px", md: "700px" }}
             position="relative"
             borderRadius={{ base: "2xl", md: "3xl" }}
@@ -150,7 +156,7 @@ const ProjectDetailPage = () => {
           </Box>
 
           {/* 3. BENTO GRID DE ESPECIFICACIONES */}
-          <VStack align="stretch" gap={{ base: "phi_md", md: "phi_lg" }}>
+          <VStack align="center" gap={{ base: "phi_md", md: "phi_lg" }} w="full">
             <Heading
               size="xs"
               fontWeight="800"
@@ -159,12 +165,14 @@ const ProjectDetailPage = () => {
               letterSpacing="0.3em"
               display="flex"
               alignItems="center"
+              justifyContent="center"
               gap={3}
+              w="full"
             >
-              <Box w="20px" h="1px" bg="primary.500" /> Especificaciones Técnicas
+              <Box w="20px" h="1px" bg="primary.500" /> Especificaciones Técnicas <Box w="20px" h="1px" bg="primary.500" />
             </Heading>
 
-            <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={{ base: "phi_sm", md: "phi_md" }}>
+            <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={{ base: "phi_sm", md: "phi_md" }} w="full">
               <ProjectDetailItem icon={Home} label="Residencial" value={project.residencial} />
               <ProjectDetailItem icon={Building2} label="Constructora" value={project.name} />
               <ProjectDetailItem icon={MapPin} label="Dirección" value={project.address} />

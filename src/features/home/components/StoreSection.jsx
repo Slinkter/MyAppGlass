@@ -11,7 +11,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
-import { MapPin, Clock, ArrowLeft } from "lucide-react";
+import { MapPin, Clock } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 

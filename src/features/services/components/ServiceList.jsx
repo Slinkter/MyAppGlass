@@ -41,15 +41,6 @@ const ServiceList = React.memo(() => {
     return allServices.filter((s) => s.category === activeCategory);
   }, [allServices, activeCategory]);
 
-  // Reset display count when filter changes
-  useEffect(() => {
-    setDisplayCount(6);
-  }, [activeCategory]);
-
-  if (isLoading) {
-    return <ServiceListSkeleton />;
-  }
-
   const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
 
   useIntersectionObserver(
@@ -61,9 +52,18 @@ const ServiceList = React.memo(() => {
     { threshold: 0.01, rootMargin }
   );
 
+  // Reset display count when filter changes
+  useEffect(() => {
+    setDisplayCount(6);
+  }, [activeCategory]);
+
   const preparedServices = useMemo(() => {
     return filteredServices.slice(0, displayCount).map((s) => ({ ...s, preloaded: true }));
   }, [filteredServices, displayCount]);
+
+  if (isLoading) {
+    return <ServiceListSkeleton />;
+  }
 
   return (
     <ItemGridLayout
