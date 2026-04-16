@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { Box, Heading, Text, VStack, Stack, SimpleGrid, HStack, IconButton, Flex, Badge } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Stack, SimpleGrid, HStack, IconButton, Flex, Badge, Image } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import { Tooltip } from "@/components/ui/tooltip";
 import {

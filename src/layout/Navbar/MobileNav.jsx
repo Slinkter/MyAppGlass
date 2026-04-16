@@ -5,7 +5,7 @@
  */
 import React, { useState, useEffect, useCallback, useTransition } from "react";
 import { Box, IconButton, VStack, Image, Text, Button, Separator, HStack, SimpleGrid } from "@chakra-ui/react";
-import { Menu, X, MessageSquareText, ShieldCheck, Landmark, Home } from "lucide-react";
+import { Menu, X, ShieldCheck, Landmark, Home } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
@@ -80,10 +80,6 @@ const MobileNav = React.memo(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
-  const handleWhatsAppClick = useCallback(() => {
-    window.open(`https://wa.me/51974278303?text=${encodeURIComponent("Hola, quisiera información.")}`, "_blank");
-  }, []);
-
   const handleLinkClick = useCallback(() => {
     startTransition(() => setIsOpen(false));
   }, []);
@@ -142,27 +138,9 @@ const MobileNav = React.memo(() => {
                 </m.div>
               ))}
             </AnimatePresence>
-            
-            <Button
-              onClick={handleWhatsAppClick}
-              variant="outline"
-              colorPalette="primary"
-              borderRadius="full"
-              size="lg"
-              mt="phi_lg"
-              px="phi_xl"
-              textTransform="uppercase"
-              letterSpacing="0.2em"
-              fontSize="xs"
-              fontWeight="black"
-              borderColor="border.strong"
-              _hover={{ borderColor: "text.accent", bg: "bg.subtle" }}
-            >
-              <MessageSquareText size={18} /> ASESORÍA EN VIVO
-            </Button>
           </VStack>
 
-          <VStack gap="phi_md" w="full" mt="auto" pt="phi_lg">
+          <VStack gap="phi_md" w="full" mt="auto" pt="phi_lg" align="center">
             <Separator borderColor="border.glass" opacity={0.5} />
             
             <SimpleGrid columns={2} gapY="phi_md" gapX={8} w="full" px="phi_md">
@@ -178,14 +156,33 @@ const MobileNav = React.memo(() => {
               <UtilityLink label="Inicio" href="/" icon={Home} onClick={handleLinkClick} />
             </SimpleGrid>
 
-            <Box pt="phi_md">
+            {/* REDISEÑO: AURA ORBIT THEME TOGGLE (PERFECT CIRCLE) */}
+            <Box pt="phi_lg" pb="phi_md">
               <ColorModeButton 
-                variant="outline" 
-                size="lg" 
-                color="text.accent"
+                variant="plain"
+                p={0}
+                w="64px"
+                h="64px"
                 borderRadius="full"
+                bg="bg.glass"
+                backdropFilter="blur(16px)"
+                border="1px solid"
                 borderColor="border.glass"
-                _hover={{ bg: "bg.subtle", transform: "rotate(15deg)" }}
+                boxShadow="glass"
+                color="text.accent"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                _hover={{ 
+                  transform: "scale(1.1) rotate(15deg)",
+                  boxShadow: "0 0 20px {colors.primary.400}",
+                  borderColor: "text.accent"
+                }}
+                _active={{ transform: "scale(0.95)" }}
+                transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+                css={{
+                  "& svg": { width: "28px", height: "28px" }
+                }}
               />
             </Box>
           </VStack>
