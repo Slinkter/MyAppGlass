@@ -4,9 +4,10 @@
  * @module layout/navbar
  */
 import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
 import AuraDesktopNav from "./AuraDesktopNav";
 import MobileNav from "./MobileNav";
+import { ColorModeButton } from "@/components/ui/color-mode";
+import { Box, Flex } from "@chakra-ui/react";
 
 /**
  * @component AuraNavbar
@@ -51,8 +52,33 @@ const AuraNavbar = React.memo(() => {
         </Flex>
       </Box>
 
-      {/* MOBILE NAVBAR (Floating Trigger) */}
+      {/* MOBILE NAVBAR (Floating Trigger & Theme Toggle) */}
       <Box display={{ base: "block", md: "none" }}>
+        {/* Toggle de Tema en lugar de Logo (Esquina Superior Izquierda) */}
+        <Box 
+          position="fixed" 
+          top="phi_md" 
+          left="phi_md" 
+          zIndex={1100}
+        >
+          <ColorModeButton 
+            size="xl" 
+            variant="ghost"
+            bg="bg.glass"
+            backdropFilter="blur(16px)"
+            borderRadius="full"
+            border="1px solid"
+            borderColor="border.glass"
+            boxShadow="glass"
+            color="text.accent"
+            _hover={{ transform: "scale(1.1)", boxShadow: "2xl" }}
+            _active={{ transform: "scale(0.9)" }}
+            css={{
+              "& svg": { width: "24px", height: "24px" }
+            }}
+          />
+        </Box>
+        
         <MobileNav />
       </Box>
     </>

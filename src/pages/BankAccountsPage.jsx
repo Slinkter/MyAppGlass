@@ -5,11 +5,11 @@
  */
 
 import React from "react";
-import { Box, Heading, Text, VStack, Container, Image, Stack, SimpleGrid, HStack, IconButton, Flex, Badge } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Stack, SimpleGrid, HStack, IconButton, Flex, Badge } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import { Tooltip } from "@/components/ui/tooltip";
 import {
-  Building, Contact, MapPin, Mail, Copy, Check, Clock,
+  Building, Contact, MapPin, Mail, Copy, Check,
 } from "lucide-react";
 import HelmetWrapper from "@shared/components/HelmetWrapper";
 import { companyData } from "@/config/company-data";
@@ -94,6 +94,8 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
       overflow="hidden"
       p={0}
       borderRadius="2xl"
+      transition="all 0.3s"
+      _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
     >
       <Flex
         align="center" justify="center"
@@ -115,29 +117,33 @@ const BankAccountCard = ({ logo, bankName, accountType, accounts, logoBg = "gray
         <Stack gap={4}>
           <Box>
             <Text
-              fontSize="xs" fontWeight="900"
+              fontSize="sm" fontWeight="700"
               color="text.accent"
-              textTransform="uppercase" letterSpacing="0.2em" mb={1}
+              textTransform="uppercase" letterSpacing="wide" mb={1}
             >
               {bankName}
             </Text>
-            <Heading size="md" fontWeight="800" color="text.heading" lineHeight="1.2">
+            <Heading size="md" fontWeight="600" color="text.heading" lineHeight="1.3">
               {accountType}
             </Heading>
           </Box>
 
-          <Stack gap="phi_sm">
+          <Stack gap={3}>
             {accounts.map((acc, idx) => (
               <React.Fragment key={idx}>
                 {idx > 0 && (
                   <Box borderBottomWidth="1px" borderColor="border.glass" />
                 )}
-                <Flex justify="space-between" align="center" wrap="wrap" gap={2}>
-                  <Box>
-                    <Text fontSize="xs" color="text.muted" fontWeight="bold">{acc.label}</Text>
-                    <Text fontFamily="mono" fontSize="md" fontWeight="medium" color="text.body">{acc.value}</Text>
+                <Flex justify="space-between" align="flex-start" gap={3}>
+                  <Box flex="1">
+                    <Text fontSize="xs" color="text.muted" fontWeight="600" textTransform="uppercase" letterSpacing="wide">
+                      {acc.label}
+                    </Text>
+                    <Text fontSize="md" fontWeight="600" color="text.heading" mt={0.5}>
+                      {acc.value}
+                    </Text>
                     {acc.note && (
-                      <Text fontSize="xs" color="orange.500" fontStyle="italic" mt={0.5}>
+                      <Text fontSize="xs" color="orange.500" fontStyle="italic" mt={1}>
                         {acc.note}
                       </Text>
                     )}
