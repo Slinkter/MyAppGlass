@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file Layout.tsx
  * @description Root layout wrapper that establishes the visual baseline and global structure of the application.

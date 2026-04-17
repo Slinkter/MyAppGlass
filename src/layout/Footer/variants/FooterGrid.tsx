@@ -22,7 +22,7 @@ import {
   FileText,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/logosvg.svg";
 import { ReactNode } from "react";
@@ -93,13 +93,13 @@ const FooterGrid = () => {
           </FooterSection>
 
           <FooterSection title="Garantía">
-            <Link to="/politicas-empresa">
+            <Link href="/politicas-empresa">
               <HStack gap={3} _hover={{ color: "primary.500" }} transition="color 0.2s">
                 <Box as={FileText} />
                 <Text fontSize="sm" fontWeight="600">Políticas de Privacidad</Text>
               </HStack>
             </Link>
-            <Link to="/libro-de-reclamacion">
+            <Link href="/libro-de-reclamacion">
               <HStack gap={3} _hover={{ color: "primary.500" }} transition="color 0.2s">
                 <Image src={LibroReclamacionesIcon} alt="Libro" boxSize={4} />
                 <Text fontSize="sm" fontWeight="600">Libro Reclamaciones</Text>

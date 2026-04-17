@@ -15,33 +15,33 @@ const listPuertas: PuertaSerieData = {
   puertas: [
     {
       id: 1,
-      src: image01,
-      title: "image01",
+      src: image01.src,
+      title: "image01.src",
     },
     {
       id: 2,
-      src: image02,
-      title: "image02",
+      src: image02.src,
+      title: "image02.src",
     },
     {
       id: 3,
-      src: image03,
-      title: "image03",
+      src: image03.src,
+      title: "image03.src",
     },
     {
       id: 4,
-      src: image04,
-      title: "image04",
+      src: image04.src,
+      title: "image04.src",
     },
     {
       id: 5,
-      src: image05,
-      title: "image05",
+      src: image05.src,
+      title: "image05.src",
     },
     {
       id: 6,
-      src: image06,
-      title: "image06",
+      src: image06.src,
+      title: "image06.src",
     },
   ],
 };

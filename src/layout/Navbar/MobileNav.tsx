@@ -6,7 +6,8 @@
 import React, { useState, useEffect, useCallback, useTransition } from "react";
 import { Box, IconButton, VStack, Image, Text, Separator, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Menu, X, ShieldCheck, Landmark, Home, LucideIcon } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { usePathname as useLocation } from "next/navigation";
+import NavLink from "next/link";;
 import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
@@ -31,7 +32,7 @@ interface NavItemLargeProps {
  */
 const NavItemLarge = ({ label, href, onClick }: NavItemLargeProps) => (
   <NavLink 
-    to={href} 
+    href={href} 
     onClick={onClick}
     style={{ textDecoration: "none", width: "100%" }}
   >
@@ -71,7 +72,7 @@ interface UtilityLinkProps {
  * @component UtilityLink
  */
 const UtilityLink = ({ label, href, icon: Icon, onClick, isImage }: UtilityLinkProps) => (
-  <NavLink to={href} onClick={onClick} style={{ textDecoration: "none" }}>
+  <NavLink href={href} onClick={onClick} style={{ textDecoration: "none" }}>
     <HStack gap={2} color="text.muted" _hover={{ color: "text.accent" }} transition="color 0.2s">
       {isImage ? (
         <Image src={Icon as string} alt={label} boxSize={4} _dark={{ filter: "brightness(0) invert(1)" }} opacity={0.6} />
@@ -92,7 +93,7 @@ const MobileNav = React.memo(() => {
 
   useEffect(() => {
     setIsOpen(false);
-  }, [location.pathname]);
+  }, [location]);
 
   const handleLinkClick = useCallback(() => {
     startTransition(() => setIsOpen(false));

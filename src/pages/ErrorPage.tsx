@@ -6,7 +6,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useRouter as useNavigate } from "next/navigation";
 
 const ErrorView: React.FC = () => {
   const navigate = useNavigate();

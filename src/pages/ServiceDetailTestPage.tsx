@@ -6,7 +6,7 @@ import { useColorMode } from "@/components/ui/color-mode-hooks";
 import React from "react";
 import { Box, Heading, Container, Text, Button } from "@chakra-ui/react";
 import { Sun, Moon, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ServiceDetailImmersive } from "../features/services/variants/detail/ServiceDetailImmersive";
 import { ServiceDetailTechnical } from "../features/services/variants/detail/ServiceDetailTechnical";
 import { ServiceDetailBentoRefined } from "../features/services/variants/detail/ServiceDetailBentoRefined";
@@ -53,7 +53,7 @@ const ServiceDetailTestPage: React.FC = () => {
       </Button>
       
       <Box bg="primary.900" py={12} textAlign="center" color="white">
-        <Link to="/test">
+        <Link href="/test">
           <Button variant="ghost" color="white" mb={4}>
             <ArrowLeft size={16} /> Volver al Showcase
           </Button>

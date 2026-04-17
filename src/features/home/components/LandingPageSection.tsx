@@ -19,7 +19,7 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
-import { Link as RouterLink } from "react-router-dom";
+import RouterLink from "next/link";
 
 import logoGYA from "@/assets/branding/logosvg.svg";
 

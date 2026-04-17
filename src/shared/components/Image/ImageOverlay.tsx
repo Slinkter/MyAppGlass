@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { LuArrowRight } from "react-icons/lu";
-import { Link as RouterLink } from "react-router-dom";
+import RouterLink from "next/link";
 
 interface ImageOverlayProps {
   name: string;

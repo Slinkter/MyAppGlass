@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "next/navigation";
 import ErrorDisplay from "@shared/components/DataLoader/ErrorDisplay";
 import ServiceSkeleton from "./ServiceSkeleton";
 import ServicePageLayout from "./ServicePageLayout";

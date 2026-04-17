@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { Link as RouterLink } from "react-router-dom";
+import RouterLink from "next/link";
 
 export interface ServiceCardProps {
   image: string;
@@ -121,7 +121,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
               {isMobile ? (
                  name 
               ) : (
-                <LinkOverlay as={RouterLink} to={plink}>
+                <LinkOverlay as={RouterLink} href={plink}>
                   {name}
                 </LinkOverlay>
               )}
@@ -160,7 +160,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         </Box>
       </Skeleton>
       
-      {isMobile && <LinkOverlay as={RouterLink} to={plink} aria-label={`Ver servicio ${name}`} />}
+      {isMobile && <LinkOverlay as={RouterLink} href={plink} aria-label={`Ver servicio ${name}`} />}
     </LinkBox>
   );
 });

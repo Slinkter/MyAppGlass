@@ -26,7 +26,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/logosvg.svg";
 import { ReactNode, ElementType } from "react";
@@ -52,7 +52,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }: FooterRo
 
   if (to) {
     return (
-      <Link to={to} style={{ textDecoration: "none", width: "100%" }} target={isExternal ? "_blank" : undefined}>
+      <Link href={to} style={{ textDecoration: "none", width: "100%" }} target={isExternal ? "_blank" : undefined}>
         {content}
       </Link>
     );

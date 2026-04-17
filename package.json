@@ -2,22 +2,24 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --mode development",
-    "build": "vite build --mode production",
-    "preview": "vite preview",
-    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+    "dev": "next dev",
+    "build": "next build",
+    "preview": "next start",
+    "lint": "next lint",
     "py": "pnpm run build && python -m http.server 5000 --directory dist",
     "predeploy": "pnpm run build",
     "deploy": "gh-pages -d dist",
     "deploy:hosting": "pnpm run build && firebase deploy --only hosting",
     "deploy:functions": "firebase deploy --only functions",
     "clean": "pnpm dlx rimraf node_modules dist functions/node_modules",
-    "analyze": "pnpm run build"
+    "analyze": "pnpm run build",
+    "start": "next start"
   },
   "private": true,
   "name": "my-glass-app",
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "@types/next": "^9.0.0",
     "@types/node": "^25.6.0",
     "@types/react": "^18.3.28",
     "@types/react-dom": "^18.3.7",
@@ -49,13 +51,13 @@
     "firebase": "^12.12.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.8.0",
+    "next": "^16.2.4",
     "next-themes": "^0.4.6",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^3.0.0",
     "react-icons": "^5.6.0",
-    "react-router-dom": "^7.14.1",
     "web-vitals": "^5.2.0"
   }
 }
