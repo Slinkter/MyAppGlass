@@ -1,6 +1,13 @@
 import { Metadata } from "next";
 import ProjectDetailPage from "@/pages/ProjectDetailPage";
-import { projects } from "@/data/proyectos";
+import { getProjectById, getProjects } from "@/features/projects/services/projectService";
+
+export function generateStaticParams() {
+  const projectsList = getProjects();
+  return projectsList.map((project) => ({
+    projectId: project.id.toString(),
+  }));
+}
 
 type Props = {
   params: Promise<{ projectId: string }>;
@@ -8,7 +15,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { projectId } = await params;
-  const project = projects.find(p => p.id.toString() === projectId);
+  const project = getProjectById(projectId);
   
   if (!project) {
     return {
@@ -24,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   };
 }
+
 
 export default function Page() {
   return <ProjectDetailPage />;

@@ -68,3 +68,14 @@ export const getServicePageData = async (slug: string): Promise<ServicePageData>
   }
   return Promise.resolve(pageData as ServicePageData);
 };
+
+/**
+ * Obtiene un servicio específico por su slug (basado en plink).
+ * 
+ * @param slug - El slug del servicio (ej. "ventana").
+ * @returns El objeto del servicio si existe, o undefined.
+ */
+export const getServiceBySlug = (slug: string): Service | undefined => {
+  return services.find(s => s.plink === `/servicios/${slug}`);
+};
+
