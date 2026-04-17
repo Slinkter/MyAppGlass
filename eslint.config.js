@@ -3,11 +3,17 @@ import pluginJs from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
-import pluginJsxA11y from "eslint-plugin-jsx-a11y"; // New import
+import pluginJsxA11y from "eslint-plugin-jsx-a11y";
+import tseslint from "typescript-eslint";
 
-export default [
+export default tseslint.config(
   {
-    files: ["**/*.{js,jsx}"],
+    ignores: ["dist", ".eslintrc.cjs", ".next", ".gemini", "node_modules"],
+  },
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
       parserOptions: {
         ecmaVersion: "latest",
@@ -25,20 +31,21 @@ export default [
       react: pluginReact,
       "react-hooks": pluginReactHooks,
       "react-refresh": pluginReactRefresh,
-      "jsx-a11y": pluginJsxA11y, // New plugin
+      "jsx-a11y": pluginJsxA11y,
     },
     settings: {
       react: {
-        version: "18.2", // Specify the React version
+        version: "18.2",
       },
     },
     rules: {
-      ...pluginJs.configs.recommended.rules,
       ...pluginReact.configs.recommended.rules,
       ...pluginReactHooks.configs.recommended.rules,
-      ...pluginJsxA11y.configs.recommended.rules, // New accessibility rules
+      ...pluginJsxA11y.configs.recommended.rules,
       "react/jsx-no-target-blank": "off",
-      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^React$" }],
+      "no-unused-vars": "off", // Disable base rule
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^React$" }],
+      "@typescript-eslint/no-explicit-any": "warn",
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "react-refresh/only-export-components": [
@@ -48,24 +55,37 @@ export default [
     },
   },
   {
-    files: ["src/features/projects/components/modal/VisualViewer.jsx"],
+    files: ["src/features/projects/components/modal/VisualViewer.jsx", "src/features/projects/components/modal/VisualViewer.tsx"],
     rules: {
       "react-refresh/only-export-components": "off",
     },
   },
   {
-    files: ["functions/**/*.js"], // Apply to all .js files in the functions directory
+    files: ["functions/**/*.js", "functions/**/*.ts"],
     languageOptions: {
       globals: {
-        ...globals.node, // Enable Node.js global variables
+        ...globals.node,
       },
     },
     rules: {
-      "no-undef": "off", // Temporarily turn off no-undef for functions to avoid conflicts with commonjs
-      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^(req|res|next|Resend)$" }], // Adjust for common function parameters and Resend
+      "no-undef": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^(req|res|next|Resend)$" }],
     },
   },
   {
-    ignores: ["dist", ".eslintrc.cjs", ".next", ".gemini", "node_modules"],
-  },
-];
+    files: ["**/*.cjs", "vite.config.ts"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      "no-undef": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
+    },
+  }
+);
