@@ -1,5 +1,5 @@
+"use client";
 import React from "react";
-import { Helmet } from "react-helmet-async";
 import {
   Box,
   VStack,
@@ -217,11 +217,6 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
   return (
     <>
-      <Helmet>
-        <title>{seo.title}</title>
-        <meta name="description" content={seo.description} />
-      </Helmet>
-
       <LazyMotion features={domAnimation}>
         <Box
           as={m.div}

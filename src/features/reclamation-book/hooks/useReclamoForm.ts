@@ -1,7 +1,8 @@
+"use client";
 import { useState } from "react";
-import { useRouter as useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toaster } from "@/components/ui/toaster-instance"; // v3: useToast → toaster
-import { reclamoService } from "@/api/reclamoService";
+import { submitReclamoAction } from "../actions";
 import { ReclamoFormState, FormErrors, ReclamationFormContextValue } from "../types";
 
 const initialState: ReclamoFormState = {
@@ -53,7 +54,7 @@ export const useReclamoForm = (): ReclamationFormContextValue => {
   // v3: useDisclosure replaced with useState
   const [isOpen, setIsOpen] = useState(false);
   const [newReclamoId, setNewReclamoId] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleInputsChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> | { target: { name: string; type: string; checked: boolean | "indeterminate" } }
@@ -97,7 +98,7 @@ export const useReclamoForm = (): ReclamationFormContextValue => {
 
   const handleModalCloseAndRedirect = () => {
     setIsOpen(false);
-    navigate("/");
+    router.push("/");
   };
 
   const handleBtnSubmit = async (e: React.FormEvent) => {
@@ -112,10 +113,15 @@ export const useReclamoForm = (): ReclamationFormContextValue => {
         // Enviar solo los campos que espera el servicio (sin archivos si no están definidos en ReclamoData)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { archivos, ...rest } = formData;
-        const newId = await reclamoService.submitReclamo(rest);
-        setNewReclamoId(newId);
-        setIsOpen(true);
-        setFormData(initialState);
+        const result = await submitReclamoAction(rest);
+        
+        if (result.success && result.id) {
+          setNewReclamoId(result.id);
+          setIsOpen(true);
+          setFormData(initialState);
+        } else {
+          throw new Error(result.error);
+        }
       } catch (error: unknown) {
         console.error("Error submitting reclamo: ", error);
         const errorMessage = error instanceof Error ? error.message : "Hubo un error al procesar su solicitud. Por favor, intente más tarde.";

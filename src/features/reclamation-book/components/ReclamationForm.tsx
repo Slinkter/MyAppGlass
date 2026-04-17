@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import { companyData } from "@/config/company-data";

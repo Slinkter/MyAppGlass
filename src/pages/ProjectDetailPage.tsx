@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file ProjectDetailPage.tsx
  * @description Inmersive detail page for projects, mirroring the Service Detail architecture.
@@ -18,7 +19,6 @@ import { Map, Image as Photo, Home, Building2, MapPin, Calendar } from "lucide-r
 import { getProjectById } from "@features/projects/services/projectService";
 import VisualViewer from "@features/projects/components/modal/VisualViewer";
 import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
-import HelmetWrapper from "@shared/components/HelmetWrapper";
 import ErrorPage from "./ErrorPage";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
@@ -113,11 +113,6 @@ const ProjectDetailPage: React.FC = () => {
 
   return (
     <>
-      <HelmetWrapper
-        title={`${project.residencial} - Proyecto | GYA Company`}
-        description={`Ficha técnica y visual del proyecto ${project.residencial}.`}
-      />
-
       <AuraContainer>
         <VStack gap={{ base: "phi_lg", lg: "phi_xl" }} align="center" w="full">
           

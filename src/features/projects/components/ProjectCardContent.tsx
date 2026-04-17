@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file ProjectCardContent.tsx
  * @description Refactored project card content to match the unified design of ClientCard and ServiceCard.

@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file useServiceData.ts
  * @description Custom hook for fetching and managing service page data state.

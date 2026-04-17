@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file DesktopNav.tsx
  * @description Desktop navigation links with active-state indicator.
@@ -7,7 +9,7 @@
 import React from "react";
 import { Stack, Box } from "@chakra-ui/react";
 import RouterLink from "next/link";
-import { usePathname as useLocation } from "next/navigation";;
+import { usePathname as useLocation } from "next/navigation";
 import NAV_ITEMS from "@/data/nav-items";
 
 /**

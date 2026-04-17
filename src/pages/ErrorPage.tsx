@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file ErrorPage.tsx
  * @description Custom 404/Error page with an automatic redirect timer.
@@ -6,10 +7,10 @@
 
 import React, { useEffect, useState } from "react";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import { useRouter as useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const ErrorView: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [countdown, setCountdown] = useState(15);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const ErrorView: React.FC = () => {
       setCountdown((prevCount) => {
         if (prevCount <= 1) {
           clearInterval(timer);
-          navigate("/");
+          router.push("/");
           return 0;
         }
         return prevCount - 1;
@@ -25,7 +26,7 @@ const ErrorView: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [navigate]);
+  }, [router]);
 
   return (
     <VStack minH="100dvh" justifyContent="center" alignItems="center" p={4} bg="bg.page">

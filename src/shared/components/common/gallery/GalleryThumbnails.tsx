@@ -1,3 +1,4 @@
+"use client";
 import React, { useLayoutEffect } from "react";
 import { Box, Flex, Image } from "@chakra-ui/react";
 import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar } from "@/components/ui/scroll-area";

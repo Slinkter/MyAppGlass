@@ -5,11 +5,11 @@
  */
 import React from "react";
 import { Button } from "@chakra-ui/react";
-import { useRouter as useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 interface BackButtonProps {
-  to?: To | number;
+  to?: string | number;
 }
 
 /**
@@ -17,15 +17,22 @@ interface BackButtonProps {
  * @description Renders a button that navigates to a specified path or one level back.
  */
 const BackButton: React.FC<BackButtonProps> = ({ to = -1 }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   
+  const handleClick = () => {
+    if (typeof to === "number") {
+      router.back();
+    } else {
+      router.push(to);
+    }
+  };
+
   return (
     <Button
       variant="link"
       size="sm"
       color="text.muted"
-      // @ts-expect-error - Chakra UI v3 internal type mismatch: navigate accepts string or number, but the union type To | number requires casting
-      onClick={() => navigate(to as unknown as To)}
+      onClick={handleClick}
       fontWeight="600"
       _hover={{ color: "text.accent" }}
     >

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file ServiceDetailImmersive.tsx
  * @description Option 1: Aura "Immersive Glasshouse" - Full width gallery and floating info panels.

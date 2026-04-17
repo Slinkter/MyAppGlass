@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { Lora } from 'next/font/google'
 import '../App.css'
 import { Providers } from './providers';
 import { Box } from "@chakra-ui/react";
@@ -6,6 +7,12 @@ import { AuraNavbar as Navbar } from "@/layout/Navbar";
 import { Footer } from "@/layout/Footer";
 import { FloatingWhatsApp } from "@/layout/FloatingActions";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+
+const lora = Lora({
+  subsets: ['latin'],
+  variable: '--font-lora',
+  display: 'swap',
+})
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -28,18 +35,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning className={lora.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{
           __html: `
             html, body {
               margin: 0;
               padding: 0;
               min-height: 100%;
-              font-family: 'Lora', serif;
+              font-family: var(--font-lora), serif;
             }
           `
         }} />

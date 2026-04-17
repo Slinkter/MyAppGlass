@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file ClientsSection.tsx
  * @description Orchestrator component for the "Our Clients" section.

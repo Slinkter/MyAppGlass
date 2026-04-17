@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file ServiceDetailExploded.tsx
  * @description Option 5: Aura "Industrial Interactive" - Focus on technical highlights and hotspots.

@@ -1,6 +1,7 @@
+"use client";
 import React from "react";
 import ProjectCardContent from "./ProjectCardContent";
-import { useRouter as useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export interface ProjectCardProps {
   id: string | number;
@@ -16,13 +17,13 @@ export interface ProjectCardProps {
  * @description Container component for a project card that handles navigation to the detail page.
  */
 const ProjectCard: React.FC<ProjectCardProps> = React.memo((props) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const {
     id, residencial, address, year, image, isLCP,
   } = props;
 
   const handleNavigate = () => {
-    navigate(`/proyectos/${id}`);
+    router.push(`/proyectos/${id}`);
   };
 
   return (

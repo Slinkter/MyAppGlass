@@ -1,45 +1,39 @@
 /**
  * @file ResponsiveImage.tsx
- * @description Responsive image component with automatic srcset generation for mobile optimization.
+ * @description Responsive image component optimized with next/image.
  * @module shared/components
  * @remarks
- * Automatically generates srcset for 480w, 768w, 1200w, 1920w breakpoints.
- * Use isLCP prop for above-the-fold images to enable eager loading and high fetch priority.
+ * Migrated to next/image for automatic optimization and layout stability.
+ * Use isLCP prop for above-the-fold images to enable priority loading.
  */
 
-import React, { useCallback, useMemo } from "react";
-import { Image, ImageProps } from "@chakra-ui/react";
+import React, { useCallback } from "react";
+import Image from "next/image";
+import { Box, BoxProps } from "@chakra-ui/react";
 
-const BREAKPOINTS = [480, 768, 1200, 1920];
-
-interface ResponsiveImageProps extends Omit<ImageProps, 'onLoad'> {
+interface ResponsiveImageProps extends Omit<BoxProps, 'onLoad'> {
   src?: string;
   alt?: string;
   isLCP?: boolean;
+  objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+  sizes?: string;
 }
 
 /**
  * @component ResponsiveImage
- * @description Componente de imagen responsive con srcset automatico
+ * @description Componente de imagen responsive optimizado con next/image
  */
 const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
   ({
     src,
-    alt,
-    sizes,
+    alt = "",
+    sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
     isLCP = false,
     onLoad,
+    objectFit = "cover",
     ...restProps
   }) => {
-    const srcset = useMemo(() => {
-      if (!src) return undefined;
-      return BREAKPOINTS.map((w) => `${src} ${w}w`).join(", ");
-    }, [src]);
-
-    const loading = isLCP ? "eager" : "lazy";
-    const fetchPriority = isLCP ? "high" : "auto";
-
     const handleLoad = useCallback(
       (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         if (onLoad) onLoad(e);
@@ -47,19 +41,20 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
       [onLoad]
     );
 
+    if (!src) return null;
+
     return (
-      <Image
-        src={src}
-        alt={alt}
-        srcSet={srcset}
-        sizes={sizes}
-        loading={loading}
-        // @ts-expect-error - fetchpriority is a valid HTML attribute for images but might not be in the current React types
-        fetchpriority={fetchPriority}
-        decoding="async"
-        onLoad={handleLoad}
-        {...restProps}
-      />
+      <Box position="relative" overflow="hidden" {...restProps}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={isLCP}
+          sizes={sizes}
+          style={{ objectFit }}
+          onLoad={handleLoad}
+        />
+      </Box>
     );
   }
 );

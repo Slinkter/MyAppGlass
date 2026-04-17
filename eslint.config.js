@@ -55,6 +55,12 @@ export default tseslint.config(
     },
   },
   {
+    files: ["src/app/**/*.{ts,tsx}"],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
+  {
     files: ["src/features/projects/components/modal/VisualViewer.jsx", "src/features/projects/components/modal/VisualViewer.tsx"],
     rules: {
       "react-refresh/only-export-components": "off",

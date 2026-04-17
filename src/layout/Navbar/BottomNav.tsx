@@ -1,8 +1,10 @@
+"use client";
+
 import { useColorMode, useColorModeValue } from "@/components/ui/color-mode-hooks";
 import React from "react";
 import { Box, Flex, Icon, Link } from "@chakra-ui/react";
 import RouterLink from "next/link";
-import { usePathname as useLocation } from "next/navigation";;
+import { usePathname as useLocation } from "next/navigation";
 import {
   Home,
   Wrench,
@@ -155,8 +157,7 @@ const BottomNav = () => {
             <Link
               key={item.label}
               as={item.isExternal ? "a" : RouterLink}
-              href={!item.isExternal ? item.path : undefined}
-              href={item.isExternal ? item.path : undefined}
+              href={item.path}
               isExternal={item.isExternal}
               style={{
                 textDecoration: "none",

@@ -1,3 +1,4 @@
+"use client";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 /**
  * @file CompanyPoliciesPage.tsx
@@ -7,7 +8,6 @@ import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 import React from "react";
 import { Box, Heading, Text, VStack, Container } from "@chakra-ui/react";
-import HelmetWrapper from "@shared/components/HelmetWrapper";
 import { companyData } from "@/config/company-data";
 
 const CompanyPoliciesPage: React.FC = () => {
@@ -22,11 +22,6 @@ const CompanyPoliciesPage: React.FC = () => {
 
   return (
     <>
-      <HelmetWrapper
-        title="Políticas de la Empresa - GYA Company"
-        description="Conoce las políticas y términos de servicio de GYA Company."
-        canonicalUrl="https://www.gyacompany.com/politicas-empresa"
-      />
       <Container maxW="7xl" py={10}>
         <VStack gap={8} align="start">
           <Heading as="h1" size="2xl" color={headingColor}>

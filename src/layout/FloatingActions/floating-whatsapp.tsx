@@ -1,3 +1,5 @@
+"use client";
+
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import React, { useState } from "react";
 import { Box, Button, Text, Link, VStack } from "@chakra-ui/react";

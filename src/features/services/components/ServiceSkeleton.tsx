@@ -1,3 +1,4 @@
+"use client";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import React from "react";
 import { Grid, GridItem, VStack, HStack, Skeleton, SkeletonCircle, Container, SimpleGrid } from "@chakra-ui/react";

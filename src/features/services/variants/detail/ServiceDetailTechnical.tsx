@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file ServiceDetailTechnical.tsx
  * @description Option 2: Aura "Architectural Specs" - Split layout with focus on technical details.

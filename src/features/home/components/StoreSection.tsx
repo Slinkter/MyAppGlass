@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Suspense, lazy, useState, useCallback, useRef, useEffect } from "react";
 import {
   Box,
@@ -6,7 +8,6 @@ import {
   VStack,
   HStack,
   Text,
-  Image,
   Badge,
   Heading,
 } from "@chakra-ui/react";
@@ -14,6 +15,7 @@ import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { MapPin, Clock } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción
 import AuraSurface from "@/shared/components/aura/AuraSurface";
@@ -221,7 +223,7 @@ const StoreSection: React.FC = React.memo(() => {
                   overflow="hidden"
                 >
                   <Box position="absolute" inset={0} zIndex={0}>
-                    <Image 
+                    <ResponsiveImage 
                       src={selectedMarker?.image || (selectedMarker as unknown as { photosObra?: { image: string }[] })?.photosObra?.[0]?.image} 
                       alt={selectedMarker?.name}
                       w="100%" h="100%" objectFit="cover"

@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file AuraDesktopNav.tsx
  * @description Premium desktop navigation with sliding active indicator and glassmorphism.
@@ -6,7 +8,7 @@
 import React from "react";
 import { Stack, Box, Text } from "@chakra-ui/react";
 import RouterLink from "next/link";
-import { usePathname as useLocation } from "next/navigation";;
+import { usePathname as useLocation } from "next/navigation";
 import { motion } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 

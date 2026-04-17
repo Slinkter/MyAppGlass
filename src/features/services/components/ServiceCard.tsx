@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Box,
@@ -137,7 +138,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             >
               <Button
                 as={RouterLink}
-                to={plink}
+                href={plink}
                 variant="outline"
                 size="sm"
                 color="white"

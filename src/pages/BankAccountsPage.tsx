@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file BankAccountsPage.tsx
  * @description Informational page displaying company fiscal data and bank account details for payments.
@@ -12,7 +13,6 @@ import { Tooltip } from "@/components/ui/tooltip";
 import {
   Building, Contact, MapPin, Mail, Copy, Check, LucideIcon,
 } from "lucide-react";
-import HelmetWrapper from "@shared/components/HelmetWrapper";
 import { companyData } from "@/config/company-data";
 import { bankAccountsData, BankAccount } from "../data/bank-accounts";
 import AuraContainer from "@shared/components/aura/AuraContainer";
@@ -218,14 +218,9 @@ const BankAccountsPage: React.FC = () => {
     );
   }
 
-  return (
+    return (
     <>
       <Toaster />
-      <HelmetWrapper
-        title="Cuentas Bancarias y Facturación - GYA Company"
-        description="Información detallada de cuentas bancarias y datos fiscales para pagos y facturación."
-        canonicalUrl="https://www.gyacompany.com/cuentas-bancarias"
-      />
       
       <AuraContainer>
         <VStack gap={12} align="stretch">
