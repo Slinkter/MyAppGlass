@@ -28,7 +28,7 @@ export interface Service {
 export const services: Service[] = [
   {
     id: 1,
-    image: init01,
+    image: init01.src,
     name: "Ventanas",
     category: "Aluminio",
     description: "Ventanas de aluminio con sistemas Nova, Serie 25 y 31. Ideal para proyectos residenciales y comerciales.",
@@ -37,7 +37,7 @@ export const services: Service[] = [
   },
   {
     id: 2,
-    image: init02a,
+    image: init02a.src,
     name: "Mamparas",
     category: "Vidrio",
     description: "Mamparas de baño en vidrio templado. Sistemas Nova y Serie 25 con acabados en natural y negro.",
@@ -46,7 +46,7 @@ export const services: Service[] = [
   },
   {
     id: 3,
-    image: init03,
+    image: init03.src,
     name: "Duchas",
     category: "Vidrio",
     description: "Boxes de ducha con vidrio templado de 8mm. Sistemas KIT y Acrílico disponibles.",
@@ -55,7 +55,7 @@ export const services: Service[] = [
   },
   {
     id: 4,
-    image: init05a,
+    image: init05a.src,
     name: "Parapeto",
     category: "Vidrio",
     description: "Parapetos de vidrio templado con estructura de acero o aluminio. Acabados profesionales.",
@@ -64,7 +64,7 @@ export const services: Service[] = [
   },
   {
     id: 5,
-    image: init06,
+    image: init06.src,
     name: "Barandas",
     category: "Vidrio",
     description: "Barandas de vidrio templado con accesorios de acero cromado. Seguridad y elegancia.",
@@ -73,7 +73,7 @@ export const services: Service[] = [
   },
   {
     id: 6,
-    image: init07a,
+    image: init07a.src,
     name: "Balcones",
     category: "Cerramientos",
     description: "Balcones de vidrio templado con arenado decorativo. Diseño moderno y seguro.",
@@ -82,7 +82,7 @@ export const services: Service[] = [
   },
   {
     id: 7,
-    image: init04,
+    image: init04.src,
     name: "Techos",
     category: "Cerramientos",
     description: "Techos de policarbonato con estructura de aluminio. Protección y iluminación natural.",
@@ -91,7 +91,7 @@ export const services: Service[] = [
   },
   {
     id: 8,
-    image: init11,
+    image: init11.src,
     name: "Puerta de Vidrio",
     category: "Vidrio",
     description: "Puertas de vidrio templado con chapa bola y accesorios de calidad.",
@@ -100,7 +100,7 @@ export const services: Service[] = [
   },
   {
     id: 9,
-    image: init12,
+    image: init12.src,
     name: "Puerta en Serie",
     category: "Aluminio",
     description: "Puertas enrollables de aluminio con plancha arenada. Resistencia y durabilidad.",
@@ -109,7 +109,7 @@ export const services: Service[] = [
   },
   {
     id: 10,
-    image: init13,
+    image: init13.src,
     name: "Celosías",
     category: "Aluminio",
     description: "Celosías de aluminio para ventilación de espacios. Funcionalidad y diseño.",

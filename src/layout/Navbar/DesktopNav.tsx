@@ -6,7 +6,8 @@
  */
 import React from "react";
 import { Stack, Box } from "@chakra-ui/react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import RouterLink from "next/link";
+import { usePathname as useLocation } from "next/navigation";;
 import NAV_ITEMS from "@/data/nav-items";
 
 /**
@@ -20,11 +21,11 @@ const DesktopNav = () => {
   return (
     <Stack direction="row" gap={4}>
       {NAV_ITEMS.map((navItem) => {
-        const isActive = location.pathname === navItem.href;
+        const isActive = location === navItem.href;
         return (
           <RouterLink
             key={navItem.label}
-            to={navItem.href ?? "#"}
+            href={navItem.href ?? "#"}
             style={{ textDecoration: "none" }}
             aria-current={isActive ? "page" : undefined}
             onClick={() => {

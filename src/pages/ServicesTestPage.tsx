@@ -6,7 +6,7 @@ import { useColorMode } from "@/components/ui/color-mode-hooks";
 import React from "react";
 import { Box, Heading, Container, VStack, Text, Button, Separator } from "@chakra-ui/react";
 import { Sun, Moon, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ServicesImmersiveFilter } from "../features/services/variants/ServicesImmersiveFilter";
 import { ServicesGlassGrid } from "../features/services/variants/ServicesGlassGrid";
 import { ServicesTechnicalCatalog } from "../features/services/variants/ServicesTechnicalCatalog";
@@ -20,7 +20,7 @@ const ServicesTestPage: React.FC = () => {
       </Button>
       
       <Container maxW="7xl" pt={10}>
-        <Link to="/test">
+        <Link href="/test">
           <Button variant="ghost" mb={8}>
             <ArrowLeft size={16} /> Volver al Showcase
           </Button>

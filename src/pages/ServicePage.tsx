@@ -6,12 +6,12 @@
 
 import React from "react";
 import { Box } from "@chakra-ui/react";
-import { Outlet } from "react-router-dom";
+;
 
 const ServicePage: React.FC = () => {
   return (
     <Box as="section" py={1}>
-      <Outlet />
+      {children}
     </Box>
   );
 };

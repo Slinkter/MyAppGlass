@@ -18,7 +18,7 @@ export interface Client {
 export const clients: Client[] = [
   {
     id: 1,
-    imgClient: buildingImg, // Imported image
+    imgClient: buildingImg.src, // Imported image
     nameClient: "Constructoras",
     descClient:
       "Servicios especializados para grandes proyectos de construcción.",
@@ -26,14 +26,14 @@ export const clients: Client[] = [
 
   {
     id: 2,
-    imgClient: sectorofficesImg, // Imported image
+    imgClient: sectorofficesImg.src, // Imported image
     nameClient: "Comercios",
     descClient:
       "Instalaciones de vidrio y espejos para espacios comerciales y corporativos.",
   },
   {
     id: 3,
-    imgClient: sectorhogarImg, // Imported image
+    imgClient: sectorhogarImg.src, // Imported image
     nameClient: "Hogar",
     descClient:
       "Soluciones de vidrio para viviendas y proyectos residenciales.",

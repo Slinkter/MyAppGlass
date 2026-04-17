@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter as useNavigate } from "next/navigation";
 import { toaster } from "@/components/ui/toaster-instance"; // v3: useToast → toaster
 import { reclamoService } from "@/api/reclamoService";
 import { ReclamoFormState, FormErrors, ReclamationFormContextValue } from "../types";

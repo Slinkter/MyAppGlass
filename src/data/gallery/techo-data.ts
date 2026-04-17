@@ -15,32 +15,32 @@ const listTecho: TechoData = {
   techo: [
     {
       id: 1,
-      src: t_01,
+      src: t_01.src,
       title: "techo",
     },
     {
       id: 2,
-      src: t_02,
+      src: t_02.src,
       title: "techo",
     },
     {
       id: 3,
-      src: t_03,
+      src: t_03.src,
       title: "techo",
     },
     {
       id: 4,
-      src: t_04,
+      src: t_04.src,
       title: "techo",
     },
     {
       id: 5,
-      src: t_05,
+      src: t_05.src,
       title: "techo",
     },
     {
       id: 6,
-      src: t_06,
+      src: t_06.src,
       title: "techo",
     },
   ],

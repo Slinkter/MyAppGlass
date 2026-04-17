@@ -23,7 +23,7 @@ export interface BankAccount {
 
 export const bankAccountsData: BankAccount[] = [
   {
-    logo: bbvaLogo,
+    logo: bbvaLogo.src,
     bankName: "BBVA Perú",
     accountType: "Cuenta Corriente en Soles",
     logoBg: "white",
@@ -39,7 +39,7 @@ export const bankAccountsData: BankAccount[] = [
     ],
   },
   {
-    logo: bnLogo,
+    logo: bnLogo.src,
     bankName: "Banco de la Nación",
     accountType: "Cuenta de Detracciones",
     logoBg: "white",

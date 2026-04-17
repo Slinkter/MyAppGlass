@@ -1,7 +1,8 @@
 import { useColorMode, useColorModeValue } from "@/components/ui/color-mode-hooks";
 import React from "react";
 import { Box, Flex, Icon, Link } from "@chakra-ui/react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import RouterLink from "next/link";
+import { usePathname as useLocation } from "next/navigation";;
 import {
   Home,
   Wrench,
@@ -86,7 +87,7 @@ const BottomNav = () => {
         borderColor="border.glass"
       >
         {navItems.map((item) => {
-          const isActive = !item.isAction && location.pathname === item.path;
+          const isActive = !item.isAction && location === item.path;
 
           const innerContent = (
             <Flex
@@ -154,7 +155,7 @@ const BottomNav = () => {
             <Link
               key={item.label}
               as={item.isExternal ? "a" : RouterLink}
-              to={!item.isExternal ? item.path : undefined}
+              href={!item.isExternal ? item.path : undefined}
               href={item.isExternal ? item.path : undefined}
               isExternal={item.isExternal}
               style={{

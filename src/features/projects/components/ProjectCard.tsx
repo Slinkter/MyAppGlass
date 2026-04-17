@@ -1,6 +1,6 @@
 import React from "react";
 import ProjectCardContent from "./ProjectCardContent";
-import { useNavigate } from "react-router-dom";
+import { useRouter as useNavigate } from "next/navigation";
 
 export interface ProjectCardProps {
   id: string | number;

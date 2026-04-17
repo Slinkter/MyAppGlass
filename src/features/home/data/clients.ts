@@ -23,19 +23,19 @@ export interface Client {
 export const clients: Client[] = [
   {
     id: 1,
-    imgClient: buildingImg,
+    imgClient: buildingImg.src,
     nameClient: "Constructoras",
     descClient: "Más de 12 proyectos de construcción entregados.",
   },
   {
     id: 2,
-    imgClient: officesImg,
+    imgClient: officesImg.src,
     nameClient: "Negocios",
     descClient: "Servicios de mantenimiento en áreas de trabajos.",
   },
   {
     id: 3,
-    imgClient: hogarImg,
+    imgClient: hogarImg.src,
     nameClient: "Hogares",
     descClient:
       "Servicio de instalación de ventanas, mamparas , puertas de duchas y más.",

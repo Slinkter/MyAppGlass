@@ -4,7 +4,7 @@
  * @module utils/navigation
  */
 
-import { useLocation } from "react-router-dom";
+import { usePathname as useLocation } from "next/navigation";
 import { useEffect, FC } from "react";
 
 /**

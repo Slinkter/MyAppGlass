@@ -19,47 +19,47 @@ const listCelosias: CelosiasData = {
   celocias: [
     {
       id: 1,
-      src: image01,
+      src: image01.src,
       title: "techo",
     },
     {
       id: 2,
-      src: image02,
+      src: image02.src,
       title: "techo",
     },
     {
       id: 3,
-      src: image03,
+      src: image03.src,
       title: "techo",
     },
     {
       id: 4,
-      src: image04,
+      src: image04.src,
       title: "techo",
     },
     {
       id: 5,
-      src: image05,
+      src: image05.src,
       title: "techo",
     },
     {
       id: 6,
-      src: image06,
+      src: image06.src,
       title: "techo",
     },
     {
       id: 7,
-      src: image07,
+      src: image07.src,
       title: "techo",
     },
     {
       id: 8,
-      src: image08,
+      src: image08.src,
       title: "techo",
     },
     {
       id: 9,
-      src: image09,
+      src: image09.src,
       title: "techo",
     },
   ],

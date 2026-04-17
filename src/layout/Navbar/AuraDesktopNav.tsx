@@ -5,7 +5,8 @@
  */
 import React from "react";
 import { Stack, Box, Text } from "@chakra-ui/react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import RouterLink from "next/link";
+import { usePathname as useLocation } from "next/navigation";;
 import { motion } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 
@@ -20,12 +21,12 @@ const AuraDesktopNav = () => {
       align="center"
     >
       {NAV_ITEMS.map((navItem) => {
-        const isActive = location.pathname === navItem.href;
+        const isActive = location === navItem.href;
         
         return (
           <RouterLink
             key={navItem.label}
-            to={navItem.href ?? "#"}
+            href={navItem.href ?? "#"}
             style={{ textDecoration: "none", position: "relative" }}
             aria-current={isActive ? "page" : undefined}
           >

@@ -27,7 +27,7 @@ import {
     LucideIcon,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/logosvg.svg";
 import { ReactNode, ElementType } from "react";
@@ -74,7 +74,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }: FooterRo
     if (to) {
         return (
             <Link 
-                to={to} 
+                href={to} 
                 style={{ textDecoration: "none", width: "100%" }} 
                 target={isExternal ? "_blank" : undefined} 
                 className="group"
@@ -142,7 +142,7 @@ const Footer = () => {
                         <FooterSection title="Corporativo">
                             <FooterRow to="/politicas-empresa" icon={FileText}>Políticas de Empresa</FooterRow>
                             <FooterRow to="/cuentas-bancarias" icon={Building}>Cuentas Bancarias</FooterRow>
-                            <Link to="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
+                            <Link href="/libro-de-reclamacion" style={{ textDecoration: "none", width: "100%" }}>
                                 <HStack 
                                     gap="phi_sm" 
                                     align="center" 
@@ -151,7 +151,7 @@ const Footer = () => {
                                     _hover={{ transform: { base: "scale(1.02)", sm: "translateX(4px)" } }} 
                                     transition="transform 0.2s"
                                 >
-                                    <Image src={LibroReclamacionesIcon.src || LibroReclamacionesIcon} alt="Libro" boxSize={5} flexShrink={0} />
+                                    <Image src={LibroReclamacionesIcon.src || LibroReclamacionesIcon.src} alt="Libro" boxSize={5} flexShrink={0} />
                                     <Text fontSize="sm" fontWeight="600" color="text.body">Libro de Reclamaciones</Text>
                                 </HStack>
                             </Link>
@@ -162,7 +162,7 @@ const Footer = () => {
 
                     <Flex direction="column" align="center" gap="phi_sm" pt="phi_md" w="full">
                         <Image 
-                            src={logoGYA.src || logoGYA} 
+                            src={logoGYA.src || logoGYA.src} 
                             alt="Logo GYA" 
                             h="34px" 
                             mb="phi_xs" 

@@ -38,7 +38,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    image: obra01,
+    image: obra01.src,
     residencial: "Edificio Torre Sipan",
     name: "Inversiones Beraca S.A.C.",
     address: "Miraflores",
@@ -51,7 +51,7 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    image: obra02,
+    image: obra02.src,
     residencial: "Mirador de la Reserva",
     name: "Inmobiliaria Beraca & Bostad S.A.C.",
     address: "Lince",
@@ -64,7 +64,7 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    image: obra03,
+    image: obra03.src,
     residencial: " Bambamarca",
     name: "Personal Natural",
     address: "Cajamarca",
@@ -77,7 +77,7 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    image: obra04,
+    image: obra04.src,
     residencial: " Edificio Verástegui  ",
     name: "GHS CONSTRUCTORA S.A.C.",
     address: "San Juan de Miraflores",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
   },
   {
     id: 5,
-    image: obra05,
+    image: obra05.src,
     residencial: " Puente Verde",
     name: "Grupo DyM Constructora S.A.C.",
     address: "Ate",
@@ -103,7 +103,7 @@ export const projects: Project[] = [
   },
   {
     id: 6,
-    image: obra06,
+    image: obra06.src,
     residencial: " El Prado",
     name: "Grupo DyM Constructora S.A.C.",
     address: "Ate",
@@ -116,7 +116,7 @@ export const projects: Project[] = [
   },
   {
     id: 7,
-    image: obra07,
+    image: obra07.src,
     residencial: "Monterrico Alto",
     name: "Grupo DyM Constructora S.A.C.",
     address: "Salamanca",
@@ -129,7 +129,7 @@ export const projects: Project[] = [
   },
   {
     id: 8,
-    image: obra08,
+    image: obra08.src,
     residencial: "Parque Prada",
     name: "GHS CONSTRUCTORA S.A.C.",
     address: "Magdalena",
@@ -142,7 +142,7 @@ export const projects: Project[] = [
   },
   {
     id: 9,
-    image: obra09,
+    image: obra09.src,
     residencial: "Ventura",
     name: "Urbanica Proyectos Inmobiliarios S.A.C.",
     address: "San Miguel",
@@ -155,7 +155,7 @@ export const projects: Project[] = [
   },
   {
     id: 10,
-    image: obra10,
+    image: obra10.src,
     residencial: "Maddy",
     name: "CONSTRUCTORA E INMOBILIARIA ICASA S.A.C",
     address: "Magdalena del mar",
@@ -168,7 +168,7 @@ export const projects: Project[] = [
   },
   {
     id: 11,
-    image: obra11,
+    image: obra11.src,
     residencial: "Vidamor",
     name: "Grupo DyM Constructora S.A.C.",
     address: "ATE",
@@ -181,7 +181,7 @@ export const projects: Project[] = [
   },
   {
     id: 12,
-    image: obra12,
+    image: obra12.src,
     residencial: "Elenor",
     name: "P&D Holding Group S.A.C.",
     address: "Magdalena del mar",
@@ -194,7 +194,7 @@ export const projects: Project[] = [
   },
   {
     id: 13,
-    image: obra13,
+    image: obra13.src,
     residencial: "Vittorie",
     name: "GRUPO DYM CONSTRUCTORA S.A.C.",
     address: "Surquillo",
@@ -207,7 +207,7 @@ export const projects: Project[] = [
   },
   {
     id: 14,
-    image: obra14,
+    image: obra14.src,
     residencial: "Palmer",
     name: "GRUPO DYM CONSTRUCTORA S.A.C.",
     address: "Breña",

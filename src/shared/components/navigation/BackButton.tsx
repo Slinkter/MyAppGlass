@@ -5,7 +5,7 @@
  */
 import React from "react";
 import { Button } from "@chakra-ui/react";
-import { useNavigate, To } from "react-router-dom";
+import { useRouter as useNavigate } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 interface BackButtonProps {

@@ -4,7 +4,7 @@
  */
 
 import React, { useMemo, useState, useTransition, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "next/navigation";
 import {
   Box,
   Heading,
