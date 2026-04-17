@@ -73,8 +73,10 @@ export const useGallery = (images: GalleryItem[]): UseGalleryReturn => {
     if (!images || images.length <= 1) return;
 
     const preload = (index: number) => {
+      const src = images[index]?.src;
+      if (!src || src === "undefined") return;
       const img = new Image();
-      img.src = images[index].src;
+      img.src = src;
     };
 
     const nextIndex = (safeIndex + 1) % images.length;

@@ -36,7 +36,7 @@ const InteractiveMapComponent: React.FC<InteractiveMapProps> = ({
 
   const { isLoaded, loadError } = useGoogleMapsLoader();
 
-  const google = window.google;
+  const google = typeof window !== "undefined" ? window.google : undefined;
 
   const { map, onLoad, onUnmount } = useMapState();
   const icons = useMapIcons(isLoaded, google);

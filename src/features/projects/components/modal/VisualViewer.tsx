@@ -31,7 +31,14 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
           title: projectData?.residencial || "Project Photo",
         };
       }
-      return photo;
+      
+      // Handle ProjectPhoto (from data/projects.ts) OR GalleryItem
+      const p = photo as any;
+      return {
+        id: p.id || index,
+        src: p.src || p.image || "",
+        title: p.title || p.name || projectData?.residencial || "Project Photo",
+      };
     });
   }, [photos, projectData?.residencial]);
 

@@ -23,6 +23,10 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo((props) => {
   } = props;
 
   const handleNavigate = () => {
+    if (!id || id === "undefined") {
+      console.warn("ProjectCard: Attempted to navigate to a project with an undefined ID", props);
+      return;
+    }
     router.push(`/proyectos/${id}`);
   };
 

@@ -1,7 +1,15 @@
 import { Metadata } from "next";
 import { Box } from "@chakra-ui/react";
 import ServicePageContainer from "@/features/services/components/ServicePageContainer";
-import { getServiceBySlug } from "@/features/services/services/serviceService";
+import { getServiceBySlug, getServices } from "@/features/services/services/serviceService";
+
+export function generateStaticParams() {
+  const servicesList = getServices();
+  return servicesList.map((service) => ({
+    serviceSlug: service.plink.split("/").pop() || "",
+  }));
+}
+
 
 type Props = {
   params: Promise<{ serviceSlug: string }>;
