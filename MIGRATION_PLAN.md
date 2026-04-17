@@ -59,7 +59,7 @@ Configurar el entorno para que soporte ambos lenguajes simultáneamente durante 
 *   `src/shared/components/Layout/ItemGridLayout.jsx` ➡️ `.tsx`
 *   `src/shared/components/*.jsx` (HelmetWrapper, DevErrorOverlay) ➡️ `.tsx`
 
-### Fase 5: Estructura Perimetral (Layouts & Navigation)
+### Fase 5: Estructura Perimetral (Layouts & Navigation) ✅ COMPLETADO
 *Definir el tipado de los NavItems y la inyección de temas globales.*
 *   `src/layout/MainLayout/*.jsx` ➡️ `.tsx`
 *   `src/layout/MainLayout/index.js` ➡️ `.ts`
