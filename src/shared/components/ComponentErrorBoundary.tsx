@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file ComponentErrorBoundary.tsx
  * @description A reusable Error Boundary component to catch errors in child components
@@ -54,7 +56,7 @@ class ComponentErrorBoundary extends Component<Props, State> {
               Error: {this.state.error?.message || "Unknown error"}
             </Text>
             
-            {import.meta.env.DEV && (
+            {process.env.NODE_ENV !== "production" && (
               <Box w="full" overflow="auto">
                 <Text fontSize="xs" mb={2} color="gray.500">Component Stack:</Text>
                 <Code 

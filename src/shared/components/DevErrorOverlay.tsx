@@ -103,7 +103,7 @@ export default function DevErrorOverlay() {
     };
   }, [addError]);
 
-  if (import.meta.env.PROD) return null;
+  if (process.env.NODE_ENV === "production") return null;
   if (errors.length === 0) return null;
 
   return (

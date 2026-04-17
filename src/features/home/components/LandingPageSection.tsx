@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file LandingPageSection.tsx
  * @description Hero section of the application, featuring the company logo and core tagline.
@@ -14,17 +16,17 @@ import {
     Flex,
     Heading,
     HStack,
-    Image,
     Text,
     VStack,
 } from "@chakra-ui/react";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import RouterLink from "next/link";
+import Image from "next/image";
 
 import logoGYA from "@/assets/branding/logosvg.svg";
 
-const MotionImage = m.create(Image);
 const MotionVStack = m.create(VStack);
+const MotionBox = m.create(Box);
 
 /**
  * @component LandingPageSection
@@ -61,17 +63,21 @@ const LandingPageSection: React.FC = React.memo(() => {
                     textAlign="center"
                     maxW="5xl"
                 >
-                    <MotionImage
-                        src={logoGYA}
-                        alt="Glass & Aluminum Company Logo"
-                        w={{ base: "55%", sm: "50%", md: "40%", lg: "36%" }}
-                        maxW="400px"
-                        h="auto"
-                        loading="eager"
-                        fetchpriority="high"
+                    <MotionBox
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.3 }}
-                    />
+                        position="relative"
+                        w={{ base: "220px", sm: "240px", md: "320px", lg: "400px" }}
+                        h={{ base: "110px", sm: "120px", md: "160px", lg: "200px" }}
+                    >
+                        <Image
+                            src={logoGYA}
+                            alt="Glass & Aluminum Company Logo"
+                            fill
+                            priority
+                            style={{ objectFit: 'contain' }}
+                        />
+                    </MotionBox>
 
                     <Box mt="phi_md">
                         <Heading
@@ -110,10 +116,10 @@ const LandingPageSection: React.FC = React.memo(() => {
                         </Text>
 
                         <HStack gap="phi_md" mt="phi_xl" justify="center" w="full" px={4} flexWrap="wrap">
-                            <Button as={RouterLink} to="/servicios" variant="aura" size="lg">
+                            <Button as={RouterLink} href="/servicios" variant="aura" size="lg">
                                 Ver Servicios
                             </Button>
-                            <Button as={RouterLink} to="/proyectos" variant="outline" size="lg">
+                            <Button as={RouterLink} href="/proyectos" variant="outline" size="lg">
                                 Nuestros Proyectos
                             </Button>
                         </HStack>

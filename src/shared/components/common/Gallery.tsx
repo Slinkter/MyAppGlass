@@ -1,3 +1,5 @@
+"use client";
+
 import { Flex, Box } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { LazyMotion, m, domAnimation } from "framer-motion";

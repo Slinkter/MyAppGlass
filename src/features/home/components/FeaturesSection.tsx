@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file FeaturesSection.tsx
  * @description Container component that renders the list of company services/benefits.

@@ -11,10 +11,10 @@ export interface ProviderProps {
 
 export function Provider({ value, children }: ProviderProps) {
   return (
-    <ChakraProvider value={value || defaultSystem}>
-      <ColorModeProvider defaultTheme="light" enableSystem={false}>
+    <ColorModeProvider defaultTheme="light" enableSystem={false}>
+      <ChakraProvider value={value || defaultSystem}>
         {children}
-      </ColorModeProvider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </ColorModeProvider>
   )
 }

@@ -1,3 +1,4 @@
+"use client";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 /**
  * @file ProjectsList.tsx
@@ -137,7 +138,7 @@ const ProjectsList: React.FC = React.memo(() => {
             {...project}
             isLCP={index < 3}
             loading={index < 2 ? "eager" : "lazy"}
-            fetchpriority={index < 2 ? "high" : "auto"}
+            fetchPriority={index < 2 ? "high" : "auto"}
           />
         </ItemGridLayout.Item>
       ))}

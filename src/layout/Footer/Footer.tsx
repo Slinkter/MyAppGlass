@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file Footer.tsx
  * @description Global application footer unificado con elevación premium y diseño dimensional.
@@ -11,7 +13,6 @@ import {
     Text,
     VStack,
     Heading,
-    Image,
     SimpleGrid,
     Container,
     Separator,
@@ -28,6 +29,7 @@ import {
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/logosvg.svg";
 import { ReactNode, ElementType } from "react";
@@ -151,7 +153,14 @@ const Footer = () => {
                                     _hover={{ transform: { base: "scale(1.02)", sm: "translateX(4px)" } }} 
                                     transition="transform 0.2s"
                                 >
-                                    <Image src={LibroReclamacionesIcon.src || LibroReclamacionesIcon.src} alt="Libro" boxSize={5} flexShrink={0} />
+                                    <Box position="relative" w="20px" h="20px" flexShrink={0}>
+                                        <Image 
+                                            src={LibroReclamacionesIcon} 
+                                            alt="Libro de Reclamaciones" 
+                                            fill
+                                            style={{ objectFit: 'contain' }}
+                                        />
+                                    </Box>
                                     <Text fontSize="sm" fontWeight="600" color="text.body">Libro de Reclamaciones</Text>
                                 </HStack>
                             </Link>
@@ -161,14 +170,22 @@ const Footer = () => {
                     <Separator borderColor="border.glass" mb="phi_md" />
 
                     <Flex direction="column" align="center" gap="phi_sm" pt="phi_md" w="full">
-                        <Image 
-                            src={logoGYA.src || logoGYA.src} 
-                            alt="Logo GYA" 
+                        <Box 
+                            position="relative" 
                             h="34px" 
+                            w="180px"
                             mb="phi_xs" 
                             opacity={0.8}
                             _dark={{ filter: "brightness(0) invert(1)" }}
-                        />
+                        >
+                            <Image 
+                                src={logoGYA} 
+                                alt="Logo GYA Glass & Aluminum" 
+                                fill
+                                style={{ objectFit: 'contain' }}
+                                priority
+                            />
+                        </Box>
                         <Text 
                             fontSize="9px" 
                             color="text.muted" 

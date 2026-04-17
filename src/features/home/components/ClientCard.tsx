@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
-import { Box, Text, VStack, Image } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
 interface ClientCardProps {
   image: string;
@@ -31,7 +34,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
       transition="all 0.4s ease"
     >
       <Box position="relative" h="full" w="full" overflow="hidden">
-        <Image
+        <ResponsiveImage
           src={image}
           alt={nameClient}
           objectFit="cover"

@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file ServiceDetailBentoRefined.tsx
  * @description Option 3: Aura "Bento Refined" - Optimized bento layout with extreme glassmorphism.

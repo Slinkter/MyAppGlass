@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo, useState, useRef, useEffect } from "react";
 import { Box, HStack, Button } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";

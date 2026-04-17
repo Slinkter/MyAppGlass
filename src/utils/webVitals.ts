@@ -40,7 +40,7 @@ const reportWebVitals = (metric: Metric): void => {
   }
 
   // Log in development
-  if (import.meta.env.DEV) {
+  if (process.env.NODE_ENV !== "production") {
     console.log(metric);
   }
 };

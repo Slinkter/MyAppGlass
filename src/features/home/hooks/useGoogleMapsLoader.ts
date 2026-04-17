@@ -7,7 +7,7 @@ const LIBRARIES: ("marker" | "drawing" | "geometry" | "localContext" | "places" 
 export const useGoogleMapsLoader = () => {
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
     libraries: LIBRARIES,
   });
 

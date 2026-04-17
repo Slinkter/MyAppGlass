@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file MobileNav.tsx
  * @description UX/UI Architect Edition: Ethereal & Minimalist Navigation.
@@ -6,8 +8,8 @@
 import React, { useState, useEffect, useCallback, useTransition } from "react";
 import { Box, IconButton, VStack, Image, Text, Separator, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Menu, X, ShieldCheck, Landmark, Home, LucideIcon } from "lucide-react";
-import { usePathname as useLocation } from "next/navigation";
-import NavLink from "next/link";;
+import { usePathname } from "next/navigation";
+import NavLink from "next/link";
 import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
@@ -30,13 +32,16 @@ interface NavItemLargeProps {
 /**
  * @component NavItemLarge
  */
-const NavItemLarge = ({ label, href, onClick }: NavItemLargeProps) => (
-  <NavLink 
-    href={href} 
-    onClick={onClick}
-    style={{ textDecoration: "none", width: "100%" }}
-  >
-    {({ isActive }) => (
+const NavItemLarge = ({ label, href, onClick }: NavItemLargeProps) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  
+  return (
+    <NavLink 
+      href={href} 
+      onClick={onClick}
+      style={{ textDecoration: "none", width: "100%" }}
+    >
       <VStack gap={1} align="center" py={4}>
         <Text
           fontFamily="heading"
@@ -56,9 +61,9 @@ const NavItemLarge = ({ label, href, onClick }: NavItemLargeProps) => (
           style={{ height: "2px", backgroundColor: "var(--chakra-colors-text-accent)" }} 
         />
       </VStack>
-    )}
-  </NavLink>
-);
+    </NavLink>
+  );
+};
 
 interface UtilityLinkProps {
   label: string;
@@ -71,29 +76,50 @@ interface UtilityLinkProps {
 /**
  * @component UtilityLink
  */
-const UtilityLink = ({ label, href, icon: Icon, onClick, isImage }: UtilityLinkProps) => (
-  <NavLink href={href} onClick={onClick} style={{ textDecoration: "none" }}>
-    <HStack gap={2} color="text.muted" _hover={{ color: "text.accent" }} transition="color 0.2s">
-      {isImage ? (
-        <Image src={Icon as string} alt={label} boxSize={4} _dark={{ filter: "brightness(0) invert(1)" }} opacity={0.6} />
-      ) : (
-        <Box as={Icon as LucideIcon} size={16} />
-      )}
-      <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" letterSpacing="widest">
-        {label}
-      </Text>
-    </HStack>
-  </NavLink>
-);
+const UtilityLink = ({ label, href, icon: Icon, onClick, isImage }: UtilityLinkProps) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  return (
+    <NavLink href={href} onClick={onClick} style={{ textDecoration: "none" }}>
+      <HStack 
+        gap={2} 
+        color={isActive ? "text.accent" : "text.muted"} 
+        _hover={{ color: "text.accent" }} 
+        transition="color 0.2s"
+      >
+        {isImage ? (
+          <Image 
+            src={Icon as string} 
+            alt={label} 
+            boxSize={4} 
+            _dark={{ filter: "brightness(0) invert(1)" }} 
+            opacity={isActive ? 1 : 0.6} 
+          />
+        ) : (
+          <Box as={Icon as LucideIcon} size={16} />
+        )}
+        <Text 
+          fontSize="xs" 
+          fontWeight={isActive ? "800" : "bold"} 
+          textTransform="uppercase" 
+          letterSpacing="widest"
+        >
+          {label}
+        </Text>
+      </HStack>
+    </NavLink>
+  );
+};
 
 const MobileNav = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsOpen(false);
-  }, [location]);
+  }, [pathname]);
 
   const handleLinkClick = useCallback(() => {
     startTransition(() => setIsOpen(false));

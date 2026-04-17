@@ -8,7 +8,7 @@
  */
 
 // 1. Obtenemos la URL de la función desde las variables de entorno de Vite.
-const SUBMIT_RECLAMO_URL = import.meta.env.VITE_API_URL as string;
+const SUBMIT_RECLAMO_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 /**
  * Estructura de datos del formulario de reclamo.

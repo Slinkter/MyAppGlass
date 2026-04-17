@@ -1,3 +1,4 @@
+"use client";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
 import React, { useMemo, useCallback } from "react";
 import { GoogleMap } from "@react-google-maps/api";

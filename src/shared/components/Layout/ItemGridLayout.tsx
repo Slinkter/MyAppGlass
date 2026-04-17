@@ -1,7 +1,7 @@
+"use client";
+
 import React from "react";
 import { Container, Heading, Text, SimpleGrid, VStack, Box, ContainerProps } from "@chakra-ui/react";
-
-import HelmetWrapper from "@shared/components/HelmetWrapper";
 import { motion, Variants } from "framer-motion";
 
 interface ItemGridItemProps {
@@ -57,9 +57,9 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & { Item: typeof ItemGridIte
   title,
   subtitle,
   children,
-  seoTitle,
-  seoDescription,
-  seoCanonicalUrl,
+  _seoTitle,
+  _seoDescription,
+  _seoCanonicalUrl,
   columns = { base: 1, md: 2, lg: 3 },
   gap = { base: "phi_md", md: "phi_lg" },
   containerProps = {},
@@ -76,18 +76,12 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & { Item: typeof ItemGridIte
   };
 
   return (
-    <>
-      <HelmetWrapper
-        title={seoTitle}
-        description={seoDescription}
-        canonicalUrl={seoCanonicalUrl}
-      />
-      <Container 
-        maxW="7xl" 
-        textAlign="center" 
-        mt={{ base: "phi_lg", md: "phi_2xl" }}
-        {...containerProps}
-      >
+    <Container 
+      maxW="7xl" 
+      textAlign="center" 
+      mt={{ base: "phi_lg", md: "phi_2xl" }}
+      {...containerProps}
+    >
         <VStack gap={{ base: "phi_md", md: "phi_xl" }} w="full">
           {/* Header Section */}
           <VStack gap="phi_xs">
@@ -135,7 +129,6 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & { Item: typeof ItemGridIte
           </SimpleGrid>
         </VStack>
       </Container>
-    </>
   );
 };
 

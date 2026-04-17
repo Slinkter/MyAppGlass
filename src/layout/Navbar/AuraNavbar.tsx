@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file AuraNavbar.tsx
  * @description Premium responsive navigation header with Aura Liquid Glass effects.
