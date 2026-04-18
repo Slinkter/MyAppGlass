@@ -1,3 +1,9 @@
+/**
+ * @file ProjectDetailModal.tsx
+ * @description Immersive project detail viewer using a compound component pattern for flexible layout composition.
+ * @module features/projects
+ */
+
 "use client";
 
 import React, { useState, useCallback, createContext, useContext, useMemo } from "react";
@@ -18,22 +24,40 @@ import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
 import { ProjectPhoto } from "../services/projectService";
 
-// 1. Context definition
+/**
+ * Shared state for project detail compound components.
+ * @description Manages project metadata, visual state (map vs gallery), and modal lifecycle.
+ */
 interface ProjectDetailContextValue {
+  /** The residential or project group name */
   residencial?: string;
+  /** Specific building or client name */
   name?: string;
+  /** Physical location address */
   address?: string;
+  /** Completion year */
   year?: string;
+  /** Latitude for map view */
   lat?: number | null;
+  /** Longitude for map view */
   lng?: number | null;
+  /** Array of project photographs */
   photos: ProjectPhoto[];
+  /** Current active visual mode */
   viewMode: "map" | "gallery";
+  /** Switcher for visual mode */
   setViewMode: (mode: "map" | "gallery") => void;
+  /** Handler to close the modal and reset state */
   onClose: () => void;
 }
 
 const ProjectDetailContext = createContext<ProjectDetailContextValue | null>(null);
 
+/**
+ * Internal hook to consume project detail context.
+ * @throws Error if used outside of ProjectDetailModal.Root
+ * @returns The shared project state and handlers
+ */
 const useProjectDetail = () => {
   const context = useContext(ProjectDetailContext);
   if (!context) {
@@ -45,7 +69,13 @@ const useProjectDetail = () => {
 // 2. Compound Components
 
 /**
- * ProjectDetailModal.Root - Manages state and context
+ * Root component that manages the modal state and provides context to children.
+ * @description Handles the heavy lifting of modal lifecycle, backdrop effects, and immersive animations.
+ * @param props - Modal configuration and project data
+ * @remarks
+ * - Implements a custom immersive expansion animation using Framer Motion.
+ * - Resets `viewMode` to "map" on close to ensure a consistent starting state.
+ * - Provides a "Focus Anchor" to prevent potential accessibility crashes in Chakra UI v3 dialogs.
  */
 const ProjectDetailRoot: React.FC<{
   isOpen: boolean;
@@ -152,7 +182,8 @@ const ProjectDetailRoot: React.FC<{
 };
 
 /**
- * ProjectDetailModal.Header - Renders project titles
+ * Header component for the project modal.
+ * @description Renders the project title and engineering portfolio branding.
  */
 const ProjectDetailHeader: React.FC = () => {
   const { residencial } = useProjectDetail();
@@ -170,7 +201,8 @@ const ProjectDetailHeader: React.FC = () => {
 };
 
 /**
- * ProjectDetailModal.Visuals - Renders the visual viewer (Map or Gallery)
+ * Visuals component that toggles between the Interactive Map and the Image Gallery.
+ * @description Automatically connects to the shared project state to manage viewing modes.
  */
 const ProjectDetailVisuals: React.FC = () => {
   const { viewMode, lat, lng, photos } = useProjectDetail();
@@ -186,7 +218,8 @@ const ProjectDetailVisuals: React.FC = () => {
 };
 
 /**
- * ProjectDetailModal.Content - Renders project info and controls
+ * Information and Controls component.
+ * @description Displays project metadata (location, year) and Provides the Map/Gallery switcher.
  */
 const ProjectDetailContent: React.FC = () => {
   const { residencial, name, address, year, viewMode, setViewMode, onClose } = useProjectDetail();
@@ -205,7 +238,9 @@ const ProjectDetailContent: React.FC = () => {
 };
 
 /**
- * ProjectDetailModal.Body - Layout container for visuals and content
+ * Layout container for the project detail body.
+ * @description Handles responsive orientation (column on mobile, row on desktop).
+ * @param props.children - Child components (usually Visuals and Content)
  */
 const ProjectDetailBody: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -223,14 +258,31 @@ const ProjectDetailBody: React.FC<{ children: React.ReactNode }> = ({ children }
 };
 
 /**
- * @component ProjectDetailModal
- * @description Refactored for Compound Components pattern to reduce prop drilling.
+ * ProjectDetailModal Component using the Compound Component pattern.
+ * @description Provides a declarative and highly extensible API for building project detail views.
+ * @remarks
+ * This refactored version allows for different layouts without prop drilling.
+ * @example
+ * ```tsx
+ * <ProjectDetailModal.Root {...projectData} isOpen={isOpen} onClose={onClose}>
+ *   <ProjectDetailModal.Header />
+ *   <ProjectDetailModal.Body>
+ *     <ProjectDetailModal.Visuals />
+ *     <ProjectDetailModal.Content />
+ *   </ProjectDetailModal.Body>
+ * </ProjectDetailModal.Root>
+ * ```
  */
 const ProjectDetailModal = Object.assign(ProjectDetailRoot, {
+  /** Root container that initializes the context and modal frame */
   Root: ProjectDetailRoot,
+  /** Typography-focused header for project titles */
   Header: ProjectDetailHeader,
+  /** Interactive visual area for Map or Gallery */
   Visuals: ProjectDetailVisuals,
+  /** Metadata and interaction controls area */
   Content: ProjectDetailContent,
+  /** Responsive layout wrapper for body content */
   Body: ProjectDetailBody,
 });
 
