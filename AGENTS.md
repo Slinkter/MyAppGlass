@@ -1,146 +1,58 @@
-# AGENTS.md - Developer Guide for MyAppGlass
+# 🤖 AGENTS.md - Developer Guide (Aura 2026 Edition)
 
-React 18 + Vite application using Chakra UI, Firebase (Firestore + Cloud Functions), and pnpm.
+Guía maestra para agentes y desarrolladores sobre la arquitectura y estándares de **GYA Glass & Aluminum**.
 
-## Available Commands
+## 🛠️ Stack Tecnológico
+- **Core:** React 18/19 (Vite) + Next.js 16 (Static Export).
+- **UI:** Chakra UI v3 (Aura Design System) + Framer Motion.
+- **Backend:** Firebase (Hosting, Functions, Firestore).
+- **Assets:** Pipeline WebP optimizado con Sharp.
 
-### Development
-```bash
-pnpm dev          # Start dev server on port 5173
-pnpm build        # Production build to dist/
-pnpm preview      # Preview production build locally
+## 📐 Estándares de Arquitectura (FBA + Clean)
+
+### Feature-Based Architecture
+Cada funcionalidad reside en `src/features/[feature-name]`.
+- **Servicios:** La lógica de datos debe estar en `services/[name]Service.ts`. No importar de `src/data` directamente.
+- **Componentes:** Dividir componentes de >200 líneas en sub-componentes especializados.
+
+### Compound Components
+Para componentes complejos (Galería, Modales), usar el patrón de composición:
+```tsx
+<Gallery.Root>
+  <Gallery.Viewer />
+  <Gallery.Thumbnails />
+</Gallery.Root>
 ```
 
-### Linting & Code Quality
-```bash
-pnpm lint         # ESLint with all rules, fail on warnings
-```
+## 🖼️ Gestión de Imágenes (WebP Pipeline)
+**REGLA DE ORO:** Nunca usar `src/assets` en producción.
+1. Guardar originales en `src/assets`.
+2. Ejecutar `pnpm dev` o `node optimize-images.mjs`.
+3. Usar la ruta `/images/[name].webp` en el código.
+4. Usar `<ImageWithFallback />` para carga diferida y prioridad (LCP).
 
-### Testing
-No test framework installed. To add tests: `pnpm add -D vitest @vitest/ui`
+## ⚡ Rendimiento React 19
+- **useTransition:** Obligatorio para cambios de estado pesados (filtrado de listas).
+- **Server Components:** Las páginas en `src/app/` deben ser Server Components para SEO.
+- **Zero Layout Shift:** Usar Skeletons de alta fidelidad con dimensiones fijas (`65vh`, `500px`).
 
-### Deployment
-```bash
-pnpm deploy:hosting    # Build and deploy to Firebase Hosting
-pnpm deploy:functions # Deploy Firebase Cloud Functions
-pnpm predeploy         # Build before deployment
-```
-
-### Utilities
-```bash
-pnpm clean       # Remove node_modules, dist, functions/node_modules
-pnpm analyze     # Build with bundle visualization
-```
-
-## Code Style Guidelines
-
-### General Principles
-- Use ESM with `import`/`export` syntax
-- Follow ESLint rules in `eslint.config.js` (uses flat config)
-- Write self-documenting code; avoid unnecessary comments
-- Use TypeScript-like JSDoc patterns for complex functions
-
-### Formatting
-- 2 spaces for indentation
-- Double quotes for JSX attributes/elements, single quotes elsewhere
-- Trailing commas in multi-line objects/arrays
-- Max line length: 100 characters (soft limit)
-- Use semicolons
-- PascalCase for components, camelCase for variables/functions
-
-### Imports (order matters)
-1. React/core (react, react-dom, react-router-dom)
-2. External UI (chakra-ui, framer-motion)
-3. Firebase/config
-4. Path aliases (`@/`, `@features/`, `@shared/`, `@layout/`)
-5. Relative imports
-6. Type imports (use `import type` when only using types)
-
-### Naming Conventions
-| Type | Convention | Example |
-|------|------------|---------|
-| Components | PascalCase | `HomePage`, `ProductCard` |
-| Hooks | camelCase + `use` | `useAuth`, `useFetchProducts` |
-| Utilities | camelCase | `scrollToTop`, `formatDate` |
-| Constants | UPPER_SNAKE_CASE | `MAX_UPLOAD_SIZE` |
-| Files (components) | PascalCase | `HomePage.jsx` |
-| Files (hooks/utils) | camelCase | `useAuth.js` |
-
-### File Organization
-```
-src/
-├── api/           # API service functions
-├── config/        # Configuration (theme, Firebase)
-├── features/      # Feature-based modules
-├── layout/        # Layout components
-├── pages/         # Page components
-├── routes/        # Routing configuration
-├── shared/        # Shared components, hooks, utilities
-├── styles/        # Global styles
-└── utils/         # Utility functions
-```
-
-### Component Template
-```javascript
+## ✍️ Documentación JSDoc (Why over What)
+Todo Servicio, Hook o Contexto debe estar documentado explicando el **contexto** y las **restricciones**.
+```typescript
 /**
- * @file ComponentName.jsx
- * @description Brief description.
- * @module feature-name
+ * @remarks Explica por qué se tomó esta decisión técnica aquí.
  */
-
-import { useState } from "react";
-import { Box, Heading } from "@chakra-ui/react";
-
-function ComponentName({ title }) {
-  const [state, setState] = useState(null);
-  return <Box><Heading>{title}</Heading></Box>;
-}
-
-export default ComponentName;
 ```
 
-### Error Handling
-- Use try-catch for async operations
-- Provide user-friendly error messages via Chakra toast/alert
-- Log errors with context in development (use `console.error` with context)
-- Use React error boundaries for component-level errors
-- Handle Firebase errors with proper error codes
+## 🛡️ Calidad de Código
+- **Cero Advertencias:** `pnpm lint` debe pasar sin un solo warning.
+- **React Doctor:** Puntaje objetivo de 100/100 en auditorías de salud.
+- **Mobile First:** Todas las interacciones deben incluir `whileTap={{ scale: 0.98 }}`.
 
-### React Best Practices
-- Functional components with hooks only
-- Memoize expensive computations with `useMemo`
-- Memoize callbacks with `useCallback` when passing to child components
-- Lazy load routes: `const HomePage = lazy(() => import("./pages/HomePage"));`
-- Prefer small, focused components
-- Extract reusable logic into custom hooks
-- Use `key` prop correctly in lists (use stable IDs, not array indices)
-- Avoid inline styles; use Chakra UI props/theme tokens
+## 🚀 Comandos Críticos
+- `pnpm dev`: Inicia el entorno con optimización incremental de imágenes.
+- `pnpm build`: Genera el build estático optimizado para Firebase.
+- `node optimize-images.mjs`: Procesa manualmente nuevos assets.
 
-### Firebase & Firestore
-- Initialize Firebase in `src/config/firebase.js`
-- Use Firestore for real-time data
-- Collection structure: `collection(db, "name")` -> `doc(db, "name", id)`
-- Use `onSnapshot` for real-time listeners, `getDocs` for one-time fetches
-- Always handle Firebase auth state with `onAuthStateChanged`
-- Use Firebase Security Rules for data validation
-
-### Path Aliases
-| Alias | Path |
-|-------|------|
-| `@` | `src/` |
-| `@features` | `src/features/` |
-| `@shared` | `src/shared/` |
-| `@layout` | `src/layout/` |
-
-### Firebase Cloud Functions
-`functions/` uses CommonJS. Deploy with `pnpm deploy:functions`
-
-### Type Safety (JSDoc)
-Use JSDoc annotations for better type inference:
-```javascript
-/**
- * @param {string} userId
- * @returns {Promise<User|null>}
- */
-async function getUser(userId) { ... }
-```
+---
+*GYA Glass & Aluminum - Ingeniería de Software y Diseño de Vanguardia.*

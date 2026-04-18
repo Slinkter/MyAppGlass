@@ -1,3 +1,9 @@
+/**
+ * @file Gallery.tsx
+ * @description Advanced image gallery with compound component pattern for flexible UI composition.
+ * @module shared/components/common
+ */
+
 "use client";
 
 import { Box } from "@chakra-ui/react";
@@ -8,13 +14,22 @@ import InternalViewer from "./gallery/GalleryViewer";
 import InternalThumbnails from "./gallery/GalleryThumbnails";
 import { GalleryItem } from "@/shared/types/gallery";
 
-// 1. Context definition
+/**
+ * Shared state for the Gallery compound components.
+ * @description Extends UseGalleryReturn with the provided image set.
+ */
 interface GalleryContextValue extends Omit<UseGalleryReturn, 'isModalOpen' | 'onOpenModal' | 'onCloseModal' | 'isHovered' | 'setIsHovered'> {
+  /** The full array of gallery items being displayed */
   images: GalleryItem[];
 }
 
 const GalleryContext = createContext<GalleryContextValue | null>(null);
 
+/**
+ * Internal hook to consume the gallery context.
+ * @throws Error if used outside of Gallery.Root
+ * @returns The shared gallery state and handlers
+ */
 const useGalleryContext = () => {
   const context = useContext(GalleryContext);
   if (!context) {
@@ -24,6 +39,17 @@ const useGalleryContext = () => {
 };
 
 // 2. Compound Components
+
+/**
+ * Root component of the Gallery that provides state and context.
+ * @description Initializes the gallery logic and sets up background pre-loading and keyboard navigation.
+ * @param props.images - Array of items to be displayed in the gallery
+ * @param props.children - Child components (usually Gallery.Viewer and Gallery.Thumbnails)
+ * @remarks
+ * - Implements background pre-loading of the current and adjacent images for zero-latency transitions.
+ * - Manages keyboard listeners for ArrowLeft/ArrowRight navigation.
+ * - Uses `GalleryContext.Provider` to share state with sub-components without prop drilling.
+ */
 const GalleryRoot: React.FC<{ images: GalleryItem[]; children: React.ReactNode }> = ({ images, children }) => {
   const gallery = useGallery(images);
   
@@ -85,6 +111,10 @@ const GalleryRoot: React.FC<{ images: GalleryItem[]; children: React.ReactNode }
   );
 };
 
+/**
+ * Main viewer component that displays the currently selected image.
+ * @description Automatically connects to the shared Gallery state via context.
+ */
 const GalleryViewer: React.FC = () => {
   const { currentImage, imageCount, selectedIndex, setSelectedIndex, handlePrevious, handleNext } = useGalleryContext();
   
@@ -110,6 +140,10 @@ const GalleryViewer: React.FC = () => {
   );
 };
 
+/**
+ * Thumbnail list component for selecting images within the gallery.
+ * @description Automatically connects to the shared Gallery state via context.
+ */
 const GalleryThumbnails: React.FC = () => {
   const { images, selectedIndex, setSelectedIndex } = useGalleryContext();
   
@@ -131,12 +165,25 @@ const GalleryThumbnails: React.FC = () => {
 };
 
 /**
- * @component Gallery
- * @description Fully integrated image gallery refactored with Compound Components pattern.
+ * Gallery Component using the Compound Component pattern.
+ * @description Provides a modular way to compose galleries with synchronized state.
+ * @remarks
+ * Use `Gallery.Root` to initialize the context, and `Gallery.Viewer`/`Gallery.Thumbnails` to build the UI.
+ * This pattern avoids prop drilling and allows for flexible reordering of UI elements.
+ * @example
+ * ```tsx
+ * <Gallery.Root images={myImages}>
+ *   <Gallery.Thumbnails />
+ *   <Gallery.Viewer />
+ * </Gallery.Root>
+ * ```
  */
 export const Gallery = Object.assign(GalleryRoot, {
+  /** Root container that initializes the gallery context */
   Root: GalleryRoot,
+  /** Main image viewer with navigation controls */
   Viewer: GalleryViewer,
+  /** Carousel of thumbnails for quick selection */
   Thumbnails: GalleryThumbnails,
 });
 

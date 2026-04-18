@@ -14,13 +14,13 @@ import React, { useMemo, useCallback } from "react";
 import { Box, Button, HStack } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
-import { getProjects } from "../services/projectService";
+import { getProjects, Project } from "../services/projectService";
 import { useFilterableList } from "@shared/hooks";
 
 /**
  * Normaliza nombres de años para extraer solo el año de 4 dígitos (ej. 2024, 2023).
  */
-const normalizeYear = (year?: string): string => {
+const normalizeYear = (year?: string | number): string => {
   if (!year) return "Otros";
   const yearString = String(year).trim();
   const match = yearString.match(/\b(20\d{2})\b/);
@@ -53,7 +53,7 @@ const ProjectsList: React.FC = React.memo(() => {
     return ["Todos", ...unique];
   }, [allProjects]);
 
-  const filterFn = useCallback((items: any[], category: string) => {
+  const filterFn = useCallback((items: Project[], category: string) => {
     if (category === "Todos") return items;
     return items.filter((p) => normalizeYear(p.year) === category);
   }, []);
