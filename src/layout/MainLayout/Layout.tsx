@@ -35,7 +35,7 @@ interface LayoutProps {
  */
 const Layout = ({ children }: LayoutProps) => {
   // Overlay para mejorar legibilidad y efecto glass
-  const showFloatingWhatsApp = useBreakpointValue({ base: false, md: true });
+  const showFloatingWhatsApp = useBreakpointValue({ base: true, md: true });
 
   return (
     <Box
