@@ -1,34 +1,40 @@
 "use client";
 
-import { Flex, Box } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import { Box } from "@chakra-ui/react";
+import React, { createContext, useContext, useEffect, useMemo } from "react";
 import { LazyMotion, m, domAnimation } from "framer-motion";
-import { useGallery } from "@shared/hooks/ui/useGallery";
-import GalleryViewer from "./gallery/GalleryViewer";
-import GalleryThumbnails from "./gallery/GalleryThumbnails";
+import { useGallery, UseGalleryReturn } from "@shared/hooks/ui/useGallery";
+import InternalViewer from "./gallery/GalleryViewer";
+import InternalThumbnails from "./gallery/GalleryThumbnails";
 import { GalleryItem } from "@/shared/types/gallery";
 
-interface GalleryProps {
+// 1. Context definition
+interface GalleryContextValue extends Omit<UseGalleryReturn, 'isModalOpen' | 'onOpenModal' | 'onCloseModal' | 'isHovered' | 'setIsHovered'> {
   images: GalleryItem[];
 }
 
-/**
- * @component Gallery
- * @description Fully integrated image gallery with a seamless thumbnail strip.
- */
-const Gallery: React.FC<GalleryProps> = React.memo(({ images }) => {
-  const {
-    selectedIndex,
-    setSelectedIndex,
-    handlePrevious,
-    handleNext,
-    currentImage,
-    imageCount,
-  } = useGallery(images);
+const GalleryContext = createContext<GalleryContextValue | null>(null);
+
+const useGalleryContext = () => {
+  const context = useContext(GalleryContext);
+  if (!context) {
+    throw new Error("Gallery compound components must be used within Gallery.Root");
+  }
+  return context;
+};
+
+// 2. Compound Components
+const GalleryRoot: React.FC<{ images: GalleryItem[]; children: React.ReactNode }> = ({ images, children }) => {
+  const gallery = useGallery(images);
+  
+  const value = useMemo(() => ({
+    ...gallery,
+    images,
+  }), [gallery, images]);
 
   // Pre-load adjacent images in the background
   useEffect(() => {
-    if (!images || imageCount === 0) return;
+    if (!images || gallery.imageCount === 0) return;
 
     const preloadImage = (src: string) => {
       if (!src) return;
@@ -37,9 +43,9 @@ const Gallery: React.FC<GalleryProps> = React.memo(({ images }) => {
     };
 
     const indicesToPreload = [
-      selectedIndex,
-      (selectedIndex - 1 + imageCount) % imageCount,
-      (selectedIndex + 1) % imageCount,
+      gallery.selectedIndex,
+      (gallery.selectedIndex - 1 + gallery.imageCount) % gallery.imageCount,
+      (gallery.selectedIndex + 1) % gallery.imageCount,
     ];
 
     indicesToPreload.forEach((idx) => {
@@ -47,76 +53,91 @@ const Gallery: React.FC<GalleryProps> = React.memo(({ images }) => {
         preloadImage(images[idx].src);
       }
     });
-  }, [selectedIndex, images, imageCount]);
+  }, [gallery.selectedIndex, images, gallery.imageCount]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "ArrowLeft") handlePrevious();
-      if (event.key === "ArrowRight") handleNext();
+      if (event.key === "ArrowLeft") gallery.handlePrevious();
+      if (event.key === "ArrowRight") gallery.handleNext();
     };
     window.addEventListener("keydown", handleKeyDown, { passive: true });
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handlePrevious, handleNext]);
+  }, [gallery]);
 
-  if (!images || imageCount === 0 || !currentImage) return null;
+  if (!images || gallery.imageCount === 0 || !gallery.currentImage) return null;
 
   return (
-    <LazyMotion features={domAnimation}>
-      <Box
-        as={m.div}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        h="100%"
-        w="100%"
-      >
-        <Flex
-          direction={{ base: "column", md: "row" }}
-          gap={{ base: 4, md: 8 }} // Enhanced gap for separation
+    <GalleryContext.Provider value={value}>
+      <LazyMotion features={domAnimation}>
+        <Box
+          as={m.div}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           h="100%"
           w="100%"
-          minW={0}
         >
-          {/* 1. Main Viewer */}
-          <Box 
-            flex="1" 
-            minH="0" 
-            position="relative"
-            borderRadius="3xl"
-            overflow="hidden"
-            boxShadow="2xl"
-          >
-            <GalleryViewer
-              currentImage={currentImage}
-              imageCount={imageCount}
-              selectedIndex={selectedIndex}
-              setSelectedIndex={setSelectedIndex}
-              handlePrevious={handlePrevious}
-              handleNext={handleNext}
-              isPriority={selectedIndex === 0}
-            />
-          </Box>
-
-          {/* 2. Thumbnails (Right on desktop, bottom on mobile) */}
-          <Box
-            w={{ base: "100%", md: "120px", lg: "135px" }}
-            h={{ base: "100px", md: "100%" }}
-            order={{ base: 2, md: 1 }}
-            flexShrink={0}
-            minH="0"
-          >
-            <GalleryThumbnails
-              images={images}
-              selectedIndex={selectedIndex}
-              setSelectedIndex={setSelectedIndex}
-            />
-          </Box>
-        </Flex>
-      </Box>
-    </LazyMotion>
+          {children}
+        </Box>
+      </LazyMotion>
+    </GalleryContext.Provider>
   );
+};
+
+const GalleryViewer: React.FC = () => {
+  const { currentImage, imageCount, selectedIndex, setSelectedIndex, handlePrevious, handleNext } = useGalleryContext();
+  
+  return (
+    <Box 
+      flex="1" 
+      minH="0" 
+      position="relative"
+      borderRadius="3xl"
+      overflow="hidden"
+      boxShadow="2xl"
+    >
+      <InternalViewer
+        currentImage={currentImage!}
+        imageCount={imageCount}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+        handlePrevious={handlePrevious}
+        handleNext={handleNext}
+        isPriority={selectedIndex === 0}
+      />
+    </Box>
+  );
+};
+
+const GalleryThumbnails: React.FC = () => {
+  const { images, selectedIndex, setSelectedIndex } = useGalleryContext();
+  
+  return (
+    <Box
+      w={{ base: "100%", md: "120px", lg: "135px" }}
+      h={{ base: "100px", md: "100%" }}
+      order={{ base: 2, md: 1 }}
+      flexShrink={0}
+      minH="0"
+    >
+      <InternalThumbnails
+        images={images}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+      />
+    </Box>
+  );
+};
+
+/**
+ * @component Gallery
+ * @description Fully integrated image gallery refactored with Compound Components pattern.
+ */
+export const Gallery = Object.assign(GalleryRoot, {
+  Root: GalleryRoot,
+  Viewer: GalleryViewer,
+  Thumbnails: GalleryThumbnails,
 });
 
-Gallery.displayName = "Gallery";
 export default Gallery;
