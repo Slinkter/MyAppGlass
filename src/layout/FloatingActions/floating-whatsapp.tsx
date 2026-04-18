@@ -29,8 +29,9 @@ const FloatingWhatsApp = () => {
     <>
       <Box
         position="fixed"
-        bottom={{ base: "90px", md: 4 }}
-        right={4}
+        bottom={{ base: 6, md: 4 }}
+        left={{ base: 4, md: "auto" }}
+        right={{ base: "auto", md: 4 }}
         zIndex="popover"
         display="flex"
       >
@@ -66,8 +67,9 @@ const FloatingWhatsApp = () => {
           borderRadius="xl"
           boxShadow="xl"
           position="fixed"
-          bottom="90px"
-          right="20px"
+          bottom={{ base: "100px", md: "90px" }}
+          right={{ base: 4, md: "20px" }}
+          left={{ base: 4, md: "auto" }}
         >
           <DialogHeader>
             <DialogTitle fontWeight="bold">¿Necesitas Ayuda?</DialogTitle>
