@@ -132,18 +132,16 @@ const ProjectDetailPage: React.FC = () => {
           <Box
             w="full"
             maxW="7xl"
-            h={{ base: "420px", md: "700px" }}
+            h={{ base: "350px", md: "500px", lg: "65vh" }}
+            minH={{ md: "500px" }}
+            maxH={{ lg: "800px" }}
             position="relative"
-            borderRadius={{ base: "2xl", md: "3xl" }}
-            overflow="hidden"
-            border="1px solid"
-            borderColor="border.glass"
-            boxShadow="2xl"
           >
             <Skeleton
               loading={isPending}
               h="full"
               w="full"
+              borderRadius="3xl"
             >
               <VisualViewer
                 viewMode={viewMode}

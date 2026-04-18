@@ -14,7 +14,7 @@ import { useEffect, useRef, RefObject } from "react";
  * @param options - IntersectionObserver options
  */
 const useIntersectionObserver = (
-  elementRef: RefObject<Element | null>,
+  elementOrRef: RefObject<Element | null> | Element | null,
   onIntersect: () => void,
   { root = null, rootMargin = "0px", threshold = 0 }: IntersectionObserverInit = {}
 ): void => {
@@ -26,7 +26,7 @@ const useIntersectionObserver = (
   }, [onIntersect]);
 
   useEffect(() => {
-    const node = elementRef?.current;
+    const node = elementOrRef && 'current' in elementOrRef ? elementOrRef.current : elementOrRef;
 
     if (typeof window !== "undefined" && !window.IntersectionObserver) {
       callbackRef.current?.();
@@ -50,7 +50,7 @@ const useIntersectionObserver = (
       observer.unobserve(node);
       observer.disconnect();
     };
-  }, [elementRef, rootMargin, threshold, root]);
+  }, [elementOrRef, rootMargin, threshold, root]);
   // NOTE: onIntersect is intentionally excluded from deps (handled by callbackRef)
 };
 
