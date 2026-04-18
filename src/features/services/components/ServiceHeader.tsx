@@ -4,12 +4,11 @@ import {
   VStack,
   Heading,
   HStack,
-  Button,
   Flex,
   Box,
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import BackButton from "@shared/components/navigation/BackButton";
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { ServicePageSystem } from "../services/serviceService";
 
 interface SystemSelectorProps {
