@@ -1,6 +1,7 @@
 "use client";
 
-import React, { Suspense, lazy, useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
 import {
   Box,
   Button,
@@ -22,8 +23,26 @@ import AuraSurface from "@/shared/components/aura/AuraSurface";
 import AuraSkeleton, { ServiceCardSkeleton } from "@/shared/components/aura/AuraSkeleton";
 import { type MarkerType } from "./InteractiveMap";
 
-// Carga perezosa del mapa para evitar errores de inicialización en producción
-const InteractiveMap = lazy(() => import("./InteractiveMap"));
+// Carga perezosa del mapa para evitar errores de inicialización en producción y reducir bundle
+const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
+  ssr: false,
+  loading: () => (
+    <Flex 
+      align="center" 
+      justify="center" 
+      h={{ base: "400px", lg: "700px" }} 
+      w="full" 
+      bg="bg.section"
+      borderRadius="inherit"
+    >
+       <VStack gap="phi_lg" w={{ base: "full", lg: "340px" }} p="phi_lg">
+        <ServiceCardSkeleton />
+        <ServiceCardSkeleton />
+        <AuraSkeleton h="50px" w="full" borderRadius="full" />
+      </VStack>
+    </Flex>
+  ),
+});
 
 const MotionVStack = m.create(VStack);
 
@@ -86,29 +105,10 @@ const StoreSection: React.FC = React.memo(() => {
             borderColor="border.glass"
             boxShadow="2xl"
           >
-            <Suspense
-              fallback={
-                <Flex 
-                  align="center" 
-                  justify="center" 
-                  h={{ base: "400px", lg: "700px" }} 
-                  w="full" 
-                  bg="bg.section"
-                  borderRadius="inherit"
-                >
-                   <VStack gap="phi_lg" w={{ base: "full", lg: "340px" }} p="phi_lg">
-                    <ServiceCardSkeleton />
-                    <ServiceCardSkeleton />
-                    <AuraSkeleton h="50px" w="full" borderRadius="full" />
-                  </VStack>
-                </Flex>
-              }
-            >
-              <InteractiveMap 
-                selectedMarker={selectedMarker} 
-                onMarkerToggle={handleMarkerToggle} 
-              />
-            </Suspense>
+            <InteractiveMap 
+              selectedMarker={selectedMarker} 
+              onMarkerToggle={handleMarkerToggle} 
+            />
           </Box>
 
           {/* FICHA INFORMATIVA - DINÁMICA EN DESKTOP */}
