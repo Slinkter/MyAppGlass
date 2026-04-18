@@ -3,7 +3,7 @@ import React, { useMemo, useState, useRef, useEffect } from "react";
 import { Box, HStack, Button } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
-import { services } from "../data/services";
+import { getServices } from "../services/serviceService";
 import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LuSearch } from "react-icons/lu";
@@ -24,10 +24,15 @@ export interface ServiceData extends Service {
  */
 const ServiceList: React.FC = React.memo(() => {
   const [isLoading, setIsLoading] = useState(true);
-  const allServices = useMemo(() => services as ServiceData[], []);
+  const allServices = useMemo(() => getServices() as ServiceData[], []);
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [displayCount, setDisplayCount] = useState(6);
   const loaderRef = useRef<HTMLDivElement>(null);
+
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+    setDisplayCount(6);
+  };
 
   const activeBg = useColorModeValue("primary.700", "primary.300");
   const activeColor = useColorModeValue("white", "primary.900");
@@ -55,10 +60,6 @@ const ServiceList: React.FC = React.memo(() => {
     },
     { threshold: 0.01, rootMargin }
   );
-
-  useEffect(() => {
-    setDisplayCount(6);
-  }, [activeCategory]);
 
   const preparedServices = useMemo(() => {
     return filteredServices.slice(0, displayCount).map((s) => ({ ...s, preloaded: true }));
@@ -96,7 +97,7 @@ const ServiceList: React.FC = React.memo(() => {
                 color={isActive ? activeColor : inactiveColor}
                 _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
                 transition="all 0.2s ease"
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => handleCategoryChange(cat)}
               >
                 {cat}
               </Button>

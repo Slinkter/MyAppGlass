@@ -4,33 +4,17 @@
  * @module projects/services
  */
 
-import { projects } from "../data/projects";
+import { projects, Project as DataProject, ProjectPhoto as DataProjectPhoto } from "../data/projects";
 
 /**
  * Representa la estructura de una imagen de proyecto.
  */
-export interface ProjectImage {
-  id: number;
-  image: string;
-  name?: string;
-}
+export type ProjectPhoto = DataProjectPhoto;
 
 /**
  * Representa la estructura de un proyecto individual.
  */
-export interface Project {
-  id: number;
-  image: string;
-  residencial: string;
-  name: string;
-  address: string;
-  numdpto: string;
-  year: string;
-  g_maps: string;
-  lat: number;
-  lng: number;
-  photosObra: ProjectImage[];
-}
+export type Project = DataProject;
 
 /**
  * Returns the list of all projects and their associated data.

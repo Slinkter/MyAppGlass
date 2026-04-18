@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
-import { ProjectPhoto } from "../data/projects";
+import { ProjectPhoto } from "../services/projectService";
 
 interface ProjectDetailModalProps {
   isOpen: boolean;
