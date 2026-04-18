@@ -2,6 +2,7 @@
 import React from "react";
 import {
   Box,
+  Flex,
   VStack,
   Container,
   Skeleton,
@@ -76,7 +77,18 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                     style={{ width: "100%", height: "100%" }}
                   >
                     {activeImageList.length > 0 ? (
-                      <Gallery images={activeImageList} />
+                      <Gallery images={activeImageList}>
+                        <Flex
+                          direction={{ base: "column", md: "row" }}
+                          gap={{ base: 4, md: 8 }}
+                          h="100%"
+                          w="100%"
+                          minW={0}
+                        >
+                          <Gallery.Viewer />
+                          <Gallery.Thumbnails />
+                        </Flex>
+                      </Gallery>
                     ) : (
                       <ComingSoonDisplay />
                     )}
