@@ -5,7 +5,7 @@ import {
   Text,
   HStack,
 } from "@chakra-ui/react";
-import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import { LuChevronLeft, LuChevronRight, LuMoveHorizontal } from "react-icons/lu";
 import { m, AnimatePresence } from "framer-motion";
 import FadingImage from "../FadingImage";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
@@ -256,21 +256,43 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
       )}
 
       {imageCount > 1 && (
-        <Text
+        <Box
           position="absolute"
-          bottom={-8}
+          bottom={12}
           left="50%"
           transform="translateX(-50%)"
-          fontSize="xs"
-          color="gray.500"
-          opacity={0}
-          transition="opacity 0.2s ease"
-          _groupHover={{ opacity: 1 }}
+          zIndex={10}
           pointerEvents="none"
-          display={{ base: "block", md: "none" }}
+          display={{ base: "flex", md: "none" }}
         >
-          Desliza para navegar
-        </Text>
+          <m.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: [0, 1, 1, 0], y: [5, 0, 0, 5] }}
+            transition={{ 
+              duration: 3, 
+              times: [0, 0.1, 0.9, 1],
+              repeat: Infinity,
+              repeatDelay: 2
+            }}
+          >
+            <HStack
+              bg="blackAlpha.700"
+              backdropFilter="blur(8px)"
+              px={4}
+              py={2}
+              borderRadius="full"
+              color="white"
+              border="1px solid"
+              borderColor="whiteAlpha.300"
+              gap={2}
+            >
+              <LuMoveHorizontal size={14} />
+              <Text fontSize="10px" fontWeight="bold" letterSpacing="widest">
+                DESLIZA
+              </Text>
+            </HStack>
+          </m.div>
+        </Box>
       )}
     </MotionBox>
   );

@@ -12,6 +12,9 @@ import {
 } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import RouterLink from "next/link";
+import { m } from "framer-motion";
+
+const MotionLinkBox = m.create(LinkBox);
 
 export interface ServiceCardProps {
   image: string;
@@ -52,7 +55,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
     "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
   return (
-    <LinkBox
+    <MotionLinkBox
       as="article"
       role="group"
       cursor="pointer"
@@ -68,6 +71,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
       }}
       transition="all 0.4s ease"
       aria-label={`Ver detalles del servicio de ${name}`}
+      whileTap={{ scale: 0.98 }}
     >
       <Skeleton loading={!isLoaded} h="full" w="full">
         <Box position="relative" h="full" w="full" overflow="hidden">
@@ -163,11 +167,9 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
       </Skeleton>
       
       {isMobile && <LinkOverlay as={RouterLink} href={plink} aria-label={`Ver servicio ${name}`} />}
-    </LinkBox>
+    </MotionLinkBox>
   );
 });
 
 ServiceCard.displayName = "ServiceCard";
-export default ServiceCard;
-isplayName = "ServiceCard";
 export default ServiceCard;
