@@ -8,6 +8,7 @@ import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObse
 import { EmptyState } from "@/components/ui/empty-state";
 import { LuSearch } from "react-icons/lu";
 import ServiceListSkeleton from "./ServiceListSkeleton";
+import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { Service } from "../services/serviceService";
 
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
@@ -27,6 +28,12 @@ const ServiceList: React.FC = React.memo(() => {
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [displayCount, setDisplayCount] = useState(6);
   const loaderRef = useRef<HTMLDivElement>(null);
+
+  const activeBg = useColorModeValue("primary.700", "primary.300");
+  const activeColor = useColorModeValue("white", "primary.900");
+  const inactiveBg = useColorModeValue("gray.100", "whiteAlpha.100");
+  const inactiveColor = useColorModeValue("gray.700", "gray.300");
+  const inactiveHoverBg = useColorModeValue("gray.200", "whiteAlpha.200");
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
@@ -78,24 +85,17 @@ const ServiceList: React.FC = React.memo(() => {
               <Button
                 key={cat}
                 size="sm"
-                px={6}
+                px={5}
+                mt={2}
                 borderRadius="full"
-                fontWeight="bold"
+                fontWeight="semibold"
                 fontSize="xs"
                 letterSpacing="wider"
                 textTransform="uppercase"
-                variant={isActive ? "solid" : "ghost"}
-                bg={isActive ? "primary.900" : "bg.subtle"}
-                color={isActive ? "white" : "text.body"}
-                _dark={{
-                  bg: isActive ? "primary.300" : "whiteAlpha.100",
-                  color: isActive ? "primary.900" : "gray.300",
-                }}
-                _hover={{
-                  bg: isActive ? "primary.800" : "bg.muted",
-                  _dark: { bg: isActive ? "primary.200" : "whiteAlpha.200" }
-                }}
-                transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                bg={isActive ? activeBg : inactiveBg}
+                color={isActive ? activeColor : inactiveColor}
+                _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
+                transition="all 0.2s ease"
                 onClick={() => setActiveCategory(cat)}
               >
                 {cat}

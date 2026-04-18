@@ -1,15 +1,16 @@
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 /**
  * @file ImageWithFallback.tsx
- * @description Enhanced image component with skeleton loaders, fallback handling, and LCP optimizations.
+ * @description Enhanced image component with next/image, skeleton loaders, and fallback handling.
  * @module shared/components
  * @remarks
- * Includes a manual check for `image.complete` to immediately show cached images without a flicker of the skeleton loader.
- * Uses blur-up technique and pulse skeleton for better UX.
+ * Uses next/image for better performance even in static export mode.
+ * Supports blur-up technique and pulse skeleton for better UX.
  */
 
-import React, { useState, useMemo, useCallback, useRef } from "react";
-import { Image, Box, ImageProps } from "@chakra-ui/react";
+import React, { useState, useMemo, useCallback } from "react";
+import NextImage from "next/image";
+import { Box, BoxProps } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 
 const pulse = keyframes`
@@ -25,40 +26,47 @@ const shimmer = keyframes`
 
 const imgF = "https://placehold.co/600x600?text=Imagen+no+disponible";
 
-interface ImageWithFallbackProps extends Omit<ImageProps, 'onLoad' | 'onError'> {
+interface ImageWithFallbackProps extends BoxProps {
   src?: string;
+  alt?: string;
   fallbackSrc?: string;
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
   onError?: () => void;
   forceShow?: boolean;
   showOverlay?: boolean;
+  priority?: boolean;
+  sizes?: string;
+  objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
 }
 
 /**
  * @component ImageWithFallback
- * @description Componente base para imagen con manejo de fallback y carga
+ * @description Componente base para imagen con manejo de fallback y carga optimizada
  */
 const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
   ({
     src,
+    alt = "",
     fallbackSrc,
     onLoad,
     onError,
     w,
     h,
-    srcSet,
-    sizes,
+    sizes = "100vw",
     forceShow,
     showOverlay: _showOverlay,
+    priority = false,
+    objectFit = "cover",
     ...restProps
   }) => {
     const [isLoaded, setIsLoaded] = useState(forceShow || false);
     const [isLoading, setIsLoading] = useState(!forceShow);
-    const imageRef = useRef<HTMLImageElement>(null);
+    const [hasError, setHasError] = useState(false);
 
     const imageSrc = useMemo(() => {
+      if (hasError) return fallbackSrc || imgF;
       return src || fallbackSrc || imgF;
-    }, [src, fallbackSrc]);
+    }, [src, fallbackSrc, hasError]);
 
     const placeholderBg = useColorModeValue("gray.100", "gray.800");
     const shimmerBg = useColorModeValue(
@@ -67,12 +75,11 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
     );
 
     const handleImageError = useCallback(() => {
+      setHasError(true);
+      setIsLoading(false);
+      setIsLoaded(true);
       if (onError) onError();
-      if (imageSrc !== (fallbackSrc || imgF)) {
-        setIsLoaded(true);
-        setIsLoading(false);
-      }
-    }, [imageSrc, fallbackSrc, onError]);
+    }, [onError]);
 
     const handleLoad = useCallback(
       (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
@@ -89,8 +96,8 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
         h={h}
         position="relative"
         overflow="hidden"
-        rounded="md"
         bg={placeholderBg}
+        {...restProps}
       >
         {/* Pulse Skeleton - shown while loading */}
         {isLoading && (
@@ -117,24 +124,22 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
           </Box>
         )}
 
-        {/* Image with blur-up effect */}
-        <Image
-          ref={imageRef}
-          onError={handleImageError}
-          onLoad={handleLoad}
-          src={imageSrc || undefined}
-          w="100%"
-          h="100%"
-          objectFit="cover"
-          loading="lazy"
-          decoding="async"
-          opacity={isLoaded ? 1 : 0}
-          transform={isLoaded ? "scale(1)" : "scale(1.02)"}
-          transition="opacity 0.4s ease, transform 0.4s ease"
-          filter={isLoaded ? "blur(0)" : "blur(8px)"}
-          srcSet={srcSet}
+        {/* Optimized Image using next/image */}
+        <NextImage
+          src={imageSrc}
+          alt={alt}
+          fill
+          priority={priority}
           sizes={sizes}
-          {...restProps}
+          onLoad={handleLoad}
+          onError={handleImageError}
+          style={{
+            objectFit,
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? "scale(1)" : "scale(1.02)",
+            transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+            filter: isLoaded ? "none" : "blur(10px)",
+          }}
         />
       </Box>
     );

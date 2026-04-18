@@ -3,7 +3,7 @@
  * @description Premium high-fidelity skeleton loaders that mirror the exact physical structure of Aura components.
  */
 import React from "react";
-import { Skeleton, VStack, HStack, Box, SimpleGrid, AspectRatio, SkeletonProps, SimpleGridProps } from "@chakra-ui/react";
+import { Skeleton, VStack, HStack, Box, SimpleGrid, SkeletonProps, SimpleGridProps } from "@chakra-ui/react";
 import AuraSurface from "./AuraSurface";
 
 /**
@@ -107,9 +107,14 @@ export const BentoGridSkeleton: React.FC = () => (
  * @description Large viewer skeleton.
  */
 export const GallerySkeleton: React.FC = () => (
-  <AspectRatio ratio={{ base: 4/3, md: 16/9 }} w="full">
-    <AuraSkeleton borderRadius="3xl" />
-  </AspectRatio>
+  <Box 
+    h={{ base: "350px", md: "500px", lg: "65vh" }}
+    minH={{ md: "500px" }}
+    maxH={{ lg: "800px" }}
+    w="full"
+  >
+    <AuraSkeleton h="full" w="full" borderRadius="3xl" />
+  </Box>
 );
 
 /**

@@ -1,50 +1,61 @@
 import React from "react";
 import {
     Box,
-    Stack,
+    VStack,
     HStack,
+    Skeleton,
 } from "@chakra-ui/react";
-import { Skeleton } from "@/components/ui/skeleton";
 
 /**
  * @component ProjectCardSkeleton
- * @description Componente de carga (Skeleton) para las tarjetas de proyecto migrado a Chakra v3.
+ * @description Componente de carga (Skeleton) para las tarjetas de proyecto.
+ * Respeta la estructura exacta de ProjectCardContent para evitar saltos visuales.
  */
 const ProjectCardSkeleton: React.FC = () => {
     return (
         <Box
             position="relative"
-            h={{ base: "320px", md: "460px" }}
+            h={{ base: "320px", md: "500px" }}
             w="full"
-            borderRadius="2xl"
+            borderRadius="xl"
             overflow="hidden"
             bg="bg.subtle"
-            boxShadow="sm"
         >
-            {/* Main Image Skeleton Area */}
+            {/* Imagen de fondo / Área principal */}
             <Skeleton h="full" w="full" />
 
-            {/* Floating Info Panel Skeleton */}
+            {/* Contenido superpuesto (espejo de ProjectCardContent) */}
             <Box
                 position="absolute"
                 bottom={0}
                 left={0}
                 right={0}
-                m={4}
-                p={5}
-                bg="surface.footer"
-                borderRadius="xl"
-                border="1px solid"
-                borderColor="border.glass"
-                backdropFilter="blur(10px)"
+                p={6}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="flex-end"
+                zIndex={2}
             >
-                <Stack gap={3} align="center">
-                    <Skeleton height="24px" width="70%" />
-                    <HStack justify="center" gap={4} w="full">
-                        <Skeleton height="14px" width="40%" />
-                        <Skeleton height="14px" width="20%" />
+                {/* Título (Residencial) */}
+                <Skeleton height="24px" width="60%" mb={8} borderRadius="full" />
+
+                {/* Info (Address & Year) */}
+                <VStack gap={4} w="full">
+                    <HStack justify="center" gap={3} w="full">
+                        <Skeleton height="14px" width="40%" borderRadius="full" />
+                        <Box w="1px" h="3" bg="whiteAlpha.400" />
+                        <Skeleton height="14px" width="15%" borderRadius="full" />
                     </HStack>
-                </Stack>
+
+                    {/* Botón EXPLORAR PROYECTO */}
+                    <Skeleton 
+                        height="40px" 
+                        width="80%" 
+                        borderRadius="full" 
+                        maxW="240px"
+                    />
+                </VStack>
             </Box>
         </Box>
     );

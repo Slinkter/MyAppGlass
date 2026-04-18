@@ -4,10 +4,6 @@
  * @module data
  */
 
-import buildingImg from "@/assets/clients/building.jpg";
-import sectorhogarImg from "@/assets/clients/sectorhogar.jpg";
-import sectorofficesImg from "@/assets/clients/sectoroffices.jpg";
-
 export interface Client {
   id: number;
   imgClient: string;
@@ -18,7 +14,7 @@ export interface Client {
 export const clients: Client[] = [
   {
     id: 1,
-    imgClient: buildingImg.src, // Imported image
+    imgClient: '/images/clients-building.webp', // Imported image
     nameClient: "Constructoras",
     descClient:
       "Servicios especializados para grandes proyectos de construcción.",
@@ -26,14 +22,14 @@ export const clients: Client[] = [
 
   {
     id: 2,
-    imgClient: sectorofficesImg.src, // Imported image
+    imgClient: '/images/clients-sectoroffices.webp', // Imported image
     nameClient: "Comercios",
     descClient:
       "Instalaciones de vidrio y espejos para espacios comerciales y corporativos.",
   },
   {
     id: 3,
-    imgClient: sectorhogarImg.src, // Imported image
+    imgClient: '/images/clients-sectorhogar.webp', // Imported image
     nameClient: "Hogar",
     descClient:
       "Soluciones de vidrio para viviendas y proyectos residenciales.",

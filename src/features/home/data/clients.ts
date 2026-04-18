@@ -4,10 +4,6 @@
  * @module home/data
  */
 
-import buildingImg from "../../../assets/clients/building.jpg";
-import officesImg from "../../../assets/clients/sectoroffices.jpg";
-import hogarImg from "../../../assets/clients/sectorhogar.jpg";
-
 export interface Client {
   id: number;
   imgClient: string;
@@ -23,19 +19,19 @@ export interface Client {
 export const clients: Client[] = [
   {
     id: 1,
-    imgClient: buildingImg.src,
+    imgClient: '/images/clients-building.webp',
     nameClient: "Constructoras",
     descClient: "Más de 12 proyectos de construcción entregados.",
   },
   {
     id: 2,
-    imgClient: officesImg.src,
+    imgClient: '/images/clients-sectoroffices.webp',
     nameClient: "Negocios",
     descClient: "Servicios de mantenimiento en áreas de trabajos.",
   },
   {
     id: 3,
-    imgClient: hogarImg.src,
+    imgClient: '/images/clients-sectorhogar.webp',
     nameClient: "Hogares",
     descClient:
       "Servicio de instalación de ventanas, mamparas , puertas de duchas y más.",
