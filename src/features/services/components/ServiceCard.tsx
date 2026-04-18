@@ -76,6 +76,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
       <Skeleton loading={!isLoaded} h="full" w="full">
         <Box position="relative" h="full" w="full" overflow="hidden">
           <ResponsiveImage
+            as={m.div}
             src={image}
             alt={`Servicio de ${name} - GYA Glass & Aluminum`}
             objectFit="cover"
@@ -85,8 +86,14 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             decoding="async"
             onLoad={handleImageLoad}
             isLCP={isLCP}
-            transform={isHovered ? "scale(1.06)" : "scale(1.02)"}
-            transition="transform 0.6s ease"
+            // @ts-expect-error - framer-motion props on Chakra Box
+            animate={{
+              scale: isHovered ? 1.1 : 1.02,
+              x: isHovered ? -8 : 0,
+              y: isHovered ? -8 : 0,
+            }}
+            // @ts-expect-error - transition prop from framer-motion not recognized on Chakra Box
+            transition={{ duration: 0.7, ease: "easeOut" }}
           />
 
           <Box position="absolute" inset="0" bgGradient={bgOverlay} />

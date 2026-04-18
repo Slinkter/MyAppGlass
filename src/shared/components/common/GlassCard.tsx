@@ -12,7 +12,17 @@ const GlassCard: React.FC<BoxProps> = ({ children, ...props }) => {
       borderRadius="2xl"
       boxShadow="sm"
       transition="box-shadow 0.3s ease, transform 0.3s ease"
-      border="none"
+      borderWidth="1px"
+      borderStyle="solid"
+      borderColor="glass.border"
+      _light={{
+        borderTopColor: "whiteAlpha.500",
+        borderBottomColor: "blackAlpha.100",
+      }}
+      _dark={{
+        borderTopColor: "whiteAlpha.200",
+        borderBottomColor: "whiteAlpha.50",
+      }}
       {...props}
     >
       {children}
