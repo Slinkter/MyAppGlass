@@ -4,7 +4,13 @@
  */
 import React from "react";
 import { Skeleton, VStack, HStack, Box, SimpleGrid, SkeletonProps, SimpleGridProps } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
 import AuraSurface from "./AuraSurface";
+
+const shimmer = keyframes`
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+`;
 
 /**
  * @component AuraSkeleton
@@ -16,6 +22,12 @@ const AuraSkeleton: React.FC<SkeletonProps> = ({ ...props }) => {
       borderRadius="phi"
       startColor="bg.subtle"
       endColor="border.glass"
+      css={{
+        animationDuration: "2s !important",
+        "&::after": {
+          animation: `${shimmer} 2s infinite linear !important`,
+        }
+      }}
       {...props}
     />
   );

@@ -121,19 +121,31 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             left: 0,
             transform: slideTransform,
             transition: isDragging ? "none" : "transform 0.3s ease",
+            overflow: "hidden",
           }}
         >
-          <FadingImage
-            src={currentImage.src}
-            alt={currentImage.title || "Vista principal"}
-            w="100%"
-            h="100%"
-            objectFit="cover"
-            showOverlay={false}
-            loading={isPriority ? "eager" : "lazy"}
-            fetchPriority={isPriority ? "high" : "auto"}
-            borderRadius="none"
-          />
+          <m.div
+            animate={{ scale: [1, 1.05] }}
+            transition={{ 
+              duration: 10, 
+              ease: "linear", 
+              repeat: Infinity, 
+              repeatType: "reverse" 
+            }}
+            style={{ width: "100%", height: "100%" }}
+          >
+            <FadingImage
+              src={currentImage.src}
+              alt={currentImage.title || "Vista principal"}
+              w="100%"
+              h="100%"
+              objectFit="cover"
+              showOverlay={false}
+              loading={isPriority ? "eager" : "lazy"}
+              fetchPriority={isPriority ? "high" : "auto"}
+              borderRadius="none"
+            />
+          </m.div>
         </m.div>
       </AnimatePresence>
 
