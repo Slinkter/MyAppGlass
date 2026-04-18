@@ -3,6 +3,8 @@
  * @description Flexible glassmorphism surface using the Aura system recipe.
  */
 
+"use client";
+
 import React from "react";
 import { Box, BoxProps } from "@chakra-ui/react";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Box, BoxProps } from "@chakra-ui/react";
 // @ts-expect-error - ImageWithFallback path
