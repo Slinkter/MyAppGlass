@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file AuraSkeleton.tsx
  * @description Premium high-fidelity skeleton loaders that mirror the exact physical structure of Aura components.
