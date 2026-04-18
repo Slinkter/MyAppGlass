@@ -63,10 +63,10 @@ const ProjectsList: React.FC = React.memo(() => {
     return allProjects.filter((p) => normalizeYear(p.year) === activeYear);
   }, [allProjects, activeYear]);
 
-  // Reset display count when filter changes
-  useEffect(() => {
+  const handleYearChange = (year: string) => {
+    setActiveYear(year);
     setDisplayCount(6);
-  }, [activeYear]);
+  };
 
   const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
 
@@ -123,7 +123,7 @@ const ProjectsList: React.FC = React.memo(() => {
                 color={isActive ? activeColor : inactiveColor}
                 _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
                 transition="all 0.2s ease"
-                onClick={() => setActiveYear(year)}
+                onClick={() => handleYearChange(year)}
               >
                 {year}
               </Button>

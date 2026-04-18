@@ -7,7 +7,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "../components/ServiceCard";
-import { services } from "../data/services";
+import { getServices } from "../services/serviceService";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 
 const MotionItem = motion.create(ItemGridLayout.Item);
@@ -18,11 +18,12 @@ const CATEGORIES: string[] = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
  */
 export const ServicesImmersiveFilter: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>("Todos");
+  const services = useMemo(() => getServices(), []);
 
   const filtered = useMemo(() => {
     if (activeCategory === "Todos") return services;
     return services.filter(s => s.category === activeCategory);
-  }, [activeCategory]);
+  }, [activeCategory, services]);
 
   return (
     <Box py={10}>

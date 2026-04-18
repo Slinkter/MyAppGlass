@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { Box, Flex, Heading, VStack, Badge } from "@chakra-ui/react";
-import { services } from "../data/services";
+import { getServices } from "../services/serviceService";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ArrowRight } from "lucide-react";
 
@@ -41,12 +41,15 @@ const TechnicalCard: React.FC<TechnicalCardProps> = ({ name, category, image }) 
 /**
  * @description Technical catalog layout for services
  */
-export const ServicesTechnicalCatalog: React.FC = () => (
-  <Box py={10} bg="bg.section" borderRadius="2xl" border="1px solid" borderColor="border.glass" overflow="hidden">
-    <VStack align="stretch" gap={0}>
-      {services.slice(0, 8).map((service) => (
-        <TechnicalCard key={service.id} {...service} />
-      ))}
-    </VStack>
-  </Box>
-);
+export const ServicesTechnicalCatalog: React.FC = () => {
+  const services = getServices();
+  return (
+    <Box py={10} bg="bg.section" borderRadius="2xl" border="1px solid" borderColor="border.glass" overflow="hidden">
+      <VStack align="stretch" gap={0}>
+        {services.slice(0, 8).map((service) => (
+          <TechnicalCard key={service.id} {...service} />
+        ))}
+      </VStack>
+    </Box>
+  );
+};

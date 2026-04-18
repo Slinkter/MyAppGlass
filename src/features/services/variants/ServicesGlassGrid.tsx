@@ -5,13 +5,14 @@
 import React, { useState } from "react";
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import ServiceCard from "../components/ServiceCard";
-import { services } from "../data/services";
+import { getServices } from "../services/serviceService";
 
 /**
  * @description Glass grid layout for services
  */
 export const ServicesGlassGrid: React.FC = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const services = getServices();
 
   return (
     <Box py={10}>
