@@ -27,7 +27,7 @@ const ModalSkeleton: React.FC = () => {
     <DialogRoot
       open={true}
       placement="center"
-      size={{ base: "full", md: "5xl", lg: "6xl" }}
+      size={{ base: "full", md: "xl" }}
     >
       <DialogContent
         borderRadius={{ base: 0, md: "2xl" }}

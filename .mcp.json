@@ -1,12 +1,18 @@
 {
   "mcpServers": {
     "next-devtools": {
-      "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"]
+      "command": "/usr/local/bin/npx",
+      "args": ["-y", "next-devtools-mcp@latest"],
+      "env": {
+        "PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      }
     },
     "chakra-ui": {
-      "command": "npx",
-      "args": ["-y", "@chakra-ui/react-mcp"]
+      "command": "/usr/local/bin/npx",
+      "args": ["-y", "@chakra-ui/react-mcp"],
+      "env": {
+        "PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      }
     }
   }
 }

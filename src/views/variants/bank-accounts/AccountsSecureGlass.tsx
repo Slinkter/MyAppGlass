@@ -8,6 +8,7 @@ import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { Box, VStack, HStack, Text, Heading, Image, SimpleGrid, Flex } from "@chakra-ui/react";
 import { Copy, ShieldCheck } from "lucide-react";
 import { bankAccountsData } from "../../../data/bank-accounts";
+import AuraSurface from "@shared/components/aura/AuraSurface";
 
 export interface BankAccount {
   label: string;
@@ -22,8 +23,7 @@ export interface SecureCardProps {
 }
 
 const SecureCard: React.FC<SecureCardProps> = ({ logo, bankName, accountType, accounts }) => (
-  <Box 
-    variant="glass" 
+  <AuraSurface 
     p={8} 
     position="relative" 
     overflow="hidden"
@@ -51,7 +51,7 @@ const SecureCard: React.FC<SecureCardProps> = ({ logo, bankName, accountType, ac
         </Flex>
       ))}
     </VStack>
-  </Box>
+  </AuraSurface>
 );
 
 export const AccountsSecureGlass: React.FC = () => (

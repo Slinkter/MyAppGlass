@@ -6,11 +6,13 @@
  */
 import React from "react";
 import {
-  Box, VStack, Heading, Text, Container, HStack, Button, Flex, Badge, SimpleGrid
+  Box, VStack, Heading, Text, Container, HStack, Flex, Badge, SimpleGrid
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
+import { GalleryItem } from "@/shared/types/gallery";
 
 const MotionBox = motion.create(Box);
 
@@ -28,7 +30,7 @@ export interface PageDataImmersive {
   /** Available systems */
   systems: Array<{ label: string }>;
   /** Image galleries */
-  imageLists: string[][];
+  imageLists: GalleryItem[][];
 }
 
 /**
@@ -59,7 +61,9 @@ export const ServiceDetailImmersive: React.FC<ServiceDetailImmersiveProps> = ({ 
             transition={{ duration: 1 }}
             h="full" w="full"
           >
-            <Gallery images={imageLists[activeIndex] || []} />
+            <Gallery.Root images={imageLists[activeIndex] || []}>
+              <Gallery.Viewer />
+            </Gallery.Root>
           </MotionBox>
         </AnimatePresence>
         
@@ -80,7 +84,7 @@ export const ServiceDetailImmersive: React.FC<ServiceDetailImmersiveProps> = ({ 
         {/* SYSTEM SELECTOR OVERLAY */}
         <Box position="absolute" bottom={10} left={0} right={0} zIndex={5}>
           <Container maxW="7xl">
-            <HStack gap={4} overflowX="auto" pb={4} sx={{ '&::-webkit-scrollbar': { display: 'none' } }}>
+            <HStack gap={4} overflowX="auto" pb={4} css={{ '&::-webkit-scrollbar': { display: 'none' } }}>
               {systems.map((s, i) => (
                 <Button
                   key={i}
@@ -114,7 +118,7 @@ export const ServiceDetailImmersive: React.FC<ServiceDetailImmersiveProps> = ({ 
             
             <SimpleGrid columns={{ base: 1, md: 2 }} gap={6} w="full">
               {benefits.map((b, i) => (
-                <HStack key={i} p={4} variant="glass" bg="bg.section" borderRadius="xl" border="1px solid" borderColor="border.glass">
+                <HStack key={i} p={4} bg="bg.section" borderRadius="xl" border="1px solid" borderColor="border.glass" backdropFilter="blur(10px)">
                   <Box as={CheckCircle2} color="primary.500" />
                   <Text fontSize="sm" fontWeight="bold">{b.label}</Text>
                 </HStack>

@@ -17,16 +17,11 @@ const LoadingFallback: React.FC = () => (
     bg="bg.page"
     zIndex="9999"
     as={m.div}
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.4 }}
+    transition={{ duration: 0.4 } as any}
   >
     <Spinner
       borderWidth="2px"
-      speed="0.6s"
-      // @ts-expect-error - emptyColor exists in SpinnerProps but some versions/configs might complain
-      emptyColor="whiteAlpha.100"
+      css={{ "--spinner-track-color": "colors.whiteAlpha.100" }}
       color="text.accent"
       size="xl"
     />

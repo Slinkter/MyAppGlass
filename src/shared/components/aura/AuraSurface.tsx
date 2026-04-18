@@ -10,6 +10,8 @@ import { Box, BoxProps } from "@chakra-ui/react";
 
 interface AuraSurfaceProps extends BoxProps {
   variant?: 'interactive' | 'strong' | string;
+  align?: any;
+  justify?: any;
 }
 
 /**

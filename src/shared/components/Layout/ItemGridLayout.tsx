@@ -2,7 +2,10 @@
 
 import React from "react";
 import { Container, Heading, Text, SimpleGrid, VStack, Box, ContainerProps } from "@chakra-ui/react";
-import { motion, Variants } from "framer-motion";
+import { m, Variants } from "framer-motion";
+
+const MotionBox = m.create(Box);
+const MotionSimpleGrid = m.create(SimpleGrid);
 
 interface ItemGridItemProps {
   children: React.ReactNode;
@@ -23,14 +26,13 @@ const ItemGridItem: React.FC<ItemGridItemProps> = ({ children }) => {
   };
 
   return (
-    <Box
-      as={motion.div}
+    <MotionBox
       variants={itemVariants}
       w="full"
       h="full"
     >
       {children}
-    </Box>
+    </MotionBox>
   );
 };
 
@@ -38,9 +40,9 @@ interface ItemGridLayoutProps {
   title: string;
   subtitle?: string;
   children: React.ReactNode;
-  seoTitle: string;
-  seoDescription: string;
-  seoCanonicalUrl: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoCanonicalUrl?: string;
   columns?: number | Record<string, number>;
   gap?: string | number | Record<string, string | number>;
   containerProps?: ContainerProps;
@@ -56,9 +58,6 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & { Item: typeof ItemGridIte
   title,
   subtitle,
   children,
-  _seoTitle,
-  _seoDescription,
-  _seoCanonicalUrl,
   columns = { base: 1, md: 2, lg: 3 },
   gap = { base: "phi_md", md: "phi_lg" },
   containerProps = {},
@@ -115,9 +114,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & { Item: typeof ItemGridIte
             )}
           </VStack>
 
-          <SimpleGrid
-            as={motion.div}
-            // @ts-expect-error - containerVariants mismatch
+          <MotionSimpleGrid
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -128,7 +125,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & { Item: typeof ItemGridIte
             justifyItems="center"
           >
             {children}
-          </SimpleGrid>
+          </MotionSimpleGrid>
         </VStack>
       </Container>
   );

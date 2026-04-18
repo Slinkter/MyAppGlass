@@ -6,10 +6,9 @@ import { useColorMode, useColorModeValue } from "@/components/ui/color-mode-hook
  * @description Premium mobile navigation dock with Aura Liquid Glass effects and sliding indicators.
  * @module layout/navbar
  */
-import React from "react";
-import { Box, Flex, Icon, Link } from "@chakra-ui/react";
+import { Box, Flex, Icon } from "@chakra-ui/react";
 import RouterLink from "next/link";
-import { usePathname as useLocation } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   Home,
   Wrench,
@@ -35,7 +34,7 @@ interface NavItem {
  * @description Dock de navegación móvil con estética "Liquid Glass" y animaciones fluidas.
  */
 const AuraBottomNav = () => {
-  const location = useLocation();
+  const location = usePathname();
   const { colorMode, toggleColorMode } = useColorMode();
 
   // Configuración de efectos de vidrio premium para el Dock
@@ -75,10 +74,7 @@ const AuraBottomNav = () => {
       zIndex="sticky"
     >
       <Flex
-        as={m.nav}
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+        {...({ as: m.nav, initial: { y: 50, opacity: 0 }, animate: { y: 0, opacity: 1 }, transition: { duration: 0.6 } } as any)}
         align="center"
         justify="space-evenly"
         bg={glassBg}
@@ -93,7 +89,7 @@ const AuraBottomNav = () => {
         boxShadow="0 8px 32px 0 rgba(0, 0, 0, 0.15)"
       >
         {navItems.map((item) => {
-          const isActive = !item.isAction && location === item.path;
+          const isActive = !item.isAction && location === (item.path || "/");
 
           const innerContent = (
             <Flex
@@ -108,8 +104,7 @@ const AuraBottomNav = () => {
               {/* Sliding Active Indicator */}
               {isActive && (
                 <Box
-                  as={m.div}
-                  layoutId="aura-mobile-indicator"
+                  {...({ as: m.div, layoutId: "aura-mobile-indicator" } as any)}
                   position="absolute"
                   inset="2px"
                   bg="surface.icon"
@@ -122,7 +117,7 @@ const AuraBottomNav = () => {
                     bounce: 0.25,
                     stiffness: 130,
                     damping: 18
-                  }}
+                  } as any}
                 />
               )}
 
@@ -160,29 +155,27 @@ const AuraBottomNav = () => {
           }
 
           return (
-            <Link
+            <Box
               key={item.label}
-              as={item.isExternal ? "a" : RouterLink}
-              href={item.path}
-              isExternal={item.isExternal}
+              {...({ as: (item.path?.startsWith("http") ? "a" : RouterLink), href: (item.path || "#") } as any)}
+              {...(item.path?.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               style={{
                 textDecoration: "none",
                 WebkitTapHighlightColor: "transparent",
                 outline: "none",
+                display: "flex",
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center"
               }}
-              _focus={{ outline: "none", boxShadow: "none" }}
-              flex={1}
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
               onClick={() => {
-                if (isActive && !item.isExternal) {
+                if (isActive) {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               }}
             >
               {innerContent}
-            </Link>
+            </Box>
           );
         })}
       </Flex>

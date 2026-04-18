@@ -22,7 +22,7 @@ const MapControls: React.FC<MapControlsProps> = ({ onFitBounds }) => {
 
   return (
     <Box position="absolute" top={4} right={4} zIndex={10}>
-      <Tooltip content="Centrar mapa" side="left" showArrow>
+      <Tooltip content="Centrar mapa" positioning={{ placement: "left" }} showArrow>
         <Button
           onClick={onFitBounds}
           bg={btnBg}

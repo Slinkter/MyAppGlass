@@ -10,6 +10,9 @@ export interface ProjectCardProps {
   year: string | number;
   image: string;
   isLCP?: boolean;
+  loading?: "lazy" | "eager" | string;
+  fetchPriority?: "auto" | "high" | "low" | string;
+  [key: string]: any;
 }
 
 /**
@@ -19,7 +22,7 @@ export interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = React.memo((props) => {
   const router = useRouter();
   const {
-    id, residencial, address, year, image, isLCP,
+    id, residencial, address, year, image, isLCP, loading, fetchPriority,
   } = props;
 
   const handleNavigate = () => {
@@ -38,6 +41,8 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo((props) => {
       year={year}
       onExplore={handleNavigate}
       isLCP={isLCP}
+      loading={loading}
+      fetchPriority={fetchPriority}
     />
   );
 });

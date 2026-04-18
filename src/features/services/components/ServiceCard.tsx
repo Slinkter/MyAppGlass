@@ -5,11 +5,11 @@ import {
   LinkBox,
   LinkOverlay,
   Text,
-  Skeleton,
   useBreakpointValue,
-  Button,
   VStack,
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import RouterLink from "next/link";
 import { m } from "framer-motion";
@@ -25,6 +25,7 @@ export interface ServiceCardProps {
   onLoadComplete?: () => void;
   loading?: "lazy" | "eager";
   isLCP?: boolean;
+  [key: string]: any;
 }
 
 /**
@@ -69,14 +70,13 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         boxShadow: { md: "2xl" },
         transform: { base: "none", md: "translateY(-4px)" },
       }}
-      transition="all 0.4s ease"
+      transition={{ duration: 0.4, ease: "easeOut" }}
       aria-label={`Ver detalles del servicio de ${name}`}
       whileTap={{ scale: 0.98 }}
     >
       <Skeleton loading={!isLoaded} h="full" w="full">
         <Box position="relative" h="full" w="full" overflow="hidden">
           <ResponsiveImage
-            as={m.div}
             src={image}
             alt={`Servicio de ${name} - GYA Glass & Aluminum`}
             objectFit="cover"
@@ -86,14 +86,8 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             decoding="async"
             onLoad={handleImageLoad}
             isLCP={isLCP}
-            // @ts-expect-error - framer-motion props on Chakra Box
-            animate={{
-              scale: isHovered ? 1.1 : 1.02,
-              x: isHovered ? -8 : 0,
-              y: isHovered ? -8 : 0,
-            }}
-            // @ts-expect-error - transition prop from framer-motion not recognized on Chakra Box
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transform={isHovered ? "scale(1.1) translate(-8px, -8px)" : "scale(1.02)"}
+            transition="transform 0.7s ease-out"
           />
 
           <Box position="absolute" inset="0" bgGradient={bgOverlay} />

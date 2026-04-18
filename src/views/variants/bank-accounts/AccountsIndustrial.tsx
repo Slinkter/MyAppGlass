@@ -37,8 +37,8 @@ const IndustrialCard: React.FC<IndustrialCardProps> = ({ logo, bankName, account
         <Image src={logo} h="30px" filter="brightness(0) invert(1)" _dark={{ filter: "none" }} />
       </Box>
       <Box p={6} flex={1}>
-        <HStack mb={4}>
-          <Box as={Hash} size={14} />
+        <HStack mb={4} gap={2}>
+          <Hash size={14} />
           <Heading size="xs" textTransform="uppercase" letterSpacing="0.2em">{bankName} - {accountType}</Heading>
         </HStack>
         <VStack align="stretch" gap={2}>

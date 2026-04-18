@@ -14,7 +14,7 @@ interface ProjectDetailItemProps {
  * @description Muestra un ítem de detalle individual para un proyecto usando DataList v3 y tokens semánticos Aura.
  * Eliminado useColorModeValue para optimizar el rendimiento del cambio de tema.
  */
-const ProjectDetailItem: React.FC<ProjectDetailItemProps> = ({ icon, label, value }) => {
+const ProjectDetailItem: React.FC<ProjectDetailItemProps> = ({ icon: IconComp, label, value }) => {
   return (
     <VStack
       align="start"
@@ -27,7 +27,9 @@ const ProjectDetailItem: React.FC<ProjectDetailItemProps> = ({ icon, label, valu
       transition="all 0.2s"
       _hover={{ transform: "translateX(2px)", borderColor: "primary.500" }}
     >
-      <Box as={icon} size={20} color="text.accent" strokeWidth={1.5} />
+      <Box color="text.accent">
+        <IconComp size={20} strokeWidth={1.5} />
+      </Box>
       <DataListRoot w="full">
         <DataListItem
             label={label}

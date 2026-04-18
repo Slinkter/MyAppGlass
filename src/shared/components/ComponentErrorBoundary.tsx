@@ -5,7 +5,7 @@
  * @description A reusable Error Boundary component to catch errors in child components
  * and display a user-friendly (or developer-friendly) fallback.
  */
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { Box, Code, Heading, Text, VStack, Button } from '@chakra-ui/react';
 
 interface Props {

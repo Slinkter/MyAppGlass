@@ -6,12 +6,12 @@
 
 import React from "react";
 import { Flex, VStack, HStack, Text, Heading, Box } from "@chakra-ui/react";
-// @ts-expect-error - BackButton path
 import BackButton from "../navigation/BackButton";
 
 interface AuraHeaderProps {
-  title: string;
+  title: React.ReactNode;
   overline?: string;
+  description?: string;
   backTo?: string;
   action?: React.ReactNode;
   centered?: boolean;
@@ -25,7 +25,7 @@ interface AuraHeaderProps {
  * @param {React.ReactNode} action - Optional element to show on the right (e.g., ViewSelector).
  * @param {boolean} centered - Whether to center all text and elements.
  */
-const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, backTo, action, centered = false }) => {
+const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, backTo, action, centered = false }) => {
   return (
     <Box w="full" mb={{ base: "phi_lg", md: "phi_xl" }}>
       {/* Top Navigation Row (Always Left Aligned for UX) */}
@@ -74,6 +74,16 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, backTo, action
         >
           {title}
         </Heading>
+        {description && (
+          <Text 
+            fontSize={{ base: "sm", md: "md" }} 
+            color="text.muted" 
+            maxW="800px"
+            lineHeight="tall"
+          >
+            {description}
+          </Text>
+        )}
         {action && (
           <Box pt="phi_md" w="full" display="flex" justifyContent={centered ? "center" : "flex-start"}>
             {action}

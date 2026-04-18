@@ -45,7 +45,7 @@ const Layout = ({ children }: LayoutProps) => {
       {/* Skip Link for Accessibility */}
       <Box
         as="a"
-        href="#main-content"
+        {...({ href: "#main-content" } as any)}
         position="absolute"
         top="-1000px"
         left="-1000px"

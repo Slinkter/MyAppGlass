@@ -13,10 +13,10 @@ export interface UseProjectModalReturn {
  * @returns {UseProjectModalReturn} Objeto con el estado del modal y funciones de control.
  */
 export const useProjectModal = (): UseProjectModalReturn => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
 
   return {
-    isOpen,
+    isOpen: open,
     onOpen,
     onClose,
   };

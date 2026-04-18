@@ -6,8 +6,8 @@ export interface Project {
   name: string;
   address: string;
   year: string;
-  lat: number;
-  lng: number;
+  lat: number | null;
+  lng: number | null;
   photos: GalleryItem[] | string[];
   category?: string;
   thumbnail?: string;

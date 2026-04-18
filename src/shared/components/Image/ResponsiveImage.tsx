@@ -20,6 +20,7 @@ interface ResponsiveImageProps extends Omit<BoxProps, 'onLoad'> {
   sizes?: string;
   loading?: "eager" | "lazy";
   decoding?: "async" | "auto" | "sync";
+  fetchPriority?: "auto" | "high" | "low";
 }
 
 /**
@@ -36,6 +37,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
     objectFit = "cover",
     loading,
     decoding,
+    fetchPriority,
     ...restProps
   }) => {
     const handleLoad = useCallback(
@@ -59,6 +61,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
           onLoad={handleLoad}
           loading={loading}
           decoding={decoding}
+          fetchPriority={fetchPriority}
         />
       </Box>
     );

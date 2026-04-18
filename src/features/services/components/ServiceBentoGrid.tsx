@@ -14,6 +14,10 @@ import { CheckCircle2, MessageSquareText } from "lucide-react";
 import { m, AnimatePresence } from "framer-motion";
 import { ServicePageFeature } from "../services/serviceService";
 
+const MotionSimpleGrid = m.create(SimpleGrid);
+const MotionGrid = m.create(Grid);
+const MotionHStack = m.create(HStack);
+
 interface BentoCardProps extends BoxProps {
   children: React.ReactNode;
 }
@@ -70,7 +74,7 @@ const BentoBenefits = React.memo(({ benefits }: BentoBenefitsProps) => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } },
   };
 
   return (
@@ -78,8 +82,7 @@ const BentoBenefits = React.memo(({ benefits }: BentoBenefitsProps) => {
       <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb={8}>
         Ventajas Estructurales
       </Text>
-      <SimpleGrid 
-        as={m.div} 
+      <MotionSimpleGrid 
         variants={containerVariants} 
         initial="hidden" 
         whileInView="show"
@@ -88,12 +91,12 @@ const BentoBenefits = React.memo(({ benefits }: BentoBenefitsProps) => {
         gap={{ base: 4, lg: 8 }}
       >
         {benefits.map((benefit, i) => (
-          <HStack as={m.div} variants={itemVariants} key={i} align="flex-start" gap={4} bg="bg.page" _dark={{ bg: "whiteAlpha.50" }} p={5} borderRadius="xl" border="1px solid" borderColor="border.glass">
+          <MotionHStack variants={itemVariants} key={i} align="flex-start" gap={4} bg="bg.page" _dark={{ bg: "whiteAlpha.50" }} p={5} borderRadius="xl" border="1px solid" borderColor="border.glass">
             <Box as={CheckCircle2} color="primary.500" mt={0.5} boxSize={5} />
             <Text fontWeight="semibold" fontSize="sm" color="text.body" _dark={{ color: "whiteAlpha.900" }}>{benefit.label}</Text>
-          </HStack>
+          </MotionHStack>
         ))}
-      </SimpleGrid>
+      </MotionSimpleGrid>
     </BentoCard>
   );
 });
@@ -135,8 +138,7 @@ interface ServiceBentoGridProps {
 const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ activeIndex, about, benefits, systemName }) => {
   return (
     <AnimatePresence mode="wait">
-      <Grid
-        as={m.div}
+      <MotionGrid
         key={`bento-${activeIndex}`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -155,7 +157,7 @@ const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ activeIndex, about,
         <GridItem colSpan={{ base: 1, lg: 3 }}>
           <BentoBenefits benefits={benefits} />
         </GridItem>
-      </Grid>
+      </MotionGrid>
     </AnimatePresence>
   );
 };

@@ -7,6 +7,7 @@
 import { services } from "../data/services";
 import { servicePageDataMap } from "../data/servicePageDataMap";
 import React from "react";
+import { GalleryItem } from "@/shared/types/gallery";
 
 export interface Service {
   id: number;
@@ -33,17 +34,11 @@ export interface ServicePageFeature {
   icon: React.ElementType;
 }
 
-export interface GalleryImage {
-  id: string | number;
-  image: string;
-  name?: string;
-}
-
 export interface ServicePageData {
   seo: ServicePageSEO;
   systems: ServicePageSystem[];
   features: ServicePageFeature[];
-  imageLists: GalleryImage[][];
+  imageLists: GalleryItem[][];
 }
 
 /**

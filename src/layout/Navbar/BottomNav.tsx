@@ -1,7 +1,6 @@
 "use client";
 
 import { useColorMode, useColorModeValue } from "@/components/ui/color-mode-hooks";
-import React from "react";
 import { Box, Flex, Icon, Link } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { usePathname as useLocation } from "next/navigation";
@@ -69,10 +68,7 @@ const BottomNav = () => {
       zIndex="sticky"
     >
       <Flex
-        as={m.nav}
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+        {...({ as: m.nav, initial: { y: 50, opacity: 0 }, animate: { y: 0, opacity: 1 }, transition: { duration: 0.6, type: "spring", bounce: 0.3 } } as any)}
         align="center"
         justify="space-evenly"
         bg="surface.nav"
@@ -154,9 +150,9 @@ const BottomNav = () => {
           return (
             <Link
               key={item.label}
-              as={item.isExternal ? "a" : RouterLink}
+              as={(item.isExternal ? "a" : RouterLink) as any}
               href={item.path}
-              isExternal={item.isExternal}
+              {...({ isExternal: item.isExternal } as any)}
               style={{
                 textDecoration: "none",
                 WebkitTapHighlightColor: "transparent",

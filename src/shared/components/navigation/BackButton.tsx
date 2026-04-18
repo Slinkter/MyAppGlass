@@ -29,7 +29,7 @@ const BackButton: React.FC<BackButtonProps> = ({ to = -1 }) => {
 
   return (
     <Button
-      variant="link"
+      variant="ghost"
       size="sm"
       color="text.muted"
       onClick={handleClick}

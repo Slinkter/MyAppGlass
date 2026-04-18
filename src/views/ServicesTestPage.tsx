@@ -1,10 +1,12 @@
+"use client";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
 /**
  * @file ServicesTestPage.tsx
  * @description Showcase for Services Catalog design variants.
  */
 import React from "react";
-import { Box, Heading, Container, VStack, Text, Button, Separator } from "@chakra-ui/react";
+import { Box, Heading, Container, VStack, Text, Separator } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { Sun, Moon, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { ServicesImmersiveFilter } from "../features/services/variants/ServicesImmersiveFilter";

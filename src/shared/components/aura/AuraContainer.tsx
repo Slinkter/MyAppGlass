@@ -29,7 +29,7 @@ const AuraContainer: React.FC<AuraContainerProps> = ({ children, animate = true,
       bg="bg.page" 
       minH="100vh" 
       pb={{ base: "phi_2xl", md: "phi_3xl" }}
-      {...(animate ? { as: m.div, ...motionProps } : {})}
+      {...(animate ? ({ as: m.div, ...motionProps } as any) : {})}
     >
       <Container 
         maxW="7xl" 

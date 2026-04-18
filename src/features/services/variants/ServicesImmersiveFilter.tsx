@@ -30,26 +30,30 @@ export const ServicesImmersiveFilter: React.FC = () => {
     <Box py={10}>
       <HStack justify="center" mb={12} gap={4} position="sticky" top="100px" zIndex={10}>
         <Box 
-          variant="glass" 
           p={1} 
           bg="rgba(255,255,255,0.6)" 
           _dark={{ bg: "rgba(0,0,0,0.6)" }} 
           backdropFilter="blur(15px)" 
           borderRadius="full" 
           shadow="xl"
+          border="1px solid"
+          borderColor="whiteAlpha.400"
         >
           <SegmentedControl
             value={activeCategory}
-            onValueChange={(e: { value: string }) => setActiveCategory(e.value)}
+            onValueChange={(e) => setActiveCategory(e.value || "Todos")}
             items={CATEGORIES}
-            variant="subtle"
             size="sm"
             colorPalette="primary"
           />
         </Box>
       </HStack>
 
-      <ItemGridLayout columns={{ base: 1, sm: 2, md: 3 }} gap="phi_lg">
+      <ItemGridLayout 
+        title="Catálogo de Sistemas"
+        columns={{ base: 1, sm: 2, md: 3 }} 
+        gap="phi_lg"
+      >
         <AnimatePresence mode="popLayout">
           {filtered.map((service, index) => (
             <MotionItem

@@ -10,6 +10,7 @@ import { Box, VStack, Heading, Text, Container, Flex, SimpleGrid, HStack } from 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Diamond, Compass, Zap, Layers } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { GalleryItem } from "@/shared/types/gallery";
 
 const MotionBox = motion.create(Box);
 const MotionHeading = motion.create(Heading);
@@ -43,7 +44,7 @@ export interface PageDataElite {
   /** About section data */
   about: { description: string };
   /** Image galleries */
-  imageLists: string[][];
+  imageLists: GalleryItem[][];
 }
 
 /**
@@ -68,7 +69,7 @@ const ServiceDetailElite: React.FC<ServiceDetailEliteProps> = ({ pageData }) => 
       {/* 1. CINEMATIC HERO */}
       <Box h="110vh" position="relative" clipPath="inset(0 0 0 0)">
         <MotionBox style={{ scale }} position="absolute" inset={0} zIndex={0}>
-          <ResponsiveImage src={imageLists[3]?.[0]} w="full" h="full" objectFit="cover" filter="brightness(0.4) grayscale(0.2)" alt="Background" isLCP />
+          <ResponsiveImage src={imageLists[3]?.[0]?.src} w="full" h="full" objectFit="cover" filter="brightness(0.4) grayscale(0.2)" alt="Background" isLCP />
         </MotionBox>
         
         <Container maxW="7xl" h="full" position="relative" zIndex={1}>
@@ -106,7 +107,7 @@ const ServiceDetailElite: React.FC<ServiceDetailEliteProps> = ({ pageData }) => 
 
       {/* 2. TECHNICAL MATERIALITY */}
       <Container maxW="7xl" py={40}>
-        <SimpleGrid columns={{ base: 1, lg: 2 }} gap={20} align="center">
+        <SimpleGrid columns={{ base: 1, lg: 2 }} gap={20} alignItems="center">
           <VStack align="flex-start" gap={12}>
             <VStack align="flex-start" gap={4}>
               <Heading size="2xl" letterSpacing="tight">Materialidad <br /> Digital</Heading>
@@ -125,7 +126,7 @@ const ServiceDetailElite: React.FC<ServiceDetailEliteProps> = ({ pageData }) => 
           </VStack>
 
           <Box position="relative">
-            <ResponsiveImage src={imageLists[0]?.[0]} borderRadius="sm" filter="contrast(1.1) brightness(0.8)" alt="Detail" />
+            <ResponsiveImage src={imageLists[0]?.[0]?.src} borderRadius="sm" filter="contrast(1.1) brightness(0.8)" alt="Detail" />
             <Box position="absolute" bottom="-40px" left="-40px" p={8} bg="orange.300" color="black">
               <Text fontWeight="black" fontSize="4xl" lineHeight="1">99%</Text>
               <Text fontWeight="bold" fontSize="xs" textTransform="uppercase" letterSpacing="widest">Transparencia</Text>

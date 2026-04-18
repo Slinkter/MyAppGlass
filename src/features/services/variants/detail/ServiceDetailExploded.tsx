@@ -8,6 +8,7 @@ import React from "react";
 import { Box, VStack, Heading, Text, Container, HStack, Circle, SimpleGrid } from "@chakra-ui/react";
 import { Shield, Wind, Volume2, Sun } from "lucide-react";
 import Gallery from "@shared/components/common/Gallery";
+import { GalleryItem } from "@/shared/types/gallery";
 
 /**
  * @interface HotspotProps
@@ -22,10 +23,10 @@ export interface HotspotProps {
   desc: string;
 }
 
-const Hotspot: React.FC<HotspotProps> = ({ icon, title, desc }) => (
+const Hotspot: React.FC<HotspotProps> = ({ icon: IconComp, title, desc }) => (
   <HStack align="start" gap={4} p={6} bg="white" _dark={{ bg: "whiteAlpha.50" }} borderRadius="2xl" shadow="sm" border="1px solid" borderColor="border.glass">
     <Circle size="10" bg="primary.900" color="white" _dark={{ bg: "primary.100", color: "black" }}>
-      <Box as={icon} size={5} />
+      <IconComp size={20} />
     </Circle>
     <VStack align="flex-start" gap={1}>
       <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="widest">{title}</Text>
@@ -44,7 +45,7 @@ export interface PageDataExploded {
   /** About section data */
   about: { description: string };
   /** Image galleries */
-  imageLists: string[][];
+  imageLists: GalleryItem[][];
 }
 
 /**
@@ -61,6 +62,8 @@ export interface ServiceDetailExplodedProps {
 export const ServiceDetailExploded: React.FC<ServiceDetailExplodedProps> = ({ pageData }) => {
   const { seo, about, imageLists } = pageData;
 
+  const galleryItems = React.useMemo(() => imageLists[2] || [], [imageLists]);
+
   return (
     <Box py={20} bg="gray.50" _dark={{ bg: "black" }}>
       <Container maxW="7xl">
@@ -71,7 +74,9 @@ export const ServiceDetailExploded: React.FC<ServiceDetailExplodedProps> = ({ pa
           </VStack>
 
           <Box w="full" borderRadius="3xl" overflow="hidden" shadow="2xl" border="8px solid" borderColor="white" _dark={{ borderColor: "whiteAlpha.100" }}>
-            <Gallery images={imageLists[2] || []} />
+            <Gallery images={galleryItems}>
+              <Gallery.Viewer />
+            </Gallery>
           </Box>
 
           <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={6} w="full">

@@ -140,7 +140,6 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
               w="100%"
               h="100%"
               objectFit="cover"
-              showOverlay={false}
               loading={isPriority ? "eager" : "lazy"}
               fetchPriority={isPriority ? "high" : "auto"}
               borderRadius="none"

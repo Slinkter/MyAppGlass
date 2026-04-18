@@ -4,7 +4,7 @@
  * @description Premium high-fidelity skeleton loaders that mirror the exact physical structure of Aura components.
  */
 import React from "react";
-import { Skeleton, VStack, HStack, Box, SimpleGrid, SkeletonProps, SimpleGridProps } from "@chakra-ui/react";
+import { Skeleton, VStack, HStack, Box, SimpleGrid, SkeletonProps, SimpleGridProps, GridItem } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 import AuraSurface from "./AuraSurface";
 
@@ -21,8 +21,6 @@ const AuraSkeleton: React.FC<SkeletonProps> = ({ ...props }) => {
   return (
     <Skeleton
       borderRadius="phi"
-      startColor="bg.subtle"
-      endColor="border.glass"
       css={{
         animationDuration: "2s !important",
         "&::after": {
@@ -70,7 +68,6 @@ export const ProjectCardSkeleton: React.FC = () => (
     overflow="hidden"
     position="relative"
     bg="bg.section"
-    // @ts-expect-error - Chakra UI v3 internal type mismatch for _dark syntax
     _dark={{ bg: "whiteAlpha.50" }}
   >
     <AuraSkeleton h="full" w="full" />
@@ -107,11 +104,15 @@ export const ServiceCardSkeleton: React.FC = () => (
  */
 export const BentoGridSkeleton: React.FC = () => (
   <SimpleGrid columns={{ base: 1, lg: 3 }} gap="phi_lg" w="full">
-    {/* @ts-expect-error - Chakra UI v3 internal type mismatch for colSpan in SimpleGrid */}
-    <AuraSkeleton h="380px" borderRadius="3xl" colSpan={{ base: 1, lg: 2 }} />
-    <AuraSkeleton h="380px" borderRadius="3xl" />
-    {/* @ts-expect-error - Chakra UI v3 internal type mismatch for colSpan in SimpleGrid */}
-    <AuraSkeleton h="200px" borderRadius="3xl" colSpan={{ base: 1, lg: 3 }} />
+    <GridItem colSpan={{ base: 1, lg: 2 }}>
+      <AuraSkeleton h="380px" borderRadius="3xl" />
+    </GridItem>
+    <GridItem colSpan={1}>
+      <AuraSkeleton h="380px" borderRadius="3xl" />
+    </GridItem>
+    <GridItem colSpan={{ base: 1, lg: 3 }}>
+      <AuraSkeleton h="200px" borderRadius="3xl" />
+    </GridItem>
   </SimpleGrid>
 );
 
@@ -136,8 +137,7 @@ export const GallerySkeleton: React.FC = () => (
  */
 export const BannerSkeleton: React.FC = () => (
   <AuraSurface p="phi_lg" w="full">
-    {/* @ts-expect-error - Chakra UI v3 internal type mismatch for direction in VStack */}
-    <VStack direction={{ base: "column", md: "row" }} gap="phi_lg" align="center">
+    <VStack gap="phi_lg" align="center">
       <AuraSkeleton w={{ base: "full", md: "280px" }} h="280px" borderRadius="2xl" />
       <VStack align="flex-start" flex="1" gap="phi_md" w="full">
         <HStack gap="phi_sm">

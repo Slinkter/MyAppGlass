@@ -19,9 +19,8 @@ const MapLoader: React.FC = () => {
       <Spinner
         size="xl"
         borderWidth="2px"
-        speed="0.8s"
+        animationDuration="0.8s"
         color="text.accent"
-        emptyColor="whiteAlpha.100"
       />
     </Box>
   );

@@ -11,7 +11,8 @@ import { useServiceData } from "../hooks/useServiceData";
  * @description Contenedor que maneja la carga de datos del servicio.
  */
 const ServicePageContainer: React.FC = () => {
-  const { serviceSlug } = useParams<{ serviceSlug: string }>();
+  const params = useParams();
+  const serviceSlug = params?.serviceSlug as string | undefined;
   const { pageData, isLoading, error } = useServiceData(serviceSlug || "");
 
   if (isLoading) {

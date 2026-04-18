@@ -2,7 +2,7 @@ import { useJsApiLoader } from "@react-google-maps/api";
 
 // Extraemos el array de librerías fuera del hook para evitar re-cargas innecesarias del script de Google Maps.
 // Esto soluciona el aviso de rendimiento: "LoadScript has been reloaded unintentionally!".
-const LIBRARIES: ("marker" | "drawing" | "geometry" | "localContext" | "places" | "visualization")[] = ["marker"];
+const LIBRARIES: ("marker" | "drawing" | "geometry" | "places" | "visualization")[] = ["marker"];
 
 export const useGoogleMapsLoader = () => {
   const { isLoaded, loadError } = useJsApiLoader({

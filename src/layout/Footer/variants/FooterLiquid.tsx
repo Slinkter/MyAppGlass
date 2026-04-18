@@ -46,7 +46,7 @@ interface FooterRowProps {
 const FooterRow = ({ icon, children, to, isExternal, customIconColor }: FooterRowProps) => {
   const content = (
     <HStack gap={4} align="center" w="full" py={2}>
-      <Box as={icon} size="20px" color={customIconColor || "text.accent"} />
+      <Box as={icon} boxSize="20px" color={customIconColor || "text.accent"} />
       <Text fontSize="sm" fontWeight="500" color="text.body" _groupHover={{ color: "primary.500", transform: "translateX(4px)" }} transition="all 0.3s ease">
         {children}
       </Text>
@@ -68,17 +68,19 @@ const FooterLiquid = () => {
   return (
     <Box as="footer" position="relative" pb={12} pt={24} px={4} overflow="hidden">
       {/* Dynamic Background Accents */}
-      <MotionBox 
+      <Box 
+        as={motion.div as any}
         position="absolute" top="-100px" left="-50px" w="400px" h="400px" 
         bg="primary.400" filter="blur(140px)" opacity={0.12} borderRadius="full" zIndex={0} 
         animate={{ x: [0, 50, 0], y: [0, -30, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        {...({ transition: { duration: 15, repeat: Infinity, ease: "easeInOut" } } as any)}
       />
-      <MotionBox 
+      <Box 
+        as={motion.div as any}
         position="absolute" bottom="-50px" right="-100px" w="350px" h="350px" 
         bg="primary.600" filter="blur(120px)" opacity={0.1} borderRadius="full" zIndex={0} 
         animate={{ x: [0, -40, 0], y: [0, 20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        {...({ transition: { duration: 12, repeat: Infinity, ease: "easeInOut" } } as any)}
       />
 
       <Container maxW="7xl" position="relative" zIndex={1}>

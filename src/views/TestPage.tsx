@@ -1,3 +1,4 @@
+"use client";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
 /**
  * @file TestPage.tsx
@@ -5,7 +6,8 @@ import { useColorMode } from "@/components/ui/color-mode-hooks";
  */
 
 import React from "react";
-import { Box, Heading, Container, VStack, Text, Separator, Button } from "@chakra-ui/react";
+import { Box, Heading, Container, VStack, Text, Separator } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { Sun, Moon } from "lucide-react";
 import FooterMonolith from "../layout/Footer/variants/FooterMonolith";
 import FooterLiquid from "../layout/Footer/variants/FooterLiquid";

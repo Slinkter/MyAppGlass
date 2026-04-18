@@ -3,6 +3,8 @@ import { Box, Image } from "@chakra-ui/react";
 import { m } from "framer-motion";
 import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar } from "@/components/ui/scroll-area";
 
+const MotionBox = m.create(Box);
+
 export interface ProjectPhoto {
   id: string | number;
   image: string;
@@ -21,7 +23,7 @@ const ProjectPhotoAlbum: React.FC<ProjectPhotoAlbumProps> = React.memo(({ photos
   if (!photos || photos.length === 0) return null;
 
   return (
-    <ScrollAreaRoot h="full" w="full" type="hover">
+    <ScrollAreaRoot h="full" w="full">
       <ScrollAreaViewport>
         <Box
           p={{ base: "phi_md", md: "phi_lg" }}
@@ -33,8 +35,7 @@ const ProjectPhotoAlbum: React.FC<ProjectPhotoAlbumProps> = React.memo(({ photos
             gap="phi_xs"
           >
             {photos.map((photo, index) => (
-              <Box
-                as={m.div}
+              <MotionBox
                 key={photo.id || index}
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -67,7 +68,7 @@ const ProjectPhotoAlbum: React.FC<ProjectPhotoAlbumProps> = React.memo(({ photos
                   _groupHover={{ opacity: 0.8 }}
                   pointerEvents="none"
                 />
-              </Box>
+              </MotionBox>
             ))}
           </Box>
           

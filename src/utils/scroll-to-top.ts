@@ -16,7 +16,7 @@ import { useEffect, FC } from "react";
  * @returns {null} This component renders nothing.
  */
 const ScrollToTop: FC = () => {
-  const { pathname } = useLocation();
+  const pathname = useLocation();
   
   useEffect(() => {
     // Una sola llamada es suficiente para navegadores modernos

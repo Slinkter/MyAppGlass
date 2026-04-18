@@ -12,7 +12,7 @@ import { getServices } from "../services/serviceService";
  * @description Glass grid layout for services
  */
 export const ServicesGlassGrid: React.FC = () => {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | number | null>(null);
   const services = getServices();
 
   return (

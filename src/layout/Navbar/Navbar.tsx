@@ -3,7 +3,6 @@
  * @description Responsive navigation header that switches between desktop and mobile views.
  * @module layout/navbar
  */
-import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";

@@ -1,10 +1,12 @@
+"use client";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
 /**
  * @file ServiceDetailTestPage.tsx
  * @description Showcase for 5 Service Detail page variants using "Ventana" data.
  */
 import React from "react";
-import { Box, Heading, Container, Text, Button } from "@chakra-ui/react";
+import { Box, Heading, Container, Text } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { Sun, Moon, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { ServiceDetailImmersive } from "../features/services/variants/detail/ServiceDetailImmersive";
@@ -37,10 +39,18 @@ const ventanaData = {
     { label: "Sistema Sifón" }
   ],
   imageLists: [
-    ["https://images.unsplash.com/photo-1503708928676-1cb796a0891e?auto=format&fit=crop&q=80&w=1000"],
-    ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000"],
-    ["https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=1000"],
-    ["https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000"]
+    [
+      { id: "v1", src: "https://images.unsplash.com/photo-1503708928676-1cb796a0891e?auto=format&fit=crop&q=80&w=1000", title: "Vista 1" }
+    ],
+    [
+      { id: "v2", src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000", title: "Vista 2" }
+    ],
+    [
+      { id: "v3", src: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=1000", title: "Vista 3" }
+    ],
+    [
+      { id: "v4", src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000", title: "Vista 4" }
+    ]
   ]
 };
 

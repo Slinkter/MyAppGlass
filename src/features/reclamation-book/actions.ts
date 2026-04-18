@@ -1,4 +1,8 @@
-"use server";
+/**
+ * @file actions.ts
+ * @description Client-side wrapper for the reclamations service.
+ * Refactored to remove "use server" for static export compatibility.
+ */
 
 import { ReclamoData, reclamoService } from "@/api/reclamoService";
 

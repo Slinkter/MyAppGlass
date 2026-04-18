@@ -1,13 +1,13 @@
 import React from "react";
 import {
   Box,
-  Button,
   ButtonGroup,
   Heading,
   Grid,
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { LazyMotion, m, domAnimation } from "framer-motion";
 import {
   Map,
@@ -18,6 +18,9 @@ import {
   Calendar,
 } from "lucide-react";
 import ProjectDetailItem from "../ProjectDetailItem";
+
+const MotionBox = m.create(Box);
+const MotionHeading = m.create(Heading);
 
 interface ProjectInfoProps {
   residencial?: string;
@@ -72,9 +75,8 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
         gap="phi_md"
         overflowY="auto"
       >
-        <Box as={m.div} initial="hidden" animate="show" variants={containerVariants}>
-          <Heading
-            as={m.h2}
+        <MotionBox initial="hidden" animate="show" variants={containerVariants}>
+          <MotionHeading
             variants={itemVariants}
             size="xs"
             fontWeight="900"
@@ -87,45 +89,45 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
             gap={3}
           >
             <Box w="20px" h="1px" bg="primary.500" /> Especificaciones Técnicas
-          </Heading>
+          </MotionHeading>
           
           <Grid
             templateColumns={{ base: "1fr", sm: "1fr 1fr", lg: "1fr" }}
             gap={4}
           >
-            <Box as={m.div} variants={itemVariants}>
+            <MotionBox variants={itemVariants}>
               <ProjectDetailItem
                 icon={Home}
                 label="Residencial"
                 value={residencial}
               />
-            </Box>
+            </MotionBox>
 
-            <Box as={m.div} variants={itemVariants}>
+            <MotionBox variants={itemVariants}>
               <ProjectDetailItem
                 icon={Building2}
                 label="Constructora"
                 value={name}
               />
-            </Box>
+            </MotionBox>
 
-            <Box as={m.div} variants={itemVariants}>
+            <MotionBox variants={itemVariants}>
               <ProjectDetailItem
                 icon={MapPin}
                 label="Dirección"
                 value={address}
               />
-            </Box>
+            </MotionBox>
 
-            <Box as={m.div} variants={itemVariants}>
+            <MotionBox variants={itemVariants}>
               <ProjectDetailItem
                 icon={Calendar}
                 label="Año Entrega"
                 value={year}
               />
-            </Box>
+            </MotionBox>
           </Grid>
-        </Box>
+        </MotionBox>
 
         {/* View Switcher - Reubicado al pie de la ficha */}
         <VStack gap={4} w="full" pt={6} borderTop="1px solid" borderColor="border.glass">
@@ -141,7 +143,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
               gap={2}
               py={5}
             >
-              <Box as={Map} size={16} /> UBICACIÓN
+              <Map size={16} /> UBICACIÓN
             </Button>
             <Button
               flex="1"
@@ -151,7 +153,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
               gap={2}
               py={5}
             >
-              <Box as={Photo} size={16} /> GALERÍA
+              <Photo size={16} /> GALERÍA
             </Button>
           </ButtonGroup>
         </VStack>
