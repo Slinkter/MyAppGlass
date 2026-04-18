@@ -150,6 +150,15 @@ const config = defineConfig({
       transitionProperty: "background-color",
       transitionDuration: "normal",
     },
+    a: {
+      _focusVisible: {
+        outline: "none",
+        ring: "2px",
+        ringColor: "ring.primary",
+        ringOffset: "2px",
+        borderRadius: "sm",
+      },
+    },
   },
   conditions: {
     light: "[data-theme=light] &",
