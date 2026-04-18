@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState, useRef, useEffect } from "react";
+import React, { useMemo, useState, useRef, useEffect, useTransition } from "react";
 import { Box, HStack, Button } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
@@ -24,15 +24,11 @@ export interface ServiceData extends Service {
  */
 const ServiceList: React.FC = React.memo(() => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isPending, startTransition] = useTransition();
   const allServices = useMemo(() => getServices() as ServiceData[], []);
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [displayCount, setDisplayCount] = useState(6);
   const loaderRef = useRef<HTMLDivElement>(null);
-
-  const handleCategoryChange = (category: string) => {
-    setActiveCategory(category);
-    setDisplayCount(6);
-  };
 
   const activeBg = useColorModeValue("primary.700", "primary.300");
   const activeColor = useColorModeValue("white", "primary.900");
@@ -44,6 +40,13 @@ const ServiceList: React.FC = React.memo(() => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleCategoryChange = (cat: string) => {
+    startTransition(() => {
+      setActiveCategory(cat);
+      setDisplayCount(6);
+    });
+  };
 
   const filteredServices = useMemo(() => {
     if (activeCategory === "Todos") return allServices;
@@ -115,22 +118,29 @@ const ServiceList: React.FC = React.memo(() => {
           />
         </Box>
       ) : (
-        preparedServices.map((service, index) => (
-          <ItemGridLayout.Item
-            key={`${activeCategory}-${service.id}`}
-            delay={(index % 6) * 0.08}
-          >
-            <ServiceCard
-              image={service.image}
-              name={service.name}
-              description={service.description}
-              plink={service.plink}
-              index={index}
-              isLCP={index < 3}
-              loading={index < 3 ? "eager" : "lazy"}
-            />
-          </ItemGridLayout.Item>
-        ))
+        <Box
+          gridColumn="1 / -1"
+          display="contents"
+          opacity={isPending ? 0.6 : 1}
+          transition="opacity 0.2s ease"
+        >
+          {preparedServices.map((service, index) => (
+            <ItemGridLayout.Item
+              key={`${activeCategory}-${service.id}`}
+              delay={(index % 6) * 0.08}
+            >
+              <ServiceCard
+                image={service.image}
+                name={service.name}
+                description={service.description}
+                plink={service.plink}
+                index={index}
+                isLCP={index < 3}
+                loading={index < 3 ? "eager" : "lazy"}
+              />
+            </ItemGridLayout.Item>
+          ))}
+        </Box>
       )}
 
       {displayCount < filteredServices.length && (

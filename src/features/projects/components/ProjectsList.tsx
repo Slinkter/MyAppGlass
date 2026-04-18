@@ -34,6 +34,7 @@ const normalizeYear = (year?: string): string => {
 const ProjectsList: React.FC = React.memo(() => {
   const allProjects = useMemo(() => [...getProjects()].reverse(), []);
   const [activeYear, setActiveYear] = useState<string>("Todos");
+  const [isPending, startTransition] = React.useTransition();
   const [displayCount, setDisplayCount] = useState<number>(6);
   const loaderRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -64,8 +65,10 @@ const ProjectsList: React.FC = React.memo(() => {
   }, [allProjects, activeYear]);
 
   const handleYearChange = (year: string) => {
-    setActiveYear(year);
-    setDisplayCount(6);
+    startTransition(() => {
+      setActiveYear(year);
+      setDisplayCount(6);
+    });
   };
 
   const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
@@ -132,16 +135,26 @@ const ProjectsList: React.FC = React.memo(() => {
         </HStack>
       </Box>
 
-      {preloadedProjects.map((project, index) => (
-        <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>
-          <ProjectCard
-            {...project}
-            isLCP={index < 3}
-            loading={index < 2 ? "eager" : "lazy"}
-            fetchPriority={index < 2 ? "high" : "auto"}
-          />
-        </ItemGridLayout.Item>
-      ))}
+      <Box
+        gridColumn="1 / -1"
+        display="contents"
+        style={{
+          opacity: isPending ? 0.7 : 1,
+          transition: "opacity 0.2s ease-in-out",
+          pointerEvents: isPending ? "none" : "auto",
+        }}
+      >
+        {preloadedProjects.map((project, index) => (
+          <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>
+            <ProjectCard
+              {...project}
+              isLCP={index < 3}
+              loading={index < 2 ? "eager" : "lazy"}
+              fetchPriority={index < 2 ? "high" : "auto"}
+            />
+          </ItemGridLayout.Item>
+        ))}
+      </Box>
       
       {/* Intersection Sensor for O1 Rendering */}
       {displayCount < filteredProjects.length && (
