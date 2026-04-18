@@ -1,10 +1,10 @@
 "use client";
-import React, { useMemo, useState, useRef, useEffect, useTransition } from "react";
+import React, { useMemo, useState, useEffect, useCallback } from "react";
 import { Box, HStack, Button } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import { getServices } from "../services/serviceService";
-import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
+import { useFilterableList } from "@shared/hooks";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LuSearch } from "react-icons/lu";
 import ServiceListSkeleton from "./ServiceListSkeleton";
@@ -24,11 +24,25 @@ export interface ServiceData extends Service {
  */
 const ServiceList: React.FC = React.memo(() => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isPending, startTransition] = useTransition();
   const allServices = useMemo(() => getServices() as ServiceData[], []);
-  const [activeCategory, setActiveCategory] = useState("Todos");
-  const [displayCount, setDisplayCount] = useState(6);
-  const loaderRef = useRef<HTMLDivElement>(null);
+
+  const filterFn = useCallback((items: ServiceData[], category: string) => {
+    if (category === "Todos") return items;
+    return items.filter((s) => s.category === category);
+  }, []);
+
+  const {
+    paginatedItems: preparedServices,
+    activeCategory,
+    handleFilterChange: handleCategoryChange,
+    isPending,
+    loaderRef,
+    totalFilteredCount,
+    hasMore,
+  } = useFilterableList({
+    items: allServices,
+    filterFn,
+  });
 
   const activeBg = useColorModeValue("primary.700", "primary.300");
   const activeColor = useColorModeValue("white", "primary.900");
@@ -40,33 +54,6 @@ const ServiceList: React.FC = React.memo(() => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
-
-  const handleCategoryChange = (cat: string) => {
-    startTransition(() => {
-      setActiveCategory(cat);
-      setDisplayCount(6);
-    });
-  };
-
-  const filteredServices = useMemo(() => {
-    if (activeCategory === "Todos") return allServices;
-    return allServices.filter((s) => s.category === activeCategory);
-  }, [allServices, activeCategory]);
-
-  const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
-
-  useIntersectionObserver(
-    loaderRef,
-    () => {
-      if (displayCount >= filteredServices.length) return;
-      setDisplayCount((prev) => Math.min(prev + 6, filteredServices.length));
-    },
-    { threshold: 0.01, rootMargin }
-  );
-
-  const preparedServices = useMemo(() => {
-    return filteredServices.slice(0, displayCount).map((s) => ({ ...s, preloaded: true }));
-  }, [filteredServices, displayCount]);
 
   if (isLoading) {
     return <ServiceListSkeleton />;
@@ -109,7 +96,7 @@ const ServiceList: React.FC = React.memo(() => {
         </HStack>
       </Box>
 
-      {filteredServices.length === 0 ? (
+      {totalFilteredCount === 0 ? (
         <Box gridColumn="1 / -1" py={20}>
           <EmptyState
             icon={<LuSearch />}
@@ -143,7 +130,7 @@ const ServiceList: React.FC = React.memo(() => {
         </Box>
       )}
 
-      {displayCount < filteredServices.length && (
+      {hasMore && (
         <Box ref={loaderRef} gridColumn="1 / -1" w="full" h="20px" py={10} />
       )}
     </ItemGridLayout>

@@ -10,12 +10,12 @@ import { useColorModeValue } from "@/components/ui/color-mode-hooks";
  * - Cascade animation effect for each item.
  */
 
-import React, { useMemo, useState, useRef, useEffect } from "react";
+import React, { useMemo, useCallback } from "react";
 import { Box, Button, HStack } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { getProjects } from "../services/projectService";
-import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
+import { useFilterableList } from "@shared/hooks";
 
 /**
  * Normaliza nombres de años para extraer solo el año de 4 dígitos (ej. 2024, 2023).
@@ -33,11 +33,6 @@ const normalizeYear = (year?: string): string => {
  */
 const ProjectsList: React.FC = React.memo(() => {
   const allProjects = useMemo(() => [...getProjects()].reverse(), []);
-  const [activeYear, setActiveYear] = useState<string>("Todos");
-  const [isPending, startTransition] = React.useTransition();
-  const [displayCount, setDisplayCount] = useState<number>(6);
-  const loaderRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | null>(null);
 
   const activeBg = useColorModeValue("primary.700", "primary.300");
   const activeColor = useColorModeValue("white", "primary.900");
@@ -58,43 +53,22 @@ const ProjectsList: React.FC = React.memo(() => {
     return ["Todos", ...unique];
   }, [allProjects]);
 
-  // Filter projects by year
-  const filteredProjects = useMemo(() => {
-    if (activeYear === "Todos") return allProjects;
-    return allProjects.filter((p) => normalizeYear(p.year) === activeYear);
-  }, [allProjects, activeYear]);
-
-  const handleYearChange = (year: string) => {
-    startTransition(() => {
-      setActiveYear(year);
-      setDisplayCount(6);
-    });
-  };
-
-  const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
-
-  useIntersectionObserver(
-    loaderRef,
-    () => {
-      // Guard: don't schedule if already at full count
-      if (displayCount >= filteredProjects.length) return;
-      rafRef.current = requestAnimationFrame(() => {
-        setDisplayCount((prev) => Math.min(prev + 6, filteredProjects.length));
-      });
-    },
-    { threshold: 0.01, rootMargin }
-  );
-
-  // Cleanup rAF on unmount
-  useEffect(() => {
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
+  const filterFn = useCallback((items: any[], category: string) => {
+    if (category === "Todos") return items;
+    return items.filter((p) => normalizeYear(p.year) === category);
   }, []);
 
-  const preloadedProjects = useMemo(() => {
-    return filteredProjects.slice(0, displayCount).map((p) => ({ ...p, preloaded: true }));
-  }, [filteredProjects, displayCount]);
+  const {
+    paginatedItems: preloadedProjects,
+    activeCategory: activeYear,
+    handleFilterChange: handleYearChange,
+    isPending,
+    loaderRef,
+    hasMore,
+  } = useFilterableList({
+    items: allProjects,
+    filterFn,
+  });
 
   return (
     <ItemGridLayout
@@ -157,7 +131,7 @@ const ProjectsList: React.FC = React.memo(() => {
       </Box>
       
       {/* Intersection Sensor for O1 Rendering */}
-      {displayCount < filteredProjects.length && (
+      {hasMore && (
         <Box ref={loaderRef} w="full" h="20px" py={10} />
       )}
     </ItemGridLayout>
