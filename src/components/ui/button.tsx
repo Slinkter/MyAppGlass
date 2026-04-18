@@ -7,15 +7,21 @@ import {
 } from '@chakra-ui/react'
 import * as React from 'react'
 
-export interface ButtonProps extends ChakraButtonProps {
+export interface ButtonProps extends Omit<ChakraButtonProps, 'variant'> {
   loading?: boolean
   loadingText?: React.ReactNode
+  variant?: ChakraButtonProps['variant'] | 'aura'
+  as?: any
+  href?: string
+  target?: string
+  rel?: string
+  [key: string]: any
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
   const { loading, disabled, loadingText, children, ...rest } = props
   return (
-    <ChakraButton disabled={loading || disabled} ref={ref} {...rest}>
+    <ChakraButton disabled={loading || disabled} ref={ref} {...(rest as any)}>
       {loading && !loadingText ? (
         <>
           <AbsoluteCenter display='inline-flex'>

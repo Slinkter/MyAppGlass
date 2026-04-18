@@ -1,4 +1,4 @@
-import ServiceDetailTestPage from "@/pages/ServiceDetailTestPage";
+import ServiceDetailTestPage from "@/views/ServiceDetailTestPage";
 
 export default function Page() {
   return <ServiceDetailTestPage />;

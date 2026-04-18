@@ -50,7 +50,7 @@ export const ThemeToggle = () => {
     >
       <Box
         as={colorMode === "dark" ? Sun : Moon}
-        size="20px"
+        boxSize="20px"
         transition="all 0.3s ease"
         fill={iconColor}
       />

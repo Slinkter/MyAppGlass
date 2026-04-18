@@ -59,7 +59,7 @@ const FooterRow = ({ icon, children, to, isExternal, customIconColor }: FooterRo
             w="full" 
             py={1.5}
         >
-            <Box as={icon} size="20px" color={iconColor} flexShrink={0} />
+            <Box as={icon} boxSize="20px" color={iconColor} flexShrink={0} />
             <Text
                 fontSize="sm"
                 fontWeight="500"

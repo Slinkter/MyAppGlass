@@ -43,7 +43,7 @@ interface FooterRowProps {
 const FooterRow = ({ icon, children, to, isExternal, customIconColor }: FooterRowProps) => {
   const content = (
     <HStack gap={4} align="center" w="full" py={3} px={4} borderRadius="lg" _hover={{ bg: "whiteAlpha.100" }} transition="all 0.2s">
-      <Box as={icon} size="20px" color={customIconColor || "primary.300"} flexShrink={0} />
+      <Box as={icon} boxSize="20px" color={customIconColor || "primary.300"} flexShrink={0} />
       <Text fontSize="sm" fontWeight="600" color="whiteAlpha.900">
         {children}
       </Text>

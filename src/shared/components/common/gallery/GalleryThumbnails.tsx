@@ -107,7 +107,10 @@ const GalleryThumbnails: React.FC<GalleryThumbnailsProps> = ({ images, selectedI
           ))}
         </Flex>
       </ScrollAreaViewport>
-      <ScrollAreaScrollbar orientation={{ base: "horizontal", md: "vertical" }} />
+      {/* Mobile: horizontal scrollbar */}
+      <ScrollAreaScrollbar orientation="horizontal" display={{ base: "flex", md: "none" }} />
+      {/* Desktop: vertical scrollbar */}
+      <ScrollAreaScrollbar orientation="vertical" display={{ base: "none", md: "flex" }} />
     </ScrollAreaRoot>
   );
 };

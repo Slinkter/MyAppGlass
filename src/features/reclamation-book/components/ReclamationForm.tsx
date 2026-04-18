@@ -24,8 +24,11 @@ const ReclamationFormInner: React.FC = () => {
         maxW="3xl"
         mx="auto"
         mb={8}
-        variant="glass"
         bg="bg.section"
+        backdropFilter="blur(16px)"
+        border="1px solid"
+        borderColor="border.glass"
+        borderRadius="2xl"
         boxShadow="2xl"
         color="text.body"
       >

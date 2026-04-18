@@ -14,6 +14,8 @@ import { ServicePageData, ServicePageFeature } from "../services/serviceService"
 import ServiceHeader from "./ServiceHeader";
 import ServiceBentoGrid from "./ServiceBentoGrid";
 
+const MotionBox = m.create(Box);
+
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string }, benefits?: ServicePageFeature[] };
 }
@@ -38,8 +40,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
   return (
     <LazyMotion features={domAnimation}>
-      <Box
-        as={m.div}
+      <MotionBox
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
@@ -57,9 +58,6 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
             <Skeleton
               loading={isPending}
               borderRadius="3xl"
-              startColor="bg.subtle"
-              endColor="bg.section"
-              _dark={{ startColor: "whiteAlpha.50", endColor: "whiteAlpha.100" }}
             >
               <Box
                 h={{ base: "350px", md: "500px", lg: "65vh" }}
@@ -106,7 +104,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
           </VStack>
         </Container>
-      </Box>
+      </MotionBox>
     </LazyMotion>
   );
 };

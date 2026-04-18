@@ -19,6 +19,7 @@ import MapControls from "./map/MapControls";
 import { containerStyle, center, mainStore, type StoreLocation } from "./map/mapConfig";
 import { mapStyles } from "./map/mapStyles";
 import { type MapProject } from "../hooks/useMapProjects";
+export type { MapProject };
 
 export type MarkerType = MapProject | StoreLocation;
 

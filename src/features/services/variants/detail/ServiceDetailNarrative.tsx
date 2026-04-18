@@ -8,6 +8,7 @@ import React from "react";
 import { Box, VStack, Heading, Text, Container, Flex } from "@chakra-ui/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { GalleryItem } from "@/shared/types/gallery";
 
 const MotionBox = motion.create(Box);
 
@@ -21,7 +22,7 @@ export interface PageDataNarrative {
   /** About section data */
   about: { description: string };
   /** Image galleries */
-  imageLists: string[][];
+  imageLists: GalleryItem[][];
 }
 
 /**
@@ -48,7 +49,7 @@ export const ServiceDetailNarrative: React.FC<ServiceDetailNarrativeProps> = ({ 
           style={{ y }} 
           position="absolute" inset={0} zIndex={0} opacity={0.6}
         >
-          <ResponsiveImage src={imageLists[0]?.[0]} w="full" h="full" objectFit="cover" alt="Background" isLCP />
+          <ResponsiveImage src={imageLists[0]?.[0]?.src} w="full" h="full" objectFit="cover" alt="Background" isLCP />
         </MotionBox>
         <VStack zIndex={1} gap={6} textAlign="center" maxW="4xl" px={6}>
           <Text fontSize="sm" fontWeight="bold" letterSpacing="0.5em" color="primary.400" textTransform="uppercase">Excelencia en Cristal</Text>
@@ -61,7 +62,7 @@ export const ServiceDetailNarrative: React.FC<ServiceDetailNarrativeProps> = ({ 
       <Container maxW="7xl" py={32}>
         <Flex direction={{ base: "column", md: "row" }} align="center" gap={20}>
           <Box flex={1}>
-            <ResponsiveImage src={imageLists[1]?.[0]} borderRadius="3xl" shadow="2xl" alt="Vision" />
+          <ResponsiveImage src={imageLists[1]?.[0]?.src} borderRadius="3xl" shadow="2xl" alt="Vision" />
           </Box>
           <VStack flex={1} align="flex-start" gap={8}>
             <Heading size="2xl">Claridad sin límites</Heading>

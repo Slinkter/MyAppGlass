@@ -29,7 +29,7 @@ import { useMediaQuery } from "@chakra-ui/react";
  */
 export const useIsMobile = (): boolean => {
   // La media query "(max-width: 768px)" define el punto de quiebre para dispositivos móviles.
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const [isMobile] = useMediaQuery(["(max-width: 768px)"]);
   return isMobile;
 };
 

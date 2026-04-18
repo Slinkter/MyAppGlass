@@ -3,14 +3,14 @@ import { Box } from "@chakra-ui/react";
 import { m, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import MapViewer from "./MapViewer";
-import { Project } from "@/shared/types/project";
+import { Project, ProjectPhoto } from "@/features/projects/services/projectService";
 import { GalleryItem } from "@/shared/types/gallery";
 
 interface VisualViewerProps {
   viewMode: "map" | "gallery";
-  lat?: number;
-  lng?: number;
-  photos?: (GalleryItem | string)[];
+  lat?: number | null;
+  lng?: number | null;
+  photos?: (GalleryItem | string | ProjectPhoto)[];
   projectData?: Partial<Project>;
 }
 
@@ -75,7 +75,9 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               transition={{ duration: 0.25, ease: "easeOut" }}
               style={{ width: "100%", height: "100%" }}
             >
-              <Gallery images={galleryImages} />
+              <Gallery images={galleryImages}>
+                <Gallery.Viewer />
+              </Gallery>
             </m.div>
           )}
         </AnimatePresence>

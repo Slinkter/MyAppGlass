@@ -225,11 +225,7 @@ const BankAccountsPage: React.FC = () => {
         <VStack gap={12} align="stretch">
 
           <AuraHeader 
-            title={
-              <>
-                Cuentas Bancarias y <Text as="span" color="text.accent">Facturación</Text>
-              </>
-            }
+            title="Cuentas Bancarias y Facturación"
             overline="Información Bancaria"
             description="Encuentre a continuación nuestros datos fiscales y bancarios para gestionar sus pagos con seguridad y confianza."
           />

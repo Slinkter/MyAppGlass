@@ -32,6 +32,7 @@ interface ImageWithFallbackProps extends BoxProps {
   fallbackSrc?: string;
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
   onError?: () => void;
+  srcSet?: string;
   forceShow?: boolean;
   showOverlay?: boolean;
   priority?: boolean;
@@ -57,6 +58,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
     showOverlay: _showOverlay,
     priority = false,
     objectFit = "cover",
+    srcSet,
     ...restProps
   }) => {
     const [isLoaded, setIsLoaded] = useState(forceShow || false);
@@ -131,6 +133,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
           fill
           priority={priority}
           sizes={sizes}
+          {...(srcSet ? { srcSet } : {})}
           onLoad={handleLoad}
           onError={handleImageError}
           style={{

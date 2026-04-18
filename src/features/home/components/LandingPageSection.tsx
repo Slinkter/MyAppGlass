@@ -12,13 +12,13 @@
 import React from "react";
 import {
     Box,
-    Button,
     Flex,
     Heading,
     HStack,
     Text,
     VStack,
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import RouterLink from "next/link";
 import Image from "next/image";

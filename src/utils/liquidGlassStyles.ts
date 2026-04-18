@@ -4,7 +4,7 @@
  * @module utils/styles
  */
 
-import { useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 /**
  * Interface for Liquid Glass style properties.

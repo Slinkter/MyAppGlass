@@ -13,9 +13,9 @@ import {
   HStack,
   LinkBox,
   LinkOverlay,
-  Button,
   VStack,
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { MapPin } from "lucide-react";
@@ -30,6 +30,8 @@ interface ProjectCardContentProps {
   year: string | number;
   onExplore: () => void;
   isLCP?: boolean;
+  loading?: "lazy" | "eager" | string;
+  fetchPriority?: "auto" | "high" | "low" | string;
 }
 
 /**
@@ -37,7 +39,7 @@ interface ProjectCardContentProps {
  * @description Presentational component for the project card visual structure.
  */
 const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
-  ({ image = "", residencial, address, year, onExplore, isLCP }) => {
+  ({ image = "", residencial, address, year, onExplore, isLCP, loading, fetchPriority }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
@@ -61,7 +63,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           boxShadow: { md: "glass" },
           transform: { base: "none", md: "translateY(-4px)" },
         }}
-        transition="all 0.4s ease"
+        transition={{ duration: 0.4, ease: "easeOut" }}
         whileTap={{ scale: 0.98 }}
       >
         <Skeleton loading={!isLoaded} h="full" w="full">
@@ -72,8 +74,9 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
               objectFit="cover"
               w="100%"
               h="100%"
-              loading={isLCP ? "eager" : "lazy"}
+              loading={(loading as any) || (isLCP ? "eager" : "lazy")}
               decoding={isLCP ? "sync" : "async"}
+              fetchPriority={fetchPriority as any}
               onLoad={() => setIsLoaded(true)}
               transform={isHovered ? "scale(1.06)" : "scale(1.02)"}
               transition="transform 0.6s ease"
@@ -164,7 +167,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                 </HStack>
 
                 <Button
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
                     onExplore();
                   }}

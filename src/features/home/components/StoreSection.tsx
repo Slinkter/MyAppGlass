@@ -4,7 +4,6 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import {
   Box,
-  Button,
   Flex,
   VStack,
   HStack,
@@ -12,6 +11,7 @@ import {
   Badge,
   Heading,
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { MapPin, Clock } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
@@ -21,7 +21,7 @@ import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 // Carga perezosa del mapa para evitar errores de inicialización en producción
 import AuraSurface from "@/shared/components/aura/AuraSurface";
 import AuraSkeleton, { ServiceCardSkeleton } from "@/shared/components/aura/AuraSkeleton";
-import { type MarkerType } from "./InteractiveMap";
+import { type MarkerType, type MapProject } from "./InteractiveMap";
 
 // Carga perezosa del mapa para evitar errores de inicialización en producción y reducir bundle
 const InteractiveMap = dynamic(() => import("./InteractiveMap"), {

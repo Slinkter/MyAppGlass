@@ -6,12 +6,14 @@
  * Optimized for GYA Glass & Aluminum's minimalist aesthetic.
  */
 import React from "react";
-import { HStack, Box, Text, Button } from "@chakra-ui/react";
+import { HStack, Box, Text } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
+
+const MotionBox = m.create(Box);
 
 /**
  * @component NavText
@@ -59,7 +61,6 @@ const AuraDesktopNav = () => {
   );
   const activeColor = "white";
   const inactiveColor = useColorModeValue("gray.800", "whiteAlpha.900");
-  const hoverBg = "whiteAlpha.100";
   
   const navBg = useColorModeValue("rgba(255, 255, 255, 0.45)", "rgba(10, 10, 12, 0.45)");
   const navBorderColor = useColorModeValue("rgba(0,0,0,0.12)", "rgba(255,255,255,0.08)");
@@ -73,7 +74,7 @@ const AuraDesktopNav = () => {
   if (!mounted) return null;
 
   return (
-    <motion.nav
+    <m.nav
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       style={{
@@ -96,19 +97,22 @@ const AuraDesktopNav = () => {
           const isActive = pathname === item.href;
           return (
             <Box key={item.label} position="relative">
-              <Button
-                as={RouterLink}
-                href={item.href || "#"}
-                variant="ghost"
-                borderRadius="full"
-                w="140px"
-                h="46px"
-                bg="transparent"
-                _hover={{ bg: !isActive ? hoverBg : "transparent" }}
+              <Box
+                {...({ as: RouterLink, href: (item.href || "#") } as any)}
                 aria-current={isActive ? "page" : undefined}
-                position="relative"
-                zIndex={2}
-                justifyContent="center"
+                style={{
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "140px",
+                  height: "46px",
+                  borderRadius: "9999px",
+                  backgroundColor: !isActive ? "transparent" : "transparent",
+                  position: "relative",
+                  zIndex: 2,
+                  transition: "background-color 0.2s"
+                }}
               >
                 <NavText 
                   isActive={isActive} 
@@ -117,11 +121,10 @@ const AuraDesktopNav = () => {
                 >
                   {item.label}
                 </NavText>
-              </Button>
+              </Box>
               
               {isActive && (
-                <Box
-                  as={motion.div}
+                <MotionBox
                   layoutId="aura-active-link-pill"
                   position="absolute"
                   inset={0}
@@ -142,7 +145,7 @@ const AuraDesktopNav = () => {
           );
         })}
       </HStack>
-    </motion.nav>
+    </m.nav>
   );
 };
 

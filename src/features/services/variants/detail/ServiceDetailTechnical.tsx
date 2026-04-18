@@ -6,10 +6,12 @@
  */
 import React from "react";
 import { 
-  Box, VStack, Heading, Text, HStack, Button, Flex, Separator, SimpleGrid
+  Box, VStack, Heading, Text, HStack, Flex, Separator, SimpleGrid
  } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { Layers, Shield, ArrowRight } from "lucide-react";
 import Gallery from "@shared/components/common/Gallery";
+import { GalleryItem } from "@/shared/types/gallery";
 
 /**
  * @interface PageDataTechnical
@@ -23,7 +25,7 @@ export interface PageDataTechnical {
   /** Available systems */
   systems: Array<{ label: string }>;
   /** Image galleries */
-  imageLists: string[][];
+  imageLists: GalleryItem[][];
 }
 
 /**
@@ -45,7 +47,9 @@ export const ServiceDetailTechnical: React.FC<ServiceDetailTechnicalProps> = ({ 
     <Flex direction={{ base: "column", lg: "row" }} minH="100vh">
       {/* LEFT: FIXED VISUAL */}
       <Box flex={1} position={{ lg: "sticky" }} top={0} h={{ base: "400px", lg: "100vh" }}>
-        <Gallery images={imageLists[activeIndex] || []} />
+        <Gallery.Root images={imageLists[activeIndex] || []}>
+          <Gallery.Viewer />
+        </Gallery.Root>
       </Box>
 
       {/* RIGHT: SCROLLABLE SPECS */}
@@ -75,7 +79,7 @@ export const ServiceDetailTechnical: React.FC<ServiceDetailTechnicalProps> = ({ 
                 >
                   <HStack justify="space-between">
                     <Text fontWeight="bold" fontSize="sm">{s.label}</Text>
-                    {activeIndex === i && <Box as={ArrowRight} size={14} />}
+                    {activeIndex === i && <ArrowRight size={14} />}
                   </HStack>
                 </Box>
               ))}

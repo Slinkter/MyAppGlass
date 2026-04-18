@@ -6,7 +6,6 @@
  * Uses semantic color tokens for text and accent colors.
  * @module layout/navbar
  */
-import React from "react";
 import { Stack, Box } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { usePathname as useLocation } from "next/navigation";

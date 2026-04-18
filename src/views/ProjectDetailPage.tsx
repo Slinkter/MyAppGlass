@@ -13,8 +13,8 @@ import {
   Skeleton,
   SimpleGrid,
   HStack,
-  Button,
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { Map, Image as Photo, Home, Building2, MapPin, Calendar } from "lucide-react";
 import { getProjectById } from "@features/projects/services/projectService";
 import VisualViewer from "@features/projects/components/modal/VisualViewer";
@@ -49,21 +49,24 @@ const ViewSelector: React.FC<ViewSelectorProps> = React.memo(({ activeMode, onSe
       borderColor="border.glass"
       _dark={{ bg: "blackAlpha.400", borderColor: "whiteAlpha.100" }}
     >
-      {options.map((opt) => (
-        <Button
-          key={opt.id}
-          onClick={() => onSelect(opt.id)}
-          size={{ base: "sm", md: "md" }}
-          variant={activeMode === opt.id ? "aura" : "ghost"}
-          borderRadius="full"
-          px={{ base: 6, md: 8 }}
-          flexShrink={0}
-          fontWeight={activeMode === opt.id ? "bold" : "medium"}
-          gap={2}
-        >
-          <Box as={opt.icon} size={16} /> {opt.label}
-        </Button>
-      ))}
+      {options.map((opt) => {
+        const IconComp = opt.icon;
+        return (
+          <Button
+            key={opt.id}
+            onClick={() => onSelect(opt.id)}
+            size={{ base: "sm", md: "md" }}
+            variant={activeMode === opt.id ? "aura" : "ghost"}
+            borderRadius="full"
+            px={{ base: 6, md: 8 }}
+            flexShrink={0}
+            fontWeight={activeMode === opt.id ? "bold" : "medium"}
+            gap={2}
+          >
+            <IconComp size={16} /> {opt.label}
+          </Button>
+        );
+      })}
     </HStack>
   );
 });
@@ -74,10 +77,11 @@ ViewSelector.displayName = "ViewSelector";
  * @page ProjectDetailPage
  */
 const ProjectDetailPage: React.FC = () => {
-  const { projectId } = useParams<{ projectId: string }>();
+  const params = useParams();
+  const projectId = params?.projectId as string | undefined;
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const project = useMemo(() => getProjectById(projectId), [projectId]);
-  const [viewMode, setViewMode] = useState<string>("map");
+  const project = useMemo(() => getProjectById(projectId || ""), [projectId]);
+  const [viewMode, setViewMode] = useState<"map" | "gallery">("map");
   const [isPending, startTransition] = useTransition();
 
   React.useEffect(() => {
@@ -88,7 +92,7 @@ const ProjectDetailPage: React.FC = () => {
 
   const handleSelect = useCallback((mode: string) => {
     startTransition(() => {
-      setViewMode(mode);
+      setViewMode(mode as "map" | "gallery");
     });
   }, []);
 

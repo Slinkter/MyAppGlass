@@ -5,11 +5,13 @@
  * @description Option 3: Aura "Bento Refined" - Optimized bento layout with extreme glassmorphism.
  */
 import React from "react";
-import {
-  Box, VStack, Heading, Text, Container, HStack, Button, SimpleGrid, Grid, GridItem, Flex, BoxProps
+import { 
+  Box, VStack, Heading, Text, Container, HStack, SimpleGrid, Grid, GridItem, Flex, BoxProps 
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { Sparkles, ShieldCheck } from "lucide-react";
 import Gallery from "@shared/components/common/Gallery";
+import { GalleryItem } from "@/shared/types/gallery";
 
 /**
  * @interface BentoCardProps
@@ -22,15 +24,14 @@ export interface BentoCardProps extends BoxProps {
 
 const BentoCard: React.FC<BentoCardProps> = ({ children, ...props }) => (
   <Box 
-    variant="glass" 
     p={8} 
     h="full" 
-    bg="whiteAlpha.400" 
-    backdropFilter="blur(10px)" 
+    bg="bg.section"
+    backdropFilter="blur(16px)" 
     borderRadius="3xl"
     border="1px solid"
-    borderColor="whiteAlpha.400"
-    _dark={{ bg: "blackAlpha.400", borderColor: "whiteAlpha.100" }}
+    borderColor="border.glass"
+    _dark={{ bg: "whiteAlpha.50", borderColor: "whiteAlpha.100" }}
     {...props}
   >
     {children}
@@ -51,7 +52,7 @@ export interface PageDataBento {
   /** Available systems */
   systems: Array<{ label: string }>;
   /** Image galleries */
-  imageLists: string[][];
+  imageLists: GalleryItem[][];
 }
 
 /**
@@ -68,6 +69,8 @@ export interface ServiceDetailBentoRefinedProps {
 export const ServiceDetailBentoRefined: React.FC<ServiceDetailBentoRefinedProps> = ({ pageData }) => {
   const { seo, about, benefits, systems, imageLists } = pageData;
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
+
+  const galleryItems = React.useMemo(() => imageLists[activeIndex] || [], [imageLists, activeIndex]);
 
   return (
     <Container maxW="7xl" py={12}>
@@ -95,7 +98,9 @@ export const ServiceDetailBentoRefined: React.FC<ServiceDetailBentoRefinedProps>
         <Grid templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }} templateRows={{ base: "auto", lg: "repeat(2, 300px)" }} gap={6}>
           <GridItem colSpan={{ base: 1, lg: 2 }} rowSpan={2}>
             <Box borderRadius="3xl" overflow="hidden" h="full" shadow="2xl">
-              <Gallery images={imageLists[activeIndex] || []} />
+              <Gallery images={galleryItems}>
+                <Gallery.Viewer />
+              </Gallery>
             </Box>
           </GridItem>
           
@@ -114,7 +119,7 @@ export const ServiceDetailBentoRefined: React.FC<ServiceDetailBentoRefinedProps>
                 <SimpleGrid columns={1} gap={3} w="full">
                   {benefits.slice(0, 4).map((b, i) => (
                     <HStack key={i} gap={3}>
-                      <Box as={ShieldCheck} color="primary.500" size={16} />
+                      <ShieldCheck color="var(--chakra-colors-primary-500)" size={16} />
                       <Text fontSize="xs" fontWeight="bold">{b.label}</Text>
                     </HStack>
                   ))}

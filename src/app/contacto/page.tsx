@@ -13,12 +13,12 @@ import {
   Heading,
   Text,
   SimpleGrid,
-  Button,
   HStack,
   Icon,
   Input,
   Textarea,
 } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { MessageSquareText, Mail, Phone, Send } from "lucide-react";
 import GlassCard from "@/shared/components/common/GlassCard";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
@@ -80,7 +80,6 @@ export default function ContactPage() {
                 </Box>
                 <Button 
                   as="a"
-                  // @ts-expect-error - Chakra v3 Button as link typing
                   href="https://wa.me/51974278303?text=Hola, deseo cotizar un proyecto."
                   target="_blank"
                   bg="white" 
@@ -144,7 +143,6 @@ export default function ContactPage() {
               </VStack>
 
               <Button 
-                // @ts-expect-error - Chakra custom variant typing
                 variant="aura" 
                 size="xl" 
                 w="full" 

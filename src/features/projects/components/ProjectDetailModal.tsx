@@ -24,6 +24,8 @@ import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
 import { ProjectPhoto } from "../services/projectService";
 
+const MotionBox = m.create(Box);
+
 /**
  * Shared state for project detail compound components.
  * @description Manages project metadata, visual state (map vs gallery), and modal lifecycle.
@@ -129,9 +131,8 @@ const ProjectDetailRoot: React.FC<{
         onOpenChange={(e) => !e.open && handleClose()}
         placement="center"
         motionPreset="none"
-        size={{ base: "full", md: "5xl", lg: "7xl" }}
+        size={{ base: "full", md: "xl" }}
         scrollBehavior="inside"
-        preserveScrollBarGap
       >
         <DialogContent
           asChild
@@ -147,8 +148,7 @@ const ProjectDetailRoot: React.FC<{
           mx={{ base: 0, md: 4 }}
         >
           {/* Custom immersive expansion animation */}
-          <Box
-            as={m.div}
+          <MotionBox
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -174,7 +174,7 @@ const ProjectDetailRoot: React.FC<{
             <DialogBody p={{ base: 0, md: "phi_lg" }} display="flex" flexDirection="column" gap="phi_lg" overflowY="auto">
               {children}
             </DialogBody>
-          </Box>
+          </MotionBox>
         </DialogContent>
       </DialogRoot>
     </ProjectDetailContext.Provider>

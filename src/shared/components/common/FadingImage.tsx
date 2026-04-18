@@ -2,17 +2,19 @@
 
 import React from "react";
 import { Box, BoxProps } from "@chakra-ui/react";
-// @ts-expect-error - ImageWithFallback path
 import ImageWithFallback from "@shared/components/Image/ImageWithFallback";
-
-interface FadingImageProps extends BoxProps {
+interface FadingImageProps extends Omit<BoxProps, 'onLoad' | 'onError'> {
   src: string;
+  alt?: string;
   placeholderImageUrl?: string;
-  onImageError?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+  onImageError?: () => void;
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
   srcSet?: string;
   sizes?: string;
   forceShow?: boolean;
+  loading?: "lazy" | "eager";
+  fetchPriority?: "high" | "low" | "auto";
+  objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
 }
 
 /**
@@ -23,6 +25,7 @@ interface FadingImageProps extends BoxProps {
 const FadingImage: React.FC<FadingImageProps> = React.memo((props) => {
   const {
     src,
+    alt,
     placeholderImageUrl,
     onImageError,
     w,
@@ -45,6 +48,7 @@ const FadingImage: React.FC<FadingImageProps> = React.memo((props) => {
     >
       <ImageWithFallback
         src={src}
+        alt={alt}
         fallbackSrc={placeholderImageUrl}
         onLoad={onLoad}
         onError={onImageError}

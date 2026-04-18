@@ -97,7 +97,7 @@ const UtilityLink = ({ label, href, icon: Icon, onClick, isImage }: UtilityLinkP
             opacity={isActive ? 1 : 0.6} 
           />
         ) : (
-          <Box as={Icon as LucideIcon} size={16} />
+          <Box as={Icon as LucideIcon} boxSize={4} />
         )}
         <Text 
           fontSize="xs" 

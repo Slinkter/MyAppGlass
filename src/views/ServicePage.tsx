@@ -8,7 +8,7 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 ;
 
-const ServicePage: React.FC = () => {
+const ServicePage: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <Box as="section" py={1}>
       {children}
