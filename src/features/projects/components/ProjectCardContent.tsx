@@ -19,6 +19,9 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { MapPin } from "lucide-react";
+import { m } from "framer-motion";
+
+const MotionLinkBox = m.create(LinkBox);
 
 interface ProjectCardContentProps {
   image?: string;
@@ -43,7 +46,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
       "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
     return (
-      <LinkBox
+      <MotionLinkBox
         as="article"
         role="group"
         cursor="pointer"
@@ -59,6 +62,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           transform: { base: "none", md: "translateY(-4px)" },
         }}
         transition="all 0.4s ease"
+        whileTap={{ scale: 0.98 }}
       >
         <Skeleton loading={!isLoaded} h="full" w="full">
           <Box position="relative" h="full" w="full" overflow="hidden">
@@ -193,7 +197,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
             </Box>
           </Box>
         </Skeleton>
-      </LinkBox>
+      </MotionLinkBox>
     );
   },
 );
