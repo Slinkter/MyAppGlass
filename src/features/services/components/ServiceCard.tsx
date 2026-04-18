@@ -67,6 +67,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         transform: { base: "none", md: "translateY(-4px)" },
       }}
       transition="all 0.4s ease"
+      aria-label={`Ver detalles del servicio de ${name}`}
     >
       <Skeleton loading={!isLoaded} h="full" w="full">
         <Box position="relative" h="full" w="full" overflow="hidden">
@@ -167,4 +168,6 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
 });
 
 ServiceCard.displayName = "ServiceCard";
+export default ServiceCard;
+isplayName = "ServiceCard";
 export default ServiceCard;

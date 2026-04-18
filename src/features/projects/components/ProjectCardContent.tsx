@@ -118,8 +118,12 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                     e.preventDefault();
                     onExplore();
                   }}
+                  aria-label={`Explorar detalles del proyecto ${residencial}`}
                   _focusVisible={{
                     outline: "none",
+                    ring: "2px",
+                    ringColor: "ring.primary",
+                    ringOffset: "2px",
                   }}
                 >
                   {residencial}
@@ -160,6 +164,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                     e.preventDefault();
                     onExplore();
                   }}
+                  aria-label={`Explorar proyecto ${residencial} en detalle`}
                   variant="aura"
                   size="sm"
                   bg="whiteAlpha.200"
