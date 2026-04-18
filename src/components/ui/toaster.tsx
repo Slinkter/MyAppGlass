@@ -7,7 +7,6 @@ import {
   Stack,
   Toast,
 } from '@chakra-ui/react'
-import * as React from 'react'
 import { toaster } from './toaster-instance'
 
 export const Toaster = () => {

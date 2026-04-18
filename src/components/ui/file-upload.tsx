@@ -121,8 +121,9 @@ export const FileUploadList = React.forwardRef<HTMLUListElement, FileUploadListP
   },
 )
 
-export interface FileInputProps extends ButtonProps {
+export interface FileInputProps extends Omit<ButtonProps, "variant"> {
   placeholder?: React.ReactNode
+  variant?: "outline" | "subtle" | "flushed"
 }
 
 export const FileInput = React.forwardRef<HTMLButtonElement, FileInputProps>(

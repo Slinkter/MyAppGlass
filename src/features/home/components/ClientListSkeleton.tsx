@@ -35,14 +35,14 @@ const ClientListSkeleton: React.FC = () => {
                 />
                 <Stack gap={3}>
                     <SkeletonText
-                        noOfLines={1}
-                        skeletonHeight="28px"
+                        lineClamp={1}
+                        height="28px"
                         width="60%"
                         mx="auto"
                     />
                     <SkeletonText
-                        noOfLines={2}
-                        skeletonHeight="20px"
+                        lineClamp={2}
+                        height="20px"
                         width="80%"
                         mx="auto"
                         mt={2}

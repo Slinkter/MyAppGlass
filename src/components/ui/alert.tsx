@@ -2,7 +2,7 @@ import { Alert as ChakraAlert } from "@chakra-ui/react"
 import * as React from "react"
 
 export interface AlertProps extends ChakraAlert.RootProps {
-  title?: React.ReactNode
+  title?: string
   icon?: React.ReactNode
   startElement?: React.ReactNode
   endElement?: React.ReactNode

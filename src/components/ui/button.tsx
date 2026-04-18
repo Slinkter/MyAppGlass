@@ -3,10 +3,11 @@ import {
   Button as ChakraButton,
   Box,
   Spinner,
+  ButtonProps as ChakraButtonProps,
 } from '@chakra-ui/react'
 import * as React from 'react'
 
-export interface ButtonProps extends ChakraButton.RootProps {
+export interface ButtonProps extends ChakraButtonProps {
   loading?: boolean
   loadingText?: React.ReactNode
 }
@@ -33,3 +34,4 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
     </ChakraButton>
   )
 })
+

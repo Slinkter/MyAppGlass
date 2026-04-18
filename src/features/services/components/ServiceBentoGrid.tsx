@@ -6,7 +6,6 @@ import {
   Text,
   SimpleGrid,
   HStack,
-  Button,
   Grid,
   GridItem,
   BoxProps
@@ -121,21 +120,6 @@ const BentoCTA = React.memo(({ systemName }: BentoCTAProps) => {
       <Box as={MessageSquareText} boxSize={10} mb={6} color="primary.300" _dark={{ color: "primary.500" }} />
       <Heading size="md" mb={3} letterSpacing="tight">¿Iniciamos tu obra?</Heading>
       <Text opacity={0.8} mb={8} fontSize="sm">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
-      <Button
-        as="a"
-        href={`https://wa.me/51974278303?text=Hola, me interesa el servicio de ${systemName}`}
-        target="_blank"
-        variant="outline"
-        color="white"
-        borderColor="whiteAlpha.400"
-        borderRadius="full"
-        size="lg"
-        px={8}
-        w="full"
-        _hover={{ bg: "white", color: "primary.900", borderColor: "white" }}
-      >
-        COTIZAR AHORA
-      </Button>
     </BentoCard>
   );
 });

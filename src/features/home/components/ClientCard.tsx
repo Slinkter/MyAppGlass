@@ -90,7 +90,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
             transform="translateY(10px)"
             transition="all 0.4s ease"
             _groupHover={{ opacity: 1, transform: "translateY(0)" }}
-            noOfLines={2}
+            lineClamp={2}
           >
             {descClient}
           </Text>

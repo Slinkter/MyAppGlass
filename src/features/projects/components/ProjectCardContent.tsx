@@ -103,7 +103,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                 textAlign="center"
                 position="relative"
                 transition="color 0.3s ease"
-                noOfLines={1}
+                lineClamp={1}
                 _after={{
                   content: '""',
                   position: "absolute",
@@ -152,7 +152,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                       fontSize="xs"
                       color="whiteAlpha.900"
                       fontWeight="500"
-                      noOfLines={1}
+                      lineClamp={1}
                     >
                       {address}
                     </Text>

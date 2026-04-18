@@ -12,6 +12,8 @@ export interface Service {
   id: number;
   image: string;
   name: string;
+  category: string;
+  description: string;
   link: string;
   plink: string;
 }

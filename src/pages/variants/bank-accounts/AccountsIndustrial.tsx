@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file AccountsIndustrial.tsx
  * @description Option 2: Aura "Industrial Blueprint" - Technical precision and order.
@@ -63,3 +64,5 @@ export const AccountsIndustrial: React.FC = () => (
     </SimpleGrid>
   </Box>
 );
+
+export default AccountsIndustrial;

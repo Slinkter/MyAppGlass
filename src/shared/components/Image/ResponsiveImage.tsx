@@ -18,6 +18,8 @@ interface ResponsiveImageProps extends Omit<BoxProps, 'onLoad'> {
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
   onLoad?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
   sizes?: string;
+  loading?: "eager" | "lazy";
+  decoding?: "async" | "auto" | "sync";
 }
 
 /**
@@ -32,6 +34,8 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
     isLCP = false,
     onLoad,
     objectFit = "cover",
+    loading,
+    decoding,
     ...restProps
   }) => {
     const handleLoad = useCallback(
@@ -53,6 +57,8 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
           sizes={sizes}
           style={{ objectFit }}
           onLoad={handleLoad}
+          loading={loading}
+          decoding={decoding}
         />
       </Box>
     );

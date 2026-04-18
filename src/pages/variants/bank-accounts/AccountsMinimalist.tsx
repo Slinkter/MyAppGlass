@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file AccountsMinimalist.tsx
  * @description Option 3: Aura "Minimalist Trust" - Focus on clarity and data elegance.
@@ -42,3 +43,5 @@ export const AccountsMinimalist: React.FC = () => (
     </VStack>
   </Box>
 );
+
+export default AccountsMinimalist;

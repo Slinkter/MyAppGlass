@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file ServicesGlassGrid.tsx
  * @description Option 2: Aura "Glass Grid" - Borderless cards and focus attenuation.

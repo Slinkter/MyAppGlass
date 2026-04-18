@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { VStack } from "@chakra-ui/react";
 import LandingPageSection from "@/features/home/components/LandingPageSection";
