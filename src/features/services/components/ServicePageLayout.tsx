@@ -20,6 +20,7 @@ import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import BackButton from "@shared/components/navigation/BackButton";
+import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { ServicePageData, ServicePageSystem, ServicePageFeature } from "../services/serviceService";
 
 interface BentoCardProps extends BoxProps {
@@ -52,43 +53,44 @@ interface SystemSelectorProps {
 }
 
 const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSelectorProps) => {
+  const activeBg = useColorModeValue("primary.700", "primary.300");
+  const activeColor = useColorModeValue("white", "primary.900");
+  const inactiveBg = useColorModeValue("gray.100", "whiteAlpha.100");
+  const inactiveColor = useColorModeValue("gray.700", "gray.300");
+  const inactiveHoverBg = useColorModeValue("gray.200", "whiteAlpha.200");
+
   if (!systems || systems.length <= 1) return null;
 
   return (
     <HStack
-      bg="bg.subtle"
-      p={1.5}
-      borderRadius="full"
-      display="inline-flex"
-      overflowX="auto"
+      gap={2}
+      justify={{ base: "center", md: "flex-end" }}
+      flexWrap="wrap"
       maxW="full"
-      border="1px solid"
-      borderColor="border.glass"
-      _dark={{ bg: "blackAlpha.400", borderColor: "whiteAlpha.100" }}
-      css={{
-        '&::-webkit-scrollbar': { display: 'none' },
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
-      }}
     >
-      {systems.map((system, index) => (
-        <Button
-          key={system.label}
-          onClick={() => onSelect(index)}
-          size={{ base: "sm", md: "md" }}
-          variant={activeIndex === index ? "aura" : "ghost"}
-          borderRadius="full"
-          px={{ base: 6, md: 8 }}
-          flexShrink={0}
-          fontWeight={activeIndex === index ? "bold" : "medium"}
-          color={activeIndex === index ? "white" : "text.muted"}
-          _dark={{ color: activeIndex === index ? "primary.900" : "whiteAlpha.700" }}
-          _hover={activeIndex !== index ? { bg: "whiteAlpha.100", color: "text.body" } : undefined}
-          transition="all 0.3s ease"
-        >
-          {system.label}
-        </Button>
-      ))}
+      {systems.map((system, index) => {
+        const isActive = activeIndex === index;
+        return (
+          <Button
+            key={system.label}
+            onClick={() => onSelect(index)}
+            size="sm"
+            px={5}
+            mt={2}
+            borderRadius="full"
+            fontWeight="semibold"
+            fontSize="xs"
+            letterSpacing="wider"
+            textTransform="uppercase"
+            bg={isActive ? activeBg : inactiveBg}
+            color={isActive ? activeColor : inactiveColor}
+            _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
+            transition="all 0.2s ease"
+          >
+            {system.label}
+          </Button>
+        );
+      })}
     </HStack>
   );
 });
@@ -224,7 +226,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <Container maxW="7xl" pt={{ base: 8, md: 16 }} pb={32}>
+          <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb={32}>
             <VStack gap={{ base: 12, lg: 16 }} align="stretch">
               
               <Flex direction={{ base: "column", md: "row" }} justify="space-between" align={{ base: "flex-start", md: "flex-end" }} gap={8}>
@@ -249,7 +251,9 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                 _dark={{ startColor: "whiteAlpha.50", endColor: "whiteAlpha.100" }}
               >
                 <Box
-                  h={{ base: "450px", md: "700px" }}
+                  h={{ base: "350px", md: "500px", lg: "65vh" }}
+                  minH={{ md: "500px" }}
+                  maxH={{ lg: "800px" }}
                   position="relative"
                 >
                   <AnimatePresence mode="wait">

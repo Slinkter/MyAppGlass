@@ -3,11 +3,11 @@
  * @description Service layer for handling "Libro de Reclamaciones" (complaints book) submissions.
  * @module api
  * @remarks
- * This service directly interacts with the backend API configured via VITE_API_URL.
+ * This service directly interacts with the backend API configured via NEXT_PUBLIC_API_URL.
  * It handles raw data transformation and HTTP communication for legal compliance documents.
  */
 
-// 1. Obtenemos la URL de la función desde las variables de entorno de Vite.
+// 1. Obtenemos la URL de la función desde las variables de entorno de Next.js.
 const SUBMIT_RECLAMO_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 /**

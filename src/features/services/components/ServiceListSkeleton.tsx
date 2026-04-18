@@ -1,55 +1,68 @@
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import React from "react";
-import { Container, SimpleGrid, Skeleton, Box, Stack } from "@chakra-ui/react";
+import { SimpleGrid, Skeleton, Box, VStack } from "@chakra-ui/react";
+import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 
 /**
  * @component ServiceListSkeleton
- * @description Muestra una cuadrícula de esqueletos de tarjetas de servicio para indicar el estado de carga.
+ * @description Muestra una cuadrícula de esqueletos de tarjetas de servicio.
+ * Respeta la estructura de ServiceCard (imagen de fondo con overlay).
  */
 const ServiceListSkeleton: React.FC = () => {
-    const cardBg = useColorModeValue(
-        "rgba(255, 255, 255, 0.25)",
-        "rgba(0, 0, 0, 0.25)"
-    );
-
     return (
-        <Container maxW="7xl" mt={6} mb={0} textAlign="center">
-            <Skeleton height="50px" width="300px" mx="auto" mb={2} mt={4} />
-            <Skeleton height="30px" width="400px" mx="auto" mb={10} />
+        <ItemGridLayout
+            title="SERVICIOS"
+            subtitle="Soluciones en Vidrio y Aluminio"
+            columns={{ base: 1, sm: 2, md: 3 }}
+        >
+            {/* Filter Pills Skeleton */}
+            <Box gridColumn="1 / -1" w="full" mb={8}>
+                <SimpleGrid columns={{ base: 2, md: 4 }} gap={4} maxW="600px" mx="auto">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                        <Skeleton key={i} height="36px" borderRadius="full" />
+                    ))}
+                </SimpleGrid>
+            </Box>
 
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={10}>
-                {Array.from({ length: 12 }).map((_, index) => (
+            {/* Grid of Cards Skeletons */}
+            {Array.from({ length: 6 }).map((_, index) => (
+                <Box
+                    key={index}
+                    position="relative"
+                    h={{ base: "320px", md: "500px" }}
+                    w="full"
+                    borderRadius="xl"
+                    overflow="hidden"
+                    bg="bg.subtle"
+                >
+                    <Skeleton h="full" w="full" />
+                    
                     <Box
-                        key={index}
-                        w="full"
-                        maxW={{ base: "full", md: "md" }}
-                        h="auto"
-                        mb={4}
-                        overflow="hidden"
-                        bg={cardBg}
-                        borderRadius="2xl"
-                        boxShadow="lg"
+                        position="absolute"
+                        bottom={0}
+                        left={0}
+                        right={0}
+                        p={6}
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                        justifyContent="flex-end"
                     >
-                        <Box p={2}>
-                            <Skeleton
-                                height={{ base: "245px", md: "375px" }}
-                                w="full"
-                                borderRadius="xl"
+                        {/* Title Skeleton */}
+                        <Skeleton height="24px" width="60%" mb={8} borderRadius="full" />
+
+                        {/* Button Skeleton (Ver Catálogo) */}
+                        <VStack gap={4} w="full">
+                            <Skeleton 
+                                height="36px" 
+                                width="70%" 
+                                borderRadius="full" 
+                                maxW="200px"
                             />
-                            <Stack p={4} gap={3}>
-                                <Skeleton height="28px" width="70%" mx="auto" />
-                                <Skeleton
-                                    height="40px"
-                                    width="full"
-                                    borderRadius="md"
-                                    mt={2}
-                                />
-                            </Stack>
-                        </Box>
+                        </VStack>
                     </Box>
-                ))}
-            </SimpleGrid>
-        </Container>
+                </Box>
+            ))}
+        </ItemGridLayout>
     );
 };
 

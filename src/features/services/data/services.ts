@@ -4,17 +4,6 @@
  * @module services/data
  */
 
-import init01 from "@/assets/services/general/init01.jpg";
-import init02a from "@/assets/services/general/init02a.jpg";
-import init03 from "@/assets/services/general/init03.jpg";
-import init05a from "@/assets/services/general/init05a.jpg";
-import init06 from "@/assets/services/general/init06.jpg";
-import init07a from "@/assets/services/general/init07a.jpg";
-import init04 from "@/assets/services/general/init04.jpg";
-import init11 from "@/assets/services/general/init11.jpg";
-import init12 from "@/assets/services/general/init12.jpg";
-import init13 from "@/assets/services/general/init13.jpg";
-
 export interface Service {
   id: number;
   image: string;
@@ -28,7 +17,7 @@ export interface Service {
 export const services: Service[] = [
   {
     id: 1,
-    image: init01.src,
+    image: '/images/services-general-init01.webp',
     name: "Ventanas",
     category: "Aluminio",
     description: "Ventanas de aluminio con sistemas Nova, Serie 25 y 31. Ideal para proyectos residenciales y comerciales.",
@@ -37,7 +26,7 @@ export const services: Service[] = [
   },
   {
     id: 2,
-    image: init02a.src,
+    image: '/images/services-general-init02a.webp',
     name: "Mamparas",
     category: "Vidrio",
     description: "Mamparas de baño en vidrio templado. Sistemas Nova y Serie 25 con acabados en natural y negro.",
@@ -46,7 +35,7 @@ export const services: Service[] = [
   },
   {
     id: 3,
-    image: init03.src,
+    image: '/images/services-general-init03.webp',
     name: "Duchas",
     category: "Vidrio",
     description: "Boxes de ducha con vidrio templado de 8mm. Sistemas KIT y Acrílico disponibles.",
@@ -55,7 +44,7 @@ export const services: Service[] = [
   },
   {
     id: 4,
-    image: init05a.src,
+    image: '/images/services-general-init05a.webp',
     name: "Parapeto",
     category: "Vidrio",
     description: "Parapetos de vidrio templado con estructura de acero o aluminio. Acabados profesionales.",
@@ -64,7 +53,7 @@ export const services: Service[] = [
   },
   {
     id: 5,
-    image: init06.src,
+    image: '/images/services-general-init06.webp',
     name: "Barandas",
     category: "Vidrio",
     description: "Barandas de vidrio templado con accesorios de acero cromado. Seguridad y elegancia.",
@@ -73,7 +62,7 @@ export const services: Service[] = [
   },
   {
     id: 6,
-    image: init07a.src,
+    image: '/images/services-general-init07a.webp',
     name: "Balcones",
     category: "Cerramientos",
     description: "Balcones de vidrio templado con arenado decorativo. Diseño moderno y seguro.",
@@ -82,7 +71,7 @@ export const services: Service[] = [
   },
   {
     id: 7,
-    image: init04.src,
+    image: '/images/services-general-init04.webp',
     name: "Techos",
     category: "Cerramientos",
     description: "Techos de policarbonato con estructura de aluminio. Protección y iluminación natural.",
@@ -91,7 +80,7 @@ export const services: Service[] = [
   },
   {
     id: 8,
-    image: init11.src,
+    image: '/images/services-general-init11.webp',
     name: "Puerta de Vidrio",
     category: "Vidrio",
     description: "Puertas de vidrio templado con chapa bola y accesorios de calidad.",
@@ -100,7 +89,7 @@ export const services: Service[] = [
   },
   {
     id: 9,
-    image: init12.src,
+    image: '/images/services-general-init12.webp',
     name: "Puerta en Serie",
     category: "Aluminio",
     description: "Puertas enrollables de aluminio con plancha arenada. Resistencia y durabilidad.",
@@ -109,7 +98,7 @@ export const services: Service[] = [
   },
   {
     id: 10,
-    image: init13.src,
+    image: '/images/services-general-init13.webp',
     name: "Celosías",
     category: "Aluminio",
     description: "Celosías de aluminio para ventilación de espacios. Funcionalidad y diseño.",

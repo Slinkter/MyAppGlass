@@ -19,7 +19,6 @@ import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
 import AuraSurface from "@shared/components/aura/AuraSurface";
 import AuraSkeleton, { GridSkeleton, BannerSkeleton } from "@shared/components/aura/AuraSkeleton";
-import qrYapePlin from "@/assets/glassqr2026.jpg";
 
 interface CopyButtonProps {
   value: string;
@@ -221,10 +220,10 @@ const BankAccountsPage: React.FC = () => {
     return (
     <>
       <Toaster />
-      
+
       <AuraContainer>
         <VStack gap={12} align="stretch">
-          
+
           <AuraHeader 
             title={
               <>
@@ -253,7 +252,7 @@ const BankAccountsPage: React.FC = () => {
             <Heading as="h2" size="lg" mb="phi_lg" color="text.heading" fontWeight="800">
               Billeteras Digitales
             </Heading>
-            
+
             <AuraSurface 
               variant="interactive" 
               p={{ base: "phi_md", md: "phi_lg" }}
@@ -273,7 +272,7 @@ const BankAccountsPage: React.FC = () => {
                 overflow="hidden"
               >
                 <Image 
-                  src={qrYapePlin} 
+                  src={'/images/glassqr2026.webp'} 
                   alt="QR Transferencias"
                   w="full"
                   h="auto"
@@ -293,7 +292,7 @@ const BankAccountsPage: React.FC = () => {
                   <Badge colorPalette="purple" size="lg" variant="solid" px={3} borderRadius="full">YAPE</Badge>
                   <Badge colorPalette="blue" size="lg" variant="solid" px={3} borderRadius="full">PLIN</Badge>
                 </HStack>
-                
+
                 <Box>
                   <Heading size="md" color="text.heading" fontWeight="800">Pago con Billetera Digital</Heading>
                   <Text mt={2} color="text.body" fontSize="sm" lineHeight="tall">

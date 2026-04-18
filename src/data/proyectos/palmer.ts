@@ -1,31 +1,16 @@
-import PALMER01 from "@/assets/projects/OBRAPALMER/PALMER01.jpeg";
-import PALMER02 from "@/assets/projects/OBRAPALMER/PALMER02.jpeg";
-
-import PALMER04 from "@/assets/projects/OBRAPALMER/PALMER04.jpeg";
-import PALMER05 from "@/assets/projects/OBRAPALMER/PALMER05.jpeg";
-import PALMER06 from "@/assets/projects/OBRAPALMER/PALMER06.jpeg";
-
-import PALMER08 from "@/assets/projects/OBRAPALMER/PALMER08.jpeg";
-import PALMER09 from "@/assets/projects/OBRAPALMER/PALMER09.jpeg";
-import PALMER10 from "@/assets/projects/OBRAPALMER/PALMER10.jpeg";
-import PALMER11 from "@/assets/projects/OBRAPALMER/PALMER11.jpeg";
-import PALMER12 from "@/assets/projects/OBRAPALMER/PALMER12.jpeg";
-import PALMER13 from "@/assets/projects/OBRAPALMER/PALMER13.jpeg";
-import PALMER14 from "@/assets/projects/OBRAPALMER/PALMER14.jpeg";
-
 const palmer: string[] = [
-  PALMER01.src,
-  PALMER02.src,
-  PALMER04.src,
-  PALMER05.src,
-  PALMER06.src,
-  PALMER08.src,
-  PALMER09.src,
-  PALMER10.src,
-  PALMER11.src,
-  PALMER12.src,
-  PALMER13.src,
-  PALMER14.src,
+  '/images/projects-OBRAPALMER-PALMER01.webp',
+  '/images/projects-OBRAPALMER-PALMER02.webp',
+  '/images/projects-OBRAPALMER-PALMER04.webp',
+  '/images/projects-OBRAPALMER-PALMER05.webp',
+  '/images/projects-OBRAPALMER-PALMER06.webp',
+  '/images/projects-OBRAPALMER-PALMER08.webp',
+  '/images/projects-OBRAPALMER-PALMER09.webp',
+  '/images/projects-OBRAPALMER-PALMER10.webp',
+  '/images/projects-OBRAPALMER-PALMER11.webp',
+  '/images/projects-OBRAPALMER-PALMER12.webp',
+  '/images/projects-OBRAPALMER-PALMER13.webp',
+  '/images/projects-OBRAPALMER-PALMER14.webp',
 ];
 
 export default palmer;
