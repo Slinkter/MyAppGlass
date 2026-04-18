@@ -20,6 +20,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { MapPin } from "lucide-react";
 import { m } from "framer-motion";
+import logger from "@shared/utils/logger";
 
 const MotionLinkBox = m.create(LinkBox);
 
@@ -77,7 +78,10 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
               loading={(loading as any) || (isLCP ? "eager" : "lazy")}
               decoding={isLCP ? "sync" : "async"}
               fetchPriority={fetchPriority as any}
-              onLoad={() => setIsLoaded(true)}
+              onLoad={() => {
+                logger.debug({ src: image, residencial }, "Image loaded");
+                setIsLoaded(true);
+              }}
               transform={isHovered ? "scale(1.06)" : "scale(1.02)"}
               transition="transform 0.6s ease"
             />

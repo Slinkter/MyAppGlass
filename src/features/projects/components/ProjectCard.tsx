@@ -2,6 +2,7 @@
 import React from "react";
 import ProjectCardContent from "./ProjectCardContent";
 import { useRouter } from "next/navigation";
+import logger from "@shared/utils/logger";
 
 export interface ProjectCardProps {
   id: string | number;
@@ -26,8 +27,9 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo((props) => {
   } = props;
 
   const handleNavigate = () => {
+    logger.debug({ id, residencial, address, year }, "ProjectCard navigate clicked");
     if (!id || id === "undefined") {
-      console.warn("ProjectCard: Attempted to navigate to a project with an undefined ID", props);
+      logger.warn({ id, props }, "ProjectCard: Attempted to navigate with undefined ID");
       return;
     }
     router.push(`/proyectos/${id}`);

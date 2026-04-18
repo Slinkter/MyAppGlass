@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { m, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
+import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import MapViewer from "./MapViewer";
 import { Project, ProjectPhoto } from "@/features/projects/services/projectService";
 import { GalleryItem } from "@/shared/types/gallery";
@@ -44,14 +45,9 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
 
   return (
     <Box
-      flex={{ base: "none", lg: "2" }}
       w="100%"
-      h={{ base: "50dvh", md: "500px", lg: "full" }}
+      h="100%"
       position="relative"
-      borderRadius={{ base: "0", lg: "2xl" }}
-      overflow="hidden"
-      boxShadow="lg"
-      bg="bg.subtle"
     >
       <Box position="absolute" inset="0">
         <AnimatePresence mode="wait">
@@ -64,7 +60,18 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               transition={{ duration: 0.25, ease: "easeOut" }}
               style={{ width: "100%", height: "100%" }}
             >
-              <MapViewer lat={lat!} lng={lng!} projectData={projectData} />
+              <Box
+                w="full"
+                h="full"
+                borderRadius="3xl"
+                overflow="hidden"
+                boxShadow="2xl"
+                border="1px solid"
+                borderColor="border.glass"
+                bg="bg.subtle"
+              >
+                <MapViewer lat={lat!} lng={lng!} projectData={projectData} />
+              </Box>
             </m.div>
           ) : (
             <m.div
@@ -75,9 +82,22 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               transition={{ duration: 0.25, ease: "easeOut" }}
               style={{ width: "100%", height: "100%" }}
             >
-              <Gallery images={galleryImages}>
-                <Gallery.Viewer />
-              </Gallery>
+              {galleryImages.length > 0 ? (
+                <Gallery images={galleryImages}>
+                  <Flex
+                    direction={{ base: "column", md: "row" }}
+                    gap={{ base: 4, md: 8 }}
+                    h="100%"
+                    w="100%"
+                    minW={0}
+                  >
+                    <Gallery.Viewer />
+                    <Gallery.Thumbnails />
+                  </Flex>
+                </Gallery>
+              ) : (
+                <ComingSoonDisplay />
+              )}
             </m.div>
           )}
         </AnimatePresence>

@@ -16,6 +16,7 @@ import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { getProjects, Project } from "../services/projectService";
 import { useFilterableList } from "@shared/hooks";
+import logger from "@shared/utils/logger";
 
 /**
  * Normaliza nombres de años para extraer solo el año de 4 dígitos (ej. 2024, 2023).
@@ -32,7 +33,11 @@ const normalizeYear = (year?: string | number): string => {
  * @description Orchestrator for the projects gallery, implementing Infinite Scroll (O1) for high performance.
  */
 const ProjectsList: React.FC = React.memo(() => {
-  const allProjects = useMemo(() => [...getProjects()].reverse(), []);
+  const allProjects = useMemo(() => {
+    const projects = [...getProjects()].reverse();
+    logger.debug({ total: projects.length }, "Projects loaded");
+    return projects;
+  }, []);
 
   const activeBg = useColorModeValue("primary.700", "primary.300");
   const activeColor = useColorModeValue("white", "primary.900");
@@ -42,6 +47,8 @@ const ProjectsList: React.FC = React.memo(() => {
 
   // Get unique years
   const years = useMemo(() => {
+    const allNormalized = allProjects.map(p => ({ id: p.id, year: p.year, normalized: normalizeYear(p.year) }));
+    logger.debug({ allNormalized }, "normalizeYear for all projects");
     const rawYears = allProjects.map((p) => normalizeYear(p.year));
     const unique = [...new Set(rawYears)].sort((a, b) => b.localeCompare(a));
     // Move "Otros" to the end if it exists
@@ -53,9 +60,23 @@ const ProjectsList: React.FC = React.memo(() => {
     return ["Todos", ...unique];
   }, [allProjects]);
 
+  logger.info({ years: years.slice(1), allYears: allProjects.map(p => ({ id: p.id, year: p.year, normalized: normalizeYear(p.year) })) }, "Available filter years");
+
+  logger.info({ years: years.slice(1) }, "Available filter years");
+
   const filterFn = useCallback((items: Project[], category: string) => {
-    if (category === "Todos") return items;
-    return items.filter((p) => normalizeYear(p.year) === category);
+    logger.debug({ category, totalItems: items.length }, "Filter function called");
+    if (category === "Todos") {
+      logger.debug({ result: items.length }, "Returning all items for 'Todos'");
+      return items;
+    }
+    const filtered = items.filter((p) => {
+      const normalized = normalizeYear(p.year);
+      const matches = normalized === category;
+      return matches;
+    });
+    logger.debug({ category, filtered: filtered.length, items: filtered.map(p => p.id) }, "Filter result");
+    return filtered;
   }, []);
 
   const {
@@ -100,7 +121,11 @@ const ProjectsList: React.FC = React.memo(() => {
                 color={isActive ? activeColor : inactiveColor}
                 _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
                 transition="all 0.2s ease"
-                onClick={() => handleYearChange(year)}
+                onClick={() => {
+                  console.log("BUTTON CLICK:", year, "activeYear BEFORE:", activeYear);
+                  handleYearChange(year);
+                  console.log("BUTTON CLICK:", year, "activeYear AFTER:", activeYear);
+                }}
               >
                 {year}
               </Button>
@@ -117,6 +142,7 @@ const ProjectsList: React.FC = React.memo(() => {
           transition: "opacity 0.2s ease-in-out",
           pointerEvents: isPending ? "none" : "auto",
         }}
+        onMouseEnter={() => console.log("DEBUG:", { activeYear, preloadedCount: preloadedProjects.length })}
       >
         {preloadedProjects.map((project, index) => (
           <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>

@@ -12,7 +12,7 @@ interface ItemGridItemProps {
   delay?: number;
 }
 
-const ItemGridItem: React.FC<ItemGridItemProps> = ({ children }) => {
+const ItemGridItem: React.FC<ItemGridItemProps> = ({ children, delay = 0 }) => {
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -21,6 +21,7 @@ const ItemGridItem: React.FC<ItemGridItemProps> = ({ children }) => {
       transition: {
         duration: 0.6,
         ease: [0.16, 1, 0.3, 1],
+        delay: delay,
       },
     },
   };
@@ -28,6 +29,9 @@ const ItemGridItem: React.FC<ItemGridItemProps> = ({ children }) => {
   return (
     <MotionBox
       variants={itemVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "50px" }}
       w="full"
       h="full"
     >

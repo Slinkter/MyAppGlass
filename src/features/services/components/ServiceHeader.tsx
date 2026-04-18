@@ -19,20 +19,23 @@ interface SystemSelectorProps {
 }
 
 const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSelectorProps) => {
-  const activeBg = useColorModeValue("primary.700", "primary.300");
-  const activeColor = useColorModeValue("white", "primary.900");
-  const inactiveBg = useColorModeValue("gray.100", "whiteAlpha.100");
-  const inactiveColor = useColorModeValue("gray.700", "gray.300");
-  const inactiveHoverBg = useColorModeValue("gray.200", "whiteAlpha.200");
-
   if (!systems || systems.length <= 1) return null;
 
   return (
     <HStack
-      gap={2}
-      justify={{ base: "center", md: "flex-end" }}
-      flexWrap="wrap"
+      bg="bg.subtle"
+      p={1.5}
+      borderRadius="full"
+      display="inline-flex"
+      border="1px solid"
+      borderColor="border.glass"
+      _dark={{ bg: "blackAlpha.400", borderColor: "whiteAlpha.100" }}
       maxW="full"
+      overflowX="auto"
+      css={{
+        '&::-webkit-scrollbar': { display: 'none' },
+        scrollbarWidth: 'none',
+      }}
     >
       {systems.map((system, index) => {
         const isActive = activeIndex === index;
@@ -40,17 +43,12 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
           <Button
             key={system.label}
             onClick={() => onSelect(index)}
-            size="sm"
-            px={5}
-            mt={2}
+            size={{ base: "sm", md: "md" }}
+            variant={isActive ? "aura" : "ghost"}
             borderRadius="full"
-            fontWeight="semibold"
-            fontSize="xs"
-            letterSpacing="wider"
-            textTransform="uppercase"
-            bg={isActive ? activeBg : inactiveBg}
-            color={isActive ? activeColor : inactiveColor}
-            _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
+            px={{ base: 6, md: 8 }}
+            flexShrink={0}
+            fontWeight={isActive ? "bold" : "medium"}
             transition="all 0.2s ease"
           >
             {system.label}

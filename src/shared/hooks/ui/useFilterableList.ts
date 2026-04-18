@@ -41,14 +41,24 @@ export function useFilterableList<T>({
   initialCategory = "Todos",
 }: UseFilterableListOptions<T>) {
   const [activeCategory, setActiveCategory] = useState(initialCategory);
+
+  // Debug: log when category changes
+  useEffect(() => {
+    console.log("useFilterableList: activeCategory CHANGED to:", activeCategory);
+  }, [activeCategory]);
   const [displayCount, setDisplayCount] = useState(pageSize);
   const [isPending, startTransition] = useTransition();
-  const loaderRef = useRef<HTMLDivElement>(null);
+  const [loaderNode, setLoaderNode] = useState<HTMLElement | null>(null);
+  const loaderRef = useCallback((node: HTMLElement | null) => {
+    setLoaderNode(node);
+  }, []);
   const rafRef = useRef<number | null>(null);
 
   // Memoize filtered items
   const filteredItems = useMemo(() => {
-    return filterFn(items, activeCategory);
+    const result = filterFn(items, activeCategory);
+    console.log("useFilterableList: filteredItems:", { activeCategory, inputCount: items.length, outputCount: result.length });
+    return result;
   }, [items, activeCategory, filterFn]);
 
   // Handle category change with transition
@@ -68,7 +78,7 @@ export function useFilterableList<T>({
   const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
 
   useIntersectionObserver(
-    loaderRef,
+    loaderNode,
     () => {
       if (displayCount >= filteredItems.length) return;
       
@@ -94,7 +104,9 @@ export function useFilterableList<T>({
 
   // Prepare paginated items
   const paginatedItems = useMemo(() => {
-    return filteredItems.slice(0, displayCount);
+    const result = filteredItems.slice(0, displayCount);
+    console.log("useFilterableList: paginatedItems:", { filteredLength: filteredItems.length, displayCount, resultLength: result.length });
+    return result;
   }, [filteredItems, displayCount]);
 
   return {
