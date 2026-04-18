@@ -55,9 +55,9 @@ const ModalSkeleton: React.FC = () => {
 
             {/* Skeleton para ProjectInfo */}
             <VStack flex={{ base: "none", lg: 1 }} w="full" align="flex-start" gap={4}>
-              <SkeletonText mt="2" noOfLines={1} gap="4" width="70%" />
-              <SkeletonText mt="2" noOfLines={1} gap="4" width="50%" />
-              <SkeletonText mt="4" noOfLines={3} gap="4" width="full" />
+              <SkeletonText mt="2" lineClamp={1} gap="4" width="70%" />
+              <SkeletonText mt="2" lineClamp={1} gap="4" width="50%" />
+              <SkeletonText mt="4" lineClamp={3} gap="4" width="full" />
               <Spacer />
               <Flex w="full" justify="space-between" mt={4}>
                 <Skeleton height="40px" width="45%" borderRadius="md" />

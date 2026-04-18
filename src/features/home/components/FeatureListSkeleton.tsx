@@ -30,14 +30,14 @@ const FeatureListSkeleton: React.FC = () => {
                 <Skeleton w={24} h={24} mx="auto" mb={4} rounded="full" />
                 <Stack gap={3}>
                     <SkeletonText
-                        noOfLines={1}
-                        skeletonHeight="24px"
+                        lineClamp={1}
+                        height="24px"
                         width="70%"
                         mx="auto"
                     />
                     <SkeletonText
-                        noOfLines={2}
-                        skeletonHeight="20px"
+                        lineClamp={2}
+                        height="20px"
                         width="90%"
                         mx="auto"
                         mt={2}
@@ -52,8 +52,8 @@ const FeatureListSkeleton: React.FC = () => {
             <Flex alignItems="center" justifyContent="center" minHeight="80vh">
                 <SimpleGrid
                     columns={{ base: 1, md: 4 }}
-                    spacingX={{ base: 5, md: 8 }}
-                    spacingY={{ base: 5, md: 8 }}
+                    columnGap={{ base: 5, md: 8 }}
+                    rowGap={{ base: 5, md: 8 }}
                 >
                     {renderSkeletons()}
                 </SimpleGrid>

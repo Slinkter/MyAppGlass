@@ -23,7 +23,7 @@ const LoadingFallback: React.FC = () => (
     transition={{ duration: 0.4 }}
   >
     <Spinner
-      thickness="2px"
+      borderWidth="2px"
       speed="0.6s"
       // @ts-expect-error - emptyColor exists in SpinnerProps but some versions/configs might complain
       emptyColor="whiteAlpha.100"

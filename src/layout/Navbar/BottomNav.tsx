@@ -15,7 +15,6 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { m } from "framer-motion";
-import { companyData } from "@/config/company-data";
 
 interface NavItem {
   label: string;
@@ -47,8 +46,7 @@ const BottomNav = () => {
     {
       label: "Contacto",
       icon: Phone,
-      path: `https://wa.me/${companyData.whatsappNumber}`,
-      isExternal: true,
+      path: "/contacto",
     },
     // Añadimos el componente de Tema como elemento accionado por evento
     {

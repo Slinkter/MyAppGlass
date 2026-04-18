@@ -7,7 +7,7 @@ const MotionBox = motion.create(Box);
 interface FeatureCardProps {
   heading: string;
   description: string;
-  icon: React.ReactElement;
+  icon?: React.ReactElement | null;
 }
 
 /**
@@ -73,27 +73,29 @@ const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, descripti
       />
 
       <VStack gap="phi_lg" zIndex={1} w="full">
-        <Flex
-          w="phi_xl"
-          h="phi_xl"
-          align="center"
-          justify="center"
-          borderRadius="2xl"
-          bg="bg.page"
-          color="text.body"
-          border="1px solid"
-          borderColor="border.default"
-          transition="all 0.5s cubic-bezier(0.19, 1, 0.22, 1)"
-          _groupHover={{ 
-            bg: "orange.300",
-            color: "black",
-            borderColor: "orange.300",
-            transform: "scale(1.08)",
-            boxShadow: "0 10px 25px -5px rgba(251, 211, 141, 0.4)"
-          }}
-        >
-          {React.cloneElement(icon, { size: 28, strokeWidth: 1.5 } as React.Attributes & { size?: number; strokeWidth?: number })}
-        </Flex>
+        {icon && (
+          <Flex
+            w="phi_xl"
+            h="phi_xl"
+            align="center"
+            justify="center"
+            borderRadius="2xl"
+            bg="bg.page"
+            color="text.body"
+            border="1px solid"
+            borderColor="border.default"
+            transition="all 0.5s cubic-bezier(0.19, 1, 0.22, 1)"
+            _groupHover={{ 
+              bg: "orange.300",
+              color: "black",
+              borderColor: "orange.300",
+              transform: "scale(1.08)",
+              boxShadow: "0 10px 25px -5px rgba(251, 211, 141, 0.4)"
+            }}
+          >
+            {React.isValidElement(icon) ? React.cloneElement(icon, { size: 28, strokeWidth: 1.5 } as React.Attributes & { size?: number; strokeWidth?: number }) : icon}
+          </Flex>
+        )}
 
         <VStack gap="phi_xs" textAlign="center">
           <Heading 

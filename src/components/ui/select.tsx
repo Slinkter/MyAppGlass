@@ -58,7 +58,7 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
 )
 
 export interface SelectItemProps extends ChakraSelect.ItemProps {
-  item: { value: string; label?: string } | unknown // Chakra UI Select item can be any type
+  item: any
 }
 
 export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(function SelectItem(props, ref) {
@@ -71,20 +71,20 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(func
   )
 })
 
-export interface SelectValueTextProps extends ChakraSelect.ValueTextProps {
+export interface SelectValueTextProps extends Omit<ChakraSelect.ValueTextProps, "children" | "placeholder"> {
   placeholder?: React.ReactNode
-  children?(items: unknown[]): React.ReactNode
+  children?(items: any[]): React.ReactNode
 }
 
 export const SelectValueText = React.forwardRef<HTMLSpanElement, SelectValueTextProps>(
   function SelectValueText(props, ref) {
-    const { children, ...rest } = props
+    const { children, placeholder, ...rest } = props
     return (
       <ChakraSelect.ValueText {...rest} ref={ref}>
         <ChakraSelect.Context>
           {(select) => {
             const items = select.selectedItems
-            if (items.length === 0) return props.placeholder
+            if (items.length === 0) return placeholder
             if (children) return children(items)
             if (items.length === 1)
               return select.collection.stringifyItem(items[0])

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 /**
@@ -60,3 +61,5 @@ export const AccountsSecureGlass: React.FC = () => (
     </SimpleGrid>
   </Box>
 );
+
+export default AccountsSecureGlass;

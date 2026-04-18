@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file ServicesImmersiveFilter.tsx
  * @description Aura "Immersive Filter" - Refactored with SegmentedControl from Chakra v3.

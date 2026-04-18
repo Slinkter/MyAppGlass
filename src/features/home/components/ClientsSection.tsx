@@ -18,28 +18,28 @@ import ClientCard from "./ClientCard";
  * @returns {JSX.Element} Sección completa de clientes.
  */
 const ClientsSection: React.FC = React.memo(() => {
-  const clients = getClients();
+    const clients = getClients();
 
-  return (
-    <ItemGridLayout
-      title="NUESTROS ALIADOS"
-      subtitle="Confianza sólida en cada estructura"
-      seoTitle="Nuestros Clientes - GYA Company"
-      seoDescription="Descubre por qué somos los líderes en vidriería y aluminio."
-      seoCanonicalUrl="https://www.gyacompany.com/clientes"
-      containerProps={{ mt: 0, pt: 0 }}
-    >
-      {clients.map((client, index) => (
-        <ItemGridLayout.Item key={client.id} delay={index * 0.1}>
-          <ClientCard
-            image={client.imgClient}
-            nameClient={client.nameClient}
-            descClient={client.descClient}
-          />
-        </ItemGridLayout.Item>
-      ))}
-    </ItemGridLayout>
-  );
+    return (
+        <ItemGridLayout
+            title="NUESTROS CLIENTES"
+            subtitle="Confianza sólida en cada estructura"
+            seoTitle="Nuestros Clientes - GYA Company"
+            seoDescription="Descubre por qué somos los líderes en vidriería y aluminio."
+            seoCanonicalUrl="https://www.gyacompany.com/clientes"
+            containerProps={{ mt: 0, pt: 0 }}
+        >
+            {clients.map((client, index) => (
+                <ItemGridLayout.Item key={client.id} delay={index * 0.1}>
+                    <ClientCard
+                        image={client.imgClient}
+                        nameClient={client.nameClient}
+                        descClient={client.descClient}
+                    />
+                </ItemGridLayout.Item>
+            ))}
+        </ItemGridLayout>
+    );
 });
 
 ClientsSection.displayName = "ClientsSection";
