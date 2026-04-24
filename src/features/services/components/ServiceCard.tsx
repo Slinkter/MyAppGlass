@@ -25,8 +25,10 @@ export interface ServiceCardProps {
   onLoadComplete?: () => void;
   loading?: "lazy" | "eager";
   isLCP?: boolean;
-  [key: string]: any;
 }
+
+const bgOverlay =
+  "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
 /**
  * @component ServiceCard
@@ -51,9 +53,6 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
       onLoadComplete();
     }
   }, [onLoadComplete]);
-
-  const bgOverlay =
-    "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
   return (
     <MotionLinkBox
@@ -128,7 +127,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
               {isMobile ? (
                  name 
               ) : (
-                <LinkOverlay as={RouterLink} href={plink}>
+                <LinkOverlay as={RouterLink} {...({ href: plink } as Record<string, unknown>)}>
                   {name}
                 </LinkOverlay>
               )}

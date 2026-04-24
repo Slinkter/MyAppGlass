@@ -15,7 +15,7 @@ import {
   Tag,
   type LucideIcon,
 } from "lucide-react";
-import { FEATURE_TEXTS } from "@/utils/constants";
+import { FEATURE_TEXTS } from "@shared/utils/constants";
 
 /**
  * Feature interface representing a key feature or service offered.

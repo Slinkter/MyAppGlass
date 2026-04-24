@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { Box } from "@chakra-ui/react";
-import ProjectsList from "@/features/projects/components/ProjectsList";
+import { ProjectsView } from "@/views/projects";
 
 export const metadata: Metadata = {
   title: "Nuestros Proyectos | GYA Glass & Aluminum",
@@ -11,9 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <Box as="section" py={1}>
-      <ProjectsList />
-    </Box>
-  );
+  return <ProjectsView />;
 }

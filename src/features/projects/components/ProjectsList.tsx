@@ -11,7 +11,8 @@ import { useColorModeValue } from "@/components/ui/color-mode-hooks";
  */
 
 import React, { useMemo, useCallback } from "react";
-import { Box, Button, HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { getProjects, Project } from "../services/projectService";

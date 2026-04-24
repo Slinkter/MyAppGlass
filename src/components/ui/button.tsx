@@ -11,7 +11,7 @@ export interface ButtonProps extends Omit<ChakraButtonProps, 'variant'> {
   loading?: boolean
   loadingText?: React.ReactNode
   variant?: ChakraButtonProps['variant'] | 'aura'
-  as?: any
+  as?: React.ElementType
   href?: string
   target?: string
   rel?: string
@@ -21,7 +21,7 @@ export interface ButtonProps extends Omit<ChakraButtonProps, 'variant'> {
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
   const { loading, disabled, loadingText, children, ...rest } = props
   return (
-    <ChakraButton disabled={loading || disabled} ref={ref} {...(rest as any)}>
+    <ChakraButton disabled={loading || disabled} ref={ref} {...rest}>
       {loading && !loadingText ? (
         <>
           <AbsoluteCenter display='inline-flex'>

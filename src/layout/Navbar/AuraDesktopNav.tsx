@@ -98,7 +98,8 @@ const AuraDesktopNav = () => {
           return (
             <Box key={item.label} position="relative">
               <Box
-                {...({ as: RouterLink, href: (item.href || "#") } as any)}
+                as={RouterLink}
+                {...({ href: item.href || "#" } as Record<string, unknown>)}
                 aria-current={isActive ? "page" : undefined}
                 style={{
                   textDecoration: "none",

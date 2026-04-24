@@ -28,6 +28,8 @@ import logoGYA from "@/assets/branding/logosvg.svg";
 const MotionVStack = m.create(VStack);
 const MotionBox = m.create(Box);
 
+const ANIMATION_CONFIG = { opacity: 0, y: 30 };
+
 /**
  * @component LandingPageSection
  * @description Sección de aterrizaje (Hero) de la página principal.
@@ -39,8 +41,6 @@ const LandingPageSection: React.FC = React.memo(() => {
     // En Chakra v3, las animaciones se manejan preferiblemente vía motion directamente
     // o consultando el estado de movimiento reducido si es necesario.
     
-    const animationConfig = { opacity: 0, y: 30 };
-
     return (
         <LazyMotion features={domAnimation}>
             <Flex
@@ -54,7 +54,7 @@ const LandingPageSection: React.FC = React.memo(() => {
             >
                 <MotionVStack
                     gap="phi_md"
-                    initial={animationConfig}
+                    initial={ANIMATION_CONFIG}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
                         duration: 0.3,

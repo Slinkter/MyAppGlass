@@ -13,7 +13,6 @@ export interface ProjectCardProps {
   isLCP?: boolean;
   loading?: "lazy" | "eager" | string;
   fetchPriority?: "auto" | "high" | "low" | string;
-  [key: string]: any;
 }
 
 /**

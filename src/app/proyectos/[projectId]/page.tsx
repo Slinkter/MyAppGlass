@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ProjectDetailPage from "@/views/ProjectDetailPage";
+import { ProjectDetailView } from "@/views/projects";
 import { getProjectById, getProjects } from "@/features/projects/services/projectService";
 
 export function generateStaticParams() {
@@ -34,5 +34,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 
 export default function Page() {
-  return <ProjectDetailPage />;
+  return <ProjectDetailView />;
 }

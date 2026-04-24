@@ -5,8 +5,8 @@ import { Providers } from './providers';
 import { Box } from "@chakra-ui/react";
 import { AuraNavbar as Navbar } from "@/layout/Navbar";
 import { Footer } from "@/layout/Footer";
-import { FloatingWhatsApp } from "@/layout/FloatingActions";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { FloatingWhatsAppWrapper as FloatingWhatsApp } from "@/layout/FloatingActions";
 
 const lora = Lora({
   subsets: ['latin'],
@@ -36,21 +36,40 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning className={lora.variable}>
-      <head>
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            html, body {
-              margin: 0;
-              padding: 0;
-              min-height: 100%;
-              font-family: var(--font-lora), serif;
-            }
-          `
-        }} />
-      </head>
+      <head />
       <body>
         <Providers>
             <Box minH="100dvh" position="relative">
+                {/* Skip Link for Accessibility */}
+                <Box
+                    as="a"
+                    {...({ href: "#main-content" } as Record<string, unknown>)}
+                    position="absolute"
+                    top="-1000px"
+                    left="-1000px"
+                    w="1px"
+                    h="1px"
+                    overflow="hidden"
+                    _focus={{
+                        position: "fixed",
+                        top: "phi_md",
+                        left: "phi_md",
+                        width: "auto",
+                        height: "auto",
+                        display: "inline-block",
+                        p: "phi_sm",
+                        m: "phi_sm",
+                        border: "2px solid",
+                        borderColor: "text.accent",
+                        borderRadius: "md",
+                        bg: "bg.panel",
+                        color: "text.heading",
+                        zIndex: "9999",
+                    }}
+                >
+                    Saltar al contenido principal
+                </Box>
+
                 <Box
                     position="relative"
                     maxW="1440px"

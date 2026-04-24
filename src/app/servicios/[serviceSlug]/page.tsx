@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { Box } from "@chakra-ui/react";
-import ServicePageContainer from "@/features/services/components/ServicePageContainer";
+import { ServiceDetailView } from "@/views/services";
 import { getServiceBySlug, getServices } from "@/features/services/services/serviceService";
 
 export function generateStaticParams() {
@@ -35,9 +34,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function Page() {
-  return (
-    <Box as="section" py={1}>
-      <ServicePageContainer />
-    </Box>
-  );
+  return <ServiceDetailView />;
 }

@@ -5,7 +5,7 @@ import { ColorModeProvider } from "./color-mode"
 import * as React from "react"
 
 export interface ProviderProps {
-  value?: any
+  value?: any // Using any here as SystemContext is highly complex and internal
   children: React.ReactNode
 }
 

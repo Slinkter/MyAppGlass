@@ -2,7 +2,8 @@
 
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { useState } from "react";
-import { Box, Button, Text, Link, VStack } from "@chakra-ui/react";
+import { Box, Text, Link, VStack } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import {
   DialogRoot,
   DialogContent,
@@ -81,7 +82,8 @@ const FloatingWhatsApp = () => {
                 Chatea con nosotros en WhatsApp para una cotización o consulta.
               </Text>
               <Button
-                {...({ as: Link, href: whatsappLink } as any)}
+                as={Link}
+                href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 w="full"

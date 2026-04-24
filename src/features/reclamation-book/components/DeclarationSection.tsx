@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Text, Heading } from "@chakra-ui/react";
+import { Text, Heading } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useReclamationFormContext } from "./ReclamationFormContext";
