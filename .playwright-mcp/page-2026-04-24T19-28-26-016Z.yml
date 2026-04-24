@@ -1,0 +1,61 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - banner
+      - main [ref=e4]
+      - contentinfo [ref=e13]:
+        - generic [ref=e15]:
+          - generic [ref=e16]:
+            - generic [ref=e17]:
+              - heading "Contacto" [level=4] [ref=e18]
+              - generic [ref=e19]:
+                - generic [ref=e20]:
+                  - img [ref=e21]
+                  - paragraph [ref=e23]: 974 278 303
+                - generic [ref=e24]:
+                  - img [ref=e25]
+                  - paragraph [ref=e27]: 996 537 435
+                - generic [ref=e28]:
+                  - img [ref=e29]
+                  - paragraph [ref=e32]: acueva@gyacompany.com
+            - generic [ref=e33]:
+              - heading "Horarios" [level=4] [ref=e34]
+              - generic [ref=e35]:
+                - generic [ref=e36]:
+                  - img [ref=e37]
+                  - paragraph [ref=e39]: Lunes a Sábado
+                - generic [ref=e40]:
+                  - img [ref=e41]
+                  - paragraph [ref=e44]: 9:00 am – 5:00 pm
+                - generic [ref=e45]:
+                  - img [ref=e46]
+                  - paragraph [ref=e49]: La Molina, Lima - Perú
+            - generic [ref=e50]:
+              - heading "Corporativo" [level=4] [ref=e51]
+              - generic [ref=e52]:
+                - link [ref=e53] [cursor=pointer]:
+                  - /url: /politicas-empresa
+                  - group [ref=e54]:
+                    - generic [ref=e55]:
+                      - img [ref=e56]
+                      - paragraph [ref=e59]: Políticas de Empresa
+                - link [ref=e60] [cursor=pointer]:
+                  - /url: /cuentas-bancarias
+                  - group [ref=e61]:
+                    - generic [ref=e62]:
+                      - img [ref=e63]
+                      - paragraph [ref=e66]: Cuentas Bancarias
+                - link "Libro de Reclamaciones Libro de Reclamaciones" [ref=e67] [cursor=pointer]:
+                  - /url: /libro-de-reclamacion
+                  - generic [ref=e68]:
+                    - img "Libro de Reclamaciones" [ref=e70]
+                    - paragraph [ref=e71]: Libro de Reclamaciones
+          - separator [ref=e72]
+          - generic [ref=e73]:
+            - img "Logo GYA Glass & Aluminum" [ref=e75]
+            - paragraph [ref=e76]: GLASS & ALUMINUM COMPANY S.A.C.
+            - paragraph [ref=e77]: © 2026
+    - button "Abrir chat de WhatsApp" [ref=e79] [cursor=pointer]:
+      - img [ref=e80]
+  - button "Open Next.js Dev Tools" [ref=e87] [cursor=pointer]:
+    - img [ref=e88]
