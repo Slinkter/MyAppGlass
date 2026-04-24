@@ -35,6 +35,9 @@ interface ProjectCardContentProps {
   fetchPriority?: "auto" | "high" | "low" | string;
 }
 
+const bgOverlay =
+  "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
+
 /**
  * @component ProjectCardContent
  * @description Presentational component for the project card visual structure.
@@ -43,10 +46,6 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
   ({ image = "", residencial, address, year, onExplore, isLCP, loading, fetchPriority }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-
-    // Presentational gradient — intentionally hardcoded dark overlay (not mode-dependent)
-    const bgOverlay =
-      "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
     return (
       <MotionLinkBox
@@ -75,9 +74,9 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
               objectFit="cover"
               w="100%"
               h="100%"
-              loading={(loading as any) || (isLCP ? "eager" : "lazy")}
+              loading={(loading as "lazy" | "eager") || (isLCP ? "eager" : "lazy")}
               decoding={isLCP ? "sync" : "async"}
-              fetchPriority={fetchPriority as any}
+              fetchPriority={fetchPriority as "auto" | "high" | "low"}
               onLoad={() => {
                 logger.debug({ src: image, residencial }, "Image loaded");
                 setIsLoaded(true);

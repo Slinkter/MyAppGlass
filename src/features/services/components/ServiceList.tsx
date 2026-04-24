@@ -1,6 +1,7 @@
 "use client";
 import React, { useMemo, useState, useEffect, useCallback } from "react";
-import { Box, HStack, Button } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import { getServices } from "../services/serviceService";

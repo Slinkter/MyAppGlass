@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, VStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { ERROR_MESSAGES } from "@/utils/constants";
+import { ERROR_MESSAGES } from "@shared/utils/constants";
 
 interface ErrorDisplayProps {
   message?: string;

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import BankAccountsPage from "@/views/BankAccountsPage";
+import { BankAccountsView } from "@/views/legal";
 
 export const metadata: Metadata = {
   title: "Cuentas Bancarias | GYA Glass & Aluminum",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <BankAccountsPage />;
+  return <BankAccountsView />;
 }

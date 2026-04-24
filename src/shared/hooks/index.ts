@@ -13,4 +13,3 @@ export { default as useFilterableList } from "./ui/useFilterableList";
 export { default as useIntersectionObserver } from "./observers/useIntersectionObserver";
 
 // Data Hooks
-export { useAsyncData } from "./data/useAsyncData";

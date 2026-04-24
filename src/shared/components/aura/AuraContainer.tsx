@@ -12,24 +12,24 @@ interface AuraContainerProps extends ContainerProps {
   animate?: boolean;
 }
 
+const AURA_MOTION_PROPS: HTMLMotionProps<"div"> = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, ease: "easeOut" }
+};
+
 /**
  * @component AuraContainer
  * @param {React.ReactNode} children
  * @param {boolean} animate - Whether to apply entry animation.
  */
 const AuraContainer: React.FC<AuraContainerProps> = ({ children, animate = true, ...props }) => {
-  const motionProps: HTMLMotionProps<"div"> = animate ? {
-    initial: { opacity: 0, y: 10 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, ease: "easeOut" }
-  } : {};
-
   return (
     <Box 
       bg="bg.page" 
       minH="100vh" 
       pb={{ base: "phi_2xl", md: "phi_3xl" }}
-      {...(animate ? ({ as: m.div, ...motionProps } as any) : {})}
+      {...(animate ? ({ as: m.div, ...AURA_MOTION_PROPS } as any) : {})}
     >
       <Container 
         maxW="7xl" 

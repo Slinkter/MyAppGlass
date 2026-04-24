@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { Box } from "@chakra-ui/react";
-import ServiceList from "@/features/services/components/ServiceList";
+import { ServicesListView } from "@/views/services";
 
 export const metadata: Metadata = {
   title: "Nuestros Servicios | GYA Glass & Aluminum",
@@ -11,9 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <Box as="section" py={1}>
-      <ServiceList />
-    </Box>
-  );
+  return <ServicesListView />;
 }

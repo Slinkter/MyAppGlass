@@ -58,7 +58,7 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
 )
 
 export interface SelectItemProps extends ChakraSelect.ItemProps {
-  item: any
+  item: { value: string; label: React.ReactNode } & Record<string, unknown>
 }
 
 export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(function SelectItem(props, ref) {
@@ -73,7 +73,7 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(func
 
 export interface SelectValueTextProps extends Omit<ChakraSelect.ValueTextProps, "children" | "placeholder"> {
   placeholder?: React.ReactNode
-  children?(items: any[]): React.ReactNode
+  children?(items: unknown[]): React.ReactNode
 }
 
 export const SelectValueText = React.forwardRef<HTMLSpanElement, SelectValueTextProps>(

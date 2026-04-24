@@ -4,7 +4,7 @@
  * @module shared/components/navigation
  */
 import React from "react";
-import { Button } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
