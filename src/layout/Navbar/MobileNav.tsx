@@ -6,13 +6,12 @@
  * Refined trigger: Removed all backgrounds and borders for an ultra-clean floating look.
  */
 import React, { useState, useEffect, useCallback, useTransition } from "react";
-import { Box, IconButton, VStack, Image, Text, Separator, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Box, IconButton, VStack, Text, Separator, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Menu, X, ShieldCheck, Landmark, Home, Sun, Moon, LucideIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import NavLink from "next/link";
 import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/data/nav-items";
-import LibroReclamacionesIcon from "@/assets/libro.svg";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
 import {
   DrawerBackdrop,
@@ -90,13 +89,8 @@ const UtilityLink = ({ label, href, icon: Icon, onClick, isImage }: UtilityLinkP
         transition="all 0.3s ease"
       >
         {isImage ? (
-          <Image 
-            src={Icon as string} 
-            alt={label} 
-            boxSize={5} 
-            _dark={{ filter: "brightness(0) invert(1)" }} 
-            opacity={isActive ? 1 : 0.7} 
-          />
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          <img src={Icon as any} alt={label} width={20} height={20} style={{ opacity: isActive ? 1 : 0.7 }} />
         ) : (
           <Box as={Icon as LucideIcon} boxSize={5} opacity={isActive ? 1 : 0.7} />
         )}
@@ -160,8 +154,8 @@ const MobileNav = React.memo(() => {
 
       <DrawerBackdrop backdropFilter="blur(16px)" bg="blackAlpha.600" />
       
-      <DrawerContent bg="bg.page" p={0}>
-        <DrawerBody display="flex" flexDirection="column" h="full" px={8} pt={24} pb={8}>
+       <DrawerContent bg="bg.page" p={0} height="100vh" width="100vw" position="fixed" top={0} left={0}>
+         <DrawerBody display="flex" flexDirection="column" h="full" px={8} pt={24} pb={8}>
           
           <VStack flex="1" align="flex-start" justify="center" gap={2} opacity={isPending ? 0.6 : 1} transition="opacity 0.3s">
             <AnimatePresence>
@@ -193,7 +187,7 @@ const MobileNav = React.memo(() => {
               <UtilityLink 
                 label="Libro" 
                 href="/libro-de-reclamacion" 
-                icon={LibroReclamacionesIcon} 
+                icon="/images/libro.svg" 
                 onClick={handleLinkClick} 
                 isImage 
               />

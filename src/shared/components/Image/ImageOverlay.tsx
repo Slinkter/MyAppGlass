@@ -80,7 +80,7 @@ const ImageOverlay: React.FC<ImageOverlayProps> = React.memo(({ name, plink }) =
 
         <Button
           as={RouterLink}
-          to={plink}
+          {...({ href: plink } as any)}
           aria-label={`Ver catálogo de ${name}`}
           width="full"
           opacity={0}

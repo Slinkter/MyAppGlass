@@ -1,18 +1,18 @@
 "use client"
 
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
+import { ChakraProvider } from "@chakra-ui/react"
+import { system } from "@/theme"
 import { ColorModeProvider } from "./color-mode"
 import * as React from "react"
 
 export interface ProviderProps {
-  value?: any // Using any here as SystemContext is highly complex and internal
   children: React.ReactNode
 }
 
-export function Provider({ value, children }: ProviderProps) {
+export function Provider({ children }: ProviderProps) {
   return (
     <ColorModeProvider defaultTheme="light" enableSystem={false}>
-      <ChakraProvider value={value || defaultSystem}>
+      <ChakraProvider value={system}>
         {children}
       </ChakraProvider>
     </ColorModeProvider>
