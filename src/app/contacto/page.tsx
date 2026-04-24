@@ -19,7 +19,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { MessageSquareText, Mail, Phone, Send } from "lucide-react";
+import { MessageSquareText, Mail, Phone } from "lucide-react";
 import GlassCard from "@/shared/components/common/GlassCard";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
@@ -90,7 +90,6 @@ export default function ContactPage() {
                   fontWeight="900"
                   letterSpacing="0.1em"
                   _hover={{ transform: "translateY(-4px)", boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
-                  whileTap={{ scale: 0.98 }}
                 >
                   CONTACTAR AHORA
                 </Button>
@@ -147,7 +146,6 @@ export default function ContactPage() {
                 size="xl" 
                 w="full" 
                 borderRadius="full"
-                rightIcon={<Send size={18} />}
               >
                 ENVIAR SOLICITUD
               </Button>

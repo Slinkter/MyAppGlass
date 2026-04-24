@@ -29,6 +29,7 @@ const AuraContainer: React.FC<AuraContainerProps> = ({ children, animate = true,
       bg="bg.page" 
       minH="100vh" 
       pb={{ base: "phi_2xl", md: "phi_3xl" }}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       {...(animate ? ({ as: m.div, ...AURA_MOTION_PROPS } as any) : {})}
     >
       <Container 

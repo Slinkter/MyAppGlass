@@ -15,13 +15,14 @@ export interface ButtonProps extends Omit<ChakraButtonProps, 'variant'> {
   href?: string
   target?: string
   rel?: string
-  [key: string]: any
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
   const { loading, disabled, loadingText, children, ...rest } = props
+  const isDisabled = Boolean(loading || disabled)
   return (
-    <ChakraButton disabled={loading || disabled} ref={ref} {...rest}>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <ChakraButton disabled={isDisabled} ref={ref} {...(rest as any)}>
       {loading && !loadingText ? (
         <>
           <AbsoluteCenter display='inline-flex'>
@@ -40,4 +41,3 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
     </ChakraButton>
   )
 })
-
