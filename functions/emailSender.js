@@ -135,6 +135,113 @@ async function sendEmailLogic(reclamoData, admin) {
   }
 }
 
+/**
+ * Crea HTML del correo para contacto general.
+ */
+const createContactEmailHtml = (data) => `
+  <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ccc; border-radius: 10px; max-width: 600px;">
+    <h2 style="color: #18181b;">Nueva Consulta: Formulario de Contacto</h2>
+    <p>Has recibido un nuevo mensaje desde la web:</p>
+    
+    <div style="background: #fafafa; padding: 15px; border-radius: 8px; margin-top: 10px; border: 1px solid #f4f4f5;">
+      <p><strong>Nombre:</strong> ${data.name}</p>
+      <p><strong>Email:</strong> ${data.email}</p>
+      <hr style="border: none; border-top: 1px solid #f4f4f5; margin: 15px 0;" />
+      <strong>Mensaje / Requerimiento:</strong><br/>
+      <p style="white-space: pre-wrap;">${data.message}</p>
+    </div>
+    
+    <p style="font-size: 0.8em; color: #a1a1aa; margin-top: 20px;">Este correo fue generado automáticamente desde gyacompany.com</p>
+  </div>
+`;
+
+/**
+ * Crea HTML del correo de confirmación para el cliente (Contacto).
+ */
+const createContactClientEmailHtml = (data, contactId) => `
+  <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ccc; border-radius: 10px; max-width: 600px;">
+    <h2 style="color: #18181b;">Hemos recibido tu consulta</h2>
+    <p>Hola <strong>${data.name}</strong>,</p>
+    <p>Gracias por ponerte en contacto con <strong>GYA Company</strong>.</p>
+    <p>Hemos recibido tu mensaje correctamente y uno de nuestros especialistas revisará tu requerimiento a la brevedad.</p>
+    
+    <div style="background: #f4f4f5; padding: 15px; border-radius: 8px; text-align: center; margin: 20px 0;">
+      <p style="margin: 0; font-size: 0.9em; color: #71717a;">CÓDIGO DE SEGUIMIENTO</p>
+      <p style="margin: 5px 0 0 0; font-size: 1.5em; font-weight: bold; color: #18181b;">${contactId}</p>
+    </div>
+
+    <div style="background: #fafafa; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #eee;">
+      <p style="margin: 0; font-size: 0.9em; color: #71717a;">Resumen de tu mensaje:</p>
+      <p style="margin: 10px 0 0 0; font-style: italic; color: #18181b;">"${data.message}"</p>
+    </div>
+
+    <p>Puedes consultar el estado de tu solicitud en nuestra web usando tu código.</p>
+    <br/>
+    <p style="font-size: 0.9em; color: #a1a1aa;">Atentamente,<br/><strong>El equipo de GYA Glass & Aluminum</strong></p>
+  </div>
+`;
+
+/**
+ * Lógica de negocio para enviar correos de contacto general.
+ */
+async function sendContactEmailLogic(contactData, admin) {
+  logger.info("INIT: Iniciando sendContactEmailLogic", { email: contactData.email });
+  
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const db = admin.firestore();
+  const ADMIN_RECIPIENT = process.env.ADMIN_EMAIL;
+
+  if (!ADMIN_RECIPIENT) {
+    logger.error("MISSING_SECRET: ADMIN_EMAIL is not defined.");
+    throw new HttpsError("failed-precondition", "Configuración de servidor incompleta.");
+  }
+
+  if (!contactData.email || !contactData.name || !contactData.message) {
+    throw new HttpsError("invalid-argument", "Faltan datos obligatorios del contacto.");
+  }
+
+  try {
+    // 1. Enviar correo al Administrador para obtener el ID de Resend como tracking
+    const adminEmail = await resend.emails.send({
+      from: "GYA Contacto <noreply@gyacompany.com>",
+      to: ADMIN_RECIPIENT,
+      subject: `NUEVA CONSULTA - ${contactData.name}`,
+      html: createContactEmailHtml(contactData),
+      reply_to: contactData.email,
+    });
+
+    if (adminEmail.error) throw new Error(adminEmail.error.message);
+    const contactId = adminEmail.data.id;
+
+    // 2. Enviar confirmación al Cliente con su código
+    const clientEmail = await resend.emails.send({
+      from: "GYA Glass & Aluminum <noreply@gyacompany.com>",
+      to: contactData.email,
+      subject: `Confirmación de Recepción - Código ${contactId}`,
+      html: createContactClientEmailHtml(contactData, contactId),
+    });
+
+    if (clientEmail.error) {
+      logger.warn("RESEND_CLIENT_WARNING: No se pudo enviar copia al cliente", clientEmail.error);
+    }
+
+    // 3. Persistir en Firestore
+    await db.collection("contact_submissions").doc(contactId).set({
+      ...contactData,
+      status: "RECIBIDO",
+      createdAt: FieldValue.serverTimestamp(),
+      resendId: contactId,
+      source: "PROD_WEB"
+    });
+
+    return { id: contactId };
+  } catch (error) {
+    logger.error("Error en sendContactEmailLogic:", error);
+    throw new HttpsError("internal", error.message);
+  }
+}
+
 module.exports = {
   sendEmailLogic,
+  sendContactEmailLogic,
 };

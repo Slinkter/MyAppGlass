@@ -24,7 +24,7 @@ const BLOG_POSTS: BlogPost[] = [
     description: "Descubre las últimas innovaciones en vidrio templado y cómo transformar tu hogar con elegancia y seguridad.",
     excerpt: "El vidrio templado sigue evolucionando. En este artículo exploramos las texturas, colores y aplicaciones que dominarán la arquitectura moderna este año.",
     date: "2026-03-15",
-    author: "Ing. Roberto García",
+    author: "GYA Company",
     image: "/images/home-img_t01.webp",
     tags: ["Vidrio Templado", "Arquitectura", "Diseño"],
     content: `
@@ -49,7 +49,7 @@ const BLOG_POSTS: BlogPost[] = [
     description: "Por qué el aluminio es el aliado perfecto para las fachadas modernas y perfiles ultra delgados.",
     excerpt: "Analizamos la durabilidad y versatilidad del aluminio en proyectos residenciales y comerciales de alto nivel.",
     date: "2026-04-10",
-    author: "Arq. Elena Martínez",
+    author: "GYA Company",
     image: "/images/home-img_t05.webp",
     tags: ["Aluminio", "Minimalismo", "Construcción"],
     content: `

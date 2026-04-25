@@ -9,9 +9,10 @@ import { useColorModeValue } from "@/components/ui/color-mode-hooks";
  */
 
 import React, { useState, useMemo, useCallback } from "react";
-import NextImage from "next/image";
+import Image from "next/image";
 import { Box, BoxProps } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
+import { getAssetUrl } from "@/shared/utils/asset-utils";
 
 const pulse = keyframes`
   0% { opacity: 0.6; }
@@ -67,7 +68,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
 
     const imageSrc = useMemo(() => {
       if (hasError) return fallbackSrc || imgF;
-      return src || fallbackSrc || imgF;
+      return getAssetUrl(src || fallbackSrc || imgF);
     }, [src, fallbackSrc, hasError]);
 
     const placeholderBg = useColorModeValue("gray.100", "gray.800");
@@ -127,8 +128,8 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
         )}
 
         {/* Optimized Image using next/image */}
-        <NextImage
-          src={imageSrc}
+        <Image
+          src={getAssetUrl(src)}
           alt={alt}
           fill
           priority={priority}

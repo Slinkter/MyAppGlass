@@ -26,11 +26,12 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
       cursor="pointer"
       position="relative"
       w="full"
-      h={{ base: "320px", md: "520px" }}
-      borderRadius="3xl"
+      h={{ base: "phi_4xl", md: "phi_5xl" }}
+      borderRadius="xl"
       overflow="hidden"
       boxShadow="sm"
-      _hover={{ boxShadow: "2xl" }}
+      transform="translateZ(0)"
+      _hover={{ boxShadow: "2xl", transform: "translateZ(0)" }}
       transition="all 0.4s ease"
     >
       <Box position="relative" h="full" w="full" overflow="hidden">
@@ -78,7 +79,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
             h="2px"
             bg="text.accent"
             transition="width 0.4s ease"
-            _groupHover={{ w: "60px" }}
+            _groupHover={{ w: "phi_xl" }}
           />
 
           <Text

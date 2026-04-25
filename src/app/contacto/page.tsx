@@ -17,11 +17,13 @@ import {
   Icon,
   Input,
   Textarea,
+  Badge,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { MessageSquareText, Mail, Phone } from "lucide-react";
+import { MessageSquareText, Mail, Phone, Search } from "lucide-react";
 import GlassCard from "@/shared/components/common/GlassCard";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
+import { useContactForm } from "@/features/contacto/hooks/useContactForm";
 
 /**
  * @component ContactPage
@@ -29,6 +31,10 @@ import { useColorModeValue } from "@/components/ui/color-mode-hooks";
  */
 export default function ContactPage() {
   const cardBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.50");
+  const { 
+    formData, isSubmitting, handleChange, handleSubmit,
+    trackingId, isTracking, trackingResult, handleTrackingChange, handleTrackingSubmit
+  } = useContactForm();
 
   return (
     <Box bg="bg.page" minH="100dvh" pt={{ base: 24, md: 32 }} pb={20} position="relative" overflow="hidden">
@@ -95,6 +101,55 @@ export default function ContactPage() {
               </VStack>
             </GlassCard>
 
+            {/* TRACKING CARD - CONSULTAR ESTADO */}
+            <GlassCard p="phi_md" bg={cardBg} border="1px solid" borderColor="text.accent">
+              <VStack align="flex-start" gap="phi_md">
+                <HStack gap="phi_xs" color="text.accent">
+                  <Search size={18} />
+                  <Heading size="xs" textTransform="uppercase" letterSpacing="widest">Consultar Estado de Solicitud</Heading>
+                </HStack>
+                <Text fontSize="xs" color="text.muted">¿Ya realizaste una cotización o reclamo? Ingresa tu código aquí.</Text>
+                
+                <HStack w="full" as="form" onSubmit={handleTrackingSubmit}>
+                  <Input 
+                    variant="subtle" 
+                    placeholder="resend-id-..." 
+                    size="sm" 
+                    value={trackingId}
+                    onChange={handleTrackingChange}
+                  />
+                  <Button 
+                    size="sm" 
+                    variant="aura" 
+                    type="submit" 
+                    loading={isTracking}
+                  >
+                    BUSCAR
+                  </Button>
+                </HStack>
+
+                {trackingResult && (
+                  <Box w="full" p="phi_xs" bg="whiteAlpha.100" borderRadius="md" borderLeft="4px solid" borderColor="text.accent">
+                    <VStack align="flex-start" gap={1}>
+                      <Text fontSize="2xs" color="text.muted" textTransform="uppercase">{trackingResult.type}</Text>
+                      <HStack justify="space-between" w="full">
+                        <Text fontWeight="bold" fontSize="sm">{trackingResult.name}</Text>
+                        <Badge colorScheme={trackingResult.status === "RECIBIDO" ? "blue" : "green"} variant="solid" fontSize="10px">
+                          {trackingResult.status}
+                        </Badge>
+                      </HStack>
+                      <Text fontSize="2xs" color="text.muted">
+                        ID: {trackingResult.id.substring(0, 15)}...
+                      </Text>
+                      <Text fontSize="2xs" color="text.muted">
+                        Fecha: {new Date(trackingResult.createdAt).toLocaleDateString()}
+                      </Text>
+                    </VStack>
+                  </Box>
+                )}
+              </VStack>
+            </GlassCard>
+
             {/* Optimized Contact Info Grid */}
             <VStack gap="phi_sm" align="stretch">
               <Box p="phi_md" borderRadius="2xl" border="1px solid" borderColor="border.glass" bg={cardBg}>
@@ -126,11 +181,11 @@ export default function ContactPage() {
                       cursor="pointer"
                       title="Haz clic para copiar"
                       onClick={() => {
-                        navigator.clipboard.writeText("gyacompany.ventas@gmail.com");
+                        navigator.clipboard.writeText("acueva@gyacompany.com");
                         alert("Email copiado al portapapeles");
                       }}
                     >
-                      gyacompany.ventas@gmail.com
+                      acueva@gyacompany.com
                     </Text>
                   </VStack>
                 </HStack>
@@ -140,7 +195,7 @@ export default function ContactPage() {
 
           {/* RIGHT: Email Form (The "Formal" way) */}
           <GlassCard p="phi_lg" bg={cardBg}>
-            <VStack align="flex-start" gap="phi_lg" as="form">
+            <VStack align="flex-start" gap="phi_lg" as="form" onSubmit={handleSubmit}>
               <VStack align="flex-start" gap="phi_xs">
                 <Heading size="md" color="text.heading">Formulario de Cotización</Heading>
                 <Text fontSize="sm" color="text.muted">Completa los datos y adjunta tu requerimiento.</Text>
@@ -149,27 +204,53 @@ export default function ContactPage() {
               <VStack w="full" gap="phi_md">
                 <Box w="full">
                   <Text fontSize="xs" fontWeight="black" mb="phi_xs" ml={1} color="text.muted" letterSpacing="widest">NOMBRE COMPLETO</Text>
-                  <Input variant="subtle" w="full" placeholder="Ej. Juan Pérez" />
+                  <Input 
+                    variant="subtle" 
+                    w="full" 
+                    placeholder="Ej. Juan Pérez" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
                 </Box>
 
                 <Box w="full">
                   <Text fontSize="xs" fontWeight="black" mb="phi_xs" ml={1} color="text.muted" letterSpacing="widest">CORREO ELECTRÓNICO</Text>
-                  <Input variant="subtle" w="full" placeholder="tu@email.com" />
+                  <Input 
+                    variant="subtle" 
+                    w="full" 
+                    placeholder="tu@email.com" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    type="email"
+                  />
                 </Box>
 
                 <Box w="full">
                   <Text fontSize="xs" fontWeight="black" mb="phi_xs" ml={1} color="text.muted" letterSpacing="widest">DETALLES DEL PROYECTO</Text>
-                  <Textarea variant="subtle" w="full" placeholder="Describe las medidas o el sistema que necesitas..." rows={4} />
+                  <Textarea 
+                    variant="subtle" 
+                    w="full" 
+                    placeholder="Describe las medidas o el sistema que necesitas..." 
+                    rows={4} 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                  />
                 </Box>
               </VStack>
 
               <Button 
+                type="submit"
                 variant="aura" 
                 size="xl" 
                 w="full" 
                 borderRadius="full"
                 fontWeight="900"
                 letterSpacing="widest"
+                loading={isSubmitting}
+                loadingText="ENVIANDO..."
               >
                 ENVIAR SOLICITUD
               </Button>

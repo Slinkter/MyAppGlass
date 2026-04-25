@@ -211,6 +211,21 @@ const config = defineConfig({
         phi_xl: { value: "3.4375rem" }, // 55px
         phi_2xl: { value: "5.5625rem" }, // 89px
         phi_3xl: { value: "9rem" },     // 144px
+        phi_4xl: { value: "14.5625rem" }, // 233px
+        phi_5xl: { value: "23.5625rem" }, // 377px
+        phi_6xl: { value: "38.125rem" },  // 610px
+      },
+      sizes: {
+        phi_xs: { value: "{spacing.phi_xs}" },
+        phi_sm: { value: "{spacing.phi_sm}" },
+        phi_md: { value: "{spacing.phi_md}" },
+        phi_lg: { value: "{spacing.phi_lg}" },
+        phi_xl: { value: "{spacing.phi_xl}" },
+        phi_2xl: { value: "{spacing.phi_2xl}" },
+        phi_3xl: { value: "{spacing.phi_3xl}" },
+        phi_4xl: { value: "{spacing.phi_4xl}" },
+        phi_5xl: { value: "{spacing.phi_5xl}" },
+        phi_6xl: { value: "{spacing.phi_6xl}" },
       },
       radii: {
         phi: { value: "1.618rem" },

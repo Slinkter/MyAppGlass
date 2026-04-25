@@ -8,7 +8,7 @@ import { Box } from "@chakra-ui/react";
 
 const ServicesView: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <Box as="section" py={1}>
+    <Box as="section" pt={{ base: "phi_xl", md: "phi_2xl" }} pb="phi_md">
       {children}
     </Box>
   );
