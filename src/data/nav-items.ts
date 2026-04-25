@@ -18,20 +18,12 @@ export interface NavItem {
  */
 const NAV_ITEMS: NavItem[] = [
   {
-    label: "Portal GYA",
+    label: "Inicio",
     href: "/",
   },
   {
-    label: "Ventanas",
-    href: "/servicios/ventana",
-  },
-  {
-    label: "Mamparas",
-    href: "/servicios/mampara",
-  },
-  {
-    label: "Puertas de Ducha",
-    href: "/servicios/ducha",
+    label: "Servicios",
+    href: "/servicios",
   },
   {
     label: "Proyectos",

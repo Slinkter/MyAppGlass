@@ -305,24 +305,19 @@ const BankAccountsView: React.FC = () => {
     if (isLoading) {
         return (
             <AuraContainer>
-                <VStack gap={12} align="stretch">
-                    <AuraSkeleton h="100px" w="full" mb="phi_lg" />
+                <VStack gap="phi_lg" align="stretch">
+                    <AuraSkeleton h="100px" w="full" mb="phi_sm" />
                     <Box>
-                        <AuraSkeleton h="32px" w="250px" mb="phi_lg" />
+                        <AuraSkeleton h="32px" w="250px" mb="phi_md" />
                         <GridSkeleton columns={{ base: 1, md: 2 }} count={4} />
                     </Box>
                     <Box>
-                        <AuraSkeleton h="32px" w="250px" mb="phi_lg" />
+                        <AuraSkeleton h="32px" w="250px" mb="phi_md" />
                         <BannerSkeleton />
                     </Box>
                     <Box>
-                        <AuraSkeleton h="32px" w="250px" mb="phi_lg" />
+                        <AuraSkeleton h="32px" w="250px" mb="phi_md" />
                         <VStack gap="phi_md" w="full">
-                            <AuraSkeleton
-                                h="160px"
-                                w="full"
-                                borderRadius="2xl"
-                            />
                             <AuraSkeleton
                                 h="160px"
                                 w="full"
@@ -340,18 +335,19 @@ const BankAccountsView: React.FC = () => {
             <Toaster />
 
             <AuraContainer>
-                <VStack gap={12} align="stretch">
+                <VStack gap="phi_lg" align="stretch">
                     <AuraHeader
                         title="Cuentas Bancarias y Facturación"
                         overline="Información Bancaria"
                         description="Encuentre a continuación nuestros datos fiscales y bancarios para gestionar sus pagos con seguridad y confianza."
+                        mb={0}
                     />
 
                     <Box>
                         <Heading
                             as="h2"
                             size="lg"
-                            mb="phi_lg"
+                            mb="phi_md"
                             color="text.heading"
                             fontWeight="800"
                         >
@@ -370,7 +366,7 @@ const BankAccountsView: React.FC = () => {
                         <Heading
                             as="h2"
                             size="lg"
-                            mb="phi_lg"
+                            mb="phi_md"
                             color="text.heading"
                             fontWeight="800"
                         >
@@ -512,7 +508,7 @@ const BankAccountsView: React.FC = () => {
                         <Heading
                             as="h2"
                             size="lg"
-                            mb="phi_lg"
+                            mb="phi_md"
                             color="text.heading"
                             fontWeight="800"
                         >

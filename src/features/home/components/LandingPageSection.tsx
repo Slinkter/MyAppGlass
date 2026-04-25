@@ -10,14 +10,7 @@
  */
 
 import React from "react";
-import {
-    Box,
-    Flex,
-    Heading,
-    HStack,
-    Text,
-    VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 import RouterLink from "next/link";
@@ -40,7 +33,7 @@ const ANIMATION_CONFIG = { opacity: 0, y: 30 };
 const LandingPageSection: React.FC = React.memo(() => {
     // En Chakra v3, las animaciones se manejan preferiblemente vía motion directamente
     // o consultando el estado de movimiento reducido si es necesario.
-    
+
     return (
         <LazyMotion features={domAnimation}>
             <Flex
@@ -67,15 +60,25 @@ const LandingPageSection: React.FC = React.memo(() => {
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.3 }}
                         position="relative"
-                        w={{ base: "220px", sm: "240px", md: "320px", lg: "400px" }}
-                        h={{ base: "110px", sm: "120px", md: "160px", lg: "200px" }}
+                        w={{
+                            base: "220px",
+                            sm: "240px",
+                            md: "320px",
+                            lg: "400px",
+                        }}
+                        h={{
+                            base: "110px",
+                            sm: "120px",
+                            md: "160px",
+                            lg: "200px",
+                        }}
                     >
                         <Image
                             src={logoGYA}
                             alt="Glass & Aluminum Company Logo"
                             fill
                             priority
-                            style={{ objectFit: 'contain' }}
+                            style={{ objectFit: "contain" }}
                         />
                     </MotionBox>
 
@@ -99,8 +102,9 @@ const LandingPageSection: React.FC = React.memo(() => {
                             lineHeight="1.1"
                             color="text.body"
                         >
-                            VENTANAS DE ALUMINIO Y <br />
-                            MAMPARAS DE VIDRIO TEMPLADO
+                            GLASS & ALUMINUM
+                            <br />
+                            COMPANY S.A.C.
                         </Heading>
 
                         <Text
@@ -111,14 +115,32 @@ const LandingPageSection: React.FC = React.memo(() => {
                             maxW="3xl"
                             mx="auto"
                         >
-                            GYA Company: Líderes en instalación de cristales y aluminios premium en Lima.
+                            Empresa comercial especilasita de en la venta e
+                            instalacion de vidrios y aluminios
                         </Text>
 
-                        <HStack gap="phi_md" mt="phi_xl" justify="center" w="full" px={4} flexWrap="wrap">
-                            <Button as={RouterLink} href="/servicios" variant="aura" size="lg">
+                        <HStack
+                            gap="phi_md"
+                            mt="phi_xl"
+                            justify="center"
+                            w="full"
+                            px={4}
+                            flexWrap="wrap"
+                        >
+                            <Button
+                                as={RouterLink}
+                                href="/servicios"
+                                variant="aura"
+                                size="lg"
+                            >
                                 Ver Servicios
                             </Button>
-                            <Button as={RouterLink} href="/proyectos" variant="outline" size="lg">
+                            <Button
+                                as={RouterLink}
+                                href="/proyectos"
+                                variant="outline"
+                                size="lg"
+                            >
                                 Nuestros Proyectos
                             </Button>
                         </HStack>

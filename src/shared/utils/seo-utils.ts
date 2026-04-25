@@ -20,11 +20,11 @@ export const getCompanyJsonLd = () => ({
         }
       ],
       "hasPart": [
-        { "@type": "WebPage", "name": "Portal GYA", "url": "https://www.gyacompany.com/" },
-        { "@type": "WebPage", "name": "Ventanas de Aluminio", "url": "https://www.gyacompany.com/servicios/ventana" },
-        { "@type": "WebPage", "name": "Mamparas de Vidrio", "url": "https://www.gyacompany.com/servicios/mampara" },
-        { "@type": "WebPage", "name": "Puertas de Ducha", "url": "https://www.gyacompany.com/servicios/ducha" },
-        { "@type": "WebPage", "name": "Proyectos Realizados", "url": "https://www.gyacompany.com/proyectos" }
+        { "@type": "WebPage", "name": "Inicio", "url": "https://www.gyacompany.com/" },
+        { "@type": "WebPage", "name": "Servicios", "url": "https://www.gyacompany.com/servicios" },
+        { "@type": "WebPage", "name": "Proyectos", "url": "https://www.gyacompany.com/proyectos" },
+        { "@type": "WebPage", "name": "Blog de Expertos", "url": "https://www.gyacompany.com/blog" },
+        { "@type": "WebPage", "name": "Cotizar Ahora", "url": "https://www.gyacompany.com/contacto" }
       ]
     },
     {
