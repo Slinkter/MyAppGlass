@@ -25,6 +25,11 @@ export const getProjects = (): Project[] => {
   return projects as Project[];
 };
 
+// O(1) Lookup Map para Proyectos
+const projectsByIdMap = new Map<string, Project>(
+  (projects as Project[]).map(project => [String(project.id), project])
+);
+
 /**
  * Retrieves a single project by its unique identifier.
  *
@@ -32,5 +37,5 @@ export const getProjects = (): Project[] => {
  * @returns {Project|undefined} The project object or undefined if not found.
  */
 export const getProjectById = (id: string | number): Project | undefined => {
-  return (projects as Project[]).find((project) => String(project.id) === String(id));
+  return projectsByIdMap.get(String(id));
 };

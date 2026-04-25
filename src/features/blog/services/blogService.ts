@@ -8,5 +8,10 @@ import BLOG_POSTS, { BlogPost } from "@/features/blog/data/blog-posts";
 
 export const getPosts = (): BlogPost[] => BLOG_POSTS;
 
+// O(1) Lookup Map para Blog Posts
+const blogPostsBySlugMap = new Map<string, BlogPost>(
+  BLOG_POSTS.map(post => [post.slug, post])
+);
+
 export const getPostBySlug = (slug: string): BlogPost | undefined => 
-  BLOG_POSTS.find(p => p.slug === slug);
+  blogPostsBySlugMap.get(slug);
