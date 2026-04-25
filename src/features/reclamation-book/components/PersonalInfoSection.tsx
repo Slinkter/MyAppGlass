@@ -98,7 +98,7 @@ const PersonalInfoSection: React.FC = () => {
         as="h3"
         size="md"
         borderBottomWidth={2}
-        pb={2}
+        pb="phi_xs"
         color="text.heading"
       >
         1. Identificación del consumidor
@@ -120,7 +120,7 @@ const PersonalInfoSection: React.FC = () => {
         error={errors.domicilio}
       />
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap="phi_sm">
         <FormField
           label="Email"
           type="email"
@@ -140,7 +140,7 @@ const PersonalInfoSection: React.FC = () => {
         />
       </SimpleGrid>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap="phi_sm">
         <FormSelect
           label="Tipo de Documento"
           name="tipoDocumento"

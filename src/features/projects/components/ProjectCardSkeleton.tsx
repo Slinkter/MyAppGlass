@@ -30,7 +30,7 @@ const ProjectCardSkeleton: React.FC = () => {
                 bottom={0}
                 left={0}
                 right={0}
-                p={6}
+                p="phi_md"
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
@@ -38,11 +38,11 @@ const ProjectCardSkeleton: React.FC = () => {
                 zIndex={2}
             >
                 {/* Título (Residencial) */}
-                <Skeleton height="24px" width="60%" mb={8} borderRadius="full" />
+                <Skeleton height="24px" width="60%" mb="phi_lg" borderRadius="full" />
 
                 {/* Info (Address & Year) */}
-                <VStack gap={4} w="full">
-                    <HStack justify="center" gap={3} w="full">
+                <VStack gap="phi_md" w="full">
+                    <HStack justify="center" gap="phi_sm" w="full">
                         <Skeleton height="14px" width="40%" borderRadius="full" />
                         <Box w="1px" h="3" bg="whiteAlpha.400" />
                         <Skeleton height="14px" width="15%" borderRadius="full" />

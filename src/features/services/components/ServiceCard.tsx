@@ -96,7 +96,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             bottom={0}
             left={0}
             right={0}
-            p={6}
+            p="phi_md"
             display="flex"
             flexDirection="column"
             alignItems="center"
@@ -134,8 +134,8 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             </Text>
 
             <VStack
-              mt={6}
-              gap={4}
+              mt="phi_md"
+              gap="phi_sm"
               opacity={isHovered ? 1 : (isMobile ? 1 : 0)}
               transform={isHovered ? "translateY(0)" : (isMobile ? "translateY(0)" : "translateY(10px)")}
               transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
@@ -156,7 +156,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
                 textTransform="uppercase"
                 fontSize="xs"
                 letterSpacing="widest"
-                px={8}
+                px="phi_lg"
                 borderRadius="full"
               >
                 Ver Catálogo

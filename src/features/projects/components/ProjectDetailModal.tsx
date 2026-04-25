@@ -145,7 +145,7 @@ const ProjectDetailRoot: React.FC<{
           color="text.body"
           maxH={{ base: "100dvh", md: "90vh" }}
           overflow="hidden"
-          mx={{ base: 0, md: 4 }}
+          mx={{ base: 0, md: "phi_md" }}
         >
           {/* Custom immersive expansion animation */}
           <MotionBox
@@ -190,7 +190,7 @@ const ProjectDetailHeader: React.FC = () => {
   
   return (
     <Box px={{ base: "phi_md", md: 0 }} pt={{ base: "phi_xl", md: 0 }}>
-      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.4em" textTransform="uppercase" mb={2}>
+      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.4em" textTransform="uppercase" mb="phi_xs">
         Portfolio de Ingeniería
       </Text>
       <Heading as="h2" fontFamily="heading" size={{ base: "2xl", md: "3xl" }} color="text.heading">

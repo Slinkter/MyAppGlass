@@ -99,12 +99,12 @@ const ProjectsList: React.FC = React.memo(() => {
       seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
       seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
       seoCanonicalUrl="https://www.gyacompany.com/proyectos"
-      containerProps={{ pb: 12 }}
+      containerProps={{ pb: "phi_xl" }}
       columns={{ base: 1, md: 2, lg: 3 }}
     >
       {/* Filter Pills */}
       <Box gridColumn="1 / -1" w="full">
-        <HStack gap={2} justify="center" flexWrap="wrap" pb={4}>
+        <HStack gap="phi_xs" justify="center" flexWrap="wrap" pb="phi_md">
           {years.map((year) => {
             const isActive = activeYear === year;
             return (
@@ -112,7 +112,7 @@ const ProjectsList: React.FC = React.memo(() => {
                 key={year}
                 size="sm"
                 px={5}
-                mt={2}
+                mt="phi_xs"
                 borderRadius="full"
                 fontWeight="semibold"
                 fontSize="xs"
@@ -159,7 +159,7 @@ const ProjectsList: React.FC = React.memo(() => {
       
       {/* Intersection Sensor for O1 Rendering */}
       {hasMore && (
-        <Box ref={loaderRef} w="full" h="20px" py={10} />
+        <Box ref={loaderRef} w="full" h="20px" py="phi_lg" />
       )}
     </ItemGridLayout>
   );

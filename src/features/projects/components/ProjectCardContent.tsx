@@ -92,7 +92,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
               bottom={0}
               left={0}
               right={0}
-              p={6}
+              p="phi_md"
               display="flex"
               flexDirection="column"
               alignItems="center"
@@ -141,9 +141,9 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
               </Heading>
 
               <VStack
-                gap={4}
+                gap="phi_md"
                 w="full"
-                mt={6}
+                mt="phi_md"
                 opacity={{ base: 1, md: isHovered ? 1 : 0 }}
                 transform={{ 
                   base: "translateY(0)", 
@@ -151,8 +151,8 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                 }}
                 transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
               >
-                <HStack justify="center" gap={3} w="full">
-                  <HStack gap={1}>
+                <HStack justify="center" gap="phi_sm" w="full">
+                  <HStack gap="phi_xs">
                     <Box as={MapPin} w={3.5} h={3.5} color="text.accent" />
                     <Text
                       fontSize="xs"

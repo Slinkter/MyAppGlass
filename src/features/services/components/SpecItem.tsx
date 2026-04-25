@@ -14,7 +14,7 @@ const SpecItem: React.FC<SpecItemProps> = ({ label, value }) => {
     return (
         <DataListRoot
             w="full"
-            p={3}
+            p="phi_sm"
             bg="surface.container"
             rounded="xl"
             borderWidth="1px"

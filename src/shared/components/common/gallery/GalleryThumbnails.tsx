@@ -93,8 +93,8 @@ const GalleryThumbnails: React.FC<GalleryThumbnailsProps> = ({ images, selectedI
         <Flex
           ref={containerRef}
           direction={{ base: "row", md: "column" }}
-          gap={3}
-          p={1}
+          gap="phi_sm"
+          p="phi_xs"
         >
           {images.map((img, index) => (
             <GalleryThumbnailItem

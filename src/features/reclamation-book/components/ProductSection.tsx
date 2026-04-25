@@ -27,14 +27,14 @@ const ProductSection: React.FC = () => {
         as="h3"
         size="md"
         borderBottomWidth={2}
-        pb={2}
-        pt={4}
+        pb="phi_xs"
+        pt="phi_sm"
         color="text.heading"
       >
         2. Identificación del bien contratado
       </Heading>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap="phi_sm">
         <Field 
           label="Tipo de Bien" 
           required 

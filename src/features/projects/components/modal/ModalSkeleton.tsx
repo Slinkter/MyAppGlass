@@ -37,29 +37,29 @@ const ModalSkeleton: React.FC = () => {
         boxShadow="2xl"
         color={textColor}
       >
-        <DialogBody p={{ base: 4, md: 6 }} pb={{ base: 6, md: 8 }}>
+        <DialogBody p={{ base: "phi_md", md: "phi_md" }} pb={{ base: "phi_md", md: "phi_lg" }}>
           <Flex
             w="full"
             h={{ base: "auto", lg: "full" }}
             flexDirection={{ base: "column", lg: "row" }}
-            gap={{ base: 6, lg: 8 }}
+            gap={{ base: "phi_md", lg: "phi_lg" }}
           >
             {/* Skeleton para VisualViewer */}
             <Box flex={{ base: "none", lg: 1 }} w="full">
               <Skeleton height={{ base: "250px", lg: "500px" }} borderRadius="md" />
-              <Flex mt={4} justify="center" gap={2}>
+              <Flex mt="phi_md" justify="center" gap="phi_xs">
                 <Skeleton width="80px" height="30px" borderRadius="md" />
                 <Skeleton width="80px" height="30px" borderRadius="md" />
               </Flex>
             </Box>
 
             {/* Skeleton para ProjectInfo */}
-            <VStack flex={{ base: "none", lg: 1 }} w="full" align="flex-start" gap={4}>
-              <SkeletonText mt="2" lineClamp={1} gap="4" width="70%" />
-              <SkeletonText mt="2" lineClamp={1} gap="4" width="50%" />
-              <SkeletonText mt="4" lineClamp={3} gap="4" width="full" />
+            <VStack flex={{ base: "none", lg: 1 }} w="full" align="flex-start" gap="phi_md">
+              <SkeletonText mt="2" lineClamp={1} gap="phi_md" width="70%" />
+              <SkeletonText mt="2" lineClamp={1} gap="phi_md" width="50%" />
+              <SkeletonText mt="4" lineClamp={3} gap="phi_md" width="full" />
               <Spacer />
-              <Flex w="full" justify="space-between" mt={4}>
+              <Flex w="full" justify="space-between" mt="phi_md">
                 <Skeleton height="40px" width="45%" borderRadius="md" />
                 <Skeleton height="40px" width="45%" borderRadius="md" />
               </Flex>
