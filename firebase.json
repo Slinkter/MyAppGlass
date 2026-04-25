@@ -2,6 +2,7 @@
   "hosting": {
     "public": "dist",
     "versionLimit": 5,
+    "cleanUrls": true,
     "ignore": [
       "firebase.json",
       "**/.*",

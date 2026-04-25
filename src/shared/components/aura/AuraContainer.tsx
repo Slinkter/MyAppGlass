@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file AuraContainer.tsx
  * @description Standardized page container with Aura spacing and motion entry.
