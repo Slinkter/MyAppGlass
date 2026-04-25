@@ -24,7 +24,8 @@ export const getCompanyJsonLd = () => ({
         { "@type": "WebPage", "name": "Servicios", "url": "https://www.gyacompany.com/servicios" },
         { "@type": "WebPage", "name": "Proyectos", "url": "https://www.gyacompany.com/proyectos" },
         { "@type": "WebPage", "name": "Blog de Expertos", "url": "https://www.gyacompany.com/blog" },
-        { "@type": "WebPage", "name": "Cotizar Ahora", "url": "https://www.gyacompany.com/contacto" }
+        { "@type": "WebPage", "name": "Cotizar Ahora", "url": "https://www.gyacompany.com/contacto" },
+        { "@type": "WebPage", "name": "Libro de Reclamaciones", "url": "https://www.gyacompany.com/libro-de-reclamacion" }
       ]
     },
     {

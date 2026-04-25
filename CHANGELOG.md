@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-04-25] - Production Routing & Reclamation Book Fixes
+
+### Fixed
+- **Firebase Static Routing**: Resolved the issue where `/libro-de-reclamacion` was falling back to the home page by enabling `cleanUrls: true` in `firebase.json`. This ensures Next.js static HTML exports map correctly to clean URLs.
+- **SSR Build Integrity**: Added `"use client";` to `AuraContainer.tsx` to fix the `prerender-error` caused by importing `framer-motion` in pre-rendered pages.
+- **Reclamation Page Rendering**: Fully refactored `/libro-de-reclamacion` to use `AuraContainer`, ensuring the premium dark-mode aesthetic, smooth animations, and zero CLS.
+- **SEO & Search Visibility**: Integrated the "Libro de Reclamaciones" into the `seo-utils.ts` JSON-LD Knowledge Graph, improving indexing and brand authority.
+- **Layout Cleanup**: Removed redundant `<br />` tags and consolidated Box containers in `ReclamationForm.tsx` for a cleaner, maintainable codebase.
+
 ## [2026-04-25] - Performance & UX Optimizations
 
 ### Added

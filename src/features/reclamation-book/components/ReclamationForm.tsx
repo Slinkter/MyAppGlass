@@ -17,9 +17,8 @@ const ReclamationFormInner: React.FC = () => {
   const { handleBtnSubmit, modalProps } = useReclamationFormContext();
 
   return (
-    <Box>
-      <br />
-      <Box
+    <Box
+      mt="phi_xl"
         p={{ base: "phi_sm", md: "phi_lg" }}
         maxW="3xl"
         mx="auto"
@@ -72,7 +71,6 @@ const ReclamationFormInner: React.FC = () => {
           onClose={modalProps.onClose}
           trackingId={modalProps.newReclamoId}
         />
-      </Box>
     </Box>
   );
 };
