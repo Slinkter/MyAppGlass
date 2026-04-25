@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "gya-full-audit-v1",
+		"name": "GYA Company - Auditoría y Formulario",
+		"description": "Colección completa para validar la página del Libro de Reclamaciones (SEO) y el envío de datos (API).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Validación de Página (SEO & Health)",
+			"item": [
+				{
+					"name": "Verificar SEO - Libro de Reclamaciones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Estado exitoso (200)', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Contenido es HTML', function () {",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('text/html');",
+									"});",
+									"",
+									"pm.test('Título SEO presente', function () {",
+									"    pm.expect(pm.response.text()).to.include('<title>Libro de Reclamaciones');",
+									"});",
+									"",
+									"pm.test('JSON-LD de Autoridad presente', function () {",
+									"    pm.expect(pm.response.text()).to.include('application/ld+json');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gyacompany.com/libro-de-reclamacion",
+							"protocol": "https",
+							"host": [
+								"gyacompany",
+								"com"
+							],
+							"path": [
+								"libro-de-reclamacion"
+							]
+						},
+						"description": "Verifica que la página sea accesible y contenga los metadatos SEO que optimizamos."
+					},
+					"response": []
+				}
+			],
+			"description": "Pruebas para la interfaz web."
+		},
+		{
+			"name": "Validación de Envío (API)",
+			"item": [
+				{
+					"name": "Enviar Reclamo Real (Producción)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://gyacompany.com",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombreCompleto\": \"Test Postman SEO Audit\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"GYA Digital Test\",\n  \"email\": \"test@gyacompany.com\",\n  \"telefono\": \"999888777\",\n  \"tipoBien\": \"Servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Validación de Integración Final\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"detalle\": \"Prueba de Postman con cabecera de Origen.\",\n  \"pedido\": \"Confirmar que CORS ya no bloquea.\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitReclamo",
+							"protocol": "https",
+							"host": [
+								"us-central1-gya-app-4c8a9",
+								"cloudfunctions",
+								"net"
+							],
+							"path": [
+								"submitReclamo"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Pruebas para el backend en la nube."
+		}
+	]
+}
