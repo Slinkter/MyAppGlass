@@ -53,15 +53,16 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         role="group"
         cursor="pointer"
         position="relative"
-        h={{ base: "320px", md: "500px" }}
+        h={{ base: "phi_4xl", md: "phi_5xl" }}
         w="full"
         borderRadius="xl"
         overflow="hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        transform="translateZ(0)"
         _hover={{
           boxShadow: { md: "glass" },
-          transform: { base: "none", md: "translateY(-4px)" },
+          transform: { base: "translateZ(0)", md: "translateY(-4px) translateZ(0)" },
         }}
         transition={{ duration: 0.4, ease: "easeOut" }}
         whileTap={{ scale: 0.98 }}
@@ -113,10 +114,10 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                 _after={{
                   content: '""',
                   position: "absolute",
-                  bottom: "-8px",
+                  bottom: "-phi_xs",
                   left: "50%",
                   transform: "translateX(-50%)",
-                  width: isLoaded ? "40px" : "0",
+                  width: isLoaded ? "phi_lg" : "0",
                   height: "2px",
                   bg: isHovered ? "text.accent" : "white",
                   transition: "width 0.4s ease, background 0.3s ease",
@@ -190,10 +191,10 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                     boxShadow: "0 0 20px rgba(255,255,255,0.2)"
                   }}
                   textTransform="uppercase"
-                  fontSize="10px"
+                  fontSize="xs"
                   fontWeight="bold"
                   letterSpacing="0.2em"
-                  px={10}
+                  px="phi_lg"
                   borderRadius="full"
                   transition="all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
                 >

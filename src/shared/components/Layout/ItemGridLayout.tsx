@@ -96,7 +96,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
         <Container
             maxW="7xl"
             textAlign="center"
-            mt={{ base: "phi_md", md: "phi_lg" }}
+            mt={{ base: "phi_lg", md: "phi_xl" }}
             {...containerProps}
         >
             <VStack gap={{ base: "phi_sm", md: "phi_md" }} w="full">

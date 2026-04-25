@@ -10,7 +10,7 @@ import ServiceList from "@/features/services/components/ServiceList";
 
 const ServicesListView: React.FC = () => {
   return (
-    <Box as="section" py={1}>
+    <Box as="section">
       <ServiceList />
     </Box>
   );

@@ -62,7 +62,7 @@ const ServiceList: React.FC = React.memo(() => {
 
     return (
         <ItemGridLayout
-            title=" Servicios "
+            title="SERVICIOS"
             subtitle="Descubre nuestros servicios de fabricacion e instalación "
             headingAs="h1"
             seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
@@ -139,7 +139,7 @@ const ServiceList: React.FC = React.memo(() => {
                     ref={loaderRef}
                     gridColumn="1 / -1"
                     w="full"
-                    h="20px"
+                    h="phi_md"
                     py="phi_lg"
                 />
             )}

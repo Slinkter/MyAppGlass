@@ -10,6 +10,7 @@
 import React, { useCallback } from "react";
 import Image from "next/image";
 import { Box, BoxProps } from "@chakra-ui/react";
+import { getAssetUrl } from "@/shared/utils/asset-utils";
 
 interface ResponsiveImageProps extends Omit<BoxProps, 'onLoad'> {
   src?: string;
@@ -52,7 +53,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
     return (
       <Box position="relative" overflow="hidden" {...restProps}>
         <Image
-          src={src}
+          src={getAssetUrl(src || "")}
           alt={alt}
           fill
           priority={isLCP}

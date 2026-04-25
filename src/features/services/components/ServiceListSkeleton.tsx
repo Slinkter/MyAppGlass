@@ -28,7 +28,7 @@ const ServiceListSkeleton: React.FC = () => {
                 <Box
                     key={index}
                     position="relative"
-                    h={{ base: "320px", md: "500px" }}
+                    h={{ base: "phi_4xl", md: "phi_5xl" }}
                     w="full"
                     borderRadius="xl"
                     overflow="hidden"
