@@ -50,6 +50,7 @@ interface ItemGridLayoutProps {
   columns?: number | Record<string, number>;
   gap?: string | number | Record<string, string | number>;
   containerProps?: ContainerProps;
+  headingAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
 /**
@@ -65,6 +66,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & { Item: typeof ItemGridIte
   columns = { base: 1, md: 2, lg: 3 },
   gap = { base: "phi_md", md: "phi_lg" },
   containerProps = {},
+  headingAs = "h2",
 }) => {
   /**
    * Animation Variants
@@ -91,7 +93,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & { Item: typeof ItemGridIte
           {/* Header Section */}
           <VStack gap="phi_xs">
             <Heading
-              as="h2"
+              as={headingAs}
               color="text.accent"
               fontSize={{ base: "3xl", md: "5xl" }}
               fontWeight="900"
@@ -127,6 +129,11 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & { Item: typeof ItemGridIte
             gap={gap}
             w="full"
             justifyItems="center"
+            style={{ 
+              contain: "layout style", 
+              transform: "translateZ(0)",
+              willChange: "transform, opacity"
+            }}
           >
             {children}
           </MotionSimpleGrid>

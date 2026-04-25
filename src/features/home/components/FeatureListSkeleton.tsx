@@ -3,61 +3,88 @@ import {
     Container,
     SimpleGrid,
     Skeleton,
-    SkeletonText,
     Box,
-    Stack,
+    VStack,
     Flex,
 } from "@chakra-ui/react";
 
 /**
+ * @component FeatureCardSkeleton
+ * @description Skeleton for a single feature card.
+ */
+const FeatureCardSkeleton: React.FC = () => {
+    return (
+        <Box
+            w="full"
+            h="full"
+            minH={{ base: "auto", md: "320px" }}
+            p="phi_xl"
+            bg="surface.card"
+            border="1px solid"
+            borderColor="border.glass"
+            borderRadius="3xl"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            textAlign="center"
+            position="relative"
+        >
+            <VStack gap="phi_lg" w="full">
+                {/* Icon Skeleton */}
+                <Flex
+                    w="phi_2xl"
+                    h="phi_2xl"
+                    align="center"
+                    justify="center"
+                    borderRadius="full"
+                    bg="bg.page"
+                    border="1px solid"
+                    borderColor="border.default"
+                >
+                    <Skeleton w="24px" h="24px" borderRadius="full" />
+                </Flex>
+
+                {/* Text Skeleton */}
+                <VStack gap="phi_xs" w="full">
+                    <Skeleton height="16px" width="60%" borderRadius="full" />
+                    <Skeleton height="14px" width="90%" borderRadius="full" />
+                    <Skeleton height="14px" width="80%" borderRadius="full" />
+                </VStack>
+            </VStack>
+        </Box>
+    );
+};
+
+/**
  * @component FeatureListSkeleton
  * @description Muestra una cuadrícula de esqueletos de tarjetas de características para indicar el estado de carga.
- * @returns {JSX.Element}
  */
 const FeatureListSkeleton: React.FC = () => {
-    const renderSkeletons = () => {
-        return Array.from({ length: 4 }).map((_, index) => (
-            <Box
-                key={index}
-                p={{ base: 3, md: 6 }}
-                textAlign="center"
-                bg='whiteAlpha.200'
-                border='1px solid'
-                borderColor='whiteAlpha.300'
-                shadow='lg'
-                rounded='xl'
-            >
-                <Skeleton w={24} h={24} mx="auto" mb={4} rounded="full" />
-                <Stack gap={3}>
-                    <SkeletonText
-                        lineClamp={1}
-                        height="24px"
-                        width="70%"
-                        mx="auto"
-                    />
-                    <SkeletonText
-                        lineClamp={2}
-                        height="20px"
-                        width="90%"
-                        mx="auto"
-                        mt={2}
-                    />
-                </Stack>
-            </Box>
-        ));
-    };
-
     return (
-        <Container maxW="8xl" mt={6} mb={6}>
-            <Flex alignItems="center" justifyContent="center" minHeight="80vh">
+        <Container 
+            maxW="7xl" 
+            textAlign="center" 
+            mt={{ base: "phi_lg", md: "phi_2xl" }}
+            pt={0}
+        >
+            <VStack gap={{ base: "phi_md", md: "phi_xl" }} w="full">
+                {/* Header Section Skeleton (matches ItemGridLayout) */}
+                <VStack gap="phi_xs">
+                    <Skeleton height={{ base: "32px", md: "48px" }} width="350px" mx="auto" />
+                    <Skeleton height={{ base: "20px", md: "24px" }} width="450px" mx="auto" mt={{ base: "phi_sm", md: "phi_md" }} />
+                </VStack>
+
                 <SimpleGrid
-                    columns={{ base: 1, md: 4 }}
-                    columnGap={{ base: 5, md: 8 }}
-                    rowGap={{ base: 5, md: 8 }}
+                    columns={{ base: 1, md: 2, lg: 3 }}
+                    gap={{ base: "phi_md", md: "phi_lg" }}
+                    w="full"
                 >
-                    {renderSkeletons()}
+                    {Array.from({ length: 3 }).map((_, index) => (
+                        <FeatureCardSkeleton key={index} />
+                    ))}
                 </SimpleGrid>
-            </Flex>
+            </VStack>
         </Container>
     );
 };

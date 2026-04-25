@@ -89,7 +89,7 @@ const LandingPageSection: React.FC = React.memo(() => {
                             textTransform={"uppercase"}
                             mb="phi_xs"
                         >
-                            Vidriería &amp; Aluminio
+                            Vidriería La Molina
                         </Heading>
 
                         <Heading
@@ -99,8 +99,8 @@ const LandingPageSection: React.FC = React.memo(() => {
                             lineHeight="1.1"
                             color="text.body"
                         >
-                            GLASS &amp; ALUMINUM <br />
-                            COMPANY S.A.C.
+                            VENTANAS DE ALUMINIO Y <br />
+                            MAMPARAS DE VIDRIO TEMPLADO
                         </Heading>
 
                         <Text
@@ -111,8 +111,7 @@ const LandingPageSection: React.FC = React.memo(() => {
                             maxW="3xl"
                             mx="auto"
                         >
-                            Empresa Comercial especializada en la instalación de
-                            cristales y aluminios.
+                            GYA Company: Líderes en instalación de cristales y aluminios premium en Lima.
                         </Text>
 
                         <HStack gap="phi_md" mt="phi_xl" justify="center" w="full" px={4} flexWrap="wrap">
