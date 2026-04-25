@@ -211,27 +211,30 @@ $RECYCLE.BIN/
 .env.hosting
 .firebase/
 
-# Ignore all environment files
-.env
-.env.*
-.env.local
 # ----------------------------------------------------------------
-# ARCHIVOS DE ENTORNO Y SECRETOS
-# NUNCA subir archivos .env a Git.
+# ARCHIVOS DE ENTORNO Y SECRETOS (Security Shield)
 # ----------------------------------------------------------------
 .env
 .env.*
 .env.local
 .env.production
+.env.production.local
+.env.development.local
+.env.test.local
 !.env.example
 
-# Archivos de simulación y JDK local
+# Archivos de Firebase y Cloud
+.firebase/
+.firebaserc.local
 functions/.env
-functions/test-integration.cjs
-functions/test-reclamo.json
+
+# Herramientas de Auditoría y Simulación
+docs/SIMULACION_BACKEND.md
+scripts/debug/
+tests/postman/
 mock-server.cjs
-SIMULACION_BACKEND.md
-openjdk.jdk
 test-integration.cjs
+openjdk.jdk
+
 
 

@@ -15,6 +15,7 @@ interface AuraHeaderProps {
   backTo?: string;
   action?: React.ReactNode;
   centered?: boolean;
+  mb?: any;
 }
 
 /**
@@ -24,10 +25,11 @@ interface AuraHeaderProps {
  * @param {string} backTo - Route path for the back button.
  * @param {React.ReactNode} action - Optional element to show on the right (e.g., ViewSelector).
  * @param {boolean} centered - Whether to center all text and elements.
+ * @param {any} mb - Custom margin bottom.
  */
-const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, backTo, action, centered = false }) => {
+const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, backTo, action, centered = false, mb }) => {
   return (
-    <Box w="full" mb={{ base: "phi_lg", md: "phi_xl" }}>
+    <Box w="full" mb={mb ?? { base: "phi_md", md: "phi_lg" }}>
       {/* Top Navigation Row (Always Left Aligned for UX) */}
       <Flex justify="space-between" align="center" mb={2}>
         {backTo ? (

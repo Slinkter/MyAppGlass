@@ -112,6 +112,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
               position="relative"
               zIndex={1}
               transition="color 0.3s ease"
+              lineClamp={1}
               _after={{
                 content: '""',
                 position: "absolute",
@@ -151,13 +152,17 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
                 _hover={{ 
                   bg: "white", 
                   color: "primary.900",
-                  borderColor: "white"
+                  borderColor: "white",
+                  transform: "scale(1.05) translateY(-2px)",
+                  boxShadow: "0 0 20px rgba(255,255,255,0.2)"
                 }}
                 textTransform="uppercase"
-                fontSize="xs"
-                letterSpacing="widest"
-                px="phi_lg"
+                fontSize="10px"
+                fontWeight="bold"
+                letterSpacing="0.2em"
+                px={10}
                 borderRadius="full"
+                transition="all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
               >
                 Ver Catálogo
               </Button>

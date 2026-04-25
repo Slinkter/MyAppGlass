@@ -99,11 +99,10 @@ const ProjectsList: React.FC = React.memo(() => {
       seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
       seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
       seoCanonicalUrl="https://www.gyacompany.com/proyectos"
-      containerProps={{ pb: "phi_xl" }}
       columns={{ base: 1, md: 2, lg: 3 }}
     >
       {/* Filter Pills */}
-      <Box gridColumn="1 / -1" w="full">
+      <Box gridColumn="1 / -1" w="full" mt="phi_sm">
         <HStack gap="phi_xs" justify="center" flexWrap="wrap" pb="phi_md">
           {years.map((year) => {
             const isActive = activeYear === year;
