@@ -1,0 +1,16 @@
+{
+  "nombreCompleto": "Carlos Test Gemini",
+  "tipoDocumento": "DNI",
+  "numeroDocumento": "12345678",
+  "domicilio": "Calle Las Vidrieras 123, La Molina",
+  "email": "luis.j.cueva@gmail.com",
+  "telefono": "999888777",
+  "tipoBien": "Producto",
+  "montoReclamado": "1500.00",
+  "descripcionBien": "Ventana Nova Serie 25 con fallas en el cierre",
+  "tipoSolicitud": "Reclamo",
+  "detalle": "La ventana instalada presenta una filtración de aire en el marco superior.",
+  "pedido": "Reparación técnica o cambio del marco afectado.",
+  "aceptaTerminos": true,
+  "autorizaEmail": true
+}

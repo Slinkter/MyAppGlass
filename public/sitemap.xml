@@ -146,6 +146,36 @@
     </image:image>
   </url>
 
+  <!-- Blog Section -->
+  <url>
+    <loc>https://www.gyacompany.com/blog</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.gyacompany.com/blog/como-elegir-ventanas-antiruido-lima</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.gyacompany.com/images/services-products-01.Ventanas-nova-a1.webp</image:loc>
+      <image:caption>Guía de ventanas antiruido en Lima</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.gyacompany.com/blog/ventajas-mamparas-vidrio-templado</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.gyacompany.com/images/clients-sectoroffices.webp</image:loc>
+      <image:caption>Mamparas de vidrio templado para oficinas</image:caption>
+    </image:image>
+  </url>
+
   <!-- Secondary Pages -->
   <url>
     <loc>https://www.gyacompany.com/cuentas-bancarias</loc>

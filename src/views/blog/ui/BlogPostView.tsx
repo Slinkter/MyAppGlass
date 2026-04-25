@@ -1,0 +1,164 @@
+"use client";
+
+import React from "react";
+import { 
+  Box, 
+  Container, 
+  Heading, 
+  Text, 
+  VStack, 
+  Image, 
+  HStack, 
+  Separator,
+  Badge,
+  Flex
+} from "@chakra-ui/react";
+import { BlogPost } from "@/data/blog-posts";
+import { LucideCalendar, LucideUser, LucideChevronRight, LucideClock, LucideArrowRight } from "lucide-react";
+import Link from "next/link";
+
+interface BlogPostViewProps {
+  post: BlogPost;
+}
+
+/**
+ * @component BlogPostView
+ * @description Premium reading experience for blog articles.
+ */
+const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
+  // Estimate reading time
+  const wordsPerMinute = 200;
+  const wordCount = post.content.split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / wordsPerMinute);
+
+  return (
+    <Box as="article" py={{ base: "phi_lg", md: "phi_2xl" }}>
+      <Container maxW="4xl">
+        <VStack align="flex-start" gap="phi_lg" w="full">
+          {/* Breadcrumbs */}
+          <HStack gap="phi_xs" color="text.muted" fontSize="sm">
+             <Link href="/">Inicio</Link>
+             <LucideChevronRight size={14} />
+             <Link href="/blog">Blog</Link>
+             <LucideChevronRight size={14} />
+             <Text color="text.accent" fontWeight="500" lineClamp={1}>{post.title}</Text>
+          </HStack>
+
+          {/* Header */}
+          <VStack align="flex-start" gap="phi_md" w="full">
+            <HStack gap="phi_sm">
+              {post.tags.map(tag => (
+                <Badge key={tag} variant="subtle" colorPalette="primary" px="phi_sm" borderRadius="full">
+                  {tag}
+                </Badge>
+              ))}
+            </HStack>
+            
+            <Heading 
+              as="h1" 
+              fontSize={{ base: "3xl", md: "5xl" }} 
+              color="text.heading" 
+              lineHeight="1.2"
+              fontWeight="900"
+            >
+              {post.title}
+            </Heading>
+
+            <HStack color="text.muted" fontSize="md" gap="phi_lg" wrap="wrap">
+              <HStack gap="phi_xs">
+                <LucideUser size={18} />
+                <Text fontWeight="600">{post.author}</Text>
+              </HStack>
+              <HStack gap="phi_xs">
+                <LucideCalendar size={18} />
+                <Text>{new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}</Text>
+              </HStack>
+              <HStack gap="phi_xs">
+                <LucideClock size={18} />
+                <Text>{readingTime} min de lectura</Text>
+              </HStack>
+            </HStack>
+          </VStack>
+
+          {/* Featured Image */}
+          <Box 
+            w="full" 
+            h={{ base: "300px", md: "500px" }} 
+            borderRadius="3xl" 
+            overflow="hidden" 
+            boxShadow="glass"
+            border="1px solid"
+            borderColor="border.glass"
+          >
+            <Image 
+              src={post.image} 
+              alt={post.title} 
+              w="full" 
+              h="full" 
+              objectFit="cover" 
+            />
+          </Box>
+
+          {/* Content with optimized typography */}
+          <Box 
+            w="full" 
+            color="text.body" 
+            fontSize={{ base: "lg", md: "xl" }}
+            lineHeight="1.618" // Phi line-height for readability
+            css={{
+              "& h2": {
+                fontSize: "2xl",
+                fontWeight: "900",
+                color: "text.heading",
+                mt: "phi_xl",
+                mb: "phi_md",
+              },
+              "& h3": {
+                fontSize: "xl",
+                fontWeight: "bold",
+                color: "text.heading",
+                mt: "phi_lg",
+                mb: "phi_sm",
+              },
+              "& p": {
+                mb: "phi_md",
+              },
+              "& blockquote": {
+                borderLeft: "4px solid",
+                borderColor: "text.accent",
+                pl: "phi_md",
+                fontStyle: "italic",
+                color: "text.heading",
+                bg: "bg.subtle",
+                py: "phi_md",
+                borderRadius: "md",
+                my: "phi_lg",
+              }
+            }}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+
+          <Separator borderColor="border.glass" my="phi_xl" />
+
+          {/* Footer of the article */}
+          <Flex w="full" justify="space-between" align="center">
+            <HStack gap="phi_sm">
+               <Text fontWeight="bold" color="text.heading">Compartir:</Text>
+               {/* Simplified social sharing */}
+               <Box p="phi_xs" borderRadius="full" border="1px solid" borderColor="border.glass" _hover={{ bg: "text.accent", color: "white" }} cursor="pointer" transition="all 0.3s">
+                 <LucideArrowRight size={18} />
+               </Box>
+            </HStack>
+            <Link href="/blog">
+               <Text color="text.accent" fontWeight="bold" _hover={{ textDecoration: "underline" }}>
+                 ← Volver al blog
+               </Text>
+            </Link>
+          </Flex>
+        </VStack>
+      </Container>
+    </Box>
+  );
+};
+
+export default BlogPostView;

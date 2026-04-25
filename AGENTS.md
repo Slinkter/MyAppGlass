@@ -1,44 +1,27 @@
-# AGENTS.md
+# 🤖 Equipo de Agentes Senior - GYA Company
 
-## Verified Commands
+Este documento define los roles y responsabilidades de los agentes de IA que orquestan el desarrollo de MyAppGlass.
 
-```bash
-pnpm dev      # Dev server + image optimization
-pnpm build    # Static build + image optimization
-pnpm preview  # Serve dist/
-pnpm lint     # ESLint
-pnpm deploy:hosting   # build + firebase deploy --only hosting
-pnpm deploy:functions # firebase deploy --only functions
-```
+## 🎨 Senior Frontend Architect (Aura Specialist)
+**Especialidad:** UI/UX Premium & Performance Optimization.
+- **Stack:** Next.js 16 (App Router), Chakra UI v3, Framer Motion, TypeScript.
+- **Responsabilidades:**
+    - Mantener la armonía visual basada en los tokens `phi`.
+    - Optimizar el renderizado para pantallas de 120Hz (Aceleración GPU).
+    - Garantizar que los Skeletons coincidan al 100% con los componentes reales para evitar Layout Shift.
+    - Implementar estrategias de SEO On-Page y Metadatos dinámicos.
 
-## Stack
+## ⚙️ Senior Backend & Cloud Engineer (Security & Legal)
+**Especialidad:** Infrastructure & Data Reliability.
+- **Stack:** Firebase Functions v2, Firestore, Resend API, Google Cloud Secret Manager.
+- **Responsabilidades:**
+    - Gestionar el flujo legal del Libro de Reclamaciones.
+    - Asegurar que las comunicaciones por email sean fiables y seguras.
+    - Mantener la integridad de los datos en Firestore con marcas de tiempo de servidor.
+    - Configurar y validar los entornos de simulación y producción.
 
-- Next.js 16 (static export) → `dist/`
-- React 18 + Chakra UI v3 + Framer Motion
-- Firebase (Hosting + Functions)
-- pnpm
-
-## Architecture
-
-- Features: `src/features/[name]/` (projects, services, home, reclamation-book)
-- Services: `src/features/*/services/*Service.ts` - data layer, no direct imports from src/data
-- Shared: `src/shared/` (components, hooks, config)
-- Path aliases: `@features`, `@shared`, `@layout`, `@`
-
-## Image Pipeline
-
-1. Place originals in `src/assets/`
-2. Run `pnpm dev` or `node optimize-images.mjs`
-3. Use `/images/*.webp` in code
-
-## Build Notes
-
-- `next.config.mjs`: output='export', distDir='./dist', images.unoptimized=true
-- Static export requires `unoptimized: true` for images
-- No Next.js server needed in production
-
-## Testing
-
-- No test framework configured
-- Use `pnpm preview` to verify build locally at localhost:3000
-- Firebase emulators: `firebase emulators:start` (if configured)
+## 🔄 Flujo de Trabajo Simulado
+Cuando se solicita una tarea compleja:
+1. **Frontend Master** diseña la interfaz y los contratos de datos (types).
+2. **Backend Expert** construye los servicios y endpoints necesarios.
+3. Ambos validan la integración mediante simulaciones de punta a punta.
