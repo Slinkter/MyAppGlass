@@ -40,5 +40,8 @@ El proyecto utiliza una **Feature-Based Architecture (FBA)** escalable:
 - `pnpm run deploy:hosting`: Despliega la versión optimizada a la web.
 - `pnpm run deploy:functions`: Despliega el backend a la nube de Google.
 
----
-*Mantenido por el Equipo de Agentes Senior de GYA Company. Actualizado: Abril 2026.*
+## 📝 Mantenimiento y Auditoría
+- **Guía de Desarrollo:** Consulte `docs/DOCS_DEVELOPMENT.md`.
+- **Seguridad Backend:** Consulte `docs/DOCS_SECURITY_BACKEND.md`.
+- **Simulación Local:** Consulte `docs/SIMULACION_BACKEND.md`.
+- **Pruebas de API:** Colecciones disponibles en `tests/postman/`.
