@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-04-25] - FSD Architectural Alignment & Documentation
+
+### Changed
+- **FSD Architecture Implementation**: Refactored the entire project structure to strictly follow Feature-Sliced Design (FSD). Moved `layout/` to `widgets/`, and legacy `views/` to `screens/` to prevent Next.js App Router conflicts.
+- **Data Decentralization**: Migrated global static data files from `src/data/` into their respective domains within `src/features/` (e.g., `features/services/data`).
+- **Path Aliases Updated**: Updated `tsconfig.json` to reflect the new architecture (`@screens`, `@widgets`, `@features`, `@shared`) and globally replaced outdated imports.
+
+### Removed
+- **Dead Code & Junk**: Conducted a deep clean of the repository, removing unused files (such as `App.css`, `pdf/virtual_archivo.pdf`), empty folders, and debug `console.log` statements.
+
+### Added
+- **AI Handoff Documentation (`AI_HANDOFF.md`)**: Created a dedicated handover document outlining the new architecture, path alias rules, and quality standards for future AI agents.
+- **Technical Architecture Guide (`ARCHITECTURE.md`)**: Drafted a comprehensive Full-Stack guide detailing the Next.js/FSD frontend approach and the Firebase (Functions, Firestore, Storage) backend and security stance.
+
+### Security
+- **Firebase Hardening**: Ensured that `storage.rules` and `firestore.rules` maintain strict zero-trust write access, relying on verified Cloud Functions for data mutations.
+
 ## [2026-04-14] - Chakra UI v3 Final Migration & Stabilization
 
 ### Fixed
