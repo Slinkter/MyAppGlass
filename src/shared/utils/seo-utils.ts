@@ -48,6 +48,8 @@ export const getServiceJsonLd = (name: string, description: string, url: string,
   "@type": "Service",
   "name": name,
   "description": description,
+  "url": url,
+  "image": image,
   "provider": {
     "@type": "LocalBusiness",
     "name": "GYA Company"

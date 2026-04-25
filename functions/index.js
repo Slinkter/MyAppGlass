@@ -5,62 +5,50 @@ const admin = require("firebase-admin");
 
 admin.initializeApp();
 
-// Importamos la lógica modular que creamos
-// Cosmetic change to force redeployment
-
-// Importamos la lógica modular que creamos
-// Cosmetic change to force redeployment
-
 const { sendEmailLogic } = require("./emailSender");
 
 /**
- * Función HTTP para enviar un correo desde un formulario de contacto.
+ * Función HTTP para procesar el Libro de Reclamaciones.
+ * Expuesta en el endpoint configurado en el frontend.
  */
-exports.sendContactEmail = onRequest(
-  // --- Opciones de Runtime ---
+exports.submitReclamo = onRequest(
   {
-    timeoutSeconds: 60, // Tiempo de espera
-    memory: "256MiB",   // Memoria asignada
-    secrets: ["RESEND_API_KEY"], // ¡Crucial! Otorga acceso al secreto
+    timeoutSeconds: 60,
+    memory: "256MiB",
+    secrets: ["RESEND_API_KEY", "ADMIN_EMAIL"], // Secretos inyectados desde Firebase Console
+    cors: true, // Habilita CORS nativo en v2
   },
-  // --- Lógica de la Función ---
   (request, response) => {
-    // Maneja las peticiones CORS (importante para que el frontend pueda llamar a la función)
     cors(request, response, async () => {
-      // Nos aseguramos de que la petición sea de tipo POST
+      // Solo aceptamos POST para protección de datos
       if (request.method !== "POST") {
         response.status(405).json({
           success: false,
-          message: "Método no permitido. Por favor, usa POST.",
+          message: "Método no permitido.",
         });
         return;
       }
 
       try {
-        logger.info("Nueva petición de formulario de contacto recibida.", { body: request.body });
+        logger.info("Procesando nuevo reclamo...");
+        const data = request.body;
 
-        // Los datos vienen del frontend en el cuerpo de la petición (request.body)
-        const emailData = request.body;
-
-        // Llamamos a nuestra lógica modular para enviar el correo
-        const result = await sendEmailLogic(emailData, admin);
+        // Ejecutar lógica de negocio
+        const result = await sendEmailLogic(data, admin);
 
         response.status(200).json({
           success: true,
-          message: "Correo enviado exitosamente.",
+          message: "Reclamo procesado y enviado exitosamente.",
           data: result,
         });
 
       } catch (error) {
-        logger.error("Error en la función sendContactEmail:", error);
-
-        // El HttpsError de nuestro módulo tiene un código que podemos usar
+        logger.error("Error crítico en submitReclamo:", error);
+        
         const statusCode = error.code === "invalid-argument" ? 400 : 500;
-
         response.status(statusCode).json({
           success: false,
-          message: error.message,
-          details: error.details || null,
+          message: error.message || "Error interno del servidor.",
         });
       }
     });
