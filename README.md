@@ -1,180 +1,44 @@
-pnpm run build
+# Glass & Aluminum Company S.A.C. - Portal GYA (Next.js 16)
 
-python -m http.server 5000 --directory dist
+Plataforma corporativa de alta gama optimizada para el rendimiento y SEO de autoridad. Diseñada para **Glass & Aluminum Company S.A.C.**, líderes en soluciones premium de cristalería, ventanas antiruido y mamparas en La Molina, Lima.
 
-# GYA Glass & Aluminum - Aplicación Web Corporativa
+## 🚀 Innovación Técnica & Performance
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router) con soporte nativo para **Static Export**.
+- **UI Engine:** [Chakra UI v3](https://chakra-ui.com/) - Sistema de diseño Aura.
+- **Rendimiento 120Hz:** Optimización agresiva mediante aceleración por GPU (`translateZ`, `will-change`) y aislamiento de pintura (`contain: layout style`) para garantizar una fluidez total en dispositivos modernos.
+- **Proporción Áurea (Phi):** Sistema de espaciado y jerarquía visual basado estrictamente en la escala Fibonacci (`phi_xs` a `phi_3xl`), garantizando armonía visual perfecta.
+- **Zero Layout Shift:** Skeletons de carga sincronizados al 100% con los componentes finales para una experiencia de usuario sin saltos.
 
-Aplicación web de alto rendimiento para GYA Glass & Aluminum S.A.C., una empresa especializada en el diseño, fabricación e instalación de estructuras de vidrio y aluminio. El sitio sirve como portafolio de proyectos, catálogo de servicios y canal de contacto principal.
+## 🔍 SEO de Autoridad (Search Domination)
+- **Local SEO Mastery:** Optimizado para términos de alta conversión como *"Vidriería en La Molina"* y *"Ventanas Antiruido Lima"*.
+- **Estructura Sitelinks:** Esquema JSON-LD avanzado para generar pestañas de navegación (Portal, Ventanas, Mamparas, Proyectos) directamente en los resultados de Google.
+- **Blog de Autoridad:** Módulo dinámico de artículos estratégicos para capturar tráfico informativo y posicionar a GYA como el referente técnico del sector.
+- **Sitemap 2.0:** Indexación dinámica con prioridades jerárquicas y metadatos de imágenes WebP.
 
-## 🚀 Arquitectura y Stack Tecnológico
+## ⚙️ Infraestructura Backend (Cloud Reliability)
+- **Firebase Functions v2:** Lógica serverless de alto rendimiento para procesos legales (Libro de Reclamaciones).
+- **Resend Integration:** Motor de correo electrónico transaccional con notificaciones HTML enriquecidas.
+- **Firestore Security:** Persistencia legal de reclamos con marcas de tiempo de servidor y estados de auditoría.
+- **Secret Manager:** Blindaje total de claves API y correos administrativos.
 
-Este proyecto está construido sobre una arquitectura moderna, desacoplada y orientada a componentes, priorizando la mantenibilidad, escalabilidad y rendimiento.
+## 📂 Arquitectura del Proyecto (FBA)
+El proyecto utiliza una **Feature-Based Architecture (FBA)** escalable:
+- `src/app/`: Rutas, Metadatos y Layouts de Next.js.
+- `src/features/`: Módulos autónomos (`blog`, `projects`, `services`, `reclamation-book`).
+- `src/shared/`: Componentes Aura, Hooks de utilidad y servicios de datos.
+- `functions/`: Microservicios serverless en Node.js 20+.
 
-### Stack Tecnológico
+## 🛠️ Desarrollo Local
+1. **Dependencias:** `pnpm install`
+2. **Backend (Requerido para Reclamaciones):** 
+   - Tener Java OpenJDK 25 instalado.
+   - `cd functions && pnpm run dev` (Inicia emuladores).
+3. **Frontend:** `pnpm run dev`
 
-- **Core Framework:** [React 18](https://reactjs.org/)
-- **Bundler & Dev Server:** [Vite](https://vitejs.dev/)
-- **UI Framework:** [Chakra UI](https://chakra-ui.com/)
-- **Animaciones:** [Framer Motion](https://www.framer.com/motion/)
-- **Routing:** [React Router DOM v6](https://reactrouter.com/)
-- **SEO:** [React Helmet Async](https://github.com/staylor/react-helmet-async)
-- **Hosting & Funciones Serverless:** [Firebase](https://firebase.google.com/)
+### Scripts Principales
+- `pnpm run py`: Ejecuta el pipeline completo (Optimización de imágenes -> Build -> Typecheck -> Preview).
+- `pnpm run deploy:hosting`: Despliega la versión optimizada a la web.
+- `pnpm run deploy:functions`: Despliega el backend a la nube de Google.
 
-### Arquitectura de Software
-
-La aplicación ha sido refactorizada para seguir un patrón **Feature-Based Architecture** (FBA) combinado con principios SOLID:
-
-1.  **Feature-Based Organization:** El código está organizado por funcionalidad (`projects/`, `services/`, `home/`, `reclamation-book/`), no por tipo de archivo. Cada feature es autónoma y contiene sus componentes, hooks y servicios. Esto mejora significativamente la escalabilidad y mantenibilidad.
-
-2.  **Shared Code Separation:** Todo código reutilizable vive en `src/shared/`, incluyendo componentes genéricos, hooks personalizados, y utilidades. Esto elimina duplicación y centraliza la lógica común.
-
-3.  **Capa de Presentación (UI):** Compuesta por componentes de React funcionales que utilizan Hooks. Los componentes siguen filosofía de composición y se dividen en "presentational" (sin lógica) y "container" (con lógica) para máxima reutilización.
-
-4.  **Capa de Servicios:** La lógica de obtención de datos está abstraída en una capa de servicios (`src/features/*/services`). Los componentes no acceden a datos estáticos directamente; consumen datos a través de funciones asíncronas, simulando una llamada a API. Esto desacopla la UI del origen de los datos.
-
-5.  **Sistema de Diseño Centralizado:** Todos los estilos, fuentes y tokens de diseño están centralizados en `src/config/theme.js`, asegurando consistencia visual total y facilitando cambios globales.
-
-6.  **Componentes Modularizados:** Se utiliza "atomic design" para componentes complejos, dividiéndolos en subcomponentes especializados (ej: `ProjectDetailModal` → `VisualViewer`, `ProjectInfo`). Se estandarizan hooks personalizados y se validan tipos con `prop-types`.
-
-## 📂 Estructura de Directorios
-
-La estructura de archivos está organizada bajo **Feature-Based Architecture** para facilitar la navegación, mantenimiento y escalabilidad del proyecto.
-
-```
-src/
-├── features/                     # Funcionalidades organizadas por dominio
-│   ├── projects/                 # Proyectos y galería de trabajos
-│   │   ├── components/           # ProjectCard, ProjectsList, ProjectDetailModal
-│   │   ├── hooks/                # useProjectModal
-│   │   ├── services/             # Lógica API de proyectos
-│   │   └── index.js              # Barrel exports
-│   ├── services/                 # Servicios y productos
-│   │   ├── components/           # ServiceCard, ServiceList, ServiceSidebar
-│   │   ├── services/             # Lógica API de servicios
-│   │   └── index.js              # Barrel exports
-│   ├── home/                     # Secciones de la página principal
-│   │   ├── components/           # ClientsSection, FeaturesSection, StoreSection
-│   │   ├── services/             # Lógica AsyncData
-│   │   └── index.js              # Barrel exports
-│   └── reclamation-book/         # Libro de reclamaciones
-│       ├── components/           # Form sections (PersonalInfo, Product, etc.)
-│       ├── hooks/                # useReclamoForm
-│       ├── api/                  # Peticiones API
-│       └── index.js              # Barrel exports
-├── shared/                       # Código compartido entre features
-│   ├── components/               # Componentes reutilizables
-│   │   ├── common/               # FadingImage, Gallery, GlassCard, Franja, etc.
-│   │   ├── Image/                # ImageWithFallback, ImageOverlay
-│   │   ├── Layout/               # ItemGridLayout, DataLoader
-│   │   ├── HelmetWrapper.jsx     # SEO wrapper
-│   │   └── ...
-│   ├── hooks/                    # Hooks personalizados categorizados
-│   │   ├── ui/                   # useGallery, useIsMobile
-│   │   ├── observers/            # useIntersectionObserver
-│   │   └── data/                 # useAsyncData
-│   ├── config/                   # Tokens de diseño
-│   └── utils/                    # Funciones utilitarias
-├── layout/                       # Componentes de layout principal
-│   ├── Navbar/                   # Navbar, DesktopNav, MobileNav, ColorModeToggle
-│   ├── Footer/                   # Footer
-│   ├── MainLayout/               # Layout principal
-│   └── FloatingActions/          # FloatingWhatsApp button
-├── pages/                        # Componentes de página (vistas)
-├── routes/                       # Configuración de routing
-├── config/                       # Configuración global (Firebase, Theme)
-├── assets/                       # Imágenes, logos, recursos estáticos
-├── styles/                       # Estilos globales
-├── data/                         # Datos estáticos (clients, features, etc.)
-├── utils/                        # Funciones de utilidad
-├── docs/                         # Documentación del proyecto
-└── App.jsx                       # Componente raíz
-```
-
-### Patrón Feature-Based Architecture
-
-Cada feature (`projects`, `services`, `home`, `reclamation-book`) es una unidad independiente y cohesiva que contiene:
-
-- **Components:** Componentes específicos de la feature, organizados en subdirectorios si son complejos
-- **Hooks:** Lógica personalizada y estado exclusivo de la feature
-- **Services:** Acceso a datos, llamadas API, o servicios de la feature
-- **Index.js:** Barrel export que expone la API pública de la feature
-
-Esta arquitectura permite que cada feature sea:
-
-- ✅ **Independiente:** Puede ser desarrollada, testada y mantenida por separado
-- ✅ **Escalable:** Nuevas features pueden agregarse sin afectar existentes
-- ✅ **Reutilizable:** Código compartido vive en `src/shared/`
-- ✅ **Fácil de navegar:** Todo lo relacionado a una feature está en su carpeta
-
-### Path Aliases
-
-Para evitar imports relativos complicados, se han configurado aliases en `vite.config.js`:
-
-```javascript
-"@features": "./src/features",      // ✅ Importar desde features
-"@shared": "./src/shared",          // ✅ Importar desde shared
-"@layout": "./src/layout",          // ✅ Importar desde layout
-"@": "./src"                        // ✅ Fallback para src/
-```
-
-**Ejemplos de uso:**
-
-```javascript
-// ✅ CORRECTO - Usando aliases
-import { ProjectCard } from "@features/projects";
-import { FadingImage } from "@shared/components/common";
-import { Navbar } from "@layout/Navbar";
-
-// ❌ EVITAR - Múltiples ../ relativos
-import ProjectCard from "../../../features/projects/components/ProjectCard";
-```
-
-## ✨ Características Clave del Codebase
-
-- **Component-Driven Development:** UI construida a partir de pequeños componentes reutilizables.
-- **Abstracción de Datos:** Los componentes son agnósticos al origen de los datos, gracias a la capa de servicios.
-- **Carga Asíncrona:** Los datos de las secciones principales se cargan de forma asíncrona, mostrando elegantes skeletons de carga para mejorar la UX.
-- **Rendimiento Optimizado (Concurrent Rendering):**
-  - **React 18 `useTransition`:** Optimización profunda del renderizado en galerías y cambios de estado pesados, garantizando 60 FPS estables sin bloqueos del Main Thread.
-  - **LCP Prioritization:** Estratificación estricta de imágenes (Eager load para Hero/LCP y Lazy load para Below-the-fold).
-  - **Code Splitting:** Las páginas se cargan bajo demanda con `React.lazy` y `Suspense`.
-  - **Optimización de Imágenes:** `vite-plugin-image-optimizer` se utiliza para comprimir y optimizar las imágenes durante el build.
-- **Experiencia de Usuario (Aura Design System):**
-  - **Fibonacci Scale:** Todo el sistema de espaciado (`gap`, `margin`, `padding`) está regido por la Proporción Áurea (Phi) para una armonía visual perfecta y matemáticamente escalable.
-  - **Glassmorphism Premium:** Uso de `backdropFilter`, sombras volumétricas y capas translúcidas (Zinc Scale) para emular la refracción del cristal y el aluminio.
-  - **Mobile-First Full-Screen:** Menú Hamburguesa inmersivo a pantalla completa, eliminando distracciones en la experiencia táctil.
-  - **Test Labs de Alta Gama:** Rutas locales de experimentación visual (`/test`, `/test-banca`, `/test-servicios`, `/test-detalle-servicio`) que actúan como "Laboratorios de Diseño" para probar variantes arquitectónicas en vivo.
-
-## 🛠️ Instalación y Desarrollo Local
-
-Para ejecutar el proyecto en un entorno de desarrollo local, siga estos pasos.
-
-1.  **Prerrequisitos:**
-    - Node.js (v18 o superior)
-    - `pnpm` como gestor de paquetes (recomendado)
-
-2.  **Instalar dependencias:**
-
-    ```bash
-    pnpm install
-    ```
-
-3.  **Iniciar el servidor de desarrollo:**
-    La aplicación estará disponible en `http://localhost:5173`.
-    ```bash
-    pnpm run dev
-    ```
-
-### Scripts Disponibles
-
-- `pnpm dev`: Inicia el servidor de desarrollo.
-- `pnpm build`: Compila la aplicación para producción.
-- `pnpm preview`: Sirve localmente el build de producción.
-- `pnpm lint`: Analiza el código en busca de errores con ESLint.
-- `pnpm deploy:hosting`: Despliega la aplicación a Firebase Hosting.
-- `pnpm deploy:functions`: Despliega las funciones serverless a Firebase Functions.
-
-## 📝 Mantenimiento y Actualizaciones
-
-- **Para modificar contenido (proyectos, servicios, etc.):** Actualmente, se deben editar los archivos en `src/data/`. El plan a largo plazo es migrar esta data a un Headless CMS, momento en el cual solo se necesitará actualizar la capa de servicios en `src/services/`.
-- **Para modificar estilos o añadir variantes:** Edite el archivo `src/config/theme.js` siguiendo las directrices del [documento de estilos](./doc/chakra-ui-style-guidelines.md).
+---
+*Mantenido por el Equipo de Agentes Senior de GYA Company. Actualizado: Abril 2026.*
