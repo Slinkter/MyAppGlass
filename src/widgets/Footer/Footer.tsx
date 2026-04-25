@@ -263,7 +263,7 @@ const Footer = () => {
                                 alt="Logo GYA Glass & Aluminum"
                                 fill
                                 style={{ objectFit: "contain" }}
-                                priority
+                                loading="lazy"
                             />
                         </Box>
 
