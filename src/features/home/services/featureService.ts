@@ -4,7 +4,7 @@
  * @module home/services
  */
 
-import { features, iconMap, type Feature } from "@/data/features";
+import { features, iconMap, type Feature } from "@/features/home/data/features";
 import { type LucideIcon } from "lucide-react";
 
 /**

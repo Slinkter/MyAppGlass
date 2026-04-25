@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { CompanyPoliciesView } from "@/views/legal";
+import { CompanyPoliciesView } from "@/screens/legal";
 
 export const metadata: Metadata = {
   title: "Políticas de Empresa | GYA Glass & Aluminum",

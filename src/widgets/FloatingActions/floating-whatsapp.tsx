@@ -13,7 +13,7 @@ import {
   DialogCloseTrigger,
 } from "@/components/ui/dialog";
 import { FaWhatsapp } from "react-icons/fa";
-import { companyData } from "@/config/company-data";
+import { companyData } from "@/shared/config/company-data";
 
 /**
  * @component FloatingWhatsApp

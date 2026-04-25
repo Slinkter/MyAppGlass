@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ProjectsView } from "@/views/projects";
+import { ProjectsView } from "@/screens/projects";
 
 export const metadata: Metadata = {
   title: "Nuestros Proyectos | GYA Glass & Aluminum",

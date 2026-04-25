@@ -40,8 +40,11 @@
       "@shared/*": [
         "src/shared/*"
       ],
-      "@layout/*": [
-        "src/layout/*"
+      "@widgets/*": [
+        "src/widgets/*"
+      ],
+      "@screens/*": [
+        "src/screens/*"
       ]
     }
   },

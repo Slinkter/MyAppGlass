@@ -3,7 +3,7 @@
 import React from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import BlogCard from "./BlogCard";
-import BLOG_POSTS from "@/data/blog-posts";
+import BLOG_POSTS from "@/features/blog/data/blog-posts";
 
 /**
  * @component BlogList

@@ -7,7 +7,7 @@ import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 import React from "react";
 import { Box, Heading, Text, VStack, Container } from "@chakra-ui/react";
-import { companyData } from "@/config/company-data";
+import { companyData } from "@/shared/config/company-data";
 
 const CompanyPoliciesView: React.FC = () => {
   const textColor = useColorModeValue("gray.800", "gray.100");

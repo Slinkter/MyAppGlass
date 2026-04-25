@@ -4,7 +4,7 @@
  * Utiliza los datos centralizados de blog-posts.ts.
  */
 
-import BLOG_POSTS, { BlogPost } from "@/data/blog-posts";
+import BLOG_POSTS, { BlogPost } from "@/features/blog/data/blog-posts";
 
 export const getPosts = (): BlogPost[] => BLOG_POSTS;
 

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { HomeView } from "@/views/home";
+import { HomeView } from "@/screens/home";
 
 export const metadata: Metadata = {
   title: "Vidriería en La Molina | Glass & Aluminum Company S.A.C. - GYA Company",

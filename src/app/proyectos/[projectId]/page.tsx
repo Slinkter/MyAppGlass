@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ProjectDetailView } from "@/views/projects";
+import { ProjectDetailView } from "@/screens/projects";
 import { getProjectById, getProjects } from "@/features/projects/services/projectService";
 
 export function generateStaticParams() {

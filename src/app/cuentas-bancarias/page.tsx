@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { BankAccountsView } from "@/views/legal";
+import { BankAccountsView } from "@/screens/legal";
 
 export const metadata: Metadata = {
   title: "Cuentas Bancarias | GYA Glass & Aluminum",

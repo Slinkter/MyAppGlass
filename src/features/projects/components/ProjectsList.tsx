@@ -122,9 +122,7 @@ const ProjectsList: React.FC = React.memo(() => {
                 _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
                 transition="all 0.2s ease"
                 onClick={() => {
-                  console.log("BUTTON CLICK:", year, "activeYear BEFORE:", activeYear);
                   handleYearChange(year);
-                  console.log("BUTTON CLICK:", year, "activeYear AFTER:", activeYear);
                 }}
               >
                 {year}
@@ -142,7 +140,7 @@ const ProjectsList: React.FC = React.memo(() => {
           transition: "opacity 0.2s ease-in-out",
           pointerEvents: isPending ? "none" : "auto",
         }}
-        onMouseEnter={() => console.log("DEBUG:", { activeYear, preloadedCount: preloadedProjects.length })}
+        onMouseEnter={() => {}}
       >
         {preloadedProjects.map((project, index) => (
           <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>

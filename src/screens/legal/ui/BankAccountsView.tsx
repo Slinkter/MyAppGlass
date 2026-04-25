@@ -30,8 +30,8 @@ import {
     Check,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { companyData } from "@/config/company-data";
-import { bankAccountsData, type BankAccount } from "@/data/bank-accounts";
+import { companyData } from "@/shared/config/company-data";
+import { bankAccountsData, type BankAccount } from "@/shared/data/bank-accounts";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
 import AuraSurface from "@shared/components/aura/AuraSurface";

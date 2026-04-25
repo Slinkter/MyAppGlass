@@ -13,7 +13,7 @@ import {
   Badge,
   Flex
 } from "@chakra-ui/react";
-import { BlogPost } from "@/data/blog-posts";
+import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideChevronRight, LucideClock, LucideArrowRight } from "lucide-react";
 import Link from "next/link";
 
