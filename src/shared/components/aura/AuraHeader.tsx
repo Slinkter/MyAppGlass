@@ -54,7 +54,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
       </Flex>
 
       {/* Main Content Area (Title) */}
-      <VStack gap="phi_sm" align={centered ? "center" : "flex-start"} w="full" textAlign={centered ? "center" : "left"}>
+      <VStack gap={{ base: "phi_md", md: "phi_lg" }} align={centered ? "center" : "flex-start"} w="full" textAlign={centered ? "center" : "left"}>
         {!backTo && overline && (
           <Text 
             fontSize={{ base: "10px", md: "xs" }} 
