@@ -23,8 +23,7 @@ import VisualViewer from "@features/projects/components/modal/VisualViewer";
 import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
 import BackButton from "@shared/components/navigation/BackButton";
 import { ErrorView as ErrorPage } from "@/screens/error";
-import AuraContainer from "@shared/components/aura/AuraContainer";
-import AuraSkeleton, { AuraHeaderSkeleton, GallerySkeleton } from "@shared/components/aura/AuraSkeleton";
+import AuraSkeleton from "@shared/components/aura/AuraSkeleton";
 
 export interface ViewSelectorProps {
   activeMode: string;
@@ -94,18 +93,51 @@ const ProjectDetailView: React.FC = () => {
 
   if (isLoading) {
     return (
-      <AuraContainer>
-        <VStack gap="phi_lg" align="stretch" w="full">
-           <AuraHeaderSkeleton centered={true} />
-           <GallerySkeleton />
-           <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap="phi_md" w="full">
-             <AuraSkeleton h="80px" borderRadius="xl" />
-             <AuraSkeleton h="80px" borderRadius="xl" />
-             <AuraSkeleton h="80px" borderRadius="xl" />
-             <AuraSkeleton h="80px" borderRadius="xl" />
-           </SimpleGrid>
-        </VStack>
-      </AuraContainer>
+      <Box bg="bg.page" minH="100vh">
+        <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb={32}>
+          <VStack gap={{ base: 12, lg: 16 }} align="stretch" w="full">
+            {/* Header Sync */}
+            <Flex 
+              direction={{ base: "column", md: "row" }} 
+              justify="space-between" 
+              align={{ base: "flex-start", md: "flex-end" }} 
+              gap={8}
+            >
+              <VStack gap={4} align="flex-start">
+                <Box mb={2}>
+                  <AuraSkeleton h="24px" w="100px" borderRadius="full" />
+                </Box>
+                <AuraSkeleton h={{ base: "36px", md: "56px" }} w={{ base: "250px", md: "400px" }} />
+              </VStack>
+              <AuraSkeleton h="44px" w={{ base: "100%", md: "240px" }} borderRadius="full" />
+            </Flex>
+
+            {/* Viewer Sync */}
+            <Box
+              w="full"
+              h={{ base: "350px", md: "500px", lg: "65vh" }}
+              minH={{ md: "500px" }}
+              maxH={{ lg: "800px" }}
+            >
+              <AuraSkeleton h="full" w="full" borderRadius="3xl" />
+            </Box>
+
+            {/* Specifications Sync */}
+            <VStack align="flex-start" gap={8} w="full">
+              <HStack gap={3}>
+                <Box w="20px" h="1px" bg="border.glass" _dark={{ bg: "whiteAlpha.200" }} /> 
+                <AuraSkeleton h="16px" w="180px" />
+              </HStack>
+              <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={6} w="full">
+                <AuraSkeleton h="80px" borderRadius="xl" />
+                <AuraSkeleton h="80px" borderRadius="xl" />
+                <AuraSkeleton h="80px" borderRadius="xl" />
+                <AuraSkeleton h="80px" borderRadius="xl" />
+              </SimpleGrid>
+            </VStack>
+          </VStack>
+        </Container>
+      </Box>
     );
   }
 

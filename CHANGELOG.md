@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-04-25] - Performance & UX Optimizations
+
+### Added
+- **Performance Plan**: Generated `PLAN_OPTIMIZACION.md` detailing the 4-phase performance execution.
+- **Git Hooks**: Implemented a `.git/hooks/pre-commit` script to enforce FSD compliance, 100% type safety, and zero linting errors prior to any commit.
+
+### Changed
+- **Algorithm Optimization (O(1))**: Refactored array search algorithms (`Array.find()`) in `projectService.ts`, `serviceService.ts`, and `blogService.ts` to utilize HashMaps (`Map`) for instant `O(1)` data retrieval.
+- **React Memoization**: Applied `React.memo` and `displayName` to heavily reused components like `GlassCard.tsx` and `AuraHeader.tsx` to eliminate unnecessary DOM re-renders.
+- **Lazy Loading (Code Splitting)**: Integrated `next/dynamic` into `Gallery.tsx` to defer the loading of heavy Framer Motion components until they enter the viewport, radically shrinking the initial JS bundle.
+- **LCP Asset Optimization**: Replaced `priority` with `loading="lazy"` on below-the-fold assets (e.g., Footer logo) to prioritize bandwidth for critical above-the-fold content.
+- **UX Layout Sync (Zero CLS)**: Synchronized the skeleton loading state of `/proyectos/[id]` with its final rendered state, eliminating Cumulative Layout Shift during data hydration.
+- **UX Breathing Room**: Increased the vertical gap tokens dynamically (`gap={{ base: "phi_sm", md: "phi_md" }}`) inside `ItemGridLayout.tsx` and `AuraHeader.tsx` to provide better visual separation between main headings and descriptions.
+
 ## [2026-04-25] - FSD Architectural Alignment & Documentation
 
 ### Changed

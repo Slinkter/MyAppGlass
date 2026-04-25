@@ -101,7 +101,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
         >
             <VStack gap={{ base: "phi_sm", md: "phi_md" }} w="full">
                 {/* Header Section */}
-                <VStack gap={0}>
+                <VStack gap={{ base: "phi_sm", md: "phi_md" }}>
                     <Heading
                         as={headingAs}
                         color="text.accent"
