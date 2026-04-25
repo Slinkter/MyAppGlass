@@ -53,7 +53,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
             </Text>
             .
           </Text>
-          <Text mt={2}>
+          <Text mt="phi_xs">
             Se ha enviado una copia de la confirmación a su correo electrónico.
           </Text>
         </DialogBody>

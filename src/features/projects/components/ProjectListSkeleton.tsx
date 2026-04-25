@@ -9,13 +9,13 @@ import ProjectCardSkeleton from "./ProjectCardSkeleton";
  */
 const ProjectListSkeleton: React.FC = () => {
     return (
-        <Container maxW="7xl" mt={6} mb={0} textAlign="center">
+        <Container maxW="7xl" mt="phi_md" mb={0} textAlign="center">
             {/* Title Skeleton */}
-            <Skeleton height="50px" width="300px" mx="auto" mb={2} mt={4} />
+            <Skeleton height="50px" width="300px" mx="auto" mb="phi_xs" mt="phi_md" />
             {/* Subtitle Skeleton */}
-            <Skeleton height="30px" width="400px" mx="auto" mb={10} />
+            <Skeleton height="30px" width="400px" mx="auto" mb="phi_lg" />
 
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={10}>
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="phi_lg">
                 {Array.from({ length: 6 }).map((_, index) => (
                     <ProjectCardSkeleton key={index} />
                 ))}

@@ -28,8 +28,8 @@ const ClaimDetailSection: React.FC = () => {
         as="h3"
         size="md"
         borderBottomWidth={2}
-        pb={2}
-        pt={4}
+        pb="phi_xs"
+        pt="phi_sm"
         color="text.heading"
       >
         3. Detalle de su solicitud

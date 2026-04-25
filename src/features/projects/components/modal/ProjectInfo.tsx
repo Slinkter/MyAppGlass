@@ -86,14 +86,14 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
             mb="phi_lg"
             display="flex"
             alignItems="center"
-            gap={3}
+            gap="phi_sm"
           >
             <Box w="20px" h="1px" bg="primary.500" /> Especificaciones Técnicas
           </MotionHeading>
           
           <Grid
             templateColumns={{ base: "1fr", sm: "1fr 1fr", lg: "1fr" }}
-            gap={4}
+            gap="phi_md"
           >
             <MotionBox variants={itemVariants}>
               <ProjectDetailItem
@@ -130,18 +130,18 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
         </MotionBox>
 
         {/* View Switcher - Reubicado al pie de la ficha */}
-        <VStack gap={4} w="full" pt={6} borderTop="1px solid" borderColor="border.glass">
+        <VStack gap="phi_md" w="full" pt="phi_md" borderTop="1px solid" borderColor="border.glass">
           <Text fontSize="10px" fontWeight="bold" color="text.muted" letterSpacing="0.1em" textTransform="uppercase">
             Visualización de Obra
           </Text>
-          <ButtonGroup w="full" gap={2} variant="outline" size="sm">
+          <ButtonGroup w="full" gap="phi_xs" variant="outline" size="sm">
             <Button
               flex="1"
               onClick={() => setViewMode("map")}
               variant={viewMode === "map" ? "aura" : "ghost"}
               borderRadius="full"
-              gap={2}
-              py={5}
+              gap="phi_xs"
+              py="phi_md"
             >
               <Map size={16} /> UBICACIÓN
             </Button>
@@ -150,8 +150,8 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
               onClick={() => setViewMode("gallery")}
               variant={viewMode === "gallery" ? "aura" : "ghost"}
               borderRadius="full"
-              gap={2}
-              py={5}
+              gap="phi_xs"
+              py="phi_md"
             >
               <Photo size={16} /> GALERÍA
             </Button>

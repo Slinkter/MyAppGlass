@@ -166,13 +166,13 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
           <Box
             as="button"
             position="absolute"
-            left={4}
+            left="phi_md"
             top="50%"
             transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
             onClick={handlePrevious}
             color="white"
             bg="blackAlpha.500"
-            p={2}
+            p="phi_xs"
             borderRadius="full"
             _hover={{
               bg: "whiteAlpha.300",
@@ -192,13 +192,13 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
           <Box
             as="button"
             position="absolute"
-            right={4}
+            right="phi_md"
             top="50%"
             transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
             onClick={handleNext}
             color="white"
             bg="blackAlpha.500"
-            p={2}
+            p="phi_xs"
             borderRadius="full"
             _hover={{
               bg: "whiteAlpha.300",
@@ -218,11 +218,11 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
 
           <Box
             position="absolute"
-            top={4}
-            right={4}
+            top="phi_md"
+            right="phi_md"
             bg="blackAlpha.700"
-            px={4}
-            py={1.5}
+            px="phi_md"
+            py="phi_xs"
             borderRadius="full"
             border="1px solid"
             borderColor="whiteAlpha.300"
@@ -243,10 +243,10 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
 
           <HStack
             position="absolute"
-            bottom={6}
+            bottom="phi_md"
             left="50%"
             transform="translateX(-50%)"
-            gap={2.5}
+            gap="phi_xs"
             zIndex={5}
           >
             {Array.from({ length: imageCount }).map((_, index) => (
@@ -269,7 +269,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
       {imageCount > 1 && (
         <Box
           position="absolute"
-          bottom={12}
+          bottom="phi_xl"
           left="50%"
           transform="translateX(-50%)"
           zIndex={10}
@@ -289,13 +289,13 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             <HStack
               bg="blackAlpha.700"
               backdropFilter="blur(8px)"
-              px={4}
-              py={2}
+              px="phi_md"
+              py="phi_xs"
               borderRadius="full"
               color="white"
               border="1px solid"
               borderColor="whiteAlpha.300"
-              gap={2}
+              gap="phi_xs"
             >
               <LuMoveHorizontal size={14} />
               <Text fontSize="10px" fontWeight="bold" letterSpacing="widest">

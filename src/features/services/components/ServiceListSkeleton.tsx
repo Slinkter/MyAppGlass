@@ -15,8 +15,8 @@ const ServiceListSkeleton: React.FC = () => {
             columns={{ base: 1, sm: 2, md: 3 }}
         >
             {/* Filter Pills Skeleton */}
-            <Box gridColumn="1 / -1" w="full" mb={8}>
-                <SimpleGrid columns={{ base: 2, md: 4 }} gap={4} maxW="600px" mx="auto">
+            <Box gridColumn="1 / -1" w="full" mb="phi_lg">
+                <SimpleGrid columns={{ base: 2, md: 4 }} gap="phi_sm" maxW="600px" mx="auto">
                     {Array.from({ length: 4 }).map((_, i) => (
                         <Skeleton key={i} height="36px" borderRadius="full" />
                     ))}
@@ -41,17 +41,17 @@ const ServiceListSkeleton: React.FC = () => {
                         bottom={0}
                         left={0}
                         right={0}
-                        p={6}
+                        p="phi_md"
                         display="flex"
                         flexDirection="column"
                         alignItems="center"
                         justifyContent="flex-end"
                     >
                         {/* Title Skeleton */}
-                        <Skeleton height="24px" width="60%" mb={8} borderRadius="full" />
+                        <Skeleton height="24px" width="60%" mb="phi_lg" borderRadius="full" />
 
                         {/* Button Skeleton (Ver Catálogo) */}
-                        <VStack gap={4} w="full">
+                        <VStack gap="phi_sm" w="full">
                             <Skeleton 
                                 height="36px" 
                                 width="70%" 
