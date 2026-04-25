@@ -21,11 +21,13 @@ Plataforma corporativa de alta gama optimizada para el rendimiento y SEO de auto
 - **Firestore Security:** Persistencia legal de reclamos con marcas de tiempo de servidor y estados de auditoría.
 - **Secret Manager:** Blindaje total de claves API y correos administrativos.
 
-## 📂 Arquitectura del Proyecto (FBA)
-El proyecto utiliza una **Feature-Based Architecture (FBA)** escalable:
-- `src/app/`: Rutas, Metadatos y Layouts de Next.js.
-- `src/features/`: Módulos autónomos (`blog`, `projects`, `services`, `reclamation-book`).
-- `src/shared/`: Componentes Aura, Hooks de utilidad y servicios de datos.
+## 📂 Arquitectura del Proyecto (FSD)
+El proyecto utiliza **Feature-Sliced Design (FSD)** para máxima escalabilidad y separación de responsabilidades:
+- `src/app/`: Rutas, Metadatos y Layouts de Next.js. Capa exclusiva de enrutamiento.
+- `src/screens/`: Implementación de las páginas visuales (ensamblaje de widgets y features).
+- `src/widgets/`: Bloques estructurales complejos (Navbar, Footer).
+- `src/features/`: Módulos autónomos de negocio con su propia data (`blog`, `projects`, `services`).
+- `src/shared/`: Componentes genéricos (Aura), utilidades, configuración y API.
 - `functions/`: Microservicios serverless en Node.js 20+.
 
 ## 🛠️ Desarrollo Local
@@ -41,6 +43,8 @@ El proyecto utiliza una **Feature-Based Architecture (FBA)** escalable:
 - `pnpm run deploy:functions`: Despliega el backend a la nube de Google.
 
 ## 📝 Mantenimiento y Auditoría
+- **Arquitectura Full-Stack:** Consulte `ARCHITECTURE.md` para un detalle completo del stack, FSD y seguridad Firebase.
+- **Protocolo de IA:** Todo nuevo agente debe leer `AI_HANDOFF.md` antes de modificar el código.
 - **Guía de Desarrollo:** Consulte `docs/DOCS_DEVELOPMENT.md`.
 - **Seguridad Backend:** Consulte `docs/DOCS_SECURITY_BACKEND.md`.
 - **Simulación Local:** Consulte `docs/SIMULACION_BACKEND.md`.
