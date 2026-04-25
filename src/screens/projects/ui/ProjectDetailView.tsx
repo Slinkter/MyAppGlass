@@ -22,7 +22,7 @@ import { getProjectById } from "@features/projects/services/projectService";
 import VisualViewer from "@features/projects/components/modal/VisualViewer";
 import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
 import BackButton from "@shared/components/navigation/BackButton";
-import { ErrorView as ErrorPage } from "@/views/error";
+import { ErrorView as ErrorPage } from "@/screens/error";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraSkeleton, { AuraHeaderSkeleton, GallerySkeleton } from "@shared/components/aura/AuraSkeleton";
 

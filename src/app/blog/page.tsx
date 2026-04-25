@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { BlogView } from "@/views/blog";
+import { BlogView } from "@/screens/blog";
 
 export const metadata: Metadata = {
   title: "Blog de Expertos en Vidriería y Aluminio | GYA Glass & Aluminum",

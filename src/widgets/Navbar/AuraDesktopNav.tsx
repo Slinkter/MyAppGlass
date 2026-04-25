@@ -10,7 +10,7 @@ import { HStack, Box, Text } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
 import { m } from "framer-motion";
-import NAV_ITEMS from "@/data/nav-items";
+import NAV_ITEMS from "@/shared/config/nav-items";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 const MotionBox = m.create(Box);

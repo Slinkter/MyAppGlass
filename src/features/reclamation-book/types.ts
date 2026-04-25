@@ -1,4 +1,4 @@
-import { ReclamoData } from "@/api/reclamoService";
+import { ReclamoData } from "@/shared/api/reclamoService";
 
 /**
  * Extension of ReclamoData to include fields specific to the UI form state.

@@ -23,7 +23,7 @@ import {
 import { usePathname } from "next/navigation";
 import NavLink from "next/link";
 import { m, AnimatePresence } from "framer-motion";
-import NAV_ITEMS from "@/data/nav-items";
+import NAV_ITEMS from "@/shared/config/nav-items";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
 import {
     DrawerBackdrop,

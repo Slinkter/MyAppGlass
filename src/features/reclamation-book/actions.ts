@@ -4,7 +4,7 @@
  * Refactored to remove "use server" for static export compatibility.
  */
 
-import { ReclamoData, reclamoService } from "@/api/reclamoService";
+import { ReclamoData, reclamoService } from "@/shared/api/reclamoService";
 
 /**
  * Server Action to handle the submission of the "Libro de Reclamaciones" form.

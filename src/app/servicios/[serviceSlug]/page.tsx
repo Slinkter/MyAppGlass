@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ServiceDetailView } from "@/views/services";
+import { ServiceDetailView } from "@/screens/services";
 import { getServiceBySlug, getServices } from "@/features/services/services/serviceService";
 
 export function generateStaticParams() {

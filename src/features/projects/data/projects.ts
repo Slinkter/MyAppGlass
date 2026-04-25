@@ -1,4 +1,4 @@
-import palmer from "@/data/proyectos/palmer";
+import palmer from "@/features/projects/data/palmer";
 
 export interface ProjectPhoto {
   id: number;

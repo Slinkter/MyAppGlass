@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPosts } from "@/features/blog/services/blogService";
-import BlogPostView from "@/views/blog/ui/BlogPostView";
+import BlogPostView from "@/screens/blog/ui/BlogPostView";
 import { getCompanyJsonLd } from "@/shared/utils/seo-utils";
 
 interface PageProps {

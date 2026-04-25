@@ -42,10 +42,6 @@ export function useFilterableList<T>({
 }: UseFilterableListOptions<T>) {
   const [activeCategory, setActiveCategory] = useState(initialCategory);
 
-  // Debug: log when category changes
-  useEffect(() => {
-    console.log("useFilterableList: activeCategory CHANGED to:", activeCategory);
-  }, [activeCategory]);
   const [displayCount, setDisplayCount] = useState(pageSize);
   const [isPending, startTransition] = useTransition();
   const [loaderNode, setLoaderNode] = useState<HTMLElement | null>(null);
@@ -57,7 +53,6 @@ export function useFilterableList<T>({
   // Memoize filtered items
   const filteredItems = useMemo(() => {
     const result = filterFn(items, activeCategory);
-    console.log("useFilterableList: filteredItems:", { activeCategory, inputCount: items.length, outputCount: result.length });
     return result;
   }, [items, activeCategory, filterFn]);
 
@@ -105,7 +100,6 @@ export function useFilterableList<T>({
   // Prepare paginated items
   const paginatedItems = useMemo(() => {
     const result = filteredItems.slice(0, displayCount);
-    console.log("useFilterableList: paginatedItems:", { filteredLength: filteredItems.length, displayCount, resultLength: result.length });
     return result;
   }, [filteredItems, displayCount]);
 

@@ -4,7 +4,7 @@ import React from "react";
 import { Box, Heading, Text, VStack, Image, HStack, Badge, Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { BlogPost } from "@/data/blog-posts";
+import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideArrowRight } from "lucide-react";
 
 const MotionBox = motion.create(Box);

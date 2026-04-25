@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from 'next'
 import { Lora } from 'next/font/google'
-import '../App.css'
+import '../styles/global.css'
 import { Providers } from './providers';
 import { Box } from "@chakra-ui/react";
-import { AuraNavbar as Navbar } from "@/layout/Navbar";
-import { Footer } from "@/layout/Footer";
+import { AuraNavbar as Navbar } from "@/widgets/Navbar";
+import { Footer } from "@/widgets/Footer";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
-import { FloatingWhatsAppWrapper as FloatingWhatsApp } from "@/layout/FloatingActions";
+import { FloatingWhatsAppWrapper as FloatingWhatsApp } from "@/widgets/FloatingActions";
 import { getCompanyJsonLd } from '@/shared/utils/seo-utils';
 
 const lora = Lora({

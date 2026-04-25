@@ -4,7 +4,7 @@
  * @module home/services
  */
 
-import { clients, type Client } from "@/data/clients";
+import { clients, type Client } from "@/features/home/data/clients";
 
 /**
  * Obtiene la lista de clientes de forma síncrona desde data/clients.

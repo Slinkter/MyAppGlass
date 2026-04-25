@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Box, Heading, Stack, Text } from "@chakra-ui/react";
-import { companyData } from "@/config/company-data";
+import { companyData } from "@/shared/config/company-data";
 import { ReclamationFormProvider, useReclamationFormContext } from "./ReclamationFormContext";
 import PersonalInfoSection from "./PersonalInfoSection";
 import ProductSection from "./ProductSection";

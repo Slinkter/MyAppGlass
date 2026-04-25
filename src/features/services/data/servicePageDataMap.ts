@@ -1,16 +1,16 @@
 import { ChevronRight, Check, LucideIcon } from "lucide-react";
 
 // Import all gallery data
-import { listVentana } from "@/data/gallery/ventana-data";
-import { listBalcon } from "@/data/gallery/balcon-data";
-import { listBaranda } from "@/data/gallery/baranda-data";
-import { listCelosias } from "@/data/gallery/celosias-data";
-import { listDucha } from "@/data/gallery/ducha-data";
-import { listMampara } from "@/data/gallery/mampara-data";
-import { listParapeto } from "@/data/gallery/parapeto-data";
-import { listPuertas } from "@/data/gallery/puerta-serie-data";
-import { listPuertav } from "@/data/gallery/puerta-vidrio-data";
-import { listTecho } from "@/data/gallery/techo-data";
+import { listVentana } from "@/features/services/data/gallery/ventana-data";
+import { listBalcon } from "@/features/services/data/gallery/balcon-data";
+import { listBaranda } from "@/features/services/data/gallery/baranda-data";
+import { listCelosias } from "@/features/services/data/gallery/celosias-data";
+import { listDucha } from "@/features/services/data/gallery/ducha-data";
+import { listMampara } from "@/features/services/data/gallery/mampara-data";
+import { listParapeto } from "@/features/services/data/gallery/parapeto-data";
+import { listPuertas } from "@/features/services/data/gallery/puerta-serie-data";
+import { listPuertav } from "@/features/services/data/gallery/puerta-vidrio-data";
+import { listTecho } from "@/features/services/data/gallery/techo-data";
 import { GalleryItem } from "@/shared/types/gallery";
 
 /**
