@@ -5,41 +5,56 @@
 
 export const getCompanyJsonLd = () => ({
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "GYA Company - Vidriería y Aluminio",
-  "image": "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp",
-  "@id": "https://www.gyacompany.com",
-  "url": "https://www.gyacompany.com",
-  "telephone": "+51900000000", // Actualizar con número real
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "La Molina",
-    "addressLocality": "Lima",
-    "addressRegion": "Lima",
-    "postalCode": "15024",
-    "addressCountry": "PE"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": -12.072,
-    "longitude": -76.942
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ],
-    "opens": "08:00",
-    "closes": "18:00"
-  },
-  "sameAs": [
-    "https://www.facebook.com/gyacompany",
-    "https://www.instagram.com/gyacompany"
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.gyacompany.com/#website",
+      "url": "https://www.gyacompany.com",
+      "name": "GYA Company",
+      "publisher": { "@id": "https://www.gyacompany.com/#organization" },
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": "https://www.gyacompany.com/servicios?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      ],
+      "hasPart": [
+        { "@type": "WebPage", "name": "Portal GYA", "url": "https://www.gyacompany.com/" },
+        { "@type": "WebPage", "name": "Ventanas de Aluminio", "url": "https://www.gyacompany.com/servicios/ventana" },
+        { "@type": "WebPage", "name": "Mamparas de Vidrio", "url": "https://www.gyacompany.com/servicios/mampara" },
+        { "@type": "WebPage", "name": "Puertas de Ducha", "url": "https://www.gyacompany.com/servicios/ducha" },
+        { "@type": "WebPage", "name": "Proyectos Realizados", "url": "https://www.gyacompany.com/proyectos" }
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.gyacompany.com/#organization",
+      "name": "Glass & Aluminum Company S.A.C. - GYA Company",
+      "legalName": "Glass & Aluminum Company S.A.C.",
+      "alternateName": "GYA Company",
+      "image": "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp",
+      "url": "https://www.gyacompany.com",
+      "telephone": "+51974278303",
+      "sameAs": [
+        "https://www.facebook.com/gyacompany",
+        "https://www.instagram.com/gyacompany",
+        "https://www.tiktok.com/@gyacompany"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. los Fresnos 1214-1274",
+        "addressLocality": "La Molina",
+        "addressRegion": "Lima",
+        "postalCode": "15024",
+        "addressCountry": "PE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -12.0722,
+        "longitude": -76.9421
+      }
+    }
   ]
 });
 

@@ -201,7 +201,7 @@ const MobileNav = React.memo(() => {
 
             <HStack w="full" justify="space-between" pt={4}>
               <Text fontSize="xs" color="text.muted" letterSpacing="widest" textTransform="uppercase">
-                © {new Date().getFullYear()} GYA
+                © {new Date().getFullYear()} Glass & Aluminum Company S.A.C.
               </Text>
               <HStack
                 as="button"
