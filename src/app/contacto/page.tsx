@@ -24,6 +24,7 @@ import { MessageSquareText, Mail, Phone, Search } from "lucide-react";
 import GlassCard from "@/shared/components/common/GlassCard";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { useContactForm } from "@/features/contacto/hooks/useContactForm";
+import { Checkbox } from "@/components/ui/checkbox";
 
 /**
  * @component ContactPage
@@ -64,7 +65,7 @@ export default function ContactPage() {
           </Text>
           <Heading size={{ base: "2xl", md: "4xl" }} fontWeight="900" letterSpacing="tighter">
             Cotiza tu Proyecto <br />
-            <Text as="span" color="text.accent">con GYA Company.</Text>
+            <Text as="span" color="text.accent">con Glass & Aluminum Company S.A.C.</Text>
           </Heading>
           <Text color="text.muted" fontSize="lg" maxW="2xl">
             Elige tu canal preferido para recibir asesoría técnica especializada en vidriería y aluminio.
@@ -81,7 +82,7 @@ export default function ContactPage() {
                 </Box>
                 <Box>
                   <Heading size="md" mb="phi_xs">Asesoría por WhatsApp</Heading>
-                  <Text opacity={0.8} mb="phi_md">Ideal para consultas rápidas, envío de fotos de obra y presupuestos inmediatos.</Text>
+                  <Text opacity={0.8} mb="phi_md">Ideal para consultas rápidas, Envío de fotos de obra y presupuestos inmediatos.</Text>
                 </Box>
                 <Button 
                   as="a"
@@ -238,6 +239,18 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={handleChange}
                   />
+                </Box>
+
+                <Box w="full" pt={2}>
+                  <Checkbox 
+                    name="acceptedTerms"
+                    checked={formData.acceptedTerms}
+                    onCheckedChange={(e) => handleChange({ target: { name: 'acceptedTerms', value: e.checked, type: 'checkbox' } } as any)}
+                  >
+                    <Text fontSize="xs" color="text.muted" fontWeight="600">
+                      He leído y acepto las <Text as="span" color="text.accent" cursor="pointer" textDecoration="underline">Políticas de Privacidad</Text> y el uso de mis datos para fines comerciales.
+                    </Text>
+                  </Checkbox>
                 </Box>
               </VStack>
 

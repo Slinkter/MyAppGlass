@@ -8,6 +8,7 @@ interface ContactFormState {
   name: string;
   email: string;
   message: string;
+  acceptedTerms: boolean;
 }
 
 export const useContactForm = () => {
@@ -15,6 +16,7 @@ export const useContactForm = () => {
     name: "",
     email: "",
     message: "",
+    acceptedTerms: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,8 +26,9 @@ export const useContactForm = () => {
   const [trackingResult, setTrackingResult] = useState<any>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    setFormData((prev) => ({ ...prev, [name]: val }));
   };
 
   const handleTrackingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +75,15 @@ export const useContactForm = () => {
       return;
     }
 
+    if (!formData.acceptedTerms) {
+      toaster.create({
+        title: "Consentimiento requerido",
+        description: "Debes aceptar las políticas de privacidad para continuar.",
+        type: "warning",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -83,7 +95,7 @@ export const useContactForm = () => {
           description: "Gracias por contactarnos. Te responderemos en menos de 24 horas.",
           type: "success",
         });
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", message: "", acceptedTerms: false });
       } else {
         throw new Error(result.error);
       }

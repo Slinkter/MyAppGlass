@@ -1,0 +1,15 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Only allow public read for the images folder
+    match /images/{allPaths=**} {
+      allow read: if true;
+      allow write: if false; // Only admins via Firebase Console/SDK with Service Account
+    }
+    
+    // Deny all by default for everything else
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

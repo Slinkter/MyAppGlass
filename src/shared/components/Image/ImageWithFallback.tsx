@@ -129,7 +129,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
 
         {/* Optimized Image using next/image */}
         <Image
-          src={getAssetUrl(src)}
+          src={imageSrc}
           alt={alt}
           fill
           priority={priority}

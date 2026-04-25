@@ -74,7 +74,7 @@ export const services: Service[] = [
     image: '/images/services-general-init04.webp',
     name: "Techos",
     category: "Cerramientos",
-    description: "Techos de policarbonato con estructura de aluminio. Protección y iluminación natural.",
+    description: "Techos de policarbonato con estructura de aluminio. Protección e iluminación natural.",
     link: "https://www.facebook.com/media/set/?set=a.414060237129511&type=3?from=GoogleBT",
     plink: "/servicios/techo",
   },

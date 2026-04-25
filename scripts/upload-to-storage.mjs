@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 
 // CONFIGURACIÓN
 const PROJECT_ID = "gya-app-4c8a9";
-const BUCKET_NAME = `${PROJECT_ID}.firebasestorage.app`; // O gya-app-4c8a9.appspot.com
+const BUCKET_NAME = `${PROJECT_ID}.firebasestorage.app`;
 const LOCAL_IMAGES_DIR = path.join(__dirname, '..', 'public', 'images');
 const KEY_FILE = path.join(__dirname, '..', 'service-account.json');
 
@@ -36,27 +36,32 @@ async function main() {
 
     console.log(`🚀 Iniciando subida de ${files.length} imágenes a Firebase Storage...`);
 
+    const CONCURRENCY_LIMIT = 20;
     let count = 0;
-    for (const file of files) {
+
+    const uploadFile = async (file) => {
       const filePath = path.join(LOCAL_IMAGES_DIR, file);
       const stat = await fs.stat(filePath);
 
       if (stat.isFile()) {
         const destination = `images/${file}`;
-        
-        // Subir archivo
         await bucket.upload(filePath, {
           destination,
-          public: true, // Hacerlo público para acceso directo vía URL
+          public: true,
           metadata: {
             cacheControl: 'public, max-age=31536000',
             contentType: getContentType(file)
           }
         });
-
         count++;
-        if (count % 10 === 0) console.log(`✅ Subidas ${count}/${files.length} imágenes...`);
+        if (count % 20 === 0) console.log(`✅ Subidas ${count}/${files.length} imágenes...`);
       }
+    };
+
+    // Procesar en baches para no saturar la red/API
+    for (let i = 0; i < files.length; i += CONCURRENCY_LIMIT) {
+      const batch = files.slice(i, i + CONCURRENCY_LIMIT);
+      await Promise.all(batch.map(file => uploadFile(file)));
     }
 
     console.log(`\n✨ ¡Éxito! Se han subido ${count} imágenes a gs://${BUCKET_NAME}/images/`);
