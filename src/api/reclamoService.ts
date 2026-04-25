@@ -10,6 +10,10 @@
 // 1. Obtenemos la URL de la función desde las variables de entorno de Next.js.
 const SUBMIT_RECLAMO_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
+if (!SUBMIT_RECLAMO_URL && process.env.NODE_ENV === "production") {
+  console.warn("CRITICAL: NEXT_PUBLIC_API_URL is not defined in production environment.");
+}
+
 /**
  * Estructura de datos del formulario de reclamo.
  */

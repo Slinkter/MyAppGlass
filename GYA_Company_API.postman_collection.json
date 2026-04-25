@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "gya-reclamos-api-v1",
+		"name": "GYA Company - Libro de Reclamaciones",
+		"description": "Colección para validar el envío de reclamos y quejas al backend de GYA Glass & Aluminum.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Enviar Nuevo Reclamo (Producción)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombreCompleto\": \"Usuario Prueba Postman\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000001\",\n  \"domicilio\": \"Av. Las Pruebas 456, Lima\",\n  \"email\": \"usuario@ejemplo.com\",\n  \"telefono\": \"987654321\",\n  \"tipoBien\": \"Producto\",\n  \"montoReclamado\": \"250.00\",\n  \"descripcionBien\": \"Mampara Serie 20 con detalle en el perfil\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"detalle\": \"El perfil de aluminio presenta una rayadura visible de 5cm.\",\n  \"pedido\": \"Cambio del perfil afectado o pulido profesional.\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitReclamo",
+					"protocol": "https",
+					"host": [
+						"us-central1-gya-app-4c8a9",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"submitReclamo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enviar Nuevo Reclamo (Local)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombreCompleto\": \"Local Test User\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Localhost 127\",\n  \"email\": \"test@local.com\",\n  \"telefono\": \"000000\",\n  \"tipoBien\": \"Servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Test Local\",\n  \"tipoSolicitud\": \"Queja\",\n  \"detalle\": \"Probando emuladores locales\",\n  \"pedido\": \"Validación local exitosa\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5001/gya-app-4c8a9/us-central1/submitReclamo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"gya-app-4c8a9",
+						"us-central1",
+						"submitReclamo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

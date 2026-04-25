@@ -109,30 +109,58 @@ export const useReclamoForm = (): ReclamationFormContextValue => {
     const isFormValid = Object.keys(validationErrors).length === 0;
 
     if (isFormValid) {
+      // Toast de carga inicial
+      const toastId = toaster.create({
+        title: "Procesando solicitud...",
+        description: "Enviando reclamo al servidor legal.",
+        type: "info",
+        duration: 20000, // 20 segundos es suficiente para un timeout de red
+      });
+
       try {
-        // Enviar solo los campos que espera el servicio (sin archivos si no están definidos en ReclamoData)
+        // Enviar solo los campos que espera el servicio
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { archivos, ...rest } = formData;
         const result = await submitReclamoAction(rest);
         
+        // Cerramos el toast de carga
+        toaster.dismiss(toastId);
+
         if (result.success && result.id) {
           setNewReclamoId(result.id);
           setIsOpen(true);
           setFormData(initialState);
+          
+          toaster.create({
+            title: "Reclamo enviado",
+            description: "Se ha registrado su reclamo exitosamente.",
+            type: "success",
+            duration: 5000,
+          });
         } else {
           throw new Error(result.error);
         }
       } catch (error: unknown) {
+        // Cerramos el toast de carga en caso de error
+        toaster.dismiss(toastId);
+        
         console.error("Error submitting reclamo: ", error);
-        const errorMessage = error instanceof Error ? error.message : "Hubo un error al procesar su solicitud. Por favor, intente más tarde.";
-        // v3: toaster.create() instead of toast()
+        const errorMessage = error instanceof Error ? error.message : "Hubo un error al procesar su solicitud.";
+        
         toaster.create({
-          title: "Error al enviar reclamo",
-          description: errorMessage,
+          title: "Fallo en el servidor",
+          description: `Detalle: ${errorMessage}`,
           type: "error",
-          duration: 6000,
+          duration: 10000, // Tiempo extra para que el usuario pueda leer el error
         });
       }
+    } else {
+      toaster.create({
+        title: "Campos incompletos",
+        description: "Por favor, revise los errores en el formulario.",
+        type: "warning",
+        duration: 4000,
+      });
     }
   };
 

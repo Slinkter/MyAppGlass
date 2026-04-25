@@ -61,22 +61,30 @@ const createClientEmailHtml = (data, reclamoId) => `
  * @param {object} admin Instancia de firebase-admin.
  */
 async function sendEmailLogic(reclamoData, admin) {
+  logger.info("INIT: Iniciando sendEmailLogic", { email: reclamoData.email });
+  
   // Inicializamos Resend usando la variable de entorno protegida
   const resend = new Resend(process.env.RESEND_API_KEY);
   const db = admin.firestore();
-  
-  // El email del admin debe estar configurado en las variables de entorno de Firebase
-  // o podemos usar un fallback si es necesario para pruebas.
-  const ADMIN_RECIPIENT = process.env.ADMIN_EMAIL || "gyacompany.ventas@gmail.com";
+  const ADMIN_RECIPIENT = process.env.ADMIN_EMAIL;
 
-  logger.info("Validando datos del reclamo...");
+  if (!ADMIN_RECIPIENT) {
+    logger.error("MISSING_SECRET: ADMIN_EMAIL is not defined in Secret Manager.");
+    throw new HttpsError("failed-precondition", "Configuración de servidor incompleta.");
+  }
+
+  logger.info("STEP 1: Validando campos obligatorios...");
   if (!reclamoData.email || !reclamoData.nombreCompleto) {
+    logger.warn("VALIDATION_ERROR: Faltan datos críticos", { 
+      hasEmail: !!reclamoData.email, 
+      hasNombre: !!reclamoData.nombreCompleto 
+    });
     throw new HttpsError("invalid-argument", "Faltan datos críticos del contacto.");
   }
 
   try {
     // 1. Enviar correo al Administrador
-    logger.info(`Enviando notificación a administrador: ${ADMIN_RECIPIENT}`);
+    logger.info(`STEP 2: Intentando enviar notificación a Admin: ${ADMIN_RECIPIENT}`);
     const adminEmail = await resend.emails.send({
       from: "GYA Libro Reclamaciones <noreply@gyacompany.com>",
       to: ADMIN_RECIPIENT,
@@ -84,31 +92,46 @@ async function sendEmailLogic(reclamoData, admin) {
       html: createAdminEmailHtml(reclamoData),
     });
 
-    if (adminEmail.error) throw new Error(adminEmail.error.message);
+    if (adminEmail.error) {
+      logger.error("RESEND_ADMIN_ERROR: Falló el envío al administrador", adminEmail.error);
+      throw new Error(`Resend Admin Error: ${adminEmail.error.message}`);
+    }
     const reclamoId = adminEmail.data.id;
+    logger.info(`SUCCESS: Correo Admin enviado. ID: ${reclamoId}`);
 
     // 2. Enviar confirmación al Cliente
-    logger.info(`Enviando confirmación al cliente: ${reclamoData.email}`);
-    await resend.emails.send({
+    logger.info(`STEP 3: Intentando enviar confirmación al Cliente: ${reclamoData.email}`);
+    const clientEmail = await resend.emails.send({
       from: "GYA Glass & Aluminum <noreply@gyacompany.com>",
       to: reclamoData.email,
       subject: `Confirmación de Recepción - Reclamo ${reclamoId}`,
       html: createClientEmailHtml(reclamoData, reclamoId),
     });
 
+    if (clientEmail.error) {
+      logger.warn("RESEND_CLIENT_WARNING: No se pudo enviar copia al cliente, pero el reclamo se procesará", clientEmail.error);
+    } else {
+      logger.info("SUCCESS: Correo Cliente enviado.");
+    }
+
     // 3. Persistir en base de datos para cumplimiento legal
-    logger.info(`Guardando en Firestore: ${reclamoId}`);
+    logger.info(`STEP 4: Guardando reclamo ${reclamoId} en Firestore...`);
     await db.collection("libro_de_reclamaciones").doc(reclamoId).set({
       ...reclamoData,
       status: "RECIBIDO",
       createdAt: FieldValue.serverTimestamp(),
-      resendId: reclamoId
+      resendId: reclamoId,
+      source: "PROD_WEB"
     });
+    logger.info("SUCCESS: Reclamo persistido en Firestore.");
 
     return { id: reclamoId };
   } catch (error) {
-    logger.error("Fallo en el proceso de envío/guardado:", error);
-    throw new HttpsError("internal", "No se pudo procesar el reclamo. Intente nuevamente.");
+    logger.error("CRITICAL_ERROR: Fallo total en el proceso de envío/guardado", {
+      message: error.message,
+      stack: error.stack
+    });
+    throw new HttpsError("internal", `Error técnico: ${error.message}`);
   }
 }
 

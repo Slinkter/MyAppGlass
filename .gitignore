@@ -221,5 +221,17 @@ $RECYCLE.BIN/
 # ----------------------------------------------------------------
 .env
 .env.*
+.env.local
+.env.production
 !.env.example
+
+# Archivos de simulación y JDK local
+functions/.env
+functions/test-integration.cjs
+functions/test-reclamo.json
+mock-server.cjs
+SIMULACION_BACKEND.md
+openjdk.jdk
+test-integration.cjs
+
 

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import ReclamationForm from "@/features/reclamation-book/components/ReclamationForm";
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 export const metadata: Metadata = {
   title: "Libro de Reclamaciones | GYA Glass & Aluminum",
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ReclamationForm />;
+  return (
+    <ComponentErrorBoundary>
+       <ReclamationForm />
+    </ComponentErrorBoundary>
+  );
 }

@@ -7,6 +7,7 @@
  */
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { Box, Code, Heading, Text, VStack, Button } from '@chakra-ui/react';
+import { logger } from '@/shared/utils/logger';
 
 interface Props {
   children: ReactNode;
@@ -25,13 +26,11 @@ class ComponentErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error): Partial<State> {
-    // Update state so the next render will show the fallback UI.
     return { hasError: true, error };
   }
 
   override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    // You can also log the error to an error reporting service
-    console.error("Uncaught error in component:", error, errorInfo);
+    logger.error("Uncaught error in component", error, { componentStack: errorInfo.componentStack });
     this.setState({ errorInfo });
   }
 
