@@ -68,6 +68,11 @@ export const getServicePageData = async (
     return Promise.resolve(pageData as ServicePageData);
 };
 
+// O(1) Lookup Map para Servicios
+const servicesBySlugMap = new Map<string, Service>(
+    (services as Service[]).map(service => [service.plink, service])
+);
+
 /**
  * Obtiene un servicio específico por su slug (basado en plink).
  *
@@ -75,5 +80,5 @@ export const getServicePageData = async (
  * @returns El objeto del servicio si existe, o undefined.
  */
 export const getServiceBySlug = (slug: string): Service | undefined => {
-    return services.find((s) => s.plink === `/servicios/${slug}`);
+    return servicesBySlugMap.get(`/servicios/${slug}`);
 };
