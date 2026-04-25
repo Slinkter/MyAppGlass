@@ -149,6 +149,8 @@ const config = defineConfig({
       color: "text.body",
       transitionProperty: "background-color",
       transitionDuration: "normal",
+      textRendering: "optimizeLegibility",
+      touchAction: "manipulation",
     },
     a: {
       _focusVisible: {

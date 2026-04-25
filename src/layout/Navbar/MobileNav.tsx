@@ -5,7 +5,7 @@
  * @description UX/UI Architect Edition: Ethereal & Minimalist Navigation.
  * Refined trigger: Removed all backgrounds and borders for an ultra-clean floating look.
  */
-import React, { useState, useEffect, useCallback, useTransition } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Box, IconButton, VStack, Text, Separator, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Menu, X, ShieldCheck, Landmark, Home, Sun, Moon, LucideIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -49,7 +49,7 @@ const NavItemLarge = ({ label, href, onClick }: NavItemLargeProps) => {
           color={isActive ? "text.accent" : "text.heading"}
           textTransform="uppercase"
           letterSpacing="0.1em"
-          transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+          transition="all 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
           _groupHover={{ x: 10, color: "text.accent" }}
         >
           {label}
@@ -60,7 +60,9 @@ const NavItemLarge = ({ label, href, onClick }: NavItemLargeProps) => {
           style={{ 
             height: "2px", 
             backgroundColor: "var(--chakra-colors-text-accent)",
-            marginTop: "8px"
+            marginTop: "8px",
+            willChange: "width",
+            transform: "translateZ(0)"
           }} 
         />
       </Box>
@@ -86,7 +88,7 @@ const UtilityLink = ({ label, href, icon: Icon, onClick, isImage }: UtilityLinkP
         gap={3} 
         color={isActive ? "text.accent" : "text.muted"} 
         _hover={{ color: "text.accent", x: 4 }} 
-        transition="all 0.3s ease"
+        transition="all 0.2s ease"
       >
         {isImage ? (
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -109,16 +111,16 @@ const UtilityLink = ({ label, href, icon: Icon, onClick, isImage }: UtilityLinkP
 
 const MobileNav = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
   const pathname = usePathname();
   const { colorMode, toggleColorMode } = useColorMode();
 
+  // Close menu instantly when pathname changes
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
   const handleLinkClick = useCallback(() => {
-    startTransition(() => setIsOpen(false));
+    setIsOpen(false);
   }, []);
 
   return (
@@ -157,15 +159,19 @@ const MobileNav = React.memo(() => {
        <DrawerContent bg="bg.page" p={0} height="100vh" width="100vw" position="fixed" top={0} left={0}>
          <DrawerBody display="flex" flexDirection="column" h="full" px={8} pt={24} pb={8}>
           
-          <VStack flex="1" align="flex-start" justify="center" gap={2} opacity={isPending ? 0.6 : 1} transition="opacity 0.3s">
+          <VStack flex="1" align="flex-start" justify="center" gap={2} transition="opacity 0.3s">
             <AnimatePresence>
               {NAV_ITEMS.map((item, index) => (
                 <m.div
                   key={item.label}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.08, ease: "easeOut", duration: 0.5 }}
-                  style={{ width: "100%" }}
+                  transition={{ delay: index * 0.04, ease: "easeOut", duration: 0.3 }}
+                  style={{ 
+                    width: "100%",
+                    willChange: "transform, opacity",
+                    transform: "translateZ(0)"
+                  }}
                 >
                   <NavItemLarge 
                     label={item.label} 

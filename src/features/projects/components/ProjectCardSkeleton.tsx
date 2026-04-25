@@ -38,10 +38,10 @@ const ProjectCardSkeleton: React.FC = () => {
                 zIndex={2}
             >
                 {/* Título (Residencial) */}
-                <Skeleton height="24px" width="60%" mb="phi_lg" borderRadius="full" />
+                <Skeleton height={{ base: "20px", md: "28px" }} width="60%" borderRadius="full" />
 
                 {/* Info (Address & Year) */}
-                <VStack gap="phi_md" w="full">
+                <VStack gap="phi_md" w="full" mt="phi_md">
                     <HStack justify="center" gap="phi_sm" w="full">
                         <Skeleton height="14px" width="40%" borderRadius="full" />
                         <Box w="1px" h="3" bg="whiteAlpha.400" />
@@ -50,7 +50,7 @@ const ProjectCardSkeleton: React.FC = () => {
 
                     {/* Botón EXPLORAR PROYECTO */}
                     <Skeleton 
-                        height="40px" 
+                        height="32px" 
                         width="80%" 
                         borderRadius="full" 
                         maxW="240px"

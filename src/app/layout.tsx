@@ -7,6 +7,7 @@ import { AuraNavbar as Navbar } from "@/layout/Navbar";
 import { Footer } from "@/layout/Footer";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { FloatingWhatsAppWrapper as FloatingWhatsApp } from "@/layout/FloatingActions";
+import { getCompanyJsonLd } from '@/shared/utils/seo-utils';
 
 const lora = Lora({
   subsets: ['latin'],
@@ -34,9 +35,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = getCompanyJsonLd();
+
   return (
     <html lang="es" suppressHydrationWarning className={lora.variable}>
-      <head />
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>
         <Providers>
             <Box minH="100dvh" position="relative">

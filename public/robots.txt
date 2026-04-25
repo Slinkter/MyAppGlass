@@ -1,3 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemaps
 Sitemap: https://www.gyacompany.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10
