@@ -3,7 +3,7 @@ import ReclamationForm from "@/features/reclamation-book/components/ReclamationF
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 export const metadata: Metadata = {
-  title: "Libro de Reclamaciones | GYA Glass & Aluminum",
+  title: "Libro de Reclamaciones | Glass & Aluminum Company S.A.C.",
   description: "Formulario virtual para presentar quejas o reclamos de acuerdo con la normativa vigente de protección al consumidor en Perú.",
 };
 

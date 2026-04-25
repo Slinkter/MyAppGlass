@@ -28,14 +28,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.gyacompany.com"),
   title: {
-    default: "Vidriería en La Molina | GYA Company - Ventanas y Mamparas",
-    template: "%s | GYA Company",
+    default: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",
+    template: "%s | Glass & Aluminum Company S.A.C.",
   },
-  description: "Especialistas en vidriería, instalación de ventanas antiruido, mamparas de vidrio templado y aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
-  keywords: ["vidriería la molina", "vidrios y aluminios", "ventanas antiruido lima", "mamparas para baño", "vidrio templado precio"],
+  description: "Especialistas en vidriería, instalación de ventanas antirruido, mamparas de vidrio templado y aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
+  keywords: ["vidriería la molina", "vidrio y aluminio", "ventanas antirruido lima", "mamparas para baño", "vidrio templado precio"],
   authors: [{ name: "GYA Company" }],
   openGraph: {
-    title: "Vidriería en La Molina | GYA Company",
+    title: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",
     description: "Líderes en cerramientos de vidrio y aluminio de alta calidad.",
     url: "https://www.gyacompany.com",
     siteName: "GYA Company",

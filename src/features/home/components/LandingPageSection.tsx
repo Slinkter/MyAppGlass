@@ -115,8 +115,8 @@ const LandingPageSection: React.FC = React.memo(() => {
                             maxW="3xl"
                             mx="auto"
                         >
-                            Empresa comercial especilasita de en la venta e
-                            instalacion de vidrios y aluminios
+                            Empresa comercial especialista en la venta e
+                            instalación de vidrio y aluminio
                         </Text>
 
                         <HStack
