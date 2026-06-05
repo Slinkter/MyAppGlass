@@ -5,5 +5,7 @@ allowBuilds:
   e: true
   i: true
   l: true
+  protobufjs: true
   s: true
+  sharp: true
   u: true
