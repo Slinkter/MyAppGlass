@@ -11,12 +11,10 @@ import {
   BoxProps
 } from "@chakra-ui/react";
 import { CheckCircle2, MessageSquareText } from "lucide-react";
-import { m, AnimatePresence } from "framer-motion";
+
 import { ServicePageFeature } from "../services/serviceService";
 
-const MotionSimpleGrid = m.create(SimpleGrid);
-const MotionGrid = m.create(Grid);
-const MotionHStack = m.create(HStack);
+
 
 interface BentoCardProps extends BoxProps {
   children: React.ReactNode;
@@ -24,7 +22,7 @@ interface BentoCardProps extends BoxProps {
 
 const BentoCard: React.FC<BentoCardProps> = ({ children, bg, color, ...props }) => (
   <Box
-    p={{ base: "phi_md", lg: "phi_lg" }}
+    p={{ base: "6", lg: "8" }}
     h="full"
     bg={bg || "bg.section"}
     color={color || "text.body"}
@@ -49,7 +47,7 @@ const BentoAbout = React.memo(({ about }: BentoAboutProps) => {
   if (!about) return null;
   return (
     <BentoCard display="flex" flexDirection="column" justifyContent="center">
-      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="phi_sm">
+      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="4">
         Concepto Técnico
       </Text>
       <Text fontSize={{ base: "md", md: "xl" }} lineHeight="tall" fontWeight="medium" _dark={{ color: "whiteAlpha.800" }}>
@@ -67,36 +65,22 @@ interface BentoBenefitsProps {
 const BentoBenefits = React.memo(({ benefits }: BentoBenefitsProps) => {
   if (!benefits) return null;
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.1 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } },
-  };
-
   return (
     <BentoCard>
-      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="phi_lg">
+      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="8">
         Ventajas Estructurales
       </Text>
-      <MotionSimpleGrid 
-        variants={containerVariants} 
-        initial="hidden" 
-        whileInView="show"
-        viewport={{ once: true }}
+      <SimpleGrid 
         columns={{ base: 1, sm: 2, lg: 3 }} 
-        gap={{ base: "phi_sm", lg: "phi_lg" }}
+        gap={{ base: "4", lg: "8" }}
       >
         {benefits.map((benefit, i) => (
-          <MotionHStack variants={itemVariants} key={i} align="flex-start" gap="phi_sm" bg="bg.page" _dark={{ bg: "whiteAlpha.50" }} p="phi_md" borderRadius="xl" border="1px solid" borderColor="border.glass">
+          <HStack key={i} align="flex-start" gap="4" bg="bg.page" _dark={{ bg: "whiteAlpha.50" }} p="6" borderRadius="xl" border="1px solid" borderColor="border.glass">
             <Box as={CheckCircle2} color="primary.500" mt={0.5} boxSize={5} />
             <Text fontWeight="semibold" fontSize="sm" color="text.body" _dark={{ color: "whiteAlpha.900" }}>{benefit.label}</Text>
-          </MotionHStack>
+          </HStack>
         ))}
-      </MotionSimpleGrid>
+        </SimpleGrid>
     </BentoCard>
   );
 });
@@ -120,9 +104,9 @@ const BentoCTA = React.memo(({ systemName }: BentoCTAProps) => {
       border="1px solid"
       borderColor="primary.500"
     >
-      <Box as={MessageSquareText} boxSize={10} mb="phi_md" color="primary.300" _dark={{ color: "primary.500" }} />
-      <Heading size="md" mb="phi_xs" letterSpacing="tight">¿Iniciamos tu obra?</Heading>
-      <Text opacity={0.8} mb="phi_lg" fontSize="sm">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
+      <Box as={MessageSquareText} boxSize={10} mb="6" color="primary.300" _dark={{ color: "primary.500" }} />
+      <Heading size="md" mb="2" letterSpacing="tight">¿Iniciamos tu obra?</Heading>
+      <Text opacity={0.8} mb="8" fontSize="sm">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
     </BentoCard>
   );
 });
@@ -137,16 +121,11 @@ interface ServiceBentoGridProps {
 
 const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ activeIndex, about, benefits, systemName }) => {
   return (
-    <AnimatePresence mode="wait">
-      <MotionGrid
+      <Grid
         key={`bento-${activeIndex}`}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.5, ease: "circOut" }}
         templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
         templateRows={{ base: "auto", lg: "minmax(380px, auto)" }}
-        gap={{ base: "phi_lg", lg: "phi_xl" }}
+        gap={{ base: "8", lg: "14" }}
       >
         <GridItem colSpan={{ base: 1, lg: 2 }}>
           <BentoAbout about={about} />
@@ -157,8 +136,7 @@ const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ activeIndex, about,
         <GridItem colSpan={{ base: 1, lg: 3 }}>
           <BentoBenefits benefits={benefits} />
         </GridItem>
-      </MotionGrid>
-    </AnimatePresence>
+      </Grid>
   );
 };
 

@@ -6,16 +6,24 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { LuChevronLeft, LuChevronRight, LuMoveHorizontal } from "react-icons/lu";
-import { m, AnimatePresence } from "framer-motion";
+
 import FadingImage from "../FadingImage";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { GalleryItem } from "@/shared/types/gallery";
+import { keyframes } from "@emotion/react";
 
+const galleryScale = keyframes`0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); }`;
+
+const swipeHint = keyframes`
+  0% { opacity: 0; transform: translateY(5px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(5px); }
+`;
 
 const SWIPE_THRESHOLD = 50;
 
-// Create a motion-enabled Box component
-const MotionBox = m.create(Box);
+
 
 interface GalleryViewerProps {
   currentImage: GalleryItem;
@@ -89,7 +97,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
   const slideTransform = isDragging ? `translateX(${dragOffset}px)` : "translateX(0)";
 
   return (
-    <MotionBox
+    <Box
       flex="1"
       h="100%"
       w="100%"
@@ -106,33 +114,23 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
       userSelect="none"
       touchAction="pan-y"
     >
-      <AnimatePresence mode="wait">
-        <m.div
-          key={currentImage.id}
-          initial={{ opacity: 0, scale: 1.02 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+        <Box
+          key={`${currentImage.id}`}
+          position="absolute"
+          top={0}
+          left={0}
+          w="100%"
+          h="100%"
+          overflow="hidden"
           style={{
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
             transform: slideTransform,
             transition: isDragging ? "none" : "transform 0.3s ease",
-            overflow: "hidden",
           }}
         >
-          <m.div
-            animate={{ scale: [1, 1.05] }}
-            transition={{ 
-              duration: 10, 
-              ease: "linear", 
-              repeat: Infinity, 
-              repeatType: "reverse" 
-            }}
-            style={{ width: "100%", height: "100%" }}
+          <Box
+            w="100%"
+            h="100%"
+            animation={`${galleryScale} 10s ease-in-out infinite alternate`}
           >
             <FadingImage
               src={currentImage.src}
@@ -144,9 +142,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
               fetchPriority={isPriority ? "high" : "auto"}
               borderRadius="none"
             />
-          </m.div>
-        </m.div>
-      </AnimatePresence>
+          </Box>
+        </Box>
 
       <Box
         position="absolute"
@@ -166,13 +163,13 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
           <Box
             as="button"
             position="absolute"
-            left="phi_md"
+            left="6"
             top="50%"
             transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
             onClick={handlePrevious}
             color="white"
             bg="blackAlpha.500"
-            p="phi_xs"
+            p="2"
             borderRadius="full"
             _hover={{
               bg: "whiteAlpha.300",
@@ -192,13 +189,13 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
           <Box
             as="button"
             position="absolute"
-            right="phi_md"
+            right="6"
             top="50%"
             transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
             onClick={handleNext}
             color="white"
             bg="blackAlpha.500"
-            p="phi_xs"
+            p="2"
             borderRadius="full"
             _hover={{
               bg: "whiteAlpha.300",
@@ -218,11 +215,11 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
 
           <Box
             position="absolute"
-            top="phi_md"
-            right="phi_md"
+            top="6"
+            right="6"
             bg="blackAlpha.700"
-            px="phi_md"
-            py="phi_xs"
+            px="6"
+            py="2"
             borderRadius="full"
             border="1px solid"
             borderColor="whiteAlpha.300"
@@ -243,10 +240,10 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
 
           <HStack
             position="absolute"
-            bottom="phi_md"
+            bottom="6"
             left="50%"
             transform="translateX(-50%)"
-            gap="phi_xs"
+            gap="2"
             zIndex={5}
           >
             {Array.from({ length: imageCount }).map((_, index) => (
@@ -269,43 +266,36 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
       {imageCount > 1 && (
         <Box
           position="absolute"
-          bottom="phi_xl"
+          bottom="14"
           left="50%"
           transform="translateX(-50%)"
           zIndex={10}
           pointerEvents="none"
           display={{ base: "flex", md: "none" }}
         >
-          <m.div
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: [0, 1, 1, 0], y: [5, 0, 0, 5] }}
-            transition={{ 
-              duration: 3, 
-              times: [0, 0.1, 0.9, 1],
-              repeat: Infinity,
-              repeatDelay: 2
-            }}
+          <Box
+            animation={`${swipeHint} 5s ease-in-out infinite`}
           >
             <HStack
               bg="blackAlpha.700"
               backdropFilter="blur(8px)"
-              px="phi_md"
-              py="phi_xs"
+              px="6"
+              py="2"
               borderRadius="full"
               color="white"
               border="1px solid"
               borderColor="whiteAlpha.300"
-              gap="phi_xs"
+              gap="2"
             >
               <LuMoveHorizontal size={14} />
               <Text fontSize="10px" fontWeight="bold" letterSpacing="widest">
                 DESLIZA
               </Text>
             </HStack>
-          </m.div>
+          </Box>
         </Box>
       )}
-    </MotionBox>
+    </Box>
   );
 });
 

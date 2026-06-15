@@ -72,17 +72,17 @@ export default function ContactPage() {
           </Text>
         </VStack>
 
-        <SimpleGrid columns={{ base: 1, lg: 2 }} gap="phi_lg">
+        <SimpleGrid columns={{ base: 1, lg: 2 }} gap="8">
           {/* LEFT: WhatsApp & Direct Info (The "Quick" way) */}
-          <VStack gap="phi_md" align="stretch">
-            <GlassCard p="phi_lg" bg="primary.900" color="white" border="none" boxShadow="2xl">
-              <VStack align="flex-start" gap="phi_md">
-                <Box bg="whiteAlpha.200" p="phi_xs" borderRadius="2xl">
+          <VStack gap="6" align="stretch">
+            <GlassCard p="8" bg="primary.900" color="white" border="none" boxShadow="2xl">
+              <VStack align="flex-start" gap="6">
+                <Box bg="whiteAlpha.200" p="2" borderRadius="2xl">
                   <MessageSquareText size={32} />
                 </Box>
                 <Box>
-                  <Heading size="md" mb="phi_xs">Asesoría por WhatsApp</Heading>
-                  <Text opacity={0.8} mb="phi_md">Ideal para consultas rápidas, Envío de fotos de obra y presupuestos inmediatos.</Text>
+                  <Heading size="md" mb="2">Asesoría por WhatsApp</Heading>
+                  <Text opacity={0.8} mb="6">Ideal para consultas rápidas, Envío de fotos de obra y presupuestos inmediatos.</Text>
                 </Box>
                 <Button 
                   as="a"
@@ -103,9 +103,9 @@ export default function ContactPage() {
             </GlassCard>
 
             {/* TRACKING CARD - CONSULTAR ESTADO */}
-            <GlassCard p="phi_md" bg={cardBg} border="1px solid" borderColor="text.accent">
-              <VStack align="flex-start" gap="phi_md">
-                <HStack gap="phi_xs" color="text.accent">
+            <GlassCard p="6" bg={cardBg} border="1px solid" borderColor="text.accent">
+              <VStack align="flex-start" gap="6">
+                <HStack gap="2" color="text.accent">
                   <Search size={18} />
                   <Heading size="xs" textTransform="uppercase" letterSpacing="widest">Consultar Estado de Solicitud</Heading>
                 </HStack>
@@ -130,7 +130,7 @@ export default function ContactPage() {
                 </HStack>
 
                 {trackingResult && (
-                  <Box w="full" p="phi_xs" bg="whiteAlpha.100" borderRadius="md" borderLeft="4px solid" borderColor="text.accent">
+                  <Box w="full" p="2" bg="whiteAlpha.100" borderRadius="md" borderLeft="4px solid" borderColor="text.accent">
                     <VStack align="flex-start" gap={1}>
                       <Text fontSize="2xs" color="text.muted" textTransform="uppercase">{trackingResult.type}</Text>
                       <HStack justify="space-between" w="full">
@@ -152,10 +152,10 @@ export default function ContactPage() {
             </GlassCard>
 
             {/* Optimized Contact Info Grid */}
-            <VStack gap="phi_sm" align="stretch">
-              <Box p="phi_md" borderRadius="2xl" border="1px solid" borderColor="border.glass" bg={cardBg}>
-                <HStack gap="phi_md">
-                  <Box bg="surface.icon" p="phi_xs" borderRadius="full">
+            <VStack gap="4" align="stretch">
+              <Box p="6" borderRadius="2xl" border="1px solid" borderColor="border.glass" bg={cardBg}>
+                <HStack gap="6">
+                  <Box bg="surface.icon" p="2" borderRadius="full">
                     <Icon as={Phone} color="text.accent" />
                   </Box>
                   <VStack align="flex-start" gap={0}>
@@ -165,9 +165,9 @@ export default function ContactPage() {
                 </HStack>
               </Box>
 
-              <Box p="phi_md" borderRadius="2xl" border="1px solid" borderColor="border.glass" bg={cardBg}>
-                <HStack gap="phi_md" wrap={{ base: "wrap", sm: "nowrap" }}>
-                  <Box bg="surface.icon" p="phi_xs" borderRadius="full">
+              <Box p="6" borderRadius="2xl" border="1px solid" borderColor="border.glass" bg={cardBg}>
+                <HStack gap="6" wrap={{ base: "wrap", sm: "nowrap" }}>
+                  <Box bg="surface.icon" p="2" borderRadius="full">
                     <Icon as={Mail} color="text.accent" />
                   </Box>
                   <VStack align="flex-start" gap={0} overflow="hidden" w="full">
@@ -195,16 +195,16 @@ export default function ContactPage() {
           </VStack>
 
           {/* RIGHT: Email Form (The "Formal" way) */}
-          <GlassCard p="phi_lg" bg={cardBg}>
-            <VStack align="flex-start" gap="phi_lg" as="form" onSubmit={handleSubmit}>
-              <VStack align="flex-start" gap="phi_xs">
+          <GlassCard p="8" bg={cardBg}>
+            <VStack align="flex-start" gap="8" as="form" onSubmit={handleSubmit}>
+              <VStack align="flex-start" gap="2">
                 <Heading size="md" color="text.heading">Formulario de Cotización</Heading>
                 <Text fontSize="sm" color="text.muted">Completa los datos y adjunta tu requerimiento.</Text>
               </VStack>
               
-              <VStack w="full" gap="phi_md">
+              <VStack w="full" gap="6">
                 <Box w="full">
-                  <Text fontSize="xs" fontWeight="black" mb="phi_xs" ml={1} color="text.muted" letterSpacing="widest">NOMBRE COMPLETO</Text>
+                  <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">NOMBRE COMPLETO</Text>
                   <Input 
                     variant="subtle" 
                     w="full" 
@@ -216,7 +216,7 @@ export default function ContactPage() {
                 </Box>
 
                 <Box w="full">
-                  <Text fontSize="xs" fontWeight="black" mb="phi_xs" ml={1} color="text.muted" letterSpacing="widest">CORREO ELECTRÓNICO</Text>
+                  <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">CORREO ELECTRÓNICO</Text>
                   <Input 
                     variant="subtle" 
                     w="full" 
@@ -229,7 +229,7 @@ export default function ContactPage() {
                 </Box>
 
                 <Box w="full">
-                  <Text fontSize="xs" fontWeight="black" mb="phi_xs" ml={1} color="text.muted" letterSpacing="widest">DETALLES DEL PROYECTO</Text>
+                  <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">DETALLES DEL PROYECTO</Text>
                   <Textarea 
                     variant="subtle" 
                     w="full" 

@@ -32,11 +32,11 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
   const readingTime = Math.ceil(wordCount / wordsPerMinute);
 
   return (
-    <Box as="article" py={{ base: "phi_lg", md: "phi_2xl" }}>
+    <Box as="article" py={{ base: "8", md: "20" }}>
       <Container maxW="4xl">
-        <VStack align="flex-start" gap="phi_lg" w="full">
+        <VStack align="flex-start" gap="8" w="full">
           {/* Breadcrumbs */}
-          <HStack gap="phi_xs" color="text.muted" fontSize="sm">
+          <HStack gap="2" color="text.muted" fontSize="sm">
              <Link href="/">Inicio</Link>
              <LucideChevronRight size={14} />
              <Link href="/blog">Blog</Link>
@@ -45,10 +45,10 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
           </HStack>
 
           {/* Header */}
-          <VStack align="flex-start" gap="phi_md" w="full">
-            <HStack gap="phi_sm">
+          <VStack align="flex-start" gap="6" w="full">
+            <HStack gap="4">
               {post.tags.map(tag => (
-                <Badge key={tag} variant="subtle" colorPalette="primary" px="phi_sm" borderRadius="full">
+                <Badge key={tag} variant="subtle" colorPalette="primary" px="4" borderRadius="full">
                   {tag}
                 </Badge>
               ))}
@@ -64,16 +64,16 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
               {post.title}
             </Heading>
 
-            <HStack color="text.muted" fontSize="md" gap="phi_lg" wrap="wrap">
-              <HStack gap="phi_xs">
+            <HStack color="text.muted" fontSize="md" gap="8" wrap="wrap">
+              <HStack gap="2">
                 <LucideUser size={18} />
                 <Text fontWeight="600">{post.author}</Text>
               </HStack>
-              <HStack gap="phi_xs">
+              <HStack gap="2">
                 <LucideCalendar size={18} />
                 <Text>{new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}</Text>
               </HStack>
-              <HStack gap="phi_xs">
+              <HStack gap="2">
                 <LucideClock size={18} />
                 <Text>{readingTime} min de lectura</Text>
               </HStack>
@@ -110,42 +110,42 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
                 fontSize: "2xl",
                 fontWeight: "900",
                 color: "text.heading",
-                mt: "phi_xl",
-                mb: "phi_md",
+                mt: "14",
+                mb: "6",
               },
               "& h3": {
                 fontSize: "xl",
                 fontWeight: "bold",
                 color: "text.heading",
-                mt: "phi_lg",
-                mb: "phi_sm",
+                mt: "8",
+                mb: "4",
               },
               "& p": {
-                mb: "phi_md",
+                mb: "6",
               },
               "& blockquote": {
                 borderLeft: "4px solid",
                 borderColor: "text.accent",
-                pl: "phi_md",
+                pl: "6",
                 fontStyle: "italic",
                 color: "text.heading",
                 bg: "bg.subtle",
-                py: "phi_md",
+                py: "6",
                 borderRadius: "md",
-                my: "phi_lg",
+                my: "8",
               }
             }}
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
-          <Separator borderColor="border.glass" my="phi_xl" />
+          <Separator borderColor="border.glass" my="14" />
 
           {/* Footer of the article */}
           <Flex w="full" justify="space-between" align="center">
-            <HStack gap="phi_sm">
+            <HStack gap="4">
                <Text fontWeight="bold" color="text.heading">Compartir:</Text>
                {/* Simplified social sharing */}
-               <Box p="phi_xs" borderRadius="full" border="1px solid" borderColor="border.glass" _hover={{ bg: "text.accent", color: "white" }} cursor="pointer" transition="all 0.3s">
+               <Box p="2" borderRadius="full" border="1px solid" borderColor="border.glass" _hover={{ bg: "text.accent", color: "white" }} cursor="pointer" transition="all 0.3s">
                  <LucideArrowRight size={18} />
                </Box>
             </HStack>

@@ -23,7 +23,7 @@ const AuraNavbar = React.memo(() => {
       <Box
         as="header"
         position="sticky"
-        top="phi_md"
+        top="6"
         zIndex="sticky"
         display={{ base: "none", md: "flex" }}
         justifyContent="center"

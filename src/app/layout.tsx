@@ -74,13 +74,13 @@ export default function RootLayout({
                     overflow="hidden"
                     _focus={{
                         position: "fixed",
-                        top: "phi_md",
-                        left: "phi_md",
+                        top: "6",
+                        left: "6",
                         width: "auto",
                         height: "auto",
                         display: "inline-block",
-                        p: "phi_sm",
-                        m: "phi_sm",
+                        p: "4",
+                        m: "4",
                         border: "2px solid",
                         borderColor: "text.accent",
                         borderRadius: "md",
@@ -96,8 +96,8 @@ export default function RootLayout({
                     position="relative"
                     maxW="1440px"
                     mx="auto"
-                    px={{ base: "phi_md", md: "phi_xl" }}
-                    pb="phi_md"
+                    px={{ base: "6", md: "14" }}
+                    pb="6"
                     zIndex={1}
                 >
                     <Navbar />

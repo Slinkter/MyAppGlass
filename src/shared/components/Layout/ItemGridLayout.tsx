@@ -10,41 +10,21 @@ import {
     Box,
     ContainerProps,
 } from "@chakra-ui/react";
-import { m, Variants } from "framer-motion";
 
-const MotionBox = m.create(Box);
-const MotionSimpleGrid = m.create(SimpleGrid);
 
 interface ItemGridItemProps {
     children: React.ReactNode;
     delay?: number;
 }
 
-const ItemGridItem: React.FC<ItemGridItemProps> = ({ children, delay = 0 }) => {
-    const itemVariants: Variants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.6,
-                ease: [0.16, 1, 0.3, 1],
-                delay: delay,
-            },
-        },
-    };
-
+const ItemGridItem: React.FC<ItemGridItemProps> = ({ children }) => {
     return (
-        <MotionBox
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "50px" }}
+        <Box
             w="full"
             h="full"
         >
             {children}
-        </MotionBox>
+        </Box>
     );
 };
 
@@ -74,34 +54,20 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
     subtitle,
     children,
     columns = { base: 1, md: 2, lg: 3 },
-    gap = { base: "phi_md", md: "phi_lg" },
+    gap = { base: "6", md: "8" },
     containerProps = {},
     headingAs = "h2",
 }) => {
-    /**
-     * Animation Variants
-     */
-    const containerVariants: Variants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.05,
-                delayChildren: 0.1,
-            },
-        },
-    };
-
     return (
         <Container
             maxW="7xl"
             textAlign="center"
-            mt={{ base: "phi_lg", md: "phi_xl" }}
+            mt={{ base: "8", md: "14" }}
             {...containerProps}
         >
-            <VStack gap={{ base: "phi_sm", md: "phi_md" }} w="full">
+            <VStack gap={{ base: "4", md: "6" }} w="full">
                 {/* Header Section */}
-                <VStack gap={{ base: "phi_sm", md: "phi_md" }}>
+                <VStack gap={{ base: "4", md: "6" }}>
                     <Heading
                         as={headingAs}
                         color="text.accent"
@@ -128,11 +94,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
                     )}
                 </VStack>
 
-                <MotionSimpleGrid
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20px" }}
+                <SimpleGrid
                     columns={columns}
                     gap={gap}
                     w="full"
@@ -145,7 +107,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
                     }}
                 >
                     {children}
-                </MotionSimpleGrid>
+                </SimpleGrid>
             </VStack>
         </Container>
     );

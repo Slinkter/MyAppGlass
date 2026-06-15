@@ -52,8 +52,8 @@ const ImageOverlay: React.FC<ImageOverlayProps> = React.memo(({ name, plink }) =
       />
 
       <Stack
-        p={{ base: "phi_md", md: "phi_md" }}
-        gap="phi_sm"
+        p={{ base: "6", md: "6" }}
+        gap="4"
         textAlign="center"
         position="absolute"
         bottom="0"

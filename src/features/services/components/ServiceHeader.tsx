@@ -23,7 +23,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
   return (
     <HStack
       bg="bg.subtle"
-      p="phi_xs"
+      p="2"
       borderRadius="full"
       display="inline-flex"
       border="1px solid"
@@ -68,9 +68,9 @@ interface ServiceHeaderProps {
 
 const ServiceHeader: React.FC<ServiceHeaderProps> = ({ title, systems, activeIndex, onSelect }) => {
   return (
-    <Flex direction={{ base: "column", md: "row" }} justify="space-between" align={{ base: "flex-start", md: "flex-end" }} gap="phi_lg">
-      <VStack gap="phi_sm" align="flex-start">
-        <Box mb="phi_xs"><BackButton to="/servicios" /></Box>
+    <Flex direction={{ base: "column", md: "row" }} justify="space-between" align={{ base: "flex-start", md: "flex-end" }} gap="8">
+      <VStack gap="4" align="flex-start">
+        <Box mb="2"><BackButton to="/servicios" /></Box>
         <Heading size={{ base: "xl", md: "4xl" }} fontWeight="black" letterSpacing="tight" color="text.heading">
           {title}
         </Heading>

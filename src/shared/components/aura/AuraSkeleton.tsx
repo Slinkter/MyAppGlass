@@ -41,15 +41,15 @@ interface CenteredProps {
  * @description Mirrors the hybrid immersive header exactly.
  */
 export const AuraHeaderSkeleton: React.FC<CenteredProps> = ({ centered = true }) => (
-  <VStack w="full" gap="phi_lg" pt={{ base: 4, md: 8 }} pb="phi_xl">
+  <VStack w="full" gap="8" pt={{ base: 4, md: 8 }} pb="14">
     {/* Navigation Row (Left-anchored) */}
-    <HStack w="full" justify="flex-start" gap="phi_md">
+    <HStack w="full" justify="flex-start" gap="6">
       <AuraSkeleton h="40px" w="120px" borderRadius="full" />
       <AuraSkeleton h="12px" w="80px" />
     </HStack>
     
     {/* Title Row (Centered) */}
-    <VStack w="full" align={centered ? "center" : "flex-start"} gap="phi_sm">
+    <VStack w="full" align={centered ? "center" : "flex-start"} gap="4">
       <AuraSkeleton h={{ base: "32px", md: "48px" }} w={{ base: "80%", md: "500px" }} />
       <AuraSkeleton h="40px" w="160px" borderRadius="full" />
     </VStack>
@@ -71,8 +71,8 @@ export const ProjectCardSkeleton: React.FC = () => (
     _dark={{ bg: "whiteAlpha.50" }}
   >
     <AuraSkeleton h="full" w="full" />
-    <Box position="absolute" bottom="phi_lg" left="50%" transform="translateX(-50%)" w="full" px="phi_lg">
-      <VStack gap="phi_sm" w="full">
+    <Box position="absolute" bottom="8" left="50%" transform="translateX(-50%)" w="full" px="8">
+      <VStack gap="4" w="full">
         <AuraSkeleton h="24px" w="60%" />
         <AuraSkeleton h="12px" w="40%" />
         <AuraSkeleton h="36px" w="140px" borderRadius="full" mt={4} />
@@ -86,10 +86,10 @@ export const ProjectCardSkeleton: React.FC = () => (
  * @description Mirrors the horizontal ServiceCard structure.
  */
 export const ServiceCardSkeleton: React.FC = () => (
-  <AuraSurface p="phi_md" h="140px">
-    <HStack gap="phi_md" h="full" align="center">
+  <AuraSurface p="6" h="140px">
+    <HStack gap="6" h="full" align="center">
       <AuraSkeleton boxSize="80px" borderRadius="xl" />
-      <VStack align="flex-start" flex="1" gap="phi_xs">
+      <VStack align="flex-start" flex="1" gap="2">
         <AuraSkeleton h="18px" w="70%" />
         <AuraSkeleton h="12px" w="90%" />
         <AuraSkeleton h="12px" w="50%" />
@@ -103,7 +103,7 @@ export const ServiceCardSkeleton: React.FC = () => (
  * @description Replicates the Bento layout found in details pages.
  */
 export const BentoGridSkeleton: React.FC = () => (
-  <SimpleGrid columns={{ base: 1, lg: 3 }} gap="phi_lg" w="full">
+  <SimpleGrid columns={{ base: 1, lg: 3 }} gap="8" w="full">
     <GridItem colSpan={{ base: 1, lg: 2 }}>
       <AuraSkeleton h="380px" borderRadius="3xl" />
     </GridItem>
@@ -136,11 +136,11 @@ export const GallerySkeleton: React.FC = () => (
  * @description Skeleton for large interactive areas like the QR Digital Wallet section.
  */
 export const BannerSkeleton: React.FC = () => (
-  <AuraSurface p="phi_lg" w="full">
-    <VStack gap="phi_lg" align="center">
+  <AuraSurface p="8" w="full">
+    <VStack gap="8" align="center">
       <AuraSkeleton w={{ base: "full", md: "280px" }} h="280px" borderRadius="2xl" />
-      <VStack align="flex-start" flex="1" gap="phi_md" w="full">
-        <HStack gap="phi_sm">
+      <VStack align="flex-start" flex="1" gap="6" w="full">
+        <HStack gap="4">
           <AuraSkeleton h="24px" w="60px" borderRadius="full" />
           <AuraSkeleton h="24px" w="60px" borderRadius="full" />
         </HStack>
@@ -162,7 +162,7 @@ interface GridSkeletonProps {
 /**
  * @component GridSkeleton
  */
-export const GridSkeleton: React.FC<GridSkeletonProps> = ({ columns = { base: 1, md: 2 }, count = 4, gap = "phi_md" }) => (
+export const GridSkeleton: React.FC<GridSkeletonProps> = ({ columns = { base: 1, md: 2 }, count = 4, gap = "6" }) => (
   <SimpleGrid columns={columns} gap={gap} w="full">
     {Array.from({ length: count }).map((_, i) => (
       <ServiceCardSkeleton key={i} />
@@ -171,7 +171,7 @@ export const GridSkeleton: React.FC<GridSkeletonProps> = ({ columns = { base: 1,
 );
 
 export const SectionSkeleton: React.FC<{ h?: string }> = ({ h = "400px" }) => (
-  <VStack w="full" gap="phi_lg" py="phi_xl">
+  <VStack w="full" gap="8" py="14">
     <AuraSkeleton h="32px" w="200px" />
     <AuraSkeleton h={h} w="full" borderRadius="3xl" />
   </VStack>
@@ -182,7 +182,7 @@ export const SectionSkeleton: React.FC<{ h?: string }> = ({ h = "400px" }) => (
  * @description Full silhouette for the portfolio page.
  */
 export const ProjectPageSkeleton: React.FC = () => (
-  <VStack w="full" gap="phi_lg" p={{ base: "phi_md", md: "phi_xl" }}>
+  <VStack w="full" gap="8" p={{ base: "6", md: "14" }}>
     <AuraHeaderSkeleton centered={false} />
     <HStack gap={4} justify="center" w="full" flexWrap="wrap">
       <AuraSkeleton h="36px" w="80px" borderRadius="full" />
@@ -190,7 +190,7 @@ export const ProjectPageSkeleton: React.FC = () => (
       <AuraSkeleton h="36px" w="60px" borderRadius="full" />
       <AuraSkeleton h="36px" w="60px" borderRadius="full" />
     </HStack>
-    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="phi_lg" w="full">
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="8" w="full">
       <ProjectCardSkeleton />
       <ProjectCardSkeleton />
       <ProjectCardSkeleton />
@@ -206,9 +206,9 @@ export const ProjectPageSkeleton: React.FC = () => (
  * @description Full silhouette for the services catalog.
  */
 export const ServicePageSkeleton: React.FC = () => (
-  <VStack w="full" gap="phi_lg" p={{ base: "phi_md", md: "phi_xl" }}>
+  <VStack w="full" gap="8" p={{ base: "6", md: "14" }}>
     <AuraHeaderSkeleton centered={false} />
-    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="phi_lg" w="full">
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="8" w="full">
       <ServiceCardSkeleton />
       <ServiceCardSkeleton />
       <ServiceCardSkeleton />

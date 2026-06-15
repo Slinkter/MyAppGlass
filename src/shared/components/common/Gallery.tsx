@@ -8,7 +8,7 @@
 
 import { Box } from "@chakra-ui/react";
 import React, { createContext, useContext, useEffect, useMemo } from "react";
-import { LazyMotion, m, domAnimation } from "framer-motion";
+
 import { useGallery, UseGalleryReturn } from "@shared/hooks/ui/useGallery";
 import dynamic from "next/dynamic";
 
@@ -49,7 +49,7 @@ const useGalleryContext = () => {
 
 // 2. Compound Components
 
-const MotionBox = m.create(Box);
+
 
 /**
  * Root component of the Gallery that provides state and context.
@@ -106,17 +106,12 @@ const GalleryRoot: React.FC<{ images: GalleryItem[]; children: React.ReactNode }
 
   return (
     <GalleryContext.Provider value={value}>
-      <LazyMotion features={domAnimation}>
-        <MotionBox
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+        <Box
           h="100%"
           w="100%"
         >
           {children}
-        </MotionBox>
-      </LazyMotion>
+        </Box>
     </GalleryContext.Provider>
   );
 };

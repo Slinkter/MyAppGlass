@@ -18,7 +18,7 @@ const FeatureCardSkeleton: React.FC = () => {
             w="full"
             h="full"
             minH={{ base: "auto", md: "320px" }}
-            p="phi_xl"
+            p="14"
             bg="surface.card"
             border="1px solid"
             borderColor="border.glass"
@@ -30,11 +30,11 @@ const FeatureCardSkeleton: React.FC = () => {
             textAlign="center"
             position="relative"
         >
-            <VStack gap="phi_lg" w="full">
+            <VStack gap="8" w="full">
                 {/* Icon Skeleton */}
                 <Flex
-                    w="phi_2xl"
-                    h="phi_2xl"
+                    w="20"
+                    h="20"
                     align="center"
                     justify="center"
                     borderRadius="full"
@@ -46,7 +46,7 @@ const FeatureCardSkeleton: React.FC = () => {
                 </Flex>
 
                 {/* Text Skeleton */}
-                <VStack gap="phi_xs" w="full">
+                <VStack gap="2" w="full">
                     <Skeleton height="16px" width="60%" borderRadius="full" />
                     <Skeleton height="14px" width="90%" borderRadius="full" />
                     <Skeleton height="14px" width="80%" borderRadius="full" />
@@ -65,19 +65,19 @@ const FeatureListSkeleton: React.FC = () => {
         <Container 
             maxW="7xl" 
             textAlign="center" 
-            mt={{ base: "phi_lg", md: "phi_2xl" }}
+            mt={{ base: "8", md: "20" }}
             pt={0}
         >
-            <VStack gap={{ base: "phi_md", md: "phi_xl" }} w="full">
+            <VStack gap={{ base: "6", md: "14" }} w="full">
                 {/* Header Section Skeleton (matches ItemGridLayout) */}
-                <VStack gap="phi_xs">
+                <VStack gap="2">
                     <Skeleton height={{ base: "32px", md: "48px" }} width="350px" mx="auto" />
-                    <Skeleton height={{ base: "20px", md: "24px" }} width="450px" mx="auto" mt={{ base: "phi_sm", md: "phi_md" }} />
+                    <Skeleton height={{ base: "20px", md: "24px" }} width="450px" mx="auto" mt={{ base: "4", md: "6" }} />
                 </VStack>
 
                 <SimpleGrid
                     columns={{ base: 1, md: 2, lg: 3 }}
-                    gap={{ base: "phi_md", md: "phi_lg" }}
+                    gap={{ base: "6", md: "8" }}
                     w="full"
                 >
                     {Array.from({ length: 3 }).map((_, index) => (

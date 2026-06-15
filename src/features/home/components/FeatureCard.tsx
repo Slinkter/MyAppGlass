@@ -1,10 +1,6 @@
 import React from "react";
 import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
-
-
-const MotionBox = motion.create(Box);
 
 interface FeatureCardProps {
   heading: string;
@@ -28,14 +24,12 @@ const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, descripti
   );
 
   return (
-    <MotionBox
-      whileHover={{ y: -10 }}
-      transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+    <Box
       role="group"
       w="full"
       h="full"
       minH={{ base: "auto", md: "320px" }}
-      p="phi_xl"
+      p="14"
       bg="surface.card"
       backdropFilter="blur(24px)"
       border="1px solid"
@@ -96,12 +90,12 @@ const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, descripti
          pointerEvents="none"
        />
 
-       <VStack gap="phi_lg" zIndex={1} w="full">
+       <VStack gap="8" zIndex={1} w="full">
          {icon && (
            <Flex
              position="relative"
-             w="phi_2xl"
-             h="phi_2xl"
+             w="20"
+             h="20"
              align="center"
              justify="center"
              borderRadius="full"
@@ -135,7 +129,7 @@ const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, descripti
          )}
 
 
-         <VStack gap="phi_xs" textAlign="center">
+         <VStack gap="2" textAlign="center">
            <Heading 
              fontSize="sm" 
              textTransform="uppercase" 
@@ -163,7 +157,7 @@ const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, descripti
            </Text>
          </VStack>
       </VStack>
-    </MotionBox>
+    </Box>
   );
 });
 

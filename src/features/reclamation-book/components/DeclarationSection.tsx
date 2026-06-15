@@ -17,7 +17,7 @@ const DeclarationSection: React.FC = () => {
     <>
       <Heading
         as="h3" size="md"
-        borderBottomWidth={2} pb="phi_xs" pt="phi_sm"
+        borderBottomWidth={2} pb="2" pt="4"
         color="text.heading"
       >
         4. Declaración y Envío
@@ -33,7 +33,7 @@ const DeclarationSection: React.FC = () => {
       <Field
         errorText={errors.autorizaEmail}
         invalid={!!errors.autorizaEmail}
-        mb="phi_sm"
+        mb="4"
       >
         <Checkbox
           name="autorizaEmail"

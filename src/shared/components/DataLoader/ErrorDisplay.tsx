@@ -16,8 +16,8 @@ interface ErrorDisplayProps {
 const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ message, onRetry }) => {
   return (
     <VStack
-      gap="phi_md"
-      p="phi_md"
+      gap="6"
+      p="6"
       bg="whiteAlpha.200"
       border="1px solid"
       borderColor="whiteAlpha.300"

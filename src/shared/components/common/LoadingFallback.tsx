@@ -6,7 +6,6 @@
 
 import React from "react";
 import { Spinner, Center } from "@chakra-ui/react";
-import { m } from "framer-motion";
 
 const LoadingFallback: React.FC = () => (
   <Center 
@@ -16,8 +15,6 @@ const LoadingFallback: React.FC = () => (
     w="100vw" 
     bg="bg.page"
     zIndex="9999"
-    as={m.div}
-    transition={{ duration: 0.4 } as any}
   >
     <Spinner
       borderWidth="2px"

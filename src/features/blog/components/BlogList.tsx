@@ -15,7 +15,7 @@ const BlogList: React.FC = () => {
       title="Blog de Expertos en Vidriería y Aluminio"
       subtitle="Explora las últimas noticias, tendencias y consejos expertos sobre el mundo de la vidriería y el aluminio."
       columns={{ base: 1, md: 2, lg: 2 }} // Using 2 columns for a more focused reading experience
-      gap="phi_lg"
+      gap="8"
       headingAs="h1"
     >
       {BLOG_POSTS.map((post, index) => (

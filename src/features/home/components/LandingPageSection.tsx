@@ -5,23 +5,15 @@
  * @description Hero section of the application, featuring the company logo and core tagline.
  * Uses semantic color tokens for consistent theme adaptation.
  * @module home/components
- * @remarks
- * Uses `LazyMotion` to reduce the main bundle size by asynchronously loading framer-motion's animation engine.
  */
 
 import React from "react";
 import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { m, LazyMotion, domAnimation } from "framer-motion";
 import RouterLink from "next/link";
 import Image from "next/image";
 
 import logoGYA from "@/assets/branding/logosvg.svg";
-
-const MotionVStack = m.create(VStack);
-const MotionBox = m.create(Box);
-
-const ANIMATION_CONFIG = { opacity: 0, y: 30 };
 
 /**
  * @component LandingPageSection
@@ -35,7 +27,6 @@ const LandingPageSection: React.FC = React.memo(() => {
     // o consultando el estado de movimiento reducido si es necesario.
 
     return (
-        <LazyMotion features={domAnimation}>
             <Flex
                 w={"full"}
                 minH={"100dvh"}
@@ -45,20 +36,14 @@ const LandingPageSection: React.FC = React.memo(() => {
                 px={2}
                 position="relative"
             >
-                <MotionVStack
-                    gap="phi_md"
-                    initial={ANIMATION_CONFIG}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                        duration: 0.3,
-                        ease: "easeOut",
-                    }}
+                <VStack
+                    gap="6"
                     textAlign="center"
                     maxW="5xl"
                 >
-                    <MotionBox
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.3 }}
+                    <Box
+                        transition="transform 0.3s ease"
+                        _hover={{ transform: "scale(1.05)" }}
                         position="relative"
                         w={{
                             base: "220px",
@@ -80,9 +65,9 @@ const LandingPageSection: React.FC = React.memo(() => {
                             priority
                             style={{ objectFit: "contain" }}
                         />
-                    </MotionBox>
+                    </Box>
 
-                    <Box mt="phi_md">
+                    <Box mt="6">
                         <Heading
                             as="h2"
                             fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
@@ -90,7 +75,7 @@ const LandingPageSection: React.FC = React.memo(() => {
                             letterSpacing="widest"
                             color="text.accent"
                             textTransform={"uppercase"}
-                            mb="phi_xs"
+                            mb="2"
                         >
                             Vidriería La Molina
                         </Heading>
@@ -109,7 +94,7 @@ const LandingPageSection: React.FC = React.memo(() => {
 
                         <Text
                             fontSize={{ base: "md", md: "xl" }}
-                            mt="phi_lg"
+                            mt="8"
                             color="text.muted"
                             fontWeight="medium"
                             maxW="3xl"
@@ -120,8 +105,8 @@ const LandingPageSection: React.FC = React.memo(() => {
                         </Text>
 
                         <HStack
-                            gap="phi_md"
-                            mt="phi_xl"
+                            gap="6"
+                            mt="14"
                             justify="center"
                             w="full"
                             px={4}
@@ -145,9 +130,8 @@ const LandingPageSection: React.FC = React.memo(() => {
                             </Button>
                         </HStack>
                     </Box>
-                </MotionVStack>
+                </VStack>
             </Flex>
-        </LazyMotion>
     );
 });
 

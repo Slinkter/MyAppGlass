@@ -14,6 +14,7 @@ Este documento contiene las reglas críticas y mandatos de arquitectura para age
 - **Sitelinks:** Cualquier cambio en la navegación principal debe sincronizarse con el `WebSite` schema en `seo-utils.ts` y las prioridades de `public/sitemap.xml`.
 
 ## ⚙️ Mandatos de Backend & Seguridad
+- **Backend Intacto (Crítico):** Está terminantemente PROHIBIDO modificar el código del backend (directorio `functions/`) o los archivos de configuración de Firebase (`firestore.rules`, `storage.rules`, `firebase.json`). Cualquier cambio debe limitarse exclusivamente al frontend, a menos que el usuario lo solicite de manera explícita y directa.
 - **Cero Secrets:** Prohibido escribir API Keys o emails corporativos en archivos `.js`, `.ts` o `.env` seguidos por Git. Use Firebase Secret Manager para producción.
 - **CORS Estricto:** Mantenga el filtro de CORS por Regex en `functions/index.js` para permitir peticiones solo desde `gyacompany.com` y sus subdominios.
 - **Legalidad:** Los cambios en el `ReclamationForm` deben ser validados por un Agente Backend Senior para asegurar que no se rompa la persistencia legal en Firestore.

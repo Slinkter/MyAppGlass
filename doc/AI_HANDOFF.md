@@ -25,7 +25,7 @@ Utiliza siempre estos alias para las importaciones:
 *   **Sin Código Basura:** Se han eliminado los `console.log` de depuración, archivos muertos (`App.css`, `pdf/`) y carpetas vacías. **Mantén esta higiene.** Usa `logger.ts` (`@shared/utils/logger`) si necesitas registrar eventos.
 *   **Identidad Asegurada:** El nombre oficial en todo el sitio es **"Glass & Aluminum Company S.A.C."**.
 *   **Ortografía Validada:** Términos técnicos como *"antirruido"* (con doble r) y *"vidrio y aluminio"* (singular) están normalizados.
-*   **Seguridad:** Firebase Storage tiene reglas restrictivas (`storage.rules`). No hay credenciales quemadas en el código. El formulario de contacto exige aceptación de privacidad.
+*   **Seguridad y Backend:** El backend (carpeta `functions/` y archivos de configuración de Firebase) está congelado y NO se debe modificar bajo ninguna circunstancia a menos que el usuario lo solicite de manera directa. Firebase Storage tiene reglas restrictivas (`storage.rules`). No hay credenciales quemadas en el código. El formulario de contacto exige aceptación de privacidad.
 
 ## 🚀 Estado Técnico
 *   **Build:** El proyecto compila al 100% (Generación Estática de 36/36 páginas).

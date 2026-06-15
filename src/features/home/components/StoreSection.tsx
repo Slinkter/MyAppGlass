@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { MapPin, Clock } from "lucide-react";
-import { AnimatePresence, m } from "framer-motion";
+
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
@@ -35,7 +35,7 @@ const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
       bg="bg.section"
       borderRadius="inherit"
     >
-       <VStack gap="phi_lg" w={{ base: "full", lg: "340px" }} p="phi_lg">
+       <VStack gap="8" w={{ base: "full", lg: "340px" }} p="8">
         <ServiceCardSkeleton />
         <ServiceCardSkeleton />
         <AuraSkeleton h="50px" w="full" borderRadius="full" />
@@ -44,7 +44,7 @@ const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
   ),
 });
 
-const MotionVStack = m.create(VStack);
+
 
 /**
  * Componente StoreSection
@@ -83,10 +83,10 @@ const StoreSection: React.FC = React.memo(() => {
       seoDescription="Encuentra nuestra tienda principal en Lima y explora la ubicación de nuestros proyectos de vidriería y aluminio."
       seoCanonicalUrl="https://www.gyacompany.com/ubicaciones"
       columns={{ base: 1 }}
-      gap="phi_md"
+      gap="6"
       containerProps={{
         mt: 0,
-        py: "phi_xl",
+        py: "14",
       }}
     >
       <ItemGridLayout.Item>
@@ -115,8 +115,8 @@ const StoreSection: React.FC = React.memo(() => {
           <VStack 
             ref={infoCardRef}
             position={{ base: "relative", lg: "absolute" }}
-            top={{ lg: "phi_xl" }}
-            left={{ lg: "phi_xl" }}
+            top={{ lg: "14" }}
+            left={{ lg: "14" }}
             zIndex={10}
             gap={0} 
             align={{ base: "center", lg: "flex-start" }} 
@@ -129,33 +129,27 @@ const StoreSection: React.FC = React.memo(() => {
             boxShadow="2xl"
             w={{ base: "full", lg: "340px" }}
             h={{ lg: "480px" }}
-            mt={{ base: "phi_xl", lg: 0 }}
+            mt={{ base: "14", lg: 0 }}
             overflow="hidden"
             display="flex"
             justifyContent="stretch"
           >
-            <AnimatePresence mode="wait">
               {!displaySelected ? (
-                <MotionVStack
-                  key="default-info"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.3 }}
-                  p="phi_lg"
-                  gap="phi_xl"
+                <VStack
+                  p="8"
+                  gap="14"
                   w="full"
                   flex={1}
                   justifyContent="space-between"
                   align="center"
                 >
-                  <VStack gap="phi_md" align="center" w="full">
+                  <VStack gap="6" align="center" w="full">
                     {/* Sección Horarios */}
                     <VStack 
-                      gap="phi_xs" 
+                      gap="2" 
                       align="center" 
                       w="full"
-                      p="phi_md"
+                      p="6"
                       bg="bg.subtle"
                       borderRadius="2xl"
                       border="1px solid"
@@ -175,10 +169,10 @@ const StoreSection: React.FC = React.memo(() => {
 
                     {/* Sección Dirección */}
                     <VStack 
-                      gap="phi_xs" 
+                      gap="2" 
                       align="center" 
                       w="full"
-                      p="phi_md"
+                      p="6"
                       bg="bg.subtle"
                       borderRadius="2xl"
                       border="1px solid"
@@ -209,14 +203,9 @@ const StoreSection: React.FC = React.memo(() => {
                   >
                     CÓMO LLEGAR
                   </Button>
-                </MotionVStack>
+                </VStack>
               ) : (
-                <MotionVStack
-                  key={selectedMarker?.id || "marker-info"}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.05 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
+                <VStack
                   w="full"
                   h="full"
                   position="relative"
@@ -251,7 +240,7 @@ const StoreSection: React.FC = React.memo(() => {
                     justify="space-between" 
                     h="full" 
                     w="full" 
-                    p="phi_lg" 
+                    p="8" 
                     zIndex={2}
                     position="relative"
                   >
@@ -270,11 +259,11 @@ const StoreSection: React.FC = React.memo(() => {
                     {/* Info Capsule */}
                     <AuraSurface
                       variant="interactive"
-                      p="phi_md"
+                      p="6"
                       w="full"
-                      mb="phi_xs"
+                      mb="2"
                     >
-                      <VStack align="flex-start" gap="phi_xs">
+                      <VStack align="flex-start" gap="2">
                         <Heading 
                           size="md" 
                           color="white" 
@@ -297,9 +286,8 @@ const StoreSection: React.FC = React.memo(() => {
                       </VStack>
                     </AuraSurface>
                   </Flex>
-                </MotionVStack>
+                </VStack>
               )}
-            </AnimatePresence>
           </VStack>
         </Box>
       </ItemGridLayout.Item>

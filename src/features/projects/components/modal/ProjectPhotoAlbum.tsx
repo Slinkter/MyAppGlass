@@ -1,9 +1,6 @@
 import React from "react";
 import { Box, Image } from "@chakra-ui/react";
-import { m } from "framer-motion";
 import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar } from "@/components/ui/scroll-area";
-
-const MotionBox = m.create(Box);
 
 export interface ProjectPhoto {
   id: string | number;
@@ -26,20 +23,17 @@ const ProjectPhotoAlbum: React.FC<ProjectPhotoAlbumProps> = React.memo(({ photos
     <ScrollAreaRoot h="full" w="full">
       <ScrollAreaViewport>
         <Box
-          p={{ base: "phi_md", md: "phi_lg" }}
-          pb="phi_3xl"
+          p={{ base: "6", md: "8" }}
+          pb="36"
         >
           <Box
             display="grid"
             gridTemplateColumns={{ base: "repeat(3, 1fr)", md: "repeat(4, 1fr)", xl: "repeat(5, 1fr)" }}
-            gap="phi_xs"
+            gap="2"
           >
             {photos.map((photo, index) => (
-              <MotionBox
+              <Box
                 key={photo.id || index}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.03, ease: "easeOut" }}
                 w="100%"
                 aspectRatio="1 / 1"
                 overflow="hidden"
@@ -68,12 +62,12 @@ const ProjectPhotoAlbum: React.FC<ProjectPhotoAlbumProps> = React.memo(({ photos
                   _groupHover={{ opacity: 0.8 }}
                   pointerEvents="none"
                 />
-              </MotionBox>
+              </Box>
             ))}
           </Box>
           
           {/* Spacer for bottom docked controls */}
-          <Box h="phi_3xl" w="100%" /> 
+          <Box h="36" w="100%" /> 
         </Box>
       </ScrollAreaViewport>
       <ScrollAreaScrollbar orientation="vertical" />
