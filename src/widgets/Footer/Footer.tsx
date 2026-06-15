@@ -71,7 +71,7 @@ const FooterRow = ({
                 fontWeight="500"
                 color="text.body"
                 textAlign={{ base: "center", sm: "left" }}
-                transition="all 0.2s"
+                transition="color 0.2s, transform 0.2s"
                 _groupHover={
                     to
                         ? { color: hoverColor, transform: "translateX(2px)" }

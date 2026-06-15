@@ -60,7 +60,7 @@ const NavItemLarge = ({ label, href, onClick }: NavItemLargeProps) => {
                     color={isActive ? "text.accent" : "text.heading"}
                     textTransform="uppercase"
                     letterSpacing="0.1em"
-                    transition="all 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
+                    transition="color 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
                     _groupHover={{ x: 10, color: "text.accent" }}
                 >
                     {label}
@@ -105,7 +105,7 @@ const UtilityLink = ({
                 gap={3}
                 color={isActive ? "text.accent" : "text.muted"}
                 _hover={{ color: "text.accent", x: 4 }}
-                transition="all 0.2s ease"
+                transition="color 0.2s ease"
             >
                 {isImage ? (
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -174,7 +174,7 @@ const MobileNav = React.memo(() => {
                         size="xl"
                         _hover={{ transform: "scale(1.1)" }}
                         _active={{ transform: "scale(0.9)" }}
-                        transition="all 0.3s ease"
+                        transition="color 0.3s ease, transform 0.3s ease"
                     >
                         <Box
                         transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
@@ -283,7 +283,7 @@ const MobileNav = React.memo(() => {
                                 borderColor="border.glass"
                                 color="text.heading"
                                 _hover={{ bg: "bg.subtle" }}
-                                transition="all 0.3s ease"
+                                transition="background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease"
                             >
                                 {colorMode === "dark" ? (
                                     <Sun size={14} />

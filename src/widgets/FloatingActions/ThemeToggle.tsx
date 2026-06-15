@@ -46,12 +46,12 @@ export const ThemeToggle = () => {
       _active={{
         transform: "scale(0.95)",
       }}
-      transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+      transition="background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
     >
       <Box
         as={colorMode === "dark" ? Sun : Moon}
         boxSize="20px"
-        transition="all 0.3s ease"
+        transition="transform 0.3s ease, fill 0.3s ease"
         fill={iconColor}
       />
     </IconButton>

@@ -8,7 +8,7 @@
 
 import React from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
-import { getClients } from "../services/clientService";
+import { getClients } from "../../services/clientService";
 import ClientCard from "./ClientCard";
 
 /**

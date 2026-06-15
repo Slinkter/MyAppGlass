@@ -6,17 +6,6 @@ import { ColorModeProvider } from "@/components/ui/color-mode";
 import { Global, css } from "@emotion/react";
 import * as React from "react";
 
-// Suppress the React 19 script tag warning from next-themes in development
-if (typeof window !== "undefined") {
-  const originalError = console.error;
-  console.error = (...args) => {
-    if (typeof args[0] === "string" && args[0].includes("Encountered a script tag while rendering React component")) {
-      return;
-    }
-    originalError(...args);
-  };
-}
-
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ColorModeProvider defaultTheme="light" enableSystem={false}>

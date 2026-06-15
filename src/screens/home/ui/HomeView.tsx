@@ -1,21 +1,21 @@
 import React, { lazy, Suspense } from "react";
 import { VStack } from "@chakra-ui/react";
-import LandingPageSection from "@features/home/components/LandingPageSection";
+import LandingPageSection from "@features/home/components/hero/LandingPageSection";
 import { SectionSkeleton } from "@shared/components/aura/AuraSkeleton";
 
 const ClientsSection = lazy(
-    () => import("@features/home/components/ClientsSection"),
+    () => import("@features/home/components/clients/ClientsSection"),
 );
 const FeaturesSection = lazy(
-    () => import("@features/home/components/FeaturesSection"),
+    () => import("@features/home/components/features/FeaturesSection"),
 );
 const StoreSection = lazy(
-    () => import("@features/home/components/StoreSection"),
+    () => import("@features/home/components/store/StoreSection"),
 );
 
 const HomeView: React.FC = React.memo(() => {
     return (
-        <VStack gap="20" w="full" align="stretch">
+        <VStack gap="16" w="full" align="stretch">
             <LandingPageSection />
             
             <Suspense fallback={<SectionSkeleton h="300px" />}>

@@ -28,7 +28,7 @@ const GalleryThumbnailItem = React.memo(
         position="relative"
         overflow="hidden"
         role="group"
-        transition="all 0.2s ease-out"
+        transition="border-color 0.2s ease-out, box-shadow 0.2s ease-out"
         _hover={{
           borderColor: isSelected ? "text.accent" : "border.strong",
         }}

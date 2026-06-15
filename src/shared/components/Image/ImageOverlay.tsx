@@ -69,7 +69,7 @@ const ImageOverlay: React.FC<ImageOverlayProps> = React.memo(({ name, plink }) =
           color={headingColor}
           opacity={0}
           transform="translateY(20px)"
-          transition="all 0.3s ease-out"
+          transition="opacity 0.3s ease-out, transform 0.3s ease-out"
           _groupHover={{
             opacity: 1,
             transform: "translateY(0)",
@@ -85,7 +85,7 @@ const ImageOverlay: React.FC<ImageOverlayProps> = React.memo(({ name, plink }) =
           width="full"
           opacity={0}
           transform="translateY(20px)"
-          transition="all 0.3s ease-out 0.1s"
+          transition="opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s"
           bg={buttonStyles.bg}
           color={buttonStyles.color}
           _hover={buttonStyles._hover}

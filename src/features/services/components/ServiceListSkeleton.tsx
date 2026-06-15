@@ -28,14 +28,14 @@ const ServiceListSkeleton: React.FC = () => {
                 <Box
                     key={index}
                     position="relative"
-                    h={{ base: "44", md: "52" }}
+                    minH={{ base: "auto", md: "320px" }}
                     w="full"
                     borderRadius="xl"
                     overflow="hidden"
                     bg="bg.subtle"
                 >
                     {/* Background Skeleton */}
-                    <Skeleton h="full" w="full" />
+                    <Skeleton position="absolute" inset={0} />
                     
                     {/* Card Content Overlay - MATCHES ServiceCard.tsx alignment */}
                     <Box

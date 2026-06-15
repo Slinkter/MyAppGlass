@@ -35,6 +35,11 @@ const LandingPageSection: React.FC = React.memo(() => {
                 alignItems={"center"}
                 px={2}
                 position="relative"
+                css={{
+                    '@media (prefers-reduced-motion: reduce)': {
+                        '*': { animation: 'none !important', transition: 'none !important', transform: 'none !important' }
+                    }
+                }}
             >
                 <VStack
                     gap="6"
@@ -42,8 +47,9 @@ const LandingPageSection: React.FC = React.memo(() => {
                     maxW="5xl"
                 >
                     <Box
+                        animation="slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
                         transition="transform 0.3s ease"
-                        _hover={{ transform: "scale(1.05)" }}
+                        _hover={{ transform: "scale(1.03)" }}
                         position="relative"
                         w={{
                             base: "220px",
@@ -67,7 +73,20 @@ const LandingPageSection: React.FC = React.memo(() => {
                         />
                     </Box>
 
-                    <Box mt="6">
+                    <Box mt="6" animation="slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both">
+                        <Heading
+                            as="h1"
+                            fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
+                            fontWeight="extrabold"
+                            lineHeight="1.1"
+                            color="text.body"
+                            mb="2"
+                        >
+                            GLASS & ALUMINUM
+                            <br />
+                            COMPANY S.A.C.
+                        </Heading>
+
                         <Heading
                             as="h2"
                             fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
@@ -75,21 +94,9 @@ const LandingPageSection: React.FC = React.memo(() => {
                             letterSpacing="widest"
                             color="text.accent"
                             textTransform={"uppercase"}
-                            mb="2"
+                            mb="6"
                         >
                             Vidriería La Molina
-                        </Heading>
-
-                        <Heading
-                            as="h1"
-                            fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
-                            fontWeight="extrabold"
-                            lineHeight="1.1"
-                            color="text.body"
-                        >
-                            GLASS & ALUMINUM
-                            <br />
-                            COMPANY S.A.C.
                         </Heading>
 
                         <Text
@@ -111,6 +118,7 @@ const LandingPageSection: React.FC = React.memo(() => {
                             w="full"
                             px={4}
                             flexWrap="wrap"
+                            animation="slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both"
                         >
                             <Button
                                 as={RouterLink}

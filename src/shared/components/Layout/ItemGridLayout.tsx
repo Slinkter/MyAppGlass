@@ -17,11 +17,18 @@ interface ItemGridItemProps {
     delay?: number;
 }
 
-const ItemGridItem: React.FC<ItemGridItemProps> = ({ children }) => {
+const ItemGridItem: React.FC<ItemGridItemProps> = ({ children, delay }) => {
     return (
         <Box
             w="full"
             h="full"
+            animation={delay !== undefined ? `slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s both` : "none"}
+            css={{
+                '@media (prefers-reduced-motion: reduce)': {
+                    animation: 'none !important',
+                    transition: 'none !important',
+                }
+            }}
         >
             {children}
         </Box>

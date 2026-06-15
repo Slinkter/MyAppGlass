@@ -48,7 +48,7 @@ const FloatingWhatsApp = () => {
           boxShadow="lg"
           onClick={() => setIsOpen(true)}
           aria-label="Abrir chat de WhatsApp"
-          transition="all 0.2s ease"
+           transition="background-color 0.2s ease, transform 0.2s ease"
         >
           {/* v3: icon as child, not as prop */}
           <Box as={FaWhatsapp} w={8} h={8} />

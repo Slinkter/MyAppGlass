@@ -1,0 +1,111 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Saltar al contenido principal" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=e4]:
+      - banner
+      - main [ref=e5]:
+        - main [ref=e6]:
+          - generic [ref=e8]:
+            - generic [ref=e9]:
+              - heading "Blog de Expertos en Vidriería y Aluminio" [level=1] [ref=e10]
+              - paragraph [ref=e11]: Explora las últimas noticias, tendencias y consejos expertos sobre el mundo de la vidriería y el aluminio.
+            - generic [ref=e12]:
+              - link [ref=e14] [cursor=pointer]:
+                - /url: /blog/tendencias-vidrio-templado-2026
+                - group [ref=e15]:
+                  - generic [ref=e16]:
+                    - img "Tendencias en Vidrio Templado para el 2026" [ref=e17]
+                    - generic [ref=e19]:
+                      - generic [ref=e20]: Vidrio Templado
+                      - generic [ref=e21]: Arquitectura
+                  - generic [ref=e22]:
+                    - generic [ref=e23]:
+                      - generic [ref=e24]:
+                        - generic [ref=e25]:
+                          - img [ref=e26]
+                          - paragraph [ref=e28]: 14 de marzo de 2026
+                        - generic [ref=e29]:
+                          - img [ref=e30]
+                          - paragraph [ref=e33]: GYA Company
+                      - heading "Tendencias en Vidrio Templado para el 2026" [level=3] [ref=e34]
+                    - paragraph [ref=e35]: El vidrio templado sigue evolucionando. En este artículo exploramos las texturas, colores y aplicaciones que dominarán la arquitectura moderna este año.
+                    - generic [ref=e36]:
+                      - paragraph [ref=e37]: Leer más
+                      - img [ref=e39]
+              - link [ref=e42] [cursor=pointer]:
+                - /url: /blog/ventajas-aluminio-minimalista
+                - group [ref=e43]:
+                  - generic [ref=e44]:
+                    - img "Ventajas del Aluminio en el Diseño Minimalista" [ref=e45]
+                    - generic [ref=e47]:
+                      - generic [ref=e48]: Aluminio
+                      - generic [ref=e49]: Minimalismo
+                  - generic [ref=e50]:
+                    - generic [ref=e51]:
+                      - generic [ref=e52]:
+                        - generic [ref=e53]:
+                          - img [ref=e54]
+                          - paragraph [ref=e56]: 9 de abril de 2026
+                        - generic [ref=e57]:
+                          - img [ref=e58]
+                          - paragraph [ref=e61]: GYA Company
+                      - heading "Ventajas del Aluminio en el Diseño Minimalista" [level=3] [ref=e62]
+                    - paragraph [ref=e63]: Analizamos la durabilidad y versatilidad del aluminio en proyectos residenciales y comerciales de alto nivel.
+                    - generic [ref=e64]:
+                      - paragraph [ref=e65]: Leer más
+                      - img [ref=e67]
+      - contentinfo [ref=e69]:
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - generic [ref=e73]:
+              - heading "Contacto" [level=4] [ref=e74]
+              - generic [ref=e75]:
+                - generic [ref=e76]:
+                  - img [ref=e77]
+                  - paragraph [ref=e79]: 974 278 303
+                - generic [ref=e80]:
+                  - img [ref=e81]
+                  - paragraph [ref=e83]: 996 537 435
+                - generic [ref=e84]:
+                  - img [ref=e85]
+                  - paragraph [ref=e88]: acueva@gyacompany.com
+            - generic [ref=e89]:
+              - heading "Horarios" [level=4] [ref=e90]
+              - generic [ref=e91]:
+                - generic [ref=e92]:
+                  - img [ref=e93]
+                  - paragraph [ref=e95]: Lunes a Sábado
+                - generic [ref=e96]:
+                  - img [ref=e97]
+                  - paragraph [ref=e100]: 9:00 am – 5:00 pm
+                - generic [ref=e101]:
+                  - img [ref=e102]
+                  - paragraph [ref=e105]: La Molina, Lima - Perú
+            - generic [ref=e106]:
+              - heading "Corporativo" [level=4] [ref=e107]
+              - generic [ref=e108]:
+                - link [ref=e109] [cursor=pointer]:
+                  - /url: /politicas-empresa
+                  - group [ref=e110]:
+                    - generic [ref=e111]:
+                      - img [ref=e112]
+                      - paragraph [ref=e115]: Políticas de Empresa
+                - link [ref=e116] [cursor=pointer]:
+                  - /url: /cuentas-bancarias
+                  - group [ref=e117]:
+                    - generic [ref=e118]:
+                      - img [ref=e119]
+                      - paragraph [ref=e122]: Cuentas Bancarias
+                - link "Libro de Reclamaciones Libro de Reclamaciones" [ref=e123] [cursor=pointer]:
+                  - /url: /libro-de-reclamacion
+                  - generic [ref=e124]:
+                    - img "Libro de Reclamaciones" [ref=e126]
+                    - paragraph [ref=e127]: Libro de Reclamaciones
+          - separator [ref=e128]
+          - generic [ref=e129]:
+            - img "Logo GYA Glass & Aluminum" [ref=e131]
+            - paragraph [ref=e132]: GLASS & ALUMINUM COMPANY S.A.C.
+            - paragraph [ref=e133]: © 2026
+  - button "Open Next.js Dev Tools" [ref=e139] [cursor=pointer]:
+    - img [ref=e140]

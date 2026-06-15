@@ -5,7 +5,7 @@ import { Box, Flex, Image } from "@chakra-ui/react";
 
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 import type { StoreLocation } from "./mapConfig";
-import type { MapProject } from "../../hooks/useMapProjects";
+import type { MapProject } from "../../../hooks/useMapProjects";
 
 interface CustomMarkerProps {
   marker: StoreLocation | MapProject;
@@ -29,7 +29,6 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
     [],
   );
 
-  const isStore = marker.type === "store";
 
   const markerBg = useColorModeValue(
     isSelected ? "primary.900" : "white",
@@ -43,7 +42,6 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
     isSelected ? "white" : "primary.900",
     isSelected ? "primary.900" : "white",
   );
-  const connectorColor = "black";
 
   if (!map || !google) return null;
 
@@ -70,7 +68,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
         w={`${iconSize.width}px`}
         h={`${iconSize.height + 15}px`}
         zIndex={isSelected ? 100 : 1}
-        transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+        transition="transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
         transform={!isMobile && (isHovered || isSelected) ? "translateY(-4px)" : "translateY(0)"}
       >
         <Flex direction="column" align="center" gap={0}>
@@ -85,7 +83,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
             justify="center"
             position="relative"
             boxShadow={!isMobile && isSelected ? "0 8px 20px rgba(0,0,0,0.3)" : "sm"}
-            transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+            transition="background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
             transform={!isMobile && (isHovered || isSelected) ? "scale(1.08)" : "scale(1)"}
           >
             {isSvg ? (
@@ -93,7 +91,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
                 as={iconContent as React.ElementType} 
                 boxSize="20px" 
                 color={iconColor}
-                transition="all 0.3s ease"
+                transition="color 0.3s ease"
               />
             ) : (
               <Image 
@@ -102,21 +100,12 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
                 w="70%" 
                 h="70%" 
                 objectFit="contain"
-                transition="all 0.3s ease"
+                transition="filter 0.3s ease"
                 filter={isSelected ? "brightness(0) invert(1)" : "none"}
               />
             )}
           </Flex>
-
-          {isStore && (
-            <Box 
-              w="1px" h="10px"
-              bg={connectorColor}
-              opacity={isSelected ? 0.8 : 0.5}
-              mt="-2px"
-              transition="all 0.3s ease"
-            />
-          )}
+          
         </Flex>
       </Box>
     </OverlayViewF>
