@@ -21,7 +21,7 @@ const FeatureCardSkeleton: React.FC = () => {
             p="14"
             bg="surface.card"
             border="1px solid"
-            borderColor="border.glass"
+            borderColor="border.default"
             borderRadius="3xl"
             display="flex"
             flexDirection="column"

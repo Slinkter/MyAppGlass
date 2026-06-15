@@ -1,0 +1,116 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Saltar al contenido principal" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=e4]:
+      - banner
+      - main [ref=e5]:
+        - generic [ref=e8]:
+          - generic [ref=e9]:
+            - paragraph [ref=e10]: Contacto Directo
+            - heading "Cotiza tu Proyecto con Glass & Aluminum Company S.A.C." [level=2] [ref=e11]:
+              - text: Cotiza tu Proyecto
+              - text: con Glass & Aluminum Company S.A.C.
+            - paragraph [ref=e12]: Elige tu canal preferido para recibir asesoría técnica especializada en vidriería y aluminio.
+          - generic [ref=e13]:
+            - generic [ref=e14]:
+              - generic [ref=e16]:
+                - img [ref=e18]
+                - generic [ref=e20]:
+                  - heading "Asesoría por WhatsApp" [level=2] [ref=e21]
+                  - paragraph [ref=e22]: Ideal para consultas rápidas, Envío de fotos de obra y presupuestos inmediatos.
+                - link "CONTACTAR AHORA" [ref=e23] [cursor=pointer]:
+                  - /url: https://wa.me/51974278303?text=Hola, deseo cotizar un proyecto.
+              - generic [ref=e25]:
+                - generic [ref=e26]:
+                  - img [ref=e27]
+                  - heading "Consultar Estado de Solicitud" [level=2] [ref=e30]
+                - paragraph [ref=e31]: ¿Ya realizaste una cotización o reclamo? Ingresa tu código aquí.
+                - generic [ref=e32]:
+                  - textbox "resend-id-..." [ref=e33]
+                  - button "BUSCAR" [ref=e34] [cursor=pointer]
+              - generic [ref=e35]:
+                - generic [ref=e37]:
+                  - img [ref=e39]
+                  - generic [ref=e41]:
+                    - paragraph [ref=e42]: Atención Comercial
+                    - paragraph [ref=e43]: 974 278 303
+                - generic [ref=e45]:
+                  - img [ref=e47]
+                  - generic [ref=e50]:
+                    - paragraph [ref=e51]: Email Técnico & Ventas
+                    - paragraph [ref=e52] [cursor=pointer]: acueva@gyacompany.com
+            - generic [ref=e54]:
+              - generic [ref=e55]:
+                - heading "Formulario de Cotización" [level=2] [ref=e56]
+                - paragraph [ref=e57]: Completa los datos y adjunta tu requerimiento.
+              - generic [ref=e58]:
+                - generic [ref=e59]:
+                  - paragraph [ref=e60]: NOMBRE COMPLETO
+                  - textbox "Ej. Juan Pérez" [ref=e61]
+                - generic [ref=e62]:
+                  - paragraph [ref=e63]: CORREO ELECTRÓNICO
+                  - textbox "tu@email.com" [ref=e64]
+                - generic [ref=e65]:
+                  - paragraph [ref=e66]: DETALLES DEL PROYECTO
+                  - textbox "Describe las medidas o el sistema que necesitas..." [ref=e67]
+                - generic [ref=e69]:
+                  - checkbox "He leído y acepto las Políticas de Privacidad y el uso de mis datos para fines comerciales." [ref=e70]
+                  - img [ref=e72]
+                  - paragraph [ref=e74]: He leído y acepto las Políticas de Privacidad y el uso de mis datos para fines comerciales.
+              - button "ENVIAR SOLICITUD" [ref=e75] [cursor=pointer]
+              - paragraph [ref=e76]: Respuesta garantizada en menos de 24 horas hábiles.
+      - contentinfo [ref=e77]:
+        - generic [ref=e79]:
+          - generic [ref=e80]:
+            - generic [ref=e81]:
+              - heading "Contacto" [level=4] [ref=e82]
+              - generic [ref=e83]:
+                - generic [ref=e84]:
+                  - img [ref=e85]
+                  - paragraph [ref=e87]: 974 278 303
+                - generic [ref=e88]:
+                  - img [ref=e89]
+                  - paragraph [ref=e91]: 996 537 435
+                - generic [ref=e92]:
+                  - img [ref=e93]
+                  - paragraph [ref=e96]: acueva@gyacompany.com
+            - generic [ref=e97]:
+              - heading "Horarios" [level=4] [ref=e98]
+              - generic [ref=e99]:
+                - generic [ref=e100]:
+                  - img [ref=e101]
+                  - paragraph [ref=e103]: Lunes a Sábado
+                - generic [ref=e104]:
+                  - img [ref=e105]
+                  - paragraph [ref=e108]: 9:00 am – 5:00 pm
+                - generic [ref=e109]:
+                  - img [ref=e110]
+                  - paragraph [ref=e113]: La Molina, Lima - Perú
+            - generic [ref=e114]:
+              - heading "Corporativo" [level=4] [ref=e115]
+              - generic [ref=e116]:
+                - link [ref=e117] [cursor=pointer]:
+                  - /url: /politicas-empresa
+                  - group [ref=e118]:
+                    - generic [ref=e119]:
+                      - img [ref=e120]
+                      - paragraph [ref=e123]: Políticas de Empresa
+                - link [ref=e124] [cursor=pointer]:
+                  - /url: /cuentas-bancarias
+                  - group [ref=e125]:
+                    - generic [ref=e126]:
+                      - img [ref=e127]
+                      - paragraph [ref=e130]: Cuentas Bancarias
+                - link "Libro de Reclamaciones Libro de Reclamaciones" [ref=e131] [cursor=pointer]:
+                  - /url: /libro-de-reclamacion
+                  - generic [ref=e132]:
+                    - img "Libro de Reclamaciones" [ref=e134]
+                    - paragraph [ref=e135]: Libro de Reclamaciones
+          - separator [ref=e136]
+          - generic [ref=e137]:
+            - img "Logo GYA Glass & Aluminum" [ref=e139]
+            - paragraph [ref=e140]: GLASS & ALUMINUM COMPANY S.A.C.
+            - paragraph [ref=e141]: © 2026
+  - button "Open Next.js Dev Tools" [ref=e147] [cursor=pointer]:
+    - img [ref=e148]

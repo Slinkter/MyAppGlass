@@ -1,0 +1,174 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Saltar al contenido principal" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=e4]:
+      - banner
+      - main [ref=e5]:
+        - generic [ref=e6]:
+          - generic [ref=e8]:
+            - img "Glass & Aluminum Company Logo" [ref=e10]
+            - generic [ref=e11]:
+              - heading "Vidriería La Molina" [level=2] [ref=e12]
+              - heading "GLASS & ALUMINUM COMPANY S.A.C." [level=1] [ref=e13]:
+                - text: GLASS & ALUMINUM
+                - text: COMPANY S.A.C.
+              - paragraph [ref=e14]: Empresa comercial especialista en la venta e instalación de vidrio y aluminio
+              - generic [ref=e15]:
+                - link "Ver Servicios" [ref=e16] [cursor=pointer]:
+                  - /url: /servicios
+                - link "Nuestros Proyectos" [ref=e17] [cursor=pointer]:
+                  - /url: /proyectos
+          - generic [ref=e19]:
+            - generic [ref=e20]:
+              - heading "NUESTROS CLIENTES" [level=2] [ref=e21]
+              - paragraph [ref=e22]: Confianza sólida en cada estructura
+            - generic [ref=e23]:
+              - group [ref=e25] [cursor=pointer]:
+                - generic [ref=e26]:
+                  - img "Constructoras" [ref=e28]
+                  - generic [ref=e30]:
+                    - paragraph [ref=e31]: Constructoras
+                    - paragraph [ref=e32]: Servicios especializados para grandes proyectos de construcción.
+              - group [ref=e34] [cursor=pointer]:
+                - generic [ref=e35]:
+                  - img "Comercios" [ref=e37]
+                  - generic [ref=e39]:
+                    - paragraph [ref=e40]: Comercios
+                    - paragraph [ref=e41]: Instalaciones de vidrio y espejos para espacios comerciales y corporativos.
+              - group [ref=e43] [cursor=pointer]:
+                - generic [ref=e44]:
+                  - img "Hogar" [ref=e46]
+                  - generic [ref=e48]:
+                    - paragraph [ref=e49]: Hogar
+                    - paragraph [ref=e50]: Soluciones de vidrio para viviendas y proyectos residenciales.
+          - generic [ref=e52]:
+            - generic [ref=e53]:
+              - heading "CALIDAD SUPERIOR" [level=2] [ref=e54]
+              - paragraph [ref=e55]: Innovación y precisión en cada estructura
+            - generic [ref=e56]:
+              - group [ref=e58]:
+                - generic [ref=e60]:
+                  - img [ref=e63]
+                  - generic [ref=e65]:
+                    - heading "Presupuesto Online" [level=2] [ref=e66]
+                    - paragraph [ref=e67]: Recibe una estimación rápida y precisa a través de WhatsApp.
+              - group [ref=e69]:
+                - generic [ref=e71]:
+                  - img [ref=e74]
+                  - generic [ref=e76]:
+                    - heading "Visita Técnica" [level=2] [ref=e77]
+                    - paragraph [ref=e78]: Coordina una visita técnica sin costo adicional. Nuestro equipo evaluará tus necesidades en persona.
+              - group [ref=e80]:
+                - generic [ref=e82]:
+                  - img [ref=e85]
+                  - generic [ref=e88]:
+                    - heading "Materiales" [level=2] [ref=e89]
+                    - paragraph [ref=e90]: Utilizamos materiales de alta calidad para asegurar la durabilidad y el mejor acabado en todos nuestros proyectos.
+              - group [ref=e92]:
+                - generic [ref=e94]:
+                  - img [ref=e97]
+                  - generic [ref=e102]:
+                    - heading "Técnicos Capacitados" [level=2] [ref=e103]
+                    - paragraph [ref=e104]: Nuestro equipo de operarios está altamente capacitado y cuenta con amplia experiencia en instalaciones.
+              - group [ref=e106]:
+                - generic [ref=e108]:
+                  - img [ref=e111]
+                  - generic [ref=e114]:
+                    - heading "Garantías" [level=2] [ref=e115]
+                    - paragraph [ref=e116]: Disfruta de una garantía de 6 meses en todos nuestros productos instalados.
+              - group [ref=e118]:
+                - generic [ref=e120]:
+                  - img [ref=e123]
+                  - generic [ref=e126]:
+                    - heading "Método de pago" [level=2] [ref=e127]
+                    - paragraph [ref=e128]: Disponemos de una cuenta corriente empresarial y aceptamos tarjetas de crédito y débito.
+              - group [ref=e130]:
+                - generic [ref=e132]:
+                  - img [ref=e135]
+                  - generic [ref=e137]:
+                    - heading "Recibos" [level=2] [ref=e138]
+                    - paragraph [ref=e139]: Emitimos boletas y facturas electrónicas inmediatamente después de realizar el pago.
+              - group [ref=e141]:
+                - generic [ref=e143]:
+                  - img [ref=e146]
+                  - generic [ref=e149]:
+                    - heading "Promociones" [level=2] [ref=e150]
+                    - paragraph [ref=e151]: Descubre nuestras ofertas y promociones actualizadas cada mes en una variedad de productos y servicios.
+          - generic [ref=e153]:
+            - generic [ref=e154]:
+              - heading "UBICACIÓN" [level=2] [ref=e155]
+              - paragraph [ref=e156]: SEDE PRINCIPAL | PROYECTOS ENTREGADOS
+            - generic [ref=e168]:
+              - generic [ref=e169]:
+                - generic [ref=e170]:
+                  - generic [ref=e171]:
+                    - img [ref=e172]
+                    - paragraph [ref=e175]: Horarios
+                  - generic [ref=e176]:
+                    - paragraph [ref=e177]: Lunes a Sábado
+                    - paragraph [ref=e178]: 9:00 am – 5:00 pm
+                - generic [ref=e179]:
+                  - generic [ref=e180]:
+                    - img [ref=e181]
+                    - paragraph [ref=e184]: Dirección
+                  - generic [ref=e185]:
+                    - paragraph [ref=e186]: Av. Los Fresnos 1250
+                    - paragraph [ref=e187]: La Molina, Lima - Perú
+              - link "Cómo llegar a nuestra ubicación principal" [ref=e188] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36
+                - text: CÓMO LLEGAR
+      - contentinfo [ref=e189]:
+        - generic [ref=e191]:
+          - generic [ref=e192]:
+            - generic [ref=e193]:
+              - heading "Contacto" [level=4] [ref=e194]
+              - generic [ref=e195]:
+                - generic [ref=e196]:
+                  - img [ref=e197]
+                  - paragraph [ref=e199]: 974 278 303
+                - generic [ref=e200]:
+                  - img [ref=e201]
+                  - paragraph [ref=e203]: 996 537 435
+                - generic [ref=e204]:
+                  - img [ref=e205]
+                  - paragraph [ref=e208]: acueva@gyacompany.com
+            - generic [ref=e209]:
+              - heading "Horarios" [level=4] [ref=e210]
+              - generic [ref=e211]:
+                - generic [ref=e212]:
+                  - img [ref=e213]
+                  - paragraph [ref=e215]: Lunes a Sábado
+                - generic [ref=e216]:
+                  - img [ref=e217]
+                  - paragraph [ref=e220]: 9:00 am – 5:00 pm
+                - generic [ref=e221]:
+                  - img [ref=e222]
+                  - paragraph [ref=e225]: La Molina, Lima - Perú
+            - generic [ref=e226]:
+              - heading "Corporativo" [level=4] [ref=e227]
+              - generic [ref=e228]:
+                - link [ref=e229] [cursor=pointer]:
+                  - /url: /politicas-empresa
+                  - group [ref=e230]:
+                    - generic [ref=e231]:
+                      - img [ref=e232]
+                      - paragraph [ref=e235]: Políticas de Empresa
+                - link [ref=e236] [cursor=pointer]:
+                  - /url: /cuentas-bancarias
+                  - group [ref=e237]:
+                    - generic [ref=e238]:
+                      - img [ref=e239]
+                      - paragraph [ref=e242]: Cuentas Bancarias
+                - link "Libro de Reclamaciones Libro de Reclamaciones" [ref=e243] [cursor=pointer]:
+                  - /url: /libro-de-reclamacion
+                  - generic [ref=e244]:
+                    - img "Libro de Reclamaciones" [ref=e246]
+                    - paragraph [ref=e247]: Libro de Reclamaciones
+          - separator [ref=e248]
+          - generic [ref=e249]:
+            - img "Logo GYA Glass & Aluminum" [ref=e251]
+            - paragraph [ref=e252]: GLASS & ALUMINUM COMPANY S.A.C.
+            - paragraph [ref=e253]: © 2026
+  - button "Open Next.js Dev Tools" [ref=e259] [cursor=pointer]:
+    - img [ref=e260]

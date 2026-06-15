@@ -1,42 +1,8 @@
 /**
  * @file designTokens.ts
  * @description Design tokens críticos del proyecto MyAppGlass.
- * Define la identidad visual siguiendo el Aura Design System (Escala Fibonacci y Glassmorphism).
+ * Define la identidad visual siguiendo el Aura Design System (Escala Fibonacci).
  */
-
-/**
- * Interface para tokens de Glassmorphism.
- */
-export interface GlassmorphismTokens {
-  light: {
-    bg: string;
-    border: string;
-  };
-  dark: {
-    bg: string;
-    border: string;
-  };
-  backdropFilter: string;
-  borderRadius: string;
-  boxShadow: string;
-}
-
-/**
- * Tokens de Glassmorphism para superficies.
- */
-export const glassmorphismTokens: GlassmorphismTokens = {
-  light: {
-    bg: "rgba(255, 255, 255, 0.1)",
-    border: "rgba(255, 255, 255, 0.35)",
-  },
-  dark: {
-    bg: "rgba(0, 0, 0, 0.1)",
-    border: "rgba(255, 255, 255, 0.15)",
-  },
-  backdropFilter: "blur(10px)",
-  borderRadius: "2xl",
-  boxShadow: "sm",
-};
 
 /**
  * Interface para tokens de color.

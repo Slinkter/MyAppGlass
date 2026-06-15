@@ -5,7 +5,7 @@ import { Box, BoxProps } from "@chakra-ui/react";
 
 /**
  * @component GlassCard
- * @description Componente base para crear tarjetas con efecto de "liquid glass" (glassmorphism).
+ * @description Componente base para tarjetas con superficie limpia.
  */
 const GlassCard: React.FC<BoxProps> = React.memo(({ children, ...props }) => {
   return (
@@ -16,7 +16,7 @@ const GlassCard: React.FC<BoxProps> = React.memo(({ children, ...props }) => {
       transition="box-shadow 0.3s ease, transform 0.3s ease"
       borderWidth="1px"
       borderStyle="solid"
-      borderColor="glass.border"
+      borderColor="border.default"
       _light={{
         borderTopColor: "whiteAlpha.500",
         borderBottomColor: "blackAlpha.100",

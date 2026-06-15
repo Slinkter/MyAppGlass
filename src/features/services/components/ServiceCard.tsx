@@ -1,7 +1,7 @@
-"use client";
 import React from "react";
 import {
   Box,
+  Card,
   LinkBox,
   LinkOverlay,
   Text,
@@ -53,125 +53,139 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   }, [onLoadComplete]);
 
   return (
-    <LinkBox
-      as="article"
+    <Card.Root
+      as={LinkBox}
       role="group"
       cursor="pointer"
       position="relative"
-      h={{ base: "44", md: "52" }}
+      minH={{ base: "auto", md: "320px" }}
       borderRadius="xl"
       overflow="hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       transform="translateZ(0)"
+      transition="box-shadow 0.3s ease-out, transform 0.3s ease-out"
       _hover={{
         boxShadow: { md: "2xl" },
         transform: { base: "translateZ(0)", md: "translateY(-4px) translateZ(0)" },
       }}
-      transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+      _active={{
+        transform: { base: "translateZ(0)", md: "translateY(-4px) translateZ(0)" },
+        boxShadow: { md: "2xl" },
+      }}
       aria-label={`Ver detalles del servicio de ${name}`}
-      _active={{ transform: "scale(0.98)" }}
+      borderWidth="0"
+      bg="transparent"
+      css={{
+        '@media (prefers-reduced-motion: reduce)': {
+          '*': { transition: 'none !important', animation: 'none !important', transform: 'none !important' }
+        }
+      }}
     >
-      <Skeleton loading={!isLoaded} h="full" w="full">
-        <Box position="relative" h="full" w="full" overflow="hidden">
-          <ResponsiveImage
-            src={image}
-            alt={`Servicio de ${name} - GYA Glass & Aluminum`}
-            objectFit="cover"
-            w="100%"
-            h="100%"
-            loading={loading}
-            decoding="async"
-            onLoad={handleImageLoad}
-            isLCP={isLCP}
-            transform={isHovered ? "scale(1.1) translate(-8px, -8px)" : "scale(1.02)"}
-            transition="transform 0.7s ease-out"
-          />
+      <Card.Body p="0" position="relative" w="full" h="full" minH={{ base: "auto", md: "320px" }} overflow="hidden" borderRadius="xl">
+        <Skeleton loading={!isLoaded} h="full" w="full">
+          <Box position="absolute" inset={0} overflow="hidden">
+            <ResponsiveImage
+              src={image}
+              alt={`Servicio de ${name} - GYA Glass & Aluminum`}
+              objectFit="cover"
+              w="100%"
+              h="100%"
+              loading={loading}
+              decoding="async"
+              onLoad={handleImageLoad}
+              isLCP={isLCP}
+              transform={isHovered ? "scale(1.1) translate(-8px, -8px)" : "scale(1.02)"}
+              transition="transform 0.7s ease-out"
+            />
 
-          <Box position="absolute" inset="0" bgGradient={bgOverlay} />
+            <Box position="absolute" inset="0" bgGradient={bgOverlay} />
 
-          <Box
-            position="absolute"
-            bottom={0}
-            left={0}
-            right={0}
-            p="6"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="flex-end"
-          >
-            <Text
-              color={isHovered ? "primary.300" : "white"}
-              fontSize={{ base: "md", md: "xl" }}
-              fontWeight="600"
-              textTransform="uppercase"
-              letterSpacing="wider"
-              textAlign="center"
-              position="relative"
-              zIndex={1}
-              transition="color 0.3s ease"
-              lineClamp={1}
-              _after={{
-                content: '""',
-                position: "absolute",
-                bottom: "-2",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: isLoaded ? "8" : "0",
-                height: "2px",
-                bg: isHovered ? "primary.300" : "white",
-                transition: "width 0.4s ease, background 0.3s ease",
-              }}
+            <Box
+              position="absolute"
+              bottom={0}
+              left={0}
+              right={0}
+              p="6"
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="flex-end"
             >
-              {isMobile ? (
-                 name 
-              ) : (
-                <LinkOverlay as={RouterLink} {...({ href: plink } as Record<string, unknown>)}>
-                  {name}
-                </LinkOverlay>
-              )}
-            </Text>
-
-            <VStack
-              mt="6"
-              gap="4"
-              opacity={isHovered ? 1 : (isMobile ? 1 : 0)}
-              transform={isHovered ? "translateY(0)" : (isMobile ? "translateY(0)" : "translateY(10px)")}
-              transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
-              w="full"
-            >
-              <Button
-                as={RouterLink}
-                href={plink}
-                variant="outline"
-                size="sm"
-                color="white"
-                borderColor="whiteAlpha.400"
-                _hover={{ 
-                  bg: "white", 
-                  color: "primary.900",
-                  borderColor: "white",
-                  transform: "scale(1.05) translateY(-2px)",
-                  boxShadow: "0 0 20px rgba(255,255,255,0.2)"
-                }}
+              <Text
+                color={isHovered ? "primary.300" : "white"}
+                _groupHover={{ color: "primary.300" }}
+                _active={{ color: "primary.300" }}
+                fontSize={{ base: "md", md: "xl" }}
+                fontWeight="600"
                 textTransform="uppercase"
-                fontSize="xs"
-                fontWeight="bold"
-                letterSpacing="0.2em"
-                px="8"
-                borderRadius="full"
-                transition="all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+                letterSpacing="wider"
+                textAlign="center"
+                position="relative"
+                zIndex={1}
+                transition="color 0.3s ease"
+                lineClamp={1}
+                _after={{
+                  content: '""',
+                  position: "absolute",
+                  bottom: "-2",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: isLoaded ? "8" : "0",
+                  height: "2px",
+                  bg: isHovered ? "primary.300" : "white",
+                  transition: "width 0.4s ease, background 0.3s ease",
+                }}
               >
-                Ver Catálogo
-              </Button>
-            </VStack>
+                {isMobile ? (
+                  name 
+                ) : (
+                  <LinkOverlay as={RouterLink} {...({ href: plink } as Record<string, unknown>)}>
+                    {name}
+                  </LinkOverlay>
+                )}
+              </Text>
+
+              <VStack
+                mt="6"
+                gap="4"
+                opacity={isHovered ? 1 : (isMobile ? 1 : 0)}
+                transform={isHovered ? "translateY(0)" : (isMobile ? "translateY(0)" : "translateY(10px)")}
+                transition="opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+                w="full"
+              >
+                <Button
+                  as={RouterLink}
+                  href={plink}
+                  variant="outline"
+                  size="sm"
+                  color="white"
+                  borderColor="whiteAlpha.400"
+                  _hover={{ 
+                    bg: "white", 
+                    color: "primary.900",
+                    borderColor: "white",
+                    transform: "scale(1.05) translateY(-2px)",
+                    boxShadow: "0 0 20px rgba(255,255,255,0.2)"
+                  }}
+                  textTransform="uppercase"
+                  fontSize="xs"
+                  fontWeight="bold"
+                  letterSpacing="0.2em"
+                  px="8"
+                  borderRadius="full"
+                  transition="background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+                >
+                  Ver Catálogo
+                </Button>
+              </VStack>
+            </Box>
           </Box>
-        </Box>
-      </Skeleton>
-      
-      {isMobile && <LinkOverlay as={RouterLink} href={plink} aria-label={`Ver servicio ${name}`} />}
-    </LinkBox>
+        </Skeleton>
+        
+        {isMobile && <LinkOverlay as={RouterLink} href={plink} aria-label={`Ver servicio ${name}`} />}
+      </Card.Body>
+    </Card.Root>
   );
 });
 

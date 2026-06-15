@@ -2,7 +2,7 @@
  * @file index.ts
  * @description Aura Design System - Chakra UI v3 Core Configuration.
  * Single source of truth for design tokens, component recipes, and semantic themes.
- * Optimized for GYA Glass & Aluminum aesthetics: Zinc Scale, Fibonacci Spacing, Glassmorphism.
+ * Optimized for GYA Glass & Aluminum aesthetics: Zinc Scale, Fibonacci Spacing, Clean surfaces.
  */
 
 import { createSystem, defineConfig, defaultConfig, defineRecipe, defineSlotRecipe } from "@chakra-ui/react";
@@ -111,7 +111,7 @@ const inputRecipe = defineSlotRecipe({
     field: {
       bg: "surface.container",
       borderWidth: "1px",
-      borderColor: "border.glass",
+      borderColor: "border.default",
       borderRadius: "md",
       px: "3",
       transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -126,9 +126,7 @@ const inputRecipe = defineSlotRecipe({
   variants: {
     variant: {
       aura: {
-        field: {
-          backdropFilter: "blur(8px)",
-        },
+        field: {},
       },
     },
   },
@@ -217,24 +215,15 @@ const config = defineConfig({
         card: { value: "16px" },
         modal: { value: "24px" },
       },
-      shadows: {
-        glass: { value: "0 8px 32px 0 rgba(0, 0, 0, 0.08)" },
-        glassHover: { value: "0 12px 40px 0 rgba(0, 0, 0, 0.12)" },
-      },
+      shadows: {},
     },
     semanticTokens: {
       colors: {
         "bg.page": { value: { _light: "{colors.gray.50}", _dark: "#09090b" } },
         "bg.section": { value: { _light: "white", _dark: "#121215" } },
-        "bg.glass": { value: { _light: "white", _dark: "{colors.primary.900}" } },
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
 
-        // Glass surfaces
-        "glass.bg": { value: { _light: "rgba(255, 255, 255, 0.25)", _dark: "rgba(24, 24, 27, 0.4)" } },
-        "glass.border": { value: { _light: "rgba(0, 0, 0, 0.08)", _dark: "rgba(255, 255, 255, 0.06)" } },
-        "glass.textShadow": { value: { _light: "0 2px 4px rgba(0,0,0,0.05)", _dark: "0 2px 4px rgba(0,0,0,0.5)" } },
-        
-        "surface.card": { value: "{colors.glass.bg}" },
+        "surface.card": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "surface.nav": { value: { _light: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" } },
         "surface.container": { value: { _light: "white", _dark: "rgba(255,255,255,0.04)" } },
         "surface.icon": { value: { _light: "{colors.primary.50}", _dark: "rgba(255,255,255,0.04)" } },
@@ -243,7 +232,8 @@ const config = defineConfig({
         // Borders
         "border.default": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.08)" } },
         "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
-        "border.glass": { value: "{colors.glass.border}" },
+        "border.glass": { value: "{colors.border.default}" },
+        "bg.glass": { value: "{colors.bg.section}" },
 
         // Focus
         "ring.primary": { value: { _light: "{colors.primary.400}", _dark: "{colors.primary.500}" } },
@@ -258,48 +248,17 @@ const config = defineConfig({
     },
     recipes: {
       button: buttonRecipe,
-      glass: defineRecipe({
-        base: {
-          bg: "glass.bg",
-          backdropFilter: "blur(12px)",
-          borderWidth: "1px",
-          borderColor: "glass.border",
-          borderRadius: "card",
-          boxShadow: "glass",
-          transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-        },
-        variants: {
-          variant: {
-            interactive: {
-              _hover: {
-                bg: { _light: "rgba(255,255,255,0.35)", _dark: "rgba(24,24,27,0.5)" },
-                boxShadow: "glassHover",
-                transform: "translateY(-2px)",
-              }
-            },
-            strong: {
-              backdropFilter: "blur(20px)",
-              bg: { _light: "rgba(255,255,255,0.45)", _dark: "rgba(24,24,27,0.6)" },
-            }
-          }
-        }
-      }),
       card: defineRecipe({
         base: {
           bg: "surface.card",
           borderWidth: "1px",
-          borderColor: "border.glass",
+          borderColor: "border.default",
           borderRadius: "card",
-          backdropFilter: "blur(12px)",
           boxShadow: "sm",
           p: "6",
         },
         variants: {
           variant: {
-            glass: {
-              bg: "surface.card",
-              backdropFilter: "blur(16px)",
-            },
             solid: {
               bg: "bg.section",
               borderWidth: "0",

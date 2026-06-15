@@ -86,7 +86,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
             h={{ base: "300px", md: "500px" }} 
             borderRadius="3xl" 
             overflow="hidden" 
-            boxShadow="glass"
+            boxShadow="md"
             border="1px solid"
             borderColor="border.glass"
           >

@@ -3,11 +3,11 @@ import React, { useMemo, useCallback } from "react";
 import { Box } from "@chakra-ui/react";
 import { GoogleMap } from "@react-google-maps/api";
 import { useGoogleMapsLoader, useMapIcons, useMapState } from "@/features/home/hooks";
-import { mapStyles } from "@/features/home/components/map/mapStyles";
-import CustomMarker from "@/features/home/components/map/CustomMarker";
-import MapLoader from "@/features/home/components/map/MapLoader";
-import MapError from "@/features/home/components/map/MapError";
-import MapControls from "@/features/home/components/map/MapControls";
+import { mapStyles } from "@/features/home/components/store/map/mapStyles";
+import CustomMarker from "@/features/home/components/store/map/CustomMarker";
+import MapLoader from "@/features/home/components/store/map/MapLoader";
+import MapError from "@/features/home/components/store/map/MapError";
+import MapControls from "@/features/home/components/store/map/MapControls";
 import { Project } from "@/shared/types/project";
 import type { MapProject } from "@/features/home/hooks/useMapProjects";
 

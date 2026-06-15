@@ -8,7 +8,7 @@
 
 import React from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
-import { getFeatures } from "../services/featureService";
+import { getFeatures } from "../../services/featureService";
 import FeatureCard from "./FeatureCard";
 
 /**

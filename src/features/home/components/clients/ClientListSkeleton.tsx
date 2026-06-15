@@ -16,12 +16,12 @@ const ClientCardSkeleton: React.FC = () => {
         <Box
             position="relative"
             w="full"
-            h={{ base: "320px", md: "520px" }}
+            minH={{ base: "auto", md: "320px" }}
             borderRadius="3xl"
             overflow="hidden"
             bg="bg.subtle"
         >
-            <Skeleton h="full" w="full" />
+            <Skeleton position="absolute" inset={0} />
             
             {/* Content Overlay Skeleton */}
             <VStack

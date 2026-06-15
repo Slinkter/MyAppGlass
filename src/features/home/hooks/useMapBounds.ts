@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { mainStore } from "../components/map/mapConfig";
+import { mainStore } from "../components/store/map/mapConfig";
 import type { MapProject } from "./useMapProjects";
 
 export const useMapBounds = (

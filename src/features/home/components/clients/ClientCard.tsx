@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Text, VStack } from "@chakra-ui/react";
+import { Box, Card, Text, VStack } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
 interface ClientCardProps {
@@ -19,21 +19,29 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
     "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)";
 
   return (
-    <Box
+    <Card.Root
       as="article"
       role="group"
       cursor="pointer"
       position="relative"
       w="full"
-      h={{ base: "44", md: "52" }}
+      minH={{ base: "auto", md: "320px" }}
       borderRadius="xl"
       overflow="hidden"
       boxShadow="sm"
       transform="translateZ(0)"
-      _hover={{ boxShadow: "2xl", transform: "translateZ(0)" }}
-      transition="all 0.4s ease"
+      transition="box-shadow 0.3s ease-out, transform 0.3s ease-out"
+      _hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
+      _active={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
+      borderWidth="0"
+      bg="transparent"
+      css={{
+        '@media (prefers-reduced-motion: reduce)': {
+          '*': { transition: 'none !important', animation: 'none !important', transform: 'none !important' }
+        }
+      }}
     >
-      <Box position="relative" h="full" w="full" overflow="hidden">
+      <Card.Body p="0" position="absolute" inset={0} overflow="hidden" borderRadius="xl">
         <ResponsiveImage
           src={image}
           alt={nameClient}
@@ -43,7 +51,8 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
           loading="eager"
           decoding="async"
           transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
-          _groupHover={{ transform: "scale(1.1) rotate(1deg)" }}
+          _groupHover={{ transform: "scale(1.08) rotate(1deg)" }}
+          _active={{ transform: "scale(1.08) rotate(1deg)" }}
         />
 
         <Box position="absolute" inset="0" bgGradient={bgOverlay} />
@@ -58,7 +67,6 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
           align="center"
           justify="flex-end"
           textAlign="center"
-
         >
           <Text
             color="white"
@@ -67,36 +75,25 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
             textTransform="uppercase"
             letterSpacing="0.2em"
             position="relative"
-            transition="all 0.3s ease"
-            _groupHover={{ color: "text.accent", transform: "translateY(-4px)" }}
+            transition="color 0.3s ease-out"
+            _groupHover={{ color: "text.accent" }}
+            _active={{ color: "text.accent" }}
           >
             {nameClient}
           </Text>
-
-          <Box
-            w="0"
-            h="2px"
-            bg="text.accent"
-            transition="width 0.4s ease"
-            _groupHover={{ w: "14" }}
-          />
 
           <Text
             color="whiteAlpha.800"
             fontSize="sm"
             fontWeight="500"
             mt="2"
-            opacity={0}
-            transform="translateY(10px)"
-            transition="all 0.4s ease"
-            _groupHover={{ opacity: 1, transform: "translateY(0)" }}
             lineClamp={2}
           >
             {descClient}
           </Text>
         </VStack>
-      </Box>
-    </Box>
+      </Card.Body>
+    </Card.Root>
   );
 });
 

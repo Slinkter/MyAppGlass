@@ -13,7 +13,7 @@ interface BlogCardProps {
 
 /**
  * @component BlogCard
- * @description Premium blog card with Aura Glassmorphism and smooth 120Hz hover effects.
+ * @description Premium blog card with smooth 120Hz hover effects.
  */
 const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
   return (
@@ -23,19 +23,18 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
         w="full"
         h="full"
         bg="surface.card"
-        backdropFilter="blur(20px)"
         border="1px solid"
-        borderColor="border.glass"
+        borderColor="border.default"
         borderRadius="3xl"
         overflow="hidden"
-        boxShadow="glass"
+        boxShadow="md"
         animation={`slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s both`}
         _hover={{ 
-          boxShadow: "glassHover",
+          boxShadow: "lg",
           borderColor: "whiteAlpha.300",
           transform: "translateY(-12px) scale(1.02)",
         }}
-        transition="all 0.4s cubic-bezier(0.33, 1, 0.68, 1)"
+        transition="box-shadow 0.4s cubic-bezier(0.33, 1, 0.68, 1), border-color 0.4s cubic-bezier(0.33, 1, 0.68, 1), transform 0.4s cubic-bezier(0.33, 1, 0.68, 1)"
         display="flex"
         flexDirection="column"
         position="relative"
@@ -63,8 +62,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
             {post.tags.slice(0, 2).map((tag) => (
               <Badge 
                 key={tag} 
-                bg="whiteAlpha.200" 
-                backdropFilter="blur(8px)"
+                bg="whiteAlpha.200"
                 color="white" 
                 border="1px solid"
                 borderColor="whiteAlpha.300"
@@ -120,9 +118,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
             fontWeight="bold"
             fontSize="sm"
             gap="2"
-            transition="all 0.3s ease"
+            transition="color 0.3s ease"
           >
-            <Text opacity={0} transform="translateX(10px)" _groupHover={{ opacity: 1, transform: "translateX(0)" }} transition="all 0.4s ease">
+            <Text opacity={0} transform="translateX(10px)" _groupHover={{ opacity: 1, transform: "translateX(0)" }} transition="opacity 0.4s ease, transform 0.4s ease">
               Leer más
             </Text>
             <Box 
@@ -130,7 +128,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
               borderRadius="full" 
               bg="bg.subtle" 
               _groupHover={{ bg: "text.accent", color: "white", transform: "rotate(-45deg)" }}
-              transition="all 0.4s ease"
+              transition="background-color 0.4s ease, color 0.4s ease, transform 0.4s ease"
             >
               <LucideArrowRight size={16} />
             </Box>

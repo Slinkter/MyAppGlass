@@ -255,7 +255,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 borderRadius="full"
                 cursor="pointer"
                 onClick={() => setSelectedIndex(index)}
-                transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                transition="width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
                 _hover={{ bg: "whiteAlpha.800" }}
               />
             ))}
