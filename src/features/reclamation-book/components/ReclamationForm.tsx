@@ -18,11 +18,11 @@ const ReclamationFormInner: React.FC = () => {
 
   return (
     <Box
-      mt="phi_xl"
-        p={{ base: "phi_sm", md: "phi_lg" }}
+      mt="14"
+        p={{ base: "4", md: "8" }}
         maxW="3xl"
         mx="auto"
-        mb="phi_lg"
+        mb="8"
         bg="bg.section"
         backdropFilter="blur(16px)"
         border="1px solid"
@@ -34,7 +34,7 @@ const ReclamationFormInner: React.FC = () => {
         <Heading
           as="h2"
           size="lg"
-          mb="phi_sm"
+          mb="4"
           textAlign="center"
           color="text.heading"
         >
@@ -44,21 +44,21 @@ const ReclamationFormInner: React.FC = () => {
         <Box
           bg="surface.container"
           rounded="md"
-          p="phi_sm"
-          mb="phi_md"
+          p="4"
+          mb="6"
           borderWidth={1}
           borderColor="border.glass"
         >
           <Text fontWeight="bold" color="text.heading">Razón Social:</Text>
-          <Text mb="phi_xs" color="text.muted">{companyData.razonSocial}</Text>
+          <Text mb="2" color="text.muted">{companyData.razonSocial}</Text>
           <Text fontWeight="bold" color="text.heading">RUC:</Text>
-          <Text mb="phi_xs" color="text.muted">{companyData.ruc}</Text>
+          <Text mb="2" color="text.muted">{companyData.ruc}</Text>
           <Text fontWeight="bold" color="text.heading">Dirección:</Text>
           <Text color="text.muted">{companyData.direccion}</Text>
         </Box>
 
         <form onSubmit={handleBtnSubmit}>
-          <Stack gap="phi_md">
+          <Stack gap="6">
             <PersonalInfoSection />
             <ProductSection />
             <ClaimDetailSection />

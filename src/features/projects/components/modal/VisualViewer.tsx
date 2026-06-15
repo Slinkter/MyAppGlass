@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { Box, Flex } from "@chakra-ui/react";
-import { m, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import MapViewer from "./MapViewer";
@@ -50,15 +49,10 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
       position="relative"
     >
       <Box position="absolute" inset="0">
-        <AnimatePresence mode="wait">
           {viewMode === "map" && hasValidCoords ? (
-            <m.div
-              key="map"
-              initial={{ opacity: 0, scale: 0.99 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.99 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              style={{ width: "100%", height: "100%" }}
+            <Box
+              w="100%"
+              h="100%"
             >
               <Box
                 w="full"
@@ -72,21 +66,17 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               >
                 <MapViewer lat={lat!} lng={lng!} projectData={projectData} />
               </Box>
-            </m.div>
+            </Box>
           ) : (
-            <m.div
-              key="gallery"
-              initial={{ opacity: 0, scale: 0.99 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.99 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              style={{ width: "100%", height: "100%" }}
+            <Box
+              w="100%"
+              h="100%"
             >
               {galleryImages.length > 0 ? (
                 <Gallery images={galleryImages}>
                   <Flex
                     direction={{ base: "column", md: "row" }}
-                    gap={{ base: "phi_md", md: "phi_lg" }}
+                    gap={{ base: "6", md: "8" }}
                     h="100%"
                     w="100%"
                     minW={0}
@@ -98,9 +88,8 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               ) : (
                 <ComingSoonDisplay />
               )}
-            </m.div>
+            </Box>
           )}
-        </AnimatePresence>
       </Box>
     </Box>
   );

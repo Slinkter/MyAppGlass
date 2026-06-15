@@ -19,10 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { MapPin } from "lucide-react";
-import { m } from "framer-motion";
 import logger from "@shared/utils/logger";
-
-const MotionLinkBox = m.create(LinkBox);
 
 interface ProjectCardContentProps {
   image?: string;
@@ -48,12 +45,12 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-      <MotionLinkBox
+      <LinkBox
         as="article"
         role="group"
         cursor="pointer"
         position="relative"
-        h={{ base: "phi_4xl", md: "phi_5xl" }}
+        h={{ base: "44", md: "52" }}
         w="full"
         borderRadius="xl"
         overflow="hidden"
@@ -64,8 +61,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           boxShadow: { md: "glass" },
           transform: { base: "translateZ(0)", md: "translateY(-4px) translateZ(0)" },
         }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        whileTap={{ scale: 0.98 }}
+        transition="all 0.4s ease"
       >
         <Skeleton loading={!isLoaded} h="full" w="full">
           <Box position="relative" h="full" w="full" overflow="hidden">
@@ -93,7 +89,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
               bottom={0}
               left={0}
               right={0}
-              p="phi_md"
+              p="6"
               display="flex"
               flexDirection="column"
               alignItems="center"
@@ -114,10 +110,10 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                 _after={{
                   content: '""',
                   position: "absolute",
-                  bottom: "-phi_xs",
+                  bottom: "-2",
                   left: "50%",
                   transform: "translateX(-50%)",
-                  width: isLoaded ? "phi_lg" : "0",
+                  width: isLoaded ? "8" : "0",
                   height: "2px",
                   bg: isHovered ? "text.accent" : "white",
                   transition: "width 0.4s ease, background 0.3s ease",
@@ -142,9 +138,9 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
               </Heading>
 
               <VStack
-                gap="phi_md"
+                gap="6"
                 w="full"
-                mt="phi_md"
+                mt="6"
                 opacity={{ base: 1, md: isHovered ? 1 : 0 }}
                 transform={{ 
                   base: "translateY(0)", 
@@ -152,8 +148,8 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                 }}
                 transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
               >
-                <HStack justify="center" gap="phi_sm" w="full">
-                  <HStack gap="phi_xs">
+                <HStack justify="center" gap="4" w="full">
+                  <HStack gap="2">
                     <Box as={MapPin} w={3.5} h={3.5} color="text.accent" />
                     <Text
                       fontSize="xs"
@@ -194,7 +190,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                   fontSize="xs"
                   fontWeight="bold"
                   letterSpacing="0.2em"
-                  px="phi_lg"
+                  px="8"
                   borderRadius="full"
                   transition="all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
                 >
@@ -204,7 +200,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
             </Box>
           </Box>
         </Skeleton>
-      </MotionLinkBox>
+      </LinkBox>
     );
   },
 );

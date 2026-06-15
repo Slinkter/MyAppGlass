@@ -20,17 +20,17 @@ import {
  */
 const ServiceSkeleton: React.FC = () => {
     return (
-        <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb="phi_3xl">
-            <VStack gap={{ base: "phi_lg", lg: "phi_xl" }} align="stretch">
+        <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb="36">
+            <VStack gap={{ base: "8", lg: "14" }} align="stretch">
                 
                 {/* Header Section Skeleton */}
                 <Flex 
                     direction={{ base: "column", md: "row" }} 
                     justify="space-between" 
                     align={{ base: "flex-start", md: "flex-end" }} 
-                    gap="phi_lg"
+                    gap="8"
                 >
-                    <VStack gap="phi_sm" align="flex-start">
+                    <VStack gap="4" align="flex-start">
                         {/* Back Button Skeleton */}
                         <Skeleton height="24px" width="80px" borderRadius="full" />
                         {/* Main Heading Skeleton */}
@@ -38,7 +38,7 @@ const ServiceSkeleton: React.FC = () => {
                     </VStack>
                     
                     {/* System Selector (Filter Pills) Skeleton */}
-                    <HStack gap="phi_xs" justify="center" flexWrap="wrap">
+                    <HStack gap="2" justify="center" flexWrap="wrap">
                         {Array.from({ length: 3 }).map((_, i) => (
                             <Skeleton key={i} height="36px" width="100px" borderRadius="full" />
                         ))}
@@ -58,13 +58,13 @@ const ServiceSkeleton: React.FC = () => {
                 <Grid
                     templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
                     templateRows={{ base: "auto", lg: "minmax(380px, auto)" }}
-                    gap={{ base: "phi_lg", lg: "phi_xl" }}
+                    gap={{ base: "8", lg: "14" }}
                 >
                     {/* About Section */}
                     <GridItem colSpan={{ base: 1, lg: 2 }}>
-                        <Box p={{ base: "phi_md", lg: "phi_lg" }} h="full" bg="bg.subtle" borderRadius="3xl" border="1px solid" borderColor="border.glass">
-                            <Skeleton height="12px" width="100px" mb="phi_md" borderRadius="full" />
-                            <VStack align="stretch" gap="phi_sm">
+                        <Box p={{ base: "6", lg: "8" }} h="full" bg="bg.subtle" borderRadius="3xl" border="1px solid" borderColor="border.glass">
+                            <Skeleton height="12px" width="100px" mb="6" borderRadius="full" />
+                            <VStack align="stretch" gap="4">
                                 <Skeleton height="20px" width="100%" borderRadius="md" />
                                 <Skeleton height="20px" width="95%" borderRadius="md" />
                                 <Skeleton height="20px" width="40%" borderRadius="md" />
@@ -74,21 +74,21 @@ const ServiceSkeleton: React.FC = () => {
 
                     {/* CTA Card Section */}
                     <GridItem colSpan={1}>
-                        <Box p={{ base: "phi_md", lg: "phi_lg" }} h="full" bg="primary.900" borderRadius="3xl" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                            <SkeletonCircle size="12" mb="phi_md" />
-                            <Skeleton height="24px" width="60%" mb="phi_sm" borderRadius="md" />
-                            <Skeleton height="14px" width="80%" mb="phi_lg" borderRadius="md" />
+                        <Box p={{ base: "6", lg: "8" }} h="full" bg="primary.900" borderRadius="3xl" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                            <SkeletonCircle size="12" mb="6" />
+                            <Skeleton height="24px" width="60%" mb="4" borderRadius="md" />
+                            <Skeleton height="14px" width="80%" mb="8" borderRadius="md" />
                             <Skeleton height="48px" width="full" borderRadius="full" />
                         </Box>
                     </GridItem>
 
                     {/* Benefits Section */}
                     <GridItem colSpan={{ base: 1, lg: 3 }}>
-                        <Box p={{ base: "phi_md", lg: "phi_lg" }} h="full" bg="bg.subtle" borderRadius="3xl" border="1px solid" borderColor="border.glass">
-                            <Skeleton height="12px" width="150px" mb="phi_lg" borderRadius="full" />
-                            <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={{ base: "phi_sm", lg: "phi_lg" }}>
+                        <Box p={{ base: "6", lg: "8" }} h="full" bg="bg.subtle" borderRadius="3xl" border="1px solid" borderColor="border.glass">
+                            <Skeleton height="12px" width="150px" mb="8" borderRadius="full" />
+                            <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={{ base: "4", lg: "8" }}>
                                 {Array.from({ length: 6 }).map((_, i) => (
-                                    <HStack key={i} p="phi_md" bg="bg.page" borderRadius="xl" border="1px solid" borderColor="border.glass">
+                                    <HStack key={i} p="6" bg="bg.page" borderRadius="xl" border="1px solid" borderColor="border.glass">
                                         <SkeletonCircle size="5" />
                                         <Skeleton height="14px" width="70%" borderRadius="md" />
                                     </HStack>

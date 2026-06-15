@@ -17,7 +17,7 @@ const ComingSoonDisplay: React.FC = () => {
       justify="center"
       direction="column"
     >
-      <VStack gap="phi_md" textAlign="center">
+      <VStack gap="6" textAlign="center">
         <Box as={ClockIcon} w={12} h={12} color={textColor} />
         <Heading size="lg">Próximamente</Heading>
         <Text color={textColor}>

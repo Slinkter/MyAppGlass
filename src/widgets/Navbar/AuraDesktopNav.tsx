@@ -9,11 +9,8 @@ import React from "react";
 import { HStack, Box, Text } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
-import { m } from "framer-motion";
 import NAV_ITEMS from "@/shared/config/nav-items";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
-
-const MotionBox = m.create(Box);
 
 /**
  * @component NavText
@@ -74,17 +71,18 @@ const AuraDesktopNav = () => {
   if (!mounted) return null;
 
   return (
-    <m.nav
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      style={{
+    <Box
+      as="nav"
+      animation="slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
+      css={{
         backgroundColor: navBg,
         backdropFilter: "blur(40px) saturate(210%)",
         WebkitBackdropFilter: "blur(40px) saturate(210%)",
         borderRadius: "100px",
-        border: "1px solid",
+        borderWidth: "1px",
+        borderStyle: "solid",
         borderColor: navBorderColor,
-        padding: "var(--chakra-spacing-phi_xs)",
+        padding: "var(--chakra-spacing-2)",
         display: "flex",
         alignItems: "center",
         gap: "4px",
@@ -125,28 +123,23 @@ const AuraDesktopNav = () => {
               </Box>
               
               {isActive && (
-                <MotionBox
-                  layoutId="aura-active-link-pill"
+                <Box
                   position="absolute"
                   inset={0}
-                  background={activeBg}
+              background={activeBg}
                   borderRadius="full"
                   zIndex={1}
                   boxShadow={indicatorShadow}
                   border="1px solid"
                   borderColor="whiteAlpha.200"
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 30
-                  }}
+                  transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
                 />
               )}
             </Box>
           );
         })}
       </HStack>
-    </m.nav>
+    </Box>
   );
 };
 

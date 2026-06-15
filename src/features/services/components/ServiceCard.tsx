@@ -12,9 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import RouterLink from "next/link";
-import { m } from "framer-motion";
 
-const MotionLinkBox = m.create(LinkBox);
 
 export interface ServiceCardProps {
   image: string;
@@ -55,12 +53,12 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   }, [onLoadComplete]);
 
   return (
-    <MotionLinkBox
+    <LinkBox
       as="article"
       role="group"
       cursor="pointer"
       position="relative"
-      h={{ base: "phi_4xl", md: "phi_5xl" }}
+      h={{ base: "44", md: "52" }}
       borderRadius="xl"
       overflow="hidden"
       onMouseEnter={() => setIsHovered(true)}
@@ -70,9 +68,9 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         boxShadow: { md: "2xl" },
         transform: { base: "translateZ(0)", md: "translateY(-4px) translateZ(0)" },
       }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+      transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
       aria-label={`Ver detalles del servicio de ${name}`}
-      whileTap={{ scale: 0.98 }}
+      _active={{ transform: "scale(0.98)" }}
     >
       <Skeleton loading={!isLoaded} h="full" w="full">
         <Box position="relative" h="full" w="full" overflow="hidden">
@@ -97,7 +95,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             bottom={0}
             left={0}
             right={0}
-            p="phi_md"
+            p="6"
             display="flex"
             flexDirection="column"
             alignItems="center"
@@ -117,10 +115,10 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
               _after={{
                 content: '""',
                 position: "absolute",
-                bottom: "-phi_xs",
+                bottom: "-2",
                 left: "50%",
                 transform: "translateX(-50%)",
-                width: isLoaded ? "phi_lg" : "0",
+                width: isLoaded ? "8" : "0",
                 height: "2px",
                 bg: isHovered ? "primary.300" : "white",
                 transition: "width 0.4s ease, background 0.3s ease",
@@ -136,8 +134,8 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             </Text>
 
             <VStack
-              mt="phi_md"
-              gap="phi_sm"
+              mt="6"
+              gap="4"
               opacity={isHovered ? 1 : (isMobile ? 1 : 0)}
               transform={isHovered ? "translateY(0)" : (isMobile ? "translateY(0)" : "translateY(10px)")}
               transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
@@ -161,7 +159,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
                 fontSize="xs"
                 fontWeight="bold"
                 letterSpacing="0.2em"
-                px="phi_lg"
+                px="8"
                 borderRadius="full"
                 transition="all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
               >
@@ -173,7 +171,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
       </Skeleton>
       
       {isMobile && <LinkOverlay as={RouterLink} href={plink} aria-label={`Ver servicio ${name}`} />}
-    </MotionLinkBox>
+    </LinkBox>
   );
 });
 

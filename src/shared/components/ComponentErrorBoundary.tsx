@@ -38,8 +38,8 @@ class ComponentErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <Box 
-          p="phi_md" 
-          m="phi_md" 
+          p="6" 
+          m="6" 
           bg="red.50" 
           _dark={{ bg: "rgba(255, 0, 0, 0.05)" }}
           border="1px solid" 
@@ -47,7 +47,7 @@ class ComponentErrorBoundary extends Component<Props, State> {
           borderRadius="lg"
           role="alert"
         >
-          <VStack align="start" gap="phi_md">
+          <VStack align="start" gap="6">
             <Heading size="md" color="red.600">
               Oops! Component Crash
             </Heading>
@@ -57,10 +57,10 @@ class ComponentErrorBoundary extends Component<Props, State> {
             
             {process.env.NODE_ENV !== "production" && (
               <Box w="full" overflow="auto">
-                <Text fontSize="xs" mb="phi_xs" color="gray.500">Component Stack:</Text>
+                <Text fontSize="xs" mb="2" color="gray.500">Component Stack:</Text>
                 <Code 
                   fontSize="xs" 
-                  p="phi_sm" 
+                  p="4" 
                   borderRadius="md" 
                   w="full" 
                   whiteSpace="pre-wrap"

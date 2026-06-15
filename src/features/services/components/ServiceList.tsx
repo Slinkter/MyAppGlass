@@ -70,16 +70,16 @@ const ServiceList: React.FC = React.memo(() => {
             seoCanonicalUrl="https://www.gyacompany.com/servicios"
             columns={{ base: 1, sm: 2, md: 3 }}
         >
-            <Box gridColumn="1 / -1" w="full" mt="phi_sm">
-                <HStack gap="phi_xs" justify="center" flexWrap="wrap" pb="phi_md">
+            <Box gridColumn="1 / -1" w="full" mt="4">
+                <HStack gap="2" justify="center" flexWrap="wrap" pb="6">
                     {CATEGORIES.map((cat) => {
                         const isActive = activeCategory === cat;
                         return (
                             <Button
                                 key={cat}
                                 size="sm"
-                                px="phi_md"
-                                mt="phi_xs"
+                                px="6"
+                                mt="2"
                                 borderRadius="full"
                                 fontWeight="semibold"
                                 fontSize="xs"
@@ -101,7 +101,7 @@ const ServiceList: React.FC = React.memo(() => {
             </Box>
 
             {totalFilteredCount === 0 ? (
-                <Box gridColumn="1 / -1" py="phi_2xl">
+                <Box gridColumn="1 / -1" py="20">
                     <EmptyState
                         icon={<LuSearch />}
                         title="No se encontraron servicios"
@@ -139,8 +139,8 @@ const ServiceList: React.FC = React.memo(() => {
                     ref={loaderRef}
                     gridColumn="1 / -1"
                     w="full"
-                    h="phi_md"
-                    py="phi_lg"
+                    h="6"
+                    py="8"
                 />
             )}
         </ItemGridLayout>

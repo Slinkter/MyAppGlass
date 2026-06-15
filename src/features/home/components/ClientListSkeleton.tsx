@@ -29,8 +29,8 @@ const ClientCardSkeleton: React.FC = () => {
                 bottom={0}
                 left={0}
                 right={0}
-                p="phi_lg"
-                gap="phi_xs"
+                p="8"
+                gap="2"
                 align="center"
                 justify="flex-end"
                 zIndex={2}
@@ -39,10 +39,10 @@ const ClientCardSkeleton: React.FC = () => {
                 <Skeleton height={{ base: "24px", md: "32px" }} width="70%" borderRadius="full" />
                 
                 {/* Separator */}
-                <Box w="60px" h="2px" bg="whiteAlpha.300" mt="phi_xs" />
+                <Box w="60px" h="2px" bg="whiteAlpha.300" mt="2" />
                 
                 {/* Client Description */}
-                <Skeleton height="16px" width="85%" borderRadius="full" mt="phi_xs" />
+                <Skeleton height="16px" width="85%" borderRadius="full" mt="2" />
                 <Skeleton height="16px" width="60%" borderRadius="full" />
             </VStack>
         </Box>
@@ -58,19 +58,19 @@ const ClientListSkeleton: React.FC = () => {
         <Container 
             maxW="7xl" 
             textAlign="center" 
-            mt={{ base: "phi_lg", md: "phi_2xl" }}
+            mt={{ base: "8", md: "20" }}
             pt={0}
         >
-            <VStack gap={{ base: "phi_md", md: "phi_xl" }} w="full">
+            <VStack gap={{ base: "6", md: "14" }} w="full">
                 {/* Header Section Skeleton (matches ItemGridLayout) */}
-                <VStack gap="phi_xs">
+                <VStack gap="2">
                     <Skeleton height={{ base: "32px", md: "48px" }} width="380px" mx="auto" />
-                    <Skeleton height={{ base: "20px", md: "24px" }} width="420px" mx="auto" mt={{ base: "phi_sm", md: "phi_md" }} />
+                    <Skeleton height={{ base: "20px", md: "24px" }} width="420px" mx="auto" mt={{ base: "4", md: "6" }} />
                 </VStack>
 
                 <SimpleGrid
                     columns={{ base: 1, md: 2, lg: 3 }}
-                    gap={{ base: "phi_md", md: "phi_lg" }}
+                    gap={{ base: "6", md: "8" }}
                     w="full"
                 >
                     {Array.from({ length: 3 }).map((_, index) => (

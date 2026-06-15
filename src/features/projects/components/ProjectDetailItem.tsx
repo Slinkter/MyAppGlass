@@ -18,8 +18,8 @@ const ProjectDetailItem: React.FC<ProjectDetailItemProps> = ({ icon: IconComp, l
   return (
     <VStack
       align="start"
-      gap="phi_sm"
-      p="phi_md"
+      gap="4"
+      p="6"
       bg="bg.subtle"
       borderRadius="xl"
       border="1px solid"

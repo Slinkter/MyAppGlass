@@ -19,12 +19,9 @@ import {
   DialogBody,
   DialogCloseTrigger,
 } from "@/components/ui/dialog";
-import { m } from "framer-motion";
 import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
 import { ProjectPhoto } from "../services/projectService";
-
-const MotionBox = m.create(Box);
 
 /**
  * Shared state for project detail compound components.
@@ -145,17 +142,14 @@ const ProjectDetailRoot: React.FC<{
           color="text.body"
           maxH={{ base: "100dvh", md: "90vh" }}
           overflow="hidden"
-          mx={{ base: 0, md: "phi_md" }}
+          mx={{ base: 0, md: "6" }}
         >
-          {/* Custom immersive expansion animation */}
-          <MotionBox
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          <Box
             w="full"
             h="full"
             display="flex"
             flexDirection="column"
+            animation="scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
           >
             {/* Focus Anchor: Prevents focus-trap crash in v3 */}
             <Box as="button" position="absolute" opacity={0} pointerEvents="none" aria-hidden="true" />
@@ -166,15 +160,15 @@ const ProjectDetailRoot: React.FC<{
               _hover={{ bg: "primary.900", color: "white" }}
               _dark={{ _hover: { bg: "primary.100", color: "primary.900" } }}
               borderRadius="full"
-              top="phi_md"
-              right="phi_md"
+              top="6"
+              right="6"
               boxShadow="md"
             />
             
-            <DialogBody p={{ base: 0, md: "phi_lg" }} display="flex" flexDirection="column" gap="phi_lg" overflowY="auto">
+            <DialogBody p={{ base: 0, md: "8" }} display="flex" flexDirection="column" gap="8" overflowY="auto">
               {children}
             </DialogBody>
-          </MotionBox>
+          </Box>
         </DialogContent>
       </DialogRoot>
     </ProjectDetailContext.Provider>
@@ -189,8 +183,8 @@ const ProjectDetailHeader: React.FC = () => {
   const { residencial } = useProjectDetail();
   
   return (
-    <Box px={{ base: "phi_md", md: 0 }} pt={{ base: "phi_xl", md: 0 }}>
-      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.4em" textTransform="uppercase" mb="phi_xs">
+    <Box px={{ base: "6", md: 0 }} pt={{ base: "14", md: 0 }}>
+      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.4em" textTransform="uppercase" mb="2">
         Portfolio de Ingeniería
       </Text>
       <Heading as="h2" fontFamily="heading" size={{ base: "2xl", md: "3xl" }} color="text.heading">
@@ -249,7 +243,7 @@ const ProjectDetailBody: React.FC<{ children: React.ReactNode }> = ({ children }
       flex="1"
       h={{ base: "auto", lg: "full" }}
       flexDirection={{ base: "column", lg: "row" }}
-      gap="phi_lg"
+      gap="8"
       align="stretch"
     >
       {children}

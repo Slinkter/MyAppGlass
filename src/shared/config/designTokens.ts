@@ -63,15 +63,14 @@ export const colorTokens: ColorTokens = {
 };
 
 /**
- * Escala de Espaciado Fibonacci (Aura System).
- * Usar estos tokens para mantener la proporción áurea en el layout.
+ * Tokens de espaciado estándar (Chakra UI v3).
  */
 export const spacingTokens = {
-  phi_xs: "0.5rem",    // 8px
-  phi_sm: "0.8125rem", // 13px
-  phi_md: "1.3125rem", // 21px
-  phi_lg: "2.125rem",  // 34px
-  phi_xl: "3.4375rem", // 55px
-  phi_2xl: "5.5625rem", // 89px
-  phi_3xl: "9rem",     // 144px
+  xs: "0.5rem",
+  sm: "0.75rem",
+  md: "1.25rem",
+  lg: "2rem",
+  xl: "3.5rem",
+  "2xl": "5rem",
+  "3xl": "9rem",
 } as const;

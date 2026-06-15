@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Box, Text, VStack } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
 interface ClientCardProps {
@@ -26,7 +25,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
       cursor="pointer"
       position="relative"
       w="full"
-      h={{ base: "phi_4xl", md: "phi_5xl" }}
+      h={{ base: "44", md: "52" }}
       borderRadius="xl"
       overflow="hidden"
       boxShadow="sm"
@@ -54,12 +53,12 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
           bottom={0}
           left={0}
           right={0}
-          p="phi_lg"
-          gap="phi_xs"
+          p="8"
+          gap="2"
           align="center"
           justify="flex-end"
           textAlign="center"
-          as={motion.div}
+
         >
           <Text
             color="white"
@@ -79,14 +78,14 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
             h="2px"
             bg="text.accent"
             transition="width 0.4s ease"
-            _groupHover={{ w: "phi_xl" }}
+            _groupHover={{ w: "14" }}
           />
 
           <Text
             color="whiteAlpha.800"
             fontSize="sm"
             fontWeight="500"
-            mt="phi_xs"
+            mt="2"
             opacity={0}
             transform="translateY(10px)"
             transition="all 0.4s ease"

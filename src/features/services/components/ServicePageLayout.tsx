@@ -7,14 +7,13 @@ import {
   Container,
   Skeleton,
 } from "@chakra-ui/react";
-import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import { ServicePageData, ServicePageFeature } from "../services/serviceService";
 import ServiceHeader from "./ServiceHeader";
 import ServiceBentoGrid from "./ServiceBentoGrid";
 
-const MotionBox = m.create(Box);
+
 
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string }, benefits?: ServicePageFeature[] };
@@ -39,73 +38,63 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
   }, []);
 
   return (
-    <LazyMotion features={domAnimation}>
-      <MotionBox
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb="phi_3xl">
-          <VStack gap={{ base: "phi_lg", lg: "phi_xl" }} align="stretch">
-            
-            <ServiceHeader 
-              title={seo.title}
-              systems={systems}
-              activeIndex={activeIndex}
-              onSelect={handleSelect}
-            />
+    <Box animation="fadeIn 0.4s ease-out">
+      <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb="36">
+        <VStack gap={{ base: "8", lg: "14" }} align="stretch">
+          
+          <ServiceHeader 
+            title={seo.title}
+            systems={systems}
+            activeIndex={activeIndex}
+            onSelect={handleSelect}
+          />
 
-            <Skeleton
-              loading={isPending}
-              borderRadius="3xl"
+          <Skeleton
+            loading={isPending}
+            borderRadius="3xl"
+          >
+            <Box
+              h={{ base: "350px", md: "500px", lg: "65vh" }}
+              minH={{ md: "500px" }}
+              maxH={{ lg: "800px" }}
+              position="relative"
             >
               <Box
-                h={{ base: "350px", md: "500px", lg: "65vh" }}
-                minH={{ md: "500px" }}
-                maxH={{ lg: "800px" }}
-                position="relative"
+                key={`gallery-${activeIndex}`}
+                w="full"
+                h="full"
+                animation="scaleIn 0.5s cubic-bezier(0, 0.55, 0.45, 1)"
               >
-                <AnimatePresence mode="wait">
-                  <m.div
-                    key={`gallery-${activeIndex}`}
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.02 }}
-                    transition={{ duration: 0.5, ease: "circOut" }}
-                    style={{ width: "100%", height: "100%" }}
-                  >
-                    {activeImageList.length > 0 ? (
-                      <Gallery images={activeImageList}>
-                        <Flex
-                          direction={{ base: "column", md: "row" }}
-                          gap={{ base: "phi_sm", md: "phi_lg" }}
-                          h="100%"
-                          w="100%"
-                          minW={0}
-                        >
-                          <Gallery.Viewer />
-                          <Gallery.Thumbnails />
-                        </Flex>
-                      </Gallery>
-                    ) : (
-                      <ComingSoonDisplay />
-                    )}
-                  </m.div>
-                </AnimatePresence>
+                {activeImageList.length > 0 ? (
+                  <Gallery images={activeImageList}>
+                    <Flex
+                      direction={{ base: "column", md: "row" }}
+                      gap={{ base: "4", md: "8" }}
+                      h="100%"
+                      w="100%"
+                      minW={0}
+                    >
+                      <Gallery.Viewer />
+                      <Gallery.Thumbnails />
+                    </Flex>
+                  </Gallery>
+                ) : (
+                  <ComingSoonDisplay />
+                )}
               </Box>
-            </Skeleton>
+            </Box>
+          </Skeleton>
 
-            <ServiceBentoGrid 
-              activeIndex={activeIndex}
-              about={about}
-              benefits={benefits}
-              systemName={activeSystem?.label || seo.title}
-            />
+          <ServiceBentoGrid 
+            activeIndex={activeIndex}
+            about={about}
+            benefits={benefits}
+            systemName={activeSystem?.label || seo.title}
+          />
 
-          </VStack>
-        </Container>
-      </MotionBox>
-    </LazyMotion>
+        </VStack>
+      </Container>
+    </Box>
   );
 };
 

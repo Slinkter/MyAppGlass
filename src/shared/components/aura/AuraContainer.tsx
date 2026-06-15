@@ -6,18 +6,11 @@
 
 import React from "react";
 import { Container, Box, ContainerProps } from "@chakra-ui/react";
-import { m, HTMLMotionProps } from "framer-motion";
 
 interface AuraContainerProps extends ContainerProps {
   children: React.ReactNode;
   animate?: boolean;
 }
-
-const AURA_MOTION_PROPS: HTMLMotionProps<"div"> = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: "easeOut" }
-};
 
 /**
  * @component AuraContainer
@@ -29,13 +22,12 @@ const AuraContainer: React.FC<AuraContainerProps> = ({ children, animate = true,
     <Box 
       bg="bg.page" 
       minH="100vh" 
-      pb={{ base: "phi_2xl", md: "phi_3xl" }}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      {...(animate ? ({ as: m.div, ...AURA_MOTION_PROPS } as any) : {})}
+      pb={{ base: "20", md: "36" }}
+      animation={animate ? "fadeIn 0.5s ease-out" : undefined}
     >
       <Container 
         maxW="7xl" 
-        pt={{ base: "phi_xl", md: "phi_2xl" }} 
+        pt={{ base: "14", md: "20" }} 
         {...props}
       >
         {children}

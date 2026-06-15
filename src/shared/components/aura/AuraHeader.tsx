@@ -29,7 +29,7 @@ interface AuraHeaderProps {
  */
 const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, backTo, action, centered = false, mb }) => {
   return (
-    <Box w="full" mb={mb ?? { base: "phi_md", md: "phi_lg" }}>
+    <Box w="full" mb={mb ?? { base: "6", md: "8" }}>
       {/* Top Navigation Row (Always Left Aligned for UX) */}
       <Flex justify="space-between" align="center" mb={2}>
         {backTo ? (
@@ -54,7 +54,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
       </Flex>
 
       {/* Main Content Area (Title) */}
-      <VStack gap={{ base: "phi_md", md: "phi_lg" }} align={centered ? "center" : "flex-start"} w="full" textAlign={centered ? "center" : "left"}>
+      <VStack gap={{ base: "6", md: "8" }} align={centered ? "center" : "flex-start"} w="full" textAlign={centered ? "center" : "left"}>
         {!backTo && overline && (
           <Text 
             fontSize={{ base: "10px", md: "xs" }} 
@@ -87,7 +87,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
           </Text>
         )}
         {action && (
-          <Box pt="phi_md" w="full" display="flex" justifyContent={centered ? "center" : "flex-start"}>
+          <Box pt="6" w="full" display="flex" justifyContent={centered ? "center" : "flex-start"}>
             {action}
           </Box>
         )}

@@ -15,10 +15,10 @@ const ServiceListSkeleton: React.FC = () => {
             columns={{ base: 1, sm: 2, md: 3 }}
         >
             {/* Filter Pills Skeleton - MATCHES ServiceList.tsx */}
-            <Box gridColumn="1 / -1" w="full" mb="phi_lg">
-                <Box display="flex" gap="phi_xs" justifyContent="center" flexWrap="wrap">
+            <Box gridColumn="1 / -1" w="full" mb="8">
+                <Box display="flex" gap="2" justifyContent="center" flexWrap="wrap">
                     {Array.from({ length: 4 }).map((_, i) => (
-                        <Skeleton key={i} height="32px" width="100px" borderRadius="full" mt="phi_xs" />
+                        <Skeleton key={i} height="32px" width="100px" borderRadius="full" mt="2" />
                     ))}
                 </Box>
             </Box>
@@ -28,7 +28,7 @@ const ServiceListSkeleton: React.FC = () => {
                 <Box
                     key={index}
                     position="relative"
-                    h={{ base: "phi_4xl", md: "phi_5xl" }}
+                    h={{ base: "44", md: "52" }}
                     w="full"
                     borderRadius="xl"
                     overflow="hidden"
@@ -43,7 +43,7 @@ const ServiceListSkeleton: React.FC = () => {
                         bottom={0}
                         left={0}
                         right={0}
-                        p="phi_md"
+                        p="6"
                         display="flex"
                         flexDirection="column"
                         alignItems="center"
@@ -52,8 +52,8 @@ const ServiceListSkeleton: React.FC = () => {
                         {/* Title Placeholder */}
                         <Skeleton height="24px" width="60%" borderRadius="md" />
 
-                        {/* Button Area Placeholder - MATCHES VStack mt="phi_md" and gap="phi_sm" */}
-                        <VStack mt="phi_md" gap="phi_sm" w="full">
+                        {/* Button Area Placeholder - MATCHES VStack mt="6" and gap="4" */}
+                        <VStack mt="6" gap="4" w="full">
                             <Skeleton 
                                 height="32px" 
                                 width="140px" 

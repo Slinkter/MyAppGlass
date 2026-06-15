@@ -22,7 +22,6 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import NavLink from "next/link";
-import { m, AnimatePresence } from "framer-motion";
 import NAV_ITEMS from "@/shared/config/nav-items";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
 import {
@@ -66,16 +65,12 @@ const NavItemLarge = ({ label, href, onClick }: NavItemLargeProps) => {
                 >
                     {label}
                 </Text>
-                <m.div
-                    initial={false}
-                    animate={{ width: isActive ? "60px" : "0" }}
-                    style={{
-                        height: "2px",
-                        backgroundColor: "var(--chakra-colors-text-accent)",
-                        marginTop: "8px",
-                        willChange: "width",
-                        transform: "translateZ(0)",
-                    }}
+                <Box
+                    h="2px"
+                    bg="text.accent"
+                    mt="2"
+                    transition="width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                    w={isActive ? "60px" : "0"}
                 />
             </Box>
         </NavLink>
@@ -165,8 +160,8 @@ const MobileNav = React.memo(() => {
             {/* ULTRA-CLEAN FLOATING TRIGGER */}
             <Box
                 position="fixed"
-                top="phi_md"
-                right="phi_md"
+                top="6"
+                right="6"
                 zIndex={1100}
                 display={{ base: "block", md: "none" }}
             >
@@ -181,21 +176,16 @@ const MobileNav = React.memo(() => {
                         _active={{ transform: "scale(0.9)" }}
                         transition="all 0.3s ease"
                     >
-                        <m.div
-                            initial={false}
-                            animate={{ rotate: isOpen ? 90 : 0 }}
-                            transition={{
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 20,
-                            }}
-                        >
-                            {isOpen ? (
-                                <X size={32} strokeWidth={1.5} />
-                            ) : (
-                                <Menu size={32} strokeWidth={1.5} />
-                            )}
-                        </m.div>
+                        <Box
+                        transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                        transform={isOpen ? "rotate(90deg)" : "rotate(0deg)"}
+                    >
+                        {isOpen ? (
+                            <X size={32} strokeWidth={1.5} />
+                        ) : (
+                            <Menu size={32} strokeWidth={1.5} />
+                        )}
+                    </Box>
                     </IconButton>
                 </DrawerTrigger>
             </Box>
@@ -226,31 +216,19 @@ const MobileNav = React.memo(() => {
                         gap={2}
                         transition="opacity 0.3s"
                     >
-                        <AnimatePresence>
-                            {NAV_ITEMS.map((item, index) => (
-                                <m.div
-                                    key={item.label}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{
-                                        delay: index * 0.04,
-                                        ease: "easeOut",
-                                        duration: 0.3,
-                                    }}
-                                    style={{
-                                        width: "100%",
-                                        willChange: "transform, opacity",
-                                        transform: "translateZ(0)",
-                                    }}
-                                >
-                                    <NavItemLarge
-                                        label={item.label}
-                                        href={item.href}
-                                        onClick={handleLinkClick}
-                                    />
-                                </m.div>
-                            ))}
-                        </AnimatePresence>
+                        {NAV_ITEMS.map((item, index) => (
+                            <Box
+                                key={item.label}
+                                w="full"
+                                animation={`slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.04}s both`}
+                            >
+                                <NavItemLarge
+                                    label={item.label}
+                                    href={item.href}
+                                    onClick={handleLinkClick}
+                                />
+                            </Box>
+                        ))}
                     </VStack>
 
                     <VStack gap={8} w="full" mt="auto" align="flex-start">
@@ -325,8 +303,8 @@ const MobileNav = React.memo(() => {
                     </VStack>
                 </DrawerBody>
                 <DrawerCloseTrigger
-                    top="phi_md"
-                    right="phi_md"
+                    top="6"
+                    right="6"
                     color="text.accent"
                     visibility="hidden"
                 />

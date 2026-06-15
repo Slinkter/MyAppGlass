@@ -59,7 +59,7 @@ const FooterRow = ({
 
     const content = (
         <HStack
-            gap="phi_sm"
+            gap="4"
             align="center"
             justify={{ base: "center", sm: "flex-start" }}
             w="full"
@@ -110,7 +110,7 @@ const FooterSection = ({ title, children }: FooterSectionProps) => {
     return (
         <VStack
             align={{ base: "center", sm: "flex-start" }}
-            gap="phi_md"
+            gap="6"
             w="full"
         >
             <Heading
@@ -127,7 +127,7 @@ const FooterSection = ({ title, children }: FooterSectionProps) => {
             </Heading>
             <VStack
                 align={{ base: "center", sm: "flex-start" }}
-                gap="phi_xs"
+                gap="2"
                 w="full"
             >
                 {children}
@@ -140,21 +140,21 @@ const Footer = () => {
     return (
         <Box
             as="footer"
-            mt="phi_2xl"
-            mb={{ base: "phi_2xl", md: "phi_lg" }}
-            px="phi_md"
+            mt="20"
+            mb={{ base: "20", md: "8" }}
+            px="6"
         >
             <Container maxW="7xl" px={0}>
                 <AuraSurface
-                    pt={{ base: "phi_lg", md: "phi_xl" }}
-                    pb="phi_md"
-                    px={{ base: "phi_md", md: "phi_xl" }}
+                    pt={{ base: "8", md: "14" }}
+                    pb="6"
+                    px={{ base: "6", md: "14" }}
                     borderRadius="3xl"
                 >
                     <SimpleGrid
                         columns={{ base: 1, sm: 2, lg: 3 }}
-                        gap={{ base: "phi_lg", md: "phi_xl" }}
-                        mb="phi_xl"
+                        gap={{ base: "8", md: "14" }}
+                        mb="14"
                     >
                         <FooterSection title="Contacto">
                             <FooterRow
@@ -201,7 +201,7 @@ const Footer = () => {
                                 }}
                             >
                                 <HStack
-                                    gap="phi_sm"
+                                    gap="4"
                                     align="center"
                                     justify={{
                                         base: "center",
@@ -241,20 +241,20 @@ const Footer = () => {
                         </FooterSection>
                     </SimpleGrid>
 
-                    <Separator borderColor="border.glass" mb="phi_md" />
+                    <Separator borderColor="border.glass" mb="6" />
 
                     <Flex
                         direction="column"
                         align="center"
-                        gap="phi_sm"
-                        pt="phi_md"
+                        gap="4"
+                        pt="6"
                         w="full"
                     >
                         <Box
                             position="relative"
                             h="56px"
                             w="180px"
-                            mb="phi_xs"
+                            mb="2"
                             opacity={0.8}
                             _dark={{ filter: "brightness(0) invert(1)" }}
                         >

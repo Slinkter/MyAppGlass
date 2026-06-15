@@ -102,8 +102,8 @@ const ProjectsList: React.FC = React.memo(() => {
       columns={{ base: 1, md: 2, lg: 3 }}
     >
       {/* Filter Pills */}
-      <Box gridColumn="1 / -1" w="full" mt="phi_sm">
-        <HStack gap="phi_xs" justify="center" flexWrap="wrap" pb="phi_md">
+      <Box gridColumn="1 / -1" w="full" mt="4">
+        <HStack gap="2" justify="center" flexWrap="wrap" pb="6">
           {years.map((year) => {
             const isActive = activeYear === year;
             return (
@@ -111,7 +111,7 @@ const ProjectsList: React.FC = React.memo(() => {
                 key={year}
                 size="sm"
                 px={5}
-                mt="phi_xs"
+                mt="2"
                 borderRadius="full"
                 fontWeight="semibold"
                 fontSize="xs"
@@ -156,7 +156,7 @@ const ProjectsList: React.FC = React.memo(() => {
       
       {/* Intersection Sensor for O1 Rendering */}
       {hasMore && (
-        <Box ref={loaderRef} w="full" h="20px" py="phi_lg" />
+        <Box ref={loaderRef} w="full" h="20px" py="8" />
       )}
     </ItemGridLayout>
   );

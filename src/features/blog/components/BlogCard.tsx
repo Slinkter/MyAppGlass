@@ -2,12 +2,9 @@
 
 import React from "react";
 import { Box, Heading, Text, VStack, Image, HStack, Badge, Flex } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideArrowRight } from "lucide-react";
-
-const MotionBox = motion.create(Box);
 
 interface BlogCardProps {
   post: BlogPost;
@@ -21,20 +18,7 @@ interface BlogCardProps {
 const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
   return (
     <Link href={`/blog/${post.slug}`} style={{ width: "100%", height: "100%" }}>
-      <MotionBox
-        layout
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ 
-          duration: 0.8, 
-          delay: index * 0.1, 
-          ease: [0.16, 1, 0.3, 1] 
-        }}
-        whileHover={{ 
-          y: -12,
-          scale: 1.02,
-          transition: { duration: 0.4, ease: [0.33, 1, 0.68, 1] }
-        }}
+      <Box
         role="group"
         w="full"
         h="full"
@@ -45,10 +29,13 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
         borderRadius="3xl"
         overflow="hidden"
         boxShadow="glass"
+        animation={`slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s both`}
         _hover={{ 
           boxShadow: "glassHover",
           borderColor: "whiteAlpha.300",
+          transform: "translateY(-12px) scale(1.02)",
         }}
+        transition="all 0.4s cubic-bezier(0.33, 1, 0.68, 1)"
         display="flex"
         flexDirection="column"
         position="relative"
@@ -72,7 +59,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
           />
           
           {/* Tag Overlay */}
-          <HStack position="absolute" top="phi_md" left="phi_md" gap="phi_xs">
+          <HStack position="absolute" top="6" left="6" gap="2">
             {post.tags.slice(0, 2).map((tag) => (
               <Badge 
                 key={tag} 
@@ -81,7 +68,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
                 color="white" 
                 border="1px solid"
                 borderColor="whiteAlpha.300"
-                px="phi_sm" 
+                px="4" 
                 py="0.5"
                 borderRadius="full"
                 fontSize="xs"
@@ -94,14 +81,14 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
         </Box>
 
         {/* Content Container */}
-        <VStack p="phi_lg" align="flex-start" gap="phi_md" flex="1">
-          <VStack align="flex-start" gap="phi_xs" w="full">
-            <HStack color="text.muted" fontSize="xs" gap="phi_md">
-              <HStack gap="phi_xs">
+        <VStack p="8" align="flex-start" gap="6" flex="1">
+          <VStack align="flex-start" gap="2" w="full">
+            <HStack color="text.muted" fontSize="xs" gap="6">
+              <HStack gap="2">
                 <LucideCalendar size={14} />
                 <Text>{new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}</Text>
               </HStack>
-              <HStack gap="phi_xs">
+              <HStack gap="2">
                 <LucideUser size={14} />
                 <Text>{post.author}</Text>
               </HStack>
@@ -132,14 +119,14 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
             color="text.accent"
             fontWeight="bold"
             fontSize="sm"
-            gap="phi_xs"
+            gap="2"
             transition="all 0.3s ease"
           >
             <Text opacity={0} transform="translateX(10px)" _groupHover={{ opacity: 1, transform: "translateX(0)" }} transition="all 0.4s ease">
               Leer más
             </Text>
             <Box 
-              p="phi_xs" 
+              p="2" 
               borderRadius="full" 
               bg="bg.subtle" 
               _groupHover={{ bg: "text.accent", color: "white", transform: "rotate(-45deg)" }}
@@ -164,7 +151,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
           transition="opacity 0.6s ease"
           pointerEvents="none"
         />
-      </MotionBox>
+      </Box>
     </Link>
   );
 };

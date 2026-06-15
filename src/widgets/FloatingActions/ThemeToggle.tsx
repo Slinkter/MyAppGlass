@@ -24,8 +24,8 @@ export const ThemeToggle = () => {
       aria-label={`Cambiar a modo ${colorMode === "dark" ? "claro" : "oscuro"}`}
       onClick={toggleColorMode}
       position="fixed"
-      bottom={{ base: "phi_xl", md: "phi_md" }}
-      left="phi_md"
+      bottom={{ base: "14", md: "6" }}
+      left="6"
       zIndex="banner"
       display={{ base: "none", md: "inline-flex" }}
       size="lg"

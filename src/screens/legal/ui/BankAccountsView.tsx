@@ -305,19 +305,19 @@ const BankAccountsView: React.FC = () => {
     if (isLoading) {
         return (
             <AuraContainer>
-                <VStack gap="phi_lg" align="stretch">
-                    <AuraSkeleton h="100px" w="full" mb="phi_sm" />
+                <VStack gap="8" align="stretch">
+                    <AuraSkeleton h="100px" w="full" mb="4" />
                     <Box>
-                        <AuraSkeleton h="32px" w="250px" mb="phi_md" />
+                        <AuraSkeleton h="32px" w="250px" mb="6" />
                         <GridSkeleton columns={{ base: 1, md: 2 }} count={4} />
                     </Box>
                     <Box>
-                        <AuraSkeleton h="32px" w="250px" mb="phi_md" />
+                        <AuraSkeleton h="32px" w="250px" mb="6" />
                         <BannerSkeleton />
                     </Box>
                     <Box>
-                        <AuraSkeleton h="32px" w="250px" mb="phi_md" />
-                        <VStack gap="phi_md" w="full">
+                        <AuraSkeleton h="32px" w="250px" mb="6" />
+                        <VStack gap="6" w="full">
                             <AuraSkeleton
                                 h="160px"
                                 w="full"
@@ -335,7 +335,7 @@ const BankAccountsView: React.FC = () => {
             <Toaster />
 
             <AuraContainer>
-                <VStack gap="phi_lg" align="stretch">
+                <VStack gap="8" align="stretch">
                     <AuraHeader
                         title="Cuentas Bancarias y Facturación"
                         overline="Información Bancaria"
@@ -347,13 +347,13 @@ const BankAccountsView: React.FC = () => {
                         <Heading
                             as="h2"
                             size="lg"
-                            mb="phi_md"
+                            mb="6"
                             color="text.heading"
                             fontWeight="800"
                         >
                             Identificación Fiscal
                         </Heading>
-                        <SimpleGrid columns={{ base: 1, md: 2 }} gap="phi_md">
+                        <SimpleGrid columns={{ base: 1, md: 2 }} gap="6">
                             {fiscalData.map((item, index) => (
                                 <AuraSurface key={index} p={0}>
                                     <InfoItem {...item} />
@@ -366,7 +366,7 @@ const BankAccountsView: React.FC = () => {
                         <Heading
                             as="h2"
                             size="lg"
-                            mb="phi_md"
+                            mb="6"
                             color="text.heading"
                             fontWeight="800"
                         >
@@ -375,15 +375,15 @@ const BankAccountsView: React.FC = () => {
 
                         <AuraSurface
                             variant="interactive"
-                            p={{ base: "phi_md", md: "phi_lg" }}
+                            p={{ base: "6", md: "8" }}
                             display="flex"
                             flexDirection={{ base: "column", md: "row" }}
                             align="center"
-                            gap={{ base: "phi_lg", md: "phi_xl" }}
+                            gap={{ base: "8", md: "14" }}
                         >
                             <Box
                                 w={{ base: "full", md: "280px" }}
-                                p="phi_sm"
+                                p="4"
                                 bg="white"
                                 borderRadius="2xl"
                                 boxShadow="xl"
@@ -407,8 +407,8 @@ const BankAccountsView: React.FC = () => {
                                 />
                             </Box>
 
-                            <VStack align="flex-start" flex="1" gap="phi_md">
-                                <HStack gap="phi_sm">
+                            <VStack align="flex-start" flex="1" gap="6">
+                                <HStack gap="4">
                                     <Badge
                                         colorPalette="purple"
                                         size="lg"
@@ -458,7 +458,7 @@ const BankAccountsView: React.FC = () => {
 
                                 <VStack
                                     align="flex-start"
-                                    gap="phi_xs"
+                                    gap="2"
                                     w="full"
                                 >
                                     <Text
@@ -472,7 +472,7 @@ const BankAccountsView: React.FC = () => {
                                     </Text>
                                     <HStack
                                         w="full"
-                                        p="phi_sm"
+                                        p="4"
                                         bg="bg.subtle"
                                         borderRadius="xl"
                                         border="1px solid"
@@ -508,20 +508,20 @@ const BankAccountsView: React.FC = () => {
                         <Heading
                             as="h2"
                             size="lg"
-                            mb="phi_md"
+                            mb="6"
                             color="text.heading"
                             fontWeight="800"
                         >
                             Cuentas Bancarias
                         </Heading>
-                        <Stack gap="phi_md">
+                        <Stack gap="6">
                             {bankAccountsData.map((bankAccount, index) => (
                                 <BankAccountCard key={index} {...bankAccount} />
                             ))}
                         </Stack>
                     </Box>
 
-                    <AuraSurface p="phi_lg" textAlign="center" variant="strong">
+                    <AuraSurface p="8" textAlign="center" variant="strong">
                         <Text fontSize="md" color="text.body">
                             ¿Necesita confirmar un pago o requiere asistencia
                             adicional?

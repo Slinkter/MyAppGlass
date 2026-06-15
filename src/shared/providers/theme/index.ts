@@ -20,12 +20,12 @@ const buttonRecipe = defineRecipe({
     borderRadius: "full",
     transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
   },
-  variants: {
-    variant: {
-      aura: {
-        bg: "primary.900",
-        color: "white",
-        px: "phi_lg",
+    variants: {
+      variant: {
+        aura: {
+          bg: "primary.900",
+          color: "white",
+          px: "8",
         _hover: {
           bg: "primary.700",
           transform: "translateY(-2px)",
@@ -47,8 +47,8 @@ const buttonRecipe = defineRecipe({
       outline: {
         borderWidth: "2px",
         borderColor: "primary.900",
-        color: "primary.900",
-        px: "phi_lg",
+          color: "primary.900",
+          px: "8",
         _hover: {
           bg: "blackAlpha.50",
         },
@@ -75,24 +75,24 @@ const buttonRecipe = defineRecipe({
     size: {
       sm: {
         h: "8",
-        px: "phi_sm",
+        px: "3",
         fontSize: "xs",
       },
       md: {
         h: "10",
-        px: "phi_md",
+        px: "6",
         fontSize: "sm",
       },
       lg: {
         h: "12",
-        px: "phi_lg",
+        px: "8",
         fontSize: "md",
       },
       xl: {
         h: "14",
         minW: "14",
         fontSize: "lg",
-        px: "phi_xl",
+        px: "14",
       },
     },
   },
@@ -113,7 +113,7 @@ const inputRecipe = defineSlotRecipe({
       borderWidth: "1px",
       borderColor: "border.glass",
       borderRadius: "md",
-      px: "phi_sm",
+      px: "3",
       transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
       _placeholder: { color: "text.muted" },
       _hover: { borderColor: "border.strong" },
@@ -204,28 +204,13 @@ const config = defineConfig({
         },
       },
       spacing: {
-        phi_xs: { value: "0.5rem" },    // 8px
-        phi_sm: { value: "0.8125rem" }, // 13px
-        phi_md: { value: "1.3125rem" }, // 21px
-        phi_lg: { value: "2.125rem" },  // 34px
-        phi_xl: { value: "3.4375rem" }, // 55px
-        phi_2xl: { value: "5.5625rem" }, // 89px
-        phi_3xl: { value: "9rem" },     // 144px
-        phi_4xl: { value: "14.5625rem" }, // 233px
-        phi_5xl: { value: "23.5625rem" }, // 377px
-        phi_6xl: { value: "38.125rem" },  // 610px
-      },
-      sizes: {
-        phi_xs: { value: "{spacing.phi_xs}" },
-        phi_sm: { value: "{spacing.phi_sm}" },
-        phi_md: { value: "{spacing.phi_md}" },
-        phi_lg: { value: "{spacing.phi_lg}" },
-        phi_xl: { value: "{spacing.phi_xl}" },
-        phi_2xl: { value: "{spacing.phi_2xl}" },
-        phi_3xl: { value: "{spacing.phi_3xl}" },
-        phi_4xl: { value: "{spacing.phi_4xl}" },
-        phi_5xl: { value: "{spacing.phi_5xl}" },
-        phi_6xl: { value: "{spacing.phi_6xl}" },
+        "18": { value: "4.5rem" },
+        "22": { value: "5.5rem" },
+        "30": { value: "7.5rem" },
+        "34": { value: "8.5rem" },
+        "38": { value: "9.5rem" },
+        "42": { value: "10.5rem" },
+        "46": { value: "11.5rem" },
       },
       radii: {
         phi: { value: "1.618rem" },
@@ -235,7 +220,7 @@ const config = defineConfig({
       shadows: {
         glass: { value: "0 8px 32px 0 rgba(0, 0, 0, 0.08)" },
         glassHover: { value: "0 12px 40px 0 rgba(0, 0, 0, 0.12)" },
-      }
+      },
     },
     semanticTokens: {
       colors: {
@@ -307,7 +292,7 @@ const config = defineConfig({
           borderRadius: "card",
           backdropFilter: "blur(12px)",
           boxShadow: "sm",
-          p: "phi_md",
+          p: "6",
         },
         variants: {
           variant: {
