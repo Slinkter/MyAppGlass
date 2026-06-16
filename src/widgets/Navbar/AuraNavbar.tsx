@@ -52,14 +52,8 @@ const AuraNavbar = React.memo(() => {
         </Box>
       </Box>
 
-      {/* MOBILE NAVBAR (Tactical Floating Trigger) */}
-      <Box
-        display={{ base: "block", md: "none" }}
-        pointerEvents={scrolled ? "auto" : "none"}
-        opacity={scrolled ? 1 : 0}
-        transform={scrolled ? "translateY(0)" : "translateY(-8px)"}
-        transition="opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)"
-      >
+      {/* MOBILE NAVBAR (Always visible — no scroll-reveal) */}
+      <Box display={{ base: "block", md: "none" }}>
         <MobileNav />
       </Box>
     </>

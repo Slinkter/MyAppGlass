@@ -15,7 +15,7 @@ const ProjectCardSkeleton: React.FC = () => {
     return (
         <Box
             position="relative"
-            h={{ base: "320px", md: "500px" }}
+            minH="320px"
             w="full"
             borderRadius="xl"
             overflow="hidden"

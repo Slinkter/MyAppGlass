@@ -43,7 +43,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }) ?? true;
 
   const handleImageLoad = React.useCallback(() => {
     setIsLoaded(true);
@@ -58,7 +58,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
       role="group"
       cursor="pointer"
       position="relative"
-      minH={{ base: "auto", md: "320px" }}
+      minH="320px"
       borderRadius="xl"
       overflow="hidden"
       onMouseEnter={() => setIsHovered(true)}
@@ -82,7 +82,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         }
       }}
     >
-      <Card.Body p="0" position="relative" w="full" h="full" minH={{ base: "auto", md: "320px" }} overflow="hidden" borderRadius="xl">
+      <Card.Body p="0" position="relative" w="full" h="full" overflow="hidden" borderRadius="xl">
         <Skeleton loading={!isLoaded} h="full" w="full">
           <Box position="absolute" inset={0} overflow="hidden">
             <ResponsiveImage
@@ -99,7 +99,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
               transition="transform 0.7s ease-out"
             />
 
-            <Box position="absolute" inset="0" bgGradient={bgOverlay} />
+            <Box position="absolute" inset="0" css={{ background: bgOverlay }} />
 
             <Box
               position="absolute"
@@ -157,7 +157,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
                 w="full"
               >
                 <Button
-                  asChild
+                  {...(isMobile ? { pointerEvents: "none" as const } : { asChild: true })}
                   variant="outline"
                   size="sm"
                   color="white"
@@ -177,9 +177,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
                   borderRadius="full"
                   transition="background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
                 >
-                  <RouterLink href={plink}>
-                    Ver Catálogo
-                  </RouterLink>
+                  {isMobile ? "Ver Catálogo" : <RouterLink href={plink}>Ver Catálogo</RouterLink>}
                 </Button>
               </VStack>
             </Box>

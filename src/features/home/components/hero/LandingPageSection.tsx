@@ -33,7 +33,7 @@ const LandingPageSection: React.FC = React.memo(() => {
                 flexDirection={"column"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                px={2}
+                px={{ base: 4, md: 2 }}
                 position="relative"
                 css={{
                     '@media (prefers-reduced-motion: reduce)': {
@@ -120,21 +120,15 @@ const LandingPageSection: React.FC = React.memo(() => {
                             flexWrap="wrap"
                             animation="slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both"
                         >
-                            <Button
-                                as={RouterLink}
-                                href="/servicios"
-                                variant="aura"
-                                size="lg"
-                            >
-                                Ver Servicios
+                            <Button asChild variant="aura" size="lg">
+                                <RouterLink href="/servicios">
+                                    Ver Servicios
+                                </RouterLink>
                             </Button>
-                            <Button
-                                as={RouterLink}
-                                href="/proyectos"
-                                variant="outline"
-                                size="lg"
-                            >
-                                Nuestros Proyectos
+                            <Button asChild variant="outline" size="lg">
+                                <RouterLink href="/proyectos">
+                                    Nuestros Proyectos
+                                </RouterLink>
                             </Button>
                         </HStack>
                     </Box>

@@ -8,32 +8,24 @@ interface ErrorDisplayProps {
   onRetry?: () => void;
 }
 
-/**
- * @component ErrorDisplay
- * @description Componente para mostrar mensajes de error de forma amigable, utilizando la paleta de colores principal para mantener la consistencia.
- * Opcionalmente puede incluir un botón de reintento.
- */
 const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ message, onRetry }) => {
   return (
     <VStack
       gap="6"
       p="6"
-      bg="whiteAlpha.200"
-      border="1px solid"
-      borderColor="whiteAlpha.300"
+      bg="surface.card"
+      borderWidth="1px"
+      borderColor="border.default"
       boxShadow="lg"
       borderRadius="xl"
-      color="white"
     >
-      <Text fontSize="lg" fontWeight="bold" color="primary.300">
+      <Text fontSize="lg" fontWeight="bold" color="text.accent">
         Error:
       </Text>
-      <Text>{message || ERROR_MESSAGES.UNEXPECTED_ERROR}</Text>
+      <Text color="text.body">{message || ERROR_MESSAGES.UNEXPECTED_ERROR}</Text>
       {onRetry && (
         <Button
           variant="subtle"
-          bg="whiteAlpha.300"
-          _hover={{ bg: "whiteAlpha.400" }}
           onClick={onRetry}
         >
           Reintentar

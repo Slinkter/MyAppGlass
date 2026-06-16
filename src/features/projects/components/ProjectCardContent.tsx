@@ -29,8 +29,8 @@ interface ProjectCardContentProps {
   year: string | number;
   onExplore: () => void;
   isLCP?: boolean;
-  loading?: "lazy" | "eager" | string;
-  fetchPriority?: "auto" | "high" | "low" | string;
+  loading?: "lazy" | "eager";
+  fetchPriority?: "auto" | "high" | "low";
 }
 
 const bgOverlay =
@@ -51,7 +51,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         role="group"
         cursor="pointer"
         position="relative"
-        h={{ base: "44", md: "52" }}
+        minH="320px"
         w="full"
         borderRadius="xl"
         overflow="hidden"
@@ -68,7 +68,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
       >
         <Card.Body p="0" position="relative" w="full" h="full" overflow="hidden" borderRadius="xl">
           <Skeleton loading={!isLoaded} h="full" w="full">
-            <Box position="relative" h="full" w="full" overflow="hidden">
+            <Box position="absolute" inset={0} overflow="hidden">
               <ResponsiveImage
                 src={image}
                 alt={`Vista del proyecto: ${residencial}`}
@@ -86,7 +86,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                 transition="transform 0.6s ease"
               />
 
-              <Box position="absolute" inset="0" bgGradient={bgOverlay} />
+              <Box position="absolute" inset="0" css={{ background: bgOverlay }} />
 
               <Box
                 position="absolute"
@@ -123,21 +123,24 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                     transition: "width 0.4s ease, background 0.3s ease",
                   }}
                 >
-                  <LinkOverlay
-                    as="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      onExplore();
-                    }}
-                    aria-label={`Explorar detalles del proyecto ${residencial}`}
-                    _focusVisible={{
-                      outline: "none",
-                      ring: "2px",
-                      ringColor: "ring.primary",
-                      ringOffset: "2px",
-                    }}
-                  >
-                    {residencial}
+                  <LinkOverlay asChild>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onExplore();
+                      }}
+                      aria-label={`Explorar detalles del proyecto ${residencial}`}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        padding: 0,
+                        font: 'inherit',
+                        color: 'inherit',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {residencial}
+                    </button>
                   </LinkOverlay>
                 </Heading>
 
@@ -179,7 +182,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
                     variant="aura"
                     size="sm"
                     bg="whiteAlpha.200"
-                    backdropFilter="blur(10px)"
+                    css={{ backdropFilter: "blur(10px)" }}
                     color="white"
                     borderColor="whiteAlpha.400"
                     borderWidth="1px"

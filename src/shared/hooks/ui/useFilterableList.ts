@@ -5,6 +5,7 @@
  */
 
 import { useState, useMemo, useRef, useTransition, useCallback, useEffect } from "react";
+import { useMediaQuery } from "@chakra-ui/react";
 import useIntersectionObserver from "../observers/useIntersectionObserver";
 
 /**
@@ -70,7 +71,8 @@ export function useFilterableList<T>({
   }, [pageSize]);
 
   // Infinite Scroll logic
-  const rootMargin = typeof window !== "undefined" && window.innerWidth < 768 ? "200px" : "400px";
+  const [isSmallScreen] = useMediaQuery(["(max-width: 767px)"], { ssr: true });
+  const rootMargin = isSmallScreen ? "200px" : "400px";
 
   useIntersectionObserver(
     loaderNode,

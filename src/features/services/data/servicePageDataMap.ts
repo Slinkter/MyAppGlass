@@ -45,9 +45,9 @@ export interface ServicePageData {
 export const servicePageDataMap: Record<string, ServicePageData> = {
     ventana: {
         seo: {
-            title: "Ventanas",
+            title: "Ventanas Antirruido La Molina | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos ventanas de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Fabricación e instalación de ventanas de aluminio antirruido en La Molina. Sistemas Nova, Serie 25 y 31 con perfiles herméticos para aislamiento acústico. ¡Cotiza tu ventana hoy!",
         },
         about: {
             title: "Acerca de Ventanas",
@@ -81,9 +81,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     balcones: {
         seo: {
-            title: "Balcones",
+            title: "Balcones de Vidrio La Molina | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos balcones de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Balcones de vidrio templado con arenado decorativo en La Molina. Transforma tu terraza en un espacio seguro y elegante sin perder la vista panorámica.",
         },
         about: {
             title: "Acerca de Balcones",
@@ -109,9 +109,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     baranda: {
         seo: {
-            title: "Barandas",
+            title: "Barandas de Vidrio Templado La Molina | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos barandas de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Barandas de vidrio templado con accesorios de acero cromado. Diseño minimalista para escaleras, terrazas y balcones en Lima. Seguridad y estilo en cada proyecto.",
         },
         about: {
             title: "Acerca de Barandas",
@@ -138,9 +138,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     celosias: {
         seo: {
-            title: "Celosías",
+            title: "Celosías de Aluminio La Molina | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos celosías de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Celosías de aluminio para fachadas, balcones y ventanas en La Molina. Control solar, ventilación natural y privacidad con diseño arquitectónico moderno.",
         },
         about: {
             title: "Acerca de Celosías",
@@ -164,9 +164,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     ducha: {
         seo: {
-            title: "Duchas",
+            title: "Boxes de Ducha La Molina | Cabinas Vidrio Templado | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos duchas de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Boxes de ducha de vidrio templado 8mm con sistemas KIT y acrílico. Seguridad, diseño moderno y fácil limpieza. ¡Cotiza tu ducha a medida en La Molina!",
         },
         about: {
             title: "Acerca de Duchas",
@@ -193,9 +193,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     mampara: {
         seo: {
-            title: "Mamparas",
+            title: "Mamparas de Baño La Molina | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos mamparas de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Mamparas de baño en vidrio templado con perfiles de aluminio natural o negro. Sistemas Nova y Serie 25. Diseño a medida con instalación profesional en Lima.",
         },
         about: {
             title: "Acerca de Mamparas",
@@ -222,9 +222,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     parapeto: {
         seo: {
-            title: "Parapetos",
+            title: "Parapetos de Vidrio La Molina | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos parapetos de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Parapetos de vidrio templado con estructura de acero o aluminio en La Molina. Seguridad y vista panorámica sin obstáculos para terrazas y azoteas. Instalación certificada.",
         },
         about: {
             title: "Acerca de Parapetos",
@@ -250,9 +250,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     pserie: {
         seo: {
-            title: "Puertas en Serie",
+            title: "Puertas Enrollables de Aluminio La Molina | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos puertas en serie de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Puertas enrollables de aluminio con plancha arenada. Seguridad reforzada y diseño discreto para comercios y viviendas en La Molina. Resistencia y durabilidad.",
         },
         about: {
             title: "Acerca de Puertas en Serie",
@@ -277,9 +277,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     pvidrio: {
         seo: {
-            title: "Puertas de Vidrio",
+            title: "Puertas de Vidrio Templado La Molina | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos puertas de vidrio de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Puertas de vidrio templado con chapa bola y bisagras de calidad en La Molina. Elegancia y luminosidad para ingresos principales, oficinas y locales comerciales.",
         },
         about: {
             title: "Acerca de Puertas de Vidrio",
@@ -305,9 +305,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     techo: {
         seo: {
-            title: "Techos",
+            title: "Techos de Policarbonato La Molina | Glass & Aluminum Company S.A.C.",
             description:
-                "Fabricamos e instalamos techos de sistemas Nova, Serie 25 y Serie 31 para proyectos residenciales y comerciales.",
+                "Techos de policarbonato con estructura de aluminio para terrazas, cocheras y patios en La Molina. Protección UV, luz natural e impermeabilidad garantizada.",
         },
         about: {
             title: "Acerca de Techos",

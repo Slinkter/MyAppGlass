@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState, useEffect, useCallback } from "react";
+import React, { useMemo, useCallback } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
@@ -8,7 +8,7 @@ import { getServices } from "../services/serviceService";
 import { useFilterableList } from "@shared/hooks";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LuSearch } from "react-icons/lu";
-import ServiceListSkeleton from "./ServiceListSkeleton";
+
 import { Service } from "../services/serviceService";
 
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
@@ -23,7 +23,7 @@ export interface ServiceData extends Service {
  * @description Renderiza la lista de servicios con filtro por categoría e Infinite Scroll.
  */
 const ServiceList: React.FC = React.memo(() => {
-    const [isLoading, setIsLoading] = useState(true);
+    // Loading state removed; always render content
     const allServices = useMemo(() => getServices() as ServiceData[], []);
 
     const filterFn = useCallback((items: ServiceData[], category: string) => {
@@ -44,14 +44,7 @@ const ServiceList: React.FC = React.memo(() => {
         filterFn,
     });
 
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 1000);
-        return () => clearTimeout(timer);
-    }, []);
 
-    if (isLoading) {
-        return <ServiceListSkeleton />;
-    }
 
     return (
         <ItemGridLayout
@@ -61,7 +54,7 @@ const ServiceList: React.FC = React.memo(() => {
             seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
             seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina. Ventanas, mamparas y más."
             seoCanonicalUrl="https://www.gyacompany.com/servicios"
-            columns={{ base: 1, sm: 2, md: 3 }}
+            columns={{ base: 1, md: 2, lg: 3 }}
         >
             <Box gridColumn="1 / -1" w="full" mt="4">
                 <HStack gap="2" justify="center" flexWrap="wrap" pb="6">
