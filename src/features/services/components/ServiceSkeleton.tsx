@@ -4,14 +4,13 @@ import {
     Box, 
     VStack, 
     HStack, 
-    Skeleton, 
-    SkeletonCircle, 
     Container, 
     SimpleGrid, 
     Grid, 
     GridItem, 
     Flex 
 } from "@chakra-ui/react";
+import { Skeleton, SkeletonCircle } from "@/components/ui/skeleton";
 
 /**
  * @component ServiceSkeleton
@@ -62,7 +61,7 @@ const ServiceSkeleton: React.FC = () => {
                 >
                     {/* About Section */}
                     <GridItem colSpan={{ base: 1, lg: 2 }}>
-                        <Box p={{ base: "6", lg: "8" }} h="full" bg="bg.subtle" borderRadius="3xl" border="1px solid" borderColor="border.glass">
+                        <Box p={{ base: "6", lg: "8" }} h="full" bg="bg.subtle" borderRadius="3xl" borderWidth="1px" borderColor="border.default">
                             <Skeleton height="12px" width="100px" mb="6" borderRadius="full" />
                             <VStack align="stretch" gap="4">
                                 <Skeleton height="20px" width="100%" borderRadius="md" />
@@ -84,11 +83,11 @@ const ServiceSkeleton: React.FC = () => {
 
                     {/* Benefits Section */}
                     <GridItem colSpan={{ base: 1, lg: 3 }}>
-                        <Box p={{ base: "6", lg: "8" }} h="full" bg="bg.subtle" borderRadius="3xl" border="1px solid" borderColor="border.glass">
+                        <Box p={{ base: "6", lg: "8" }} h="full" bg="bg.subtle" borderRadius="3xl" borderWidth="1px" borderColor="border.default">
                             <Skeleton height="12px" width="150px" mb="8" borderRadius="full" />
                             <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={{ base: "4", lg: "8" }}>
                                 {Array.from({ length: 6 }).map((_, i) => (
-                                    <HStack key={i} p="6" bg="bg.page" borderRadius="xl" border="1px solid" borderColor="border.glass">
+                                    <HStack key={i} p="6" bg="bg.page" borderRadius="xl" borderWidth="1px" borderColor="border.default">
                                         <SkeletonCircle size="5" />
                                         <Skeleton height="14px" width="70%" borderRadius="md" />
                                     </HStack>

@@ -9,7 +9,6 @@ import { useFilterableList } from "@shared/hooks";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LuSearch } from "react-icons/lu";
 import ServiceListSkeleton from "./ServiceListSkeleton";
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { Service } from "../services/serviceService";
 
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
@@ -45,12 +44,6 @@ const ServiceList: React.FC = React.memo(() => {
         filterFn,
     });
 
-    const activeBg = useColorModeValue("primary.700", "primary.300");
-    const activeColor = useColorModeValue("white", "primary.900");
-    const inactiveBg = useColorModeValue("gray.100", "whiteAlpha.100");
-    const inactiveColor = useColorModeValue("gray.700", "gray.300");
-    const inactiveHoverBg = useColorModeValue("gray.200", "whiteAlpha.200");
-
     useEffect(() => {
         const timer = setTimeout(() => setIsLoading(false), 1000);
         return () => clearTimeout(timer);
@@ -85,11 +78,8 @@ const ServiceList: React.FC = React.memo(() => {
                                 fontSize="xs"
                                 letterSpacing="wider"
                                 textTransform="uppercase"
-                                bg={isActive ? activeBg : inactiveBg}
-                                color={isActive ? activeColor : inactiveColor}
-                                _hover={{
-                                    bg: isActive ? activeBg : inactiveHoverBg,
-                                }}
+                                colorPalette="primary"
+                                variant={isActive ? "solid" : "subtle"}
                                 transition="all 0.2s ease"
                                 onClick={() => handleCategoryChange(cat)}
                             >

@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Box, Flex } from "@chakra-ui/react";
+import { AnimatePresence, motion } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import MapViewer from "./MapViewer";
@@ -49,10 +50,15 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
       position="relative"
     >
       <Box position="absolute" inset="0">
+        <AnimatePresence mode="wait">
           {viewMode === "map" && hasValidCoords ? (
-            <Box
-              w="100%"
-              h="100%"
+            <motion.div
+              key="map-view"
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.2 }}
+              style={{ width: "100%", height: "100%" }}
             >
               <Box
                 w="full"
@@ -66,11 +72,15 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               >
                 <MapViewer lat={lat!} lng={lng!} projectData={projectData} />
               </Box>
-            </Box>
+            </motion.div>
           ) : (
-            <Box
-              w="100%"
-              h="100%"
+            <motion.div
+              key="gallery-view"
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.2 }}
+              style={{ width: "100%", height: "100%" }}
             >
               {galleryImages.length > 0 ? (
                 <Gallery images={galleryImages}>
@@ -88,8 +98,9 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               ) : (
                 <ComingSoonDisplay />
               )}
-            </Box>
+            </motion.div>
           )}
+        </AnimatePresence>
       </Box>
     </Box>
   );

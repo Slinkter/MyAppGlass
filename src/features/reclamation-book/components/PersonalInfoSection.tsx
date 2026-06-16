@@ -38,6 +38,7 @@ const FormField: React.FC<FormFieldProps> = ({
     required={required}
   >
     <Input
+      variant="subtle"
       type={type}
       name={name}
       value={value}
@@ -69,7 +70,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
     errorText={error} 
     required
   >
-    <NativeSelectRoot>
+    <NativeSelectRoot variant="subtle">
       <NativeSelectField
         name={name}
         value={value}

@@ -41,7 +41,7 @@ const ProductSection: React.FC = () => {
           invalid={!!errors.tipoBien} 
           errorText={errors.tipoBien}
         >
-          <NativeSelectRoot>
+          <NativeSelectRoot variant="subtle">
             <NativeSelectField
               name="tipoBien"
               value={formData.tipoBien}
@@ -58,6 +58,7 @@ const ProductSection: React.FC = () => {
           <Group attached w="full">
             <InputAddon>S/.</InputAddon>
             <Input
+              variant="subtle"
               type="number"
               name="montoReclamado"
               value={formData.montoReclamado}
@@ -74,6 +75,7 @@ const ProductSection: React.FC = () => {
         errorText={errors.descripcionBien}
       >
         <Textarea
+          variant="subtle"
           name="descripcionBien"
           value={formData.descripcionBien}
           onChange={handleInputsChange as React.ChangeEventHandler<HTMLTextAreaElement>}

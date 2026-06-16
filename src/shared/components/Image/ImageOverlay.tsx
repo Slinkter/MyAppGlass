@@ -79,8 +79,7 @@ const ImageOverlay: React.FC<ImageOverlayProps> = React.memo(({ name, plink }) =
         </Heading>
 
         <Button
-          as={RouterLink}
-          {...({ href: plink } as any)}
+          asChild
           aria-label={`Ver catálogo de ${name}`}
           width="full"
           opacity={0}
@@ -94,8 +93,10 @@ const ImageOverlay: React.FC<ImageOverlayProps> = React.memo(({ name, plink }) =
             transform: "translateY(0)",
           }}
         >
-          Catálogo
-          <LuArrowRight style={{ marginLeft: "8px" }} />
+          <RouterLink href={plink}>
+            Catálogo
+            <LuArrowRight style={{ marginLeft: "8px" }} />
+          </RouterLink>
         </Button>
       </Stack>
     </>

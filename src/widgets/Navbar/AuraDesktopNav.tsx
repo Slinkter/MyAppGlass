@@ -10,6 +10,7 @@ import { HStack, Box, Text, IconButton, Separator } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
 import { Sun, Moon } from "lucide-react";
+import { motion } from "framer-motion";
 import NAV_ITEMS from "@/shared/config/nav-items";
 import { useColorModeValue, useColorMode } from "@/components/ui/color-mode-hooks";
 
@@ -55,20 +56,21 @@ const AuraDesktopNav = () => {
     setMounted(true);
   }, []);
   
-  // Design Tokens adaptativos con identidad de marca (GYA Red Edition - Logo #FF5A5F)
+  // Design Tokens adaptativos con identidad de marca (Monochrome minimal version, "rojo sobra")
   const activeBg = useColorModeValue(
-    "linear-gradient(135deg, #FF5A5F 0%, #E0484D 100%)", 
-    "linear-gradient(135deg, #FF5A5F 0%, #D9444A 100%)"
+    "var(--chakra-colors-primary-900)", 
+    "var(--chakra-colors-primary-100)"
   );
-  const activeColor = "white";
-  const inactiveColor = useColorModeValue("gray.800", "whiteAlpha.900");
+  const activeColor = useColorModeValue("white", "primary.900");
+  const inactiveColor = useColorModeValue("text.muted", "text.heading");
+  const activeBorder = useColorModeValue("1px solid rgba(255, 255, 255, 0.15)", "1px solid rgba(0, 0, 0, 0.15)");
   
   const navBg = useColorModeValue("rgba(255, 255, 255, 0.45)", "rgba(10, 10, 12, 0.45)");
-  const navBorderColor = useColorModeValue("rgba(0,0,0,0.12)", "rgba(255,255,255,0.08)");
+  const navBorderColor = "border.default";
   const navShadow = useColorModeValue("0 8px 32px 0 rgba(0, 0, 0, 0.08)", "0 25px 60px rgba(0,0,0,0.6)");
   const indicatorShadow = useColorModeValue(
-    "0 10px 25px rgba(255, 90, 95, 0.35)", 
-    "0 0 35px rgba(255, 90, 95, 0.35)"
+    "0 4px 12px rgba(0, 0, 0, 0.15)", 
+    "0 4px 20px rgba(255, 255, 255, 0.08)"
   );
 
   // No renderizar estilos dependientes del tema en el servidor
@@ -127,16 +129,25 @@ const AuraDesktopNav = () => {
               </Box>
               
               {isActive && (
-                <Box
-                  position="absolute"
-                  inset={0}
-                  background={activeBg}
-                  borderRadius="full"
-                  zIndex={1}
-                  boxShadow={indicatorShadow}
-                  border="1px solid"
-                  borderColor="whiteAlpha.200"
-                  transition="background 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+                <motion.div
+                  layoutId="activeNavTab"
+                  transition={{
+                    type: "spring",
+                    stiffness: 380,
+                    damping: 30
+                  }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: activeBg,
+                    borderRadius: "9999px",
+                    zIndex: 1,
+                    boxShadow: indicatorShadow,
+                    border: activeBorder
+                  }}
                 />
               )}
             </Box>

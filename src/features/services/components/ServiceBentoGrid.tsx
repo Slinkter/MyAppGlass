@@ -24,15 +24,14 @@ const BentoCard: React.FC<BentoCardProps> = ({ children, bg, color, ...props }) 
   <Box
     p={{ base: "6", lg: "8" }}
     h="full"
-    bg={bg || "bg.section"}
+    bg={bg || "surface.card"}
     color={color || "text.body"}
     borderRadius="3xl"
-    border="1px solid"
-    borderColor="border.glass"
-    shadow="xl"
-    _dark={{ bg: bg ? undefined : "whiteAlpha.50", borderColor: "whiteAlpha.200" }}
+    borderWidth="1px"
+    borderColor="border.default"
+    boxShadow="xl"
     transition="transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
-    _hover={{ transform: "translateY(-4px)", shadow: "2xl" }}
+    _hover={{ transform: "translateY(-4px)", boxShadow: "2xl" }}
     {...props}
   >
     {children}
@@ -75,7 +74,7 @@ const BentoBenefits = React.memo(({ benefits }: BentoBenefitsProps) => {
         gap={{ base: "4", lg: "8" }}
       >
         {benefits.map((benefit, i) => (
-          <HStack key={i} align="flex-start" gap="4" bg="bg.page" _dark={{ bg: "whiteAlpha.50" }} p="6" borderRadius="xl" border="1px solid" borderColor="border.glass">
+          <HStack key={i} align="flex-start" gap="4" bg="surface.container" p="6" borderRadius="xl" borderWidth="1px" borderColor="border.default">
             <Box as={CheckCircle2} color="primary.500" mt={0.5} boxSize={5} />
             <Text fontWeight="semibold" fontSize="sm" color="text.body" _dark={{ color: "whiteAlpha.900" }}>{benefit.label}</Text>
           </HStack>

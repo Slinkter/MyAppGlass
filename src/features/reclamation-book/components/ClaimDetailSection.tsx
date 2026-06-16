@@ -41,7 +41,7 @@ const ClaimDetailSection: React.FC = () => {
         invalid={!!errors.tipoSolicitud} 
         errorText={errors.tipoSolicitud}
       >
-        <NativeSelectRoot>
+        <NativeSelectRoot variant="subtle">
           <NativeSelectField
             name="tipoSolicitud"
             value={formData.tipoSolicitud}
@@ -63,6 +63,7 @@ const ClaimDetailSection: React.FC = () => {
         errorText={errors.detalle}
       >
         <Textarea
+          variant="subtle"
           name="detalle"
           value={formData.detalle}
           onChange={handleInputsChange as React.ChangeEventHandler<HTMLTextAreaElement>}
@@ -77,6 +78,7 @@ const ClaimDetailSection: React.FC = () => {
         errorText={errors.pedido}
       >
         <Textarea
+          variant="subtle"
           name="pedido"
           value={formData.pedido}
           onChange={handleInputsChange as React.ChangeEventHandler<HTMLTextAreaElement>}

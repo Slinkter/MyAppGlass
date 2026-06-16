@@ -28,7 +28,7 @@ export const logger = {
     }, `[GYA-ERROR] ${message}`);
   },
   
-  info: (messageOrData: any, data?: unknown) => {
+  info: (messageOrData: string | Record<string, unknown>, data?: unknown) => {
     if (typeof messageOrData === 'string') {
       pinoLogger.info({ data }, `[GYA-INFO] ${messageOrData}`);
     } else {
@@ -36,7 +36,7 @@ export const logger = {
     }
   },
 
-  warn: (messageOrData: any, data?: unknown) => {
+  warn: (messageOrData: string | Record<string, unknown>, data?: unknown) => {
     if (typeof messageOrData === 'string') {
       pinoLogger.warn({ data }, `[GYA-WARN] ${messageOrData}`);
     } else {
@@ -44,7 +44,7 @@ export const logger = {
     }
   },
 
-  debug: (messageOrData: any, data?: unknown) => {
+  debug: (messageOrData: string | Record<string, unknown>, data?: unknown) => {
     if (!isProd) {
       if (typeof messageOrData === 'string') {
         pinoLogger.debug({ data }, `[GYA-DEBUG] ${messageOrData}`);

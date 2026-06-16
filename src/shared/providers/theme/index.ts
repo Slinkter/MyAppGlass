@@ -199,6 +199,9 @@ const config = defineConfig({
           whatsapp: { value: "#25D366" },
           whatsappHover: { value: "#1DAE54" },
           whatsappActive: { value: "#178B43" },
+          red: { value: "#FF5A5F" },
+          redHover: { value: "#E0484D" },
+          redDark: { value: "#D9444A" },
         },
       },
       spacing: {
