@@ -35,6 +35,7 @@ const FloatingWhatsApp = () => {
         right={{ base: 4, md: 4 }}
         zIndex="popover"
         display={{ base: "none", md: "flex" }}
+        css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))" }}
       >
         <Button
           bg="#25D366"
@@ -71,6 +72,7 @@ const FloatingWhatsApp = () => {
           bottom={{ base: "100px", md: "90px" }}
           right={{ base: 4, md: "20px" }}
           left={{ base: 4, md: "auto" }}
+          css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 90px)" }}
         >
           <DialogHeader>
             <DialogTitle fontWeight="bold">¿Necesitas Ayuda?</DialogTitle>

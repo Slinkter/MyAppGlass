@@ -165,6 +165,7 @@ const MobileNav = React.memo(() => {
                 right="5"
                 zIndex={1100}
                 display={{ base: "block", md: "none" }}
+                css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-5))" }}
             >
                 <DrawerTrigger asChild>
                     <Box
@@ -215,6 +216,7 @@ const MobileNav = React.memo(() => {
                     px={6}
                     pt={8}
                     pb={6}
+                    css={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-6))" }}
                 >
                     <VStack
                         flex="1"
