@@ -316,8 +316,8 @@ const MobileNav = React.memo(() => {
                             as="button"
                             onClick={toggleColorMode}
                             gap={2}
-                            px={4}
-                            py={2}
+                            px={5}
+                            minH="44px"
                             borderRadius="full"
                             border="1px solid"
                             borderColor="border.glass"
@@ -326,9 +326,9 @@ const MobileNav = React.memo(() => {
                             transition="background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease"
                         >
                             {colorMode === "dark" ? (
-                                <Sun size={14} />
+                                <Sun size={16} />
                             ) : (
-                                <Moon size={14} />
+                                <Moon size={16} />
                             )}
                             <Text
                                 fontSize="xs"
