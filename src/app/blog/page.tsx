@@ -2,14 +2,14 @@ import { Metadata } from "next";
 import { BlogView } from "@/screens/blog";
 
 export const metadata: Metadata = {
-  title: "Blog de Expertos en Vidriería y Aluminio | GYA Glass & Aluminum",
-  description: "Aprende todo sobre vidrio templado, perfiles de aluminio y tendencias en arquitectura moderna con nuestros expertos.",
+  title: "Blog de Vidriería y Aluminio | Glass & Aluminum Company S.A.C.",
+  description: "Guías y consejos sobre vidrio templado, ventanas antirruido, perfiles de aluminio y tendencias en arquitectura moderna. Expertos en cerramientos en Lima.",
   alternates: {
     canonical: "https://www.gyacompany.com/blog",
   },
   openGraph: {
-    title: "Blog de Expertos en Vidriería y Aluminio",
-    description: "Aprende todo sobre vidrio templado, perfiles de aluminio y tendencias en arquitectura moderna.",
+    title: "Blog de Vidriería y Aluminio | Glass & Aluminum Company S.A.C.",
+    description: "Guías y consejos sobre vidrio templado, ventanas antirruido, perfiles de aluminio y tendencias en arquitectura moderna.",
     type: "website",
   }
 };
