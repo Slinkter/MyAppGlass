@@ -10,7 +10,7 @@ export const getCompanyJsonLd = () => ({
       "@type": "WebSite",
       "@id": "https://www.gyacompany.com/#website",
       "url": "https://www.gyacompany.com",
-      "name": "GYA Company",
+      "name": "Glass & Aluminum Company S.A.C.",
       "publisher": { "@id": "https://www.gyacompany.com/#organization" },
       "potentialAction": [
         {
@@ -31,7 +31,7 @@ export const getCompanyJsonLd = () => ({
     {
       "@type": "LocalBusiness",
       "@id": "https://www.gyacompany.com/#organization",
-      "name": "Glass & Aluminum Company S.A.C. - GYA Company",
+      "name": "Glass & Aluminum Company S.A.C.",
       "legalName": "Glass & Aluminum Company S.A.C.",
       "alternateName": "GYA Company",
       "image": "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp",
@@ -68,7 +68,7 @@ export const getServiceJsonLd = (name: string, description: string, url: string,
   "image": image,
   "provider": {
     "@type": "LocalBusiness",
-    "name": "GYA Company"
+    "name": "Glass & Aluminum Company S.A.C."
   },
   "areaServed": {
     "@type": "City",
