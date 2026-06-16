@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   description: "Especialistas en vidriería, instalación de ventanas antirruido, mamparas de vidrio templado y aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
   keywords: ["vidriería la molina", "vidrio y aluminio", "ventanas antirruido lima", "mamparas para baño", "vidrio templado precio"],
-  authors: [{ name: "GYA Company" }],
+  authors: [{ name: "Glass & Aluminum Company S.A.C." }],
   icons: {
     icon: "/logovcr.png",
     shortcut: "/logovcr.png",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",
     description: "Líderes en cerramientos de vidrio y aluminio de alta calidad.",
     url: "https://www.gyacompany.com",
-    siteName: "GYA Company",
+    siteName: "Glass & Aluminum Company S.A.C.",
     locale: "es_PE",
     type: "website",
   },
