@@ -30,6 +30,7 @@ const FadingImage: React.FC<FadingImageProps> = React.memo((props) => {
     onImageError,
     w,
     h,
+    aspectRatio,
     onLoad,
     srcSet,
     sizes,
@@ -41,6 +42,7 @@ const FadingImage: React.FC<FadingImageProps> = React.memo((props) => {
     <Box
       w={w}
       h={h}
+      aspectRatio={aspectRatio}
       position="relative"
       overflow="hidden"
       rounded="md"

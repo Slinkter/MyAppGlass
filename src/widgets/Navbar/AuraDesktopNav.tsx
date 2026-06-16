@@ -10,7 +10,7 @@ import { HStack, Box, Text, IconButton, Separator } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
 import { Sun, Moon } from "lucide-react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import NAV_ITEMS from "@/shared/config/nav-items";
 import { useColorModeValue, useColorMode } from "@/components/ui/color-mode-hooks";
 
@@ -125,7 +125,7 @@ const AuraDesktopNav = () => {
               </Box>
               
               {isActive && (
-                <motion.div
+                <m.div
                   layoutId="activeNavTab"
                   transition={{
                     type: "spring",

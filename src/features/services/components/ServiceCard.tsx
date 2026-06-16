@@ -59,6 +59,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
       cursor="pointer"
       position="relative"
       minH="320px"
+      h="320px"
       borderRadius="xl"
       overflow="hidden"
       onMouseEnter={() => setIsHovered(true)}

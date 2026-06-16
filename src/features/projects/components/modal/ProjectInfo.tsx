@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 import {
   Map,
@@ -136,7 +136,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
                 py="6"
               >
                 {viewMode === "map" && (
-                  <motion.div
+                  <m.div
                     layoutId="activeModalTabIndicator"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     style={{
@@ -164,7 +164,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
                 py="6"
               >
                 {viewMode === "gallery" && (
-                  <motion.div
+                  <m.div
                     layoutId="activeModalTabIndicator"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     style={{

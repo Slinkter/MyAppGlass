@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { Box, Heading, Text, VStack, Image, HStack, Badge, Flex } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, HStack, Badge, Flex } from "@chakra-ui/react";
 import Link from "next/link";
 import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideArrowRight } from "lucide-react";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -41,12 +42,13 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
       >
         {/* Image Container */}
         <Box position="relative" h="240px" overflow="hidden">
-          <Image
+          <ResponsiveImage
             src={post.image}
             alt={post.title}
             w="full"
             h="full"
             objectFit="cover"
+            loading="lazy"
             transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
             _groupHover={{ transform: "scale(1.1)" }}
           />

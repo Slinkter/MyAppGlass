@@ -5,6 +5,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    optimizePackageImports: [
+      '@chakra-ui/react',
+      'lucide-react',
+      'react-icons'
+    ],
+  },
 }
 
 export default nextConfig
