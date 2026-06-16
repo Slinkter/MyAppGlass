@@ -37,7 +37,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
             <BackButton to={backTo} />
             {overline && (
               <Text 
-                fontSize={{ base: "10px", md: "xs" }} 
+                fontSize={{ base: "xs", md: "xs" }} 
                 fontWeight="900" 
                 color="text.accent" 
                 letterSpacing="0.4em" 
@@ -57,7 +57,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
       <VStack gap={{ base: "6", md: "8" }} align={centered ? "center" : "flex-start"} w="full" textAlign={centered ? "center" : "left"}>
         {!backTo && overline && (
           <Text 
-            fontSize={{ base: "10px", md: "xs" }} 
+            fontSize={{ base: "xs", md: "xs" }} 
             fontWeight="900" 
             color="text.accent" 
             letterSpacing="0.4em" 

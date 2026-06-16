@@ -104,20 +104,16 @@ const AuraDesktopNav = () => {
                 as={RouterLink}
                 {...({ href: item.href || "#" } as Record<string, unknown>)}
                 aria-current={isActive ? "page" : undefined}
-                style={{
-                  textDecoration: "none",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  paddingLeft: "20px",
-                  paddingRight: "20px",
-                  height: "46px",
-                  borderRadius: "9999px",
-                  backgroundColor: !isActive ? "transparent" : "transparent",
-                  position: "relative",
-                  zIndex: 2,
-                  transition: "background-color 0.2s"
-                }}
+                px="5"
+                h="11"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                borderRadius="9999px"
+                position="relative"
+                zIndex={2}
+                transition="background-color 0.2s"
+                style={{ textDecoration: "none" }}
               >
                 <NavText 
                   isActive={isActive} 
