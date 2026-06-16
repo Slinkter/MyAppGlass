@@ -28,6 +28,7 @@ export const ThemeToggle = () => {
       left="6"
       zIndex="banner"
       display={{ base: "none", md: "inline-flex" }}
+      css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-6))" }}
       size="lg"
       w={14}
       h={14}
