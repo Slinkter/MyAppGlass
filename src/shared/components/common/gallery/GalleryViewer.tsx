@@ -268,7 +268,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
               >
                 <Box
                   w={selectedIndex === index ? "32px" : "8px"}
-                  h="6px"
+                  h="1.5"
                   bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
                   borderRadius="full"
                   transition="width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
