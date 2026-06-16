@@ -7,7 +7,6 @@ import {
   Heading, 
   Text, 
   VStack, 
-  Image, 
   HStack, 
   Separator,
   Badge,
@@ -16,6 +15,7 @@ import {
 import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideChevronRight, LucideClock, LucideArrowRight } from "lucide-react";
 import Link from "next/link";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
 interface BlogPostViewProps {
   post: BlogPost;
@@ -90,12 +90,13 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
             border="1px solid"
             borderColor="border.glass"
           >
-            <Image 
+            <ResponsiveImage 
               src={post.image} 
               alt={post.title} 
               w="full" 
               h="full" 
               objectFit="cover" 
+              loading="eager"
             />
           </Box>
 

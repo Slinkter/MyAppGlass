@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Box, VStack } from "@chakra-ui/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 import MapLoader from "./map/MapLoader";
@@ -111,7 +111,7 @@ const StoreSection: React.FC = React.memo(() => {
           >
             <AnimatePresence mode="wait">
               {!displaySelected ? (
-                <motion.div
+                <m.div
                   key="default-card"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -125,9 +125,9 @@ const StoreSection: React.FC = React.memo(() => {
                   }}
                 >
                   <DefaultInfoCard />
-                </motion.div>
+                </m.div>
               ) : (
-                <motion.div
+                <m.div
                   key={`project-card-${selectedMarker?.id}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -144,7 +144,7 @@ const StoreSection: React.FC = React.memo(() => {
                     selectedMarker={selectedMarker!} 
                     isStore={isStore} 
                   />
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </VStack>

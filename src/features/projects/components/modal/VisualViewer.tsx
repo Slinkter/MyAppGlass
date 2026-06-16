@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Box, Flex } from "@chakra-ui/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import MapViewer from "./MapViewer";
@@ -46,13 +46,13 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
   return (
     <Box
       w="100%"
-      h="100%"
+      h={{ base: "350px", md: "500px", lg: "100%" }}
       position="relative"
     >
       <Box position="absolute" inset="0">
         <AnimatePresence mode="wait">
           {viewMode === "map" && hasValidCoords ? (
-            <motion.div
+            <m.div
               key="map-view"
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -72,9 +72,9 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               >
                 <MapViewer lat={lat!} lng={lng!} projectData={projectData} />
               </Box>
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div
+            <m.div
               key="gallery-view"
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -98,7 +98,7 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               ) : (
                 <ComingSoonDisplay />
               )}
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </Box>

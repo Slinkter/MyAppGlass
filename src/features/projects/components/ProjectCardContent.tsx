@@ -52,6 +52,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         cursor="pointer"
         position="relative"
         minH="320px"
+        h="320px"
         w="full"
         borderRadius="xl"
         overflow="hidden"

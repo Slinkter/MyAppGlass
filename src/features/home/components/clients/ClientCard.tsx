@@ -26,6 +26,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
       position="relative"
       w="full"
       minH="320px"
+      h="320px"
       borderRadius="xl"
       overflow="hidden"
       boxShadow="sm"

@@ -6,6 +6,11 @@ import { ColorModeProvider } from "@/components/ui/color-mode";
 import { Global, css } from "@emotion/react";
 import * as React from "react";
 
+import { LazyMotion } from "framer-motion";
+
+const loadFeatures = () =>
+  import("@/shared/utils/framer-features").then((res) => res.default);
+
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ColorModeProvider defaultTheme="light" enableSystem={false}>
@@ -28,7 +33,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
             50% { box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18); }
           }
         `} />
-        {children}
+        <LazyMotion features={loadFeatures} strict>
+          {children}
+        </LazyMotion>
       </ChakraProvider>
     </ColorModeProvider>
   );

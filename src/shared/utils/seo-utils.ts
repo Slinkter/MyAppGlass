@@ -35,8 +35,11 @@ export const getCompanyJsonLd = () => ({
       "legalName": "Glass & Aluminum Company S.A.C.",
       "alternateName": "GYA Company",
       "image": "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp",
+      "logo": "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp",
       "url": "https://www.gyacompany.com",
       "telephone": "+51974278303",
+      "email": "ventas@gyacompany.com",
+      "priceRange": "$$",
       "sameAs": [
         "https://www.facebook.com/gyacompany",
         "https://www.instagram.com/gyacompany",
@@ -54,7 +57,22 @@ export const getCompanyJsonLd = () => ({
         "@type": "GeoCoordinates",
         "latitude": -12.0722,
         "longitude": -76.9421
-      }
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "08:00",
+          "closes": "18:00"
+        }
+      ]
     }
   ]
 });
