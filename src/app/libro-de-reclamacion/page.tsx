@@ -3,7 +3,7 @@ import ReclamationForm from "@/features/reclamation-book/components/ReclamationF
 
 export const metadata: Metadata = {
   title: "Libro de Reclamaciones | Glass & Aluminum Company S.A.C.",
-  description: "Formulario virtual para presentar quejas o reclamos de acuerdo con la normativa vigente de protección al consumidor en Perú.",
+  description: "Presenta tu queja o reclamo formal a través del Libro de Reclamaciones virtual de Glass & Aluminum Company S.A.C. Cumplimos con la normativa del INDECOPI.",
 };
 
 import AuraContainer from "@/shared/components/aura/AuraContainer";
