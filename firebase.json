@@ -23,12 +23,7 @@
       "**/node_modules/**",
       "public/images/**"
     ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
+    "rewrites": []
   },
   "functions": [
     {
