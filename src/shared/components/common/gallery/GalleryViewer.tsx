@@ -169,7 +169,12 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             onClick={handlePrevious}
             color="white"
             bg="blackAlpha.500"
-            p="2"
+            p="0"
+            w="44px"
+            h="44px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
             borderRadius="full"
             _hover={{
               bg: "whiteAlpha.300",
@@ -178,13 +183,12 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             _active={{
               transform: "translateY(-50%) scale(0.95)",
             }}
-            display="flex"
             aria-label="Anterior"
             zIndex={10}
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
           >
-            <LuChevronLeft size={32} />
+            <LuChevronLeft size={24} />
           </Box>
           <Box
             as="button"
@@ -195,7 +199,12 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             onClick={handleNext}
             color="white"
             bg="blackAlpha.500"
-            p="2"
+            p="0"
+            w="44px"
+            h="44px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
             borderRadius="full"
             _hover={{
               bg: "whiteAlpha.300",
@@ -204,13 +213,12 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             _active={{
               transform: "translateY(-50%) scale(0.95)",
             }}
-            display="flex"
             aria-label="Siguiente"
             zIndex={10}
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
           >
-            <LuChevronRight size={32} />
+            <LuChevronRight size={24} />
           </Box>
 
           <Box
@@ -243,21 +251,30 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             bottom="6"
             left="50%"
             transform="translateX(-50%)"
-            gap="2"
+            gap="0"
             zIndex={5}
           >
             {Array.from({ length: imageCount }).map((_, index) => (
               <Box
                 key={index}
-                w={selectedIndex === index ? "32px" : "8px"}
-                h="6px"
-                bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
-                borderRadius="full"
+                w="44px"
+                h="44px"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
                 cursor="pointer"
                 onClick={() => setSelectedIndex(index)}
-                transition="width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
-                _hover={{ bg: "whiteAlpha.800" }}
-              />
+                aria-label={`Ir a imagen ${index + 1}`}
+              >
+                <Box
+                  w={selectedIndex === index ? "32px" : "8px"}
+                  h="6px"
+                  bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
+                  borderRadius="full"
+                  transition="width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                  _hover={{ bg: "whiteAlpha.800" }}
+                />
+              </Box>
             ))}
           </HStack>
         </>

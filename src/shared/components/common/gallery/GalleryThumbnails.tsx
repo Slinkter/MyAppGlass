@@ -16,7 +16,7 @@ const GalleryThumbnailItem = React.memo(
     return (
       <Box
         flexShrink={0}
-        w={{ base: "60px", sm: "70px", md: "100%" }}
+        w={{ base: "72px", sm: "70px", md: "100%" }}
         h={{ base: "100%", md: "80px", lg: "90px" }}
         cursor="pointer"
         borderRadius="lg"
