@@ -25,7 +25,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
       cursor="pointer"
       position="relative"
       w="full"
-      minH={{ base: "auto", md: "320px" }}
+      minH="320px"
       borderRadius="xl"
       overflow="hidden"
       boxShadow="sm"
@@ -51,11 +51,11 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
           loading="eager"
           decoding="async"
           transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
-          _groupHover={{ transform: "scale(1.08) rotate(1deg)" }}
-          _active={{ transform: "scale(1.08) rotate(1deg)" }}
+          _groupHover={{ transform: "scale(1.08)" }}
+          _active={{ transform: "scale(1.08)" }}
         />
 
-        <Box position="absolute" inset="0" bgGradient={bgOverlay} />
+        <Box position="absolute" inset="0" css={{ background: bgOverlay }} />
 
         <VStack
           position="absolute"
@@ -75,9 +75,6 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
             textTransform="uppercase"
             letterSpacing="0.2em"
             position="relative"
-            transition="color 0.3s ease-out"
-            _groupHover={{ color: "text.accent" }}
-            _active={{ color: "text.accent" }}
           >
             {nameClient}
           </Text>

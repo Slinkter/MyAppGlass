@@ -31,10 +31,10 @@ const FloatingWhatsApp = () => {
       <Box
         position="fixed"
         bottom={{ base: 6, md: 4 }}
-         left={{ base: "auto", md: "auto" }}
-         right={{ base: 4, md: 4 }}
-         zIndex="popover"
-        display="flex"
+        left={{ base: "auto", md: "auto" }}
+        right={{ base: 4, md: 4 }}
+        zIndex="popover"
+        display={{ base: "none", md: "flex" }}
       >
         <Button
           bg="#25D366"

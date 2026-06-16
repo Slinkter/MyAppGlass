@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
     Box,
-    IconButton,
     VStack,
     Text,
     Separator,
@@ -20,14 +19,15 @@ import {
     Moon,
     LucideIcon,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import NavLink from "next/link";
 import NAV_ITEMS from "@/shared/config/nav-items";
+import { companyData } from "@/shared/config/company-data";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
 import {
     DrawerBackdrop,
     DrawerBody,
-    DrawerCloseTrigger,
     DrawerContent,
     DrawerRoot,
     DrawerTrigger,
@@ -149,90 +149,84 @@ const MobileNav = React.memo(() => {
         setIsOpen(false);
     }, []);
 
+    const whatsappLink = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;
+
     return (
         <DrawerRoot
             open={isOpen}
             onOpenChange={(e) => setIsOpen(e.open)}
-            size="full"
-            placement="top"
+            size="md"
+            placement="bottom"
         >
-            {/* ULTRA-CLEAN FLOATING TRIGGER */}
+            {/* FLOATING GLASS MENU BUTTON — same aesthetic as desktop floating island */}
             <Box
                 position="fixed"
-                top="6"
-                right="6"
+                bottom="5"
+                right="5"
                 zIndex={1100}
                 display={{ base: "block", md: "none" }}
             >
                 <DrawerTrigger asChild>
-                    <IconButton
-                        variant="plain"
-                        aria-label="Menú"
-                        color={isOpen ? "text.accent" : "text.heading"}
-                        _dark={{ color: isOpen ? "text.accent" : "white" }}
-                        size="xl"
+                    <Box
+                        as="button"
+                        aria-label="Menú de navegación"
                         css={{
-                            backgroundColor: isOpen ? "transparent" : "var(--chakra-colors-bg-panel)",
-                            backdropFilter: isOpen ? "none" : "blur(12px)",
-                            border: isOpen ? "none" : "1px solid var(--chakra-colors-border-default)",
-                            borderRadius: "full",
-                            boxShadow: isOpen ? "none" : "0 4px 20px rgba(0, 0, 0, 0.08)",
                             width: "52px",
                             height: "52px",
+                            borderRadius: "9999px",
+                            backgroundColor: "var(--chakra-colors-bg-panel)",
+                            backdropFilter: "blur(40px) saturate(210%)",
+                            WebkitBackdropFilter: "blur(40px) saturate(210%)",
+                            border: "1px solid var(--chakra-colors-border-default)",
                             display: "flex",
                             alignItems: "center",
-                            justifyContent: "center"
+                            justifyContent: "center",
                         }}
-                        _hover={{ transform: "scale(1.08)" }}
+                        animation="pulse-shadow 3s ease-in-out infinite"
+                        _hover={{ transform: "scale(1.08)", animation: "none" }}
                         _active={{ transform: "scale(0.92)" }}
-                        transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+                        transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                     >
                         <Box
-                        transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-                        transform={isOpen ? "rotate(90deg)" : "rotate(0deg)"}
-                    >
-                        {isOpen ? (
-                            <X size={28} strokeWidth={1.5} />
-                        ) : (
-                            <Menu size={28} strokeWidth={1.5} />
-                        )}
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                            transform={isOpen ? "rotate(90deg)" : "rotate(0deg)"}
+                        >
+                            {isOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+                        </Box>
                     </Box>
-                    </IconButton>
                 </DrawerTrigger>
             </Box>
 
-            <DrawerBackdrop backdropFilter="blur(20px)" bg="blackAlpha.700" />
+            <DrawerBackdrop backdropFilter="blur(12px)" bg="blackAlpha.500" />
 
             <DrawerContent
-                bg="bg.page"
-                bgGradient="linear-gradient(to bottom, bg.page 0%, bg.panel 100%)"
+                bg="bg.panel"
+                borderTopRadius="2xl"
                 p={0}
-                height="100vh"
-                width="100vw"
-                position="fixed"
-                top={0}
-                left={0}
+                maxH="85vh"
+                overflowY="auto"
             >
                 <DrawerBody
                     display="flex"
                     flexDirection="column"
-                    h="full"
-                    px={8}
-                    pt={24}
-                    pb={8}
+                    px={6}
+                    pt={8}
+                    pb={6}
                 >
                     <VStack
                         flex="1"
                         align="flex-start"
-                        justify="center"
-                        gap={2}
-                        transition="opacity 0.3s"
+                        justify="flex-start"
+                        gap={1}
                     >
                         {NAV_ITEMS.map((item, index) => (
                             <Box
                                 key={item.label}
                                 w="full"
-                                animation={`slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.04}s both`}
+                                animation={`slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.05}s both`}
                             >
                                 <NavItemLarge
                                     label={item.label}
@@ -243,83 +237,110 @@ const MobileNav = React.memo(() => {
                         ))}
                     </VStack>
 
-                    <VStack gap={8} w="full" mt="auto" align="flex-start">
-                        <Separator borderColor="border.glass" opacity={0.6} />
+                    {/* WhatsApp CTA in drawer */}
+                    <Box
+                        w="full"
+                        animation="slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both"
+                        mt={4}
+                    >
+                        <Box
+                            asChild
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            gap={3}
+                            w="full"
+                            py={4}
+                            borderRadius="xl"
+                            bg="#25D366"
+                            color="white"
+                            fontWeight="600"
+                            fontSize="md"
+                            letterSpacing="0.1em"
+                            textTransform="uppercase"
+                            _hover={{ bg: "#1DAE54" }}
+                            transition="background-color 0.2s ease"
+                        >
+                            <a
+                                href={whatsappLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={handleLinkClick}
+                            >
+                                <FaWhatsapp size={20} />
+                                Chatea por WhatsApp
+                            </a>
+                        </Box>
+                    </Box>
 
-                        <SimpleGrid columns={2} gapY={6} gapX={4} w="full">
-                            <UtilityLink
-                                label="Inicio"
-                                href="/"
-                                icon={Home}
-                                onClick={handleLinkClick}
-                            />
-                            <UtilityLink
-                                label="Cuentas"
-                                href="/cuentas-bancarias"
-                                icon={Landmark}
-                                onClick={handleLinkClick}
-                            />
-                            <UtilityLink
-                                label="Políticas"
-                                href="/politicas-empresa"
-                                icon={ShieldCheck}
-                                onClick={handleLinkClick}
-                            />
-                            <UtilityLink
-                                label="Libro"
-                                href="/libro-de-reclamacion"
-                                icon="/images/libro.svg"
-                                onClick={handleLinkClick}
-                                isImage
-                            />
-                        </SimpleGrid>
+                    <Separator borderColor="border.glass" opacity={0.6} my={6} />
 
-                        <HStack w="full" justify="space-between" pt={4}>
+                    <SimpleGrid columns={2} gapY={5} gapX={4} w="full" mb={6}>
+                        <UtilityLink
+                            label="Inicio"
+                            href="/"
+                            icon={Home}
+                            onClick={handleLinkClick}
+                        />
+                        <UtilityLink
+                            label="Cuentas"
+                            href="/cuentas-bancarias"
+                            icon={Landmark}
+                            onClick={handleLinkClick}
+                        />
+                        <UtilityLink
+                            label="Políticas"
+                            href="/politicas-empresa"
+                            icon={ShieldCheck}
+                            onClick={handleLinkClick}
+                        />
+                        <UtilityLink
+                            label="Libro"
+                            href="/libro-de-reclamacion"
+                            icon="/images/libro.svg"
+                            onClick={handleLinkClick}
+                            isImage
+                        />
+                    </SimpleGrid>
+
+                    <HStack w="full" justify="space-between">
+                        <Text
+                            fontSize="xs"
+                            color="text.muted"
+                            letterSpacing="widest"
+                            textTransform="uppercase"
+                        >
+                            © {new Date().getFullYear()} GYA
+                        </Text>
+                        <HStack
+                            as="button"
+                            onClick={toggleColorMode}
+                            gap={2}
+                            px={4}
+                            py={2}
+                            borderRadius="full"
+                            border="1px solid"
+                            borderColor="border.glass"
+                            color="text.heading"
+                            _hover={{ bg: "bg.subtle" }}
+                            transition="background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease"
+                        >
+                            {colorMode === "dark" ? (
+                                <Sun size={14} />
+                            ) : (
+                                <Moon size={14} />
+                            )}
                             <Text
                                 fontSize="xs"
-                                color="text.muted"
+                                fontWeight="bold"
                                 letterSpacing="widest"
                                 textTransform="uppercase"
                             >
-                                © {new Date().getFullYear()} Glass & Aluminum
-                                Company S.A.C.
+                                {colorMode === "dark" ? "Claro" : "Oscuro"}
                             </Text>
-                            <HStack
-                                as="button"
-                                onClick={toggleColorMode}
-                                gap={2}
-                                px={4}
-                                py={2}
-                                borderRadius="full"
-                                border="1px solid"
-                                borderColor="border.glass"
-                                color="text.heading"
-                                _hover={{ bg: "bg.subtle" }}
-                                transition="background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease"
-                            >
-                                {colorMode === "dark" ? (
-                                    <Sun size={14} />
-                                ) : (
-                                    <Moon size={14} />
-                                )}
-                                <Text
-                                    fontSize="xs"
-                                    fontWeight="bold"
-                                    letterSpacing="widest"
-                                    textTransform="uppercase"
-                                >
-                                    {colorMode === "dark" ? "Claro" : "Oscuro"}
-                                </Text>
-                            </HStack>
                         </HStack>
-                    </VStack>
+                    </HStack>
                 </DrawerBody>
-                <DrawerCloseTrigger
-                    top="6"
-                    right="6"
-                    color="text.accent"
-                    visibility="hidden"
-                />
             </DrawerContent>
         </DrawerRoot>
     );

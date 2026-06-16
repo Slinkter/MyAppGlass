@@ -11,8 +11,8 @@ export interface ProjectCardProps {
   year: string | number;
   image: string;
   isLCP?: boolean;
-  loading?: "lazy" | "eager" | string;
-  fetchPriority?: "auto" | "high" | "low" | string;
+  loading?: "lazy" | "eager";
+  fetchPriority?: "auto" | "high" | "low";
 }
 
 /**

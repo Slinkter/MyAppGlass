@@ -110,7 +110,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      _focus={{ outline: "none" }}
+      _focusVisible={{ outline: "none" }}
       userSelect="none"
       touchAction="pan-y"
     >

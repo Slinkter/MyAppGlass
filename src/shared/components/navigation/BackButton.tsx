@@ -9,21 +9,21 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 interface BackButtonProps {
-  to?: string | number;
+  to?: string;
 }
 
 /**
  * @component BackButton
  * @description Renders a button that navigates to a specified path or one level back.
  */
-const BackButton: React.FC<BackButtonProps> = ({ to = -1 }) => {
+const BackButton: React.FC<BackButtonProps> = ({ to }) => {
   const router = useRouter();
   
   const handleClick = () => {
-    if (typeof to === "number") {
-      router.back();
-    } else {
+    if (to) {
       router.push(to);
+    } else {
+      router.back();
     }
   };
 
