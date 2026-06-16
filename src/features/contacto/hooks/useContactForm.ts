@@ -11,6 +11,14 @@ interface ContactFormState {
   acceptedTerms: boolean;
 }
 
+export interface TrackingResult {
+  id: string;
+  type: string;
+  name: string;
+  status: string;
+  createdAt: string | number | Date;
+}
+
 export const useContactForm = () => {
   const [formData, setFormData] = useState<ContactFormState>({
     name: "",
@@ -23,12 +31,15 @@ export const useContactForm = () => {
   // Tracking State
   const [trackingId, setTrackingId] = useState("");
   const [isTracking, setIsTracking] = useState(false);
-  const [trackingResult, setTrackingResult] = useState<any>(null);
+  const [trackingResult, setTrackingResult] = useState<TrackingResult | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
-    setFormData((prev) => ({ ...prev, [name]: val }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCheckedChange = (checked: boolean) => {
+    setFormData((prev) => ({ ...prev, acceptedTerms: checked }));
   };
 
   const handleTrackingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,10 +63,10 @@ export const useContactForm = () => {
       } else {
         throw new Error(result.error);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       toaster.create({
         title: "No encontrado",
-        description: error.message,
+        description: error instanceof Error ? error.message : "Error al buscar la solicitud",
         type: "error",
       });
     } finally {
@@ -99,10 +110,10 @@ export const useContactForm = () => {
       } else {
         throw new Error(result.error);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       toaster.create({
         title: "Fallo en el servidor",
-        description: error.message || "Hubo un problema al enviar tu mensaje.",
+        description: error instanceof Error ? error.message : "Hubo un problema al enviar tu mensaje.",
         type: "error",
       });
     } finally {
@@ -114,6 +125,7 @@ export const useContactForm = () => {
     formData,
     isSubmitting,
     handleChange,
+    handleCheckedChange,
     handleSubmit,
     // Tracking exports
     trackingId,
@@ -123,3 +135,4 @@ export const useContactForm = () => {
     handleTrackingSubmit,
   };
 };
+

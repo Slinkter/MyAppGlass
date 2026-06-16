@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { Flex, VStack, HStack, Text, Heading, Box } from "@chakra-ui/react";
+import { Flex, VStack, HStack, Text, Heading, Box, type BoxProps } from "@chakra-ui/react";
 import BackButton from "../navigation/BackButton";
 
 interface AuraHeaderProps {
@@ -15,7 +15,7 @@ interface AuraHeaderProps {
   backTo?: string;
   action?: React.ReactNode;
   centered?: boolean;
-  mb?: any;
+  mb?: BoxProps["mb"];
 }
 
 /**

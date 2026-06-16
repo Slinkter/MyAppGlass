@@ -1,5 +1,4 @@
 "use client";
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 /**
  * @file ProjectsList.tsx
  * @description Orchestrator for the projects gallery, leveraging `ItemGridLayout` for consistency.
@@ -39,12 +38,6 @@ const ProjectsList: React.FC = React.memo(() => {
     logger.debug({ total: projects.length }, "Projects loaded");
     return projects;
   }, []);
-
-  const activeBg = useColorModeValue("primary.700", "primary.300");
-  const activeColor = useColorModeValue("white", "primary.900");
-  const inactiveBg = useColorModeValue("gray.100", "whiteAlpha.100");
-  const inactiveColor = useColorModeValue("gray.700", "gray.300");
-  const inactiveHoverBg = useColorModeValue("gray.200", "whiteAlpha.200");
 
   // Get unique years
   const years = useMemo(() => {
@@ -117,9 +110,8 @@ const ProjectsList: React.FC = React.memo(() => {
                 fontSize="xs"
                 letterSpacing="wider"
                 textTransform="uppercase"
-                bg={isActive ? activeBg : inactiveBg}
-                color={isActive ? activeColor : inactiveColor}
-                _hover={{ bg: isActive ? activeBg : inactiveHoverBg }}
+                colorPalette="primary"
+                variant={isActive ? "solid" : "subtle"}
                 transition="all 0.2s ease"
                 onClick={() => {
                   handleYearChange(year);

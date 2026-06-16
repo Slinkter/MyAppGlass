@@ -140,8 +140,10 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
                 {isMobile ? (
                   name 
                 ) : (
-                  <LinkOverlay as={RouterLink} {...({ href: plink } as Record<string, unknown>)}>
-                    {name}
+                  <LinkOverlay asChild>
+                    <RouterLink href={plink}>
+                      {name}
+                    </RouterLink>
                   </LinkOverlay>
                 )}
               </Text>
@@ -155,8 +157,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
                 w="full"
               >
                 <Button
-                  as={RouterLink}
-                  href={plink}
+                  asChild
                   variant="outline"
                   size="sm"
                   color="white"
@@ -176,14 +177,20 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
                   borderRadius="full"
                   transition="background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
                 >
-                  Ver Catálogo
+                  <RouterLink href={plink}>
+                    Ver Catálogo
+                  </RouterLink>
                 </Button>
               </VStack>
             </Box>
           </Box>
         </Skeleton>
         
-        {isMobile && <LinkOverlay as={RouterLink} href={plink} aria-label={`Ver servicio ${name}`} />}
+        {isMobile && (
+          <LinkOverlay asChild>
+            <RouterLink href={plink} aria-label={`Ver servicio ${name}`} />
+          </LinkOverlay>
+        )}
       </Card.Body>
     </Card.Root>
   );

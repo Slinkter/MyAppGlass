@@ -108,9 +108,8 @@ const UtilityLink = ({
                 transition="color 0.2s ease"
             >
                 {isImage ? (
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     <img
-                        src={Icon as any}
+                        src={Icon as string}
                         alt={label}
                         width={20}
                         height={20}
@@ -172,28 +171,41 @@ const MobileNav = React.memo(() => {
                         color={isOpen ? "text.accent" : "text.heading"}
                         _dark={{ color: isOpen ? "text.accent" : "white" }}
                         size="xl"
-                        _hover={{ transform: "scale(1.1)" }}
-                        _active={{ transform: "scale(0.9)" }}
-                        transition="color 0.3s ease, transform 0.3s ease"
+                        css={{
+                            backgroundColor: isOpen ? "transparent" : "var(--chakra-colors-bg-panel)",
+                            backdropFilter: isOpen ? "none" : "blur(12px)",
+                            border: isOpen ? "none" : "1px solid var(--chakra-colors-border-default)",
+                            borderRadius: "full",
+                            boxShadow: isOpen ? "none" : "0 4px 20px rgba(0, 0, 0, 0.08)",
+                            width: "52px",
+                            height: "52px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }}
+                        _hover={{ transform: "scale(1.08)" }}
+                        _active={{ transform: "scale(0.92)" }}
+                        transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
                     >
                         <Box
                         transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                         transform={isOpen ? "rotate(90deg)" : "rotate(0deg)"}
                     >
                         {isOpen ? (
-                            <X size={32} strokeWidth={1.5} />
+                            <X size={28} strokeWidth={1.5} />
                         ) : (
-                            <Menu size={32} strokeWidth={1.5} />
+                            <Menu size={28} strokeWidth={1.5} />
                         )}
                     </Box>
                     </IconButton>
                 </DrawerTrigger>
             </Box>
 
-            <DrawerBackdrop backdropFilter="blur(16px)" bg="blackAlpha.600" />
+            <DrawerBackdrop backdropFilter="blur(20px)" bg="blackAlpha.700" />
 
             <DrawerContent
                 bg="bg.page"
+                bgGradient="linear-gradient(to bottom, bg.page 0%, bg.panel 100%)"
                 p={0}
                 height="100vh"
                 width="100vw"

@@ -63,7 +63,11 @@ const DeclarationSection: React.FC = () => {
 
       <Button
         type="submit"
-        size="lg"
+        variant="aura"
+        size="xl"
+        borderRadius="full"
+        fontWeight="900"
+        letterSpacing="widest"
         width="full"
         onClick={handleBtnSubmit}
       >

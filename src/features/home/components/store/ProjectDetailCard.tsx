@@ -56,10 +56,9 @@ export const ProjectDetailCard: React.FC<ProjectDetailCardProps> = React.memo(({
         <Card.Root
           w="full"
           mb="2"
-          bg={{ base: "rgba(255, 255, 255, 0.9)", _dark: "rgba(18, 18, 21, 0.85)" }}
-          backdropFilter="blur(20px)"
-          borderColor={{ base: "rgba(0, 0, 0, 0.08)", _dark: "rgba(255, 255, 255, 0.08)" }}
-          boxShadow={{ base: "0 8px 32px 0 rgba(0, 0, 0, 0.08)", _dark: "0 8px 32px 0 rgba(0, 0, 0, 0.35)" }}
+          bg="surface.card"
+          borderColor="border.default"
+          boxShadow="md"
           borderWidth="1px"
           borderRadius="card"
         >  
@@ -90,10 +89,10 @@ export const ProjectDetailCard: React.FC<ProjectDetailCardProps> = React.memo(({
               </Heading>
 
               <HStack align="center" justify="center" gap={1.5} w="full">
-                <Box as={MapPin} boxSize={3.5} color={{ base: "text.accent", _dark: "orange.300" }} aria-hidden="true" />
+                <Box as={MapPin} boxSize={3.5} color="text.accent" aria-hidden="true" />
                 <Text 
                   fontSize="xs" 
-                  color={{ base: "text.body", _dark: "whiteAlpha.800" }} 
+                  color="text.body" 
                   fontWeight="600" 
                   lineHeight="tall"
                   textAlign="center"

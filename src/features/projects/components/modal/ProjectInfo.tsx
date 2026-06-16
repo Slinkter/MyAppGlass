@@ -1,13 +1,15 @@
 import React from "react";
 import {
   Box,
-  ButtonGroup,
   Heading,
   Grid,
   Text,
   VStack,
+  Flex,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
+import { useColorModeValue } from "@/components/ui/color-mode-hooks";
+import { motion } from "framer-motion";
 
 import {
   Map,
@@ -43,6 +45,10 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
   viewMode,
   setViewMode,
 }) => {
+  const activeBg = useColorModeValue("var(--chakra-colors-primary-900)", "var(--chakra-colors-primary-100)");
+  const activeColor = useColorModeValue("white", "var(--chakra-colors-primary-900)");
+  const inactiveColor = useColorModeValue("var(--chakra-colors-text-muted)", "var(--chakra-colors-text-body)");
+
   return (
       <VStack
         flex={{ base: "none", lg: "1" }}
@@ -116,28 +122,66 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
           <Text fontSize="10px" fontWeight="bold" color="text.muted" letterSpacing="0.1em" textTransform="uppercase">
             Visualización de Obra
           </Text>
-          <ButtonGroup w="full" gap="2" variant="outline" size="sm">
-            <Button
-              flex="1"
-              onClick={() => setViewMode("map")}
-              variant={viewMode === "map" ? "aura" : "ghost"}
-              borderRadius="full"
-              gap="2"
-              py="6"
-            >
-              <Map size={16} /> UBICACIÓN
-            </Button>
-            <Button
-              flex="1"
-              onClick={() => setViewMode("gallery")}
-              variant={viewMode === "gallery" ? "aura" : "ghost"}
-              borderRadius="full"
-              gap="2"
-              py="6"
-            >
-              <Photo size={16} /> GALERÍA
-            </Button>
-          </ButtonGroup>
+          <Box w="full" position="relative" bg="bg.panel" borderRadius="full" p="1" border="1px solid" borderColor="border.default">
+            <Flex w="full" gap="1" position="relative">
+              <Button
+                flex="1"
+                onClick={() => setViewMode("map")}
+                variant="ghost"
+                borderRadius="full"
+                position="relative"
+                color={viewMode === "map" ? activeColor : inactiveColor}
+                _hover={{ bg: "transparent" }}
+                transition="color 0.25s ease"
+                py="6"
+              >
+                {viewMode === "map" && (
+                  <motion.div
+                    layoutId="activeModalTabIndicator"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      borderRadius: "9999px",
+                      background: activeBg,
+                      zIndex: 0,
+                    }}
+                  />
+                )}
+                <Box zIndex={1} display="flex" alignItems="center" gap="2">
+                  <Map size={16} /> UBICACIÓN
+                </Box>
+              </Button>
+              <Button
+                flex="1"
+                onClick={() => setViewMode("gallery")}
+                variant="ghost"
+                borderRadius="full"
+                position="relative"
+                color={viewMode === "gallery" ? activeColor : inactiveColor}
+                _hover={{ bg: "transparent" }}
+                transition="color 0.25s ease"
+                py="6"
+              >
+                {viewMode === "gallery" && (
+                  <motion.div
+                    layoutId="activeModalTabIndicator"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      borderRadius: "9999px",
+                      background: activeBg,
+                      zIndex: 0,
+                    }}
+                  />
+                )}
+                <Box zIndex={1} display="flex" alignItems="center" gap="2">
+                  <Photo size={16} /> GALERÍA
+                </Box>
+              </Button>
+            </Flex>
+          </Box>
         </VStack>
       </VStack>
   );

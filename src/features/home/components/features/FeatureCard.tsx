@@ -15,8 +15,8 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, description, icon }) => {
   const activeColor = "white";
   const activeBgStyle = { 
-    base: "linear-gradient(135deg, #FF5A5F 0%, #E0484D 100%)", 
-    _dark: "linear-gradient(135deg, #FF5A5F 0%, #D9444A 100%)" 
+    base: "linear-gradient(135deg, {colors.brand.red} 0%, {colors.brand.redHover} 100%)", 
+    _dark: "linear-gradient(135deg, {colors.brand.red} 0%, {colors.brand.redDark} 100%)" 
   };
 
   return (
@@ -32,11 +32,11 @@ const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, descripti
       boxShadow="sm"
       transition="box-shadow 0.3s ease-out, transform 0.3s ease-out"
       _hover={{ 
-        boxShadow: "0 20px 40px -12px rgba(0,0,0,0.2)",
+        boxShadow: "xl",
         transform: "translateY(-4px)"
       }}
       _active={{ 
-        boxShadow: "0 20px 40px -12px rgba(0,0,0,0.2)",
+        boxShadow: "xl",
         transform: "translateY(-4px)"
       }}
       position="relative"
@@ -76,17 +76,17 @@ const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, descripti
                 color: activeColor,
                 borderColor: "transparent",
                 transform: "scale(1.12)",
-                boxShadow: "0 12px 28px -6px rgba(255, 90, 95, 0.5)",
+                boxShadow: "md",
               }}
               _active={{ 
                 bg: activeBgStyle,
                 color: activeColor,
                 borderColor: "transparent",
                 transform: "scale(1.12)",
-                boxShadow: "0 12px 28px -6px rgba(255, 90, 95, 0.5)",
+                boxShadow: "md",
               }}
             >
-              {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement, { size: 24, strokeWidth: 1.5, "aria-hidden": "true" } as any) : icon}
+              {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<{ size?: number; strokeWidth?: number; "aria-hidden"?: string }>, { size: 24, strokeWidth: 1.5, "aria-hidden": "true" }) : icon}
             </Flex>
           )}
 

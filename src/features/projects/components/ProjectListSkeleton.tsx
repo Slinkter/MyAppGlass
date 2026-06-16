@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, SimpleGrid, Skeleton, VStack, HStack, Box } from "@chakra-ui/react";
+import { Container, SimpleGrid, VStack, HStack, Box } from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
 import ProjectCardSkeleton from "./ProjectCardSkeleton";
 
 /**

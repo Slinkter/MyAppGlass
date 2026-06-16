@@ -33,7 +33,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 export default function ContactPage() {
   const cardBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.50");
   const { 
-    formData, isSubmitting, handleChange, handleSubmit,
+    formData, isSubmitting, handleChange, handleCheckedChange, handleSubmit,
     trackingId, isTracking, trackingResult, handleTrackingChange, handleTrackingSubmit
   } = useContactForm();
 
@@ -245,7 +245,7 @@ export default function ContactPage() {
                   <Checkbox 
                     name="acceptedTerms"
                     checked={formData.acceptedTerms}
-                    onCheckedChange={(e) => handleChange({ target: { name: 'acceptedTerms', value: e.checked, type: 'checkbox' } } as any)}
+                    onCheckedChange={(details) => handleCheckedChange(!!details.checked)}
                   >
                     <Text fontSize="xs" color="text.muted" fontWeight="600">
                       He leído y acepto las <Text as="span" color="text.accent" cursor="pointer" textDecoration="underline">Políticas de Privacidad</Text> y el uso de mis datos para fines comerciales.

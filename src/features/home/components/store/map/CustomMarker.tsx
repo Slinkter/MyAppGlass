@@ -82,7 +82,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
             align="center"
             justify="center"
             position="relative"
-            boxShadow={!isMobile && isSelected ? "0 8px 20px rgba(0,0,0,0.3)" : "sm"}
+            boxShadow={!isMobile && isSelected ? "lg" : "sm"}
             transition="background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
             transform={!isMobile && (isHovered || isSelected) ? "scale(1.08)" : "scale(1)"}
           >

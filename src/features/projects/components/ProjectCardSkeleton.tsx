@@ -3,8 +3,8 @@ import {
     Box,
     VStack,
     HStack,
-    Skeleton,
 } from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 /**
  * @component ProjectCardSkeleton

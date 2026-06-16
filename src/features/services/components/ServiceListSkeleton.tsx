@@ -1,5 +1,6 @@
 import React from "react";
-import { Skeleton, Box, VStack } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 
 /**

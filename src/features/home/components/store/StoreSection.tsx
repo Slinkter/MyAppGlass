@@ -2,10 +2,11 @@
 
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { Box, Flex, VStack } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
+import { AnimatePresence, motion } from "framer-motion";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
-import AuraSkeleton, { ServiceCardSkeleton } from "@/shared/components/aura/AuraSkeleton";
+import MapLoader from "./map/MapLoader";
 import { type MarkerType } from "./InteractiveMap";
 import { DefaultInfoCard } from "./DefaultInfoCard";
 import { ProjectDetailCard } from "./ProjectDetailCard";
@@ -13,22 +14,7 @@ import { ProjectDetailCard } from "./ProjectDetailCard";
 // Carga perezosa del mapa para evitar errores de inicialización en producción y reducir bundle
 const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
   ssr: false,
-  loading: () => (
-    <Flex 
-      align="center" 
-      justify="center" 
-      h={{ base: "400px", lg: "700px" }} 
-      w="full" 
-      bg="bg.section"
-      borderRadius="inherit"
-    >
-       <VStack gap="8" w={{ base: "full", lg: "340px" }} p="8">
-        <ServiceCardSkeleton />
-        <ServiceCardSkeleton />
-        <AuraSkeleton h="50px" w="full" borderRadius="full" />
-      </VStack>
-    </Flex>
-  ),
+  loading: () => <MapLoader />,
 });
 
 /**
@@ -106,12 +92,11 @@ const StoreSection: React.FC = React.memo(() => {
             gap={0} 
             align={{ base: "center", lg: "flex-start" }} 
             p={0}
-            bg={{ base: "rgba(255, 255, 255, 0.88)", _dark: "rgba(18, 18, 21, 0.88)" }}
-            backdropFilter="blur(24px)"
-            borderRadius={{ base: "2xl", md: "3xl" }}
-            border="1px solid"
-            borderColor="border.glass"
-            boxShadow="glass"
+            bg="surface.card"
+            borderRadius="card"
+            borderWidth="1px"
+            borderColor="border.default"
+            boxShadow="lg"
             css={{
               '@media (prefers-reduced-motion: reduce)': {
                 '*': { transition: 'none !important', animation: 'none !important', transform: 'none !important' }
@@ -124,14 +109,44 @@ const StoreSection: React.FC = React.memo(() => {
             display="flex"
             justifyContent="stretch"
           >
-            {!displaySelected ? (
-              <DefaultInfoCard />
-            ) : (
-              <ProjectDetailCard 
-                selectedMarker={selectedMarker!} 
-                isStore={isStore} 
-              />
-            )}
+            <AnimatePresence mode="wait">
+              {!displaySelected ? (
+                <motion.div
+                  key="default-card"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column"
+                  }}
+                >
+                  <DefaultInfoCard />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key={`project-card-${selectedMarker?.id}`}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column"
+                  }}
+                >
+                  <ProjectDetailCard 
+                    selectedMarker={selectedMarker!} 
+                    isStore={isStore} 
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </VStack>
         </Box>
       </ItemGridLayout.Item>

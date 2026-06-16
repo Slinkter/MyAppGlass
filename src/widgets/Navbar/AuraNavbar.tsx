@@ -42,10 +42,10 @@ const AuraNavbar = React.memo(() => {
         display={{ base: "none", md: "flex" }}
         justifyContent="center"
         w="full"
-        pointerEvents="none"
+        pointerEvents={scrolled ? "auto" : "none"}
         opacity={scrolled ? 1 : 0}
-        transform={scrolled ? "translateY(0)" : "translateY(-24px)"}
-        transition="opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
+        transform={scrolled ? "translateY(0)" : "translateY(-16px)"}
+        transition="opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)"
       >
         <Box pointerEvents="auto">
           <AuraDesktopNav />
@@ -55,8 +55,10 @@ const AuraNavbar = React.memo(() => {
       {/* MOBILE NAVBAR (Tactical Floating Trigger) */}
       <Box
         display={{ base: "block", md: "none" }}
+        pointerEvents={scrolled ? "auto" : "none"}
         opacity={scrolled ? 1 : 0}
-        transition="opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
+        transform={scrolled ? "translateY(0)" : "translateY(-8px)"}
+        transition="opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)"
       >
         <MobileNav />
       </Box>

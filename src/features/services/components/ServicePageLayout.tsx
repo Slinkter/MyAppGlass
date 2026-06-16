@@ -5,8 +5,8 @@ import {
   Flex,
   VStack,
   Container,
-  Skeleton,
 } from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import { ServicePageData, ServicePageFeature } from "../services/serviceService";
