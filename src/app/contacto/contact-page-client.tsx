@@ -54,7 +54,7 @@ export default function ContactPageClient() {
           >
             Contacto Directo
           </Text>
-          <Heading size={{ base: "2xl", md: "4xl" }} fontWeight="900" letterSpacing="tighter">
+          <Heading as="h1" size={{ base: "2xl", md: "4xl" }} fontWeight="900" letterSpacing="tighter">
             Cotiza tu Proyecto <br />
             <Text as="span" color="text.accent">con Glass & Aluminum Company S.A.C.</Text>
           </Heading>

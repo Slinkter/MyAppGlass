@@ -44,17 +44,16 @@ const NavText = ({ children, isActive, activeColor, inactiveColor }: {
   );
 };
 
+const getMountedSnapshot = () => typeof window !== "undefined";
+const getMountedServerSnapshot = () => false;
+const subscribeMounted = () => () => {};
+
 const AuraDesktopNav = () => {
-  const [mounted, setMounted] = React.useState(false);
+  const mounted = React.useSyncExternalStore(subscribeMounted, getMountedSnapshot, getMountedServerSnapshot);
   const pathname = usePathname();
   const { colorMode, toggleColorMode } = useColorMode();
   const separatorColor = useColorModeValue("blackAlpha.300", "whiteAlpha.300");
   const toggleHoverBg = useColorModeValue("blackAlpha.100", "whiteAlpha.200");
-
-  // Sincronización con el cliente para evitar Hydration Mismatch
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
   
   // Design Tokens adaptativos con identidad de marca (Monochrome minimal version, "rojo sobra")
   const activeBg = useColorModeValue(
@@ -161,7 +160,7 @@ const AuraDesktopNav = () => {
 
       <IconButton
         variant="ghost"
-        aria-label="Toggle color mode"
+        aria-label="Cambiar modo claro/oscuro"
         onClick={toggleColorMode}
         size="sm"
         borderRadius="full"

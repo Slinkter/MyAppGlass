@@ -29,6 +29,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: `https://www.gyacompany.com/proyectos/${projectId}`,
     },
+    openGraph: {
+      title: `${project.residencial} | Proyecto GYA`,
+      description: `Detalles del proyecto ${project.residencial} ubicado en ${project.address}. Realizado en el año ${project.year}.`,
+      url: `https://www.gyacompany.com/proyectos/${projectId}`,
+      siteName: "Glass & Aluminum Company S.A.C.",
+      locale: "es_PE",
+      type: "website",
+    },
   };
 }
 

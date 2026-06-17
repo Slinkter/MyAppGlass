@@ -6,6 +6,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import RouterLink from "next/link";
 import MediaCard from "@shared/components/common/MediaCard";
 
@@ -78,31 +79,32 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   );
 
   const cta = (
-    <Box>
-      <Button
-        {...(isMobile ? { pointerEvents: "none" as const } : { asChild: true })}
-        variant="outline"
-        size="sm"
-        color="white"
-        borderColor="whiteAlpha.400"
-        _hover={{ 
-          bg: "white", 
-          color: "primary.900",
-          borderColor: "white",
-          transform: "scale(1.05) translateY(-2px)",
-          boxShadow: "0 0 20px rgba(255,255,255,0.2)"
-        }}
-        textTransform="uppercase"
-        fontSize="xs"
-        fontWeight="bold"
-        letterSpacing="0.2em"
-        px="8"
-        borderRadius="full"
-        transition="background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
-      >
-        {isMobile ? "Ver Catálogo" : <RouterLink href={plink}>Ver Catálogo</RouterLink>}
-      </Button>
-    </Box>
+    <Button
+      {...(isMobile ? { pointerEvents: "none" as const } : { asChild: true })}
+      variant="outline"
+      size="sm"
+      bg="whiteAlpha.200"
+      css={{ backdropFilter: "blur(10px)" }}
+      color="white"
+      borderColor="whiteAlpha.400"
+      _hover={{ 
+        bg: "white", 
+        color: "primary.900",
+        borderColor: "white",
+        transform: "scale(1.05) translateY(-2px)",
+        boxShadow: "0 0 20px rgba(255,255,255,0.2)"
+      }}
+      textTransform="uppercase"
+      fontSize="xs"
+      fontWeight="bold"
+      letterSpacing="0.2em"
+      px="8"
+      borderRadius="full"
+      transition="background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+    >
+      {isMobile ? "Ver Catálogo" : <RouterLink href={plink}>Ver Catálogo</RouterLink>}
+      <Box as={ArrowRight} w={4} h={4} />
+    </Button>
   );
 
   return (

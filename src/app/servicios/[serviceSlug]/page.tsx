@@ -26,12 +26,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const canonicalUrl = `https://www.gyacompany.com/servicios/${serviceSlug}`;
+
   if (pageData?.seo) {
     return {
       title: pageData.seo.title,
       description: pageData.seo.description,
-      alternates: {
-        canonical: `https://www.gyacompany.com/servicios/${serviceSlug}`,
+      alternates: { canonical: canonicalUrl },
+      openGraph: {
+        title: pageData.seo.title,
+        description: pageData.seo.description,
+        url: canonicalUrl,
+        siteName: "Glass & Aluminum Company S.A.C.",
+        locale: "es_PE",
+        type: "website",
       },
     };
   }
@@ -39,8 +47,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${service.name} | Glass & Aluminum Company S.A.C.`,
     description: `Detalles del servicio de ${service.name}. ${service.description?.substring(0, 150)}`,
-    alternates: {
-      canonical: `https://www.gyacompany.com/servicios/${serviceSlug}`,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: `${service.name} | Glass & Aluminum Company S.A.C.`,
+      description: `Detalles del servicio de ${service.name}.`,
+      url: canonicalUrl,
+      siteName: "Glass & Aluminum Company S.A.C.",
+      locale: "es_PE",
+      type: "website",
     },
   };
 }

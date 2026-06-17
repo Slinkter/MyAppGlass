@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.gyacompany.com/contacto",
   },
+  openGraph: {
+    title: "Contacto | Cotiza tu Proyecto | Glass & Aluminum Company S.A.C.",
+    description: "Solicita tu cotización sin compromiso. Visita técnica gratuita en La Molina y Lima. Expertos en vidrio y aluminio desde 2012.",
+    url: "https://www.gyacompany.com/contacto",
+    siteName: "Glass & Aluminum Company S.A.C.",
+    locale: "es_PE",
+    type: "website",
+  },
 };
 
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";

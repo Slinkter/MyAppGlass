@@ -16,6 +16,7 @@ interface AuraHeaderProps {
   action?: React.ReactNode;
   centered?: boolean;
   mb?: BoxProps["mb"];
+  headingAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
 /**
@@ -27,7 +28,7 @@ interface AuraHeaderProps {
  * @param {boolean} centered - Whether to center all text and elements.
  * @param {any} mb - Custom margin bottom.
  */
-const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, backTo, action, centered = false, mb }) => {
+const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, backTo, action, centered = false, mb, headingAs = "h2" }) => {
   return (
     <Box w="full" mb={mb ?? { base: "6", md: "8" }}>
       {/* Top Navigation Row (Always Left Aligned for UX) */}
@@ -66,11 +67,12 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
             {overline}
           </Text>
         )}
-        <Heading 
-          size={{ base: "3xl", md: "4xl" }} 
-          fontWeight="black" 
-          letterSpacing="tight" 
-          color="text.heading" 
+        <Heading
+          as={headingAs}
+          size={{ base: "3xl", md: "4xl" }}
+          fontWeight="black"
+          letterSpacing="tight"
+          color="text.heading"
           fontFamily="heading"
           maxW={centered ? "800px" : "full"}
         >

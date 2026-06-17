@@ -14,7 +14,7 @@ import {
   LinkOverlay,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { MapPin } from "lucide-react";
+import { MapPin, ArrowRight } from "lucide-react";
 import logger from "@shared/utils/logger";
 import MediaCard from "@shared/components/common/MediaCard";
 
@@ -44,7 +44,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
     const title = (
       <Heading
         as="h3"
-        color={isHovered ? "text.accent" : "white"}
+        color={isHovered ? "primary.300" : "white"}
         fontSize={{ base: "md", md: "xl" }}
         fontWeight="600"
         textTransform="uppercase"
@@ -61,7 +61,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           transform: "translateX(-50%)",
           width: isLoaded ? "8" : "0",
           height: "2px",
-          bg: isHovered ? "text.accent" : "white",
+          bg: isHovered ? "primary.300" : "white",
           transition: "width 0.4s ease, background 0.3s ease",
         }}
       >
@@ -117,6 +117,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         transition="background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
       >
         EXPLORAR PROYECTO
+        <Box as={ArrowRight} w={4} h={4} />
       </Button>
     );
 

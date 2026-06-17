@@ -114,7 +114,8 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
       });
 
       try {
-        const { archivos, ...rest } = formData;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { archivos: _archivos, ...rest } = formData;
         const result = await submitReclamationAction(rest);
 
         toaster.dismiss(toastId);

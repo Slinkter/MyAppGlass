@@ -152,13 +152,13 @@ const MobileNav = React.memo(() => {
                             w="full"
                             py={4}
                             borderRadius="xl"
-                            bg="#25D366"
+                            bg="brand.whatsapp"
                             color="white"
                             fontWeight="600"
                             fontSize="md"
                             letterSpacing="0.1em"
                             textTransform="uppercase"
-                            _hover={{ bg: "#1DAE54" }}
+                            _hover={{ bg: "brand.whatsappHover" }}
                             transition="background-color 0.2s ease"
                         >
                             <a
@@ -209,12 +209,14 @@ const MobileNav = React.memo(() => {
                             color="text.muted"
                             letterSpacing="widest"
                             textTransform="uppercase"
+                            suppressHydrationWarning
                         >
                             © {new Date().getFullYear()} GYA
                         </Text>
                         <HStack
                             as="button"
                             onClick={toggleColorMode}
+                            aria-label="Cambiar modo claro/oscuro"
                             gap={2}
                             px={5}
                             minH="44px"

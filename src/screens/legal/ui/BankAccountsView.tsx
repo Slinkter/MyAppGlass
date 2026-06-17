@@ -38,6 +38,37 @@ import { InfoItem } from "@/shared/components/ui/info-item";
 import { CopyButton } from "@/shared/components/ui/copy-button";
 import { BankAccountCard } from "../components/bank-account-card";
 
+const fiscalData: Array<{
+    icon: LucideIcon;
+    label: string;
+    value: string;
+    copyable?: boolean;
+}> = [
+    {
+        icon: Building,
+        label: "Razón Social",
+        value: companyData.razonSocial,
+        copyable: true,
+    },
+    {
+        icon: Contact,
+        label: "R.U.C",
+        value: companyData.ruc,
+        copyable: true,
+    },
+    {
+        icon: MapPin,
+        label: "Dirección Fiscal",
+        value: companyData.direccion,
+    },
+    {
+        icon: Mail,
+        label: "Facturación",
+        value: companyData.contactEmail,
+        copyable: true,
+    },
+];
+
 const BankAccountsView: React.FC = () => {
     const [isLoading, setIsLoading] = React.useState(true);
 
@@ -45,37 +76,6 @@ const BankAccountsView: React.FC = () => {
         const timer = setTimeout(() => setIsLoading(false), 1500);
         return () => clearTimeout(timer);
     }, []);
-
-    const fiscalData: Array<{
-        icon: LucideIcon;
-        label: string;
-        value: string;
-        copyable?: boolean;
-    }> = [
-        {
-            icon: Building,
-            label: "Razón Social",
-            value: companyData.razonSocial,
-            copyable: true,
-        },
-        {
-            icon: Contact,
-            label: "R.U.C",
-            value: companyData.ruc,
-            copyable: true,
-        },
-        {
-            icon: MapPin,
-            label: "Dirección Fiscal",
-            value: companyData.direccion,
-        },
-        {
-            icon: Mail,
-            label: "Facturación",
-            value: companyData.contactEmail,
-            copyable: true,
-        },
-    ];
 
     if (isLoading) {
         return (
@@ -115,6 +115,7 @@ const BankAccountsView: React.FC = () => {
                         title="Cuentas Bancarias y Facturación"
                         overline="Información Bancaria"
                         description="Encuentre a continuación nuestros datos fiscales y bancarios para gestionar sus pagos con seguridad y confianza."
+                        headingAs="h1"
                         mb={0}
                     />
 
@@ -129,8 +130,8 @@ const BankAccountsView: React.FC = () => {
                             Identificación Fiscal
                         </Heading>
                         <SimpleGrid columns={{ base: 1, md: 2 }} gap="6">
-                            {fiscalData.map((item, index) => (
-                                <InfoItem key={index} {...item} />
+                            {fiscalData.map((item) => (
+                                <InfoItem key={item.label} {...item} />
                             ))}
                         </SimpleGrid>
                     </Box>
@@ -302,8 +303,8 @@ const BankAccountsView: React.FC = () => {
                             Cuentas Bancarias
                         </Heading>
                         <Stack gap="6">
-                            {bankAccountsData.map((bankAccount, index) => (
-                                <BankAccountCard key={index} {...bankAccount} />
+                            {bankAccountsData.map((bankAccount) => (
+                                <BankAccountCard key={bankAccount.bankName} {...bankAccount} />
                             ))}
                         </Stack>
                     </Box>
