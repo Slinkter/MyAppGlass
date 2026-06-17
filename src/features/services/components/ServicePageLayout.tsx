@@ -13,7 +13,7 @@ import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import { ServicePageData } from "../services/serviceService";
 import ServiceHeader from "./ServiceHeader";
-import { AboutCard, BentoCTA, StructuralFeatures } from "./ServiceBentoGrid";
+import { BentoCTA, UnifiedTechnicalCard } from "./ServiceBentoGrid";
 
 
 
@@ -38,76 +38,80 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
   return (
     <Box animation="fadeIn 0.4s ease-out">
       <Container maxW="7xl" px="0" pt={{ base: 4, md: 8 }} pb={{ base: "16", lg: "10" }}>
-        <Grid
-          templateColumns={{ base: "1fr", lg: "repeat(12, 1fr)" }}
-          gap={{ base: "8", lg: "10" }}
-          alignItems="stretch"
-        >
-          {/* Columna Izquierda: Galería de fotos */}
-          <GridItem colSpan={{ base: 1, lg: 7 }}>
-            <Skeleton
-              loading={isPending}
-              borderRadius="3xl"
-              height="100%"
-            >
-              <Box
-                h={{ base: "320px", md: "500px", lg: "580px" }}
-                position="relative"
+        <VStack gap={{ base: "6", lg: "8" }} align="stretch">
+          <ServiceHeader 
+            title={seo.title}
+            systems={systems}
+            activeIndex={activeIndex}
+            onSelect={handleSelect}
+          />
+
+          <Grid
+            templateColumns={{ base: "1fr", lg: "repeat(12, 1fr)" }}
+            gap={{ base: "6", lg: "8" }}
+            alignItems="stretch"
+            h={{ lg: "530px", xl: "550px" }}
+          >
+            {/* Columna Derecha en Desktop / Superior en Móvil: Galería de fotos */}
+            <GridItem colSpan={{ base: 1, lg: 7 }} order={{ base: 1, lg: 2 }} display="flex" flexDirection="column" minW={0}>
+              <Skeleton
+                loading={isPending}
+                borderRadius="3xl"
+                height="100%"
+                w="full"
+                flex="1"
               >
                 <Box
-                  key={`gallery-${activeIndex}`}
+                  h={{ base: "320px", md: "500px", lg: "530px", xl: "550px" }}
+                  position="relative"
                   w="full"
-                  h="full"
-                  animation="scaleIn 0.5s cubic-bezier(0, 0.55, 0.45, 1)"
+                  overflow="hidden"
+                  borderRadius="3xl"
                 >
-                  {activeImageList.length > 0 ? (
-                    <Gallery images={activeImageList}>
-                      <Flex
-                        direction={{ base: "column", md: "row" }}
-                        gap={{ base: "4", md: "8" }}
-                        h="100%"
-                        w="100%"
-                        minW={0}
-                      >
-                        <Gallery.Viewer />
-                        <Gallery.Thumbnails />
-                      </Flex>
-                    </Gallery>
-                  ) : (
-                    <ComingSoonDisplay />
-                  )}
+                  <Box
+                    key={`gallery-${activeIndex}`}
+                    w="full"
+                    h="full"
+                    animation="scaleIn 0.5s cubic-bezier(0, 0.55, 0.45, 1)"
+                    overflow="hidden"
+                    borderRadius="3xl"
+                  >
+                    {activeImageList.length > 0 ? (
+                      <Gallery images={activeImageList}>
+                        <Flex
+                          direction={{ base: "column", md: "row" }}
+                          gap={{ base: "4", md: "8" }}
+                          h="100%"
+                          w="100%"
+                          minW={0}
+                          overflow="hidden"
+                        >
+                          <Gallery.Viewer />
+                          <Gallery.Thumbnails />
+                        </Flex>
+                      </Gallery>
+                    ) : (
+                      <ComingSoonDisplay />
+                    )}
+                  </Box>
                 </Box>
-              </Box>
-            </Skeleton>
-          </GridItem>
+              </Skeleton>
+            </GridItem>
 
-          {/* Columna Derecha: Título, Selector de Sistema, Concepto Técnico, CTA */}
-          <GridItem colSpan={{ base: 1, lg: 5 }}>
-            <VStack gap="6" align="stretch" h="100%" justify="space-between">
-              <VStack gap="6" align="stretch">
-                <ServiceHeader 
-                  title={seo.title}
-                  systems={systems}
-                  activeIndex={activeIndex}
-                  onSelect={handleSelect}
-                />
-
+            {/* Columna Izquierda en Desktop / Inferior en Móvil: Concepto Técnico + Ventajas, CTA */}
+            <GridItem colSpan={{ base: 1, lg: 5 }} order={{ base: 2, lg: 1 }} display="flex" flexDirection="column" minW={0}>
+              <VStack gap="5" align="stretch" h="100%" flex="1">
                 {about && (
-                  <AboutCard description={about.description} />
+                  <UnifiedTechnicalCard description={about.description} />
                 )}
+
+                <Box flex="1" display="flex" flexDirection="column">
+                  <BentoCTA systemName={activeSystem?.label || seo.title} />
+                </Box>
               </VStack>
-
-              <Box mt="auto" pt="4">
-                <BentoCTA systemName={activeSystem?.label || seo.title} />
-              </Box>
-            </VStack>
-          </GridItem>
-
-          {/* Fila Inferior Completa: Ventajas Estructurales */}
-          <GridItem colSpan={{ base: 1, lg: 12 }} mt={{ base: "4", lg: "6" }}>
-            <StructuralFeatures />
-          </GridItem>
-        </Grid>
+            </GridItem>
+          </Grid>
+        </VStack>
       </Container>
     </Box>
   );

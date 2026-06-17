@@ -1,12 +1,11 @@
-import React from "react";
 import {
     Container,
     SimpleGrid,
-    Skeleton,
     Box,
     VStack,
     Flex,
 } from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 /**
  * @component FeatureCardSkeleton

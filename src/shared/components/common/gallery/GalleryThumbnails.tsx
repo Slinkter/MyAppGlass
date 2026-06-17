@@ -89,12 +89,14 @@ const GalleryThumbnails: React.FC<GalleryThumbnailsProps> = ({ images, selectedI
 
   return (
     <ScrollAreaRoot h="full" w="full">
-      <ScrollAreaViewport>
+      <ScrollAreaViewport h="full" w="full">
         <Flex
           ref={containerRef}
           direction={{ base: "row", md: "column" }}
           gap="4"
           p="2"
+          h="full"
+          w="full"
         >
           {images.map((img, index) => (
             <GalleryThumbnailItem

@@ -65,11 +65,24 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
     const [isLoaded, setIsLoaded] = useState(forceShow || false);
     const [isLoading, setIsLoading] = useState(!forceShow);
     const [hasError, setHasError] = useState(false);
+    const imgRef = React.useRef<HTMLImageElement | null>(null);
 
     const imageSrc = useMemo(() => {
       if (hasError) return fallbackSrc || imgF;
       return getAssetUrl(src || fallbackSrc || imgF);
     }, [src, fallbackSrc, hasError]);
+
+    // Reset state when src changes, but check if the browser already has it cached
+    React.useEffect(() => {
+      if (imgRef.current && imgRef.current.complete) {
+        setIsLoaded(true);
+        setIsLoading(false);
+      } else {
+        setIsLoaded(forceShow || false);
+        setIsLoading(!forceShow);
+      }
+      setHasError(false);
+    }, [src, forceShow]);
 
     const placeholderBg = useColorModeValue("gray.100", "gray.800");
     const shimmerBg = useColorModeValue(
@@ -137,12 +150,19 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
           {...(srcSet ? { srcSet } : {})}
           onLoad={handleLoad}
           onError={handleImageError}
+          ref={(node) => {
+            imgRef.current = node;
+            if (node && node.complete && !isLoaded) {
+              setIsLoaded(true);
+              setIsLoading(false);
+            }
+          }}
           style={{
             objectFit,
             opacity: isLoaded ? 1 : 0,
             transform: isLoaded ? "scale(1)" : "scale(1.02)",
-            transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
-            filter: isLoaded ? "none" : "blur(10px)",
+            transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
+            filter: isLoaded ? "none" : "blur(5px)",
           }}
         />
       </Box>

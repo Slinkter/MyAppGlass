@@ -111,6 +111,8 @@ const GalleryRoot: React.FC<{ images: GalleryItem[]; children: React.ReactNode }
         <Box
           h="100%"
           w="100%"
+          minW={0}
+          overflow="hidden"
         >
           {children}
         </Box>
@@ -129,6 +131,7 @@ const GalleryViewer: React.FC = () => {
     <Box 
       flex="1" 
       minH="0" 
+      w="100%"
       position="relative"
       borderRadius="3xl"
       overflow="hidden"
@@ -160,7 +163,9 @@ const GalleryThumbnails: React.FC = () => {
       h={{ base: "100px", md: "100%" }}
       order={{ base: 2, md: 1 }}
       flexShrink={0}
+      minW={0}
       minH="0"
+      overflow="hidden"
     >
       <InternalThumbnails
         images={images}

@@ -51,8 +51,8 @@ const MediaCard: React.FC<MediaCardProps> = ({
       role="group"
       cursor="pointer"
       position="relative"
-      minH="320px"
-      h="320px"
+      minH={{ base: "220px", sm: "260px", md: "320px" }}
+      h={{ base: "220px", sm: "260px", md: "320px" }}
       borderRadius="xl"
       overflow="hidden"
       onMouseEnter={onMouseEnter}
@@ -99,7 +99,7 @@ const MediaCard: React.FC<MediaCardProps> = ({
               bottom={0}
               left={0}
               right={0}
-              p="6"
+              p={{ base: "4", md: "6" }}
               display="flex"
               flexDirection="column"
               alignItems="center"
@@ -108,12 +108,12 @@ const MediaCard: React.FC<MediaCardProps> = ({
               {title}
 
               <Box
-                mt="6"
+                mt={{ base: "3", md: "6" }}
                 w="full"
                 display="flex"
                 justifyContent="center"
-                opacity={isHovered ? 1 : 0}
-                transform={isHovered ? "translateY(0)" : "translateY(10px)"}
+                opacity={{ base: 1, md: isHovered ? 1 : 0 }}
+                transform={{ base: "translateY(0)", md: isHovered ? "translateY(0)" : "translateY(10px)" }}
                 transition="opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
               >
                 {ctaSection}

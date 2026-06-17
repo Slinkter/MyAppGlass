@@ -3,8 +3,8 @@
  * @file AuraSkeleton.tsx
  * @description Premium high-fidelity skeleton loaders that mirror the exact physical structure of Aura components.
  */
-import React from "react";
-import { Skeleton, VStack, HStack, Box, SimpleGrid, SkeletonProps, SimpleGridProps, GridItem } from "@chakra-ui/react";
+import { VStack, HStack, Box, SimpleGrid, SkeletonProps, SimpleGridProps, GridItem } from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { keyframes } from "@emotion/react";
 import AuraSurface from "./AuraSurface";
 
