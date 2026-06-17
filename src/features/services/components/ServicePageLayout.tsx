@@ -51,9 +51,9 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
               borderRadius="3xl"
             >
               <Box
-                h={{ base: "300px", md: "380px", lg: "40vh" }}
-                minH={{ md: "350px" }}
-                maxH={{ lg: "480px" }}
+                h={{ base: "350px", md: "500px", lg: "65vh" }}
+                minH={{ md: "500px" }}
+                maxH={{ lg: "800px" }}
                 position="relative"
               >
                 <Box
