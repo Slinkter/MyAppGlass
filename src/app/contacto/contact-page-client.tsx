@@ -125,7 +125,7 @@ export default function ContactPageClient() {
                       <Text fontSize="2xs" color="text.muted" textTransform="uppercase">{trackingResult.type}</Text>
                       <HStack justify="space-between" w="full">
                         <Text fontWeight="bold" fontSize="sm">{trackingResult.name}</Text>
-                        <Badge colorScheme={trackingResult.status === "RECIBIDO" ? "blue" : "green"} variant="solid" fontSize="10px">
+                        <Badge colorPalette={trackingResult.status === "RECIBIDO" ? "blue" : "green"} variant="solid" fontSize="10px">
                           {trackingResult.status}
                         </Badge>
                       </HStack>

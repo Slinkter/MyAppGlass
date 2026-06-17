@@ -3,17 +3,18 @@
  * @description High-performance logging utility using Pino.
  */
 import pino from 'pino';
+import { env } from "@/shared/config/env";
 
-const isProd = process.env.NODE_ENV === "production";
+const isProd = env.NODE_ENV === "production";
 
-// Configuración de Pino
+// Pino Configuration
 const pinoLogger = pino({
   level: isProd ? 'info' : 'debug',
   browser: {
     asObject: true,
   },
   base: {
-    env: process.env.NODE_ENV,
+    env: env.NODE_ENV,
     version: '1.0.0',
   },
 });
@@ -27,7 +28,7 @@ export const logger = {
       url: typeof window !== "undefined" ? window.location.href : "server-side"
     }, `[GYA-ERROR] ${message}`);
   },
-  
+
   info: (messageOrData: string | Record<string, unknown>, data?: unknown) => {
     if (typeof messageOrData === 'string') {
       pinoLogger.info({ data }, `[GYA-INFO] ${messageOrData}`);

@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toaster } from "@/components/ui/toaster-instance"; // v3: useToast → toaster
-import { submitReclamoAction } from "../actions";
-import { ReclamoFormState, FormErrors, ReclamationFormContextValue } from "../types";
+import { toaster } from "@/components/ui/toaster-instance";
+import { submitReclamationAction } from "../actions";
+import { ReclamationFormState, FormErrors, ReclamationFormContextValue } from "../types";
 
-const initialState: ReclamoFormState = {
+const initialState: ReclamationFormState = {
   nombreCompleto: "",
   domicilio: "",
   email: "",
@@ -24,7 +24,7 @@ const initialState: ReclamoFormState = {
   archivos: [],
 };
 
-const validateForm = (formData: ReclamoFormState): FormErrors => {
+const validateForm = (formData: ReclamationFormState): FormErrors => {
   const errors: FormErrors = {};
   if (!formData.nombreCompleto.trim()) errors.nombreCompleto = "El nombre completo es requerido.";
   if (!formData.domicilio.trim()) errors.domicilio = "El domicilio es requerido.";
@@ -43,17 +43,16 @@ const validateForm = (formData: ReclamoFormState): FormErrors => {
 };
 
 /**
- * Custom hook para gestionar toda la lógica del formulario de reclamo.
- * Migrado a Chakra v3: useDisclosure → useState, useToast → toaster.
+ * Custom hook to manage the reclamation form logic.
+ * Standardized for Chakra v3.
  *
- * @returns {ReclamationFormContextValue} Estado, manejadores y props del modal.
+ * @returns {ReclamationFormContextValue} State, handlers and modal props.
  */
-export const useReclamoForm = (): ReclamationFormContextValue => {
-  const [formData, setFormData] = useState<ReclamoFormState>(initialState);
+export const useReclamationForm = (): ReclamationFormContextValue => {
+  const [formData, setFormData] = useState<ReclamationFormState>(initialState);
   const [errors, setErrors] = useState<FormErrors>({});
-  // v3: useDisclosure replaced with useState
   const [isOpen, setIsOpen] = useState(false);
-  const [newReclamoId, setNewReclamoId] = useState("");
+  const [newReclamationId, setNewReclamationId] = useState("");
   const router = useRouter();
 
   const handleInputsChange = (
@@ -65,14 +64,12 @@ export const useReclamoForm = (): ReclamationFormContextValue => {
     let checked: boolean | "indeterminate" | undefined;
 
     if ("nativeEvent" in e) {
-      // It's a React.ChangeEvent
       const target = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
       name = target.name;
       value = target.value;
       type = (target as HTMLInputElement).type;
       checked = (target as HTMLInputElement).checked;
     } else {
-      // It's the custom object from Checkbox onCheckedChange
       name = e.target.name;
       type = e.target.type;
       checked = e.target.checked;
@@ -83,7 +80,7 @@ export const useReclamoForm = (): ReclamationFormContextValue => {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    if (errors[name as keyof ReclamoFormState]) {
+    if (errors[name as keyof ReclamationFormState]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
@@ -109,28 +106,24 @@ export const useReclamoForm = (): ReclamationFormContextValue => {
     const isFormValid = Object.keys(validationErrors).length === 0;
 
     if (isFormValid) {
-      // Toast de carga inicial
       const toastId = toaster.create({
         title: "Procesando solicitud...",
         description: "Enviando reclamo al servidor legal.",
         type: "info",
-        duration: 20000, // 20 segundos es suficiente para un timeout de red
+        duration: 20000,
       });
 
       try {
-        // Enviar solo los campos que espera el servicio
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { archivos, ...rest } = formData;
-        const result = await submitReclamoAction(rest);
-        
-        // Cerramos el toast de carga
+        const result = await submitReclamationAction(rest);
+
         toaster.dismiss(toastId);
 
         if (result.success && result.id) {
-          setNewReclamoId(result.id);
+          setNewReclamationId(result.id);
           setIsOpen(true);
           setFormData(initialState);
-          
+
           toaster.create({
             title: "Reclamo enviado",
             description: "Se ha registrado su reclamo exitosamente.",
@@ -141,17 +134,15 @@ export const useReclamoForm = (): ReclamationFormContextValue => {
           throw new Error(result.error);
         }
       } catch (error: unknown) {
-        // Cerramos el toast de carga en caso de error
         toaster.dismiss(toastId);
-        
-        console.error("Error submitting reclamo: ", error);
+        console.error("Error submitting reclamation: ", error);
         const errorMessage = error instanceof Error ? error.message : "Hubo un error al procesar su solicitud.";
-        
+
         toaster.create({
           title: "Fallo en el servidor",
           description: `Detalle: ${errorMessage}`,
           type: "error",
-          duration: 10000, // Tiempo extra para que el usuario pueda leer el error
+          duration: 10000,
         });
       }
     } else {
@@ -173,7 +164,7 @@ export const useReclamoForm = (): ReclamationFormContextValue => {
     modalProps: {
       isOpen,
       onClose: handleModalCloseAndRedirect,
-      newReclamoId,
+      newReclamationId,
     },
   };
 };

@@ -12,7 +12,7 @@ export { default as DeclarationSection } from "./components/DeclarationSection";
 export { default as SuccessModal } from "./components/SuccessModal";
 
 // Hooks
-export { useReclamoForm } from "./hooks/useReclamoForm";
+export { useReclamationForm } from "./hooks/useReclamationForm";
 export { useReclamationFormContext, ReclamationFormProvider } from "./components/ReclamationFormContext";
 
 // Types

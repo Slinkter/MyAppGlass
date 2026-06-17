@@ -8,6 +8,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { Box, Code, Heading, Text, VStack, Button } from '@chakra-ui/react';
 import { logger } from '@/shared/utils/logger';
+import { env } from '@/shared/config/env';
 
 interface Props {
   children: ReactNode;
@@ -37,13 +38,13 @@ class ComponentErrorBoundary extends Component<Props, State> {
   override render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <Box 
-          p="6" 
-          m="6" 
-          bg="red.50" 
+        <Box
+          p="6"
+          m="6"
+          bg="red.50"
           _dark={{ bg: "rgba(255, 0, 0, 0.05)" }}
-          border="1px solid" 
-          borderColor="red.200" 
+          border="1px solid"
+          borderColor="red.200"
           borderRadius="lg"
           role="alert"
         >
@@ -54,15 +55,15 @@ class ComponentErrorBoundary extends Component<Props, State> {
             <Text fontSize="sm" fontWeight="bold">
               Error: {this.state.error?.message || "Unknown error"}
             </Text>
-            
-            {process.env.NODE_ENV !== "production" && (
+
+            {env.NODE_ENV !== "production" && (
               <Box w="full" overflow="auto">
                 <Text fontSize="xs" mb="2" color="gray.500">Component Stack:</Text>
-                <Code 
-                  fontSize="xs" 
-                  p="4" 
-                  borderRadius="md" 
-                  w="full" 
+                <Code
+                  fontSize="xs"
+                  p="4"
+                  borderRadius="md"
+                  w="full"
                   whiteSpace="pre-wrap"
                   display="block"
                 >
@@ -70,10 +71,10 @@ class ComponentErrorBoundary extends Component<Props, State> {
                 </Code>
               </Box>
             )}
-            
-            <Button 
-              size="sm" 
-              colorPalette="red" 
+
+            <Button
+              size="sm"
+              colorPalette="red"
               onClick={() => window.location.reload()}
             >
               Reload Page

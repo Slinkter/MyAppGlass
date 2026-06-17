@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, ReactNode } from "react";
-import { useReclamoForm } from "../hooks/useReclamoForm";
+import { useReclamationForm } from "../hooks/useReclamationForm";
 import { ReclamationFormContextValue } from "../types";
 
 const ReclamationFormContext = createContext<ReclamationFormContextValue | null>(null);
@@ -11,7 +11,7 @@ interface ReclamationFormProviderProps {
 }
 
 export const ReclamationFormProvider: React.FC<ReclamationFormProviderProps> = ({ children }) => {
-  const value = useReclamoForm();
+  const value = useReclamationForm();
   return (
     <ReclamationFormContext.Provider value={value}>
       {children}

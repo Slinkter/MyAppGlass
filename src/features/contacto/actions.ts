@@ -1,11 +1,9 @@
-"use client";
+import { env } from "@/shared/config/env";
 
 /**
  * @file actions.ts
  * @description Client-side actions for the contact feature.
  */
-
-const CONTACTO_URL = process.env.NEXT_PUBLIC_CONTACT_API_URL as string;
 
 export interface ContactData {
   name: string;
@@ -16,9 +14,9 @@ export interface ContactData {
 /**
  * Sends a contact inquiry to the Firebase Functions backend.
  */
-export async function submitContactoAction(formData: ContactData) {
+export async function submitContactAction(formData: ContactData) {
   try {
-    const response = await fetch(CONTACTO_URL, {
+    const response = await fetch(env.NEXT_PUBLIC_CONTACT_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,10 +32,10 @@ export async function submitContactoAction(formData: ContactData) {
 
     return { success: true, id: result.data.id };
   } catch (error: unknown) {
-    console.error("submitContactoAction Error:", error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : "Error al enviar el mensaje." 
+    console.error("submitContactAction Error:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error al enviar el mensaje."
     };
   }
 }
@@ -47,8 +45,7 @@ export async function submitContactoAction(formData: ContactData) {
  */
 export async function checkStatusAction(id: string) {
   try {
-    const STATUS_URL = process.env.NEXT_PUBLIC_STATUS_API_URL;
-    const response = await fetch(`${STATUS_URL}?id=${id}`, {
+    const response = await fetch(`${env.NEXT_PUBLIC_STATUS_API_URL}?id=${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -64,9 +61,9 @@ export async function checkStatusAction(id: string) {
     return { success: true, data: result.data };
   } catch (error: unknown) {
     console.error("checkStatusAction Error:", error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : "Error al consultar el estado." 
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Error al consultar el estado."
     };
   }
 }
