@@ -18,6 +18,7 @@ const CompanyPoliciesView: React.FC = () => {
           title="Políticas de la Empresa"
           overline="Términos y Condiciones"
           description="En GYA Company, nos comprometemos con la transparencia y la claridad en cada interacción. Para ofrecerle la mejor experiencia y evitar cualquier malentendido, hemos estructurado nuestros términos y condiciones en dos secciones, diseñadas para atender las necesidades específicas de nuestros clientes residenciales y corporativos."
+          headingAs="h1"
           mb={0}
         />
 

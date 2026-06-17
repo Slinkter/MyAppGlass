@@ -19,10 +19,8 @@ export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string }, benefits?: ServicePageFeature[] };
 }
 
-/**
- * @component ServicePageLayout
- * @description Clean orchestrator for service detail pages.
- */
+const galleryRef = React.createRef<HTMLDivElement>();
+
 const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
   const { seo, about, benefits, systems, imageLists } = pageData;
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -35,12 +33,13 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
     startTransition(() => {
       setActiveIndex(index);
     });
+    galleryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   return (
     <Box animation="fadeIn 0.4s ease-out">
-      <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb="36">
-        <VStack gap={{ base: "8", lg: "14" }} align="stretch">
+      <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb="24">
+        <VStack gap={{ base: "10", lg: "16" }} align="stretch">
           
           <ServiceHeader 
             title={seo.title}
@@ -49,41 +48,43 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
             onSelect={handleSelect}
           />
 
-          <Skeleton
-            loading={isPending}
-            borderRadius="3xl"
-          >
-            <Box
-              h={{ base: "350px", md: "500px", lg: "65vh" }}
-              minH={{ md: "500px" }}
-              maxH={{ lg: "800px" }}
-              position="relative"
+          <Box ref={galleryRef} scrollMarginTop="120px">
+            <Skeleton
+              loading={isPending}
+              borderRadius="3xl"
             >
               <Box
-                key={`gallery-${activeIndex}`}
-                w="full"
-                h="full"
-                animation="scaleIn 0.5s cubic-bezier(0, 0.55, 0.45, 1)"
+                h={{ base: "350px", md: "500px", lg: "65vh" }}
+                minH={{ md: "500px" }}
+                maxH={{ lg: "800px" }}
+                position="relative"
               >
-                {activeImageList.length > 0 ? (
-                  <Gallery images={activeImageList}>
-                    <Flex
-                      direction={{ base: "column", md: "row" }}
-                      gap={{ base: "4", md: "8" }}
-                      h="100%"
-                      w="100%"
-                      minW={0}
-                    >
-                      <Gallery.Viewer />
-                      <Gallery.Thumbnails />
-                    </Flex>
-                  </Gallery>
-                ) : (
-                  <ComingSoonDisplay />
-                )}
+                <Box
+                  key={`gallery-${activeIndex}`}
+                  w="full"
+                  h="full"
+                  animation="scaleIn 0.5s cubic-bezier(0, 0.55, 0.45, 1)"
+                >
+                  {activeImageList.length > 0 ? (
+                    <Gallery images={activeImageList}>
+                      <Flex
+                        direction={{ base: "column", md: "row" }}
+                        gap={{ base: "4", md: "8" }}
+                        h="100%"
+                        w="100%"
+                        minW={0}
+                      >
+                        <Gallery.Viewer />
+                        <Gallery.Thumbnails />
+                      </Flex>
+                    </Gallery>
+                  ) : (
+                    <ComingSoonDisplay />
+                  )}
+                </Box>
               </Box>
-            </Box>
-          </Skeleton>
+            </Skeleton>
+          </Box>
 
           <ServiceBentoGrid 
             activeIndex={activeIndex}

@@ -288,6 +288,7 @@ const Footer = () => {
                             textAlign="center"
                             maxW="280px"
                             lineHeight="1.8"
+                            suppressHydrationWarning
                         >
                             © {new Date().getFullYear()}
                         </Text>

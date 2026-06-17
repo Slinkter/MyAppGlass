@@ -32,7 +32,7 @@ const ReclamationFormInner: React.FC = () => {
         color="text.body"
       >
         <Heading
-          as="h2"
+          as="h1"
           size="lg"
           mb="4"
           textAlign="center"

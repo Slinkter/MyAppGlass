@@ -38,10 +38,10 @@ const FloatingWhatsApp = () => {
         css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))" }}
       >
         <Button
-          bg="#25D366"
+          bg="brand.whatsapp"
           color="white"
-          _hover={{ bg: "#1DAE54", transform: "scale(1.08)" }}
-          _active={{ bg: "#178B43" }}
+          _hover={{ bg: "brand.whatsappHover", transform: "scale(1.08)" }}
+          _active={{ bg: "brand.whatsappActive" }}
           variant="solid"
           borderRadius="full"
           w={16}
@@ -89,9 +89,9 @@ const FloatingWhatsApp = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 w="full"
-                bg="#25D366"
+                bg="brand.whatsapp"
                 color="white"
-                _hover={{ bg: "#1DAE54" }}
+                _hover={{ bg: "brand.whatsappHover" }}
                 onClick={() => setIsOpen(false)}
               >
                 <Box as={MessageCircle} />

@@ -8,10 +8,20 @@ const envSchema = z.object({
   NEXT_PUBLIC_API_URL: z.string().url('Invalid API URL').min(1, 'API URL is required'),
 });
 
-const _env = envSchema.safeParse(process.env);
+function getRawEnv(): Record<string, unknown> {
+  return {
+    NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    NEXT_PUBLIC_CONTACT_API_URL: process.env.NEXT_PUBLIC_CONTACT_API_URL,
+    NEXT_PUBLIC_STATUS_API_URL: process.env.NEXT_PUBLIC_STATUS_API_URL,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  };
+}
+
+const _env = envSchema.safeParse(getRawEnv());
 
 if (!_env.success) {
-  console.error('❌ Invalid environment variables:', _env.error.flatten().fieldErrors);
+  console.error('Invalid environment variables:', _env.error.flatten().fieldErrors);
   throw new Error('Invalid environment variables');
 }
 

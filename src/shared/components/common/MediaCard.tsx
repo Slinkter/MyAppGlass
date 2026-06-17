@@ -24,6 +24,12 @@ export interface MediaCardProps {
 const DEFAULT_GRADIENT =
   "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
+const IMAGE_ZOOM_IDLE = "scale(1)";
+const IMAGE_ZOOM_HOVER = "scale(1.08)";
+const IMAGE_ZOOM_TRANSITION = "transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+
+export const CARD_HOVER_COLOR = "primary.300";
+
 const MediaCard: React.FC<MediaCardProps> = ({
   image,
   alt,
@@ -82,8 +88,8 @@ const MediaCard: React.FC<MediaCardProps> = ({
               decoding="async"
               onLoad={onImageLoad}
               isLCP={isLCP}
-              transform={isHovered ? "scale(1.1) translate(-8px, -8px)" : "scale(1.02)"}
-              transition="transform 0.7s ease-out"
+              transform={isHovered ? IMAGE_ZOOM_HOVER : IMAGE_ZOOM_IDLE}
+              transition={IMAGE_ZOOM_TRANSITION}
             />
 
             <Box position="absolute" inset="0" css={{ background: gradient }} />
@@ -104,6 +110,8 @@ const MediaCard: React.FC<MediaCardProps> = ({
               <Box
                 mt="6"
                 w="full"
+                display="flex"
+                justifyContent="center"
                 opacity={isHovered ? 1 : 0}
                 transform={isHovered ? "translateY(0)" : "translateY(10px)"}
                 transition="opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"

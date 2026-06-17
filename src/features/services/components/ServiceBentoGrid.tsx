@@ -46,10 +46,10 @@ const BentoAbout = React.memo(({ about }: BentoAboutProps) => {
   if (!about) return null;
   return (
     <BentoCard display="flex" flexDirection="column" justifyContent="center">
-      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="4">
+      <Text fontSize="sm" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="4">
         Concepto Técnico
       </Text>
-      <Text fontSize={{ base: "md", md: "xl" }} lineHeight="tall" fontWeight="medium" _dark={{ color: "whiteAlpha.800" }}>
+      <Text fontSize={{ base: "lg", md: "2xl" }} lineHeight="relaxed" fontWeight="medium">
         {about.description}
       </Text>
     </BentoCard>
@@ -66,17 +66,17 @@ const BentoBenefits = React.memo(({ benefits }: BentoBenefitsProps) => {
 
   return (
     <BentoCard>
-      <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="8">
+      <Text fontSize="sm" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="8">
         Ventajas Estructurales
       </Text>
       <SimpleGrid 
         columns={{ base: 1, sm: 2, lg: 3 }} 
-        gap={{ base: "4", lg: "8" }}
+        gap={{ base: "4", lg: "6" }}
       >
-        {benefits.map((benefit, i) => (
-          <HStack key={i} align="flex-start" gap="4" bg="surface.container" p="6" borderRadius="xl" borderWidth="1px" borderColor="border.default">
-            <Box as={CheckCircle2} color="primary.500" mt={0.5} boxSize={5} />
-            <Text fontWeight="semibold" fontSize="sm" color="text.body" _dark={{ color: "whiteAlpha.900" }}>{benefit.label}</Text>
+        {benefits.map((benefit) => (
+          <HStack key={benefit.label} align="center" gap="3" p="5" borderRadius="xl">
+            <Box as={CheckCircle2} color="primary.500" boxSize={5} />
+            <Text fontWeight="semibold" fontSize="md">{benefit.label}</Text>
           </HStack>
         ))}
         </SimpleGrid>
@@ -102,10 +102,11 @@ const BentoCTA = React.memo(({ systemName }: BentoCTAProps) => {
       textAlign="center"
       border="1px solid"
       borderColor="primary.500"
+      py="10"
     >
       <Box as={MessageSquareText} boxSize={10} mb="6" color="primary.300" _dark={{ color: "primary.500" }} />
-      <Heading size="md" mb="2" letterSpacing="tight">¿Iniciamos tu obra?</Heading>
-      <Text opacity={0.8} mb="8" fontSize="sm">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
+      <Heading size="lg" mb="3" letterSpacing="tight">¿Iniciamos tu obra?</Heading>
+      <Text opacity={0.85} mb="8" fontSize="md" maxW="sm" mx="auto">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
     </BentoCard>
   );
 });

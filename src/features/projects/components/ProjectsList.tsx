@@ -88,6 +88,7 @@ const ProjectsList: React.FC = React.memo(() => {
   return (
     <ItemGridLayout
       title="PROYECTOS"
+      headingAs="h1"
       subtitle="Obras Entregadas"
       seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
       seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."

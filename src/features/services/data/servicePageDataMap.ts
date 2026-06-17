@@ -45,7 +45,7 @@ export interface ServicePageData {
 export const servicePageDataMap: Record<string, ServicePageData> = {
     ventana: {
         seo: {
-            title: "Ventanas Antirruido La Molina | Glass & Aluminum Company S.A.C.",
+            title: "Ventanas Antirruido La Molina",
             description:
                 "Fabricación e instalación de ventanas de aluminio antirruido en La Molina. Sistemas Nova, Serie 25 y 31 con perfiles herméticos para aislamiento acústico. ¡Cotiza tu ventana hoy!",
         },
@@ -81,7 +81,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     balcones: {
         seo: {
-            title: "Balcones de Vidrio La Molina | Glass & Aluminum Company S.A.C.",
+            title: "Balcones de Vidrio La Molina",
             description:
                 "Balcones de vidrio templado con arenado decorativo en La Molina. Transforma tu terraza en un espacio seguro y elegante sin perder la vista panorámica.",
         },
@@ -109,7 +109,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     baranda: {
         seo: {
-            title: "Barandas de Vidrio Templado La Molina | Glass & Aluminum Company S.A.C.",
+            title: "Barandas de Vidrio Templado La Molina",
             description:
                 "Barandas de vidrio templado con accesorios de acero cromado. Diseño minimalista para escaleras, terrazas y balcones en Lima. Seguridad y estilo en cada proyecto.",
         },
@@ -138,7 +138,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     celosias: {
         seo: {
-            title: "Celosías de Aluminio La Molina | Glass & Aluminum Company S.A.C.",
+            title: "Celosías de Aluminio La Molina",
             description:
                 "Celosías de aluminio para fachadas, balcones y ventanas en La Molina. Control solar, ventilación natural y privacidad con diseño arquitectónico moderno.",
         },
@@ -164,7 +164,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     ducha: {
         seo: {
-            title: "Boxes de Ducha La Molina | Cabinas Vidrio Templado | Glass & Aluminum Company S.A.C.",
+            title: "Boxes de Ducha La Molina | Cabinas Vidrio Templado",
             description:
                 "Boxes de ducha de vidrio templado 8mm con sistemas KIT y acrílico. Seguridad, diseño moderno y fácil limpieza. ¡Cotiza tu ducha a medida en La Molina!",
         },
@@ -193,7 +193,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     mampara: {
         seo: {
-            title: "Mamparas de Baño La Molina | Glass & Aluminum Company S.A.C.",
+            title: "Mamparas de Baño La Molina",
             description:
                 "Mamparas de baño en vidrio templado con perfiles de aluminio natural o negro. Sistemas Nova y Serie 25. Diseño a medida con instalación profesional en Lima.",
         },
@@ -222,7 +222,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     parapeto: {
         seo: {
-            title: "Parapetos de Vidrio La Molina | Glass & Aluminum Company S.A.C.",
+            title: "Parapetos de Vidrio La Molina",
             description:
                 "Parapetos de vidrio templado con estructura de acero o aluminio en La Molina. Seguridad y vista panorámica sin obstáculos para terrazas y azoteas. Instalación certificada.",
         },
@@ -250,7 +250,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     pserie: {
         seo: {
-            title: "Puertas Enrollables de Aluminio La Molina | Glass & Aluminum Company S.A.C.",
+            title: "Puertas Enrollables de Aluminio La Molina",
             description:
                 "Puertas enrollables de aluminio con plancha arenada. Seguridad reforzada y diseño discreto para comercios y viviendas en La Molina. Resistencia y durabilidad.",
         },
@@ -277,7 +277,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     pvidrio: {
         seo: {
-            title: "Puertas de Vidrio Templado La Molina | Glass & Aluminum Company S.A.C.",
+            title: "Puertas de Vidrio Templado La Molina",
             description:
                 "Puertas de vidrio templado con chapa bola y bisagras de calidad en La Molina. Elegancia y luminosidad para ingresos principales, oficinas y locales comerciales.",
         },
@@ -305,7 +305,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     techo: {
         seo: {
-            title: "Techos de Policarbonato La Molina | Glass & Aluminum Company S.A.C.",
+            title: "Techos de Policarbonato La Molina",
             description:
                 "Techos de policarbonato con estructura de aluminio para terrazas, cocheras y patios en La Molina. Protección UV, luz natural e impermeabilidad garantizada.",
         },

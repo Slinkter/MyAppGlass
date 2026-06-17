@@ -6,7 +6,7 @@
         "build": "node scripts/optimize-images.mjs && next build",
         "optimize": "node scripts/optimize-images.mjs",
         "lint": "eslint src/",
-        "py": "pnpm run build && pnpm exec tsc --noEmit 2>&1 && python -m http.server 5001 --directory dist",
+        "py": "pnpm run build && pnpm exec tsc --noEmit 2>&1 && python -m http.server 5002 --directory dist",
         "predeploy": "pnpm run build",
         "deploy": "gh-pages -d dist",
         "deploy:hosting": "pnpm run build && npx firebase-tools deploy --only hosting",

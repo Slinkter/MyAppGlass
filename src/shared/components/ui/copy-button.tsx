@@ -29,7 +29,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ value, label }) => {
         duration: 2000,
       });
       setTimeout(() => setHasCopied(false), 2000);
-    } catch (error) {
+    } catch {
       toaster.create({
         title: "Error",
         description: "No se pudo copiar el texto.",

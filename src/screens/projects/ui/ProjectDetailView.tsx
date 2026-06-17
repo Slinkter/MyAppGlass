@@ -30,12 +30,12 @@ export interface ViewSelectorProps {
   onSelect: (mode: string) => void;
 }
 
-const ViewSelector: React.FC<ViewSelectorProps> = React.memo(({ activeMode, onSelect }) => {
-  const options = [
-    { id: "map", label: "UBICACIÓN", icon: Map },
-    { id: "gallery", label: "GALERÍA", icon: Photo },
-  ];
+const viewSelectorOptions = [
+  { id: "map", label: "UBICACIÓN", icon: Map },
+  { id: "gallery", label: "GALERÍA", icon: Photo },
+];
 
+const ViewSelector: React.FC<ViewSelectorProps> = React.memo(({ activeMode, onSelect }) => {
   return (
     <HStack
       bg="bg.subtle"
@@ -46,7 +46,7 @@ const ViewSelector: React.FC<ViewSelectorProps> = React.memo(({ activeMode, onSe
       borderColor="border.glass"
       _dark={{ bg: "blackAlpha.400", borderColor: "whiteAlpha.100" }}
     >
-      {options.map((opt) => {
+      {viewSelectorOptions.map((opt) => {
         const IconComp = opt.icon;
         return (
           <Button
@@ -156,10 +156,11 @@ const ProjectDetailView: React.FC = () => {
                 <Box mb={2}>
                   <BackButton to="/proyectos" />
                 </Box>
-                <Heading 
-                  size={{ base: "xl", md: "4xl" }} 
-                  fontWeight="black" 
-                  letterSpacing="tight" 
+                <Heading
+                  as="h1"
+                  size={{ base: "xl", md: "4xl" }}
+                  fontWeight="black"
+                  letterSpacing="tight"
                   color="text.heading"
                 >
                   {project.residencial}
