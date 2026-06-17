@@ -17,10 +17,19 @@ interface SystemSelectorProps {
 }
 
 const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSelectorProps) => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!containerRef.current) return;
+    const activeBtn = containerRef.current.querySelector<HTMLElement>(`[data-index="${activeIndex}"]`);
+    activeBtn?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, [activeIndex]);
+
   if (!systems || systems.length <= 1) return null;
 
   return (
     <HStack
+      ref={containerRef}
       bg="bg.subtle"
       p="2"
       borderRadius="full"
@@ -39,6 +48,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
         return (
           <Button
             key={system.label}
+            data-index={index}
             onClick={() => onSelect(index)}
             size={{ base: "sm", md: "md" }}
             variant={isActive ? "aura" : "ghost"}
