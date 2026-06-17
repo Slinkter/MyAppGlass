@@ -22,7 +22,7 @@ interface BentoCardProps extends BoxProps {
 
 const BentoCard: React.FC<BentoCardProps> = ({ children, bg, color, ...props }) => (
   <Box
-    p={{ base: "6", lg: "8" }}
+    p={{ base: "6", lg: "6" }}
     h="full"
     bg={bg || "surface.card"}
     color={color || "text.body"}
@@ -49,7 +49,7 @@ const BentoAbout = React.memo(({ about }: BentoAboutProps) => {
       <Text fontSize="sm" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="4">
         Concepto Técnico
       </Text>
-      <Text fontSize={{ base: "lg", md: "2xl" }} lineHeight="relaxed" fontWeight="medium">
+      <Text fontSize={{ base: "lg", md: "xl" }} lineHeight="relaxed" fontWeight="medium">
         {about.description}
       </Text>
     </BentoCard>
@@ -66,17 +66,17 @@ const BentoBenefits = React.memo(({ benefits }: BentoBenefitsProps) => {
 
   return (
     <BentoCard>
-      <Text fontSize="sm" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="8">
+      <Text fontSize="sm" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="4">
         Ventajas Estructurales
       </Text>
       <SimpleGrid 
-        columns={{ base: 1, sm: 2, lg: 3 }} 
-        gap={{ base: "4", lg: "6" }}
+        columns={{ base: 1, sm: 2 }} 
+        gap="3"
       >
         {benefits.map((benefit) => (
-          <HStack key={benefit.label} align="center" gap="3" p="5" borderRadius="xl">
+          <HStack key={benefit.label} align="center" gap="3" p="4" borderRadius="xl">
             <Box as={CheckCircle2} color="primary.500" boxSize={5} />
-            <Text fontWeight="semibold" fontSize="md">{benefit.label}</Text>
+            <Text fontWeight="semibold" fontSize="sm">{benefit.label}</Text>
           </HStack>
         ))}
         </SimpleGrid>
@@ -102,11 +102,11 @@ const BentoCTA = React.memo(({ systemName }: BentoCTAProps) => {
       textAlign="center"
       borderRadius="3xl"
       px={{ base: "6", lg: "8" }}
-      py="10"
+      py="8"
     >
-      <Box as={MessageSquareText} boxSize={10} mb="6" color="primary.300" _dark={{ color: "primary.500" }} />
-      <Heading size="lg" mb="3" letterSpacing="tight">¿Iniciamos tu obra?</Heading>
-      <Text opacity={0.85} mb="8" fontSize="md" maxW="sm" mx="auto">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
+      <Box as={MessageSquareText} boxSize={8} mb="4" color="primary.300" _dark={{ color: "primary.500" }} />
+      <Heading size="md" mb="2" letterSpacing="tight">¿Iniciamos tu obra?</Heading>
+      <Text opacity={0.85} mb="0" fontSize="sm" maxW="sm" mx="auto">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
     </Box>
   );
 });
@@ -124,8 +124,7 @@ const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ activeIndex, about,
       <Grid
         key={`bento-${activeIndex}`}
         templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
-        templateRows={{ base: "auto", lg: "minmax(380px, auto)" }}
-        gap={{ base: "8", lg: "14" }}
+        gap={{ base: "6", lg: "6" }}
       >
         <GridItem colSpan={{ base: 1, lg: 2 }}>
           <BentoAbout about={about} />

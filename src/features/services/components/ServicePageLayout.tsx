@@ -35,8 +35,8 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
   return (
     <Box animation="fadeIn 0.4s ease-out">
-      <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb="24">
-        <VStack gap={{ base: "10", lg: "16" }} align="stretch">
+      <Container maxW="7xl" px="0" pt={{ base: 4, md: 8 }} pb={{ base: "16", lg: "10" }}>
+        <VStack gap={{ base: "8", lg: "6" }} align="stretch">
           
           <ServiceHeader 
             title={seo.title}
@@ -51,9 +51,9 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
               borderRadius="3xl"
             >
               <Box
-                h={{ base: "350px", md: "500px", lg: "65vh" }}
-                minH={{ md: "500px" }}
-                maxH={{ lg: "800px" }}
+                h={{ base: "300px", md: "380px", lg: "40vh" }}
+                minH={{ md: "350px" }}
+                maxH={{ lg: "480px" }}
                 position="relative"
               >
                 <Box
