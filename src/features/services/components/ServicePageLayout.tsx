@@ -86,11 +86,11 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
                 {(about || benefits) && (
                   <Box
+                    display={{ base: "none", md: "block" }}
                     position="absolute"
                     bottom="4"
                     right="4"
-                    left={{ base: "4", lg: "auto" }}
-                    maxW={{ lg: "380px" }}
+                    maxW="380px"
                     bg="rgba(0,0,0,0.65)"
                     _dark={{ bg: "rgba(0,0,0,0.75)" }}
                     backdropFilter="blur(12px)"
