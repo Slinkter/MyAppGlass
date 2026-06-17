@@ -27,7 +27,7 @@ interface ServiceBentoGridProps {
   about?: { description: string };
 }
 
-const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
+export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
   <Box
     bg="primary.900"
     _dark={{ bg: "black" }}
@@ -50,7 +50,7 @@ const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
 ));
 BentoCTA.displayName = "BentoCTA";
 
-const AboutCard = React.memo(({ description }: { description: string }) => (
+export const AboutCard = React.memo(({ description }: { description: string }) => (
   <Box
     bg="bg.subtle"
     borderRadius="3xl"
@@ -92,6 +92,32 @@ const allFeatures = [
   { label: "Sistemas: abatible, corrediza, oscilobatiente" },
 ];
 
+export const StructuralFeatures = React.memo(() => (
+  <Box
+    bg="bg.subtle"
+    borderRadius="3xl"
+    px={{ base: "6", lg: "8" }}
+    py="6"
+    w="full"
+  >
+    <Heading as="h3" size="sm" mb="5" letterSpacing="tight">Ventajas Estructurales</Heading>
+    <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 5 }} gap="3">
+      {allFeatures.map((feat) => {
+        const IconComp = featureIcons[feat.label];
+        return (
+          <HStack key={feat.label} gap="2.5">
+            {IconComp && (
+              <Box as={IconComp} color="blue.500" _dark={{ color: "blue.400" }} boxSize={4} flexShrink={0} />
+            )}
+            <Text fontSize="sm" fontWeight="medium">{feat.label}</Text>
+          </HStack>
+        );
+      })}
+    </SimpleGrid>
+  </Box>
+));
+StructuralFeatures.displayName = "StructuralFeatures";
+
 const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ systemName, about }) => {
   return (
     <VStack gap="4" align="stretch">
@@ -106,27 +132,7 @@ const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ systemName, about }
         </Box>
       </SimpleGrid>
 
-      <Box
-        bg="bg.subtle"
-        borderRadius="3xl"
-        px={{ base: "6", lg: "8" }}
-        py="6"
-      >
-        <Heading as="h3" size="sm" mb="5" letterSpacing="tight">Ventajas Estructurales</Heading>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 5 }} gap="3">
-          {allFeatures.map((feat) => {
-            const IconComp = featureIcons[feat.label];
-            return (
-              <HStack key={feat.label} gap="2.5">
-                {IconComp && (
-                  <Box as={IconComp} color="blue.500" _dark={{ color: "blue.400" }} boxSize={4} flexShrink={0} />
-                )}
-                <Text fontSize="sm" fontWeight="medium">{feat.label}</Text>
-              </HStack>
-            );
-          })}
-        </SimpleGrid>
-      </Box>
+      <StructuralFeatures />
     </VStack>
   );
 };
