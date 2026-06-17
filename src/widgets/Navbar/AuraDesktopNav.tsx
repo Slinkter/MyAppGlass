@@ -72,9 +72,6 @@ const AuraDesktopNav = () => {
     "0 4px 20px rgba(255, 255, 255, 0.08)"
   );
 
-  // No renderizar estilos dependientes del tema en el servidor
-  if (!mounted) return null;
-
   return (
     <Box
       as="nav"
@@ -93,7 +90,7 @@ const AuraDesktopNav = () => {
         boxShadow: navShadow
       }}
     >
-      {/* Navigation Items (Liquid Design) */}
+      {/* Navigation Items (SSR/SSG Friendly Link List) */}
       <HStack gap={1} position="relative">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href;
@@ -125,7 +122,8 @@ const AuraDesktopNav = () => {
                 </Box>
               </RouterLink>
               
-              {isActive && (
+              {/* Active Tab Spring: Only mounted in client */}
+              {mounted && isActive && (
                 <m.div
                   layoutId="activeNavTab"
                   transition={{
@@ -152,25 +150,29 @@ const AuraDesktopNav = () => {
         })}
       </HStack>
 
-      <Separator
-        orientation="vertical"
-        height="28px"
-        borderColor={separatorColor}
-      />
-
-      <IconButton
-        variant="ghost"
-        aria-label="Cambiar modo claro/oscuro"
-        onClick={toggleColorMode}
-        size="sm"
-        borderRadius="full"
-        color={colorMode === "dark" ? "yellow.300" : "purple.600"}
-        bg={colorMode === "dark" ? "whiteAlpha.200" : "blackAlpha.100"}
-        _hover={{ bg: toggleHoverBg }}
-        mr="3"
-      >
-        {colorMode === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-      </IconButton>
+      {/* Separator and ColorMode Toggle: Only mounted in client to prevent hydration mismatches */}
+      {mounted && (
+        <>
+          <Separator
+            orientation="vertical"
+            height="28px"
+            borderColor={separatorColor}
+          />
+          <IconButton
+            variant="ghost"
+            aria-label="Cambiar modo claro/oscuro"
+            onClick={toggleColorMode}
+            size="sm"
+            borderRadius="full"
+            color={colorMode === "dark" ? "yellow.300" : "purple.600"}
+            bg={colorMode === "dark" ? "whiteAlpha.200" : "blackAlpha.100"}
+            _hover={{ bg: toggleHoverBg }}
+            mr="3"
+          >
+            {colorMode === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </IconButton>
+        </>
+      )}
     </Box>
   );
 };
