@@ -1,3 +1,5 @@
+import { env } from "@/shared/config/env";
+
 /**
  * @file reclamoService.ts
  * @description Service layer for handling "Libro de Reclamaciones" (complaints book) submissions.
@@ -7,17 +9,10 @@
  * It handles raw data transformation and HTTP communication for legal compliance documents.
  */
 
-// 1. Obtenemos la URL de la función desde las variables de entorno de Next.js.
-const SUBMIT_RECLAMO_URL = process.env.NEXT_PUBLIC_API_URL as string;
-
-if (!SUBMIT_RECLAMO_URL && process.env.NODE_ENV === "production") {
-  console.warn("CRITICAL: NEXT_PUBLIC_API_URL is not defined in production environment.");
-}
-
 /**
- * Estructura de datos del formulario de reclamo.
+ * Data structure for the reclamation form.
  */
-export interface ReclamoData {
+export interface ReclamationData {
   nombreCompleto: string;
   domicilio: string;
   email: string;
@@ -36,9 +31,9 @@ export interface ReclamoData {
 }
 
 /**
- * Estructura de la respuesta del servicio de reclamo.
+ * Response structure from the reclamation service.
  */
-export interface ReclamoResponse {
+export interface ReclamationResponse {
   success: boolean;
   message?: string;
   data: {
@@ -46,38 +41,37 @@ export interface ReclamoResponse {
   };
 }
 
-export const reclamoService = {
+export const reclamationService = {
   /**
-   * Envía un nuevo reclamo al backend a través de la API configurada.
-   * Este método gestiona la comunicación HTTP POST y el manejo de respuestas y errores.
+   * Sends a new reclamation to the backend via the configured API.
+   * This method manages HTTP POST communication and handles responses and errors.
    *
-   * @param reclamoData - Los datos completos del formulario de reclamo a enviar.
-   * @returns Una promesa que resuelve con el ID del mensaje enviado por Resend si la solicitud es exitosa.
-   * @throws Si la respuesta del servidor no es OK, o si `result.success` es falso,
-   *          o si ocurre un error durante la llamada a la función de envío de correo.
+   * @param reclamationData - The complete data from the reclamation form.
+   * @returns A promise that resolves with the ID of the submitted request.
+   * @throws If the server response is not OK, or if `result.success` is false.
    */
-  submitReclamo: async (reclamoData: ReclamoData): Promise<string> => {
+  submitReclamation: async (reclamationData: ReclamationData): Promise<string> => {
     try {
-      const response = await fetch(SUBMIT_RECLAMO_URL, {
+      const response = await fetch(env.NEXT_PUBLIC_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(reclamoData),
+        body: JSON.stringify(reclamationData),
       });
 
-      const result: ReclamoResponse = await response.json();
+      const result: ReclamationResponse = await response.json();
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || `Error del servidor: ${response.status}`,
+          result.message || `Server error: ${response.status}`,
         );
       }
 
       return result.data.id;
     } catch (error) {
-      console.error("Error al llamar la función de envío de correo: ", error);
-      const errorMessage = error instanceof Error ? error.message : "No se pudo enviar la solicitud.";
+      console.error("Error calling the reclamation submission service: ", error);
+      const errorMessage = error instanceof Error ? error.message : "Could not send request.";
       throw new Error(errorMessage);
     }
   },

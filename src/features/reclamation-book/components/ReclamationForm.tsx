@@ -69,7 +69,7 @@ const ReclamationFormInner: React.FC = () => {
         <SuccessModal
           isOpen={modalProps.isOpen}
           onClose={modalProps.onClose}
-          trackingId={modalProps.newReclamoId}
+          trackingId={modalProps.newReclamationId}
         />
     </Box>
   );

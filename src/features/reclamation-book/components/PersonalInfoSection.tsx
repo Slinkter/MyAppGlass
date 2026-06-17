@@ -10,11 +10,11 @@ import {
   NativeSelectRoot,
 } from "@/components/ui/native-select";
 import { useReclamationFormContext } from "./ReclamationFormContext";
-import { ReclamoFormState } from "../types";
+import { ReclamationFormState } from "../types";
 
 interface FormFieldProps {
   label: string;
-  name: keyof ReclamoFormState;
+  name: keyof ReclamationFormState;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
@@ -49,7 +49,7 @@ const FormField: React.FC<FormFieldProps> = ({
 
 interface FormSelectProps {
   label: string;
-  name: keyof ReclamoFormState;
+  name: keyof ReclamationFormState;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   error?: string;

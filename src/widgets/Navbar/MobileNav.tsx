@@ -17,11 +17,9 @@ import {
     Home,
     Sun,
     Moon,
-    LucideIcon,
 } from "lucide-react";
 import { MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
-import NavLink from "next/link";
 import NAV_ITEMS from "@/shared/config/nav-items";
 import { companyData } from "@/shared/config/company-data";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
@@ -32,108 +30,8 @@ import {
     DrawerRoot,
     DrawerTrigger,
 } from "@/components/ui/drawer";
-
-interface NavItemLargeProps {
-    label: string;
-    href: string;
-    onClick: () => void;
-}
-
-/**
- * @component NavItemLarge
- */
-const NavItemLarge = ({ label, href, onClick }: NavItemLargeProps) => {
-    const pathname = usePathname();
-    const isActive = pathname === href;
-
-    return (
-        <NavLink
-            href={href}
-            onClick={onClick}
-            style={{ textDecoration: "none", width: "100%", display: "block" }}
-        >
-            <Box position="relative" py={3} overflow="hidden" role="group">
-                <Text
-                    fontFamily="heading"
-                    fontSize={{ base: "3xl", md: "4xl" }}
-                    fontWeight={isActive ? "800" : "400"}
-                    color={isActive ? "text.accent" : "text.heading"}
-                    textTransform="uppercase"
-                    letterSpacing="0.1em"
-                    transition="color 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
-                    _groupHover={{ x: 10, color: "text.accent" }}
-                >
-                    {label}
-                </Text>
-                <Box
-                    h="2px"
-                    bg="text.accent"
-                    mt="2"
-                    transition="width 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-                    w={isActive ? "60px" : "0"}
-                />
-            </Box>
-        </NavLink>
-    );
-};
-
-interface UtilityLinkProps {
-    label: string;
-    href: string;
-    icon: LucideIcon | string;
-    onClick: () => void;
-    isImage?: boolean;
-}
-
-const UtilityLink = ({
-    label,
-    href,
-    icon: Icon,
-    onClick,
-    isImage,
-}: UtilityLinkProps) => {
-    const pathname = usePathname();
-    const isActive = pathname === href;
-
-    return (
-        <NavLink
-            href={href}
-            onClick={onClick}
-            style={{ textDecoration: "none" }}
-        >
-            <HStack
-                gap={3}
-                color={isActive ? "text.accent" : "text.muted"}
-                _hover={{ color: "text.accent", x: 4 }}
-                transition="color 0.2s ease"
-            >
-                {isImage ? (
-                    <img
-                        src={Icon as string}
-                        alt={label}
-                        width={20}
-                        height={20}
-                        style={{ opacity: isActive ? 1 : 0.7 }}
-                    />
-                ) : (
-                    <Box
-                        as={Icon as LucideIcon}
-                        boxSize={5}
-                        opacity={isActive ? 1 : 0.7}
-                    />
-                )}
-                <Text
-                    fontSize="sm"
-                    fontWeight={isActive ? "700" : "500"}
-                    textTransform="uppercase"
-                    letterSpacing="0.1em"
-                >
-                    {label}
-                </Text>
-            </HStack>
-        </NavLink>
-    );
-};
+import { NavItemLarge } from "./components/NavItemLarge";
+import { UtilityLink } from "./components/UtilityLink";
 
 const MobileNav = React.memo(() => {
     const [isOpen, setIsOpen] = useState(false);

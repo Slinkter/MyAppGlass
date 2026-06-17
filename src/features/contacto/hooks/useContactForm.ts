@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { toaster } from "@/components/ui/toaster-instance";
-import { submitContactoAction, checkStatusAction } from "../actions";
+import { submitContactAction, checkStatusAction } from "../actions";
 
 interface ContactFormState {
   name: string;
@@ -98,7 +98,7 @@ export const useContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const result = await submitContactoAction(formData);
+      const result = await submitContactAction(formData);
       
       if (result.success) {
         toaster.create({

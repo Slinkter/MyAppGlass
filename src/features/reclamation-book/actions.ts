@@ -4,25 +4,25 @@
  * Refactored to remove "use server" for static export compatibility.
  */
 
-import { ReclamoData, reclamoService } from "@/shared/api/reclamoService";
+import { ReclamationData, reclamationService } from "@/shared/api/reclamoService";
 
 /**
- * Server Action to handle the submission of the "Libro de Reclamaciones" form.
- * This encapsulates the API call on the server side, providing better security 
+ * Handler for the submission of the "Libro de Reclamaciones" form.
+ * This encapsulates the API call, providing better security
  * and allowing for future server-side only integrations.
- * 
+ *
  * @param formData - The validated complaint data.
  * @returns An object indicating success and the resulting ID, or an error message.
  */
-export async function submitReclamoAction(formData: ReclamoData) {
+export async function submitReclamationAction(formData: ReclamationData) {
   try {
-    const id = await reclamoService.submitReclamo(formData);
+    const id = await reclamationService.submitReclamation(formData);
     return { success: true, id };
   } catch (error: unknown) {
-    console.error("Server Action Error [submitReclamoAction]:", error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : "Hubo un error inesperado en el servidor al procesar su reclamo." 
+    console.error("Action Error [submitReclamationAction]:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Hubo un error inesperado en el servidor al procesar su reclamo."
     };
   }
 }

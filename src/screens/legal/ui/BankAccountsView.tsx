@@ -13,26 +13,20 @@ import {
     Stack,
     SimpleGrid,
     HStack,
-    IconButton,
-    Flex,
     Badge,
     Image,
     Card,
 } from "@chakra-ui/react";
 import { Toaster } from "@/components/ui/toaster";
-import { toaster } from "@/components/ui/toaster-instance";
-import { Tooltip } from "@/components/ui/tooltip";
 import {
     Building,
     Contact,
     MapPin,
     Mail,
-    Copy,
-    Check,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
-import { bankAccountsData, type BankAccount } from "@/shared/data/bank-accounts";
+import { bankAccountsData } from "@/shared/data/bank-accounts";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
 import {
@@ -40,237 +34,9 @@ import {
     BannerSkeleton,
 } from "@shared/components/aura/AuraSkeleton";
 import AuraSkeleton from "@shared/components/aura/AuraSkeleton";
-
-interface CopyButtonProps {
-    value: string;
-    label: string;
-}
-
-const CopyButton: React.FC<CopyButtonProps> = ({ value, label }) => {
-    const [hasCopied, setHasCopied] = React.useState(false);
-
-    const handleCopy = () => {
-        navigator.clipboard.writeText(value);
-        setHasCopied(true);
-        toaster.create({
-            title: "Copiado",
-            description: `${label} copiado al portapapeles.`,
-            type: "success",
-            duration: 2000,
-        });
-        setTimeout(() => setHasCopied(false), 2000);
-    };
-
-    return (
-        <Tooltip content={`Copiar ${label}`}>
-            <IconButton
-                size="sm"
-                aria-label={`Copiar ${label}`}
-                onClick={handleCopy}
-                variant="ghost"
-                colorPalette={hasCopied ? "green" : "gray"}
-                borderRadius="full"
-            >
-                {hasCopied ? <Check size={16} /> : <Copy size={16} />}
-            </IconButton>
-        </Tooltip>
-    );
-};
-
-interface InfoItemProps {
-    icon: LucideIcon;
-    label: string;
-    value: string;
-    copyable?: boolean;
-}
-
-const InfoItem: React.FC<InfoItemProps> = ({
-    icon,
-    label,
-    value,
-    copyable = false,
-}) => {
-    return (
-        <Card.Root
-            flexDirection="row"
-            p={4}
-            gap={4}
-            alignItems="center"
-            w="full"
-            borderWidth="1px"
-            borderColor="border.default"
-            borderRadius="xl"
-            bg="surface.container"
-            transition="all 0.2s"
-            _hover={{
-                borderColor: "border.strong",
-                transform: "translateY(-2px)",
-            }}
-        >
-            <Card.Body p={0} display="flex" flexDirection="row" alignItems="center" gap={4} w="full">
-                <Flex
-                    align="center"
-                    justify="center"
-                    w={12}
-                    h={12}
-                    borderRadius="lg"
-                    bg="surface.icon"
-                    color="text.accent"
-                    flexShrink={0}
-                >
-                    <Box as={icon} boxSize={5} />
-                </Flex>
-                <Box flex="1">
-                    <Text
-                        fontSize="xs"
-                        fontWeight="700"
-                        textTransform="uppercase"
-                        color="text.muted"
-                        letterSpacing="wide"
-                    >
-                        {label}
-                    </Text>
-                    <Text
-                        fontSize="md"
-                        fontWeight="600"
-                        color="text.heading"
-                        mt={0.5}
-                        lineHeight="shorter"
-                    >
-                        {value}
-                    </Text>
-                </Box>
-                {copyable && (
-                    <Flex align="center" h="full">
-                        <CopyButton value={value} label={label} />
-                    </Flex>
-                )}
-            </Card.Body>
-        </Card.Root>
-    );
-};
-
-const BankAccountCard: React.FC<BankAccount> = ({
-    logo,
-    bankName,
-    accountType,
-    accounts,
-    logoBg = "gray.50",
-}) => {
-    return (
-        <Card.Root
-            flexDirection={{ base: "column", md: "row" }}
-            overflow="hidden"
-            p={0}
-            borderRadius="2xl"
-            borderColor="border.default"
-            bg="surface.card"
-            transition="all 0.3s"
-            _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
-        >
-            <Flex
-                align="center"
-                justify="center"
-                bg={logoBg}
-                _dark={{ bg: "whiteAlpha.900" }}
-                p={6}
-                minW={{ md: "220px" }}
-                maxW={{ md: "240px" }}
-                borderRightWidth={{ md: "1px" }}
-                borderBottomWidth={{ base: "1px", md: "0" }}
-                borderColor="border.default"
-            >
-                <Image
-                    objectFit="contain"
-                    w="full"
-                    h="auto"
-                    maxH="60px"
-                    src={logo}
-                    alt={`Logo ${bankName}`}
-                    loading="lazy"
-                    decoding="async"
-                />
-            </Flex>
-
-            <Card.Body p={{ base: 5, md: 6 }} flex="1">
-                <Stack gap={4}>
-                    <Box>
-                        <Text
-                            fontSize="sm"
-                            fontWeight="700"
-                            color="text.accent"
-                            textTransform="uppercase"
-                            letterSpacing="wide"
-                            mb={1}
-                        >
-                            {bankName}
-                        </Text>
-                        <Heading
-                            size="md"
-                            fontWeight="600"
-                            color="text.heading"
-                            lineHeight="1.3"
-                        >
-                            {accountType}
-                        </Heading>
-                    </Box>
-
-                    <Stack gap={3}>
-                        {accounts.map((acc, idx) => (
-                            <React.Fragment key={idx}>
-                                {idx > 0 && (
-                                    <Box
-                                        borderBottomWidth="1px"
-                                        borderColor="border.default"
-                                    />
-                                )}
-                                <Flex
-                                    justify="space-between"
-                                    align="flex-start"
-                                    gap={3}
-                                >
-                                    <Box flex="1">
-                                        <Text
-                                            fontSize="xs"
-                                            color="text.muted"
-                                            fontWeight="600"
-                                            textTransform="uppercase"
-                                            letterSpacing="wide"
-                                        >
-                                            {acc.label}
-                                        </Text>
-                                        <Text
-                                            fontSize="md"
-                                            fontWeight="600"
-                                            color="text.heading"
-                                            mt={0.5}
-                                        >
-                                            {acc.value}
-                                        </Text>
-                                        {acc.note && (
-                                            <Text
-                                                fontSize="xs"
-                                                color="orange.500"
-                                                fontStyle="italic"
-                                                mt={1}
-                                            >
-                                                {acc.note}
-                                            </Text>
-                                        )}
-                                    </Box>
-                                    <CopyButton
-                                        value={acc.value}
-                                        label={acc.label}
-                                    />
-                                </Flex>
-                            </React.Fragment>
-                        ))}
-                    </Stack>
-                </Stack>
-            </Card.Body>
-        </Card.Root>
-    );
-};
+import { InfoItem } from "@/shared/components/ui/info-item";
+import { CopyButton } from "@/shared/components/ui/copy-button";
+import { BankAccountCard } from "../components/bank-account-card";
 
 const BankAccountsView: React.FC = () => {
     const [isLoading, setIsLoading] = React.useState(true);
@@ -280,7 +46,12 @@ const BankAccountsView: React.FC = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const fiscalData: InfoItemProps[] = [
+    const fiscalData: Array<{
+        icon: LucideIcon;
+        label: string;
+        value: string;
+        copyable?: boolean;
+    }> = [
         {
             icon: Building,
             label: "Razón Social",
