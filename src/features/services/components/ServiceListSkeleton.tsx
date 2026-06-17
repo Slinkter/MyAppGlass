@@ -29,7 +29,8 @@ const ServiceListSkeleton: React.FC = () => {
                 <Box
                     key={index}
                     position="relative"
-                    minH={{ base: "52", md: "320px" }}
+                    minH={{ base: "220px", sm: "260px", md: "320px" }}
+                    h={{ base: "220px", sm: "260px", md: "320px" }}
                     w="full"
                     borderRadius="xl"
                     overflow="hidden"
@@ -44,7 +45,7 @@ const ServiceListSkeleton: React.FC = () => {
                         bottom={0}
                         left={0}
                         right={0}
-                        p="6"
+                        p={{ base: "4", md: "6" }}
                         display="flex"
                         flexDirection="column"
                         alignItems="center"
@@ -54,7 +55,7 @@ const ServiceListSkeleton: React.FC = () => {
                         <Skeleton height="24px" width="60%" borderRadius="md" />
 
                         {/* Button Area Placeholder - MATCHES VStack mt="6" and gap="4" */}
-                        <VStack mt="6" gap="4" w="full">
+                        <VStack mt={{ base: "3", md: "6" }} gap="4" w="full">
                             <Skeleton 
                                 height="32px" 
                                 width="140px" 

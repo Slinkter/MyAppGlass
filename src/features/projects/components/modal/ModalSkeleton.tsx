@@ -1,6 +1,7 @@
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import React from 'react';
-import { VStack, SkeletonText, Skeleton, Flex, Spacer, Box } from "@chakra-ui/react";
+import { VStack, Flex, Spacer, Box } from "@chakra-ui/react";
+import { Skeleton, SkeletonText } from "@/components/ui/skeleton";
 import {
   DialogRoot,
   DialogContent,
@@ -55,9 +56,9 @@ const ModalSkeleton: React.FC = () => {
 
             {/* Skeleton para ProjectInfo */}
             <VStack flex={{ base: "none", lg: 1 }} w="full" align="flex-start" gap="6">
-              <SkeletonText mt="2" lineClamp={1} gap="6" width="70%" />
-              <SkeletonText mt="2" lineClamp={1} gap="6" width="50%" />
-              <SkeletonText mt="4" lineClamp={3} gap="6" width="full" />
+              <SkeletonText mt="2" noOfLines={1} gap="6" width="70%" />
+              <SkeletonText mt="2" noOfLines={1} gap="6" width="50%" />
+              <SkeletonText mt="4" noOfLines={3} gap="6" width="full" />
               <Spacer />
               <Flex w="full" justify="space-between" mt="6">
                 <Skeleton height="40px" width="45%" borderRadius="md" />

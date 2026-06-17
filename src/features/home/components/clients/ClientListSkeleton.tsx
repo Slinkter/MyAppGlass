@@ -1,11 +1,10 @@
-import React from "react";
 import {
     Container,
     SimpleGrid,
-    Skeleton,
     Box,
     VStack,
 } from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 /**
  * @component ClientCardSkeleton
@@ -16,7 +15,8 @@ const ClientCardSkeleton: React.FC = () => {
         <Box
             position="relative"
             w="full"
-            minH={{ base: "auto", md: "320px" }}
+            minH={{ base: "220px", sm: "260px", md: "320px" }}
+            h={{ base: "220px", sm: "260px", md: "320px" }}
             borderRadius="3xl"
             overflow="hidden"
             bg="bg.subtle"
@@ -29,7 +29,7 @@ const ClientCardSkeleton: React.FC = () => {
                 bottom={0}
                 left={0}
                 right={0}
-                p="8"
+                p={{ base: "4", md: "8" }}
                 gap="2"
                 align="center"
                 justify="flex-end"

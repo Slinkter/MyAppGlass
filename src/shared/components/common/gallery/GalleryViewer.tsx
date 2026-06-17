@@ -115,7 +115,6 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
       touchAction="pan-y"
     >
         <Box
-          key={`${currentImage.id}`}
           position="absolute"
           top={0}
           left={0}
@@ -251,14 +250,15 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             bottom="6"
             left="50%"
             transform="translateX(-50%)"
-            gap="0"
+            gap="1"
             zIndex={5}
+            display={{ base: "none", md: "flex" }}
           >
             {Array.from({ length: imageCount }).map((_, index) => (
               <Box
                 key={index}
-                w="44px"
-                h="44px"
+                w="20px"
+                h="20px"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -267,7 +267,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 aria-label={`Ir a imagen ${index + 1}`}
               >
                 <Box
-                  w={selectedIndex === index ? "32px" : "8px"}
+                  w={selectedIndex === index ? "24px" : "6px"}
                   h="1.5"
                   bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
                   borderRadius="full"
