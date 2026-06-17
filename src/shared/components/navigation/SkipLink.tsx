@@ -29,7 +29,7 @@ const skipStyles = `
 const SkipLink = () => (
   <>
     <style>{skipStyles}</style>
-    <a href="#main-content" className="skip-link">
+    <a href="#main-content" className="skip-link" data-nosnippet>
       Saltar al contenido principal
     </a>
   </>
