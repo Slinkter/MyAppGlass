@@ -6,6 +6,12 @@ export const metadata: Metadata = {
   description: "Políticas de privacidad, términos de servicio y estándares de calidad de Glass & Aluminum Company S.A.C. Vidriería La Molina, Lima - Perú.",
 };
 
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+
 export default function Page() {
-  return <CompanyPoliciesView />;
+  return (
+    <ComponentErrorBoundary>
+      <CompanyPoliciesView />
+    </ComponentErrorBoundary>
+  );
 }

@@ -14,6 +14,12 @@ export const metadata: Metadata = {
   }
 };
 
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+
 export default function BlogPage() {
-  return <BlogView />;
+  return (
+    <ComponentErrorBoundary>
+      <BlogView />
+    </ComponentErrorBoundary>
+  );
 }

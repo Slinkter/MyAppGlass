@@ -10,6 +10,12 @@ export const metadata: Metadata = {
   },
 };
 
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+
 export default function ContactPage() {
-  return <ContactPageClient />;
+  return (
+    <ComponentErrorBoundary>
+      <ContactPageClient />
+    </ComponentErrorBoundary>
+  );
 }

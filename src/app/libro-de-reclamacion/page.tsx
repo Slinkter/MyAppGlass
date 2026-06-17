@@ -8,10 +8,14 @@ export const metadata: Metadata = {
 
 import AuraContainer from "@/shared/components/aura/AuraContainer";
 
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+
 export default function Page() {
   return (
     <AuraContainer>
-       <ReclamationForm />
+      <ComponentErrorBoundary>
+        <ReclamationForm />
+      </ComponentErrorBoundary>
     </AuraContainer>
   );
 }

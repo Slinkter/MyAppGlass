@@ -27,16 +27,16 @@ import {
     FileText,
     LucideIcon,
 } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/logosvg.svg";
 import { ReactNode, ElementType } from "react";
-import { IconType } from "react-icons";
+
 
 interface FooterRowProps {
-    icon: LucideIcon | IconType | ElementType;
+    icon: LucideIcon | ElementType;
     children: ReactNode;
     to?: string;
     isExternal?: boolean;
@@ -158,13 +158,13 @@ const Footer = () => {
                     >
                         <FooterSection title="Contacto">
                             <FooterRow
-                                icon={FaWhatsapp}
+                                icon={MessageCircle}
                                 customIconColor="brand.whatsapp"
                             >
                                 974 278 303
                             </FooterRow>
                             <FooterRow
-                                icon={FaWhatsapp}
+                                icon={MessageCircle}
                                 customIconColor="brand.whatsapp"
                             >
                                 996 537 435

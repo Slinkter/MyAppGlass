@@ -9,6 +9,12 @@ export const metadata: Metadata = {
   },
 };
 
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+
 export default function Page() {
-  return <ServicesListView />;
+  return (
+    <ComponentErrorBoundary>
+      <ServicesListView />
+    </ComponentErrorBoundary>
+  );
 }

@@ -6,6 +6,12 @@ export const metadata: Metadata = {
   description: "Información oficial de cuentas bancarias de Glass & Aluminum Company S.A.C. para pagos y transferencias. Empresa peruana con más de 10 años de experiencia.",
 };
 
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+
 export default function Page() {
-  return <BankAccountsView />;
+  return (
+    <ComponentErrorBoundary>
+      <BankAccountsView />
+    </ComponentErrorBoundary>
+  );
 }

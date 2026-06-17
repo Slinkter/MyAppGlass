@@ -45,6 +45,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+
 export default function Page() {
-  return <ServiceDetailView />;
+  return (
+    <ComponentErrorBoundary>
+      <ServiceDetailView />
+    </ComponentErrorBoundary>
+  );
 }

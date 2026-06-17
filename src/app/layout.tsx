@@ -7,6 +7,7 @@ import { AuraNavbar as Navbar } from "@/widgets/Navbar";
 import { Footer } from "@/widgets/Footer";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { FloatingWhatsAppWrapper as FloatingWhatsApp } from "@/widgets/FloatingActions";
+import SkipLink from "@/shared/components/navigation/SkipLink";
 import { getCompanyJsonLd } from '@/shared/utils/seo-utils';
 
 const lora = Lora({
@@ -67,35 +68,7 @@ export default function RootLayout({
       <body>
         <Providers>
             <Box minH="100dvh" position="relative">
-                {/* Skip Link for Accessibility */}
-                <Box
-                    as="a"
-                    {...({ href: "#main-content" } as Record<string, unknown>)}
-                    position="absolute"
-                    top="-1000px"
-                    left="-1000px"
-                    w="1px"
-                    h="1px"
-                    overflow="hidden"
-                    _focus={{
-                        position: "fixed",
-                        top: "6",
-                        left: "6",
-                        width: "auto",
-                        height: "auto",
-                        display: "inline-block",
-                        p: "4",
-                        m: "4",
-                        border: "2px solid",
-                        borderColor: "text.accent",
-                        borderRadius: "md",
-                        bg: "bg.panel",
-                        color: "text.heading",
-                        zIndex: "9999",
-                    }}
-                >
-                    Saltar al contenido principal
-                </Box>
+                <SkipLink />
 
                 <Box
                     position="relative"

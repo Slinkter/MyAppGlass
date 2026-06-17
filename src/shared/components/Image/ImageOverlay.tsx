@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
-import { LuArrowRight } from "react-icons/lu";
+import { ArrowRight } from "lucide-react";
 import RouterLink from "next/link";
 
 interface ImageOverlayProps {
@@ -95,7 +95,7 @@ const ImageOverlay: React.FC<ImageOverlayProps> = React.memo(({ name, plink }) =
         >
           <RouterLink href={plink}>
             Catálogo
-            <LuArrowRight style={{ marginLeft: "8px" }} />
+            <ArrowRight style={{ marginLeft: "8px" }} />
           </RouterLink>
         </Button>
       </Stack>

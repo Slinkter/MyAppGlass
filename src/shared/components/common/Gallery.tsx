@@ -92,15 +92,17 @@ const GalleryRoot: React.FC<{ images: GalleryItem[]; children: React.ReactNode }
     });
   }, [gallery.selectedIndex, images, gallery.imageCount]);
 
+  const { handlePrevious, handleNext } = gallery;
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "ArrowLeft") gallery.handlePrevious();
-      if (event.key === "ArrowRight") gallery.handleNext();
+      if (event.key === "ArrowLeft") handlePrevious();
+      if (event.key === "ArrowRight") handleNext();
     };
     window.addEventListener("keydown", handleKeyDown, { passive: true });
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [gallery]);
+  }, [handlePrevious, handleNext]);
 
   if (!images || gallery.imageCount === 0 || !gallery.currentImage) return null;
 

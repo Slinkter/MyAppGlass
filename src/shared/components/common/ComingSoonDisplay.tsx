@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, VStack, Box, Heading, Text } from "@chakra-ui/react";
-import { LuClock } from "react-icons/lu";
+import { Clock } from "lucide-react";
 
 /**
  * @component ComingSoonDisplay
@@ -16,7 +16,7 @@ const ComingSoonDisplay: React.FC = () => {
       direction="column"
     >
       <VStack gap="6" textAlign="center">
-        <Box as={LuClock} w={12} h={12} color="text.muted" />
+        <Box as={Clock} w={12} h={12} color="text.muted" />
         <Heading size="lg">Próximamente</Heading>
         <Text color="text.muted">
           Estamos trabajando para agregar nuevas imágenes a esta sección.
