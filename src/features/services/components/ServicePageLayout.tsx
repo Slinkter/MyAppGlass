@@ -19,8 +19,6 @@ export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string }, benefits?: ServicePageFeature[] };
 }
 
-const galleryRef = React.createRef<HTMLDivElement>();
-
 const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
   const { seo, about, benefits, systems, imageLists } = pageData;
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -33,7 +31,6 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
     startTransition(() => {
       setActiveIndex(index);
     });
-    galleryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   return (
@@ -48,7 +45,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
             onSelect={handleSelect}
           />
 
-          <Box ref={galleryRef} scrollMarginTop="120px">
+          <Box>
             <Skeleton
               loading={isPending}
               borderRadius="3xl"

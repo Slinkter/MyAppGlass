@@ -91,23 +91,23 @@ interface BentoCTAProps {
 
 const BentoCTA = React.memo(({ systemName }: BentoCTAProps) => {
   return (
-    <BentoCard
+    <Box
       bg="primary.900"
-      _dark={{ bg: "black", borderColor: "whiteAlpha.200" }}
+      _dark={{ bg: "black" }}
       color="white"
       display="flex"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
       textAlign="center"
-      border="1px solid"
-      borderColor="primary.500"
+      borderRadius="3xl"
+      px={{ base: "6", lg: "8" }}
       py="10"
     >
       <Box as={MessageSquareText} boxSize={10} mb="6" color="primary.300" _dark={{ color: "primary.500" }} />
       <Heading size="lg" mb="3" letterSpacing="tight">¿Iniciamos tu obra?</Heading>
       <Text opacity={0.85} mb="8" fontSize="md" maxW="sm" mx="auto">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
-    </BentoCard>
+    </Box>
   );
 });
 BentoCTA.displayName = "BentoCTA";
