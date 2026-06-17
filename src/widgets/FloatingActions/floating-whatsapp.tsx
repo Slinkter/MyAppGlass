@@ -12,7 +12,7 @@ import {
   DialogBody,
   DialogCloseTrigger,
 } from "@/components/ui/dialog";
-import { FaWhatsapp } from "react-icons/fa";
+import { MessageCircle } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
 
 /**
@@ -52,7 +52,7 @@ const FloatingWhatsApp = () => {
            transition="background-color 0.2s ease, transform 0.2s ease"
         >
           {/* v3: icon as child, not as prop */}
-          <Box as={FaWhatsapp} w={8} h={8} />
+          <Box as={MessageCircle} w={8} h={8} />
         </Button>
       </Box>
 
@@ -94,7 +94,7 @@ const FloatingWhatsApp = () => {
                 _hover={{ bg: "#1DAE54" }}
                 onClick={() => setIsOpen(false)}
               >
-                <Box as={FaWhatsapp} />
+                <Box as={MessageCircle} />
                 Iniciar Chat
               </Button>
             </VStack>

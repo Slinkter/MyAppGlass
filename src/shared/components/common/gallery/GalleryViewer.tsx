@@ -5,7 +5,7 @@ import {
   Text,
   HStack,
 } from "@chakra-ui/react";
-import { LuChevronLeft, LuChevronRight, LuMoveHorizontal } from "react-icons/lu";
+import { ChevronLeft, ChevronRight, MoveHorizontal } from "lucide-react";
 
 import FadingImage from "../FadingImage";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
@@ -188,7 +188,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
           >
-            <LuChevronLeft size={24} />
+            <ChevronLeft size={24} />
           </Box>
           <Box
             as="button"
@@ -218,7 +218,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
           >
-            <LuChevronRight size={24} />
+            <ChevronRight size={24} />
           </Box>
 
           <Box
@@ -304,7 +304,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
               borderColor="whiteAlpha.300"
               gap="2"
             >
-              <LuMoveHorizontal size={14} />
+              <MoveHorizontal size={14} />
               <Text fontSize="10px" fontWeight="bold" letterSpacing="widest">
                 DESLIZA
               </Text>

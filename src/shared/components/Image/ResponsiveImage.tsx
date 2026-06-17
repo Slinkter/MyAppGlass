@@ -60,7 +60,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
           sizes={sizes}
           style={{ objectFit }}
           onLoad={handleLoad}
-          loading={loading}
+          loading={isLCP ? undefined : loading}
           decoding={decoding}
           fetchPriority={fetchPriority}
         />

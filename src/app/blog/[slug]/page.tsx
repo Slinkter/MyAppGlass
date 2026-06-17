@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getPostBySlug, getPosts } from "@/features/blog/services/blogService";
 import BlogPostView from "@/screens/blog/ui/BlogPostView";
 import { getCompanyJsonLd } from "@/shared/utils/seo-utils";
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -65,7 +66,9 @@ export default async function BlogPostPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BlogPostView post={post} />
+      <ComponentErrorBoundary>
+        <BlogPostView post={post} />
+      </ComponentErrorBoundary>
     </>
   );
 }

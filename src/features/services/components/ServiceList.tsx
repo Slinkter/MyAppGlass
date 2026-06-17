@@ -7,7 +7,7 @@ import ServiceCard from "./ServiceCard";
 import { getServices } from "../services/serviceService";
 import { useFilterableList } from "@shared/hooks";
 import { EmptyState } from "@/components/ui/empty-state";
-import { LuSearch } from "react-icons/lu";
+import { Search } from "lucide-react";
 
 import { Service } from "../services/serviceService";
 
@@ -86,7 +86,7 @@ const ServiceList: React.FC = React.memo(() => {
             {totalFilteredCount === 0 ? (
                 <Box gridColumn="1 / -1" py="20">
                     <EmptyState
-                        icon={<LuSearch />}
+                        icon={<Search />}
                         title="No se encontraron servicios"
                         description={`No hay resultados para la categoría "${activeCategory}" en este momento.`}
                     />

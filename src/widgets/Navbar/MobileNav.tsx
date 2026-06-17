@@ -19,7 +19,7 @@ import {
     Moon,
     LucideIcon,
 } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import NavLink from "next/link";
 import NAV_ITEMS from "@/shared/config/nav-items";
@@ -269,7 +269,7 @@ const MobileNav = React.memo(() => {
                                 rel="noopener noreferrer"
                                 onClick={handleLinkClick}
                             >
-                                <FaWhatsapp size={20} />
+                                <MessageCircle size={20} />
                                 Chatea por WhatsApp
                             </a>
                         </Box>

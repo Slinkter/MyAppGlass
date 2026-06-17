@@ -14,8 +14,10 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
+import { toaster } from "@/components/ui/toaster-instance";
 import { MessageSquareText, Mail, Phone, Search } from "lucide-react";
 import GlassCard from "@/shared/components/common/GlassCard";
+import { companyData } from "@/shared/config/company-data";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { useContactForm } from "@/features/contacto/hooks/useContactForm";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -74,8 +76,9 @@ export default function ContactPageClient() {
                 </Box>
                 <Button 
                   as="a"
-                  href="https://wa.me/51974278303?text=Hola, deseo cotizar un proyecto."
+                  href={`https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent("Hola, deseo cotizar un proyecto.")}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   bg="white" 
                   color="primary.900" 
                   w="full" 
@@ -146,7 +149,7 @@ export default function ContactPageClient() {
                   </Box>
                   <VStack align="flex-start" gap={0}>
                     <Text fontSize="xs" fontWeight="black" color="text.muted" letterSpacing="widest" textTransform="uppercase">Atención Comercial</Text>
-                    <Text fontSize="xl" fontWeight="900" color="text.heading">974 278 303</Text>
+                    <Text fontSize="xl" fontWeight="900" color="text.heading">{companyData.contactPhone}</Text>
                   </VStack>
                 </HStack>
               </Box>
@@ -168,8 +171,13 @@ export default function ContactPageClient() {
                       cursor="pointer"
                       title="Haz clic para copiar"
                       onClick={() => {
-                        navigator.clipboard.writeText("acueva@gyacompany.com");
-                        alert("Email copiado al portapapeles");
+                        navigator.clipboard.writeText(companyData.contactEmail);
+                        toaster.create({
+                          title: "Copiado",
+                          description: "Email copiado al portapapeles.",
+                          type: "success",
+                          duration: 2000,
+                        });
                       }}
                     >
                       acueva@gyacompany.com

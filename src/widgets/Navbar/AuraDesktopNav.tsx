@@ -100,29 +100,31 @@ const AuraDesktopNav = () => {
           const isActive = pathname === item.href;
           return (
             <Box key={item.label} position="relative">
-              <Box
-                as={RouterLink}
-                {...({ href: item.href || "#" } as Record<string, unknown>)}
+              <RouterLink
+                href={item.href || "#"}
                 aria-current={isActive ? "page" : undefined}
-                px="5"
-                h="11"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                borderRadius="9999px"
-                position="relative"
-                zIndex={2}
-                transition="background-color 0.2s"
                 style={{ textDecoration: "none" }}
               >
-                <NavText 
-                  isActive={isActive} 
-                  activeColor={activeColor} 
-                  inactiveColor={inactiveColor}
+                <Box
+                  px="5"
+                  h="11"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  borderRadius="9999px"
+                  position="relative"
+                  zIndex={2}
+                  transition="background-color 0.2s"
                 >
-                  {item.label}
-                </NavText>
-              </Box>
+                  <NavText 
+                    isActive={isActive} 
+                    activeColor={activeColor} 
+                    inactiveColor={inactiveColor}
+                  >
+                    {item.label}
+                  </NavText>
+                </Box>
+              </RouterLink>
               
               {isActive && (
                 <m.div

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Text, VStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
