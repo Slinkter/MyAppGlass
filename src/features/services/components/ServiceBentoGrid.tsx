@@ -38,52 +38,44 @@ const BentoCard: React.FC<BentoCardProps> = ({ children, bg, color, ...props }) 
   </Box>
 );
 
-interface BentoAboutProps {
+interface BentoAboutBenefitsProps {
   about?: { description: string };
-}
-
-const BentoAbout = React.memo(({ about }: BentoAboutProps) => {
-  if (!about) return null;
-  return (
-    <BentoCard display="flex" flexDirection="column" justifyContent="center">
-      <Text fontSize="sm" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="4">
-        Concepto Técnico
-      </Text>
-      <Text fontSize={{ base: "lg", md: "xl" }} lineHeight="relaxed" fontWeight="medium">
-        {about.description}
-      </Text>
-    </BentoCard>
-  );
-});
-BentoAbout.displayName = "BentoAbout";
-
-interface BentoBenefitsProps {
   benefits?: ServicePageFeature[];
 }
 
-const BentoBenefits = React.memo(({ benefits }: BentoBenefitsProps) => {
-  if (!benefits) return null;
-
+const BentoAboutBenefits = React.memo(({ about, benefits }: BentoAboutBenefitsProps) => {
   return (
-    <BentoCard>
-      <Text fontSize="sm" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="4">
-        Ventajas Estructurales
-      </Text>
-      <SimpleGrid 
-        columns={{ base: 1, sm: 2 }} 
-        gap="3"
-      >
-        {benefits.map((benefit) => (
-          <HStack key={benefit.label} align="center" gap="3" p="4" borderRadius="xl">
-            <Box as={CheckCircle2} color="primary.500" boxSize={5} />
-            <Text fontWeight="semibold" fontSize="sm">{benefit.label}</Text>
-          </HStack>
-        ))}
-        </SimpleGrid>
+    <BentoCard display="flex" flexDirection="column" justifyContent="center">
+      {about && (
+        <>
+          <Text fontSize="sm" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="4">
+            Concepto Técnico
+          </Text>
+          <Text fontSize={{ base: "lg", md: "xl" }} lineHeight="relaxed" fontWeight="medium" mb="6">
+            {about.description}
+          </Text>
+        </>
+      )}
+      {benefits && benefits.length > 0 && (
+        <>
+          <Box h="1px" bg="border.default" mb="6" />
+          <Text fontSize="sm" fontWeight="900" color="primary.500" letterSpacing="0.2em" textTransform="uppercase" mb="4">
+            Ventajas Estructurales
+          </Text>
+          <SimpleGrid columns={{ base: 1, sm: 2 }} gap="3">
+            {benefits.map((benefit) => (
+              <HStack key={benefit.label} align="center" gap="3" p="4" borderRadius="xl">
+                <Box as={CheckCircle2} color="primary.500" boxSize={5} />
+                <Text fontWeight="semibold" fontSize="sm">{benefit.label}</Text>
+              </HStack>
+            ))}
+          </SimpleGrid>
+        </>
+      )}
     </BentoCard>
   );
 });
-BentoBenefits.displayName = "BentoBenefits";
+BentoAboutBenefits.displayName = "BentoAboutBenefits";
 
 interface BentoCTAProps {
   systemName: string;
@@ -127,13 +119,10 @@ const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ activeIndex, about,
         gap={{ base: "6", lg: "6" }}
       >
         <GridItem colSpan={{ base: 1, lg: 2 }}>
-          <BentoAbout about={about} />
+          <BentoAboutBenefits about={about} benefits={benefits} />
         </GridItem>
         <GridItem colSpan={1}>
           <BentoCTA systemName={systemName} />
-        </GridItem>
-        <GridItem colSpan={{ base: 1, lg: 3 }}>
-          <BentoBenefits benefits={benefits} />
         </GridItem>
       </Grid>
   );
