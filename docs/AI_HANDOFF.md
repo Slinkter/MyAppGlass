@@ -30,6 +30,7 @@ Utiliza siempre estos alias para las importaciones:
 ## 🚀 Estado Técnico
 *   **Build:** El proyecto compila al 100% (Generación Estática de 36/36 páginas).
 *   **Lint:** Pasa sin errores (solo warnings menores de tipado `any` en algunos componentes legacy).
+*   **Variables de Entorno:** Archivo [.env](file:///C:/Users/LJCR/Documents/GitHub/MyAppGlass/.env) totalmente recuperado y configurado con credenciales de Firebase/Google Maps reales y endpoints de Cloud Run validados.
 
 ## ⏭️ Próximos Pasos (Next Steps)
 

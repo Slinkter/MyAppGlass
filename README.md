@@ -32,10 +32,11 @@ El proyecto utiliza **Feature-Sliced Design (FSD)** para máxima escalabilidad y
 
 ## 🛠️ Desarrollo Local
 1. **Dependencias:** `pnpm install`
-2. **Backend (Requerido para Reclamaciones):** 
+2. **Variables de Entorno:** Copiar el archivo [.env.local.example](file:///C:/Users/LJCR/Documents/GitHub/MyAppGlass/.env.local.example) como `.env` o `.env.local` y configurar las claves de Firebase, Google Maps y las URLs de los endpoints del backend.
+3. **Backend (Requerido para Reclamaciones):** 
    - Tener Java OpenJDK 25 instalado.
    - `cd functions && pnpm run dev` (Inicia emuladores).
-3. **Frontend:** `pnpm run dev`
+4. **Frontend:** `pnpm run dev`
 
 ### Scripts Principales
 - `pnpm run py`: Ejecuta el pipeline completo (Optimización de imágenes -> Build -> Typecheck -> Preview).

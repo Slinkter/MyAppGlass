@@ -44,10 +44,10 @@ const FloatingWhatsApp = () => {
       <Box
         position="fixed"
         bottom={{ base: 6, md: 4 }}
-        left={{ base: "auto", md: "auto" }}
-        right={{ base: 4, md: 4 }}
+        left="auto"
+        right={4}
         zIndex="popover"
-        display="flex"
+        display={{ base: "none", md: "flex" }}
         css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))" }}
       >
         <Button
