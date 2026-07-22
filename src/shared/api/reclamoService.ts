@@ -28,6 +28,8 @@ export interface ReclamationData {
   pedido: string;
   aceptaTerminos: boolean;
   autorizaEmail: boolean;
+  hp_confirm?: string;
+  _ts?: number;
 }
 
 /**

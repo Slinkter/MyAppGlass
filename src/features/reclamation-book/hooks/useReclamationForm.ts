@@ -21,6 +21,7 @@ const initialState: ReclamationFormState = {
   pedido: "",
   aceptaTerminos: false,
   autorizaEmail: false,
+  hp_confirm: "",
   archivos: [],
 };
 
@@ -50,6 +51,7 @@ const validateForm = (formData: ReclamationFormState): FormErrors => {
  */
 export const useReclamationForm = (): ReclamationFormContextValue => {
   const [formData, setFormData] = useState<ReclamationFormState>(initialState);
+  const [formLoadTime] = useState<number>(() => Date.now());
   const [errors, setErrors] = useState<FormErrors>({});
   const [isOpen, setIsOpen] = useState(false);
   const [newReclamationId, setNewReclamationId] = useState("");
@@ -116,7 +118,10 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
       try {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { archivos: _archivos, ...rest } = formData;
-        const result = await submitReclamationAction(rest);
+        const result = await submitReclamationAction({
+          ...rest,
+          _ts: formLoadTime,
+        });
 
         toaster.dismiss(toastId);
 

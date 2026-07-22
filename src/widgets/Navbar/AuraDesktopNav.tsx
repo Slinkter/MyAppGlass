@@ -6,13 +6,12 @@
  * Optimized for GYA Glass & Aluminum's minimalist aesthetic.
  */
 import React from "react";
-import { HStack, Box, Text, IconButton, Separator } from "@chakra-ui/react";
+import { HStack, Box, Text } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
-import { Sun, Moon } from "lucide-react";
 import { m } from "framer-motion";
 import NAV_ITEMS from "@/shared/config/nav-items";
-import { useColorModeValue, useColorMode } from "@/components/ui/color-mode-hooks";
+import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 /**
  * @component NavText
@@ -51,9 +50,6 @@ const subscribeMounted = () => () => {};
 const AuraDesktopNav = () => {
   const mounted = React.useSyncExternalStore(subscribeMounted, getMountedSnapshot, getMountedServerSnapshot);
   const pathname = usePathname();
-  const { colorMode, toggleColorMode } = useColorMode();
-  const separatorColor = useColorModeValue("blackAlpha.300", "whiteAlpha.300");
-  const toggleHoverBg = useColorModeValue("blackAlpha.100", "whiteAlpha.200");
   
   // Design Tokens adaptativos con identidad de marca (Monochrome minimal version, "rojo sobra")
   const activeBg = useColorModeValue(
@@ -150,29 +146,7 @@ const AuraDesktopNav = () => {
         })}
       </HStack>
 
-      {/* Separator and ColorMode Toggle: Only mounted in client to prevent hydration mismatches */}
-      {mounted && (
-        <>
-          <Separator
-            orientation="vertical"
-            height="28px"
-            borderColor={separatorColor}
-          />
-          <IconButton
-            variant="ghost"
-            aria-label="Cambiar modo claro/oscuro"
-            onClick={toggleColorMode}
-            size="sm"
-            borderRadius="full"
-            color={colorMode === "dark" ? "yellow.300" : "purple.600"}
-            bg={colorMode === "dark" ? "whiteAlpha.200" : "blackAlpha.100"}
-            _hover={{ bg: toggleHoverBg }}
-            mr="3"
-          >
-            {colorMode === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </IconButton>
-        </>
-      )}
+
     </Box>
   );
 };

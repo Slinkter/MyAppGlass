@@ -73,7 +73,20 @@ async function sendEmailLogic(reclamoData, admin) {
     throw new HttpsError("failed-precondition", "Configuración de servidor incompleta.");
   }
 
-  logger.info("STEP 1: Validando campos obligatorios...");
+  logger.info("STEP 1: Validando anti-bot y campos obligatorios...");
+
+  // Anti-bot Honeypot check: If invisible field is filled, silently discard
+  if (reclamoData.hp_confirm || reclamoData.website_hp) {
+    logger.warn("BOT_BLOCKED: Honeypot field filled", { email: reclamoData.email });
+    return { id: "spambot_blocked" };
+  }
+
+  // Anti-bot Duration check: If submission took less than 2.5 seconds
+  if (reclamoData._ts && (Date.now() - Number(reclamoData._ts)) < 2500) {
+    logger.warn("BOT_BLOCKED: Submission too fast", { durationMs: Date.now() - Number(reclamoData._ts) });
+    throw new HttpsError("invalid-argument", "Envío no válido por velocidad inusual.");
+  }
+
   if (!reclamoData.email || !reclamoData.nombreCompleto) {
     logger.warn("VALIDATION_ERROR: Faltan datos críticos", { 
       hasEmail: !!reclamoData.email, 
@@ -194,6 +207,18 @@ async function sendContactEmailLogic(contactData, admin) {
   if (!ADMIN_RECIPIENT) {
     logger.error("MISSING_SECRET: ADMIN_EMAIL is not defined.");
     throw new HttpsError("failed-precondition", "Configuración de servidor incompleta.");
+  }
+
+  // Anti-bot Honeypot check
+  if (contactData.hp_confirm || contactData.website_hp) {
+    logger.warn("BOT_BLOCKED: Honeypot field filled", { email: contactData.email });
+    return { id: "spambot_blocked" };
+  }
+
+  // Anti-bot Duration check
+  if (contactData._ts && (Date.now() - Number(contactData._ts)) < 2500) {
+    logger.warn("BOT_BLOCKED: Submission too fast", { durationMs: Date.now() - Number(contactData._ts) });
+    throw new HttpsError("invalid-argument", "Envío no válido por velocidad inusual.");
   }
 
   if (!contactData.email || !contactData.name || !contactData.message) {

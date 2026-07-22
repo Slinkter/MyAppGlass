@@ -9,6 +9,7 @@ interface ContactFormState {
   email: string;
   message: string;
   acceptedTerms: boolean;
+  hp_confirm: string;
 }
 
 export interface TrackingResult {
@@ -25,7 +26,9 @@ export const useContactForm = () => {
     email: "",
     message: "",
     acceptedTerms: false,
+    hp_confirm: "",
   });
+  const [formLoadTime] = useState<number>(() => Date.now());
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Tracking State
@@ -98,7 +101,10 @@ export const useContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const result = await submitContactAction(formData);
+      const result = await submitContactAction({
+        ...formData,
+        _ts: formLoadTime,
+      });
       
       if (result.success) {
         toaster.create({
@@ -106,7 +112,7 @@ export const useContactForm = () => {
           description: "Gracias por contactarnos. Te responderemos en menos de 24 horas.",
           type: "success",
         });
-        setFormData({ name: "", email: "", message: "", acceptedTerms: false });
+        setFormData({ name: "", email: "", message: "", acceptedTerms: false, hp_confirm: "" });
       } else {
         throw new Error(result.error);
       }
