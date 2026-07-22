@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-07-22] - Google Maps API Key Deployment Fix
+
+### Fixed
+- **Google Maps API Key Embebida**: Se solucionó el problema donde el entorno de producción en Firebase Hosting no reconocía la API Key de Google Maps (mostrando el mensaje "For development purposes only"). Se realizó un despliegue forzado (`deploy:hosting`) asegurando que el archivo `.env.local` fuera leído por Next.js durante la construcción estática (`next build`), inyectando correctamente la variable `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` en el bundle final.
+
 ## [2026-06-20] - Environment Recovery & Mobile Layout Fixes
 
 ### Added
