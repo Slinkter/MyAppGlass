@@ -23,6 +23,17 @@ const DeclarationSection: React.FC = () => {
         4. Declaración y Envío
       </Heading>
 
+      <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
+        <input
+          type="text"
+          name="hp_confirm"
+          tabIndex={-1}
+          autoComplete="off"
+          value={formData.hp_confirm || ""}
+          onChange={handleInputsChange}
+        />
+      </div>
+
       <Text fontSize="sm" color="text.muted">
         * La respuesta a la presente será remitida al correo electrónico
         consignado en un plazo no mayor a 15 días hábiles, según el D.S. N°

@@ -196,6 +196,17 @@ export default function ContactPageClient() {
               </VStack>
               
               <VStack w="full" gap="6">
+                <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                  <input 
+                    type="text" 
+                    name="hp_confirm" 
+                    tabIndex={-1} 
+                    autoComplete="off"
+                    value={formData.hp_confirm}
+                    onChange={handleChange}
+                  />
+                </div>
+
                 <Box w="full">
                   <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">NOMBRE COMPLETO</Text>
                   <Input 

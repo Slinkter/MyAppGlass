@@ -9,6 +9,8 @@ export interface ContactData {
   name: string;
   email: string;
   message: string;
+  hp_confirm?: string;
+  _ts?: number;
 }
 
 /**
