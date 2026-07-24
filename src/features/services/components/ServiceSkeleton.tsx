@@ -19,15 +19,15 @@ import { Skeleton, SkeletonCircle } from "@/components/ui/skeleton";
  */
 const ServiceSkeleton: React.FC = () => {
     return (
-        <Container maxW="7xl" px="0" pt={{ base: 4, md: 8 }} pb={{ base: "16", lg: "10" }}>
-            <VStack gap={{ base: "6", lg: "8" }} align="stretch">
+        <Container maxW="7xl" px="0" pt={{ base: "2", md: "5" }} pb={{ base: "14", lg: "8" }}>
+            <VStack gap={{ base: "5", lg: "8" }} align="stretch">
                 
                 {/* Header Section Skeleton */}
                 <Flex 
                     direction={{ base: "column", md: "row" }} 
                     justify="space-between" 
                     align={{ base: "flex-start", md: "flex-end" }} 
-                    gap="4"
+                    gap="5"
                 >
                     <VStack gap="2" align="flex-start">
                         {/* Back Button Skeleton */}
@@ -47,7 +47,7 @@ const ServiceSkeleton: React.FC = () => {
                 {/* 2-Column Grid Skeleton (Matches ServicePageLayout.tsx) */}
                 <Grid
                     templateColumns={{ base: "1fr", lg: "repeat(12, 1fr)" }}
-                    gap={{ base: "6", lg: "8" }}
+                    gap={{ base: "5", lg: "8" }}
                     alignItems="stretch"
                     h={{ lg: "530px", xl: "550px" }}
                 >
@@ -76,23 +76,23 @@ const ServiceSkeleton: React.FC = () => {
                                 bg="bg.subtle" 
                                 borderRadius="3xl" 
                                 borderWidth="1px" 
-                                borderColor="border.subtle"
-                                p="6"
+                                borderColor="border.default"
+                                p="5"
                                 w="full"
                             >
                                 <Skeleton height="14px" width="100px" mb="3" borderRadius="full" />
-                                <VStack align="stretch" gap="2.5" mb="4">
+                                <VStack align="stretch" gap="3" mb="5">
                                     <Skeleton height="12px" width="100%" borderRadius="md" />
                                     <Skeleton height="12px" width="95%" borderRadius="md" />
                                     <Skeleton height="12px" width="45%" borderRadius="md" />
                                 </VStack>
 
-                                <Box h="1px" bg="border.default" my="4" opacity={0.6} />
+                                <Box h="1px" bg="border.default" my="5" opacity={0.6} />
 
-                                <Skeleton height="14px" width="130px" mb="4" borderRadius="full" />
+                                <Skeleton height="14px" width="130px" mb="5" borderRadius="full" />
                                 <SimpleGrid columns={{ base: 1, sm: 2 }} gap="3">
                                     {Array.from({ length: 6 }).map((_, i) => (
-                                        <HStack key={i} gap="2.5" align="center">
+                                        <HStack key={i} gap="3" align="center">
                                             <SkeletonCircle size="3.5" />
                                             <Skeleton height="10px" width="75%" borderRadius="md" />
                                         </HStack>
@@ -106,7 +106,7 @@ const ServiceSkeleton: React.FC = () => {
                                 display="flex" 
                                 flexDirection="column"
                                 bg="bg.subtle"
-                                _dark={{ bg: "black", borderColor: "border.subtle" }}
+                                _dark={{ bg: "black", borderColor: "border.default" }}
                                 borderRadius="3xl" 
                                 p="5"
                                 borderWidth="1px"

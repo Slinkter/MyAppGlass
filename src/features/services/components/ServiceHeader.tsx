@@ -53,7 +53,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
             size={{ base: "sm", md: "md" }}
             variant={isActive ? "aura" : "ghost"}
             borderRadius="full"
-            px={{ base: 5, md: 6 }}
+            px="5"
             flexShrink={0}
             fontWeight={isActive ? "bold" : "medium"}
             transition="all 0.2s ease"
@@ -76,9 +76,9 @@ interface ServiceHeaderProps {
 
 const ServiceHeader: React.FC<ServiceHeaderProps> = ({ title, systems, activeIndex, onSelect }) => {
   return (
-    <VStack gap="4" align="stretch">
-      <Flex direction={{ base: "column", md: "row" }} justify="space-between" align={{ base: "flex-start", md: "flex-end" }} gap="4">
-        <VStack gap="1" align="flex-start">
+    <VStack gap="5" align="stretch">
+      <Flex direction={{ base: "column", md: "row" }} justify="space-between" align={{ base: "flex-start", md: "flex-end" }} gap="5">
+        <VStack gap="2" align="flex-start">
           <BackButton to="/servicios" />
           <Heading as="h1" size={{ base: "xl", md: "2xl" }} fontWeight="black" letterSpacing="tight" color="text.heading">
             {title}

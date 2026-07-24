@@ -2,14 +2,14 @@ import { useColorMode } from "@/components/ui/color-mode-hooks";
 import React, { useMemo, useCallback } from "react";
 import { Box } from "@chakra-ui/react";
 import { GoogleMap } from "@react-google-maps/api";
-import { useGoogleMapsLoader, useMapIcons, useMapState } from "@/features/home/hooks";
-import { mapStyles } from "@/features/home/components/store/map/mapStyles";
-import CustomMarker from "@/features/home/components/store/map/CustomMarker";
-import MapLoader from "@/features/home/components/store/map/MapLoader";
-import MapError from "@/features/home/components/store/map/MapError";
-import MapControls from "@/features/home/components/store/map/MapControls";
-import { Project } from "@/shared/types/project";
-import type { MapProject } from "@/features/home/hooks/useMapProjects";
+import { useGoogleMapsLoader, useMapIcons, useMapState } from "@/shared/hooks/map";
+import { mapStyles } from "@/shared/components/map/mapStyles";
+import CustomMarker from "@/shared/components/map/CustomMarker";
+import MapLoader from "@/shared/components/map/MapLoader";
+import MapError from "@/shared/components/map/MapError";
+import MapControls from "@/shared/components/map/MapControls";
+import type { Project } from "@/shared/types/project";
+import type { MapProject } from "@/shared/types/map";
 
 const containerStyle = {
   width: "100%",

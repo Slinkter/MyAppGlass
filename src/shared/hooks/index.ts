@@ -13,3 +13,4 @@ export { default as useFilterableList } from "./ui/useFilterableList";
 export { default as useIntersectionObserver } from "./observers/useIntersectionObserver";
 
 // Data Hooks
+export { default as useFirestoreQuery } from "./firebase/useFirestoreQuery";

@@ -20,7 +20,7 @@ const shimmer = keyframes`
 const AuraSkeleton: React.FC<SkeletonProps> = ({ ...props }) => {
   return (
     <Skeleton
-      borderRadius="phi"
+      borderRadius="xl"
       css={{
         animationDuration: "2s !important",
         "&::after": {

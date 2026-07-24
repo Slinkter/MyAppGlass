@@ -45,7 +45,7 @@ const ServiceListSkeleton: React.FC = () => {
                         bottom={0}
                         left={0}
                         right={0}
-                        p={{ base: "4", md: "6" }}
+                        p="5"
                         display="flex"
                         flexDirection="column"
                         alignItems="center"
@@ -54,8 +54,8 @@ const ServiceListSkeleton: React.FC = () => {
                         {/* Title Placeholder */}
                         <Skeleton height="24px" width="60%" borderRadius="md" />
 
-                        {/* Button Area Placeholder - MATCHES VStack mt="6" and gap="4" */}
-                        <VStack mt={{ base: "3", md: "6" }} gap="4" w="full">
+                        {/* Button Area Placeholder - MATCHES VStack mt="5" and gap="5" */}
+                        <VStack mt={{ base: "3", md: "5" }} gap="5" w="full">
                             <Skeleton 
                                 height="32px" 
                                 width="140px" 

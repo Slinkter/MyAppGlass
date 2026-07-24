@@ -45,7 +45,7 @@ const ClaimDetailSection: React.FC = () => {
           <NativeSelectField
             name="tipoSolicitud"
             value={formData.tipoSolicitud}
-            onChange={handleInputsChange as React.ChangeEventHandler<HTMLSelectElement>}
+            onChange={handleInputsChange}
             placeholder="Seleccionar"
           >
             <option value="Reclamo">
@@ -66,7 +66,7 @@ const ClaimDetailSection: React.FC = () => {
           variant="subtle"
           name="detalle"
           value={formData.detalle}
-          onChange={handleInputsChange as React.ChangeEventHandler<HTMLTextAreaElement>}
+          onChange={handleInputsChange}
           placeholder="Describa aquí qué sucedió..."
         />
       </Field>
@@ -81,7 +81,7 @@ const ClaimDetailSection: React.FC = () => {
           variant="subtle"
           name="pedido"
           value={formData.pedido}
-          onChange={handleInputsChange as React.ChangeEventHandler<HTMLTextAreaElement>}
+          onChange={handleInputsChange}
           placeholder="Ej: Devolución del dinero, cambio del producto, etc."
         />
       </Field>

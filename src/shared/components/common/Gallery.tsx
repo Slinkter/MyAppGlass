@@ -14,12 +14,12 @@ import dynamic from "next/dynamic";
 
 const InternalViewer = dynamic(() => import("./gallery/GalleryViewer"), {
   ssr: false, // Opcional, pero recomendado para galerías pesadas
-  loading: () => <Box h="400px" bg="bg.panel" borderRadius="3xl" />
+  loading: () => <Box h="400px" bg="bg.subtle" borderRadius="3xl" />
 });
 
 const InternalThumbnails = dynamic(() => import("./gallery/GalleryThumbnails"), {
   ssr: false,
-  loading: () => <Box h="100px" bg="bg.panel" borderRadius="xl" />
+  loading: () => <Box h="100px" bg="bg.subtle" borderRadius="xl" />
 });
 import { GalleryItem } from "@/shared/types/gallery";
 

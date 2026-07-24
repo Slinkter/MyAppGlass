@@ -3,7 +3,18 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toaster } from "@/components/ui/toaster-instance";
 import { submitReclamationAction } from "../actions";
-import { ReclamationFormState, FormErrors, ReclamationFormContextValue } from "../types";
+import { ReclamationFormState, FormErrors, ReclamationFormContextValue, InputChangeEvent } from "../types";
+import {
+  sanitizeSingleLine,
+  sanitizeMultilineText,
+  sanitizeEmail,
+  sanitizePhone,
+  sanitizeDocumentNumber,
+  sanitizeReclamationData,
+  isValidTipoDocumento,
+  isValidTipoBien,
+  isValidTipoSolicitud,
+} from "../utils/sanitizer";
 
 const initialState: ReclamationFormState = {
   nombreCompleto: "",
@@ -25,26 +36,59 @@ const initialState: ReclamationFormState = {
   archivos: [],
 };
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const validateForm = (formData: ReclamationFormState): FormErrors => {
   const errors: FormErrors = {};
-  if (!formData.nombreCompleto.trim()) errors.nombreCompleto = "El nombre completo es requerido.";
-  if (!formData.domicilio.trim()) errors.domicilio = "El domicilio es requerido.";
-  if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = "El formato del email es inválido.";
-  if (!formData.telefono.trim()) errors.telefono = "El teléfono es requerido.";
-  if (!formData.tipoDocumento) errors.tipoDocumento = "Debe seleccionar un tipo de documento.";
-  if (!formData.numeroDocumento.trim()) errors.numeroDocumento = "El número de documento es requerido.";
-  if (!formData.tipoBien) errors.tipoBien = "Debe seleccionar un tipo de bien.";
-  if (!formData.descripcionBien.trim()) errors.descripcionBien = "La descripción es requerida.";
-  if (!formData.tipoSolicitud) errors.tipoSolicitud = "Debe seleccionar un tipo de solicitud.";
-  if (!formData.detalle.trim()) errors.detalle = "El detalle de la solicitud es requerido.";
-  if (!formData.pedido.trim()) errors.pedido = "El pedido es requerido.";
-  if (!formData.aceptaTerminos) errors.aceptaTerminos = "Debe aceptar los términos y la política de privacidad.";
-  if (!formData.autorizaEmail) errors.autorizaEmail = "Debe autorizar el envío de la respuesta a su email.";
+
+  if (!sanitizeSingleLine(formData.nombreCompleto)) {
+    errors.nombreCompleto = "El nombre completo es requerido.";
+  }
+  if (!sanitizeSingleLine(formData.domicilio)) {
+    errors.domicilio = "El domicilio es requerido.";
+  }
+
+  const cleanEmail = sanitizeEmail(formData.email);
+  if (!cleanEmail || !EMAIL_REGEX.test(cleanEmail)) {
+    errors.email = "El formato del email es inválido.";
+  }
+
+  if (!sanitizePhone(formData.telefono)) {
+    errors.telefono = "El teléfono es requerido.";
+  }
+  if (!formData.tipoDocumento || !isValidTipoDocumento(formData.tipoDocumento)) {
+    errors.tipoDocumento = "Debe seleccionar un tipo de documento válido.";
+  }
+  if (!sanitizeDocumentNumber(formData.numeroDocumento)) {
+    errors.numeroDocumento = "El número de documento es requerido.";
+  }
+  if (!formData.tipoBien || !isValidTipoBien(formData.tipoBien)) {
+    errors.tipoBien = "Debe seleccionar un tipo de bien válido.";
+  }
+  if (!sanitizeMultilineText(formData.descripcionBien)) {
+    errors.descripcionBien = "La descripción es requerida.";
+  }
+  if (!formData.tipoSolicitud || !isValidTipoSolicitud(formData.tipoSolicitud)) {
+    errors.tipoSolicitud = "Debe seleccionar un tipo de solicitud válido.";
+  }
+  if (!sanitizeMultilineText(formData.detalle)) {
+    errors.detalle = "El detalle de la solicitud es requerido.";
+  }
+  if (!sanitizeMultilineText(formData.pedido)) {
+    errors.pedido = "El pedido es requerido.";
+  }
+  if (!formData.aceptaTerminos) {
+    errors.aceptaTerminos = "Debe aceptar los términos y la política de privacidad.";
+  }
+  if (!formData.autorizaEmail) {
+    errors.autorizaEmail = "Debe autorizar el envío de la respuesta a su email.";
+  }
+
   return errors;
 };
 
 /**
- * Custom hook to manage the reclamation form logic.
+ * Custom hook to manage the reclamation form logic with strict validation and sanitization.
  * Standardized for Chakra v3.
  *
  * @returns {ReclamationFormContextValue} State, handlers and modal props.
@@ -57,9 +101,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
   const [newReclamationId, setNewReclamationId] = useState("");
   const router = useRouter();
 
-  const handleInputsChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> | { target: { name: string; type: string; checked: boolean | "indeterminate" } }
-  ) => {
+  const handleInputsChange = (e: InputChangeEvent) => {
     let name: string;
     let value: string | undefined;
     let type: string | undefined;
@@ -79,7 +121,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
 
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? Boolean(checked) : value ?? "",
     }));
 
     if (errors[name as keyof ReclamationFormState]) {
@@ -117,11 +159,13 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
 
       try {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { archivos: _archivos, ...rest } = formData;
-        const result = await submitReclamationAction({
-          ...rest,
+        const { archivos: _archivos, ...rawPayload } = formData;
+        const sanitizedPayload = sanitizeReclamationData({
+          ...rawPayload,
           _ts: formLoadTime,
         });
+
+        const result = await submitReclamationAction(sanitizedPayload);
 
         toaster.dismiss(toastId);
 
@@ -137,7 +181,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
             duration: 5000,
           });
         } else {
-          throw new Error(result.error);
+          throw new Error(result.error || "Error al registrar el reclamo.");
         }
       } catch (error: unknown) {
         toaster.dismiss(toastId);

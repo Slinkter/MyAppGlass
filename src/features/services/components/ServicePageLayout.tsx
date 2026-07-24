@@ -37,8 +37,8 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
   return (
     <Box animation="fadeIn 0.4s ease-out">
-      <Container maxW="7xl" px="0" pt={{ base: 4, md: 8 }} pb={{ base: "16", lg: "10" }}>
-        <VStack gap={{ base: "6", lg: "8" }} align="stretch">
+      <Container maxW="7xl" px="0" pt={{ base: "2", md: "5" }} pb={{ base: "14", lg: "8" }}>
+        <VStack gap={{ base: "5", lg: "8" }} align="stretch">
           <ServiceHeader 
             title={seo.title}
             systems={systems}
@@ -48,7 +48,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
           <Grid
             templateColumns={{ base: "1fr", lg: "repeat(12, 1fr)" }}
-            gap={{ base: "6", lg: "8" }}
+            gap={{ base: "5", lg: "8" }}
             alignItems="stretch"
             h={{ lg: "530px", xl: "550px" }}
           >
@@ -80,7 +80,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                       <Gallery images={activeImageList}>
                         <Flex
                           direction={{ base: "column", md: "row" }}
-                          gap={{ base: "4", md: "8" }}
+                          gap={{ base: "5", md: "8" }}
                           h="100%"
                           w="100%"
                           minW={0}

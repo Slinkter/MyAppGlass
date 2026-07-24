@@ -1,18 +1,9 @@
 import { useState, useEffect } from "react";
-import { getProjects, type Project } from "@/features/projects/services/projectService";
+import { getProjects } from "@/shared/services/projectService";
+import type { Project } from "@/shared/types/project";
+import type { MapProject } from "@/shared/types/map";
 
-export interface MapProject {
-  id: string | number;
-  name: string;
-  residencial: string;
-  address: string;
-  year: string;
-  image?: string;
-  photosObra?: Array<{ id: number; image: string; name?: string }>;
-  type: "project";
-  client: string;
-  position: { lat: number; lng: number };
-}
+export type { MapProject } from "@/shared/types/map";
 
 export const useMapProjects = (): MapProject[] => {
   const [projects, setProjects] = useState<MapProject[]>([]);

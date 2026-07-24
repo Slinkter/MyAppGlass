@@ -6,7 +6,11 @@
   "mcp": {
     "allowed": [
       "next-devtools",
-      "chakra-ui"
+      "chakra-ui",
+      "playwright",
+      "firebase-mcp-server",
+      "fetch",
+      "filesystem"
     ]
   },
   "mcpServers": {
@@ -21,7 +25,37 @@
       "command": "npx",
       "args": [
         "-y",
-        "@chakra-ui/react-mcp@latest"
+        "@chakra-ui/react-mcp"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp"
+      ]
+    },
+    "firebase-mcp-server": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "firebase-tools@latest",
+        "mcp"
+      ]
+    },
+    "fetch": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-fetch"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/mnt/c/Users/luisj/Desktop/Github/MyAppGlass"
       ]
     }
   },

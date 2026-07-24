@@ -2,7 +2,7 @@
  * @file index.ts
  * @description Aura Design System - Chakra UI v3 Core Configuration.
  * Single source of truth for design tokens, component recipes, and semantic themes.
- * Optimized for GYA Glass & Aluminum aesthetics: Zinc Scale, Fibonacci Spacing, Clean surfaces.
+ * Optimized for GYA Glass & Aluminum aesthetics: Zinc Scale, Clean surfaces.
  */
 
 import { createSystem, defineConfig, defaultConfig, defineRecipe, defineSlotRecipe } from "@chakra-ui/react";
@@ -10,7 +10,7 @@ import { createSystem, defineConfig, defaultConfig, defineRecipe, defineSlotReci
 // ─── Component Recipes (v3 Architecture) ───────────────────────────────────
 
 /**
- * Custom variants for the Aura system with Fibonacci spacing.
+ * Custom variants for the Aura system.
  */
 const buttonRecipe = defineRecipe({
   base: {
@@ -214,7 +214,6 @@ const config = defineConfig({
         "46": { value: "11.5rem" },
       },
       radii: {
-        phi: { value: "1.618rem" },
         card: { value: "16px" },
         modal: { value: "24px" },
       },

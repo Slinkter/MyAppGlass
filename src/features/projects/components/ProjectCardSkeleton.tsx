@@ -31,7 +31,7 @@ const ProjectCardSkeleton: React.FC = () => {
                 bottom={0}
                 left={0}
                 right={0}
-                p={{ base: "4", md: "6" }}
+                p={{ base: "5", md: "5" }}
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
@@ -42,8 +42,8 @@ const ProjectCardSkeleton: React.FC = () => {
                 <Skeleton height={{ base: "20px", md: "28px" }} width="60%" borderRadius="full" />
 
                 {/* Info (Address & Year) */}
-                <VStack gap="6" w="full" mt={{ base: "3", md: "6" }}>
-                    <HStack justify="center" gap="4" w="full">
+                <VStack gap="5" w="full" mt={{ base: "3", md: "5" }}>
+                    <HStack justify="center" gap="5" w="full">
                         <Skeleton height="14px" width="40%" borderRadius="full" />
                         <Box w="1px" h="3" bg="whiteAlpha.400" />
                         <Skeleton height="14px" width="15%" borderRadius="full" />

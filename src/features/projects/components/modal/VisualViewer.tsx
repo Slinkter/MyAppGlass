@@ -86,7 +86,7 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
                 <Gallery images={galleryImages}>
                   <Flex
                     direction={{ base: "column", md: "row" }}
-                    gap={{ base: "6", md: "8" }}
+                    gap={{ base: "5", md: "8" }}
                     h="100%"
                     w="100%"
                     minW={0}

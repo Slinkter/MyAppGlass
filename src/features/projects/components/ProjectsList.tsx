@@ -96,15 +96,15 @@ const ProjectsList: React.FC = React.memo(() => {
       columns={{ base: 1, md: 2, lg: 3 }}
     >
       {/* Filter Pills */}
-      <Box gridColumn="1 / -1" w="full" mt="4">
-        <HStack gap="2" justify="center" flexWrap="wrap" pb="6">
+      <Box gridColumn="1 / -1" w="full" mt="5">
+        <HStack gap="2" justify="center" flexWrap="wrap" pb="5">
           {years.map((year) => {
             const isActive = activeYear === year;
             return (
               <Button
                 key={year}
                 size="sm"
-                px={5}
+                px="5"
                 mt="2"
                 borderRadius="full"
                 fontWeight="semibold"
