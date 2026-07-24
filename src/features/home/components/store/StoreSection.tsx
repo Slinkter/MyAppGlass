@@ -29,19 +29,20 @@ const StoreSection: React.FC = React.memo(() => {
 
   const handleMarkerToggle = useCallback((marker: MarkerType) => {
     if (isMobile) return; // Bloquear selección en móvil
-    setSelectedMarker((prev) => (prev?.id === marker?.id ? null : marker));
+    setSelectedMarker((prev) => {
+      const next = prev?.id === marker?.id ? null : marker;
+      if (next && infoCardRef.current && typeof window !== "undefined" && window.innerWidth < 992) {
+        requestAnimationFrame(() => {
+          infoCardRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "nearest"
+          });
+        });
+      }
+      return next;
+    });
   }, [isMobile]);
-
-  // Autofocus/Scroll on mobile when marker is selected
-  useEffect(() => {
-    if (selectedMarker && infoCardRef.current && window.innerWidth < 992) {
-      infoCardRef.current.scrollIntoView({ 
-        behavior: "smooth", 
-        block: "nearest", 
-        inline: "nearest" 
-      });
-    }
-  }, [selectedMarker]);
 
   const isStore = selectedMarker?.type === "store";
   const displaySelected = isMobile ? false : !!selectedMarker;
