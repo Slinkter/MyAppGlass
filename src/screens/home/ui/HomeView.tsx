@@ -17,7 +17,7 @@ const HomeView: React.FC = React.memo(() => {
     return (
         <VStack gap="16" w="full" align="stretch">
             <LandingPageSection />
-            
+
             <Suspense fallback={<SectionSkeleton h="300px" />}>
                 <ClientsSection />
             </Suspense>
