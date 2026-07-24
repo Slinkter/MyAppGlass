@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
 import { Box, VStack } from "@chakra-ui/react";
 import { AnimatePresence, m } from "framer-motion";
