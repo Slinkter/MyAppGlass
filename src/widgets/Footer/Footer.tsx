@@ -29,7 +29,7 @@ import Link from "next/link";
 import Image from "next/image";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/logosvg.svg";
-import { ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 import NAV_ITEMS from "@/shared/config/nav-items";
 
 // SVG Oficial de WhatsApp para consistencia visual en el Footer (viewBox 0 0 16 16)
@@ -46,7 +46,7 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 interface FooterRowProps {
-    icon?: any;
+    icon?: ElementType;
     children: ReactNode;
     to?: string;
     isExternal?: boolean;

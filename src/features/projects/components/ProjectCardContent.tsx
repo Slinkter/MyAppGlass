@@ -59,7 +59,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           bottom: "-2",
           left: "50%",
           transform: "translateX(-50%)",
-          width: isLoaded ? "8" : "0",
+          width: isLoaded ? "32px" : "0",
           height: "2px",
           bg: isHovered ? "primary.300" : "white",
           transition: "width 0.4s ease, background 0.3s ease",
@@ -122,7 +122,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
     );
 
     const metadata = (
-      <HStack justify="center" gap="4" w="full" mt="6">
+      <HStack justify="center" gap="5" w="full" mt="5">
         <HStack gap="2">
           <Box as={MapPin} w={3.5} h={3.5} color="text.accent" />
           <Text

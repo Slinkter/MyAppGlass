@@ -53,7 +53,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
       <VStack
         flex={{ base: "none", lg: "1" }}
         w="100%"
-        p={{ base: "6", md: "8" }}
+        p={{ base: "5", md: "8" }}
         bg="bg.subtle"
         borderRadius="2xl"
         border="1px solid"
@@ -61,7 +61,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
         h={{ base: "auto", lg: "full" }}
         align="stretch"
         justify="space-between"
-        gap="6"
+        gap="5"
         overflowY="auto"
       >
         <Box>
@@ -74,14 +74,14 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
             mb="8"
             display="flex"
             alignItems="center"
-            gap="4"
+            gap="5"
           >
             <Box w="20px" h="1px" bg="primary.500" /> Especificaciones Técnicas
           </Heading>
           
           <Grid
             templateColumns={{ base: "1fr", sm: "1fr 1fr", lg: "1fr" }}
-            gap="6"
+            gap="5"
           >
             <Box>
               <ProjectDetailItem
@@ -118,12 +118,12 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
         </Box>
 
         {/* View Switcher - Reubicado al pie de la ficha */}
-        <VStack gap="6" w="full" pt="6" borderTop="1px solid" borderColor="border.glass">
+        <VStack gap="5" w="full" pt="5" borderTop="1px solid" borderColor="border.glass">
           <Text fontSize="10px" fontWeight="bold" color="text.muted" letterSpacing="0.1em" textTransform="uppercase">
             Visualización de Obra
           </Text>
-          <Box w="full" position="relative" bg="bg.panel" borderRadius="full" p="1" border="1px solid" borderColor="border.default">
-            <Flex w="full" gap="1" position="relative">
+          <Box w="full" position="relative" bg="surface.card" borderRadius="full" p="2" border="1px solid" borderColor="border.default">
+            <Flex w="full" gap="2" position="relative">
               <Button
                 flex="1"
                 onClick={() => setViewMode("map")}
@@ -133,7 +133,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
                 color={viewMode === "map" ? activeColor : inactiveColor}
                 _hover={{ bg: "transparent" }}
                 transition="color 0.25s ease"
-                py="6"
+                py="5"
               >
                 {viewMode === "map" && (
                   <m.div
@@ -161,7 +161,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
                 color={viewMode === "gallery" ? activeColor : inactiveColor}
                 _hover={{ bg: "transparent" }}
                 transition="color 0.25s ease"
-                py="6"
+                py="5"
               >
                 {viewMode === "gallery" && (
                   <m.div

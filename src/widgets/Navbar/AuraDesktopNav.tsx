@@ -82,7 +82,7 @@ const AuraDesktopNav = () => {
         padding: "var(--chakra-spacing-2)",
         display: "flex",
         alignItems: "center",
-        gap: "4px",
+        gap: "var(--chakra-spacing-2)",
         boxShadow: navShadow
       }}
     >
@@ -98,7 +98,7 @@ const AuraDesktopNav = () => {
                 style={{ textDecoration: "none" }}
               >
                 <Box
-                  px="5"
+                  px="3"
                   h="11"
                   display="flex"
                   alignItems="center"

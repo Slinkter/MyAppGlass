@@ -1,41 +1,8 @@
 /**
  * @file projectService.ts
- * @description Service layer for managing and retrieving project portfolio data.
+ * @description Service layer for managing and retrieving project portfolio data (re-exports from shared).
  * @module projects/services
  */
 
-import { projects, Project as DataProject, ProjectPhoto as DataProjectPhoto } from "../data/projects";
-
-/**
- * Representa la estructura de una imagen de proyecto.
- */
-export type ProjectPhoto = DataProjectPhoto;
-
-/**
- * Representa la estructura de un proyecto individual.
- */
-export type Project = DataProject;
-
-/**
- * Returns the list of all projects and their associated data.
- *
- * @returns {Project[]} Array of project objects.
- */
-export const getProjects = (): Project[] => {
-  return projects as Project[];
-};
-
-// O(1) Lookup Map para Proyectos
-const projectsByIdMap = new Map<string, Project>(
-  (projects as Project[]).map(project => [String(project.id), project])
-);
-
-/**
- * Retrieves a single project by its unique identifier.
- *
- * @param {string|number} id - The unique ID of the project to retrieve.
- * @returns {Project|undefined} The project object or undefined if not found.
- */
-export const getProjectById = (id: string | number): Project | undefined => {
-  return projectsByIdMap.get(String(id));
-};
+export { getProjects, getProjectById } from "@/shared/services/projectService";
+export type { Project, ProjectPhoto } from "@/shared/types/project";

@@ -23,8 +23,8 @@ const ProjectPhotoAlbum: React.FC<ProjectPhotoAlbumProps> = React.memo(({ photos
     <ScrollAreaRoot h="full" w="full">
       <ScrollAreaViewport>
         <Box
-          p={{ base: "6", md: "8" }}
-          pb="36"
+          p={{ base: "5", md: "8" }}
+          pb="22"
         >
           <Box
             display="grid"
@@ -67,7 +67,7 @@ const ProjectPhotoAlbum: React.FC<ProjectPhotoAlbumProps> = React.memo(({ photos
           </Box>
           
           {/* Spacer for bottom docked controls */}
-          <Box h="36" w="100%" /> 
+          <Box h="22" w="100%" /> 
         </Box>
       </ScrollAreaViewport>
       <ScrollAreaScrollbar orientation="vertical" />

@@ -45,7 +45,7 @@ const ProductSection: React.FC = () => {
             <NativeSelectField
               name="tipoBien"
               value={formData.tipoBien}
-              onChange={handleInputsChange as React.ChangeEventHandler<HTMLSelectElement>}
+              onChange={handleInputsChange}
               placeholder="Seleccionar"
             >
               <option value="producto">Producto</option>
@@ -62,7 +62,7 @@ const ProductSection: React.FC = () => {
               type="number"
               name="montoReclamado"
               value={formData.montoReclamado}
-              onChange={handleInputsChange as React.ChangeEventHandler<HTMLInputElement>}
+              onChange={handleInputsChange}
             />
           </Group>
         </Field>
@@ -78,7 +78,7 @@ const ProductSection: React.FC = () => {
           variant="subtle"
           name="descripcionBien"
           value={formData.descripcionBien}
-          onChange={handleInputsChange as React.ChangeEventHandler<HTMLTextAreaElement>}
+          onChange={handleInputsChange}
         />
       </Field>
     </>

@@ -1,22 +1,22 @@
 {
-    "version": "0.0.0",
-    "type": "module",
-    "scripts": {
-        "dev": "node scripts/optimize-images.mjs && next dev",
-        "build": "node scripts/optimize-images.mjs && next build",
-        "optimize": "node scripts/optimize-images.mjs",
-        "lint": "eslint src/",
-        "py": "pnpm run build && pnpm exec tsc --noEmit 2>&1 && python -m http.server 5002 --directory dist",
-        "predeploy": "pnpm run build",
-        "deploy": "gh-pages -d dist",
-        "deploy:hosting": "pnpm run build && npx firebase-tools deploy --only hosting",
-        "deploy:functions": "firebase deploy --only functions",
-        "clean": "pnpm dlx rimraf node_modules dist functions/node_modules",
-        "analyze": "pnpm run build",
-        "start": "next start"
+    "dependencies": {
+        "@chakra-ui/react": "^3.35.0",
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@fontsource/lora": "^5.2.8",
+        "@fontsource/open-sans": "^5.2.7",
+        "@fontsource/raleway": "^5.2.8",
+        "@react-google-maps/api": "^2.20.8",
+        "firebase": "^12.12.1",
+        "framer-motion": "^12.40.0",
+        "lucide-react": "^1.11.0",
+        "next": "^16.2.4",
+        "next-themes": "^0.4.6",
+        "pino": "^10.3.1",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "zod": "^4.4.3"
     },
-    "private": true,
-    "name": "my-glass-app",
     "devDependencies": {
         "@eslint/js": "^9.39.4",
         "@types/react": "^18.3.28",
@@ -35,22 +35,22 @@
         "typescript": "^6.0.3",
         "typescript-eslint": "^8.59.0"
     },
-    "dependencies": {
-        "@chakra-ui/react": "^3.35.0",
-        "@emotion/react": "^11.14.0",
-        "@emotion/styled": "^11.14.1",
-        "@fontsource/lora": "^5.2.8",
-        "@fontsource/open-sans": "^5.2.7",
-        "@fontsource/raleway": "^5.2.8",
-        "@react-google-maps/api": "^2.20.8",
-        "firebase": "^12.12.1",
-        "framer-motion": "^12.40.0",
-        "lucide-react": "^1.11.0",
-        "next": "^16.2.4",
-        "next-themes": "^0.4.6",
-        "pino": "^10.3.1",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "zod": "^4.4.3"
-    }
+    "name": "my-glass-app",
+    "private": true,
+    "scripts": {
+        "analyze": "pnpm run build",
+        "build": "node scripts/optimize-images.mjs && next build",
+        "clean": "pnpm dlx rimraf node_modules dist functions/node_modules",
+        "deploy": "gh-pages -d dist",
+        "deploy:functions": "firebase deploy --only functions",
+        "deploy:hosting": "pnpm run build && npx firebase-tools deploy --only hosting",
+        "dev": "node scripts/optimize-images.mjs && next dev",
+        "lint": "eslint src/",
+        "optimize": "node scripts/optimize-images.mjs",
+        "predeploy": "pnpm run build",
+        "py": "pnpm run build && pnpm exec tsc --noEmit 2>&1 && python -m http.server 5002 --directory dist",
+        "start": "next start"
+    },
+    "type": "module",
+    "version": "0.0.0"
 }

@@ -73,7 +73,7 @@ const MobileNav = React.memo(() => {
                             width: "52px",
                             height: "52px",
                             borderRadius: "9999px",
-                            backgroundColor: "var(--chakra-colors-bg-panel)",
+                            backgroundColor: "var(--chakra-colors-surface-card)",
                             backdropFilter: "blur(40px) saturate(210%)",
                             WebkitBackdropFilter: "blur(40px) saturate(210%)",
                             border: "1px solid var(--chakra-colors-border-default)",
@@ -102,7 +102,7 @@ const MobileNav = React.memo(() => {
             <DrawerBackdrop backdropFilter="blur(12px)" bg="blackAlpha.500" />
 
             <DrawerContent
-                bg="bg.panel"
+                bg="surface.card"
                 borderTopRadius="2xl"
                 p={0}
                 maxH="85vh"

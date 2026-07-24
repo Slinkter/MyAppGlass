@@ -15,5 +15,9 @@ export { default as SuccessModal } from "./components/SuccessModal";
 export { useReclamationForm } from "./hooks/useReclamationForm";
 export { useReclamationFormContext, ReclamationFormProvider } from "./components/ReclamationFormContext";
 
+// Actions & Utils
+export * from "./actions";
+export * from "./utils/sanitizer";
+
 // Types
 export * from "./types";

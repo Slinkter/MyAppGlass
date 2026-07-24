@@ -1,28 +1,58 @@
 /**
  * @file actions.ts
- * @description Client-side wrapper for the reclamations service.
+ * @description Client-side wrapper for the reclamations service with input sanitization and anti-bot protection.
  * Refactored to remove "use server" for static export compatibility.
  */
 
 import { ReclamationData, reclamationService } from "@/shared/api/reclamoService";
+import { sanitizeReclamationData } from "./utils/sanitizer";
+
+export interface ReclamationActionResult {
+  success: boolean;
+  id?: string;
+  error?: string;
+}
 
 /**
  * Handler for the submission of the "Libro de Reclamaciones" form.
- * This encapsulates the API call, providing better security
- * and allowing for future server-side only integrations.
+ * Encapsulates sanitization, honeypot validation, and backend service dispatch.
  *
- * @param formData - The validated complaint data.
+ * @param formData - The complaint data to be submitted.
  * @returns An object indicating success and the resulting ID, or an error message.
  */
-export async function submitReclamationAction(formData: ReclamationData) {
+export async function submitReclamationAction(formData: ReclamationData): Promise<ReclamationActionResult> {
   try {
-    const id = await reclamationService.submitReclamation(formData);
+    // 1. Check honeypot field for bot protection
+    if (formData.hp_confirm && formData.hp_confirm.trim() !== "") {
+      console.warn("Honeypot triggered in submitReclamationAction. Submission rejected.");
+      return { success: true, id: "REC-PROTECTED" };
+    }
+
+    // 2. Perform strict sanitization on all fields
+    const sanitizedData = sanitizeReclamationData(formData);
+
+    // 3. Payload validation check
+    if (
+      !sanitizedData.nombreCompleto ||
+      !sanitizedData.email ||
+      !sanitizedData.numeroDocumento ||
+      !sanitizedData.detalle
+    ) {
+      return {
+        success: false,
+        error: "Los datos del formulario contienen información malformada o incompleta.",
+      };
+    }
+
+    // 4. Submit sanitized data to backend service
+    const id = await reclamationService.submitReclamation(sanitizedData);
     return { success: true, id };
   } catch (error: unknown) {
     console.error("Action Error [submitReclamationAction]:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Hubo un error inesperado en el servidor al procesar su reclamo."
+      error: error instanceof Error ? error.message : "Hubo un error inesperado en el servidor al procesar su reclamo.",
     };
   }
 }
+

@@ -38,29 +38,29 @@ const ModalSkeleton: React.FC = () => {
         boxShadow="2xl"
         color={textColor}
       >
-        <DialogBody p={{ base: "6", md: "6" }} pb={{ base: "6", md: "8" }}>
+        <DialogBody p="5" pb={{ base: "5", md: "8" }}>
           <Flex
             w="full"
             h={{ base: "auto", lg: "full" }}
             flexDirection={{ base: "column", lg: "row" }}
-            gap={{ base: "6", lg: "8" }}
+            gap={{ base: "5", lg: "8" }}
           >
             {/* Skeleton para VisualViewer */}
             <Box flex={{ base: "none", lg: 1 }} w="full">
               <Skeleton height={{ base: "250px", lg: "500px" }} borderRadius="md" />
-              <Flex mt="6" justify="center" gap="2">
+              <Flex mt="5" justify="center" gap="2">
                 <Skeleton width="80px" height="30px" borderRadius="md" />
                 <Skeleton width="80px" height="30px" borderRadius="md" />
               </Flex>
             </Box>
 
             {/* Skeleton para ProjectInfo */}
-            <VStack flex={{ base: "none", lg: 1 }} w="full" align="flex-start" gap="6">
+            <VStack flex={{ base: "none", lg: 1 }} w="full" align="flex-start" gap="5">
               <SkeletonText mt="2" noOfLines={1} gap="6" width="70%" />
               <SkeletonText mt="2" noOfLines={1} gap="6" width="50%" />
               <SkeletonText mt="4" noOfLines={3} gap="6" width="full" />
               <Spacer />
-              <Flex w="full" justify="space-between" mt="6">
+              <Flex w="full" justify="space-between" mt="5">
                 <Skeleton height="40px" width="45%" borderRadius="md" />
                 <Skeleton height="40px" width="45%" borderRadius="md" />
               </Flex>

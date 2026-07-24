@@ -64,7 +64,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         bottom: "-2",
         left: "50%",
         transform: "translateX(-50%)",
-        width: isLoaded ? "8" : "0",
+        width: isLoaded ? "32px" : "0",
         height: "2px",
         bg: isHovered ? "primary.300" : "white",
         transition: "width 0.4s ease, background 0.3s ease",

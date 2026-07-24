@@ -10,13 +10,13 @@ import {
   NativeSelectRoot,
 } from "@/components/ui/native-select";
 import { useReclamationFormContext } from "./ReclamationFormContext";
-import { ReclamationFormState } from "../types";
+import { ReclamationFormState, InputChangeEvent } from "../types";
 
 interface FormFieldProps {
   label: string;
   name: keyof ReclamationFormState;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: InputChangeEvent) => void;
   error?: string;
   required?: boolean;
   type?: string;
@@ -51,7 +51,7 @@ interface FormSelectProps {
   label: string;
   name: keyof ReclamationFormState;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (e: InputChangeEvent) => void;
   error?: string;
   children: React.ReactNode;
 }
@@ -90,9 +90,6 @@ const FormSelect: React.FC<FormSelectProps> = ({
 const PersonalInfoSection: React.FC = () => {
   const { formData, handleInputsChange, errors } = useReclamationFormContext();
 
-  // Cast handleInputsChange to specific types for sub-components if needed, 
-  // but since it's compatible with ChangeEvent, it should work.
-
   return (
     <>
       <Heading
@@ -109,7 +106,7 @@ const PersonalInfoSection: React.FC = () => {
         label="Nombre Completo"
         name="nombreCompleto"
         value={formData.nombreCompleto}
-        onChange={handleInputsChange as unknown as React.ChangeEventHandler<HTMLInputElement>}
+        onChange={handleInputsChange}
         error={errors.nombreCompleto}
       />
 
@@ -117,7 +114,7 @@ const PersonalInfoSection: React.FC = () => {
         label="Domicilio"
         name="domicilio"
         value={formData.domicilio}
-        onChange={handleInputsChange as unknown as React.ChangeEventHandler<HTMLInputElement>}
+        onChange={handleInputsChange}
         error={errors.domicilio}
       />
 
@@ -127,7 +124,7 @@ const PersonalInfoSection: React.FC = () => {
           type="email"
           name="email"
           value={formData.email}
-          onChange={handleInputsChange as unknown as React.ChangeEventHandler<HTMLInputElement>}
+          onChange={handleInputsChange}
           error={errors.email}
         />
 
@@ -136,7 +133,7 @@ const PersonalInfoSection: React.FC = () => {
           type="tel"
           name="telefono"
           value={formData.telefono}
-          onChange={handleInputsChange as unknown as React.ChangeEventHandler<HTMLInputElement>}
+          onChange={handleInputsChange}
           error={errors.telefono}
         />
       </SimpleGrid>
@@ -146,7 +143,7 @@ const PersonalInfoSection: React.FC = () => {
           label="Tipo de Documento"
           name="tipoDocumento"
           value={formData.tipoDocumento}
-          onChange={handleInputsChange as unknown as React.ChangeEventHandler<HTMLSelectElement>}
+          onChange={handleInputsChange}
           error={errors.tipoDocumento}
         >
           <option value="DNI">DNI</option>
@@ -158,7 +155,7 @@ const PersonalInfoSection: React.FC = () => {
           label="Nº de Documento"
           name="numeroDocumento"
           value={formData.numeroDocumento}
-          onChange={handleInputsChange as unknown as React.ChangeEventHandler<HTMLInputElement>}
+          onChange={handleInputsChange}
           error={errors.numeroDocumento}
         />
       </SimpleGrid>
@@ -166,8 +163,8 @@ const PersonalInfoSection: React.FC = () => {
       <FormField
         label="Padre, madre o tutor (si es menor de edad)"
         name="nombrePadreMadre"
-        value={formData.nombrePadreMadre}
-        onChange={handleInputsChange as unknown as React.ChangeEventHandler<HTMLInputElement>}
+        value={formData.nombrePadreMadre || ""}
+        onChange={handleInputsChange}
         required={false}
       />
     </>

@@ -142,7 +142,7 @@ const ProjectDetailRoot: React.FC<{
           color="text.body"
           maxH={{ base: "100dvh", md: "90vh" }}
           overflow="hidden"
-          mx={{ base: 0, md: "6" }}
+          mx={{ base: 0, md: "5" }}
         >
           <Box
             w="full"
@@ -160,8 +160,8 @@ const ProjectDetailRoot: React.FC<{
               _hover={{ bg: "primary.900", color: "white" }}
               _dark={{ _hover: { bg: "primary.100", color: "primary.900" } }}
               borderRadius="full"
-              top="6"
-              right="6"
+              top="5"
+              right="5"
               boxShadow="md"
             />
             
@@ -183,7 +183,7 @@ const ProjectDetailHeader: React.FC = () => {
   const { residencial } = useProjectDetail();
   
   return (
-    <Box px={{ base: "6", md: 0 }} pt={{ base: "14", md: 0 }}>
+    <Box px={{ base: "5", md: 0 }} pt={{ base: "14", md: 0 }}>
       <Text fontSize="xs" fontWeight="900" color="primary.500" letterSpacing="0.4em" textTransform="uppercase" mb="2">
         Portfolio de Ingeniería
       </Text>
