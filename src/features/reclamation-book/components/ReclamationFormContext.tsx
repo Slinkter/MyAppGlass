@@ -1,8 +1,8 @@
 "use client";
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, ReactNode } from "react";
-import { useReclamationForm } from "../hooks/useReclamationForm";
-import { ReclamationFormContextValue } from "../types";
+import { useReclamationForm } from "@features/reclamation-book/hooks/useReclamationForm";
+import { ReclamationFormContextValue } from "@features/reclamation-book/types";
 
 const ReclamationFormContext = createContext<ReclamationFormContextValue | null>(null);
 

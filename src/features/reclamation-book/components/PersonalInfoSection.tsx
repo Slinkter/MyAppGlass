@@ -10,7 +10,7 @@ import {
   NativeSelectRoot,
 } from "@/components/ui/native-select";
 import { useReclamationFormContext } from "./ReclamationFormContext";
-import { ReclamationFormState, InputChangeEvent } from "../types";
+import { ReclamationFormState, InputChangeEvent } from "@features/reclamation-book/types";
 
 interface FormFieldProps {
   label: string;

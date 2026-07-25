@@ -6,7 +6,7 @@ import { Box, VStack } from "@chakra-ui/react";
 import { AnimatePresence, m } from "framer-motion";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
-import MapLoader from "./map/MapLoader";
+import MapLoader from "@shared/components/map/MapLoader";
 import { type MarkerType } from "./InteractiveMap";
 import { DefaultInfoCard } from "./DefaultInfoCard";
 import { ProjectDetailCard } from "./ProjectDetailCard";

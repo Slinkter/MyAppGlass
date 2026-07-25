@@ -14,4 +14,4 @@ export { default as ProjectListSkeleton } from "./components/ProjectListSkeleton
 export { useProjectModal } from "./hooks/useProjectModal";
 
 // Services
-export { getProjects } from "./services/projectService";
+export { getProjects } from "@shared/services/projectService";

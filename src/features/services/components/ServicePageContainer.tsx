@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import ErrorDisplay from "@shared/components/DataLoader/ErrorDisplay";
 import ServiceSkeleton from "./ServiceSkeleton";
 import ServicePageLayout from "./ServicePageLayout";
-import { useServiceData } from "../hooks/useServiceData";
+import { useServiceData } from "@features/services/hooks/useServiceData";
 
 /**
  * @component ServicePageContainer

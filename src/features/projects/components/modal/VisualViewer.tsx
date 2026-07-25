@@ -4,7 +4,8 @@ import { AnimatePresence, m } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import MapViewer from "./MapViewer";
-import { Project, ProjectPhoto } from "@/features/projects/services/projectService";
+import type { Project } from "@shared/types/project";
+import type { ProjectPhoto } from "@shared/types/project";
 import { GalleryItem } from "@/shared/types/gallery";
 
 interface VisualViewerProps {

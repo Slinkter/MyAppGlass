@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect } from "react";
-import { getServicePageData, ServicePageData } from "../services/serviceService";
+import { getServicePageData, ServicePageData } from "@features/services/services/serviceService";
 
 export interface UseServiceDataReturn {
   pageData: ServicePageData | null;

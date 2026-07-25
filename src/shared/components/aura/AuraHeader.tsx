@@ -6,7 +6,7 @@
 
 import React from "react";
 import { Flex, VStack, HStack, Text, Heading, Box, type BoxProps } from "@chakra-ui/react";
-import BackButton from "../navigation/BackButton";
+import BackButton from "@shared/components/navigation/BackButton";
 
 interface AuraHeaderProps {
   title: React.ReactNode;

@@ -11,7 +11,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
-import { ServicePageData } from "../services/serviceService";
+import { ServicePageData } from "@features/services/services/serviceService";
 import ServiceHeader from "./ServiceHeader";
 import { BentoCTA, UnifiedTechnicalCard } from "./ServiceBentoGrid";
 

@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronLeft, ChevronRight, MoveHorizontal } from "lucide-react";
 
-import FadingImage from "../FadingImage";
+import FadingImage from "@shared/components/common/FadingImage";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { GalleryItem } from "@/shared/types/gallery";
 import { keyframes } from "@emotion/react";

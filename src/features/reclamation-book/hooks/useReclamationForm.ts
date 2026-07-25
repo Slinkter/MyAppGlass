@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toaster } from "@/components/ui/toaster-instance";
-import { submitReclamationAction } from "../actions";
-import { ReclamationFormState, FormErrors, ReclamationFormContextValue, InputChangeEvent } from "../types";
+import { submitReclamationAction } from "@features/reclamation-book/actions";
+import { ReclamationFormState, FormErrors, ReclamationFormContextValue, InputChangeEvent } from "@features/reclamation-book/types";
 import {
   sanitizeSingleLine,
   sanitizeMultilineText,
@@ -14,7 +14,7 @@ import {
   isValidTipoDocumento,
   isValidTipoBien,
   isValidTipoSolicitud,
-} from "../utils/sanitizer";
+} from "@features/reclamation-book/utils/sanitizer";
 
 const initialState: ReclamationFormState = {
   nombreCompleto: "",

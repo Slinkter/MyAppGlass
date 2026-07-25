@@ -11,7 +11,7 @@ import { logger } from '@/shared/utils/logger';
 import { env } from '@/shared/config/env';
 
 interface Props {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 interface State {

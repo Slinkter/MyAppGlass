@@ -19,7 +19,7 @@ import {
   MapPin,
   Calendar,
 } from "lucide-react";
-import ProjectDetailItem from "../ProjectDetailItem";
+import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
 
 
 

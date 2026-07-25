@@ -12,5 +12,12 @@ export { default as useFilterableList } from "./ui/useFilterableList";
 // Observer Hooks
 export { default as useIntersectionObserver } from "./observers/useIntersectionObserver";
 
+// Map Hooks
+export { useGoogleMapsLoader } from "./map/useGoogleMapsLoader";
+export { useMapBounds } from "./map/useMapBounds";
+export { useMapIcons } from "./map/useMapIcons";
+export type { MapIconConfig, MapIcons } from "@shared/types/map";
+export { useMapState } from "./map/useMapState";
+
 // Data Hooks
 export { default as useFirestoreQuery } from "./firebase/useFirestoreQuery";

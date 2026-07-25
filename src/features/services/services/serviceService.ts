@@ -4,9 +4,9 @@
  * @module services/services
  */
 
-import { services } from "../data/services";
-import { servicePageDataMap } from "../data/servicePageDataMap";
-import React from "react";
+import { services } from "@features/services/data/services";
+import { servicePageDataMap } from "@features/services/data/servicePageDataMap";
+import type { ElementType } from "react";
 import { GalleryItem } from "@/shared/types/gallery";
 
 export interface Service {
@@ -26,12 +26,12 @@ export interface ServicePageSEO {
 
 export interface ServicePageSystem {
     label: string;
-    icon: React.ElementType;
+    icon: ElementType;
 }
 
 export interface ServicePageFeature {
     label: string;
-    icon: React.ElementType;
+    icon: ElementType;
 }
 
 export interface ServicePageData {

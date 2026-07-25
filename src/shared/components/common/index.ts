@@ -4,8 +4,12 @@
  * @module shared/common
  */
 
+export { default as ComingSoonDisplay } from "./ComingSoonDisplay";
 export { default as ErrorFallback } from "./ErrorFallback";
 export { default as FadingImage } from "./FadingImage";
 export { default as Gallery } from "./Gallery";
 export { default as GlassCard } from "./GlassCard";
 export { default as LoadingFallback } from "./LoadingFallback";
+export { default as MediaCard } from "./MediaCard";
+export { default as GalleryViewer } from "./gallery/GalleryViewer";
+export { default as GalleryThumbnails } from "./gallery/GalleryThumbnails";

@@ -5,7 +5,7 @@
  */
 
 import { ReclamationData } from "@/shared/api/reclamoService";
-import { TipoDocumento, TipoBien, TipoSolicitud } from "../types";
+import { TipoDocumento, TipoBien, TipoSolicitud } from "@features/reclamation-book/types";
 
 const VALID_TIPO_DOCUMENTO: ReadonlyArray<TipoDocumento> = ["DNI", "CE", "PASAPORTE"];
 const VALID_TIPO_BIEN: ReadonlyArray<TipoBien> = ["producto", "servicio"];
