@@ -13,6 +13,8 @@ import { m } from "framer-motion";
 import NAV_ITEMS from "@/shared/config/nav-items";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
+import { ColorModeButton } from "@/components/ui/color-mode";
+
 /**
  * @component NavText
  * @description Encapsula el estilo tipográfico premium para los links.
@@ -146,7 +148,8 @@ const AuraDesktopNav = () => {
         })}
       </HStack>
 
-
+      {/* Theme Toggle Button */}
+      <ColorModeButton borderRadius="full" size="sm" />
     </Box>
   );
 };
