@@ -103,7 +103,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
       w="100%"
       position="relative"
       overflow="hidden"
-      bg={bgOverlay}
+      bg="transparent"
       role="group"
       tabIndex={0}
       onKeyDown={handleKeyDown}
@@ -126,11 +126,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             transition: isDragging ? "none" : "transform 0.3s ease",
           }}
         >
-          <Box
-            w="100%"
-            h="100%"
-            animation={`${galleryScale} 10s ease-in-out infinite alternate`}
-          >
+          <Box w="100%" h="100%">
             <FadingImage
               src={currentImage.src}
               alt={currentImage.title || "Vista principal"}
@@ -140,6 +136,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
               loading={isPriority ? "eager" : "lazy"}
               fetchPriority={isPriority ? "high" : "auto"}
               borderRadius="none"
+              sizes="(max-width: 992px) 100vw, 58vw"
             />
           </Box>
         </Box>

@@ -10,16 +10,10 @@ import {
 } from "@chakra-ui/react";
 import {
   MessageSquareText,
+  CheckCircle2,
   ShieldCheck,
   Wrench,
   Palette,
-  Headphones,
-  Award,
-  Globe,
-  Droplets,
-  Sun,
-  Ruler,
-  ScanLine,
 } from "lucide-react";
 
 interface ServiceBentoGridProps {
@@ -44,14 +38,13 @@ export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
     borderWidth="1px"
     borderColor="transparent"
     _dark={{ bg: "bg.subtle", borderColor: "border.default" }}
-    boxShadow="md"
+    boxShadow="none"
     willChange="transform"
-    transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, background-color 0.3s ease"
+    transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease"
     cursor="pointer"
     role="group"
     _hover={{
       transform: "translateY(-2px)",
-      boxShadow: "lg",
       bg: "primary.950",
       _dark: { bg: "surface.card", borderColor: "primary.500" },
     }}
@@ -90,46 +83,26 @@ export const AboutCard = React.memo(({ description }: { description: string }) =
 ));
 AboutCard.displayName = "AboutCard";
 
-const featureIcons: Record<string, React.ComponentType> = {
-  "Durabilidad garantizada": ShieldCheck,
-  "Instalación profesional": Wrench,
-  "Variedad de acabados": Palette,
-  "Asesoría técnica personalizada": Headphones,
-  "3 meses de garantía": Award,
-  "Materiales importados": Globe,
-  "Color natural, negro y madera": Droplets,
-  "Vidrio crudo, templado y laminado": Sun,
-  "Grosor 6mm para ventana": Ruler,
-  "Sistemas: abatible, corrediza, oscilobatiente": ScanLine,
-};
-
 const allFeatures = [
-  { label: "Durabilidad garantizada" },
-  { label: "Instalación profesional" },
-  { label: "Variedad de acabados" },
-  { label: "Asesoría técnica personalizada" },
-  { label: "3 meses de garantía" },
-  { label: "Materiales importados" },
-  { label: "Color natural, negro y madera" },
-  { label: "Vidrio crudo, templado y laminado" },
-  { label: "Grosor 6mm para ventana" },
-  { label: "Sistemas: abatible, corrediza, oscilobatiente" },
+  { label: "Materiales importados de alta resistencia" },
+  { label: "Cristal templado / laminado según norma" },
+  { label: "Acabados en color natural, negro y madera" },
+  { label: "Garantía de instalación profesional" },
 ];
 
 export const UnifiedTechnicalCard = React.memo(({ description }: { description: string }) => (
   <Box
-    bg="bg.subtle"
+    bg="transparent"
     borderRadius="3xl"
     borderWidth="1px"
     borderColor="border.default"
     px="5"
     py="5"
     w="full"
-    boxShadow="sm"
-    transition="border-color 0.3s ease, box-shadow 0.3s ease"
+    boxShadow="none"
+    transition="border-color 0.3s ease"
     _hover={{
       borderColor: "border.strong",
-      boxShadow: "md",
     }}
   >
     <Heading as="h3" size="sm" mb="3" letterSpacing="tight" color="text.heading">Concepto Técnico</Heading>
@@ -139,20 +112,15 @@ export const UnifiedTechnicalCard = React.memo(({ description }: { description: 
 
     <Box h="1px" bg="border.default" my="3" opacity={0.6} />
 
-    <Heading as="h3" size="sm" mb="3" letterSpacing="tight" color="text.heading">Ventajas Estructurales</Heading>
-    <SimpleGrid columns={{ base: 1, sm: 2 }} gap="3">
-      {allFeatures.map((feat) => {
-        const IconComp = featureIcons[feat.label];
-        return (
-          <HStack key={feat.label} gap="2" align="start">
-            {IconComp && (
-              <Box as={IconComp} color="primary.500" _dark={{ color: "primary.300" }} boxSize={3.5} mt="2px" flexShrink={0} />
-            )}
-            <Text fontSize="xs" fontWeight="medium" lineHeight="short" color="text.body">{feat.label}</Text>
-          </HStack>
-        );
-      })}
-    </SimpleGrid>
+    <Heading as="h3" size="sm" mb="3" letterSpacing="tight" color="text.heading">Especificaciones Clave</Heading>
+    <VStack align="stretch" gap="2">
+      {allFeatures.map((feat) => (
+        <HStack key={feat.label} gap="2.5" align="center">
+          <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={3.5} flexShrink={0} />
+          <Text fontSize="xs" fontWeight="500" color="text.body">{feat.label}</Text>
+        </HStack>
+      ))}
+    </VStack>
   </Box>
 ));
 UnifiedTechnicalCard.displayName = "UnifiedTechnicalCard";
@@ -168,18 +136,13 @@ export const StructuralFeatures = React.memo(() => (
     w="full"
   >
     <Heading as="h3" size="sm" mb="5" letterSpacing="tight" color="text.heading">Ventajas Estructurales</Heading>
-    <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 5 }} gap="3">
-      {allFeatures.map((feat) => {
-        const IconComp = featureIcons[feat.label];
-        return (
-          <HStack key={feat.label} gap="3">
-            {IconComp && (
-              <Box as={IconComp} color="primary.500" _dark={{ color: "primary.300" }} boxSize={4} flexShrink={0} />
-            )}
-            <Text fontSize="sm" fontWeight="medium" color="text.body">{feat.label}</Text>
-          </HStack>
-        );
-      })}
+    <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap="3">
+      {allFeatures.map((feat) => (
+        <HStack key={feat.label} gap="3">
+          <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={4} flexShrink={0} />
+          <Text fontSize="sm" fontWeight="medium" color="text.body">{feat.label}</Text>
+        </HStack>
+      ))}
     </SimpleGrid>
   </Box>
 ));
