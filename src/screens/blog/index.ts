@@ -1,2 +1,2 @@
-export * from './ui/BlogView';
-export * from './ui/BlogPostView';
+export * from "./ui/BlogView";
+export * from "./ui/BlogPostView";
