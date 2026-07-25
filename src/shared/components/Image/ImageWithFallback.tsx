@@ -112,7 +112,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
         h={h}
         position="relative"
         overflow="hidden"
-        bg={placeholderBg}
+        bg={isLoading ? placeholderBg : "transparent"}
         {...restProps}
       >
         {/* Pulse Skeleton - shown while loading */}

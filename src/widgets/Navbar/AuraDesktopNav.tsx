@@ -29,9 +29,9 @@ const NavText = ({ children, isActive, activeColor, inactiveColor }: {
   
   return (
     <Text
-      fontSize="xs"
+      fontSize={{ base: "11px", xl: "xs" }}
       fontWeight={isActive ? "900" : "600"}
-      letterSpacing="0.25em"
+      letterSpacing={{ base: "0.15em", xl: "0.25em" }}
       textTransform="uppercase"
       color={isActive ? activeColor : inactiveColor}
       transition="color 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
@@ -81,15 +81,15 @@ const AuraDesktopNav = () => {
         borderWidth: "1px",
         borderStyle: "solid",
         borderColor: navBorderColor,
-        padding: "var(--chakra-spacing-2)",
+        padding: "var(--chakra-spacing-1-5)",
         display: "flex",
         alignItems: "center",
-        gap: "var(--chakra-spacing-2)",
+        gap: "var(--chakra-spacing-1-5)",
         boxShadow: navShadow
       }}
     >
       {/* Navigation Items (SSR/SSG Friendly Link List) */}
-      <HStack gap={1} position="relative">
+      <HStack gap={{ base: 0.5, xl: 1 }} position="relative">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href;
           return (
@@ -100,8 +100,8 @@ const AuraDesktopNav = () => {
                 style={{ textDecoration: "none" }}
               >
                 <Box
-                  px="3"
-                  h="11"
+                  px={{ base: "2.5", xl: "3.5" }}
+                  h={{ base: "9", xl: "10" }}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
