@@ -47,7 +47,7 @@ $RECYCLE.BIN/
 coverage/
 .nyc_output/
 .eslintcache/
-.agents/
+
 
 
 
