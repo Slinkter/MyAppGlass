@@ -106,6 +106,7 @@ const ServiceList: React.FC = React.memo(() => {
                             <ServiceCard
                                 image={service.image}
                                 name={service.name}
+                                category={service.category}
                                 description={service.description}
                                 plink={service.plink}
                                 index={index}
