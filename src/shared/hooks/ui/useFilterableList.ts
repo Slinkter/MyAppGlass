@@ -6,7 +6,7 @@
 
 import { useState, useMemo, useRef, useTransition, useCallback, useEffect } from "react";
 import { useMediaQuery } from "@chakra-ui/react";
-import useIntersectionObserver from "../observers/useIntersectionObserver";
+import useIntersectionObserver from "@shared/hooks/observers/useIntersectionObserver";
 
 /**
  * Configuration options for the filterable list hook

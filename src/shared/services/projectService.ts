@@ -4,8 +4,8 @@
  * @module shared/services
  */
 
-import { projects } from "../data/projects";
-import { Project } from "../types/project";
+import { projects } from "@shared/data/projects";
+import { Project } from "@shared/types/project";
 
 /**
  * Returns the list of all projects and their associated data.

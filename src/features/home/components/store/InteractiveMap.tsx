@@ -4,21 +4,20 @@ import React, { useMemo, useCallback } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import { Box } from "@chakra-ui/react";
 
-import {
-  useMapProjects,
-  useMapIcons,
-  useMapState,
-  useGoogleMapsLoader,
-} from "../../hooks";
+import { useMapProjects } from "@features/home/hooks/useMapProjects";
+import { useMapIcons } from "@shared/hooks/map/useMapIcons";
+import { useMapState } from "@shared/hooks/map/useMapState";
+import { useGoogleMapsLoader } from "@shared/hooks/map/useGoogleMapsLoader";
 
-import CustomMarker from "./map/CustomMarker";
-import MapLoader from "./map/MapLoader";
-import MapError from "./map/MapError";
-import MapControls from "./map/MapControls";
+import CustomMarker from "@shared/components/map/CustomMarker";
+import MapLoader from "@shared/components/map/MapLoader";
+import MapError from "@shared/components/map/MapError";
+import MapControls from "@shared/components/map/MapControls";
 
-import { containerStyle, center, mainStore, type StoreLocation } from "./map/mapConfig";
-import { mapStyles } from "./map/mapStyles";
-import { type MapProject } from "../../hooks/useMapProjects";
+import { containerStyle, center, mainStore } from "@shared/components/map/mapConfig";
+import type { StoreLocation } from "@shared/types/map";
+import { mapStyles } from "@shared/components/map/mapStyles";
+import { type MapProject } from "@features/home/hooks/useMapProjects";
 export type { MapProject };
 
 export type MarkerType = MapProject | StoreLocation;

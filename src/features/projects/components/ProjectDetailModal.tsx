@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import VisualViewer from "./modal/VisualViewer";
 import ProjectInfo from "./modal/ProjectInfo";
-import { ProjectPhoto } from "../services/projectService";
+import { ProjectPhoto } from "@shared/types/project";
 
 /**
  * Shared state for project detail compound components.

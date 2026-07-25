@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Map, Image as Photo, Home, Building2, MapPin, Calendar } from "lucide-react";
-import { getProjectById } from "@features/projects/services/projectService";
+import { getProjectById } from "@shared/services/projectService";
 import VisualViewer from "@features/projects/components/modal/VisualViewer";
 import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
 import BackButton from "@shared/components/navigation/BackButton";

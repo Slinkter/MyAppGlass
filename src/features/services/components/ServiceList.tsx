@@ -4,12 +4,12 @@ import { Box, HStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
-import { getServices } from "../services/serviceService";
+import { getServices } from "@features/services/services/serviceService";
 import { useFilterableList } from "@shared/hooks";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Search } from "lucide-react";
 
-import { Service } from "../services/serviceService";
+import { Service } from "@features/services/services/serviceService";
 
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
 

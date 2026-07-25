@@ -5,7 +5,7 @@
  */
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { GalleryItem } from "../../types/gallery";
+import { GalleryItem } from "@shared/types/gallery";
 
 /**
  * Interface representing the return object of useGallery hook.

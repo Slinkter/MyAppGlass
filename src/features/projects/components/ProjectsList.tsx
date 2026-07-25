@@ -14,7 +14,8 @@ import { Box, HStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
-import { getProjects, Project } from "../services/projectService";
+import { getProjects } from "@shared/services/projectService";
+import type { Project } from "@shared/types/project";
 import { useFilterableList } from "@shared/hooks";
 import logger from "@shared/utils/logger";
 

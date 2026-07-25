@@ -36,7 +36,7 @@ import {
 import AuraSkeleton from "@shared/components/aura/AuraSkeleton";
 import { InfoItem } from "@/shared/components/ui/info-item";
 import { CopyButton } from "@/shared/components/ui/copy-button";
-import { BankAccountCard } from "../components/bank-account-card";
+import { BankAccountCard } from "@screens/legal/components/bank-account-card";
 
 const fiscalData: Array<{
     icon: LucideIcon;

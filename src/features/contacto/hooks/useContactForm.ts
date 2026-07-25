@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { toaster } from "@/components/ui/toaster-instance";
-import { submitContactAction, checkStatusAction } from "../actions";
+import { submitContactAction, checkStatusAction } from "@features/contacto/actions";
 
 interface ContactFormState {
   name: string;
