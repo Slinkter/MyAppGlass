@@ -240,8 +240,6 @@ const Footer = () => {
                             h="56px"
                             w="180px"
                             mb="2"
-                            opacity={0.8}
-                            _dark={{ filter: "brightness(0) invert(1)" }}
                         >
                             <Image
                                 src={logoGYA}
