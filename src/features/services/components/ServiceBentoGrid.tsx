@@ -97,41 +97,51 @@ const allFeatures = [
   { label: "Garantía de instalación profesional" },
 ];
 
-export const UnifiedTechnicalCard = React.memo(({ description, features }: { description: string; features?: { label: string }[] }) => (
+export const UnifiedTechnicalCard = React.memo(({ description, features, systemName }: { description: string; features?: { label: string }[]; systemName: string }) => (
   <Box
-    bg="transparent"
+    bg="bg.subtle"
     borderRadius="3xl"
     borderWidth="1px"
     borderColor="border.default"
     px="5"
     py="5"
     w="full"
+    h="full"
+    display="flex"
+    flexDirection="column"
+    justifyContent="space-between"
     boxShadow="none"
     transition="border-color 0.3s ease"
     _hover={{
       borderColor: "border.strong",
     }}
   >
-    <Heading as="h3" size="sm" mb="3" letterSpacing="tight" color="text.heading">Concepto Técnico</Heading>
-    <Text color="text.muted" fontSize="sm" lineHeight="tall" mb="3">
-      {description}
-    </Text>
+    <Box>
+      <Heading as="h3" size="sm" mb="2" letterSpacing="tight" color="text.heading">Concepto Técnico</Heading>
+      <Text color="text.muted" fontSize="xs" lineHeight="relaxed" mb="3">
+        {description}
+      </Text>
 
-    {features && features.length > 0 && (
-      <>
-        <Box h="1px" bg="border.default" my="3" opacity={0.6} />
+      {features && features.length > 0 && (
+        <>
+          <Box h="1px" bg="border.default" my="3" opacity={0.6} />
 
-        <Heading as="h3" size="sm" mb="3" letterSpacing="tight" color="text.heading">Especificaciones Clave</Heading>
-        <VStack align="stretch" gap="2">
-          {features.map((feat) => (
-            <HStack key={feat.label} gap="2.5" align="center">
-              <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={3.5} flexShrink={0} />
-              <Text fontSize="xs" fontWeight="500" color="text.body">{feat.label}</Text>
-            </HStack>
-          ))}
-        </VStack>
-      </>
-    )}
+          <Heading as="h3" size="sm" mb="2" letterSpacing="tight" color="text.heading">Especificaciones Clave</Heading>
+          <VStack align="stretch" gap="1.5">
+            {features.map((feat) => (
+              <HStack key={feat.label} gap="2" align="center">
+                <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={3.5} flexShrink={0} />
+                <Text fontSize="xs" fontWeight="500" color="text.body">{feat.label}</Text>
+              </HStack>
+            ))}
+          </VStack>
+        </>
+      )}
+    </Box>
+
+    <Box mt="4" w="full">
+      <BentoCTA systemName={systemName} />
+    </Box>
   </Box>
 ));
 UnifiedTechnicalCard.displayName = "UnifiedTechnicalCard";
