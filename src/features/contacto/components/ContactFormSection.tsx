@@ -14,6 +14,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Field } from "@/components/ui/field";
 import AuraSurface from "@/shared/components/aura/AuraSurface";
 import { Send, Lock } from "lucide-react";
+import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 interface ContactFormSectionProps {
   formData: {
@@ -45,6 +46,10 @@ export function ContactFormSection({
   handleCheckedChange,
   handleSubmit,
 }: ContactFormSectionProps) {
+  const inputBg = useColorModeValue("rgba(240, 242, 245, 0.85)", "rgba(24, 24, 27, 0.75)");
+  const inputBorderColor = useColorModeValue("rgba(0, 0, 0, 0.15)", "rgba(255, 255, 255, 0.18)");
+  const inputHoverBorderColor = useColorModeValue("rgba(0, 0, 0, 0.3)", "rgba(255, 255, 255, 0.35)");
+
   return (
     <AuraSurface p={{ base: "6", md: "8" }} variant="glass" boxShadow="0 20px 40px rgba(0,0,0,0.12)">
       <VStack align="flex-start" gap="7" as="form" onSubmit={handleSubmit}>
@@ -75,7 +80,7 @@ export function ContactFormSection({
             />
           </div>
 
-          {/* Campo Nombre usando Chakra UI Field */}
+          {/* Campo Nombre */}
           <Field 
             label="NOMBRE COMPLETO" 
             invalid={!!errors?.name}
@@ -84,7 +89,7 @@ export function ContactFormSection({
             w="full"
           >
             <Input 
-              variant="subtle" 
+              variant="outline" 
               w="full" 
               placeholder="Ej. Juan Pérez" 
               name="name"
@@ -93,10 +98,19 @@ export function ContactFormSection({
               onBlur={handleBlur}
               borderRadius="xl"
               size="lg"
+              bg={inputBg}
+              borderWidth="1px"
+              borderColor={errors?.name ? "red.500" : inputBorderColor}
+              _hover={{ borderColor: errors?.name ? "red.500" : inputHoverBorderColor }}
+              _focus={{ 
+                bg: useColorModeValue("white", "blackAlpha.800"),
+                borderColor: errors?.name ? "red.500" : "primary.500",
+                boxShadow: errors?.name ? "0 0 0 1px var(--chakra-colors-red-500)" : "0 0 0 2px var(--chakra-colors-primary-500)" 
+              }}
             />
           </Field>
 
-          {/* Campo Correo usando Chakra UI Field */}
+          {/* Campo Correo */}
           <Field 
             label="CORREO ELECTRÓNICO" 
             invalid={!!errors?.email}
@@ -105,7 +119,7 @@ export function ContactFormSection({
             w="full"
           >
             <Input 
-              variant="subtle" 
+              variant="outline" 
               w="full" 
               placeholder="tu@email.com" 
               name="email"
@@ -115,10 +129,19 @@ export function ContactFormSection({
               type="email"
               borderRadius="xl"
               size="lg"
+              bg={inputBg}
+              borderWidth="1px"
+              borderColor={errors?.email ? "red.500" : inputBorderColor}
+              _hover={{ borderColor: errors?.email ? "red.500" : inputHoverBorderColor }}
+              _focus={{ 
+                bg: useColorModeValue("white", "blackAlpha.800"),
+                borderColor: errors?.email ? "red.500" : "primary.500",
+                boxShadow: errors?.email ? "0 0 0 1px var(--chakra-colors-red-500)" : "0 0 0 2px var(--chakra-colors-primary-500)" 
+              }}
             />
           </Field>
 
-          {/* Campo Detalles usando Chakra UI Field */}
+          {/* Campo Detalles */}
           <Field 
             label="DETALLES DEL PROYECTO" 
             invalid={!!errors?.message}
@@ -127,7 +150,7 @@ export function ContactFormSection({
             w="full"
           >
             <Textarea 
-              variant="subtle" 
+              variant="outline" 
               w="full" 
               placeholder="Describe las medidas aproximadas, ubicación de obra o tipo de sistema..." 
               rows={4} 
@@ -136,10 +159,19 @@ export function ContactFormSection({
               onChange={handleChange}
               onBlur={handleBlur}
               borderRadius="xl"
+              bg={inputBg}
+              borderWidth="1px"
+              borderColor={errors?.message ? "red.500" : inputBorderColor}
+              _hover={{ borderColor: errors?.message ? "red.500" : inputHoverBorderColor }}
+              _focus={{ 
+                bg: useColorModeValue("white", "blackAlpha.800"),
+                borderColor: errors?.message ? "red.500" : "primary.500",
+                boxShadow: errors?.message ? "0 0 0 1px var(--chakra-colors-red-500)" : "0 0 0 2px var(--chakra-colors-primary-500)" 
+              }}
             />
           </Field>
 
-          {/* Checkbox Términos usando Chakra UI Field */}
+          {/* Checkbox Términos */}
           <Field 
             invalid={!!errors?.acceptedTerms}
             errorText={errors?.acceptedTerms}
