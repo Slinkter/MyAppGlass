@@ -11,12 +11,10 @@ import {
   Heading,
   Text,
   HStack,
-  LinkOverlay,
+  VStack,
 } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
 import { MapPin, ArrowRight } from "lucide-react";
-import logger from "@shared/utils/logger";
-import MediaCard from "@shared/components/common/MediaCard";
+import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 
 interface ProjectCardContentProps {
   image?: string;
@@ -38,129 +36,128 @@ const PROJECT_GRADIENT =
  */
 const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
   ({ image = "", residencial, address, year, onExplore, isLCP, loading }) => {
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
-
-    const title = (
-      <Heading
-        as="h3"
-        color={isHovered ? "primary.300" : "white"}
-        fontSize={{ base: "md", md: "xl" }}
-        fontWeight="600"
-        textTransform="uppercase"
-        letterSpacing="wider"
-        textAlign="center"
-        position="relative"
-        transition="color 0.3s ease"
-        lineClamp={1}
-        _after={{
-          content: '""',
-          position: "absolute",
-          bottom: "-2",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: isLoaded ? "32px" : "0",
-          height: "2px",
-          bg: isHovered ? "primary.300" : "white",
-          transition: "width 0.4s ease, background 0.3s ease",
-        }}
-      >
-        <LinkOverlay asChild>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              onExplore();
-            }}
-            aria-label={`Explorar detalles del proyecto ${residencial}`}
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              font: 'inherit',
-              color: 'inherit',
-              cursor: 'pointer',
-            }}
-          >
-            {residencial}
-          </button>
-        </LinkOverlay>
-      </Heading>
-    );
-
-    const cta = (
-      <Button
-        onClick={(e: React.MouseEvent) => {
-          e.preventDefault();
-          onExplore();
-        }}
-        aria-label={`Explorar proyecto ${residencial} en detalle`}
-        variant="aura"
-        size="sm"
-        bg="whiteAlpha.200"
-        css={{ backdropFilter: "blur(10px)" }}
-        color="white"
-        borderColor="whiteAlpha.400"
-        borderWidth="1px"
-        _hover={{ 
-          bg: "whiteAlpha.400", 
-          color: "white",
-          borderColor: "white",
-          transform: "scale(1.05) translateY(-2px)",
-          boxShadow: "0 0 20px rgba(255,255,255,0.2)"
-        }}
-        textTransform="uppercase"
-        fontSize="xs"
-        fontWeight="bold"
-        letterSpacing="0.2em"
-        px="8"
-        borderRadius="full"
-        transition="background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
-      >
-        EXPLORAR PROYECTO
-        <Box as={ArrowRight} w={4} h={4} />
-      </Button>
-    );
-
-    const metadata = (
-      <HStack justify="center" gap="5" w="full" mt="5">
-        <HStack gap="2">
-          <Box as={MapPin} w={3.5} h={3.5} color="text.accent" />
-          <Text
-            fontSize="xs"
-            color="whiteAlpha.900"
-            fontWeight="500"
-            lineClamp={1}
-          >
-            {address}
-          </Text>
-        </HStack>
-        <Box w="1px" h="3" bg="whiteAlpha.400" />
-        <Text fontSize="xs" color="whiteAlpha.900" fontWeight="500">
-          {year}
-        </Text>
-      </HStack>
-    );
-
     return (
-      <MediaCard
-        image={image}
-        alt={`Vista del proyecto: ${residencial}`}
-        isLoaded={isLoaded}
-        isHovered={isHovered}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onImageLoad={() => {
-          logger.debug({ src: image, residencial }, "Image loaded");
-          setIsLoaded(true);
+      <Box
+        role="group"
+        w="full"
+        h={{ base: "260px", sm: "280px", md: "310px" }}
+        borderRadius="3xl"
+        overflow="hidden"
+        position="relative"
+        bg="black"
+        boxShadow="sm"
+        cursor="pointer"
+        onClick={onExplore}
+        transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+        _hover={{ 
+          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+          transform: "translateY(-6px)"
         }}
-        loading={loading || (isLCP ? "eager" : "lazy")}
-        isLCP={isLCP}
-        gradient={PROJECT_GRADIENT}
-        title={title}
-        ctaSection={cta}
       >
-        {metadata}
-      </MediaCard>
+        {/* Fotografía del Proyecto */}
+        <Box position="absolute" inset={0} zIndex={0} overflow="hidden">
+          <ResponsiveImage
+            src={image}
+            alt={`Proyecto ${residencial} - GYA Glass & Aluminum`}
+            w="full"
+            h="full"
+            objectFit="cover"
+            loading={loading || (isLCP ? "eager" : "lazy")}
+            isLCP={isLCP}
+            transition="transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
+            _groupHover={{ transform: "scale(1.06)" }}
+          />
+        </Box>
+
+        {/* Degradado Fino de Lectura */}
+        <Box 
+          position="absolute" 
+          inset={0} 
+          zIndex={1}
+          background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)" 
+          transition="opacity 0.3s ease"
+          _groupHover={{ opacity: 0.95 }}
+        />
+
+        {/* Badge de Año / Ubicación Glass Floating */}
+        <Box
+          position="absolute"
+          top="4"
+          left="4"
+          zIndex={2}
+          bg="rgba(0, 0, 0, 0.55)"
+          backdropFilter="blur(10px)"
+          px="3"
+          py="1"
+          borderRadius="full"
+          border="1px solid rgba(255, 255, 255, 0.15)"
+        >
+          <HStack gap="1.5">
+            <Box as={MapPin} boxSize={3} color="primary.400" />
+            <Text 
+              fontSize="10px" 
+              fontWeight="800" 
+              color="white"
+              letterSpacing="0.15em"
+              textTransform="uppercase"
+            >
+              {address} · {year}
+            </Text>
+          </HStack>
+        </Box>
+
+        {/* Bloque Inferior con Título y Botón de Exploración */}
+        <HStack
+          position="absolute"
+          bottom="0"
+          left="0"
+          right="0"
+          zIndex={2}
+          p={{ base: "5", md: "6" }}
+          justify="space-between"
+          align="flex-end"
+        >
+          <VStack align="flex-start" gap="1" maxW="calc(100% - 44px)">
+            <Heading 
+              as="h3" 
+              fontSize={{ base: "xl", md: "2xl" }} 
+              color="white"
+              fontWeight="800"
+              letterSpacing="tight"
+              lineHeight="tight"
+              lineClamp={1}
+            >
+              {residencial}
+            </Heading>
+            <Text fontSize="xs" color="whiteAlpha.800" fontWeight="400">
+              Obra Residencial / Comercial
+            </Text>
+          </VStack>
+
+          {/* Botón Circular Flotante */}
+          <Box 
+            w="40px"
+            h="40px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            borderRadius="full"
+            bg="whiteAlpha.200"
+            backdropFilter="blur(8px)"
+            border="1px solid rgba(255, 255, 255, 0.25)"
+            color="white"
+            flexShrink={0}
+            transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+            _groupHover={{ 
+              bg: "primary.500", 
+              borderColor: "primary.500",
+              transform: "scale(1.1) rotate(45deg)" 
+            }}
+          >
+            <Box as={ArrowRight} boxSize={5} />
+          </Box>
+        </HStack>
+      </Box>
     );
   },
 );
