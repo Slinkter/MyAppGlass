@@ -16,8 +16,7 @@ import { TrackingSection } from "@/features/contacto/components/TrackingSection"
 
 export default function ContactPageClient() {
   const { 
-    step, nextStep, prevStep, setProjectType,
-    formData, errors, isSubmitting, handleChange, handleBlur, handleCheckedChange, handleSubmit,
+    formData, isSubmitting, handleChange, handleCheckedChange, handleSubmit,
     trackingId, isTracking, trackingResult, handleTrackingChange, handleTrackingSubmit
   } = useContactForm();
 
@@ -71,24 +70,18 @@ export default function ContactPageClient() {
           </Text>
         </VStack>
 
-        {/* SECCIÓN 1: COTIZA (Formulario Principal de Cotización Centrado) */}
+        {/* SECCIÓN 1: Formulario Original Directo */}
         <Box mb={16}>
           <ContactFormSection 
-            step={step}
-            nextStep={nextStep}
-            prevStep={prevStep}
             formData={formData}
-            errors={errors}
             isSubmitting={isSubmitting}
             handleChange={handleChange}
-            setProjectType={setProjectType}
-            handleBlur={handleBlur}
             handleCheckedChange={handleCheckedChange}
             handleSubmit={handleSubmit}
           />
         </Box>
 
-        {/* SECCIÓN 2: CONSULTA TU COTIZACIÓN */}
+        {/* SECCIÓN 2: Consulta tu Cotización */}
         <VStack gap={6} align="flex-start" pt={8} borderTop="1px solid" borderColor="border.glass">
           <Box>
             <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.15em" mb="2">
