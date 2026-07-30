@@ -20,7 +20,7 @@ export interface ServiceCardProps {
 
 /**
  * @component ServiceCard
- * @description Tarjeta de servicio ultra-limpia y sobria integrada en la fotografía.
+ * @description Tarjeta de servicio ultra-limpia y sobria integrada en la fotografía con categoría original limpia.
  */
 const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   image,
@@ -37,7 +37,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         role="group"
         w="full"
         h={{ base: "260px", sm: "280px", md: "310px" }}
-        borderRadius="3xl"
+        borderRadius="2xl"
         overflow="hidden"
         position="relative"
         bg="black"
@@ -73,33 +73,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
           _groupHover={{ opacity: 0.95 }}
         />
 
-        {/* Badge de Categoría Superior Floating Glass */}
-        {category && (
-          <Box
-            position="absolute"
-            top="4"
-            left="4"
-            zIndex={2}
-            bg="rgba(0, 0, 0, 0.55)"
-            backdropFilter="blur(10px)"
-            px="3"
-            py="1"
-            borderRadius="full"
-            border="1px solid rgba(255, 255, 255, 0.15)"
-          >
-            <Text 
-              fontSize="10px" 
-              fontWeight="800" 
-              color="white"
-              letterSpacing="0.2em"
-              textTransform="uppercase"
-            >
-              {category}
-            </Text>
-          </Box>
-        )}
-
-        {/* Contenedor Inferior de Información */}
+        {/* Contenedor Inferior de Información (Versión Original Limpia) */}
         <HStack
           position="absolute"
           bottom="0"
@@ -111,6 +85,17 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
           align="flex-end"
         >
           <VStack align="flex-start" gap="1" maxW="calc(100% - 40px)">
+            {category && (
+              <Text 
+                fontSize="10px" 
+                fontWeight="700" 
+                color="whiteAlpha.800"
+                letterSpacing="0.15em"
+                textTransform="uppercase"
+              >
+                {category}
+              </Text>
+            )}
             <Heading 
               as="h3" 
               fontSize={{ base: "xl", md: "2xl" }} 
