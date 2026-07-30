@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Box, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Heading, Stack, Text, VStack, HStack, SimpleGrid, Badge } from "@chakra-ui/react";
 import { companyData } from "@/shared/config/company-data";
 import { ReclamationFormProvider, useReclamationFormContext } from "./ReclamationFormContext";
 import PersonalInfoSection from "./PersonalInfoSection";
@@ -18,59 +18,111 @@ const ReclamationFormInner: React.FC = () => {
 
   return (
     <Box
-      mt="14"
-        p={{ base: "4", md: "8" }}
-        maxW="3xl"
-        mx="auto"
-        mb="8"
-        bg="bg.section"
-        backdropFilter="blur(16px)"
-        border="1px solid"
-        borderColor="border.glass"
-        borderRadius="2xl"
-        boxShadow="2xl"
-        color="text.body"
-      >
+      mt={{ base: "6", md: "10" }}
+      mb="16"
+      maxW="4xl"
+      mx="auto"
+      px={{ base: "4", sm: "6", md: "10" }}
+      py={{ base: "6", md: "10" }}
+      bg="bg.subtle"
+      borderWidth="1px"
+      borderColor="border.default"
+      borderRadius="3xl"
+      boxShadow="sm"
+    >
+      {/* Header del Libro de Reclamaciones */}
+      <VStack gap="3" align="center" textAlign="center" mb="8">
+        <HStack gap="2">
+          <Badge
+            colorPalette="primary"
+            size="md"
+            variant="solid"
+            px="3"
+            borderRadius="full"
+            fontWeight="800"
+            letterSpacing="wider"
+          >
+            INDECOPI COMPLIANT
+          </Badge>
+          <Badge
+            variant="outline"
+            colorPalette="gray"
+            size="md"
+            px="3"
+            borderRadius="full"
+            fontWeight="700"
+          >
+            D.S. N° 006-2014-PCM
+          </Badge>
+        </HStack>
+
         <Heading
           as="h1"
-          size="lg"
-          mb="4"
-          textAlign="center"
+          fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
+          fontWeight="900"
+          letterSpacing="tight"
           color="text.heading"
         >
           Libro de Reclamaciones Virtual
         </Heading>
 
-        <Box
-          bg="surface.container"
-          rounded="md"
-          p="4"
-          mb="6"
-          borderWidth={1}
-          borderColor="border.glass"
-        >
-          <Text fontWeight="bold" color="text.heading">Razón Social:</Text>
-          <Text mb="2" color="text.muted">{companyData.razonSocial}</Text>
-          <Text fontWeight="bold" color="text.heading">RUC:</Text>
-          <Text mb="2" color="text.muted">{companyData.ruc}</Text>
-          <Text fontWeight="bold" color="text.heading">Dirección:</Text>
-          <Text color="text.muted">{companyData.direccion}</Text>
-        </Box>
+        <Text fontSize="xs" color="text.muted" maxW="xl">
+          Conforme a lo establecido en el Código de Protección y Defensa del Consumidor, nuestra empresa pone a su disposición este libro virtual.
+        </Text>
+      </VStack>
 
-        <form onSubmit={handleBtnSubmit}>
-          <Stack gap="6">
-            <PersonalInfoSection />
-            <ProductSection />
-            <ClaimDetailSection />
-            <DeclarationSection />
-          </Stack>
-        </form>
+      {/* Ficha Proveedor / Razón Social */}
+      <Box
+        bg="surface.card"
+        borderRadius="2xl"
+        p={{ base: "4", md: "5" }}
+        mb="8"
+        borderWidth="1px"
+        borderColor="border.default"
+      >
+        <SimpleGrid columns={{ base: 1, sm: 3 }} gap="4" alignContent="center">
+          <Box>
+            <Text fontSize="10px" fontWeight="900" color="primary.500" textTransform="uppercase" letterSpacing="0.15em">
+              Razón Social
+            </Text>
+            <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5">
+              {companyData.razonSocial}
+            </Text>
+          </Box>
+          <Box>
+            <Text fontSize="10px" fontWeight="900" color="primary.500" textTransform="uppercase" letterSpacing="0.15em">
+              R.U.C.
+            </Text>
+            <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5">
+              {companyData.ruc}
+            </Text>
+          </Box>
+          <Box>
+            <Text fontSize="10px" fontWeight="900" color="primary.500" textTransform="uppercase" letterSpacing="0.15em">
+              Dirección Fiscal
+            </Text>
+            <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5">
+              {companyData.direccion}
+            </Text>
+          </Box>
+        </SimpleGrid>
+      </Box>
 
-        <SuccessModal
-          isOpen={modalProps.isOpen}
-          onClose={modalProps.onClose}
-          trackingId={modalProps.newReclamationId}
-        />
+      {/* Formulario por Secciones */}
+      <form onSubmit={handleBtnSubmit}>
+        <Stack gap="8">
+          <PersonalInfoSection />
+          <ProductSection />
+          <ClaimDetailSection />
+          <DeclarationSection />
+        </Stack>
+      </form>
+
+      <SuccessModal
+        isOpen={modalProps.isOpen}
+        onClose={modalProps.onClose}
+        trackingId={modalProps.newReclamationId}
+      />
     </Box>
   );
 };
