@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import AuraSurface from "@/shared/components/aura/AuraSurface";
 import { TrackingResult } from "@/features/contacto/hooks/useContactForm";
+import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 interface TrackingSectionProps {
   trackingId: string;
@@ -29,6 +30,10 @@ export function TrackingSection({
   handleTrackingChange,
   handleTrackingSubmit,
 }: TrackingSectionProps) {
+  const inputBg = useColorModeValue("rgba(240, 242, 245, 0.85)", "rgba(24, 24, 27, 0.75)");
+  const inputBorderColor = useColorModeValue("rgba(0, 0, 0, 0.15)", "rgba(255, 255, 255, 0.18)");
+  const inputHoverBorderColor = useColorModeValue("rgba(0, 0, 0, 0.3)", "rgba(255, 255, 255, 0.35)");
+
   return (
     <AuraSurface p="6" variant="glass">
       <VStack align="flex-start" gap="4">
@@ -44,19 +49,29 @@ export function TrackingSection({
         
         <HStack w="full" as="form" onSubmit={handleTrackingSubmit}>
           <Input 
-            variant="subtle" 
+            variant="outline" 
             placeholder="Ej. resend-id-..." 
-            size="sm" 
+            size="md" 
             value={trackingId}
             onChange={handleTrackingChange}
-            borderRadius="lg"
+            borderRadius="xl"
+            bg={inputBg}
+            borderWidth="1px"
+            borderColor={inputBorderColor}
+            _hover={{ borderColor: inputHoverBorderColor }}
+            _focus={{ 
+              bg: useColorModeValue("white", "blackAlpha.800"),
+              borderColor: "primary.500",
+              boxShadow: "0 0 0 2px var(--chakra-colors-primary-500)"
+            }}
           />
           <Button 
-            size="sm" 
+            size="md" 
             variant="aura" 
             type="submit" 
             loading={isTracking}
             px="6"
+            borderRadius="xl"
           >
             BUSCAR
           </Button>
