@@ -25,28 +25,36 @@ export const useServiceData = (serviceSlug: string): UseServiceDataReturn => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const data = await getServicePageData(serviceSlug);
-        setPageData(data);
+        if (isMounted) {
+          setPageData(data);
+          setError(null);
+        }
       } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(
-            err.message ||
-              `No se encontraron datos para el servicio: "${serviceSlug}".`
-          );
-        } else {
-            setError(`No se encontraron datos para el servicio: "${serviceSlug}".`);
+        if (isMounted) {
+          const errorMessage = err instanceof Error ? err.message : `No se encontraron datos para el servicio: "${serviceSlug}".`;
+          setError(errorMessage);
+          setPageData(null);
         }
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
     if (serviceSlug) {
       fetchData();
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [serviceSlug]);
 
   return { pageData, isLoading, error };

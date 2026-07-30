@@ -1,3 +1,9 @@
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export', // Outputs a Single-Page Application (SPA).
@@ -9,9 +15,11 @@ const nextConfig = {
     optimizePackageImports: [
       '@chakra-ui/react',
       'lucide-react',
-      'react-icons'
+      'framer-motion',
+      'next-themes',
+      'zod',
     ],
   },
-}
+};
 
-export default nextConfig
+export default bundleAnalyzer(nextConfig);
