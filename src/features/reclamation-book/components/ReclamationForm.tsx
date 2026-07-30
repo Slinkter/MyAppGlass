@@ -18,17 +18,11 @@ const ReclamationFormInner: React.FC = () => {
 
   return (
     <Box
-      mt={{ base: "3", sm: "6", md: "10" }}
+      mt={{ base: "2", md: "6" }}
       mb={{ base: "8", md: "16" }}
       maxW="4xl"
       mx="auto"
-      px={{ base: "3.5", sm: "6", md: "10" }}
-      py={{ base: "5", sm: "7", md: "10" }}
-      bg="bg.subtle"
-      borderWidth="1px"
-      borderColor="border.default"
-      borderRadius={{ base: "2xl", sm: "3xl" }}
-      boxShadow="sm"
+      w="full"
     >
       {/* Header del Libro de Reclamaciones */}
       <VStack gap={{ base: "2", sm: "3" }} align="center" textAlign="center" mb={{ base: "6", md: "8" }}>
