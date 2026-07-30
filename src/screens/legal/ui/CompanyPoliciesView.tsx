@@ -20,7 +20,7 @@ import { companyData } from "@/shared/config/company-data";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
 import AuraSurface from "@shared/components/aura/AuraSurface";
-import { ShieldCheck, Building2, UserCheck, FileCheck, CheckCircle2 } from "lucide-react";
+import { Building2, UserCheck, FileCheck, CheckCircle2 } from "lucide-react";
 
 interface PolicyPointProps {
   title: string;
