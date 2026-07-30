@@ -1,360 +1,249 @@
 "use client";
+
 /**
  * @file CompanyPoliciesView.tsx
- * @description Legal and operational policies view.
+ * @description Vista de términos y condiciones de la empresa y políticas de privacidad con diseño plano sobrio.
+ * @module screens/legal/ui
  */
 
 import React from "react";
-import { Box, Heading, Text, VStack, Card } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Badge,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import { companyData } from "@/shared/config/company-data";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
+import AuraSurface from "@shared/components/aura/AuraSurface";
+import { ShieldCheck, Building2, UserCheck, FileCheck, CheckCircle2 } from "lucide-react";
+
+interface PolicyPointProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+const PolicyPoint: React.FC<PolicyPointProps> = ({ title, children }) => (
+  <Box w="full" py={2}>
+    <HStack gap={2} mb={1.5} align="center">
+      <Box as={CheckCircle2} color="text.accent" boxSize={4} flexShrink={0} />
+      <Heading as="h3" size="sm" color="text.heading" fontWeight="700">
+        {title}
+      </Heading>
+    </HStack>
+    <Box pl={6}>
+      {children}
+    </Box>
+  </Box>
+);
 
 const CompanyPoliciesView: React.FC = () => {
   return (
     <AuraContainer>
-      <VStack gap={8} align="stretch">
+      <VStack gap={8} align="stretch" pb={12}>
+        {/* Cabecera Principal */}
         <AuraHeader
           title="Políticas de la Empresa"
           overline="Términos y Condiciones"
-          description="En GYA Company, nos comprometemos con la transparencia y la claridad en cada interacción. Para ofrecerle la mejor experiencia y evitar cualquier malentendido, hemos estructurado nuestros términos y condiciones en dos secciones, diseñadas para atender las necesidades específicas de nuestros clientes residenciales y corporativos."
+          description="En GYA Company, nos comprometemos con la transparencia y la claridad en cada interacción. A continuación se detallan las políticas que rigen nuestros servicios residenciales, corporativos y el tratamiento de datos personales."
           headingAs="h1"
           mb={0}
         />
 
-        {/* Card for Residential Clients */}
-        <Card.Root width="100%" bg="surface.card" borderColor="border.default" p={6} mb={8}>
-          <Card.Body p={0}>
-            <VStack gap={6} align="start">
-                <Heading as="h2" size="xl" color="text.heading" fontWeight="700">
-                  Términos y Condiciones: Servicios Residenciales
-                </Heading>
-                <Text fontSize="md" color="text.body">
-                  Estas condiciones están pensadas para la instalación de
-                  ventanas, mamparas, techos y espejos en domicilios particulares.
-                </Text>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    1. Validez del Presupuesto
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Nuestros presupuestos para servicios residenciales tienen una
-                    validez de{" "}
-                    <Text as="span" fontWeight="bold">
-                      5 días hábiles
-                    </Text>
-                    , debido a la dinámica de nuestro stock. Le sugerimos
-                    confirmar su pedido dentro de este periodo para mantener el
-                    precio acordado.
-                  </Text>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    2. Forma de Pago
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Para dar inicio a la fabricación e instalación de su proyecto,
-                    operamos bajo la modalidad de pago 50/50:
-                  </Text>
-                  <ul style={{ paddingLeft: '1rem', color: 'inherit' }}>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        50% de Anticipo:
-                      </Text>{" "}
-                      Al momento de la firma o aceptación del presupuesto.
-                    </li>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        50% de Saldo:
-                      </Text>{" "}
-                      Se cancela una vez finalizada la entrega e instalación del
-                      trabajo, a su completa satisfacción.
-                    </li>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        Medios de Pago:
-                      </Text>{" "}
-                      Aceptamos transferencias bancarias sin comisión. Los pagos
-                      realizados con tarjeta de crédito o débito están sujetos a
-                      un recargo administrativo del 5%.
-                    </li>
-                  </ul>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    3. Tiempos de Instalación
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    El plazo estimado para la instalación se detalla en cada
-                    presupuesto (usualmente entre 4 a 15 días hábiles, según el
-                    producto). Consideramos días hábiles de lunes a viernes,
-                    excluyendo feriados.
-                  </Text>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    4. Política de Garantía
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Ofrecemos una garantía de{" "}
-                    <Text as="span" fontWeight="bold">
-                      6 meses
-                    </Text>{" "}
-                    para nuestros productos instalados.
-                  </Text>
-                  <ul style={{ paddingLeft: '1rem', color: 'inherit' }}>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        Cobertura:
-                      </Text>{" "}
-                      Cubre defectos de fabricación del vidrio, aluminio y
-                      posibles fallas en la instalación.
-                    </li>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        No incluye:
-                      </Text>{" "}
-                      No cubre roturas de vidrio posteriores a la entrega,
-                      rayaduras por limpieza inadecuada o daños derivados de un
-                      mal uso.
-                    </li>
-                  </ul>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    5. Reclamos
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Cualquier observación debe ser comunicada al momento de la
-                    entrega. Aceptamos reclamos justificados hasta{" "}
-                    <Text as="span" fontWeight="bold">
-                      30 días calendario
-                    </Text>{" "}
-                    posteriores a la instalación, siempre que se presente su
-                    comprobante de pago.
-                  </Text>
-                </Box>
+        {/* Resumen de Garantía y Normativa en 3 Bloques */}
+        <SimpleGrid columns={{ base: 1, md: 3 }} gap={4} mb={2}>
+          <AuraSurface p="5" variant="glass">
+            <HStack gap="3">
+              <Box p="2.5" borderRadius="xl" bg="whiteAlpha.100" color="text.accent">
+                <UserCheck size={20} />
+              </Box>
+              <VStack align="flex-start" gap="0">
+                <Text fontSize="xs" fontWeight="800" color="text.heading">Servicios Residenciales</Text>
+                <Text fontSize="2xs" color="text.muted">Presupuesto 5 días • Garantía 6 meses</Text>
               </VStack>
-            </Card.Body>
-          </Card.Root>
+            </HStack>
+          </AuraSurface>
 
-          {/* Card for Corporate Clients */}
-          <Card.Root width="100%" bg="surface.card" borderColor="border.default" p={6} mb={8}>
-            <Card.Body p={0}>
-              <VStack gap={6} align="start">
-                <Heading as="h2" size="xl" color="text.heading" fontWeight="700">
-                  Términos y Condiciones: Proyectos y Empresas
-                </Heading>
-                <Text fontSize="md" color="text.body">
-                  Estas condiciones están dirigidas a constructoras, arquitectos y
-                  proyectos de gran envergadura.
-                </Text>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    1. Validez de la Propuesta
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Nuestra propuesta económica es válida por{" "}
-                    <Text as="span" fontWeight="bold">
-                      30 días hábiles
-                    </Text>{" "}
-                    a partir de su fecha de emisión. Transcurrido este plazo, los
-                    precios unitarios y las condiciones podrán ser revisados y
-                    ajustados conforme a las fluctuaciones del mercado.
-                  </Text>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    2. Plazos de Ejecución
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    El plazo de ejecución se computa en días hábiles (de lunes a
-                    viernes) y se inicia al cumplirse dos requisitos: la recepción
-                    de la Orden de Servicio/Compra debidamente firmada y la
-                    confirmación del abono del anticipo.
-                  </Text>
-                  <ul style={{ paddingLeft: '1rem', color: 'inherit' }}>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        Exclusiones:
-                      </Text>{" "}
-                      GYA Company no asume responsabilidad por retrasos derivados
-                      de causas ajenas a nuestra gestión, tales como demoras de
-                      otros contratistas, restricciones de acceso a las zonas de
-                      trabajo o modificaciones en el diseño original solicitadas
-                      durante el desarrollo de la obra.
-                    </li>
-                  </ul>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    3. Forma de Pago y Valorizaciones
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Salvo estipulación contractual específica, el esquema de pagos
-                    estándar para proyectos se estructura de la siguiente manera:
-                  </Text>
-                  <ul style={{ paddingLeft: '1rem', color: 'inherit' }}>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        Anticipo:
-                      </Text>{" "}
-                      Un porcentaje inicial (generalmente entre 10% y 20%)
-                      destinado a la programación y planificación de los trabajos.
-                    </li>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        Materiales:
-                      </Text>{" "}
-                      Pago contra la llegada de los materiales a la obra (entre
-                      20% y 30%).
-                    </li>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        Avance:
-                      </Text>{" "}
-                      El saldo restante se liquidará mediante valorizaciones
-                      periódicas, en función del avance de la instalación en obra.
-                    </li>
-                  </ul>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    4. Recepción y Conformidad
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Es responsabilidad del cliente designar a un responsable de
-                    calidad o residente de obra para la supervisión y recepción de
-                    los avances. Una vez suscrita la conformidad o acta de
-                    recepción, no se admitirán reclamos posteriores por daños
-                    estéticos o roturas imputables a la intervención de terceros
-                    (otros gremios, almacenamiento inapropiado en obra, etc.).
-                  </Text>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    5. Garantía Corporativa
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Nuestros proyectos cuentan con una garantía de{" "}
-                    <Text as="span" fontWeight="bold">
-                      12 meses
-                    </Text>{" "}
-                    que ampara defectos de fabricación e instalación. Esta
-                    garantía quedará sin efecto ante daños ocasionados por
-                    negligencia, accidentes o manipulación por personal no
-                    autorizado por nuestra empresa.
-                  </Text>
-                </Box>
+          <AuraSurface p="5" variant="glass">
+            <HStack gap="3">
+              <Box p="2.5" borderRadius="xl" bg="whiteAlpha.100" color="text.accent">
+                <Building2 size={20} />
+              </Box>
+              <VStack align="flex-start" gap="0">
+                <Text fontSize="xs" fontWeight="800" color="text.heading">Proyectos y Empresas</Text>
+                <Text fontSize="2xs" color="text.muted">Propuesta 30 días • Garantía 12 meses</Text>
               </VStack>
-            </Card.Body>
-          </Card.Root>
+            </HStack>
+          </AuraSurface>
 
-          {/* Card for Privacy Policy */}
-          <Card.Root width="100%" bg="surface.card" borderColor="border.default" p={6}>
-            <Card.Body p={0}>
-              <VStack gap={6} align="start">
-                <Heading as="h2" size="xl" color="text.heading" fontWeight="700">
-                  Política de Privacidad y Protección de Datos Personales
-                </Heading>
-                <Text fontSize="md" color="text.body">
-                  La presente política se aplica a todos los bancos de datos
-                  personales gestionados por{" "}
-                  <Text as="span" fontWeight="bold">
-                    {companyData.razonSocial}
-                  </Text>
-                  , con RUC N° {companyData.ruc} y domicilio en{" "}
-                  {companyData.direccion}.
-                </Text>
-                <Text fontSize="md" color="text.body">
-                  Garantizamos la absoluta confidencialidad de sus datos y
-                  empleamos altos estándares de seguridad conforme a la Ley de
-                  Protección de Datos Personales – Ley N° 29733 y su Reglamento
-                  (Decreto Supremo N° 016-2024-JUS).
-                </Text>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    1. Objetivo y Finalidad
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Recopilamos sus datos personales (tales como nombre, teléfono,
-                    dirección y correo electrónico) únicamente para gestionar la
-                    prestación de nuestros servicios de vidriería y aluminio,
-                    elaborar presupuestos, coordinar instalaciones y mantenerlo
-                    informado sobre el estado de su proyecto.
-                  </Text>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    2. Principios Rectores
-                  </Heading>
-                  <ul style={{ paddingLeft: '1rem', color: 'inherit' }}>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        Consentimiento:
-                      </Text>{" "}
-                      El tratamiento de sus datos siempre mediará su
-                      consentimiento previo, expreso e informado.
-                    </li>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        Finalidad:
-                      </Text>{" "}
-                      Sus datos serán utilizados exclusivamente para los fines del
-                      servicio contratado.
-                    </li>
-                    <li>
-                      <Text as="span" fontWeight="bold">
-                        Seguridad:
-                      </Text>{" "}
-                      Implementamos medidas técnicas para evitar la pérdida, mal
-                      uso o acceso no autorizado a su información.
-                    </li>
-                  </ul>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    3. Tratamiento de Datos
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Sus datos serán almacenados en nuestro banco de datos de
-                    &quot;Clientes&quot; y podrán ser compartidos estrictamente
-                    con personal autorizado y proveedores necesarios para la
-                    ejecución del servicio (ej. transporte o instalación), siempre
-                    bajo confidencialidad. No vendemos ni compartimos su
-                    información con terceros para fines publicitarios sin su
-                    autorización.
-                  </Text>
-                </Box>
-
-                <Box>
-                  <Heading as="h3" size="lg" mb={2} color="text.heading" fontWeight="600">
-                    4. Ejercicio de Derechos del Titular
-                  </Heading>
-                  <Text fontSize="md" color="text.body">
-                    Usted puede ejercer sus derechos de Acceso, Rectificación,
-                    Cancelación, Oposición, Portabilidad y Tratamiento Objetivo en
-                    cualquier momento. Para ello, puede enviar una solicitud a
-                    nuestro correo electrónico de contacto o acercarse a nuestra
-                    oficina en el horario de atención al público.
-                  </Text>
-                </Box>
+          <AuraSurface p="5" variant="glass">
+            <HStack gap="3">
+              <Box p="2.5" borderRadius="xl" bg="whiteAlpha.100" color="text.accent">
+                <FileCheck size={20} />
+              </Box>
+              <VStack align="flex-start" gap="0">
+                <Text fontSize="xs" fontWeight="800" color="text.heading">Ley N° 29733</Text>
+                <Text fontSize="2xs" color="text.muted">Protección de Datos Personales</Text>
               </VStack>
-            </Card.Body>
-          </Card.Root>
+            </HStack>
+          </AuraSurface>
+        </SimpleGrid>
+
+        {/* Bloque 1: Servicios Residenciales */}
+        <AuraSurface p={{ base: 6, md: 8 }} variant="glass">
+          <VStack gap={5} align="start">
+            <HStack gap={2} wrap="wrap">
+              <Badge colorPalette="red" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.12em">
+                Domicilios Particulares
+              </Badge>
+            </HStack>
+            <Heading as="h2" size="xl" color="text.heading" fontWeight="800" letterSpacing="tight">
+              Términos y Condiciones: Servicios Residenciales
+            </Heading>
+            <Text fontSize="sm" color="text.muted">
+              Condiciones aplicables para la instalación de ventanas, mamparas, techos de vidrio y espejos en hogares.
+            </Text>
+
+            <VStack gap={4} align="start" w="full" pt={2}>
+              <PolicyPoint title="1. Validez del Presupuesto">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  Nuestros presupuestos para servicios residenciales tienen una validez de{" "}
+                  <Text as="span" fontWeight="bold" color="text.heading">
+                    5 días hábiles
+                  </Text>
+                  , debido a la dinámica de nuestro stock. Le sugerimos confirmar su pedido dentro de este periodo para mantener el precio acordado.
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="2. Forma de Pago (Modalidad 50/50)">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed" mb={2}>
+                  Para dar inicio a la fabricación e instalación de su proyecto, operamos bajo el esquema:
+                </Text>
+                <VStack align="start" gap={1.5} color="text.body" fontSize="sm">
+                  <Text>• <Text as="span" fontWeight="bold">50% de Anticipo:</Text> Al momento de la confirmación del presupuesto.</Text>
+                  <Text>• <Text as="span" fontWeight="bold">50% de Saldo:</Text> Al finalizar la entrega e instalación del trabajo a su completa conformidad.</Text>
+                  <Text fontSize="xs" color="text.muted" mt={1}>* Aceptamos transferencias bancarias sin comisión. Los pagos con tarjeta de crédito/débito tienen un recargo administrativo del 5%.</Text>
+                </VStack>
+              </PolicyPoint>
+
+              <PolicyPoint title="3. Tiempos de Instalación">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  El plazo estimado de instalación varía entre 4 y 15 días hábiles según la complejidad del producto. El cómputo se realiza en días hábiles (lunes a viernes, excluyendo feriados).
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="4. Política de Garantía (6 Meses)">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed" mb={2}>
+                  Ofrecemos una garantía de <Text as="span" fontWeight="bold" color="text.heading">6 meses</Text> que cubre defectos de fabricación del vidrio, aluminio y fallas de instalación.
+                </Text>
+                <Text fontSize="xs" color="text.muted">
+                  * Exclusiones: No cubre roturas posteriores a la entrega, rayaduras por limpieza inadecuada o daños por uso indebido.
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="5. Reclamos">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  Cualquier observación debe comunicarse al momento de la entrega. Aceptamos reclamos justificados hasta <Text as="span" fontWeight="bold" color="text.heading">30 días calendario</Text> posteriores a la instalación presentando su comprobante de pago.
+                </Text>
+              </PolicyPoint>
+            </VStack>
+          </VStack>
+        </AuraSurface>
+
+        {/* Bloque 2: Proyectos y Empresas */}
+        <AuraSurface p={{ base: 6, md: 8 }} variant="glass">
+          <VStack gap={5} align="start">
+            <HStack gap={2} wrap="wrap">
+              <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.12em">
+                Corporativo & Obras
+              </Badge>
+            </HStack>
+            <Heading as="h2" size="xl" color="text.heading" fontWeight="800" letterSpacing="tight">
+              Términos y Condiciones: Proyectos y Empresas
+            </Heading>
+            <Text fontSize="sm" color="text.muted">
+              Condiciones orientadas a constructoras, arquitectos y proyectos comerciales de gran escala.
+            </Text>
+
+            <VStack gap={4} align="start" w="full" pt={2}>
+              <PolicyPoint title="1. Validez de la Propuesta">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  Nuestra propuesta económica es válida por <Text as="span" fontWeight="bold" color="text.heading">30 días hábiles</Text> a partir de su emisión. Transcurrido este plazo, los precios unitarios podrán ser ajustados conforme a las fluctuaciones del mercado.
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="2. Plazos de Ejecución y Exclusiones">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  El plazo de ejecución inicia tras la firma de la Orden de Compra y la recepción del anticipo. GYA Company no asume responsabilidad por retrasos ajenos a su gestión (demoras de otros gremios, restricciones de acceso o cambios de diseño en obra).
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="3. Forma de Pago y Valorizaciones">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed" mb={2}>
+                  Esquema estándar para proyectos:
+                </Text>
+                <VStack align="start" gap={1.5} color="text.body" fontSize="sm">
+                  <Text>• <Text as="span" fontWeight="bold">Anticipo (10% - 20%):</Text> Para programación y planificación inicial.</Text>
+                  <Text>• <Text as="span" fontWeight="bold">Materiales (20% - 30%):</Text> Contra la llegada de materiales a la obra.</Text>
+                  <Text>• <Text as="span" fontWeight="bold">Avance de Obra:</Text> Saldo mediante valorizaciones periódicas según avance.</Text>
+                </VStack>
+              </PolicyPoint>
+
+              <PolicyPoint title="4. Recepción y Conformidad">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  El cliente debe designar un responsable de residencia u obra para la supervisión. Tras la firma del acta de conformidad, no se admiten reclamos por daños estéticos o roturas ocasionadas por terceros.
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="5. Garantía Corporativa (12 Meses)">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  Nuestros proyectos corporativos cuentan con una garantía de <Text as="span" fontWeight="bold" color="text.heading">12 meses</Text> contra defectos de fabricación e instalación.
+                </Text>
+              </PolicyPoint>
+            </VStack>
+          </VStack>
+        </AuraSurface>
+
+        {/* Bloque 3: Política de Privacidad */}
+        <AuraSurface p={{ base: 6, md: 8 }} variant="glass">
+          <VStack gap={5} align="start">
+            <HStack gap={2} wrap="wrap">
+              <Badge colorPalette="gray" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.12em">
+                Privacidad & Datos
+              </Badge>
+            </HStack>
+            <Heading as="h2" size="xl" color="text.heading" fontWeight="800" letterSpacing="tight">
+              Política de Privacidad y Protección de Datos Personales
+            </Heading>
+            <Text fontSize="sm" color="text.muted">
+              Aplicable a los bancos de datos gestionados por <Text as="span" fontWeight="bold" color="text.heading">{companyData.razonSocial}</Text> (RUC N° {companyData.ruc}, {companyData.direccion}).
+            </Text>
+
+            <VStack gap={4} align="start" w="full" pt={2}>
+              <PolicyPoint title="1. Normativa y Confidencialidad">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  Garantizamos la confidencialidad de sus datos según la Ley de Protección de Datos Personales (Ley N° 29733) y el Decreto Supremo N° 016-2024-JUS.
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="2. Finalidad y Consentimiento">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  Recopilamos sus datos únicamente para gestionar cotizaciones, coordinar instalaciones en obra y mantenerlo informado sobre su proyecto. No vendemos ni compartimos su información con terceros para fines publicitarios.
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="3. Derechos ARCO">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  Usted puede ejercer sus derechos de Acceso, Rectificación, Cancelación y Oposición en cualquier momento escribiendo a <Text as="span" fontWeight="bold" color="text.heading">ventas@gyacompany.com</Text>.
+                </Text>
+              </PolicyPoint>
+            </VStack>
+          </VStack>
+        </AuraSurface>
       </VStack>
     </AuraContainer>
   );
