@@ -7,9 +7,7 @@ import {
   Heading,
   Text,
   Badge,
-  HStack,
 } from "@chakra-ui/react";
-import { Clock } from "lucide-react";
 import { useContactForm } from "@/features/contacto/hooks/useContactForm";
 import { ContactFormSection } from "@/features/contacto/components/ContactFormSection";
 import { TrackingSection } from "@/features/contacto/components/TrackingSection";
@@ -51,17 +49,7 @@ export default function ContactPageClient() {
 
       <Container maxW="4xl" position="relative" zIndex={1}>
         {/* Header Section */}
-        <VStack gap={4} align="flex-start" mb={10}>
-          <HStack gap="2" wrap="wrap">
-            <Badge colorPalette="red" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.15em">
-              Cotización & Asesoría Técnica
-            </Badge>
-            <HStack gap="1" color="text.muted" fontSize="xs">
-              <Clock size={14} />
-              <Text fontWeight="600">Atención Lu - Sáb: 8:00 AM - 6:00 PM</Text>
-            </HStack>
-          </HStack>
-
+        <VStack gap={3} align="flex-start" mb={10}>
           <Heading as="h1" size={{ base: "2xl", md: "4xl" }} fontWeight="900" letterSpacing="tighter">
             Cotiza tu Proyecto <br />
             <Text as="span" color="text.accent">con Glass & Aluminum Company S.A.C.</Text>
