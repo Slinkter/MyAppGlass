@@ -8,13 +8,12 @@ import {
   HStack,
   Input,
   Textarea,
-  SimpleGrid,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field } from "@/components/ui/field";
 import AuraSurface from "@/shared/components/aura/AuraSurface";
-import { Shield, Building2, Sparkles, Wrench, Send, Lock } from "lucide-react";
+import { Send, Lock } from "lucide-react";
 
 interface ContactFormSectionProps {
   formData: {
@@ -35,16 +34,7 @@ interface ContactFormSectionProps {
   handleBlur?: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleCheckedChange: (checked: boolean) => void;
   handleSubmit: (e: React.FormEvent) => void;
-  selectedCategory?: string;
-  setSelectedCategory?: (cat: string) => void;
 }
-
-const CATEGORIES = [
-  { id: "Vidrio Templado", label: "Vidrio Templado", icon: Shield, desc: "Mamparas y divisiones" },
-  { id: "Aluminio Arquitectónico", label: "Carpintería Aluminio", icon: Building2, desc: "Ventanas y perfiles" },
-  { id: "Barandas y Fachadas", label: "Barandas y Muros Cortina", icon: Sparkles, desc: "Laminados e inox" },
-  { id: "Mantenimiento / Otro", label: "Mantenimiento / Asesoría", icon: Wrench, desc: "Reparaciones o medida" },
-];
 
 export function ContactFormSection({
   formData,
@@ -54,8 +44,6 @@ export function ContactFormSection({
   handleBlur,
   handleCheckedChange,
   handleSubmit,
-  selectedCategory,
-  setSelectedCategory,
 }: ContactFormSectionProps) {
   return (
     <AuraSurface p={{ base: "6", md: "8" }} variant="glass" boxShadow="0 20px 40px rgba(0,0,0,0.12)">
@@ -86,51 +74,6 @@ export function ContactFormSection({
               onChange={handleChange}
             />
           </div>
-
-          {/* Categorías Rápidas Interactivas */}
-          {setSelectedCategory && (
-            <Field label="TIPO DE PROYECTO (OPCIONAL)" optionalText="">
-              <SimpleGrid columns={{ base: 1, sm: 2 }} gap="2.5" w="full" mt={1}>
-                {CATEGORIES.map((cat) => {
-                  const IconComp = cat.icon;
-                  const isSelected = selectedCategory === cat.id;
-                  return (
-                    <Box
-                      key={cat.id}
-                      onClick={() => setSelectedCategory(cat.id === selectedCategory ? "" : cat.id)}
-                      p="3"
-                      borderRadius="xl"
-                      border="1.5px solid"
-                      borderColor={isSelected ? "primary.500" : "border.glass"}
-                      bg={isSelected ? "primary.500/10" : "whiteAlpha.50"}
-                      cursor="pointer"
-                      transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
-                      _hover={{ borderColor: isSelected ? "primary.500" : "text.accent", transform: "translateY(-1px)" }}
-                    >
-                      <HStack gap="2.5">
-                        <Box 
-                          p="1.5" 
-                          borderRadius="lg" 
-                          bg={isSelected ? "primary.500" : "surface.icon"} 
-                          color={isSelected ? "white" : "text.accent"}
-                        >
-                          <IconComp size={16} />
-                        </Box>
-                        <VStack align="flex-start" gap="0">
-                          <Text fontSize="xs" fontWeight="bold" color={isSelected ? "primary.500" : "text.heading"}>
-                            {cat.label}
-                          </Text>
-                          <Text fontSize="2xs" color="text.muted">
-                            {cat.desc}
-                          </Text>
-                        </VStack>
-                      </HStack>
-                    </Box>
-                  );
-                })}
-              </SimpleGrid>
-            </Field>
-          )}
 
           {/* Campo Nombre usando Chakra UI Field */}
           <Field 
