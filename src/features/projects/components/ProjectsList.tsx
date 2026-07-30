@@ -4,8 +4,8 @@ import { Box, HStack } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { useFilterableList } from "@shared/hooks";
-import { Project, getProjects } from "../services/projectService";
-import { normalizeYear } from "../utils/projectUtils";
+import { Project, getProjects } from "@shared/services/projectService";
+import { normalizeYear } from "@shared/utils/projectUtils";
 import { logger } from "@shared/utils/logger";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
