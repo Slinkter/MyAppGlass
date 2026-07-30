@@ -2,6 +2,9 @@ import React from "react";
 import {
   Textarea,
   Heading,
+  VStack,
+  HStack,
+  Box,
 } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import {
@@ -23,17 +26,32 @@ const ClaimDetailSection: React.FC = () => {
   const { formData, handleInputsChange, handleFileChange, errors } = useReclamationFormContext();
 
   return (
-    <>
-      <Heading
-        as="h3"
-        size="md"
-        borderBottomWidth={2}
-        pb="2"
-        pt="4"
-        color="text.heading"
-      >
-        3. Detalle de su solicitud
-      </Heading>
+    <VStack gap="5" align="stretch">
+      <HStack gap="2.5" pb="2" borderBottomWidth="1px" borderColor="border.default">
+        <Box 
+          w="24px" 
+          h="24px" 
+          borderRadius="full" 
+          bg="primary.500" 
+          color="white" 
+          fontSize="xs" 
+          fontWeight="900"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          3
+        </Box>
+        <Heading
+          as="h3"
+          size="sm"
+          fontWeight="800"
+          color="text.heading"
+          letterSpacing="tight"
+        >
+          Detalle de su Solicitud
+        </Heading>
+      </HStack>
 
       <Field 
         label="Tipo de Solicitud" 
@@ -46,12 +64,14 @@ const ClaimDetailSection: React.FC = () => {
             name="tipoSolicitud"
             value={formData.tipoSolicitud}
             onChange={handleInputsChange}
-            placeholder="Seleccionar"
+            placeholder="Seleccionar tipo de registro"
           >
             <option value="Reclamo">
-              Reclamo: Disconformidad con el producto o servicio.
+              Reclamo (Disconformidad con el producto o servicio contratado)
             </option>
-            <option value="Queja">Queja: Malestar respecto a la atención.</option>
+            <option value="Queja">
+              Queja (Malestar o descontento respecto a la atención al cliente)
+            </option>
           </NativeSelectField>
         </NativeSelectRoot>
       </Field>
@@ -67,7 +87,8 @@ const ClaimDetailSection: React.FC = () => {
           name="detalle"
           value={formData.detalle}
           onChange={handleInputsChange}
-          placeholder="Describa aquí qué sucedió..."
+          placeholder="Describa claramente los hechos ocurridos..."
+          rows={4}
         />
       </Field>
 
@@ -82,13 +103,14 @@ const ClaimDetailSection: React.FC = () => {
           name="pedido"
           value={formData.pedido}
           onChange={handleInputsChange}
-          placeholder="Ej: Devolución del dinero, cambio del producto, etc."
+          placeholder="Especifique qué solución o acción solicita (Ej: Reparación, cambio, devolución)..."
+          rows={3}
         />
       </Field>
 
       <Field 
-        label="Adjuntar Evidencia (Opcional)"
-        helperText="Puede adjuntar fotos o documentos que sustenten su reclamo (Máx 5MB)."
+        label="Adjuntar Evidencias (Opcional)"
+        helperText="Puede adjuntar fotografías, comprobantes o documentos que sustenten su solicitud (Máx 5MB por archivo)."
       >
         <FileUploadRoot 
           maxW="xl" 
@@ -97,13 +119,13 @@ const ClaimDetailSection: React.FC = () => {
           onFileChange={handleFileChange}
         >
           <FileUploadDropzone
-            label="Arrastre sus archivos aquí o haga clic para buscar"
+            label="Arrastre sus archivos aquí o haga clic para examinar"
             description=".png, .jpg, .pdf hasta 5MB"
           />
           <FileUploadList clearable showSize />
         </FileUploadRoot>
       </Field>
-    </>
+    </VStack>
   );
 };
 
