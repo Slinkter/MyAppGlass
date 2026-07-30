@@ -1,24 +1,25 @@
-<svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Fondo circular blanco de contención para favicon (Círculo exterior) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <!-- Fondo circular blanco de contención para favicon -->
   <circle cx="250" cy="250" r="240" fill="#FFFFFF" />
-  
-  <!-- Grupo del Isotipo Oficial GYA, alineado al centro de masa visual -->
-  <g>
-    <!-- Triángulo equilátero perfecto (Base 380px, Altura 329.1px, Centro de masa en Y=250) -->
-    <!-- Proporciona un espaciado negativo idóneo con el círculo exterior -->
-    <path d="M 60 359.7 L 250 30.6 L 440 359.7 Z" fill="#FF5A5F" />
-    
-    <!-- Círculo interior blanco exactamente centrado en (250, 250) -->
-    <!-- Stroke engrosado a 14px y radio ajustado a 92px para balance de masa visual y legibilidad microscópica -->
-    <circle cx="250" cy="250" r="92" fill="none" stroke="#FFFFFF" stroke-width="14" />
-    
-    <!-- Retícula de 4 rombos de cristal rotada a 45 grados centrada en (250, 250) -->
-    <!-- Espaciado (gap de 16px) y rectángulos (46x46px) optimizados para contraste en resoluciones Retina y 16x16px -->
-    <g transform="translate(250, 250) rotate(45)">
-      <rect x="-54" y="-54" width="46" height="46" fill="#FFFFFF" rx="5" />
-      <rect x="8" y="-54" width="46" height="46" fill="#FFFFFF" rx="5" />
-      <rect x="-54" y="8" width="46" height="46" fill="#FFFFFF" rx="5" />
-      <rect x="8" y="8" width="46" height="46" fill="#FFFFFF" rx="5" />
+
+  <!-- Grupo del isotipo exacto provisto por el usuario, escalado levemente (86%) para contención perfecta dentro del círculo -->
+  <g transform="translate(250, 250) scale(0.86) translate(-250, -250)">
+    <!-- Triángulo principal con el rojo exacto (#FF5053) -->
+    <polygon points="250,40 460,404 40,404" fill="#FF5053" />
+
+    <!-- Anillo circular blanco exterior -->
+    <circle cx="250" cy="285" r="108" fill="none" stroke="#FFFFFF" stroke-width="11" />
+
+    <!-- Grupo central: Cuadrado formado por 4 rombos (rotado 45 deg) -->
+    <g transform="translate(250, 285) rotate(45)">
+      <!-- Rombo Superior Izquierdo -->
+      <rect x="-66" y="-66" width="63" height="63" fill="#FFFFFF" rx="2" />
+      <!-- Rombo Superior Derecho -->
+      <rect x="3" y="-66" width="63" height="63" fill="#FFFFFF" rx="2" />
+      <!-- Rombo Inferior Izquierdo -->
+      <rect x="-66" y="3" width="63" height="63" fill="#FFFFFF" rx="2" />
+      <!-- Rombo Inferior Derecho -->
+      <rect x="3" y="3" width="63" height="63" fill="#FFFFFF" rx="2" />
     </g>
   </g>
 </svg>
