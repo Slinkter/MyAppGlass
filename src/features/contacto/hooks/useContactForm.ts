@@ -35,7 +35,6 @@ export const useContactForm = () => {
     acceptedTerms: false,
     hp_confirm: "",
   });
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [errors, setErrors] = useState<FormErrors>({});
   const [formLoadTime] = useState<number>(() => Date.now());
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -137,13 +136,8 @@ export const useContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const finalMessage = selectedCategory 
-        ? `[Categoría: ${selectedCategory}]\n\n${formData.message}`
-        : formData.message;
-
       const result = await submitContactAction({
         ...formData,
-        message: finalMessage,
         _ts: formLoadTime,
       });
       
@@ -154,7 +148,6 @@ export const useContactForm = () => {
           type: "success",
         });
         setFormData({ name: "", email: "", message: "", acceptedTerms: false, hp_confirm: "" });
-        setSelectedCategory("");
         setErrors({});
       } else {
         throw new Error(result.error);
@@ -173,8 +166,6 @@ export const useContactForm = () => {
   return {
     formData,
     errors,
-    selectedCategory,
-    setSelectedCategory,
     isSubmitting,
     handleChange,
     handleBlur,

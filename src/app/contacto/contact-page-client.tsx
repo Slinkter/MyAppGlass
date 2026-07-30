@@ -18,7 +18,7 @@ import AuraSurface from "@/shared/components/aura/AuraSurface";
 
 export default function ContactPageClient() {
   const { 
-    formData, errors, selectedCategory, setSelectedCategory, isSubmitting, 
+    formData, errors, isSubmitting, 
     handleChange, handleBlur, handleCheckedChange, handleSubmit,
     trackingId, isTracking, trackingResult, handleTrackingChange, handleTrackingSubmit
   } = useContactForm();
@@ -73,7 +73,7 @@ export default function ContactPageClient() {
           </Text>
         </VStack>
 
-        {/* Feature Highlights Grid according to Hallmark Editorial Guidelines */}
+        {/* Feature Highlights Grid */}
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap="4" mb={8}>
           <AuraSurface p="4" variant="glass">
             <HStack gap="3">
@@ -124,13 +124,11 @@ export default function ContactPageClient() {
           </AuraSurface>
         </SimpleGrid>
 
-        {/* SECCIÓN 1: Formulario Principal de Cotización Elevado con Hallmark */}
+        {/* SECCIÓN 1: Formulario Principal de Cotización */}
         <Box mb={16}>
           <ContactFormSection 
             formData={formData}
             errors={errors}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
             isSubmitting={isSubmitting}
             handleChange={handleChange}
             handleBlur={handleBlur}
