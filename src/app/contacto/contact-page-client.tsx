@@ -16,13 +16,14 @@ import { TrackingSection } from "@/features/contacto/components/TrackingSection"
 
 export default function ContactPageClient() {
   const { 
-    formData, isSubmitting, handleChange, handleCheckedChange, handleSubmit,
+    formData, errors, selectedCategory, setSelectedCategory, isSubmitting, 
+    handleChange, handleBlur, handleCheckedChange, handleSubmit,
     trackingId, isTracking, trackingResult, handleTrackingChange, handleTrackingSubmit
   } = useContactForm();
 
   return (
     <Box bg="bg.page" minH="100dvh" pt={{ base: 24, md: 32 }} pb={20} position="relative" overflow="hidden">
-      {/* Background Ambient Lights */}
+      {/* Background Ambient Glow Orbs */}
       <Box 
         position="absolute" 
         top="-10%" 
@@ -30,7 +31,7 @@ export default function ContactPageClient() {
         w="45%" 
         h="60%" 
         bgGradient="radial(circle, primary.900, transparent)" 
-        opacity={0.08} 
+        opacity={0.12} 
         filter="blur(140px)" 
         zIndex={0}
         pointerEvents="none"
@@ -42,7 +43,7 @@ export default function ContactPageClient() {
         w="35%" 
         h="50%" 
         bgGradient="radial(circle, text.accent, transparent)" 
-        opacity={0.05} 
+        opacity={0.08} 
         filter="blur(120px)" 
         zIndex={0}
         pointerEvents="none"
@@ -53,7 +54,7 @@ export default function ContactPageClient() {
         <VStack gap={4} align="flex-start" mb={10}>
           <HStack gap="2" wrap="wrap">
             <Badge colorPalette="red" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.15em">
-              Cotización & Asesoría
+              Cotización Directa
             </Badge>
             <HStack gap="1" color="text.muted" fontSize="xs">
               <Clock size={14} />
@@ -66,16 +67,20 @@ export default function ContactPageClient() {
             <Text as="span" color="text.accent">con Glass & Aluminum Company S.A.C.</Text>
           </Heading>
           <Text color="text.muted" fontSize="lg" maxW="2xl">
-            Asesoría técnica especializada en vidriería templada, mamparas y carpintería de aluminio.
+            Asesoría técnica en vidriería templada, mamparas y carpintería de aluminio a medida.
           </Text>
         </VStack>
 
-        {/* SECCIÓN 1: Formulario Original Directo */}
+        {/* SECCIÓN 1: Formulario Principal de Cotización Elevado */}
         <Box mb={16}>
           <ContactFormSection 
             formData={formData}
+            errors={errors}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
             isSubmitting={isSubmitting}
             handleChange={handleChange}
+            handleBlur={handleBlur}
             handleCheckedChange={handleCheckedChange}
             handleSubmit={handleSubmit}
           />
