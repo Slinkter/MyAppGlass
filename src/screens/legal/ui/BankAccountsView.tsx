@@ -15,7 +15,7 @@ import {
     HStack,
     Badge,
     Image,
-    Card,
+    Flex,
 } from "@chakra-ui/react";
 import { Toaster } from "@/components/ui/toaster";
 import {
@@ -70,47 +70,12 @@ const fiscalData: Array<{
 ];
 
 const BankAccountsView: React.FC = () => {
-    const [isLoading, setIsLoading] = React.useState(true);
-
-    React.useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 1500);
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (isLoading) {
-        return (
-            <AuraContainer>
-                <VStack gap="8" align="stretch">
-                    <AuraSkeleton h="100px" w="full" mb="4" />
-                    <Box>
-                        <AuraSkeleton h="32px" w="250px" mb="6" />
-                        <GridSkeleton columns={{ base: 1, md: 2 }} count={4} />
-                    </Box>
-                    <Box>
-                        <AuraSkeleton h="32px" w="250px" mb="6" />
-                        <BannerSkeleton />
-                    </Box>
-                    <Box>
-                        <AuraSkeleton h="32px" w="250px" mb="6" />
-                        <VStack gap="6" w="full">
-                            <AuraSkeleton
-                                h="160px"
-                                w="full"
-                                borderRadius="2xl"
-                            />
-                        </VStack>
-                    </Box>
-                </VStack>
-            </AuraContainer>
-        );
-    }
-
     return (
         <>
             <Toaster />
 
             <AuraContainer>
-                <VStack gap="8" align="stretch">
+                <VStack gap="10" align="stretch">
                     <AuraHeader
                         title="Cuentas Bancarias y Facturación"
                         overline="Información Bancaria"
@@ -119,63 +84,58 @@ const BankAccountsView: React.FC = () => {
                         mb={0}
                     />
 
+                    {/* Identificación Fiscal */}
                     <Box>
                         <Heading
                             as="h2"
                             size="lg"
-                            mb="6"
+                            mb="4"
                             color="text.heading"
                             fontWeight="800"
                         >
                             Identificación Fiscal
                         </Heading>
-                        <SimpleGrid columns={{ base: 1, md: 2 }} gap="6">
+                        <SimpleGrid columns={{ base: 1, md: 2 }} gap="4">
                             {fiscalData.map((item) => (
                                 <InfoItem key={item.label} {...item} />
                             ))}
                         </SimpleGrid>
                     </Box>
 
+                    {/* Billeteras Digitales Aplanado */}
                     <Box>
                         <Heading
                             as="h2"
                             size="lg"
-                            mb="6"
+                            mb="4"
                             color="text.heading"
                             fontWeight="800"
                         >
                             Billeteras Digitales
                         </Heading>
 
-                        <Card.Root
-                            p={{ base: "6", md: "8" }}
+                        <Box
+                            p={{ base: "5", md: "8" }}
                             borderColor="border.default"
-                            bg="surface.card"
-                            borderRadius="card"
-                            boxShadow="sm"
-                            transition="background-color 0.2s, box-shadow 0.2s, transform 0.2s"
-                            _hover={{
-                                bg: { _light: "rgba(255,255,255,0.35)", _dark: "rgba(24,24,27,0.5)" },
-                                boxShadow: "glassHover",
-                                transform: "translateY(-2px)",
-                            }}
+                            bg="bg.subtle"
+                            borderRadius="3xl"
+                            borderWidth="1px"
                         >
-                            <Card.Body
-                                p={0}
-                                display="flex"
-                                flexDirection={{ base: "column", md: "row" }}
+                            <Flex
+                                direction={{ base: "column", md: "row" }}
                                 alignItems="center"
-                                gap={{ base: "8", md: "14" }}
+                                gap={{ base: "6", md: "10" }}
                                 w="full"
                             >
                                 <Box
-                                    w={{ base: "full", md: "280px" }}
-                                    p="4"
+                                    w={{ base: "full", md: "240px" }}
+                                    p="3"
                                     bg="white"
                                     borderRadius="2xl"
-                                    boxShadow="xl"
+                                    boxShadow="md"
                                     position="relative"
                                     overflow="hidden"
+                                    flexShrink={0}
                                 >
                                     <Image
                                         src={"/images/glassqr2026.webp"}
@@ -184,21 +144,13 @@ const BankAccountsView: React.FC = () => {
                                         h="auto"
                                         borderRadius="xl"
                                     />
-                                    <Box
-                                        position="absolute"
-                                        bottom={0}
-                                        left={0}
-                                        right={0}
-                                        bg="primary.500"
-                                        h="6px"
-                                    />
                                 </Box>
 
-                                <VStack align="flex-start" flex="1" gap="6">
-                                    <HStack gap="4">
+                                <VStack align="flex-start" flex="1" gap="4">
+                                    <HStack gap="3">
                                         <Badge
                                             colorPalette="purple"
-                                            size="lg"
+                                            size="md"
                                             variant="solid"
                                             px={3}
                                             borderRadius="full"
@@ -207,7 +159,7 @@ const BankAccountsView: React.FC = () => {
                                         </Badge>
                                         <Badge
                                             colorPalette="blue"
-                                            size="lg"
+                                            size="md"
                                             variant="solid"
                                             px={3}
                                             borderRadius="full"
@@ -225,115 +177,87 @@ const BankAccountsView: React.FC = () => {
                                             Pago con Billetera Digital
                                         </Heading>
                                         <Text
-                                            mt={2}
-                                            color="text.body"
-                                            fontSize="sm"
-                                            lineHeight="tall"
+                                            mt={1}
+                                            color="text.muted"
+                                            fontSize="xs"
+                                            lineHeight="relaxed"
                                         >
-                                            Facilitamos sus pagos inmediatos.
-                                            Escanee el código QR desde su aplicación
-                                            favorita
-                                            <strong>
-                                                (Yape, Plin, Tunki u otras
-                                                aplicaciones bancarias compatibles)
-                                            </strong>
-                                            para realizar un depósito directo y
-                                            seguro sin necesidad de números de
-                                            cuenta complejos.
+                                            Escanee el código QR desde su aplicación preferida para un depósito directo y seguro sin necesidad de números de cuenta complejos.
                                         </Text>
                                     </Box>
 
-                                    <VStack
-                                        align="flex-start"
-                                        gap="2"
+                                    <HStack
                                         w="full"
+                                        p="3.5"
+                                        bg="surface.card"
+                                        borderRadius="2xl"
+                                        border="1px solid"
+                                        borderColor="border.default"
+                                        justify="space-between"
                                     >
-                                        <Text
-                                            fontSize="xs"
-                                            fontWeight="900"
-                                            color="text.accent"
-                                            textTransform="uppercase"
-                                            letterSpacing="widest"
-                                        >
-                                            Titularidad
-                                        </Text>
-                                        <HStack
-                                            w="full"
-                                            p="4"
-                                            bg="bg.subtle"
-                                            borderRadius="xl"
-                                            border="1px solid"
-                                            borderColor="border.glass"
-                                            justify="space-between"
-                                        >
-                                            <VStack align="flex-start" gap={0}>
-                                                <Text
-                                                    fontWeight="800"
-                                                    fontSize="md"
-                                                    color="text.heading"
-                                                >
-                                                    GLASS & ALUMINIO COMPANY S.A.C.
-                                                </Text>
-                                                <Text
-                                                    fontSize="xs"
-                                                    color="text.muted"
-                                                >
-                                                    RUC: {companyData.ruc}
-                                                </Text>
-                                            </VStack>
-                                            <CopyButton
-                                                value={companyData.ruc}
-                                                label="RUC"
-                                            />
-                                        </HStack>
-                                    </VStack>
+                                        <VStack align="flex-start" gap={0}>
+                                            <Text
+                                                fontWeight="800"
+                                                fontSize="sm"
+                                                color="text.heading"
+                                            >
+                                                GLASS & ALUMINIO COMPANY S.A.C.
+                                            </Text>
+                                            <Text
+                                                fontSize="xs"
+                                                color="text.muted"
+                                            >
+                                                RUC: {companyData.ruc}
+                                            </Text>
+                                        </VStack>
+                                        <CopyButton
+                                            value={companyData.ruc}
+                                            label="RUC"
+                                        />
+                                    </HStack>
                                 </VStack>
-                            </Card.Body>
-                        </Card.Root>
+                            </Flex>
+                        </Box>
                     </Box>
 
+                    {/* Cuentas Bancarias */}
                     <Box>
                         <Heading
                             as="h2"
                             size="lg"
-                            mb="6"
+                            mb="4"
                             color="text.heading"
                             fontWeight="800"
                         >
                             Cuentas Bancarias
                         </Heading>
-                        <Stack gap="6">
+                        <Stack gap="4">
                             {bankAccountsData.map((bankAccount) => (
                                 <BankAccountCard key={bankAccount.bankName} {...bankAccount} />
                             ))}
                         </Stack>
                     </Box>
 
-                    <Card.Root
-                        p="8"
+                    {/* Banner de Contacto */}
+                    <Box
+                        p="6"
                         textAlign="center"
                         borderColor="border.default"
-                        bg="glass.bg"
-                        borderRadius="card"
-                        boxShadow="sm"
+                        borderWidth="1px"
+                        bg="bg.subtle"
+                        borderRadius="3xl"
                     >
-                        <Card.Body p={0}>
-                            <Text fontSize="md" color="text.body">
-                                ¿Necesita confirmar un pago o requiere asistencia
-                                adicional?
-                                <Text
-                                    as="span"
-                                    display="block"
-                                    mt={1}
-                                    fontWeight="800"
-                                    color="text.accent"
-                                    letterSpacing="wide"
-                                >
-                                    CONTÁCTENOS EN: {companyData.contactEmail}
-                                </Text>
+                        <Text fontSize="sm" color="text.muted">
+                            ¿Necesita confirmar un pago o requiere asistencia adicional?{" "}
+                            <Text
+                                as="span"
+                                fontWeight="800"
+                                color="primary.500"
+                            >
+                                Contacte a: {companyData.contactEmail}
                             </Text>
-                        </Card.Body>
-                    </Card.Root>
+                        </Text>
+                    </Box>
                 </VStack>
             </AuraContainer>
         </>
