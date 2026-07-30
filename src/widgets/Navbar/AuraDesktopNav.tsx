@@ -2,8 +2,8 @@
 
 /**
  * @file AuraDesktopNav.tsx
- * @description Official high-end desktop navigation with fluid pill indicator.
- * Optimized for GYA Glass & Aluminum's minimalist aesthetic.
+ * @description Navegación oficial de escritorio de alta gama con indicador de píldora fluida.
+ * Optimizado para la estética minimalista de GYA Glass & Aluminum.
  */
 import React from "react";
 import { HStack, Box, Text } from "@chakra-ui/react";
