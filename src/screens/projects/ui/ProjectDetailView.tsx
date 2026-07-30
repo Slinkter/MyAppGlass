@@ -73,151 +73,95 @@ ViewSelector.displayName = "ViewSelector";
 const ProjectDetailView: React.FC = () => {
   const params = useParams();
   const projectId = params?.projectId as string | undefined;
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const project = useMemo(() => getProjectById(projectId || ""), [projectId]);
-  const [viewMode, setViewMode] = useState<"map" | "gallery">("map");
+  const [viewMode, setViewMode] = useState<"gallery" | "map">("gallery");
   const [isPending, startTransition] = useTransition();
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1200);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleSelect = useCallback((mode: string) => {
     startTransition(() => {
-      setViewMode(mode as "map" | "gallery");
+      setViewMode(mode as "gallery" | "map");
     });
   }, []);
 
   if (!project) return <ErrorPage />;
 
-  if (isLoading) {
-    return (
-      <Box bg="bg.page" minH="100vh">
-        <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb={32}>
-          <VStack gap={{ base: 12, lg: 16 }} align="stretch" w="full">
-            {/* Header Sync */}
-            <Flex 
-              direction={{ base: "column", md: "row" }} 
-              justify="space-between" 
-              align={{ base: "flex-start", md: "flex-end" }} 
-              gap={8}
-            >
-              <VStack gap={4} align="flex-start">
-                <Box mb={2}>
-                  <AuraSkeleton h="24px" w="100px" borderRadius="full" />
-                </Box>
-                <AuraSkeleton h={{ base: "36px", md: "56px" }} w={{ base: "250px", md: "400px" }} />
-              </VStack>
-              <AuraSkeleton h="44px" w={{ base: "100%", md: "240px" }} borderRadius="full" />
-            </Flex>
-
-            {/* Viewer Sync */}
-            <Box
-              w="full"
-              h={{ base: "350px", md: "500px", lg: "65vh" }}
-              minH={{ md: "500px" }}
-              maxH={{ lg: "800px" }}
-            >
-              <AuraSkeleton h="full" w="full" borderRadius="3xl" />
-            </Box>
-
-            {/* Specifications Sync */}
-            <VStack align="flex-start" gap={8} w="full">
-              <HStack gap={3}>
-                <Box w="20px" h="1px" bg="border.glass" _dark={{ bg: "whiteAlpha.200" }} /> 
-                <AuraSkeleton h="16px" w="180px" />
-              </HStack>
-              <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={6} w="full">
-                <AuraSkeleton h="80px" borderRadius="xl" />
-                <AuraSkeleton h="80px" borderRadius="xl" />
-                <AuraSkeleton h="80px" borderRadius="xl" />
-                <AuraSkeleton h="80px" borderRadius="xl" />
-              </SimpleGrid>
-            </VStack>
-          </VStack>
-        </Container>
-      </Box>
-    );
-  }
-
   return (
-    <>
-      <Box bg="bg.page" minH="100vh">
-        <Container maxW="7xl" pt={{ base: 4, md: 8 }} pb={32}>
-          <VStack gap={{ base: 12, lg: 16 }} align="stretch" w="full">
-            <Flex 
-              direction={{ base: "column", md: "row" }} 
-              justify="space-between" 
-              align={{ base: "flex-start", md: "flex-end" }} 
-              gap={8}
-            >
-              <VStack gap={4} align="flex-start">
-                <Box mb={2}>
-                  <BackButton to="/proyectos" />
-                </Box>
-                <Heading
-                  as="h1"
-                  size={{ base: "xl", md: "4xl" }}
-                  fontWeight="black"
-                  letterSpacing="tight"
-                  color="text.heading"
-                >
-                  {project.residencial}
-                </Heading>
-              </VStack>
-
-              <ViewSelector activeMode={viewMode} onSelect={handleSelect} />
-            </Flex>
-
-            <Box
-              w="full"
-              h={{ base: "350px", md: "500px", lg: "65vh" }}
-              minH={{ md: "500px" }}
-              maxH={{ lg: "800px" }}
-              position="relative"
-            >
-              <Skeleton
-                loading={isPending}
-                h="full"
-                w="full"
-                borderRadius="3xl"
-              >
-                <VisualViewer
-                  viewMode={viewMode}
-                  lat={project.lat}
-                  lng={project.lng}
-                  photos={project.photosObra}
-                  projectData={project}
-                />
-              </Skeleton>
-            </Box>
-
-            <VStack align="flex-start" gap={8} w="full">
+    <Box bg="bg.page" minH="100vh" pt={{ base: 4, md: 6 }} pb={{ base: 16, md: 24 }}>
+      <Container maxW="7xl" px={{ base: 4, sm: 6, md: 8 }}>
+        <VStack gap={{ base: 6, md: 8 }} align="stretch" w="full">
+          {/* Header Superior con Botón Regresar y Selector */}
+          <Flex 
+            direction={{ base: "column", md: "row" }} 
+            justify="space-between" 
+            align={{ base: "flex-start", md: "flex-end" }} 
+            gap={4}
+          >
+            <VStack gap={2} align="flex-start">
+              <BackButton to="/proyectos" />
               <Heading
-                size="xs"
-                fontWeight="800"
-                color="text.accent"
-                textTransform="uppercase"
-                letterSpacing="0.3em"
-                display="flex"
-                alignItems="center"
-                gap={3}
+                as="h1"
+                fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
+                fontWeight="900"
+                letterSpacing="tight"
+                color="text.heading"
+                lineHeight="1.1"
               >
-                <Box w="20px" h="1px" bg="primary.500" /> Especificaciones Técnicas
+                {project.residencial}
               </Heading>
-
-              <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={6} w="full">
-                <ProjectDetailItem icon={Home} label="Residencial" value={project.residencial} />
-                <ProjectDetailItem icon={Building2} label="Constructora" value={project.name} />
-                <ProjectDetailItem icon={MapPin} label="Dirección" value={project.address} />
-                <ProjectDetailItem icon={Calendar} label="Año Entrega" value={project.year} />
-              </SimpleGrid>
             </VStack>
+
+            <ViewSelector activeMode={viewMode} onSelect={handleSelect} />
+          </Flex>
+
+          {/* Visor Principal Nivelado (Mapa / Galería) */}
+          <Box
+            w="full"
+            h={{ base: "320px", sm: "380px", md: "480px" }}
+            position="relative"
+            borderRadius="3xl"
+            overflow="hidden"
+          >
+            <Skeleton
+              loading={isPending}
+              h="full"
+              w="full"
+              borderRadius="3xl"
+            >
+              <VisualViewer
+                viewMode={viewMode}
+                lat={project.lat}
+                lng={project.lng}
+                photos={project.photosObra}
+                projectData={project}
+              />
+            </Skeleton>
+          </Box>
+
+          {/* Ficha Técnica y Especificaciones del Proyecto */}
+          <VStack align="flex-start" gap={4} w="full" mt={2}>
+            <Heading
+              size="xs"
+              fontWeight="800"
+              color="primary.500"
+              textTransform="uppercase"
+              letterSpacing="0.25em"
+              display="flex"
+              alignItems="center"
+              gap={2.5}
+            >
+              <Box w="16px" h="2px" bg="primary.500" /> Ficha Técnica de la Obra
+            </Heading>
+
+            <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={4} w="full">
+              <ProjectDetailItem icon={Home} label="Residencial" value={project.residencial} />
+              <ProjectDetailItem icon={Building2} label="Cliente / Constructora" value={project.name} />
+              <ProjectDetailItem icon={MapPin} label="Ubicación" value={project.address} />
+              <ProjectDetailItem icon={Calendar} label="Año de Entrega" value={String(project.year)} />
+            </SimpleGrid>
           </VStack>
-        </Container>
-      </Box>
-    </>
+        </VStack>
+      </Container>
+    </Box>
   );
 };
 
