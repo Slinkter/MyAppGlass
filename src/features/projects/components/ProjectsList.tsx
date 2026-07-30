@@ -5,9 +5,16 @@ import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { useFilterableList } from "@shared/hooks";
 import { Project, getProjects } from "@shared/services/projectService";
-import { normalizeYear } from "@shared/utils/projectUtils";
 import { logger } from "@shared/utils/logger";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
+
+// Helper inline para normalizar el año
+const normalizeYear = (year?: string | number): string => {
+  if (!year) return "Otros";
+  const str = String(year).trim();
+  if (/^\d{4}$/.test(str)) return str;
+  return "Otros";
+};
 
 /**
  * @component ProjectsList
