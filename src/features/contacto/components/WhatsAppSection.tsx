@@ -36,23 +36,26 @@ export function WhatsAppSection() {
           </Text>
         </Box>
 
-        <Button 
-          as="a"
+        <a
           href={`https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent("Hola, deseo cotizar un proyecto.")}`}
           target="_blank"
           rel="noopener noreferrer"
-          bg="white" 
-          color="primary.900" 
-          w="full" 
-          size="xl" 
-          borderRadius="full"
-          fontWeight="900"
-          letterSpacing="0.1em"
-          _hover={{ transform: "translateY(-2px)", boxShadow: "0 10px 24px rgba(0,0,0,0.25)" }}
-          transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+          style={{ width: "100%", textDecoration: "none" }}
         >
-          CONTACTAR VÍA WHATSAPP
-        </Button>
+          <Button 
+            bg="white" 
+            color="primary.900" 
+            w="full" 
+            size="xl" 
+            borderRadius="full"
+            fontWeight="900"
+            letterSpacing="0.1em"
+            _hover={{ transform: "translateY(-2px)", boxShadow: "0 10px 24px rgba(0,0,0,0.25)" }}
+            transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+          >
+            CONTACTAR VÍA WHATSAPP
+          </Button>
+        </a>
       </VStack>
     </GlassCard>
   );
