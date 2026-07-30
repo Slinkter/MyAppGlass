@@ -90,7 +90,7 @@ const allFeatures = [
   { label: "Garantía de instalación profesional" },
 ];
 
-export const UnifiedTechnicalCard = React.memo(({ description }: { description: string }) => (
+export const UnifiedTechnicalCard = React.memo(({ description, features }: { description: string; features?: { label: string }[] }) => (
   <Box
     bg="transparent"
     borderRadius="3xl"
@@ -110,17 +110,21 @@ export const UnifiedTechnicalCard = React.memo(({ description }: { description: 
       {description}
     </Text>
 
-    <Box h="1px" bg="border.default" my="3" opacity={0.6} />
+    {features && features.length > 0 && (
+      <>
+        <Box h="1px" bg="border.default" my="3" opacity={0.6} />
 
-    <Heading as="h3" size="sm" mb="3" letterSpacing="tight" color="text.heading">Especificaciones Clave</Heading>
-    <VStack align="stretch" gap="2">
-      {allFeatures.map((feat) => (
-        <HStack key={feat.label} gap="2.5" align="center">
-          <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={3.5} flexShrink={0} />
-          <Text fontSize="xs" fontWeight="500" color="text.body">{feat.label}</Text>
-        </HStack>
-      ))}
-    </VStack>
+        <Heading as="h3" size="sm" mb="3" letterSpacing="tight" color="text.heading">Especificaciones Clave</Heading>
+        <VStack align="stretch" gap="2">
+          {features.map((feat) => (
+            <HStack key={feat.label} gap="2.5" align="center">
+              <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={3.5} flexShrink={0} />
+              <Text fontSize="xs" fontWeight="500" color="text.body">{feat.label}</Text>
+            </HStack>
+          ))}
+        </VStack>
+      </>
+    )}
   </Box>
 ));
 UnifiedTechnicalCard.displayName = "UnifiedTechnicalCard";

@@ -13,8 +13,6 @@ import { m } from "framer-motion";
 import NAV_ITEMS from "@/shared/config/nav-items";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
-import { ColorModeButton } from "@/components/ui/color-mode";
-
 /**
  * @component NavText
  * @description Encapsula el estilo tipográfico premium para los links.
@@ -53,21 +51,21 @@ const AuraDesktopNav = () => {
   const mounted = React.useSyncExternalStore(subscribeMounted, getMountedSnapshot, getMountedServerSnapshot);
   const pathname = usePathname();
   
-  // Design Tokens adaptativos con identidad de marca (Monochrome minimal version, "rojo sobra")
-  const activeBg = useColorModeValue(
-    "var(--chakra-colors-primary-900)", 
-    "var(--chakra-colors-primary-100)"
-  );
-  const activeColor = useColorModeValue("white", "primary.900");
-  const inactiveColor = useColorModeValue("text.muted", "text.heading");
-  const activeBorder = useColorModeValue("1px solid rgba(255, 255, 255, 0.15)", "1px solid rgba(0, 0, 0, 0.15)");
+  // Design Tokens adaptativos con identidad de marca (GYA Red Edition)
+  const activeBgLight = "linear-gradient(135deg, #a80100 0%, #800000 100%)";
+  const activeBgDark = "linear-gradient(135deg, #cc0202 0%, #a80100 100%)";
+  const activeBg = useColorModeValue(activeBgLight, activeBgDark);
   
-  const navBg = useColorModeValue("rgba(255, 255, 255, 0.45)", "rgba(10, 10, 12, 0.45)");
-  const navBorderColor = "border.default";
-  const navShadow = useColorModeValue("0 8px 32px 0 rgba(0, 0, 0, 0.08)", "0 25px 60px rgba(0,0,0,0.6)");
+  const activeColor = "white";
+  const inactiveColor = "fg.subtle";
+  const activeBorder = "1px solid rgba(255, 255, 255, 0.2)";
+  
+  const navBg = useColorModeValue("rgba(255, 255, 255, 0.85)", "rgba(10, 10, 12, 0.85)");
+  const navBorderColor = useColorModeValue("rgba(0, 0, 0, 0.12)", "rgba(255, 255, 255, 0.12)");
+  const navShadow = useColorModeValue("0 12px 32px 0 rgba(0, 0, 0, 0.12)", "0 25px 60px rgba(0,0,0,0.7)");
   const indicatorShadow = useColorModeValue(
-    "0 4px 12px rgba(0, 0, 0, 0.15)", 
-    "0 4px 20px rgba(255, 255, 255, 0.08)"
+    "0 6px 20px rgba(168, 1, 0, 0.4)", 
+    "0 6px 25px rgba(204, 2, 2, 0.5)"
   );
 
   return (
@@ -81,7 +79,7 @@ const AuraDesktopNav = () => {
         borderWidth: "1px",
         borderStyle: "solid",
         borderColor: navBorderColor,
-        padding: "var(--chakra-spacing-1-5)",
+        padding: "var(--chakra-spacing-2)",
         display: "flex",
         alignItems: "center",
         gap: "var(--chakra-spacing-1-5)",
@@ -100,7 +98,7 @@ const AuraDesktopNav = () => {
                 style={{ textDecoration: "none" }}
               >
                 <Box
-                  px={{ base: "2.5", xl: "3.5" }}
+                  w={{ base: "125px", xl: "135px" }}
                   h={{ base: "9", xl: "10" }}
                   display="flex"
                   alignItems="center"
@@ -147,9 +145,6 @@ const AuraDesktopNav = () => {
           );
         })}
       </HStack>
-
-      {/* Theme Toggle Button */}
-      <ColorModeButton borderRadius="full" size="sm" />
     </Box>
   );
 };

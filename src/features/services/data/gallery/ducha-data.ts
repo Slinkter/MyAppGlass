@@ -66,6 +66,36 @@ const listDucha: DuchaData = {
       src: '/images/services-products-03.Ducha-ducha12.webp',
       title: "ducha",
     },
+    {
+      id: 13,
+      src: '/images/services-products-03.Ducha-ducha13.webp',
+      title: "ducha",
+    },
+    {
+      id: 14,
+      src: '/images/services-products-03.Ducha-ducha14.webp',
+      title: "ducha",
+    },
+    {
+      id: 15,
+      src: '/images/services-products-03.Ducha-ducha15.webp',
+      title: "ducha",
+    },
+    {
+      id: 16,
+      src: '/images/services-products-03.Ducha-ducha16.webp',
+      title: "ducha",
+    },
+    {
+      id: 17,
+      src: '/images/services-products-03.Ducha-ducha17.webp',
+      title: "ducha",
+    },
+    {
+      id: 18,
+      src: '/images/services-products-03.Ducha-ducha18.webp',
+      title: "ducha",
+    },
   ],
 };
 

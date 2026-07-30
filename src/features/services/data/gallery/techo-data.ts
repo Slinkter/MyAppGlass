@@ -36,6 +36,16 @@ const listTecho: TechoData = {
       src: '/images/services-products-04.Techo-techopoli05.webp',
       title: "techo",
     },
+    {
+      id: 7,
+      src: '/images/services-products-04.Techo-techopolu07.webp',
+      title: "Techo de Policarbonato",
+    },
+    {
+      id: 8,
+      src: '/images/services-products-04.Techo-techopolu08.webp',
+      title: "Techo de Policarbonato",
+    },
   ],
 };
 

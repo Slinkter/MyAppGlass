@@ -5,7 +5,7 @@ import {
   Text,
   HStack,
 } from "@chakra-ui/react";
-import { ChevronLeft, ChevronRight, MoveHorizontal } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoveHorizontal, Maximize2, X } from "lucide-react";
 
 import FadingImage from "@shared/components/common/FadingImage";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
@@ -33,6 +33,7 @@ interface GalleryViewerProps {
   handlePrevious: () => void;
   handleNext: () => void;
   isPriority?: boolean;
+  onOpenModal?: () => void;
 }
 
 /**
@@ -47,6 +48,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
   handlePrevious,
   handleNext,
   isPriority = false,
+  onOpenModal,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
@@ -221,25 +223,60 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             position="absolute"
             top="6"
             right="6"
-            bg="blackAlpha.700"
-            px="6"
-            py="2"
-            borderRadius="full"
-            border="1px solid"
-            borderColor="whiteAlpha.300"
+            display="flex"
+            alignItems="center"
+            gap="2"
+            zIndex={15}
           >
-            <Text
-              fontSize="xs"
-              color="white"
-              fontWeight="bold"
-              letterSpacing="widest"
+            {onOpenModal && (
+              <Box
+                as="button"
+                onClick={onOpenModal}
+                color="white"
+                bg="blackAlpha.700"
+                w="36px"
+                h="36px"
+                display={{ base: "none", md: "flex" }}
+                alignItems="center"
+                justifyContent="center"
+                borderRadius="full"
+                border="1px solid"
+                borderColor="whiteAlpha.300"
+                _hover={{
+                  bg: "blackAlpha.900",
+                  transform: "scale(1.08)",
+                }}
+                _active={{
+                  transform: "scale(0.95)",
+                }}
+                aria-label="Ampliar imagen"
+                transition="all 0.2s ease"
+              >
+                <Maximize2 size={16} />
+              </Box>
+            )}
+
+            <Box
+              bg="blackAlpha.700"
+              px="5"
+              py="2"
+              borderRadius="full"
+              border="1px solid"
+              borderColor="whiteAlpha.300"
             >
-              {selectedIndex + 1}{" "}
-              <Text as="span" opacity={0.5}>
-                /
-              </Text>{" "}
-              {imageCount}
-            </Text>
+              <Text
+                fontSize="xs"
+                color="white"
+                fontWeight="bold"
+                letterSpacing="widest"
+              >
+                {selectedIndex + 1}{" "}
+                <Text as="span" opacity={0.5}>
+                  /
+                </Text>{" "}
+                {imageCount}
+              </Text>
+            </Box>
           </Box>
 
           <HStack
