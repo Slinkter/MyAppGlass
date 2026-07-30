@@ -11,7 +11,6 @@ import {
     ContainerProps,
 } from "@chakra-ui/react";
 
-
 interface ItemGridItemProps {
     children: React.ReactNode;
     delay?: number;
@@ -50,9 +49,7 @@ interface ItemGridLayoutProps {
 
 /**
  * Componente: ItemGridLayout
- * --------------------------------------------------------------------
- * @description
- * Un layout reutilizable para mostrar colecciones de elementos.
+ * @description Layout universal para listas de productos y servicios con reglas estéticas de alta gama.
  */
 const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
     Item: typeof ItemGridItem;
@@ -68,54 +65,44 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
     return (
         <Container
             maxW="7xl"
-            textAlign="center"
-            mt={{ base: "8", md: "14" }}
+            px={{ base: 4, sm: 6, md: 8 }}
+            pt={{ base: "6", md: "10" }}
+            pb={{ base: "12", md: "16" }}
             {...containerProps}
         >
-            <VStack gap={{ base: "4", md: "6" }} w="full">
-                {/* Header Section */}
-                <VStack gap={{ base: "4", md: "6" }}>
-                    <Heading
-                        as={headingAs}
-                        color="text.accent"
-                        fontSize={{ base: "3xl", md: "5xl" }}
-                        fontWeight="900"
-                        letterSpacing="0.2em"
-                        textAlign="center"
-                        textTransform="uppercase"
-                        position="relative"
-                    >
-                        {title}
-                    </Heading>
-                    {subtitle && (
-                        <Text
-                            color="text.body"
-                            fontSize={{ base: "md", md: "xl" }}
-                            fontWeight="500"
-                            maxW="3xl"
-                            mx="auto"
-                            lineHeight="tall"
-                        >
-                            {subtitle}
-                        </Text>
-                    )}
-                </VStack>
-
-                <SimpleGrid
-                    columns={columns}
-                    gap={gap}
-                    w="full"
-                    justifyItems="center"
-                    alignItems="start"
-                    style={{
-                        contain: "layout style",
-                        transform: "translateZ(0)",
-                        willChange: "transform, opacity",
-                    }}
+            <VStack gap={{ base: "3", md: "5" }} textAlign="center" w="full" mb={{ base: "8", md: "12" }}>
+                <Heading
+                    as={headingAs}
+                    fontSize={{ base: "3xl", sm: "4xl", md: "5xl" }}
+                    fontWeight="900"
+                    letterSpacing="tight"
+                    color="text.body"
+                    lineHeight="1.1"
                 >
-                    {children}
-                </SimpleGrid>
+                    {title}
+                </Heading>
+
+                {subtitle && (
+                    <Text
+                        fontSize={{ base: "sm", md: "lg" }}
+                        color="text.muted"
+                        maxW="2xl"
+                        fontWeight="500"
+                        lineHeight="relaxed"
+                    >
+                        {subtitle}
+                    </Text>
+                )}
             </VStack>
+
+            <SimpleGrid
+                columns={columns}
+                gap={gap}
+                w="full"
+                alignItems="stretch"
+            >
+                {children}
+            </SimpleGrid>
         </Container>
     );
 };
