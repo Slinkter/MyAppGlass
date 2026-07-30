@@ -18,26 +18,27 @@ const ReclamationFormInner: React.FC = () => {
 
   return (
     <Box
-      mt={{ base: "6", md: "10" }}
-      mb="16"
+      mt={{ base: "3", sm: "6", md: "10" }}
+      mb={{ base: "8", md: "16" }}
       maxW="4xl"
       mx="auto"
-      px={{ base: "4", sm: "6", md: "10" }}
-      py={{ base: "6", md: "10" }}
+      px={{ base: "3.5", sm: "6", md: "10" }}
+      py={{ base: "5", sm: "7", md: "10" }}
       bg="bg.subtle"
       borderWidth="1px"
       borderColor="border.default"
-      borderRadius="3xl"
+      borderRadius={{ base: "2xl", sm: "3xl" }}
       boxShadow="sm"
     >
       {/* Header del Libro de Reclamaciones */}
-      <VStack gap="3" align="center" textAlign="center" mb="8">
-        <HStack gap="2">
+      <VStack gap={{ base: "2", sm: "3" }} align="center" textAlign="center" mb={{ base: "6", md: "8" }}>
+        <HStack gap="2" flexWrap="wrap" justify="center">
           <Badge
             colorPalette="primary"
-            size="md"
+            size="sm"
             variant="solid"
             px="3"
+            py="1"
             borderRadius="full"
             fontWeight="800"
             letterSpacing="wider"
@@ -47,8 +48,9 @@ const ReclamationFormInner: React.FC = () => {
           <Badge
             variant="outline"
             colorPalette="gray"
-            size="md"
+            size="sm"
             px="3"
+            py="1"
             borderRadius="full"
             fontWeight="700"
           >
@@ -58,15 +60,16 @@ const ReclamationFormInner: React.FC = () => {
 
         <Heading
           as="h1"
-          fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
+          fontSize={{ base: "xl", sm: "3xl", md: "4xl" }}
           fontWeight="900"
           letterSpacing="tight"
           color="text.heading"
+          lineHeight="1.2"
         >
           Libro de Reclamaciones Virtual
         </Heading>
 
-        <Text fontSize="xs" color="text.muted" maxW="xl">
+        <Text fontSize={{ base: "xs", sm: "sm" }} color="text.muted" maxW="xl">
           Conforme a lo establecido en el Código de Protección y Defensa del Consumidor, nuestra empresa pone a su disposición este libro virtual.
         </Text>
       </VStack>
@@ -74,18 +77,18 @@ const ReclamationFormInner: React.FC = () => {
       {/* Ficha Proveedor / Razón Social */}
       <Box
         bg="surface.card"
-        borderRadius="2xl"
-        p={{ base: "4", md: "5" }}
-        mb="8"
+        borderRadius={{ base: "xl", md: "2xl" }}
+        p={{ base: "3.5", sm: "5" }}
+        mb={{ base: "6", md: "8" }}
         borderWidth="1px"
         borderColor="border.default"
       >
-        <SimpleGrid columns={{ base: 1, sm: 3 }} gap="4" alignContent="center">
+        <SimpleGrid columns={{ base: 1, sm: 3 }} gap={{ base: "3", sm: "4" }}>
           <Box>
             <Text fontSize="10px" fontWeight="900" color="primary.500" textTransform="uppercase" letterSpacing="0.15em">
               Razón Social
             </Text>
-            <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5">
+            <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5" wordBreak="break-word">
               {companyData.razonSocial}
             </Text>
           </Box>
