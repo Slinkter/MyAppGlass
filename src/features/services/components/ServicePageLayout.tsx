@@ -105,7 +105,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
             <GridItem colSpan={{ base: 1, lg: 5 }} order={{ base: 2, lg: 1 }} display="flex" flexDirection="column" minW={0}>
               <VStack gap={{ base: "3.5", md: "5" }} align="stretch" h="100%" flex="1">
                 {about && (
-                  <UnifiedTechnicalCard description={about.description} />
+                  <UnifiedTechnicalCard description={about.description} features={pageData.features} />
                 )}
 
                 <Box flex="1" display="flex" flexDirection="column" minH={{ base: "112px", md: "120px" }}>

@@ -7,11 +7,6 @@ interface ParapetoData {
 const listParapeto: ParapetoData = {
   parapeto: [
     {
-      id: 1,
-      src: '/images/services-products-05.Parapeto-IMG_2724.webp',
-      title: "techo",
-    },
-    {
       id: 2,
       src: '/images/services-products-05.Parapeto-IMG_2728.webp',
       title: "techo",
@@ -35,6 +30,11 @@ const listParapeto: ParapetoData = {
       id: 6,
       src: '/images/services-products-05.Parapeto-parapeto04.webp',
       title: "techo",
+    },
+    {
+      id: 7,
+      src: '/images/services-products-05.Parapeto-IMG_20250808_131220.webp',
+      title: "Parapeto de Vidrio Templado",
     },
   ],
 };

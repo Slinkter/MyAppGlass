@@ -45,14 +45,14 @@ export interface ServicePageData {
 export const servicePageDataMap: Record<string, ServicePageData> = {
     ventana: {
         seo: {
-            title: "Ventanas Antirruido La Molina",
+            title: "Ventanas",
             description:
                 "Fabricación e instalación de ventanas de aluminio antirruido en La Molina. Sistemas Nova, Serie 25 y 31 con perfiles herméticos para aislamiento acústico. ¡Cotiza tu ventana hoy!",
         },
         about: {
             title: "Acerca de Ventanas",
             description:
-                "Nuestras ventanas de aluminio ofrecen la combinación perfecta entre estética moderna y funcionalidad. Fabricadas con perfiles de alta calidad, garantizamos aislamiento térmico y acústico superior. Ideales para vivienda urbana, departamentos y oficinas.",
+                "Nuestras ventanas de aluminio ofrecen la combinación perfecta entre estética moderna y funcionalidad.Ideales para vivienda urbana, departamentos y hogares",
         },
         benefits: [
             { label: "Durabilidad garantizada", icon: Check },
@@ -68,7 +68,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         ],
         features: [
             { label: "Color: Incoloro, Bronce", icon: Check },
-            { label: "Tipo: Templado, Crudo", icon: Check },
+            { label: "Tipo: Templado, Crudo , Laminado", icon: Check },
             { label: "Aluminio: Natural, Negro", icon: Check },
             { label: "Espesor: 6mm", icon: Check },
         ],
@@ -81,7 +81,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     balcones: {
         seo: {
-            title: "Balcones de Vidrio La Molina",
+            title: "Balcones",
             description:
                 "Balcones de vidrio templado con arenado decorativo en La Molina. Transforma tu terraza en un espacio seguro y elegante sin perder la vista panorámica.",
         },
@@ -96,9 +96,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Fácil mantenimiento", icon: Check },
             { label: "Resistencia a condiciones climáticas", icon: Check },
         ],
-        systems: [
-            { label: "Sistema Unico", icon: ChevronRight },
-        ],
+        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
         features: [
             { label: "Vidrio templado de 8mm", icon: Check },
             { label: "Accesorios de acero cromado", icon: Check },
@@ -109,7 +107,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     baranda: {
         seo: {
-            title: "Barandas de Vidrio Templado La Molina",
+            title: "Barandas",
             description:
                 "Barandas de vidrio templado con accesorios de acero cromado. Diseño minimalista para escaleras, terrazas y balcones en Lima. Seguridad y estilo en cada proyecto.",
         },
@@ -124,9 +122,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Acabados en acero cromado", icon: Check },
             { label: "Instación certificada", icon: Check },
         ],
-        systems: [
-            { label: "Sistema Unico", icon: ChevronRight },
-        ],
+        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
         features: [
             { label: "Material : Acero", icon: Check },
             { label: "Color : Incoro | Bronce", icon: Check },
@@ -138,7 +134,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     celosias: {
         seo: {
-            title: "Celosías de Aluminio La Molina",
+            title: "Celosías",
             description:
                 "Celosías de aluminio para fachadas, balcones y ventanas en La Molina. Control solar, ventilación natural y privacidad con diseño arquitectónico moderno.",
         },
@@ -153,9 +149,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Diseño arquitectónico", icon: Check },
             { label: "Bajo mantenimiento", icon: Check },
         ],
-        systems: [
-            { label: "Sistema Unico", icon: ChevronRight },
-        ],
+        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
         features: [
             { label: "Estructura de Aluminio", icon: Check },
             { label: "Ventilación de Espacios", icon: Check },
@@ -164,7 +158,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     ducha: {
         seo: {
-            title: "Boxes de Ducha La Molina | Cabinas Vidrio Templado",
+            title: "Duchas",
             description:
                 "Boxes de ducha de vidrio templado 8mm con sistemas KIT y acrílico. Seguridad, diseño moderno y fácil limpieza. ¡Cotiza tu ducha a medida en La Molina!",
         },
@@ -193,7 +187,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     mampara: {
         seo: {
-            title: "Mamparas de Baño La Molina",
+            title: "Mamparas",
             description:
                 "Mamparas de baño en vidrio templado con perfiles de aluminio natural o negro. Sistemas Nova y Serie 25. Diseño a medida con instalación profesional en Lima.",
         },
@@ -216,13 +210,13 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Color: Incoloro, Bronce", icon: Check },
             { label: "Tipo: Templado, Crudo", icon: Check },
             { label: "Aluminio: Natural, Negro", icon: Check },
-            { label: "Espesor: 6mm", icon: Check },
+            { label: "Espesor: 8mm", icon: Check },
         ],
         imageLists: [listMampara.nova, listMampara.serie],
     },
     parapeto: {
         seo: {
-            title: "Parapetos de Vidrio La Molina",
+            title: "Parapetos",
             description:
                 "Parapetos de vidrio templado con estructura de acero o aluminio en La Molina. Seguridad y vista panorámica sin obstáculos para terrazas y azoteas. Instalación certificada.",
         },
@@ -237,9 +231,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Resistencia al clima", icon: Check },
             { label: "Instalación profesional", icon: Check },
         ],
-        systems: [
-            { label: "Sistema Unico", icon: ChevronRight },
-        ],
+        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
         features: [
             { label: "Vidrio templado de 8mm", icon: Check },
             { label: "Estructura de Acero", icon: Check },
@@ -250,7 +242,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     pserie: {
         seo: {
-            title: "Puertas Enrollables de Aluminio La Molina",
+            title: "Puertas en Serie",
             description:
                 "Puertas enrollables de aluminio con plancha arenada. Seguridad reforzada y diseño discreto para comercios y viviendas en La Molina. Resistencia y durabilidad.",
         },
@@ -265,9 +257,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Diseño discreto", icon: Check },
             { label: "Mantenimiento mínimo", icon: Check },
         ],
-        systems: [
-            { label: "Sistema Unico", icon: ChevronRight },
-        ],
+        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
         features: [
             { label: "Estructura de Aluminio", icon: Check },
             { label: "Chapa bola de Aluminio", icon: Check },
@@ -277,7 +267,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     pvidrio: {
         seo: {
-            title: "Puertas de Vidrio Templado La Molina",
+            title: "Puertas de Vidrio",
             description:
                 "Puertas de vidrio templado con chapa bola y bisagras de calidad en La Molina. Elegancia y luminosidad para ingresos principales, oficinas y locales comerciales.",
         },
@@ -292,9 +282,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Seguridad con vidrio templado", icon: Check },
             { label: "Accesorios de calidad", icon: Check },
         ],
-        systems: [
-            { label: "Sistema Unico", icon: ChevronRight },
-        ],
+        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
         features: [
             { label: "Vidrio templado de 8mm", icon: Check },
             { label: "Chapa bola", icon: Check },
@@ -305,7 +293,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     techo: {
         seo: {
-            title: "Techos de Policarbonato La Molina",
+            title: "Techos",
             description:
                 "Techos de policarbonato con estructura de aluminio para terrazas, cocheras y patios en La Molina. Protección UV, luz natural e impermeabilidad garantizada.",
         },
@@ -320,9 +308,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Resistencia estructural", icon: Check },
             { label: "Instalación rápida", icon: Check },
         ],
-        systems: [
-            { label: "Sistema Unico", icon: ChevronRight },
-        ],
+        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
         features: [
             { label: "Planchas de policarbonato", icon: Check },
             { label: "Estructura de Aluminio", icon: Check },

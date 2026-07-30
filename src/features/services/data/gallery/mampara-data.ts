@@ -22,6 +22,7 @@ const listMampara: MamparaData = {
     { id: 13, src: '/images/services-products-02.Mampara-mampara15.webp', title: "'/images/services-products-02.Mampara-mampara15.webp'" },
   ],
   serie: [
+    { id: 4, src: '/images/services-products-02.Mampara-m_serie04.webp', title: 'Mampara Serie 25' },
     { id: 1, src: '/images/services-products-02.Mampara-m_serie01.webp', title: "'/images/services-products-02.Mampara-m_serie01.webp'" },
     { id: 2, src: '/images/services-products-02.Mampara-m_serie02.webp', title: "'/images/services-products-02.Mampara-m_serie02.webp'" },
     { id: 3, src: '/images/services-products-02.Mampara-m_serie03.webp', title: "'/images/services-products-02.Mampara-m_serie03.webp'" },
