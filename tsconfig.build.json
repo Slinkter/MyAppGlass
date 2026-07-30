@@ -2,7 +2,6 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "baseUrl": null,
-    "ignoreDeprecations": "7.0",
     "paths": {
       "@/*": [
         "./src/*"
