@@ -7,8 +7,6 @@ import { submitContactAction, checkStatusAction } from "@features/contacto/actio
 interface ContactFormState {
   name: string;
   email: string;
-  phone: string;
-  projectType: string;
   message: string;
   acceptedTerms: boolean;
   hp_confirm: string;
@@ -17,8 +15,6 @@ interface ContactFormState {
 interface FormErrors {
   name?: string;
   email?: string;
-  phone?: string;
-  projectType?: string;
   message?: string;
   acceptedTerms?: string;
 }
@@ -32,12 +28,9 @@ export interface TrackingResult {
 }
 
 export const useContactForm = () => {
-  const [step, setStep] = useState<number>(1);
   const [formData, setFormData] = useState<ContactFormState>({
     name: "",
     email: "",
-    phone: "",
-    projectType: "Vidrio Templado",
     message: "",
     acceptedTerms: false,
     hp_confirm: "",
@@ -58,11 +51,8 @@ export const useContactForm = () => {
         if (!String(value).trim()) return "El correo es obligatorio";
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value))) return "Correo electrónico no válido";
         return undefined;
-      case "phone":
-        if (value && !/^[0-9+\s-]{6,15}$/.test(String(value))) return "Número telefónico no válido";
-        return undefined;
       case "message":
-        return !String(value).trim() ? "Cuéntanos brevemente sobre tu proyecto o medidas" : undefined;
+        return !String(value).trim() ? "Los detalles del proyecto son obligatorios" : undefined;
       case "acceptedTerms":
         return !value ? "Debes aceptar las políticas de privacidad" : undefined;
       default:
@@ -70,7 +60,7 @@ export const useContactForm = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormErrors]) {
@@ -78,11 +68,7 @@ export const useContactForm = () => {
     }
   };
 
-  const setProjectType = (type: string) => {
-    setFormData((prev) => ({ ...prev, projectType: type }));
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     const error = validateField(name as keyof FormErrors, value);
     setErrors((prev) => ({ ...prev, [name]: error }));
@@ -93,28 +79,6 @@ export const useContactForm = () => {
     if (errors.acceptedTerms) {
       setErrors((prev) => ({ ...prev, acceptedTerms: undefined }));
     }
-  };
-
-  const nextStep = () => {
-    const nameErr = validateField("name", formData.name);
-    const emailErr = validateField("email", formData.email);
-    const phoneErr = validateField("phone", formData.phone);
-
-    const step1Errors: FormErrors = {
-      ...(nameErr && { name: nameErr }),
-      ...(emailErr && { email: emailErr }),
-      ...(phoneErr && { phone: phoneErr }),
-    };
-
-    setErrors(step1Errors);
-
-    if (Object.keys(step1Errors).length === 0) {
-      setStep(2);
-    }
-  };
-
-  const prevStep = () => {
-    setStep(1);
   };
 
   const handleTrackingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,27 +115,30 @@ export const useContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    const nameErr = validateField("name", formData.name);
+    const emailErr = validateField("email", formData.email);
     const messageErr = validateField("message", formData.message);
     const termsErr = validateField("acceptedTerms", formData.acceptedTerms);
 
-    const step2Errors: FormErrors = {
+    const newErrors: FormErrors = {
+      ...(nameErr && { name: nameErr }),
+      ...(emailErr && { email: emailErr }),
       ...(messageErr && { message: messageErr }),
       ...(termsErr && { acceptedTerms: termsErr }),
     };
 
-    setErrors(step2Errors);
+    setErrors(newErrors);
 
-    if (Object.keys(step2Errors).length > 0) return;
+    if (Object.keys(newErrors).length > 0) return;
 
     setIsSubmitting(true);
 
     try {
-      const fullMessage = `[Tipo de Proyecto: ${formData.projectType}] [Teléfono: ${formData.phone || "No especificado"}]\n\n${formData.message}`;
       const result = await submitContactAction({
         name: formData.name,
         email: formData.email,
-        message: fullMessage,
+        message: formData.message,
         acceptedTerms: formData.acceptedTerms,
         hp_confirm: formData.hp_confirm,
         _ts: formLoadTime,
@@ -179,20 +146,11 @@ export const useContactForm = () => {
       
       if (result.success) {
         toaster.create({
-          title: "¡Cotización Recibida!",
-          description: "Hemos recibido tu requerimiento. Un especialista técnico te contactará pronto.",
+          title: "¡Solicitud Recibida!",
+          description: "Gracias por contactarnos. Te responderemos en menos de 24 horas.",
           type: "success",
         });
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          projectType: "Vidrio Templado",
-          message: "",
-          acceptedTerms: false,
-          hp_confirm: "",
-        });
-        setStep(1);
+        setFormData({ name: "", email: "", message: "", acceptedTerms: false, hp_confirm: "" });
         setErrors({});
       } else {
         throw new Error(result.error);
@@ -209,14 +167,10 @@ export const useContactForm = () => {
   };
 
   return {
-    step,
-    nextStep,
-    prevStep,
     formData,
     errors,
     isSubmitting,
     handleChange,
-    setProjectType,
     handleBlur,
     handleCheckedChange,
     handleSubmit,
