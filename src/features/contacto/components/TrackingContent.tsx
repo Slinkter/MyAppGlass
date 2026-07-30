@@ -2,6 +2,7 @@
 
 import {
   Box,
+  Heading,
   Text,
   VStack,
   HStack,

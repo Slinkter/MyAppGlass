@@ -1,39 +1,52 @@
 "use client";
+/**
+ * @file ProjectsList.tsx
+ * @description Orchestrator for the projects gallery, leveraging `ItemGridLayout` for consistency.
+ * @module projects/components
+ * @remarks
+ * - Implements built-in SEO optimizations via metadata props.
+ * - Handles eager loading for items above the fold (first 2 items) to improve LCP.
+ * - Cascade animation effect for each item.
+ */
+
 import React, { useMemo, useCallback } from "react";
 import { Box, HStack } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
+import { getProjects } from "@shared/services/projectService";
+import type { Project } from "@shared/types/project";
 import { useFilterableList } from "@shared/hooks";
-import { Project, getProjects } from "@shared/services/projectService";
-import { logger } from "@shared/utils/logger";
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
+import logger from "@shared/utils/logger";
 
-// Helper inline para normalizar el año
+/**
+ * Normaliza nombres de años para extraer solo el año de 4 dígitos (ej. 2024, 2023).
+ */
 const normalizeYear = (year?: string | number): string => {
   if (!year) return "Otros";
-  const str = String(year).trim();
-  if (/^\d{4}$/.test(str)) return str;
-  return "Otros";
+  const yearString = String(year).trim();
+  const match = yearString.match(/\b(20\d{2})\b/);
+  return match ? match[1] : "Otros";
 };
 
 /**
  * @component ProjectsList
- * @description Renderiza la lista de proyectos filtrados por año en píldoras visualmente contrastadas.
+ * @description Orchestrator for the projects gallery, implementing Infinite Scroll (O1) for high performance.
  */
 const ProjectsList: React.FC = React.memo(() => {
-  const allProjects = useMemo(() => getProjects(), []);
+  const allProjects = useMemo(() => {
+    const projects = [...getProjects()].reverse();
+    logger.debug({ total: projects.length }, "Projects loaded");
+    return projects;
+  }, []);
 
+  // Get unique years
   const years = useMemo(() => {
-    const list = allProjects.map((p) => normalizeYear(p.year));
-    const unique = Array.from(new Set(list)).sort((a, b) => {
-      const isANum = !isNaN(Number(a));
-      const isBNum = !isNaN(Number(b));
-      if (isANum && isBNum) return Number(b) - Number(a);
-      if (isANum) return -1;
-      if (isBNum) return 1;
-      return a.localeCompare(b);
-    });
-
+    const allNormalized = allProjects.map(p => ({ id: p.id, year: p.year, normalized: normalizeYear(p.year) }));
+    logger.debug({ allNormalized }, "normalizeYear for all projects");
+    const rawYears = allProjects.map((p) => normalizeYear(p.year));
+    const unique = [...new Set(rawYears)].sort((a, b) => b.localeCompare(a));
+    // Move "Otros" to the end if it exists
     const othersIndex = unique.indexOf("Otros");
     if (othersIndex > -1) {
       unique.splice(othersIndex, 1);
@@ -44,9 +57,12 @@ const ProjectsList: React.FC = React.memo(() => {
 
   logger.info({ years: years.slice(1), allYears: allProjects.map(p => ({ id: p.id, year: p.year, normalized: normalizeYear(p.year) })) }, "Available filter years");
 
+  logger.info({ years: years.slice(1) }, "Available filter years");
+
   const filterFn = useCallback((items: Project[], category: string) => {
     logger.debug({ category, totalItems: items.length }, "Filter function called");
     if (category === "Todos") {
+      logger.debug({ result: items.length }, "Returning all items for 'Todos'");
       return items;
     }
     const filtered = items.filter((p) => {
@@ -54,6 +70,7 @@ const ProjectsList: React.FC = React.memo(() => {
       const matches = normalized === category;
       return matches;
     });
+    logger.debug({ category, filtered: filtered.length, items: filtered.map(p => p.id) }, "Filter result");
     return filtered;
   }, []);
 
@@ -69,15 +86,6 @@ const ProjectsList: React.FC = React.memo(() => {
     filterFn,
   });
 
-  // Estilos de alto contraste para las píldoras de filtrado por año
-  const inactiveBg = useColorModeValue("rgba(228, 228, 231, 0.75)", "rgba(39, 39, 42, 0.75)");
-  const inactiveHoverBg = useColorModeValue("rgba(212, 212, 216, 0.9)", "rgba(63, 63, 70, 0.9)");
-  const inactiveText = useColorModeValue("#27272a", "#e4e4e7");
-  const inactiveBorder = useColorModeValue("rgba(161, 161, 170, 0.5)", "rgba(113, 113, 122, 0.5)");
-
-  const activeBg = useColorModeValue("#18181b", "#f4f4f5");
-  const activeText = useColorModeValue("#ffffff", "#18181b");
-
   return (
     <ItemGridLayout
       title="PROYECTOS"
@@ -88,44 +96,31 @@ const ProjectsList: React.FC = React.memo(() => {
       seoCanonicalUrl="https://www.gyacompany.com/proyectos"
       columns={{ base: 1, md: 2, lg: 3 }}
     >
-      {/* Filter Pills con contraste visual garantizado */}
+      {/* Filter Pills */}
       <Box gridColumn="1 / -1" w="full" mt="5">
-        <HStack gap="3" justify="center" flexWrap="wrap" pb="6">
+        <HStack gap="2" justify="center" flexWrap="wrap" pb="5">
           {years.map((year) => {
             const isActive = activeYear === year;
             return (
-              <Box
+              <Button
                 key={year}
-                onClick={() => handleYearChange(year)}
-                as="button"
-                type="button"
+                size="sm"
                 px="5"
-                py="2"
+                mt="2"
                 borderRadius="full"
-                fontWeight="700"
+                fontWeight="semibold"
                 fontSize="xs"
-                letterSpacing="0.1em"
+                letterSpacing="wider"
                 textTransform="uppercase"
-                bg={isActive ? activeBg : inactiveBg}
-                color={isActive ? activeText : inactiveText}
-                border="1px solid"
-                borderColor={isActive ? activeBg : inactiveBorder}
-                boxShadow={isActive ? "0 4px 12px rgba(0, 0, 0, 0.2)" : "0 1px 3px rgba(0, 0, 0, 0.08)"}
-                cursor="pointer"
-                userSelect="none"
-                transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
-                _hover={{
-                  transform: "translateY(-1px)",
-                  boxShadow: isActive ? "0 6px 16px rgba(0, 0, 0, 0.3)" : "0 3px 8px rgba(0, 0, 0, 0.12)",
-                  bg: isActive ? activeBg : inactiveHoverBg
-                }}
-                _active={{
-                  transform: "translateY(0)",
-                  boxShadow: "none"
+                colorPalette="primary"
+                variant={isActive ? "solid" : "subtle"}
+                transition="background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease"
+                onClick={() => {
+                  handleYearChange(year);
                 }}
               >
                 {year}
-              </Box>
+              </Button>
             );
           })}
         </HStack>
@@ -139,30 +134,23 @@ const ProjectsList: React.FC = React.memo(() => {
           transition: "opacity 0.2s ease-in-out",
           pointerEvents: isPending ? "none" : "auto",
         }}
+        onMouseEnter={() => {}}
       >
         {preloadedProjects.map((project, index) => (
-          <ItemGridLayout.Item
-            key={`${activeYear}-${project.id}`}
-            delay={(index % 6) * 0.08}
-          >
+          <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>
             <ProjectCard
-              project={project}
-              index={index}
+              {...project}
               isLCP={index < 3}
-              loading={index < 3 ? "eager" : "lazy"}
+              loading={index < 2 ? "eager" : "lazy"}
+              fetchPriority={index < 2 ? "high" : "auto"}
             />
           </ItemGridLayout.Item>
         ))}
       </Box>
-
+      
+      {/* Intersection Sensor for O1 Rendering */}
       {hasMore && (
-        <Box
-          ref={loaderRef}
-          gridColumn="1 / -1"
-          w="full"
-          h="5"
-          py="8"
-        />
+        <Box ref={loaderRef} w="full" h="20px" py="8" />
       )}
     </ItemGridLayout>
   );
