@@ -6,38 +6,22 @@ import {
   VStack,
   Heading,
   Text,
-  SimpleGrid,
-  HStack,
   Badge,
 } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
-import { Clock, Search, MessageSquareText, ShieldCheck } from "lucide-react";
 import { useContactForm } from "@/features/contacto/hooks/useContactForm";
-import { WhatsAppSection } from "@/features/contacto/components/WhatsAppSection";
-import { ContactInfoCards } from "@/features/contacto/components/ContactInfoCards";
 import { ContactFormSection } from "@/features/contacto/components/ContactFormSection";
-import { TrackingContent } from "@/features/contacto/components/TrackingContent";
-import {
-  DialogRoot,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogBody,
-  DialogCloseTrigger,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import AuraSurface from "@/shared/components/aura/AuraSurface";
+import { TrackingSection } from "@/features/contacto/components/TrackingSection";
 
 export default function ContactPageClient() {
   const { 
-    step, nextStep, prevStep, setProjectType,
-    formData, errors, isSubmitting, handleChange, handleBlur, handleCheckedChange, handleSubmit,
+    formData, errors, isSubmitting, 
+    handleChange, handleBlur, handleCheckedChange, handleSubmit,
     trackingId, isTracking, trackingResult, handleTrackingChange, handleTrackingSubmit
   } = useContactForm();
 
   return (
     <Box bg="bg.page" minH="100dvh" pt={{ base: 24, md: 32 }} pb={20} position="relative" overflow="hidden">
-      {/* Background Ambient Lights */}
+      {/* Background Ambient Glow Orbs */}
       <Box 
         position="absolute" 
         top="-10%" 
@@ -45,7 +29,7 @@ export default function ContactPageClient() {
         w="45%" 
         h="60%" 
         bgGradient="radial(circle, primary.900, transparent)" 
-        opacity={0.08} 
+        opacity={0.12} 
         filter="blur(140px)" 
         zIndex={0}
         pointerEvents="none"
@@ -57,104 +41,61 @@ export default function ContactPageClient() {
         w="35%" 
         h="50%" 
         bgGradient="radial(circle, text.accent, transparent)" 
-        opacity={0.05} 
+        opacity={0.08} 
         filter="blur(120px)" 
         zIndex={0}
         pointerEvents="none"
       />
 
-      <Container maxW="7xl" position="relative" zIndex={1}>
-        {/* Top Bar / Header Section */}
-        <VStack gap={4} align="flex-start" mb={10}>
-          <HStack justify="space-between" w="full" wrap="wrap" gap="4">
-            <HStack gap="2" wrap="wrap">
-              <Badge colorPalette="red" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.15em">
-                Cotización & Asesoría
-              </Badge>
-              <HStack gap="1" color="text.muted" fontSize="xs">
-                <Clock size={14} />
-                <Text fontWeight="600">Atención Lu - Sáb: 8:00 AM - 6:00 PM</Text>
-              </HStack>
-            </HStack>
-
-            {/* Modal Trigger for Consultar Estado */}
-            <DialogRoot placement="center">
-              <DialogTrigger asChild>
-                <Button variant="outline" size="sm" borderRadius="full" px="5" fontWeight="700">
-                  <Search size={15} style={{ marginRight: '6px' }} /> Consultar Estado de Solicitud
-                </Button>
-              </DialogTrigger>
-              <DialogContent borderRadius="2xl" p="4">
-                <DialogHeader>
-                  <DialogTitle fontWeight="800" fontSize="lg" display="flex" alignItems="center" gap="2">
-                    <Search size={20} color="var(--chakra-colors-text-accent)" /> Consultar Estado de Cotización o Reclamo
-                  </DialogTitle>
-                </DialogHeader>
-                <DialogBody pb="4">
-                  <TrackingContent 
-                    trackingId={trackingId}
-                    isTracking={isTracking}
-                    trackingResult={trackingResult}
-                    handleTrackingChange={handleTrackingChange}
-                    handleTrackingSubmit={handleTrackingSubmit}
-                  />
-                </DialogBody>
-                <DialogCloseTrigger />
-              </DialogContent>
-            </DialogRoot>
-          </HStack>
-
+      <Container maxW="4xl" position="relative" zIndex={1}>
+        {/* Header Section */}
+        <VStack gap={3} align="flex-start" mb={10}>
           <Heading as="h1" size={{ base: "2xl", md: "4xl" }} fontWeight="900" letterSpacing="tighter">
             Cotiza tu Proyecto <br />
             <Text as="span" color="text.accent">con Glass & Aluminum Company S.A.C.</Text>
           </Heading>
           <Text color="text.muted" fontSize="lg" maxW="2xl">
-            Asesoría técnica en vidriería templada, mamparas y carpintería de aluminio. Elige la vía directa o completa el formulario guiado.
+            Asesoría especializada en vidriería templada, mamparas, muros cortina y perfiles de aluminio a medida.
           </Text>
         </VStack>
 
-        <SimpleGrid columns={{ base: 1, lg: 2 }} gap="8" alignItems="start">
-          {/* Left Column: Direct Communication Channels */}
-          <VStack gap="6" align="stretch">
-            {/* Direct WhatsApp Channel */}
-            <WhatsAppSection />
-
-            {/* Direct Phone & Email Cards */}
-            <ContactInfoCards />
-
-            {/* Guarantee / Trust Badge */}
-            <AuraSurface p="5" variant="glass">
-              <HStack gap="4">
-                <Box p="2.5" borderRadius="xl" bg="whiteAlpha.200" color="text.accent">
-                  <ShieldCheck size={24} />
-                </Box>
-                <VStack align="flex-start" gap="0">
-                  <Text fontSize="xs" fontWeight="bold" color="text.heading">
-                    Garantía y Asesoría Técnica Especializada
-                  </Text>
-                  <Text fontSize="2xs" color="text.muted">
-                    Contamos con ingenieros y técnicos certificados para medición en obra y diseño de perfiles a medida.
-                  </Text>
-                </VStack>
-              </HStack>
-            </AuraSurface>
-          </VStack>
-
-          {/* Right Column: Multi-Step Interactive Form */}
+        {/* SECCIÓN 1: Formulario Principal de Cotización */}
+        <Box mb={16}>
           <ContactFormSection 
-            step={step}
-            nextStep={nextStep}
-            prevStep={prevStep}
             formData={formData}
             errors={errors}
             isSubmitting={isSubmitting}
             handleChange={handleChange}
-            setProjectType={setProjectType}
             handleBlur={handleBlur}
             handleCheckedChange={handleCheckedChange}
             handleSubmit={handleSubmit}
           />
-        </SimpleGrid>
+        </Box>
+
+        {/* SECCIÓN 2: Consulta tu Cotización */}
+        <VStack gap={6} align="flex-start" pt={8} borderTop="1px solid" borderColor="border.glass">
+          <Box>
+            <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.15em" mb="2">
+              Seguimiento
+            </Badge>
+            <Heading as="h2" size={{ base: "xl", md: "2xl" }} fontWeight="800" letterSpacing="tight">
+              Consulta tu Cotización
+            </Heading>
+            <Text color="text.muted" fontSize="sm" maxW="xl" mt="1">
+              ¿Ya realizaste una cotización o reclamo previamente? Ingresa tu código único de seguimiento para verificar el estado en tiempo real.
+            </Text>
+          </Box>
+
+          <Box w="full">
+            <TrackingSection 
+              trackingId={trackingId}
+              isTracking={isTracking}
+              trackingResult={trackingResult}
+              handleTrackingChange={handleTrackingChange}
+              handleTrackingSubmit={handleTrackingSubmit}
+            />
+          </Box>
+        </VStack>
       </Container>
     </Box>
   );
