@@ -12,9 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Field } from "@/components/ui/field";
 import AuraSurface from "@/shared/components/aura/AuraSurface";
 import { Shield, Building2, Sparkles, Wrench, Send, Lock } from "lucide-react";
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 interface ContactFormSectionProps {
   formData: {
@@ -57,8 +57,6 @@ export function ContactFormSection({
   selectedCategory,
   setSelectedCategory,
 }: ContactFormSectionProps) {
-  const cardBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.50");
-
   return (
     <AuraSurface p={{ base: "6", md: "8" }} variant="glass" boxShadow="0 20px 40px rgba(0,0,0,0.12)">
       <VStack align="flex-start" gap="7" as="form" onSubmit={handleSubmit}>
@@ -91,11 +89,8 @@ export function ContactFormSection({
 
           {/* Categorías Rápidas Interactivas */}
           {setSelectedCategory && (
-            <Box w="full">
-              <Text fontSize="xs" fontWeight="black" mb="2.5" ml={1} color="text.muted" letterSpacing="widest">
-                TIPO DE PROYECTO (OPCIONAL)
-              </Text>
-              <SimpleGrid columns={{ base: 1, sm: 2 }} gap="2.5">
+            <Field label="TIPO DE PROYECTO (OPCIONAL)" optionalText="">
+              <SimpleGrid columns={{ base: 1, sm: 2 }} gap="2.5" w="full" mt={1}>
                 {CATEGORIES.map((cat) => {
                   const IconComp = cat.icon;
                   const isSelected = selectedCategory === cat.id;
@@ -134,13 +129,17 @@ export function ContactFormSection({
                   );
                 })}
               </SimpleGrid>
-            </Box>
+            </Field>
           )}
 
-          <Box w="full">
-            <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">
-              NOMBRE COMPLETO *
-            </Text>
+          {/* Campo Nombre usando Chakra UI Field */}
+          <Field 
+            label="NOMBRE COMPLETO" 
+            invalid={!!errors?.name}
+            errorText={errors?.name}
+            required
+            w="full"
+          >
             <Input 
               variant="subtle" 
               w="full" 
@@ -151,20 +150,17 @@ export function ContactFormSection({
               onBlur={handleBlur}
               borderRadius="xl"
               size="lg"
-              borderColor={errors?.name ? "red.500" : undefined}
-              _focus={{ borderColor: errors?.name ? "red.500" : "primary.500", boxShadow: "0 0 0 1px var(--chakra-colors-primary-500)" }}
             />
-            {errors?.name && (
-              <Text fontSize="xs" color="red.500" mt={1} ml={1} fontWeight="600">
-                {errors.name}
-              </Text>
-            )}
-          </Box>
+          </Field>
 
-          <Box w="full">
-            <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">
-              CORREO ELECTRÓNICO *
-            </Text>
+          {/* Campo Correo usando Chakra UI Field */}
+          <Field 
+            label="CORREO ELECTRÓNICO" 
+            invalid={!!errors?.email}
+            errorText={errors?.email}
+            required
+            w="full"
+          >
             <Input 
               variant="subtle" 
               w="full" 
@@ -176,20 +172,17 @@ export function ContactFormSection({
               type="email"
               borderRadius="xl"
               size="lg"
-              borderColor={errors?.email ? "red.500" : undefined}
-              _focus={{ borderColor: errors?.email ? "red.500" : "primary.500", boxShadow: "0 0 0 1px var(--chakra-colors-primary-500)" }}
             />
-            {errors?.email && (
-              <Text fontSize="xs" color="red.500" mt={1} ml={1} fontWeight="600">
-                {errors.email}
-              </Text>
-            )}
-          </Box>
+          </Field>
 
-          <Box w="full">
-            <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">
-              DETALLES DEL PROYECTO *
-            </Text>
+          {/* Campo Detalles usando Chakra UI Field */}
+          <Field 
+            label="DETALLES DEL PROYECTO" 
+            invalid={!!errors?.message}
+            errorText={errors?.message}
+            required
+            w="full"
+          >
             <Textarea 
               variant="subtle" 
               w="full" 
@@ -200,17 +193,16 @@ export function ContactFormSection({
               onChange={handleChange}
               onBlur={handleBlur}
               borderRadius="xl"
-              borderColor={errors?.message ? "red.500" : undefined}
-              _focus={{ borderColor: errors?.message ? "red.500" : "primary.500", boxShadow: "0 0 0 1px var(--chakra-colors-primary-500)" }}
             />
-            {errors?.message && (
-              <Text fontSize="xs" color="red.500" mt={1} ml={1} fontWeight="600">
-                {errors.message}
-              </Text>
-            )}
-          </Box>
+          </Field>
 
-          <Box w="full" pt={1}>
+          {/* Checkbox Términos usando Chakra UI Field */}
+          <Field 
+            invalid={!!errors?.acceptedTerms}
+            errorText={errors?.acceptedTerms}
+            w="full"
+            pt={1}
+          >
             <Checkbox 
               name="acceptedTerms"
               checked={formData.acceptedTerms}
@@ -220,12 +212,7 @@ export function ContactFormSection({
                 He leído y acepto las <Text as="span" color="text.accent" cursor="pointer" textDecoration="underline">Políticas de Privacidad</Text> y el uso de mis datos para fines comerciales.
               </Text>
             </Checkbox>
-            {errors?.acceptedTerms && (
-              <Text fontSize="xs" color="red.500" mt={1} ml={1} fontWeight="600">
-                {errors.acceptedTerms}
-              </Text>
-            )}
-          </Box>
+          </Field>
         </VStack>
 
         <VStack w="full" gap="3" pt={2}>
