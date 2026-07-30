@@ -18,7 +18,7 @@ export interface ServiceData extends Service {
 
 /**
  * @component ServiceList
- * @description Renderiza la lista de servicios con filtro por categoría en píldoras (Pills) visibles.
+ * @description Renderiza la lista de servicios con filtro por categoría en píldoras con estilos explícitos de alto contraste.
  */
 const ServiceList: React.FC = React.memo(() => {
     const allServices = useMemo(() => getServices() as ServiceData[], []);
@@ -41,14 +41,14 @@ const ServiceList: React.FC = React.memo(() => {
         filterFn,
     });
 
-    // Colores de fondo garantizados e intensos para que las píldoras resalten claramente
-    const inactiveBg = useColorModeValue("#f1f5f9", "#1e293b");
-    const inactiveHoverBg = useColorModeValue("#e2e8f0", "#334155");
-    const inactiveText = useColorModeValue("#334155", "#cbd5e1");
-    const inactiveBorder = useColorModeValue("#cbd5e1", "#475569");
+    // Definición explícita de colores para estado Inactivo y Activo de las píldoras
+    const inactiveBg = useColorModeValue("rgba(228, 228, 231, 0.75)", "rgba(39, 39, 42, 0.75)");
+    const inactiveHoverBg = useColorModeValue("rgba(212, 212, 216, 0.9)", "rgba(63, 63, 70, 0.9)");
+    const inactiveText = useColorModeValue("#27272a", "#e4e4e7");
+    const inactiveBorder = useColorModeValue("rgba(161, 161, 170, 0.5)", "rgba(113, 113, 122, 0.5)");
 
-    const activeBg = "#18181b";
-    const activeText = "#ffffff";
+    const activeBg = useColorModeValue("#18181b", "#f4f4f5");
+    const activeText = useColorModeValue("#ffffff", "#18181b");
 
     return (
         <ItemGridLayout
@@ -60,7 +60,7 @@ const ServiceList: React.FC = React.memo(() => {
             seoCanonicalUrl="https://www.gyacompany.com/servicios"
             columns={{ base: 1, md: 2, lg: 3 }}
         >
-            {/* Contenedor de Filtros tipo Píldoras (Pills) con Fondos Garantizados */}
+            {/* Contenedor de Filtros tipo Píldoras con estilos explícitos de alto contraste */}
             <Box gridColumn="1 / -1" w="full" mt="5">
                 <HStack gap="3" justify="center" flexWrap="wrap" pb="6">
                     {CATEGORIES.map((cat) => {
@@ -71,29 +71,29 @@ const ServiceList: React.FC = React.memo(() => {
                                 onClick={() => handleCategoryChange(cat)}
                                 as="button"
                                 type="button"
-                                px="6"
-                                py="2.5"
+                                px="5"
+                                py="2"
                                 borderRadius="full"
                                 fontWeight="700"
                                 fontSize="xs"
-                                letterSpacing="0.12em"
+                                letterSpacing="0.1em"
                                 textTransform="uppercase"
                                 bg={isActive ? activeBg : inactiveBg}
                                 color={isActive ? activeText : inactiveText}
-                                border="1.5px solid"
+                                border="1px solid"
                                 borderColor={isActive ? activeBg : inactiveBorder}
-                                boxShadow={isActive ? "0 4px 14px rgba(0, 0, 0, 0.25)" : "0 2px 6px rgba(0, 0, 0, 0.05)"}
+                                boxShadow={isActive ? "0 4px 12px rgba(0, 0, 0, 0.2)" : "0 1px 3px rgba(0, 0, 0, 0.08)"}
                                 cursor="pointer"
                                 userSelect="none"
-                                transition="all 0.2s ease"
+                                transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
                                 _hover={{
-                                    transform: "translateY(-2px)",
-                                    boxShadow: isActive ? "0 6px 18px rgba(0, 0, 0, 0.35)" : "0 4px 12px rgba(0, 0, 0, 0.1)",
+                                    transform: "translateY(-1px)",
+                                    boxShadow: isActive ? "0 6px 16px rgba(0, 0, 0, 0.3)" : "0 3px 8px rgba(0, 0, 0, 0.12)",
                                     bg: isActive ? activeBg : inactiveHoverBg
                                 }}
                                 _active={{
                                     transform: "translateY(0)",
-                                    boxShadow: "sm"
+                                    boxShadow: "none"
                                 }}
                             >
                                 {cat}
