@@ -6,17 +6,12 @@ import {
   VStack,
   Heading,
   Text,
-  SimpleGrid,
-  HStack,
   Badge,
 } from "@chakra-ui/react";
-import { Clock, ShieldCheck } from "lucide-react";
+import { Clock } from "lucide-react";
 import { useContactForm } from "@/features/contacto/hooks/useContactForm";
-import { WhatsAppSection } from "@/features/contacto/components/WhatsAppSection";
-import { ContactInfoCards } from "@/features/contacto/components/ContactInfoCards";
 import { ContactFormSection } from "@/features/contacto/components/ContactFormSection";
 import { TrackingSection } from "@/features/contacto/components/TrackingSection";
-import AuraSurface from "@/shared/components/aura/AuraSurface";
 
 export default function ContactPageClient() {
   const { 
@@ -53,9 +48,9 @@ export default function ContactPageClient() {
         pointerEvents="none"
       />
 
-      <Container maxW="7xl" position="relative" zIndex={1}>
+      <Container maxW="4xl" position="relative" zIndex={1}>
         {/* Header Section */}
-        <VStack gap={4} align="flex-start" mb={12}>
+        <VStack gap={4} align="flex-start" mb={10}>
           <HStack gap="2" wrap="wrap">
             <Badge colorPalette="red" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.15em">
               Cotización & Asesoría
@@ -71,13 +66,12 @@ export default function ContactPageClient() {
             <Text as="span" color="text.accent">con Glass & Aluminum Company S.A.C.</Text>
           </Heading>
           <Text color="text.muted" fontSize="lg" maxW="2xl">
-            Asesoría técnica en vidriería templada, mamparas y carpintería de aluminio.
+            Asesoría técnica especializada en vidriería templada, mamparas y carpintería de aluminio.
           </Text>
         </VStack>
 
-        {/* SECCIÓN 1: COTIZA (Formulario + Canales Inmediatos) */}
-        <SimpleGrid columns={{ base: 1, lg: 2 }} gap="8" alignItems="start" mb={16}>
-          {/* Formulario Principal de Cotización */}
+        {/* SECCIÓN 1: COTIZA (Formulario Principal de Cotización Centrado) */}
+        <Box mb={16}>
           <ContactFormSection 
             step={step}
             nextStep={nextStep}
@@ -91,29 +85,7 @@ export default function ContactPageClient() {
             handleCheckedChange={handleCheckedChange}
             handleSubmit={handleSubmit}
           />
-
-          {/* Canales Directos WhatsApp y Contacto */}
-          <VStack gap="6" align="stretch">
-            <WhatsAppSection />
-            <ContactInfoCards />
-
-            <AuraSurface p="5" variant="glass">
-              <HStack gap="4">
-                <Box p="2.5" borderRadius="xl" bg="whiteAlpha.200" color="text.accent">
-                  <ShieldCheck size={24} />
-                </Box>
-                <VStack align="flex-start" gap="0">
-                  <Text fontSize="xs" fontWeight="bold" color="text.heading">
-                    Garantía y Asesoría Técnica Especializada
-                  </Text>
-                  <Text fontSize="2xs" color="text.muted">
-                    Contamos con ingenieros y técnicos certificados para medición en obra y diseño de perfiles a medida.
-                  </Text>
-                </VStack>
-              </HStack>
-            </AuraSurface>
-          </VStack>
-        </SimpleGrid>
+        </Box>
 
         {/* SECCIÓN 2: CONSULTA TU COTIZACIÓN */}
         <VStack gap={6} align="flex-start" pt={8} borderTop="1px solid" borderColor="border.glass">
@@ -129,7 +101,7 @@ export default function ContactPageClient() {
             </Text>
           </Box>
 
-          <Box w="full" maxW="3xl">
+          <Box w="full">
             <TrackingSection 
               trackingId={trackingId}
               isTracking={isTracking}
