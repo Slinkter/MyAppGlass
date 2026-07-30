@@ -7,6 +7,7 @@ import {
   Heading,
   Text,
   Badge,
+  HStack,
 } from "@chakra-ui/react";
 import { Clock } from "lucide-react";
 import { useContactForm } from "@/features/contacto/hooks/useContactForm";
