@@ -12,6 +12,13 @@ interface ContactFormState {
   hp_confirm: string;
 }
 
+interface FormErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+  acceptedTerms?: string;
+}
+
 export interface TrackingResult {
   id: string;
   type: string;
@@ -28,21 +35,50 @@ export const useContactForm = () => {
     acceptedTerms: false,
     hp_confirm: "",
   });
+  const [errors, setErrors] = useState<FormErrors>({});
   const [formLoadTime] = useState<number>(() => Date.now());
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Tracking State
   const [trackingId, setTrackingId] = useState("");
   const [isTracking, setIsTracking] = useState(false);
   const [trackingResult, setTrackingResult] = useState<TrackingResult | null>(null);
 
+  const validateField = (name: keyof FormErrors, value: string | boolean): string | undefined => {
+    switch (name) {
+      case "name":
+        return !String(value).trim() ? "El nombre es obligatorio" : undefined;
+      case "email":
+        if (!String(value).trim()) return "El correo es obligatorio";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value))) return "Correo electrónico no válido";
+        return undefined;
+      case "message":
+        return !String(value).trim() ? "Los detalles del proyecto son obligatorios" : undefined;
+      case "acceptedTerms":
+        return !value ? "Debes aceptar las políticas de privacidad" : undefined;
+      default:
+        return undefined;
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const error = validateField(name as keyof FormErrors, value);
+    setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   const handleCheckedChange = (checked: boolean) => {
     setFormData((prev) => ({ ...prev, acceptedTerms: checked }));
+    if (errors.acceptedTerms) {
+      setErrors((prev) => ({ ...prev, acceptedTerms: undefined }));
+    }
   };
 
   const handleTrackingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,40 +115,43 @@ export const useContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.message) {
-      toaster.create({
-        title: "Campos incompletos",
-        description: "Por favor, completa todos los campos del formulario.",
-        type: "warning",
-      });
-      return;
-    }
 
-    if (!formData.acceptedTerms) {
-      toaster.create({
-        title: "Consentimiento requerido",
-        description: "Debes aceptar las políticas de privacidad para continuar.",
-        type: "warning",
-      });
-      return;
-    }
+    const nameErr = validateField("name", formData.name);
+    const emailErr = validateField("email", formData.email);
+    const messageErr = validateField("message", formData.message);
+    const termsErr = validateField("acceptedTerms", formData.acceptedTerms);
+
+    const newErrors: FormErrors = {
+      ...(nameErr && { name: nameErr }),
+      ...(emailErr && { email: emailErr }),
+      ...(messageErr && { message: messageErr }),
+      ...(termsErr && { acceptedTerms: termsErr }),
+    };
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) return;
 
     setIsSubmitting(true);
 
     try {
       const result = await submitContactAction({
-        ...formData,
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        acceptedTerms: formData.acceptedTerms,
+        hp_confirm: formData.hp_confirm,
         _ts: formLoadTime,
       });
       
       if (result.success) {
         toaster.create({
-          title: "¡Mensaje Enviado!",
+          title: "¡Solicitud Recibida!",
           description: "Gracias por contactarnos. Te responderemos en menos de 24 horas.",
           type: "success",
         });
         setFormData({ name: "", email: "", message: "", acceptedTerms: false, hp_confirm: "" });
+        setErrors({});
       } else {
         throw new Error(result.error);
       }
@@ -129,11 +168,12 @@ export const useContactForm = () => {
 
   return {
     formData,
+    errors,
     isSubmitting,
     handleChange,
+    handleBlur,
     handleCheckedChange,
     handleSubmit,
-    // Tracking exports
     trackingId,
     isTracking,
     trackingResult,
@@ -141,4 +181,3 @@ export const useContactForm = () => {
     handleTrackingSubmit,
   };
 };
-

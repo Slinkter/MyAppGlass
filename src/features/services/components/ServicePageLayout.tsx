@@ -13,7 +13,7 @@ import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import { ServicePageData } from "@features/services/services/serviceService";
 import ServiceHeader from "./ServiceHeader";
-import { BentoCTA, UnifiedTechnicalCard } from "./ServiceBentoGrid";
+import { UnifiedTechnicalCard } from "./ServiceBentoGrid";
 
 
 
@@ -48,11 +48,10 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
           <Grid
             templateColumns={{ base: "1fr", lg: "repeat(12, 1fr)" }}
-            gap={{ base: "4", sm: "5", lg: "8" }}
+            gap={{ base: "4", sm: "5", lg: "6" }}
             alignItems="stretch"
-            h={{ lg: "530px", xl: "550px" }}
           >
-            {/* Columna Galería: Integrada al fondo sin tarjeta ni sombra */}
+            {/* Columna Galería */}
             <GridItem colSpan={{ base: 1, lg: 7 }} order={{ base: 1, lg: 2 }} display="flex" flexDirection="column" minW={0}>
               <Skeleton
                 loading={isPending}
@@ -62,7 +61,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                 flex="1"
               >
                 <Box
-                  h={{ base: "280px", sm: "360px", md: "480px", lg: "530px", xl: "550px" }}
+                  h={{ base: "280px", sm: "340px", md: "400px", lg: "460px" }}
                   position="relative"
                   w="full"
                   overflow="hidden"
@@ -101,17 +100,15 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
               </Skeleton>
             </GridItem>
 
-            {/* Columna Información + CTA: En móvil adopta tarjetas elevadas Material Design 3 (elevation 2, touch target >= 48px) */}
-            <GridItem colSpan={{ base: 1, lg: 5 }} order={{ base: 2, lg: 1 }} display="flex" flexDirection="column" minW={0}>
-              <VStack gap={{ base: "3.5", md: "5" }} align="stretch" h="100%" flex="1">
-                {about && (
-                  <UnifiedTechnicalCard description={about.description} features={pageData.features} />
-                )}
-
-                <Box flex="1" display="flex" flexDirection="column" minH={{ base: "112px", md: "120px" }}>
-                  <BentoCTA systemName={activeSystem?.label || seo.title} />
-                </Box>
-              </VStack>
+            {/* Columna Información + CTA Integrado */}
+            <GridItem colSpan={{ base: 1, lg: 5 }} order={{ base: 2, lg: 1 }} display="flex" flexDirection="column" minW={0} h={{ lg: "460px" }}>
+              {about && (
+                <UnifiedTechnicalCard 
+                  description={about.description} 
+                  features={pageData.features} 
+                  systemName={activeSystem?.label || seo.title}
+                />
+              )}
             </GridItem>
           </Grid>
         </VStack>

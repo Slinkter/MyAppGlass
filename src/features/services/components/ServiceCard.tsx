@@ -26,6 +26,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   image,
   name,
   category,
+  description,
   plink,
   loading = "lazy",
   isLCP = false
@@ -35,15 +36,16 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
       <Box
         role="group"
         w="full"
-        h={{ base: "240px", sm: "260px", md: "290px" }}
-        borderRadius="2xl"
+        h={{ base: "260px", sm: "280px", md: "310px" }}
+        borderRadius="3xl"
         overflow="hidden"
         position="relative"
         bg="black"
-        transition="all 0.3s ease"
+        boxShadow="sm"
+        transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
         _hover={{ 
-          boxShadow: "xl",
-          transform: "translateY(-4px)"
+          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+          transform: "translateY(-6px)"
         }}
       >
         {/* Fotografía de Fondo */}
@@ -56,60 +58,100 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             objectFit="cover"
             loading={loading}
             isLCP={isLCP}
-            transition="transform 0.6s ease"
-            _groupHover={{ transform: "scale(1.05)" }}
+            transition="transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
+            _groupHover={{ transform: "scale(1.06)" }}
           />
         </Box>
 
-        {/* Degradado Oscuro Inferior Fino */}
+        {/* Degradado Oscuro de Gradación Fina */}
         <Box 
           position="absolute" 
           inset={0} 
           zIndex={1}
-          background="linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%)" 
+          background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)" 
+          transition="opacity 0.3s ease"
+          _groupHover={{ opacity: 0.95 }}
         />
 
-        {/* Texto Flotante Directo (Sin cajas blancas) */}
+        {/* Badge de Categoría Superior Floating Glass */}
+        {category && (
+          <Box
+            position="absolute"
+            top="4"
+            left="4"
+            zIndex={2}
+            bg="rgba(0, 0, 0, 0.55)"
+            backdropFilter="blur(10px)"
+            px="3"
+            py="1"
+            borderRadius="full"
+            border="1px solid rgba(255, 255, 255, 0.15)"
+          >
+            <Text 
+              fontSize="10px" 
+              fontWeight="800" 
+              color="white"
+              letterSpacing="0.2em"
+              textTransform="uppercase"
+            >
+              {category}
+            </Text>
+          </Box>
+        )}
+
+        {/* Contenedor Inferior de Información */}
         <HStack
           position="absolute"
           bottom="0"
           left="0"
           right="0"
           zIndex={2}
-          p="5"
+          p={{ base: "5", md: "6" }}
           justify="space-between"
           align="flex-end"
         >
-          <VStack align="flex-start" gap="1">
-            {category && (
-              <Text 
-                fontSize="10px" 
-                fontWeight="700" 
-                color="whiteAlpha.800"
-                letterSpacing="0.15em"
-                textTransform="uppercase"
-              >
-                {category}
-              </Text>
-            )}
+          <VStack align="flex-start" gap="1" maxW="calc(100% - 40px)">
             <Heading 
               as="h3" 
-              fontSize={{ base: "lg", md: "xl" }} 
+              fontSize={{ base: "xl", md: "2xl" }} 
               color="white"
-              fontWeight="700"
+              fontWeight="800"
               letterSpacing="tight"
               lineHeight="tight"
             >
               {name}
             </Heading>
+            {description && (
+              <Text
+                fontSize="xs"
+                color="whiteAlpha.800"
+                lineClamp={1}
+                fontWeight="400"
+              >
+                {description}
+              </Text>
+            )}
           </VStack>
 
-          {/* Flecha Sutil en blanco */}
+          {/* Botón Circular Acción Floating */}
           <Box 
-            color="whiteAlpha.800"
-            transition="transform 0.3s ease, color 0.3s ease"
-            _groupHover={{ color: "white", transform: "translate(2px, -2px)" }}
-            mb="0.5"
+            w="40px"
+            h="40px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            borderRadius="full"
+            bg="whiteAlpha.200"
+            backdropFilter="blur(8px)"
+            border="1px solid rgba(255, 255, 255, 0.25)"
+            color="white"
+            flexShrink={0}
+            transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+            _groupHover={{ 
+              bg: "primary.500", 
+              borderColor: "primary.500",
+              transform: "scale(1.1) rotate(45deg)" 
+            }}
           >
             <Box as={ArrowUpRight} boxSize={5} />
           </Box>

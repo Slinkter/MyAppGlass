@@ -9,6 +9,7 @@ export interface ContactData {
   name: string;
   email: string;
   message: string;
+  acceptedTerms?: boolean;
   hp_confirm?: string;
   _ts?: number;
 }
@@ -18,12 +19,30 @@ export interface ContactData {
  */
 export async function submitContactAction(formData: ContactData) {
   try {
+    // Anti-Bot Protection: Honeypot check
+    if (formData.hp_confirm && formData.hp_confirm.trim() !== "") {
+      console.warn("Honeypot triggered in submitContactAction. Rejected.");
+      return { success: true, id: "CNT-PROTECTED" };
+    }
+
+    // Minimum load time protection (bots submit in under 1.5 seconds)
+    if (formData._ts && Date.now() - formData._ts < 1500) {
+      console.warn("Bot detected by fast submission time (< 1.5s). Rejected.");
+      return { success: true, id: "CNT-PROTECTED" };
+    }
+
+    const sanitizedData = {
+      name: formData.name.replace(/<[^>]*>?/gm, "").trim(),
+      email: formData.email.toLowerCase().trim(),
+      message: formData.message.replace(/<[^>]*>?/gm, "").trim(),
+    };
+
     const response = await fetch(env.NEXT_PUBLIC_CONTACT_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(sanitizedData),
     });
 
     const result = await response.json();

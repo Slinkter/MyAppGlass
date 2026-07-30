@@ -23,7 +23,6 @@
         "name": "next"
       }
     ],
-    "ignoreDeprecations": "7.0",
     "baseUrl": ".",
     "paths": {
       "@/*": [

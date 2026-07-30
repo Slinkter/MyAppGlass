@@ -2,11 +2,11 @@
 
 /**
  * @file AuraNavbar.tsx
- * @description Premium responsive navigation header entry point.
+ * @description Punto de entrada del encabezado de navegación responsivo premium.
  * @module layout/navbar
  * @remarks
- * Orchestrates the floating island navigation for Desktop and the tactical trigger for Mobile.
- * Navbar only renders when scrolled past 20px (scroll-reveal).
+ * Orquesta la navegación flotante para escritorio y el disparador táctico para móviles.
+ * La barra solo se revela al hacer desplazamientos superiores a 20px (scroll-reveal).
  */
 import React from "react";
 import { Box } from "@chakra-ui/react";
@@ -16,7 +16,7 @@ import MobileNav from "./MobileNav";
 
 /**
  * @component AuraNavbar
- * @description Main navigation orchestrator with scroll-reveal.
+ * @description Orquestador principal de navegación con revelado por desplazamiento.
  */
 const AuraNavbar = React.memo(() => {
   const pathname = usePathname();

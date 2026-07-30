@@ -3,6 +3,9 @@ import {
   Input,
   SimpleGrid,
   Heading,
+  VStack,
+  HStack,
+  Box,
 } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import {
@@ -91,16 +94,32 @@ const PersonalInfoSection: React.FC = () => {
   const { formData, handleInputsChange, errors } = useReclamationFormContext();
 
   return (
-    <>
-      <Heading
-        as="h3"
-        size="md"
-        borderBottomWidth={2}
-        pb="2"
-        color="text.heading"
-      >
-        1. Identificación del consumidor
-      </Heading>
+    <VStack gap="5" align="stretch">
+      <HStack gap="2.5" pb="2" borderBottomWidth="1px" borderColor="border.default">
+        <Box 
+          w="24px" 
+          h="24px" 
+          borderRadius="full" 
+          bg="primary.500" 
+          color="white" 
+          fontSize="xs" 
+          fontWeight="900"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          1
+        </Box>
+        <Heading
+          as="h3"
+          size="sm"
+          fontWeight="800"
+          color="text.heading"
+          letterSpacing="tight"
+        >
+          Identificación del Consumidor
+        </Heading>
+      </HStack>
 
       <FormField
         label="Nombre Completo"
@@ -120,7 +139,7 @@ const PersonalInfoSection: React.FC = () => {
 
       <SimpleGrid columns={{ base: 1, md: 2 }} gap="4">
         <FormField
-          label="Email"
+          label="Correo Electrónico"
           type="email"
           name="email"
           value={formData.email}
@@ -129,7 +148,7 @@ const PersonalInfoSection: React.FC = () => {
         />
 
         <FormField
-          label="Teléfono"
+          label="Teléfono de Contacto"
           type="tel"
           name="telefono"
           value={formData.telefono}
@@ -146,13 +165,13 @@ const PersonalInfoSection: React.FC = () => {
           onChange={handleInputsChange}
           error={errors.tipoDocumento}
         >
-          <option value="DNI">DNI</option>
-          <option value="CE">CE</option>
-          <option value="PASAPORTE">PASAPORTE</option>
+          <option value="DNI">DNI (Documento Nacional de Identidad)</option>
+          <option value="CE">CE (Carnet de Extranjería)</option>
+          <option value="PASAPORTE">Pasaporte</option>
         </FormSelect>
 
         <FormField
-          label="Nº de Documento"
+          label="Número de Documento"
           name="numeroDocumento"
           value={formData.numeroDocumento}
           onChange={handleInputsChange}
@@ -161,13 +180,13 @@ const PersonalInfoSection: React.FC = () => {
       </SimpleGrid>
 
       <FormField
-        label="Padre, madre o tutor (si es menor de edad)"
+        label="Padre, Madre o Tutor (Obligatorio en caso de menores de edad)"
         name="nombrePadreMadre"
         value={formData.nombrePadreMadre || ""}
         onChange={handleInputsChange}
         required={false}
       />
-    </>
+    </VStack>
   );
 };
 

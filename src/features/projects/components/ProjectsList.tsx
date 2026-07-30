@@ -108,13 +108,27 @@ const ProjectsList: React.FC = React.memo(() => {
                 px="5"
                 mt="2"
                 borderRadius="full"
-                fontWeight="semibold"
+                fontWeight="bold"
                 fontSize="xs"
                 letterSpacing="wider"
                 textTransform="uppercase"
-                colorPalette="primary"
-                variant={isActive ? "solid" : "subtle"}
-                transition="background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease"
+                bg={isActive ? "primary.900" : "blackAlpha.100"}
+                color={isActive ? "white" : "text.heading"}
+                border="1px solid"
+                borderColor={isActive ? "primary.900" : "blackAlpha.200"}
+                _dark={{
+                  bg: isActive ? "white" : "whiteAlpha.100",
+                  color: isActive ? "black" : "white",
+                  borderColor: isActive ? "white" : "whiteAlpha.200",
+                  _hover: {
+                    bg: isActive ? "white" : "whiteAlpha.200",
+                  }
+                }}
+                _hover={{
+                  bg: isActive ? "primary.900" : "blackAlpha.200",
+                  transform: "translateY(-1px)",
+                }}
+                transition="all 0.2s ease"
                 onClick={() => {
                   handleYearChange(year);
                 }}

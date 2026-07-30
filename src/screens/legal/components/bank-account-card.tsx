@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Flex, Box, Image, Text, Stack, Card } from "@chakra-ui/react";
+import { Flex, Box, Image, Text, Stack, HStack } from "@chakra-ui/react";
 import { BankAccount } from "@/shared/data/bank-accounts";
 import { CopyButton } from "@/shared/components/ui/copy-button";
 
@@ -18,119 +18,97 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
   bankName,
   accountType,
   accounts,
-  logoBg = "gray.50",
 }) => {
   return (
-    <Card.Root
-      flexDirection={{ base: "column", md: "row" }}
-      overflow="hidden"
-      p={0}
-      borderRadius="2xl"
+    <Box
+      w="full"
+      bg="bg.subtle"
+      borderRadius="3xl"
+      borderWidth="1px"
       borderColor="border.default"
-      bg="surface.card"
-      transition="all 0.3s"
-      _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
+      overflow="hidden"
+      p={{ base: "5", md: "6" }}
+      transition="all 0.3s ease"
+      _hover={{
+        borderColor: "primary.500",
+        boxShadow: "sm",
+      }}
     >
       <Flex
-        align="center"
-        justify="center"
-        bg={logoBg}
-        _dark={{ bg: "whiteAlpha.900" }}
-        p={6}
-        minW={{ md: "220px" }}
-        maxW={{ md: "240px" }}
-        borderRightWidth={{ md: "1px" }}
-        borderBottomWidth={{ base: "1px", md: "0" }}
+        direction={{ base: "column", md: "row" }}
+        align={{ base: "flex-start", md: "center" }}
+        justify="space-between"
+        gap="5"
+        mb="5"
+        pb="4"
+        borderBottomWidth="1px"
         borderColor="border.default"
       >
-        <Image
-          objectFit="contain"
-          w="full"
-          h="auto"
-          maxH="60px"
-          src={logo}
-          alt={`Logo ${bankName}`}
-          loading="lazy"
-          decoding="async"
-        />
-      </Flex>
-
-      <Card.Body p={{ base: 5, md: 6 }} flex="1">
-        <Stack gap={4}>
+        <HStack gap="4">
+          <Box
+            w="48px"
+            h="48px"
+            bg="white"
+            borderRadius="xl"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            p="2"
+            boxShadow="xs"
+            borderWidth="1px"
+            borderColor="border.default"
+          >
+            <Image
+              src={logo}
+              alt={`Logo ${bankName}`}
+              w="100%"
+              h="100%"
+              objectFit="contain"
+            />
+          </Box>
           <Box>
-            <Text
-              fontSize="sm"
-              fontWeight="700"
-              color="text.accent"
-              textTransform="uppercase"
-              letterSpacing="wide"
-              mb={1}
-            >
+            <Text fontSize="md" fontWeight="800" color="text.heading" lineHeight="tight">
               {bankName}
             </Text>
-            <Text
-              fontSize="md"
-              fontWeight="600"
-              color="text.heading"
-              lineHeight="1.3"
-            >
+            <Text fontSize="xs" fontWeight="500" color="text.muted">
               {accountType}
             </Text>
           </Box>
+        </HStack>
+      </Flex>
 
-          <Stack gap={3}>
-            {accounts.map((acc, idx) => (
-              <React.Fragment key={idx}>
-                {idx > 0 && (
-                  <Box
-                    borderBottomWidth="1px"
-                    borderColor="border.default"
-                  />
-                )}
-                <Flex
-                  justify="space-between"
-                  align="flex-start"
-                  gap={3}
-                >
-                  <Box flex="1">
-                    <Text
-                      fontSize="xs"
-                      color="text.muted"
-                      fontWeight="600"
-                      textTransform="uppercase"
-                      letterSpacing="wide"
-                    >
-                      {acc.label}
-                    </Text>
-                    <Text
-                      fontSize="md"
-                      fontWeight="600"
-                      color="text.heading"
-                      mt={0.5}
-                    >
-                      {acc.value}
-                    </Text>
-                    {acc.note && (
-                      <Text
-                        fontSize="xs"
-                        color="orange.500"
-                        fontStyle="italic"
-                        mt={1}
-                      >
-                        {acc.note}
-                      </Text>
-                    )}
-                  </Box>
-                  <CopyButton
-                    value={acc.value}
-                    label={acc.label}
-                  />
-                </Flex>
-              </React.Fragment>
-            ))}
-          </Stack>
-        </Stack>
-      </Card.Body>
-    </Card.Root>
+      <Stack gap="3">
+        {accounts.map((acc) => (
+          <Flex
+            key={acc.value}
+            direction={{ base: "column", sm: "row" }}
+            align={{ base: "flex-start", sm: "center" }}
+            justify="space-between"
+            gap="3"
+            p="3.5"
+            bg="surface.card"
+            borderRadius="2xl"
+            borderWidth="1px"
+            borderColor="border.default"
+          >
+            <Box flex="1">
+              <Text fontSize="10px" fontWeight="800" color="primary.500" textTransform="uppercase" letterSpacing="0.15em">
+                {acc.label}
+              </Text>
+              <Text fontSize="sm" fontWeight="700" color="text.heading" mt="0.5">
+                {acc.value}
+              </Text>
+              {acc.note && (
+                <Text fontSize="xs" color="text.accent" fontStyle="italic" mt="0.5">
+                  {acc.note}
+                </Text>
+              )}
+            </Box>
+
+            <CopyButton value={acc.value} label={acc.label} />
+          </Flex>
+        ))}
+      </Stack>
+    </Box>
   );
 };
