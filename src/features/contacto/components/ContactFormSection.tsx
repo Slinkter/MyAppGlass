@@ -16,15 +16,16 @@ import AuraSurface from "@/shared/components/aura/AuraSurface";
 import { Send, Lock } from "lucide-react";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
+/**
+ * @file ContactFormSection.tsx
+ * @description Formulario directo de cotización con validación inline usando Chakra UI v3 Field.
+ * @module features/contacto/components
+ */
+
 interface ContactFormSectionProps {
-  step?: number;
-  nextStep?: () => void;
-  prevStep?: () => void;
   formData: {
     name: string;
     email: string;
-    phone?: string;
-    projectType?: string;
     message: string;
     acceptedTerms: boolean;
     hp_confirm: string;
@@ -32,19 +33,20 @@ interface ContactFormSectionProps {
   errors: {
     name?: string;
     email?: string;
-    phone?: string;
-    projectType?: string;
     message?: string;
     acceptedTerms?: string;
   };
   isSubmitting: boolean;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  setProjectType?: (type: string) => void;
   handleBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleCheckedChange: (checked: boolean) => void;
   handleSubmit: (e: React.FormEvent) => void;
 }
 
+/**
+ * @component ContactFormSection
+ * @description Renderiza el formulario unificado de cotización técnica en tarjeta de cristal.
+ */
 export function ContactFormSection({
   formData,
   errors,

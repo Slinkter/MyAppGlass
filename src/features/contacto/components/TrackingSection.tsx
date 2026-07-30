@@ -15,6 +15,12 @@ import AuraSurface from "@/shared/components/aura/AuraSurface";
 import { TrackingResult } from "@/features/contacto/hooks/useContactForm";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
+/**
+ * @file TrackingSection.tsx
+ * @description Sección de consulta y seguimiento en tiempo real de cotizaciones y reclamos.
+ * @module features/contacto/components
+ */
+
 interface TrackingSectionProps {
   trackingId: string;
   isTracking: boolean;
@@ -23,6 +29,10 @@ interface TrackingSectionProps {
   handleTrackingSubmit: (e: React.FormEvent) => void;
 }
 
+/**
+ * @component TrackingSection
+ * @description Renderiza el buscador de estado de cotización por ID único.
+ */
 export function TrackingSection({
   trackingId,
   isTracking,
