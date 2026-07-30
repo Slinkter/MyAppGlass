@@ -18,18 +18,20 @@ interface AuraSurfaceProps extends BoxProps {
  * @component AuraSurface
  */
 const AuraSurface = React.memo(React.forwardRef<HTMLDivElement, AuraSurfaceProps>(({ children, align, justify, variant, ...props }, ref) => {
-  // Configurar estilos basados en la variante
   const isInteractive = variant === "interactive";
   const isStrong = variant === "strong";
+  const isGlass = variant === "glass";
   
   return (
     <Box
       ref={ref}
-      bg={isStrong ? "glass.bg" : "surface.card"}
+      bg={isStrong ? "glass.bg" : isGlass ? { _light: "rgba(255,255,255,0.25)", _dark: "rgba(10,10,12,0.35)" } : "surface.card"}
+      backdropFilter={isGlass ? "blur(24px) saturate(180%)" : undefined}
+      WebkitBackdropFilter={isGlass ? "blur(24px) saturate(180%)" : undefined}
       borderWidth="1px"
       borderColor="border.default"
       borderRadius="card"
-      boxShadow="sm"
+      boxShadow={isGlass ? "0 4px 20px rgba(0,0,0,0.06)" : "sm"}
       alignItems={align}
       justifyContent={justify}
       transition="background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)"

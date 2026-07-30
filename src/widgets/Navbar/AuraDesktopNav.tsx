@@ -51,22 +51,16 @@ const AuraDesktopNav = () => {
   const mounted = React.useSyncExternalStore(subscribeMounted, getMountedSnapshot, getMountedServerSnapshot);
   const pathname = usePathname();
   
-  // Design Tokens adaptativos con identidad de marca (GYA Red Edition)
-  const activeBgLight = "linear-gradient(135deg, #a80100 0%, #800000 100%)";
-  const activeBgDark = "linear-gradient(135deg, #cc0202 0%, #a80100 100%)";
-  const activeBg = useColorModeValue(activeBgLight, activeBgDark);
+  const activeBg = "#18181b";
   
   const activeColor = "white";
   const inactiveColor = "fg.subtle";
-  const activeBorder = "1px solid rgba(255, 255, 255, 0.2)";
+  const activeBorder = "none";
   
-  const navBg = useColorModeValue("rgba(255, 255, 255, 0.85)", "rgba(10, 10, 12, 0.85)");
+  const navBg = useColorModeValue("rgba(255, 255, 255, 0.45)", "rgba(10, 10, 12, 0.5)");
   const navBorderColor = useColorModeValue("rgba(0, 0, 0, 0.12)", "rgba(255, 255, 255, 0.12)");
-  const navShadow = useColorModeValue("0 12px 32px 0 rgba(0, 0, 0, 0.12)", "0 25px 60px rgba(0,0,0,0.7)");
-  const indicatorShadow = useColorModeValue(
-    "0 6px 20px rgba(168, 1, 0, 0.4)", 
-    "0 6px 25px rgba(204, 2, 2, 0.5)"
-  );
+  const navShadow = useColorModeValue("0 8px 32px 0 rgba(0, 0, 0, 0.08)", "0 25px 60px rgba(0,0,0,0.5)");
+  const indicatorShadow = "none";
 
   return (
     <Box

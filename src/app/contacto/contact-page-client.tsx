@@ -8,274 +8,152 @@ import {
   Text,
   SimpleGrid,
   HStack,
-  Icon,
-  Input,
-  Textarea,
   Badge,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { toaster } from "@/components/ui/toaster-instance";
-import { MessageSquareText, Mail, Phone, Search } from "lucide-react";
-import GlassCard from "@/shared/components/common/GlassCard";
-import { companyData } from "@/shared/config/company-data";
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
+import { Clock, Search, MessageSquareText, ShieldCheck } from "lucide-react";
 import { useContactForm } from "@/features/contacto/hooks/useContactForm";
-import { Checkbox } from "@/components/ui/checkbox";
+import { WhatsAppSection } from "@/features/contacto/components/WhatsAppSection";
+import { ContactInfoCards } from "@/features/contacto/components/ContactInfoCards";
+import { ContactFormSection } from "@/features/contacto/components/ContactFormSection";
+import { TrackingContent } from "@/features/contacto/components/TrackingContent";
+import {
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import AuraSurface from "@/shared/components/aura/AuraSurface";
 
 export default function ContactPageClient() {
-  const cardBg = useColorModeValue("whiteAlpha.800", "whiteAlpha.50");
   const { 
-    formData, isSubmitting, handleChange, handleCheckedChange, handleSubmit,
+    step, nextStep, prevStep, setProjectType,
+    formData, errors, isSubmitting, handleChange, handleBlur, handleCheckedChange, handleSubmit,
     trackingId, isTracking, trackingResult, handleTrackingChange, handleTrackingSubmit
   } = useContactForm();
 
   return (
     <Box bg="bg.page" minH="100dvh" pt={{ base: 24, md: 32 }} pb={20} position="relative" overflow="hidden">
+      {/* Background Ambient Lights */}
       <Box 
         position="absolute" 
         top="-10%" 
         right="-5%" 
-        w="40%" 
+        w="45%" 
         h="60%" 
         bgGradient="radial(circle, primary.900, transparent)" 
+        opacity={0.08} 
+        filter="blur(140px)" 
+        zIndex={0}
+        pointerEvents="none"
+      />
+      <Box 
+        position="absolute" 
+        bottom="-10%" 
+        left="-5%" 
+        w="35%" 
+        h="50%" 
+        bgGradient="radial(circle, text.accent, transparent)" 
         opacity={0.05} 
         filter="blur(120px)" 
         zIndex={0}
+        pointerEvents="none"
       />
 
       <Container maxW="7xl" position="relative" zIndex={1}>
-        <VStack gap={4} align="flex-start" mb={12}>
-          <Text 
-            fontSize="xs" 
-            fontWeight="900" 
-            color="primary.500" 
-            letterSpacing="0.3em" 
-            textTransform="uppercase"
-          >
-            Contacto Directo
-          </Text>
+        {/* Top Bar / Header Section */}
+        <VStack gap={4} align="flex-start" mb={10}>
+          <HStack justify="space-between" w="full" wrap="wrap" gap="4">
+            <HStack gap="2" wrap="wrap">
+              <Badge colorPalette="red" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.15em">
+                Cotización & Asesoría
+              </Badge>
+              <HStack gap="1" color="text.muted" fontSize="xs">
+                <Clock size={14} />
+                <Text fontWeight="600">Atención Lu - Sáb: 8:00 AM - 6:00 PM</Text>
+              </HStack>
+            </HStack>
+
+            {/* Modal Trigger for Consultar Estado */}
+            <DialogRoot placement="center">
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm" borderRadius="full" px="5" fontWeight="700">
+                  <Search size={15} style={{ marginRight: '6px' }} /> Consultar Estado de Solicitud
+                </Button>
+              </DialogTrigger>
+              <DialogContent borderRadius="2xl" p="4">
+                <DialogHeader>
+                  <DialogTitle fontWeight="800" fontSize="lg" display="flex" alignItems="center" gap="2">
+                    <Search size={20} color="var(--chakra-colors-text-accent)" /> Consultar Estado de Cotización o Reclamo
+                  </DialogTitle>
+                </DialogHeader>
+                <DialogBody pb="4">
+                  <TrackingContent 
+                    trackingId={trackingId}
+                    isTracking={isTracking}
+                    trackingResult={trackingResult}
+                    handleTrackingChange={handleTrackingChange}
+                    handleTrackingSubmit={handleTrackingSubmit}
+                  />
+                </DialogBody>
+                <DialogCloseTrigger />
+              </DialogContent>
+            </DialogRoot>
+          </HStack>
+
           <Heading as="h1" size={{ base: "2xl", md: "4xl" }} fontWeight="900" letterSpacing="tighter">
             Cotiza tu Proyecto <br />
             <Text as="span" color="text.accent">con Glass & Aluminum Company S.A.C.</Text>
           </Heading>
           <Text color="text.muted" fontSize="lg" maxW="2xl">
-            Elige tu canal preferido para recibir asesoría técnica especializada en vidriería y aluminio.
+            Asesoría técnica en vidriería templada, mamparas y carpintería de aluminio. Elige la vía directa o completa el formulario guiado.
           </Text>
         </VStack>
 
-        <SimpleGrid columns={{ base: 1, lg: 2 }} gap="8">
+        <SimpleGrid columns={{ base: 1, lg: 2 }} gap="8" alignItems="start">
+          {/* Left Column: Direct Communication Channels */}
           <VStack gap="6" align="stretch">
-            <GlassCard p="8" bg="primary.900" color="white" border="none" boxShadow="2xl">
-              <VStack align="flex-start" gap="6">
-                <Box bg="whiteAlpha.200" p="2" borderRadius="2xl">
-                  <MessageSquareText size={32} />
+            {/* Direct WhatsApp Channel */}
+            <WhatsAppSection />
+
+            {/* Direct Phone & Email Cards */}
+            <ContactInfoCards />
+
+            {/* Guarantee / Trust Badge */}
+            <AuraSurface p="5" variant="glass">
+              <HStack gap="4">
+                <Box p="2.5" borderRadius="xl" bg="whiteAlpha.200" color="text.accent">
+                  <ShieldCheck size={24} />
                 </Box>
-                <Box>
-                  <Heading size="md" mb="2">Asesoría por WhatsApp</Heading>
-                  <Text opacity={0.8} mb="6">Ideal para consultas rápidas, Envío de fotos de obra y presupuestos inmediatos.</Text>
-                </Box>
-                <Button 
-                  as="a"
-                  href={`https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent("Hola, deseo cotizar un proyecto.")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  bg="white" 
-                  color="primary.900" 
-                  w="full" 
-                  size="xl" 
-                  borderRadius="full"
-                  fontWeight="900"
-                  letterSpacing="0.1em"
-                  _hover={{ transform: "translateY(-4px)", boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
-                >
-                  CONTACTAR AHORA
-                </Button>
-              </VStack>
-            </GlassCard>
-
-            <GlassCard p="6" bg={cardBg} border="1px solid" borderColor="text.accent">
-              <VStack align="flex-start" gap="6">
-                <HStack gap="2" color="text.accent">
-                  <Search size={18} />
-                  <Heading size="xs" textTransform="uppercase" letterSpacing="widest">Consultar Estado de Solicitud</Heading>
-                </HStack>
-                <Text fontSize="xs" color="text.muted">¿Ya realizaste una cotización o reclamo? Ingresa tu código aquí.</Text>
-                
-                <HStack w="full" as="form" onSubmit={handleTrackingSubmit}>
-                  <Input 
-                    variant="subtle" 
-                    placeholder="resend-id-..." 
-                    size="sm" 
-                    value={trackingId}
-                    onChange={handleTrackingChange}
-                  />
-                  <Button 
-                    size="sm" 
-                    variant="aura" 
-                    type="submit" 
-                    loading={isTracking}
-                  >
-                    BUSCAR
-                  </Button>
-                </HStack>
-
-                {trackingResult && (
-                  <Box w="full" p="2" bg="whiteAlpha.100" borderRadius="md" borderLeft="4px solid" borderColor="text.accent">
-                    <VStack align="flex-start" gap={1}>
-                      <Text fontSize="2xs" color="text.muted" textTransform="uppercase">{trackingResult.type}</Text>
-                      <HStack justify="space-between" w="full">
-                        <Text fontWeight="bold" fontSize="sm">{trackingResult.name}</Text>
-                        <Badge colorPalette={trackingResult.status === "RECIBIDO" ? "blue" : "green"} variant="solid" fontSize="10px">
-                          {trackingResult.status}
-                        </Badge>
-                      </HStack>
-                      <Text fontSize="2xs" color="text.muted">
-                        ID: {trackingResult.id.substring(0, 15)}...
-                      </Text>
-                      <Text fontSize="2xs" color="text.muted">
-                        Fecha: {new Date(trackingResult.createdAt).toLocaleDateString()}
-                      </Text>
-                    </VStack>
-                  </Box>
-                )}
-              </VStack>
-            </GlassCard>
-
-            <VStack gap="4" align="stretch">
-              <Box p="6" borderRadius="2xl" border="1px solid" borderColor="border.glass" bg={cardBg}>
-                <HStack gap="6">
-                  <Box bg="surface.icon" p="2" borderRadius="full">
-                    <Icon as={Phone} color="text.accent" />
-                  </Box>
-                  <VStack align="flex-start" gap={0}>
-                    <Text fontSize="xs" fontWeight="black" color="text.muted" letterSpacing="widest" textTransform="uppercase">Atención Comercial</Text>
-                    <Text fontSize="xl" fontWeight="900" color="text.heading">{companyData.contactPhone}</Text>
-                  </VStack>
-                </HStack>
-              </Box>
-
-              <Box p="6" borderRadius="2xl" border="1px solid" borderColor="border.glass" bg={cardBg}>
-                <HStack gap="6" wrap={{ base: "wrap", sm: "nowrap" }}>
-                  <Box bg="surface.icon" p="2" borderRadius="full">
-                    <Icon as={Mail} color="text.accent" />
-                  </Box>
-                  <VStack align="flex-start" gap={0} overflow="hidden" w="full">
-                    <Text fontSize="xs" fontWeight="black" color="text.muted" letterSpacing="widest" textTransform="uppercase">Email Técnico & Ventas</Text>
-                    <Text 
-                      fontSize={{ base: "md", sm: "lg" }} 
-                      fontWeight="900" 
-                      color="text.heading" 
-                      truncate 
-                      maxW="full"
-                      _hover={{ color: "text.accent" }}
-                      cursor="pointer"
-                      title="Haz clic para copiar"
-                      onClick={() => {
-                        navigator.clipboard.writeText(companyData.contactEmail);
-                        toaster.create({
-                          title: "Copiado",
-                          description: "Email copiado al portapapeles.",
-                          type: "success",
-                          duration: 2000,
-                        });
-                      }}
-                    >
-                      acueva@gyacompany.com
-                    </Text>
-                  </VStack>
-                </HStack>
-              </Box>
-            </VStack>
+                <VStack align="flex-start" gap="0">
+                  <Text fontSize="xs" fontWeight="bold" color="text.heading">
+                    Garantía y Asesoría Técnica Especializada
+                  </Text>
+                  <Text fontSize="2xs" color="text.muted">
+                    Contamos con ingenieros y técnicos certificados para medición en obra y diseño de perfiles a medida.
+                  </Text>
+                </VStack>
+              </HStack>
+            </AuraSurface>
           </VStack>
 
-          <GlassCard p="8" bg={cardBg}>
-            <VStack align="flex-start" gap="8" as="form" onSubmit={handleSubmit}>
-              <VStack align="flex-start" gap="2">
-                <Heading size="md" color="text.heading">Formulario de Cotización</Heading>
-                <Text fontSize="sm" color="text.muted">Completa los datos y adjunta tu requerimiento.</Text>
-              </VStack>
-              
-              <VStack w="full" gap="6">
-                <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
-                  <input 
-                    type="text" 
-                    name="hp_confirm" 
-                    tabIndex={-1} 
-                    autoComplete="off"
-                    value={formData.hp_confirm}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <Box w="full">
-                  <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">NOMBRE COMPLETO</Text>
-                  <Input 
-                    variant="subtle" 
-                    w="full" 
-                    placeholder="Ej. Juan Pérez" 
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
-                </Box>
-
-                <Box w="full">
-                  <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">CORREO ELECTRÓNICO</Text>
-                  <Input 
-                    variant="subtle" 
-                    w="full" 
-                    placeholder="tu@email.com" 
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    type="email"
-                  />
-                </Box>
-
-                <Box w="full">
-                  <Text fontSize="xs" fontWeight="black" mb="2" ml={1} color="text.muted" letterSpacing="widest">DETALLES DEL PROYECTO</Text>
-                  <Textarea 
-                    variant="subtle" 
-                    w="full" 
-                    placeholder="Describe las medidas o el sistema que necesitas..." 
-                    rows={4} 
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                  />
-                </Box>
-
-                <Box w="full" pt={2}>
-                  <Checkbox 
-                    name="acceptedTerms"
-                    checked={formData.acceptedTerms}
-                    onCheckedChange={(details) => handleCheckedChange(!!details.checked)}
-                  >
-                    <Text fontSize="xs" color="text.muted" fontWeight="600">
-                      He leído y acepto las <Text as="span" color="text.accent" cursor="pointer" textDecoration="underline">Políticas de Privacidad</Text> y el uso de mis datos para fines comerciales.
-                    </Text>
-                  </Checkbox>
-                </Box>
-              </VStack>
-
-              <Button 
-                type="submit"
-                variant="aura" 
-                size="xl" 
-                w="full" 
-                borderRadius="full"
-                fontWeight="900"
-                letterSpacing="widest"
-                loading={isSubmitting}
-                loadingText="ENVIANDO..."
-              >
-                ENVIAR SOLICITUD
-              </Button>
-              <Text fontSize="xs" color="text.muted" textAlign="center" w="full" fontWeight="500">
-                Respuesta garantizada en menos de 24 horas hábiles.
-              </Text>
-            </VStack>
-          </GlassCard>
+          {/* Right Column: Multi-Step Interactive Form */}
+          <ContactFormSection 
+            step={step}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            formData={formData}
+            errors={errors}
+            isSubmitting={isSubmitting}
+            handleChange={handleChange}
+            setProjectType={setProjectType}
+            handleBlur={handleBlur}
+            handleCheckedChange={handleCheckedChange}
+            handleSubmit={handleSubmit}
+          />
         </SimpleGrid>
       </Container>
     </Box>
