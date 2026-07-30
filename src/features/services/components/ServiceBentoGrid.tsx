@@ -22,46 +22,53 @@ interface ServiceBentoGridProps {
 }
 
 export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
-  <Box
-    bg="primary.900"
-    color="white"
-    w="full"
-    h="full"
-    display="flex"
-    flexDirection="column"
-    justifyContent="center"
-    alignItems="center"
-    textAlign="center"
-    borderRadius="3xl"
-    px="5"
-    py="5"
-    borderWidth="1px"
-    borderColor="transparent"
-    _dark={{ bg: "bg.subtle", borderColor: "border.default" }}
-    boxShadow="none"
-    willChange="transform"
-    transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease"
-    cursor="pointer"
-    role="group"
-    _hover={{
-      transform: "translateY(-2px)",
-      bg: "primary.950",
-      _dark: { bg: "surface.card", borderColor: "primary.500" },
-    }}
+  <a
+    href={`https://wa.me/51994119999?text=${encodeURIComponent(`Hola, quisiera cotizar el servicio de ${systemName}.`)}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ width: "100%", height: "100%", textDecoration: "none" }}
   >
-    <Box 
-      as={MessageSquareText} 
-      boxSize={7} 
-      mb="3" 
-      color="primary.300" 
-      _dark={{ color: "primary.500" }}
+    <Box
+      bg="linear-gradient(135deg, #a80100 0%, #700000 100%)"
+      color="white"
+      w="full"
+      h="full"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      textAlign="center"
+      borderRadius="3xl"
+      px="6"
+      py="6"
+      borderWidth="1px"
+      borderColor="rgba(255, 255, 255, 0.15)"
+      boxShadow="0 10px 30px rgba(168, 1, 0, 0.25)"
       willChange="transform"
-      transition="transform 0.3s ease"
-      _groupHover={{ transform: "scale(1.1)" }}
-    />
-    <Heading size="md" mb="2" letterSpacing="tight" color="white">¿Iniciamos tu obra?</Heading>
-    <Text opacity={0.85} mb="0" fontSize="sm" maxW="sm" mx="auto" color="whiteAlpha.900">Asesoría técnica exclusiva para tu proyecto de {systemName}.</Text>
-  </Box>
+      transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+      cursor="pointer"
+      role="group"
+      _hover={{
+        transform: "translateY(-3px)",
+        boxShadow: "0 15px 35px rgba(168, 1, 0, 0.4)",
+      }}
+    >
+      <Box 
+        as={MessageSquareText} 
+        boxSize={8} 
+        mb="2.5" 
+        color="white" 
+        transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+        _groupHover={{ transform: "scale(1.12)" }}
+      />
+      <Heading size="md" mb="1" letterSpacing="tight" color="white" fontWeight="800">
+        Cotizar {systemName}
+      </Heading>
+      <Text opacity={0.9} mb="0" fontSize="xs" maxW="xs" mx="auto" color="whiteAlpha.900" fontWeight="500">
+        Recibe asesoría técnica personalizada y presupuesto inmediato.
+      </Text>
+    </Box>
+  </a>
 ));
 BentoCTA.displayName = "BentoCTA";
 
