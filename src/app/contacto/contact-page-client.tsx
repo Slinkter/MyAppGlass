@@ -8,11 +8,13 @@ import {
   Text,
   Badge,
   HStack,
+  SimpleGrid,
 } from "@chakra-ui/react";
-import { Clock } from "lucide-react";
+import { Clock, Shield, Building2, Sparkles, Wrench } from "lucide-react";
 import { useContactForm } from "@/features/contacto/hooks/useContactForm";
 import { ContactFormSection } from "@/features/contacto/components/ContactFormSection";
 import { TrackingSection } from "@/features/contacto/components/TrackingSection";
+import AuraSurface from "@/shared/components/aura/AuraSurface";
 
 export default function ContactPageClient() {
   const { 
@@ -49,12 +51,12 @@ export default function ContactPageClient() {
         pointerEvents="none"
       />
 
-      <Container maxW="4xl" position="relative" zIndex={1}>
+      <Container maxW="5xl" position="relative" zIndex={1}>
         {/* Header Section */}
         <VStack gap={4} align="flex-start" mb={10}>
           <HStack gap="2" wrap="wrap">
             <Badge colorPalette="red" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.15em">
-              Cotización Directa
+              Cotización & Asesoría Técnica
             </Badge>
             <HStack gap="1" color="text.muted" fontSize="xs">
               <Clock size={14} />
@@ -67,11 +69,62 @@ export default function ContactPageClient() {
             <Text as="span" color="text.accent">con Glass & Aluminum Company S.A.C.</Text>
           </Heading>
           <Text color="text.muted" fontSize="lg" maxW="2xl">
-            Asesoría técnica en vidriería templada, mamparas y carpintería de aluminio a medida.
+            Asesoría especializada en vidriería templada, mamparas, muros cortina y perfiles de aluminio a medida.
           </Text>
         </VStack>
 
-        {/* SECCIÓN 1: Formulario Principal de Cotización Elevado */}
+        {/* Feature Highlights Grid according to Hallmark Editorial Guidelines */}
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap="4" mb={8}>
+          <AuraSurface p="4" variant="glass">
+            <HStack gap="3">
+              <Box p="2" borderRadius="lg" bg="primary.500/10" color="primary.500">
+                <Shield size={20} />
+              </Box>
+              <VStack align="flex-start" gap="0">
+                <Text fontSize="xs" fontWeight="800" color="text.heading">Vidrio Templado</Text>
+                <Text fontSize="2xs" color="text.muted">6mm, 8mm, 10mm, 12mm</Text>
+              </VStack>
+            </HStack>
+          </AuraSurface>
+
+          <AuraSurface p="4" variant="glass">
+            <HStack gap="3">
+              <Box p="2" borderRadius="lg" bg="primary.500/10" color="primary.500">
+                <Building2 size={20} />
+              </Box>
+              <VStack align="flex-start" gap="0">
+                <Text fontSize="xs" fontWeight="800" color="text.heading">Aluminio Serie</Text>
+                <Text fontSize="2xs" color="text.muted">S-20, S-25, S-80, Perfiles</Text>
+              </VStack>
+            </HStack>
+          </AuraSurface>
+
+          <AuraSurface p="4" variant="glass">
+            <HStack gap="3">
+              <Box p="2" borderRadius="lg" bg="primary.500/10" color="primary.500">
+                <Sparkles size={20} />
+              </Box>
+              <VStack align="flex-start" gap="0">
+                <Text fontSize="xs" fontWeight="800" color="text.heading">Barandas e Inox</Text>
+                <Text fontSize="2xs" color="text.muted">Cristal laminado y acerado</Text>
+              </VStack>
+            </HStack>
+          </AuraSurface>
+
+          <AuraSurface p="4" variant="glass">
+            <HStack gap="3">
+              <Box p="2" borderRadius="lg" bg="primary.500/10" color="primary.500">
+                <Wrench size={20} />
+              </Box>
+              <VStack align="flex-start" gap="0">
+                <Text fontSize="xs" fontWeight="800" color="text.heading">Medición en Obra</Text>
+                <Text fontSize="2xs" color="text.muted">Técnicos calificados</Text>
+              </VStack>
+            </HStack>
+          </AuraSurface>
+        </SimpleGrid>
+
+        {/* SECCIÓN 1: Formulario Principal de Cotización Elevado con Hallmark */}
         <Box mb={16}>
           <ContactFormSection 
             formData={formData}
