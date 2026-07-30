@@ -43,6 +43,7 @@ const ServiceList: React.FC = React.memo(() => {
 
     // Colores para píldoras (pills) activas e inactivas
     const inactiveBg = useColorModeValue("rgba(241, 245, 249, 0.9)", "rgba(30, 41, 59, 0.7)");
+    const inactiveHoverBg = useColorModeValue("rgba(226, 232, 240, 1)", "rgba(51, 65, 85, 0.9)");
     const inactiveText = useColorModeValue("rgba(51, 65, 85, 1)", "rgba(226, 232, 240, 1)");
     const inactiveBorder = useColorModeValue("rgba(226, 232, 240, 0.8)", "rgba(51, 65, 85, 0.5)");
 
@@ -87,7 +88,7 @@ const ServiceList: React.FC = React.memo(() => {
                                 _hover={{
                                     transform: "translateY(-2px)",
                                     boxShadow: isActive ? "0 6px 18px rgba(0, 0, 0, 0.35)" : "0 4px 12px rgba(0, 0, 0, 0.08)",
-                                    bg: isActive ? activeBg : useColorModeValue("rgba(226, 232, 240, 1)", "rgba(51, 65, 85, 0.9)")
+                                    bg: isActive ? activeBg : inactiveHoverBg
                                 }}
                                 _active={{
                                     transform: "translateY(0)",
