@@ -52,7 +52,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         about: {
             title: "Acerca de Ventanas",
             description:
-                "Nuestras ventanas de aluminio ofrecen la combinación perfecta entre estética moderna y funcionalidad.Ideales para vivienda urbana, departamentos y hogares",
+                "Nuestras ventanas de aluminio ofrecen la combinación perfecta entre estética moderna y funcionalidad. Ideales para vivienda urbana, departamentos y hogares.",
         },
         benefits: [
             { label: "Durabilidad garantizada", icon: Check },
@@ -68,9 +68,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         ],
         features: [
             { label: "Color: Incoloro, Bronce", icon: Check },
-            { label: "Tipo: Templado, Crudo , Laminado", icon: Check },
+            { label: "Tipo: Templado, Crudo, Laminado", icon: Check },
             { label: "Aluminio: Natural, Negro", icon: Check },
-            { label: "Espesor: 6mm", icon: Check },
+            { label: "Espesor: 6mm / 8mm", icon: Check },
         ],
         imageLists: [
             listVentana.nova,
@@ -88,7 +88,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         about: {
             title: "Acerca de Balcones",
             description:
-                "Transforma tu balcony en un espacio seguro y elegante con nuestros paneles de vidrio templado. Ideales para departamentos y casas con vista, ofreciendo protección sin sacrificar la panorámica.",
+                "Transforma tu balcón en un espacio seguro y elegante con nuestros paneles de vidrio templado. Ideales para departamentos y casas con vista, ofreciendo protección sin sacrificar la panorámica.",
         },
         benefits: [
             { label: "Seguridad con vidrio templado", icon: Check },
@@ -96,12 +96,11 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Fácil mantenimiento", icon: Check },
             { label: "Resistencia a condiciones climáticas", icon: Check },
         ],
-        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
+        systems: [{ label: "Sistema Único", icon: ChevronRight }],
         features: [
             { label: "Vidrio templado de 8mm", icon: Check },
             { label: "Accesorios de acero cromado", icon: Check },
-            { label: "Arenado con diseño", icon: Check },
-            { label: "tiempc", icon: Check },
+            { label: "Arenado con diseño personalizado", icon: Check },
         ],
         imageLists: [listBalcon.items],
     },
@@ -114,21 +113,21 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         about: {
             title: "Acerca de Barandas",
             description:
-                "Nuestras barandas de vidrio templado combinan seguridad y diseño Minimalista. Perfectas para escaleras, terrazas y balcones, aportando luminosidad y sensación de espacio a cualquier ambiente.",
+                "Nuestras barandas de vidrio templado combinan seguridad y diseño minimalista. Perfectas para escaleras, terrazas y balcones, aportando luminosidad y sensación de espacio a cualquier ambiente.",
         },
         benefits: [
             { label: "Máxima seguridad", icon: Check },
-            { label: "Diseño Minimalista y moderno", icon: Check },
+            { label: "Diseño minimalista y moderno", icon: Check },
             { label: "Acabados en acero cromado", icon: Check },
-            { label: "Instación certificada", icon: Check },
+            { label: "Instalación certificada", icon: Check },
         ],
-        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
+        systems: [{ label: "Sistema Único", icon: ChevronRight }],
         features: [
-            { label: "Material : Acero", icon: Check },
-            { label: "Color : Incoro | Bronce", icon: Check },
-            { label: "Arenado : Lamina", icon: Check },
-            { label: "Tipo : Templado", icon: Check },
-            { label: "Espesor : 8 mm", icon: Check },
+            { label: "Material: Acero inoxidable", icon: Check },
+            { label: "Color: Incoloro | Bronce", icon: Check },
+            { label: "Arenado: Lámina de seguridad", icon: Check },
+            { label: "Tipo: Templado de alta resistencia", icon: Check },
+            { label: "Espesor: 8 mm / 10 mm", icon: Check },
         ],
         imageLists: [listBaranda.baranda],
     },
@@ -149,10 +148,10 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Diseño arquitectónico", icon: Check },
             { label: "Bajo mantenimiento", icon: Check },
         ],
-        systems: [{ label: "Sistema Unico", icon: ChevronRight }],
+        systems: [{ label: "Sistema Único", icon: ChevronRight }],
         features: [
-            { label: "Estructura de Aluminio", icon: Check },
-            { label: "Ventilación de Espacios", icon: Check },
+            { label: "Estructura de Aluminio extruido", icon: Check },
+            { label: "Ventilación natural de espacios", icon: Check },
         ],
         imageLists: [listCelosias.celocias],
     },
@@ -175,11 +174,11 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         ],
         systems: [
             { label: "Sistema KIT", icon: ChevronRight },
-            { label: "Sistema Acrilico", icon: ChevronRight },
+            { label: "Sistema Acrílico", icon: ChevronRight },
         ],
         features: [
-            { label: "Color: Incoro | Bronce", icon: Check },
-            { label: "Tipo: Templado", icon: Check },
+            { label: "Color: Incoloro | Bronce", icon: Check },
+            { label: "Tipo: Templado de seguridad", icon: Check },
             { label: "Aluminio: Natural | Negro", icon: Check },
             { label: "Espesor: 8 mm", icon: Check },
         ],
@@ -194,7 +193,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         about: {
             title: "Acerca de Mamparas",
             description:
-                "Mamparas de baño que combinan funcionaliad y elegancia. Sistemas Nova y Serie 25 con perfiles de aluminio en acabado natural o negro. El toque moderno para tu baño.",
+                "Mamparas de baño que combinan funcionalidad y elegancia. Sistemas Nova y Serie 25 con perfiles de aluminio en acabado natural o negro. El toque moderno para tu baño.",
         },
         benefits: [
             { label: "Estanqueidad garantizada", icon: Check },
