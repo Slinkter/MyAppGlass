@@ -75,8 +75,8 @@ async function sendEmailLogic(reclamoData, admin) {
 
   logger.info("STEP 1: Validando anti-bot y campos obligatorios...");
 
-  // Anti-bot Honeypot check: If invisible field is filled, silently discard
-  if (reclamoData.hp_confirm || reclamoData.website_hp) {
+  // Anti-bot Honeypot check: If invisible field is filled, silently discard (middleName)
+  if (reclamoData.middleName || reclamoData.website_hp) {
     logger.warn("BOT_BLOCKED: Honeypot field filled", { email: reclamoData.email });
     return { id: "spambot_blocked" };
   }
@@ -85,6 +85,38 @@ async function sendEmailLogic(reclamoData, admin) {
   if (reclamoData._ts && (Date.now() - Number(reclamoData._ts)) < 2500) {
     logger.warn("BOT_BLOCKED: Submission too fast", { durationMs: Date.now() - Number(reclamoData._ts) });
     throw new HttpsError("invalid-argument", "Envío no válido por velocidad inusual.");
+  }
+
+  // Google reCAPTCHA v3 Validation
+  if (process.env.RECAPTCHA_SECRET_KEY) {
+    try {
+      const token = reclamoData.recaptchaToken;
+      if (!token) {
+        logger.warn("RECAPTCHA_FAILED: Missing token");
+        throw new HttpsError("permission-denied", "Seguridad reCAPTCHA requerida.");
+      }
+
+      logger.info("RECAPTCHA: Verifying token...");
+      const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`;
+      const recaptchaRes = await fetch(verificationUrl, { method: "POST" });
+      const recaptchaData = await recaptchaRes.json();
+
+      if (!recaptchaData.success || recaptchaData.score < 0.5) {
+        logger.warn("RECAPTCHA_FAILED: Score too low or failed", {
+          success: recaptchaData.success,
+          score: recaptchaData.score,
+          errors: recaptchaData["error-codes"],
+        });
+        throw new HttpsError("permission-denied", "Interacción no válida detectada por sistema de seguridad.");
+      }
+      logger.info("RECAPTCHA: Verification success!", { score: recaptchaData.score });
+    } catch (err) {
+      if (err instanceof HttpsError) throw err;
+      logger.error("RECAPTCHA_ERROR: Fallo en la llamada a Google API", err);
+      // Fallback: loggeamos el error pero permitimos pasar por si la API de Google está caída
+    }
+  } else {
+    logger.warn("RECAPTCHA_WARNING: RECAPTCHA_SECRET_KEY is not defined in backend settings.");
   }
 
   if (!reclamoData.email || !reclamoData.nombreCompleto) {
@@ -159,6 +191,7 @@ const createContactEmailHtml = (data) => `
     <div style="background: #fafafa; padding: 15px; border-radius: 8px; margin-top: 10px; border: 1px solid #f4f4f5;">
       <p><strong>Nombre:</strong> ${data.name}</p>
       <p><strong>Email:</strong> ${data.email}</p>
+      <p><strong>Teléfono:</strong> ${data.phone || "No especificado"}</p>
       <hr style="border: none; border-top: 1px solid #f4f4f5; margin: 15px 0;" />
       <strong>Mensaje / Requerimiento:</strong><br/>
       <p style="white-space: pre-wrap;">${data.message}</p>
@@ -175,7 +208,7 @@ const createContactClientEmailHtml = (data, contactId) => `
   <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ccc; border-radius: 10px; max-width: 600px;">
     <h2 style="color: #18181b;">Hemos recibido tu consulta</h2>
     <p>Hola <strong>${data.name}</strong>,</p>
-    <p>Gracias por ponerte en contacto con <strong>GYA Company</strong>.</p>
+    <p>Gracias por ponerte en contacto con <strong>GLASS & ALUMINUM COMPANY S.A.C.</strong></p>
     <p>Hemos recibido tu mensaje correctamente y uno de nuestros especialistas revisará tu requerimiento a la brevedad.</p>
     
     <div style="background: #f4f4f5; padding: 15px; border-radius: 8px; text-align: center; margin: 20px 0;">
@@ -190,7 +223,7 @@ const createContactClientEmailHtml = (data, contactId) => `
 
     <p>Puedes consultar el estado de tu solicitud en nuestra web usando tu código.</p>
     <br/>
-    <p style="font-size: 0.9em; color: #a1a1aa;">Atentamente,<br/><strong>El equipo de GYA Glass & Aluminum</strong></p>
+    <p style="font-size: 0.9em; color: #a1a1aa;">Atentamente,<br/><strong>El equipo de GLASS & ALUMINUM COMPANY S.A.C.</strong></p>
   </div>
 `;
 
@@ -209,8 +242,8 @@ async function sendContactEmailLogic(contactData, admin) {
     throw new HttpsError("failed-precondition", "Configuración de servidor incompleta.");
   }
 
-  // Anti-bot Honeypot check
-  if (contactData.hp_confirm || contactData.website_hp) {
+  // Anti-bot Honeypot check (middleName)
+  if (contactData.middleName || contactData.website_hp) {
     logger.warn("BOT_BLOCKED: Honeypot field filled", { email: contactData.email });
     return { id: "spambot_blocked" };
   }
@@ -240,7 +273,7 @@ async function sendContactEmailLogic(contactData, admin) {
 
     // 2. Enviar confirmación al Cliente con su código
     const clientEmail = await resend.emails.send({
-      from: "GYA Glass & Aluminum <noreply@gyacompany.com>",
+      from: "GLASS & ALUMINUM COMPANY S.A.C. <noreply@gyacompany.com>",
       to: contactData.email,
       subject: `Confirmación de Recepción - Código ${contactId}`,
       html: createContactClientEmailHtml(contactData, contactId),

@@ -14,7 +14,7 @@ exports.submitReclamo = onRequest(
   {
     timeoutSeconds: 60,
     memory: "256MiB",
-    secrets: ["RESEND_API_KEY", "ADMIN_EMAIL"],
+    secrets: ["RESEND_API_KEY", "ADMIN_EMAIL", "RECAPTCHA_SECRET_KEY"],
     cors: [/gyacompany\.com$/, /gya-app-4c8a9\.web\.app$/],
   },
   async (request, response) => {

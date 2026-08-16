@@ -7,14 +7,16 @@ import { submitContactAction, checkStatusAction } from "@features/contacto/actio
 interface ContactFormState {
   name: string;
   email: string;
+  phone: string;
   message: string;
   acceptedTerms: boolean;
-  hp_confirm: string;
+  middleName: string;
 }
 
 interface FormErrors {
   name?: string;
   email?: string;
+  phone?: string;
   message?: string;
   acceptedTerms?: string;
 }
@@ -31,9 +33,10 @@ export const useContactForm = () => {
   const [formData, setFormData] = useState<ContactFormState>({
     name: "",
     email: "",
+    phone: "",
     message: "",
     acceptedTerms: false,
-    hp_confirm: "",
+    middleName: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [formLoadTime] = useState<number>(() => Date.now());
@@ -112,6 +115,8 @@ export const useContactForm = () => {
       setIsTracking(false);
     }
   };
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const [successTrackingId, setSuccessTrackingId] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -138,19 +143,17 @@ export const useContactForm = () => {
       const result = await submitContactAction({
         name: formData.name,
         email: formData.email,
+        phone: formData.phone,
         message: formData.message,
         acceptedTerms: formData.acceptedTerms,
-        hp_confirm: formData.hp_confirm,
+        middleName: formData.middleName,
         _ts: formLoadTime,
       });
       
-      if (result.success) {
-        toaster.create({
-          title: "¡Solicitud Recibida!",
-          description: "Gracias por contactarnos. Te responderemos en menos de 24 horas.",
-          type: "success",
-        });
-        setFormData({ name: "", email: "", message: "", acceptedTerms: false, hp_confirm: "" });
+      if (result.success && result.id) {
+        setSuccessTrackingId(result.id);
+        setIsSuccessOpen(true);
+        setFormData({ name: "", email: "", phone: "", message: "", acceptedTerms: false, middleName: "" });
         setErrors({});
       } else {
         throw new Error(result.error);
@@ -179,5 +182,9 @@ export const useContactForm = () => {
     trackingResult,
     handleTrackingChange,
     handleTrackingSubmit,
+    isSuccessOpen,
+    setIsSuccessOpen,
+    successTrackingId,
   };
 };
+

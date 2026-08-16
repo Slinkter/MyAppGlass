@@ -32,7 +32,7 @@ const initialState: ReclamationFormState = {
   pedido: "",
   aceptaTerminos: false,
   autorizaEmail: false,
-  hp_confirm: "",
+  middleName: "",
   archivos: [],
 };
 
@@ -158,10 +158,29 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
       });
 
       try {
+        let recaptchaToken = "";
+        
+        // Execute reCAPTCHA v3 if available on window
+        if (typeof window !== "undefined" && (window as any).grecaptcha) {
+          try {
+            recaptchaToken = await new Promise<string>((resolve, reject) => {
+              (window as any).grecaptcha.ready(() => {
+                (window as any).grecaptcha
+                  .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LfmMIktAAAAAAMpZBhN56QIkjXT9U34Dyk56nlx", { action: "reclamation_submit" })
+                  .then((token: string) => resolve(token))
+                  .catch((err: any) => reject(err));
+              });
+            });
+          } catch (recaptchaErr) {
+            console.error("reCAPTCHA execution error:", recaptchaErr);
+          }
+        }
+
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { archivos: _archivos, ...rawPayload } = formData;
         const sanitizedPayload = sanitizeReclamationData({
           ...rawPayload,
+          recaptchaToken,
           _ts: formLoadTime,
         });
 

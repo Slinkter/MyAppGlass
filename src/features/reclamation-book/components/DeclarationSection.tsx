@@ -44,10 +44,10 @@ const DeclarationSection: React.FC = () => {
       <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
         <input
           type="text"
-          name="hp_confirm"
+          name="middleName"
           tabIndex={-1}
           autoComplete="off"
-          value={formData.hp_confirm || ""}
+          value={formData.middleName || ""}
           onChange={handleInputsChange}
         />
       </div>

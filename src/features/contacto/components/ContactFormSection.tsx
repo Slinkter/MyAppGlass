@@ -26,13 +26,15 @@ interface ContactFormSectionProps {
   formData: {
     name: string;
     email: string;
+    phone: string;
     message: string;
     acceptedTerms: boolean;
-    hp_confirm: string;
+    middleName: string;
   };
   errors: {
     name?: string;
     email?: string;
+    phone?: string;
     message?: string;
     acceptedTerms?: string;
   };
@@ -82,10 +84,10 @@ export function ContactFormSection({
           <div style={{ display: 'none', position: 'absolute', left: '-9999px' }} aria-hidden="true">
             <input 
               type="text" 
-              name="hp_confirm" 
+              name="middleName" 
               tabIndex={-1} 
               autoComplete="off"
-              value={formData.hp_confirm}
+              value={formData.middleName}
               onChange={handleChange}
             />
           </div>
@@ -147,6 +149,36 @@ export function ContactFormSection({
                 bg: useColorModeValue("white", "blackAlpha.800"),
                 borderColor: errors?.email ? "red.500" : "primary.500",
                 boxShadow: errors?.email ? "0 0 0 1px var(--chakra-colors-red-500)" : "0 0 0 2px var(--chakra-colors-primary-500)" 
+              }}
+            />
+          </Field>
+
+          {/* Campo Teléfono usando Chakra UI Field */}
+          <Field 
+            label="TELÉFONO DE CONTACTO (OPCIONAL)" 
+            invalid={!!errors?.phone}
+            errorText={errors?.phone}
+            w="full"
+          >
+            <Input 
+              variant="outline" 
+              w="full" 
+              placeholder="Ej. +51 987 654 321" 
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="tel"
+              borderRadius="xl"
+              size="lg"
+              bg={inputBg}
+              borderWidth="1px"
+              borderColor={errors?.phone ? "red.500" : inputBorderColor}
+              _hover={{ borderColor: errors?.phone ? "red.500" : inputHoverBorderColor }}
+              _focus={{ 
+                bg: useColorModeValue("white", "blackAlpha.800"),
+                borderColor: errors?.phone ? "red.500" : "primary.500",
+                boxShadow: errors?.phone ? "0 0 0 1px var(--chakra-colors-red-500)" : "0 0 0 2px var(--chakra-colors-primary-500)" 
               }}
             />
           </Field>

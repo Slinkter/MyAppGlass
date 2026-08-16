@@ -8,9 +8,10 @@ import { env } from "@/shared/config/env";
 export interface ContactData {
   name: string;
   email: string;
+  phone?: string;
   message: string;
   acceptedTerms?: boolean;
-  hp_confirm?: string;
+  middleName?: string;
   _ts?: number;
 }
 
@@ -19,8 +20,8 @@ export interface ContactData {
  */
 export async function submitContactAction(formData: ContactData) {
   try {
-    // Anti-Bot Protection: Honeypot check
-    if (formData.hp_confirm && formData.hp_confirm.trim() !== "") {
+    // Anti-Bot Protection: Honeypot check (middleName)
+    if (formData.middleName && formData.middleName.trim() !== "") {
       console.warn("Honeypot triggered in submitContactAction. Rejected.");
       return { success: true, id: "CNT-PROTECTED" };
     }
@@ -34,6 +35,7 @@ export async function submitContactAction(formData: ContactData) {
     const sanitizedData = {
       name: formData.name.replace(/<[^>]*>?/gm, "").trim(),
       email: formData.email.toLowerCase().trim(),
+      phone: formData.phone ? formData.phone.replace(/[^0-9+ \-()]/g, "").trim() : "",
       message: formData.message.replace(/<[^>]*>?/gm, "").trim(),
     };
 

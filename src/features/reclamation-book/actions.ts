@@ -22,8 +22,8 @@ export interface ReclamationActionResult {
  */
 export async function submitReclamationAction(formData: ReclamationData): Promise<ReclamationActionResult> {
   try {
-    // 1. Check honeypot field for bot protection
-    if (formData.hp_confirm && formData.hp_confirm.trim() !== "") {
+    // 1. Check honeypot field for bot protection (middleName)
+    if (formData.middleName && formData.middleName.trim() !== "") {
       console.warn("Honeypot triggered in submitReclamationAction. Submission rejected.");
       return { success: true, id: "REC-PROTECTED" };
     }

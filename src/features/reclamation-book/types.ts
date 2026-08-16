@@ -11,6 +11,8 @@ export interface ReclamationFormState extends ReclamationData {
   tipoDocumento: TipoDocumento | "";
   tipoBien: TipoBien | "";
   tipoSolicitud: TipoSolicitud | "";
+  middleName: string;
+  recaptchaToken?: string;
   archivos: File[];
 }
 

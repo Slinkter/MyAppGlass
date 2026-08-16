@@ -32,8 +32,8 @@ const FloatingWhatsApp = () => {
       <Box
         position="fixed"
         bottom={{ base: 6, md: 4 }}
-        left="auto"
-        right={4}
+        left={4}
+        right="auto"
         zIndex="popover"
         display={{ base: "none", md: "flex" }}
         css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))" }}
@@ -71,8 +71,8 @@ const FloatingWhatsApp = () => {
           boxShadow="xl"
           position="fixed"
           bottom={{ base: "100px", md: "90px" }}
-          right={{ base: 4, md: "20px" }}
-          left={{ base: 4, md: "auto" }}
+          left={{ base: 4, md: "20px" }}
+          right={{ base: 4, md: "auto" }}
           css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 90px)" }}
         >
           <DialogHeader>

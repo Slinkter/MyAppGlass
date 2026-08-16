@@ -112,7 +112,8 @@ export function sanitizeReclamationData(raw: ReclamationData): ReclamationData {
     pedido: sanitizeMultilineText(raw.pedido),
     aceptaTerminos: Boolean(raw.aceptaTerminos),
     autorizaEmail: Boolean(raw.autorizaEmail),
-    hp_confirm: raw.hp_confirm ? sanitizeSingleLine(raw.hp_confirm) : "",
+    middleName: raw.middleName ? sanitizeSingleLine(raw.middleName) : "",
+    recaptchaToken: raw.recaptchaToken ? String(raw.recaptchaToken) : undefined,
     _ts: typeof raw._ts === "number" && !isNaN(raw._ts) ? raw._ts : undefined,
   };
 }

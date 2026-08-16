@@ -90,6 +90,11 @@ export default function RootLayout({
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                 />
+                <script
+                    src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LfmMIktAAAAAAMpZBhN56QIkjXT9U34Dyk56nlx"}`}
+                    async
+                    defer
+                />
             </head>
             <body>
                 <Providers>

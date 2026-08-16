@@ -28,7 +28,8 @@ export interface ReclamationData {
     pedido: string;
     aceptaTerminos: boolean;
     autorizaEmail: boolean;
-    hp_confirm?: string;
+    middleName?: string;
+    recaptchaToken?: string;
     _ts?: number;
 }
 
