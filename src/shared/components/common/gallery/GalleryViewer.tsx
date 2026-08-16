@@ -5,14 +5,12 @@ import {
   Text,
   HStack,
 } from "@chakra-ui/react";
-import { ChevronLeft, ChevronRight, MoveHorizontal, Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoveHorizontal, Maximize2 } from "lucide-react";
 
 import FadingImage from "@shared/components/common/FadingImage";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { GalleryItem } from "@/shared/types/gallery";
 import { keyframes } from "@emotion/react";
-
-const galleryScale = keyframes`0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); }`;
 
 const swipeHint = keyframes`
   0% { opacity: 0; transform: translateY(5px); }
@@ -56,7 +54,6 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
   const touchStartY = useRef(0);
 
   const dotActiveColor = useColorModeValue("primary.500", "primary.300");
-  const bgOverlay = useColorModeValue("blackAlpha.50", "blackAlpha.200");
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;

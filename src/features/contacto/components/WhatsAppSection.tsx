@@ -4,7 +4,6 @@ import {
   Box,
   Heading,
   Text,
-  Badge,
   HStack,
   VStack,
   Button,

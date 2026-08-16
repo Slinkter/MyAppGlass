@@ -12,21 +12,14 @@ import { useContactForm } from "@/features/contacto/hooks/useContactForm";
 import { ContactFormSection } from "@/features/contacto/components/ContactFormSection";
 import { TrackingSection } from "@/features/contacto/components/TrackingSection";
 import { ContactSuccessModal } from "@/features/contacto/components/ContactSuccessModal";
-import { useRouter } from "next/navigation";
 
 export default function ContactPageClient() {
-  const router = useRouter();
   const { 
     formData, errors, isSubmitting, 
     handleChange, handleBlur, handleCheckedChange, handleSubmit,
     trackingId, isTracking, trackingResult, handleTrackingChange, handleTrackingSubmit,
-    isSuccessOpen, setIsSuccessOpen, successTrackingId
+    isSuccessOpen, handleCloseModal, successTrackingId
   } = useContactForm();
-
-  const handleRedirect = () => {
-    setIsSuccessOpen(false);
-    router.push("/");
-  };
 
   return (
     <Box bg="bg.page" minH="100dvh" pt={{ base: 24, md: 32 }} pb={20} position="relative" overflow="hidden">
@@ -109,7 +102,7 @@ export default function ContactPageClient() {
 
       <ContactSuccessModal 
         isOpen={isSuccessOpen}
-        onClose={handleRedirect}
+        onClose={handleCloseModal}
         trackingId={successTrackingId}
       />
     </Box>

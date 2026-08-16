@@ -44,6 +44,7 @@ export interface ReclamationFormContextValue {
   formData: ReclamationFormState;
   errors: FormErrors;
   handleInputsChange: (e: InputChangeEvent) => void;
+  handleCheckboxChange: (name: keyof ReclamationFormState, checked: boolean) => void;
   handleFileChange: (details: { acceptedFiles: File[] }) => void;
   handleBtnSubmit: (e: React.FormEvent) => Promise<void>;
   modalProps: ModalProps;

@@ -23,7 +23,6 @@ import VisualViewer from "@features/projects/components/modal/VisualViewer";
 import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
 import BackButton from "@shared/components/navigation/BackButton";
 import { ErrorView as ErrorPage } from "@/screens/error";
-import AuraSkeleton from "@shared/components/aura/AuraSkeleton";
 
 export interface ViewSelectorProps {
   activeMode: string;

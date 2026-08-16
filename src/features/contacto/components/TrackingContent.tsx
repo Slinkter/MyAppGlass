@@ -2,12 +2,11 @@
 
 import {
   Box,
-  Heading,
-  Text,
   VStack,
+  Text,
+  Badge,
   HStack,
   Input,
-  Badge,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";

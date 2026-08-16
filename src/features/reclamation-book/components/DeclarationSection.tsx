@@ -11,7 +11,7 @@ import { useReclamationFormContext } from "./ReclamationFormContext";
  * Migrado a Chakra v3: FormControl+Checkbox → Field + Checkbox snippet (compound component)
  */
 const DeclarationSection: React.FC = () => {
-  const { formData, handleInputsChange, handleBtnSubmit, errors } = useReclamationFormContext();
+  const { formData, handleInputsChange, handleCheckboxChange, handleBtnSubmit, errors } = useReclamationFormContext();
 
   return (
     <VStack gap="5" align="stretch">
@@ -72,9 +72,7 @@ const DeclarationSection: React.FC = () => {
           <Checkbox
             name="autorizaEmail"
             checked={formData.autorizaEmail}
-            onCheckedChange={(details) =>
-              handleInputsChange({ target: { name: "autorizaEmail", type: "checkbox", checked: details.checked } })
-            }
+            onCheckedChange={(details) => handleCheckboxChange("autorizaEmail", !!details.checked)}
           >
             <Text fontSize="xs" color="text.heading" fontWeight="500">
               Autorizo expresamente que la respuesta a mi reclamo o queja sea notificada a mi correo electrónico.
@@ -89,9 +87,7 @@ const DeclarationSection: React.FC = () => {
           <Checkbox
             name="aceptaTerminos"
             checked={formData.aceptaTerminos}
-            onCheckedChange={(details) =>
-              handleInputsChange({ target: { name: "aceptaTerminos", type: "checkbox", checked: details.checked } })
-            }
+            onCheckedChange={(details) => handleCheckboxChange("aceptaTerminos", !!details.checked)}
           >
             <Text fontSize="xs" color="text.heading" fontWeight="500">
               Declaro bajo juramento que la información proporcionada es veraz y acepto la Política de Protección de Datos.

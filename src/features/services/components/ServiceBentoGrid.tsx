@@ -11,9 +11,6 @@ import {
 import {
   MessageSquareText,
   CheckCircle2,
-  ShieldCheck,
-  Wrench,
-  Palette,
 } from "lucide-react";
 
 interface ServiceBentoGridProps {

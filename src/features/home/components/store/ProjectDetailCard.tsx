@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Flex, VStack, HStack, Text, Heading, Badge, IconButton } from "@chakra-ui/react";
-import { MapPin, X, Calendar, Building2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Box, Flex, VStack, HStack, Text, Heading, IconButton } from "@chakra-ui/react";
+import { MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { type MarkerType, type MapProject } from "./InteractiveMap";
+import { type MarkerType } from "./InteractiveMap";
 
 interface ProjectDetailCardProps {
   selectedMarker: MarkerType;
-  isStore: boolean;
+  isStore?: boolean;
   onClose?: () => void;
 }
 
@@ -18,7 +18,6 @@ interface ProjectDetailCardProps {
  */
 export const ProjectDetailCard: React.FC<ProjectDetailCardProps> = React.memo(({
   selectedMarker,
-  isStore,
   onClose
 }) => {
   const rawPhotos = (selectedMarker as unknown as { photosObra?: { image: string }[] })?.photosObra || [];

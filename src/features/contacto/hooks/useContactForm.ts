@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { toaster } from "@/components/ui/toaster-instance";
 import { submitContactAction, checkStatusAction } from "@features/contacto/actions";
 
@@ -117,6 +118,12 @@ export const useContactForm = () => {
   };
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [successTrackingId, setSuccessTrackingId] = useState("");
+  const router = useRouter();
+
+  const handleCloseModal = () => {
+    setIsSuccessOpen(false);
+    router.push("/");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -183,7 +190,7 @@ export const useContactForm = () => {
     handleTrackingChange,
     handleTrackingSubmit,
     isSuccessOpen,
-    setIsSuccessOpen,
+    handleCloseModal,
     successTrackingId,
   };
 };

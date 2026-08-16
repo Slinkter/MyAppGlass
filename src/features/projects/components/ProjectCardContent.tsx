@@ -5,7 +5,7 @@
  * Updated to Chakra v3 with semantic tokens and optimized Skeleton.
  */
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Heading,
@@ -26,9 +26,6 @@ interface ProjectCardContentProps {
   loading?: "lazy" | "eager";
   fetchPriority?: "auto" | "high" | "low";
 }
-
-const PROJECT_GRADIENT =
-  "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)";
 
 /**
  * @component ProjectCardContent

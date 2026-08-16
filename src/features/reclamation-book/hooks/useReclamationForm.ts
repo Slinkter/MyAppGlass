@@ -129,6 +129,17 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
     }
   };
 
+  const handleCheckboxChange = (name: keyof ReclamationFormState, checked: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: checked,
+    }));
+
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
   const handleFileChange = (details: { acceptedFiles: File[] }) => {
     const { acceptedFiles } = details;
     setFormData((prev) => ({
@@ -161,14 +172,17 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
         let recaptchaToken = "";
         
         // Execute reCAPTCHA v3 if available on window
-        if (typeof window !== "undefined" && (window as any).grecaptcha) {
+        const win = typeof window !== "undefined" ? (window as unknown as { grecaptcha?: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } }) : null;
+        if (win && win.grecaptcha) {
           try {
             recaptchaToken = await new Promise<string>((resolve, reject) => {
-              (window as any).grecaptcha.ready(() => {
-                (window as any).grecaptcha
-                  .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LfmMIktAAAAAAMpZBhN56QIkjXT9U34Dyk56nlx", { action: "reclamation_submit" })
+              win.grecaptcha?.ready(() => {
+                win.grecaptcha?.execute(
+                  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LfmMIktAAAAAAMpZBhN56QIkjXT9U34Dyk56nlx",
+                  { action: "reclamation_submit" }
+                )
                   .then((token: string) => resolve(token))
-                  .catch((err: any) => reject(err));
+                  .catch((err: unknown) => reject(err));
               });
             });
           } catch (recaptchaErr) {
@@ -228,6 +242,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
     formData,
     errors,
     handleInputsChange,
+    handleCheckboxChange,
     handleFileChange,
     handleBtnSubmit,
     modalProps: {
