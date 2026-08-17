@@ -13,7 +13,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field } from "@/components/ui/field";
-import AuraSurface from "@/shared/components/aura/AuraSurface";
 import { Send, Lock } from "lucide-react";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
@@ -62,9 +61,8 @@ export function ContactFormSection({
   const inputBg = useColorModeValue("rgba(240, 242, 245, 0.85)", "rgba(24, 24, 27, 0.75)");
   const inputBorderColor = useColorModeValue("rgba(0, 0, 0, 0.15)", "rgba(255, 255, 255, 0.18)");
   const inputHoverBorderColor = useColorModeValue("rgba(0, 0, 0, 0.3)", "rgba(255, 255, 255, 0.35)");
-
   return (
-    <AuraSurface p={{ base: "6", md: "8" }} variant="glass" boxShadow="0 20px 40px rgba(0,0,0,0.12)">
+    <Box w="full">
       <VStack align="flex-start" gap="7" as="form" onSubmit={handleSubmit}>
         <VStack align="flex-start" gap="1">
           <HStack gap="2">
@@ -262,6 +260,6 @@ export function ContactFormSection({
           </HStack>
         </VStack>
       </VStack>
-    </AuraSurface>
+    </Box>
   );
 }
