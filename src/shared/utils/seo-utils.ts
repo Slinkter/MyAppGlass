@@ -1,6 +1,6 @@
 /**
- * @file jsonLd.ts
- * @description Generador de datos estructurados para SEO (LocalBusiness y Services).
+ * @file seo-utils.ts
+ * @description Generador de datos estructurados Schema.org para SEO Técnico y Local (LocalBusiness, HomeAndConstructionBusiness, Service, BreadcrumbList, FAQPage).
  */
 
 export const getCompanyJsonLd = () => ({
@@ -11,6 +11,7 @@ export const getCompanyJsonLd = () => ({
       "@id": "https://www.gyacompany.com/#website",
       "url": "https://www.gyacompany.com",
       "name": "Glass & Aluminum Company S.A.C.",
+      "alternateName": "GYA Company",
       "publisher": { "@id": "https://www.gyacompany.com/#organization" },
       "potentialAction": [
         {
@@ -21,15 +22,15 @@ export const getCompanyJsonLd = () => ({
       ],
       "hasPart": [
         { "@type": "WebPage", "name": "Inicio", "url": "https://www.gyacompany.com/" },
-        { "@type": "WebPage", "name": "Servicios", "url": "https://www.gyacompany.com/servicios" },
-        { "@type": "WebPage", "name": "Proyectos", "url": "https://www.gyacompany.com/proyectos" },
-        { "@type": "WebPage", "name": "Blog de Expertos", "url": "https://www.gyacompany.com/blog" },
-        { "@type": "WebPage", "name": "Cotizar Ahora", "url": "https://www.gyacompany.com/contacto" },
-        { "@type": "WebPage", "name": "Libro de Reclamaciones", "url": "https://www.gyacompany.com/libro-de-reclamacion" }
+        { "@type": "WebPage", "name": "Servicios de Vidriería y Aluminio", "url": "https://www.gyacompany.com/servicios" },
+        { "@type": "WebPage", "name": "Proyectos y Obras", "url": "https://www.gyacompany.com/proyectos" },
+        { "@type": "WebPage", "name": "Blog Técnico de Expertos", "url": "https://www.gyacompany.com/blog" },
+        { "@type": "WebPage", "name": "Cotizaciones y Contacto", "url": "https://www.gyacompany.com/contacto" },
+        { "@type": "WebPage", "name": "Libro de Reclamaciones Virtual", "url": "https://www.gyacompany.com/libro-de-reclamacion" }
       ]
     },
     {
-      "@type": "LocalBusiness",
+      "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
       "@id": "https://www.gyacompany.com/#organization",
       "name": "Glass & Aluminum Company S.A.C.",
       "legalName": "Glass & Aluminum Company S.A.C.",
@@ -40,6 +41,16 @@ export const getCompanyJsonLd = () => ({
       "telephone": "+51974278303",
       "email": "ventas@gyacompany.com",
       "priceRange": "$$",
+      "currenciesAccepted": "PEN, USD",
+      "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "La Molina, Lima" },
+        { "@type": "AdministrativeArea", "name": "Santiago de Surco, Lima" },
+        { "@type": "AdministrativeArea", "name": "San Borja, Lima" },
+        { "@type": "AdministrativeArea", "name": "Miraflores, Lima" },
+        { "@type": "AdministrativeArea", "name": "San Isidro, Lima" },
+        { "@type": "City", "name": "Lima" }
+      ],
       "sameAs": [
         "https://www.facebook.com/gyacompany",
         "https://www.instagram.com/gyacompany",
@@ -55,8 +66,8 @@ export const getCompanyJsonLd = () => ({
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": -12.0722,
-        "longitude": -76.9421
+        "latitude": -12.0867,
+        "longitude": -76.9315
       },
       "openingHoursSpecification": [
         {
@@ -77,24 +88,37 @@ export const getCompanyJsonLd = () => ({
   ]
 });
 
-export const getServiceJsonLd = (name: string, description: string, url: string, image: string) => ({
+export const getBreadcrumbJsonLd = (items: Array<{ name: string; url: string }>) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url
+  }))
+});
+
+export const getServiceJsonLd = (name: string, description: string, url: string, image?: string) => ({
   "@context": "https://schema.org",
   "@type": "Service",
   "name": name,
   "description": description,
   "url": url,
-  "image": image,
+  "image": image || "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp",
   "provider": {
     "@type": "LocalBusiness",
-    "name": "Glass & Aluminum Company S.A.C."
+    "name": "Glass & Aluminum Company S.A.C.",
+    "telephone": "+51974278303",
+    "url": "https://www.gyacompany.com"
   },
-  "areaServed": {
-    "@type": "City",
-    "name": "Lima"
-  },
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "La Molina" },
+    { "@type": "City", "name": "Lima" }
+  ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Servicios de Vidriería",
+    "name": "Catálogo de Servicios de Vidriería y Aluminio",
     "itemListElement": [
       {
         "@type": "Offer",

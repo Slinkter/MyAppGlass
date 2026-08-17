@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { ServiceDetailView } from "@/screens/services";
 import { getServiceBySlug, getServices } from "@/features/services/services/serviceService";
 import { servicePageDataMap } from "@/features/services/data/servicePageDataMap";
+import { getServiceJsonLd, getBreadcrumbJsonLd } from "@/shared/utils/seo-utils";
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 export function generateStaticParams() {
   const servicesList = getServices();
@@ -9,7 +11,6 @@ export function generateStaticParams() {
     serviceSlug: service.plink.split("/").pop() || "",
   }));
 }
-
 
 type Props = {
   params: Promise<{ serviceSlug: string }>;
@@ -45,12 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${service.name} | Glass & Aluminum Company S.A.C.`,
-    description: `Detalles del servicio de ${service.name}. ${service.description?.substring(0, 150)}`,
+    title: `${service.name} en La Molina | Glass & Aluminum Company S.A.C.`,
+    description: `Fabricación e instalación de ${service.name} a medida en La Molina y Lima. ${service.description?.substring(0, 120)}`,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${service.name} | Glass & Aluminum Company S.A.C.`,
-      description: `Detalles del servicio de ${service.name}.`,
+      title: `${service.name} en La Molina | Glass & Aluminum Company S.A.C.`,
+      description: `Fabricación e instalación de ${service.name} a medida en La Molina y Lima.`,
       url: canonicalUrl,
       siteName: "Glass & Aluminum Company S.A.C.",
       locale: "es_PE",
@@ -59,11 +60,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+export default async function Page({ params }: Props) {
+  const { serviceSlug } = await params;
+  const pageData = servicePageDataMap[serviceSlug];
+  const service = getServiceBySlug(serviceSlug);
 
-export default function Page() {
+  const title = pageData?.seo.title || service?.name || "Servicio";
+  const description = pageData?.seo.description || service?.description || "";
+  const url = `https://www.gyacompany.com/servicios/${serviceSlug}`;
+
+  const serviceJsonLd = getServiceJsonLd(title, description, url);
+  const breadcrumbJsonLd = getBreadcrumbJsonLd([
+    { name: "Inicio", url: "https://www.gyacompany.com" },
+    { name: "Servicios", url: "https://www.gyacompany.com/servicios" },
+    { name: title, url },
+  ]);
+
   return (
     <ComponentErrorBoundary>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <ServiceDetailView />
     </ComponentErrorBoundary>
   );
