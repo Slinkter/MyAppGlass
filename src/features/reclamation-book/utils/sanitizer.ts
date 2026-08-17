@@ -81,13 +81,18 @@ export function sanitizeDocumentNumber(doc: string | undefined | null): string {
 
 /**
  * Sanitizes monetary amount string keeping numeric values and up to one decimal point.
+ * Strips currency prefixes such as S/., S/, $, commas, and invalid multiple dots.
  */
 export function sanitizeAmount(amount: string | undefined | null): string {
   if (typeof amount !== "string") return "";
-  const cleaned = amount.replace(/[^0-9.]/g, "").trim();
+  // Strip standard currency symbols first
+  const noCurrency = amount.replace(/S\/\.?|\$|€|,/gi, "").trim();
+  const cleaned = noCurrency.replace(/[^0-9.]/g, "");
   const parts = cleaned.split(".");
-  if (parts.length > 2) {
-    return `${parts[0]}.${parts.slice(1).join("")}`;
+  if (parts.length > 1) {
+    const intPart = parts[0] || "0";
+    const decPart = parts.slice(1).join("");
+    return `${intPart}.${decPart}`;
   }
   return cleaned;
 }

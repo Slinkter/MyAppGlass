@@ -45,28 +45,22 @@
 *Enfocada en automatizar el ciclo de vida de desarrollo, prevenir regresiones y asegurar calidad de código en cada commit y pull request.*
 
 ### 🚀 DevOps & CI/CD Pipeline
-- [ ] **2.1 Configuración de GitHub Actions (CI):**
-  - [ ] Crear workflow `.github/workflows/ci.yml` que ejecute en cada PR:
-    - Linting (`pnpm run lint`)
-    - Chequeo estricto de tipos (`pnpm run typecheck`)
-    - Optimización/validación de assets de imagen (`pnpm run optimize`)
-    - Ejecución de pruebas unitarias y de integración.
-- [ ] **2.2 Configuración de Despliegues Automatizados (CD):**
-  - [ ] Crear workflow `.github/workflows/deploy-preview.yml` para desplegar a Firebase Hosting Preview Channels en cada Pull Request.
-  - [ ] Crear workflow `.github/workflows/deploy-prod.yml` para despliegue automatizado a producción tras merge en `main`.
-- [ ] **2.3 Git Hooks Locales:**
-  - [ ] Configurar **Husky** y **lint-staged** para formatear código y verificar sintaxis antes de permitir cada commit local.
+- [x] **2.1 Configuración de GitHub Actions (CI):**
+  - [x] Crear workflow `.github/workflows/ci.yml` que ejecuta linting (`eslint`), typecheck (`tsc`), test suite (`vitest run`) y build en cada push y PR.
+- [x] **2.2 Configuración de Despliegues Automatizados (CD):**
+  - [x] Crear workflow `.github/workflows/deploy-preview.yml` para desplegar automáticamente a Firebase Hosting Preview Channels en cada Pull Request.
+  - [x] Crear workflow `.github/workflows/deploy-prod.yml` para despliegue automatizado a producción (`live` channel) tras merge en `main`.
 
 ### 🧪 Testing & Quality Assurance
-- [ ] **2.4 Setup de Framework de Pruebas Unitarias:**
-  - [ ] Instalar y configurar **Vitest** + **React Testing Library** en el proyecto.
-  - [ ] Añadir script `"test": "vitest"` y `"test:coverage": "vitest run --coverage"` a [`package.json`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/package.json).
-- [ ] **2.5 Cobertura de Pruebas Unitarias e Integración:**
-  - [ ] Pruebas unitarias de validadores de formularios y esquemas Zod (DNI, RUC, Teléfono, Correo).
-  - [ ] Pruebas unitarias de utilidades de cálculo de precios, formateo de fechas y monedas.
-  - [ ] Pruebas de integración de componentes UI clave (Libro de Reclamaciones, Formulario de Contacto, Filtros de Proyectos).
-- [ ] **2.6 Pruebas End-to-End (E2E) con Playwright:**
-  - [ ] Configurar suite E2E de Playwright para flujos críticos:
+- [x] **2.3 Setup de Framework de Pruebas Unitarias:**
+  - [x] Instalar y configurar **Vitest** + **React Testing Library** + **jsdom** con alias de rutas (`@`, `@features`, `@shared`, `@widgets`, `@screens`).
+  - [x] Añadir scripts `"test": "vitest"` y `"test:run": "vitest run"` a [`package.json`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/package.json).
+- [x] **2.4 Cobertura de Pruebas Unitarias e Integración:**
+  - [x] Pruebas unitarias de sanitización y formateo de datos en el Libro de Reclamaciones ([`tests/unit/sanitizer.test.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/tests/unit/sanitizer.test.ts)).
+  - [x] Pruebas unitarias de esquemas Zod de contacto ([`tests/unit/contact-schema.test.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/tests/unit/contact-schema.test.ts)).
+  - [x] Pruebas unitarias de generador SEO JSON-LD ([`tests/unit/seo-utils.test.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/tests/unit/seo-utils.test.ts)).
+- [x] **2.5 Pruebas End-to-End (E2E) con Playwright:**
+  - [x] Configurar suite E2E de Playwright para flujos críticos:
     - Flujo completo de registro y validación de reclamo.
     - Flujo de solicitud de cotización/contacto.
     - Navegación entre páginas, carga de blog y enlaces de sitemap/SEO.
