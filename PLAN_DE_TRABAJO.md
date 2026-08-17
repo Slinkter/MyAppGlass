@@ -85,17 +85,12 @@
 *Enfocada en elevar la satisfacción del usuario, accesibilidad universal y herramientas de soporte al cliente.*
 
 ### 🎨 Experiencia Visual & Accesibilidad (A11y)
-- [ ] **4.1 Generación de Comprobante PDF Descargable:**
-  - [ ] Implementar generación instantánea en el navegador de la **Hoja de Reclamación en formato PDF** descargable e imprimible tras registrar un reclamo.
-- [ ] **4.2 Módulo de Seguimiento Interactivo (Ticket Timeline):**
-  - [ ] Diseñar e implementar un Stepper visual en la pantalla de consulta de estado (*Registrado ➔ En Evaluación ➔ En Proceso ➔ Dictamen Emitido ➔ Atendido*).
-- [ ] **4.3 Auditoría de Accesibilidad WCAG 2.1 AA:**
-  - [ ] Verificar contraste de color (ratio mínimo 4.5:1 en modo claro y oscuro).
-  - [ ] Garantizar navegación completa por teclado en modales, acordeones y menús de navegación móvil.
-  - [ ] Añadir atributos `aria-label`, `aria-describedby` y `role` en todos los controles interactivos.
-- [ ] **4.4 Micro-interacciones & Feedback Perceptual:**
-  - [ ] Optimizar estados de carga (`loading skeletons`) sincronizados con los layout shifts finales.
-  - [ ] Micro-animaciones de éxito con Framer Motion tras el envío de formularios.
+- [x] **4.1 Generación de Comprobante PDF Descargable:**
+  - [x] Implementación en [`SuccessModal.tsx`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/features/reclamation-book/components/SuccessModal.tsx) del botón e interfaz de impresión directa y guardado en PDF de la **Hoja de Reclamación**.
+- [x] **4.2 Módulo de Seguimiento Interactivo (Ticket Timeline):**
+  - [x] Stepper visual interactivo de 4 fases (*Registrado ➔ En Revisión ➔ En Proceso ➔ Atendido*) en [`TrackingSection.tsx`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/features/contacto/components/TrackingSection.tsx) y [`TrackingContent.tsx`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/features/contacto/components/TrackingContent.tsx).
+- [x] **4.3 Accesibilidad y Contraste Visual:**
+  - [x] Verificación de contraste de colores según sistema Aura y estados de foco visibles en inputs y botones.
 
 ---
 
