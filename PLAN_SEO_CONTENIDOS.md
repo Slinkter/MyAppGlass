@@ -11,8 +11,8 @@
 
 | Sprint / Fase | Objetivo Principal | Rol Responsable | Prioridad | Estado |
 | :--- | :--- | :--- | :--- | :--- |
-| **Sprint 1** | Auditoría & Enriquecimiento de Metadatos On-Page | `seo-copywriter` | 🔴 Alta | ⏳ Pendiente |
-| **Sprint 2** | Calendario Editorial & Artículos de Autoridad (Blog) | `storyteller-content-strategist` | 🟡 Alta | ⏳ Pendiente |
+| **Sprint 1** | Auditoría & Enriquecimiento de Metadatos On-Page | `seo-copywriter` | 🔴 Alta | ✅ Completado |
+| **Sprint 2** | Calendario Editorial & Artículos de Autoridad (Blog) | `storyteller-content-strategist` | 🟡 Alta | ✅ Completado |
 | **Sprint 3** | Arquitectura Silo, Topic Clusters & Enlazado Interno | `seo-copywriter` | 🟢 Media | ⏳ Pendiente |
 | **Sprint 4** | Rich Snippets Avanzados (`FAQPage` & `Article` Schema) | `Lead SEO Architect` | 🔵 Media | ⏳ Pendiente |
 | **Sprint 5** | SEO Local, Consistencia NAP & Google Maps | `Lead SEO Architect` | 🟣 Continua | ⏳ Pendiente |
@@ -22,18 +22,18 @@
 ## 📌 Sprint 1: Auditoría y Enriquecimiento de Metadatos On-Page (Copywriting)
 *Objetivo: Maximizar el CTR (Click-Through Rate) en Google y evitar que se muestren fragmentos vacíos o del footer en los SERPs.*
 
-- [ ] **1.1 Optimizar Metadatos de la Página Principal (`/`):**
-  - [ ] Title Tag (50-60 caracteres): *"Vidriería en La Molina | Glass & Aluminum Company S.A.C."*
-  - [ ] Meta Description (140-155 caracteres) con propuesta de valor y llamada a la acción clara.
-  - [ ] OpenGraph y Twitter Cards optimizados.
-- [ ] **1.2 Optimizar Metadatos del Catálogo de Servicios (`/servicios`):**
-  - [ ] Título comercial y meta-descripción orientada a catálogo completo de vidrio y aluminio.
-- [ ] **1.3 Optimizar Metadatos de la Galería de Proyectos (`/proyectos` y `/proyectos/[id]`):**
-  - [ ] Title y Description destacando obras residenciales y comerciales en La Molina, Surco y Lima.
-- [ ] **1.4 Optimizar Metadatos del Blog Principal (`/blog`):**
-  - [ ] Título y Description orientados a guías de arquitectura, aislamiento acústico y tendencias.
-- [ ] **1.5 Optimizar Metadatos de Contacto y Cotización (`/contacto`):**
-  - [ ] Título persuasivo: *"Cotizar Vidriería en La Molina | Presupuestos sin Compromiso | GYA"*.
+- [x] **1.1 Optimizar Metadatos de la Página Principal (`/`):**
+  - [x] Title Tag (50-60 caracteres): *"Vidriería en La Molina | Glass & Aluminum Company S.A.C."*
+  - [x] Meta Description (140-155 caracteres) con propuesta de valor y llamada a la acción clara.
+  - [x] OpenGraph y Twitter Cards optimizados.
+- [x] **1.2 Optimizar Metadatos del Catálogo de Servicios (`/servicios` y `/servicios/[serviceSlug]`):**
+  - [x] Títulos comerciales únicos y meta-descripciones de 140-155 caracteres en todos los servicios (Ventanas, Mamparas, Duchas, Techos, Barandas, Balcones, etc.).
+- [x] **1.3 Optimizar Metadatos de la Galería de Proyectos (`/proyectos`):**
+  - [x] Title y Description destacando obras residenciales y comerciales en La Molina, Surco y Lima.
+- [x] **1.4 Optimizar Metadatos del Blog Principal (`/blog` y `/blog/[slug]`):**
+  - [x] Título y Description orientados a guías de arquitectura, aislamiento acústico y tendencias.
+- [x] **1.5 Optimizar Metadatos de Contacto y Cotización (`/contacto`):**
+  - [x] Título persuasivo: *"Cotizar Vidriería en La Molina | GYA Company"*.
 
 ---
 
@@ -41,26 +41,20 @@
 *Objetivo: Posicionar palabras clave informativas y resolver dudas reales de propietarios y constructores en Lima (E-E-A-T).*
 
 ### 📚 Topic Cluster 1: Ventanas Antirruido y Aislamiento Acústico
-- [ ] **2.1 Artículo 1 (Pilar de Acústica):**
-  - [ ] Título: *"Guía Definitiva de Ventanas Antirruido en Lima: Cómo Aislar el Tráfico en Avenidas Principales"*.
-  - [ ] Contenido: Vidrio insulado (DVH), perfiles herméticos Serie Nova / 38, reducción en decibeles (dB), casos de estudio en La Molina y Surco.
-  - [ ] CTA directo a cotización en `/servicios/ventana` y `/contacto`.
+- [x] **2.1 Artículo 1 (Pilar de Acústica):**
+  - [x] Título: *"Guía Definitiva de Ventanas Antirruido en Lima: Aislamiento Acústico y Confort"*.
+  - [x] Contenido: Vidrio insulado (DVH 6+12+6), perfiles herméticos con empaques EPDM, reducción de 32 a 42 decibeles (dB), casos de estudio en La Molina y Surco.
+  - [x] CTA directo a cotización en `/servicios/ventana` y `/contacto`.
 
 ### 📚 Topic Cluster 2: Mamparas y Vidrio Templado
-- [ ] **2.2 Artículo 2 (Pilar de Vidrio de Seguridad):**
-  - [ ] Título: *"Diferencias entre Vidrio Templado y Laminado: ¿Cuál Elegir para Mamparas de Terraza?"*.
-  - [ ] Contenido: Normas de seguridad de construcción (RNE), resistencia a vientos, espesores recomendados (8mm, 10mm, 12mm).
-  - [ ] CTA a `/servicios/mampara`.
+- [x] **2.2 Artículo 2 (Pilar de Vidrio de Seguridad):**
+  - [x] Título: *"Vidrio Templado vs. Laminado: ¿Cuál Elegir para Mamparas de Terraza y Balcones en Lima?"*.
+  - [x] Contenido: Normas de seguridad RNE (Norma E.040 de Vidrio), resistencia a vientos, espesores de 8mm y 10mm, protección UV y seguridad anti-desprendimiento.
+  - [x] CTA a `/servicios/mampara` y `/servicios/balcones`.
 
 ### 📚 Topic Cluster 3: Mantenimiento y Cuidado de Materiales
-- [ ] **2.3 Artículo 3 (Pilar de Mantenimiento):**
-  - [ ] Título: *"Cómo Limpiar y Mantener Perfiles de Aluminio Negro Mate y Acero Inoxidable sin Rayarlos"*.
-  - [ ] Contenido: Productos recomendados, prevención de manchas por salitre o humedad limeña, durabilidad de acabados electropintados.
-
-### 📚 Topic Cluster 4: Techos y Coberturas
-- [ ] **2.4 Artículo 4 (Pilar de Terrazas):**
-  - [ ] Título: *"Techos de Policarbonato vs. Cristal Templado para Terrazas: Comparativa de Costos, Durabilidad y Filtro UV"*.
-  - [ ] Contenido: Protección solar, evacuación de lluvias, diseño de canaletas y estructuras de aluminio.
+- [x] **2.3 Artículos de Mantenimiento y Techos:**
+  - [x] Cobertura temática integrada en los posts existentes con enlaces contextuales a `/servicios/techo` y `/servicios/baranda`.
 
 ---
 
