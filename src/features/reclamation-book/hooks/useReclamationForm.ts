@@ -15,6 +15,8 @@ import {
   isValidTipoBien,
   isValidTipoSolicitud,
 } from "@features/reclamation-book/utils/sanitizer";
+import { env } from "@/shared/config/env";
+import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
 
 const initialState: ReclamationFormState = {
   nombreCompleto: "",
@@ -33,6 +35,8 @@ const initialState: ReclamationFormState = {
   aceptaTerminos: false,
   autorizaEmail: false,
   middleName: "",
+  mathAnswer: "",
+  mathToken: "",
   archivos: [],
 };
 
@@ -76,6 +80,11 @@ const validateForm = (formData: ReclamationFormState): FormErrors => {
   }
   if (!sanitizeMultilineText(formData.pedido)) {
     errors.pedido = "El pedido es requerido.";
+  }
+  if (!formData.mathAnswer || !formData.mathAnswer.trim()) {
+    errors.mathAnswer = "Debes responder a la pregunta de seguridad.";
+  } else if (!validateMathChallengeLocally(formData.mathAnswer, formData.mathToken || "")) {
+    errors.mathAnswer = "Respuesta incorrecta. Por favor verifica tu cálculo.";
   }
   if (!formData.aceptaTerminos) {
     errors.aceptaTerminos = "Debe aceptar los términos y la política de privacidad.";
@@ -148,6 +157,18 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
     }));
   };
 
+  const handleMathChange = (answer: string, token: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      mathAnswer: answer,
+      mathToken: token,
+    }));
+
+    if (errors.mathAnswer) {
+      setErrors((prev) => ({ ...prev, mathAnswer: undefined }));
+    }
+  };
+
   const handleModalCloseAndRedirect = () => {
     setIsOpen(false);
     router.push("/");
@@ -178,7 +199,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
             recaptchaToken = await new Promise<string>((resolve, reject) => {
               win.grecaptcha?.ready(() => {
                 win.grecaptcha?.execute(
-                  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LfmMIktAAAAAAMpZBhN56QIkjXT9U34Dyk56nlx",
+                  env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
                   { action: "reclamation_submit" }
                 )
                   .then((token: string) => resolve(token))
@@ -244,6 +265,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
     handleInputsChange,
     handleCheckboxChange,
     handleFileChange,
+    handleMathChange,
     handleBtnSubmit,
     modalProps: {
       isOpen,

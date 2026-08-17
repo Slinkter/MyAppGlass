@@ -69,7 +69,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                 flex="1"
               >
                 <Box
-                  h={{ base: "280px", sm: "340px", md: "400px", lg: "460px" }}
+                  h={{ base: "380px", sm: "440px", md: "420px", lg: "460px" }}
                   position="relative"
                   w="full"
                   overflow="hidden"
@@ -89,10 +89,10 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                       <Gallery images={activeImageList}>
                         <Flex
                           direction={{ base: "column", md: "row" }}
-                          gap={{ base: "3", md: "4" }}
+                          gap={{ base: "2", md: "4" }}
                           h="100%"
                           w="100%"
-                          p={{ base: "1", md: "2" }}
+                          p={{ base: "0", md: "2" }}
                           minW={0}
                           overflow="hidden"
                         >

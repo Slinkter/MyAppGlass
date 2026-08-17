@@ -2,6 +2,74 @@ const { HttpsError } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const { Resend } = require("resend");
 const { FieldValue } = require("firebase-admin/firestore");
+const { z } = require("zod");
+const { validateMathCaptcha } = require("./mathCaptchaValidator");
+
+// ─── Schema Zod: Libro de Reclamaciones ──────────────────────────────────────
+const reclamoSchema = z.object({
+  nombreCompleto: z.string().min(3, "Nombre muy corto").max(120).regex(/^[^<>{}()]+$/, "Caracteres no permitidos"),
+  email: z.string().email("Email inválido").max(200),
+  tipoDocumento: z.enum(["DNI", "CE", "Carné de Extranjería", "PASAPORTE", "Pasaporte", "RUC"], { message: "Tipo de documento no válido" }),
+  numeroDocumento: z.string().min(6).max(15).regex(/^[a-zA-Z0-9]+$/, "Número de documento inválido"),
+  domicilio: z.string().min(5, "Domicilio muy corto").max(300).regex(/^[^<>{}()]+$/, "Caracteres no permitidos"),
+  telefono: z.string().min(7).max(20).regex(/^\+?[0-9 \-()]+$/, "Teléfono inválido"),
+  tipoSolicitud: z.enum(["Reclamo", "Queja"], { message: "Tipo de solicitud no válido" }),
+  tipoBien: z.enum(["producto", "servicio"], { message: "Tipo de bien no válido" }),
+  montoReclamado: z.union([z.string(), z.number()]).optional().default(0).transform((v) => Number(v || 0)).refine((n) => !isNaN(n) && n >= 0 && n <= 999999, "Monto inválido"),
+  descripcionBien: z.string().min(3).max(500).regex(/^[^<>{}()]+$/, "Caracteres no permitidos"),
+  detalle: z.string().min(10, "El detalle es muy corto").max(2000).regex(/^[^<>{}()]+$/, "Caracteres no permitidos"),
+  pedido: z.string().min(10, "El pedido es muy corto").max(1000).regex(/^[^<>{}()]+$/, "Caracteres no permitidos"),
+});
+
+// ─── Schema Zod: Formulario de Contacto ──────────────────────────────────────
+const contactSchema = z.object({
+  name: z.string().min(2, "Nombre muy corto").max(100).regex(/^[^<>{}()]+$/, "Caracteres no permitidos"),
+  email: z.string().email("Email inválido").max(200),
+  phone: z.string().max(20).regex(/^\+?[0-9 \-()]*$/, "Teléfono inválido").optional().default(""),
+  message: z.string().min(5, "Mensaje muy corto").max(2000).regex(/^[^<>{}()]+$/, "Caracteres no permitidos"),
+});
+
+/**
+ * Elimina tags HTML de un string para almacenamiento seguro.
+ */
+function stripHtml(str) {
+  if (typeof str !== "string") return String(str ?? "");
+  return str.replace(/<[^>]*>?/gm, "").trim();
+}
+
+/**
+ * Construye un objeto seguro con solo los campos permitidos para Firestore (whitelist).
+ * Sanitiza todos los strings eliminando tags HTML.
+ */
+function buildSafeReclamoPayload(data) {
+  return {
+    nombreCompleto: stripHtml(data.nombreCompleto),
+    email: String(data.email ?? "").toLowerCase().trim(),
+    tipoDocumento: stripHtml(data.tipoDocumento),
+    numeroDocumento: stripHtml(data.numeroDocumento),
+    domicilio: stripHtml(data.domicilio),
+    telefono: stripHtml(data.telefono),
+    tipoSolicitud: stripHtml(data.tipoSolicitud),
+    tipoBien: stripHtml(data.tipoBien),
+    montoReclamado: Number(data.montoReclamado ?? 0),
+    descripcionBien: stripHtml(data.descripcionBien),
+    detalle: stripHtml(data.detalle),
+    pedido: stripHtml(data.pedido),
+  };
+}
+
+/**
+ * Construye un objeto seguro con solo los campos permitidos para Firestore (whitelist).
+ * Sanitiza todos los strings eliminando tags HTML.
+ */
+function buildSafeContactPayload(data) {
+  return {
+    name: stripHtml(data.name),
+    email: String(data.email ?? "").toLowerCase().trim(),
+    phone: stripHtml(data.phone ?? ""),
+    message: stripHtml(data.message),
+  };
+}
 
 /**
  * Escapa caracteres HTML para prevenir inyecciones XSS en correos.
@@ -172,6 +240,88 @@ const createContactClientEmailHtml = (data, contactId) => `
 `;
 
 /**
+ * Valida de forma estricta el token de Google reCAPTCHA v3.
+ * Lanza un error HttpsError si el token no existe, si falla la verificación o si el score es bajo.
+ */
+async function verifyRecaptcha(token, expectedAction = null) {
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+  if (!secretKey) {
+    logger.error("MISSING_SECRET: RECAPTCHA_SECRET_KEY is not defined in Secret Manager.");
+    throw new HttpsError("failed-precondition", "Configuración de seguridad del servidor incompleta.");
+  }
+
+  if (!token || typeof token !== "string" || token.trim() === "") {
+    logger.warn("RECAPTCHA_MISSING_TOKEN: Request rejected due to missing recaptchaToken.");
+    throw new HttpsError("permission-denied", "Validación de seguridad obligatoria no proporcionada.");
+  }
+
+  try {
+    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${encodeURIComponent(token.trim())}`;
+    const recaptchaRes = await fetch(verificationUrl, { method: "POST" });
+    const recaptchaData = await recaptchaRes.json();
+
+    if (!recaptchaData.success || typeof recaptchaData.score !== "number" || recaptchaData.score < 0.5) {
+      logger.warn("RECAPTCHA_FAILED", {
+        success: recaptchaData.success,
+        score: recaptchaData.score,
+        action: recaptchaData.action,
+        expectedAction,
+        errorCodes: recaptchaData["error-codes"],
+      });
+      throw new HttpsError("permission-denied", "Validación de seguridad no superada (puntuación insuficiente).");
+    }
+
+    return recaptchaData;
+  } catch (err) {
+    if (err instanceof HttpsError) throw err;
+    logger.error("RECAPTCHA_VERIFICATION_ERROR:", err);
+    throw new HttpsError("permission-denied", "No se pudo validar el token de seguridad.");
+  }
+}
+
+/**
+ * Valida documentos de identidad según estándares peruanos.
+ */
+function validateIdentityDocument(tipoDocumento, numeroDocumento) {
+  if (!tipoDocumento || !numeroDocumento) {
+    throw new HttpsError("invalid-argument", "El tipo y número de documento son obligatorios.");
+  }
+  const docNum = String(numeroDocumento).trim();
+  const docType = String(tipoDocumento).trim().toUpperCase();
+
+  if (docType === "DNI") {
+    if (!/^\d{8}$/.test(docNum)) {
+      throw new HttpsError("invalid-argument", "El DNI debe contener exactamente 8 dígitos numéricos.");
+    }
+  } else if (docType.includes("CE") || docType.includes("EXTRANJER")) {
+    if (!/^[a-zA-Z0-9]{8,12}$/.test(docNum)) {
+      throw new HttpsError("invalid-argument", "El Carné de Extranjería debe contener entre 8 y 12 caracteres alfanuméricos.");
+    }
+  } else if (docType.includes("PASAPORTE")) {
+    if (!/^[a-zA-Z0-9]{6,12}$/.test(docNum)) {
+      throw new HttpsError("invalid-argument", "El Pasaporte debe contener entre 6 y 12 caracteres alfanuméricos.");
+    }
+  } else if (docType === "RUC") {
+    if (!/^(10|20|15|17)\d{9}$/.test(docNum)) {
+      throw new HttpsError("invalid-argument", "El RUC debe contener 11 dígitos numéricos válidos.");
+    }
+  }
+}
+
+/**
+ * Detección de cadenas aleatorias generadas por bots (p. ej. "DESjGMdhHribOHrqXR").
+ */
+function isGibberishOrSpamText(text) {
+  if (!text || typeof text !== "string") return false;
+  const trimmed = text.trim();
+  // Palabra única de más de 14 caracteres con mezcla de mayúsculas/minúsculas sin espacios
+  if (/^[A-Za-z0-9]{15,}$/.test(trimmed) && /[a-z]/.test(trimmed) && /[A-Z]/.test(trimmed)) {
+    return true;
+  }
+  return false;
+}
+
+/**
  * Lógica de negocio para procesar y enviar el Libro de Reclamaciones.
  */
 async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
@@ -186,35 +336,46 @@ async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
     throw new HttpsError("failed-precondition", "Configuración de servidor incompleta.");
   }
 
-  // Anti-bot Honeypot check
+  // 1. Silent Drop: Honeypot check
   if (reclamoData.middleName || reclamoData.website_hp) {
     logger.warn("BOT_BLOCKED: Honeypot filled", { email: reclamoData.email });
-    return { id: "spambot_blocked" };
+    return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
   }
 
-  // Anti-bot Duration check
-  if (reclamoData._ts && (Date.now() - Number(reclamoData._ts)) < 2500) {
+  // 2. Silent Drop: Envíos sobrehumanos (< 1.8 segundos)
+  if (reclamoData._ts && (Date.now() - Number(reclamoData._ts)) < 1800) {
     logger.warn("BOT_BLOCKED: Submission too fast", { durationMs: Date.now() - Number(reclamoData._ts) });
-    throw new HttpsError("invalid-argument", "Envío no válido por velocidad inusual.");
+    return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
   }
 
-  // Google reCAPTCHA Verification (si está configurada)
-  if (process.env.RECAPTCHA_SECRET_KEY && reclamoData.recaptchaToken) {
-    try {
-      const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${reclamoData.recaptchaToken}`;
-      const recaptchaRes = await fetch(verificationUrl, { method: "POST" });
-      const recaptchaData = await recaptchaRes.json();
-
-      if (!recaptchaData.success || recaptchaData.score < 0.5) {
-        logger.warn("RECAPTCHA_FAILED", { score: recaptchaData.score });
-        throw new HttpsError("permission-denied", "Validación de seguridad no superada.");
-      }
-    } catch (err) {
-      if (err instanceof HttpsError) throw err;
-      logger.error("RECAPTCHA_ERROR:", err);
-    }
+  // 3. Silent Drop: Textos basura / gibberish identificados
+  if (isGibberishOrSpamText(reclamoData.nombreCompleto) || isGibberishOrSpamText(reclamoData.detalle) || isGibberishOrSpamText(reclamoData.pedido)) {
+    logger.warn("BOT_BLOCKED: Gibberish text detected", { name: reclamoData.nombreCompleto });
+    return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
   }
 
+  // 4. Validación estricta del schema Zod en el Backend (nunca confiar en el cliente)
+  const parseResult = reclamoSchema.safeParse(reclamoData);
+  if (!parseResult.success) {
+    const issues = parseResult.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join(" | ");
+    logger.warn("ZOD_VALIDATION_FAILED (Reclamo):", { issues, email: reclamoData.email });
+    throw new HttpsError("invalid-argument", `Datos inválidos: ${issues}`);
+  }
+
+  // 5. Verificación de Captcha Matemático (Reto Humano)
+  const mathValidation = validateMathCaptcha(reclamoData.mathAnswer, reclamoData.mathToken);
+  if (!mathValidation.valid) {
+    logger.warn("MATH_CAPTCHA_FAILED (Reclamo):", { reason: mathValidation.message, email: reclamoData.email });
+    throw new HttpsError("invalid-argument", mathValidation.message);
+  }
+
+  // 6. Verificación Obligatoria de Google reCAPTCHA v3
+  await verifyRecaptcha(reclamoData.recaptchaToken, "reclamation_submit");
+
+  // 5. Validación estricta de documentos peruanos
+  validateIdentityDocument(reclamoData.tipoDocumento, reclamoData.numeroDocumento);
+
+  // 6. Validación de campos obligatorios
   if (!reclamoData.email || !reclamoData.nombreCompleto || !reclamoData.detalle || !reclamoData.pedido) {
     throw new HttpsError("invalid-argument", "Faltan campos obligatorios para el Libro de Reclamaciones.");
   }
@@ -223,7 +384,7 @@ async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
   const timestampFormatted = now.toLocaleString("es-PE", { timeZone: "America/Lima" });
 
   try {
-    // 1. Notificación al Administrador
+    // Notificación al Administrador
     const adminEmail = await resend.emails.send({
       from: "GYA Libro Reclamaciones <noreply@gyacompany.com>",
       to: ADMIN_RECIPIENT,
@@ -238,7 +399,7 @@ async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
 
     const reclamoId = adminEmail.data.id;
 
-    // 2. Notificación y Constancia al Consumidor
+    // Notificación y Constancia al Consumidor
     const clientEmail = await resend.emails.send({
       from: "GLASS & ALUMINUM COMPANY S.A.C. <noreply@gyacompany.com>",
       to: reclamoData.email,
@@ -250,9 +411,11 @@ async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
       logger.warn("RESEND_CLIENT_WARNING:", clientEmail.error);
     }
 
-    // 3. Persistencia legal obligatoria en Firestore (mínimo 2 años)
+    // Persistencia legal obligatoria en Firestore (mínimo 2 años)
+    // Solo se guardan campos validados y sanitizados (whitelist — no raw request.body)
+    const safeReclamoPayload = buildSafeReclamoPayload(reclamoData);
     await db.collection("libro_de_reclamaciones").doc(reclamoId).set({
-      ...reclamoData,
+      ...safeReclamoPayload,
       status: "RECIBIDO",
       createdAt: FieldValue.serverTimestamp(),
       createdAtIso: now.toISOString(),
@@ -284,18 +447,40 @@ async function sendContactEmailLogic(contactData, admin, clientIp = "unknown") {
     throw new HttpsError("failed-precondition", "Configuración de servidor incompleta.");
   }
 
-  // Anti-bot Honeypot
+  // 1. Silent Drop: Anti-bot Honeypot
   if (contactData.middleName || contactData.website_hp) {
-    return { id: "spambot_blocked" };
+    logger.warn("BOT_BLOCKED: Contact honeypot triggered", { email: contactData.email });
+    return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
   }
 
-  // Anti-bot Duration
-  if (contactData._ts && (Date.now() - Number(contactData._ts)) < 2500) {
-    throw new HttpsError("invalid-argument", "Envío no válido por velocidad inusual.");
+  // 2. Silent Drop: Envíos sobrehumanos (< 1.8 segundos)
+  if (contactData._ts && (Date.now() - Number(contactData._ts)) < 1800) {
+    logger.warn("BOT_BLOCKED: Contact submission too fast", { durationMs: Date.now() - Number(contactData._ts) });
+    return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
   }
 
-  if (!contactData.email || !contactData.name || !contactData.message) {
-    throw new HttpsError("invalid-argument", "Faltan datos obligatorios del contacto.");
+  // 3. Silent Drop: Textos basura / gibberish identificados
+  if (isGibberishOrSpamText(contactData.name) || isGibberishOrSpamText(contactData.message)) {
+    logger.warn("BOT_BLOCKED: Gibberish text detected in Contact", { name: contactData.name });
+    return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
+  }
+
+  // 4. Verificación de Captcha Matemático (Reto Humano)
+  const mathValidation = validateMathCaptcha(contactData.mathAnswer, contactData.mathToken);
+  if (!mathValidation.valid) {
+    logger.warn("MATH_CAPTCHA_FAILED (Contacto):", { reason: mathValidation.message, email: contactData.email });
+    throw new HttpsError("invalid-argument", mathValidation.message);
+  }
+
+  // 5. Verificación Obligatoria de Google reCAPTCHA v3
+  await verifyRecaptcha(contactData.recaptchaToken, "contact_submit");
+
+  // 6. Validación estricta del schema Zod en el Backend (nunca confiar en el cliente)
+  const contactParseResult = contactSchema.safeParse(contactData);
+  if (!contactParseResult.success) {
+    const issues = contactParseResult.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join(" | ");
+    logger.warn("ZOD_VALIDATION_FAILED (Contacto):", { issues, email: contactData.email });
+    throw new HttpsError("invalid-argument", `Datos inválidos: ${issues}`);
   }
 
   const now = new Date();
@@ -324,8 +509,10 @@ async function sendContactEmailLogic(contactData, admin, clientIp = "unknown") {
       logger.warn("RESEND_CLIENT_WARNING (Contacto):", clientEmail.error);
     }
 
+    // Solo se guardan campos validados y sanitizados (whitelist — no raw request.body)
+    const safeContactPayload = buildSafeContactPayload(contactData);
     await db.collection("contact_submissions").doc(contactId).set({
-      ...contactData,
+      ...safeContactPayload,
       status: "RECIBIDO",
       createdAt: FieldValue.serverTimestamp(),
       createdAtIso: now.toISOString(),

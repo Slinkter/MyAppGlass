@@ -13,6 +13,9 @@ export interface ContactData {
   acceptedTerms?: boolean;
   middleName?: string;
   _ts?: number;
+  recaptchaToken?: string;
+  mathAnswer?: string;
+  mathToken?: string;
 }
 
 /**
@@ -37,6 +40,11 @@ export async function submitContactAction(formData: ContactData) {
       email: formData.email.toLowerCase().trim(),
       phone: formData.phone ? formData.phone.replace(/[^0-9+ \-()]/g, "").trim() : "",
       message: formData.message.replace(/<[^>]*>?/gm, "").trim(),
+      recaptchaToken: formData.recaptchaToken || "",
+      middleName: formData.middleName || "",
+      _ts: formData._ts,
+      mathAnswer: formData.mathAnswer || "",
+      mathToken: formData.mathToken || "",
     };
 
     const response = await fetch(env.NEXT_PUBLIC_CONTACT_API_URL, {

@@ -231,9 +231,9 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 onClick={onOpenModal}
                 color="white"
                 bg="blackAlpha.700"
-                w="36px"
-                h="36px"
-                display={{ base: "none", md: "flex" }}
+                w={{ base: "32px", md: "36px" }}
+                h={{ base: "32px", md: "36px" }}
+                display="flex"
                 alignItems="center"
                 justifyContent="center"
                 borderRadius="full"
@@ -249,7 +249,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 aria-label="Ampliar imagen"
                 transition="all 0.2s ease"
               >
-                <Maximize2 size={16} />
+                <Maximize2 size={15} />
               </Box>
             )}
 

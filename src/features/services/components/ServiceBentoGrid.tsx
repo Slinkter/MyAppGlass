@@ -100,8 +100,8 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
     borderRadius="3xl"
     borderWidth="1px"
     borderColor="border.default"
-    px="5"
-    py="5"
+    px={{ base: "5", md: "6" }}
+    py={{ base: "5", md: "6" }}
     w="full"
     h="full"
     display="flex"
@@ -114,8 +114,10 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
     }}
   >
     <Box>
-      <Heading as="h3" size="sm" mb="2" letterSpacing="tight" color="text.heading">Concepto Técnico</Heading>
-      <Text color="text.muted" fontSize="xs" lineHeight="relaxed" mb="3">
+      <Heading as="h3" size={{ base: "sm", md: "md" }} mb="2" letterSpacing="tight" color="text.heading" fontWeight="700">
+        Concepto Técnico
+      </Heading>
+      <Text color="text.muted" fontSize={{ base: "sm", md: "xs" }} lineHeight={{ base: "relaxed", md: "tall" }} mb="3">
         {description}
       </Text>
 
@@ -123,12 +125,16 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
         <>
           <Box h="1px" bg="border.default" my="3" opacity={0.6} />
 
-          <Heading as="h3" size="sm" mb="2" letterSpacing="tight" color="text.heading">Especificaciones Clave</Heading>
-          <VStack align="stretch" gap="1.5">
+          <Heading as="h3" size={{ base: "xs", md: "sm" }} mb="2.5" letterSpacing="tight" color="text.heading" fontWeight="700">
+            Especificaciones Clave
+          </Heading>
+          <VStack align="stretch" gap="2">
             {features.map((feat) => (
-              <HStack key={feat.label} gap="2" align="center">
-                <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={3.5} flexShrink={0} />
-                <Text fontSize="xs" fontWeight="500" color="text.body">{feat.label}</Text>
+              <HStack key={feat.label} gap="2.5" align="flex-start">
+                <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={4} mt="0.5" flexShrink={0} />
+                <Text fontSize={{ base: "xs", sm: "sm", md: "xs" }} fontWeight="500" color="text.body" lineHeight="short">
+                  {feat.label}
+                </Text>
               </HStack>
             ))}
           </VStack>
@@ -136,7 +142,7 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
       )}
     </Box>
 
-    <Box mt="4" w="full">
+    <Box mt={{ base: "5", md: "4" }} w="full">
       <BentoCTA systemName={systemName} />
     </Box>
   </Box>

@@ -4,6 +4,7 @@ import { Text, Heading, VStack, HStack, Box } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
+import { MathCaptchaField } from "@/shared/components/MathCaptchaField";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
@@ -12,7 +13,7 @@ import { useReclamationFormContext } from "./ReclamationFormContext";
  * Conforme a Ley N° 29571, Ley N° 31435 y Ley N° 29733 (Protección de Datos Personales).
  */
 const DeclarationSection: React.FC = () => {
-  const { formData, handleInputsChange, handleCheckboxChange, handleBtnSubmit, errors } = useReclamationFormContext();
+  const { formData, handleInputsChange, handleCheckboxChange, handleMathChange, handleBtnSubmit, errors } = useReclamationFormContext();
 
   return (
     <VStack gap="5" align="stretch">
@@ -101,6 +102,14 @@ const DeclarationSection: React.FC = () => {
           </Checkbox>
         </Field>
       </VStack>
+
+      {/* Reto Matemático de Seguridad */}
+      <MathCaptchaField
+        value={formData.mathAnswer || ""}
+        onChange={handleMathChange}
+        error={errors.mathAnswer}
+        id="reclamo-math-captcha"
+      />
 
       <Button
         type="submit"

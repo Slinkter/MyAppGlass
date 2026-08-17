@@ -119,6 +119,8 @@ export function sanitizeReclamationData(raw: ReclamationData): ReclamationData {
     autorizaEmail: Boolean(raw.autorizaEmail),
     middleName: raw.middleName ? sanitizeSingleLine(raw.middleName) : "",
     recaptchaToken: raw.recaptchaToken ? String(raw.recaptchaToken) : undefined,
+    mathAnswer: raw.mathAnswer ? sanitizeSingleLine(raw.mathAnswer) : undefined,
+    mathToken: raw.mathToken ? String(raw.mathToken) : undefined,
     _ts: typeof raw._ts === "number" && !isNaN(raw._ts) ? raw._ts : undefined,
   };
 }

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toaster } from "@/components/ui/toaster-instance";
 import { submitContactAction, checkStatusAction } from "@features/contacto/actions";
+import { env } from "@/shared/config/env";
+import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
 
 interface ContactFormState {
   name: string;
@@ -12,6 +14,8 @@ interface ContactFormState {
   message: string;
   acceptedTerms: boolean;
   middleName: string;
+  mathAnswer: string;
+  mathToken: string;
 }
 
 interface FormErrors {
@@ -20,6 +24,7 @@ interface FormErrors {
   phone?: string;
   message?: string;
   acceptedTerms?: string;
+  mathAnswer?: string;
 }
 
 export interface TrackingResult {
@@ -38,6 +43,8 @@ export const useContactForm = () => {
     message: "",
     acceptedTerms: false,
     middleName: "",
+    mathAnswer: "",
+    mathToken: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [formLoadTime] = useState<number>(() => Date.now());
@@ -59,6 +66,10 @@ export const useContactForm = () => {
         return !String(value).trim() ? "Los detalles del proyecto son obligatorios" : undefined;
       case "acceptedTerms":
         return !value ? "Debes aceptar las políticas de privacidad" : undefined;
+      case "mathAnswer":
+        if (!String(value).trim()) return "Debes responder a la pregunta de seguridad";
+        if (!validateMathChallengeLocally(String(value), formData.mathToken)) return "Respuesta incorrecta. Por favor verifica tu cálculo.";
+        return undefined;
       default:
         return undefined;
     }
@@ -82,6 +93,13 @@ export const useContactForm = () => {
     setFormData((prev) => ({ ...prev, acceptedTerms: checked }));
     if (errors.acceptedTerms) {
       setErrors((prev) => ({ ...prev, acceptedTerms: undefined }));
+    }
+  };
+
+  const handleMathChange = (answer: string, token: string) => {
+    setFormData((prev) => ({ ...prev, mathAnswer: answer, mathToken: token }));
+    if (errors.mathAnswer) {
+      setErrors((prev) => ({ ...prev, mathAnswer: undefined }));
     }
   };
 
@@ -132,12 +150,14 @@ export const useContactForm = () => {
     const emailErr = validateField("email", formData.email);
     const messageErr = validateField("message", formData.message);
     const termsErr = validateField("acceptedTerms", formData.acceptedTerms);
+    const mathErr = validateField("mathAnswer", formData.mathAnswer);
 
     const newErrors: FormErrors = {
       ...(nameErr && { name: nameErr }),
       ...(emailErr && { email: emailErr }),
       ...(messageErr && { message: messageErr }),
       ...(termsErr && { acceptedTerms: termsErr }),
+      ...(mathErr && { mathAnswer: mathErr }),
     };
 
     setErrors(newErrors);
@@ -147,6 +167,27 @@ export const useContactForm = () => {
     setIsSubmitting(true);
 
     try {
+      let recaptchaToken = "";
+
+      // Execute reCAPTCHA v3 if available on window
+      const win = typeof window !== "undefined" ? (window as unknown as { grecaptcha?: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } }) : null;
+      if (win && win.grecaptcha) {
+        try {
+          recaptchaToken = await new Promise<string>((resolve, reject) => {
+            win.grecaptcha?.ready(() => {
+              win.grecaptcha?.execute(
+                env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+                { action: "contact_submit" }
+              )
+                .then((token: string) => resolve(token))
+                .catch((err: unknown) => reject(err));
+            });
+          });
+        } catch (recaptchaErr) {
+          console.error("reCAPTCHA execution error in Contact Form:", recaptchaErr);
+        }
+      }
+
       const result = await submitContactAction({
         name: formData.name,
         email: formData.email,
@@ -155,12 +196,24 @@ export const useContactForm = () => {
         acceptedTerms: formData.acceptedTerms,
         middleName: formData.middleName,
         _ts: formLoadTime,
+        recaptchaToken,
+        mathAnswer: formData.mathAnswer,
+        mathToken: formData.mathToken,
       });
       
       if (result.success && result.id) {
         setSuccessTrackingId(result.id);
         setIsSuccessOpen(true);
-        setFormData({ name: "", email: "", phone: "", message: "", acceptedTerms: false, middleName: "" });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          acceptedTerms: false,
+          middleName: "",
+          mathAnswer: "",
+          mathToken: "",
+        });
         setErrors({});
       } else {
         throw new Error(result.error);
@@ -183,6 +236,7 @@ export const useContactForm = () => {
     handleChange,
     handleBlur,
     handleCheckedChange,
+    handleMathChange,
     handleSubmit,
     trackingId,
     isTracking,

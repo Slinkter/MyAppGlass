@@ -30,6 +30,8 @@ export interface ReclamationData {
     autorizaEmail: boolean;
     middleName?: string;
     recaptchaToken?: string;
+    mathAnswer?: string;
+    mathToken?: string;
     _ts?: number;
 }
 

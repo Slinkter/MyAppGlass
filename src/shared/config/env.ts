@@ -6,7 +6,7 @@ const envSchema = z.object({
   NEXT_PUBLIC_CONTACT_API_URL: z.string().url('Invalid Contact API URL').default('https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitContacto'),
   NEXT_PUBLIC_STATUS_API_URL: z.string().url('Invalid Status API URL').default('https://us-central1-gya-app-4c8a9.cloudfunctions.net/checkStatus'),
   NEXT_PUBLIC_API_URL: z.string().url('Invalid API URL').default('https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitReclamo'),
-  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().optional(),
+  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().min(1, "NEXT_PUBLIC_RECAPTCHA_SITE_KEY es requerida para la seguridad del formulario"),
 });
 
 function getRawEnv(): Record<string, unknown> {

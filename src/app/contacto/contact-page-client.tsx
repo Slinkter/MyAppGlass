@@ -16,7 +16,7 @@ import { ContactSuccessModal } from "@/features/contacto/components/ContactSucce
 export default function ContactPageClient() {
   const { 
     formData, errors, isSubmitting, 
-    handleChange, handleBlur, handleCheckedChange, handleSubmit,
+    handleChange, handleBlur, handleCheckedChange, handleMathChange, handleSubmit,
     trackingId, isTracking, trackingResult, handleTrackingChange, handleTrackingSubmit,
     isSuccessOpen, handleCloseModal, successTrackingId
   } = useContactForm();
@@ -70,6 +70,7 @@ export default function ContactPageClient() {
             handleChange={handleChange}
             handleBlur={handleBlur}
             handleCheckedChange={handleCheckedChange}
+            handleMathChange={handleMathChange}
             handleSubmit={handleSubmit}
           />
         </Box>

@@ -22,6 +22,8 @@ import { useColorModeValue } from "@/components/ui/color-mode-hooks";
  * @module features/contacto/components
  */
 
+import { MathCaptchaField } from "@/shared/components/MathCaptchaField";
+
 interface ContactFormSectionProps {
   formData: {
     name: string;
@@ -30,6 +32,8 @@ interface ContactFormSectionProps {
     message: string;
     acceptedTerms: boolean;
     middleName: string;
+    mathAnswer: string;
+    mathToken: string;
   };
   errors: {
     name?: string;
@@ -37,11 +41,13 @@ interface ContactFormSectionProps {
     phone?: string;
     message?: string;
     acceptedTerms?: string;
+    mathAnswer?: string;
   };
   isSubmitting: boolean;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleCheckedChange: (checked: boolean) => void;
+  handleMathChange: (answer: string, token: string) => void;
   handleSubmit: (e: React.FormEvent) => void;
 }
 
@@ -56,6 +62,7 @@ export function ContactFormSection({
   handleChange,
   handleBlur,
   handleCheckedChange,
+  handleMathChange,
   handleSubmit,
 }: ContactFormSectionProps) {
   const inputBg = useColorModeValue("rgba(240, 242, 245, 0.85)", "rgba(24, 24, 27, 0.75)");
@@ -211,6 +218,14 @@ export function ContactFormSection({
               }}
             />
           </Field>
+
+          {/* Reto Matemático de Seguridad Anti-Bots */}
+          <MathCaptchaField
+            value={formData.mathAnswer}
+            onChange={handleMathChange}
+            error={errors?.mathAnswer}
+            id="contact-math-captcha"
+          />
 
           {/* Checkbox Términos usando Chakra UI Field */}
           <Field 

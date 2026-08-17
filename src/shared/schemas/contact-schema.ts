@@ -11,9 +11,9 @@ export const contactFormSchema = z.object({
     .trim(),
   email: z
     .string()
-    .email("Formato de correo electrónico inválido")
+    .trim()
     .toLowerCase()
-    .trim(),
+    .email("Formato de correo electrónico inválido"),
   phone: z
     .string()
     .regex(/^[0-9+()\s-]{7,20}$/, "Número telefónico no válido")

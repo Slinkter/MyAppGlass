@@ -16,14 +16,17 @@ const GalleryThumbnailItem = React.memo(
     return (
       <Box
         flexShrink={0}
-        w={{ base: "72px", sm: "70px", md: "100%" }}
-        h={{ base: "100%", md: "80px", lg: "90px" }}
+        w={{ base: "80px", sm: "88px", md: "100%" }}
+        h={{ base: "64px", sm: "70px", md: "80px", lg: "90px" }}
         cursor="pointer"
-        borderRadius="lg"
+        borderRadius="xl"
         borderWidth="2px"
         borderStyle="solid"
-        borderColor={isSelected ? "text.accent" : "transparent"}
-        boxShadow={isSelected ? "md" : "none"}
+        borderColor={isSelected ? "primary.500" : "transparent"}
+        _dark={{
+          borderColor: isSelected ? "primary.300" : "transparent",
+        }}
+        boxShadow={isSelected ? "0 0 0 2px rgba(168, 1, 0, 0.3)" : "none"}
         onClick={onClick}
         position="relative"
         overflow="hidden"

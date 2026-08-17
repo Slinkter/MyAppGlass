@@ -165,18 +165,18 @@ const GalleryViewer: React.FC = () => {
                 onOpenModal={onOpenModal}
             />
 
-            {/* Modal de Imagen Completa Optimizado para Desktop */}
+            {/* Modal de Imagen Completa (Desktop & Mobile) */}
             {isModalOpen && currentImage && (
                 <Box
                     position="fixed"
                     inset={0}
                     zIndex={9999}
-                    bg="rgba(0, 0, 0, 0.88)"
+                    bg="rgba(0, 0, 0, 0.92)"
                     backdropFilter="blur(16px)"
-                    display={{ base: "none", md: "flex" }}
+                    display="flex"
                     alignItems="center"
                     justifyContent="center"
-                    p="8"
+                    p={{ base: "3", md: "8" }}
                     animation="fadeIn 0.25s ease-out"
                     onClick={onCloseModal}
                 >
@@ -185,12 +185,12 @@ const GalleryViewer: React.FC = () => {
                         as="button"
                         onClick={onCloseModal}
                         position="absolute"
-                        top="6"
-                        right="6"
+                        top={{ base: "4", md: "6" }}
+                        right={{ base: "4", md: "6" }}
                         color="white"
                         bg="whiteAlpha.200"
-                        w="44px"
-                        h="44px"
+                        w={{ base: "40px", md: "44px" }}
+                        h={{ base: "40px", md: "44px" }}
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
@@ -204,13 +204,13 @@ const GalleryViewer: React.FC = () => {
                         aria-label="Cerrar modal"
                         zIndex={10000}
                     >
-                        <X size={24} />
+                        <X size={22} />
                     </Box>
 
                     {/* Contenedor de Imagen de Alta Calidad */}
                     <Box
-                        w="80vw"
-                        h="80vh"
+                        w={{ base: "94vw", md: "80vw" }}
+                        h={{ base: "75vh", md: "80vh" }}
                         position="relative"
                         borderRadius="2xl"
                         overflow="hidden"
@@ -244,7 +244,7 @@ const GalleryThumbnails: React.FC = () => {
     return (
         <Box
             w={{ base: "100%", md: "120px", lg: "135px" }}
-            h={{ base: "100px", md: "100%" }}
+            h={{ base: "74px", sm: "80px", md: "100%" }}
             order={{ base: 2, md: 1 }}
             flexShrink={0}
             minW={0}

@@ -13,6 +13,8 @@ export interface ReclamationFormState extends ReclamationData {
   tipoSolicitud: TipoSolicitud | "";
   middleName: string;
   recaptchaToken?: string;
+  mathAnswer?: string;
+  mathToken?: string;
   archivos: File[];
 }
 
@@ -46,6 +48,7 @@ export interface ReclamationFormContextValue {
   handleInputsChange: (e: InputChangeEvent) => void;
   handleCheckboxChange: (name: keyof ReclamationFormState, checked: boolean) => void;
   handleFileChange: (details: { acceptedFiles: File[] }) => void;
+  handleMathChange: (answer: string, token: string) => void;
   handleBtnSubmit: (e: React.FormEvent) => Promise<void>;
   modalProps: ModalProps;
 }
