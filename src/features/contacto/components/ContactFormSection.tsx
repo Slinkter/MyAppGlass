@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Box,
   Heading,
@@ -226,7 +227,13 @@ export function ContactFormSection({
               onCheckedChange={(details) => handleCheckedChange(!!details.checked)}
             >
               <Text fontSize="xs" color="text.muted" fontWeight="600">
-                He leído y acepto las <Text as="span" color="text.accent" cursor="pointer" textDecoration="underline">Políticas de Privacidad</Text> y el uso de mis datos para fines comerciales.
+                He leído y acepto las{" "}
+                <Text as="span" color="text.accent" textDecoration="underline">
+                  <Link href="/politicas-empresa" target="_blank" rel="noopener noreferrer">
+                    Políticas de Privacidad (Ley N° 29733)
+                  </Link>
+                </Text>{" "}
+                y el tratamiento de mis datos para la cotización solicitada.
               </Text>
             </Checkbox>
           </Field>

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Text, Heading, VStack, HStack, Box } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
@@ -7,8 +8,8 @@ import { useReclamationFormContext } from "./ReclamationFormContext";
 
 /**
  * @component DeclarationSection
- * @description Sección de declaración, aceptación y envío
- * Migrado a Chakra v3: FormControl+Checkbox → Field + Checkbox snippet (compound component)
+ * @description Sección de declaración jurada, aceptación legal y envío del Libro de Reclamaciones.
+ * Conforme a Ley N° 29571, Ley N° 31435 y Ley N° 29733 (Protección de Datos Personales).
  */
 const DeclarationSection: React.FC = () => {
   const { formData, handleInputsChange, handleCheckboxChange, handleBtnSubmit, errors } = useReclamationFormContext();
@@ -60,7 +61,7 @@ const DeclarationSection: React.FC = () => {
         borderColor="border.default"
       >
         <Text fontSize="xs" color="text.muted" lineHeight="relaxed">
-          * Conforme a lo establecido en el D.S. N° 006-2014-PCM, la respuesta a la presente solicitud será remitida a la dirección de correo electrónico consignada en un plazo máximo de 15 días hábiles.
+          * Conforme a lo establecido en el <strong>Código de Protección y Defensa del Consumidor (Ley N° 29571)</strong> y su modificatoria por <strong>Ley N° 31435</strong>, la respuesta a la presente solicitud será remitida a la dirección de correo electrónico consignada en un plazo máximo e improrrogable de <strong>quince (15) días hábiles</strong>.
         </Text>
       </Box>
 
@@ -75,7 +76,7 @@ const DeclarationSection: React.FC = () => {
             onCheckedChange={(details) => handleCheckboxChange("autorizaEmail", !!details.checked)}
           >
             <Text fontSize="xs" color="text.heading" fontWeight="500">
-              Autorizo expresamente que la respuesta a mi reclamo o queja sea notificada a mi correo electrónico.
+              Autorizo expresamente que la constancia y la respuesta formal a mi reclamo o queja sean notificadas a mi correo electrónico.
             </Text>
           </Checkbox>
         </Field>
@@ -90,7 +91,12 @@ const DeclarationSection: React.FC = () => {
             onCheckedChange={(details) => handleCheckboxChange("aceptaTerminos", !!details.checked)}
           >
             <Text fontSize="xs" color="text.heading" fontWeight="500">
-              Declaro bajo juramento que la información proporcionada es veraz y acepto la Política de Protección de Datos.
+              Declaro bajo juramento que la información proporcionada es veraz y autorizo el tratamiento de mis datos personales según la{" "}
+              <Text as="span" color="text.accent" textDecoration="underline">
+                <Link href="/politicas-empresa" target="_blank" rel="noopener noreferrer">
+                  Política de Privacidad (Ley N° 29733)
+                </Link>
+              </Text>.
             </Text>
           </Checkbox>
         </Field>

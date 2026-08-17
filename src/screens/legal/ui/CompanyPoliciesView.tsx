@@ -224,21 +224,33 @@ const CompanyPoliciesView: React.FC = () => {
             </Text>
 
             <VStack gap={4} align="start" w="full" pt={2}>
-              <PolicyPoint title="1. Normativa y Confidencialidad">
+              <PolicyPoint title="1. Marco Normativo y Titularidad del Banco de Datos">
                 <Text fontSize="sm" color="text.body" lineHeight="relaxed">
-                  Garantizamos la confidencialidad de sus datos según la Ley de Protección de Datos Personales (Ley N° 29733) y el Decreto Supremo N° 016-2024-JUS.
+                  En cumplimiento de la <strong>Ley N° 29733 (Ley de Protección de Datos Personales)</strong> y su Reglamento (D.S. N° 003-2013-JUS / D.S. N° 016-2024-JUS), los datos personales facilitados a través de nuestro portal web serán incorporados a los bancos de datos de titularidad de <strong>{companyData.razonSocial}</strong> denominados <em>&ldquo;Clientes y Contactos Web&rdquo;</em> y <em>&ldquo;Libro de Reclamaciones&rdquo;</em>.
                 </Text>
               </PolicyPoint>
 
-              <PolicyPoint title="2. Finalidad y Consentimiento">
+              <PolicyPoint title="2. Finalidad del Tratamiento y Consentimiento">
                 <Text fontSize="sm" color="text.body" lineHeight="relaxed">
-                  Recopilamos sus datos únicamente para gestionar cotizaciones, coordinar instalaciones en obra y mantenerlo informado sobre su proyecto. No vendemos ni compartimos su información con terceros para fines publicitarios.
+                  Los datos recopilados se utilizarán con la finalidad exclusiva de elaborar cotizaciones técnicas, coordinar visitas e instalaciones en obra, formalizar la relación contractual y dar estricto cumplimiento a las obligaciones legales de atención de reclamos. El usuario otorga su consentimiento previo, informado, expreso e inequívoco al enviar los formularios.
                 </Text>
               </PolicyPoint>
 
-              <PolicyPoint title="3. Derechos ARCO">
+              <PolicyPoint title="3. Plazo de Conservación de Datos">
                 <Text fontSize="sm" color="text.body" lineHeight="relaxed">
-                  Usted puede ejercer sus derechos de Acceso, Rectificación, Cancelación y Oposición en cualquier momento escribiendo a <Text as="span" fontWeight="bold" color="text.heading">ventas@gyacompany.com</Text>.
+                  Los datos de solicitudes comerciales se conservarán mientras dure la relación contractual o hasta que el titular solicite su supresión. La información registrada en el Libro de Reclamaciones se conservará durante un período mínimo obligatorio de <strong>dos (2) años</strong>, conforme a las directivas de Indecopi.
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="4. Ejercicio de Derechos ARCO">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  Usted puede ejercer libremente y en cualquier momento sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición (ARCO)</strong>, así como revocar su consentimiento, enviando una comunicación escrita con copia de su documento de identidad al correo: <Text as="span" fontWeight="bold" color="text.heading">ventas@gyacompany.com</Text> o a nuestra sede física en {companyData.direccion}.
+                </Text>
+              </PolicyPoint>
+
+              <PolicyPoint title="5. Libro de Reclamaciones e Indecopi">
+                <Text fontSize="sm" color="text.body" lineHeight="relaxed">
+                  Conforme a la Ley N° 29571 (Código de Protección y Defensa del Consumidor) y su modificatoria mediante la Ley N° 31435, toda queja o reclamo ingresado en nuestro Libro de Reclamaciones Virtual será atendido formalmente en un plazo máximo e improrrogable de <strong>quince (15) días hábiles</strong>.
                 </Text>
               </PolicyPoint>
             </VStack>
