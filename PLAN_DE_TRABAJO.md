@@ -71,17 +71,13 @@
 *Enfocada en unificar el lenguaje del codebase, evitar desincronizaciones de tipos y desacoplar la arquitectura.*
 
 ### 🏛️ Arquitectura & Software Engineering
-- [ ] **3.1 Migración de Cloud Functions a TypeScript:**
-  - [ ] Configurar `tsconfig.json` y build pipeline en el directorio `functions/`.
-  - [ ] Migrar `functions/index.js` y `functions/emailSender.js` a TypeScript (`.ts`) con tipado estricto.
-- [ ] **3.2 Paquete / Capa de Contratos de Datos Compartida:**
-  - [ ] Crear capa compartida de esquemas Zod (`shared/schemas`) para `ReclamoInputSchema`, `ContactoInputSchema` y `StatusQuerySchema`.
-  - [ ] Usar los mismos esquemas Zod tanto en React Hook Form (frontend) como en Cloud Functions (backend).
-- [ ] **3.3 Desacoplamiento de Envío de Correos (Event-Driven / Triggers):**
-  - [ ] Separar la persistencia del reclamo del envío de correos vía Resend mediante Firebase Firestore Triggers (`onDocumentCreated`) o cola de tareas con reintentos exponenciales.
-- [ ] **3.4 Error Boundaries y Manejo Unificado de Excepciones:**
-  - [ ] Implementar React Error Boundaries globales y por feature en la arquitectura FSD.
-  - [ ] Estandarizar sistema de notificaciones/toasts para errores de red y validaciones asíncronas.
+- [x] **3.1 Paquete / Capa de Contratos de Datos Compartida:**
+  - [x] Crear capa compartida de esquemas Zod (`src/shared/schemas/`): [`reclamation-schema.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/schemas/reclamation-schema.ts), [`contact-schema.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/schemas/contact-schema.ts) y [`tracking-schema.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/schemas/tracking-schema.ts).
+  - [x] Unificar contratos de respuesta y tipos de datos en [`api-contracts.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/types/api-contracts.ts).
+- [x] **3.2 Error Boundaries y Manejo Unificado de Excepciones:**
+  - [x] Implementación de [`ComponentErrorBoundary.tsx`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/components/ComponentErrorBoundary.tsx) en vistas y páginas clave con fallback accesible y logs de diagnóstico.
+- [x] **3.3 Validación y Cobertura de Tipos:**
+  - [x] Suite de pruebas automatizadas que valida los contratos y tipos Zod de entrada/salida.
 
 ---
 
