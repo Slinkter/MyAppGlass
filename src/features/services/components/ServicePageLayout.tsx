@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useParams } from "next/navigation";
 import {
   Box,
   Flex,
@@ -14,8 +15,8 @@ import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import { ServicePageData } from "@features/services/services/serviceService";
 import ServiceHeader from "./ServiceHeader";
 import { UnifiedTechnicalCard } from "./ServiceBentoGrid";
-
-
+import { ServiceFaqSection } from "./ServiceFaqSection";
+import { serviceFaqsMap, defaultServiceFaqs } from "../data/serviceFaqs";
 
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string } };
@@ -23,6 +24,13 @@ export interface ServicePageLayoutProps {
 
 const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
   const { seo, about, systems, imageLists } = pageData;
+  const params = useParams();
+  const serviceSlug = params?.serviceSlug as string | undefined;
+  
+  const faqs = serviceSlug && serviceFaqsMap[serviceSlug] 
+    ? serviceFaqsMap[serviceSlug] 
+    : defaultServiceFaqs;
+
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [isPending, startTransition] = React.useTransition();
 
@@ -111,6 +119,9 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
               )}
             </GridItem>
           </Grid>
+
+          {/* Sección de Preguntas Frecuentes (FAQ / Rich Snippets) */}
+          <ServiceFaqSection faqs={faqs} serviceTitle={seo.title} />
         </VStack>
       </Container>
     </Box>

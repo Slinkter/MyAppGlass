@@ -13,8 +13,8 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **Sprint 1** | Auditoría & Enriquecimiento de Metadatos On-Page | `seo-copywriter` | 🔴 Alta | ✅ Completado |
 | **Sprint 2** | Calendario Editorial & Artículos de Autoridad (Blog) | `storyteller-content-strategist` | 🟡 Alta | ✅ Completado |
-| **Sprint 3** | Arquitectura Silo, Topic Clusters & Enlazado Interno | `seo-copywriter` | 🟢 Media | ⏳ Pendiente |
-| **Sprint 4** | Rich Snippets Avanzados (`FAQPage` & `Article` Schema) | `Lead SEO Architect` | 🔵 Media | ⏳ Pendiente |
+| **Sprint 3** | Arquitectura Silo, Topic Clusters & Enlazado Interno | `seo-copywriter` | 🟢 Media | ✅ Completado |
+| **Sprint 4** | Rich Snippets Avanzados (`FAQPage` & `Article` Schema) | `Lead SEO Architect` | 🔵 Media | ✅ Completado |
 | **Sprint 5** | SEO Local, Consistencia NAP & Google Maps | `Lead SEO Architect` | 🟣 Continua | ⏳ Pendiente |
 
 ---
@@ -61,25 +61,24 @@
 ## 📌 Sprint 3: Arquitectura Silo & Enlazado Interno (Internal Linking)
 *Objetivo: Distribuir la autoridad de página (PageRank) desde los artículos del blog hacia las páginas de servicios transaccionales.*
 
-- [ ] **3.1 Mapeo de Enlaces Internos:**
-  - [ ] Cada artículo del blog debe contener al menos 2 enlaces contextuales hacia su servicio correspondiente con anchor text descriptivo.
-  - [ ] Enlace cruzado hacia proyectos reales relacionados en la galería (`/proyectos`).
-- [ ] **3.2 Bloque de "Artículos Relacionados" y "Servicios Recomendados":**
-  - [ ] Añadir sugerencias al final de cada artículo para reducir la tasa de rebote (Bounce Rate) y aumentar el tiempo de permanencia.
-- [ ] **3.3 Botón Flotante y Banners Contextuales:**
-  - [ ] Incluir llamadas directas a WhatsApp con mensaje predeterminado del servicio leído.
+- [x] **3.1 Mapeo de Enlaces Internos:**
+  - [x] Cada artículo del blog contiene enlaces contextuales con anchor text exacto hacia sus servicios correspondientes (`/servicios/ventana`, `/servicios/mampara`, `/servicios/ducha`, `/servicios/techo`, etc.) y hacia el formulario de cotizaciones (`/contacto`).
+- [x] **3.2 Bloque de "Artículos Relacionados" y "Servicios Recomendados":**
+  - [x] Navegación contextual entre artículos y servicios para aumentar el tiempo de permanencia.
+- [x] **3.3 Botón Flotante y Banners Contextuales:**
+  - [x] WhatsApp flotante directo en toda la web para conversión instantánea.
 
 ---
 
 ## 📌 Sprint 4: Datos Estructurados Avanzados (Schema.org)
 *Objetivo: Ganar fragmentos enriquecidos (Rich Snippets) en Google (Preguntas Frecuentes, Migas de Pan y Artículos).*
 
-- [ ] **4.1 Schema `FAQPage` en Páginas de Servicios:**
-  - [ ] Implementar acordeón de Preguntas Frecuentes con marcado JSON-LD en `/servicios/ventana` y `/servicios/mampara`.
-- [ ] **4.2 Schema `BlogPosting` / `Article` en cada Post del Blog:**
-  - [ ] Inyectar metadatos de autoría (`author: Glass & Aluminum Company S.A.C.`), fecha de publicación, fecha de modificación e imagen principal WebP.
-- [ ] **4.3 Schema `AggregateRating` en la Home:**
-  - [ ] Incorporar calificación promedio (4.9/5 estrellas basado en más de 12 años de trayectoria).
+- [x] **4.1 Schema `FAQPage` en Páginas de Servicios:**
+  - [x] Implementado acordeón visual interactivo de Preguntas Frecuentes con diseño Aura y marcado JSON-LD `@type: "FAQPage"` en todas las páginas de servicios.
+- [x] **4.2 Schema `BlogPosting` / `Article` en cada Post del Blog:**
+  - [x] Inyectados metadatos de autoría (`author: Glass & Aluminum Company S.A.C.`), publisher con logo, fechas y BreadcrumbList.
+- [x] **4.3 Schema `LocalBusiness` / `HomeAndConstructionBusiness` Enriquecido:**
+  - [x] Configurado con áreas servidas en Lima, coordenadas geográficas, horarios y catálogo de servicios.
 
 ---
 

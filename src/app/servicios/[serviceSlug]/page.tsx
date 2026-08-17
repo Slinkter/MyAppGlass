@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { ServiceDetailView } from "@/screens/services";
 import { getServiceBySlug, getServices } from "@/features/services/services/serviceService";
 import { servicePageDataMap } from "@/features/services/data/servicePageDataMap";
-import { getServiceJsonLd, getBreadcrumbJsonLd } from "@/shared/utils/seo-utils";
+import { getServiceJsonLd, getBreadcrumbJsonLd, getFaqJsonLd } from "@/shared/utils/seo-utils";
+import { serviceFaqsMap, defaultServiceFaqs } from "@/features/services/data/serviceFaqs";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 export function generateStaticParams() {
@@ -69,12 +70,17 @@ export default async function Page({ params }: Props) {
   const description = pageData?.seo.description || service?.description || "";
   const url = `https://www.gyacompany.com/servicios/${serviceSlug}`;
 
+  const faqs = serviceSlug && serviceFaqsMap[serviceSlug]
+    ? serviceFaqsMap[serviceSlug]
+    : defaultServiceFaqs;
+
   const serviceJsonLd = getServiceJsonLd(title, description, url);
   const breadcrumbJsonLd = getBreadcrumbJsonLd([
     { name: "Inicio", url: "https://www.gyacompany.com" },
     { name: "Servicios", url: "https://www.gyacompany.com/servicios" },
     { name: title, url },
   ]);
+  const faqJsonLd = getFaqJsonLd(faqs);
 
   return (
     <ComponentErrorBoundary>
@@ -85,6 +91,10 @@ export default async function Page({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <ServiceDetailView />
     </ComponentErrorBoundary>

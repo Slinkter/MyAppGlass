@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getCompanyJsonLd, getBreadcrumbJsonLd, getServiceJsonLd } from '@/shared/utils/seo-utils';
+import { getCompanyJsonLd, getBreadcrumbJsonLd, getServiceJsonLd, getFaqJsonLd } from '@/shared/utils/seo-utils';
 
 describe('SEO JSON-LD Generators', () => {
   it('should generate valid Schema.org graph for Company', () => {
@@ -42,5 +42,20 @@ describe('SEO JSON-LD Generators', () => {
     expect(service['@type']).toBe('Service');
     expect(service.name).toBe('Ventanas Antirruido');
     expect(service.provider.name).toBe('Glass & Aluminum Company S.A.C.');
+  });
+
+  it('should generate valid FAQPage Schema', () => {
+    const faqs = [
+      {
+        question: '¿Cuánto ruido aísla una ventana acústica?',
+        answer: 'Reduce entre 32 y 42 dB.'
+      }
+    ];
+
+    const faqSchema = getFaqJsonLd(faqs);
+    expect(faqSchema['@type']).toBe('FAQPage');
+    expect(faqSchema.mainEntity).toHaveLength(1);
+    expect(faqSchema.mainEntity[0].name).toBe('¿Cuánto ruido aísla una ventana acústica?');
+    expect(faqSchema.mainEntity[0].acceptedAnswer.text).toBe('Reduce entre 32 y 42 dB.');
   });
 });
