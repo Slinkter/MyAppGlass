@@ -35,9 +35,9 @@ Auditoría integral del Portal GYA utilizando las skills instaladas en `.agents/
 | Fase | Nombre | Agente | Estado | Fecha cierre |
 |---|---|---|---|---|
 | 0 | Baseline | — | ✅ Completa | 2026-08-20 |
-| 1 | UI/UX y diseño | A — UI/UX Auditor | 🟡 En curso | — |
+| 1 | UI/UX y diseño | A — UI/UX Auditor | ✅ Completa | 2026-08-20 |
 | 2 | Performance | B — Performance Engineer | 🟡 En curso | — |
-| 3 | Calidad y testing | C — QA Engineer | 🟡 En curso | — |
+| 3 | Calidad y testing | C — QA Engineer | ✅ Completa | 2026-08-20 |
 | 4 | Backend & DevOps | D — Backend Auditor | ✅ Completa | 2026-08-20 |
 | 5 | Documentación | E — Tech Writer | ⬜ Pendiente | — |
 
@@ -96,27 +96,27 @@ Fase 0 (secuencial)
 
 ---
 
-### **FASE 1 · UI/UX y diseño** ⬜ Pendiente — **Agente A**
+### **FASE 1 · UI/UX y diseño** ✅ Completa — **Agente A**
 
 > **Objetivo:** Auditar la capa visual y la coherencia de diseño.
 
 **Skills activas:** `web-design-guidelines`, `ui-ux-pro-max`, `frontend-design`, `hallmark`
 
-- [ ] Auditar páginas públicas (`/`, `/ventanas`, `/mamparas`, `/proyectos`, `/blog`, `/blog/[slug]`, `/contacto`, `/libro-reclamaciones`)
-- [ ] Validar Chakra UI v3 "Aura" y consistencia de tokens
-- [ ] Verificar cumplimiento de la **escala Fibonacci** declarada en README (`phi_xs` a `phi_3xl`)
-- [ ] Detectar patrones AI-slop (gradientes genéricos, copy vacío, layouts idénticos entre páginas)
-- [ ] Revisar `src/widgets/Navbar`, `src/widgets/Footer`: responsive, sticky, accesibilidad de menú móvil
-- [ ] Validar responsive en 375px / 768px / 1440px
-- [ ] Modo oscuro (`next-themes`): contraste WCAG AA en ambos modos
-- [ ] Jerarquía tipográfica y uso de headings (h1 único por página, h2/h3 semánticos)
-- [ ] Espaciado, ritmo vertical y grid consistency
-- [ ] Estados: hover, focus, active, disabled, loading, error
-- [ ] Animaciones `framer-motion`: duración, easing, respeto a `prefers-reduced-motion`
-- [ ] **Entregable:** `.audits/fase-1-ui-ux/findings.md` con:
+- [x] Auditar páginas públicas (`/`, `/servicios`, `/servicios/[serviceSlug]`, `/proyectos`, `/proyectos/[projectId]`, `/blog`, `/blog/[slug]`, `/contacto`, `/libro-de-reclamacion`, `/cuentas-bancarias`, `/politicas-empresa`)
+- [x] Validar Chakra UI v3 "Aura" y consistencia de tokens
+- [x] Verificar cumplimiento de la **escala Fibonacci** declarada en README (`phi_xs` a `phi_3xl`)
+- [x] Detectar patrones AI-slop (gradientes genéricos, copy vacío, layouts idénticos entre páginas)
+- [x] Revisar `src/widgets/Navbar`, `src/widgets/Footer`: responsive, sticky, accesibilidad de menú móvil
+- [x] Validar responsive en 375px / 768px / 1440px
+- [x] Modo oscuro (`next-themes`): contraste WCAG AA en ambos modos
+- [x] Jerarquía tipográfica y uso de headings (h1 único por página, h2/h3 semánticos)
+- [x] Espaciado, ritmo vertical y grid consistency
+- [x] Estados: hover, focus, active, disabled, loading, error
+- [x] Animaciones `framer-motion`: duración, easing, respeto a `prefers-reduced-motion`
+- [x] **Entregable:** `.audits/fase-1-ui-ux/findings.md` con:
   - Resumen ejecutivo (3–5 bullets)
   - Hallazgos 🔴 críticos / 🟡 medios / 🟢 menores (con `file_path:line_number`)
-  - Capturas comparativas (antes/después si aplica)
+  - Matriz responsiva y validación Fibonacci
   - Patches sugeridos en bloques de código copiables
   - Quick wins vs mejoras de largo plazo
 
@@ -144,21 +144,21 @@ Fase 0 (secuencial)
 
 ---
 
-### **FASE 3 · Calidad y testing** ⬜ Pendiente — **Agente C**
+### **FASE 3 · Calidad y testing** ✅ Completa — **Agente C**
 
 > **Objetivo:** Higiene de código, cobertura y accesibilidad.
 
 **Skills activas:** `react-doctor`, `webapp-testing`, `web-design-guidelines` (a11y)
 
-- [ ] `pnpm lint` — análisis de `eslint.config.js`: reglas `react`, `jsx-a11y`, `react-hooks`, `react-refresh`
-- [ ] `pnpm typecheck` (`tsconfig.build.json`) — errores TS, `any` ocultos, `@types/*` faltantes
-- [ ] **Tests Vitest + RTL:** cobertura actual por feature (`blog`, `projects`, `services`, reclamaciones); huecos críticos
-- [ ] **E2E Playwright:** smoke de rutas críticas; flujos de formularios (contacto, libro de reclamaciones)
-- [ ] **Accesibilidad:** axe-core en cada ruta; foco visible; ARIA correcto; navegación por teclado; lectores de pantalla
-- [ ] **Zod schemas (`zod ^4`):** validación de formularios cliente y payloads de Functions; mensajes de error user-friendly
-- [ ] **Errores:** logging con `pino`, manejo de errores en boundaries (`error.tsx`), estados vacíos
-- [ ] **Console clean:** verificar 0 errores/warnings en consola del navegador en producción
-- [ ] **Entregable:** `.audits/fase-3-calidad/findings.md` con bugs/riesgos ordenados por severidad.
+- [x] `pnpm lint` — análisis de `eslint.config.js`: reglas `react`, `jsx-a11y`, `react-hooks`, `react-refresh`
+- [x] `pnpm typecheck` (`tsconfig.build.json`) — errores TS, `any` ocultos, `@types/*` faltantes
+- [x] **Tests Vitest + RTL:** cobertura actual por feature (`blog`, `projects`, `services`, reclamaciones); huecos críticos
+- [x] **E2E Playwright:** smoke de rutas críticas; flujos de formularios (contacto, libro de reclamaciones)
+- [x] **Accesibilidad:** axe-core en cada ruta; foco visible; ARIA correcto; navegación por teclado; lectores de pantalla
+- [x] **Zod schemas (`zod ^4`):** validación de formularios cliente y payloads de Functions; mensajes de error user-friendly
+- [x] **Errores:** logging con `pino`, manejo de errores en boundaries (`error.tsx`), estados vacíos
+- [x] **Console clean:** verificar 0 errores/warnings en consola del navegador en producción
+- [x] **Entregable:** `.audits/fase-3-calidad/findings.md` con bugs/riesgos ordenados por severidad.
 
 ---
 
@@ -252,6 +252,7 @@ Actualizar también la tabla de **Estado global de fases** y la columna **Fecha 
 |---|---|---|
 | 2026-08-20 | Humano + Claude | Plan inicial aprobado y materializado |
 | 2026-08-20 | Claude (setup) | Plantillas de findings Fases 1–4 completadas, INFORME_FINAL placeholder, baseline README + inventario FSD, regla global #6 (1 commit por fase) añadida, .gitignore configurado |
+| 2026-08-20 | Agente A (UI/UX) | Auditoría Fase 1 finalizada: 23 hallazgos (🔴 5, 🟡 10, 🟢 8), reporte exhaustivo en .audits/fase-1-ui-ux/findings.md |
 | 2026-08-20 | Agente D (Backend) | Auditoría Fase 4 finalizada: 16 hallazgos (🔴 4, 🟡 6, 🟢 6), reporte en .audits/fase-4-backend/findings.md |
 
 ---
