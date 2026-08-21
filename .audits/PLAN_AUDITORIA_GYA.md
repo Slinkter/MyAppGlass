@@ -36,7 +36,7 @@ Auditoría integral del Portal GYA utilizando las skills instaladas en `.agents/
 |---|---|---|---|---|
 | 0 | Baseline | — | ✅ Completa | 2026-08-20 |
 | 1 | UI/UX y diseño | A — UI/UX Auditor | ✅ Completa | 2026-08-20 |
-| 2 | Performance | B — Performance Engineer | 🟡 En curso | — |
+| 2 | Performance | B — Performance Engineer | ✅ Completa | 2026-08-20 |
 | 3 | Calidad y testing | C — QA Engineer | ✅ Completa | 2026-08-20 |
 | 4 | Backend & DevOps | D — Backend Auditor | ✅ Completa | 2026-08-20 |
 | 5 | Documentación | E — Tech Writer | ⬜ Pendiente | — |
@@ -122,25 +122,25 @@ Fase 0 (secuencial)
 
 ---
 
-### **FASE 2 · Performance y arquitectura** ⬜ Pendiente — **Agente B**
+### **FASE 2 · Performance y arquitectura** ✅ Completa — **Agente B**
 
 > **Objetivo:** Performance, SEO técnico y composición React.
 
 **Skills activas:** `vercel-react-best-practices`, `vercel-optimize`, `vercel-composition-patterns`, `vercel-react-view-transitions`, `react-doctor`
 
-- [ ] **FSD:** violaciones de capa (e.g., `features` importando de `app`, `shared` importando de `widgets`)
-- [ ] **Server vs Client Components:** mapear `"use client"` en `src/app/**/page.tsx` — minimizar cuando no haya estado/efectos
-- [ ] **RSC fetch waterfalls:** identificar `await` secuenciales en server components; oportunidades de `Promise.all`
-- [ ] **Suspense boundaries:** zonas donde falta streaming (loading.tsx vs skeleton)
-- [ ] **Bundle:** ejecutar `ANALYZE=true pnpm build` → revisar `stats.html`; code-splitting; dynamic import de componentes pesados (`@react-google-maps/api`, animaciones `framer-motion`)
-- [ ] **Imágenes:** uso de `next/image`, `priority` en LCP, formatos WebP/AVIF, ejecución de `scripts/optimize-images.mjs`
-- [ ] **SEO técnico:** JSON-LD (Organization, LocalBusiness, Article, BreadcrumbList), sitemap dinámico, robots.txt, metadatos por ruta, OG/Twitter cards
-- [ ] **Animaciones:** `framer-motion` → evaluar sustitución por `ViewTransition` API nativa (`<ViewTransition>`, `addTransitionType`, CSS `::view-transition-*`)
-- [ ] **CLS:** `will-change` excesivo, fuentes con `font-display`, skeletons sincronizados
-- [ ] **Lighthouse antes/después:** LCP < 2.5s, INP < 200ms, CLS < 0.1, TBT < 200ms
-- [ ] **Vercel cost & performance:** Function Invocations, Build Minutes, Fast Data Transfer (si aplica)
-- [ ] **Composición React:** boolean prop proliferation → sugerir compound components (`<Card.Header>`, `<Card.Body>`)
-- [ ] **Entregable:** `.audits/fase-2-performance/findings.md` con métricas y plan de remediación priorizado.
+- [x] **FSD:** violaciones de capa (e.g., `features` importando de `app`, `shared` importando de `widgets`)
+- [x] **Server vs Client Components:** mapear `"use client"` en `src/app/**/page.tsx` — minimizar cuando no haya estado/efectos
+- [x] **RSC fetch waterfalls:** identificar `await` secuenciales en server components; oportunidades de `Promise.all`
+- [x] **Suspense boundaries:** zonas donde falta streaming (loading.tsx vs skeleton)
+- [x] **Bundle:** ejecutar `ANALYZE=true pnpm build` → revisar `stats.html`; code-splitting; dynamic import de componentes pesados (`@react-google-maps/api`, animaciones `framer-motion`)
+- [x] **Imágenes:** uso de `next/image`, `priority` en LCP, formatos WebP/AVIF, ejecución de `scripts/optimize-images.mjs`
+- [x] **SEO técnico:** JSON-LD (Organization, LocalBusiness, Article, BreadcrumbList), sitemap dinámico, robots.txt, metadatos por ruta, OG/Twitter cards
+- [x] **Animaciones:** `framer-motion` → evaluar sustitución por `ViewTransition` API nativa (`<ViewTransition>`, `addTransitionType`, CSS `::view-transition-*`)
+- [x] **CLS:** `will-change` excesivo, fuentes con `font-display`, skeletons sincronizados
+- [x] **Lighthouse antes/después:** LCP < 2.5s, INP < 200ms, CLS < 0.1, TBT < 200ms
+- [x] **Vercel cost & performance:** Function Invocations, Build Minutes, Fast Data Transfer (si aplica)
+- [x] **Composición React:** boolean prop proliferation → sugerir compound components (`<Card.Header>`, `<Card.Body>`)
+- [x] **Entregable:** `.audits/fase-2-performance/findings.md` con métricas y plan de remediación priorizado.
 
 ---
 
@@ -255,6 +255,7 @@ Actualizar también la tabla de **Estado global de fases** y la columna **Fecha 
 | 2026-08-20 | Agente A (UI/UX) | Auditoría Fase 1 finalizada: 23 hallazgos (🔴 5, 🟡 10, 🟢 8), reporte exhaustivo en .audits/fase-1-ui-ux/findings.md |
 | 2026-08-20 | Agente D (Backend) | Auditoría Fase 4 finalizada: 16 hallazgos (🔴 4, 🟡 6, 🟢 6), reporte en .audits/fase-4-backend/findings.md |
 | 2026-08-20 | Agente C (QA & A11y) | Auditoría Fase 3 finalizada: 15 hallazgos (🔴 3, 🟡 7, 🟢 5), 154 tests validados, sincronización Zod, reporte en .audits/fase-3-calidad/findings.md |
+| 2026-08-20 | Agente B (Performance) | Auditoría Fase 2 finalizada: 15 hallazgos (🔴 4, 🟡 5, 🟢 6), bundle analysis (2.14 MB raw / 663 KB gzip), detección de fuga Firebase (~210 KB) y SSG skeleton flash, reporte en .audits/fase-2-performance/findings.md |
 
 ---
 
