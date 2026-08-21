@@ -32,7 +32,13 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
   const [mounted, setMounted] = useState(false);
 
   React.useEffect(() => {
-    setMounted(true);
+    import("@google/model-viewer")
+      .then(() => {
+        setMounted(true);
+      })
+      .catch(() => {
+        setMounted(true);
+      });
   }, []);
 
   const handleLaunchAR = () => {
@@ -85,7 +91,6 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           justifyContent="center"
         >
           {mounted ? (
-            /* @ts-expect-error model-viewer is a custom web component element */
             <model-viewer
               src={glbModelUrl}
               ios-src={usdzModelUrl}
