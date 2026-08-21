@@ -33,7 +33,7 @@ const AuraNavbar = React.memo(() => {
 
   return (
     <>
-      {/* DESKTOP NAVBAR (Aura Floating Island) */}
+      {/* DESKTOP NAVBAR (Aura Floating Island - Visible and interactive) */}
       <Box
         as="header"
         position="sticky"
@@ -42,10 +42,10 @@ const AuraNavbar = React.memo(() => {
         display={{ base: "none", md: "flex" }}
         justifyContent="center"
         w="full"
-        pointerEvents={scrolled ? "auto" : "none"}
-        opacity={scrolled ? 1 : 0}
-        transform={scrolled ? "translateY(0)" : "translateY(-16px)"}
-        transition="opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)"
+        pointerEvents="auto"
+        opacity={1}
+        transform={scrolled ? "translateY(0)" : "translateY(0)"}
+        transition="transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease"
       >
         <Box pointerEvents="auto">
           <AuraDesktopNav />

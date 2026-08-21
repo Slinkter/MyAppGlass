@@ -14,6 +14,13 @@ html, body {
     scrollbar-width: thin;
 }
 
+/* Ocultar insignia flotante de reCAPTCHA v3 en pantalla (protegido por texto legal en formularios) */
+.grecaptcha-badge {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 /* Estilos para el modo claro */
 body.light-mode {
     /* No specific background changes for light mode here, handled by Layout */

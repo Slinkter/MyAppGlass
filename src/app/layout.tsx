@@ -6,7 +6,7 @@ import { Box } from "@chakra-ui/react";
 import { AuraNavbar as Navbar } from "@/widgets/Navbar";
 import { Footer } from "@/widgets/Footer";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
-import { FloatingWhatsAppWrapper as FloatingWhatsApp, ThemeToggle } from "@/widgets/FloatingActions";
+import { FloatingWhatsAppWrapper as FloatingWhatsApp } from "@/widgets/FloatingActions";
 import SkipLink from "@/shared/components/navigation/SkipLink";
 import { getCompanyJsonLd } from "@/shared/utils/seo-utils";
 
@@ -122,7 +122,6 @@ export default function RootLayout({
                             <Footer />
                         </Box>
                         <FloatingWhatsApp />
-                        <ThemeToggle />
                     </Box>
                 </Providers>
             </body>
