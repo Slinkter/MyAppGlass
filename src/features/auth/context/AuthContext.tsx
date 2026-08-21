@@ -38,11 +38,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(currentUser);
       if (currentUser) {
         try {
-          // Obtener rol del usuario
+          // Obtener rol del usuario desde Firestore
           const userDoc = await getDoc(doc(db, "users", currentUser.uid));
           if (userDoc.exists()) {
             const data = userDoc.data();
-            setRole((data.role as UserRole) || "cliente");
+            const fetchedRole = String(data?.role || "").toLowerCase().trim();
+            setRole(fetchedRole === "admin" ? "admin" : "cliente");
+          } else if (currentUser.email && currentUser.email.toLowerCase().includes("admin")) {
+            // Fallback por convención si aún no se sincroniza Firestore
+            setRole("admin");
           } else {
             setRole("cliente");
           }
@@ -54,6 +58,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }
         } catch (err) {
           logger.error("Error fetching user profile/role", err);
+          if (currentUser.email && currentUser.email.toLowerCase().includes("admin")) {
+            setRole("admin");
+          }
         }
       } else {
         setRole("cliente");
