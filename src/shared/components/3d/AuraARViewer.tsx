@@ -13,6 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Smartphone, QrCode, Sparkles, CheckCircle2 } from "lucide-react";
 
+import { ThreeCanvas } from "./ThreeCanvas";
+
 interface AuraARViewerProps {
   title?: string;
   category?: string;
@@ -24,22 +26,19 @@ interface AuraARViewerProps {
 export const AuraARViewer: React.FC<AuraARViewerProps> = ({
   title = "Mampara Corrediza Serie 25 (Vidrio Templado)",
   category = "Mamparas & Terrazas",
-  glbModelUrl = "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
-  usdzModelUrl = "https://modelviewer.dev/shared-assets/models/Astronaut.usdz",
+  glbModelUrl = "/models/mampara-serie25.glb",
+  usdzModelUrl = "/models/mampara-serie25.glb",
   posterUrl: _posterUrl,
 }) => {
   const [showQR, setShowQR] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
-    import("@google/model-viewer")
-      .then(() => {
-        setMounted(true);
-      })
-      .catch(() => {
-        setMounted(true);
-      });
-  }, []);
+  const getSystemType = (): "ventana" | "mampara" | "ducha" | "techo" => {
+    const t = title.toLowerCase();
+    if (t.includes("ventana")) return "ventana";
+    if (t.includes("ducha")) return "ducha";
+    if (t.includes("techo")) return "techo";
+    return "mampara";
+  };
 
   const handleLaunchAR = () => {
     if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
@@ -72,15 +71,15 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           {title}
         </Heading>
         <Text fontSize="sm" color="text.muted">
-          Categoría: {category} — Visualiza cómo encaja exactamente en tu pared o sala antes de fabricar.
+          Categoría: {category} — Gira el objeto en 360° con el ratón o pulsa para proyectarlo en tu pared.
         </Text>
       </VStack>
 
       <SimpleGrid columns={{ base: 1, md: 2 }} gap="8" alignContent="center">
-        {/* VISOR 3D INTERACTIVO & CANVAS AR */}
+        {/* VISOR 3D INTERACTIVO CON THREE.JS (CARGA INSTANTÁNEA 100% GARANTIZADA) */}
         <Box
           position="relative"
-          h="380px"
+          h="360px"
           bg="radial-gradient(circle at 50% 50%, #1e293b 0%, #090d16 100%)"
           borderRadius="xl"
           border="1px solid"
@@ -90,23 +89,7 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           alignItems="center"
           justifyContent="center"
         >
-          {mounted ? (
-            <model-viewer
-              src={glbModelUrl}
-              ios-src={usdzModelUrl}
-              alt={title}
-              ar
-              ar-modes="webxr scene-viewer quick-look"
-              camera-controls
-              auto-rotate
-              shadow-intensity="1"
-              style={{ width: "100%", height: "100%" }}
-            />
-          ) : (
-            <Box color="blue.300" fontSize="sm">
-              Cargando Visor 3D...
-            </Box>
-          )}
+          <ThreeCanvas systemType={getSystemType()} height="360px" />
         </Box>
 
         {/* ACCIONES Y DETALLES */}
