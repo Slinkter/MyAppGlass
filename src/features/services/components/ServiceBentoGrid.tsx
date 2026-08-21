@@ -154,20 +154,15 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
         color="blue.300"
         _hover={{ bg: "blue.500/10", borderColor: "blue.300" }}
         onClick={() => {
-          const arElement = document.querySelector("model-viewer") as any;
-          if (arElement && typeof arElement.activateAR === "function") {
-            arElement.activateAR();
+          const arViewerSection = document.getElementById("ar-viewer-section");
+          if (arViewerSection) {
+            arViewerSection.scrollIntoView({ behavior: "smooth" });
           } else {
-            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-            if (isIOS) {
-              window.location.href = "https://modelviewer.dev/shared-assets/models/Astronaut.usdz";
-            } else {
-              window.scrollBy({ top: 350, behavior: "smooth" });
-            }
+            window.scrollBy({ top: 400, behavior: "smooth" });
           }
         }}
       >
-        🥽 Ver en tu Espacio Real (AR 1:1)
+        🥽 Explorar Modelo 3D & AR
       </Button>
 
       <BentoCTA systemName={systemName} />

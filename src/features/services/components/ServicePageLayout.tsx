@@ -134,7 +134,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
           </Grid>
 
           {/* MÓDULO DE REALIDAD AUMENTADA ESPECÍFICO DEL SISTEMA SELECCIONADO */}
-          <Box pt="2">
+          <Box id="ar-viewer-section" pt="2">
             <AuraARViewer
               title={`Probar en tu Casa: ${systemAR.systemLabel}`}
               category={systemAR.category}
