@@ -1,13 +1,20 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    // Only allow public read for the images folder
+    
+    // Imágenes y assets estáticos del frontend
     match /images/{allPaths=**} {
       allow read: if true;
-      allow write: if false; // Only admins via Firebase Console/SDK with Service Account
+      allow write: if false;
     }
     
-    // Deny all by default for everything else
+    // Imágenes y modelos 3D de productos del e-commerce
+    match /products/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null; // Solo usuarios administradores autenticados
+    }
+    
+    // Denegar todo lo demás por defecto
     match /{allPaths=**} {
       allow read, write: if false;
     }
