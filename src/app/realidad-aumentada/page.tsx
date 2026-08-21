@@ -24,10 +24,20 @@ export default function RealidadAumentadaPage() {
         <AuraARViewer
           title="Mampara Corrediza Serie 25 (Vidrio Templado 8mm)"
           category="Mamparas & Terrazas"
+          glbModelUrl="/models/mampara-serie25.glb"
+          usdzModelUrl="/models/mampara-serie25.glb"
         />
         <AuraARViewer
           title="Ventana Antirruido Hermética Sistema Nova"
           category="Ventanas Acústicas"
+          glbModelUrl="/models/ventana-nova.glb"
+          usdzModelUrl="/models/ventana-nova.glb"
+        />
+        <AuraARViewer
+          title="Box de Ducha en Cristal Templado & Acero Inox"
+          category="Puertas de Ducha"
+          glbModelUrl="/models/puerta-ducha.glb"
+          usdzModelUrl="/models/puerta-ducha.glb"
         />
       </VStack>
     </Box>
