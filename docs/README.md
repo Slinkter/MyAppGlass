@@ -31,8 +31,10 @@ $$\rule{\linewidth}{0.4pt}$$
 │   │   ├── 09_PLAN_SEO_CONTENIDOS.md
 │   │   ├── 10_SEO_JERARQUIA.md
 │   │   └── 11_MANUAL_SEO_LOCAL.md
-│   └── 3.5. Plataforma Transaccional: E-Commerce, Inventario, Presupuestos y AR (Next Generation)
-│       └── 12_PLAN_ECOMMERCE_INVENTARIO_AR.md
+│   ├── 3.5. Plataforma Transaccional: E-Commerce, Inventario, Presupuestos y AR (Next Generation)
+│   │   └── 12_PLAN_ECOMMERCE_INVENTARIO_AR.md
+│   └── 3.6. Gestión Ágil por Sprints: Framework Scrum y Roles Seniors (Agile Operations)
+│       └── 13_PLAN_TRABAJO_SCRUM_FASES.md
 ├── § 4. Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)
 ├── § 5. Guía de Operaciones y Casos de Uso Frecuentes (Standard Operating Procedures)
 └── § 6. Protocolo de Calidad, Verificación Formal y CI/CD
@@ -54,13 +56,15 @@ graph TD
     D2["§ 3.2. 💻 Frontend & Diseño Aura"]:::domain
     D3["§ 3.3. 🛡️ Backend & Seguridad"]:::domain
     D4["§ 3.4. 📈 SEO & Descubrimiento"]:::domain
-    D5["§ 3.5. 🛒 E-Commerce, Inventario & AR"]:::domain
+    D5["§ 3.5. 🛒 E-Commerce & AR"]:::domain
+    D6["§ 3.6. 🏃‍♂️ Scrum & Sprints"]:::domain
 
     Root --> D1
     Root --> D2
     Root --> D3
     Root --> D4
     Root --> D5
+    Root --> D6
 
     D1 --> F01["01_ARCHITECTURE.md (FSD & Boxflow)"]:::leaf
     D1 --> F02["02_AI_HANDOFF.md (Contratos & Clean Code)"]:::leaf
@@ -78,6 +82,8 @@ graph TD
     D4 --> F11["11_MANUAL_SEO_LOCAL.md (Google Maps & Search Console)"]:::leaf
 
     D5 --> F12["12_PLAN_ECOMMERCE_INVENTARIO_AR.md (RBAC, Zod, PDF & WebXR)"]:::leaf
+
+    D6 --> F13["13_PLAN_TRABAJO_SCRUM_FASES.md (Checklist por Roles & DoD)"]:::leaf
 ```
 
 $$\rule{\linewidth}{0.4pt}$$
@@ -148,6 +154,15 @@ $$\mathcal{E}_{\text{commerce}} = \langle \text{RBAC Auth},\;\text{Stock Engine}
   - Módulo de Realidad Aumentada nativa (`.usdz` en iOS / `.glb` en Android y 3D en Desktop).
   - Reglas zero-trust en `firestore.rules` y `storage.rules` para `products/`.
 
+---
+
+### $3.6.\;\text{Gestión Ágil por Sprints: Framework Scrum y Roles Seniors (Agile Operations)}$
+
+$$\mathcal{A}_{\text{scrum}} = \langle \text{Sprint Goals},\;\text{Checklist por Roles Seniors},\;\text{Definition of Done (DoD)} \rangle$$
+
+* **[3.6.1. `13_PLAN_TRABAJO_SCRUM_FASES.md`](./13_PLAN_TRABAJO_SCRUM_FASES.md):**  
+  Desglose operativo de los 5 Sprints del proyecto con checklist por especialista (Scrum Master, MBA, Arquitecto, Frontend, Backend, UI/UX, 3D Specialist, QA) y criterios de aceptación formales.
+
 $$\rule{\linewidth}{0.4pt}$$
 
 ## $\S\;4.\;\text{Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)}$
@@ -173,6 +188,7 @@ $$\begin{array}{|l|l|l|}
 \textbf{Objetivo Operativo} & \textbf{Documento de Referencia} & \textbf{Ruta / Procedimiento} \\
 \hline
 \text{Inicializar entorno local y dependencias} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \texttt{pnpm install \&\& pnpm run dev} \\
+\text{Plan de Sprints Scrum \& Checklists} & \text{\texttt{13\_PLAN\_TRABAJO\_SCRUM\_FASES.md}} & \text{Checklist de actividades por rol senior} \\
 \text{Arquitectura E-Commerce \& Inventario} & \text{\texttt{12\_PLAN\_ECOMMERCE\_INVENTARIO\_AR.md}} & \text{Especificación completa y reglas RBAC} \\
 \text{Agregar o editar artículo del Blog} & \text{\texttt{09\_PLAN\_SEO\_CONTENIDOS.md}} & \texttt{src/features/blog/data/blog-posts.ts} \\
 \text{Modificar reglas de diseño y espaciado} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \text{Tokens Phi en } \texttt{src/theme/} \\
