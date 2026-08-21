@@ -6,15 +6,12 @@
  * Optimizado para la estética minimalista de GYA Glass & Aluminum.
  */
 import React from "react";
-import { HStack, Box, Text, Separator, Link as ChakraLink } from "@chakra-ui/react";
+import { HStack, Box, Text } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
 import { m } from "framer-motion";
 import NAV_ITEMS from "@/shared/config/nav-items";
 import { useColorModeValue } from "@/components/ui/color-mode-hooks";
-import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
-import { ColorModeButton } from "@/components/ui/color-mode";
-import { companyData } from "@/shared/config/company-data";
 
 /**
  * @component NavText
@@ -65,8 +62,6 @@ const AuraDesktopNav = () => {
   const navShadow = useColorModeValue("0 8px 32px 0 rgba(0, 0, 0, 0.08)", "0 25px 60px rgba(0,0,0,0.5)");
   const indicatorShadow = "none";
 
-  const whatsappUrl = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;
-
   return (
     <Box
       as="nav"
@@ -98,7 +93,7 @@ const AuraDesktopNav = () => {
                 style={{ textDecoration: "none" }}
               >
                 <Box
-                  w={{ base: "115px", xl: "128px" }}
+                  w={{ base: "125px", xl: "135px" }}
                   h={{ base: "9", xl: "10" }}
                   display="flex"
                   alignItems="center"
@@ -144,42 +139,6 @@ const AuraDesktopNav = () => {
             </Box>
           );
         })}
-      </HStack>
-
-      <Separator orientation="vertical" height="5" opacity={0.3} borderColor="border.strong" mx={1} />
-
-      {/* Action Utilities: WhatsApp Quick Action + Color Mode Toggle */}
-      <HStack gap={1.5}>
-        {/* WhatsApp Direct Chat Button */}
-        <ChakraLink
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Contactar por WhatsApp"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          w="9"
-          h="9"
-          borderRadius="full"
-          bg="brand.whatsapp"
-          color="white"
-          boxShadow="sm"
-          _hover={{ bg: "brand.whatsappHover", transform: "scale(1.06)" }}
-          _active={{ bg: "brand.whatsappActive", transform: "scale(0.96)" }}
-          transition="background-color 0.2s ease, transform 0.2s ease"
-          style={{ textDecoration: "none" }}
-        >
-          <WhatsAppIcon size={18} fill="currentColor" />
-        </ChakraLink>
-
-        {/* Theme Mode Toggle Button */}
-        <ColorModeButton
-          aria-label="Cambiar modo de color"
-          size="sm"
-          borderRadius="full"
-          _hover={{ bg: "blackAlpha.100", _dark: { bg: "whiteAlpha.100" } }}
-        />
       </HStack>
     </Box>
   );
