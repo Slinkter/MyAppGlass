@@ -7,6 +7,7 @@ import { Global, css } from "@emotion/react";
 import * as React from "react";
 
 import { LazyMotion } from "framer-motion";
+import { AuthProvider } from "@/features/auth/context/AuthContext";
 
 const loadFeatures = () =>
   import("@/shared/utils/framer-features").then((res) => res.default);
@@ -34,7 +35,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
           }
         `} />
         <LazyMotion features={loadFeatures} strict>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </LazyMotion>
       </ChakraProvider>
     </ColorModeProvider>
