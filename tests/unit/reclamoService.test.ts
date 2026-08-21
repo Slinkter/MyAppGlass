@@ -1,6 +1,7 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { reclamationService, ReclamationData } from '@/shared/api/reclamoService';
 import { env } from '@/shared/config/env';
+import { logger } from '@/shared/utils/logger';
 
 describe('reclamationService API Service', () => {
   const mockReclamationData: ReclamationData = {
@@ -50,7 +51,7 @@ describe('reclamationService API Service', () => {
   });
 
   it('❌ debe lanzar error si la respuesta HTTP no es exitosa (response.ok = false)', async () => {
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const loggerSpy = vi.spyOn(logger, 'error').mockImplementation(() => {});
 
     vi.spyOn(global, 'fetch').mockResolvedValueOnce({
       ok: false,
@@ -65,11 +66,11 @@ describe('reclamationService API Service', () => {
       reclamationService.submitReclamation(mockReclamationData)
     ).rejects.toThrow('Internal Database Error');
 
-    expect(consoleSpy).toHaveBeenCalled();
+    expect(loggerSpy).toHaveBeenCalled();
   });
 
   it('❌ debe lanzar error con mensaje de código de estado si el servidor no incluye mensaje de error', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(logger, 'error').mockImplementation(() => {});
 
     vi.spyOn(global, 'fetch').mockResolvedValueOnce({
       ok: false,
@@ -85,7 +86,7 @@ describe('reclamationService API Service', () => {
   });
 
   it('❌ debe lanzar error si response.ok es true pero result.success es false', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(logger, 'error').mockImplementation(() => {});
 
     vi.spyOn(global, 'fetch').mockResolvedValueOnce({
       ok: true,
@@ -102,7 +103,7 @@ describe('reclamationService API Service', () => {
   });
 
   it('❌ debe capturar excepciones de red (ej. fetch fallido por timeout o sin conexión)', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(logger, 'error').mockImplementation(() => {});
 
     vi.spyOn(global, 'fetch').mockRejectedValueOnce(new Error('Network connection failed'));
 
@@ -112,7 +113,7 @@ describe('reclamationService API Service', () => {
   });
 
   it('❌ debe manejar errores no estándar que no son instancias de Error', async () => {
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(logger, 'error').mockImplementation(() => {});
 
     vi.spyOn(global, 'fetch').mockRejectedValueOnce('Error desconocido');
 

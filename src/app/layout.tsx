@@ -6,9 +6,11 @@ import { Box } from "@chakra-ui/react";
 import { AuraNavbar as Navbar } from "@/widgets/Navbar";
 import { Footer } from "@/widgets/Footer";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
-import { FloatingWhatsAppWrapper as FloatingWhatsApp } from "@/widgets/FloatingActions";
+import { FloatingWhatsAppWrapper as FloatingWhatsApp, ThemeToggle } from "@/widgets/FloatingActions";
 import SkipLink from "@/shared/components/navigation/SkipLink";
 import { getCompanyJsonLd } from "@/shared/utils/seo-utils";
+
+import { env } from "@/shared/config/env";
 
 const lora = Lora({
     subsets: ["latin"],
@@ -90,11 +92,13 @@ export default function RootLayout({
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                 />
-                <script
-                    src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-                    async
-                    defer
-                />
+                {env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
+                    <script
+                        src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+                        async
+                        defer
+                    />
+                )}
             </head>
             <body>
                 <Providers>
@@ -118,6 +122,7 @@ export default function RootLayout({
                             <Footer />
                         </Box>
                         <FloatingWhatsApp />
+                        <ThemeToggle />
                     </Box>
                 </Providers>
             </body>

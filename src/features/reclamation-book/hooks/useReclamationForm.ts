@@ -5,18 +5,12 @@ import { toaster } from "@/components/ui/toaster-instance";
 import { submitReclamationAction } from "@features/reclamation-book/actions";
 import { ReclamationFormState, FormErrors, ReclamationFormContextValue, InputChangeEvent } from "@features/reclamation-book/types";
 import {
-  sanitizeSingleLine,
-  sanitizeMultilineText,
-  sanitizeEmail,
-  sanitizePhone,
-  sanitizeDocumentNumber,
   sanitizeReclamationData,
-  isValidTipoDocumento,
-  isValidTipoBien,
-  isValidTipoSolicitud,
 } from "@features/reclamation-book/utils/sanitizer";
+import { reclamationFormSchema } from "@/shared/schemas/reclamation-schema";
 import { env } from "@/shared/config/env";
 import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
+import { logger } from "@/shared/utils/logger";
 
 const initialState: ReclamationFormState = {
   nombreCompleto: "",
@@ -40,57 +34,23 @@ const initialState: ReclamationFormState = {
   archivos: [],
 };
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 const validateForm = (formData: ReclamationFormState): FormErrors => {
   const errors: FormErrors = {};
 
-  if (!sanitizeSingleLine(formData.nombreCompleto)) {
-    errors.nombreCompleto = "El nombre completo es requerido.";
-  }
-  if (!sanitizeSingleLine(formData.domicilio)) {
-    errors.domicilio = "El domicilio es requerido.";
-  }
-
-  const cleanEmail = sanitizeEmail(formData.email);
-  if (!cleanEmail || !EMAIL_REGEX.test(cleanEmail)) {
-    errors.email = "El formato del email es inválido.";
+  const parseResult = reclamationFormSchema.safeParse(formData);
+  if (!parseResult.success) {
+    for (const issue of parseResult.error.issues) {
+      const path = issue.path[0] as keyof FormErrors;
+      if (path && !errors[path]) {
+        errors[path] = issue.message;
+      }
+    }
   }
 
-  if (!sanitizePhone(formData.telefono)) {
-    errors.telefono = "El teléfono es requerido.";
-  }
-  if (!formData.tipoDocumento || !isValidTipoDocumento(formData.tipoDocumento)) {
-    errors.tipoDocumento = "Debe seleccionar un tipo de documento válido.";
-  }
-  if (!sanitizeDocumentNumber(formData.numeroDocumento)) {
-    errors.numeroDocumento = "El número de documento es requerido.";
-  }
-  if (!formData.tipoBien || !isValidTipoBien(formData.tipoBien)) {
-    errors.tipoBien = "Debe seleccionar un tipo de bien válido.";
-  }
-  if (!sanitizeMultilineText(formData.descripcionBien)) {
-    errors.descripcionBien = "La descripción es requerida.";
-  }
-  if (!formData.tipoSolicitud || !isValidTipoSolicitud(formData.tipoSolicitud)) {
-    errors.tipoSolicitud = "Debe seleccionar un tipo de solicitud válido.";
-  }
-  if (!sanitizeMultilineText(formData.detalle)) {
-    errors.detalle = "El detalle de la solicitud es requerido.";
-  }
-  if (!sanitizeMultilineText(formData.pedido)) {
-    errors.pedido = "El pedido es requerido.";
-  }
   if (!formData.mathAnswer || !formData.mathAnswer.trim()) {
     errors.mathAnswer = "Debes responder a la pregunta de seguridad.";
   } else if (!validateMathChallengeLocally(formData.mathAnswer, formData.mathToken || "")) {
     errors.mathAnswer = "Respuesta incorrecta. Por favor verifica tu cálculo.";
-  }
-  if (!formData.aceptaTerminos) {
-    errors.aceptaTerminos = "Debe aceptar los términos y la política de privacidad.";
-  }
-  if (!formData.autorizaEmail) {
-    errors.autorizaEmail = "Debe autorizar el envío de la respuesta a su email.";
   }
 
   return errors;
@@ -207,7 +167,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
               });
             });
           } catch (recaptchaErr) {
-            console.error("reCAPTCHA execution error:", recaptchaErr);
+            logger.error("reCAPTCHA execution error in Reclamation Form", recaptchaErr);
           }
         }
 
@@ -239,7 +199,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
         }
       } catch (error: unknown) {
         toaster.dismiss(toastId);
-        console.error("Error submitting reclamation: ", error);
+        logger.error("Error submitting reclamation", error);
         const errorMessage = error instanceof Error ? error.message : "Hubo un error al procesar su solicitud.";
 
         toaster.create({

@@ -19,5 +19,5 @@ export { useMapIcons } from "./map/useMapIcons";
 export type { MapIconConfig, MapIcons } from "@shared/types/map";
 export { useMapState } from "./map/useMapState";
 
-// Data Hooks
-export { default as useFirestoreQuery } from "./firebase/useFirestoreQuery";
+// Data Hooks (Import directly from @shared/hooks/firebase/useFirestoreQuery when needed)
+

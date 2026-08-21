@@ -19,7 +19,7 @@ const skipStyles = `
     margin: var(--chakra-spacing-4);
     border: 2px solid var(--chakra-colors-text-accent);
     border-radius: var(--chakra-radii-md);
-    background-color: var(--chakra-colors-bg-panel);
+    background-color: var(--chakra-colors-surface-card);
     color: var(--chakra-colors-text-heading);
     z-index: 9999;
     outline: none;

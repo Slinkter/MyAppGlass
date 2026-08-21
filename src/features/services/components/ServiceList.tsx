@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import { getServices } from "@features/services/services/serviceService";
-import { useFilterableList } from "@shared/hooks";
+import useFilterableList from "@shared/hooks/ui/useFilterableList";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Search } from "lucide-react";
 

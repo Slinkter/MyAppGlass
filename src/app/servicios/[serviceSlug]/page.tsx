@@ -96,7 +96,7 @@ export default async function Page({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <ServiceDetailView />
+      <ServiceDetailView serviceSlug={serviceSlug} />
     </ComponentErrorBoundary>
   );
 }

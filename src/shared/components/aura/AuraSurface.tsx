@@ -25,7 +25,7 @@ const AuraSurface = React.memo(React.forwardRef<HTMLDivElement, AuraSurfaceProps
   return (
     <Box
       ref={ref}
-      bg={isStrong ? "glass.bg" : isGlass ? { _light: "rgba(255,255,255,0.25)", _dark: "rgba(10,10,12,0.35)" } : "surface.card"}
+      bg={isStrong ? "bg.glass" : isGlass ? { _light: "rgba(255,255,255,0.25)", _dark: "rgba(10,10,12,0.35)" } : "surface.card"}
       backdropFilter={isGlass ? "blur(24px) saturate(180%)" : undefined}
       css={isGlass ? { WebkitBackdropFilter: "blur(24px) saturate(180%)" } : undefined}
       borderWidth="1px"
@@ -37,7 +37,7 @@ const AuraSurface = React.memo(React.forwardRef<HTMLDivElement, AuraSurfaceProps
       transition="background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
       _hover={isInteractive ? {
         bg: { _light: "rgba(255,255,255,0.35)", _dark: "rgba(24,24,27,0.5)" },
-        boxShadow: "glassHover",
+        boxShadow: "lg",
         transform: "translateY(-2px)",
       } : undefined}
       {...props}

@@ -55,8 +55,18 @@ async function checkRateLimitFirestore(db, ip) {
 // ─── CORS: separado por entorno ───────────────────────────────────────────────
 const IS_PROD = process.env.NODE_ENV === "production";
 const ALLOWED_ORIGINS = IS_PROD
-  ? [/gyacompany\.com$/, /gya-app-4c8a9\.web\.app$/]
-  : [/gyacompany\.com$/, /gya-app-4c8a9\.web\.app$/, /localhost/];
+  ? [
+      /^https:\/\/(www\.)?gyacompany\.com$/,
+      /^https:\/\/gya-app-4c8a9\.web\.app$/,
+      /^https:\/\/gya-app-4c8a9\.firebaseapp\.com$/,
+    ]
+  : [
+      /^https:\/\/(www\.)?gyacompany\.com$/,
+      /^https:\/\/gya-app-4c8a9\.web\.app$/,
+      /^https:\/\/gya-app-4c8a9\.firebaseapp\.com$/,
+      /^http:\/\/localhost(:\d+)?$/,
+      /^http:\/\/127\.0\.0\.1(:\d+)?$/,
+    ];
 
 /**
  * Función HTTP para procesar el Libro de Reclamaciones (Indecopi D.S. N° 011-2011-PCM & Ley N° 29571 / 31435).
@@ -65,6 +75,7 @@ exports.submitReclamo = onRequest(
   {
     timeoutSeconds: 60,
     memory: "256MiB",
+    maxInstances: 10,
     secrets: ["RESEND_API_KEY", "ADMIN_EMAIL", "RECAPTCHA_SECRET_KEY"],
     cors: ALLOWED_ORIGINS,
   },
@@ -107,6 +118,7 @@ exports.submitContacto = onRequest(
   {
     timeoutSeconds: 60,
     memory: "256MiB",
+    maxInstances: 10,
     secrets: ["RESEND_API_KEY", "ADMIN_EMAIL", "RECAPTCHA_SECRET_KEY"],
     cors: ALLOWED_ORIGINS,
   },
@@ -153,11 +165,26 @@ exports.checkStatus = onRequest(
   {
     timeoutSeconds: 30,
     memory: "256MiB",
+    maxInstances: 10,
     cors: ALLOWED_ORIGINS,
   },
   async (request, response) => {
     if (request.method !== "GET" && request.method !== "POST") {
       response.status(405).send("Método no permitido.");
+      return;
+    }
+
+    const rawIp = request.headers["x-forwarded-for"] || request.socket.remoteAddress || "unknown";
+    const clientIp = typeof rawIp === "string" ? rawIp.split(",")[0].trim() : "unknown";
+
+    const db = admin.firestore();
+    const allowed = await checkRateLimitFirestore(db, clientIp);
+    if (!allowed) {
+      logger.warn("RATE_LIMIT_EXCEEDED: checkStatus", { ip: clientIp });
+      response.status(429).json({
+        success: false,
+        message: "Demasiadas solicitudes desde esta dirección. Por favor, inténtelo más tarde.",
+      });
       return;
     }
 
@@ -169,8 +196,6 @@ exports.checkStatus = onRequest(
     }
 
     try {
-      const db = admin.firestore();
-
       let doc = await db.collection("contact_submissions").doc(id).get();
       let type = "Consulta de Contacto";
 
@@ -185,14 +210,25 @@ exports.checkStatus = onRequest(
       }
 
       const data = doc.data();
+      const rawName = data.nombreCompleto || data.name || "";
+      // Ofuscación de PII (Ley N° 29733) para proteger la privacidad en consultas públicas
+      const maskedName = rawName
+        ? rawName
+            .trim()
+            .split(/\s+/)
+            .map((part) => (part.length <= 2 ? part.charAt(0) + "*" : part.slice(0, 2) + "***"))
+            .join(" ")
+        : "Usuario Registrado";
+
       response.status(200).json({
         success: true,
         data: {
           id: doc.id,
           type,
           status: data.status || "RECIBIDO",
-          createdAt: data.createdAt?.toDate() || null,
-          name: data.nombreCompleto || data.name,
+          createdAt: data.createdAt?.toDate?.() || data.createdAtIso || null,
+          name: maskedName,
+          maskedName: maskedName,
         },
       });
     } catch (error) {

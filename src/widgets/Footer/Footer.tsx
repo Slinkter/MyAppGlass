@@ -77,7 +77,8 @@ const FooterRow = ({
                     >
                         <Image
                             src={icon}
-                            alt="Icono"
+                            alt=""
+                            aria-hidden="true"
                             fill
                             style={{ objectFit: "contain" }}
                         />

@@ -96,6 +96,9 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
             name="mathCaptchaAnswer"
             type="text"
             inputMode="numeric"
+            aria-label={challenge ? `Pregunta de seguridad: ${challenge.question}` : "Respuesta al reto de seguridad matemático"}
+            aria-invalid={!!error}
+            aria-describedby={error ? `${id}-error` : undefined}
             placeholder="Tu respuesta"
             value={value}
             onChange={handleInputChange}
@@ -120,7 +123,7 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
         </HStack>
 
         {error && (
-          <HStack gap="1.5" color="red.500" fontSize="xs" fontWeight="600" pt="0.5">
+          <HStack id={`${id}-error`} role="alert" aria-live="polite" gap="1.5" color="red.500" fontSize="xs" fontWeight="600" pt="0.5">
             <AlertCircle size={14} />
             <Text>{error}</Text>
           </HStack>

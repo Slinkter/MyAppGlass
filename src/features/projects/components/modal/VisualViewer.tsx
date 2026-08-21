@@ -1,12 +1,18 @@
 import React, { useMemo } from "react";
+import dynamic from "next/dynamic";
 import { Box, Flex } from "@chakra-ui/react";
 import { AnimatePresence, m } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
-import MapViewer from "./MapViewer";
+import MapLoader from "@/shared/components/map/MapLoader";
 import type { Project } from "@shared/types/project";
 import type { ProjectPhoto } from "@shared/types/project";
 import { GalleryItem } from "@/shared/types/gallery";
+
+const MapViewer = dynamic(() => import("./MapViewer"), {
+  ssr: false,
+  loading: () => <MapLoader />,
+});
 
 interface VisualViewerProps {
   viewMode: "map" | "gallery";

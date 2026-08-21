@@ -196,7 +196,7 @@ const BankAccountsView: React.FC = () => {
                                                 fontSize="sm"
                                                 color="text.heading"
                                             >
-                                                GLASS & ALUMINIO COMPANY S.A.C.
+                                                {companyData.razonSocial}
                                             </Text>
                                             <Text
                                                 fontSize="xs"

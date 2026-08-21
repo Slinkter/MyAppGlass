@@ -1,4 +1,5 @@
 import { env } from "@/shared/config/env";
+import { logger } from "@/shared/utils/logger";
 
 /**
  * @file actions.ts
@@ -25,13 +26,13 @@ export async function submitContactAction(formData: ContactData) {
   try {
     // Anti-Bot Protection: Honeypot check (middleName)
     if (formData.middleName && formData.middleName.trim() !== "") {
-      console.warn("Honeypot triggered in submitContactAction. Rejected.");
+      logger.warn("Honeypot triggered in submitContactAction. Rejected.");
       return { success: true, id: "CNT-PROTECTED" };
     }
 
     // Minimum load time protection (bots submit in under 1.5 seconds)
     if (formData._ts && Date.now() - formData._ts < 1500) {
-      console.warn("Bot detected by fast submission time (< 1.5s). Rejected.");
+      logger.warn("Bot detected by fast submission time (< 1.5s). Rejected.");
       return { success: true, id: "CNT-PROTECTED" };
     }
 
@@ -63,7 +64,7 @@ export async function submitContactAction(formData: ContactData) {
 
     return { success: true, id: result.data.id };
   } catch (error: unknown) {
-    console.error("submitContactAction Error:", error);
+    logger.error("submitContactAction Error", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Error al enviar el mensaje."
@@ -91,7 +92,7 @@ export async function checkStatusAction(id: string) {
 
     return { success: true, data: result.data };
   } catch (error: unknown) {
-    console.error("checkStatusAction Error:", error);
+    logger.error("checkStatusAction Error", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Error al consultar el estado."

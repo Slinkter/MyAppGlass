@@ -12,6 +12,7 @@ import {
   MessageSquareText,
   CheckCircle2,
 } from "lucide-react";
+import { companyData } from "@/shared/config/company-data";
 
 interface ServiceBentoGridProps {
   systemName: string;
@@ -20,7 +21,7 @@ interface ServiceBentoGridProps {
 
 export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
   <a
-    href={`https://wa.me/51994119999?text=${encodeURIComponent(`Hola, quisiera cotizar el servicio de ${systemName}.`)}`}
+    href={`https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(`Hola, quisiera cotizar el servicio de ${systemName}.`)}`}
     target="_blank"
     rel="noopener noreferrer"
     style={{ width: "100%", height: "100%", textDecoration: "none" }}

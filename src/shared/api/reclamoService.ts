@@ -1,4 +1,5 @@
 import { env } from "@/shared/config/env";
+import { logger } from "@/shared/utils/logger";
 
 /**
  * @file reclamoService.ts
@@ -77,8 +78,8 @@ export const reclamationService = {
 
             return result.data.id;
         } catch (error) {
-            console.error(
-                "Error calling the reclamation submission service: ",
+            logger.error(
+                "Error calling the reclamation submission service",
                 error,
             );
             const errorMessage =

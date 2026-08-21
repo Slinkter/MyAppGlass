@@ -51,11 +51,11 @@ const AuraDesktopNav = () => {
   const mounted = React.useSyncExternalStore(subscribeMounted, getMountedSnapshot, getMountedServerSnapshot);
   const pathname = usePathname();
   
-  const activeBg = "#18181b";
+  const activeBg = useColorModeValue("#18181b", "rgba(255, 255, 255, 0.16)");
   
   const activeColor = "white";
   const inactiveColor = "fg.subtle";
-  const activeBorder = "none";
+  const activeBorder = useColorModeValue("none", "1px solid rgba(255, 255, 255, 0.2)");
   
   const navBg = useColorModeValue("rgba(255, 255, 255, 0.45)", "rgba(10, 10, 12, 0.5)");
   const navBorderColor = useColorModeValue("rgba(0, 0, 0, 0.12)", "rgba(255, 255, 255, 0.12)");
@@ -65,6 +65,7 @@ const AuraDesktopNav = () => {
   return (
     <Box
       as="nav"
+      aria-label="Navegación principal"
       css={{
         backgroundColor: navBg,
         backdropFilter: "blur(40px) saturate(210%)",

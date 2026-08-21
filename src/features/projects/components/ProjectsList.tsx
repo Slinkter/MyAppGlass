@@ -16,7 +16,7 @@ import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { getProjects } from "@shared/services/projectService";
 import type { Project } from "@shared/types/project";
-import { useFilterableList } from "@shared/hooks";
+import useFilterableList from "@shared/hooks/ui/useFilterableList";
 import logger from "@shared/utils/logger";
 
 /**
@@ -54,10 +54,6 @@ const ProjectsList: React.FC = React.memo(() => {
     }
     return ["Todos", ...unique];
   }, [allProjects]);
-
-  logger.info({ years: years.slice(1), allYears: allProjects.map(p => ({ id: p.id, year: p.year, normalized: normalizeYear(p.year) })) }, "Available filter years");
-
-  logger.info({ years: years.slice(1) }, "Available filter years");
 
   const filterFn = useCallback((items: Project[], category: string) => {
     logger.debug({ category, totalItems: items.length }, "Filter function called");

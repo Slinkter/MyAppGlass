@@ -13,7 +13,7 @@ import { useReclamationFormContext } from "./ReclamationFormContext";
  * Conforme a Ley N° 29571, Ley N° 31435 y Ley N° 29733 (Protección de Datos Personales).
  */
 const DeclarationSection: React.FC = () => {
-  const { formData, handleInputsChange, handleCheckboxChange, handleMathChange, handleBtnSubmit, errors } = useReclamationFormContext();
+  const { formData, handleInputsChange, handleCheckboxChange, handleMathChange, errors } = useReclamationFormContext();
 
   return (
     <VStack gap="5" align="stretch">
@@ -120,7 +120,6 @@ const DeclarationSection: React.FC = () => {
         letterSpacing="widest"
         width="full"
         mt="2"
-        onClick={handleBtnSubmit}
       >
         REGISTRAR RECLAMO / QUEJA
       </Button>

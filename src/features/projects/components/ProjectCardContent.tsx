@@ -33,9 +33,21 @@ interface ProjectCardContentProps {
  */
 const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
   ({ image = "", residencial, address, year, onExplore, isLCP, loading }) => {
+    const handleKeyDown = React.useCallback(
+      (e: React.KeyboardEvent) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onExplore();
+        }
+      },
+      [onExplore]
+    );
+
     return (
       <Box
-        role="group"
+        role="button"
+        tabIndex={0}
+        aria-label={`Ver detalles del proyecto ${residencial}`}
         w="full"
         h={{ base: "260px", sm: "280px", md: "310px" }}
         borderRadius="3xl"
@@ -45,10 +57,15 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         boxShadow="sm"
         cursor="pointer"
         onClick={onExplore}
+        onKeyDown={handleKeyDown}
         transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
         _hover={{ 
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
           transform: "translateY(-6px)"
+        }}
+        _focusVisible={{
+          outline: "none",
+          boxShadow: "0 0 0 3px var(--chakra-colors-primary-500, #a80100)",
         }}
       >
         {/* Fotografía del Proyecto */}

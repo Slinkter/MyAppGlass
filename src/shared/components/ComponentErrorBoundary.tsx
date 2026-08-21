@@ -50,15 +50,15 @@ class ComponentErrorBoundary extends Component<Props, State> {
         >
           <VStack align="start" gap="6">
             <Heading size="md" color="red.600">
-              Oops! Component Crash
+              Ha ocurrido un error inesperado
             </Heading>
             <Text fontSize="sm" fontWeight="bold">
-              Error: {this.state.error?.message || "Unknown error"}
+              Error: {this.state.error?.message || "Error desconocido"}
             </Text>
 
             {env.NODE_ENV !== "production" && (
               <Box w="full" overflow="auto">
-                <Text fontSize="xs" mb="2" color="gray.500">Component Stack:</Text>
+                <Text fontSize="xs" mb="2" color="gray.500">Pila de componentes:</Text>
                 <Code
                   fontSize="xs"
                   p="4"
@@ -77,7 +77,7 @@ class ComponentErrorBoundary extends Component<Props, State> {
               colorPalette="red"
               onClick={() => window.location.reload()}
             >
-              Reload Page
+              Recargar página
             </Button>
           </VStack>
         </Box>

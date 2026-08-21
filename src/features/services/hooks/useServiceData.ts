@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from "react";
 import { getServicePageData, ServicePageData } from "@features/services/services/serviceService";
+import { servicePageDataMap } from "@features/services/data/servicePageDataMap";
 
 export interface UseServiceDataReturn {
   pageData: ServicePageData | null;
@@ -20,8 +21,9 @@ export interface UseServiceDataReturn {
  * @returns State object containing pageData, isLoading, error
  */
 export const useServiceData = (serviceSlug: string): UseServiceDataReturn => {
-  const [pageData, setPageData] = useState<ServicePageData | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const initialData = serviceSlug ? (servicePageDataMap[serviceSlug] as ServicePageData) || null : null;
+  const [pageData, setPageData] = useState<ServicePageData | null>(initialData);
+  const [isLoading, setIsLoading] = useState<boolean>(!initialData);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

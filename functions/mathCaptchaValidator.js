@@ -3,7 +3,8 @@
  * @description Validador de Captcha Matemático para Cloud Functions (Node.js).
  */
 
-const MATH_SALT = "GYA_MATH_SECURE_SALT_2026";
+// Sal de integridad para el reto matemático (defensa en profundidad complementaria a reCAPTCHA v3)
+const MATH_SALT = process.env.MATH_CAPTCHA_SALT || "GYA_MATH_SECURE_SALT_2026";
 
 /**
  * Firma determinista usando Math.imul (garantiza 32-bit en todos los entornos JS).

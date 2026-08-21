@@ -6,6 +6,7 @@
 
 import { ReclamationData, reclamationService } from "@/shared/api/reclamoService";
 import { sanitizeReclamationData } from "./utils/sanitizer";
+import { logger } from "@/shared/utils/logger";
 
 export interface ReclamationActionResult {
   success: boolean;
@@ -24,7 +25,7 @@ export async function submitReclamationAction(formData: ReclamationData): Promis
   try {
     // 1. Check honeypot field for bot protection (middleName)
     if (formData.middleName && formData.middleName.trim() !== "") {
-      console.warn("Honeypot triggered in submitReclamationAction. Submission rejected.");
+      logger.warn("Honeypot triggered in submitReclamationAction. Submission rejected.");
       return { success: true, id: "REC-PROTECTED" };
     }
 
@@ -48,11 +49,10 @@ export async function submitReclamationAction(formData: ReclamationData): Promis
     const id = await reclamationService.submitReclamation(sanitizedData);
     return { success: true, id };
   } catch (error: unknown) {
-    console.error("Action Error [submitReclamationAction]:", error);
+    logger.error("Action Error [submitReclamationAction]", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Hubo un error inesperado en el servidor al procesar su reclamo.",
     };
   }
 }
-

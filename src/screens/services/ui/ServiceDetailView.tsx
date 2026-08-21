@@ -1,19 +1,23 @@
-/**
- * @file ServiceDetailView.tsx
- * @description View component for the individual service detail page.
- * @module views/services
- */
+"use client";
 
 import React from "react";
 import { Box } from "@chakra-ui/react";
-import ServicePageContainer from "@/features/services/components/ServicePageContainer";
+import { servicePageDataMap } from "@/features/services/data/servicePageDataMap";
+import ServicePageLayout from "@/features/services/components/ServicePageLayout";
 
-const ServiceDetailView: React.FC = () => {
+interface ServiceDetailViewProps {
+  serviceSlug: string;
+}
+
+const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({ serviceSlug }) => {
+  const pageData = serviceSlug ? servicePageDataMap[serviceSlug] : null;
+  if (!pageData) return null;
   return (
     <Box as="section" py={1}>
-      <ServicePageContainer />
+      <ServicePageLayout pageData={pageData} />
     </Box>
   );
 };
 
 export default ServiceDetailView;
+

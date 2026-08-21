@@ -271,6 +271,14 @@ async function verifyRecaptcha(token, expectedAction = null) {
       throw new HttpsError("permission-denied", "Validación de seguridad no superada (puntuación insuficiente).");
     }
 
+    if (expectedAction && recaptchaData.action !== expectedAction) {
+      logger.warn("RECAPTCHA_ACTION_MISMATCH", {
+        expected: expectedAction,
+        received: recaptchaData.action,
+      });
+      throw new HttpsError("permission-denied", "Acción de seguridad no válida para este formulario.");
+    }
+
     return recaptchaData;
   } catch (err) {
     if (err instanceof HttpsError) throw err;

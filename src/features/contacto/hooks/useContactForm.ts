@@ -6,6 +6,8 @@ import { toaster } from "@/components/ui/toaster-instance";
 import { submitContactAction, checkStatusAction } from "@features/contacto/actions";
 import { env } from "@/shared/config/env";
 import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
+import { contactFormSchema } from "@/shared/schemas/contact-schema";
+import { logger } from "@/shared/utils/logger";
 
 interface ContactFormState {
   name: string;
@@ -54,25 +56,27 @@ export const useContactForm = () => {
   const [isTracking, setIsTracking] = useState(false);
   const [trackingResult, setTrackingResult] = useState<TrackingResult | null>(null);
 
-  const validateField = (name: keyof FormErrors, value: string | boolean): string | undefined => {
-    switch (name) {
-      case "name":
-        return !String(value).trim() ? "El nombre es obligatorio" : undefined;
-      case "email":
-        if (!String(value).trim()) return "El correo es obligatorio";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value))) return "Correo electrónico no válido";
-        return undefined;
-      case "message":
-        return !String(value).trim() ? "Los detalles del proyecto son obligatorios" : undefined;
-      case "acceptedTerms":
-        return !value ? "Debes aceptar las políticas de privacidad" : undefined;
-      case "mathAnswer":
-        if (!String(value).trim()) return "Debes responder a la pregunta de seguridad";
-        if (!validateMathChallengeLocally(String(value), formData.mathToken)) return "Respuesta incorrecta. Por favor verifica tu cálculo.";
-        return undefined;
-      default:
-        return undefined;
+  const validateField = (fieldName: keyof FormErrors, value: string | boolean): string | undefined => {
+    if (fieldName === "mathAnswer") {
+      if (!String(value).trim()) return "Debes responder a la pregunta de seguridad";
+      if (!validateMathChallengeLocally(String(value), formData.mathToken)) {
+        return "Respuesta incorrecta. Por favor verifica tu cálculo.";
+      }
+      return undefined;
     }
+
+    if (fieldName === "acceptedTerms") {
+      return !value ? "Debes aceptar las políticas de privacidad" : undefined;
+    }
+
+    const fieldSchema = contactFormSchema.shape[fieldName as keyof typeof contactFormSchema.shape];
+    if (fieldSchema) {
+      const result = fieldSchema.safeParse(value);
+      if (!result.success) {
+        return result.error.issues[0]?.message;
+      }
+    }
+    return undefined;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -134,6 +138,7 @@ export const useContactForm = () => {
       setIsTracking(false);
     }
   };
+
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [successTrackingId, setSuccessTrackingId] = useState("");
   const router = useRouter();
@@ -146,19 +151,27 @@ export const useContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const nameErr = validateField("name", formData.name);
-    const emailErr = validateField("email", formData.email);
-    const messageErr = validateField("message", formData.message);
-    const termsErr = validateField("acceptedTerms", formData.acceptedTerms);
-    const mathErr = validateField("mathAnswer", formData.mathAnswer);
+    const zodResult = contactFormSchema.safeParse(formData);
+    const newErrors: FormErrors = {};
 
-    const newErrors: FormErrors = {
-      ...(nameErr && { name: nameErr }),
-      ...(emailErr && { email: emailErr }),
-      ...(messageErr && { message: messageErr }),
-      ...(termsErr && { acceptedTerms: termsErr }),
-      ...(mathErr && { mathAnswer: mathErr }),
-    };
+    if (!zodResult.success) {
+      for (const issue of zodResult.error.issues) {
+        const field = issue.path[0] as keyof FormErrors;
+        if (field && !newErrors[field]) {
+          newErrors[field] = issue.message;
+        }
+      }
+    }
+
+    if (!formData.mathAnswer || !formData.mathAnswer.trim()) {
+      newErrors.mathAnswer = "Debes responder a la pregunta de seguridad";
+    } else if (!validateMathChallengeLocally(formData.mathAnswer, formData.mathToken)) {
+      newErrors.mathAnswer = "Respuesta incorrecta. Por favor verifica tu cálculo.";
+    }
+
+    if (!formData.acceptedTerms) {
+      newErrors.acceptedTerms = "Debes aceptar las políticas de privacidad";
+    }
 
     setErrors(newErrors);
 
@@ -184,7 +197,7 @@ export const useContactForm = () => {
             });
           });
         } catch (recaptchaErr) {
-          console.error("reCAPTCHA execution error in Contact Form:", recaptchaErr);
+          logger.error("reCAPTCHA execution error in Contact Form", recaptchaErr);
         }
       }
 
@@ -248,4 +261,3 @@ export const useContactForm = () => {
     successTrackingId,
   };
 };
-

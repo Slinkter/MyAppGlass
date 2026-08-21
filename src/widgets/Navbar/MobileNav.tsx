@@ -28,6 +28,7 @@ import {
     DrawerBody,
     DrawerContent,
     DrawerRoot,
+    DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer";
 import { NavItemLarge } from "./components/NavItemLarge";
@@ -107,7 +108,9 @@ const MobileNav = React.memo(() => {
                 p={0}
                 maxH="85vh"
                 overflowY="auto"
+                aria-label="Menú principal de navegación"
             >
+                <DrawerTitle className="sr-only">Menú principal de navegación</DrawerTitle>
                 <DrawerBody
                     display="flex"
                     flexDirection="column"
