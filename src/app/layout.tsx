@@ -86,7 +86,7 @@ export default function RootLayout({
     const jsonLd = getCompanyJsonLd();
 
     return (
-        <html lang="es" suppressHydrationWarning className={lora.variable}>
+        <html lang="es" suppressHydrationWarning className={lora.variable} data-scroll-behavior="smooth">
             <head>
                 <script
                     type="application/ld+json"
