@@ -11,11 +11,24 @@ import {
   Input,
   Tabs,
   Badge,
+  SimpleGrid,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { toaster } from "@/components/ui/toaster-instance";
 import { useAuth } from "@/features/auth/context/AuthContext";
-import { Lock, Mail, User, Phone, MapPin, ShieldCheck, LogIn, UserPlus } from "lucide-react";
+import {
+  Lock,
+  Mail,
+  User,
+  Phone,
+  MapPin,
+  ShieldCheck,
+  LogIn,
+  UserPlus,
+  LayoutDashboard,
+  Calculator,
+} from "lucide-react";
 
 export const LoginScreen: React.FC = () => {
   const { login, registerClient, user, profile, role, logout, loading } = useAuth();
@@ -102,33 +115,44 @@ export const LoginScreen: React.FC = () => {
   };
 
   if (user) {
+    const isAdmin = role === "admin";
+
     return (
-      <Box py="12" maxW="640px" mx="auto">
+      <Box py="12" maxW="580px" mx="auto" px="4">
         <Box
           bg="surface.card"
           borderRadius="2xl"
-          p="8"
+          p={{ base: "6", md: "8" }}
           border="1px solid"
           borderColor="border.glass"
           backdropFilter="blur(16px)"
           boxShadow="0 20px 40px rgba(0,0,0,0.2)"
         >
-          <VStack gap="4" align="center" textAlign="center">
-            <Box p="4" bg="green.500/10" color="green.400" borderRadius="full">
-              <ShieldCheck size={48} />
+          <VStack gap="6" align="center" textAlign="center">
+            <Box
+              p="4"
+              bg={isAdmin ? "purple.500/10" : "blue.500/10"}
+              color={isAdmin ? "purple.400" : "blue.400"}
+              borderRadius="full"
+            >
+              <ShieldCheck size={44} />
             </Box>
-            <Heading size="xl">Sesión Activa</Heading>
-            <HStack gap="2">
-              <Badge colorPalette={role === "admin" ? "purple" : "blue"} px="3" py="1" borderRadius="full">
-                Rol: {role.toUpperCase()}
-              </Badge>
-              <Text fontSize="sm" color="text.muted">
+
+            <VStack gap="1">
+              <Heading size="xl" color="brand.primary">
+                {isAdmin ? "Sesión de Administrador" : "Mi Cuenta"}
+              </Heading>
+              <Text fontSize="xs" color="text.muted">
                 {user.email}
               </Text>
-            </HStack>
+            </VStack>
+
+            <Badge colorPalette={isAdmin ? "purple" : "blue"} px="3" py="1" borderRadius="full" fontSize="xs">
+              ROL: {role.toUpperCase()}
+            </Badge>
 
             {profile && (
-              <VStack align="start" w="full" bg="whiteAlpha.50" p="4" borderRadius="xl" fontSize="sm" gap="1">
+              <VStack align="start" w="full" bg="whiteAlpha.50" p="4" borderRadius="xl" fontSize="xs" gap="1" textAlign="left">
                 <Text><strong>Nombre:</strong> {profile.fullName}</Text>
                 <Text><strong>DNI / RUC:</strong> {profile.dniRuc}</Text>
                 <Text><strong>Teléfono:</strong> {profile.phone}</Text>
@@ -136,9 +160,35 @@ export const LoginScreen: React.FC = () => {
               </VStack>
             )}
 
-            <Button colorPalette="red" variant="outline" w="full" mt="4" onClick={logout}>
-              Cerrar Sesión
-            </Button>
+            <VStack w="full" gap="3" pt="2">
+              {isAdmin ? (
+                <>
+                  <Button asChild colorPalette="cyan" size="lg" w="full">
+                    <Link href="/admin">
+                      <LayoutDashboard size={18} style={{ marginRight: 8 }} />
+                      Ir al Dashboard de Administración
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline" size="md" w="full">
+                    <Link href="/presupuesto">
+                      <Calculator size={18} style={{ marginRight: 8 }} />
+                      Cotizador de Presupuestos
+                    </Link>
+                  </Button>
+                </>
+              ) : (
+                <Button asChild colorPalette="cyan" size="lg" w="full">
+                  <Link href="/presupuesto">
+                    <Calculator size={18} style={{ marginRight: 8 }} />
+                    Cotizar Presupuesto de Obra
+                  </Link>
+                </Button>
+              )}
+
+              <Button colorPalette="red" variant="ghost" w="full" size="sm" onClick={logout}>
+                Cerrar Sesión
+              </Button>
+            </VStack>
           </VStack>
         </Box>
       </Box>

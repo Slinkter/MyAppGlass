@@ -21,12 +21,25 @@ const pinoLogger = pino({
 
 export const logger = {
   error: (message: string, error?: unknown, context?: Record<string, unknown>) => {
-    pinoLogger.error({
-      err: error instanceof Error ? { message: error.message, stack: error.stack } : error,
-      ...context,
-      timestamp: new Date().toISOString(),
-      url: typeof window !== "undefined" ? window.location.href : "server-side"
-    }, `[GYA-ERROR] ${message}`);
+    const errorDetails =
+      error instanceof Error
+        ? { message: error.message, stack: error.stack, name: error.name, ...(error as unknown as Record<string, unknown>) }
+        : error && typeof error === "object"
+          ? JSON.parse(JSON.stringify(error, Object.getOwnPropertyNames(error)))
+          : error;
+
+    const errMsg = error instanceof Error ? error.message : typeof error === "string" ? error : "";
+    const logTitle = errMsg ? `[GYA-ERROR] ${message}: ${errMsg}` : `[GYA-ERROR] ${message}`;
+
+    pinoLogger.error(
+      {
+        err: errorDetails,
+        ...context,
+        timestamp: new Date().toISOString(),
+        url: typeof window !== "undefined" ? window.location.href : "server-side",
+      },
+      logTitle
+    );
   },
 
   info: (messageOrData: string | Record<string, unknown>, data?: unknown) => {

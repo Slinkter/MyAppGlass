@@ -33,6 +33,7 @@ import type { ElementType, ReactNode } from "react";
 import NAV_ITEMS from "@/shared/config/nav-items";
 
 import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
+import { usePathname } from "next/navigation";
 
 
 interface FooterRowProps {
@@ -158,6 +159,11 @@ const FooterSection = ({ title, children }: FooterSectionProps) => {
 };
 
 const Footer = () => {
+    const pathname = usePathname();
+
+    if (pathname.startsWith("/admin")) {
+        return null;
+    }
     return (
         <Box
             as="footer"

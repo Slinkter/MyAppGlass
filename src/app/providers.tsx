@@ -8,6 +8,7 @@ import * as React from "react";
 
 import { LazyMotion } from "framer-motion";
 import { AuthProvider } from "@/features/auth/context/AuthContext";
+import { OrderDraftProvider } from "@/features/products/context/OrderDraftContext";
 
 const loadFeatures = () =>
   import("@/shared/utils/framer-features").then((res) => res.default);
@@ -36,7 +37,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
         `} />
         <LazyMotion features={loadFeatures} strict>
           <AuthProvider>
-            {children}
+            <OrderDraftProvider>
+              {children}
+            </OrderDraftProvider>
           </AuthProvider>
         </LazyMotion>
       </ChakraProvider>

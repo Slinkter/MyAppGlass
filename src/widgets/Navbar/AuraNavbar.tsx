@@ -31,6 +31,11 @@ const AuraNavbar = React.memo(() => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
+  // Esconder el Navbar público en todas las rutas administrativas del dashboard
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <>
       {/* DESKTOP NAVBAR (Aura Floating Island - Visible and interactive) */}

@@ -30,10 +30,6 @@ const NAV_ITEMS: NavItem[] = [
     href: "/proyectos",
   },
   {
-    label: "Presupuesto",
-    href: "/presupuesto",
-  },
-  {
     label: "Contacto",
     href: "/contacto",
   },

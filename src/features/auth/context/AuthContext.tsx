@@ -37,31 +37,49 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        try {
-          // Obtener rol del usuario desde Firestore
-          const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-          if (userDoc.exists()) {
-            const data = userDoc.data();
-            const fetchedRole = String(data?.role || "").toLowerCase().trim();
-            setRole(fetchedRole === "admin" ? "admin" : "cliente");
-          } else if (currentUser.email && currentUser.email.toLowerCase().includes("admin")) {
-            // Fallback por convención si aún no se sincroniza Firestore
-            setRole("admin");
-          } else {
-            setRole("cliente");
+          // 1. Obtener y asegurar rol del usuario en Firestore
+          const isEmailAdmin = Boolean(
+            currentUser.email &&
+            (currentUser.email.toLowerCase().includes("admin") ||
+             currentUser.email.toLowerCase().endsWith("@gyacompany.com"))
+          );
+
+          try {
+            const userRef = doc(db, "users", currentUser.uid);
+            const userDoc = await getDoc(userRef);
+            if (userDoc.exists()) {
+              const data = userDoc.data();
+              const fetchedRole = String(data?.role || "").toLowerCase().trim();
+              setRole(fetchedRole === "admin" ? "admin" : "cliente");
+            } else {
+              const determinedRole = isEmailAdmin ? "admin" : "cliente";
+              setRole(determinedRole);
+              // Auto-aprovisionar documento en Firestore para desbloquear reglas de seguridad
+              await setDoc(userRef, {
+                uid: currentUser.uid,
+                email: currentUser.email,
+                role: determinedRole,
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp(),
+              }, { merge: true });
+            }
+          } catch (err: unknown) {
+            logger.warn("Consulta/aprovisionamiento de rol en Firestore en modo tolerante", err);
+            setRole(isEmailAdmin ? "admin" : "cliente");
           }
 
-          // Obtener perfil de cliente si existe
-          const clientDoc = await getDoc(doc(db, "clientes", currentUser.uid));
-          if (clientDoc.exists()) {
-            setProfile(clientDoc.data() as ClientProfile);
+          // 2. Obtener perfil de cliente si existe
+          try {
+            const clientDoc = await getDoc(doc(db, "clientes", currentUser.uid));
+            if (clientDoc.exists()) {
+              setProfile(clientDoc.data() as ClientProfile);
+            } else {
+              setProfile(null);
+            }
+          } catch (err: unknown) {
+            logger.warn("No se pudo obtener el perfil de cliente en Firestore", err);
+            setProfile(null);
           }
-        } catch (err) {
-          logger.error("Error fetching user profile/role", err);
-          if (currentUser.email && currentUser.email.toLowerCase().includes("admin")) {
-            setRole("admin");
-          }
-        }
       } else {
         setRole("cliente");
         setProfile(null);

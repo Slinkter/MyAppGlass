@@ -109,3 +109,47 @@ export const budgetSchema = z.object({
 });
 
 export type Budget = z.infer<typeof budgetSchema>;
+
+/**
+ * Esquema de Ítem de Orden de Salida / Venta
+ */
+export const orderItemSchema = z.object({
+  productId: z.string().min(1, "ID de producto requerido"),
+  sku: z.string().optional(),
+  name: z.string().min(1, "Nombre de producto requerido"),
+  category: z.enum(["vidrio", "aluminio", "accesorio", "servicio", "consumible"]),
+  unit: z.string().default("unidad"),
+  unitPrice: z.number().nonnegative("El precio unitario no puede ser negativo"),
+  quantity: z.number().int().positive("La cantidad debe ser un entero mayor a 0"),
+  totalPrice: z.number().nonnegative("El total no puede ser negativo"),
+});
+
+export type OrderItem = z.infer<typeof orderItemSchema>;
+
+/**
+ * Esquema Maestro de Orden de Venta / Despacho
+ */
+export const orderSchema = z.object({
+  id: z.string().optional(),
+  orderNumber: z.string().default(() => `ORD-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`),
+  adminUid: z.string().min(1, "UID de administrador requerido"),
+  adminName: z.string().min(1, "Nombre de administrador requerido"),
+  clientId: z.string().min(1, "ID de cliente requerido"),
+  clientName: z.string().min(1, "Nombre de cliente requerido"),
+  clientDniRuc: z.string().optional().default(""),
+  clientPhone: z.string().optional().default(""),
+  clientAddress: z.string().optional().default(""),
+  clientDistrict: z.string().optional().default(""),
+  items: z.array(orderItemSchema).min(1, "La orden debe tener al menos un producto"),
+  subtotal: z.number().nonnegative(),
+  igv: z.number().nonnegative(),
+  total: z.number().positive("El total debe ser mayor a 0"),
+  status: z.enum(["REGISTRADO", "DESPACHADO", "ENTREGADO", "ANULADO"]).default("DESPACHADO"),
+  paymentMethod: z.enum(["EFECTIVO", "TRANSFERENCIA_BCP", "TRANSFERENCIA_INTERBANK", "YAPE_PLIN", "TARJETA", "CREDITO"]).default("TRANSFERENCIA_BCP"),
+  notes: z.string().optional().default(""),
+  createdAt: z.any().optional(),
+  updatedAt: z.any().optional(),
+});
+
+export type Order = z.infer<typeof orderSchema>;
+
