@@ -17,9 +17,20 @@ $$\rule{\linewidth}{0.4pt}$$
 ├── § 2. Taxonomía y Grafo de Navegación del Sistema
 ├── § 3. Módulos y Especificaciones Formales
 │   ├── 3.1. Arquitectura y Gobierno del Código (Core Architecture)
+│   │   ├── 01_ARCHITECTURE.md
+│   │   ├── 02_AI_HANDOFF.md
+│   │   ├── 03_AGENTS.md
+│   │   ├── 04_PLAN_DE_TRABAJO.md
+│   │   └── 05_CHANGELOG.md
 │   ├── 3.2. Ingeniería de Frontend y Sistema de Diseño Aura (UI/UX Engine)
+│   │   └── 06_DOCS_DEVELOPMENT.md
 │   ├── 3.3. Infraestructura Backend, Seguridad y Normativa Legal (Backend & Compliance)
+│   │   ├── 07_BACKEND_IMPLEMENTATION.md
+│   │   └── 08_DOCS_SECURITY_BACKEND.md
 │   └── 3.4. Estrategia de SEO Técnico, Grafos de Conocimiento y Marketing (SEO & Discovery)
+│       ├── 09_PLAN_SEO_CONTENIDOS.md
+│       ├── 10_SEO_JERARQUIA.md
+│       └── 11_MANUAL_SEO_LOCAL.md
 ├── § 4. Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)
 ├── § 5. Guía de Operaciones y Casos de Uso Frecuentes (Standard Operating Procedures)
 └── § 6. Protocolo de Calidad, Verificación Formal y CI/CD
@@ -47,20 +58,20 @@ graph TD
     Root --> D3
     Root --> D4
 
-    D1 --> F_ARCH["ARCHITECTURE.md (FSD & Boxflow)"]:::leaf
-    D1 --> F_HANDOFF["AI_HANDOFF.md (Contratos & Clean Code)"]:::leaf
-    D1 --> F_AGENTS["AGENTS.md (10 Roles Especializados)"]:::leaf
-    D1 --> F_PLAN["PLAN_DE_TRABAJO.md (Roadmap 5 Fases)"]:::leaf
-    D1 --> F_CHLOG["CHANGELOG.md (Historial de Versiones)"]:::leaf
+    D1 --> F01["01_ARCHITECTURE.md (FSD & Boxflow)"]:::leaf
+    D1 --> F02["02_AI_HANDOFF.md (Contratos & Clean Code)"]:::leaf
+    D1 --> F03["03_AGENTS.md (10 Roles Especializados)"]:::leaf
+    D1 --> F04["04_PLAN_DE_TRABAJO.md (Roadmap 5 Fases)"]:::leaf
+    D1 --> F05["05_CHANGELOG.md (Historial de Versiones)"]:::leaf
 
-    D2 --> F_DEV["DOCS_DEVELOPMENT.md (Tokens Fibonacci & 120Hz)"]:::leaf
+    D2 --> F06["06_DOCS_DEVELOPMENT.md (Tokens Fibonacci & 120Hz)"]:::leaf
 
-    D3 --> F_BACKEND["BACKEND_IMPLEMENTATION.md (Serverless & Resend)"]:::leaf
-    D3 --> F_SEC["DOCS_SECURITY_BACKEND.md (Secret Manager & Indecopi)"]:::leaf
+    D3 --> F07["07_BACKEND_IMPLEMENTATION.md (Serverless & Resend)"]:::leaf
+    D3 --> F08["08_DOCS_SECURITY_BACKEND.md (Secret Manager & Indecopi)"]:::leaf
 
-    D4 --> F_CONT["PLAN_SEO_CONTENIDOS.md (Topic Clusters & Blog)"]:::leaf
-    D4 --> F_JERARQ["SEO_JERARQUIA.md (Taxonomía H1-H3 & Metas)"]:::leaf
-    D4 --> F_LOCAL["MANUAL_SEO_LOCAL.md (Google Maps & Search Console)"]:::leaf
+    D4 --> F09["09_PLAN_SEO_CONTENIDOS.md (Topic Clusters & Blog)"]:::leaf
+    D4 --> F10["10_SEO_JERARQUIA.md (Taxonomía H1-H3 & Metas)"]:::leaf
+    D4 --> F11["11_MANUAL_SEO_LOCAL.md (Google Maps & Search Console)"]:::leaf
 ```
 
 $$\rule{\linewidth}{0.4pt}$$
@@ -71,15 +82,15 @@ $$\rule{\linewidth}{0.4pt}$$
 
 $$\mathcal{D}_{\text{arch}} = \{\text{FSD Layers, Type Contracts, Agent Roles, Roadmap, Versioning}\}$$
 
-* **[3.1.1. `ARCHITECTURE.md`](./ARCHITECTURE.md):**  
+* **[3.1.1. `01_ARCHITECTURE.md`](./01_ARCHITECTURE.md):**  
   Define la descomposición en capas FSD: $\text{app} \to \text{screens} \to \text{widgets} \to \text{features} \to \text{shared}$. Detalla el patrón de componentes compuestos ($\text{Gallery.Root} \circ \text{Viewer} \circ \text{Thumbnails}$) y el flujo desacoplado de datos.
-* **[3.1.2. `AI_HANDOFF.md`](./AI_HANDOFF.md):**  
+* **[3.1.2. `02_AI_HANDOFF.md`](./02_AI_HANDOFF.md):**  
   Especificación de interoperabilidad y lineamientos estrictos para agentes y desarrolladores: normalización de nomenclatura comercial (*Glass & Aluminum Company S.A.C.*), ortografía técnica (*antirruido* con doble $r$), y aislamiento del backend.
-* **[3.1.3. `AGENTS.md`](./AGENTS.md):**  
+* **[3.1.3. `03_AGENTS.md`](./03_AGENTS.md):**  
   Matriz de responsabilidad de los 10 agentes seniors de ingeniería (Frontend Architect, Security Officer, QA Engineer, A11y Advocate, SEO Strategist, etc.).
-* **[3.1.4. `PLAN_DE_TRABAJO.md`](./PLAN_DE_TRABAJO.md):**  
+* **[3.1.4. `04_PLAN_DE_TRABAJO.md`](./04_PLAN_DE_TRABAJO.md):**  
   Auditoría y estado de completitud de las 5 fases estratégicas del proyecto.
-* **[3.1.5. `CHANGELOG.md`](./CHANGELOG.md):**  
+* **[3.1.5. `05_CHANGELOG.md`](./05_CHANGELOG.md):**  
   Registro histórico inmutable de despliegues, optimizaciones algorítmicas y refactorizaciones.
 
 ---
@@ -88,7 +99,7 @@ $$\mathcal{D}_{\text{arch}} = \{\text{FSD Layers, Type Contracts, Agent Roles, R
 
 $$\Phi = \frac{1 + \sqrt{5}}{2} \approx 1.6180339887\dots$$
 
-* **[3.2.1. `DOCS_DEVELOPMENT.md`](./DOCS_DEVELOPMENT.md):**  
+* **[3.2.1. `06_DOCS_DEVELOPMENT.md`](./06_DOCS_DEVELOPMENT.md):**  
   Manual de desarrollo local. Implementa el sistema de espaciado y tipografía basado en la proporción áurea ($\Phi$) y la sucesión de Fibonacci:
   $$\text{phi\_xs} = 8\text{px},\;\text{phi\_sm} = 13\text{px},\;\text{phi\_md} = 21\text{px},\;\text{phi\_lg} = 34\text{px},\;\text{phi\_xl} = 55\text{px},\;\text{phi\_2xl} = 89\text{px}$$
   Establece los requisitos de aislamiento de repintado (`contain: layout style`) y aceleración por hardware (`translateZ(0)`) para garantizar una tasa de refresco constante de $120\,\text{Hz}$ y $\Delta\text{CLS} = 0$.
@@ -99,9 +110,9 @@ $$\Phi = \frac{1 + \sqrt{5}}{2} \approx 1.6180339887\dots$$
 
 $$\mathcal{S}_{\text{backend}} = \langle \text{Cloud Functions v2},\;\text{Firestore NoSQL},\;\text{Resend SDK},\;\text{Secret Manager} \rangle$$
 
-* **[3.3.1. `BACKEND_IMPLEMENTATION.md`](./BACKEND_IMPLEMENTATION.md):**  
+* **[3.3.1. `07_BACKEND_IMPLEMENTATION.md`](./07_BACKEND_IMPLEMENTATION.md):**  
   Especificación de endpoints serverless (`submitContacto`, `submitReclamo`, `checkStatus`), transacciones atómicas y entrega de notificaciones vía Resend.
-* **[3.3.2. `DOCS_SECURITY_BACKEND.md`](./DOCS_SECURITY_BACKEND.md):**  
+* **[3.3.2. `08_DOCS_SECURITY_BACKEND.md`](./08_DOCS_SECURITY_BACKEND.md):**  
   Protocolo de seguridad en la nube (Cloud Run + Secret Manager). Cumplimiento legal de retención de registros de INDECOPI ($\ge 2\,\text{años}$, $\Delta t \le 15\,\text{días hábiles}$ de respuesta) y Ley N° 29733 de Protección de Datos Personales.
 
 ---
@@ -110,11 +121,11 @@ $$\mathcal{S}_{\text{backend}} = \langle \text{Cloud Functions v2},\;\text{Fires
 
 $$\mathcal{K}_{\text{SEO}} = \langle \text{Schema.org JSON-LD},\;\text{Topic Clusters},\;\text{Local 3-Pack},\;\text{Silo Architecture} \rangle$$
 
-* **[3.4.1. `PLAN_SEO_CONTENIDOS.md`](./PLAN_SEO_CONTENIDOS.md):**  
+* **[3.4.1. `09_PLAN_SEO_CONTENIDOS.md`](./09_PLAN_SEO_CONTENIDOS.md):**  
   Arquitectura Silo y Topic Clusters de autoridad técnica (Ventanas Antirruido, Mamparas de Vidrio Templado vs Laminado, Techos de Policarbonato).
-* **[3.4.2. `SEO_JERARQUIA.md`](./SEO_JERARQUIA.md):**  
+* **[3.4.2. `10_SEO_JERARQUIA.md`](./10_SEO_JERARQUIA.md):**  
   Diccionario formal de etiquetas semánticas: $\langle\text{title}\rangle$, $\langle\text{meta name="description"}\rangle$, encabezados $\text{H}_1 \to \text{H}_2 \to \text{H}_3$ por ruta estática.
-* **[3.4.3. `MANUAL_SEO_LOCAL.md`](./MANUAL_SEO_LOCAL.md):**  
+* **[3.4.3. `11_MANUAL_SEO_LOCAL.md`](./11_MANUAL_SEO_LOCAL.md):**  
   Manual de operaciones para dominancia local en La Molina, Lima (Google Business Profile, Google Search Console, Canonical 301, Citas NAP).
 
 $$\rule{\linewidth}{0.4pt}$$
@@ -140,11 +151,11 @@ $$\begin{array}{|l|l|l|}
 \hline
 \textbf{Objetivo Operativo} & \textbf{Documento de Referencia} & \textbf{Ruta / Procedimiento} \\
 \hline
-\text{Inicializar entorno local y dependencias} & \text{\texttt{DOCS\_DEVELOPMENT.md}} & \texttt{pnpm install \&\& pnpm run dev} \\
-\text{Agregar o editar artículo del Blog} & \text{\texttt{PLAN\_SEO\_CONTENIDOS.md}} & \texttt{src/features/blog/data/blog-posts.ts} \\
-\text{Modificar reglas de diseño y espaciado} & \text{\texttt{DOCS\_DEVELOPMENT.md}} & \text{Tokens Phi en } \texttt{src/theme/} \\
-\text{Auditar flujo legal del Libro de Reclamaciones} & \text{\texttt{BACKEND\_IMPLEMENTATION.md}} & \text{Colección Firestore } \texttt{libro\_de\_reclamaciones} \\
-\text{Configuración de SEO Local (Google Maps)} & \text{\texttt{MANUAL\_SEO\_LOCAL.md}} & \text{Google Business Profile (La Molina, Lima)} \\
+\text{Inicializar entorno local y dependencias} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \texttt{pnpm install \&\& pnpm run dev} \\
+\text{Agregar o editar artículo del Blog} & \text{\texttt{09\_PLAN\_SEO\_CONTENIDOS.md}} & \texttt{src/features/blog/data/blog-posts.ts} \\
+\text{Modificar reglas de diseño y espaciado} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \text{Tokens Phi en } \texttt{src/theme/} \\
+\text{Auditar flujo legal del Libro de Reclamaciones} & \text{\texttt{07\_BACKEND\_IMPLEMENTATION.md}} & \text{Colección Firestore } \texttt{libro\_de\_reclamaciones} \\
+\text{Configuración de SEO Local (Google Maps)} & \text{\texttt{11\_MANUAL\_SEO\_LOCAL.md}} & \text{Google Business Profile (La Molina, Lima)} \\
 \hline
 \end{array}$$
 

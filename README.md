@@ -48,8 +48,8 @@ Para consultar la arquitectura, guías de desarrollo, seguridad backend y manual
 - 📚 **[Centro de Documentación Técnica (docs/README.md)](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/README.md)**
 
 ### Accesos Rápidos
-- **Arquitectura:** [`docs/ARCHITECTURE.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/ARCHITECTURE.md)
-- **Protocolo de IA & FSD:** [`docs/AI_HANDOFF.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/AI_HANDOFF.md)
-- **Guía de Desarrollo Local:** [`docs/DOCS_DEVELOPMENT.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/DOCS_DEVELOPMENT.md)
-- **Seguridad Backend:** [`docs/DOCS_SECURITY_BACKEND.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/DOCS_SECURITY_BACKEND.md)
-- **Manual SEO Local:** [`docs/MANUAL_SEO_LOCAL.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/MANUAL_SEO_LOCAL.md)
+- **01. Arquitectura:** [`docs/01_ARCHITECTURE.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/01_ARCHITECTURE.md)
+- **02. Protocolo de IA & FSD:** [`docs/02_AI_HANDOFF.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/02_AI_HANDOFF.md)
+- **06. Guía de Desarrollo Local:** [`docs/06_DOCS_DEVELOPMENT.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/06_DOCS_DEVELOPMENT.md)
+- **08. Seguridad Backend:** [`docs/08_DOCS_SECURITY_BACKEND.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/08_DOCS_SECURITY_BACKEND.md)
+- **11. Manual SEO Local:** [`docs/11_MANUAL_SEO_LOCAL.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/11_MANUAL_SEO_LOCAL.md)
