@@ -26,6 +26,7 @@ import {
   RefreshCw,
   Eye,
   Bot,
+  Layers,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -34,14 +35,19 @@ export const SimuladorAIScreen: React.FC = () => {
     AI_SIMULATOR_PRODUCTS[0]
   );
   const [userImage, setUserImage] = useState<string | null>(null);
-  const [simulatedResult, setSimulatedResult] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [simulatedReady, setSimulatedReady] = useState<boolean>(false);
+
+  // Parámetros interactivos del objeto superpuesto sobre la foto del cliente
+  const [overlayPos, setOverlayPos] = useState({ x: 50, y: 50 }); // porcentajes
+  const [overlayScale, setOverlayScale] = useState(65); // porcentaje
+  const [overlayOpacity] = useState(90);
 
   // Estado del chat con la IA Asesora
   const [chatMessages, setChatMessages] = useState<Array<{ sender: "ai" | "user"; text: string }>>([
     {
       sender: "ai",
-      text: "¡Hola! Soy tu Asesor Virtual de Glass & Aluminum Company. Sube una foto de tu sala, terraza o baño, selecciona una de nuestras mamparas o ventanas y te mostraré cómo quedará instalada.",
+      text: "¡Hola! Soy tu Asesor Virtual de Glass & Aluminum Company. Sube una foto de tu sala o balcón, selecciona una de nuestras mamparas o ventanas y la colocaremos en tu propio espacio.",
     },
   ]);
   const [chatInput, setChatInput] = useState("");
@@ -52,10 +58,10 @@ export const SimuladorAIScreen: React.FC = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setUserImage(reader.result as string);
-        setSimulatedResult(null);
+        setSimulatedReady(false);
         toaster.create({
-          title: "Foto cargada correctamente",
-          description: "Ahora haz clic en 'Generar Simulación con IA' para fusionar el diseño.",
+          title: "Foto de tu espacio cargada",
+          description: "Ahora haz clic en 'Generar Simulación con IA' para fusionar el producto sobre tu pared.",
           type: "success",
         });
       };
@@ -67,21 +73,19 @@ export const SimuladorAIScreen: React.FC = () => {
     if (!userImage) {
       toaster.create({
         title: "Sube una foto de tu espacio",
-        description: "Por favor carga una foto de tu sala o pared para aplicar la IA.",
+        description: "Por favor carga una foto de tu sala o pared para fusionar el producto.",
         type: "warning",
       });
       return;
     }
 
     setIsGenerating(true);
-    // Simulación del motor generativo con inpainting
     setTimeout(() => {
       setIsGenerating(false);
-      // Usamos la imagen del producto como resultado compuesto realista
-      setSimulatedResult(selectedProduct.previewImage);
+      setSimulatedReady(true);
       toaster.create({
         title: "¡Simulación Completada con Éxito!",
-        description: `Se ha integrado "${selectedProduct.name}" con la iluminación de tu espacio.`,
+        description: `Se ha insertado "${selectedProduct.name}" sobre tu espacio real. Puedes ajustar su posición y tamaño.`,
         type: "success",
       });
 
@@ -89,10 +93,10 @@ export const SimuladorAIScreen: React.FC = () => {
         ...prev,
         {
           sender: "ai",
-          text: `He colocado la ${selectedProduct.name} en tu espacio. Observa cómo el cristal templado refleja la luz natural manteniendo la máxima amplitud visual. ¿Te gustaría calcular el presupuesto exacto o cambiar el color del aluminio?`,
+          text: `¡Listo! Hemos renderizado ${selectedProduct.name} sobre tu foto. Puedes moverla y redimensionarla con los controles interactivos para ver cómo encaja en tu vano de obra.`,
         },
       ]);
-    }, 2400);
+    }, 1800);
   };
 
   const handleSendChat = (e: React.FormEvent) => {
@@ -103,13 +107,12 @@ export const SimuladorAIScreen: React.FC = () => {
     setChatMessages((prev) => [...prev, { sender: "user", text: userText }]);
     setChatInput("");
 
-    // Respuesta inteligente del asistente técnico de GYA
     setTimeout(() => {
-      let reply = "Para ese tipo de espacio, te recomendamos cristal templado de 8mm o 10mm para garantizar la máxima seguridad y hermeticidad. Podemos enviarte un técnico para rectificar medidas exactas.";
+      let reply = "Para este espacio te recomendamos cristal templado de 8mm o 10mm para garantizar la máxima seguridad e iluminación.";
       if (userText.toLowerCase().includes("precio") || userText.toLowerCase().includes("costo") || userText.toLowerCase().includes("cotizar")) {
-        reply = `Puedes cotizar este sistema de inmediato en nuestro cotizador formal con hoja membretada en la sección Presupuesto, o escribirnos por WhatsApp al 974 278 303.`;
+        reply = `Puedes cotizar este sistema de inmediato en la sección Presupuesto con hoja membretada PDF o escribirnos al WhatsApp oficial 974 278 303.`;
       } else if (userText.toLowerCase().includes("color") || userText.toLowerCase().includes("aluminio")) {
-        reply = `Trabajamos con aluminio en acabados: Negro Mate Anodizado, Aluminio Mate Natural, Blanco Esmaltado y Champagne Titanio.`;
+        reply = `Disponemos de aluminio en Negro Mate Anodizado, Natural Mate, Blanco Esmaltado y Champagne Titanio.`;
       }
 
       setChatMessages((prev) => [...prev, { sender: "ai", text: reply }]);
@@ -125,14 +128,14 @@ export const SimuladorAIScreen: React.FC = () => {
             <Sparkles size={14} style={{ marginRight: 4 }} /> Generador de Espacios con IA (Inpainting)
           </Badge>
           <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full">
-            Fotorealismo 4K
+            Composición Interactiva
           </Badge>
         </HStack>
         <Heading size="2xl" color="brand.primary">
           Simulador Visual con Inteligencia Artificial
         </Heading>
         <Text color="text.muted" maxW="800px">
-          Sube una foto de tu living, balcón o terraza, selecciona un producto de nuestro catálogo y la Inteligencia Artificial creará una foto fotorrealista mostrando exactamente cómo quedará instalado antes de fabricarlo.
+          Sube la foto de tu sala, balcón o pared, selecciona una mampara o ventana de nuestro catálogo y la IA la proyectará directamente sobre tu foto real.
         </Text>
       </VStack>
 
@@ -150,7 +153,7 @@ export const SimuladorAIScreen: React.FC = () => {
               backdropFilter="blur(16px)"
             >
               <Heading size="md" mb="4" display="flex" alignItems="center" gap="2">
-                <CheckCircle2 size={20} color="#38bdf8" /> 1. Selecciona el Producto a Visualizar
+                <CheckCircle2 size={20} color="#38bdf8" /> 1. Selecciona el Producto a Proyectar
               </Heading>
 
               <SimpleGrid columns={{ base: 1, sm: 2 }} gap="3">
@@ -165,7 +168,9 @@ export const SimuladorAIScreen: React.FC = () => {
                       borderColor={isSelected ? "blue.400" : "whiteAlpha.100"}
                       bg={isSelected ? "blue.500/10" : "surface.card"}
                       cursor="pointer"
-                      onClick={() => setSelectedProduct(prod)}
+                      onClick={() => {
+                        setSelectedProduct(prod);
+                      }}
                       transition="all 0.2s ease"
                       _hover={{ borderColor: "blue.300", transform: "translateY(-2px)" }}
                     >
@@ -191,7 +196,7 @@ export const SimuladorAIScreen: React.FC = () => {
               backdropFilter="blur(16px)"
             >
               <Heading size="md" mb="4" display="flex" alignItems="center" gap="2">
-                <UploadCloud size={20} color="#38bdf8" /> 2. Sube la Foto de tu Sala o Terraza
+                <UploadCloud size={20} color="#38bdf8" /> 2. Sube la Foto de tu Espacio Real
               </Heading>
 
               {!userImage ? (
@@ -222,33 +227,127 @@ export const SimuladorAIScreen: React.FC = () => {
                     <ImageIcon size={32} />
                   </Box>
                   <Text fontWeight="bold" fontSize="md">
-                    Haz clic o arrastra aquí la foto de tu espacio
+                    Haz clic aquí o arrastra la foto de tu sala/pared
                   </Text>
                   <Text fontSize="xs" color="text.muted" mt="1">
-                    Formatos soportados: JPG, PNG, WEBP (Tomada desde tu celular o cámara)
+                    Formatos soportados: JPG, PNG, WEBP (Directo desde tu celular o galería)
                   </Text>
                 </Box>
               ) : (
-                <Box position="relative" borderRadius="xl" overflow="hidden" border="1px solid" borderColor="whiteAlpha.200">
-                  <img
-                    src={userImage}
-                    alt="Espacio del cliente"
-                    style={{ width: "100%", height: "240px", objectFit: "cover" }}
-                  />
-                  <HStack position="absolute" bottom="3" right="3" gap="2">
-                    <Button
-                      size="sm"
-                      variant="subtle"
-                      colorPalette="gray"
-                      onClick={() => {
-                        setUserImage(null);
-                        setSimulatedResult(null);
-                      }}
-                    >
-                      <RefreshCw size={14} /> Cambiar Foto
-                    </Button>
-                  </HStack>
-                </Box>
+                <VStack align="stretch" gap="3">
+                  {/* CANVAS COMPUESTO: FOTO DEL CLIENTE + PRODUCTO FUSIONADO */}
+                  <Box
+                    position="relative"
+                    borderRadius="xl"
+                    overflow="hidden"
+                    border="2px solid"
+                    borderColor={simulatedReady ? "purple.400" : "whiteAlpha.200"}
+                    h="360px"
+                    bg="#0f172a"
+                  >
+                    {/* 1. Fondo: Foto real del cliente */}
+                    <img
+                      src={userImage}
+                      alt="Tu espacio real"
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+
+                    {/* 2. Capa IA: Producto renderizado superpuesto sobre la foto */}
+                    {simulatedReady && (
+                      <Box
+                        position="absolute"
+                        top={`${overlayPos.y}%`}
+                        left={`${overlayPos.x}%`}
+                        transform="translate(-50%, -50%)"
+                        w={`${overlayScale}%`}
+                        pointerEvents="none"
+                        transition="all 0.1s ease"
+                        style={{ opacity: overlayOpacity / 100 }}
+                      >
+                        <img
+                          src={selectedProduct.previewImage}
+                          alt={selectedProduct.name}
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            borderRadius: "8px",
+                            boxShadow: "0 20px 40px rgba(0,0,0,0.6)",
+                            border: "1px solid rgba(255,255,255,0.3)",
+                            filter: "drop-shadow(0px 10px 15px rgba(0,0,0,0.5))",
+                          }}
+                        />
+                        <Badge
+                          position="absolute"
+                          top="-10px"
+                          right="-10px"
+                          colorPalette="purple"
+                          size="xs"
+                        >
+                          {selectedProduct.name}
+                        </Badge>
+                      </Box>
+                    )}
+
+                    {/* Botón flotante para cambiar foto */}
+                    <HStack position="absolute" top="3" right="3" gap="2">
+                      <Button
+                        size="xs"
+                        variant="subtle"
+                        colorPalette="gray"
+                        onClick={() => {
+                          setUserImage(null);
+                          setSimulatedReady(false);
+                        }}
+                      >
+                        <RefreshCw size={12} style={{ marginRight: 4 }} /> Cambiar Foto
+                      </Button>
+                    </HStack>
+                  </Box>
+
+                  {/* CONTROLES DE AJUSTE SI LA SIMULACIÓN ESTÁ LISTA */}
+                  {simulatedReady && (
+                    <Box bg="surface.card" p="4" borderRadius="xl" border="1px solid" borderColor="whiteAlpha.100">
+                      <Text fontSize="xs" fontWeight="bold" color="purple.300" mb="3" display="flex" alignItems="center" gap="1">
+                        <Layers size={14} /> Controles de Calibración sobre tu Foto:
+                      </Text>
+                      <SimpleGrid columns={{ base: 1, sm: 3 }} gap="4" fontSize="xs">
+                        <Box>
+                          <Text color="text.muted" mb="1">Tamaño: {overlayScale}%</Text>
+                          <input
+                            type="range"
+                            min="30"
+                            max="100"
+                            value={overlayScale}
+                            onChange={(e) => setOverlayScale(Number(e.target.value))}
+                            style={{ width: "100%" }}
+                          />
+                        </Box>
+                        <Box>
+                          <Text color="text.muted" mb="1">Posición Horizontal: {overlayPos.x}%</Text>
+                          <input
+                            type="range"
+                            min="20"
+                            max="80"
+                            value={overlayPos.x}
+                            onChange={(e) => setOverlayPos({ ...overlayPos, x: Number(e.target.value) })}
+                            style={{ width: "100%" }}
+                          />
+                        </Box>
+                        <Box>
+                          <Text color="text.muted" mb="1">Posición Vertical: {overlayPos.y}%</Text>
+                          <input
+                            type="range"
+                            min="20"
+                            max="80"
+                            value={overlayPos.y}
+                            onChange={(e) => setOverlayPos({ ...overlayPos, y: Number(e.target.value) })}
+                            style={{ width: "100%" }}
+                          />
+                        </Box>
+                      </SimpleGrid>
+                    </Box>
+                  )}
+                </VStack>
               )}
 
               <Button
@@ -266,8 +365,8 @@ export const SimuladorAIScreen: React.FC = () => {
               </Button>
             </Box>
 
-            {/* 3. RESULTADO GENERADO */}
-            {simulatedResult && (
+            {/* BOTÓN COTIZAR TRAS LA SIMULACIÓN */}
+            {simulatedReady && (
               <Box
                 bg="surface.card"
                 p="6"
@@ -278,26 +377,18 @@ export const SimuladorAIScreen: React.FC = () => {
               >
                 <HStack justify="space-between" mb="3">
                   <Heading size="md" color="purple.300" display="flex" alignItems="center" gap="2">
-                    <Eye size={20} /> Resultado Compuesto por IA
+                    <Eye size={20} /> Simulación Compuesta Lista
                   </Heading>
-                  <Badge colorPalette="green">Fotorrealista 100%</Badge>
+                  <Badge colorPalette="green">Listo para Cotizar</Badge>
                 </HStack>
-
-                <Box borderRadius="xl" overflow="hidden" mb="4" border="1px solid" borderColor="whiteAlpha.200">
-                  <img
-                    src={simulatedResult}
-                    alt="Simulación IA"
-                    style={{ width: "100%", maxHeight: "360px", objectFit: "cover" }}
-                  />
-                </Box>
-
-                <HStack gap="4">
-                  <Button asChild colorPalette="blue" flex="1" size="lg">
-                    <Link href="/presupuesto">
-                      Cotizar este Sistema Exacto <ArrowRight size={18} />
-                    </Link>
-                  </Button>
-                </HStack>
+                <Text fontSize="sm" color="text.muted" mb="4">
+                  ¿Te gusta cómo encaja {selectedProduct.name} en tu habitación? Puedes generar la cotización oficial ahora mismo.
+                </Text>
+                <Button asChild colorPalette="blue" w="full" size="lg">
+                  <Link href="/presupuesto">
+                    Cotizar este Sistema Exacto en PDF <ArrowRight size={18} />
+                  </Link>
+                </Button>
               </Box>
             )}
           </VStack>
