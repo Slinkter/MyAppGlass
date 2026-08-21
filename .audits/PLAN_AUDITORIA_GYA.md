@@ -38,7 +38,7 @@ Auditoría integral del Portal GYA utilizando las skills instaladas en `.agents/
 | 1 | UI/UX y diseño | A — UI/UX Auditor | 🟡 En curso | — |
 | 2 | Performance | B — Performance Engineer | 🟡 En curso | — |
 | 3 | Calidad y testing | C — QA Engineer | 🟡 En curso | — |
-| 4 | Backend & DevOps | D — Backend Auditor | 🟡 En curso | — |
+| 4 | Backend & DevOps | D — Backend Auditor | ✅ Completa | 2026-08-20 |
 | 5 | Documentación | E — Tech Writer | ⬜ Pendiente | — |
 
 **Leyenda:** ⬜ Pendiente · 🟡 En curso · ✅ Completa · 🔴 Bloqueada
@@ -162,21 +162,21 @@ Fase 0 (secuencial)
 
 ---
 
-### **FASE 4 · Backend & DevOps** ⬜ Pendiente — **Agente D**
+### **FASE 4 · Backend & DevOps** ✅ Completa — **Agente D**
 
 > **Objetivo:** Auditoría de backend Firebase y pipeline de deploy (modo **solo lectura**).
 
 **Skills activas:** `vercel-optimize`, `vercel-cli-with-tokens`, `deploy-to-vercel`
 
-- [ ] `functions/` (Node 20+, Functions v2): revisión de handlers (`onCall`, `onRequest`), secretos vía Secret Manager
-- [ ] Manejo de errores en Functions: try/catch, logging, retries, timeouts, cold starts
-- [ ] **Firestore rules (`firestore.rules`):** principios de least privilege; validación de tipos; reglas por colección
-- [ ] **Storage rules (`storage.rules`):** paths permitidos, validaciones de tamaño/tipo MIME
-- [ ] **Resend** (transaccional HTML): anti-spam headers, plantillas, rebote/bounce handling
-- [ ] **`firebase.json`:** rewrites, headers de seguridad (CSP, HSTS, X-Frame-Options), cache policies
-- [ ] **Pipeline de deploy:** `deploy:hosting` y `deploy:functions`; secretos en CI; rollback plan
-- [ ] **Costos (Firebase + Vercel):** cuotas, alertas, proyecciones de billing
-- [ ] **Entregable:** `.audits/fase-4-backend/findings.md` con hallazgos de seguridad y costo.
+- [x] `functions/` (Node 20+, Functions v2): revisión de handlers (`onCall`, `onRequest`), secretos vía Secret Manager
+- [x] Manejo de errores en Functions: try/catch, logging, retries, timeouts, cold starts
+- [x] **Firestore rules (`firestore.rules`):** principios de least privilege; validación de tipos; reglas por colección
+- [x] **Storage rules (`storage.rules`):** paths permitidos, validaciones de tamaño/tipo MIME
+- [x] **Resend** (transaccional HTML): anti-spam headers, plantillas, rebote/bounce handling
+- [x] **`firebase.json`:** rewrites, headers de seguridad (CSP, HSTS, X-Frame-Options), cache policies
+- [x] **Pipeline de deploy:** `deploy:hosting` y `deploy:functions`; secretos en CI; rollback plan
+- [x] **Costos (Firebase + Vercel):** cuotas, alertas, proyecciones de billing
+- [x] **Entregable:** `.audits/fase-4-backend/findings.md` con hallazgos de seguridad y costo.
 
 ---
 
@@ -252,6 +252,7 @@ Actualizar también la tabla de **Estado global de fases** y la columna **Fecha 
 |---|---|---|
 | 2026-08-20 | Humano + Claude | Plan inicial aprobado y materializado |
 | 2026-08-20 | Claude (setup) | Plantillas de findings Fases 1–4 completadas, INFORME_FINAL placeholder, baseline README + inventario FSD, regla global #6 (1 commit por fase) añadida, .gitignore configurado |
+| 2026-08-20 | Agente D (Backend) | Auditoría Fase 4 finalizada: 16 hallazgos (🔴 4, 🟡 6, 🟢 6), reporte en .audits/fase-4-backend/findings.md |
 
 ---
 
