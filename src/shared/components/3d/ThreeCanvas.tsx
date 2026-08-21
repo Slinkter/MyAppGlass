@@ -12,7 +12,7 @@ interface ThreeCanvasProps {
 export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
   systemType,
   width = "100%",
-  height = "340px",
+  height = "360px",
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
 
@@ -25,96 +25,180 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     scene.background = null;
 
     const widthPx = currentMount.clientWidth || 400;
-    const heightPx = currentMount.clientHeight || 340;
+    const heightPx = currentMount.clientHeight || 360;
 
     const camera = new THREE.PerspectiveCamera(45, widthPx / heightPx, 0.1, 100);
-    camera.position.set(0, 0.5, 3.8);
+    camera.position.set(0, 0, 3.4);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(widthPx, heightPx);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     currentMount.appendChild(renderer.domElement);
 
-    // 2. Iluminación realista PBR
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+    // 2. Luces realistas
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0x38bdf8, 1.4);
-    dirLight1.position.set(3, 4, 3);
+    const dirLight1 = new THREE.DirectionalLight(0x38bdf8, 2.0);
+    dirLight1.position.set(4, 5, 4);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.8);
-    dirLight2.position.set(-3, -2, -2);
+    const dirLight2 = new THREE.DirectionalLight(0xffffff, 1.0);
+    dirLight2.position.set(-4, -3, -3);
     scene.add(dirLight2);
 
-    // 3. Crear geometría 3D arquitectónica procedural
     const group = new THREE.Group();
 
-    // Materiales PBR
-    const frameMaterial = new THREE.MeshStandardMaterial({
-      color: 0x1e293b,
-      metalness: 0.9,
-      roughness: 0.25,
+    // Materiales arquitectónicos
+    const frameMat = new THREE.MeshStandardMaterial({
+      color: 0x1e293b, // Aluminio negro mate
+      metalness: 0.85,
+      roughness: 0.3,
     });
 
-    const glassMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x38bdf8,
-      transmission: 0.92,
-      opacity: 0.85,
+    const innerSashMat = new THREE.MeshStandardMaterial({
+      color: 0x334155, // Perfil de hoja corrediza
+      metalness: 0.8,
+      roughness: 0.35,
+    });
+
+    const lockMat = new THREE.MeshStandardMaterial({
+      color: 0xd4d4d8, // Tirador / Cierre de aluminio satinado
+      metalness: 0.95,
+      roughness: 0.15,
+    });
+
+    const glassMat = new THREE.MeshPhysicalMaterial({
+      color: 0x60a5fa,
+      transmission: 0.85,
+      opacity: 0.6,
       transparent: true,
       roughness: 0.05,
-      ior: 1.5,
+      ior: 1.52,
     });
 
+    // Función auxiliar para crear perfiles huecos de marco
+    const createFrame = (w: number, h: number, border: number, depth: number, mat: THREE.Material) => {
+      const frameGroup = new THREE.Group();
+      // Superior
+      const topGeo = new THREE.BoxGeometry(w, border, depth);
+      const topMesh = new THREE.Mesh(topGeo, mat);
+      topMesh.position.set(0, h / 2 - border / 2, 0);
+      frameGroup.add(topMesh);
+
+      // Inferior (Riel)
+      const botGeo = new THREE.BoxGeometry(w, border, depth);
+      const botMesh = new THREE.Mesh(botGeo, mat);
+      botMesh.position.set(0, -h / 2 + border / 2, 0);
+      frameGroup.add(botMesh);
+
+      // Izquierda
+      const leftGeo = new THREE.BoxGeometry(border, h - 2 * border, depth);
+      const leftMesh = new THREE.Mesh(leftGeo, mat);
+      leftMesh.position.set(-w / 2 + border / 2, 0, 0);
+      frameGroup.add(leftMesh);
+
+      // Derecha
+      const rightGeo = new THREE.BoxGeometry(border, h - 2 * border, depth);
+      const rightMesh = new THREE.Mesh(rightGeo, mat);
+      rightMesh.position.set(w / 2 - border / 2, 0, 0);
+      frameGroup.add(rightMesh);
+
+      return frameGroup;
+    };
+
     if (systemType === "ventana") {
-      // Marco exterior
-      const frameGeo = new THREE.BoxGeometry(2.0, 1.4, 0.1);
-      const frameMesh = new THREE.Mesh(frameGeo, frameMaterial);
-      group.add(frameMesh);
+      // 🪟 VENTANA NOVA REALISTA (Marco perimétrico + 2 hojas corredizas + cristales + cerrojos)
+      const outerFrame = createFrame(2.0, 1.4, 0.08, 0.12, frameMat);
+      group.add(outerFrame);
 
+      // Hoja Izquierda (Corrediza)
+      const sashW = 0.98;
+      const sashH = 1.24;
+      const sash1 = createFrame(sashW, sashH, 0.05, 0.04, innerSashMat);
+      sash1.position.set(-0.48, 0, 0.025);
       // Cristal izquierdo
-      const glassGeo1 = new THREE.BoxGeometry(0.9, 1.25, 0.02);
-      const glassMesh1 = new THREE.Mesh(glassGeo1, glassMaterial);
-      glassMesh1.position.set(-0.45, 0, 0.02);
-      group.add(glassMesh1);
+      const g1Geo = new THREE.BoxGeometry(sashW - 0.08, sashH - 0.08, 0.012);
+      const g1Mesh = new THREE.Mesh(g1Geo, glassMat);
+      sash1.add(g1Mesh);
+      // Cierre / Tirador caracol
+      const lock1 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.12, 0.03), lockMat);
+      lock1.position.set(sashW / 2 - 0.03, 0, 0.025);
+      sash1.add(lock1);
+      group.add(sash1);
 
+      // Hoja Derecha (Fija / Corrediza interior)
+      const sash2 = createFrame(sashW, sashH, 0.05, 0.04, innerSashMat);
+      sash2.position.set(0.48, 0, -0.025);
       // Cristal derecho
-      const glassGeo2 = new THREE.BoxGeometry(0.9, 1.25, 0.02);
-      const glassMesh2 = new THREE.Mesh(glassGeo2, glassMaterial);
-      glassMesh2.position.set(0.45, 0, -0.02);
-      group.add(glassMesh2);
+      const g2Geo = new THREE.BoxGeometry(sashW - 0.08, sashH - 0.08, 0.012);
+      const g2Mesh = new THREE.Mesh(g2Geo, glassMat);
+      sash2.add(g2Mesh);
+      // Cierre
+      const lock2 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.12, 0.03), lockMat);
+      lock2.position.set(-sashW / 2 + 0.03, 0, 0.025);
+      sash2.add(lock2);
+      group.add(sash2);
+
     } else if (systemType === "mampara") {
-      // Mampara gran formato
-      const frameGeo = new THREE.BoxGeometry(2.2, 2.2, 0.1);
-      const frameMesh = new THREE.Mesh(frameGeo, frameMaterial);
-      group.add(frameMesh);
+      // 🚪 MAMPARA SERIE 25 (Piso a techo)
+      const outerFrame = createFrame(2.2, 2.3, 0.09, 0.14, frameMat);
+      group.add(outerFrame);
 
-      const glassGeo1 = new THREE.BoxGeometry(1.0, 2.05, 0.02);
-      const glassMesh1 = new THREE.Mesh(glassGeo1, glassMaterial);
-      glassMesh1.position.set(-0.5, 0, 0.02);
-      group.add(glassMesh1);
+      const sashW = 1.08;
+      const sashH = 2.12;
 
-      const glassGeo2 = new THREE.BoxGeometry(1.0, 2.05, 0.02);
-      const glassMesh2 = new THREE.Mesh(glassGeo2, glassMaterial);
-      glassMesh2.position.set(0.5, 0, -0.02);
-      group.add(glassMesh2);
+      // Hoja 1
+      const sash1 = createFrame(sashW, sashH, 0.06, 0.05, innerSashMat);
+      sash1.position.set(-0.52, 0, 0.03);
+      const g1Mesh = new THREE.Mesh(new THREE.BoxGeometry(sashW - 0.1, sashH - 0.1, 0.015), glassMat);
+      sash1.add(g1Mesh);
+      const handle1 = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.4), lockMat);
+      handle1.position.set(sashW / 2 - 0.04, 0, 0.035);
+      sash1.add(handle1);
+      group.add(sash1);
+
+      // Hoja 2
+      const sash2 = createFrame(sashW, sashH, 0.06, 0.05, innerSashMat);
+      sash2.position.set(0.52, 0, -0.03);
+      const g2Mesh = new THREE.Mesh(new THREE.BoxGeometry(sashW - 0.1, sashH - 0.1, 0.015), glassMat);
+      sash2.add(g2Mesh);
+      const handle2 = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.4), lockMat);
+      handle2.position.set(-sashW / 2 + 0.04, 0, 0.035);
+      sash2.add(handle2);
+      group.add(sash2);
+
     } else if (systemType === "ducha") {
-      // Box de Ducha Cristal + Inox
-      const glassGeo = new THREE.BoxGeometry(1.0, 2.0, 0.02);
-      const glassMesh = new THREE.Mesh(glassGeo, glassMaterial);
+      // 🚿 BOX DE DUCHA VIDRIO TEMPLADO & ACERO INOXIDABLE
+      const glassW = 1.1;
+      const glassH = 2.0;
+      const glassMesh = new THREE.Mesh(new THREE.BoxGeometry(glassW, glassH, 0.02), glassMat);
       group.add(glassMesh);
 
-      const handleGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.4);
-      const inoxMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.95, roughness: 0.1 });
-      const handleMesh = new THREE.Mesh(handleGeo, inoxMat);
-      handleMesh.position.set(0.35, 0, 0.04);
-      group.add(handleMesh);
+      // Tubo superior de acero inox
+      const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.4), lockMat);
+      bar.rotation.z = Math.PI / 2;
+      bar.position.set(0, glassH / 2 + 0.05, 0);
+      group.add(bar);
+
+      // Tirador tipo toallero de acero inox
+      const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.5), lockMat);
+      handle.position.set(glassW / 2 - 0.15, 0, 0.04);
+      group.add(handle);
     } else {
-      // Techo
-      const roofGeo = new THREE.BoxGeometry(2.4, 0.04, 2.4);
-      const roofMesh = new THREE.Mesh(roofGeo, glassMaterial);
-      roofMesh.rotation.x = 0.3;
+      // ☀️ TECHO DE POLICARBONATO / COBERTURA
+      const roofMesh = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.05, 2.4), glassMat);
+      roofMesh.rotation.x = 0.35;
       group.add(roofMesh);
+
+      // Vigas de soporte
+      const beamGeo = new THREE.BoxGeometry(0.06, 0.1, 2.6);
+      for (let x = -1.0; x <= 1.0; x += 0.5) {
+        const beam = new THREE.Mesh(beamGeo, frameMat);
+        beam.position.set(x, 0, 0);
+        beam.rotation.x = 0.35;
+        group.add(beam);
+      }
     }
 
     scene.add(group);
@@ -148,7 +232,34 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
 
-    // ResizeObserver para ajuste responsivo según Three.js Best Practices
+    // Soporte táctil en celulares
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      const deltaX = e.touches[0].clientX - previousMousePosition.x;
+      const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+      group.rotation.y += deltaX * 0.01;
+      group.rotation.x += deltaY * 0.01;
+
+      previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    };
+
+    const onTouchEnd = () => {
+      isDragging = false;
+    };
+
+    dom.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onTouchEnd);
+
+    // ResizeObserver para ajuste responsivo (three-best-practices)
     const resizeObserver = new ResizeObserver(() => {
       if (!currentMount) return;
       const newWidth = currentMount.clientWidth;
@@ -160,7 +271,7 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     });
     resizeObserver.observe(currentMount);
 
-    // 5. Loop de animación con rotación suave continua
+    // Loop de animación con rotación suave
     let animationFrameId: number;
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
@@ -177,8 +288,11 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
       dom.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
-      
-      // Memory Management & Dispose (Category 1 de Three.js Best Practices)
+      dom.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+
+      // Memory Management (Category 1 three-best-practices)
       group.traverse((obj) => {
         if (obj instanceof THREE.Mesh) {
           obj.geometry?.dispose();
@@ -189,8 +303,10 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
           }
         }
       });
-      frameMaterial.dispose();
-      glassMaterial.dispose();
+      frameMat.dispose();
+      innerSashMat.dispose();
+      lockMat.dispose();
+      glassMat.dispose();
 
       if (currentMount.contains(renderer.domElement)) {
         currentMount.removeChild(renderer.domElement);
