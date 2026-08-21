@@ -254,6 +254,7 @@ Actualizar también la tabla de **Estado global de fases** y la columna **Fecha 
 | 2026-08-20 | Claude (setup) | Plantillas de findings Fases 1–4 completadas, INFORME_FINAL placeholder, baseline README + inventario FSD, regla global #6 (1 commit por fase) añadida, .gitignore configurado |
 | 2026-08-20 | Agente A (UI/UX) | Auditoría Fase 1 finalizada: 23 hallazgos (🔴 5, 🟡 10, 🟢 8), reporte exhaustivo en .audits/fase-1-ui-ux/findings.md |
 | 2026-08-20 | Agente D (Backend) | Auditoría Fase 4 finalizada: 16 hallazgos (🔴 4, 🟡 6, 🟢 6), reporte en .audits/fase-4-backend/findings.md |
+| 2026-08-20 | Agente C (QA & A11y) | Auditoría Fase 3 finalizada: 15 hallazgos (🔴 3, 🟡 7, 🟢 5), 154 tests validados, sincronización Zod, reporte en .audits/fase-3-calidad/findings.md |
 
 ---
 
