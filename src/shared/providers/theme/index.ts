@@ -26,52 +26,57 @@ const buttonRecipe = defineRecipe({
           bg: "primary.900",
           color: "white",
           px: "8",
-        _hover: {
-          bg: "primary.700",
-          transform: "translateY(-2px)",
-          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
-        },
-        _active: {
-          bg: "primary.800",
-          transform: "translateY(0)",
-        },
-        _dark: {
-          bg: "primary.100",
-          color: "primary.900",
           _hover: {
+            bg: "primary.700",
+            transform: "translateY(-2px)",
+            boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+          },
+          _active: {
+            bg: "primary.800",
+            transform: "translateY(0)",
+          },
+          _dark: {
             bg: "white",
-            boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
+            color: "#18181b",
+            _hover: {
+              bg: "gray.100",
+              boxShadow: "0 0 20px rgba(255, 255, 255, 0.25)",
+            },
+            _active: {
+              bg: "gray.200",
+            },
           },
         },
-      },
-      outline: {
-        borderWidth: "2px",
-        borderColor: "primary.900",
+        outline: {
+          borderWidth: "2px",
+          borderColor: "primary.900",
           color: "primary.900",
           px: "8",
-        _hover: {
-          bg: "blackAlpha.50",
-        },
-        _dark: {
-          borderColor: "primary.100",
-          color: "primary.100",
           _hover: {
-            bg: "whiteAlpha.100",
+            bg: "blackAlpha.50",
+          },
+          _dark: {
+            borderColor: "white",
+            color: "white",
+            _hover: {
+              bg: "whiteAlpha.100",
+            },
+          },
+        },
+        ghost: {
+          color: "text.body",
+          _hover: {
+            bg: "blackAlpha.50",
+          },
+          _dark: {
+            color: "gray.300",
+            _hover: {
+              bg: "whiteAlpha.100",
+              color: "white",
+            },
           },
         },
       },
-      ghost: {
-        color: "text.body",
-        _hover: {
-          bg: "blackAlpha.50",
-        },
-        _dark: {
-          _hover: {
-            bg: "whiteAlpha.100",
-          },
-        },
-      },
-    },
     size: {
       sm: {
         h: "8",
