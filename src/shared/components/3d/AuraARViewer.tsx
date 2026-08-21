@@ -26,13 +26,16 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
   category = "Mamparas & Terrazas",
   glbModelUrl = "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
   usdzModelUrl = "https://modelviewer.dev/shared-assets/models/Astronaut.usdz",
-  posterUrl = "/images/products/mampara-ar-preview.webp",
+  posterUrl: _posterUrl,
 }) => {
   const [showQR, setShowQR] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLaunchAR = () => {
-    // Si estamos en un dispositivo móvil con iOS o Android, model-viewer o el enlace nativo
-    // activan la cámara automáticamente
     if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
       window.location.href = usdzModelUrl;
     } else {
@@ -77,19 +80,28 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           border="1px solid"
           borderColor="whiteAlpha.200"
           overflow="hidden"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
-          {/* @ts-expect-error model-viewer is a custom web component element */}
-          <model-viewer
-            src={glbModelUrl}
-            ios-src={usdzModelUrl}
-            alt={title}
-            ar
-            ar-modes="webxr scene-viewer quick-look"
-            camera-controls
-            auto-rotate
-            shadow-intensity="1"
-            style={{ width: "100%", height: "100%" }}
-          />
+          {mounted ? (
+            /* @ts-expect-error model-viewer is a custom web component element */
+            <model-viewer
+              src={glbModelUrl}
+              ios-src={usdzModelUrl}
+              alt={title}
+              ar
+              ar-modes="webxr scene-viewer quick-look"
+              camera-controls
+              auto-rotate
+              shadow-intensity="1"
+              style={{ width: "100%", height: "100%" }}
+            />
+          ) : (
+            <Box color="blue.300" fontSize="sm">
+              Cargando Visor 3D...
+            </Box>
+          )}
         </Box>
 
         {/* ACCIONES Y DETALLES */}
