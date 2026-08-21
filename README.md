@@ -32,21 +32,24 @@ El proyecto utiliza **Feature-Sliced Design (FSD)** para máxima escalabilidad y
 
 ## 🛠️ Desarrollo Local
 1. **Dependencias:** `pnpm install`
-2. **Variables de Entorno:** Copiar el archivo [.env.local.example](file:///C:/Users/LJCR/Documents/GitHub/MyAppGlass/.env.local.example) como `.env` o `.env.local` y configurar las claves de Firebase, Google Maps y las URLs de los endpoints del backend.
-3. **Backend (Requerido para Reclamaciones):** 
-   - Tener Java OpenJDK 25 instalado.
-   - `cd functions && pnpm run dev` (Inicia emuladores).
+2. **Variables de Entorno:** Configurar las claves en `.env` o `.env.local` (Firebase, Google Maps, reCAPTCHA y endpoints de Cloud Functions).
+3. **Backend (Requerido para Reclamaciones en local):** 
+   - Tener Java OpenJDK instalado.
+   - `cd functions && pnpm run dev` (Inicia emuladores locales de Firebase).
 4. **Frontend:** `pnpm run dev`
 
 ### Scripts Principales
 - `pnpm run py`: Ejecuta el pipeline completo (Optimización de imágenes -> Build -> Typecheck -> Preview).
-- `pnpm run deploy:hosting`: Despliega la versión optimizada a la web.
-- `pnpm run deploy:functions`: Despliega el backend a la nube de Google.
+- `pnpm run deploy:hosting`: Despliega la versión optimizada a Firebase Hosting.
+- `pnpm run deploy:functions`: Despliega las Cloud Functions a Google Cloud.
 
-## 📝 Mantenimiento y Auditoría
-- **Arquitectura Full-Stack:** Consulte `ARCHITECTURE.md` para un detalle completo del stack, FSD y seguridad Firebase.
-- **Protocolo de IA:** Todo nuevo agente debe leer `AI_HANDOFF.md` antes de modificar el código.
-- **Guía de Desarrollo:** Consulte `docs/DOCS_DEVELOPMENT.md`.
-- **Seguridad Backend:** Consulte `docs/DOCS_SECURITY_BACKEND.md`.
-- **Simulación Local:** Consulte `docs/SIMULACION_BACKEND.md`.
-- **Pruebas de API:** Colecciones disponibles en `tests/postman/`.
+## 📝 Documentación del Proyecto
+Para consultar la arquitectura, guías de desarrollo, seguridad backend y manuales de SEO, acceda al portal central:
+- 📚 **[Centro de Documentación Técnica (docs/README.md)](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/README.md)**
+
+### Accesos Rápidos
+- **Arquitectura:** [`docs/ARCHITECTURE.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/ARCHITECTURE.md)
+- **Protocolo de IA & FSD:** [`docs/AI_HANDOFF.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/AI_HANDOFF.md)
+- **Guía de Desarrollo Local:** [`docs/DOCS_DEVELOPMENT.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/DOCS_DEVELOPMENT.md)
+- **Seguridad Backend:** [`docs/DOCS_SECURITY_BACKEND.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/DOCS_SECURITY_BACKEND.md)
+- **Manual SEO Local:** [`docs/MANUAL_SEO_LOCAL.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/MANUAL_SEO_LOCAL.md)

@@ -11,10 +11,10 @@
 | Fase | Enfoque Principal | Prioridad | Estimación | Estado |
 | :--- | :--- | :--- | :--- | :--- |
 | **Fase 1** | Blindaje Legal, Seguridad & Cumplimiento Normativo | 🔴 Crítica | Sprint 1 | ✅ Completada |
-| **Fase 2** | DevOps, CI/CD & Suite Automatizada de QA / Testing | 🟡 Alta | Sprint 2 | ⏳ Pendiente |
-| **Fase 3** | Arquitectura Full-Stack, TypeScript & Contratos Zod | 🟢 Media-Alta | Sprint 3 | ⏳ Pendiente |
-| **Fase 4** | UX/UI, Accesibilidad WCAG 2.1 & Descarga PDF | 🔵 Media | Sprint 4 | ⏳ Pendiente |
-| **Fase 5** | Ingeniería de Datos, Resiliencia & Observabilidad | 🟣 Evolutiva | Sprint 5 | ⏳ Pendiente |
+| **Fase 2** | DevOps, CI/CD & Suite Automatizada de QA / Testing | 🟡 Alta | Sprint 2 | ✅ Completada |
+| **Fase 3** | Arquitectura Full-Stack, TypeScript & Contratos Zod | 🟢 Media-Alta | Sprint 3 | ✅ Completada |
+| **Fase 4** | UX/UI, Accesibilidad WCAG 2.1 & Descarga PDF | 🔵 Media | Sprint 4 | ✅ Completada |
+| **Fase 5** | Ingeniería de Datos, Resiliencia & Observabilidad | 🟣 Evolutiva | Sprint 5 | ✅ Completada |
 
 ---
 

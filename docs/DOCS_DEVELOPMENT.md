@@ -46,9 +46,9 @@ Para asegurar fluidez en móviles modernos:
 3. Use el `logger` integrado (`@shared/utils/logger`) para capturar errores de renderizado.
 
 ## 🔍 SEO & Blog
-- Los artículos se gestionan en `src/data/blog-posts.ts`.
+- Los artículos se gestionan en `src/features/blog/data/blog-posts.ts`.
 - Cada post genera automáticamente JSON-LD y Metadatos para Google.
-- **Importante:** Después de agregar un post, actualice el `public/sitemap.xml`.
+- **Importante:** La generación de `sitemap.xml` y `robots.txt` es dinámica en `src/app/sitemap.ts` y `src/app/robots.ts`.
 
 ---
 *Documentación generada por Gemini CLI - Versión 1.0 (Abril 2026)*
