@@ -33,10 +33,6 @@ const NAV_ITEMS: NavItem[] = [
     label: "Cotizar",
     href: "/contacto",
   },
-  {
-    label: "Blog",
-    href: "/blog",
-  },
 ];
 
 export default NAV_ITEMS;
