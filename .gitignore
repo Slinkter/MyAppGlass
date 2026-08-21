@@ -61,3 +61,8 @@ coverage/
 test-results/
 playwright-report/
 blob-report/
+
+# Audit Artifacts (.audits/) — track docs (.md), ignore heavy binaries
+.audits/**
+!.audits/**/
+!.audits/**/*.md

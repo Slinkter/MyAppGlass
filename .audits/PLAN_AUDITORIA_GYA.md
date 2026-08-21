@@ -198,13 +198,14 @@ Fase 0 (secuencial)
   - Quick wins (≤ 1 día) vs largo plazo (> 1 sprint)
   - Métricas antes/después (si hubo cambios)
 - [ ] Marcar este `PLAN_AUDITORIA_GYA.md` como ✅ al 100%
-- [ ] Generar **1 PR por fase** hacia `audit/gya-q3-2026` con Conventional Commits:
+- [ ] Verificar que **cada fase tiene su commit** (regla global #6) — historial esperado en `audit/gya-q3-2026`:
   - `chore(audit): phase-0 baseline`
   - `docs(audit): phase-1 ui/ux findings`
-  - `docs(audit): phase-2 performance findings`
-  - `docs(audit): phase-3 quality findings`
-  - `docs(audit): phase-4 backend findings`
-  - `docs(audit): phase-5 final report`
+  - `perf(audit): phase-2 performance findings`
+  - `test(audit): phase-3 quality & testing findings`
+  - `security(audit): phase-4 backend & devops findings`
+  - `docs(audit): phase-5 final report & handoff`
+- [ ] Generar PR hacia `main` con el resumen del `INFORME_FINAL.md`
 
 ---
 
@@ -215,10 +216,17 @@ Fase 0 (secuencial)
 3. **Respetar arquitectura FSD.** Capa `app` no importa de `features`/`widgets` (salvo patrón estándar de Next).
 4. **Mantener proporción áurea / escala Fibonacci** declarada en `README.md`.
 5. **No exponer secretos.** Si encuentras un secreto hardcodeado, **NO** lo pegues en el reporte; indícalo como hallazgo crítico y sugiere remediación.
-6. **Commits solo con aprobación explícita.**
+6. **⚠️ OBLIGATORIO: 1 commit por cada fase terminada.** Al cerrar una fase, el agente DEBE crear su commit con el formato Conventional Commits definido en `.audits/AGENTS.md` (sección "Convenciones de commits"). Una fase NO se considera cerrada sin su commit. Ejemplos:
+   - Fase 0 → `chore(audit): phase-0 baseline`
+   - Fase 1 → `docs(audit): phase-1 ui/ux findings`
+   - Fase 2 → `perf(audit): phase-2 performance findings`
+   - Fase 3 → `test(audit): phase-3 quality & testing findings`
+   - Fase 4 → `security(audit): phase-4 backend & devops findings`
+   - Fase 5 → `docs(audit): phase-5 final report & handoff`
 7. **Cada hallazgo debe referenciar `file_path:line_number`** cuando aplique.
 8. **Severidad obligatoria:** 🔴 crítico (bloquea release) · 🟡 medio (deuda significativa) · 🟢 menor (nit).
 9. **Patches deben ser mínimos y reversibles.**
+10. **Commits de código del proyecto** (fuera de `.audits/`) sí requieren aprobación humana previa; los commits de findings dentro de `.audits/` están siempre permitidos al cerrar fase.
 
 ---
 
@@ -245,6 +253,7 @@ Actualizar también la tabla de **Estado global de fases** y la columna **Fecha 
 | Fecha | Agente | Acción |
 |---|---|---|
 | 2026-08-20 | Humano + Claude | Plan inicial aprobado y materializado |
+| 2026-08-20 | Claude (setup) | Plantillas de findings Fases 1–4 completadas, INFORME_FINAL placeholder, baseline README + inventario FSD, regla global #6 (1 commit por fase) añadida, .gitignore configurado |
 
 ---
 
