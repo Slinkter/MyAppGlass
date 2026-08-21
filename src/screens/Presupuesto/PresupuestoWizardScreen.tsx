@@ -15,9 +15,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { toaster } from "@/components/ui/toaster-instance";
 import { quoteCalculator, QuoteCalculationInput } from "@/features/presupuesto/utils/quoteCalculator";
-import { Printer, Calculator, FileCheck, ShieldCheck } from "lucide-react";
+import { useAuth } from "@/features/auth/context/AuthContext";
+import { Lock, LogIn, Printer, Calculator, FileCheck, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 
 export const PresupuestoWizardScreen: React.FC = () => {
+  const { user, profile, loading } = useAuth();
+
   const [params, setParams] = useState<QuoteCalculationInput>({
     systemType: "mampara_serie25",
     width: 2.0,
@@ -37,7 +41,55 @@ export const PresupuestoWizardScreen: React.FC = () => {
     district: "La Molina",
   });
 
+  // Si el usuario está autenticado, autocompletar sus datos del perfil
+  React.useEffect(() => {
+    if (profile) {
+      setCustomer({
+        fullName: profile.fullName || "",
+        dniRuc: profile.dniRuc || "",
+        email: profile.email || user?.email || "",
+        phone: profile.phone || "",
+        address: profile.address || "",
+        district: profile.district || "La Molina",
+      });
+    } else if (user) {
+      setCustomer((prev) => ({ ...prev, email: user.email || "" }));
+    }
+  }, [profile, user]);
+
   const quote = quoteCalculator.calculateQuote(params);
+
+  // Si no está autenticado, bloquear acceso y mostrar pantalla de Login Requerido
+  if (!user && !loading) {
+    return (
+      <Box py="16" maxW="600px" mx="auto" px="4" textAlign="center">
+        <Box
+          bg="surface.card"
+          p="8"
+          borderRadius="2xl"
+          border="1px solid"
+          borderColor="border.glass"
+          backdropFilter="blur(16px)"
+          boxShadow="0 20px 40px rgba(0,0,0,0.3)"
+        >
+          <Box p="4" bg="blue.500/10" color="blue.400" borderRadius="full" display="inline-flex" mb="4">
+            <Lock size={40} />
+          </Box>
+          <Heading size="xl" mb="2">
+            Inicio de Sesión Requerido
+          </Heading>
+          <Text color="text.muted" fontSize="sm" mb="6">
+            Para generar y descargar cotizaciones formales con hoja membretada de Glass & Aluminum Company S.A.C., debes iniciar sesión con tu cuenta de cliente o administrador.
+          </Text>
+          <Button asChild colorPalette="blue" size="lg" w="full">
+            <Link href="/auth">
+              <LogIn size={18} style={{ marginRight: 6 }} /> Iniciar Sesión / Registrarse
+            </Link>
+          </Button>
+        </Box>
+      </Box>
+    );
+  }
 
   const handlePrint = () => {
     if (!customer.fullName || !customer.phone) {

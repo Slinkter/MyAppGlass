@@ -46,9 +46,23 @@ export const LoginScreen: React.FC = () => {
       await login(loginEmail, loginPass);
       toaster.create({ title: "Sesión iniciada con éxito", type: "success" });
     } catch (err: any) {
+      let errorMsg = "Credenciales incorrectas. Verifique su correo y contraseña.";
+      const code = err?.code || "";
+      if (code === "auth/invalid-credential" || code === "auth/wrong-password" || code === "auth/user-not-found") {
+        errorMsg = "Correo o contraseña incorrectos.";
+      } else if (code === "auth/invalid-email") {
+        errorMsg = "El formato de correo electrónico no es válido.";
+      } else if (code === "auth/too-many-requests") {
+        errorMsg = "Demasiados intentos fallidos. Intente nuevamente en unos minutos.";
+      } else if (code === "auth/network-request-failed") {
+        errorMsg = "Error de conexión de red. Verifique su conexión a internet.";
+      } else if (err?.message) {
+        errorMsg = err.message;
+      }
+
       toaster.create({
         title: "Error al iniciar sesión",
-        description: err?.message || "Credenciales incorrectas",
+        description: errorMsg,
         type: "error",
       });
     } finally {

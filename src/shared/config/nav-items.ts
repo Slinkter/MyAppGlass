@@ -34,14 +34,6 @@ const NAV_ITEMS: NavItem[] = [
     href: "/presupuesto",
   },
   {
-    label: "Simulador IA",
-    href: "/simulador-ai",
-  },
-  {
-    label: "Realidad 3D",
-    href: "/realidad-aumentada",
-  },
-  {
     label: "Contacto",
     href: "/contacto",
   },
