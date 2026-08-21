@@ -9,12 +9,12 @@
 
 | Capa | Ruta | Nº archivos | Nº líneas aprox | Notas |
 |---|---|---|---|---|
-| app | `src/app/**` | — | — | Rutas, layouts, metadatos |
-| screens | `src/screens/**` | — | — | Ensamblaje de páginas |
-| widgets | `src/widgets/**` | — | — | Navbar, Footer |
-| features | `src/features/**` | — | — | blog, projects, services |
-| shared | `src/shared/**` | — | — | Aura UI, utils, config, api |
-| backend | `functions/**` | — | — | Functions v2 |
+| app | `src/app/**` | 17 | 772 | Rutas, layouts, metadatos Next.js 16 |
+| screens | `src/screens/**` | 18 | 1,059 | Ensamblaje visual de páginas |
+| widgets | `src/widgets/**` | 12 | 927 | Navbar, Footer, FloatingActions |
+| features | `src/features/**` | 93 | 7,784 | blog, projects, services, contacto, home, reclamation-book |
+| shared | `src/shared/**` | 70 | 4,459 | Aura UI, utils, config, api, schemas, providers |
+| backend | `functions/**` | 7 | 840 | Cloud Functions v2 (emailSender, mathCaptchaValidator, index) |
 
 ---
 
@@ -25,7 +25,7 @@
 
 | Archivo | Importa de | Capa origen → destino | ¿Válida? |
 |---|---|---|---|
-| — | — | — | — |
+| Ninguno detectado | — | — | ✅ 100% Conforme (0 violaciones) |
 
 ---
 

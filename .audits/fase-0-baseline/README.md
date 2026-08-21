@@ -1,8 +1,9 @@
 # Fase 0 — Baseline · Portal GYA
 
-> **Estado:** ⬜ Pendiente  
+> **Estado:** ✅ Completada  
 > **Objetivo:** Capturar la línea base del proyecto antes de cualquier auditoría o cambio.  
-> **Rama:** `audit/gya-q3-2026`
+> **Rama:** `audit/gya-q3-2026`  
+> **Fecha:** 2026-08-20
 
 ---
 

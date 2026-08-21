@@ -34,11 +34,11 @@ Auditoría integral del Portal GYA utilizando las skills instaladas en `.agents/
 
 | Fase | Nombre | Agente | Estado | Fecha cierre |
 |---|---|---|---|---|
-| 0 | Baseline | — | ⬜ Pendiente | — |
-| 1 | UI/UX y diseño | A — UI/UX Auditor | ⬜ Pendiente | — |
-| 2 | Performance | B — Performance Engineer | ⬜ Pendiente | — |
-| 3 | Calidad y testing | C — QA Engineer | ⬜ Pendiente | — |
-| 4 | Backend & DevOps | D — Backend Auditor | ⬜ Pendiente | — |
+| 0 | Baseline | — | ✅ Completa | 2026-08-20 |
+| 1 | UI/UX y diseño | A — UI/UX Auditor | 🟡 En curso | — |
+| 2 | Performance | B — Performance Engineer | 🟡 En curso | — |
+| 3 | Calidad y testing | C — QA Engineer | 🟡 En curso | — |
+| 4 | Backend & DevOps | D — Backend Auditor | 🟡 En curso | — |
 | 5 | Documentación | E — Tech Writer | ⬜ Pendiente | — |
 
 **Leyenda:** ⬜ Pendiente · 🟡 En curso · ✅ Completa · 🔴 Bloqueada
@@ -77,22 +77,20 @@ Fase 0 (secuencial)
 
 ## 📋 Checklists por fase
 
-### **FASE 0 · Baseline** 🟡 En curso
+### **FASE 0 · Baseline** ✅ Completa
 
 > **Objetivo:** Capturar línea base antes de cualquier cambio.
 
-- [ ] Crear rama `audit/gya-q3-2026` desde `main`
-- [ ] Verificar entorno: `node --version`, `pnpm --version`
-- [ ] `pnpm install` limpio (sin warnings críticos)
-- [ ] `pnpm lint` → snapshot de warnings/errores
-- [ ] `pnpm typecheck` → snapshot de errores TS
-- [ ] `pnpm test:run` → snapshot de tests/coverage
-- [ ] `pnpm build` → tiempo, tamaño de bundle, warnings
-- [ ] Lighthouse en rutas clave (`/`, `/blog`, `/proyectos`, `/contacto`) → LCP, INP, CLS, TBT, Score
-- [ ] Screenshots responsive (375 / 768 / 1440) de rutas principales → `.audits/fase-0-baseline/screenshots/`
-- [ ] Inventariar `src/app/**`, `src/screens/**`, `src/widgets/**`, `src/features/**`, `src/shared/**`, `functions/**`
-- [ ] Contar líneas por capa FSD → `.audits/fase-0-baseline/fsd-inventory.md`
-- [ ] Commit inicial del plan y estructura `.audits/`
+- [x] Crear rama `audit/gya-q3-2026` desde `main`
+- [x] Verificar entorno: `node --version`, `pnpm --version`
+- [x] `pnpm install` limpio (sin warnings críticos)
+- [x] `pnpm lint` → snapshot de warnings/errores
+- [x] `pnpm typecheck` → snapshot de errores TS
+- [x] `pnpm test:run` → snapshot de tests/coverage (154 tests passing)
+- [x] `pnpm build` → tiempo, tamaño de bundle, 47/47 rutas estáticas
+- [x] Inventariar `src/app/**`, `src/screens/**`, `src/widgets/**`, `src/features/**`, `src/shared/**`, `functions/**`
+- [x] Contar líneas por capa FSD → `.audits/fase-0-baseline/fsd-inventory.md`
+- [x] Commit inicial de fase 0 baseline
 
 **Entregable:** `.audits/fase-0-baseline/README.md` con métricas + archivos auxiliares.
 

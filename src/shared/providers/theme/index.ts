@@ -18,7 +18,7 @@ const buttonRecipe = defineRecipe({
     textTransform: "uppercase",
     letterSpacing: "wider",
     borderRadius: "full",
-    transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+    transition: "background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
   },
     variants: {
       variant: {
@@ -114,7 +114,7 @@ const inputRecipe = defineSlotRecipe({
       borderColor: "border.default",
       borderRadius: "md",
       px: "3",
-      transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+      transition: "border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
       _placeholder: { color: "text.muted" },
       _hover: { borderColor: "border.strong" },
       _focus: {
