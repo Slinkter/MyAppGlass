@@ -27,10 +27,12 @@ $$\rule{\linewidth}{0.4pt}$$
 │   ├── 3.3. Infraestructura Backend, Seguridad y Normativa Legal (Backend & Compliance)
 │   │   ├── 07_BACKEND_IMPLEMENTATION.md
 │   │   └── 08_DOCS_SECURITY_BACKEND.md
-│   └── 3.4. Estrategia de SEO Técnico, Grafos de Conocimiento y Marketing (SEO & Discovery)
-│       ├── 09_PLAN_SEO_CONTENIDOS.md
-│       ├── 10_SEO_JERARQUIA.md
-│       └── 11_MANUAL_SEO_LOCAL.md
+│   ├── 3.4. Estrategia de SEO Técnico, Grafos de Conocimiento y Marketing (SEO & Discovery)
+│   │   ├── 09_PLAN_SEO_CONTENIDOS.md
+│   │   ├── 10_SEO_JERARQUIA.md
+│   │   └── 11_MANUAL_SEO_LOCAL.md
+│   └── 3.5. Plataforma Transaccional: E-Commerce, Inventario, Presupuestos y AR (Next Generation)
+│       └── 12_PLAN_ECOMMERCE_INVENTARIO_AR.md
 ├── § 4. Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)
 ├── § 5. Guía de Operaciones y Casos de Uso Frecuentes (Standard Operating Procedures)
 └── § 6. Protocolo de Calidad, Verificación Formal y CI/CD
@@ -52,11 +54,13 @@ graph TD
     D2["§ 3.2. 💻 Frontend & Diseño Aura"]:::domain
     D3["§ 3.3. 🛡️ Backend & Seguridad"]:::domain
     D4["§ 3.4. 📈 SEO & Descubrimiento"]:::domain
+    D5["§ 3.5. 🛒 E-Commerce, Inventario & AR"]:::domain
 
     Root --> D1
     Root --> D2
     Root --> D3
     Root --> D4
+    Root --> D5
 
     D1 --> F01["01_ARCHITECTURE.md (FSD & Boxflow)"]:::leaf
     D1 --> F02["02_AI_HANDOFF.md (Contratos & Clean Code)"]:::leaf
@@ -72,6 +76,8 @@ graph TD
     D4 --> F09["09_PLAN_SEO_CONTENIDOS.md (Topic Clusters & Blog)"]:::leaf
     D4 --> F10["10_SEO_JERARQUIA.md (Taxonomía H1-H3 & Metas)"]:::leaf
     D4 --> F11["11_MANUAL_SEO_LOCAL.md (Google Maps & Search Console)"]:::leaf
+
+    D5 --> F12["12_PLAN_ECOMMERCE_INVENTARIO_AR.md (RBAC, Zod, PDF & WebXR)"]:::leaf
 ```
 
 $$\rule{\linewidth}{0.4pt}$$
@@ -128,6 +134,20 @@ $$\mathcal{K}_{\text{SEO}} = \langle \text{Schema.org JSON-LD},\;\text{Topic Clu
 * **[3.4.3. `11_MANUAL_SEO_LOCAL.md`](./11_MANUAL_SEO_LOCAL.md):**  
   Manual de operaciones para dominancia local en La Molina, Lima (Google Business Profile, Google Search Console, Canonical 301, Citas NAP).
 
+---
+
+### $3.5.\;\text{Plataforma Transaccional: E-Commerce, Inventario, Presupuestos y AR (Next Generation)}$
+
+$$\mathcal{E}_{\text{commerce}} = \langle \text{RBAC Auth},\;\text{Stock Engine},\;\text{PDF Quote Generator},\;\text{Apple QuickLook / Google SceneViewer} \rangle$$
+
+* **[3.5.1. `12_PLAN_ECOMMERCE_INVENTARIO_AR.md`](./12_PLAN_ECOMMERCE_INVENTARIO_AR.md):**  
+  Especificación maestra multidisciplinaria (MBA, Arquitecto de Software, Oficial de Seguridad, UI/UX y Especialista 3D):
+  - Modelo de Usuarios y Roles (`admin` y `cliente` con DNI/RUC, teléfono, dirección).
+  - CRUD de Productos e Inventario en tiempo real (vidrios, perfiles de aluminio y accesorios).
+  - Cotizador formal de instalaciones con desglose métrico de materiales, mano de obra y exportación PDF A4 con QR.
+  - Módulo de Realidad Aumentada nativa (`.usdz` en iOS / `.glb` en Android y 3D en Desktop).
+  - Reglas zero-trust en `firestore.rules` y `storage.rules` para `products/`.
+
 $$\rule{\linewidth}{0.4pt}$$
 
 ## $\S\;4.\;\text{Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)}$
@@ -140,6 +160,7 @@ $$\begin{array}{|l|l|c|c|l|}
 \text{serviceService.ts} & \text{HashMap } (\text{Map}\langle\text{Slug}, \text{Service}\rangle) & \mathcal{O}(1) & \mathcal{O}(n) & \text{Resolución estática en SSG (\texttt{generateStaticParams}).} \\
 \text{blogService.ts} & \text{HashMap } (\text{Map}\langle\text{Slug}, \text{Post}\rangle) & \mathcal{O}(1) & \mathcal{O}(n) & \text{Cero latencia en renderizado de artículos.} \\
 \text{reclamation-schema.ts} & \text{Zod AST Parsing} & \mathcal{O}(k) & \mathcal{O}(k) & \text{Validación exhaustiva y tipado estricto en runtime.} \\
+\text{inventoryService.ts} & \text{Firestore Batch + Index} & \mathcal{O}(\log n) & \mathcal{O}(m) & \text{Consistencia transaccional de stock.} \\
 \hline
 \end{array}$$
 
@@ -152,6 +173,7 @@ $$\begin{array}{|l|l|l|}
 \textbf{Objetivo Operativo} & \textbf{Documento de Referencia} & \textbf{Ruta / Procedimiento} \\
 \hline
 \text{Inicializar entorno local y dependencias} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \texttt{pnpm install \&\& pnpm run dev} \\
+\text{Arquitectura E-Commerce \& Inventario} & \text{\texttt{12\_PLAN\_ECOMMERCE\_INVENTARIO\_AR.md}} & \text{Especificación completa y reglas RBAC} \\
 \text{Agregar o editar artículo del Blog} & \text{\texttt{09\_PLAN\_SEO\_CONTENIDOS.md}} & \texttt{src/features/blog/data/blog-posts.ts} \\
 \text{Modificar reglas de diseño y espaciado} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \text{Tokens Phi en } \texttt{src/theme/} \\
 \text{Auditar flujo legal del Libro de Reclamaciones} & \text{\texttt{07\_BACKEND\_IMPLEMENTATION.md}} & \text{Colección Firestore } \texttt{libro\_de\_reclamaciones} \\

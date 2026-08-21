@@ -53,3 +53,4 @@ Para consultar la arquitectura, guías de desarrollo, seguridad backend y manual
 - **06. Guía de Desarrollo Local:** [`docs/06_DOCS_DEVELOPMENT.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/06_DOCS_DEVELOPMENT.md)
 - **08. Seguridad Backend:** [`docs/08_DOCS_SECURITY_BACKEND.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/08_DOCS_SECURITY_BACKEND.md)
 - **11. Manual SEO Local:** [`docs/11_MANUAL_SEO_LOCAL.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/11_MANUAL_SEO_LOCAL.md)
+- **12. E-Commerce, Inventario & AR:** [`docs/12_PLAN_ECOMMERCE_INVENTARIO_AR.md`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/12_PLAN_ECOMMERCE_INVENTARIO_AR.md)
