@@ -30,12 +30,12 @@ const NAV_ITEMS: NavItem[] = [
     href: "/proyectos",
   },
   {
-    label: "Blog",
-    href: "/blog",
-  },
-  {
     label: "Cotizar",
     href: "/contacto",
+  },
+  {
+    label: "Blog",
+    href: "/blog",
   },
 ];
 
