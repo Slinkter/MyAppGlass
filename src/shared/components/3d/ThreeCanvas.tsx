@@ -148,6 +148,18 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
 
+    // ResizeObserver para ajuste responsivo según Three.js Best Practices
+    const resizeObserver = new ResizeObserver(() => {
+      if (!currentMount) return;
+      const newWidth = currentMount.clientWidth;
+      const newHeight = currentMount.clientHeight;
+      camera.aspect = newWidth / newHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(newWidth, newHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    });
+    resizeObserver.observe(currentMount);
+
     // 5. Loop de animación con rotación suave continua
     let animationFrameId: number;
     const animate = () => {
@@ -161,9 +173,25 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      resizeObserver.disconnect();
       dom.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
+      
+      // Memory Management & Dispose (Category 1 de Three.js Best Practices)
+      group.traverse((obj) => {
+        if (obj instanceof THREE.Mesh) {
+          obj.geometry?.dispose();
+          if (Array.isArray(obj.material)) {
+            obj.material.forEach((m) => m.dispose());
+          } else {
+            obj.material?.dispose();
+          }
+        }
+      });
+      frameMaterial.dispose();
+      glassMaterial.dispose();
+
       if (currentMount.contains(renderer.domElement)) {
         currentMount.removeChild(renderer.domElement);
       }
