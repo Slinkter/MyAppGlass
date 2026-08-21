@@ -18,6 +18,9 @@ import { UnifiedTechnicalCard } from "./ServiceBentoGrid";
 import { ServiceFaqSection } from "./ServiceFaqSection";
 import { serviceFaqsMap, defaultServiceFaqs } from "../data/serviceFaqs";
 
+import { AuraARViewer } from "@/shared/components/3d/AuraARViewer";
+import { SERVICE_AR_MODELS_MAP } from "../data/serviceArModels";
+
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string } };
 }
@@ -36,6 +39,16 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
   const activeImageList = React.useMemo(() => imageLists[activeIndex] || [], [imageLists, activeIndex]);
   const activeSystem = React.useMemo(() => systems[activeIndex], [systems, activeIndex]);
+
+  // Obtener modelo AR específico para este slug y sistema activo
+  const activeSystemLabel = activeSystem?.label || "Sistema Nova";
+  const systemAR = (serviceSlug && SERVICE_AR_MODELS_MAP[serviceSlug]?.[activeSystemLabel]) || {
+    systemLabel: `${activeSystemLabel} (${seo.title.split("|")[0].trim()})`,
+    category: seo.title.split("|")[0].trim(),
+    glbModelUrl: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+    usdzModelUrl: "https://modelviewer.dev/shared-assets/models/Astronaut.usdz",
+    description: "Proyección 3D a escala real para visualizar el acabado y dimensiones antes de instalar.",
+  };
 
   const handleSelect = React.useCallback((index: number) => {
     startTransition(() => {
@@ -119,6 +132,16 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
               )}
             </GridItem>
           </Grid>
+
+          {/* MÓDULO DE REALIDAD AUMENTADA ESPECÍFICO DEL SISTEMA SELECCIONADO */}
+          <Box pt="2">
+            <AuraARViewer
+              title={`Probar en tu Casa: ${systemAR.systemLabel}`}
+              category={systemAR.category}
+              glbModelUrl={systemAR.glbModelUrl}
+              usdzModelUrl={systemAR.usdzModelUrl}
+            />
+          </Box>
 
           {/* Sección de Preguntas Frecuentes (FAQ / Rich Snippets) */}
           <ServiceFaqSection faqs={faqs} serviceTitle={seo.title} />
