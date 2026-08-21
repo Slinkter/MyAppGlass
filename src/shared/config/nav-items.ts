@@ -30,8 +30,20 @@ const NAV_ITEMS: NavItem[] = [
     href: "/proyectos",
   },
   {
-    label: "Cotizar",
+    label: "Presupuesto",
+    href: "/presupuesto",
+  },
+  {
+    label: "Realidad 3D",
+    href: "/realidad-aumentada",
+  },
+  {
+    label: "Contacto",
     href: "/contacto",
+  },
+  {
+    label: "Mi Cuenta",
+    href: "/auth",
   },
 ];
 
