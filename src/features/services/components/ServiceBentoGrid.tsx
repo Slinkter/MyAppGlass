@@ -12,6 +12,7 @@ import {
   MessageSquareText,
   CheckCircle2,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { companyData } from "@/shared/config/company-data";
 
 interface ServiceBentoGridProps {
@@ -143,9 +144,34 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
       )}
     </Box>
 
-    <Box mt={{ base: "5", md: "4" }} w="full">
+    <VStack mt={{ base: "5", md: "4" }} w="full" gap="2.5">
+      <Button
+        variant="outline"
+        size="md"
+        w="full"
+        borderRadius="2xl"
+        borderColor="blue.400"
+        color="blue.300"
+        _hover={{ bg: "blue.500/10", borderColor: "blue.300" }}
+        onClick={() => {
+          const arElement = document.querySelector("model-viewer") as any;
+          if (arElement && typeof arElement.activateAR === "function") {
+            arElement.activateAR();
+          } else {
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (isIOS) {
+              window.location.href = "https://modelviewer.dev/shared-assets/models/Astronaut.usdz";
+            } else {
+              window.scrollBy({ top: 350, behavior: "smooth" });
+            }
+          }
+        }}
+      >
+        🥽 Ver en tu Espacio Real (AR 1:1)
+      </Button>
+
       <BentoCTA systemName={systemName} />
-    </Box>
+    </VStack>
   </Box>
 ));
 UnifiedTechnicalCard.displayName = "UnifiedTechnicalCard";
