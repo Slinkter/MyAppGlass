@@ -1,90 +1,174 @@
-# 📚 Centro de Documentación Técnica — Portal GYA
+# $\mathbb{R}\mathrm{EADME}\;\|\;\text{Manual de Arquitectura e Ingeniería de Software}$
 
-Bienvenido al centro oficial de documentación de software de **Glass & Aluminum Company S.A.C.** (MyAppGlass). Este índice centraliza la arquitectura, guías de desarrollo, infraestructura serverless y estrategia de posicionamiento web del proyecto.
+$$\text{\bfseries Portal Corporativo GYA — Glass \& Aluminum Company S.A.C.}$$
+$$\text{Documento Técnico de Referencia } \cdot \text{Versión 2.0} \cdot \text{Anno Domini 2026}$$
 
----
+$$\rule{\linewidth}{0.8pt}$$
 
-## 🧭 Mapa de Navegación por Dominio
+> **Resumen Ejecutivo (Abstract):**  
+> Este compendio constituye la especificación canónica y manual de ingeniería para el ecosistema **MyAppGlass** de *Glass & Aluminum Company S.A.C.* El sistema implementa una arquitectura desacoplada basada en **Next.js 16 (Turbopack, App Router)** bajo la metodología **Feature-Sliced Design (FSD)**, renderizado estático de alto rendimiento (SSG/Export), aceleración por GPU para tasas de refresco de $120\,\text{Hz}$, contratos de datos formales con **Zod $\land$ TypeScript**, y microservicios serverless en **Google Cloud Functions v2 $\land$ Firestore**.
 
-```mermaid
-graph LR
-    Portal["📖 docs/README.md"] --> D1["1. 🏛️ Arquitectura & Gobierno"]
-    Portal --> D2["2. 💻 Desarrollo & UI System"]
-    Portal --> D3["3. 🛡️ Backend & Seguridad"]
-    Portal --> D4["4. 📈 SEO & Marketing"]
+$$\rule{\linewidth}{0.4pt}$$
 
-    D1 --> ARCH["ARCHITECTURE.md"]
-    D1 --> HANDOFF["AI_HANDOFF.md"]
-    D1 --> AGENTS["AGENTS.md"]
-    D1 --> PLAN["PLAN_DE_TRABAJO.md"]
-    D1 --> CHLOG["CHANGELOG.md"]
+## $\S\;1.\;\text{Tabla de Contenidos Estructurada (Table of Contents)}$
 
-    D2 --> DEV["DOCS_DEVELOPMENT.md"]
-
-    D3 --> BACKEND["BACKEND_IMPLEMENTATION.md"]
-    D3 --> SEC["DOCS_SECURITY_BACKEND.md"]
-
-    D4 --> CONT["PLAN_SEO_CONTENIDOS.md"]
-    D4 --> JERARQ["SEO_JERARQUIA.md"]
-    D4 --> LOCAL["MANUAL_SEO_LOCAL.md"]
+```
+├── § 1. Tabla de Contenidos Estructurada
+├── § 2. Taxonomía y Grafo de Navegación del Sistema
+├── § 3. Módulos y Especificaciones Formales
+│   ├── 3.1. Arquitectura y Gobierno del Código (Core Architecture)
+│   ├── 3.2. Ingeniería de Frontend y Sistema de Diseño Aura (UI/UX Engine)
+│   ├── 3.3. Infraestructura Backend, Seguridad y Normativa Legal (Backend & Compliance)
+│   └── 3.4. Estrategia de SEO Técnico, Grafos de Conocimiento y Marketing (SEO & Discovery)
+├── § 4. Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)
+├── § 5. Guía de Operaciones y Casos de Uso Frecuentes (Standard Operating Procedures)
+└── § 6. Protocolo de Calidad, Verificación Formal y CI/CD
 ```
 
+$$\rule{\linewidth}{0.4pt}$$
+
+## $\S\;2.\;\text{Taxonomía y Grafo de Navegación del Sistema}$
+
+```mermaid
+graph TD
+    classDef root fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff;
+    classDef domain fill:#1e293b,stroke:#818cf8,stroke-width:1.5px,color:#e2e8f0;
+    classDef leaf fill:#020617,stroke:#64748b,stroke-width:1px,color:#94a3b8;
+
+    Root["📚 Manual Canónico (docs/README.md)"]:::root
+
+    D1["§ 3.1. 🏛️ Arquitectura & Gobierno"]:::domain
+    D2["§ 3.2. 💻 Frontend & Diseño Aura"]:::domain
+    D3["§ 3.3. 🛡️ Backend & Seguridad"]:::domain
+    D4["§ 3.4. 📈 SEO & Descubrimiento"]:::domain
+
+    Root --> D1
+    Root --> D2
+    Root --> D3
+    Root --> D4
+
+    D1 --> F_ARCH["ARCHITECTURE.md (FSD & Boxflow)"]:::leaf
+    D1 --> F_HANDOFF["AI_HANDOFF.md (Contratos & Clean Code)"]:::leaf
+    D1 --> F_AGENTS["AGENTS.md (10 Roles Especializados)"]:::leaf
+    D1 --> F_PLAN["PLAN_DE_TRABAJO.md (Roadmap 5 Fases)"]:::leaf
+    D1 --> F_CHLOG["CHANGELOG.md (Historial de Versiones)"]:::leaf
+
+    D2 --> F_DEV["DOCS_DEVELOPMENT.md (Tokens Fibonacci & 120Hz)"]:::leaf
+
+    D3 --> F_BACKEND["BACKEND_IMPLEMENTATION.md (Serverless & Resend)"]:::leaf
+    D3 --> F_SEC["DOCS_SECURITY_BACKEND.md (Secret Manager & Indecopi)"]:::leaf
+
+    D4 --> F_CONT["PLAN_SEO_CONTENIDOS.md (Topic Clusters & Blog)"]:::leaf
+    D4 --> F_JERARQ["SEO_JERARQUIA.md (Taxonomía H1-H3 & Metas)"]:::leaf
+    D4 --> F_LOCAL["MANUAL_SEO_LOCAL.md (Google Maps & Search Console)"]:::leaf
+```
+
+$$\rule{\linewidth}{0.4pt}$$
+
+## $\S\;3.\;\text{Módulos y Especificaciones Formales}$
+
+### $3.1.\;\text{Arquitectura y Gobierno del Código (Core Architecture)}$
+
+$$\mathcal{D}_{\text{arch}} = \{\text{FSD Layers, Type Contracts, Agent Roles, Roadmap, Versioning}\}$$
+
+* **[3.1.1. `ARCHITECTURE.md`](./ARCHITECTURE.md):**  
+  Define la descomposición en capas FSD: $\text{app} \to \text{screens} \to \text{widgets} \to \text{features} \to \text{shared}$. Detalla el patrón de componentes compuestos ($\text{Gallery.Root} \circ \text{Viewer} \circ \text{Thumbnails}$) y el flujo desacoplado de datos.
+* **[3.1.2. `AI_HANDOFF.md`](./AI_HANDOFF.md):**  
+  Especificación de interoperabilidad y lineamientos estrictos para agentes y desarrolladores: normalización de nomenclatura comercial (*Glass & Aluminum Company S.A.C.*), ortografía técnica (*antirruido* con doble $r$), y aislamiento del backend.
+* **[3.1.3. `AGENTS.md`](./AGENTS.md):**  
+  Matriz de responsabilidad de los 10 agentes seniors de ingeniería (Frontend Architect, Security Officer, QA Engineer, A11y Advocate, SEO Strategist, etc.).
+* **[3.1.4. `PLAN_DE_TRABAJO.md`](./PLAN_DE_TRABAJO.md):**  
+  Auditoría y estado de completitud de las 5 fases estratégicas del proyecto.
+* **[3.1.5. `CHANGELOG.md`](./CHANGELOG.md):**  
+  Registro histórico inmutable de despliegues, optimizaciones algorítmicas y refactorizaciones.
+
 ---
 
-## 📂 Catálogo Detallado de Documentos
+### $3.2.\;\text{Ingeniería de Frontend y Sistema de Diseño Aura (UI/UX Engine)}$
 
-### 1. 🏛️ Arquitectura & Gobierno del Código
-Guías estructurales, patrones de diseño de software y protocolos de mantenimiento.
+$$\Phi = \frac{1 + \sqrt{5}}{2} \approx 1.6180339887\dots$$
 
-| Documento | Audiencia | Descripción |
-| :--- | :--- | :--- |
-| [**`ARCHITECTURE.md`**](./ARCHITECTURE.md) | Desarrolladores / Arquitectos | Estructura FSD (*Feature-Sliced Design*), flujo de datos O(1), diagramas ASCII y patrones de composición. |
-| [**`AI_HANDOFF.md`**](./AI_HANDOFF.md) | Desarrolladores / Agentes IA | Convenciones de carpetas, alias de importación (`@/*`), reglas de código limpio y normas de identidad. |
-| [**`AGENTS.md`**](./AGENTS.md) | Agentes IA / Tech Leads | Definición y responsabilidades de los 10 roles del equipo técnico (Aura Specialist, QA, Security, A11y, etc.). |
-| [**`PLAN_DE_TRABAJO.md`**](./PLAN_DE_TRABAJO.md) | Project Managers / Todos | Roadmap multidisciplinario de 5 fases (Legal, CI/CD, Tipado Zod, Accesibilidad, Datos). |
-| [**`CHANGELOG.md`**](./CHANGELOG.md) | Todos | Registro cronológico de versiones, migraciones arquitectónicas, optimizaciones y bug fixes. |
+* **[3.2.1. `DOCS_DEVELOPMENT.md`](./DOCS_DEVELOPMENT.md):**  
+  Manual de desarrollo local. Implementa el sistema de espaciado y tipografía basado en la proporción áurea ($\Phi$) y la sucesión de Fibonacci:
+  $$\text{phi\_xs} = 8\text{px},\;\text{phi\_sm} = 13\text{px},\;\text{phi\_md} = 21\text{px},\;\text{phi\_lg} = 34\text{px},\;\text{phi\_xl} = 55\text{px},\;\text{phi\_2xl} = 89\text{px}$$
+  Establece los requisitos de aislamiento de repintado (`contain: layout style`) y aceleración por hardware (`translateZ(0)`) para garantizar una tasa de refresco constante de $120\,\text{Hz}$ y $\Delta\text{CLS} = 0$.
 
 ---
 
-### 2. 💻 Desarrollo Frontend & Sistema de Diseño
-Instrucciones operativas para configuración local, sistema Aura y rendimiento visual.
+### $3.3.\;\text{Infraestructura Backend, Seguridad y Normativa Legal (Backend \& Compliance)}$
 
-| Documento | Audiencia | Descripción |
-| :--- | :--- | :--- |
-| [**`DOCS_DEVELOPMENT.md`**](./DOCS_DEVELOPMENT.md) | Desarrolladores Frontend | Variables de entorno locales, tokens Fibonacci (`phi_xs` a `phi_xl`), aceleración GPU 120Hz y manejo de Skeletons. |
+$$\mathcal{S}_{\text{backend}} = \langle \text{Cloud Functions v2},\;\text{Firestore NoSQL},\;\text{Resend SDK},\;\text{Secret Manager} \rangle$$
 
----
-
-### 3. 🛡️ Backend, Cloud & Cumplimiento Legal
-Microservicios serverless, persistencia legal INDECOPI y seguridad en la nube.
-
-| Documento | Audiencia | Descripción |
-| :--- | :--- | :--- |
-| [**`BACKEND_IMPLEMENTATION.md`**](./BACKEND_IMPLEMENTATION.md) | Backend Engineers / DevOps | Firebase Functions v2, Resend SDK, persistencia en Firestore y flujo legal del Libro de Reclamaciones. |
-| [**`DOCS_SECURITY_BACKEND.md`**](./DOCS_SECURITY_BACKEND.md) | DevOps / Security Officers | Google Cloud Run, gestión de secretos (Secret Manager), permisos públicos y auditoría de datos. |
+* **[3.3.1. `BACKEND_IMPLEMENTATION.md`](./BACKEND_IMPLEMENTATION.md):**  
+  Especificación de endpoints serverless (`submitContacto`, `submitReclamo`, `checkStatus`), transacciones atómicas y entrega de notificaciones vía Resend.
+* **[3.3.2. `DOCS_SECURITY_BACKEND.md`](./DOCS_SECURITY_BACKEND.md):**  
+  Protocolo de seguridad en la nube (Cloud Run + Secret Manager). Cumplimiento legal de retención de registros de INDECOPI ($\ge 2\,\text{años}$, $\Delta t \le 15\,\text{días hábiles}$ de respuesta) y Ley N° 29733 de Protección de Datos Personales.
 
 ---
 
-### 4. 📈 SEO, Contenidos & Autoridad Web
-Estrategia integral para posicionamiento en Google (Orgánico y Google Maps en La Molina).
+### $3.4.\;\text{Estrategia de SEO Técnico, Grafos de Conocimiento y Marketing (SEO \& Discovery)}$
 
-| Documento | Audiencia | Descripción |
-| :--- | :--- | :--- |
-| [**`PLAN_SEO_CONTENIDOS.md`**](./PLAN_SEO_CONTENIDOS.md) | Content Strategists / SEOs | Calendario editorial, Topic Clusters (Ventanas Antirruido, Mamparas), arquitectura silo y esquemas JSON-LD. |
-| [**`SEO_JERARQUIA.md`**](./SEO_JERARQUIA.md) | Frontend / SEOs | Diccionario exacto de etiquetas `<title>`, `<meta description>`, H1, H2 y H3 por cada página de la web. |
-| [**`MANUAL_SEO_LOCAL.md`**](./MANUAL_SEO_LOCAL.md) | Marketing / Operaciones | Guía paso a paso para Google Business Profile, Google Search Console, canonical 301 y citas locales. |
+$$\mathcal{K}_{\text{SEO}} = \langle \text{Schema.org JSON-LD},\;\text{Topic Clusters},\;\text{Local 3-Pack},\;\text{Silo Architecture} \rangle$$
 
----
+* **[3.4.1. `PLAN_SEO_CONTENIDOS.md`](./PLAN_SEO_CONTENIDOS.md):**  
+  Arquitectura Silo y Topic Clusters de autoridad técnica (Ventanas Antirruido, Mamparas de Vidrio Templado vs Laminado, Techos de Policarbonato).
+* **[3.4.2. `SEO_JERARQUIA.md`](./SEO_JERARQUIA.md):**  
+  Diccionario formal de etiquetas semánticas: $\langle\text{title}\rangle$, $\langle\text{meta name="description"}\rangle$, encabezados $\text{H}_1 \to \text{H}_2 \to \text{H}_3$ por ruta estática.
+* **[3.4.3. `MANUAL_SEO_LOCAL.md`](./MANUAL_SEO_LOCAL.md):**  
+  Manual de operaciones para dominancia local en La Molina, Lima (Google Business Profile, Google Search Console, Canonical 301, Citas NAP).
 
-## ⚡ Guía de Búsqueda Rápida (How-To)
+$$\rule{\linewidth}{0.4pt}$$
 
-- **¿Cómo levantar el entorno local completo?**  
-  👉 Consulta [`DOCS_DEVELOPMENT.md`](./DOCS_DEVELOPMENT.md).
-- **¿Cómo funciona el flujo legal del Libro de Reclamaciones?**  
-  👉 Consulta [`BACKEND_IMPLEMENTATION.md`](./BACKEND_IMPLEMENTATION.md).
-- **¿Qué tokens de espaciado y fuentes debo usar en la UI?**  
-  👉 Consulta [`DOCS_DEVELOPMENT.md`](./DOCS_DEVELOPMENT.md) y [`ARCHITECTURE.md`](./ARCHITECTURE.md).
-- **¿Dónde se agregan nuevos artículos para el blog?**  
-  👉 Edita `src/features/blog/data/blog-posts.ts` y revisa [`PLAN_SEO_CONTENIDOS.md`](./PLAN_SEO_CONTENIDOS.md).
-- **¿Cómo configurar Google Business Profile para La Molina?**  
-  👉 Sigue la guía paso a paso en [`MANUAL_SEO_LOCAL.md`](./MANUAL_SEO_LOCAL.md).
+## $\S\;4.\;\text{Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)}$
+
+$$\begin{array}{|l|l|c|c|l|}
+\hline
+\textbf{Componente / Servicio} & \textbf{Estructura de Datos} & \textbf{Búsqueda} & \textbf{Espacio} & \textbf{Justificación Técnica} \\
+\hline
+\text{projectService.ts} & \text{HashMap } (\text{Map}\langle\text{ID}, \text{Project}\rangle) & \mathcal{O}(1) & \mathcal{O}(n) & \text{Indexación instantánea sin iteración lineal.} \\
+\text{serviceService.ts} & \text{HashMap } (\text{Map}\langle\text{Slug}, \text{Service}\rangle) & \mathcal{O}(1) & \mathcal{O}(n) & \text{Resolución estática en SSG (\texttt{generateStaticParams}).} \\
+\text{blogService.ts} & \text{HashMap } (\text{Map}\langle\text{Slug}, \text{Post}\rangle) & \mathcal{O}(1) & \mathcal{O}(n) & \text{Cero latencia en renderizado de artículos.} \\
+\text{reclamation-schema.ts} & \text{Zod AST Parsing} & \mathcal{O}(k) & \mathcal{O}(k) & \text{Validación exhaustiva y tipado estricto en runtime.} \\
+\hline
+\end{array}$$
+
+$$\rule{\linewidth}{0.4pt}$$
+
+## $\S\;5.\;\text{Guía de Operaciones y Casos de Uso Frecuentes (Standard Operating Procedures)}$
+
+$$\begin{array}{|l|l|l|}
+\hline
+\textbf{Objetivo Operativo} & \textbf{Documento de Referencia} & \textbf{Ruta / Procedimiento} \\
+\hline
+\text{Inicializar entorno local y dependencias} & \text{\texttt{DOCS\_DEVELOPMENT.md}} & \texttt{pnpm install \&\& pnpm run dev} \\
+\text{Agregar o editar artículo del Blog} & \text{\texttt{PLAN\_SEO\_CONTENIDOS.md}} & \texttt{src/features/blog/data/blog-posts.ts} \\
+\text{Modificar reglas de diseño y espaciado} & \text{\texttt{DOCS\_DEVELOPMENT.md}} & \text{Tokens Phi en } \texttt{src/theme/} \\
+\text{Auditar flujo legal del Libro de Reclamaciones} & \text{\texttt{BACKEND\_IMPLEMENTATION.md}} & \text{Colección Firestore } \texttt{libro\_de\_reclamaciones} \\
+\text{Configuración de SEO Local (Google Maps)} & \text{\texttt{MANUAL\_SEO\_LOCAL.md}} & \text{Google Business Profile (La Molina, Lima)} \\
+\hline
+\end{array}$$
+
+$$\rule{\linewidth}{0.4pt}$$
+
+## $\S\;6.\;\text{Protocolo de Calidad, Verificación Formal y CI/CD}$
+
+El sistema ejecuta una canalización estricta de 4 etapas previo a cualquier despliegue a producción:
+
+$$\text{Pipeline} = \text{Linting} \;(\text{ESLint}) \;\longrightarrow\; \text{Typecheck} \;(\text{TSC}) \;\longrightarrow\; \text{Unit QA} \;(\text{Vitest}) \;\longrightarrow\; \text{Build} \;(\text{Next.js Turbopack})$$
+
+```bash
+# 1. Pruebas Unitarias de Regresión (18 suites / 154 tests)
+pnpm run test:run
+
+# 2. Verificación Estricta de Tipos
+pnpm run typecheck
+
+# 3. Análisis Estático de Código
+pnpm run lint
+
+# 4. Compilación y Generación Estática (SSG 47/47 rutas)
+pnpm run build
+```
+
+$$\rule{\linewidth}{0.8pt}$$
+$$\text{\footnotesize Glass \& Aluminum Company S.A.C. — Todos los derechos reservados.}$$
