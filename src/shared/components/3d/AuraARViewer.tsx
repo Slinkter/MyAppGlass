@@ -11,7 +11,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { View, Smartphone, QrCode, Sparkles, CheckCircle2 } from "lucide-react";
+import { Smartphone, QrCode, Sparkles, CheckCircle2 } from "lucide-react";
 
 interface AuraARViewerProps {
   title?: string;
@@ -68,42 +68,28 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
       </VStack>
 
       <SimpleGrid columns={{ base: 1, md: 2 }} gap="8" alignContent="center">
-        {/* VISOR INTERACTIVO SIMULADO */}
+        {/* VISOR 3D INTERACTIVO & CANVAS AR */}
         <Box
           position="relative"
-          h="340px"
+          h="380px"
           bg="radial-gradient(circle at 50% 50%, #1e293b 0%, #090d16 100%)"
           borderRadius="xl"
           border="1px solid"
           borderColor="whiteAlpha.200"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          p="6"
-          textAlign="center"
+          overflow="hidden"
         >
-          <Box
-            w="120px"
-            h="120px"
-            borderRadius="full"
-            bg="blue.500/10"
-            border="2px dashed"
-            borderColor="blue.400"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            mb="4"
-            color="blue.300"
-          >
-            <View size={48} />
-          </Box>
-          <Text fontWeight="bold" fontSize="md" color="white">
-            Modelo 3D Paramétrico Listo
-          </Text>
-          <Text fontSize="xs" color="gray.400" mt="1" maxW="280px">
-            Compatible con Apple QuickLook (.usdz en Safari) y Google SceneViewer (.glb en Chrome).
-          </Text>
+          {/* @ts-expect-error model-viewer is a custom web component element */}
+          <model-viewer
+            src={glbModelUrl}
+            ios-src={usdzModelUrl}
+            alt={title}
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            camera-controls
+            auto-rotate
+            shadow-intensity="1"
+            style={{ width: "100%", height: "100%" }}
+          />
         </Box>
 
         {/* ACCIONES Y DETALLES */}
