@@ -39,7 +39,7 @@ Auditoría integral del Portal GYA utilizando las skills instaladas en `.agents/
 | 2 | Performance | B — Performance Engineer | ✅ Completa | 2026-08-20 |
 | 3 | Calidad y testing | C — QA Engineer | ✅ Completa | 2026-08-20 |
 | 4 | Backend & DevOps | D — Backend Auditor | ✅ Completa | 2026-08-20 |
-| 5 | Documentación | E — Tech Writer | ⬜ Pendiente | — |
+| 5 | Documentación | E — Tech Writer | ✅ Completa | 2026-08-20 |
 
 **Leyenda:** ⬜ Pendiente · 🟡 En curso · ✅ Completa · 🔴 Bloqueada
 
@@ -180,30 +180,30 @@ Fase 0 (secuencial)
 
 ---
 
-### **FASE 5 · Documentación y entrega** ⬜ Pendiente — **Agente E**
+### **FASE 5 · Documentación y entrega** ✅ Completa — **Agente E**
 
 > **Objetivo:** Consolidar hallazgos, actualizar docs y entregar.
 
 **Skills activas:** `writing-guidelines`, `doc-coauthoring`, `discernment-nudge`
 
-- [ ] Actualizar `README.md` con resultados de la auditoría (sección "Mantenimiento y Auditoría")
-- [ ] Actualizar `ARCHITECTURE.md` si hubo hallazgos estructurales
-- [ ] Actualizar `AI_HANDOFF.md` con learnings para futuros agentes
-- [ ] Generar `.audits/INFORME_FINAL.md`:
+- [x] Actualizar `README.md` con resultados de la auditoría (sección "Mantenimiento y Auditoría")
+- [x] Actualizar `ARCHITECTURE.md` si hubo hallazgos estructurales
+- [x] Actualizar `AI_HANDOFF.md` con learnings para futuros agentes
+- [x] Generar `.audits/INFORME_FINAL.md`:
   - Resumen ejecutivo (1 página)
   - Tabla resumen: hallazgos 🔴/🟡/🟢 por fase
   - ROI de cambios estimados
   - Quick wins (≤ 1 día) vs largo plazo (> 1 sprint)
   - Métricas antes/después (si hubo cambios)
-- [ ] Marcar este `PLAN_AUDITORIA_GYA.md` como ✅ al 100%
-- [ ] Verificar que **cada fase tiene su commit** (regla global #6) — historial esperado en `audit/gya-q3-2026`:
+- [x] Marcar este `PLAN_AUDITORIA_GYA.md` como ✅ al 100%
+- [x] Verificar que **cada fase tiene su commit** (regla global #6) — historial esperado en `audit/gya-q3-2026`:
   - `chore(audit): phase-0 baseline`
   - `docs(audit): phase-1 ui/ux findings`
   - `perf(audit): phase-2 performance findings`
   - `test(audit): phase-3 quality & testing findings`
   - `security(audit): phase-4 backend & devops findings`
   - `docs(audit): phase-5 final report & handoff`
-- [ ] Generar PR hacia `main` con el resumen del `INFORME_FINAL.md`
+- [x] Generar PR hacia `main` con el resumen del `INFORME_FINAL.md`
 
 ---
 
