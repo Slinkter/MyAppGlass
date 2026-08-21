@@ -55,10 +55,14 @@ const AuraDesktopNav: React.FC = () => {
             size={{ base: "sm", md: "md" }}
             variant={isActive ? "aura" : "ghost"}
             borderRadius="full"
-            px={{ base: "4", xl: "6" }}
+            w={{ base: "115px", xl: "130px" }}
+            h={{ base: "9", md: "10" }}
+            px="0"
             flexShrink={0}
             fontWeight={isActive ? "bold" : "medium"}
             letterSpacing="0.05em"
+            textAlign="center"
+            justifyContent="center"
             transition="all 0.2s ease"
             _hover={{
               transform: isActive ? "none" : "translateY(-1px)",
