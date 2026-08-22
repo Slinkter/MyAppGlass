@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { AuraARViewer } from "@/shared/components/3d/AuraARViewer";
+import { AuraARViewer, AFrameStudioModelViewer } from "@/shared/components/3d";
 import { Box, VStack, Heading, Text, SimpleGrid } from "@chakra-ui/react";
 
 export const metadata: Metadata = {
-  title: "Realidad Aumentada (AR) 3D | Glass & Aluminum Company S.A.C.",
+  title: "Realidad Aumentada (AR) 3D & Model Viewer | Glass & Aluminum Company S.A.C.",
   description:
-    "Prueba en tiempo real y a escala 1:1 cómo lucen nuestras mamparas, ventanas antirruido, barandas y techos en tu propia sala o terraza usando la cámara de tu celular.",
+    "Visor 3D Studio y Realidad Aumentada a escala 1:1 para mamparas, ventanas antirruido, barandas y techos en tu propia sala o terraza.",
 };
 
 const AR_SHOWCASE_ITEMS = [
@@ -76,10 +76,24 @@ export default function RealidadAumentadaPage() {
     <Box py="8" maxW="1280px" mx="auto" px={{ base: "3", sm: "4", md: "6" }}>
       <VStack gap="3" align="start" mb="8">
         <Heading size={{ base: "xl", md: "2xl" }} color="brand.primary">
-          Experiencia Inmersiva de Realidad Aumentada (AR 1:1)
+          Showcase 3D Model Viewer & Realidad Aumentada (AR)
         </Heading>
         <Text color="text.muted" fontSize={{ base: "sm", md: "md" }} maxW="3xl">
-          Apunta con la cámara de tu <strong>Android</strong> o <strong>iPhone</strong> para proyectar ventanas, mamparas, duchas, barandas y techos en tu espacio real a escala 1:1 con luz y sombras realistas.
+          Explora la galería interactiva en 360° inspirada en el <strong>A-Frame Model Viewer Showcase</strong>. Cambia entre modelos con la bandeja inferior, pega cualquier enlace GLTF o proyecta a escala 1:1 en tu hogar con la cámara de tu celular.
+        </Text>
+      </VStack>
+
+      {/* VISOR ESTUDIO MODEL VIEWER ESTILO A-FRAME */}
+      <Box mb="12">
+        <AFrameStudioModelViewer />
+      </Box>
+
+      <VStack gap="2" align="start" mb="6">
+        <Heading size="lg" color="brand.primary">
+          Catálogo Detallado por Categoría
+        </Heading>
+        <Text color="text.muted" fontSize="sm">
+          Visores individuales con calibración de medidas reales y disparador directo para Android y iPhone.
         </Text>
       </VStack>
 
