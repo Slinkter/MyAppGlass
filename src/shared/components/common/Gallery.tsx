@@ -69,7 +69,8 @@ const useGalleryContext = () => {
 const GalleryRoot: React.FC<{
     images: GalleryItem[];
     children: React.ReactNode;
-}> = ({ images, children }) => {
+    onActiveImageChange?: (image: GalleryItem, index: number) => void;
+}> = ({ images, children, onActiveImageChange }) => {
     const gallery = useGallery(images);
 
     const value = useMemo(
@@ -79,6 +80,13 @@ const GalleryRoot: React.FC<{
         }),
         [gallery, images],
     );
+
+    // Notify parent about active image change
+    useEffect(() => {
+        if (gallery.currentImage && onActiveImageChange) {
+            onActiveImageChange(gallery.currentImage, gallery.selectedIndex);
+        }
+    }, [gallery.selectedIndex, gallery.currentImage, onActiveImageChange]);
 
     // Pre-load adjacent images in the background
     useEffect(() => {

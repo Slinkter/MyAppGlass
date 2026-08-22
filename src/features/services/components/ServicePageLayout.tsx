@@ -21,6 +21,8 @@ import { serviceFaqsMap, defaultServiceFaqs } from "../data/serviceFaqs";
 import { AuraARViewer } from "@/shared/components/3d/AuraARViewer";
 import { SERVICE_AR_MODELS_MAP } from "../data/serviceArModels";
 
+import { GalleryItem } from "@/shared/types/gallery";
+
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string } };
 }
@@ -35,6 +37,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
     : defaultServiceFaqs;
 
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const [activePhoto, setActivePhoto] = React.useState<GalleryItem | null>(null);
   const [isPending, startTransition] = React.useTransition();
 
   const activeImageList = React.useMemo(() => imageLists[activeIndex] || [], [imageLists, activeIndex]);
@@ -53,8 +56,18 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
   const handleSelect = React.useCallback((index: number) => {
     startTransition(() => {
       setActiveIndex(index);
+      setActivePhoto(null);
     });
   }, []);
+
+  const handleActiveImageChange = React.useCallback((photo: GalleryItem) => {
+    setActivePhoto(photo);
+  }, []);
+
+  // Título dinámico simplificado para el configurador 3D
+  const dynamicViewerTitle = serviceSlug === "ventana"
+    ? "Modelos de ventanas 3d"
+    : `Modelos de ${serviceSlug?.replace("-", " ") || "estructuras"} 3d`;
 
   return (
     <Box animation="fadeIn 0.4s ease-out">
@@ -99,7 +112,10 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                     borderRadius={{ base: "2xl", lg: "3xl" }}
                   >
                     {activeImageList.length > 0 ? (
-                      <Gallery images={activeImageList}>
+                      <Gallery 
+                        images={activeImageList}
+                        onActiveImageChange={handleActiveImageChange}
+                      >
                         <Flex
                           direction={{ base: "column", md: "row" }}
                           gap={{ base: "2", md: "4" }}
@@ -133,13 +149,14 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
             </GridItem>
           </Grid>
 
-          {/* MÓDULO DE REALIDAD AUMENTADA ESPECÍFICO DEL SISTEMA SELECCIONADO */}
+          {/* MÓDULO DE REALIDAD AUMENTADA SINCRONIZADO CON LA FOTO SELECCIONADA */}
           <Box id="ar-viewer-section" pt="2">
             <AuraARViewer
-              title={`Probar en tu Casa: ${systemAR.systemLabel}`}
+              title={dynamicViewerTitle}
               category={systemAR.category}
               glbModelUrl={systemAR.glbModelUrl}
               usdzModelUrl={systemAR.usdzModelUrl}
+              initialConfig3D={activePhoto?.config3D}
             />
           </Box>
 

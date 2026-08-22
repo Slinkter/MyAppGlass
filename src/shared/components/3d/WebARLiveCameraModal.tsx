@@ -232,22 +232,44 @@ export const WebARLiveCameraModal: React.FC<WebARLiveCameraModalProps> = ({
 
     // Geometría del producto según sistema
     if (actualSystemType === "ventana") {
-      const outerFrame = createFrame(2.0, 1.4, 0.08, 0.12, frameMat);
+      const windowWidth = 2.8;
+      const windowHeight = 1.4;
+      const outerFrame = createFrame(windowWidth, windowHeight, 0.08, 0.12, frameMat);
       group.add(outerFrame);
-      const sash1 = createFrame(0.98, 1.24, 0.05, 0.04, innerMat);
-      sash1.position.set(-0.48, 0, 0.025);
-      const g1 = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.16, 0.012), glassMat);
-      sash1.add(g1);
-      const lock1 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.12, 0.03), lockMat);
-      lock1.position.set(0.46, 0, 0.025);
-      sash1.add(lock1);
+
+      const sashW = 0.74;
+      const sashH = 1.24;
+      const gBox = new THREE.BoxGeometry(sashW - 0.08, sashH - 0.08, 0.012);
+
+      // Hoja 1: Fija Izquierda
+      const sash1 = createFrame(sashW, sashH, 0.05, 0.04, innerMat);
+      sash1.position.set(-1.02, 0, -0.025);
+      sash1.add(new THREE.Mesh(gBox, glassMat));
       group.add(sash1);
 
-      const sash2 = createFrame(0.98, 1.24, 0.05, 0.04, innerMat);
-      sash2.position.set(0.48, 0, -0.025);
-      const g2 = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.16, 0.012), glassMat);
-      sash2.add(g2);
+      // Hoja 2: Móvil Centro-Izquierda
+      const sash2 = createFrame(sashW, sashH, 0.05, 0.04, innerMat);
+      sash2.position.set(-0.35, 0, 0.025);
+      sash2.add(new THREE.Mesh(gBox.clone(), glassMat));
+      const lock2 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.12, 0.03), lockMat);
+      lock2.position.set(sashW / 2 - 0.03, 0, 0.025);
+      sash2.add(lock2);
       group.add(sash2);
+
+      // Hoja 3: Móvil Centro-Derecha
+      const sash3 = createFrame(sashW, sashH, 0.05, 0.04, innerMat);
+      sash3.position.set(0.35, 0, 0.025);
+      sash3.add(new THREE.Mesh(gBox.clone(), glassMat));
+      const lock3 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.12, 0.03), lockMat);
+      lock3.position.set(-sashW / 2 + 0.03, 0, 0.025);
+      sash3.add(lock3);
+      group.add(sash3);
+
+      // Hoja 4: Fija Derecha
+      const sash4 = createFrame(sashW, sashH, 0.05, 0.04, innerMat);
+      sash4.position.set(1.02, 0, -0.025);
+      sash4.add(new THREE.Mesh(gBox.clone(), glassMat));
+      group.add(sash4);
     } else if (actualSystemType === "mampara") {
       const outerFrame = createFrame(2.2, 2.3, 0.09, 0.14, frameMat);
       group.add(outerFrame);

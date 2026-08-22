@@ -52,13 +52,13 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         about: {
             title: "Ventanas de Aluminio y Acústicas Antirruido",
             description:
-                "Nuestras ventanas de aluminio herméticas ofrecen el máximo aislamiento acústico y térmico. Ideales para departamentos, residencias y oficinas en zonas urbanas de alto tráfico.",
+                "Nuestras ventanas de aluminio herméticas con cristales acústicos ofrecen el máximo aislamiento sonoro y confort térmico. Diseñadas a medida para departamentos, residencias y oficinas con perfiles herméticos de alta resistencia.",
         },
         benefits: [
-            { label: "Aislamiento acústico y térmico", icon: Check },
-            { label: "Hermeticidad certificada contra polvo y lluvia", icon: Check },
+            { label: "Aislamiento acústico y térmico superior", icon: Check },
+            { label: "Hermeticidad certificada contra polvo, viento y lluvia", icon: Check },
             { label: "Perfiles de aluminio anodizado y electropintado", icon: Check },
-            { label: "Asesoría técnica e instalación en obra", icon: Check },
+            { label: "Asesoría técnica e instalación profesional garantizada", icon: Check },
         ],
         systems: [
             { label: "Sistema Nova", icon: ChevronRight },
@@ -67,10 +67,10 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Sistema Serie 62", icon: ChevronRight },
         ],
         features: [
-            { label: "Cristal: Templado 6mm / 8mm / Insulado", icon: Check },
-            { label: "Tonalidades: Incoloro, Bronce, Gris reflejante", icon: Check },
-            { label: "Acabado Aluminio: Natural, Negro mate, Blanco", icon: Check },
-            { label: "Cierres: Cerrojos multipunto de alta seguridad", icon: Check },
+            { label: "Cristal: Templado 6mm / 8mm / Insulado Acústico (DVH)", icon: Check },
+            { label: "Tonalidades: Incoloro Transparente, Bronce Cálido, Gris Humo y Satinado", icon: Check },
+            { label: "Acabado Aluminio: Blanco Electropintado, Negro Mate, Natural y Champagne", icon: Check },
+            { label: "Cierres: Cerrojos multipunto de seguridad y caracol de alta precisión", icon: Check },
         ],
         imageLists: [
             listVentana.nova,
