@@ -4,7 +4,18 @@ import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 interface ThreeCanvasProps {
-  systemType: "ventana" | "mampara" | "ducha" | "techo";
+  systemType:
+    | "ventana"
+    | "mampara"
+    | "ducha"
+    | "techo"
+    | "parapeto"
+    | "baranda"
+    | "balcones"
+    | "pvidrio"
+    | "pserie"
+    | "celosias"
+    | string;
   width?: string;
   height?: string;
 }
@@ -185,6 +196,105 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
       const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.5), lockMat);
       handle.position.set(glassW / 2 - 0.15, 0, 0.04);
       group.add(handle);
+
+    } else if (systemType === "parapeto" || systemType === "balcones") {
+      // 🏙️ PARAPETO / BALCÓN PANORÁMICO
+      const pWidth = 2.2;
+      const pHeight = 1.1;
+      const glassMesh = new THREE.Mesh(new THREE.BoxGeometry(pWidth, pHeight, 0.018), glassMat);
+      glassMesh.position.set(0, 0, 0);
+      group.add(glassMesh);
+
+      // Zócalo inferior o pernos
+      const baseRail = new THREE.Mesh(new THREE.BoxGeometry(pWidth + 0.1, 0.08, 0.1), frameMat);
+      baseRail.position.set(0, -pHeight / 2 - 0.04, 0);
+      group.add(baseRail);
+
+      // Pasamanos superior ranurado
+      const topRail = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, pWidth + 0.1), lockMat);
+      topRail.rotation.z = Math.PI / 2;
+      topRail.position.set(0, pHeight / 2 + 0.02, 0);
+      group.add(topRail);
+
+    } else if (systemType === "baranda") {
+      // 🪜 BARANDA DE ACERO & VIDRIO
+      const bWidth = 2.0;
+      const bHeight = 1.0;
+      
+      // Pasamanos superior
+      const handrail = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, bWidth + 0.2), lockMat);
+      handrail.rotation.z = Math.PI / 2;
+      handrail.position.set(0, bHeight / 2, 0);
+      group.add(handrail);
+
+      // Parantes verticales de acero
+      for (let x = -0.9; x <= 0.9; x += 0.9) {
+        const post = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, bHeight), lockMat);
+        post.position.set(x, 0, 0);
+        group.add(post);
+      }
+
+      // Paneles de vidrio
+      const glass1 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.015), glassMat);
+      glass1.position.set(-0.45, 0, 0);
+      group.add(glass1);
+
+      const glass2 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.015), glassMat);
+      glass2.position.set(0.45, 0, 0);
+      group.add(glass2);
+
+    } else if (systemType === "pvidrio") {
+      // 🚪 PUERTA DE VIDRIO TEMPLADO CON FRENO DE PISO
+      const doorW = 1.0;
+      const doorH = 2.2;
+      const glassMesh = new THREE.Mesh(new THREE.BoxGeometry(doorW, doorH, 0.015), glassMat);
+      group.add(glassMesh);
+
+      // Jalador largo tubular de acero inox
+      const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.6), lockMat);
+      handle.position.set(doorW / 2 - 0.12, 0, 0.035);
+      group.add(handle);
+
+      // Chapa central
+      const lockBox = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.14, 0.04), lockMat);
+      lockBox.position.set(doorW / 2 - 0.05, -0.2, 0);
+      group.add(lockBox);
+
+      // Freno hidráulico en la base
+      const floorSpring = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.04, 0.25), innerSashMat);
+      floorSpring.position.set(-doorW / 2 + 0.08, -doorH / 2 - 0.02, 0);
+      group.add(floorSpring);
+
+    } else if (systemType === "pserie") {
+      // 🚪 PUERTA DE ALUMINIO SERIE
+      const doorFrame = createFrame(1.1, 2.2, 0.08, 0.1, frameMat);
+      group.add(doorFrame);
+
+      // Panel central arenado
+      const panelMesh = new THREE.Mesh(new THREE.BoxGeometry(0.94, 2.04, 0.02), innerSashMat);
+      group.add(panelMesh);
+
+      // Manija de apertura
+      const doorHandle = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.04, 0.06), lockMat);
+      doorHandle.position.set(0.4, 0, 0.04);
+      group.add(doorHandle);
+
+    } else if (systemType === "celosias") {
+      // 💨 CELOSÍA DE ALUMINIO
+      const cWidth = 1.4;
+      const cHeight = 1.6;
+      const cFrame = createFrame(cWidth, cHeight, 0.06, 0.08, frameMat);
+      group.add(cFrame);
+
+      // Lamas horizontales inclinadas
+      const louverGeo = new THREE.BoxGeometry(cWidth - 0.08, 0.08, 0.01);
+      for (let y = -0.65; y <= 0.65; y += 0.15) {
+        const louver = new THREE.Mesh(louverGeo, innerSashMat);
+        louver.position.set(0, y, 0);
+        louver.rotation.x = 0.5; // Inclinación 45°
+        group.add(louver);
+      }
+
     } else {
       // ☀️ TECHO DE POLICARBONATO / COBERTURA
       const roofMesh = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.05, 2.4), glassMat);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -11,7 +11,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { Smartphone, QrCode, Sparkles, CheckCircle2 } from "lucide-react";
+import { Smartphone, QrCode, Sparkles, CheckCircle2, ShieldCheck } from "lucide-react";
 
 import { ThreeCanvas } from "./ThreeCanvas";
 
@@ -31,52 +31,107 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
   posterUrl: _posterUrl,
 }) => {
   const [showQR, setShowQR] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState("");
+  const [deviceType, setDeviceType] = useState<"ios" | "android" | "desktop">("desktop");
 
-  const getSystemType = (): "ventana" | "mampara" | "ducha" | "techo" => {
-    const t = title.toLowerCase();
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+      const ua = navigator.userAgent;
+      if (/iPhone|iPad|iPod/i.test(ua)) {
+        setDeviceType("ios");
+      } else if (/Android/i.test(ua)) {
+        setDeviceType("android");
+      } else {
+        setDeviceType("desktop");
+      }
+    }
+  }, []);
+
+  const getSystemType = (): string => {
+    const t = `${title} ${category}`.toLowerCase();
     if (t.includes("ventana")) return "ventana";
     if (t.includes("ducha")) return "ducha";
-    if (t.includes("techo")) return "techo";
+    if (t.includes("techo") || t.includes("cobertura") || t.includes("policarbonato")) return "techo";
+    if (t.includes("parapeto")) return "parapeto";
+    if (t.includes("baranda") || t.includes("escalera")) return "baranda";
+    if (t.includes("balcon")) return "balcones";
+    if (t.includes("puerta de vidrio") || t.includes("pvidrio") || t.includes("pivotante")) return "pvidrio";
+    if (t.includes("puerta de aluminio") || t.includes("pserie") || t.includes("puerta serie")) return "pserie";
+    if (t.includes("celosia") || t.includes("ventilacion")) return "celosias";
     return "mampara";
   };
 
   const handleLaunchAR = () => {
-    if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-      window.location.href = usdzModelUrl;
+    if (typeof window === "undefined") return;
+
+    if (deviceType === "ios") {
+      // 🍏 Apple Quick Look Nativo para iPhone / iPad
+      const absoluteUsdz = usdzModelUrl.startsWith("http")
+        ? usdzModelUrl
+        : `${window.location.origin}${usdzModelUrl}`;
+
+      const anchor = document.createElement("a");
+      anchor.setAttribute("rel", "ar");
+      const img = document.createElement("img");
+      anchor.appendChild(img);
+      anchor.setAttribute("href", absoluteUsdz);
+      anchor.click();
+    } else if (deviceType === "android") {
+      // 🤖 Android WebXR / Google Scene Viewer (ARCore 1:1 en Android)
+      const absoluteGlb = glbModelUrl.startsWith("http")
+        ? glbModelUrl
+        : `${window.location.origin}${glbModelUrl}`;
+
+      const sceneViewerUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(
+        absoluteGlb
+      )}&mode=ar_preferred&title=${encodeURIComponent(
+        title
+      )}&resizable=true#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;end;`;
+
+      window.location.href = sceneViewerUrl;
     } else {
+      // 💻 En Desktop: abrir modal QR para escanear con la cámara del teléfono
       setShowQR(!showQR);
     }
   };
+
+  const qrImageUrl = currentUrl
+    ? `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=10&data=${encodeURIComponent(currentUrl)}`
+    : "";
 
   return (
     <Box
       bg="surface.card"
       borderRadius="2xl"
-      p={{ base: "6", md: "8" }}
+      p={{ base: "5", md: "8" }}
       border="1px solid"
       borderColor="border.glass"
       backdropFilter="blur(16px)"
       boxShadow="0 20px 40px rgba(0,0,0,0.2)"
     >
       <VStack align="start" gap="2" mb="6">
-        <HStack gap="2">
+        <HStack gap="2" wrap="wrap">
           <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full">
-            <Sparkles size={14} style={{ marginRight: 4 }} /> Realidad Aumentada Web 3D
+            <Sparkles size={14} style={{ marginRight: 4 }} /> Realidad Aumentada Web 3D (WebXR)
           </Badge>
           <Badge colorPalette="green" variant="subtle" px="3" py="1" borderRadius="full">
-            Escala 1:1 Nativa
+            Escala Real 1:1
+          </Badge>
+          <Badge colorPalette="purple" variant="subtle" px="3" py="1" borderRadius="full">
+            Android (ARCore) & iOS (Quick Look)
           </Badge>
         </HStack>
         <Heading size="xl" color="brand.primary">
           {title}
         </Heading>
         <Text fontSize="sm" color="text.muted">
-          Categoría: {category} — Gira el objeto en 360° con el ratón o pulsa para proyectarlo en tu pared.
+          Categoría: {category} — Proyecta esta estructura directamente en tu pared o sala con la cámara de tu celular.
         </Text>
       </VStack>
 
       <SimpleGrid columns={{ base: 1, md: 2 }} gap="8" alignContent="center">
-        {/* VISOR 3D INTERACTIVO CON THREE.JS (CARGA INSTANTÁNEA 100% GARANTIZADA) */}
+        {/* VISOR 3D INTERACTIVO CON THREE.JS (ROTACIÓN 360°) */}
         <Box
           position="relative"
           h="360px"
@@ -90,48 +145,72 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           justifyContent="center"
         >
           <ThreeCanvas systemType={getSystemType()} height="360px" />
+          
+          <Box
+            position="absolute"
+            bottom="3"
+            left="3"
+            bg="blackAlpha.700"
+            px="3"
+            py="1"
+            borderRadius="md"
+            fontSize="xs"
+            color="whiteAlpha.800"
+            pointerEvents="none"
+          >
+            🖱️ Arrastra para girar en 360°
+          </Box>
         </Box>
 
-        {/* ACCIONES Y DETALLES */}
+        {/* ACCIONES Y BOTÓN AR INTELIGENTE */}
         <VStack align="start" justify="center" gap="5">
-          <VStack align="start" gap="2" fontSize="sm" color="text.muted">
-            <HStack>
-              <CheckCircle2 size={16} color="#38bdf8" />
-              <Text>Medidas reales calibradas en centímetros y metros.</Text>
+          <VStack align="start" gap="2.5" fontSize="sm" color="text.muted">
+            <HStack align="flex-start">
+              <CheckCircle2 size={16} color="#38bdf8" style={{ marginTop: 2, flexShrink: 0 }} />
+              <Text>Detección de piso y pared a escala real 1:1 en tu hogar o terraza.</Text>
             </HStack>
-            <HStack>
-              <CheckCircle2 size={16} color="#38bdf8" />
-              <Text>Textura física realista de vidrio templado y aluminio negro mate.</Text>
+            <HStack align="flex-start">
+              <CheckCircle2 size={16} color="#38bdf8" style={{ marginTop: 2, flexShrink: 0 }} />
+              <Text>Vidrio templado reflectante y perfiles de aluminio negro y natural.</Text>
             </HStack>
-            <HStack>
-              <CheckCircle2 size={16} color="#38bdf8" />
-              <Text>Sin necesidad de instalar ninguna aplicación externa.</Text>
+            <HStack align="flex-start">
+              <ShieldCheck size={16} color="#38bdf8" style={{ marginTop: 2, flexShrink: 0 }} />
+              <Text>Sin instalar aplicaciones: funciona directamente en Chrome y Safari.</Text>
             </HStack>
           </VStack>
 
-          <HStack gap="4" w="full">
+          <VStack gap="3" w="full">
             <Button
               colorPalette="blue"
               size="lg"
-              flex="1"
+              w="full"
               onClick={handleLaunchAR}
               display="flex"
               alignItems="center"
+              justifyContent="center"
               gap="2"
+              fontWeight="bold"
+              boxShadow="0 8px 24px rgba(37, 99, 235, 0.35)"
             >
-              <Smartphone size={20} /> Probar en mi Espacio (AR)
+              {deviceType === "desktop" ? (
+                <>
+                  <QrCode size={20} /> Probar en tu Celular (Escanear QR)
+                </>
+              ) : (
+                <>
+                  <Smartphone size={20} /> Proyectar en tu Espacio (Cámara AR 1:1)
+                </>
+              )}
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => setShowQR(!showQR)}
-              display="flex"
-              alignItems="center"
-              gap="2"
-            >
-              <QrCode size={20} /> QR Celular
-            </Button>
-          </HStack>
+
+            {deviceType !== "desktop" && (
+              <Text fontSize="xs" color="text.muted" textAlign="center" w="full">
+                {deviceType === "android"
+                  ? "🤖 Detectado Android: Se abrirá Google Scene Viewer / WebXR al presionar el botón."
+                  : "🍏 Detectado iPhone: Se abrirá Apple Quick Look AR al presionar el botón."}
+              </Text>
+            )}
+          </VStack>
 
           {showQR && (
             <Box
@@ -142,21 +221,33 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
               borderColor="border.glass"
               w="full"
               textAlign="center"
+              animation="fadeIn 0.3s ease-out"
             >
-              <Text fontSize="xs" color="text.muted" mb="2">
-                Escanea desde tu iPhone o Android para activar la cámara AR:
+              <Text fontSize="xs" fontWeight="bold" color="text.heading" mb="2">
+                📱 Escanea con la cámara de tu iPhone o Android:
               </Text>
-              <Box
-                display="inline-block"
-                p="2"
-                bg="white"
-                borderRadius="md"
-                color="black"
-                fontSize="xs"
-                fontWeight="bold"
-              >
-                [ CÓDIGO QR REALIDAD AUMENTADA GYA ]
-              </Box>
+              
+              {qrImageUrl && (
+                <Box
+                  display="inline-block"
+                  p="3"
+                  bg="white"
+                  borderRadius="xl"
+                  boxShadow="md"
+                >
+                  <img
+                    src={qrImageUrl}
+                    alt={`Código QR AR para ${title}`}
+                    width={180}
+                    height={180}
+                    style={{ borderRadius: "8px", display: "block" }}
+                  />
+                </Box>
+              )}
+
+              <Text fontSize="2xs" color="text.muted" mt="2">
+                Abre la cámara de tu teléfono para apuntar al código y activar la vista AR en tu sala.
+              </Text>
             </Box>
           )}
         </VStack>
@@ -164,3 +255,4 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
     </Box>
   );
 };
+

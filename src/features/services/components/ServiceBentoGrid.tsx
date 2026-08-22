@@ -12,7 +12,6 @@ import {
   MessageSquareText,
   CheckCircle2,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { companyData } from "@/shared/config/company-data";
 
 interface ServiceBentoGridProps {
@@ -144,29 +143,9 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
       )}
     </Box>
 
-    <VStack mt={{ base: "5", md: "4" }} w="full" gap="2.5">
-      <Button
-        variant="outline"
-        size="md"
-        w="full"
-        borderRadius="2xl"
-        borderColor="blue.400"
-        color="blue.300"
-        _hover={{ bg: "blue.500/10", borderColor: "blue.300" }}
-        onClick={() => {
-          const arViewerSection = document.getElementById("ar-viewer-section");
-          if (arViewerSection) {
-            arViewerSection.scrollIntoView({ behavior: "smooth" });
-          } else {
-            window.scrollBy({ top: 400, behavior: "smooth" });
-          }
-        }}
-      >
-        🥽 Explorar Modelo 3D & AR
-      </Button>
-
+    <Box mt={{ base: "5", md: "4" }} w="full">
       <BentoCTA systemName={systemName} />
-    </VStack>
+    </Box>
   </Box>
 ));
 UnifiedTechnicalCard.displayName = "UnifiedTechnicalCard";

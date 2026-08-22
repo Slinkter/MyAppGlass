@@ -42,11 +42,11 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
   // Obtener modelo AR específico para este slug y sistema activo
   const activeSystemLabel = activeSystem?.label || "Sistema Nova";
-  const systemAR = (serviceSlug && SERVICE_AR_MODELS_MAP[serviceSlug]?.[activeSystemLabel]) || {
+  const systemAR = (serviceSlug && (SERVICE_AR_MODELS_MAP[serviceSlug]?.[activeSystemLabel] || Object.values(SERVICE_AR_MODELS_MAP[serviceSlug] || {})[0])) || {
     systemLabel: `${activeSystemLabel} (${seo.title.split("|")[0].trim()})`,
     category: seo.title.split("|")[0].trim(),
-    glbModelUrl: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
-    usdzModelUrl: "https://modelviewer.dev/shared-assets/models/Astronaut.usdz",
+    glbModelUrl: "/models/ventana-nova.glb",
+    usdzModelUrl: "/models/ventana-nova.glb",
     description: "Proyección 3D a escala real para visualizar el acabado y dimensiones antes de instalar.",
   };
 
