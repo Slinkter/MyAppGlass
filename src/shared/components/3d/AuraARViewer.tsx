@@ -11,9 +11,10 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { Smartphone, QrCode, Sparkles, CheckCircle2, ShieldCheck } from "lucide-react";
+import { Smartphone, QrCode, Sparkles, CheckCircle2, ShieldCheck, Camera } from "lucide-react";
 
 import { ThreeCanvas } from "./ThreeCanvas";
+import { WebARLiveCameraModal } from "./WebARLiveCameraModal";
 
 interface AuraARViewerProps {
   title?: string;
@@ -30,6 +31,7 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
   usdzModelUrl = "/models/mampara-serie25.glb",
   posterUrl: _posterUrl,
 }) => {
+  const [showLiveWebAR, setShowLiveWebAR] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const [currentUrl, setCurrentUrl] = useState("");
   const [deviceType, setDeviceType] = useState<"ios" | "android" | "desktop">("desktop");
@@ -179,37 +181,54 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
             </HStack>
           </VStack>
 
-          <VStack gap="3" w="full">
+          <VStack gap="2.5" w="full">
+            {/* BOTÓN PRINCIPAL: CÁMARA WEBAR EN VIVO EN TIEMPO REAL */}
             <Button
               colorPalette="blue"
               size="lg"
+              w="full"
+              onClick={() => setShowLiveWebAR(true)}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              gap="2.5"
+              fontWeight="bold"
+              boxShadow="0 8px 24px rgba(37, 99, 235, 0.4)"
+              _hover={{ transform: "translateY(-1px)", boxShadow: "0 12px 28px rgba(37, 99, 235, 0.5)" }}
+            >
+              <Camera size={20} /> Proyectar con Cámara WebAR en Vivo
+            </Button>
+
+            {/* BOTÓN SECUNDARIO: VISOR NATIVO (GOOGLE SCENE VIEWER / APPLE QUICK LOOK / QR) */}
+            <Button
+              variant="outline"
+              size="md"
               w="full"
               onClick={handleLaunchAR}
               display="flex"
               alignItems="center"
               justifyContent="center"
               gap="2"
-              fontWeight="bold"
-              boxShadow="0 8px 24px rgba(37, 99, 235, 0.35)"
+              color="text.body"
+              borderColor="border.default"
             >
               {deviceType === "desktop" ? (
                 <>
-                  <QrCode size={20} /> Probar en tu Celular (Escanear QR)
+                  <QrCode size={18} /> Ver Código QR para Celular
                 </>
               ) : (
                 <>
-                  <Smartphone size={20} /> Proyectar en tu Espacio (Cámara AR 1:1)
+                  <Smartphone size={18} />
+                  {deviceType === "android"
+                    ? "Abrir Google Scene Viewer (ARCore)"
+                    : "Abrir Apple Quick Look (USDZ)"}
                 </>
               )}
             </Button>
 
-            {deviceType !== "desktop" && (
-              <Text fontSize="xs" color="text.muted" textAlign="center" w="full">
-                {deviceType === "android"
-                  ? "🤖 Detectado Android: Se abrirá Google Scene Viewer / WebXR al presionar el botón."
-                  : "🍏 Detectado iPhone: Se abrirá Apple Quick Look AR al presionar el botón."}
-              </Text>
-            )}
+            <Text fontSize="xs" color="text.muted" textAlign="center" w="full">
+              ✨ Elige acabados de aluminio y cristales en vivo, toma una foto y cotiza por WhatsApp al instante.
+            </Text>
           </VStack>
 
           {showQR && (
@@ -252,6 +271,17 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           )}
         </VStack>
       </SimpleGrid>
+
+      {/* MODAL DE CÁMARA WEBAR EN VIVO CON THREE.JS Y FOTO WHATSAPP */}
+      <WebARLiveCameraModal
+        isOpen={showLiveWebAR}
+        onClose={() => setShowLiveWebAR(false)}
+        title={title}
+        category={category}
+        glbModelUrl={glbModelUrl}
+        usdzModelUrl={usdzModelUrl}
+        initialSystemType={getSystemType()}
+      />
     </Box>
   );
 };
