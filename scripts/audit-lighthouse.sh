@@ -30,7 +30,7 @@ fi
 # 3. Check for python or other local server command to run in background
 PORT=5001
 echo -e "${YELLOW}Starting local static server on port $PORT in the background...${NC}"
-python3 -m http.server $PORT --directory dist > /dev/null 2>&1 &
+python3 -m http.server $PORT --directory out > /dev/null 2>&1 &
 SERVER_PID=$!
 
 # Ensure the server is killed when the script exits

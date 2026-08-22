@@ -121,6 +121,7 @@ export const SalesOrderScreen: React.FC = () => {
     }
 
     setErrorMessage(null);
+    const adminUid = user?.uid || "admin_system";
     const adminName = user?.displayName || user?.email || "Administrador GYA";
 
     console.info("🛒 [Venta] Enviando orden de despacho...", {

@@ -115,13 +115,13 @@ export const orderService = {
 
       // 2. Descontar stock atómicamente por cada ítem usando set con merge: true para tolerancia total
       payload.items.forEach((item) => {
-        const prodId = item.productId || `prod_${item.sku.toLowerCase().replace(/[^a-z0-9]/g, "_")}`;
+        const prodId = item.productId || (item.sku ? `prod_${item.sku.toLowerCase().replace(/[^a-z0-9]/g, "_")}` : `prod_${Date.now()}`);
         const productRef = doc(db, PRODUCTS_COLL, prodId);
         batch.set(
           productRef,
           {
             id: prodId,
-            sku: item.sku,
+            sku: item.sku || "N/A",
             name: item.name,
             stock: increment(-item.quantity),
             updatedAt: serverTimestamp(),
@@ -143,7 +143,7 @@ export const orderService = {
       // Si las reglas en la nube están pendientes de despliegue, guardamos localmente para no bloquear al usuario
       saveLocalOrder(fallbackOrder);
       console.info(`✅ [GYA Modo Contingencia] Orden ${orderNumber} guardada en almacenamiento local con éxito.`);
-      return fallbackOrder.id;
+      return fallbackOrder.id || tempId;
     }
   },
 

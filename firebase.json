@@ -91,7 +91,7 @@
             }
         ],
         "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-        "public": "dist",
+        "public": "out",
         "rewrites": [],
         "versionLimit": 5
     },

@@ -47,8 +47,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     ".next/types/**/*.ts",
-    "dist/types/**/*.ts",
-    "dist/dev/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [

@@ -13,7 +13,7 @@
         "test:run": "vitest run",
         "optimize": "node scripts/optimize-images.mjs",
         "generate:3d": "python scripts/generate-3d-from-image.py",
-        "clean": "pnpm dlx rimraf node_modules .next dist functions/node_modules",
+        "clean": "pnpm dlx rimraf node_modules .next dist out functions/node_modules",
         "deploy:hosting": "pnpm run build && npx firebase-tools deploy --only hosting",
         "deploy:functions": "firebase deploy --only functions"
     },
