@@ -1,4 +1,4 @@
-export type AcabadoAluminioId = "negro" | "natural" | "madera";
+export type AcabadoAluminioId = "negro" | "gris-claro" | "madera-claro" | "blanco" | "natural" | "madera";
 export type TipoVidrioId = "crudo" | "templado" | "laminado" | "pavonado";
 export type ColorVidrioId = "incoloro" | "bronce" | "gris";
 

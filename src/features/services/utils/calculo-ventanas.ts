@@ -2,7 +2,14 @@ import type { ConfiguracionCotizacion } from "../types/catalogo";
 
 const PRICING = {
   glass: { crudo: 90, templado: 160, laminado: 220, pavonado: 190 },
-  finish: { natural: 1.0, negro: 1.1, madera: 1.4 },
+  finish: {
+    natural: 1.0,
+    negro: 1.1,
+    madera: 1.4,
+    "gris-claro": 1.0,
+    "madera-claro": 1.4,
+    blanco: 1.05,
+  },
   baseHardware: {
     corredizo: 50,
     proyectante: 90,

@@ -9,14 +9,19 @@
             "hex": "#1A1A1A"
         },
         {
-            "id": "natural",
-            "nombre": "Natural (Aluminio Mate)",
-            "hex": "#C4C4C4"
+            "id": "gris-claro",
+            "nombre": "Gris Claro",
+            "hex": "#B0B4B8"
         },
         {
-            "id": "madera",
-            "nombre": "Madera",
-            "hex": "#8B4513"
+            "id": "madera-claro",
+            "nombre": "Madera Claro",
+            "hex": "#C19A6B"
+        },
+        {
+            "id": "blanco",
+            "nombre": "Blanco",
+            "hex": "#F8F9FA"
         }
     ],
     "coloresVidrio": [
@@ -51,6 +56,11 @@
             "id": "laminado",
             "nombre": "Vidrio Laminado (3+3) 6mm",
             "factorPrecio": 1.9
+        },
+        {
+            "id": "pavonado",
+            "nombre": "Vidrio Pavonado (Esmerilado) 6mm",
+            "factorPrecio": 1.8
         }
     ],
     "sistemas": [
