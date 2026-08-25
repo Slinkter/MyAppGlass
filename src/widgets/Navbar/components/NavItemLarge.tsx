@@ -19,6 +19,7 @@ export const NavItemLarge: React.FC<NavItemLargeProps> = ({ label, href, onClick
         <NavLink
             href={href}
             onClick={onClick}
+            transitionTypes={['nav-forward']}
             style={{ textDecoration: "none", width: "100%", display: "block" }}
         >
             <Box position="relative" py={3} overflow="hidden" role="group">

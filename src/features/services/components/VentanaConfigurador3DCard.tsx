@@ -757,7 +757,11 @@ export const VentanaConfigurador3DCard: React.FC<{
                 <Flex
                     w={{ base: "full", lg: "420px", xl: "450px" }}
                     flexShrink={0}
-                    bg={{ base: "transparent", md: "surface.card" }}
+                    bg={{ base: "transparent", lg: "rgba(255, 255, 255, 0.6)" }}
+                    _dark={{ bg: { lg: "rgba(28, 25, 23, 0.65)" } }}
+                    backdropFilter={{ lg: "blur(24px)" }}
+                    borderLeftWidth={{ lg: "1px" }}
+                    borderColor="whiteAlpha.300"
                     direction="column"
                     justify="space-between"
                 >
@@ -786,13 +790,13 @@ export const VentanaConfigurador3DCard: React.FC<{
                                         return (
                                             <Button
                                                 key={preset.label}
-                                                size="xs"
+                                                size="sm"
                                                 variant={isSelected ? "aura" : "outline"}
                                                 borderRadius="full"
-                                                px="2.5"
-                                                py="0"
-                                                h="6"
-                                                fontSize="10px"
+                                                px={{ base: "4", md: "2.5" }}
+                                                py={{ base: "2", md: "0" }}
+                                                h={{ base: "10", md: "7" }}
+                                                fontSize={{ base: "11px", md: "10px" }}
                                                 fontWeight={isSelected ? "bold" : "medium"}
                                                 onClick={() => {
                                                     setWidthMeters(preset.width);
@@ -817,7 +821,8 @@ export const VentanaConfigurador3DCard: React.FC<{
                                             max={3.0}
                                             step={0.05}
                                             onChange={(e) => setWidthMeters(parseFloat(e.target.value) || 0.6)}
-                                            size="sm"
+                                            size="md"
+                                            h={{ base: "11", md: "8" }}
                                             borderRadius="xl"
                                         />
                                     </Box>
@@ -832,7 +837,8 @@ export const VentanaConfigurador3DCard: React.FC<{
                                             max={3.0}
                                             step={0.05}
                                             onChange={(e) => setHeightMeters(parseFloat(e.target.value) || 0.6)}
-                                            size="sm"
+                                            size="md"
+                                            h={{ base: "11", md: "8" }}
                                             borderRadius="xl"
                                         />
                                     </Box>
@@ -887,8 +893,8 @@ export const VentanaConfigurador3DCard: React.FC<{
                                                 key={f.id}
                                                 as="button"
                                                 onClick={() => setFinish(f.id)}
-                                                w="8"
-                                                h="8"
+                                                w={{ base: "11", md: "8" }}
+                                                h={{ base: "11", md: "8" }}
                                                 borderRadius="full"
                                                 bg={f.color}
                                                 borderWidth={isSelected ? "3px" : "1.5px"}

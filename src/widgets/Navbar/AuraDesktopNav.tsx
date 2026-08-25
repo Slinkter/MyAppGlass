@@ -68,7 +68,11 @@ const AuraDesktopNav: React.FC = () => {
               transform: isActive ? "none" : "translateY(-1px)",
             }}
           >
-            <RouterLink href={item.href || "#"} aria-current={isActive ? "page" : undefined}>
+            <RouterLink 
+              href={item.href || "#"} 
+              aria-current={isActive ? "page" : undefined}
+              transitionTypes={['nav-forward']}
+            >
               {item.label}
             </RouterLink>
           </Button>
