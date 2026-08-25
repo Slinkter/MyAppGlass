@@ -4,7 +4,7 @@ Este documento detalla la estructura técnica, flujos de datos y patrones de dis
 
 ## 📐 Principios Fundamentales
 - **Feature-Based Architecture (FBA):** Organización por dominios de negocio.
-- **Atomic Design + Aura System:** Componentes escalables basados en la proporción áurea (`phi`).
+- **Chakra UI v3 + Aura Components:** Sistema de diseño basado en tokens nativos de Chakra UI (spacing 4px base, color, typography).
 - **Clean Architecture:** Desacoplamiento total entre servicios de datos y UI.
 
 ## 🔄 Flujo de Datos (Filtrado e Infinite Scroll)

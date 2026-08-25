@@ -109,11 +109,8 @@ $$\mathcal{D}_{\text{arch}} = \{\text{FSD Layers, Type Contracts, Agent Roles, R
 
 ### $3.2.\;\text{Ingeniería de Frontend y Sistema de Diseño Aura (UI/UX Engine)}$
 
-$$\Phi = \frac{1 + \sqrt{5}}{2} \approx 1.6180339887\dots$$
-
 * **[3.2.1. `06_DOCS_DEVELOPMENT.md`](./06_DOCS_DEVELOPMENT.md):**  
-  Manual de desarrollo local. Implementa el sistema de espaciado y tipografía basado en la proporción áurea ($\Phi$) y la sucesión de Fibonacci:
-  $$\text{phi\_xs} = 8\text{px},\;\text{phi\_sm} = 13\text{px},\;\text{phi\_md} = 21\text{px},\;\text{phi\_lg} = 34\text{px},\;\text{phi\_xl} = 55\text{px},\;\text{phi\_2xl} = 89\text{px}$$
+  Manual de desarrollo local. Implementa el sistema de espaciado y tipografía basado en **Chakra UI v3 nativo** (spacing scale 4px base: `space.1`=4px, `space.4`=16px, `space.8`=32px, `space.12`=48px, `space.16`=64px).  
   Establece los requisitos de aislamiento de repintado (`contain: layout style`) y aceleración por hardware (`translateZ(0)`) para garantizar una tasa de refresco constante de $120\,\text{Hz}$ y $\Delta\text{CLS} = 0$.
 
 ---
@@ -191,7 +188,7 @@ $$\begin{array}{|l|l|l|}
 \text{Plan de Sprints Scrum \& Checklists} & \text{\texttt{13\_PLAN\_TRABAJO\_SCRUM\_FASES.md}} & \text{Checklist de actividades por rol senior} \\
 \text{Arquitectura E-Commerce \& Inventario} & \text{\texttt{12\_PLAN\_ECOMMERCE\_INVENTARIO\_AR.md}} & \text{Especificación completa y reglas RBAC} \\
 \text{Agregar o editar artículo del Blog} & \text{\texttt{09\_PLAN\_SEO\_CONTENIDOS.md}} & \texttt{src/features/blog/data/blog-posts.ts} \\
-\text{Modificar reglas de diseño y espaciado} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \text{Tokens Phi en } \texttt{src/theme/} \\
+\text{Modificar reglas de diseño y espaciado} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \text{Chakra UI spacing en } \texttt{src/shared/providers/theme/} \\
 \text{Auditar flujo legal del Libro de Reclamaciones} & \text{\texttt{07\_BACKEND\_IMPLEMENTATION.md}} & \text{Colección Firestore } \texttt{libro\_de\_reclamaciones} \\
 \text{Configuración de SEO Local (Google Maps)} & \text{\texttt{11\_MANUAL\_SEO\_LOCAL.md}} & \text{Google Business Profile (La Molina, Lima)} \\
 \hline

@@ -37,7 +37,7 @@ All notable changes to this project will be documented in this file.
 - **Lazy Loading (Code Splitting)**: Integrated `next/dynamic` into `Gallery.tsx` to defer the loading of heavy Framer Motion components until they enter the viewport, radically shrinking the initial JS bundle.
 - **LCP Asset Optimization**: Replaced `priority` with `loading="lazy"` on below-the-fold assets (e.g., Footer logo) to prioritize bandwidth for critical above-the-fold content.
 - **UX Layout Sync (Zero CLS)**: Synchronized the skeleton loading state of `/proyectos/[id]` with its final rendered state, eliminating Cumulative Layout Shift during data hydration.
-- **UX Breathing Room**: Increased the vertical gap tokens dynamically (`gap={{ base: "phi_sm", md: "phi_md" }}`) inside `ItemGridLayout.tsx` and `AuraHeader.tsx` to provide better visual separation between main headings and descriptions.
+- **UX Breathing Room**: Increased the vertical gap dynamically (`gap={{ base: 3, md: 6 }}`) inside `ItemGridLayout.tsx` and `AuraHeader.tsx` to provide better visual separation between main headings and descriptions.
 
 ## [2026-04-25] - FSD Architectural Alignment & Documentation
 

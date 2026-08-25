@@ -4,7 +4,7 @@ Este documento es la referencia técnica para el mantenimiento y expansión del 
 
 ## 🛠️ Stack Tecnológico
 - **Frontend:** Next.js 16 (App Router) + Chakra UI v3.
-- **Estilos:** Aura Design System (basado en proporción áurea `phi`).
+- **Estilos:** Chakra UI v3 (spacing scale 4px base) + Aura Components.
 - **Backend:** Firebase Functions v2 (Node.js 20+).
 - **Base de Datos:** Firestore (NoSQL).
 - **Email:** Resend API.
@@ -29,15 +29,28 @@ ADMIN_EMAIL=admin@example.com
 - **Frontend:** `pnpm run dev`
 - **Backend (Emuladores):** `cd functions && pnpm run serve` (Requiere Java JDK).
 
-## 💎 Sistema de Diseño Aura (Phi Tokens)
-Para mantener la armonía visual, use **siempre** los tokens `phi_` en lugar de valores fijos:
-- `phi_xs` (8px)
-- `phi_sm` (13px)
-- `phi_md` (21px) - Estándar
-- `phi_lg` (34px)
-- `phi_xl` (55px)
+## 💎 Chakra UI v3 Spacing Scale (4px base)
+Use **exclusivamente** los tokens nativos de spacing de Chakra UI. No definir tokens custom.
 
-Ejemplo: `<VStack gap="phi_md" p="phi_lg" />`
+| Token | Valor | Uso recomendado |
+|-------|-------|-----------------|
+| `1` / `space.1` | 4px | Micro spacing, icon gaps |
+| `2` / `space.2` | 8px | Espaciado base xs |
+| `3` / `space.3` | 12px | Espaciado sm |
+| `4` / `space.4` | 16px | **Estándar** (md) |
+| `5` / `space.5` | 20px | Espaciado lg |
+| `6` / `space.6` | 24px | Secciones, cards |
+| `8` / `space.8` | 32px | Layout xl |
+| `10` / `space.10` | 40px | Hero sections |
+| `12` / `space.12` | 48px | Major sections |
+| `16` / `space.16` | 64px | Page-level spacing |
+
+**Ejemplos:**
+```tsx
+<VStack gap={6} p={8} />           // 24px gap, 32px padding
+<Box m={4} px={6} py={4} />        // margin 16px, px 24px, py 16px
+<HStack gap="4" />                  // string tokens también funcionan
+```
 
 ## ⚡ Rendimiento 120Hz
 Para asegurar fluidez en móviles modernos:

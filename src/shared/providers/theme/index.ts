@@ -209,22 +209,6 @@ const config = defineConfig({
           redDark: { value: "#D9444A" },
         },
       },
-      spacing: {
-        phi_xs: { value: "0.5rem" },      // 8px
-        phi_sm: { value: "0.8125rem" },   // 13px
-        phi_md: { value: "1.3125rem" },   // 21px
-        phi_lg: { value: "2.125rem" },    // 34px
-        phi_xl: { value: "3.4375rem" },   // 55px
-        phi_2xl: { value: "5.5625rem" },  // 89px
-        phi_3xl: { value: "9rem" },       // 144px
-        "18": { value: "4.5rem" },
-        "22": { value: "5.5rem" },
-        "30": { value: "7.5rem" },
-        "34": { value: "8.5rem" },
-        "38": { value: "9.5rem" },
-        "42": { value: "10.5rem" },
-        "46": { value: "11.5rem" },
-      },
       radii: {
         card: { value: "16px" },
         modal: { value: "24px" },

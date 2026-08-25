@@ -10,7 +10,7 @@ Plataforma corporativa de alta gama optimizada para el rendimiento y SEO de auto
 - **Framework:** [Next.js 16](https://nextjs.org/) (App Router) con soporte nativo para **Static Export**.
 - **UI Engine:** [Chakra UI v3](https://chakra-ui.com/) - Sistema de diseño Aura.
 - **Rendimiento 120Hz:** Optimización agresiva mediante aceleración por GPU (`translateZ`, `will-change`) y aislamiento de pintura (`contain: layout style`) para garantizar una fluidez total en dispositivos modernos.
-- **Proporción Áurea (Phi):** Sistema de espaciado y jerarquía visual basado estrictamente en la escala Fibonacci (`phi_xs` a `phi_3xl`), garantizando armonía visual perfecta.
+- **Chakra UI v3 Spacing Scale:** Sistema de espaciado nativo basado en 4px (`space.1` = 4px, `space.4` = 16px, `space.8` = 32px, etc.), garantizando consistencia y zero-config.
 - **Zero Layout Shift:** Skeletons de carga sincronizados al 100% con los componentes finales para una experiencia de usuario sin saltos.
 
 ## 🔍 SEO de Autoridad (Search Domination)

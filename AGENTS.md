@@ -34,7 +34,7 @@ functions/        # Firebase Functions v2 (Node 20) — frozen unless explicitly
 
 ## Design System Conventions
 
-- **Phi tokens** for all spacing: `phi_xs` (8px), `phi_sm` (13px), `phi_md` (21px), `phi_lg` (34px), `phi_xl` (55px)
+- **Chakra UI v3 Spacing Scale (4px base)**: Use native `space.*` tokens exclusively — `space.1` (4px), `space.2` (8px), `space.4` (16px), `space.6` (24px), `space.8` (32px), `space.10` (40px), `space.12` (48px), `space.16` (64px). No custom spacing tokens.
 - **120Hz performance**: Use `translateZ(0)` + `will-change` on animated elements; zero CLS via skeleton synchronization
 - **Logger**: Use `@shared/utils/logger` — no `console.log` in production
 - **Micro-interactions**: Max 2 CSS properties per hover/active; no `transition: all`
