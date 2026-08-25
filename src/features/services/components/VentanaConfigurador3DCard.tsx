@@ -33,7 +33,6 @@ import {
     Layers,
     Sparkles,
     Check,
-    Wrench,
     Compass,
 } from "lucide-react";
 
@@ -102,9 +101,9 @@ export const VentanaConfigurador3DCard: React.FC<{
         const cost = calcularPrecio({
             sistemaId: systemId,
             tipoId: activeType,
-            acabadoAluminio: finish as any,
-            tipoVidrio: glass as any,
-            colorVidrio: glassColor as any,
+            acabadoAluminio: finish as import("../types/catalogo").AcabadoAluminioId,
+            tipoVidrio: glass as import("../types/catalogo").TipoVidrioId,
+            colorVidrio: glassColor as import("../types/catalogo").ColorVidrioId,
             anchoMm: width,
             altoMm: height,
         });
@@ -210,13 +209,11 @@ export const VentanaConfigurador3DCard: React.FC<{
             const curType = activeTypeRef.current;
             const isOpenState = isWindowOpenRef.current;
             const curW = widthRef.current;
-            const curH = heightRef.current;
 
             if (sashGroupRef.current && curType !== "fija") {
                 const speed = 0.08;
                 const pW = 0.04;
                 const inW = curW / 1000 - pW * 2;
-                const inH = curH / 1000 - pW * 2;
                 const sW = inW / 2 + 0.02;
                 const closedX = 0;
                 const openX = -(inW - sW);
@@ -231,14 +228,6 @@ export const VentanaConfigurador3DCard: React.FC<{
                 } else if (curType === "batiente") {
                     const targetRot = isOpenState ? -Math.PI / 3 : 0;
                     sash.rotation.y += (targetRot - sash.rotation.y) * speed;
-                } else if (curType === "pivotante") {
-                    const targetRot = isOpenState ? Math.PI / 2.5 : 0;
-                    sash.rotation.y += (targetRot - sash.rotation.y) * speed;
-                } else if (curType === "fijo-corredizo") {
-                    const hBot = inH * 0.6;
-                    const basePos = -inH / 2 + (hBot - pW / 2) / 2;
-                    const targetY = isOpenState ? basePos + hBot - 0.05 : basePos;
-                    sash.position.y += (targetY - sash.position.y) * speed;
                 }
             }
 
@@ -262,7 +251,7 @@ export const VentanaConfigurador3DCard: React.FC<{
     }, []);
 
     const createSash = useCallback(
-        (w: number, h: number, p: number, d: number, matA: any, matG: any) => {
+        (w: number, h: number, p: number, d: number, matA: THREE.Material, matG: THREE.Material) => {
             const group = new THREE.Group();
             const frameH = new THREE.BoxGeometry(w, p, d);
             const frameV = new THREE.BoxGeometry(p, h - p * 2, d);
@@ -291,7 +280,6 @@ export const VentanaConfigurador3DCard: React.FC<{
 
         const windowGroup = new THREE.Group();
         const sashGroup = new THREE.Group();
-        const sashGroup2 = new THREE.Group();
 
         const w = width / 1000;
         const h = height / 1000;
@@ -394,9 +382,9 @@ export const VentanaConfigurador3DCard: React.FC<{
         };
 
         const matA =
-            (materials.alum as any)[finish] || materials.alum.negro;
+            materials.alum[finish as keyof typeof materials.alum] || materials.alum.negro;
         const matG =
-            (materials.glass as any)[glass] || materials.glass.templado;
+            materials.glass[glass as keyof typeof materials.glass] || materials.glass.templado;
 
         // Marco Exterior
         const outerFrameH = new THREE.BoxGeometry(w, pW, depth);
@@ -929,7 +917,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                     Cristal & Seguridad
                                 </Text>
                                 <VStack gap="2" align="stretch">
-                                    {GLASS_TYPES.map((g: any) => {
+                                    {GLASS_TYPES.map((g: typeof GLASS_TYPES[0]) => {
                                         const isSelected = glass === g.id;
                                         return (
                                             <Flex
