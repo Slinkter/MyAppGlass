@@ -7,18 +7,6 @@
       "skillPath": "skills/academy-guide/SKILL.md",
       "computedHash": "3850fdb589a7a5ba8c3fc5610b43751fef339ba8569a106e316a3b199f6426bc"
     },
-    "algorithmic-art": {
-      "source": "anthropics/skills",
-      "sourceType": "github",
-      "skillPath": "skills/algorithmic-art/SKILL.md",
-      "computedHash": "987b24aa98171a0d3690420173b2cdb6eaafd57981ed716b5d50371affa82ea3"
-    },
-    "brand-guidelines": {
-      "source": "anthropics/skills",
-      "sourceType": "github",
-      "skillPath": "skills/brand-guidelines/SKILL.md",
-      "computedHash": "c82f0b24cdcc7e2693a963d30c810558b7bb89ed84508b2328228d21256ef865"
-    },
     "canvas-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
@@ -30,12 +18,6 @@
       "sourceType": "github",
       "skillPath": "skills/claude-api/SKILL.md",
       "computedHash": "8aa615eb441b54ea2ad310f22ae6ded1851cf0cece0c8b451fc901a4f224ef67"
-    },
-    "deploy-to-vercel": {
-      "source": "vercel-labs/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/deploy-to-vercel/SKILL.md",
-      "computedHash": "03e0eaaa9bf13ba1e7ffa387f5893de6f324c0868c627001f179395a8feaa7c9"
     },
     "discernment-nudge": {
       "source": "anthropics/skills",
@@ -120,18 +102,6 @@
       "sourceType": "github",
       "skillPath": "skills/skill-creator/SKILL.md",
       "computedHash": "7e3c9cd74e9e2b4828527a857170e86310f2dab5ea8030a9043df2c7e6c88857"
-    },
-    "slack-gif-creator": {
-      "source": "anthropics/skills",
-      "sourceType": "github",
-      "skillPath": "skills/slack-gif-creator/SKILL.md",
-      "computedHash": "a36e1ceb3f07eb37bdc259f1bfb18e48cc0e809b2e1651cb2369286cd66b2107"
-    },
-    "template-skill": {
-      "source": "anthropics/skills",
-      "sourceType": "github",
-      "skillPath": "template/SKILL.md",
-      "computedHash": "daf176f2cd0030d321982d3e813fd1a794a0b4744c5a92d2931a37001bb40fb9"
     },
     "theme-factory": {
       "source": "anthropics/skills",
