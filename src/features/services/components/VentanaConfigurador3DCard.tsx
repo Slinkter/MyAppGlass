@@ -36,12 +36,19 @@ import {
     Compass,
 } from "lucide-react";
 
+export const MIN_VENTANA_WIDTH_M = 0.25;
+export const MAX_VENTANA_WIDTH_M = 2.20;
+export const MIN_VENTANA_HEIGHT_M = 0.30;
+export const MAX_VENTANA_HEIGHT_M = 2.30;
+
 export const VentanaConfigurador3DCard: React.FC<{
     initialSystemId?: string;
 }> = ({ initialSystemId = "sistema-nova" }) => {
     const [activeType, setActiveType] = useState<string>("corredizo");
     const [widthMeters, setWidthMeters] = useState(1.2);
     const [heightMeters, setHeightMeters] = useState(1.0);
+    const [widthInput, setWidthInput] = useState("1.20");
+    const [heightInput, setHeightInput] = useState("1.00");
     const [systemId, setSystemId] = useState(initialSystemId);
     const [finish, setFinish] = useState("negro");
     const [glass, setGlass] = useState("templado");
@@ -49,6 +56,15 @@ export const VentanaConfigurador3DCard: React.FC<{
     const [isWindowOpen, setIsWindowOpen] = useState(false);
     const [price, setPrice] = useState(0);
     const [rotationAngle, setRotationAngle] = useState<{ azimuth: number; polar: number }>({ azimuth: 27, polar: 81 });
+
+    // Sincronizar inputs cuando cambian las medidas numéricas externamente (ej: presets)
+    useEffect(() => {
+        setWidthInput(widthMeters.toString());
+    }, [widthMeters]);
+
+    useEffect(() => {
+        setHeightInput(heightMeters.toString());
+    }, [heightMeters]);
 
     // Sincronizar cuando cambia la selección externa del sistema en la cabecera
     useEffect(() => {
@@ -811,32 +827,84 @@ export const VentanaConfigurador3DCard: React.FC<{
 
                                 <SimpleGrid columns={2} gap="3">
                                     <Box>
-                                        <Text fontSize="11px" color="text.muted" mb="1" fontWeight="medium">
-                                            Ancho (m)
-                                        </Text>
+                                        <Flex justify="space-between" align="center" mb="1">
+                                            <Text fontSize="11px" color="text.muted" fontWeight="medium">
+                                                Ancho (m)
+                                            </Text>
+                                            <Text fontSize="9px" color="text.muted">
+                                                {MIN_VENTANA_WIDTH_M}m - {MAX_VENTANA_WIDTH_M}m
+                                            </Text>
+                                        </Flex>
                                         <Input
                                             type="number"
-                                            value={widthMeters}
-                                            min={0.6}
-                                            max={3.0}
-                                            step={0.05}
-                                            onChange={(e) => setWidthMeters(parseFloat(e.target.value) || 0.6)}
+                                            value={widthInput}
+                                            min={MIN_VENTANA_WIDTH_M}
+                                            max={MAX_VENTANA_WIDTH_M}
+                                            step={0.01}
+                                            onChange={(e) => {
+                                                const val = e.target.value;
+                                                setWidthInput(val);
+                                                const num = parseFloat(val);
+                                                if (!isNaN(num) && num >= MIN_VENTANA_WIDTH_M && num <= MAX_VENTANA_WIDTH_M) {
+                                                    setWidthMeters(num);
+                                                }
+                                            }}
+                                            onBlur={() => {
+                                                const num = parseFloat(widthInput);
+                                                if (isNaN(num) || num < MIN_VENTANA_WIDTH_M) {
+                                                    setWidthMeters(MIN_VENTANA_WIDTH_M);
+                                                    setWidthInput(MIN_VENTANA_WIDTH_M.toFixed(2));
+                                                } else if (num > MAX_VENTANA_WIDTH_M) {
+                                                    setWidthMeters(MAX_VENTANA_WIDTH_M);
+                                                    setWidthInput(MAX_VENTANA_WIDTH_M.toFixed(2));
+                                                } else {
+                                                    const rounded = parseFloat(num.toFixed(2));
+                                                    setWidthMeters(rounded);
+                                                    setWidthInput(rounded.toFixed(2));
+                                                }
+                                            }}
                                             size="md"
                                             h={{ base: "11", md: "8" }}
                                             borderRadius="xl"
                                         />
                                     </Box>
                                     <Box>
-                                        <Text fontSize="11px" color="text.muted" mb="1" fontWeight="medium">
-                                            Alto (m)
-                                        </Text>
+                                        <Flex justify="space-between" align="center" mb="1">
+                                            <Text fontSize="11px" color="text.muted" fontWeight="medium">
+                                                Alto (m)
+                                            </Text>
+                                            <Text fontSize="9px" color="text.muted">
+                                                {MIN_VENTANA_HEIGHT_M}m - {MAX_VENTANA_HEIGHT_M}m
+                                            </Text>
+                                        </Flex>
                                         <Input
                                             type="number"
-                                            value={heightMeters}
-                                            min={0.6}
-                                            max={3.0}
-                                            step={0.05}
-                                            onChange={(e) => setHeightMeters(parseFloat(e.target.value) || 0.6)}
+                                            value={heightInput}
+                                            min={MIN_VENTANA_HEIGHT_M}
+                                            max={MAX_VENTANA_HEIGHT_M}
+                                            step={0.01}
+                                            onChange={(e) => {
+                                                const val = e.target.value;
+                                                setHeightInput(val);
+                                                const num = parseFloat(val);
+                                                if (!isNaN(num) && num >= MIN_VENTANA_HEIGHT_M && num <= MAX_VENTANA_HEIGHT_M) {
+                                                    setHeightMeters(num);
+                                                }
+                                            }}
+                                            onBlur={() => {
+                                                const num = parseFloat(heightInput);
+                                                if (isNaN(num) || num < MIN_VENTANA_HEIGHT_M) {
+                                                    setHeightMeters(MIN_VENTANA_HEIGHT_M);
+                                                    setHeightInput(MIN_VENTANA_HEIGHT_M.toFixed(2));
+                                                } else if (num > MAX_VENTANA_HEIGHT_M) {
+                                                    setHeightMeters(MAX_VENTANA_HEIGHT_M);
+                                                    setHeightInput(MAX_VENTANA_HEIGHT_M.toFixed(2));
+                                                } else {
+                                                    const rounded = parseFloat(num.toFixed(2));
+                                                    setHeightMeters(rounded);
+                                                    setHeightInput(rounded.toFixed(2));
+                                                }
+                                            }}
                                             size="md"
                                             h={{ base: "11", md: "8" }}
                                             borderRadius="xl"
