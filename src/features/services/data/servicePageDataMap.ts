@@ -45,20 +45,29 @@ export interface ServicePageData {
 export const servicePageDataMap: Record<string, ServicePageData> = {
     ventana: {
         seo: {
-            title: "Ventanas de Aluminio Antirruido en La Molina | GYA Company",
+            title: "Ventanas ",
             description:
-                "Ventanas de aluminio antirruido en La Molina y Lima. Sistemas Nova, Serie 25, Serie 35 y Serie 62 con perfiles herméticos. ¡Cotiza hoy!",
+                "Ventanas de aluminio en La Molina y Lima ¡Cotiza hoy!",
         },
         about: {
-            title: "Ventanas de Aluminio y Acústicas Antirruido",
+            title: "Ventanas ",
             description:
                 "Nuestras ventanas de aluminio herméticas con cristales acústicos ofrecen el máximo aislamiento sonoro y confort térmico. Diseñadas a medida para departamentos, residencias y oficinas con perfiles herméticos de alta resistencia.",
         },
         benefits: [
             { label: "Aislamiento acústico y térmico superior", icon: Check },
-            { label: "Hermeticidad certificada contra polvo, viento y lluvia", icon: Check },
-            { label: "Perfiles de aluminio anodizado y electropintado", icon: Check },
-            { label: "Asesoría técnica e instalación profesional garantizada", icon: Check },
+            {
+                label: "Hermeticidad certificada contra polvo, viento y lluvia",
+                icon: Check,
+            },
+            {
+                label: "Perfiles de aluminio anodizado y electropintado",
+                icon: Check,
+            },
+            {
+                label: "Asesoría técnica e instalación profesional garantizada",
+                icon: Check,
+            },
         ],
         systems: [
             { label: "Nova", icon: ChevronRight },
@@ -67,10 +76,18 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Serie 62", icon: ChevronRight },
         ],
         features: [
-            { label: "Cristal: Templado 6mm / 8mm / Insulado Acústico (DVH)", icon: Check },
-            { label: "Tonalidades: Incoloro Transparente, Bronce Cálido, Gris Humo y Satinado", icon: Check },
-            { label: "Acabado Aluminio: Blanco Electropintado, Negro Mate, Natural y Champagne", icon: Check },
-            { label: "Cierres: Cerrojos multipunto de seguridad y caracol de alta precisión", icon: Check },
+            {
+                label: "Espesor:  6mm ",
+                icon: Check,
+            },
+            {
+                label: "Vidrio: Incoloro , Bronce , Gris",
+                icon: Check,
+            },
+            {
+                label: " Aluminio: Negro , Aluminio , Natural y madera",
+                icon: Check,
+            },
         ],
         imageLists: [
             listVentana.nova,
@@ -81,39 +98,42 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     balcones: {
         seo: {
-            title: "Balcones de Vidrio Templado en La Molina | GYA Company",
+            title: "Balcones ",
             description:
-                "Diseño e instalación de balcones de vidrio templado de seguridad y acero inoxidable en La Molina y Lima. Vistas panorámicas y elegancia. ¡Cotiza gratis!",
+                "Diseño e instalación de balcones de vidrio templado de seguridad y acero inoxidable en La Molina y Lima. ",
         },
         about: {
-            title: "Balcones Panorámicos en Vidrio Templado",
+            title: "Balcones ",
             description:
                 "Transforma tu balcón en un espacio seguro, luminoso y de alto impacto arquitectónico. Paneles de vidrio templado de 8mm y 10mm resistentes al viento y la intemperie.",
         },
         benefits: [
             { label: "Máxima seguridad con vidrio templado", icon: Check },
             { label: "Vista panorámica sin perfiles invasivos", icon: Check },
-            { label: "Accesorios de acero inoxidable calidad 304", icon: Check },
+            {
+                label: "Accesorios de acero inoxidable calidad 304",
+                icon: Check,
+            },
             { label: "Resistencia certificada ante impactos", icon: Check },
         ],
         systems: [{ label: "Sistema Panorámico", icon: ChevronRight }],
         features: [
-            { label: "Vidrio templado de 8mm / 10mm", icon: Check },
-            { label: "Accesorios de acero inoxidable", icon: Check },
+            { label: "Cristal templado de 8mm y 10mm", icon: Check },
+            { label: "Estrutura de aluminio y acesor inoxidable", icon: Check },
             { label: "Arenado decorativo y lámina de seguridad", icon: Check },
         ],
         imageLists: [listBalcon.items],
     },
     baranda: {
         seo: {
-            title: "Barandas de Vidrio Templado y Acero | GYA La Molina",
+            title: "Barandas ",
             description:
-                "Fabricación de barandas de vidrio templado con conectores de acero para escaleras, terrazas y balcones en Lima. Seguridad certificada. ¡Solicita presupuesto!",
+                "Fabricación de barandas de acero para escaleras, terrazas y balcones en Lima. Seguridad certificada. ¡Solicita presupuesto!",
         },
         about: {
-            title: "Barandas de Vidrio Templado y Acero Inoxidable",
+            title: "Barandas de Acero Inoxidable",
             description:
-                "Nuestras barandas de cristal templado combinan alta ingeniería de seguridad con estética minimalista, aportando amplitud visual a residencias y proyectos comerciales.",
+                "Nuestras barandas de acero inoxidable combinan alta ingeniería de seguridad con estética minimalista, aportando amplitud visual a residencias y proyectos comerciales.",
         },
         benefits: [
             { label: "Seguridad para escaleras y terrazas", icon: Check },
@@ -123,10 +143,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         ],
         systems: [{ label: "Sistema Baranda Minimalista", icon: ChevronRight }],
         features: [
-            { label: "Material: Acero inoxidable AISI 304 / 316", icon: Check },
-            { label: "Cristal: Templado incoloro o laminado", icon: Check },
-            { label: "Espesor: 8 mm / 10 mm / 12 mm", icon: Check },
-            { label: "Anclaje químico de alta resistencia", icon: Check },
+            { label: "Material: Acero inoxidable ", icon: Check },
+            { label: "Adiciona: vidrio templado", icon: Check },
+            { label: "Accesorios de  Acero inoxidable", icon: Check },
         ],
         imageLists: [listBaranda.baranda],
     },
@@ -147,69 +166,109 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Privacidad sin oscurecer ambientes", icon: Check },
             { label: "Bajo mantenimiento y durabilidad extrema", icon: Check },
         ],
-        systems: [{ label: "Sistema Celosía Fija y Móvil", icon: ChevronRight }],
+        systems: [
+            { label: "Sistema Celosía Fija y Móvil", icon: ChevronRight },
+        ],
         features: [
-            { label: "Estructura de Aluminio extruido de alta resistencia", icon: Check },
-            { label: "Acabados: Negro mate, Blanco, Madera, Natural", icon: Check },
+            {
+                label: "Estructura de Aluminio extruido de alta resistencia",
+                icon: Check,
+            },
+            {
+                label: "Acabados: Negro mate, Blanco, Madera, Natural",
+                icon: Check,
+            },
             { label: "Diseño a medida para fachadas y ductos", icon: Check },
         ],
         imageLists: [listCelosias.celocias],
     },
     ducha: {
         seo: {
-            title: "Puertas y Boxes de Ducha en Vidrio Templado | GYA Lima",
+            title: "Puertas de Ducha ",
             description:
                 "Boxes y puertas de ducha en vidrio templado de 8mm con accesorios de acero inoxidable y sistemas corredizos. Fabricación a medida en La Molina. ¡Cotiza ya!",
         },
         about: {
-            title: "Boxes y Puertas de Ducha en Cristal Templado",
+            title: "Puertas de Ducha en Cristal Templado",
             description:
                 "Moderniza tu baño con sistemas de ducha elegantes y herméticos. Utilizamos vidrio templado de seguridad de 8mm y rodamientos de acero inoxidable de suave deslizamiento.",
         },
         benefits: [
-            { label: "Vidrio templado de seguridad con sellos anti-fuga", icon: Check },
-            { label: "Accesorios y tiradores de acero inoxidable", icon: Check },
+            {
+                label: "Vidrio templado de seguridad con sellos anti-fuga",
+                icon: Check,
+            },
+            {
+                label: "Accesorios y tiradores de acero inoxidable",
+                icon: Check,
+            },
             { label: "Sistemas corredizos y batientes a medida", icon: Check },
             { label: "Fácil limpieza y tratamiento anticalcáreo", icon: Check },
         ],
         systems: [
-            { label: "Sistema Corredizo KIT Acero", icon: ChevronRight },
-            { label: "Sistema Batiente Minimalista", icon: ChevronRight },
+            { label: "Sistema Corredizo ", icon: ChevronRight },
+            { label: "Sistema Batiente ", icon: ChevronRight },
         ],
         features: [
-            { label: "Cristal: Incoloro, Bronce, Satinado, Arenado", icon: Check },
-            { label: "Perfilería: Acero inoxidable / Aluminio negro", icon: Check },
+            {
+                label: "Cristal: Incoloro, Bronce",
+                icon: Check,
+            },
+            {
+                label: "Accesorios: Acero inoxidable",
+                icon: Check,
+            },
             { label: "Espesor: Cristal templado 8 mm", icon: Check },
-            { label: "Sellos magnéticos herméticos", icon: Check },
+            { label: "Adicional: Lamina empovonado y diseño", icon: Check },
         ],
         imageLists: [listDucha.kit],
     },
     mampara: {
         seo: {
-            title: "Mamparas de Vidrio Templado en La Molina | GYA Company",
+            title: "Mamparas",
             description:
-                "Fabricación e instalación de mamparas de vidrio templado y aluminio hermético en La Molina y Lima. Diseños a medida para terrazas y salas. ¡Cotiza hoy!",
+                "Fabricación e instalación de mamparas de vidrio templado y aluminio hermético en La Molina y Lima.",
         },
         about: {
             title: "Mamparas de Vidrio Templado para Terrazas y Divisiones",
             description:
-                "Mamparas de alta gama para integración de salas, terrazas y jardines. Sistemas Nova y Serie 25 con perfilería de aluminio reforzada y cristales templados de 8mm y 10mm.",
+                "Mamparas  para salas, terrazas y jardines. Sistemas Nova y Serie 25 con perfilería de aluminio reforzada y cristales templados de 8mm y 10mm.",
         },
         benefits: [
-            { label: "Hermeticidad superior contra viento y ruido", icon: Check },
-            { label: "Deslizamiento ultrasuave con rodamientos reforzados", icon: Check },
-            { label: "Cristales templados con certificación de seguridad", icon: Check },
-            { label: "Diseño personalizado según vano arquitectónico", icon: Check },
+            {
+                label: "Hermeticidad superior contra viento y ruido",
+                icon: Check,
+            },
+            {
+                label: "Deslizamiento ultrasuave con rodamientos reforzados",
+                icon: Check,
+            },
+            {
+                label: "Cristales templados con certificación de seguridad",
+                icon: Check,
+            },
+            {
+                label: "Diseño personalizado según vano arquitectónico",
+                icon: Check,
+            },
         ],
         systems: [
-            { label: "Sistema Nova Corredizo", icon: ChevronRight },
-            { label: "Sistema Serie 25 Reforzado", icon: ChevronRight },
+            { label: " Nova ", icon: ChevronRight },
+            { label: " Serie 25 ", icon: ChevronRight },
         ],
         features: [
-            { label: "Tonalidades: Incoloro, Bronce, Antelio, Gris", icon: Check },
-            { label: "Perfilería: Aluminio natural, Negro mate, Champagne", icon: Check },
-            { label: "Espesor: Templado 8 mm y 10 mm", icon: Check },
-            { label: "Cerraduras de gancho y multipunto", icon: Check },
+            {
+                label: "Espesor:  8mm y 10 mm ",
+                icon: Check,
+            },
+            {
+                label: "Vidrio: Incoloro , Bronce , Gris",
+                icon: Check,
+            },
+            {
+                label: " Aluminio: Negro , Aluminio , Natural y madera",
+                icon: Check,
+            },
         ],
         imageLists: [listMampara.nova, listMampara.serie],
     },
@@ -225,16 +284,31 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
                 "Protege tus azoteas y terrazas elevadas sin perder la vista de la ciudad. Diseñados para soportar presiones de viento y brindar la máxima protección a tu familia.",
         },
         benefits: [
-            { label: "Resistencia estructural certificada ante vientos", icon: Check },
+            {
+                label: "Resistencia estructural certificada ante vientos",
+                icon: Check,
+            },
             { label: "Visibilidad panorámica limpia y luminosa", icon: Check },
-            { label: "Fijaciones de alta resistencia anticorrosiva", icon: Check },
-            { label: "Instalación en altura por técnicos calificados", icon: Check },
+            {
+                label: "Fijaciones de alta resistencia anticorrosiva",
+                icon: Check,
+            },
+            {
+                label: "Instalación en altura por técnicos calificados",
+                icon: Check,
+            },
         ],
         systems: [{ label: "Sistema Parapeto Panorámico", icon: ChevronRight }],
         features: [
             { label: "Cristal: Templado 8 mm / 10 mm / Laminado", icon: Check },
-            { label: "Estructura: Aluminio reforzado o postes de acero", icon: Check },
-            { label: "Accesorios de fijación empotrada o con botones", icon: Check },
+            {
+                label: "Estructura: Aluminio reforzado o postes de acero",
+                icon: Check,
+            },
+            {
+                label: "Accesorios de fijación empotrada o con botones",
+                icon: Check,
+            },
         ],
         imageLists: [listParapeto.parapeto],
     },
@@ -253,7 +327,10 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Inmunes a la humedad y el salitre", icon: Check },
             { label: "Estructura liviana y de gran solidez", icon: Check },
             { label: "Cerraduras de seguridad y chapa bola", icon: Check },
-            { label: "Bajo mantenimiento durante toda su vida útil", icon: Check },
+            {
+                label: "Bajo mantenimiento durante toda su vida útil",
+                icon: Check,
+            },
         ],
         systems: [{ label: "Sistema Puerta Serie", icon: ChevronRight }],
         features: [
@@ -275,12 +352,26 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
                 "Elegancia, transparencia y luminosidad para ingresos residenciales, oficinas corporativas y tiendas comerciales. Incluye freno hidráulico de piso y cerradura central.",
         },
         benefits: [
-            { label: "Apertura suave y controlada con freno hidráulico", icon: Check },
+            {
+                label: "Apertura suave y controlada con freno hidráulico",
+                icon: Check,
+            },
             { label: "Cristal templado de seguridad de 10mm", icon: Check },
-            { label: "Tiradores y accesorios en acero inoxidable", icon: Check },
-            { label: "Arenado corporativo o decorativo personalizado", icon: Check },
+            {
+                label: "Tiradores y accesorios en acero inoxidable",
+                icon: Check,
+            },
+            {
+                label: "Arenado corporativo o decorativo personalizado",
+                icon: Check,
+            },
         ],
-        systems: [{ label: "Sistema Pivotante con Freno de Piso", icon: ChevronRight }],
+        systems: [
+            {
+                label: "Sistema Pivotante con Freno de Piso",
+                icon: ChevronRight,
+            },
+        ],
         features: [
             { label: "Cristal templado de 8mm / 10mm", icon: Check },
             { label: "Chapa central y chapa al piso", icon: Check },
@@ -291,7 +382,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     techo: {
         seo: {
-            title: "Techos de Policarbonato y Cristal para Terrazas | GYA",
+            title: "Techos de Policarbonato ",
             description:
                 "Especialistas en techos de policarbonato y cristal templado con estructura de aluminio en La Molina y Lima. Protección UV e iluminación natural. ¡Cotiza!",
         },
@@ -302,13 +393,25 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         },
         benefits: [
             { label: "Filtro con protección UV 99%", icon: Check },
-            { label: "Estructura de aluminio anticorrosiva libre de óxido", icon: Check },
-            { label: "Sellado hermético con silicona estructural", icon: Check },
-            { label: "Canaletas ocultas para evacuación de lluvias", icon: Check },
+            {
+                label: "Estructura de aluminio anticorrosiva libre de óxido",
+                icon: Check,
+            },
+            {
+                label: "Sellado hermético con silicona estructural",
+                icon: Check,
+            },
+            {
+                label: "Canaletas ocultas para evacuación de lluvias",
+                icon: Check,
+            },
         ],
         systems: [{ label: "Sistema Cobertura Aluminio", icon: ChevronRight }],
         features: [
-            { label: "Planchas de Policarbonato alveolar / macizo", icon: Check },
+            {
+                label: "Planchas de Policarbonato alveolar / macizo",
+                icon: Check,
+            },
             { label: "Cristal laminado / templado de seguridad", icon: Check },
             { label: "Perfiles estructurales de aluminio pesado", icon: Check },
         ],

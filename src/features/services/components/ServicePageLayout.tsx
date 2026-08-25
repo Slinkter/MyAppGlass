@@ -30,6 +30,11 @@ const VentanaConfigurador3DCard = dynamic(
   { ssr: false, loading: () => <Skeleton height={{ base: "500px", lg: "500px" }} w="full" borderRadius={{ base: "none", md: "3xl" }} /> }
 );
 
+const GLBModelCard = dynamic(
+  () => import("@/shared/components/3d/GLBModelCard").then(mod => mod.GLBModelCard),
+  { ssr: false, loading: () => <Skeleton height="460px" w="full" borderRadius="2xl" /> }
+);
+
 import { SERVICE_AR_MODELS_MAP } from "../data/serviceArModels";
 
 export interface ServicePageLayoutProps {
@@ -171,6 +176,16 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
               />
             )}
           </Box>
+
+          {/* VISOR .GLB DETALLADO (debajo del configurador) */}
+          {serviceSlug && SERVICE_AR_MODELS_MAP[serviceSlug] && (
+            <Box pt="2">
+              <GLBModelCard
+                modelUrl={systemAR.glbModelUrl}
+                title={`${seo.title} — Modelo 3D`}
+              />
+            </Box>
+          )}
 
           {/* Sección de Preguntas Frecuentes (FAQ / Rich Snippets) */}
           <ServiceFaqSection faqs={faqs} serviceTitle={seo.title} />

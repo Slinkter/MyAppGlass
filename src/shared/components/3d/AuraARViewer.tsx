@@ -3,15 +3,14 @@
 import React, { useState, useEffect } from "react";
 import {
   Box,
-  Heading,
   Text,
-  VStack,
-  HStack,
+
   SimpleGrid,
-  Badge,
+  Flex,
+  IconButton,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { Smartphone, QrCode, Sparkles, Camera } from "lucide-react";
+import { Smartphone, QrCode, Camera, Video } from "lucide-react";
 
 import { ThreeCanvas, AluminumFinish, GlassTint } from "./ThreeCanvas";
 import { WebARLiveCameraModal } from "./WebARLiveCameraModal";
@@ -31,6 +30,15 @@ const GLASS_OPTIONS: GlassTint[] = [
   { id: "satinado", name: "Satinado / Arenado", color: 0xe2e8f0, transmission: 0.4, opacity: 0.85, roughness: 0.15 },
 ];
 
+const VARIANT_OPTIONS = [
+  { id: "corrediza", label: "Corredizo" },
+  { id: "fija", label: "Fijo" },
+  { id: "proyectante", label: "Proyectante" },
+  { id: "pivotante", label: "Pivotante" },
+  { id: "piso-techo-pivot", label: "Piso a Techo" },
+  { id: "celosias", label: "Celosía" },
+];
+
 import { GalleryItem3DConfig } from "@/shared/types/gallery";
 
 interface AuraARViewerProps {
@@ -45,8 +53,8 @@ interface AuraARViewerProps {
 export const AuraARViewer: React.FC<AuraARViewerProps> = ({
   title = "Mampara Corrediza Serie 25 (Vidrio Templado)",
   category = "Mamparas & Terrazas",
-  glbModelUrl = "/models/mampara-serie25.glb",
-  usdzModelUrl = "/models/mampara-serie25.glb",
+  glbModelUrl = "/models/mampara/default.glb",
+  usdzModelUrl = "/models/mampara/default.glb",
   posterUrl: _posterUrl,
   initialConfig3D,
 }) => {
@@ -109,6 +117,7 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
   };
 
   const currentSystem = getSystemType();
+  const showVariant = currentSystem === "ventana";
 
   const handleLaunchAR = () => {
     if (typeof window === "undefined") return;
@@ -152,34 +161,235 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
       backdropFilter="blur(16px)"
       boxShadow="0 20px 40px rgba(0,0,0,0.2)"
     >
-      <VStack align="start" gap="2" mb="6">
-        <HStack gap="2" wrap="wrap">
-          <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full">
-            <Sparkles size={14} style={{ marginRight: 4 }} /> Realidad Aumentada & 3D Web
-          </Badge>
-          <Badge colorPalette="green" variant="subtle" px="3" py="1" borderRadius="full">
-            Escala Real 1:1
-          </Badge>
-        </HStack>
-        <Heading size="xl" color="brand.primary">
-          {title}
-        </Heading>
-        <Text fontSize="sm" color="text.muted">
-          Categoría: {category} — Personaliza el acabado y proyecta esta estructura en tu hogar.
-        </Text>
-      </VStack>
-
       <SimpleGrid columns={{ base: 1, lg: 12 }} gap="6" alignItems="stretch">
-        {/* COLUMNA VISOR 3D */}
+        {/* PANEL IZQUIERDO: Configuración */}
+        <Box
+          gridColumn={{ base: "span 1", lg: "span 5" }}
+          display="flex"
+          flexDirection="column"
+          p="5"
+          bg="rgba(255, 255, 255, 0.03)"
+          backdropFilter="blur(16px)"
+          borderRadius="2xl"
+          border="1px solid"
+          borderColor="border.glass"
+          boxShadow="0 10px 30px rgba(0,0,0,0.15)"
+          gap="4"
+          overflowY="auto"
+        >
+          {/* Tipo de Apertura (solo ventana) */}
+          {showVariant && (
+            <Box>
+              <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                Tipo de Apertura
+              </Text>
+              <SimpleGrid columns={3} gap="1.5">
+                {VARIANT_OPTIONS.map((v) => {
+                  const isSelected = selectedVariant === v.id;
+                  return (
+                    <Button
+                      key={v.id}
+                      size="xs"
+                      variant={isSelected ? "aura" : "outline"}
+                      borderRadius="lg"
+                      h="8"
+                      w="full"
+                      fontSize="2xs"
+                      fontWeight={isSelected ? "bold" : "medium"}
+                      justifyContent="center"
+                      px="1"
+                      onClick={() => {
+                        setSelectedVariant(v.id as typeof selectedVariant);
+                        if (v.id === "piso-techo-pivot") { setCustomWidth(1.15); setCustomHeight(2.45); }
+                        else if (v.id === "fija") { setCustomWidth(1.80); setCustomHeight(1.40); }
+                        else if (v.id === "proyectante") { setCustomWidth(1.40); setCustomHeight(1.20); }
+                        else if (v.id === "pivotante") { setCustomWidth(1.50); setCustomHeight(1.50); }
+                        else if (v.id === "corrediza") { setCustomWidth(2.00); setCustomHeight(1.40); }
+                      }}
+                    >
+                      <Text truncate>{v.label}</Text>
+                    </Button>
+                  );
+                })}
+              </SimpleGrid>
+            </Box>
+          )}
+
+          {/* Hojas (solo corrediza + ventana) */}
+          {showVariant && selectedVariant === "corrediza" && (
+            <Box>
+              <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                Hojas Corredizas
+              </Text>
+              <SimpleGrid columns={2} gap="1.5">
+                <Button
+                  size="xs"
+                  variant={numSashes === 2 ? "aura" : "outline"}
+                  borderRadius="lg"
+                  h="8"
+                  onClick={() => setNumSashes(2)}
+                >
+                  2 Hojas (OX)
+                </Button>
+                <Button
+                  size="xs"
+                  variant={numSashes === 4 ? "aura" : "outline"}
+                  borderRadius="lg"
+                  h="8"
+                  onClick={() => setNumSashes(4)}
+                >
+                  4 Hojas (OXXO)
+                </Button>
+              </SimpleGrid>
+            </Box>
+          )}
+
+          {/* Aluminio */}
+          <Box>
+            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+              Color de Aluminio
+            </Text>
+            <SimpleGrid columns={4} gap="1.5">
+              {ALUMINUM_OPTIONS.map((al) => {
+                const isSelected = selectedAluminum.id === al.id;
+                return (
+                  <Flex
+                    key={al.id}
+                    as="button"
+                    onClick={() => setSelectedAluminum(al)}
+                    direction="column"
+                    align="center"
+                    justify="center"
+                    gap="1"
+                    p="1.5"
+                    borderRadius="lg"
+                    borderWidth={isSelected ? "2px" : "1px"}
+                    borderColor={isSelected ? "primary.500" : "border.default"}
+                    bg={isSelected ? "bg.subtle" : "transparent"}
+                    cursor="pointer"
+                    transition="all 0.2s ease"
+                    _hover={{ borderColor: "primary.500" }}
+                  >
+                    <Box w="5" h="5" borderRadius="full" bg={al.hex} border="1px solid rgba(0,0,0,0.2)" boxShadow="sm" />
+                    <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
+                      {al.name.split(" ")[0]}
+                    </Text>
+                  </Flex>
+                );
+              })}
+            </SimpleGrid>
+          </Box>
+
+          {/* Vidrio */}
+          <Box>
+            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+              Color de Vidrio
+            </Text>
+            <SimpleGrid columns={4} gap="1.5">
+              {GLASS_OPTIONS.map((gl) => {
+                const isSelected = selectedGlass.id === gl.id;
+                return (
+                  <Flex
+                    key={gl.id}
+                    as="button"
+                    onClick={() => setSelectedGlass(gl)}
+                    direction="column"
+                    align="center"
+                    justify="center"
+                    gap="1"
+                    p="1.5"
+                    borderRadius="lg"
+                    borderWidth={isSelected ? "2px" : "1px"}
+                    borderColor={isSelected ? "primary.500" : "border.default"}
+                    bg={isSelected ? "bg.subtle" : "transparent"}
+                    cursor="pointer"
+                    transition="all 0.2s ease"
+                    _hover={{ borderColor: "primary.500" }}
+                  >
+                    <Box w="5" h="5" borderRadius="full" bg={gl.color === 0xebf4ff ? "#E8F4F8" : gl.color === 0xd97706 ? "#D97706" : gl.color === 0x475569 ? "#475569" : "#E2E8F0"} border="1px solid" borderColor="border.default" />
+                    <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
+                      {gl.name.split(" ")[0]}
+                    </Text>
+                  </Flex>
+                );
+              })}
+            </SimpleGrid>
+          </Box>
+
+          {/* Dimensiones */}
+          <Box>
+            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+              Dimensiones
+            </Text>
+            <SimpleGrid columns={4} gap="1" mb="2">
+              {[
+                { w: 1.20, h: 1.00, label: "1.2×1.0" },
+                { w: 1.50, h: 1.20, label: "1.5×1.2" },
+                { w: 2.00, h: 1.40, label: "2.0×1.4" },
+                { w: 2.40, h: 2.20, label: "2.4×2.2" },
+              ].map((pre) => {
+                const isSelected = Math.abs(customWidth - pre.w) < 0.01 && Math.abs(customHeight - pre.h) < 0.01;
+                return (
+                  <Button
+                    key={pre.label}
+                    size="2xs"
+                    variant={isSelected ? "aura" : "outline"}
+                    borderRadius="md"
+                    h="6"
+                    fontSize="9px"
+                    onClick={() => { setCustomWidth(pre.w); setCustomHeight(pre.h); }}
+                  >
+                    {pre.label}
+                  </Button>
+                );
+              })}
+            </SimpleGrid>
+            <SimpleGrid columns={2} gap="2">
+              <Box>
+                <Flex justify="space-between" align="center" mb="0.5">
+                  <Text fontSize="9px" color="text.muted">Ancho</Text>
+                  <Text fontSize="8px" color="text.muted">{customWidth.toFixed(2)}m</Text>
+                </Flex>
+                <input
+                  type="range"
+                  min="0.80"
+                  max="3.50"
+                  step="0.05"
+                  value={customWidth}
+                  onChange={(e) => setCustomWidth(parseFloat(e.target.value))}
+                  style={{ width: "100%", accentColor: "#3b82f6", cursor: "pointer" }}
+                />
+              </Box>
+              <Box>
+                <Flex justify="space-between" align="center" mb="0.5">
+                  <Text fontSize="9px" color="text.muted">Alto</Text>
+                  <Text fontSize="8px" color="text.muted">{customHeight.toFixed(2)}m</Text>
+                </Flex>
+                <input
+                  type="range"
+                  min="0.60"
+                  max="2.60"
+                  step="0.05"
+                  value={customHeight}
+                  onChange={(e) => setCustomHeight(parseFloat(e.target.value))}
+                  style={{ width: "100%", accentColor: "#3b82f6", cursor: "pointer" }}
+                />
+              </Box>
+            </SimpleGrid>
+          </Box>
+        </Box>
+
+        {/* PANEL DERECHO: Render 3D + Descripción */}
         <Box
           gridColumn={{ base: "span 1", lg: "span 7" }}
           display="flex"
           flexDirection="column"
-          gap="3"
+          gap="4"
         >
+          {/* VISOR 3D */}
           <Box
             position="relative"
-            h={{ base: "340px", sm: "380px", md: "400px" }}
+            h={{ base: "340px", sm: "380px", md: "460px" }}
             bg="bg.page"
             borderRadius="2xl"
             border="1px solid"
@@ -202,310 +412,57 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
               glassTint={selectedGlass}
             />
 
-            <Button
+            <Flex
               position="absolute"
               top="3"
               right="3"
-              size="xs"
-              variant="subtle"
-              colorPalette={isAutoRotating ? "blue" : "gray"}
-              bg="surface.card"
-              borderRadius="lg"
-              boxShadow="sm"
-              color="text.body"
-              borderWidth="1px"
-              borderColor="border.default"
-              px="3"
-              py="1.5"
-              fontSize="2xs"
-              fontWeight="semibold"
-              onClick={() => setIsAutoRotating(!isAutoRotating)}
-              _hover={{
-                bg: "bg.subtle",
-                color: "primary.500",
-              }}
-              transition="all 0.2s ease"
+              direction="column"
+              gap="1.5"
+              zIndex="10"
             >
-              {isAutoRotating ? "Pausar Giro 360°" : "Activar Giro 360°"}
-            </Button>
+              <IconButton
+                aria-label={isAutoRotating ? "Pausar giro" : "Activar giro"}
+                title={isAutoRotating ? "Pausar Giro 360°" : "Activar Giro 360°"}
+                onClick={() => setIsAutoRotating(!isAutoRotating)}
+                bg={isAutoRotating ? "primary.500" : "surface.card"}
+                borderRadius="lg"
+                boxShadow="sm"
+                color={isAutoRotating ? "white" : "text.body"}
+                size="xs"
+                h="7"
+                w="7"
+                borderWidth="1px"
+                borderColor={isAutoRotating ? "primary.500" : "border.default"}
+                _hover={{ bg: isAutoRotating ? "primary.600" : "bg.subtle" }}
+              >
+                <Video size={13} />
+              </IconButton>
+            </Flex>
           </Box>
 
-          {/* CONTROLES RÁPIDOS DE CONFIGURACIÓN 3D */}
+          {/* Descripción de la configuración */}
           <Box
-            p="3.5"
+            p="5"
             bg="rgba(255, 255, 255, 0.03)"
-            borderRadius="xl"
+            backdropFilter="blur(16px)"
+            borderRadius="2xl"
             border="1px solid"
-            borderColor="border.default"
+            borderColor="border.glass"
           >
-            <VStack align="stretch" gap="3">
-              {/* SELECTOR DE TIPOLOGÍA (solo para ventana) */}
-              {currentSystem === "ventana" && (
-                <VStack align="stretch" gap="1.5">
-                  <Text fontSize="xs" fontWeight="bold" color="text.muted">
-                    Tipo de Ventana / Sistema de Apertura:
-                  </Text>
-                  <HStack gap="1.5" wrap="wrap">
-                    {[
-                      { id: "corrediza", label: "Corredizo" },
-                      { id: "fija", label: "Fijo" },
-                      { id: "proyectante", label: "Proyectante Vertical" },
-                      { id: "pivotante", label: "Pivotante" },
-                      { id: "piso-techo-pivot", label: "Piso a Techo (Mixta)" },
-                      { id: "celosias", label: "Celosía (Louver)" },
-                    ].map((t) => {
-                      const isSelected = selectedVariant === t.id;
-                      return (
-                        <Button
-                          key={t.id}
-                          size="xs"
-                          variant={isSelected ? "solid" : "outline"}
-                          colorPalette={isSelected ? "blue" : "gray"}
-                          onClick={() => {
-                            setSelectedVariant(t.id as any);
-                            if (t.id === "piso-techo-pivot") {
-                              setCustomWidth(1.15);
-                              setCustomHeight(2.45);
-                            } else if (t.id === "fija") {
-                              setCustomWidth(1.80);
-                              setCustomHeight(1.40);
-                            } else if (t.id === "proyectante") {
-                              setCustomWidth(1.40);
-                              setCustomHeight(1.20);
-                            } else if (t.id === "pivotante") {
-                              setCustomWidth(1.50);
-                              setCustomHeight(1.50);
-                            } else if (t.id === "corrediza") {
-                              setCustomWidth(2.00);
-                              setCustomHeight(1.40);
-                            }
-                          }}
-                          borderRadius="md"
-                          fontSize="2xs"
-                        >
-                          {t.label}
-                        </Button>
-                      );
-                    })}
-                  </HStack>
-                </VStack>
-              )}
-
-              {/* SELECTOR DE HOJAS (solo corrediza) */}
-              {currentSystem === "ventana" && selectedVariant === "corrediza" && (
-                <HStack justify="space-between" wrap="wrap" gap="2">
-                  <Text fontSize="xs" fontWeight="bold" color="text.muted">
-                    Hojas Corredizas:
-                  </Text>
-                  <HStack gap="1.5">
-                    <Button
-                      size="xs"
-                      variant={numSashes === 2 ? "solid" : "outline"}
-                      colorPalette={numSashes === 2 ? "blue" : "gray"}
-                      onClick={() => setNumSashes(2)}
-                      borderRadius="md"
-                    >
-                      2 Hojas (OX)
-                    </Button>
-                    <Button
-                      size="xs"
-                      variant={numSashes === 4 ? "solid" : "outline"}
-                      colorPalette={numSashes === 4 ? "blue" : "gray"}
-                      onClick={() => setNumSashes(4)}
-                      borderRadius="md"
-                    >
-                      4 Hojas (OXXO)
-                    </Button>
-                  </HStack>
-                </HStack>
-              )}
-
-              {/* DIMENSIONES */}
-              <VStack align="stretch" gap="2" p="2.5" bg="rgba(255, 255, 255, 0.02)" borderRadius="lg" border="1px dashed" borderColor="border.default">
-                <HStack justify="space-between" wrap="wrap">
-                  <Text fontSize="xs" fontWeight="bold" color="text.muted">
-                    Dimensiones del Vano: <Text as="span" color="primary.500" _dark={{ color: "primary.300" }}>{customWidth.toFixed(2)}m × {customHeight.toFixed(2)}m</Text>
-                  </Text>
-                  <HStack gap="1">
-                    {[
-                      { w: 1.20, h: 1.00, label: "1.2×1.0m" },
-                      { w: 1.50, h: 1.20, label: "1.5×1.2m" },
-                      { w: 2.00, h: 1.40, label: "2.0×1.4m" },
-                      { w: 2.40, h: 2.20, label: "2.4×2.2m" },
-                    ].map((pre, i) => (
-                      <Button
-                        key={i}
-                        size="2xs"
-                        variant="subtle"
-                        onClick={() => {
-                          setCustomWidth(pre.w);
-                          setCustomHeight(pre.h);
-                        }}
-                        borderRadius="sm"
-                        fontSize="2xs"
-                      >
-                        {pre.label}
-                      </Button>
-                    ))}
-                  </HStack>
-                </HStack>
-
-                <SimpleGrid columns={{ base: 1, sm: 2 }} gap="3">
-                  <Box>
-                    <HStack justify="space-between" mb="1">
-                      <Text fontSize="2xs" color="text.muted">Ancho (W):</Text>
-                      <Text fontSize="2xs" fontWeight="bold" color="text.heading">{customWidth.toFixed(2)} m</Text>
-                    </HStack>
-                    <input
-                      type="range"
-                      min="0.80"
-                      max="3.50"
-                      step="0.05"
-                      value={customWidth}
-                      onChange={(e) => setCustomWidth(parseFloat(e.target.value))}
-                      style={{ width: "100%", accentColor: "#3b82f6", cursor: "pointer" }}
-                    />
-                  </Box>
-
-                  <Box>
-                    <HStack justify="space-between" mb="1">
-                      <Text fontSize="2xs" color="text.muted">Alto (H):</Text>
-                      <Text fontSize="2xs" fontWeight="bold" color="text.heading">{customHeight.toFixed(2)} m</Text>
-                    </HStack>
-                    <input
-                      type="range"
-                      min="0.60"
-                      max="2.60"
-                      step="0.05"
-                      value={customHeight}
-                      onChange={(e) => setCustomHeight(parseFloat(e.target.value))}
-                      style={{ width: "100%", accentColor: "#3b82f6", cursor: "pointer" }}
-                    />
-                  </Box>
-                </SimpleGrid>
-              </VStack>
-
-              {/* SELECTOR DE ALUMINIO */}
-              <HStack justify="space-between" wrap="wrap" gap="2">
-                <Text fontSize="xs" fontWeight="bold" color="text.muted">
-                  Perfil de Aluminio:
-                </Text>
-                <HStack gap="1.5" wrap="wrap">
-                  {ALUMINUM_OPTIONS.map((al) => {
-                    const isSelected = selectedAluminum.id === al.id;
-                    return (
-                      <Button
-                        key={al.id}
-                        size="xs"
-                        variant={isSelected ? "solid" : "outline"}
-                        colorPalette={isSelected ? "blue" : "gray"}
-                        onClick={() => setSelectedAluminum(al)}
-                        borderRadius="md"
-                        fontSize="2xs"
-                      >
-                        <Box
-                          as="span"
-                          w="2.5"
-                          h="2.5"
-                          borderRadius="full"
-                          bg={al.hex}
-                          border="1px solid rgba(0,0,0,0.2)"
-                          mr="1"
-                        />
-                        {al.name.split(" ")[0]}
-                      </Button>
-                    );
-                  })}
-                </HStack>
-              </HStack>
-
-              {/* SELECTOR DE VIDRIO */}
-              <HStack justify="space-between" wrap="wrap" gap="2">
-                <Text fontSize="xs" fontWeight="bold" color="text.muted">
-                  Cristal:
-                </Text>
-                <HStack gap="1.5" wrap="wrap">
-                  {GLASS_OPTIONS.map((gl) => {
-                    const isSelected = selectedGlass.id === gl.id;
-                    return (
-                      <Button
-                        key={gl.id}
-                        size="xs"
-                        variant={isSelected ? "solid" : "outline"}
-                        colorPalette={isSelected ? "blue" : "gray"}
-                        onClick={() => setSelectedGlass(gl)}
-                        borderRadius="md"
-                        fontSize="2xs"
-                      >
-                        {gl.name.split(" ")[0]}
-                      </Button>
-                    );
-                  })}
-                </HStack>
-              </HStack>
-            </VStack>
-          </Box>
-        </Box>
-
-        {/* COLUMNA DERECHA: FICHA TÉCNICA & CTA */}
-        <Box
-          gridColumn={{ base: "span 1", lg: "span 5" }}
-          display="flex"
-          flexDirection="column"
-          justifyContent="space-between"
-          p="5"
-          bg="rgba(255, 255, 255, 0.03)"
-          backdropFilter="blur(16px)"
-          borderRadius="2xl"
-          border="1px solid"
-          borderColor="border.glass"
-          boxShadow="0 10px 30px rgba(0,0,0,0.15)"
-          gap="4"
-        >
-          <Box>
-            <HStack justify="space-between" mb="3">
-              <Badge colorPalette="blue" variant="solid" px="2.5" py="1" borderRadius="md" fontSize="2xs" fontWeight="bold">
-                FICHA TÉCNICA EN VIVO
-              </Badge>
-              <Badge colorPalette="green" variant="subtle" px="2" py="0.5" borderRadius="full" fontSize="2xs">
-                ● Listo para Cotizar
-              </Badge>
-            </HStack>
-
-            <VStack align="stretch" gap="2" fontSize="xs">
-              <HStack justify="space-between" py="1.5" borderBottom="1px solid" borderColor="border.default">
-                <Text color="text.muted" fontWeight="medium">Dimensiones:</Text>
-                <Text color="text.heading" fontWeight="bold">
-                  {customWidth.toFixed(2)}m × {customHeight.toFixed(2)}m ({(customWidth * customHeight).toFixed(2)} m²)
-                </Text>
-              </HStack>
-
-              <HStack justify="space-between" py="1.5" borderBottom="1px solid" borderColor="border.default">
-                <Text color="text.muted" fontWeight="medium">Perfilería Aluminio:</Text>
-                <HStack gap="1.5">
-                  <Box w="2.5" h="2.5" borderRadius="full" bg={selectedAluminum.hex} border="1px solid rgba(0,0,0,0.3)" />
-                  <Text color="text.heading" fontWeight="bold">{selectedAluminum.name}</Text>
-                </HStack>
-              </HStack>
-
-              <HStack justify="space-between" py="1.5" borderBottom="1px solid" borderColor="border.default">
-                <Text color="text.muted" fontWeight="medium">Acristalamiento:</Text>
-                <Text color="text.heading" fontWeight="bold">{selectedGlass.name}</Text>
-              </HStack>
-
-              <HStack justify="space-between" py="1.5">
-                <Text color="text.muted" fontWeight="medium">Escala / Detección:</Text>
-                <Text color="primary.500" _dark={{ color: "primary.300" }} fontWeight="bold">
-                  1:1 Real (WebAR Sin Apps)
-                </Text>
-              </HStack>
-            </VStack>
+            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="3">
+              Configuración Actual
+            </Text>
+            <Text fontSize="sm" color="text.body" lineHeight="tall">
+              {title} — Dimensiones: <strong>{customWidth.toFixed(2)}m × {customHeight.toFixed(2)}m</strong> ({(customWidth * customHeight).toFixed(2)} m²),
+              perfil de aluminio <strong>{selectedAluminum.name.split(" ")[0]}</strong> y cristal <strong>{selectedGlass.name.split(" ")[0]}</strong>.
+            </Text>
           </Box>
 
-          <VStack gap="2.5" w="full">
+          {/* CTA */}
+          <SimpleGrid columns={{ base: 1, sm: 2 }} gap="2">
             <Button
               colorPalette="blue"
-              size="md"
+              size="sm"
               w="full"
               onClick={() => setShowLiveWebAR(true)}
               display="flex"
@@ -513,15 +470,12 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
               justifyContent="center"
               gap="2"
               fontWeight="bold"
-              boxShadow="0 6px 20px rgba(37, 99, 235, 0.3)"
-              _hover={{ transform: "translateY(-1px)", boxShadow: "0 10px 25px rgba(37, 99, 235, 0.45)" }}
             >
-              <Camera size={18} /> Proyectar en tu Pared (WebAR)
+              <Camera size={14} /> Proyectar en tu Pared (WebAR)
             </Button>
-
             <a
               href={`https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
-                `Hola GYA Company, configuré esta estructura en su simulador 3D:\n• Medidas: ${customWidth.toFixed(2)}m × ${customHeight.toFixed(2)}m (${(customWidth * customHeight).toFixed(2)} m²)\n• Aluminio: ${selectedAluminum.name}\n• Cristal: ${selectedGlass.name}\n¿Podrían brindarme una cotización a medida?`
+                `Hola GYA Company, configuré esta estructura en su simulador 3D:\n• ${title}\n• Medidas: ${customWidth.toFixed(2)}m × ${customHeight.toFixed(2)}m (${(customWidth * customHeight).toFixed(2)} m²)\n• Aluminio: ${selectedAluminum.name}\n• Cristal: ${selectedGlass.name}\n¿Podrían brindarme una cotización a medida?`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -531,68 +485,50 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
                 variant="solid"
                 bg="linear-gradient(135deg, #10b981 0%, #059669 100%)"
                 color="white"
-                size="md"
+                size="sm"
                 w="full"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 gap="2"
                 fontWeight="bold"
-                boxShadow="0 6px 20px rgba(16, 185, 129, 0.3)"
-                _hover={{ transform: "translateY(-1px)", boxShadow: "0 10px 25px rgba(16, 185, 129, 0.45)" }}
               >
-                Cotizar esta Configuración por WhatsApp
+                Cotizar por WhatsApp
               </Button>
             </a>
+          </SimpleGrid>
 
-            <Button
-              variant="ghost"
-              size="xs"
-              w="full"
-              onClick={handleLaunchAR}
-              color="text.muted"
-              _hover={{ color: "text.heading" }}
-            >
-              {deviceType === "desktop" ? (
-                <>
-                  <QrCode size={14} style={{ marginRight: 6 }} /> Abrir Código QR para Escaneo Móvil
-                </>
-              ) : (
-                <>
-                  <Smartphone size={14} style={{ marginRight: 6 }} />
-                  {deviceType === "android"
-                    ? "Abrir Google Scene Viewer (ARCore)"
-                    : "Abrir Apple Quick Look (USDZ)"}
-                </>
-              )}
-            </Button>
-          </VStack>
+          {/* QR / AR按钮 */}
+          <Button
+            variant="ghost"
+            size="xs"
+            w="full"
+            onClick={handleLaunchAR}
+            color="text.muted"
+            _hover={{ color: "text.heading" }}
+          >
+            {deviceType === "desktop" ? (
+              <>
+                <QrCode size={14} style={{ marginRight: 6 }} /> Abrir Código QR para Escaneo Móvil
+              </>
+            ) : (
+              <>
+                <Smartphone size={14} style={{ marginRight: 6 }} />
+                {deviceType === "android"
+                  ? "Abrir Google Scene Viewer (ARCore)"
+                  : "Abrir Apple Quick Look (USDZ)"}
+              </>
+            )}
+          </Button>
 
-          {showQR && (
-            <Box
-              p="4"
-              bg="surface.card"
-              borderRadius="xl"
-              border="1px solid"
-              borderColor="border.glass"
-              w="full"
-              textAlign="center"
-              animation="fadeIn 0.3s ease-out"
-            >
+          {showQR && qrImageUrl && (
+            <Box p="4" bg="surface.card" borderRadius="xl" border="1px solid" borderColor="border.glass" textAlign="center">
               <Text fontSize="xs" fontWeight="bold" color="text.heading" mb="2">
                 Escanea con la cámara de tu iPhone o Android:
               </Text>
-              {qrImageUrl && (
-                <Box display="inline-block" p="3" bg="white" borderRadius="xl" boxShadow="md">
-                  <img
-                    src={qrImageUrl}
-                    alt={`Código QR AR para ${title}`}
-                    width={180}
-                    height={180}
-                    style={{ borderRadius: "8px", display: "block" }}
-                  />
-                </Box>
-              )}
+              <Box display="inline-block" p="3" bg="white" borderRadius="xl" boxShadow="md">
+                <img src={qrImageUrl} alt={`Código QR AR para ${title}`} width={180} height={180} style={{ borderRadius: "8px", display: "block" }} />
+              </Box>
               <Text fontSize="2xs" color="text.muted" mt="2">
                 Abre la cámara de tu teléfono para apuntar al código y activar la vista AR en tu sala.
               </Text>
