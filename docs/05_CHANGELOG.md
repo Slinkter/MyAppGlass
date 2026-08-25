@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file.
 - **Limpieza de Tipos de Vidrio**: Normalización estricta a 3 tipos (`Crudo`, `Laminado`, `Templado`) sin etiquetas de grosor redundantes.
 
 ### Added
-- **Extracción de Catálogos Técnicos**: Incorporación de geometrías de perfiles extruidos precisos para carpintería de aluminio (Serie VL42/Silenzo VL46/Serie 20-25 corrediza y Serie Practitec VLP46 fija/proyectante/pivotante).
+- **Extracción de Catálogos Técnicos**: Incorporación de geometrías de perfiles extruidos precisos para carpintería de aluminio. Catálogo alineado a 4 sistemas oficiales: Nova, Serie 25, Serie 35 y Serie 62.
 - **Dimensiones Paramétricas (W x H) y Selector de Sistemas**: Sliders interactivos para ancho y alto con recálculo en tiempo real, presets de vanos arquitectónicos y selector de 6 sistemas de ventanas.
 - **Ficha Técnica en Vivo & Cotizador WhatsApp**: Desglose dinámico de materiales en tiempo real y enlace directo a WhatsApp con plantilla pre-llenada.
 - **Composición 2.5D y Shaders PBR**: Shader `MeshPhysicalMaterial` con IOR 1.52 para cristal, mapeo de tonos ACES Filmic para aluminio y ambientes con imágenes reales de showroom.

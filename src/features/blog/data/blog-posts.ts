@@ -161,7 +161,7 @@ const BLOG_POSTS: BlogPost[] = [
       <h2>Por Qué Elegir Ventanas de Aluminio en Lima</h2>
       <p>Las <strong>ventanas de aluminio</strong> son la mejor solución para resistir el paso del tiempo y la humedad costera sin deformarse, hincharse ni perder su tonalidad original.</p>
 
-      <h3>Sistemas Nova, Serie 25 y Serie 31</h3>
+      <h3>Sistemas Nova, Serie 25, Serie 35 y Serie 62</h3>
       <p>El sistema Nova es muy popular por su excelente hermeticidad y facilidad de mantenimiento. Para requerimientos acústicos más exigentes, la combinación con cristales insulados en <a href="/servicios/ventana">ventanas de aluminio acústicas</a> garantiza un aislamiento inigualable.</p>
 
       <h3>Cero Mantenimiento y Gran Estanqueidad</h3>

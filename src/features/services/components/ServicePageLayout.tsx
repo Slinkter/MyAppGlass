@@ -71,8 +71,8 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
   const activeVentanaSystemId = React.useMemo(() => {
     const label = (activeSystem?.label || "").toLowerCase();
     if (label.includes("25")) return "serie-25";
-    if (label.includes("35") || label.includes("31") || label.includes("37") || label.includes("38")) return "serie-35";
-    if (label.includes("62") || label.includes("80")) return "serie-62";
+    if (label.includes("35")) return "serie-35";
+    if (label.includes("62")) return "serie-62";
     return "sistema-nova";
   }, [activeSystem]);
 

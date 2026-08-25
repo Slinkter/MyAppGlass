@@ -47,7 +47,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         seo: {
             title: "Ventanas de Aluminio Antirruido en La Molina | GYA Company",
             description:
-                "Fabricación e instalación de ventanas de aluminio antirruido en La Molina y Lima. Sistemas Nova, Serie 25 y 31 con perfiles herméticos. ¡Cotiza hoy!",
+                "Ventanas de aluminio antirruido en La Molina y Lima. Sistemas Nova, Serie 25, Serie 35 y Serie 62 con perfiles herméticos. ¡Cotiza hoy!",
         },
         about: {
             title: "Ventanas de Aluminio y Acústicas Antirruido",
@@ -61,9 +61,9 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
             { label: "Asesoría técnica e instalación profesional garantizada", icon: Check },
         ],
         systems: [
-            { label: "Sistema Nova", icon: ChevronRight },
-            { label: "Sistema Serie 25", icon: ChevronRight },
-            { label: "Sistema Serie 35", icon: ChevronRight },
+            { label: "Nova", icon: ChevronRight },
+            { label: "Serie 25", icon: ChevronRight },
+            { label: "Serie 35", icon: ChevronRight },
             { label: "Serie 62", icon: ChevronRight },
         ],
         features: [

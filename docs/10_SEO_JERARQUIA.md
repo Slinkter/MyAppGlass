@@ -23,7 +23,7 @@
 - **Encabezado Principal (H1):** `Servicios Especializados de Vidriería y Sistemas de Aluminio`
 - **Encabezados Secundarios (H2 / H3):**
   - `H2: Categorías de Fabricación`
-  - `H3: Ventanas de Aluminio (Sistemas Nova, Serie 25 y 31)`
+  - `H3: Ventanas de Aluminio (Sistemas Nova, Serie 25, Serie 35 y Serie 62)`
   - `H3: Mamparas y Dúchales en Vidrio Templado`
   - `H3: Techos de Policarbonato y Cerramientos`
 - **Palabras Clave Objetivo (Keywords):** `catálogo vidriería, mamparas de baño vidrio templado, techos policarbonato aluminio, barandas de vidrio`
@@ -33,7 +33,7 @@
 ### 2.1 Subpágina Servicio: Ventanas de Aluminio
 - **URL / Ruta:** `https://www.gyacompany.com/servicios/ventana` (`/servicios/ventana`)
 - **Title Tag recomendado:** `Ventanas de Aluminio Antirruido | GYA La Molina` *(51 caracteres)*
-- **Meta Description recomendada:** `Fabricación e instalación de ventanas de aluminio antirruido en sistemas Nova, Serie 25 y 31. Aislamiento térmico y acústico en Lima.` *(152 caracteres)*
+- **Meta Description recomendada:** `Fabricación e instalación de ventanas de aluminio antirruido en sistemas Nova, Serie 25, Serie 35 y Serie 62. Aislamiento térmico y acústico en Lima.` *(154 caracteres)*
 - **Encabezado Principal (H1):** `Ventanas de Aluminio Antirruido y Herméticas`
 - **Encabezados Secundarios (H2):** `Concepto Técnico, Especificaciones Clave y Garantía`
 - **Keywords:** `ventanas antirruido lima, ventanas de aluminio nova, serie 25 vidrio, carpinteria de aluminio la molina`
