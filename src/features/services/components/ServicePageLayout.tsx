@@ -18,8 +18,18 @@ import { UnifiedTechnicalCard } from "./ServiceBentoGrid";
 import { ServiceFaqSection } from "./ServiceFaqSection";
 import { serviceFaqsMap, defaultServiceFaqs } from "../data/serviceFaqs";
 
-import { AuraARViewer } from "@/shared/components/3d/AuraARViewer";
-import { VentanaConfigurador3DCard } from "./VentanaConfigurador3DCard";
+import dynamic from "next/dynamic";
+
+const AuraARViewer = dynamic(
+  () => import("@/shared/components/3d/AuraARViewer").then(mod => mod.AuraARViewer),
+  { ssr: false, loading: () => <Skeleton height={{ base: "340px", sm: "400px", lg: "500px" }} w="full" borderRadius={{ base: "none", md: "3xl" }} /> }
+);
+
+const VentanaConfigurador3DCard = dynamic(
+  () => import("./VentanaConfigurador3DCard"),
+  { ssr: false, loading: () => <Skeleton height={{ base: "500px", lg: "500px" }} w="full" borderRadius={{ base: "none", md: "3xl" }} /> }
+);
+
 import { SERVICE_AR_MODELS_MAP } from "../data/serviceArModels";
 
 export interface ServicePageLayoutProps {
