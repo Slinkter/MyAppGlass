@@ -21,25 +21,34 @@ stats.html
 functions/.env
 functions/lib/
 
-# Environment Variables & Secrets
+# Security, Environment Variables & Secret Credentials
 .env
 .env.*
 .env.local
 !.env.example
 service-account*.json
+firebase-adminsdk*.json
+credentials*.json
 *.pem
+*.key
+*.crt
+*.pfx
+*.p12
+*.jks
 
-# AI Agents & MCP Artifacts
+# AI Agents, IDE & MCP Local Artifacts
 .playwright-mcp/
 .agents/mcp_config.local.json
 .claude/
 .gemini/
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*.swo
 
-# Logs & Runtime Data
-logs/
-*.log
-
-# Operating System & IDE Files
+# Operating System & Cache Files
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -47,14 +56,10 @@ Thumbs.db
 ehthumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
-.idea/
-*.swp
-*.swo
 
-# Testing & Temporary Artifacts
+# Logs & Temporary Test/Audit Artifacts
+logs/
+*.log
 coverage/
 .nyc_output/
 .eslintcache/
@@ -62,6 +67,8 @@ test-results/
 playwright-report/
 blob-report/
 *.xlsx
+*.csv
+otros/
 
 # Audit Artifacts (.audits/) — track docs (.md), ignore heavy binaries
 .audits/**

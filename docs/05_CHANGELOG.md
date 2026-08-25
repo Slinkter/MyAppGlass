@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-08-21] - Reingeniería 3D de Carpintería de Aluminio Oficial & Visor AR
+
+### Added
+- **Extracción de Catálogos Técnicos**: Incorporación de geometrías de perfiles extruidos precisos para carpintería de aluminio (Serie VL42/Silenzo VL46/Serie 20-25 corrediza y Serie Practitec VLP46 fija/proyectante/pivotante).
+- **Dimensiones Paramétricas (W x H) y Selector de Sistemas**: Sliders interactivos para ancho y alto con recálculo en tiempo real, presets de vanos arquitectónicos y selector de 6 sistemas de ventanas.
+- **Ficha Técnica en Vivo & Cotizador WhatsApp**: Desglose dinámico de materiales en tiempo real y enlace directo a WhatsApp con plantilla pre-llenada.
+- **Composición 2.5D y Shaders PBR**: Shader `MeshPhysicalMaterial` con IOR 1.52 para cristal, mapeo de tonos ACES Filmic para aluminio y ambientes con imágenes reales de showroom.
+
+
+
 ## [2026-07-22] - Google Maps API Key Deployment Fix
 
 ### Fixed
