@@ -597,15 +597,15 @@ export const VentanaConfigurador3DCard: React.FC<{
                 </Flex>
             </Box>
 
-            {/* 2. Cuerpo Principal Dividido: Visor 3D + Panel de Controles Reordenado */}
-            <Flex direction={{ base: "column", lg: "row" }} w="full" minH="500px">
-                {/* Columna Izquierda: Visor 3D Three.js */}
+            {/* 2. Cuerpo Principal Dividido: Visor 3D (40%) + Panel de Controles (60%) */}
+            <Flex direction={{ base: "column", lg: "row" }} w="full" minH={{ lg: "540px" }}>
+                {/* Columna Izquierda: Visor 3D Three.js (40% de ancho) */}
                 <Box
-                    flex={{ base: "none", lg: "1.2" }}
+                    flex={{ base: "none", lg: "4" }}
+                    w={{ base: "full", lg: "40%" }}
                     position="relative"
                     bg="bg.page"
-                    h={{ base: "340px", sm: "400px", lg: "auto" }}
-                    w={{ base: "full", lg: "auto" }}
+                    h={{ base: "320px", sm: "360px", lg: "560px" }}
                     borderRightWidth={{ lg: "1px" }}
                     borderBottomWidth={{ base: "1px", lg: "0" }}
                     borderColor="border.subtle"
@@ -703,8 +703,8 @@ export const VentanaConfigurador3DCard: React.FC<{
                         bg="surface.card"
                         backdropFilter="blur(16px)"
                         borderRadius="xl"
-                        py="2.5"
-                        px="4"
+                        py="2"
+                        px="3"
                         boxShadow="md"
                         borderWidth="1px"
                         borderColor="border.default"
@@ -718,7 +718,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                     {widthMeters.toFixed(2)} m
                                 </Text>
                             </Box>
-                            <Box w="1px" h="5" bg="border.subtle" />
+                            <Box w="1px" h="4" bg="border.subtle" />
                             <Box textAlign="center">
                                 <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase">
                                     Alto
@@ -727,7 +727,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                     {heightMeters.toFixed(2)} m
                                 </Text>
                             </Box>
-                            <Box w="1px" h="5" bg="border.subtle" />
+                            <Box w="1px" h="4" bg="border.subtle" />
                             <Box textAlign="center">
                                 <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase">
                                     Área Total
@@ -740,10 +740,10 @@ export const VentanaConfigurador3DCard: React.FC<{
                     </Box>
                 </Box>
 
-                {/* Columna Derecha: Panel de Configuración Reordenado */}
+                {/* Columna Derecha: Panel de Configuración (60% de ancho) */}
                 <Flex
-                    w={{ base: "full", lg: "420px", xl: "450px" }}
-                    flexShrink={0}
+                    flex={{ base: "none", lg: "6" }}
+                    w={{ base: "full", lg: "60%" }}
                     bg={{ base: "transparent", lg: "rgba(255, 255, 255, 0.6)" }}
                     _dark={{ bg: { lg: "rgba(28, 25, 23, 0.65)" } }}
                     backdropFilter={{ lg: "blur(24px)" }}
@@ -752,9 +752,9 @@ export const VentanaConfigurador3DCard: React.FC<{
                     direction="column"
                     justify="space-between"
                 >
-                    <Box p={{ base: "4", md: "5" }} px={{ base: "0", md: "5" }} overflowY="auto" maxH={{ lg: "540px" }}>
+                    <Box p={{ base: "4", md: "5" }} px={{ base: "0", md: "5" }} overflowY="auto" maxH={{ lg: "470px" }}>
                         <VStack gap="5" align="stretch">
-                            {/* 1. Tipo de Ventana (Corrediza, Proyectante, Batiente, Luz Fija) */}
+                            {/* 1. Tipo de Ventana (Grid Homogéneo 4 columnas) */}
                             <Box>
                                 <Flex align="center" gap="1.5" mb="2">
                                     <DoorOpen size={15} className="text-primary-500" />
@@ -762,10 +762,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                         Tipo de Ventana
                                     </Text>
                                 </Flex>
-                                <HStack
-                                    gap="1.5"
-                                    wrap="wrap"
-                                >
+                                <SimpleGrid columns={{ base: 2, sm: 4 }} gap="2">
                                     {WINDOW_CATALOG.map((item) => {
                                         const isSelected = activeType === item.id;
                                         const IconComp = item.icon;
@@ -773,23 +770,26 @@ export const VentanaConfigurador3DCard: React.FC<{
                                             <Button
                                                 key={item.id}
                                                 onClick={() => setActiveType(item.id)}
-                                                size="xs"
+                                                size="sm"
                                                 variant={isSelected ? "aura" : "outline"}
-                                                borderRadius="full"
-                                                px="3"
-                                                py="1.5"
+                                                borderRadius="xl"
+                                                h="9"
+                                                w="full"
+                                                fontSize="xs"
                                                 fontWeight={isSelected ? "bold" : "medium"}
                                                 transition="all 0.2s ease"
+                                                justifyContent="center"
+                                                px="2"
                                             >
-                                                <IconComp size={13} style={{ marginRight: "4px" }} />
-                                                {item.title}
+                                                <IconComp size={14} style={{ marginRight: "6px", flexShrink: 0 }} />
+                                                <Text truncate>{item.title}</Text>
                                             </Button>
                                         );
                                     })}
-                                </HStack>
+                                </SimpleGrid>
                             </Box>
 
-                            {/* 2. Sistema de Ventana */}
+                            {/* 2. Sistema de Ventana (Grid Homogéneo 4 columnas) */}
                             <Box>
                                 <Flex align="center" gap="1.5" mb="2">
                                     <Layers size={15} className="text-primary-500" />
@@ -797,26 +797,29 @@ export const VentanaConfigurador3DCard: React.FC<{
                                         Sistema de Ventana
                                     </Text>
                                 </Flex>
-                                <Flex wrap="wrap" gap="1.5">
+                                <SimpleGrid columns={{ base: 2, sm: 4 }} gap="2">
                                     {availableSystems.map((sys) => {
                                         const isSelected = systemId === sys.id;
                                         return (
                                             <Button
                                                 key={sys.id}
-                                                size="xs"
+                                                size="sm"
                                                 variant={isSelected ? "aura" : "outline"}
                                                 onClick={() => setSystemId(sys.id)}
-                                                borderRadius="full"
-                                                px="3"
-                                                py="1"
+                                                borderRadius="xl"
+                                                h="9"
+                                                w="full"
+                                                fontSize="xs"
                                                 fontWeight={isSelected ? "bold" : "medium"}
                                                 transition="all 0.2s ease"
+                                                justifyContent="center"
+                                                px="2"
                                             >
-                                                {sys.nombre}
+                                                <Text truncate>{sys.nombre}</Text>
                                             </Button>
                                         );
                                     })}
-                                </Flex>
+                                </SimpleGrid>
                             </Box>
 
                             {/* 3. Dimensiones */}
@@ -833,8 +836,8 @@ export const VentanaConfigurador3DCard: React.FC<{
                                     </Text>
                                 </Flex>
 
-                                {/* Presets Rápidos de Medidas */}
-                                <HStack gap="1.5" mb="3" wrap="wrap">
+                                {/* Presets Rápidos en SimpleGrid */}
+                                <SimpleGrid columns={{ base: 3, sm: 5 }} gap="1.5" mb="3">
                                     {DIMENSION_PRESETS.map((preset) => {
                                         const isSelected =
                                             Math.abs(widthMeters - preset.width) < 0.01 &&
@@ -842,13 +845,12 @@ export const VentanaConfigurador3DCard: React.FC<{
                                         return (
                                             <Button
                                                 key={preset.label}
-                                                size="sm"
+                                                size="xs"
                                                 variant={isSelected ? "aura" : "outline"}
-                                                borderRadius="full"
-                                                px={{ base: "4", md: "2.5" }}
-                                                py={{ base: "2", md: "0" }}
-                                                h={{ base: "10", md: "7" }}
-                                                fontSize={{ base: "11px", md: "10px" }}
+                                                borderRadius="lg"
+                                                h="7"
+                                                w="full"
+                                                fontSize="10px"
                                                 fontWeight={isSelected ? "bold" : "medium"}
                                                 onClick={() => {
                                                     setWidthMeters(preset.width);
@@ -859,7 +861,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                             </Button>
                                         );
                                     })}
-                                </HStack>
+                                </SimpleGrid>
 
                                 <SimpleGrid columns={2} gap="3">
                                     <Box>
@@ -975,7 +977,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 </SimpleGrid>
                             </Box>
 
-                            {/* 4. Color de Vidrio (Tono del Cristal) */}
+                            {/* 4. Color de Vidrio (Grid Homogéneo 3 columnas) */}
                             <Box>
                                 <Flex justify="space-between" align="center" mb="2">
                                     <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
@@ -985,7 +987,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                         {GLASS_COLORS.find((c) => c.id === glassColor)?.label}
                                     </Text>
                                 </Flex>
-                                <HStack gap="2">
+                                <SimpleGrid columns={3} gap="2">
                                     {GLASS_COLORS.map((gc) => {
                                         const isSelected = glassColor === gc.id;
                                         return (
@@ -994,15 +996,19 @@ export const VentanaConfigurador3DCard: React.FC<{
                                                 size="xs"
                                                 variant={isSelected ? "aura" : "outline"}
                                                 onClick={() => setGlassColor(gc.id)}
-                                                borderRadius="full"
-                                                px="3"
+                                                borderRadius="xl"
+                                                h="8"
+                                                w="full"
+                                                fontWeight={isSelected ? "bold" : "medium"}
+                                                justifyContent="center"
+                                                px="2"
                                             >
-                                                <Box w="2.5" h="2.5" borderRadius="full" bg={gc.colorHex} mr="1.5" borderWidth="1px" borderColor="border.default" />
-                                                {gc.label}
+                                                <Box w="2.5" h="2.5" borderRadius="full" bg={gc.colorHex} mr="1.5" borderWidth="1px" borderColor="border.default" flexShrink={0} />
+                                                <Text truncate>{gc.label}</Text>
                                             </Button>
                                         );
                                     })}
-                                </HStack>
+                                </SimpleGrid>
                             </Box>
 
                             {/* 5. Color de Aluminio (Color de Perfil) */}
@@ -1015,39 +1021,47 @@ export const VentanaConfigurador3DCard: React.FC<{
                                         {FINISHES.find((f) => f.id === finish)?.label}
                                     </Text>
                                 </Flex>
-                                <HStack gap="3">
+                                <SimpleGrid columns={4} gap="2.5">
                                     {FINISHES.map((f) => {
                                         const isSelected = finish === f.id;
                                         return (
-                                            <Box
+                                            <Flex
                                                 key={f.id}
                                                 as="button"
                                                 onClick={() => setFinish(f.id)}
-                                                w={{ base: "11", md: "8" }}
-                                                h={{ base: "11", md: "8" }}
-                                                borderRadius="full"
-                                                bg={f.color}
-                                                borderWidth={isSelected ? "3px" : "1.5px"}
+                                                h="9"
+                                                borderRadius="xl"
+                                                borderWidth={isSelected ? "2px" : "1px"}
                                                 borderColor={isSelected ? "primary.500" : "border.default"}
-                                                boxShadow={isSelected ? "0 0 0 2px var(--chakra-colors-primary-200)" : "sm"}
-                                                display="flex"
-                                                alignItems="center"
-                                                justifyContent="center"
+                                                bg={isSelected ? "bg.subtle" : "transparent"}
+                                                align="center"
+                                                justify="center"
+                                                gap="2"
                                                 cursor="pointer"
                                                 transition="all 0.2s ease"
-                                                _hover={{ transform: "scale(1.15)" }}
+                                                _hover={{ borderColor: "primary.500" }}
                                                 aria-label={`Seleccionar color ${f.label}`}
                                             >
-                                                {isSelected && (
-                                                    <Check size={12} color={f.id === "blanco" ? "#000" : "#fff"} strokeWidth={3} />
-                                                )}
-                                            </Box>
+                                                <Box
+                                                    w="3.5"
+                                                    h="3.5"
+                                                    borderRadius="full"
+                                                    bg={f.color}
+                                                    borderWidth="1px"
+                                                    borderColor="border.default"
+                                                    boxShadow="sm"
+                                                    flexShrink={0}
+                                                />
+                                                <Text fontSize="10px" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate>
+                                                    {f.label.replace(" Claro", "")}
+                                                </Text>
+                                            </Flex>
                                         );
                                     })}
-                                </HStack>
+                                </SimpleGrid>
                             </Box>
 
-                            {/* 6. Tipo de Vidrio (Solo 3 tipos: Crudo, Laminado, Templado) */}
+                            {/* 6. Tipo de Vidrio (Fichas Uniformes) */}
                             <Box>
                                 <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider" mb="2">
                                     Tipo de Vidrio
@@ -1059,6 +1073,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                             <Flex
                                                 key={g.id}
                                                 p="2.5"
+                                                minH="54px"
                                                 borderRadius="xl"
                                                 borderWidth="1px"
                                                 borderColor={isSelected ? "primary.500" : "border.default"}
@@ -1091,14 +1106,14 @@ export const VentanaConfigurador3DCard: React.FC<{
                                                         {g.desc}
                                                     </Text>
                                                 </Box>
-                                                {isSelected && <Check size={14} className="text-primary-500" />}
+                                                {isSelected && <Check size={14} className="text-primary-500" style={{ flexShrink: 0 }} />}
                                             </Flex>
                                         );
                                     })}
                                 </VStack>
                             </Box>
 
-                            {/* 7. Adicional (Arenado, Diseño según cliente) */}
+                            {/* 7. Adicional (Grid Homogéneo 2 columnas) */}
                             <Box>
                                 <Flex align="center" gap="1.5" mb="2">
                                     <Plus size={15} className="text-primary-500" />
@@ -1109,6 +1124,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 <SimpleGrid columns={2} gap="2">
                                     <Flex
                                         p="2.5"
+                                        minH="52px"
                                         borderRadius="xl"
                                         borderWidth="1px"
                                         borderColor={hasArenado ? "primary.500" : "border.default"}
@@ -1127,11 +1143,12 @@ export const VentanaConfigurador3DCard: React.FC<{
                                                 Acabado translúcido
                                             </Text>
                                         </Box>
-                                        {hasArenado && <Check size={14} className="text-primary-500" />}
+                                        {hasArenado && <Check size={14} className="text-primary-500" style={{ flexShrink: 0 }} />}
                                     </Flex>
 
                                     <Flex
                                         p="2.5"
+                                        minH="52px"
                                         borderRadius="xl"
                                         borderWidth="1px"
                                         borderColor={hasDisenoCliente ? "primary.500" : "border.default"}
@@ -1150,7 +1167,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                                 Según cliente
                                             </Text>
                                         </Box>
-                                        {hasDisenoCliente && <Check size={14} className="text-primary-500" />}
+                                        {hasDisenoCliente && <Check size={14} className="text-primary-500" style={{ flexShrink: 0 }} />}
                                     </Flex>
                                 </SimpleGrid>
                             </Box>
