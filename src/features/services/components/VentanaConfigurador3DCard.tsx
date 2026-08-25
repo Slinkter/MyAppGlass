@@ -552,12 +552,12 @@ export const VentanaConfigurador3DCard: React.FC<{
             overflow="hidden"
             position="relative"
         >
-            {/* Cuerpo Principal Dividido: Visor 3D (40%) + Panel de Controles (60%) */}
+            {/* Cuerpo Principal Dividido: Visor 3D (35%) + Panel de Controles (65%) */}
             <Flex direction={{ base: "column", lg: "row" }} w="full" h={{ lg: "460px" }}>
-                {/* Columna Izquierda: Visor 3D Three.js (40% de ancho) */}
+                {/* Columna Izquierda: Visor 3D Three.js (35% de ancho) */}
                 <Box
-                    flex={{ base: "none", lg: "4" }}
-                    w={{ base: "full", lg: "40%" }}
+                    flex={{ base: "none", lg: "3.5" }}
+                    w={{ base: "full", lg: "35%" }}
                     position="relative"
                     bg="bg.page"
                     h={{ base: "280px", sm: "320px", lg: "460px" }}
@@ -716,10 +716,10 @@ export const VentanaConfigurador3DCard: React.FC<{
                     </Box>
                 </Box>
 
-                {/* Columna Derecha: Panel de Configuración (60% de ancho) */}
+                {/* Columna Derecha: Panel de Configuración (65% de ancho) */}
                 <Flex
-                    flex={{ base: "none", lg: "6" }}
-                    w={{ base: "full", lg: "60%" }}
+                    flex={{ base: "none", lg: "6.5" }}
+                    w={{ base: "full", lg: "65%" }}
                     h={{ lg: "460px" }}
                     bg={{ base: "transparent", lg: "rgba(255, 255, 255, 0.6)" }}
                     _dark={{ bg: { lg: "rgba(28, 25, 23, 0.65)" } }}

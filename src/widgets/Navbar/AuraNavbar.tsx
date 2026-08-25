@@ -36,26 +36,30 @@ const AuraNavbar = React.memo(() => {
     return null;
   }
 
+  const isServicesPage = pathname.startsWith("/servicios");
+
   return (
     <>
-      {/* DESKTOP NAVBAR (Aura Floating Island - Visible and interactive) */}
-      <Box
-        as="header"
-        position="sticky"
-        top="6"
-        zIndex="sticky"
-        display={{ base: "none", md: "flex" }}
-        justifyContent="center"
-        w="full"
-        pointerEvents="auto"
-        opacity={1}
-        transform={scrolled ? "translateY(0)" : "translateY(0)"}
-        transition="transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease"
-      >
-        <Box pointerEvents="auto">
-          <AuraDesktopNav />
+      {/* DESKTOP NAVBAR (Aura Floating Island - Oculto en /servicios para experiencia inmersiva) */}
+      {!isServicesPage && (
+        <Box
+          as="header"
+          position="sticky"
+          top="6"
+          zIndex="sticky"
+          display={{ base: "none", md: "flex" }}
+          justifyContent="center"
+          w="full"
+          pointerEvents="auto"
+          opacity={1}
+          transform={scrolled ? "translateY(0)" : "translateY(0)"}
+          transition="transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease"
+        >
+          <Box pointerEvents="auto">
+            <AuraDesktopNav />
+          </Box>
         </Box>
-      </Box>
+      )}
 
       {/* MOBILE NAVBAR (Always visible — no scroll-reveal) */}
       <Box display={{ base: "block", md: "none" }}>
