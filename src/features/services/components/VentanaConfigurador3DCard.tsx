@@ -218,8 +218,8 @@ export const VentanaConfigurador3DCard: React.FC<{
                 const inW = curW / 1000 - pW * 2;
                 const inH = curH / 1000 - pW * 2;
                 const sW = inW / 2 + 0.02;
-                const closedX = inW / 2 - sW / 2;
-                const openX = -inW / 2 + sW / 2;
+                const closedX = 0;
+                const openX = -(inW - sW);
                 const sash = sashGroupRef.current;
 
                 if (curType === "corredizo") {
@@ -532,20 +532,21 @@ export const VentanaConfigurador3DCard: React.FC<{
     return (
         <Box
             w="full"
-            bg="surface.card"
-            borderRadius="3xl"
-            borderWidth="1px"
+            bg={{ base: "transparent", md: "surface.card" }}
+            borderRadius={{ base: "none", md: "3xl" }}
+            borderWidth={{ base: "0px", md: "1px" }}
             borderColor="border.default"
-            boxShadow="sm"
+            boxShadow={{ base: "none", md: "sm" }}
             overflow="hidden"
             position="relative"
         >
             {/* 1. Cabecera del Card con Selector de Pastillas (Pills) */}
             <Box
-                p={{ base: "5", md: "6" }}
+                p={{ base: "4", md: "6" }}
+                px={{ base: "0", md: "6" }}
                 borderBottomWidth="1px"
                 borderColor="border.subtle"
-                bg="bg.subtle"
+                bg={{ base: "transparent", md: "bg.subtle" }}
             >
                 <Flex
                     direction={{ base: "column", md: "row" }}
@@ -768,11 +769,11 @@ export const VentanaConfigurador3DCard: React.FC<{
                 <Flex
                     w={{ base: "full", lg: "420px", xl: "450px" }}
                     flexShrink={0}
-                    bg="surface.card"
+                    bg={{ base: "transparent", md: "surface.card" }}
                     direction="column"
                     justify="space-between"
                 >
-                    <Box p="5" overflowY="auto" maxH={{ lg: "520px" }}>
+                    <Box p={{ base: "4", md: "5" }} px={{ base: "0", md: "5" }} overflowY="auto" maxH={{ lg: "520px" }}>
                         <VStack gap="5" align="stretch">
                             {/* 1. Dimensiones */}
                             <Box>
@@ -1002,8 +1003,9 @@ export const VentanaConfigurador3DCard: React.FC<{
 
                     {/* Footer Fijo de Cotización + Botón WhatsApp */}
                     <Box
-                        p="4"
-                        bg="bg.subtle"
+                        p={{ base: "4", md: "5" }}
+                        px={{ base: "0", md: "5" }}
+                        bg={{ base: "transparent", md: "bg.subtle" }}
                         borderTopWidth="1px"
                         borderColor="border.subtle"
                     >
