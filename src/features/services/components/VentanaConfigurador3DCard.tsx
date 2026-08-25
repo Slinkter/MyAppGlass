@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { Tooltip } from "@/components/ui/tooltip";
+
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import {
     Box,
     Flex,
@@ -9,249 +9,54 @@ import {
     SimpleGrid,
     HStack,
     VStack,
-    Button,
     Badge,
     Input,
 } from "@chakra-ui/react";
-import {
-    DialogRoot,
-    DialogContent,
-    DialogBody,
-} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { calcularPrecio } from "../utils/calculo-ventanas";
 import ventanasCatalogo from "../data/ventanas-catalogo.json";
 import { companyData } from "@/shared/config/company-data";
 import {
-    ArrowUp,
-    ArrowRightLeft,
+    WINDOW_CATALOG,
+    FINISHES,
+    GLASS_TYPES,
+    GLASS_COLORS,
+    DIMENSION_PRESETS,
+} from "./configurador3d/constants";
+import {
     DoorOpen,
-    RotateCw,
-    Square,
-    Columns,
+    Video,
+    MessageCircle,
     Ruler,
     Layers,
-    LayoutTemplate,
-    Box as BoxIcon,
-    Wrench,
-    MessageCircle,
-    Video,
-    Check,
-    ShieldCheck,
     Sparkles,
-    X,
+    Check,
+    Wrench,
+    Compass,
 } from "lucide-react";
 
-const WINDOW_CATALOG = [
-    {
-        id: "corredizo",
-        title: "CORREDIZA",
-        badge: "Más Popular",
-        badgeBg: "green.50",
-        badgeColor: "green.700",
-        badgeBorder: "green.200",
-        accentColor: "green.500",
-        icon: ArrowRightLeft,
-        description: "Se desliza horizontalmente sobre rieles inferiores.",
-        mechanics: "Deslizamiento lateral sobre garruchas.",
-        bullets: [
-            "Ahorra espacio interior",
-            "Fácil de usar y limpiar",
-            "Ideal para mamparas y ventilación amplia",
-        ],
-    },
-    {
-        id: "proyectante",
-        title: "PROYECTANTE",
-        badge: "Ventilación",
-        badgeBg: "orange.50",
-        badgeColor: "orange.700",
-        badgeBorder: "orange.200",
-        accentColor: "orange.500",
-        icon: ArrowUp,
-        description: "Se proyecta hacia afuera desde la parte inferior.",
-        mechanics: "Brazos de extensión laterales.",
-        bullets: [
-            "Ventilación constante",
-            "Protege contra la lluvia",
-            "Ideal para oficinas y baños",
-        ],
-    },
-    {
-        id: "batiente",
-        title: "BATIENTE (ABATIBLE)",
-        badge: "Hermética",
-        badgeBg: "blue.50",
-        badgeColor: "blue.700",
-        badgeBorder: "blue.200",
-        accentColor: "blue.500",
-        icon: DoorOpen,
-        description:
-            "Se abre hacia el interior o exterior mediante bisagras laterales.",
-        mechanics: "Giro sobre bisagras capuchinas/pesadas.",
-        bullets: [
-            "Máxima ventilación total",
-            "Aislamiento acústico superior",
-            "Fácil limpieza ambas caras",
-        ],
-    },
-    {
-        id: "pivotante",
-        title: "PIVOTANTE",
-        badge: "Diseño Top",
-        badgeBg: "purple.50",
-        badgeColor: "purple.700",
-        badgeBorder: "purple.200",
-        accentColor: "purple.500",
-        icon: RotateCw,
-        description: "Gira sobre un eje vertical u horizontal central.",
-        mechanics: "Giro sobre pivotes de acero.",
-        bullets: [
-            "Apertura visualmente impactante",
-            "Flujo de aire regulable",
-            "Ideal para arquitectura moderna",
-        ],
-    },
-    {
-        id: "fija",
-        title: "LUZ FIJA",
-        badge: "Económica",
-        badgeBg: "gray.100",
-        badgeColor: "gray.700",
-        badgeBorder: "gray.300",
-        accentColor: "gray.600",
-        icon: Square,
-        description: "Panel inamovible para maximizar iluminación.",
-        mechanics: "Cristal incrustado en marco sellado.",
-        bullets: [
-            "100% Hermética y acústica",
-            "La opción más económica",
-            "Máxima entrada de luz",
-        ],
-    },
-    {
-        id: "corrediza-4h",
-        title: "CORREDIZA (4 HOJAS)",
-        badge: "Grandes Espacios",
-        badgeBg: "teal.50",
-        badgeColor: "teal.700",
-        badgeBorder: "teal.200",
-        accentColor: "teal.500",
-        icon: Columns,
-        description: "Cuatro hojas (2 fijas en extremos, 2 móviles al centro).",
-        mechanics: "Apertura central OXXO.",
-        bullets: [
-            "Ideal para frentes amplios",
-            "Apertura central generosa",
-            "Excelente simetría visual",
-        ],
-    },
-    {
-        id: "4-panos",
-        title: "VENTANA 4 PAÑOS",
-        badge: "Compuesta",
-        badgeBg: "indigo.50",
-        badgeColor: "indigo.700",
-        badgeBorder: "indigo.200",
-        accentColor: "indigo.500",
-        icon: Layers,
-        description: "Fijo superior, Fijo inferior y 2 hojas corredizas al centro.",
-        mechanics: "Estructura compuesta multipaño.",
-        bullets: [
-            "Alturas que superan los 2.40m",
-            "Seguridad en la parte inferior",
-            "Diseño arquitectónico complejo",
-        ],
-    },
-    {
-        id: "fijo-corredizo",
-        title: "FIJO + CORREDIZO",
-        badge: "Versátil",
-        badgeBg: "teal.50",
-        badgeColor: "teal.700",
-        badgeBorder: "teal.200",
-        accentColor: "teal.500",
-        icon: Columns,
-        description:
-            "Combinación de paño fijo superior y hojas corredizas inferiores.",
-        mechanics: "Travesaño H dividiendo los paneles.",
-        bullets: [
-            "Luz superior constante",
-            "Ventilación inferior controlada",
-            "Ideal para vanos muy altos",
-        ],
-    },
-];
-
-const FINISHES = [
-    { id: "natural", label: "Natural", color: "#dedfe3" },
-    { id: "negro", label: "Negro", color: "#1A1A1A" },
-    { id: "madera", label: "Madera", color: "#8B4513" },
-    { id: "blanco", label: "Blanco", color: "#F8F9FA" },
-    { id: "gris-claro", label: "Gris Claro", color: "#B0B4B8" },
-];
-
-const GLASS_TYPES = [
-    {
-        id: "crudo",
-        label: "Vidrio Crudo",
-        thickness: "6 mm",
-        desc: "Económico y ligero",
-    },
-    {
-        id: "templado",
-        label: "Vidrio Templado",
-        thickness: "6 mm",
-        desc: "Alta resistencia al impacto",
-    },
-    {
-        id: "laminado",
-        label: "Vidrio Laminado",
-        thickness: "(3+3) 6 mm",
-        desc: "Aislamiento acústico y seguridad",
-    },
-];
-
-const GLASS_COLORS = [
-    {
-        id: "incoloro",
-        label: "Incoloro",
-        colorHex: "#E8F4F8",
-        border: "#CBD5E1",
-        tint3d: 0xe8f4f8,
-    },
-    {
-        id: "bronce",
-        label: "Bronce",
-        colorHex: "#8A5A36",
-        border: "#78350F",
-        tint3d: 0x966847,
-    },
-    {
-        id: "gris",
-        label: "Gris (Humo)",
-        colorHex: "#4B5563",
-        border: "#374151",
-        tint3d: 0x475569,
-    },
-];
-
-export const VentanaConfigurador3DCard = ({
-    initialSystemId = "sistema-nova",
-}: {
+export const VentanaConfigurador3DCard: React.FC<{
     initialSystemId?: string;
-}) => {
-    const [isOpen, setIsOpen] = useState(false);
+}> = ({ initialSystemId = "sistema-nova" }) => {
     const [activeType, setActiveType] = useState<string>("corredizo");
     const [widthMeters, setWidthMeters] = useState(1.2);
     const [heightMeters, setHeightMeters] = useState(1.0);
     const [systemId, setSystemId] = useState(initialSystemId);
-    const [finish, setFinish] = useState("natural");
+    const [finish, setFinish] = useState("negro");
     const [glass, setGlass] = useState("templado");
     const [glassColor, setGlassColor] = useState("incoloro");
     const [isWindowOpen, setIsWindowOpen] = useState(false);
     const [price, setPrice] = useState(0);
+    const [rotationAngle, setRotationAngle] = useState<{ azimuth: number; polar: number }>({ azimuth: 27, polar: 81 });
+
+    // Sincronizar cuando cambia la selección externa del sistema en la cabecera
+    useEffect(() => {
+        if (initialSystemId) {
+            setSystemId(initialSystemId);
+        }
+    }, [initialSystemId]);
 
     const width = Math.round(widthMeters * 1000);
     const height = Math.round(heightMeters * 1000);
@@ -282,50 +87,18 @@ export const VentanaConfigurador3DCard = ({
     const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
     const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
     const controlsRef = useRef<OrbitControls | null>(null);
+    const controlsListenerRef = useRef<(() => void) | null>(null);
     const windowGroupRef = useRef<THREE.Group | null>(null);
     const sashGroupRef = useRef<THREE.Group | null>(null);
     const reqRef = useRef<number | null>(null);
 
-    const availableSystems = ventanasCatalogo.sistemas.filter((sys) =>
-        sys.tiposDisponibles.some((t) => t.id === activeType),
-    );
+    const availableSystems = useMemo(() => {
+        return ventanasCatalogo.sistemas.filter((sys) =>
+            sys.tiposDisponibles.some((t) => t.id === activeType),
+        );
+    }, [activeType]);
 
-    useEffect(() => {
-        if (isOpen) {
-            if (
-                !availableSystems.find((s) => s.id === systemId) &&
-                availableSystems.length > 0
-            ) {
-                setSystemId(availableSystems[0].id);
-            }
-            updatePrice();
-            // Delay initialization slightly to let the dialog DOM mount
-            const timer = setTimeout(() => {
-                init3D();
-                generate3DModel();
-            }, 100);
-            return () => clearTimeout(timer);
-        } else {
-            cleanup3D();
-        }
-    }, [isOpen, activeType]);
-
-    useEffect(() => {
-        if (isOpen) {
-            updatePrice();
-            generate3DModel();
-        }
-    }, [
-        widthMeters,
-        heightMeters,
-        systemId,
-        finish,
-        glass,
-        glassColor,
-        isOpen,
-    ]);
-
-    const updatePrice = () => {
+    const updatePrice = useCallback(() => {
         const cost = calcularPrecio({
             sistemaId: systemId,
             tipoId: activeType,
@@ -336,19 +109,19 @@ export const VentanaConfigurador3DCard = ({
             altoMm: height,
         });
         setPrice(cost);
-    };
+    }, [systemId, activeType, finish, glass, glassColor, width, height]);
 
-    const handleOpenModal = (typeId: string) => {
-        setActiveType(typeId);
-        setIsOpen(true);
-    };
-
-    const cleanup3D = () => {
+    // Helpers 3D
+    const cleanup3D = useCallback(() => {
         if (reqRef.current) {
             cancelAnimationFrame(reqRef.current);
             reqRef.current = null;
         }
         if (controlsRef.current) {
+            if (controlsListenerRef.current) {
+                controlsRef.current.removeEventListener("change", controlsListenerRef.current);
+                controlsListenerRef.current = null;
+            }
             controlsRef.current.dispose();
             controlsRef.current = null;
         }
@@ -361,9 +134,9 @@ export const VentanaConfigurador3DCard = ({
         }
         sceneRef.current = null;
         cameraRef.current = null;
-    };
+    }, []);
 
-    const init3D = () => {
+    const init3D = useCallback(() => {
         if (rendererRef.current || !canvasRef.current) return;
 
         const container = canvasRef.current;
@@ -375,12 +148,20 @@ export const VentanaConfigurador3DCard = ({
         sceneRef.current = scene;
 
         const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-        camera.position.set(0, 0, 4);
+        const initialRadius = 3.5;
+        const initPhi = (81 * Math.PI) / 180;
+        const initTheta = (27 * Math.PI) / 180;
+        camera.position.set(
+            initialRadius * Math.sin(initPhi) * Math.sin(initTheta),
+            initialRadius * Math.cos(initPhi),
+            initialRadius * Math.sin(initPhi) * Math.cos(initTheta),
+        );
         cameraRef.current = camera;
 
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
             alpha: true,
+            powerPreference: "high-performance",
         });
         renderer.setSize(w, h);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -392,25 +173,34 @@ export const VentanaConfigurador3DCard = ({
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.minDistance = 1;
-        controls.maxDistance = 10;
+        controls.maxDistance = 8;
         controls.maxPolarAngle = Math.PI / 1.5;
         controlsRef.current = controls;
 
-        // Iluminación tipo estudio idéntica al prototipo HTML
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        const handleControlsChange = () => {
+            const rawAzimuth = (controls.getAzimuthalAngle() * 180) / Math.PI;
+            const azimuth = Math.round(((rawAzimuth % 360) + 360) % 360);
+            const polar = Math.round((controls.getPolarAngle() * 180) / Math.PI);
+            setRotationAngle({ azimuth, polar });
+        };
+        // react-doctor-disable-next-line react-doctor/effect-needs-cleanup
+        controls.addEventListener("change", handleControlsChange);
+        controlsListenerRef.current = handleControlsChange;
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
         scene.add(ambientLight);
 
-        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.85);
         dirLight.position.set(5, 10, 7);
         dirLight.castShadow = true;
         scene.add(dirLight);
 
-        const fillLight = new THREE.DirectionalLight(0xe0f2fe, 0.4);
+        const fillLight = new THREE.DirectionalLight(0xe0f2fe, 0.45);
         fillLight.position.set(-5, 0, -5);
         scene.add(fillLight);
 
-        const grid = new THREE.GridHelper(10, 20, 0xcbd5e1, 0xe2e8f0);
-        grid.position.y = -1.5;
+        const grid = new THREE.GridHelper(8, 16, 0xcbd5e1, 0xe2e8f0);
+        grid.position.y = -1.4;
         scene.add(grid);
 
         const animate = () => {
@@ -433,7 +223,6 @@ export const VentanaConfigurador3DCard = ({
                 const sash = sashGroupRef.current;
 
                 if (curType === "corredizo") {
-                    // Desliza entre su posición cerrada a la derecha y su posición abierta a la izquierda
                     const targetX = isOpenState ? openX : closedX;
                     sash.position.x += (targetX - sash.position.x) * speed;
                 } else if (curType === "proyectante") {
@@ -448,9 +237,7 @@ export const VentanaConfigurador3DCard = ({
                 } else if (curType === "fijo-corredizo") {
                     const hBot = inH * 0.6;
                     const basePos = -inH / 2 + (hBot - pW / 2) / 2;
-                    const targetY = isOpenState
-                        ? basePos + hBot - 0.05
-                        : basePos;
+                    const targetY = isOpenState ? basePos + hBot - 0.05 : basePos;
                     sash.position.y += (targetY - sash.position.y) * speed;
                 }
             }
@@ -461,7 +248,6 @@ export const VentanaConfigurador3DCard = ({
         };
         animate();
 
-        // Escuchar cambios de tamaño del contenedor para ajustar el viewport 3D automáticamente
         const resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 const { width: newW, height: newH } = entry.contentRect;
@@ -473,40 +259,35 @@ export const VentanaConfigurador3DCard = ({
             }
         });
         resizeObserver.observe(container);
-    };
+    }, []);
 
-    const createSash = (
-        w: number,
-        h: number,
-        p: number,
-        d: number,
-        matA: any,
-        matG: any,
-    ) => {
-        const group = new THREE.Group();
-        const frameH = new THREE.BoxGeometry(w, p, d);
-        const frameV = new THREE.BoxGeometry(p, h - p * 2, d);
+    const createSash = useCallback(
+        (w: number, h: number, p: number, d: number, matA: any, matG: any) => {
+            const group = new THREE.Group();
+            const frameH = new THREE.BoxGeometry(w, p, d);
+            const frameV = new THREE.BoxGeometry(p, h - p * 2, d);
 
-        const mTop = new THREE.Mesh(frameH, matA);
-        mTop.position.y = h / 2 - p / 2;
-        const mBot = new THREE.Mesh(frameH, matA);
-        mBot.position.y = -h / 2 + p / 2;
-        const mLeft = new THREE.Mesh(frameV, matA);
-        mLeft.position.x = -w / 2 + p / 2;
-        const mRight = new THREE.Mesh(frameV, matA);
-        mRight.position.x = w / 2 - p / 2;
+            const mTop = new THREE.Mesh(frameH, matA);
+            mTop.position.y = h / 2 - p / 2;
+            const mBot = new THREE.Mesh(frameH, matA);
+            mBot.position.y = -h / 2 + p / 2;
+            const mLeft = new THREE.Mesh(frameV, matA);
+            mLeft.position.x = -w / 2 + p / 2;
+            const mRight = new THREE.Mesh(frameV, matA);
+            mRight.position.x = w / 2 - p / 2;
 
-        const glassGeo = new THREE.BoxGeometry(w - p * 2, h - p * 2, 0.006);
-        const glassObj = new THREE.Mesh(glassGeo, matG);
+            const glassGeo = new THREE.BoxGeometry(w - p * 2, h - p * 2, 0.006);
+            const glassObj = new THREE.Mesh(glassGeo, matG);
 
-        group.add(mTop, mBot, mLeft, mRight, glassObj);
-        return group;
-    };
+            group.add(mTop, mBot, mLeft, mRight, glassObj);
+            return group;
+        },
+        [],
+    );
 
-    const generate3DModel = () => {
+    const generate3DModel = useCallback(() => {
         if (!sceneRef.current) return;
-        if (windowGroupRef.current)
-            sceneRef.current.remove(windowGroupRef.current);
+        if (windowGroupRef.current) sceneRef.current.remove(windowGroupRef.current);
 
         const windowGroup = new THREE.Group();
         const sashGroup = new THREE.Group();
@@ -516,21 +297,35 @@ export const VentanaConfigurador3DCard = ({
         const h = height / 1000;
         let depth = 0.05;
         let pW = 0.04;
+
         switch (systemId) {
             case "sistema-nova":
-                depth = 0.04; pW = 0.035; break;
+                depth = 0.04;
+                pW = 0.035;
+                break;
             case "sistema-serie-20":
-                depth = 0.055; pW = 0.045; break;
+                depth = 0.055;
+                pW = 0.045;
+                break;
             case "sistema-serie-25":
-                depth = 0.07; pW = 0.055; break;
+                depth = 0.07;
+                pW = 0.055;
+                break;
             case "sistema-serie-vl42":
-                depth = 0.08; pW = 0.065; break;
+                depth = 0.08;
+                pW = 0.065;
+                break;
             case "sistema-serie-37-38":
-                depth = 0.09; pW = 0.075; break;
+                depth = 0.09;
+                pW = 0.075;
+                break;
             case "sistema-serie-62-80":
-                depth = 0.12; pW = 0.09; break;
+                depth = 0.12;
+                pW = 0.09;
+                break;
             default:
-                depth = 0.05; pW = 0.04;
+                depth = 0.05;
+                pW = 0.04;
         }
 
         const selectedColorObj =
@@ -540,30 +335,25 @@ export const VentanaConfigurador3DCard = ({
 
         const materials = {
             alum: {
-                natural: new THREE.MeshStandardMaterial({
-                    color: 0xcccccc,
-                    metalness: 0.8,
-                    roughness: 0.3,
-                }),
                 negro: new THREE.MeshStandardMaterial({
                     color: 0x1a1a1a,
                     metalness: 0.7,
                     roughness: 0.4,
                 }),
-                madera: new THREE.MeshStandardMaterial({
-                    color: 0x5c3a21,
+                "gris-claro": new THREE.MeshStandardMaterial({
+                    color: 0xb0b4b8,
+                    metalness: 0.6,
+                    roughness: 0.3,
+                }),
+                "madera-claro": new THREE.MeshStandardMaterial({
+                    color: 0xc19a6b,
                     metalness: 0.1,
-                    roughness: 0.8,
+                    roughness: 0.75,
                 }),
                 blanco: new THREE.MeshStandardMaterial({
                     color: 0xf8f9fa,
                     metalness: 0.1,
                     roughness: 0.5,
-                }),
-                "gris-claro": new THREE.MeshStandardMaterial({
-                    color: 0xb0b4b8,
-                    metalness: 0.6,
-                    roughness: 0.3,
                 }),
             },
             glass: {
@@ -593,1423 +383,676 @@ export const VentanaConfigurador3DCard = ({
                     thickness: 0.5,
                 }),
                 pavonado: new THREE.MeshPhysicalMaterial({
-                    color: 0xffffff,
-                    transmission: 0.4,
-                    opacity: 0.8,
+                    color: isTinted ? glassTint : 0xffffff,
+                    transmission: 0.35,
+                    opacity: 0.85,
                     transparent: true,
-                    roughness: 0.6,
-                    ior: 1.4,
+                    roughness: 0.65,
+                    ior: 1.45,
                 }),
             },
-            dark: new THREE.MeshStandardMaterial({
-                color: 0x222222,
-                metalness: 0.5,
-                roughness: 0.5,
-            }),
         };
 
-        const matAlum =
-            materials.alum[finish as keyof typeof materials.alum] ||
-            materials.alum.natural;
-        const matGlass =
-            materials.glass[glass as keyof typeof materials.glass] ||
-            materials.glass.templado;
+        const matA =
+            (materials.alum as any)[finish] || materials.alum.negro;
+        const matG =
+            (materials.glass as any)[glass] || materials.glass.templado;
 
-        // 1. Marco Exterior
-        const frameGeoH = new THREE.BoxGeometry(w, pW, depth);
-        const frameGeoV = new THREE.BoxGeometry(pW, h - pW * 2, depth);
+        // Marco Exterior
+        const outerFrameH = new THREE.BoxGeometry(w, pW, depth);
+        const outerFrameV = new THREE.BoxGeometry(pW, h - pW * 2, depth);
 
-        const mTop = new THREE.Mesh(frameGeoH, matAlum);
+        const mTop = new THREE.Mesh(outerFrameH, matA);
         mTop.position.y = h / 2 - pW / 2;
-        const mBot = new THREE.Mesh(frameGeoH, matAlum);
+        const mBot = new THREE.Mesh(outerFrameH, matA);
         mBot.position.y = -h / 2 + pW / 2;
-        const mLeft = new THREE.Mesh(frameGeoV, matAlum);
+        const mLeft = new THREE.Mesh(outerFrameV, matA);
         mLeft.position.x = -w / 2 + pW / 2;
-        const mRight = new THREE.Mesh(frameGeoV, matAlum);
+        const mRight = new THREE.Mesh(outerFrameV, matA);
         mRight.position.x = w / 2 - pW / 2;
 
         windowGroup.add(mTop, mBot, mLeft, mRight);
 
-        // 2. Construcción de hojas
         const inW = w - pW * 2;
         const inH = h - pW * 2;
-        const sashP = 0.03;
-        const glassT = 0.006;
 
-        if (activeType === "corredizo") {
+        if (activeType === "fija") {
+            const glassGeo = new THREE.BoxGeometry(inW, inH, 0.006);
+            const glassObj = new THREE.Mesh(glassGeo, matG);
+            windowGroup.add(glassObj);
+        } else if (activeType === "corredizo") {
             const sW = inW / 2 + 0.02;
-            const sash1 = createSash(
-                sW,
-                inH,
-                sashP,
-                depth * 0.4,
-                matAlum,
-                matGlass,
-            );
-            sash1.position.set(-inW / 2 + sW / 2, 0, -depth * 0.2);
-            sashGroup2.add(sash1);
+            const sH = inH;
+            const sP = pW * 0.8;
+            const sD = depth * 0.45;
 
-            const sash2 = createSash(
-                sW,
-                inH,
-                sashP,
-                depth * 0.4,
-                matAlum,
-                matGlass,
-            );
-            sashGroup.position.set(inW / 2 - sW / 2, 0, depth * 0.2);
-            sashGroup.add(sash2);
+            const sashFixed = createSash(sW, sH, sP, sD, matA, matG);
+            sashFixed.position.set(-inW / 2 + sW / 2, 0, -sD / 2);
+            windowGroup.add(sashFixed);
 
-            // SEGURO PIVOT A ROSCA EXCLUSIVO DE SISTEMA NOVA (EN EL ZÓCALO INFERIOR)
-            if (systemId === "sistema-nova") {
-                const lockGroup = new THREE.Group();
+            const sashMobile = createSash(sW, sH, sP, sD, matA, matG);
+            sashMobile.position.set(inW / 2 - sW / 2, 0, sD / 2);
+            sashGroup.add(sashMobile);
+            windowGroup.add(sashGroup);
+        } else if (activeType === "proyectante") {
+            const sW = inW - 0.01;
+            const sH = inH - 0.01;
+            const sP = pW * 0.8;
+            const sD = depth * 0.6;
 
-                // 1. Placa base / roseta del seguro adosada al zócalo
-                const basePlateGeo = new THREE.BoxGeometry(0.024, 0.024, 0.004);
-                const lockMaterial = new THREE.MeshStandardMaterial({
-                    color: finish === "negro" ? 0x111111 : 0xb8b8b8,
-                    metalness: 0.85,
-                    roughness: 0.25,
-                });
-                const basePlate = new THREE.Mesh(basePlateGeo, lockMaterial);
-                basePlate.position.set(0, 0, 0.002);
-                lockGroup.add(basePlate);
+            const sash = createSash(sW, sH, sP, sD, matA, matG);
+            sash.position.set(0, -sH / 2, 0);
 
-                // 2. Cilindro roscado / cuerpo del seguro
-                const bodyGeo = new THREE.CylinderGeometry(
-                    0.008,
-                    0.008,
-                    0.018,
-                    16,
-                );
-                bodyGeo.rotateX(Math.PI / 2);
-                const bodyMesh = new THREE.Mesh(bodyGeo, lockMaterial);
-                bodyMesh.position.set(0, 0, 0.012);
-                lockGroup.add(bodyMesh);
+            sashGroup.position.set(0, sH / 2, 0);
+            sashGroup.add(sash);
+            windowGroup.add(sashGroup);
+        } else if (activeType === "batiente") {
+            const sW = inW - 0.01;
+            const sH = inH - 0.01;
+            const sP = pW * 0.8;
+            const sD = depth * 0.6;
 
-                // 3. Perilla moleteada / cabezal de giro a rosca
-                const knobGeo = new THREE.CylinderGeometry(
-                    0.011,
-                    0.011,
-                    0.008,
-                    16,
-                );
-                knobGeo.rotateX(Math.PI / 2);
-                const knobMesh = new THREE.Mesh(knobGeo, lockMaterial);
-                knobMesh.position.set(0, 0, 0.022);
-                lockGroup.add(knobMesh);
+            const sash = createSash(sW, sH, sP, sD, matA, matG);
+            sash.position.set(sW / 2, 0, 0);
 
-                // 4. Pin / perno de trabado inferior hacia el riel
-                const pinGeo = new THREE.CylinderGeometry(
-                    0.0035,
-                    0.0035,
-                    0.014,
-                    12,
-                );
-                const pinMesh = new THREE.Mesh(
-                    pinGeo,
-                    new THREE.MeshStandardMaterial({
-                        color: 0x888888,
-                        metalness: 0.9,
-                        roughness: 0.2,
-                    }),
-                );
-                pinMesh.position.set(0, -0.01, 0.01);
-                lockGroup.add(pinMesh);
-
-                // Ubicación en el CENTRO del zócalo de la hoja móvil
-                lockGroup.position.set(
-                    0,
-                    -inH / 2 + sashP / 2,
-                    depth * 0.2,
-                );
-                sashGroup.add(lockGroup);
-            }
-
-            // Tirador embutido / manija lateral de enganche (NO existe en Sistema Nova)
-            if (systemId !== "sistema-nova") {
-                const handleGeo = new THREE.BoxGeometry(0.012, 0.14, 0.014);
-                const handleMat = new THREE.MeshStandardMaterial({
-                    color: finish === "negro" ? 0x111111 : 0x444444,
-                    metalness: 0.6,
-                    roughness: 0.4,
-                });
-                const handle = new THREE.Mesh(handleGeo, handleMat);
-                handle.position.set(-sW / 2 + 0.025, 0, depth * 0.22);
-                sashGroup.add(handle);
-            }
-        } else if (activeType === "corrediza-4h") {
-            const sW = inW / 4 + sashP / 2;
-            const sash1 = createSash(sW, inH, sashP, depth * 0.4, matAlum, matGlass);
-            const sash2 = createSash(sW, inH, sashP, depth * 0.4, matAlum, matGlass);
-            const sash3 = createSash(sW, inH, sashP, depth * 0.4, matAlum, matGlass);
-            const sash4 = createSash(sW, inH, sashP, depth * 0.4, matAlum, matGlass);
-
-            sash1.position.set(-inW / 2 + sW / 2, 0, depth * -0.2);
-            sash2.position.set(-sW / 2 + sashP / 4, 0, depth * 0.2);
-            sash3.position.set(sW / 2 - sashP / 4, 0, depth * 0.2);
-            sash4.position.set(inW / 2 - sW / 2, 0, depth * -0.2);
-
-            sashGroup.add(sash1);
-            sashGroup.add(sash2);
-            sashGroup.add(sash3);
-            sashGroup.add(sash4);
-
-            if (systemId === "sistema-nova") {
-                // Two pivot locks in the center for OXXO
-                const lockMat = new THREE.MeshStandardMaterial({ color: finish === "negro" ? 0x111111 : 0xb8b8b8, metalness: 0.85, roughness: 0.25 });
-                const baseGeo = new THREE.BoxGeometry(0.024, 0.024, 0.004);
-                
-                const lock1 = new THREE.Mesh(baseGeo, lockMat);
-                lock1.position.set(-sW / 2 + sashP / 4, -inH / 2 + sashP / 2, depth * 0.2);
-                
-                const lock2 = new THREE.Mesh(baseGeo, lockMat);
-                lock2.position.set(sW / 2 - sashP / 4, -inH / 2 + sashP / 2, depth * 0.2);
-                
-                sashGroup.add(lock1);
-                sashGroup.add(lock2);
-            }
-
-        } else if (activeType === "4-panos") {
-            const hTop = inH * 0.2;
-            const hMid = inH * 0.4;
-            const hBot = inH * 0.4;
-
-            const sashTop = createSash(inW, hTop, sashP, depth * 0.6, matAlum, matGlass);
-            sashTop.position.set(0, inH / 2 - hTop / 2, 0);
-            sashGroup.add(sashTop);
-
-            const sashBot = createSash(inW, hBot, sashP, depth * 0.6, matAlum, matGlass);
-            sashBot.position.set(0, -inH / 2 + hBot / 2, 0);
-            sashGroup.add(sashBot);
-
-            const sW = inW / 2 + sashP / 2;
-            const sashMid1 = createSash(sW, hMid, sashP, depth * 0.4, matAlum, matGlass);
-            const sashMid2 = createSash(sW, hMid, sashP, depth * 0.4, matAlum, matGlass);
-            
-            sashMid1.position.set(-inW / 2 + sW / 2, inH / 2 - hTop - hMid / 2, depth * 0.2);
-            sashMid2.position.set(inW / 2 - sW / 2, inH / 2 - hTop - hMid / 2, depth * -0.2);
-
-            sashGroup.add(sashMid1);
-            sashGroup.add(sashMid2);
-
-        } else if (activeType === "fijo-corredizo") {
-            const hTop = inH * 0.4;
-            const hBot = inH * 0.6;
-
-            const hBar = new THREE.Mesh(
-                new THREE.BoxGeometry(inW, pW, depth),
-                matAlum,
-            );
-            hBar.position.y = inH / 2 - hTop - pW / 2;
-            windowGroup.add(hBar);
-
-            const fixGGeo = new THREE.BoxGeometry(inW, hTop, glassT);
-            const fixG = new THREE.Mesh(fixGGeo, matGlass);
-            fixG.position.y = inH / 2 - hTop / 2;
-            windowGroup.add(fixG);
-
-            const sW = inW;
-            const sash2 = createSash(
-                sW,
-                hBot - pW / 2,
-                sashP,
-                depth * 0.6,
-                matAlum,
-                matGlass,
-            );
-            sashGroup.position.set(0, -inH / 2 + (hBot - pW / 2) / 2, 0);
-            sashGroup.add(sash2);
-        } else if (activeType === "proyectante" || activeType === "batiente") {
-            const sash1 = createSash(
-                inW,
-                inH,
-                sashP,
-                depth * 0.8,
-                matAlum,
-                matGlass,
-            );
-            sashGroup.add(sash1);
-
-            if (activeType === "proyectante") {
-                sashGroup.position.set(0, inH / 2, 0);
-                sash1.position.set(0, -inH / 2, 0);
-            } else {
-                sashGroup.position.set(-inW / 2, 0, 0);
-                sash1.position.set(inW / 2, 0, 0);
-            }
-
-            const handle = new THREE.Mesh(
-                new THREE.BoxGeometry(0.015, 0.1, 0.03),
-                materials.dark,
-            );
-            if (activeType === "proyectante")
-                handle.position.set(0, -inH / 2 + 0.05, 0.02);
-            else handle.position.set(inW / 2 - 0.05, 0, 0.02);
-            sash1.add(handle);
-        } else if (activeType === "pivotante") {
-            const sash1 = createSash(
-                inW,
-                inH,
-                sashP,
-                depth * 0.8,
-                matAlum,
-                matGlass,
-            );
-            sashGroup.add(sash1);
+            sashGroup.position.set(-sW / 2, 0, 0);
+            sashGroup.add(sash);
+            windowGroup.add(sashGroup);
         } else {
-            const fixGGeo = new THREE.BoxGeometry(inW, inH, glassT);
-            const fixG = new THREE.Mesh(fixGGeo, matGlass);
-            windowGroup.add(fixG);
-        }
-
-        windowGroup.add(sashGroup2);
-        windowGroup.add(sashGroup);
-
-        windowGroup.position.y = 0;
-
-        // Añadir bordes/sombras (outline) a los perfiles de aluminio para que se distingan mejor
-        windowGroup.traverse((child) => {
-            if (child instanceof THREE.Mesh && child.material === matAlum) {
-                const edges = new THREE.EdgesGeometry(child.geometry);
-                const edgeColor = (finish === "negro" || finish === "madera") ? 0x444444 : 0x9ca3af;
-                const line = new THREE.LineSegments(
-                    edges,
-                    new THREE.LineBasicMaterial({ color: edgeColor, linewidth: 1 })
-                );
-                child.add(line);
-            }
-        });
-
-        if (cameraRef.current && controlsRef.current) {
-            const maxDim = Math.max(w, h);
-            cameraRef.current.position.z = maxDim * 1.5 + 1;
-            controlsRef.current.target.set(0, 0, 0);
+            // Default luz fija
+            const glassGeo = new THREE.BoxGeometry(inW, inH, 0.006);
+            const glassObj = new THREE.Mesh(glassGeo, matG);
+            windowGroup.add(glassObj);
         }
 
         sceneRef.current.add(windowGroup);
         windowGroupRef.current = windowGroup;
         sashGroupRef.current = sashGroup;
-    };
+    }, [width, height, systemId, glassColor, finish, glass, activeType, createSash]);
 
-    const resetCamera = () => {
+    // Ciclo de vida Three.js
+    useEffect(() => {
+        if (!availableSystems.find((s) => s.id === systemId) && availableSystems.length > 0) {
+            setSystemId(availableSystems[0].id);
+        }
+        updatePrice();
+
+        const timer = setTimeout(() => {
+            init3D();
+            generate3DModel();
+        }, 60);
+
+        return () => {
+            clearTimeout(timer);
+            cleanup3D();
+        };
+    }, [activeType, init3D, cleanup3D, updatePrice, generate3DModel, availableSystems, systemId]);
+
+    useEffect(() => {
+        updatePrice();
+        generate3DModel();
+    }, [widthMeters, heightMeters, systemId, finish, glass, glassColor, updatePrice, generate3DModel]);
+
+    const resetCamera = useCallback(() => {
         if (!cameraRef.current || !controlsRef.current) return;
         const maxDim = Math.max(width / 1000, height / 1000);
-        cameraRef.current.position.set(0, 0, maxDim * 1.5 + 1);
+        const radius = maxDim * 1.5 + 1.2;
+        const phi = (81 * Math.PI) / 180;
+        const theta = (27 * Math.PI) / 180;
+        cameraRef.current.position.set(
+            radius * Math.sin(phi) * Math.sin(theta),
+            radius * Math.cos(phi),
+            radius * Math.sin(phi) * Math.cos(theta),
+        );
         controlsRef.current.target.set(0, 0, 0);
-    };
+        controlsRef.current.update();
+        setRotationAngle({ azimuth: 27, polar: 81 });
+    }, [width, height]);
 
-    const handleSendWhatsApp = () => {
+    const handleSendWhatsApp = useCallback(() => {
         const phone = companyData.whatsappNumber || "51999999999";
         const sys =
-            ventanasCatalogo.sistemas.find((s) => s.id === systemId)?.nombre ||
-            systemId;
+            ventanasCatalogo.sistemas.find((s) => s.id === systemId)?.nombre || systemId;
         const winName =
-            WINDOW_CATALOG.find((w) => w.id === activeType)?.title ||
-            activeType;
-
+            WINDOW_CATALOG.find((w) => w.id === activeType)?.title || activeType;
         const glassName =
             GLASS_TYPES.find((g) => g.id === glass)?.label || glass;
         const glassColorName =
             GLASS_COLORS.find((c) => c.id === glassColor)?.label || glassColor;
 
-        const text = `Hola ${companyData.companyName}, deseo cotizar el siguiente diseño de su catálogo web:%0A%0A*Tipo:* ${winName}%0A*Sistema:* ${sys}%0A*Medidas:* ${widthMeters.toFixed(2)}m ancho x ${heightMeters.toFixed(2)}m alto (${width}x${height} mm)%0A*Acabado:* ${finish}%0A*Cristal:* ${glassName} (${glassColorName})%0A*Precio Ref:* S/ ${price.toFixed(2)}%0A%0A¿Podrían confirmar tiempos de entrega?`;
+        const text = `Hola ${companyData.companyName}, deseo cotizar el siguiente diseño configurado en 3D:%0A%0A*Tipo:* ${winName}%0A*Sistema:* ${sys}%0A*Medidas:* ${widthMeters.toFixed(2)}m ancho x ${heightMeters.toFixed(2)}m alto (${width}x${height} mm)%0A*Área:* ${(widthMeters * heightMeters).toFixed(2)} m²%0A*Acabado Perfil:* ${finish}%0A*Cristal:* ${glassName} (${glassColorName})%0A*Precio Estimado:* S/ ${price.toFixed(2)}%0A%0A¿Podrían confirmar tiempos de fabricación e instalación?`;
 
         window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
-    };
+    }, [systemId, activeType, glass, glassColor, widthMeters, heightMeters, width, height, finish, price]);
 
-    const currentWindow =
-        WINDOW_CATALOG.find((w) => w.id === activeType) || WINDOW_CATALOG[0];
+    const currentWindow = useMemo(() => {
+        return WINDOW_CATALOG.find((w) => w.id === activeType) || WINDOW_CATALOG[0];
+    }, [activeType]);
 
     return (
-        <Box>
-            {/* Header Banner - Chakra UI */}
+        <Box
+            w="full"
+            bg="surface.card"
+            borderRadius="3xl"
+            borderWidth="1px"
+            borderColor="border.default"
+            boxShadow="sm"
+            overflow="hidden"
+            position="relative"
+        >
+            {/* 1. Cabecera del Card con Selector de Pastillas (Pills) */}
             <Box
-                p={{ base: "6", md: "8" }}
-                bg="gray.900"
-                color="white"
-                borderRadius="3xl"
-                mb="8"
-                position="relative"
-                overflow="hidden"
+                p={{ base: "5", md: "6" }}
+                borderBottomWidth="1px"
+                borderColor="border.subtle"
+                bg="bg.subtle"
             >
-                <Box
-                    position="absolute"
-                    inset="0"
-                    opacity="0.15"
-                    backgroundImage="url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop')"
-                    backgroundSize="cover"
-                    backgroundPosition="center"
-                />
-                <Box
-                    position="absolute"
-                    inset="0"
-                    bgGradient="to-r"
-                    gradientFrom="gray.900"
-                    gradientVia="gray.900/90"
-                    gradientTo="transparent"
-                />
-                <Box position="relative" zIndex="1" maxW="7xl">
-                    <Text
-                        fontSize={{ base: "2xl", sm: "4xl", md: "5xl" }}
-                        fontWeight="extrabold"
-                        mb="3"
-                        letterSpacing="tight"
+                <Flex
+                    direction={{ base: "column", md: "row" }}
+                    justify="space-between"
+                    align={{ base: "flex-start", md: "center" }}
+                    gap="4"
+                    mb="4"
+                >
+                    <VStack align="flex-start" gap="1">
+                        <HStack gap="2">
+                            <Sparkles size={18} className="text-primary-500" />
+                            <Text
+                                fontSize={{ base: "md", sm: "lg", md: "xl" }}
+                                fontWeight="800"
+                                letterSpacing="tight"
+                                color="text.heading"
+                            >
+                                Estudio & Configurador 3D de Ventanas
+                            </Text>
+                        </HStack>
+                        <Text fontSize="xs" color="text.muted">
+                            {currentWindow.description}
+                        </Text>
+                    </VStack>
+
+                    <Badge
+                        colorPalette={currentWindow.colorPalette}
+                        variant="surface"
+                        borderRadius="full"
+                        px="3"
+                        py="1"
+                        fontSize="xs"
+                        fontWeight="bold"
                     >
-                        Catálogo Interactivo de Ventanas
-                    </Text>
-                    <Text
-                        fontSize={{ base: "sm", md: "md" }}
-                        color="gray.300"
-                        maxW="2xl"
-                    >
-                        Conoce las características, diseña a medida en 3D y
-                        obtén una cotización al instante con los mejores
-                        perfiles de aluminio del mercado peruano.
-                    </Text>
-                </Box>
+                        {currentWindow.badge}
+                    </Badge>
+                </Flex>
+
+                {/* Barra de Pastillas (Pill Chips) */}
+                <HStack
+                    gap="2"
+                    overflowX="auto"
+                    py="1"
+                    w="full"
+                    css={{
+                        "&::-webkit-scrollbar": { display: "none" },
+                        scrollbarWidth: "none",
+                    }}
+                >
+                    {WINDOW_CATALOG.map((item) => {
+                        const isSelected = activeType === item.id;
+                        const IconComp = item.icon;
+                        return (
+                            <Button
+                                key={item.id}
+                                onClick={() => setActiveType(item.id)}
+                                size={{ base: "sm", md: "sm" }}
+                                variant={isSelected ? "aura" : "outline"}
+                                borderRadius="full"
+                                px="4"
+                                flexShrink={0}
+                                fontWeight={isSelected ? "bold" : "medium"}
+                                transition="all 0.2s ease"
+                                _hover={{
+                                    transform: isSelected ? "none" : "translateY(-1px)",
+                                }}
+                            >
+                                <IconComp size={15} style={{ marginRight: "6px" }} />
+                                {item.title}
+                            </Button>
+                        );
+                    })}
+                </HStack>
             </Box>
 
-            {/* Grid de Productos - Alineación y Espaciados Optimizados */}
-            <SimpleGrid
-                columns={{ base: 1, md: 2, lg: 3 }}
-                gap={{ base: "4", md: "6" }}
-                alignItems="stretch"
-            >
-                {WINDOW_CATALOG.map((item) => {
-                    const IconComponent = item.icon;
-                    return (
-                        <Box
-                            key={item.id}
-                            bg="white"
-                            borderRadius="2xl"
-                            boxShadow="0 2px 12px rgba(0,0,0,0.04)"
+            {/* 2. Cuerpo Principal Dividido: Visor 3D + Panel de Controles */}
+            <Flex direction={{ base: "column", lg: "row" }} w="full" minH="500px">
+                {/* Columna Izquierda: Visor 3D Three.js */}
+                <Box
+                    flex={{ base: "none", lg: "1.2" }}
+                    position="relative"
+                    bg="bg.page"
+                    h={{ base: "340px", sm: "400px", lg: "auto" }}
+                    w={{ base: "full", lg: "auto" }}
+                    borderRightWidth={{ lg: "1px" }}
+                    borderBottomWidth={{ base: "1px", lg: "0" }}
+                    borderColor="border.subtle"
+                    overflow="hidden"
+                >
+                    {/* Badge de Grados de Rotación 3D en Tiempo Real */}
+                    <Flex
+                        position="absolute"
+                        top="4"
+                        left="4"
+                        bg="surface.card"
+                        backdropFilter="blur(16px)"
+                        borderRadius="full"
+                        py="1.5"
+                        px="3.5"
+                        boxShadow="sm"
+                        borderWidth="1px"
+                        borderColor="border.default"
+                        align="center"
+                        gap="2"
+                        zIndex="10"
+                        pointerEvents="none"
+                    >
+                        <Compass size={14} className="text-primary-500" />
+                        <Text fontSize="11px" fontWeight="bold" fontFamily="mono" color="text.heading">
+                            {rotationAngle.azimuth}° <Text as="span" color="text.muted" fontWeight="normal">Azimut</Text>
+                        </Text>
+                        <Box w="1px" h="3" bg="border.subtle" />
+                        <Text fontSize="11px" fontWeight="bold" fontFamily="mono" color="text.heading">
+                            {rotationAngle.polar}° <Text as="span" color="text.muted" fontWeight="normal">Elev</Text>
+                        </Text>
+                    </Flex>
+
+                    {/* Controles Flotantes 3D */}
+                    <Flex
+                        position="absolute"
+                        top="4"
+                        right="4"
+                        direction="column"
+                        gap="2"
+                        zIndex="10"
+                    >
+                        <IconButton
+                            aria-label="Centrar Cámara"
+                            title="Centrar Cámara"
+                            onClick={resetCamera}
+                            bg="surface.card"
+                            borderRadius="xl"
+                            boxShadow="md"
+                            color="text.body"
+                            size="sm"
                             borderWidth="1px"
-                            borderColor="gray.200"
-                            overflow="hidden"
-                            display="flex"
-                            flexDirection="column"
-                            cursor="pointer"
-                            transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-                            role="group"
+                            borderColor="border.default"
                             _hover={{
-                                transform: "translateY(-4px)",
-                                boxShadow: "0 12px 28px rgba(0,0,0,0.09)",
-                                borderColor: "blue.300",
+                                bg: "bg.subtle",
+                                color: "primary.500",
                             }}
-                            onClick={() => handleOpenModal(item.id)}
                         >
-                            {/* Barra superior de acento */}
-                            <Box bg={item.accentColor} h="3.5px" w="full" />
+                            <Video size={16} />
+                        </IconButton>
+                        <IconButton
+                            aria-label={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
+                            title={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
+                            onClick={() => setIsWindowOpen((prev) => !prev)}
+                            bg={isWindowOpen ? "primary.500" : "surface.card"}
+                            borderRadius="xl"
+                            boxShadow="md"
+                            color={isWindowOpen ? "white" : "text.body"}
+                            size="sm"
+                            borderWidth="1px"
+                            borderColor={isWindowOpen ? "primary.500" : "border.default"}
+                            _hover={{
+                                bg: isWindowOpen ? "primary.600" : "bg.subtle",
+                            }}
+                        >
+                            <DoorOpen size={16} />
+                        </IconButton>
+                    </Flex>
 
-                            <Flex
-                                p={{ base: "5", md: "6" }}
-                                flex="1"
-                                direction="column"
-                            >
-                                {/* Cabecera del Card: Icono + Badge alineados */}
-                                <Flex
-                                    justify="space-between"
-                                    align="center"
-                                    mb="4"
-                                >
-                                    <Flex
-                                        w="11"
-                                        h="11"
-                                        borderRadius="xl"
-                                        bg="gray.50"
-                                        align="center"
-                                        justify="center"
-                                        color="gray.700"
-                                        borderWidth="1px"
-                                        borderColor="gray.200"
-                                        transition="all 0.3s ease"
-                                        _groupHover={{
-                                            bg: "blue.50",
-                                            color: "blue.600",
-                                            borderColor: "blue.200",
-                                            transform: "scale(1.05)",
-                                        }}
-                                    >
-                                        <IconComponent size={20} />
-                                    </Flex>
-                                    <Badge
-                                        bg={item.badgeBg}
-                                        color={item.badgeColor}
-                                        borderColor={item.badgeBorder}
-                                        borderWidth="1px"
-                                        px="2.5"
-                                        py="0.5"
-                                        borderRadius="full"
-                                        fontSize="11px"
-                                        fontWeight="bold"
-                                        letterSpacing="0.02em"
-                                    >
-                                        {item.badge}
-                                    </Badge>
-                                </Flex>
+                    {/* Canvas 3D */}
+                    <Box
+                        ref={canvasRef}
+                        w="full"
+                        h="full"
+                        cursor="grab"
+                        _active={{ cursor: "grabbing" }}
+                    />
 
-                                {/* Título y Descripción */}
-                                <Text
-                                    fontSize="lg"
-                                    fontWeight="bold"
-                                    color="gray.900"
-                                    mb="1.5"
-                                    letterSpacing="tight"
-                                >
-                                    {item.title}
+                    {/* Badge Inferior de Medidas & Área */}
+                    <Box
+                        position="absolute"
+                        bottom="4"
+                        left="4"
+                        right="4"
+                        bg="surface.card"
+                        backdropFilter="blur(16px)"
+                        borderRadius="xl"
+                        py="2.5"
+                        px="4"
+                        boxShadow="md"
+                        borderWidth="1px"
+                        borderColor="border.default"
+                    >
+                        <Flex align="center" justify="space-around">
+                            <Box textAlign="center">
+                                <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase">
+                                    Ancho
                                 </Text>
-                                <Text
-                                    fontSize="xs"
-                                    color="gray.500"
-                                    mb="4"
-                                    lineHeight="tall"
-                                    minH="36px"
-                                >
-                                    {item.description}
+                                <Text fontSize="xs" fontWeight="extrabold" color="text.heading">
+                                    {widthMeters.toFixed(2)} m
                                 </Text>
+                            </Box>
+                            <Box w="1px" h="5" bg="border.subtle" />
+                            <Box textAlign="center">
+                                <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase">
+                                    Alto
+                                </Text>
+                                <Text fontSize="xs" fontWeight="extrabold" color="text.heading">
+                                    {heightMeters.toFixed(2)} m
+                                </Text>
+                            </Box>
+                            <Box w="1px" h="5" bg="border.subtle" />
+                            <Box textAlign="center">
+                                <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase">
+                                    Área Total
+                                </Text>
+                                <Text fontSize="xs" fontWeight="extrabold" color="primary.500">
+                                    {(widthMeters * heightMeters).toFixed(2)} m²
+                                </Text>
+                            </Box>
+                        </Flex>
+                    </Box>
+                </Box>
 
-                                {/* Lista de características y mecánica */}
-                                <Box
-                                    mt="auto"
-                                    pt="3"
-                                    borderTopWidth="1px"
-                                    borderColor="gray.100"
-                                >
-                                    <Flex
-                                        align="center"
-                                        gap="2"
-                                        fontSize="xs"
-                                        fontWeight="semibold"
-                                        color="gray.700"
-                                        mb="2.5"
-                                    >
-                                        <Wrench size={13} color="#0284c7" />
-                                        <Text fontSize="11px">
-                                            {item.mechanics}
+                {/* Columna Derecha: Panel de Configuración & Precio */}
+                <Flex
+                    w={{ base: "full", lg: "420px", xl: "450px" }}
+                    flexShrink={0}
+                    bg="surface.card"
+                    direction="column"
+                    justify="space-between"
+                >
+                    <Box p="5" overflowY="auto" maxH={{ lg: "520px" }}>
+                        <VStack gap="5" align="stretch">
+                            {/* 1. Dimensiones */}
+                            <Box>
+                                <Flex align="center" justify="space-between" mb="2">
+                                    <Flex align="center" gap="1.5">
+                                        <Ruler size={15} className="text-primary-500" />
+                                        <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
+                                            Dimensiones (Metros)
                                         </Text>
                                     </Flex>
-                                    <VStack align="start" gap="1.5">
-                                        {item.bullets.map((b, i) => (
-                                            <Flex
-                                                key={i}
-                                                align="flex-start"
-                                                gap="1.5"
-                                            >
-                                                <Box
-                                                    w="1.5"
-                                                    h="1.5"
-                                                    borderRadius="full"
-                                                    bg="blue.500"
-                                                    mt="1.5"
-                                                    flexShrink={0}
-                                                />
-                                                <Text
-                                                    fontSize="11px"
-                                                    color="gray.600"
-                                                    lineHeight="short"
-                                                >
-                                                    {b}
-                                                </Text>
-                                            </Flex>
-                                        ))}
-                                    </VStack>
-                                </Box>
-                            </Flex>
-
-                            {/* Botón / Footer del Card */}
-                            <Flex
-                                px="6"
-                                py="3.5"
-                                bg="gray.50"
-                                borderTopWidth="1px"
-                                borderColor="gray.100"
-                                justify="space-between"
-                                align="center"
-                                transition="all 0.2s ease"
-                                _groupHover={{ bg: "blue.50/60" }}
-                            >
-                                <Text
-                                    fontSize="xs"
-                                    fontWeight="bold"
-                                    color="gray.700"
-                                    _groupHover={{ color: "blue.600" }}
-                                >
-                                    Diseñar y Cotizar en 3D
-                                </Text>
-                                <BoxIcon size={15} color="#0284c7" />
-                            </Flex>
-                        </Box>
-                    );
-                })}
-            </SimpleGrid>
-
-            {/* Modal 3D Dialog - Usando Chakra Dialog V3 nativo con Scroll Interno y Footer Fijo */}
-            <DialogRoot
-                open={isOpen}
-                onOpenChange={(details) => setIsOpen(details.open)}
-                placement="center"
-            >
-                <DialogContent
-                    w={{ base: "100vw", lg: "92vw", xl: "1240px" }}
-                    maxW={{ base: "100vw", lg: "1240px" }}
-                    h={{ base: "100dvh", lg: "88vh" }}
-                    maxH={{ base: "100dvh", lg: "860px" }}
-                    m={{ base: 0, lg: "auto" }}
-                    borderRadius={{ base: "0", lg: "2xl" }}
-                    overflow="hidden"
-                    p="0"
-                    bg="white"
-                    boxShadow="2xl"
-                    display="flex"
-                    flexDirection="column"
-                >
-                    <DialogBody p="0" flex="1" overflow="hidden" display="flex" minH="0">
-                        <Flex
-                            direction={{ base: "column", lg: "row" }}
-                            w="full"
-                            h="full"
-                            minH="0"
-                            overflow="hidden"
-                        >
-                            {/* Columna Izquierda: Visor 3D Three.js */}
-                            <Box
-                                flex={{ base: "none", lg: "1" }}
-                                position="relative"
-                                bg="gray.100"
-                                h={{ base: "260px", sm: "300px", lg: "100%" }}
-                                w={{ base: "full", lg: "auto" }}
-                                borderRightWidth={{ lg: "1px" }}
-                                borderBottomWidth={{ base: "1px", lg: "0" }}
-                                borderColor="gray.200"
-                                overflow="hidden"
-                            >
-                                {/* Botón de Cierre (X) dentro del panel izquierdo (3D) */}
-                                <IconButton
-                                    aria-label="Cerrar modal"
-                                    title="Cerrar modal"
-                                    onClick={() => setIsOpen(false)}
-                                    position="absolute"
-                                    top="3"
-                                    left="3"
-                                    zIndex="20"
-                                    bg="white"
-                                    borderRadius="lg"
-                                    boxShadow="md"
-                                    color="gray.700"
-                                    size="xs"
-                                    w="8"
-                                    h="8"
-                                    _hover={{
-                                        bg: "red.50",
-                                        color: "red.600",
-                                    }}
-                                >
-                                    <X size={15} />
-                                </IconButton>
-
-                                <Box
-                                    ref={canvasRef}
-                                    w="full"
-                                    h="full"
-                                    cursor="grab"
-                                    _active={{ cursor: "grabbing" }}
-                                />
-
-                                {/* Controles Flotantes 3D */}
-                                <Flex
-                                    position="absolute"
-                                    top="3"
-                                    right="3"
-                                    direction="column"
-                                    gap="2"
-                                    zIndex="10"
-                                >
-                                    <IconButton
-                                        aria-label="Centrar Cámara"
-                                        title="Centrar Cámara"
-                                        onClick={resetCamera}
-                                        bg="white"
-                                        borderRadius="lg"
-                                        boxShadow="md"
-                                        color="gray.700"
-                                        size="xs"
-                                        w="8"
-                                        h="8"
-                                        _hover={{
-                                            bg: "gray.50",
-                                            color: "blue.600",
-                                        }}
-                                    >
-                                        <Video size={15} />
-                                    </IconButton>
-                                    <IconButton
-                                        aria-label={
-                                            isWindowOpen
-                                                ? "Cerrar ventana"
-                                                : "Abrir ventana"
-                                        }
-                                        title={
-                                            isWindowOpen
-                                                ? "Cerrar ventana"
-                                                : "Abrir ventana"
-                                        }
-                                        onClick={() =>
-                                            setIsWindowOpen((prev) => !prev)
-                                        }
-                                        bg={isWindowOpen ? "blue.600" : "white"}
-                                        borderRadius="lg"
-                                        boxShadow="md"
-                                        color={
-                                            isWindowOpen ? "white" : "gray.700"
-                                        }
-                                        size="xs"
-                                        w="8"
-                                        h="8"
-                                        _hover={{
-                                            bg: isWindowOpen
-                                                ? "blue.700"
-                                                : "gray.50",
-                                            color: isWindowOpen
-                                                ? "white"
-                                                : "blue.600",
-                                        }}
-                                    >
-                                        <DoorOpen size={15} />
-                                    </IconButton>
+                                    <Text fontSize="10px" color="text.muted" fontWeight="semibold">
+                                        {width} × {height} mm
+                                    </Text>
                                 </Flex>
 
-                                {/* Badge Inferior de Medidas */}
-                                <Box
-                                    position="absolute"
-                                    bottom="3"
-                                    left="3"
-                                    right="3"
-                                    bg="rgba(255, 255, 255, 0.94)"
-                                    backdropFilter="blur(8px)"
-                                    borderRadius="lg"
-                                    py="2"
-                                    px="3"
-                                    boxShadow="sm"
-                                    borderWidth="1px"
-                                    borderColor="gray.200"
-                                >
-                                    <Flex align="center" justify="space-around">
-                                        <Box textAlign="center">
-                                            <Text
-                                                fontSize="9px"
-                                                color="gray.500"
-                                                fontWeight="bold"
-                                                textTransform="uppercase"
-                                                letterSpacing="wider"
+                                {/* Presets Rápidos de Medidas */}
+                                <HStack gap="1.5" mb="3" wrap="wrap">
+                                    {DIMENSION_PRESETS.map((preset) => {
+                                        const isSelected =
+                                            Math.abs(widthMeters - preset.width) < 0.01 &&
+                                            Math.abs(heightMeters - preset.height) < 0.01;
+                                        return (
+                                            <Button
+                                                key={preset.label}
+                                                size="xs"
+                                                variant={isSelected ? "aura" : "outline"}
+                                                borderRadius="full"
+                                                px="2.5"
+                                                py="0"
+                                                h="6"
+                                                fontSize="10px"
+                                                fontWeight={isSelected ? "bold" : "medium"}
+                                                onClick={() => {
+                                                    setWidthMeters(preset.width);
+                                                    setHeightMeters(preset.height);
+                                                }}
                                             >
-                                                Ancho
-                                            </Text>
-                                            <Text
-                                                fontSize="xs"
-                                                fontWeight="extrabold"
-                                                color="gray.800"
-                                            >
-                                                {widthMeters.toFixed(2)} m
-                                            </Text>
-                                        </Box>
-                                        <Box w="1px" h="5" bg="gray.300" />
-                                        <Box textAlign="center">
-                                            <Text
-                                                fontSize="9px"
-                                                color="gray.500"
-                                                fontWeight="bold"
-                                                textTransform="uppercase"
-                                                letterSpacing="wider"
-                                            >
-                                                Alto
-                                            </Text>
-                                            <Text
-                                                fontSize="xs"
-                                                fontWeight="extrabold"
-                                                color="gray.800"
-                                            >
-                                                {heightMeters.toFixed(2)} m
-                                            </Text>
-                                        </Box>
-                                        <Box w="1px" h="5" bg="gray.300" />
-                                        <Box textAlign="center">
-                                            <Text
-                                                fontSize="9px"
-                                                color="gray.500"
-                                                fontWeight="bold"
-                                                textTransform="uppercase"
-                                                letterSpacing="wider"
-                                            >
-                                                Área
-                                            </Text>
-                                            <Text
-                                                fontSize="xs"
-                                                fontWeight="extrabold"
-                                                color="gray.800"
-                                            >
-                                                {(
-                                                    widthMeters * heightMeters
-                                                ).toFixed(2)}{" "}
-                                                m²
-                                            </Text>
-                                        </Box>
-                                    </Flex>
-                                </Box>
+                                                {preset.label}
+                                            </Button>
+                                        );
+                                    })}
+                                </HStack>
+
+                                <SimpleGrid columns={2} gap="3">
+                                    <Box>
+                                        <Text fontSize="11px" color="text.muted" mb="1" fontWeight="medium">
+                                            Ancho (m)
+                                        </Text>
+                                        <Input
+                                            type="number"
+                                            value={widthMeters}
+                                            min={0.6}
+                                            max={3.0}
+                                            step={0.05}
+                                            onChange={(e) => setWidthMeters(parseFloat(e.target.value) || 0.6)}
+                                            size="sm"
+                                            borderRadius="xl"
+                                        />
+                                    </Box>
+                                    <Box>
+                                        <Text fontSize="11px" color="text.muted" mb="1" fontWeight="medium">
+                                            Alto (m)
+                                        </Text>
+                                        <Input
+                                            type="number"
+                                            value={heightMeters}
+                                            min={0.6}
+                                            max={3.0}
+                                            step={0.05}
+                                            onChange={(e) => setHeightMeters(parseFloat(e.target.value) || 0.6)}
+                                            size="sm"
+                                            borderRadius="xl"
+                                        />
+                                    </Box>
+                                </SimpleGrid>
                             </Box>
 
-                            {/* Columna Derecha: Controles Scrolleables + Footer Fijo */}
-                            <Flex
-                                w={{ base: "full", lg: "400px", xl: "420px" }}
-                                flexShrink={0}
-                                bg="white"
-                                direction="column"
-                                h="full"
-                                minH="0"
-                            >
-                                {/* Zona con scroll para controles */}
-                                <Box flex="1" overflowY="auto" p="5" minH="0">
-                                    <VStack gap="4" align="stretch">
-                                        {/* Dimensiones en Metros */}
-                                        <Box>
-                                            <Flex
-                                                align="center"
-                                                justify="space-between"
-                                                mb="1.5"
+                            {/* 2. Sistema de Perfilería */}
+                            <Box>
+                                <Flex align="center" gap="1.5" mb="2">
+                                    <Layers size={15} className="text-primary-500" />
+                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
+                                        Sistema de Perfilería
+                                    </Text>
+                                </Flex>
+                                <Flex wrap="wrap" gap="1.5">
+                                    {availableSystems.map((sys) => {
+                                        const isSelected = systemId === sys.id;
+                                        return (
+                                            <Button
+                                                key={sys.id}
+                                                size="xs"
+                                                variant={isSelected ? "aura" : "outline"}
+                                                onClick={() => setSystemId(sys.id)}
+                                                borderRadius="full"
+                                                px="3"
+                                                py="1"
+                                                fontWeight={isSelected ? "bold" : "medium"}
+                                                transition="all 0.2s ease"
                                             >
-                                                <Flex align="center" gap="1.5">
-                                                    <Ruler
-                                                        size={14}
-                                                        color="#0284c7"
-                                                    />
-                                                    <Text
-                                                        fontSize="xs"
-                                                        fontWeight="bold"
-                                                        color="gray.800"
-                                                        textTransform="uppercase"
-                                                        letterSpacing="wider"
-                                                    >
-                                                        Dimensiones (Metros)
-                                                    </Text>
-                                                </Flex>
-                                                <Text
-                                                    fontSize="10px"
-                                                    color="gray.400"
-                                                    fontWeight="medium"
-                                                >
-                                                    {width} × {height} mm
-                                                </Text>
-                                            </Flex>
-                                            <SimpleGrid columns={2} gap="2.5">
+                                                {sys.nombre}
+                                            </Button>
+                                        );
+                                    })}
+                                </Flex>
+                            </Box>
+
+                            {/* 3. Color de Perfil */}
+                            <Box>
+                                <Flex justify="space-between" align="center" mb="2">
+                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
+                                        Color de Perfil
+                                    </Text>
+                                    <Text fontSize="xs" color="primary.500" fontWeight="bold">
+                                        {FINISHES.find((f) => f.id === finish)?.label}
+                                    </Text>
+                                </Flex>
+                                <HStack gap="3">
+                                    {FINISHES.map((f) => {
+                                        const isSelected = finish === f.id;
+                                        return (
+                                            <Box
+                                                key={f.id}
+                                                as="button"
+                                                onClick={() => setFinish(f.id)}
+                                                w="8"
+                                                h="8"
+                                                borderRadius="full"
+                                                bg={f.color}
+                                                borderWidth={isSelected ? "3px" : "1.5px"}
+                                                borderColor={isSelected ? "primary.500" : "border.default"}
+                                                boxShadow={isSelected ? "0 0 0 2px var(--chakra-colors-primary-200)" : "sm"}
+                                                display="flex"
+                                                alignItems="center"
+                                                justifyContent="center"
+                                                cursor="pointer"
+                                                transition="all 0.2s ease"
+                                                _hover={{ transform: "scale(1.15)" }}
+                                                aria-label={`Seleccionar color ${f.label}`}
+                                            >
+                                                {isSelected && (
+                                                    <Check size={12} color={f.id === "blanco" ? "#000" : "#fff"} strokeWidth={3} />
+                                                )}
+                                            </Box>
+                                        );
+                                    })}
+                                </HStack>
+                            </Box>
+
+                            {/* 4. Tipo de Vidrio & Color */}
+                            <Box>
+                                <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider" mb="2">
+                                    Cristal & Seguridad
+                                </Text>
+                                <VStack gap="2" align="stretch">
+                                    {GLASS_TYPES.map((g: any) => {
+                                        const isSelected = glass === g.id;
+                                        return (
+                                            <Flex
+                                                key={g.id}
+                                                p="2.5"
+                                                borderRadius="xl"
+                                                borderWidth="1px"
+                                                borderColor={isSelected ? "primary.500" : "border.default"}
+                                                bg={isSelected ? "bg.subtle" : "transparent"}
+                                                justify="space-between"
+                                                align="center"
+                                                cursor="pointer"
+                                                onClick={() => setGlass(g.id)}
+                                                transition="all 0.2s ease"
+                                            >
                                                 <Box>
-                                                    <Text
-                                                        fontSize="11px"
-                                                        color="gray.500"
-                                                        mb="1"
-                                                        fontWeight="medium"
-                                                    >
-                                                        Ancho (m)
-                                                    </Text>
-                                                    <Input
-                                                        type="number"
-                                                        value={widthMeters}
-                                                        min={0.6}
-                                                        max={3.0}
-                                                        step={0.05}
-                                                        onChange={(e) =>
-                                                            setWidthMeters(
-                                                                parseFloat(
-                                                                    e.target
-                                                                        .value,
-                                                                ) || 0.6,
-                                                            )
-                                                        }
-                                                        size={{
-                                                            base: "md",
-                                                            lg: "sm",
-                                                        }}
-                                                        borderRadius="lg"
-                                                    />
-                                                </Box>
-                                                <Box>
-                                                    <Text
-                                                        fontSize="11px"
-                                                        color="gray.500"
-                                                        mb="1"
-                                                        fontWeight="medium"
-                                                    >
-                                                        Alto (m)
-                                                    </Text>
-                                                    <Input
-                                                        type="number"
-                                                        value={heightMeters}
-                                                        min={0.6}
-                                                        max={3.0}
-                                                        step={0.05}
-                                                        onChange={(e) =>
-                                                            setHeightMeters(
-                                                                parseFloat(
-                                                                    e.target
-                                                                        .value,
-                                                                ) || 0.6,
-                                                            )
-                                                        }
-                                                        size={{
-                                                            base: "md",
-                                                            lg: "sm",
-                                                        }}
-                                                        borderRadius="lg"
-                                                    />
-                                                </Box>
-                                            </SimpleGrid>
-                                        </Box>
-
-                                        {/* Tipo de Diseño - Píldoras */}
-                                        <Box mb="4">
-                                            <Flex
-                                                align="center"
-                                                gap="1.5"
-                                                mb="2"
-                                            >
-                                                <LayoutTemplate color="gray.500" size={14} />
-                                                <Text
-                                                    fontSize="xs"
-                                                    fontWeight="700"
-                                                    color="gray.500"
-                                                    textTransform="uppercase"
-                                                    letterSpacing="wider"
-                                                >
-                                                    Tipo de Diseño
-                                                </Text>
-                                            </Flex>
-                                            <Flex wrap="wrap" gap="1.5">
-                                                {WINDOW_CATALOG.map((item) => {
-                                                    const isSelected = activeType === item.id;
-                                                    return (
-                                                        <Tooltip key={item.id} content={item.description}>
-                                                            <Button
-                                                                size="sm"
-                                                                variant={isSelected ? "solid" : "outline"}
-                                                                colorPalette={isSelected ? "blue" : "gray"}
-                                                                onClick={() => setActiveType(item.id)}
+                                                    <Flex align="center" gap="2" mb="0.5">
+                                                        <Text fontSize="xs" fontWeight="bold" color="text.heading">
+                                                            {g.label} ({g.thickness})
+                                                        </Text>
+                                                        {g.badge && (
+                                                            <Badge
+                                                                size="xs"
+                                                                colorPalette={g.colorPalette}
+                                                                variant="subtle"
                                                                 borderRadius="full"
-                                                                px="3"
-                                                                py="1"
-                                                                h="auto"
-                                                                fontSize="xs"
-                                                                fontWeight="500"
-                                                                transition="all 0.2s"
-                                                                _hover={{
-                                                                    transform: "translateY(-1px)",
-                                                                    shadow: "sm"
-                                                                }}
+                                                                fontSize="9px"
+                                                                px="1.5"
                                                             >
-                                                                {item.title}
-                                                            </Button>
-                                                        </Tooltip>
-                                                    );
-                                                })}
-                                            </Flex>
-                                        </Box>
-
-                                        {/* Sistema de Aluminio - Píldoras */}
-                                        <Box>
-                                            <Flex
-                                                align="center"
-                                                gap="1.5"
-                                                mb="2"
-                                            >
-                                                <Layers
-                                                    size={14}
-                                                    color="#0284c7"
-                                                />
-                                                <Text
-                                                    fontSize="xs"
-                                                    fontWeight="bold"
-                                                    color="gray.800"
-                                                    textTransform="uppercase"
-                                                    letterSpacing="wider"
-                                                >
-                                                    Sistema de Perfilería
-                                                </Text>
-                                            </Flex>
-                                            <Flex wrap="wrap" gap="1.5">
-                                                {availableSystems.map((sys) => {
-                                                    const isSelected =
-                                                        systemId === sys.id;
-                                                    return (
-                                                        <Button
-                                                            key={sys.id}
-                                                            size={{
-                                                                base: "sm",
-                                                                lg: "xs",
-                                                            }}
-                                                            variant={
-                                                                isSelected
-                                                                    ? "solid"
-                                                                    : "outline"
-                                                            }
-                                                            colorPalette={
-                                                                isSelected
-                                                                    ? "blue"
-                                                                    : "gray"
-                                                            }
-                                                            onClick={() =>
-                                                                setSystemId(
-                                                                    sys.id,
-                                                                )
-                                                            }
-                                                            borderRadius="full"
-                                                            px="3"
-                                                            py="1"
-                                                            fontSize="11px"
-                                                            fontWeight={
-                                                                isSelected
-                                                                    ? "bold"
-                                                                    : "medium"
-                                                            }
-                                                            transition="all 0.2s ease"
-                                                        >
-                                                            {sys.nombre}
-                                                        </Button>
-                                                    );
-                                                })}
-                                            </Flex>
-                                        </Box>
-
-                                        {/* Color de Perfil: Círculos / Esferas */}
-                                        <Box>
-                                            <Flex
-                                                justify="space-between"
-                                                align="center"
-                                                mb="2"
-                                            >
-                                                <Text
-                                                    fontSize="xs"
-                                                    fontWeight="bold"
-                                                    color="gray.800"
-                                                    textTransform="uppercase"
-                                                    letterSpacing="wider"
-                                                >
-                                                    Color de Perfil
-                                                </Text>
-                                                <Text
-                                                    fontSize="xs"
-                                                    color="blue.600"
-                                                    fontWeight="bold"
-                                                >
-                                                    {
-                                                        FINISHES.find(
-                                                            (f) =>
-                                                                f.id === finish,
-                                                        )?.label
-                                                    }
-                                                </Text>
-                                            </Flex>
-                                            <HStack gap="3">
-                                                {FINISHES.map((f) => {
-                                                    const isSelected =
-                                                        finish === f.id;
-                                                    return (
-                                                        <Box
-                                                            key={f.id}
-                                                            as="button"
-                                                            onClick={() =>
-                                                                setFinish(f.id)
-                                                            }
-                                                            w="8"
-                                                            h="8"
-                                                            borderRadius="full"
-                                                            bg={f.color}
-                                                            borderWidth={
-                                                                isSelected
-                                                                    ? "3px"
-                                                                    : "1.5px"
-                                                            }
-                                                            borderColor={
-                                                                isSelected
-                                                                    ? "blue.500"
-                                                                    : "gray.300"
-                                                            }
-                                                            boxShadow={
-                                                                isSelected
-                                                                    ? "0 0 0 2px rgba(59, 130, 246, 0.35)"
-                                                                    : "sm"
-                                                            }
-                                                            display="flex"
-                                                            alignItems="center"
-                                                            justifyContent="center"
-                                                            cursor="pointer"
-                                                            transition="all 0.2s cubic-bezier(0.16, 1, 0.3, 1)"
-                                                            _hover={{
-                                                                transform:
-                                                                    "scale(1.15)",
-                                                            }}
-                                                            aria-label={`Seleccionar color ${f.label}`}
-                                                        >
-                                                            {isSelected && (
-                                                                <Check
-                                                                    size={14}
-                                                                    color={
-                                                                        f.id ===
-                                                                        "natural"
-                                                                            ? "#1e293b"
-                                                                            : "#ffffff"
-                                                                    }
-                                                                    strokeWidth={
-                                                                        3
-                                                                    }
-                                                                />
-                                                            )}
-                                                        </Box>
-                                                    );
-                                                })}
-                                            </HStack>
-                                        </Box>
-
-                                        {/* Color de Cristal: Círculos / Esferas Igual al Perfil */}
-                                        <Box>
-                                            <Flex
-                                                justify="space-between"
-                                                align="center"
-                                                mb="2"
-                                            >
-                                                <Text
-                                                    fontSize="xs"
-                                                    fontWeight="bold"
-                                                    color="gray.800"
-                                                    textTransform="uppercase"
-                                                    letterSpacing="wider"
-                                                >
-                                                    Color de Cristal
-                                                </Text>
-                                                <Text
-                                                    fontSize="xs"
-                                                    color="blue.600"
-                                                    fontWeight="bold"
-                                                >
-                                                    {
-                                                        GLASS_COLORS.find(
-                                                            (c) =>
-                                                                c.id ===
-                                                                glassColor,
-                                                        )?.label
-                                                    }
-                                                </Text>
-                                            </Flex>
-                                            <HStack gap="3">
-                                                {GLASS_COLORS.map((c) => {
-                                                    const isSelected =
-                                                        glassColor === c.id;
-                                                    return (
-                                                        <Box
-                                                            key={c.id}
-                                                            as="button"
-                                                            onClick={() =>
-                                                                setGlassColor(
-                                                                    c.id,
-                                                                )
-                                                            }
-                                                            w="8"
-                                                            h="8"
-                                                            borderRadius="full"
-                                                            bg={c.colorHex}
-                                                            borderWidth={
-                                                                isSelected
-                                                                    ? "3px"
-                                                                    : "1.5px"
-                                                            }
-                                                            borderColor={
-                                                                isSelected
-                                                                    ? "blue.500"
-                                                                    : c.border
-                                                            }
-                                                            boxShadow={
-                                                                isSelected
-                                                                    ? "0 0 0 2px rgba(59, 130, 246, 0.35)"
-                                                                    : "sm"
-                                                            }
-                                                            display="flex"
-                                                            alignItems="center"
-                                                            justifyContent="center"
-                                                            cursor="pointer"
-                                                            transition="all 0.2s cubic-bezier(0.16, 1, 0.3, 1)"
-                                                            _hover={{
-                                                                transform:
-                                                                    "scale(1.15)",
-                                                            }}
-                                                            aria-label={`Seleccionar color de cristal ${c.label}`}
-                                                        >
-                                                            {isSelected && (
-                                                                <Check
-                                                                    size={14}
-                                                                    color={
-                                                                        c.id ===
-                                                                        "incoloro"
-                                                                            ? "#1e293b"
-                                                                            : "#ffffff"
-                                                                    }
-                                                                    strokeWidth={
-                                                                        3
-                                                                    }
-                                                                />
-                                                            )}
-                                                        </Box>
-                                                    );
-                                                })}
-                                            </HStack>
-                                        </Box>
-
-                                        {/* Tipo de Cristal: 3 Opciones del Catálogo */}
-                                        <Box>
-                                            <Flex
-                                                justify="space-between"
-                                                align="center"
-                                                mb="1.5"
-                                            >
-                                                <Flex align="center" gap="1.5">
-                                                    <ShieldCheck
-                                                        size={14}
-                                                        color="#0284c7"
-                                                    />
-                                                    <Text
-                                                        fontSize="xs"
-                                                        fontWeight="bold"
-                                                        color="gray.800"
-                                                        textTransform="uppercase"
-                                                        letterSpacing="wider"
-                                                    >
-                                                        Tipo de Cristal
+                                                                {g.badge}
+                                                            </Badge>
+                                                        )}
+                                                    </Flex>
+                                                    <Text fontSize="10px" color="text.muted">
+                                                        {g.desc}
                                                     </Text>
-                                                </Flex>
-                                                <Text
-                                                    fontSize="xs"
-                                                    color="blue.600"
-                                                    fontWeight="bold"
-                                                >
-                                                    {
-                                                        GLASS_TYPES.find(
-                                                            (g) =>
-                                                                g.id === glass,
-                                                        )?.label
-                                                    }
-                                                </Text>
+                                                </Box>
+                                                {isSelected && <Check size={14} className="text-primary-500" />}
                                             </Flex>
-                                            <VStack gap="1.5" align="stretch">
-                                                {GLASS_TYPES.map((g) => {
-                                                    const isSelected =
-                                                        glass === g.id;
-                                                    return (
-                                                        <Box
-                                                            key={g.id}
-                                                            as="button"
-                                                            onClick={() =>
-                                                                setGlass(g.id)
-                                                            }
-                                                            p="2"
-                                                            borderRadius="lg"
-                                                            borderWidth={
-                                                                isSelected
-                                                                    ? "2px"
-                                                                    : "1px"
-                                                            }
-                                                            borderColor={
-                                                                isSelected
-                                                                    ? "blue.500"
-                                                                    : "gray.200"
-                                                            }
-                                                            bg={
-                                                                isSelected
-                                                                    ? "blue.50/70"
-                                                                    : "gray.50/40"
-                                                            }
-                                                            cursor="pointer"
-                                                            transition="all 0.2s ease"
-                                                            _hover={{
-                                                                borderColor:
-                                                                    isSelected
-                                                                        ? "blue.600"
-                                                                        : "gray.300",
-                                                                bg: isSelected
-                                                                    ? "blue.50"
-                                                                    : "gray.50",
-                                                            }}
-                                                            display="flex"
-                                                            alignItems="center"
-                                                            justifyContent="space-between"
-                                                            textAlign="left"
-                                                            w="full"
-                                                        >
-                                                            <Box>
-                                                                <Flex
-                                                                    align="center"
-                                                                    gap="1.5"
-                                                                >
-                                                                    <Text
-                                                                        fontSize="xs"
-                                                                        fontWeight="bold"
-                                                                        color={
-                                                                            isSelected
-                                                                                ? "blue.900"
-                                                                                : "gray.800"
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            g.label
-                                                                        }
-                                                                    </Text>
-                                                                    <Badge
-                                                                        size="xs"
-                                                                        colorPalette={
-                                                                            isSelected
-                                                                                ? "blue"
-                                                                                : "gray"
-                                                                        }
-                                                                        variant="subtle"
-                                                                        borderRadius="md"
-                                                                        fontSize="9px"
-                                                                        px="1.5"
-                                                                    >
-                                                                        {
-                                                                            g.thickness
-                                                                        }
-                                                                    </Badge>
-                                                                </Flex>
-                                                                <Text
-                                                                    fontSize="10px"
-                                                                    color="gray.500"
-                                                                >
-                                                                    {g.desc}
-                                                                </Text>
-                                                            </Box>
-                                                            <Box
-                                                                w="4"
-                                                                h="4"
-                                                                borderRadius="full"
-                                                                borderWidth="1.5px"
-                                                                borderColor={
-                                                                    isSelected
-                                                                        ? "blue.500"
-                                                                        : "gray.300"
-                                                                }
-                                                                bg={
-                                                                    isSelected
-                                                                        ? "blue.500"
-                                                                        : "transparent"
-                                                                }
-                                                                display="flex"
-                                                                alignItems="center"
-                                                                justifyContent="center"
-                                                                flexShrink={0}
-                                                                ml="2"
-                                                            >
-                                                                {isSelected && (
-                                                                    <Check
-                                                                        size={
-                                                                            10
-                                                                        }
-                                                                        color="#ffffff"
-                                                                        strokeWidth={
-                                                                            3
-                                                                        }
-                                                                    />
-                                                                )}
-                                                            </Box>
-                                                        </Box>
-                                                    );
-                                                })}
-                                            </VStack>
-                                        </Box>
-                                    </VStack>
-                                </Box>
+                                        );
+                                    })}
+                                </VStack>
+                            </Box>
 
-                                {/* Footer Fijo de Cotización + Botón WhatsApp */}
-                                <Box
-                                    p="4"
-                                    bg="gray.50"
-                                    borderTopWidth="1px"
-                                    borderColor="gray.200"
-                                    flexShrink={0}
-                                    pb={{
-                                        base: "max(1rem, env(safe-area-inset-bottom))",
-                                        lg: "4",
-                                    }} // Safe area para iOS
-                                >
-                                    <Flex
-                                        justify="space-between"
-                                        align="center"
-                                        mb="3"
-                                    >
-                                        <Box>
-                                            <Text
-                                                fontSize="11px"
-                                                color="gray.500"
-                                                fontWeight="bold"
-                                                textTransform="uppercase"
-                                                letterSpacing="wider"
+                            {/* 5. Tono de Vidrio */}
+                            <Box>
+                                <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider" mb="2">
+                                    Tono del Cristal
+                                </Text>
+                                <HStack gap="2">
+                                    {GLASS_COLORS.map((gc) => {
+                                        const isSelected = glassColor === gc.id;
+                                        return (
+                                            <Button
+                                                key={gc.id}
+                                                size="xs"
+                                                variant={isSelected ? "aura" : "outline"}
+                                                onClick={() => setGlassColor(gc.id)}
+                                                borderRadius="full"
+                                                px="3"
                                             >
-                                                Precio Estimado
-                                            </Text>
-                                            <Flex align="baseline" gap="1">
-                                                <Text
-                                                    fontSize="md"
-                                                    color="gray.500"
-                                                    fontWeight="bold"
-                                                >
-                                                    S/
-                                                </Text>
-                                                <Text
-                                                    fontSize="2xl"
-                                                    color="blue.600"
-                                                    fontWeight="black"
-                                                    lineHeight="1"
-                                                >
-                                                    {price.toFixed(2)}
-                                                </Text>
-                                            </Flex>
-                                        </Box>
-                                        <Box textAlign="right">
-                                            <Text
-                                                fontSize="10px"
-                                                color="gray.400"
-                                            >
-                                                Incluye IGV
-                                            </Text>
-                                            <Text
-                                                fontSize="10px"
-                                                color="gray.400"
-                                            >
-                                                e Instalación
-                                            </Text>
-                                        </Box>
-                                    </Flex>
+                                                <Box w="2.5" h="2.5" borderRadius="full" bg={gc.colorHex} mr="1.5" borderWidth="1px" borderColor="border.default" />
+                                                {gc.label}
+                                            </Button>
+                                        );
+                                    })}
+                                </HStack>
+                            </Box>
+                        </VStack>
+                    </Box>
 
-                                    <Button
-                                        w="full"
-                                        size="lg"
-                                        colorPalette="green"
-                                        onClick={handleSendWhatsApp}
-                                        borderRadius="xl"
-                                        h="12"
-                                        _hover={{
-                                            transform: "translateY(-1px)",
-                                            boxShadow:
-                                                "0 4px 12px rgba(34, 197, 94, 0.2)",
-                                        }}
-                                        transition="all 0.2s"
-                                    >
-                                        <MessageCircle
-                                            size={18}
-                                            style={{ marginRight: "8px" }}
-                                        />
-                                        Cotizar por WhatsApp
-                                    </Button>
-                                </Box>
-                            </Flex>
+                    {/* Footer Fijo de Cotización + Botón WhatsApp */}
+                    <Box
+                        p="4"
+                        bg="bg.subtle"
+                        borderTopWidth="1px"
+                        borderColor="border.subtle"
+                    >
+                        <Flex justify="space-between" align="center" mb="3">
+                            <Box>
+                                <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase" letterSpacing="wider">
+                                    Precio Estimado
+                                </Text>
+                                <Flex align="baseline" gap="1">
+                                    <Text fontSize="sm" color="text.muted" fontWeight="bold">
+                                        S/
+                                    </Text>
+                                    <Text fontSize="2xl" color="primary.500" fontWeight="black" lineHeight="1">
+                                        {price.toFixed(2)}
+                                    </Text>
+                                </Flex>
+                            </Box>
+                            <Box textAlign="right">
+                                <Text fontSize="10px" color="text.muted">
+                                    Incluye IGV
+                                </Text>
+                                <Text fontSize="10px" color="text.muted">
+                                    e Instalación
+                                </Text>
+                            </Box>
                         </Flex>
-                    </DialogBody>
-                </DialogContent>
-            </DialogRoot>
+
+                        <Button
+                            w="full"
+                            size="lg"
+                            variant="aura"
+                            onClick={handleSendWhatsApp}
+                            borderRadius="xl"
+                            h="12"
+                            fontWeight="800"
+                            _hover={{
+                                transform: "translateY(-1px)",
+                                boxShadow: "lg",
+                            }}
+                            transition="all 0.2s"
+                        >
+                            <MessageCircle size={18} style={{ marginRight: "8px" }} />
+                            Cotizar por WhatsApp
+                        </Button>
+                    </Box>
+                </Flex>
+            </Flex>
         </Box>
     );
 };
+
+export default VentanaConfigurador3DCard;
