@@ -1,9 +1,4 @@
-import {
-    ArrowUp,
-    ArrowRightLeft,
-    DoorOpen,
-    Square,
-} from "lucide-react";
+import { ArrowUp, ArrowRightLeft, DoorOpen, Square } from "lucide-react";
 
 export interface WindowCatalogItem {
     id: string;
@@ -47,11 +42,12 @@ export const WINDOW_CATALOG: WindowCatalogItem[] = [
     },
     {
         id: "batiente",
-        title: "BATIENTE (ABATIBLE)",
+        title: "BATIENTE",
         badge: "Hermética",
         colorPalette: "blue",
         icon: DoorOpen,
-        description: "Se abre hacia el interior o exterior mediante bisagras laterales.",
+        description:
+            "Se abre hacia el interior o exterior mediante bisagras laterales.",
         mechanics: "Giro sobre bisagras capuchinas/pesadas.",
         bullets: [
             "Máxima ventilación total",
