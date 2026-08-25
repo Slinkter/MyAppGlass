@@ -20,22 +20,15 @@ import { serviceFaqsMap, defaultServiceFaqs } from "../data/serviceFaqs";
 
 import dynamic from "next/dynamic";
 
-const AuraARViewer = dynamic(
-  () => import("@/shared/components/3d/AuraARViewer").then(mod => mod.AuraARViewer),
-  { ssr: false, loading: () => <Skeleton height={{ base: "340px", sm: "400px", lg: "500px" }} w="full" borderRadius={{ base: "none", md: "3xl" }} /> }
-);
-
 const VentanaConfigurador3DCard = dynamic(
   () => import("./VentanaConfigurador3DCard"),
   { ssr: false, loading: () => <Skeleton height={{ base: "500px", lg: "500px" }} w="full" borderRadius={{ base: "none", md: "3xl" }} /> }
 );
 
-const GLBModelCard = dynamic(
-  () => import("@/shared/components/3d/GLBModelCard").then(mod => mod.GLBModelCard),
-  { ssr: false, loading: () => <Skeleton height="460px" w="full" borderRadius="2xl" /> }
+const ServiceConfigurator3DCard = dynamic(
+  () => import("./ServiceConfigurator3DCard").then(mod => mod.ServiceConfigurator3DCard),
+  { ssr: false, loading: () => <Skeleton height={{ base: "500px", lg: "500px" }} w="full" borderRadius={{ base: "none", md: "3xl" }} /> }
 );
-
-import { SERVICE_AR_MODELS_MAP } from "../data/serviceArModels";
 
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string } };
@@ -55,16 +48,6 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
   const activeImageList = React.useMemo(() => imageLists[activeIndex] || [], [imageLists, activeIndex]);
   const activeSystem = React.useMemo(() => systems[activeIndex], [systems, activeIndex]);
-
-  // Obtener modelo AR específico para este slug y sistema activo
-  const activeSystemLabel = activeSystem?.label || "Sistema Nova";
-  const systemAR = (serviceSlug && (SERVICE_AR_MODELS_MAP[serviceSlug]?.[activeSystemLabel] || Object.values(SERVICE_AR_MODELS_MAP[serviceSlug] || {})[0])) || {
-    systemLabel: `${activeSystemLabel} (${seo.title.split("|")[0].trim()})`,
-    category: seo.title.split("|")[0].trim(),
-    glbModelUrl: "/models/ventana-nova.glb",
-    usdzModelUrl: "/models/ventana-nova.glb",
-    description: "Proyección 3D a escala real para visualizar el acabado y dimensiones antes de instalar.",
-  };
 
   const handleSelect = React.useCallback((index: number) => {
     startTransition(() => {
@@ -168,24 +151,12 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
             {serviceSlug === "ventana" ? (
               <VentanaConfigurador3DCard initialSystemId={activeVentanaSystemId} />
             ) : (
-              <AuraARViewer
+              <ServiceConfigurator3DCard
+                serviceSlug={serviceSlug || "mampara"}
                 title={dynamicViewerTitle}
-                category={systemAR.category}
-                glbModelUrl={systemAR.glbModelUrl}
-                usdzModelUrl={systemAR.usdzModelUrl}
               />
             )}
           </Box>
-
-          {/* VISOR .GLB DETALLADO (debajo del configurador) */}
-          {serviceSlug && SERVICE_AR_MODELS_MAP[serviceSlug] && (
-            <Box pt="2">
-              <GLBModelCard
-                modelUrl={systemAR.glbModelUrl}
-                title={`${seo.title} — Modelo 3D`}
-              />
-            </Box>
-          )}
 
           {/* Sección de Preguntas Frecuentes (FAQ / Rich Snippets) */}
           <ServiceFaqSection faqs={faqs} serviceTitle={seo.title} />
