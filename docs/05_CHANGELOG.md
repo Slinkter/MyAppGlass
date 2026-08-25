@@ -2,7 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2026-08-21] - Reingeniería 3D de Carpintería de Aluminio Oficial & Visor AR
+## [2026-08-25] - Unificación Oficial de Ventanas 3D, Layout 65/35 & Optimización de Documentación
+
+### Added
+- **Simulador 3D Puro**: Transformación del card `VentanaConfigurador3DCard` en un simulador visual técnico interactivo Three.js de vanos, perfiles y cristales.
+- **Independencia de los 4 Sistemas**: Habilitación permanente de los 4 sistemas oficiales (`Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`) para todos los tipos de ventana (`Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`).
+- **Sección Adicional**: Incorporación de acabados especiales (`Arenado` translúcido y `Diseño según cliente`) reflejados en tiempo real en los shaders PBR de Three.js.
+- **Base de Conocimiento para LLMs**: Creación y optimización de `AGENTS.md` para asistentes de IA y modelos locales (Gemma 3/4, Qwen 2.5, DeepSeek).
+
+### Changed
+- **Proporción y Altura Compacta**: Configuración del visor 3D al 65% de ancho y panel de controles al 35% de ancho, con una altura estándar sincronizada de `460px` alineada con la galería y la ficha técnica.
+- **Integración de Cabecera en Visor 3D**: Reubicación del título `"Ventana 3d"` y el badge dinámico de tipología como un overlay glassmorphism en el visor Three.js.
+- **Ocultamiento de Navbar en Servicios**: Ocultamiento automático del navbar flotante de escritorio en rutas `/servicios/*` para una experiencia inmersiva.
+- **Limpieza de Tipos de Vidrio**: Normalización estricta a 3 tipos (`Crudo`, `Laminado`, `Templado`) sin etiquetas de grosor redundantes.
 
 ### Added
 - **Extracción de Catálogos Técnicos**: Incorporación de geometrías de perfiles extruidos precisos para carpintería de aluminio (Serie VL42/Silenzo VL46/Serie 20-25 corrediza y Serie Practitec VLP46 fija/proyectante/pivotante).

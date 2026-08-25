@@ -2,19 +2,20 @@
 
 ## Overview
 
-Manages the display of individual services and the detailed service information pages. This module follows a hierarchical structure from a high-level list to specific technical details.
+Módulo de negocio responsable de presentar el catálogo de servicios corporativos y la vista de detalle interactiva de cada servicio (`/servicios/[serviceSlug]`), incluyendo fichas técnicas, galerías de imágenes y el simulador 3D de ventanas.
 
-## Architecture
+---
 
-- **Components**:
-  - `ServiceList`: Grid display of all available services.
-  - `ServicePageLayout`: Structure for the detailed service view.
-  - `ServiceSidebar`: Navigation between specific systems within a service.
-- **Services**: `serviceService.js` manages synchronous data retrieval for services.
-- **Data**: Centralized repository of service metadata and images.
+## 🏛️ Componentes Principales
 
-## Design Patterns
+- **`ServicePageLayout.tsx`**: Layout maestro del detalle de servicio. Orquesta la galería fotográfica (`Gallery`), la ficha técnica unificada (`UnifiedTechnicalCard`) y el visor interactivo 3D.
+- **`VentanaConfigurador3DCard.tsx`**: Simulador visual Three.js interactivo para ventanas. Proporción 65% visor / 35% configuración, con selección de los 4 sistemas oficiales (`Nova`, `Serie 25`, `Serie 35`, `Serie 62`), tipos de vidrio (`Crudo`, `Laminado`, `Templado`), acabados de aluminio y controles de cámara/apertura de hojas.
+- **`UnifiedTechnicalCard.tsx`**: Ficha técnica con navegación por tabs de características, especificaciones de aislamiento acústico/térmico y llamada a la acción.
+- **`components/configurador3d/`**: Mallas paramétricas, materiales PBR físicos (`materials.ts`), helpers geométricos y constantes (`constants.ts`).
 
-- **Glassmorphism**: Applied to cards and sidebars for a premium feel.
-- **Lazy Loading**: Detailed pages use lazy-loaded containers to optimize performance.
-- **SEO**: Integrated with `HelmetWrapper` for per-service metadata.
+---
+
+## 📦 Datos Centralizados
+
+- **`data/ventanas-catalogo.json`**: Definición de los 4 sistemas de ventanas, colores de aluminio, vidrios y accesorios.
+- **`data/gallery/`**: Repositorio de imágenes estáticas de alta resolución por servicio (`ventana-data.ts`, `mampara-data.ts`, `ducha-data.ts`, etc.).
