@@ -127,6 +127,13 @@ export const GLASS_COLORS = [
         border: "#374151",
         tint3d: 0x475569,
     },
+    {
+        id: "reflejante-azul",
+        label: "Reflejante Azul",
+        colorHex: "#2563EB",
+        border: "#1D4ED8",
+        tint3d: 0x3B82F6,
+    },
 ];
 
 export const DIMENSION_PRESETS = [

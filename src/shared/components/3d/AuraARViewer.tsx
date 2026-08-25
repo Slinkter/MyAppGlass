@@ -11,7 +11,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { Smartphone, QrCode, Sparkles, CheckCircle2, ShieldCheck, Camera } from "lucide-react";
+import { Smartphone, QrCode, Sparkles, Camera } from "lucide-react";
 
 import { ThreeCanvas, AluminumFinish, GlassTint } from "./ThreeCanvas";
 import { WebARLiveCameraModal } from "./WebARLiveCameraModal";
@@ -55,13 +55,9 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
   const [currentUrl, setCurrentUrl] = useState("");
   const [deviceType, setDeviceType] = useState<"ios" | "android" | "desktop">("desktop");
 
-  // Estados interactivos para el Configurador 3D en vivo
   const [selectedVariant, setSelectedVariant] = useState<
     "corrediza" | "fija" | "proyectante" | "pivotante" | "piso-techo-pivot" | "celosias"
   >(initialConfig3D?.systemVariant || "corrediza");
-  const [selectedEnvironment, setSelectedEnvironment] = useState<
-    "sala" | "cuarto" | "oficina" | "terraza" | "estudio"
-  >("sala");
   const [isAutoRotating, setIsAutoRotating] = useState(true);
   const [numSashes, setNumSashes] = useState<2 | 4>(initialConfig3D?.numSashes || 2);
   const [customWidth, setCustomWidth] = useState<number>(2.0);
@@ -73,22 +69,17 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
     GLASS_OPTIONS.find((g) => g.id === initialConfig3D?.glassId) || GLASS_OPTIONS[0]
   );
 
-  // Sincronizar automáticamente cuando el usuario selecciona otra foto del catálogo
   useEffect(() => {
     if (initialConfig3D) {
-      if (initialConfig3D.systemVariant) {
-        setSelectedVariant(initialConfig3D.systemVariant);
-      }
-      if (initialConfig3D.numSashes) {
-        setNumSashes(initialConfig3D.numSashes);
-      }
+      if (initialConfig3D.systemVariant) setSelectedVariant(initialConfig3D.systemVariant);
+      if (initialConfig3D.numSashes) setNumSashes(initialConfig3D.numSashes);
       if (initialConfig3D.aluminumId) {
-        const foundAl = ALUMINUM_OPTIONS.find((a) => a.id === initialConfig3D.aluminumId);
-        if (foundAl) setSelectedAluminum(foundAl);
+        const found = ALUMINUM_OPTIONS.find((a) => a.id === initialConfig3D.aluminumId);
+        if (found) setSelectedAluminum(found);
       }
       if (initialConfig3D.glassId) {
-        const foundGl = GLASS_OPTIONS.find((g) => g.id === initialConfig3D.glassId);
-        if (foundGl) setSelectedGlass(foundGl);
+        const found = GLASS_OPTIONS.find((g) => g.id === initialConfig3D.glassId);
+        if (found) setSelectedGlass(found);
       }
     }
   }, [initialConfig3D]);
@@ -97,13 +88,9 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
     if (typeof window !== "undefined") {
       setCurrentUrl(window.location.href);
       const ua = navigator.userAgent;
-      if (/iPhone|iPad|iPod/i.test(ua)) {
-        setDeviceType("ios");
-      } else if (/Android/i.test(ua)) {
-        setDeviceType("android");
-      } else {
-        setDeviceType("desktop");
-      }
+      if (/iPhone|iPad|iPod/i.test(ua)) setDeviceType("ios");
+      else if (/Android/i.test(ua)) setDeviceType("android");
+      else setDeviceType("desktop");
     }
   }, []);
 
@@ -122,38 +109,30 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
   };
 
   const currentSystem = getSystemType();
-  const isSashCustomizable = currentSystem === "ventana" || currentSystem === "mampara";
 
   const handleLaunchAR = () => {
     if (typeof window === "undefined") return;
 
     if (deviceType === "ios") {
-      // 🍏 Apple Quick Look Nativo para iPhone / iPad
       const absoluteUsdz = usdzModelUrl.startsWith("http")
         ? usdzModelUrl
         : `${window.location.origin}${usdzModelUrl}`;
-
       const anchor = document.createElement("a");
       anchor.setAttribute("rel", "ar");
-      const img = document.createElement("img");
-      anchor.appendChild(img);
+      anchor.appendChild(document.createElement("img"));
       anchor.setAttribute("href", absoluteUsdz);
       anchor.click();
     } else if (deviceType === "android") {
-      // 🤖 Android WebXR / Google Scene Viewer (ARCore 1:1 en Android)
       const absoluteGlb = glbModelUrl.startsWith("http")
         ? glbModelUrl
         : `${window.location.origin}${glbModelUrl}`;
-
       const sceneViewerUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(
         absoluteGlb
       )}&mode=ar_preferred&title=${encodeURIComponent(
         title
       )}&resizable=true#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;end;`;
-
       window.location.href = sceneViewerUrl;
     } else {
-      // 💻 En Desktop: abrir modal QR para escanear con la cámara del teléfono
       setShowQR(!showQR);
     }
   };
@@ -162,59 +141,9 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
     ? `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=10&data=${encodeURIComponent(currentUrl)}`
     : "";
 
-  // Fotografías de Ambientes Reales y temas de fondo
-  const envBackgrounds = {
-    sala: {
-      bg: "linear-gradient(rgba(24, 18, 12, 0.45), rgba(24, 18, 12, 0.6)), url('/images/common-mainland.webp')",
-      fallbackBg: "#2d241e",
-      border: "rgba(217, 180, 130, 0.5)",
-      shadow: "inset 0 0 40px rgba(0, 0, 0, 0.6)",
-      badgeColor: "#ffffff",
-      badgeBg: "rgba(45, 36, 30, 0.85)",
-      label: "🛋️ Sala Residencial",
-    },
-    cuarto: {
-      bg: "linear-gradient(rgba(28, 22, 18, 0.5), rgba(28, 22, 18, 0.65)), url('/images/clients-sectorhogar.webp')",
-      fallbackBg: "#3a2e26",
-      border: "rgba(180, 140, 110, 0.5)",
-      shadow: "inset 0 0 40px rgba(0, 0, 0, 0.6)",
-      badgeColor: "#ffffff",
-      badgeBg: "rgba(58, 46, 38, 0.85)",
-      label: "🛏️ Dormitorio",
-    },
-    oficina: {
-      bg: "linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.65)), url('/images/clients-sectoroffices.webp')",
-      fallbackBg: "#1e293b",
-      border: "rgba(148, 163, 184, 0.5)",
-      shadow: "inset 0 0 40px rgba(0, 0, 0, 0.6)",
-      badgeColor: "#ffffff",
-      badgeBg: "rgba(30, 41, 59, 0.85)",
-      label: "🏢 Oficina / Estudio",
-    },
-    terraza: {
-      bg: "linear-gradient(rgba(12, 45, 70, 0.35), rgba(12, 45, 70, 0.55)), url('/images/clients-building.webp')",
-      fallbackBg: "#0c4a6e",
-      border: "rgba(56, 189, 248, 0.4)",
-      shadow: "inset 0 0 40px rgba(0, 0, 0, 0.5)",
-      badgeColor: "#ffffff",
-      badgeBg: "rgba(12, 74, 110, 0.85)",
-      label: "🌿 Terraza / Exterior",
-    },
-    estudio: {
-      bg: "radial-gradient(circle at 50% 35%, #2a2521 0%, #1c1815 60%, #120f0d 100%)",
-      fallbackBg: "#1c1815",
-      border: "rgba(217, 197, 172, 0.3)",
-      shadow: "inset 0 0 30px rgba(0, 0, 0, 0.8)",
-      badgeColor: "#ffffff",
-      badgeBg: "rgba(35, 30, 26, 0.85)",
-      label: "🎨 Estudio Arquitectónico",
-    },
-  };
-
-  const currentEnv = envBackgrounds[selectedEnvironment];
-
   return (
     <Box
+      w="full"
       bg="surface.card"
       borderRadius="2xl"
       p={{ base: "5", md: "8" }}
@@ -231,9 +160,6 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           <Badge colorPalette="green" variant="subtle" px="3" py="1" borderRadius="full">
             Escala Real 1:1
           </Badge>
-          <Badge colorPalette="amber" variant="subtle" px="3" py="1" borderRadius="full">
-            Ambientes de Hogar & Oficina
-          </Badge>
         </HStack>
         <Heading size="xl" color="brand.primary">
           {title}
@@ -244,7 +170,7 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
       </VStack>
 
       <SimpleGrid columns={{ base: 1, lg: 12 }} gap="6" alignItems="stretch">
-        {/* COLUMNA VISOR 3D CON FONDOS DE AMBIENTES REALES */}
+        {/* COLUMNA VISOR 3D */}
         <Box
           gridColumn={{ base: "span 1", lg: "span 7" }}
           display="flex"
@@ -254,24 +180,18 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           <Box
             position="relative"
             h={{ base: "340px", sm: "380px", md: "400px" }}
-            backgroundImage={currentEnv.bg}
-            backgroundColor={currentEnv.fallbackBg}
-            backgroundSize="cover"
-            backgroundPosition="center"
+            bg="bg.page"
             borderRadius="2xl"
             border="1px solid"
-            borderColor={currentEnv.border}
-            boxShadow={`${currentEnv.shadow}, 0 12px 28px rgba(0,0,0,0.25)`}
+            borderColor="border.subtle"
             overflow="hidden"
             display="flex"
             alignItems="center"
             justifyContent="center"
-            transition="all 0.5s ease"
           >
             <ThreeCanvas
               systemType={currentSystem}
               systemVariant={selectedVariant}
-              environment={selectedEnvironment}
               autoRotate={isAutoRotating}
               rotationSpeed={0.002}
               customWidth={customWidth}
@@ -281,76 +201,7 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
               aluminumFinish={selectedAluminum}
               glassTint={selectedGlass}
             />
-            
-            {/* CAPA 2.5D KAGE: Vano Arquitectónico y Vignette de Lente */}
-            <Box
-              position="absolute"
-              inset="0"
-              pointerEvents="none"
-              borderRadius="2xl"
-              boxShadow="inset 0 0 70px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.1)"
-              border="1px solid rgba(255, 255, 255, 0.12)"
-              background="radial-gradient(ellipse at center, transparent 65%, rgba(0, 0, 0, 0.4) 100%)"
-            />
 
-            {/* TELEMETRÍA DE INGENIERÍA EDITORIAL (ESTILO KAGE) */}
-            <HStack
-              position="absolute"
-              top="3"
-              left="3"
-              gap="2"
-              pointerEvents="none"
-              display={{ base: "none", sm: "flex" }}
-            >
-              <Box
-                bg="rgba(0, 0, 0, 0.65)"
-                backdropFilter="blur(8px)"
-                px="2.5"
-                py="1"
-                borderRadius="md"
-                fontSize="2xs"
-                fontFamily="mono"
-                color="whiteAlpha.800"
-                border="1px solid rgba(255, 255, 255, 0.15)"
-              >
-                📐 VANO: {customWidth.toFixed(2)}m × {customHeight.toFixed(2)}m
-              </Box>
-              <Box
-                bg="rgba(0, 0, 0, 0.65)"
-                backdropFilter="blur(8px)"
-                px="2.5"
-                py="1"
-                borderRadius="md"
-                fontSize="2xs"
-                fontFamily="mono"
-                color="whiteAlpha.800"
-                border="1px solid rgba(255, 255, 255, 0.15)"
-              >
-                📏 {(customWidth * customHeight).toFixed(2)} m²
-              </Box>
-            </HStack>
-
-            {/* BADGE DEL AMBIENTE ACTIVO */}
-            <Box
-              position="absolute"
-              bottom="3"
-              left="3"
-              bg={currentEnv.badgeBg}
-              backdropFilter="blur(10px)"
-              px="3"
-              py="1"
-              borderRadius="full"
-              fontSize="xs"
-              fontWeight="medium"
-              color={currentEnv.badgeColor}
-              border="1px solid rgba(255, 255, 255, 0.25)"
-              boxShadow="0 4px 10px rgba(0,0,0,0.3)"
-              pointerEvents="none"
-            >
-              ✨ {currentEnv.label}
-            </Box>
-
-            {/* BOTÓN INTERACTIVO ACTIVAR / PAUSAR GIRO 360° */}
             <Button
               position="absolute"
               top="3"
@@ -358,23 +209,24 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
               size="xs"
               variant="subtle"
               colorPalette={isAutoRotating ? "blue" : "gray"}
-              bg="rgba(0, 0, 0, 0.65)"
-              color="white"
-              backdropFilter="blur(8px)"
-              border="1px solid rgba(255, 255, 255, 0.2)"
-              borderRadius="full"
+              bg="surface.card"
+              borderRadius="lg"
+              boxShadow="sm"
+              color="text.body"
+              borderWidth="1px"
+              borderColor="border.default"
               px="3"
               py="1.5"
               fontSize="2xs"
               fontWeight="semibold"
               onClick={() => setIsAutoRotating(!isAutoRotating)}
               _hover={{
-                bg: "rgba(0, 0, 0, 0.85)",
-                transform: "scale(1.05)",
+                bg: "bg.subtle",
+                color: "primary.500",
               }}
               transition="all 0.2s ease"
             >
-              {isAutoRotating ? "⏸️ Pausar Giro 360°" : "▶️ Activar Giro 360°"}
+              {isAutoRotating ? "Pausar Giro 360°" : "Activar Giro 360°"}
             </Button>
           </Box>
 
@@ -387,38 +239,7 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
             borderColor="border.default"
           >
             <VStack align="stretch" gap="3">
-              {/* SELECTOR DE AMBIENTES (SALA, CUARTO, OFICINA, TERRAZA) */}
-              <HStack justify="space-between" wrap="wrap" gap="2">
-                <Text fontSize="xs" fontWeight="bold" color="text.muted">
-                  Ambiente del Hogar / Espacio:
-                </Text>
-                <HStack gap="1.5" wrap="wrap">
-                  {[
-                    { id: "sala", label: "🛋️ Sala" },
-                    { id: "cuarto", label: "🛏️ Dormitorio" },
-                    { id: "oficina", label: "🏢 Oficina" },
-                    { id: "terraza", label: "🌿 Terraza" },
-                    { id: "estudio", label: "🎨 Estudio" },
-                  ].map((env) => {
-                    const isSelected = selectedEnvironment === env.id;
-                    return (
-                      <Button
-                        key={env.id}
-                        size="xs"
-                        variant={isSelected ? "solid" : "outline"}
-                        colorPalette={isSelected ? "orange" : "gray"}
-                        onClick={() => setSelectedEnvironment(env.id as any)}
-                        borderRadius="md"
-                        fontSize="2xs"
-                      >
-                        {env.label}
-                      </Button>
-                    );
-                  })}
-                </HStack>
-              </HStack>
-
-              {/* SELECTOR DE TIPOLOGÍA DE VENTANA (ORDEN: CORREDIZO -> FIJO -> PROYECTANTE -> PIVOTANTE) */}
+              {/* SELECTOR DE TIPOLOGÍA (solo para ventana) */}
               {currentSystem === "ventana" && (
                 <VStack align="stretch" gap="1.5">
                   <Text fontSize="xs" fontWeight="bold" color="text.muted">
@@ -426,12 +247,12 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
                   </Text>
                   <HStack gap="1.5" wrap="wrap">
                     {[
-                      { id: "corrediza", label: "🪟 Corredizo" },
-                      { id: "fija", label: "🛡️ Fijo" },
-                      { id: "proyectante", label: "📐 Proyectante Vertical" },
-                      { id: "pivotante", label: "🔄 Pivotante" },
-                      { id: "piso-techo-pivot", label: "🏢 Piso a Techo (Mixta)" },
-                      { id: "celosias", label: "🪜 Celosía (Louver)" },
+                      { id: "corrediza", label: "Corredizo" },
+                      { id: "fija", label: "Fijo" },
+                      { id: "proyectante", label: "Proyectante Vertical" },
+                      { id: "pivotante", label: "Pivotante" },
+                      { id: "piso-techo-pivot", label: "Piso a Techo (Mixta)" },
+                      { id: "celosias", label: "Celosía (Louver)" },
                     ].map((t) => {
                       const isSelected = selectedVariant === t.id;
                       return (
@@ -470,11 +291,40 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
                 </VStack>
               )}
 
-              {/* CONTROL DE DIMENSIONES PERSONALIZADAS (ANCHO Y ALTO EN METROS) */}
+              {/* SELECTOR DE HOJAS (solo corrediza) */}
+              {currentSystem === "ventana" && selectedVariant === "corrediza" && (
+                <HStack justify="space-between" wrap="wrap" gap="2">
+                  <Text fontSize="xs" fontWeight="bold" color="text.muted">
+                    Hojas Corredizas:
+                  </Text>
+                  <HStack gap="1.5">
+                    <Button
+                      size="xs"
+                      variant={numSashes === 2 ? "solid" : "outline"}
+                      colorPalette={numSashes === 2 ? "blue" : "gray"}
+                      onClick={() => setNumSashes(2)}
+                      borderRadius="md"
+                    >
+                      2 Hojas (OX)
+                    </Button>
+                    <Button
+                      size="xs"
+                      variant={numSashes === 4 ? "solid" : "outline"}
+                      colorPalette={numSashes === 4 ? "blue" : "gray"}
+                      onClick={() => setNumSashes(4)}
+                      borderRadius="md"
+                    >
+                      4 Hojas (OXXO)
+                    </Button>
+                  </HStack>
+                </HStack>
+              )}
+
+              {/* DIMENSIONES */}
               <VStack align="stretch" gap="2" p="2.5" bg="rgba(255, 255, 255, 0.02)" borderRadius="lg" border="1px dashed" borderColor="border.default">
                 <HStack justify="space-between" wrap="wrap">
                   <Text fontSize="xs" fontWeight="bold" color="text.muted">
-                    Dimensiones del Vano: <Text as="span" color="primary.500" _dark={{ color: "primary.300" }}>{customWidth.toFixed(2)}m Ancho × {customHeight.toFixed(2)}m Alto</Text>
+                    Dimensiones del Vano: <Text as="span" color="primary.500" _dark={{ color: "primary.300" }}>{customWidth.toFixed(2)}m × {customHeight.toFixed(2)}m</Text>
                   </Text>
                   <HStack gap="1">
                     {[
@@ -535,35 +385,6 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
                 </SimpleGrid>
               </VStack>
 
-              {/* SELECTOR DE HOJAS (SOLO PARA CORREDIZA) */}
-              {currentSystem === "ventana" && selectedVariant === "corrediza" && (
-                <HStack justify="space-between" wrap="wrap" gap="2">
-                  <Text fontSize="xs" fontWeight="bold" color="text.muted">
-                    Hojas Corredizas:
-                  </Text>
-                  <HStack gap="1.5">
-                    <Button
-                      size="xs"
-                      variant={numSashes === 2 ? "solid" : "outline"}
-                      colorPalette={numSashes === 2 ? "blue" : "gray"}
-                      onClick={() => setNumSashes(2)}
-                      borderRadius="md"
-                    >
-                      2 Hojas (OX)
-                    </Button>
-                    <Button
-                      size="xs"
-                      variant={numSashes === 4 ? "solid" : "outline"}
-                      colorPalette={numSashes === 4 ? "blue" : "gray"}
-                      onClick={() => setNumSashes(4)}
-                      borderRadius="md"
-                    >
-                      4 Hojas (OXXO)
-                    </Button>
-                  </HStack>
-                </HStack>
-              )}
-
               {/* SELECTOR DE ALUMINIO */}
               <HStack justify="space-between" wrap="wrap" gap="2">
                 <Text fontSize="xs" fontWeight="bold" color="text.muted">
@@ -601,7 +422,7 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
               {/* SELECTOR DE VIDRIO */}
               <HStack justify="space-between" wrap="wrap" gap="2">
                 <Text fontSize="xs" fontWeight="bold" color="text.muted">
-                  Cristal Templado:
+                  Cristal:
                 </Text>
                 <HStack gap="1.5" wrap="wrap">
                   {GLASS_OPTIONS.map((gl) => {
@@ -626,7 +447,7 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           </Box>
         </Box>
 
-        {/* COLUMNA DERECHA: FICHA TÉCNICA DINÁMICA & COTIZADOR INTELIGENTE */}
+        {/* COLUMNA DERECHA: FICHA TÉCNICA & CTA */}
         <Box
           gridColumn={{ base: "span 1", lg: "span 5" }}
           display="flex"
@@ -641,36 +462,17 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
           boxShadow="0 10px 30px rgba(0,0,0,0.15)"
           gap="4"
         >
-          {/* ENCABEZADO DE LA FICHA TÉCNICA */}
           <Box>
             <HStack justify="space-between" mb="3">
               <Badge colorPalette="blue" variant="solid" px="2.5" py="1" borderRadius="md" fontSize="2xs" fontWeight="bold">
-                📋 FICHA TÉCNICA EN VIVO
+                FICHA TÉCNICA EN VIVO
               </Badge>
               <Badge colorPalette="green" variant="subtle" px="2" py="0.5" borderRadius="full" fontSize="2xs">
                 ● Listo para Cotizar
               </Badge>
             </HStack>
 
-            {/* ESPECIFICACIONES DINÁMICAS EN TIEMPO REAL */}
             <VStack align="stretch" gap="2" fontSize="xs">
-              <HStack justify="space-between" py="1.5" borderBottom="1px solid" borderColor="border.default">
-                <Text color="text.muted" fontWeight="medium">Tipología:</Text>
-                <Text color="text.heading" fontWeight="bold">
-                  {selectedVariant === "piso-techo-pivot"
-                    ? "Piso a Techo (Fijo + Pivotante)"
-                    : selectedVariant === "corrediza"
-                    ? `Corrediza (${numSashes} Hojas)`
-                    : selectedVariant === "proyectante"
-                    ? "Proyectante / Batiente"
-                    : selectedVariant === "pivotante"
-                    ? "Pivotante Eje Vertical"
-                    : selectedVariant === "fija"
-                    ? "Paño Fijo Hermético"
-                    : "Celosía (Louver 7 Lamas)"}
-                </Text>
-              </HStack>
-
               <HStack justify="space-between" py="1.5" borderBottom="1px solid" borderColor="border.default">
                 <Text color="text.muted" fontWeight="medium">Dimensiones:</Text>
                 <Text color="text.heading" fontWeight="bold">
@@ -691,11 +493,6 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
                 <Text color="text.heading" fontWeight="bold">{selectedGlass.name}</Text>
               </HStack>
 
-              <HStack justify="space-between" py="1.5" borderBottom="1px solid" borderColor="border.default">
-                <Text color="text.muted" fontWeight="medium">Entorno de Prueba:</Text>
-                <Text color="text.heading" fontWeight="bold">{currentEnv.label}</Text>
-              </HStack>
-
               <HStack justify="space-between" py="1.5">
                 <Text color="text.muted" fontWeight="medium">Escala / Detección:</Text>
                 <Text color="primary.500" _dark={{ color: "primary.300" }} fontWeight="bold">
@@ -705,9 +502,7 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
             </VStack>
           </Box>
 
-          {/* BOTONES DE ACCIÓN */}
           <VStack gap="2.5" w="full">
-            {/* BOTÓN PRINCIPAL: CÁMARA WEBAR EN VIVO */}
             <Button
               colorPalette="blue"
               size="md"
@@ -724,10 +519,9 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
               <Camera size={18} /> Proyectar en tu Pared (WebAR)
             </Button>
 
-            {/* BOTÓN DE COTIZACIÓN DIRECTA POR WHATSAPP CON ESPECIFICACIONES PRELLENADAS */}
             <a
               href={`https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
-                `Hola GYA Company, configuré esta ventana en su simulador 3D:\n• Tipología: ${selectedVariant}\n• Medidas: ${customWidth.toFixed(2)}m Ancho × ${customHeight.toFixed(2)}m Alto (${(customWidth * customHeight).toFixed(2)} m²)\n• Aluminio: ${selectedAluminum.name}\n• Cristal: ${selectedGlass.name}\n• Ambiente: ${currentEnv.label}\n¿Podrían brindarme una cotización a medida?`
+                `Hola GYA Company, configuré esta estructura en su simulador 3D:\n• Medidas: ${customWidth.toFixed(2)}m × ${customHeight.toFixed(2)}m (${(customWidth * customHeight).toFixed(2)} m²)\n• Aluminio: ${selectedAluminum.name}\n• Cristal: ${selectedGlass.name}\n¿Podrían brindarme una cotización a medida?`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -747,11 +541,10 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
                 boxShadow="0 6px 20px rgba(16, 185, 129, 0.3)"
                 _hover={{ transform: "translateY(-1px)", boxShadow: "0 10px 25px rgba(16, 185, 129, 0.45)" }}
               >
-                💬 Cotizar esta Configuración por WhatsApp
+                Cotizar esta Configuración por WhatsApp
               </Button>
             </a>
 
-            {/* BOTÓN SECUNDARIO: VISOR NATIVO / CÓDIGO QR */}
             <Button
               variant="ghost"
               size="xs"
@@ -787,17 +580,10 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
               animation="fadeIn 0.3s ease-out"
             >
               <Text fontSize="xs" fontWeight="bold" color="text.heading" mb="2">
-                📱 Escanea con la cámara de tu iPhone o Android:
+                Escanea con la cámara de tu iPhone o Android:
               </Text>
-              
               {qrImageUrl && (
-                <Box
-                  display="inline-block"
-                  p="3"
-                  bg="white"
-                  borderRadius="xl"
-                  boxShadow="md"
-                >
+                <Box display="inline-block" p="3" bg="white" borderRadius="xl" boxShadow="md">
                   <img
                     src={qrImageUrl}
                     alt={`Código QR AR para ${title}`}
@@ -807,7 +593,6 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
                   />
                 </Box>
               )}
-
               <Text fontSize="2xs" color="text.muted" mt="2">
                 Abre la cámara de tu teléfono para apuntar al código y activar la vista AR en tu sala.
               </Text>
@@ -816,7 +601,6 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
         </Box>
       </SimpleGrid>
 
-      {/* MODAL DE CÁMARA WEBAR EN VIVO CON THREE.JS Y FOTO WHATSAPP */}
       <WebARLiveCameraModal
         isOpen={showLiveWebAR}
         onClose={() => setShowLiveWebAR(false)}
@@ -829,4 +613,3 @@ export const AuraARViewer: React.FC<AuraARViewerProps> = ({
     </Box>
   );
 };
-

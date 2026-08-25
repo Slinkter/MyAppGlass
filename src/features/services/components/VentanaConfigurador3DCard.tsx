@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
     Box,
     Flex,
     IconButton,
     Text,
     SimpleGrid,
-    HStack,
-    VStack,
-    Badge,
     Input,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
@@ -21,18 +18,10 @@ import {
     FINISHES,
     GLASS_TYPES,
     GLASS_COLORS,
-    DIMENSION_PRESETS,
 } from "./configurador3d/constants";
 import {
     DoorOpen,
     Video,
-    Ruler,
-    Layers,
-    Sparkles,
-    Check,
-    Compass,
-    AlertCircle,
-    Plus,
 } from "lucide-react";
 
 export const MIN_VENTANA_WIDTH_M = 0.25;
@@ -46,8 +35,6 @@ export const VentanaConfigurador3DCard: React.FC<{
     const [activeType, setActiveType] = useState<string>("corredizo");
     const [widthMeters, setWidthMeters] = useState(1.2);
     const [heightMeters, setHeightMeters] = useState(1.0);
-    const [widthInput, setWidthInput] = useState("1.20");
-    const [heightInput, setHeightInput] = useState("1.00");
     const [systemId, setSystemId] = useState(initialSystemId);
     const [finish, setFinish] = useState("negro");
     const [glass, setGlass] = useState("templado");
@@ -56,15 +43,6 @@ export const VentanaConfigurador3DCard: React.FC<{
     const [hasDisenoCliente, setHasDisenoCliente] = useState(false);
     const [isWindowOpen, setIsWindowOpen] = useState(false);
     const [rotationAngle, setRotationAngle] = useState<{ azimuth: number; polar: number }>({ azimuth: 27, polar: 81 });
-
-    // Sincronizar inputs cuando cambian las medidas numéricas externamente (ej: presets)
-    useEffect(() => {
-        setWidthInput(widthMeters.toString());
-    }, [widthMeters]);
-
-    useEffect(() => {
-        setHeightInput(heightMeters.toString());
-    }, [heightMeters]);
 
     // Sincronizar cuando cambia la selección externa del sistema en la cabecera
     useEffect(() => {
@@ -479,638 +457,337 @@ export const VentanaConfigurador3DCard: React.FC<{
         setRotationAngle({ azimuth: 27, polar: 81 });
     }, [width, height]);
 
-    const currentWindow = useMemo(() => {
-        return WINDOW_CATALOG.find((w) => w.id === activeType) || WINDOW_CATALOG[0];
-    }, [activeType]);
-
-    // Detección de errores de validación en tiempo real para feedback visual
-    const widthNum = parseFloat(widthInput);
-    const widthError = useMemo(() => {
-        if (!widthInput.trim() || isNaN(widthNum)) return "Ingrese un ancho válido";
-        if (widthNum < MIN_VENTANA_WIDTH_M) return `Mínimo: ${MIN_VENTANA_WIDTH_M}m`;
-        if (widthNum > MAX_VENTANA_WIDTH_M) return `Máximo: ${MAX_VENTANA_WIDTH_M}m`;
-        return null;
-    }, [widthInput, widthNum]);
-
-    const heightNum = parseFloat(heightInput);
-    const heightError = useMemo(() => {
-        if (!heightInput.trim() || isNaN(heightNum)) return "Ingrese una altura válida";
-        if (heightNum < MIN_VENTANA_HEIGHT_M) return `Mínimo: ${MIN_VENTANA_HEIGHT_M}m`;
-        if (heightNum > MAX_VENTANA_HEIGHT_M) return `Máximo: ${MAX_VENTANA_HEIGHT_M}m`;
-        return null;
-    }, [heightInput, heightNum]);
+    const currentWindowLabel = WINDOW_CATALOG.find((w) => w.id === activeType)?.title || "Corrediza";
+    const currentSystemLabel = availableSystems.find((s) => s.id === systemId)?.nombre || "Nova";
+    const currentFinishLabel = FINISHES.find((f) => f.id === finish)?.label || "Negro";
+    const currentGlassLabel = GLASS_TYPES.find((g) => g.id === glass)?.label || "Templado";
+    const currentGlassColorLabel = GLASS_COLORS.find((c) => c.id === glassColor)?.label || "Incoloro";
 
     return (
         <Box
             w="full"
-            bg={{ base: "transparent", md: "surface.card" }}
-            borderRadius={{ base: "none", md: "3xl" }}
-            borderWidth={{ base: "0px", md: "1px" }}
-            borderColor="border.default"
-            boxShadow={{ base: "none", md: "sm" }}
-            overflow="hidden"
-            position="relative"
+            bg="surface.card"
+            borderRadius="2xl"
+            p={{ base: "5", md: "8" }}
+            border="1px solid"
+            borderColor="border.glass"
+            backdropFilter="blur(16px)"
+            boxShadow="0 20px 40px rgba(0,0,0,0.2)"
         >
-            {/* Cuerpo Principal Dividido: Visor 3D (65%) + Panel de Controles (35%) */}
-            <Flex direction={{ base: "column", lg: "row" }} w="full" h={{ lg: "460px" }}>
-                {/* Columna Izquierda: Visor 3D Three.js (65% de ancho) */}
+            <SimpleGrid columns={{ base: 1, lg: 12 }} gap="6" alignItems="stretch">
+                {/* PANEL IZQUIERDO: Configuración */}
                 <Box
-                    flex={{ base: "none", lg: "6.5" }}
-                    w={{ base: "full", lg: "65%" }}
-                    position="relative"
-                    bg="bg.page"
-                    h={{ base: "280px", sm: "320px", lg: "460px" }}
-                    borderRightWidth={{ lg: "1px" }}
-                    borderBottomWidth={{ base: "1px", lg: "0" }}
-                    borderColor="border.subtle"
-                    overflow="hidden"
+                    gridColumn={{ base: "span 1", lg: "span 5" }}
+                    display="flex"
+                    flexDirection="column"
+                    p="5"
+                    bg="rgba(255, 255, 255, 0.03)"
+                    backdropFilter="blur(16px)"
+                    borderRadius="2xl"
+                    border="1px solid"
+                    borderColor="border.glass"
+                    boxShadow="0 10px 30px rgba(0,0,0,0.15)"
+                    gap="4"
+                    overflowY="auto"
                 >
-                    {/* Título 'Ventana 3d' + Estado Dinámico en Overlay Superior Izquierdo */}
-                    <Flex
-                        position="absolute"
-                        top="3"
-                        left="3"
-                        bg="surface.card"
-                        backdropFilter="blur(16px)"
-                        borderRadius="xl"
-                        py="1.5"
-                        px="3"
-                        boxShadow="sm"
-                        borderWidth="1px"
-                        borderColor="border.default"
-                        align="center"
-                        gap="2"
-                        zIndex="10"
-                    >
-                        <HStack gap="1.5">
-                            <Sparkles size={14} className="text-primary-500" />
-                            <Text fontSize="xs" fontWeight="800" letterSpacing="tight" color="text.heading">
-                                Ventana 3d
-                            </Text>
-                        </HStack>
-                        <Badge
-                            colorPalette={currentWindow.colorPalette}
-                            variant="surface"
-                            borderRadius="full"
-                            px="2"
-                            py="0.5"
-                            fontSize="9px"
-                            fontWeight="bold"
-                        >
-                            {currentWindow.title}
-                        </Badge>
-                    </Flex>
+                    {/* Tipo de Ventana */}
+                    <Box>
+                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                            Tipo de Ventana
+                        </Text>
+                        <SimpleGrid columns={2} gap="1.5">
+                            {WINDOW_CATALOG.map((item) => {
+                                const isSelected = activeType === item.id;
+                                const IconComp = item.icon;
+                                return (
+                                    <Button
+                                        key={item.id}
+                                        onClick={() => setActiveType(item.id)}
+                                        size="xs"
+                                        variant={isSelected ? "aura" : "outline"}
+                                        borderRadius="lg"
+                                        h="8"
+                                        w="full"
+                                        fontSize="2xs"
+                                        fontWeight={isSelected ? "bold" : "medium"}
+                                        justifyContent="center"
+                                        px="2"
+                                    >
+                                        <IconComp size={12} style={{ marginRight: "3px", flexShrink: 0 }} />
+                                        <Text truncate>{item.title}</Text>
+                                    </Button>
+                                );
+                            })}
+                        </SimpleGrid>
+                    </Box>
 
-                    {/* Controles Flotantes 3D en Esquina Superior Derecha */}
-                    <Flex
-                        position="absolute"
-                        top="3"
-                        right="3"
-                        direction="column"
-                        gap="1.5"
-                        zIndex="10"
-                    >
-                        <IconButton
-                            aria-label="Centrar Cámara"
-                            title="Centrar Cámara"
-                            onClick={resetCamera}
-                            bg="surface.card"
-                            borderRadius="lg"
-                            boxShadow="sm"
-                            color="text.body"
-                            size="xs"
-                            h="7"
-                            w="7"
-                            borderWidth="1px"
-                            borderColor="border.default"
-                            _hover={{
-                                bg: "bg.subtle",
-                                color: "primary.500",
-                            }}
-                        >
-                            <Video size={13} />
-                        </IconButton>
-                        <IconButton
-                            aria-label={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
-                            title={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
-                            onClick={() => setIsWindowOpen((prev) => !prev)}
-                            bg={isWindowOpen ? "primary.500" : "surface.card"}
-                            borderRadius="lg"
-                            boxShadow="sm"
-                            color={isWindowOpen ? "white" : "text.body"}
-                            size="xs"
-                            h="7"
-                            w="7"
-                            borderWidth="1px"
-                            borderColor={isWindowOpen ? "primary.500" : "border.default"}
-                            _hover={{
-                                bg: isWindowOpen ? "primary.600" : "bg.subtle",
-                            }}
-                        >
-                            <DoorOpen size={13} />
-                        </IconButton>
-                    </Flex>
+                    {/* Sistema de Ventana */}
+                    <Box>
+                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                            Sistema
+                        </Text>
+                        <SimpleGrid columns={2} gap="1.5">
+                            {availableSystems.map((sys) => {
+                                const isSelected = systemId === sys.id;
+                                return (
+                                    <Button
+                                        key={sys.id}
+                                        size="xs"
+                                        variant={isSelected ? "aura" : "outline"}
+                                        onClick={() => setSystemId(sys.id)}
+                                        borderRadius="lg"
+                                        h="8"
+                                        w="full"
+                                        fontSize="2xs"
+                                        fontWeight={isSelected ? "bold" : "medium"}
+                                        justifyContent="center"
+                                        px="2"
+                                    >
+                                        <Text truncate>{sys.nombre}</Text>
+                                    </Button>
+                                );
+                            })}
+                        </SimpleGrid>
+                    </Box>
 
-                    {/* Canvas 3D */}
-                    <Box
-                        ref={canvasRef}
-                        w="full"
-                        h="full"
-                        cursor="grab"
-                        _active={{ cursor: "grabbing" }}
-                    />
+                    {/* Tipo de Vidrio */}
+                    <Box>
+                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                            Tipo de Vidrio
+                        </Text>
+                        <SimpleGrid columns={3} gap="1.5">
+                            {GLASS_TYPES.map((g) => {
+                                const isSelected = glass === g.id;
+                                return (
+                                    <Button
+                                        key={g.id}
+                                        size="xs"
+                                        variant={isSelected ? "aura" : "outline"}
+                                        onClick={() => setGlass(g.id)}
+                                        borderRadius="lg"
+                                        h="8"
+                                        w="full"
+                                        fontSize="2xs"
+                                        fontWeight={isSelected ? "bold" : "medium"}
+                                        justifyContent="center"
+                                        px="1"
+                                    >
+                                        <Text truncate>{g.label}</Text>
+                                    </Button>
+                                );
+                            })}
+                        </SimpleGrid>
+                    </Box>
 
-                    {/* Badge Inferior de Medidas & Área + Ángulos */}
-                    <Box
-                        position="absolute"
-                        bottom="3"
-                        left="3"
-                        right="3"
-                        bg="surface.card"
-                        backdropFilter="blur(16px)"
-                        borderRadius="xl"
-                        py="1.5"
-                        px="2.5"
-                        boxShadow="sm"
-                        borderWidth="1px"
-                        borderColor="border.default"
-                    >
-                        <Flex align="center" justify="space-around">
-                            <Box textAlign="center">
-                                <Text fontSize="9px" color="text.muted" fontWeight="bold" textTransform="uppercase">
-                                    Ancho
-                                </Text>
-                                <Text fontSize="xs" fontWeight="extrabold" color="text.heading">
-                                    {widthMeters.toFixed(2)} m
-                                </Text>
+                    {/* Color de Aluminio */}
+                    <Box>
+                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                            Color de Aluminio
+                        </Text>
+                        <SimpleGrid columns={5} gap="1.5">
+                            {FINISHES.map((f) => {
+                                const isSelected = finish === f.id;
+                                return (
+                                    <Flex
+                                        key={f.id}
+                                        as="button"
+                                        onClick={() => setFinish(f.id)}
+                                        direction="column"
+                                        align="center"
+                                        justify="center"
+                                        gap="1"
+                                        p="1.5"
+                                        borderRadius="lg"
+                                        borderWidth={isSelected ? "2px" : "1px"}
+                                        borderColor={isSelected ? "primary.500" : "border.default"}
+                                        bg={isSelected ? "bg.subtle" : "transparent"}
+                                        cursor="pointer"
+                                        transition="all 0.2s ease"
+                                        _hover={{ borderColor: "primary.500" }}
+                                    >
+                                        <Box w="5" h="5" borderRadius="full" bg={f.color} border="1px solid rgba(0,0,0,0.2)" boxShadow="sm" />
+                                        <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
+                                            {f.label.replace(" Claro", "")}
+                                        </Text>
+                                    </Flex>
+                                );
+                            })}
+                        </SimpleGrid>
+                    </Box>
+
+                    {/* Color de Vidrio */}
+                    <Box>
+                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                            Color de Vidrio
+                        </Text>
+                        <SimpleGrid columns={5} gap="1.5">
+                            {GLASS_COLORS.map((gc) => {
+                                const isSelected = glassColor === gc.id;
+                                return (
+                                    <Flex
+                                        key={gc.id}
+                                        as="button"
+                                        onClick={() => setGlassColor(gc.id)}
+                                        direction="column"
+                                        align="center"
+                                        justify="center"
+                                        gap="1"
+                                        p="1.5"
+                                        borderRadius="lg"
+                                        borderWidth={isSelected ? "2px" : "1px"}
+                                        borderColor={isSelected ? "primary.500" : "border.default"}
+                                        bg={isSelected ? "bg.subtle" : "transparent"}
+                                        cursor="pointer"
+                                        transition="all 0.2s ease"
+                                        _hover={{ borderColor: "primary.500" }}
+                                    >
+                                        <Box w="5" h="5" borderRadius="full" bg={gc.colorHex} border="1px solid" borderColor="border.default" />
+                                        <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
+                                            {gc.label}
+                                        </Text>
+                                    </Flex>
+                                );
+                            })}
+                        </SimpleGrid>
+                    </Box>
+
+                    {/* Dimensiones */}
+                    <Box>
+                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                            Dimensiones (m)
+                        </Text>
+                        <SimpleGrid columns={2} gap="2">
+                            <Box>
+                                <Text fontSize="9px" color="text.muted" mb="0.5">Ancho</Text>
+                                <Input
+                                    type="number"
+                                    value={widthMeters}
+                                    min={MIN_VENTANA_WIDTH_M}
+                                    max={MAX_VENTANA_WIDTH_M}
+                                    step={0.01}
+                                    onChange={(e) => {
+                                        const num = parseFloat(e.target.value);
+                                        if (!isNaN(num) && num >= MIN_VENTANA_WIDTH_M && num <= MAX_VENTANA_WIDTH_M) setWidthMeters(num);
+                                    }}
+                                    size="xs"
+                                    h="7"
+                                    borderRadius="lg"
+                                />
                             </Box>
-                            <Box w="1px" h="3.5" bg="border.subtle" />
-                            <Box textAlign="center">
-                                <Text fontSize="9px" color="text.muted" fontWeight="bold" textTransform="uppercase">
-                                    Alto
-                                </Text>
-                                <Text fontSize="xs" fontWeight="extrabold" color="text.heading">
-                                    {heightMeters.toFixed(2)} m
-                                </Text>
+                            <Box>
+                                <Text fontSize="9px" color="text.muted" mb="0.5">Alto</Text>
+                                <Input
+                                    type="number"
+                                    value={heightMeters}
+                                    min={MIN_VENTANA_HEIGHT_M}
+                                    max={MAX_VENTANA_HEIGHT_M}
+                                    step={0.01}
+                                    onChange={(e) => {
+                                        const num = parseFloat(e.target.value);
+                                        if (!isNaN(num) && num >= MIN_VENTANA_HEIGHT_M && num <= MAX_VENTANA_HEIGHT_M) setHeightMeters(num);
+                                    }}
+                                    size="xs"
+                                    h="7"
+                                    borderRadius="lg"
+                                />
                             </Box>
-                            <Box w="1px" h="3.5" bg="border.subtle" />
-                            <Box textAlign="center">
-                                <Text fontSize="9px" color="text.muted" fontWeight="bold" textTransform="uppercase">
-                                    Área
-                                </Text>
-                                <Text fontSize="xs" fontWeight="extrabold" color="primary.500">
-                                    {(widthMeters * heightMeters).toFixed(2)} m²
-                                </Text>
-                            </Box>
-                            <Box w="1px" h="3.5" bg="border.subtle" />
-                            <Box textAlign="center">
-                                <Text fontSize="9px" color="text.muted" fontWeight="bold" textTransform="uppercase">
-                                    Giro
-                                </Text>
-                                <Text fontSize="xs" fontWeight="extrabold" color="text.heading" fontFamily="mono">
-                                    {rotationAngle.azimuth}°
-                                </Text>
-                            </Box>
-                        </Flex>
+                        </SimpleGrid>
                     </Box>
                 </Box>
 
-                {/* Columna Derecha: Panel de Configuración (35% de ancho) */}
-                <Flex
-                    flex={{ base: "none", lg: "3.5" }}
-                    w={{ base: "full", lg: "35%" }}
-                    h={{ lg: "460px" }}
-                    bg={{ base: "transparent", lg: "rgba(255, 255, 255, 0.6)" }}
-                    _dark={{ bg: { lg: "rgba(28, 25, 23, 0.65)" } }}
-                    backdropFilter={{ lg: "blur(24px)" }}
-                    borderLeftWidth={{ lg: "1px" }}
-                    borderColor="whiteAlpha.300"
-                    direction="column"
-                    justify="space-between"
+                {/* PANEL DERECHO: Render 3D + Descripción */}
+                <Box
+                    gridColumn={{ base: "span 1", lg: "span 7" }}
+                    display="flex"
+                    flexDirection="column"
+                    gap="4"
                 >
-                    <Box p={{ base: "3", md: "4" }} px={{ base: "0", md: "4" }} overflowY="auto" flex="1">
-                        <VStack gap="4" align="stretch">
-                            {/* 1. Tipo de Ventana (Grid Homogéneo 2 columnas) */}
-                            <Box>
-                                <Flex align="center" gap="1.5" mb="1.5">
-                                    <DoorOpen size={14} className="text-primary-500" />
-                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
-                                        Tipo de Ventana
-                                    </Text>
-                                </Flex>
-                                <SimpleGrid columns={2} gap="2">
-                                    {WINDOW_CATALOG.map((item) => {
-                                        const isSelected = activeType === item.id;
-                                        const IconComp = item.icon;
-                                        return (
-                                            <Button
-                                                key={item.id}
-                                                onClick={() => setActiveType(item.id)}
-                                                size="sm"
-                                                variant={isSelected ? "aura" : "outline"}
-                                                borderRadius="xl"
-                                                h="8"
-                                                w="full"
-                                                fontSize="xs"
-                                                fontWeight={isSelected ? "bold" : "medium"}
-                                                transition="all 0.2s ease"
-                                                justifyContent="center"
-                                                px="2"
-                                            >
-                                                <IconComp size={13} style={{ marginRight: "4px", flexShrink: 0 }} />
-                                                <Text truncate>{item.title}</Text>
-                                            </Button>
-                                        );
-                                    })}
-                                </SimpleGrid>
-                            </Box>
+                    {/* VISOR 3D */}
+                    <Box
+                        position="relative"
+                        h={{ base: "340px", sm: "380px", md: "460px" }}
+                        bg="bg.page"
+                        borderRadius="2xl"
+                        border="1px solid"
+                        borderColor="border.subtle"
+                        overflow="hidden"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <Box
+                            ref={canvasRef}
+                            w="full"
+                            h="full"
+                            cursor="grab"
+                            _active={{ cursor: "grabbing" }}
+                        />
 
-                            {/* 2. Sistema de Ventana (Grid Homogéneo 2 columnas) */}
-                            <Box>
-                                <Flex align="center" gap="1.5" mb="1.5">
-                                    <Layers size={14} className="text-primary-500" />
-                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
-                                        Sistema de Ventana
-                                    </Text>
-                                </Flex>
-                                <SimpleGrid columns={2} gap="2">
-                                    {availableSystems.map((sys) => {
-                                        const isSelected = systemId === sys.id;
-                                        return (
-                                            <Button
-                                                key={sys.id}
-                                                size="sm"
-                                                variant={isSelected ? "aura" : "outline"}
-                                                onClick={() => setSystemId(sys.id)}
-                                                borderRadius="xl"
-                                                h="8"
-                                                w="full"
-                                                fontSize="xs"
-                                                fontWeight={isSelected ? "bold" : "medium"}
-                                                transition="all 0.2s ease"
-                                                justifyContent="center"
-                                                px="2"
-                                            >
-                                                <Text truncate>{sys.nombre}</Text>
-                                            </Button>
-                                        );
-                                    })}
-                                </SimpleGrid>
-                            </Box>
-
-                            {/* 3. Dimensiones */}
-                            <Box>
-                                <Flex align="center" justify="space-between" mb="1.5">
-                                    <Flex align="center" gap="1.5">
-                                        <Ruler size={14} className="text-primary-500" />
-                                        <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
-                                            Dimensiones (Metros)
-                                        </Text>
-                                    </Flex>
-                                    <Text fontSize="10px" color="text.muted" fontWeight="semibold">
-                                        {width} × {height} mm
-                                    </Text>
-                                </Flex>
-
-                                {/* Presets Rápidos en SimpleGrid */}
-                                <SimpleGrid columns={{ base: 3, sm: 5 }} gap="1.5" mb="2.5">
-                                    {DIMENSION_PRESETS.map((preset) => {
-                                        const isSelected =
-                                            Math.abs(widthMeters - preset.width) < 0.01 &&
-                                            Math.abs(heightMeters - preset.height) < 0.01;
-                                        return (
-                                            <Button
-                                                key={preset.label}
-                                                size="xs"
-                                                variant={isSelected ? "aura" : "outline"}
-                                                borderRadius="lg"
-                                                h="6.5"
-                                                w="full"
-                                                fontSize="10px"
-                                                fontWeight={isSelected ? "bold" : "medium"}
-                                                onClick={() => {
-                                                    setWidthMeters(preset.width);
-                                                    setHeightMeters(preset.height);
-                                                }}
-                                            >
-                                                {preset.label}
-                                            </Button>
-                                        );
-                                    })}
-                                </SimpleGrid>
-
-                                <SimpleGrid columns={2} gap="2.5">
-                                    <Box>
-                                        <Flex justify="space-between" align="center" mb="1">
-                                            <Text fontSize="11px" color={widthError ? "red.500" : "text.muted"} fontWeight={widthError ? "bold" : "medium"}>
-                                                Ancho (m)
-                                            </Text>
-                                            <Text fontSize="9px" color="text.muted">
-                                                {MIN_VENTANA_WIDTH_M}m - {MAX_VENTANA_WIDTH_M}m
-                                            </Text>
-                                        </Flex>
-                                        <Input
-                                            type="number"
-                                            value={widthInput}
-                                            min={MIN_VENTANA_WIDTH_M}
-                                            max={MAX_VENTANA_WIDTH_M}
-                                            step={0.01}
-                                            borderColor={widthError ? "red.500" : undefined}
-                                            _focus={{
-                                                borderColor: widthError ? "red.500" : "primary.500",
-                                                boxShadow: widthError ? "0 0 0 1px #ef4444" : undefined,
-                                            }}
-                                            onChange={(e) => {
-                                                const val = e.target.value;
-                                                setWidthInput(val);
-                                                const num = parseFloat(val);
-                                                if (!isNaN(num) && num >= MIN_VENTANA_WIDTH_M && num <= MAX_VENTANA_WIDTH_M) {
-                                                    setWidthMeters(num);
-                                                }
-                                            }}
-                                            onBlur={() => {
-                                                const num = parseFloat(widthInput);
-                                                if (isNaN(num) || num < MIN_VENTANA_WIDTH_M) {
-                                                    setWidthMeters(MIN_VENTANA_WIDTH_M);
-                                                    setWidthInput(MIN_VENTANA_WIDTH_M.toFixed(2));
-                                                } else if (num > MAX_VENTANA_WIDTH_M) {
-                                                    setWidthMeters(MAX_VENTANA_WIDTH_M);
-                                                    setWidthInput(MAX_VENTANA_WIDTH_M.toFixed(2));
-                                                } else {
-                                                    const rounded = parseFloat(num.toFixed(2));
-                                                    setWidthMeters(rounded);
-                                                    setWidthInput(rounded.toFixed(2));
-                                                }
-                                            }}
-                                            size="sm"
-                                            h="8"
-                                            borderRadius="lg"
-                                        />
-                                        {widthError && (
-                                            <Flex align="center" gap="1" mt="1" color="red.500" _dark={{ color: "red.400" }}>
-                                                <AlertCircle size={11} />
-                                                <Text fontSize="9px" fontWeight="semibold">
-                                                    {widthError}
-                                                </Text>
-                                            </Flex>
-                                        )}
-                                    </Box>
-                                    <Box>
-                                        <Flex justify="space-between" align="center" mb="1">
-                                            <Text fontSize="11px" color={heightError ? "red.500" : "text.muted"} fontWeight={heightError ? "bold" : "medium"}>
-                                                Alto (m)
-                                            </Text>
-                                            <Text fontSize="9px" color="text.muted">
-                                                {MIN_VENTANA_HEIGHT_M}m - {MAX_VENTANA_HEIGHT_M}m
-                                            </Text>
-                                        </Flex>
-                                        <Input
-                                            type="number"
-                                            value={heightInput}
-                                            min={MIN_VENTANA_HEIGHT_M}
-                                            max={MAX_VENTANA_HEIGHT_M}
-                                            step={0.01}
-                                            borderColor={heightError ? "red.500" : undefined}
-                                            _focus={{
-                                                borderColor: heightError ? "red.500" : "primary.500",
-                                                boxShadow: heightError ? "0 0 0 1px #ef4444" : undefined,
-                                            }}
-                                            onChange={(e) => {
-                                                const val = e.target.value;
-                                                setHeightInput(val);
-                                                const num = parseFloat(val);
-                                                if (!isNaN(num) && num >= MIN_VENTANA_HEIGHT_M && num <= MAX_VENTANA_HEIGHT_M) {
-                                                    setHeightMeters(num);
-                                                }
-                                            }}
-                                            onBlur={() => {
-                                                const num = parseFloat(heightInput);
-                                                if (isNaN(num) || num < MIN_VENTANA_HEIGHT_M) {
-                                                    setHeightMeters(MIN_VENTANA_HEIGHT_M);
-                                                    setHeightInput(MIN_VENTANA_HEIGHT_M.toFixed(2));
-                                                } else if (num > MAX_VENTANA_HEIGHT_M) {
-                                                    setHeightMeters(MAX_VENTANA_HEIGHT_M);
-                                                    setHeightInput(MAX_VENTANA_HEIGHT_M.toFixed(2));
-                                                } else {
-                                                    const rounded = parseFloat(num.toFixed(2));
-                                                    setHeightMeters(rounded);
-                                                    setHeightInput(rounded.toFixed(2));
-                                                }
-                                            }}
-                                            size="sm"
-                                            h="8"
-                                            borderRadius="lg"
-                                        />
-                                        {heightError && (
-                                            <Flex align="center" gap="1" mt="1" color="red.500" _dark={{ color: "red.400" }}>
-                                                <AlertCircle size={11} />
-                                                <Text fontSize="9px" fontWeight="semibold">
-                                                    {heightError}
-                                                </Text>
-                                            </Flex>
-                                        )}
-                                    </Box>
-                                </SimpleGrid>
-                            </Box>
-
-                            {/* 4. Color de Vidrio (Grid Homogéneo 3 columnas) */}
-                            <Box>
-                                <Flex justify="space-between" align="center" mb="1.5">
-                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
-                                        Color de Vidrio
-                                    </Text>
-                                    <Text fontSize="xs" color="primary.500" fontWeight="bold">
-                                        {GLASS_COLORS.find((c) => c.id === glassColor)?.label}
-                                    </Text>
-                                </Flex>
-                                <SimpleGrid columns={3} gap="2">
-                                    {GLASS_COLORS.map((gc) => {
-                                        const isSelected = glassColor === gc.id;
-                                        return (
-                                            <Button
-                                                key={gc.id}
-                                                size="xs"
-                                                variant={isSelected ? "aura" : "outline"}
-                                                onClick={() => setGlassColor(gc.id)}
-                                                borderRadius="xl"
-                                                h="7.5"
-                                                w="full"
-                                                fontWeight={isSelected ? "bold" : "medium"}
-                                                justifyContent="center"
-                                                px="2"
-                                            >
-                                                <Box w="2.5" h="2.5" borderRadius="full" bg={gc.colorHex} mr="1.5" borderWidth="1px" borderColor="border.default" flexShrink={0} />
-                                                <Text truncate>{gc.label}</Text>
-                                            </Button>
-                                        );
-                                    })}
-                                </SimpleGrid>
-                            </Box>
-
-                            {/* 5. Color de Aluminio (Color de Perfil) */}
-                            <Box>
-                                <Flex justify="space-between" align="center" mb="1.5">
-                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
-                                        Color de Aluminio
-                                    </Text>
-                                    <Text fontSize="xs" color="primary.500" fontWeight="bold">
-                                        {FINISHES.find((f) => f.id === finish)?.label}
-                                    </Text>
-                                </Flex>
-                                <SimpleGrid columns={4} gap="2">
-                                    {FINISHES.map((f) => {
-                                        const isSelected = finish === f.id;
-                                        return (
-                                            <Flex
-                                                key={f.id}
-                                                as="button"
-                                                onClick={() => setFinish(f.id)}
-                                                h="8"
-                                                borderRadius="xl"
-                                                borderWidth={isSelected ? "2px" : "1px"}
-                                                borderColor={isSelected ? "primary.500" : "border.default"}
-                                                bg={isSelected ? "bg.subtle" : "transparent"}
-                                                align="center"
-                                                justify="center"
-                                                gap="1.5"
-                                                cursor="pointer"
-                                                transition="all 0.2s ease"
-                                                _hover={{ borderColor: "primary.500" }}
-                                                aria-label={`Seleccionar color ${f.label}`}
-                                            >
-                                                <Box
-                                                    w="3"
-                                                    h="3"
-                                                    borderRadius="full"
-                                                    bg={f.color}
-                                                    borderWidth="1px"
-                                                    borderColor="border.default"
-                                                    boxShadow="sm"
-                                                    flexShrink={0}
-                                                />
-                                                <Text fontSize="10px" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate>
-                                                    {f.label.replace(" Claro", "")}
-                                                </Text>
-                                            </Flex>
-                                        );
-                                    })}
-                                </SimpleGrid>
-                            </Box>
-
-                            {/* 6. Tipo de Vidrio (Fichas Uniformes) */}
-                            <Box>
-                                <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                                    Tipo de Vidrio
-                                </Text>
-                                <VStack gap="1.5" align="stretch">
-                                    {GLASS_TYPES.map((g: typeof GLASS_TYPES[0]) => {
-                                        const isSelected = glass === g.id;
-                                        return (
-                                            <Flex
-                                                key={g.id}
-                                                p="2"
-                                                minH="48px"
-                                                borderRadius="xl"
-                                                borderWidth="1px"
-                                                borderColor={isSelected ? "primary.500" : "border.default"}
-                                                bg={isSelected ? "bg.subtle" : "transparent"}
-                                                justify="space-between"
-                                                align="center"
-                                                cursor="pointer"
-                                                onClick={() => setGlass(g.id)}
-                                                transition="all 0.2s ease"
-                                            >
-                                                <Box>
-                                                    <Flex align="center" gap="2" mb="0.5">
-                                                        <Text fontSize="xs" fontWeight="bold" color="text.heading">
-                                                            {g.label}
-                                                        </Text>
-                                                        {g.badge && (
-                                                            <Badge
-                                                                size="xs"
-                                                                colorPalette={g.colorPalette}
-                                                                variant="subtle"
-                                                                borderRadius="full"
-                                                                fontSize="9px"
-                                                                px="1.5"
-                                                            >
-                                                                {g.badge}
-                                                            </Badge>
-                                                        )}
-                                                    </Flex>
-                                                    <Text fontSize="10px" color="text.muted">
-                                                        {g.desc}
-                                                    </Text>
-                                                </Box>
-                                                {isSelected && <Check size={14} className="text-primary-500" style={{ flexShrink: 0 }} />}
-                                            </Flex>
-                                        );
-                                    })}
-                                </VStack>
-                            </Box>
-
-                            {/* 7. Adicional (Grid Homogéneo 2 columnas) */}
-                            <Box>
-                                <Flex align="center" gap="1.5" mb="1.5">
-                                    <Plus size={14} className="text-primary-500" />
-                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
-                                        Adicional
-                                    </Text>
-                                </Flex>
-                                <SimpleGrid columns={2} gap="2">
-                                    <Flex
-                                        p="2"
-                                        minH="46px"
-                                        borderRadius="xl"
-                                        borderWidth="1px"
-                                        borderColor={hasArenado ? "primary.500" : "border.default"}
-                                        bg={hasArenado ? "bg.subtle" : "transparent"}
-                                        justify="space-between"
-                                        align="center"
-                                        cursor="pointer"
-                                        onClick={() => setHasArenado((prev) => !prev)}
-                                        transition="all 0.2s ease"
-                                    >
-                                        <Box>
-                                            <Text fontSize="xs" fontWeight="bold" color="text.heading">
-                                                Arenado
-                                            </Text>
-                                            <Text fontSize="9px" color="text.muted">
-                                                Acabado translúcido
-                                            </Text>
-                                        </Box>
-                                        {hasArenado && <Check size={14} className="text-primary-500" style={{ flexShrink: 0 }} />}
-                                    </Flex>
-
-                                    <Flex
-                                        p="2.5"
-                                        minH="46px"
-                                        borderRadius="xl"
-                                        borderWidth="1px"
-                                        borderColor={hasDisenoCliente ? "primary.500" : "border.default"}
-                                        bg={hasDisenoCliente ? "bg.subtle" : "transparent"}
-                                        justify="space-between"
-                                        align="center"
-                                        cursor="pointer"
-                                        onClick={() => setHasDisenoCliente((prev) => !prev)}
-                                        transition="all 0.2s ease"
-                                    >
-                                        <Box>
-                                            <Text fontSize="xs" fontWeight="bold" color="text.heading">
-                                                Diseño a Medida
-                                            </Text>
-                                            <Text fontSize="9px" color="text.muted">
-                                                Según cliente
-                                            </Text>
-                                        </Box>
-                                        {hasDisenoCliente && <Check size={14} className="text-primary-500" style={{ flexShrink: 0 }} />}
-                                    </Flex>
-                                </SimpleGrid>
-                            </Box>
-                        </VStack>
+                        <Flex
+                            position="absolute"
+                            top="3"
+                            right="3"
+                            direction="column"
+                            gap="1.5"
+                            zIndex="10"
+                        >
+                            <IconButton
+                                aria-label="Centrar Cámara"
+                                title="Centrar Cámara"
+                                onClick={resetCamera}
+                                bg="surface.card"
+                                borderRadius="lg"
+                                boxShadow="sm"
+                                color="text.body"
+                                size="xs"
+                                h="7"
+                                w="7"
+                                borderWidth="1px"
+                                borderColor="border.default"
+                                _hover={{ bg: "bg.subtle", color: "primary.500" }}
+                            >
+                                <Video size={13} />
+                            </IconButton>
+                            <IconButton
+                                aria-label={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
+                                title={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
+                                onClick={() => setIsWindowOpen((prev) => !prev)}
+                                bg={isWindowOpen ? "primary.500" : "surface.card"}
+                                borderRadius="lg"
+                                boxShadow="sm"
+                                color={isWindowOpen ? "white" : "text.body"}
+                                size="xs"
+                                h="7"
+                                w="7"
+                                borderWidth="1px"
+                                borderColor={isWindowOpen ? "primary.500" : "border.default"}
+                                _hover={{ bg: isWindowOpen ? "primary.600" : "bg.subtle" }}
+                            >
+                                <DoorOpen size={13} />
+                            </IconButton>
+                        </Flex>
                     </Box>
-                </Flex>
-            </Flex>
+
+                    {/* Descripción de la configuración */}
+                    <Box
+                        p="5"
+                        bg="rgba(255, 255, 255, 0.03)"
+                        backdropFilter="blur(16px)"
+                        borderRadius="2xl"
+                        border="1px solid"
+                        borderColor="border.glass"
+                    >
+                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="3">
+                            Configuración Actual
+                        </Text>
+                        <Text fontSize="sm" color="text.body" lineHeight="tall">
+                            Sistema <strong>{currentSystemLabel}</strong> en tipo <strong>{currentWindowLabel}</strong>,
+                            con perfil de aluminio en color <strong>{currentFinishLabel}</strong> y vidrio <strong>{currentGlassLabel}</strong> tono <strong>{currentGlassColorLabel}</strong>.
+                            Dimensiones: <strong>{widthMeters.toFixed(2)}m × {heightMeters.toFixed(2)}m</strong> ({(widthMeters * heightMeters).toFixed(2)} m²).
+                        </Text>
+                    </Box>
+                </Box>
+            </SimpleGrid>
         </Box>
     );
 };
