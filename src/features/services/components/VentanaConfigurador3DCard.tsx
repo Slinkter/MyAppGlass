@@ -15,9 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { calcularPrecio } from "../utils/calculo-ventanas";
 import ventanasCatalogo from "../data/ventanas-catalogo.json";
-import { companyData } from "@/shared/config/company-data";
 import {
     WINDOW_CATALOG,
     FINISHES,
@@ -28,7 +26,6 @@ import {
 import {
     DoorOpen,
     Video,
-    MessageCircle,
     Ruler,
     Layers,
     Sparkles,
@@ -58,7 +55,6 @@ export const VentanaConfigurador3DCard: React.FC<{
     const [hasArenado, setHasArenado] = useState(false);
     const [hasDisenoCliente, setHasDisenoCliente] = useState(false);
     const [isWindowOpen, setIsWindowOpen] = useState(false);
-    const [price, setPrice] = useState(0);
     const [rotationAngle, setRotationAngle] = useState<{ azimuth: number; polar: number }>({ azimuth: 27, polar: 81 });
 
     // Sincronizar inputs cuando cambian las medidas numéricas externamente (ej: presets)
@@ -112,19 +108,6 @@ export const VentanaConfigurador3DCard: React.FC<{
     const reqRef = useRef<number | null>(null);
 
     const availableSystems = ventanasCatalogo.sistemas;
-
-    const updatePrice = useCallback(() => {
-        const cost = calcularPrecio({
-            sistemaId: systemId,
-            tipoId: activeType,
-            acabadoAluminio: finish as import("../types/catalogo").AcabadoAluminioId,
-            tipoVidrio: glass as import("../types/catalogo").TipoVidrioId,
-            colorVidrio: glassColor as import("../types/catalogo").ColorVidrioId,
-            anchoMm: width,
-            altoMm: height,
-        });
-        setPrice(cost);
-    }, [systemId, activeType, finish, glass, glassColor, width, height]);
 
     // Helpers 3D
     const cleanup3D = useCallback(() => {
@@ -465,8 +448,6 @@ export const VentanaConfigurador3DCard: React.FC<{
 
     // Ciclo de vida Three.js
     useEffect(() => {
-        updatePrice();
-
         const timer = setTimeout(() => {
             init3D();
             generate3DModel();
@@ -476,12 +457,11 @@ export const VentanaConfigurador3DCard: React.FC<{
             clearTimeout(timer);
             cleanup3D();
         };
-    }, [activeType, init3D, cleanup3D, updatePrice, generate3DModel, systemId]);
+    }, [activeType, init3D, cleanup3D, generate3DModel, systemId]);
 
     useEffect(() => {
-        updatePrice();
         generate3DModel();
-    }, [widthMeters, heightMeters, systemId, finish, glass, glassColor, hasArenado, updatePrice, generate3DModel]);
+    }, [widthMeters, heightMeters, systemId, finish, glass, glassColor, hasArenado, generate3DModel]);
 
     const resetCamera = useCallback(() => {
         if (!cameraRef.current || !controlsRef.current) return;
@@ -498,27 +478,6 @@ export const VentanaConfigurador3DCard: React.FC<{
         controlsRef.current.update();
         setRotationAngle({ azimuth: 27, polar: 81 });
     }, [width, height]);
-
-    const handleSendWhatsApp = useCallback(() => {
-        const phone = companyData.whatsappNumber || "51999999999";
-        const sys =
-            ventanasCatalogo.sistemas.find((s) => s.id === systemId)?.nombre || systemId;
-        const winName =
-            WINDOW_CATALOG.find((w) => w.id === activeType)?.title || activeType;
-        const glassName =
-            GLASS_TYPES.find((g) => g.id === glass)?.label || glass;
-        const glassColorName =
-            GLASS_COLORS.find((c) => c.id === glassColor)?.label || glassColor;
-
-        const adicionalesList: string[] = [];
-        if (hasArenado) adicionalesList.push("Arenado");
-        if (hasDisenoCliente) adicionalesList.push("Diseño según cliente");
-        const adicionalesText = adicionalesList.length > 0 ? `%0A*Adicionales:* ${adicionalesList.join(", ")}` : "";
-
-        const text = `Hola ${companyData.companyName}, deseo cotizar el siguiente diseño configurado en 3D:%0A%0A*Tipo:* ${winName}%0A*Sistema:* ${sys}%0A*Medidas:* ${widthMeters.toFixed(2)}m ancho x ${heightMeters.toFixed(2)}m alto (${width}x${height} mm)%0A*Área:* ${(widthMeters * heightMeters).toFixed(2)} m²%0A*Tono de Cristal:* ${glassColorName}%0A*Acabado Perfil:* ${finish}%0A*Tipo de Cristal:* ${glassName}${adicionalesText}%0A*Precio Estimado:* S/ ${price.toFixed(2)}%0A%0A¿Podrían confirmar tiempos de fabricación e instalación?`;
-
-        window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
-    }, [systemId, activeType, glass, glassColor, widthMeters, heightMeters, width, height, finish, hasArenado, hasDisenoCliente, price]);
 
     const currentWindow = useMemo(() => {
         return WINDOW_CATALOG.find((w) => w.id === activeType) || WINDOW_CATALOG[0];
@@ -1149,54 +1108,6 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 </SimpleGrid>
                             </Box>
                         </VStack>
-                    </Box>
-
-                    {/* Footer Fijo de Cotización + Botón WhatsApp */}
-                    <Box
-                        p={{ base: "3", md: "3.5" }}
-                        px={{ base: "0", md: "4" }}
-                        bg={{ base: "transparent", md: "bg.subtle" }}
-                        borderTopWidth="1px"
-                        borderColor="border.subtle"
-                    >
-                        <Flex justify="space-between" align="center" mb="2">
-                            <Box>
-                                <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase" letterSpacing="wider">
-                                    Precio Estimado
-                                </Text>
-                                <Flex align="baseline" gap="1">
-                                    <Text fontSize="sm" color="text.muted" fontWeight="bold">
-                                        S/
-                                    </Text>
-                                    <Text fontSize="xl" color="primary.500" fontWeight="black" lineHeight="1">
-                                        {price.toFixed(2)}
-                                    </Text>
-                                </Flex>
-                            </Box>
-                            <Box textAlign="right">
-                                <Text fontSize="10px" color="text.muted">
-                                    Incluye IGV e Instalación
-                                </Text>
-                            </Box>
-                        </Flex>
-
-                        <Button
-                            w="full"
-                            size="md"
-                            variant="aura"
-                            onClick={handleSendWhatsApp}
-                            borderRadius="xl"
-                            h="10"
-                            fontWeight="800"
-                            _hover={{
-                                transform: "translateY(-1px)",
-                                boxShadow: "lg",
-                            }}
-                            transition="all 0.2s"
-                        >
-                            <MessageCircle size={16} style={{ marginRight: "6px" }} />
-                            Cotizar por WhatsApp
-                        </Button>
                     </Box>
                 </Flex>
             </Flex>
