@@ -114,6 +114,16 @@ export const VentanaConfigurador3DCard: React.FC<{
         );
     }, [activeType]);
 
+    // Asegurar que si el sistema actual no es compatible con la nueva tipología, se seleccione el primer compatible
+    useEffect(() => {
+        if (availableSystems.length > 0) {
+            const isCurrentSystemAvailable = availableSystems.some((sys) => sys.id === systemId);
+            if (!isCurrentSystemAvailable) {
+                setSystemId(availableSystems[0].id);
+            }
+        }
+    }, [availableSystems, systemId]);
+
     const updatePrice = useCallback(() => {
         const cost = calcularPrecio({
             sistemaId: systemId,
@@ -305,28 +315,25 @@ export const VentanaConfigurador3DCard: React.FC<{
 
         switch (systemId) {
             case "sistema-nova":
-                depth = 0.04;
+                depth = 0.045;
                 pW = 0.035;
                 break;
-            case "sistema-serie-20":
-                depth = 0.055;
-                pW = 0.045;
-                break;
+            case "serie-25":
             case "sistema-serie-25":
                 depth = 0.07;
                 pW = 0.055;
                 break;
-            case "sistema-serie-vl42":
-                depth = 0.08;
+            case "serie-35":
+            case "sistema-serie-35":
+            case "sistema-serie-37-38":
+                depth = 0.085;
                 pW = 0.065;
                 break;
-            case "sistema-serie-37-38":
-                depth = 0.09;
-                pW = 0.075;
-                break;
+            case "serie-62":
+            case "sistema-serie-62":
             case "sistema-serie-62-80":
-                depth = 0.12;
-                pW = 0.09;
+                depth = 0.11;
+                pW = 0.085;
                 break;
             default:
                 depth = 0.05;
@@ -957,12 +964,12 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 </SimpleGrid>
                             </Box>
 
-                            {/* 2. Sistema de Perfilería */}
+                            {/* 2. Sistema de Ventana */}
                             <Box>
                                 <Flex align="center" gap="1.5" mb="2">
                                     <Layers size={15} className="text-primary-500" />
                                     <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
-                                        Sistema de Perfilería
+                                        Sistema de Ventana
                                     </Text>
                                 </Flex>
                                 <Flex wrap="wrap" gap="1.5">

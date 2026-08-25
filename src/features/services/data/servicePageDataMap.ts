@@ -63,8 +63,8 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         systems: [
             { label: "Sistema Nova", icon: ChevronRight },
             { label: "Sistema Serie 25", icon: ChevronRight },
-            { label: "Sistema Serie 31", icon: ChevronRight },
-            { label: "Sistema Serie 62", icon: ChevronRight },
+            { label: "Sistema Serie 35", icon: ChevronRight },
+            { label: "Serie 62", icon: ChevronRight },
         ],
         features: [
             { label: "Cristal: Templado 6mm / 8mm / Insulado Acústico (DVH)", icon: Check },

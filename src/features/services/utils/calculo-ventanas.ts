@@ -23,11 +23,8 @@ const PRICING = {
 
 const SYSTEM_PROFILES: Record<string, { multiplier: number }> = {
   "sistema-nova": { multiplier: 1.0 },
-  "serie-20": { multiplier: 0.95 },
   "serie-25": { multiplier: 1.15 },
-  "serie-26": { multiplier: 1.3 },
-  "serie-42": { multiplier: 1.6 },
-  "serie-37": { multiplier: 1.5 },
+  "serie-35": { multiplier: 1.45 },
   "serie-62": { multiplier: 2.2 },
 };
 

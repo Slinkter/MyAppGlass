@@ -66,7 +66,7 @@
     "sistemas": [
         {
             "id": "sistema-nova",
-            "nombre": "Nova",
+            "nombre": "Sistema Nova",
             "descripcion": "Sistema clásico y versátil para ventanas y mamparas ligeras.",
             "tiposDisponibles": [
                 {
@@ -116,33 +116,8 @@
             ]
         },
         {
-            "id": "serie-20",
-            "nombre": "Serie 20",
-            "descripcion": "Línea residencial económica de alta rotación.",
-            "tiposDisponibles": [
-                {
-                    "id": "corredizo",
-                    "nombre": "Corrediza",
-                    "modelo3d": {
-                        "glb": "/models/ventanas/s20-corrediza.glb",
-                        "usdz": "/models/ventanas/s20-corrediza.usdz",
-                        "poster": "/posters/s20-corrediza.webp"
-                    }
-                },
-                {
-                    "id": "fija",
-                    "nombre": "Fija",
-                    "modelo3d": {
-                        "glb": "/models/ventanas/s20-fija.glb",
-                        "usdz": "/models/ventanas/s20-fija.usdz",
-                        "poster": "/posters/s20-fija.webp"
-                    }
-                }
-            ]
-        },
-        {
             "id": "serie-25",
-            "nombre": "Serie 25",
+            "nombre": "Sistema Serie 25",
             "descripcion": "Mayor hermeticidad con felpas de polipropileno y riel reforzado.",
             "tiposDisponibles": [
                 {
@@ -166,52 +141,9 @@
             ]
         },
         {
-            "id": "serie-42",
-            "nombre": "Serie VL42",
-            "descripcion": "Línea pesada y hermética para vanos amplios o zonas de viento.",
-            "tiposDisponibles": [
-                {
-                    "id": "corredizo",
-                    "nombre": "Corrediza",
-                    "modelo3d": {
-                        "glb": "/models/ventanas/vl42-corrediza.glb",
-                        "usdz": "/models/ventanas/vl42-corrediza.usdz",
-                        "poster": "/posters/vl42-corrediza.webp"
-                    }
-                },
-                {
-                    "id": "proyectante",
-                    "nombre": "Proyectante",
-                    "modelo3d": {
-                        "glb": "/models/ventanas/vl42-proyectante.glb",
-                        "usdz": "/models/ventanas/vl42-proyectante.usdz",
-                        "poster": "/posters/vl42-proyectante.webp"
-                    }
-                },
-                {
-                    "id": "batiente",
-                    "nombre": "Batiente",
-                    "modelo3d": {
-                        "glb": "/models/ventanas/vl42-batiente.glb",
-                        "usdz": "/models/ventanas/vl42-batiente.usdz",
-                        "poster": "/posters/vl42-batiente.webp"
-                    }
-                },
-                {
-                    "id": "pivotante",
-                    "nombre": "Pivotante",
-                    "modelo3d": {
-                        "glb": "/models/ventanas/vl42-pivotante.glb",
-                        "usdz": "/models/ventanas/vl42-pivotante.usdz",
-                        "poster": "/posters/vl42-pivotante.webp"
-                    }
-                }
-            ]
-        },
-        {
-            "id": "serie-37",
-            "nombre": "Serie 37 / 38",
-            "descripcion": "Especializada para ventanas proyectantes y batientes con brazos de extensión.",
+            "id": "serie-35",
+            "nombre": "Sistema Serie 35",
+            "descripcion": "Línea arquitectónica de alto rendimiento para proyectantes, batientes y vanos mixtos.",
             "tiposDisponibles": [
                 {
                     "id": "proyectante",
@@ -230,12 +162,21 @@
                         "usdz": "/models/ventanas/s37-batiente.usdz",
                         "poster": "/posters/s37-batiente.webp"
                     }
+                },
+                {
+                    "id": "fija",
+                    "nombre": "Fija",
+                    "modelo3d": {
+                        "glb": "/models/ventanas/s37-batiente.glb",
+                        "usdz": "/models/ventanas/s37-batiente.usdz",
+                        "poster": "/posters/s37-batiente.webp"
+                    }
                 }
             ]
         },
         {
             "id": "serie-62",
-            "nombre": "Serie 62 / 80",
+            "nombre": "Serie 62",
             "descripcion": "Línea europea de alta gama con cierres multipunto y máxima acústica.",
             "tiposDisponibles": [
                 {
@@ -250,6 +191,15 @@
                 {
                     "id": "batiente",
                     "nombre": "Batiente",
+                    "modelo3d": {
+                        "glb": "/models/ventanas/s62-batiente.glb",
+                        "usdz": "/models/ventanas/s62-batiente.usdz",
+                        "poster": "/posters/s62-batiente.webp"
+                    }
+                },
+                {
+                    "id": "proyectante",
+                    "nombre": "Proyectante",
                     "modelo3d": {
                         "glb": "/models/ventanas/s62-batiente.glb",
                         "usdz": "/models/ventanas/s62-batiente.usdz",
