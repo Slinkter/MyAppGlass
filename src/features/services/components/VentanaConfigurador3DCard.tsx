@@ -552,12 +552,12 @@ export const VentanaConfigurador3DCard: React.FC<{
             overflow="hidden"
             position="relative"
         >
-            {/* Cuerpo Principal Dividido: Visor 3D (35%) + Panel de Controles (65%) */}
+            {/* Cuerpo Principal Dividido: Visor 3D (65%) + Panel de Controles (35%) */}
             <Flex direction={{ base: "column", lg: "row" }} w="full" h={{ lg: "460px" }}>
-                {/* Columna Izquierda: Visor 3D Three.js (35% de ancho) */}
+                {/* Columna Izquierda: Visor 3D Three.js (65% de ancho) */}
                 <Box
-                    flex={{ base: "none", lg: "3.5" }}
-                    w={{ base: "full", lg: "35%" }}
+                    flex={{ base: "none", lg: "6.5" }}
+                    w={{ base: "full", lg: "65%" }}
                     position="relative"
                     bg="bg.page"
                     h={{ base: "280px", sm: "320px", lg: "460px" }}
@@ -716,10 +716,10 @@ export const VentanaConfigurador3DCard: React.FC<{
                     </Box>
                 </Box>
 
-                {/* Columna Derecha: Panel de Configuración (65% de ancho) */}
+                {/* Columna Derecha: Panel de Configuración (35% de ancho) */}
                 <Flex
-                    flex={{ base: "none", lg: "6.5" }}
-                    w={{ base: "full", lg: "65%" }}
+                    flex={{ base: "none", lg: "3.5" }}
+                    w={{ base: "full", lg: "35%" }}
                     h={{ lg: "460px" }}
                     bg={{ base: "transparent", lg: "rgba(255, 255, 255, 0.6)" }}
                     _dark={{ bg: { lg: "rgba(28, 25, 23, 0.65)" } }}
@@ -731,7 +731,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                 >
                     <Box p={{ base: "3", md: "4" }} px={{ base: "0", md: "4" }} overflowY="auto" flex="1">
                         <VStack gap="4" align="stretch">
-                            {/* 1. Tipo de Ventana (Grid Homogéneo 4 columnas) */}
+                            {/* 1. Tipo de Ventana (Grid Homogéneo 2 columnas) */}
                             <Box>
                                 <Flex align="center" gap="1.5" mb="1.5">
                                     <DoorOpen size={14} className="text-primary-500" />
@@ -739,7 +739,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                         Tipo de Ventana
                                     </Text>
                                 </Flex>
-                                <SimpleGrid columns={{ base: 2, sm: 4 }} gap="2">
+                                <SimpleGrid columns={2} gap="2">
                                     {WINDOW_CATALOG.map((item) => {
                                         const isSelected = activeType === item.id;
                                         const IconComp = item.icon;
@@ -766,7 +766,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 </SimpleGrid>
                             </Box>
 
-                            {/* 2. Sistema de Ventana (Grid Homogéneo 4 columnas) */}
+                            {/* 2. Sistema de Ventana (Grid Homogéneo 2 columnas) */}
                             <Box>
                                 <Flex align="center" gap="1.5" mb="1.5">
                                     <Layers size={14} className="text-primary-500" />
@@ -774,7 +774,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                         Sistema de Ventana
                                     </Text>
                                 </Flex>
-                                <SimpleGrid columns={{ base: 2, sm: 4 }} gap="2">
+                                <SimpleGrid columns={2} gap="2">
                                     {availableSystems.map((sys) => {
                                         const isSelected = systemId === sys.id;
                                         return (
