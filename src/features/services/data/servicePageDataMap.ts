@@ -75,8 +75,8 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
         imageLists: [
             listVentana.nova,
             listVentana.serie25,
-            listVentana.serie31,
-            [],
+            listVentana.serie35,
+            listVentana.serie62,
         ],
     },
     balcones: {

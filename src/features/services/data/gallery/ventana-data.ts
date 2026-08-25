@@ -5,7 +5,9 @@ import { GalleryItem } from "@/shared/types/gallery";
 interface VentanaData {
     nova: GalleryItem[];
     serie25: GalleryItem[];
+    serie35: GalleryItem[];
     serie31: GalleryItem[];
+    serie62: GalleryItem[];
 }
 
 const _rawListVentana: VentanaData = {
@@ -154,6 +156,26 @@ const _rawListVentana: VentanaData = {
             config3D: { numSashes: 2, aluminumId: "blanco", glassId: "incoloro", titleSuffix: "Serie 25 (Blanco Residencial)" }
         },
     ],
+    serie35: [
+        { 
+            id: 1, 
+            src: '/images/services-products-01.Ventanas-serie31-IMG_20211026_110742.webp', 
+            title: "Ventana Serie 35 Acústica Hermética 2 Hojas",
+            config3D: { numSashes: 2, aluminumId: "negro", glassId: "incoloro", titleSuffix: "Serie 35 Acústica (2 Hojas)" }
+        },
+        { 
+            id: 2, 
+            src: '/images/services-products-01.Ventanas-serie31-IMG_20211026_110803.webp', 
+            title: "Ventana Serie 35 Acústica Hermética 4 Hojas",
+            config3D: { numSashes: 4, aluminumId: "negro", glassId: "incoloro", titleSuffix: "Serie 35 Acústica (4 Hojas)" }
+        },
+        { 
+            id: 3, 
+            src: '/images/services-products-01.Ventanas-serie31-IMG_20211026_114159.webp', 
+            title: "Ventana Serie 35 Hermética Blanca Gran Formato",
+            config3D: { numSashes: 4, aluminumId: "blanco", glassId: "incoloro", titleSuffix: "Serie 35 Hermética (Blanco)" }
+        },
+    ],
     serie31: [
         { 
             id: 1, 
@@ -173,6 +195,14 @@ const _rawListVentana: VentanaData = {
             title: "Ventana Serie 31 Hermética Blanca Gran Formato",
             config3D: { numSashes: 4, aluminumId: "blanco", glassId: "incoloro", titleSuffix: "Serie 31 Hermética (Blanco)" }
         },
+    ],
+    serie62: [
+        {
+            id: 1,
+            src: '/images/services-products-01.Ventanas-serie31-IMG_20211026_110742.webp',
+            title: "Ventana Europea Serie 62 / 80 Termoacústica Hermética",
+            config3D: { numSashes: 2, aluminumId: "negro", glassId: "incoloro", titleSuffix: "Serie 62 Europea" }
+        }
     ],
 };
 
