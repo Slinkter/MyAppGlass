@@ -552,52 +552,7 @@ export const VentanaConfigurador3DCard: React.FC<{
             overflow="hidden"
             position="relative"
         >
-            {/* 1. Cabecera del Card: Título simplificado 'Ventana 3d' + Label dinámico */}
-            <Box
-                p={{ base: "4", md: "5" }}
-                px={{ base: "0", md: "6" }}
-                borderBottomWidth="1px"
-                borderColor="border.subtle"
-                bg={{ base: "transparent", md: "bg.subtle" }}
-            >
-                <Flex
-                    direction={{ base: "column", md: "row" }}
-                    justify="space-between"
-                    align={{ base: "flex-start", md: "center" }}
-                    gap="3"
-                >
-                    <VStack align="flex-start" gap="1">
-                        <HStack gap="2">
-                            <Sparkles size={18} className="text-primary-500" />
-                            <Text
-                                fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
-                                fontWeight="800"
-                                letterSpacing="tight"
-                                color="text.heading"
-                            >
-                                Ventana 3d
-                            </Text>
-                        </HStack>
-                        <Text fontSize="xs" color="text.muted">
-                            {currentWindow.title} — {currentWindow.description}
-                        </Text>
-                    </VStack>
-
-                    <Badge
-                        colorPalette={currentWindow.colorPalette}
-                        variant="surface"
-                        borderRadius="full"
-                        px="3"
-                        py="1"
-                        fontSize="xs"
-                        fontWeight="bold"
-                    >
-                        {currentWindow.title}: {currentWindow.badge}
-                    </Badge>
-                </Flex>
-            </Box>
-
-            {/* 2. Cuerpo Principal Dividido: Visor 3D (40%) + Panel de Controles (60%) */}
+            {/* Cuerpo Principal Dividido: Visor 3D (40%) + Panel de Controles (60%) */}
             <Flex direction={{ base: "column", lg: "row" }} w="full" h={{ lg: "460px" }}>
                 {/* Columna Izquierda: Visor 3D Three.js (40% de ancho) */}
                 <Box
@@ -611,41 +566,49 @@ export const VentanaConfigurador3DCard: React.FC<{
                     borderColor="border.subtle"
                     overflow="hidden"
                 >
-                    {/* Badge de Grados de Rotación 3D en Tiempo Real */}
+                    {/* Título 'Ventana 3d' + Estado Dinámico en Overlay Superior Izquierdo */}
                     <Flex
                         position="absolute"
-                        top="4"
-                        left="4"
+                        top="3"
+                        left="3"
                         bg="surface.card"
                         backdropFilter="blur(16px)"
-                        borderRadius="full"
+                        borderRadius="xl"
                         py="1.5"
-                        px="3.5"
+                        px="3"
                         boxShadow="sm"
                         borderWidth="1px"
                         borderColor="border.default"
                         align="center"
                         gap="2"
                         zIndex="10"
-                        pointerEvents="none"
                     >
-                        <Compass size={14} className="text-primary-500" />
-                        <Text fontSize="11px" fontWeight="bold" fontFamily="mono" color="text.heading">
-                            {rotationAngle.azimuth}° <Text as="span" color="text.muted" fontWeight="normal">Azimut</Text>
-                        </Text>
-                        <Box w="1px" h="3" bg="border.subtle" />
-                        <Text fontSize="11px" fontWeight="bold" fontFamily="mono" color="text.heading">
-                            {rotationAngle.polar}° <Text as="span" color="text.muted" fontWeight="normal">Elev</Text>
-                        </Text>
+                        <HStack gap="1.5">
+                            <Sparkles size={14} className="text-primary-500" />
+                            <Text fontSize="xs" fontWeight="800" letterSpacing="tight" color="text.heading">
+                                Ventana 3d
+                            </Text>
+                        </HStack>
+                        <Badge
+                            colorPalette={currentWindow.colorPalette}
+                            variant="surface"
+                            borderRadius="full"
+                            px="2"
+                            py="0.5"
+                            fontSize="9px"
+                            fontWeight="bold"
+                        >
+                            {currentWindow.title}
+                        </Badge>
                     </Flex>
 
-                    {/* Controles Flotantes 3D */}
+                    {/* Controles Flotantes 3D en Esquina Superior Derecha */}
                     <Flex
                         position="absolute"
-                        top="4"
-                        right="4"
+                        top="3"
+                        right="3"
                         direction="column"
-                        gap="2"
+                        gap="1.5"
                         zIndex="10"
                     >
                         <IconButton
@@ -653,10 +616,12 @@ export const VentanaConfigurador3DCard: React.FC<{
                             title="Centrar Cámara"
                             onClick={resetCamera}
                             bg="surface.card"
-                            borderRadius="xl"
-                            boxShadow="md"
+                            borderRadius="lg"
+                            boxShadow="sm"
                             color="text.body"
-                            size="sm"
+                            size="xs"
+                            h="7"
+                            w="7"
                             borderWidth="1px"
                             borderColor="border.default"
                             _hover={{
@@ -664,24 +629,26 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 color: "primary.500",
                             }}
                         >
-                            <Video size={16} />
+                            <Video size={13} />
                         </IconButton>
                         <IconButton
                             aria-label={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
                             title={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
                             onClick={() => setIsWindowOpen((prev) => !prev)}
                             bg={isWindowOpen ? "primary.500" : "surface.card"}
-                            borderRadius="xl"
-                            boxShadow="md"
+                            borderRadius="lg"
+                            boxShadow="sm"
                             color={isWindowOpen ? "white" : "text.body"}
-                            size="sm"
+                            size="xs"
+                            h="7"
+                            w="7"
                             borderWidth="1px"
                             borderColor={isWindowOpen ? "primary.500" : "border.default"}
                             _hover={{
                                 bg: isWindowOpen ? "primary.600" : "bg.subtle",
                             }}
                         >
-                            <DoorOpen size={16} />
+                            <DoorOpen size={13} />
                         </IconButton>
                     </Flex>
 
@@ -694,46 +661,55 @@ export const VentanaConfigurador3DCard: React.FC<{
                         _active={{ cursor: "grabbing" }}
                     />
 
-                    {/* Badge Inferior de Medidas & Área */}
+                    {/* Badge Inferior de Medidas & Área + Ángulos */}
                     <Box
                         position="absolute"
-                        bottom="4"
-                        left="4"
-                        right="4"
+                        bottom="3"
+                        left="3"
+                        right="3"
                         bg="surface.card"
                         backdropFilter="blur(16px)"
                         borderRadius="xl"
-                        py="2"
-                        px="3"
-                        boxShadow="md"
+                        py="1.5"
+                        px="2.5"
+                        boxShadow="sm"
                         borderWidth="1px"
                         borderColor="border.default"
                     >
                         <Flex align="center" justify="space-around">
                             <Box textAlign="center">
-                                <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase">
+                                <Text fontSize="9px" color="text.muted" fontWeight="bold" textTransform="uppercase">
                                     Ancho
                                 </Text>
                                 <Text fontSize="xs" fontWeight="extrabold" color="text.heading">
                                     {widthMeters.toFixed(2)} m
                                 </Text>
                             </Box>
-                            <Box w="1px" h="4" bg="border.subtle" />
+                            <Box w="1px" h="3.5" bg="border.subtle" />
                             <Box textAlign="center">
-                                <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase">
+                                <Text fontSize="9px" color="text.muted" fontWeight="bold" textTransform="uppercase">
                                     Alto
                                 </Text>
                                 <Text fontSize="xs" fontWeight="extrabold" color="text.heading">
                                     {heightMeters.toFixed(2)} m
                                 </Text>
                             </Box>
-                            <Box w="1px" h="4" bg="border.subtle" />
+                            <Box w="1px" h="3.5" bg="border.subtle" />
                             <Box textAlign="center">
-                                <Text fontSize="10px" color="text.muted" fontWeight="bold" textTransform="uppercase">
-                                    Área Total
+                                <Text fontSize="9px" color="text.muted" fontWeight="bold" textTransform="uppercase">
+                                    Área
                                 </Text>
                                 <Text fontSize="xs" fontWeight="extrabold" color="primary.500">
                                     {(widthMeters * heightMeters).toFixed(2)} m²
+                                </Text>
+                            </Box>
+                            <Box w="1px" h="3.5" bg="border.subtle" />
+                            <Box textAlign="center">
+                                <Text fontSize="9px" color="text.muted" fontWeight="bold" textTransform="uppercase">
+                                    Giro
+                                </Text>
+                                <Text fontSize="xs" fontWeight="extrabold" color="text.heading" fontFamily="mono">
+                                    {rotationAngle.azimuth}°
                                 </Text>
                             </Box>
                         </Flex>
