@@ -35,6 +35,7 @@ import {
     Check,
     Compass,
     AlertCircle,
+    Plus,
 } from "lucide-react";
 
 export const MIN_VENTANA_WIDTH_M = 0.25;
@@ -54,6 +55,8 @@ export const VentanaConfigurador3DCard: React.FC<{
     const [finish, setFinish] = useState("negro");
     const [glass, setGlass] = useState("templado");
     const [glassColor, setGlassColor] = useState("incoloro");
+    const [hasArenado, setHasArenado] = useState(false);
+    const [hasDisenoCliente, setHasDisenoCliente] = useState(false);
     const [isWindowOpen, setIsWindowOpen] = useState(false);
     const [price, setPrice] = useState(0);
     const [rotationAngle, setRotationAngle] = useState<{ azimuth: number; polar: number }>({ azimuth: 27, polar: 81 });
@@ -371,36 +374,28 @@ export const VentanaConfigurador3DCard: React.FC<{
             glass: {
                 crudo: new THREE.MeshPhysicalMaterial({
                     color: glassTint,
-                    transmission: isTinted ? 0.75 : 0.9,
-                    opacity: 1,
+                    transmission: hasArenado ? 0.35 : isTinted ? 0.75 : 0.9,
+                    opacity: hasArenado ? 0.85 : 1,
                     transparent: true,
-                    roughness: 0.05,
+                    roughness: hasArenado ? 0.65 : 0.05,
                     ior: 1.5,
                 }),
                 templado: new THREE.MeshPhysicalMaterial({
                     color: glassTint,
-                    transmission: isTinted ? 0.8 : 0.95,
-                    opacity: 1,
+                    transmission: hasArenado ? 0.35 : isTinted ? 0.8 : 0.95,
+                    opacity: hasArenado ? 0.85 : 1,
                     transparent: true,
-                    roughness: 0.02,
+                    roughness: hasArenado ? 0.65 : 0.02,
                     ior: 1.52,
                 }),
                 laminado: new THREE.MeshPhysicalMaterial({
                     color: glassTint,
-                    transmission: isTinted ? 0.7 : 0.85,
-                    opacity: 1,
+                    transmission: hasArenado ? 0.35 : isTinted ? 0.7 : 0.85,
+                    opacity: hasArenado ? 0.85 : 1,
                     transparent: true,
-                    roughness: 0.05,
+                    roughness: hasArenado ? 0.65 : 0.05,
                     ior: 1.5,
                     thickness: 0.5,
-                }),
-                pavonado: new THREE.MeshPhysicalMaterial({
-                    color: isTinted ? glassTint : 0xffffff,
-                    transmission: 0.35,
-                    opacity: 0.85,
-                    transparent: true,
-                    roughness: 0.65,
-                    ior: 1.45,
                 }),
             },
         };
@@ -480,7 +475,7 @@ export const VentanaConfigurador3DCard: React.FC<{
         sceneRef.current.add(windowGroup);
         windowGroupRef.current = windowGroup;
         sashGroupRef.current = sashGroup;
-    }, [width, height, systemId, glassColor, finish, glass, activeType, createSash]);
+    }, [width, height, systemId, glassColor, finish, glass, activeType, hasArenado, createSash]);
 
     // Ciclo de vida Three.js
     useEffect(() => {
@@ -503,7 +498,7 @@ export const VentanaConfigurador3DCard: React.FC<{
     useEffect(() => {
         updatePrice();
         generate3DModel();
-    }, [widthMeters, heightMeters, systemId, finish, glass, glassColor, updatePrice, generate3DModel]);
+    }, [widthMeters, heightMeters, systemId, finish, glass, glassColor, hasArenado, updatePrice, generate3DModel]);
 
     const resetCamera = useCallback(() => {
         if (!cameraRef.current || !controlsRef.current) return;
@@ -532,10 +527,15 @@ export const VentanaConfigurador3DCard: React.FC<{
         const glassColorName =
             GLASS_COLORS.find((c) => c.id === glassColor)?.label || glassColor;
 
-        const text = `Hola ${companyData.companyName}, deseo cotizar el siguiente diseño configurado en 3D:%0A%0A*Tipo:* ${winName}%0A*Sistema:* ${sys}%0A*Medidas:* ${widthMeters.toFixed(2)}m ancho x ${heightMeters.toFixed(2)}m alto (${width}x${height} mm)%0A*Área:* ${(widthMeters * heightMeters).toFixed(2)} m²%0A*Acabado Perfil:* ${finish}%0A*Cristal:* ${glassName} (${glassColorName})%0A*Precio Estimado:* S/ ${price.toFixed(2)}%0A%0A¿Podrían confirmar tiempos de fabricación e instalación?`;
+        const adicionalesList: string[] = [];
+        if (hasArenado) adicionalesList.push("Arenado");
+        if (hasDisenoCliente) adicionalesList.push("Diseño según cliente");
+        const adicionalesText = adicionalesList.length > 0 ? `%0A*Adicionales:* ${adicionalesList.join(", ")}` : "";
+
+        const text = `Hola ${companyData.companyName}, deseo cotizar el siguiente diseño configurado en 3D:%0A%0A*Tipo:* ${winName}%0A*Sistema:* ${sys}%0A*Medidas:* ${widthMeters.toFixed(2)}m ancho x ${heightMeters.toFixed(2)}m alto (${width}x${height} mm)%0A*Área:* ${(widthMeters * heightMeters).toFixed(2)} m²%0A*Tono de Cristal:* ${glassColorName}%0A*Acabado Perfil:* ${finish}%0A*Tipo de Cristal:* ${glassName}${adicionalesText}%0A*Precio Estimado:* S/ ${price.toFixed(2)}%0A%0A¿Podrían confirmar tiempos de fabricación e instalación?`;
 
         window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
-    }, [systemId, activeType, glass, glassColor, widthMeters, heightMeters, width, height, finish, price]);
+    }, [systemId, activeType, glass, glassColor, widthMeters, heightMeters, width, height, finish, hasArenado, hasDisenoCliente, price]);
 
     const currentWindow = useMemo(() => {
         return WINDOW_CATALOG.find((w) => w.id === activeType) || WINDOW_CATALOG[0];
@@ -569,9 +569,9 @@ export const VentanaConfigurador3DCard: React.FC<{
             overflow="hidden"
             position="relative"
         >
-            {/* 1. Cabecera del Card con Selector de Pastillas (Pills) */}
+            {/* 1. Cabecera del Card: Título simplificado 'Ventana 3d' + Label dinámico */}
             <Box
-                p={{ base: "4", md: "6" }}
+                p={{ base: "4", md: "5" }}
                 px={{ base: "0", md: "6" }}
                 borderBottomWidth="1px"
                 borderColor="border.subtle"
@@ -581,23 +581,22 @@ export const VentanaConfigurador3DCard: React.FC<{
                     direction={{ base: "column", md: "row" }}
                     justify="space-between"
                     align={{ base: "flex-start", md: "center" }}
-                    gap="4"
-                    mb="4"
+                    gap="3"
                 >
                     <VStack align="flex-start" gap="1">
                         <HStack gap="2">
                             <Sparkles size={18} className="text-primary-500" />
                             <Text
-                                fontSize={{ base: "md", sm: "lg", md: "xl" }}
+                                fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
                                 fontWeight="800"
                                 letterSpacing="tight"
                                 color="text.heading"
                             >
-                                Estudio & Configurador 3D de Ventanas
+                                Ventana 3d
                             </Text>
                         </HStack>
                         <Text fontSize="xs" color="text.muted">
-                            {currentWindow.description}
+                            {currentWindow.title} — {currentWindow.description}
                         </Text>
                     </VStack>
 
@@ -610,48 +609,12 @@ export const VentanaConfigurador3DCard: React.FC<{
                         fontSize="xs"
                         fontWeight="bold"
                     >
-                        {currentWindow.badge}
+                        {currentWindow.title}: {currentWindow.badge}
                     </Badge>
                 </Flex>
-
-                {/* Barra de Pastillas (Pill Chips) */}
-                <HStack
-                    gap="2"
-                    overflowX="auto"
-                    py="1"
-                    w="full"
-                    css={{
-                        "&::-webkit-scrollbar": { display: "none" },
-                        scrollbarWidth: "none",
-                    }}
-                >
-                    {WINDOW_CATALOG.map((item) => {
-                        const isSelected = activeType === item.id;
-                        const IconComp = item.icon;
-                        return (
-                            <Button
-                                key={item.id}
-                                onClick={() => setActiveType(item.id)}
-                                size={{ base: "sm", md: "sm" }}
-                                variant={isSelected ? "aura" : "outline"}
-                                borderRadius="full"
-                                px="4"
-                                flexShrink={0}
-                                fontWeight={isSelected ? "bold" : "medium"}
-                                transition="all 0.2s ease"
-                                _hover={{
-                                    transform: isSelected ? "none" : "translateY(-1px)",
-                                }}
-                            >
-                                <IconComp size={15} style={{ marginRight: "6px" }} />
-                                {item.title}
-                            </Button>
-                        );
-                    })}
-                </HStack>
             </Box>
 
-            {/* 2. Cuerpo Principal Dividido: Visor 3D + Panel de Controles */}
+            {/* 2. Cuerpo Principal Dividido: Visor 3D + Panel de Controles Reordenado */}
             <Flex direction={{ base: "column", lg: "row" }} w="full" minH="500px">
                 {/* Columna Izquierda: Visor 3D Three.js */}
                 <Box
@@ -794,7 +757,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                     </Box>
                 </Box>
 
-                {/* Columna Derecha: Panel de Configuración & Precio */}
+                {/* Columna Derecha: Panel de Configuración Reordenado */}
                 <Flex
                     w={{ base: "full", lg: "420px", xl: "450px" }}
                     flexShrink={0}
@@ -806,9 +769,74 @@ export const VentanaConfigurador3DCard: React.FC<{
                     direction="column"
                     justify="space-between"
                 >
-                    <Box p={{ base: "4", md: "5" }} px={{ base: "0", md: "5" }} overflowY="auto" maxH={{ lg: "520px" }}>
+                    <Box p={{ base: "4", md: "5" }} px={{ base: "0", md: "5" }} overflowY="auto" maxH={{ lg: "540px" }}>
                         <VStack gap="5" align="stretch">
-                            {/* 1. Dimensiones */}
+                            {/* 1. Tipo de Ventana (Corrediza, Proyectante, Batiente, Luz Fija) */}
+                            <Box>
+                                <Flex align="center" gap="1.5" mb="2">
+                                    <DoorOpen size={15} className="text-primary-500" />
+                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
+                                        Tipo de Ventana
+                                    </Text>
+                                </Flex>
+                                <HStack
+                                    gap="1.5"
+                                    wrap="wrap"
+                                >
+                                    {WINDOW_CATALOG.map((item) => {
+                                        const isSelected = activeType === item.id;
+                                        const IconComp = item.icon;
+                                        return (
+                                            <Button
+                                                key={item.id}
+                                                onClick={() => setActiveType(item.id)}
+                                                size="xs"
+                                                variant={isSelected ? "aura" : "outline"}
+                                                borderRadius="full"
+                                                px="3"
+                                                py="1.5"
+                                                fontWeight={isSelected ? "bold" : "medium"}
+                                                transition="all 0.2s ease"
+                                            >
+                                                <IconComp size={13} style={{ marginRight: "4px" }} />
+                                                {item.title}
+                                            </Button>
+                                        );
+                                    })}
+                                </HStack>
+                            </Box>
+
+                            {/* 2. Sistema de Ventana */}
+                            <Box>
+                                <Flex align="center" gap="1.5" mb="2">
+                                    <Layers size={15} className="text-primary-500" />
+                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
+                                        Sistema de Ventana
+                                    </Text>
+                                </Flex>
+                                <Flex wrap="wrap" gap="1.5">
+                                    {availableSystems.map((sys) => {
+                                        const isSelected = systemId === sys.id;
+                                        return (
+                                            <Button
+                                                key={sys.id}
+                                                size="xs"
+                                                variant={isSelected ? "aura" : "outline"}
+                                                onClick={() => setSystemId(sys.id)}
+                                                borderRadius="full"
+                                                px="3"
+                                                py="1"
+                                                fontWeight={isSelected ? "bold" : "medium"}
+                                                transition="all 0.2s ease"
+                                            >
+                                                {sys.nombre}
+                                            </Button>
+                                        );
+                                    })}
+                                </Flex>
+                            </Box>
+
+                            {/* 3. Dimensiones */}
                             <Box>
                                 <Flex align="center" justify="space-between" mb="2">
                                     <Flex align="center" gap="1.5">
@@ -964,41 +992,41 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 </SimpleGrid>
                             </Box>
 
-                            {/* 2. Sistema de Ventana */}
-                            <Box>
-                                <Flex align="center" gap="1.5" mb="2">
-                                    <Layers size={15} className="text-primary-500" />
-                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
-                                        Sistema de Ventana
-                                    </Text>
-                                </Flex>
-                                <Flex wrap="wrap" gap="1.5">
-                                    {availableSystems.map((sys) => {
-                                        const isSelected = systemId === sys.id;
-                                        return (
-                                            <Button
-                                                key={sys.id}
-                                                size="xs"
-                                                variant={isSelected ? "aura" : "outline"}
-                                                onClick={() => setSystemId(sys.id)}
-                                                borderRadius="full"
-                                                px="3"
-                                                py="1"
-                                                fontWeight={isSelected ? "bold" : "medium"}
-                                                transition="all 0.2s ease"
-                                            >
-                                                {sys.nombre}
-                                            </Button>
-                                        );
-                                    })}
-                                </Flex>
-                            </Box>
-
-                            {/* 3. Color de Perfil */}
+                            {/* 4. Color de Vidrio (Tono del Cristal) */}
                             <Box>
                                 <Flex justify="space-between" align="center" mb="2">
                                     <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
-                                        Color de Perfil
+                                        Color de Vidrio
+                                    </Text>
+                                    <Text fontSize="xs" color="primary.500" fontWeight="bold">
+                                        {GLASS_COLORS.find((c) => c.id === glassColor)?.label}
+                                    </Text>
+                                </Flex>
+                                <HStack gap="2">
+                                    {GLASS_COLORS.map((gc) => {
+                                        const isSelected = glassColor === gc.id;
+                                        return (
+                                            <Button
+                                                key={gc.id}
+                                                size="xs"
+                                                variant={isSelected ? "aura" : "outline"}
+                                                onClick={() => setGlassColor(gc.id)}
+                                                borderRadius="full"
+                                                px="3"
+                                            >
+                                                <Box w="2.5" h="2.5" borderRadius="full" bg={gc.colorHex} mr="1.5" borderWidth="1px" borderColor="border.default" />
+                                                {gc.label}
+                                            </Button>
+                                        );
+                                    })}
+                                </HStack>
+                            </Box>
+
+                            {/* 5. Color de Aluminio (Color de Perfil) */}
+                            <Box>
+                                <Flex justify="space-between" align="center" mb="2">
+                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
+                                        Color de Aluminio
                                     </Text>
                                     <Text fontSize="xs" color="primary.500" fontWeight="bold">
                                         {FINISHES.find((f) => f.id === finish)?.label}
@@ -1036,10 +1064,10 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 </HStack>
                             </Box>
 
-                            {/* 4. Tipo de Vidrio & Color */}
+                            {/* 6. Tipo de Vidrio (Solo 3 tipos: Crudo, Laminado, Templado) */}
                             <Box>
                                 <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider" mb="2">
-                                    Cristal & Seguridad
+                                    Tipo de Vidrio
                                 </Text>
                                 <VStack gap="2" align="stretch">
                                     {GLASS_TYPES.map((g: typeof GLASS_TYPES[0]) => {
@@ -1087,29 +1115,61 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 </VStack>
                             </Box>
 
-                            {/* 5. Tono de Vidrio */}
+                            {/* 7. Adicional (Arenado, Diseño según cliente) */}
                             <Box>
-                                <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider" mb="2">
-                                    Tono del Cristal
-                                </Text>
-                                <HStack gap="2">
-                                    {GLASS_COLORS.map((gc) => {
-                                        const isSelected = glassColor === gc.id;
-                                        return (
-                                            <Button
-                                                key={gc.id}
-                                                size="xs"
-                                                variant={isSelected ? "aura" : "outline"}
-                                                onClick={() => setGlassColor(gc.id)}
-                                                borderRadius="full"
-                                                px="3"
-                                            >
-                                                <Box w="2.5" h="2.5" borderRadius="full" bg={gc.colorHex} mr="1.5" borderWidth="1px" borderColor="border.default" />
-                                                {gc.label}
-                                            </Button>
-                                        );
-                                    })}
-                                </HStack>
+                                <Flex align="center" gap="1.5" mb="2">
+                                    <Plus size={15} className="text-primary-500" />
+                                    <Text fontSize="xs" fontWeight="bold" color="text.heading" textTransform="uppercase" letterSpacing="wider">
+                                        Adicional
+                                    </Text>
+                                </Flex>
+                                <SimpleGrid columns={2} gap="2">
+                                    <Flex
+                                        p="2.5"
+                                        borderRadius="xl"
+                                        borderWidth="1px"
+                                        borderColor={hasArenado ? "primary.500" : "border.default"}
+                                        bg={hasArenado ? "bg.subtle" : "transparent"}
+                                        justify="space-between"
+                                        align="center"
+                                        cursor="pointer"
+                                        onClick={() => setHasArenado((prev) => !prev)}
+                                        transition="all 0.2s ease"
+                                    >
+                                        <Box>
+                                            <Text fontSize="xs" fontWeight="bold" color="text.heading">
+                                                Arenado
+                                            </Text>
+                                            <Text fontSize="9px" color="text.muted">
+                                                Acabado translúcido
+                                            </Text>
+                                        </Box>
+                                        {hasArenado && <Check size={14} className="text-primary-500" />}
+                                    </Flex>
+
+                                    <Flex
+                                        p="2.5"
+                                        borderRadius="xl"
+                                        borderWidth="1px"
+                                        borderColor={hasDisenoCliente ? "primary.500" : "border.default"}
+                                        bg={hasDisenoCliente ? "bg.subtle" : "transparent"}
+                                        justify="space-between"
+                                        align="center"
+                                        cursor="pointer"
+                                        onClick={() => setHasDisenoCliente((prev) => !prev)}
+                                        transition="all 0.2s ease"
+                                    >
+                                        <Box>
+                                            <Text fontSize="xs" fontWeight="bold" color="text.heading">
+                                                Diseño a Medida
+                                            </Text>
+                                            <Text fontSize="9px" color="text.muted">
+                                                Según cliente
+                                            </Text>
+                                        </Box>
+                                        {hasDisenoCliente && <Check size={14} className="text-primary-500" />}
+                                    </Flex>
+                                </SimpleGrid>
                             </Box>
                         </VStack>
                     </Box>

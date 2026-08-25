@@ -84,12 +84,12 @@ export const FINISHES = [
 
 export const GLASS_TYPES = [
     {
-        id: "templado",
-        label: "Vidrio Templado",
+        id: "crudo",
+        label: "Vidrio Crudo",
         thickness: "6 mm",
-        desc: "Alta resistencia al impacto y seguridad",
-        badge: "⭐ Más Popular",
-        colorPalette: "emerald",
+        desc: "Económico y ligero para interiores",
+        badge: "Básico",
+        colorPalette: "gray",
     },
     {
         id: "laminado",
@@ -100,20 +100,12 @@ export const GLASS_TYPES = [
         colorPalette: "blue",
     },
     {
-        id: "pavonado",
-        label: "Vidrio Empavonado (Pavonado)",
+        id: "templado",
+        label: "Vidrio Templado",
         thickness: "6 mm",
-        desc: "Acabado esmerilado translúcido para total privacidad",
-        badge: "🔒 Privacidad",
-        colorPalette: "purple",
-    },
-    {
-        id: "crudo",
-        label: "Vidrio Crudo",
-        thickness: "6 mm",
-        desc: "Económico y ligero para interiores",
-        badge: "Económico",
-        colorPalette: "gray",
+        desc: "Alta resistencia al impacto y seguridad",
+        badge: "⭐ Más Popular",
+        colorPalette: "emerald",
     },
 ];
 
