@@ -111,21 +111,7 @@ export const VentanaConfigurador3DCard: React.FC<{
     const sashGroupRef = useRef<THREE.Group | null>(null);
     const reqRef = useRef<number | null>(null);
 
-    const availableSystems = useMemo(() => {
-        return ventanasCatalogo.sistemas.filter((sys) =>
-            sys.tiposDisponibles.some((t) => t.id === activeType),
-        );
-    }, [activeType]);
-
-    // Asegurar que si el sistema actual no es compatible con la nueva tipología, se seleccione el primer compatible
-    useEffect(() => {
-        if (availableSystems.length > 0) {
-            const isCurrentSystemAvailable = availableSystems.some((sys) => sys.id === systemId);
-            if (!isCurrentSystemAvailable) {
-                setSystemId(availableSystems[0].id);
-            }
-        }
-    }, [availableSystems, systemId]);
+    const availableSystems = ventanasCatalogo.sistemas;
 
     const updatePrice = useCallback(() => {
         const cost = calcularPrecio({
@@ -479,9 +465,6 @@ export const VentanaConfigurador3DCard: React.FC<{
 
     // Ciclo de vida Three.js
     useEffect(() => {
-        if (!availableSystems.find((s) => s.id === systemId) && availableSystems.length > 0) {
-            setSystemId(availableSystems[0].id);
-        }
         updatePrice();
 
         const timer = setTimeout(() => {
@@ -493,7 +476,7 @@ export const VentanaConfigurador3DCard: React.FC<{
             clearTimeout(timer);
             cleanup3D();
         };
-    }, [activeType, init3D, cleanup3D, updatePrice, generate3DModel, availableSystems, systemId]);
+    }, [activeType, init3D, cleanup3D, updatePrice, generate3DModel, systemId]);
 
     useEffect(() => {
         updatePrice();
@@ -1089,7 +1072,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                                 <Box>
                                                     <Flex align="center" gap="2" mb="0.5">
                                                         <Text fontSize="xs" fontWeight="bold" color="text.heading">
-                                                            {g.label} ({g.thickness})
+                                                            {g.label}
                                                         </Text>
                                                         {g.badge && (
                                                             <Badge
