@@ -34,6 +34,7 @@ import {
     Sparkles,
     Check,
     Compass,
+    AlertCircle,
 } from "lucide-react";
 
 export const MIN_VENTANA_WIDTH_M = 0.25;
@@ -533,6 +534,23 @@ export const VentanaConfigurador3DCard: React.FC<{
         return WINDOW_CATALOG.find((w) => w.id === activeType) || WINDOW_CATALOG[0];
     }, [activeType]);
 
+    // Detección de errores de validación en tiempo real para feedback visual
+    const widthNum = parseFloat(widthInput);
+    const widthError = useMemo(() => {
+        if (!widthInput.trim() || isNaN(widthNum)) return "Ingrese un ancho válido";
+        if (widthNum < MIN_VENTANA_WIDTH_M) return `Mínimo: ${MIN_VENTANA_WIDTH_M}m`;
+        if (widthNum > MAX_VENTANA_WIDTH_M) return `Máximo: ${MAX_VENTANA_WIDTH_M}m`;
+        return null;
+    }, [widthInput, widthNum]);
+
+    const heightNum = parseFloat(heightInput);
+    const heightError = useMemo(() => {
+        if (!heightInput.trim() || isNaN(heightNum)) return "Ingrese una altura válida";
+        if (heightNum < MIN_VENTANA_HEIGHT_M) return `Mínimo: ${MIN_VENTANA_HEIGHT_M}m`;
+        if (heightNum > MAX_VENTANA_HEIGHT_M) return `Máximo: ${MAX_VENTANA_HEIGHT_M}m`;
+        return null;
+    }, [heightInput, heightNum]);
+
     return (
         <Box
             w="full"
@@ -828,7 +846,7 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 <SimpleGrid columns={2} gap="3">
                                     <Box>
                                         <Flex justify="space-between" align="center" mb="1">
-                                            <Text fontSize="11px" color="text.muted" fontWeight="medium">
+                                            <Text fontSize="11px" color={widthError ? "red.500" : "text.muted"} fontWeight={widthError ? "bold" : "medium"}>
                                                 Ancho (m)
                                             </Text>
                                             <Text fontSize="9px" color="text.muted">
@@ -841,6 +859,11 @@ export const VentanaConfigurador3DCard: React.FC<{
                                             min={MIN_VENTANA_WIDTH_M}
                                             max={MAX_VENTANA_WIDTH_M}
                                             step={0.01}
+                                            borderColor={widthError ? "red.500" : undefined}
+                                            _focus={{
+                                                borderColor: widthError ? "red.500" : "primary.500",
+                                                boxShadow: widthError ? "0 0 0 1px #ef4444" : undefined,
+                                            }}
                                             onChange={(e) => {
                                                 const val = e.target.value;
                                                 setWidthInput(val);
@@ -867,10 +890,18 @@ export const VentanaConfigurador3DCard: React.FC<{
                                             h={{ base: "11", md: "8" }}
                                             borderRadius="xl"
                                         />
+                                        {widthError && (
+                                            <Flex align="center" gap="1" mt="1.5" color="red.500" _dark={{ color: "red.400" }}>
+                                                <AlertCircle size={12} />
+                                                <Text fontSize="10px" fontWeight="semibold">
+                                                    {widthError}
+                                                </Text>
+                                            </Flex>
+                                        )}
                                     </Box>
                                     <Box>
                                         <Flex justify="space-between" align="center" mb="1">
-                                            <Text fontSize="11px" color="text.muted" fontWeight="medium">
+                                            <Text fontSize="11px" color={heightError ? "red.500" : "text.muted"} fontWeight={heightError ? "bold" : "medium"}>
                                                 Alto (m)
                                             </Text>
                                             <Text fontSize="9px" color="text.muted">
@@ -883,6 +914,11 @@ export const VentanaConfigurador3DCard: React.FC<{
                                             min={MIN_VENTANA_HEIGHT_M}
                                             max={MAX_VENTANA_HEIGHT_M}
                                             step={0.01}
+                                            borderColor={heightError ? "red.500" : undefined}
+                                            _focus={{
+                                                borderColor: heightError ? "red.500" : "primary.500",
+                                                boxShadow: heightError ? "0 0 0 1px #ef4444" : undefined,
+                                            }}
                                             onChange={(e) => {
                                                 const val = e.target.value;
                                                 setHeightInput(val);
@@ -909,6 +945,14 @@ export const VentanaConfigurador3DCard: React.FC<{
                                             h={{ base: "11", md: "8" }}
                                             borderRadius="xl"
                                         />
+                                        {heightError && (
+                                            <Flex align="center" gap="1" mt="1.5" color="red.500" _dark={{ color: "red.400" }}>
+                                                <AlertCircle size={12} />
+                                                <Text fontSize="10px" fontWeight="semibold">
+                                                    {heightError}
+                                                </Text>
+                                            </Flex>
+                                        )}
                                     </Box>
                                 </SimpleGrid>
                             </Box>
