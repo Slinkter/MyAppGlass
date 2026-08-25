@@ -13,26 +13,26 @@ import {
 import { Button } from "@/components/ui/button";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { Video } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
 import { SERVICE_AR_MODELS_MAP } from "../data/serviceArModels";
+import { buildServiceModel } from "./configurador3d/serviceGeometries";
 
 // ── Config data per service ───────────────────────────────────────────────────
 
 const ALUMINUM_FINISHES = [
-    { id: "negro", label: "Negro", color: "#1A1A1A", metalness: 0.85, roughness: 0.35 },
-    { id: "natural", label: "Natural", color: "#B0B4B8", metalness: 0.7, roughness: 0.4 },
-    { id: "blanco", label: "Blanco", color: "#F8F9FA", metalness: 0.6, roughness: 0.4 },
-    { id: "champagne", label: "Champagne", color: "#C4A265", metalness: 0.75, roughness: 0.35 },
-    { id: "madera", label: "Madera", color: "#8A5A36", metalness: 0.5, roughness: 0.6 },
+    { id: "negro", label: "Negro", color: "#1A1A1A" },
+    { id: "natural", label: "Natural", color: "#B0B4B8" },
+    { id: "blanco", label: "Blanco", color: "#F8F9FA" },
+    { id: "champagne", label: "Champagne", color: "#C4A265" },
+    { id: "madera", label: "Madera", color: "#8A5A36" },
 ];
 
 const GLASS_COLORS = [
-    { id: "incoloro", label: "Incoloro", hex: "#E8F4F8", color3d: 0xe8f4f8, transmission: 0.92 },
-    { id: "bronce", label: "Bronce", hex: "#8A5A36", color3d: 0x966847, transmission: 0.7 },
-    { id: "gris", label: "Gris", hex: "#4B5563", color3d: 0x475569, transmission: 0.65 },
-    { id: "satinado", label: "Satinado", hex: "#D1D5DB", color3d: 0xd1d5db, transmission: 0.4 },
+    { id: "incoloro", label: "Incoloro", hex: "#E8F4F8" },
+    { id: "bronce", label: "Bronce", hex: "#8A5A36" },
+    { id: "gris", label: "Gris", hex: "#4B5563" },
+    { id: "satinado", label: "Satinado", hex: "#D1D5DB" },
 ];
 
 const WOOD_FINISHES = [
@@ -43,10 +43,10 @@ const WOOD_FINISHES = [
 ];
 
 const POLYCARBONATE_TYPES = [
-    { id: "bronce", label: "Bronce", color: "#8A5229", color3d: 0x8a5229, opacity: 0.55, transmission: 0.65 },
-    { id: "opalino", label: "Opalino", color: "#F0F4F8", color3d: 0xf0f4f8, opacity: 0.85, transmission: 0.3 },
-    { id: "transparente", label: "Transparente", color: "#E2F1FF", color3d: 0xe2f1ff, opacity: 0.25, transmission: 0.9 },
-    { id: "humo", label: "Humo", color: "#2A2E33", color3d: 0x2a2e33, opacity: 0.6, transmission: 0.45 },
+    { id: "bronce", label: "Bronce", color: "#8A5229" },
+    { id: "opalino", label: "Opalino", color: "#F0F4F8" },
+    { id: "transparente", label: "Transparente", color: "#E2F1FF" },
+    { id: "humo", label: "Humo", color: "#2A2E33" },
 ];
 
 interface ServiceConfigurator3DCardProps {
@@ -63,8 +63,8 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
     const [glassColor, setGlassColor] = useState("incoloro");
     const [wood, setWood] = useState("teca");
     const [poly, setPoly] = useState("bronce");
-    const [widthM, setWidthM] = useState(3.0);
-    const [heightM, setHeightM] = useState(2.5);
+    const [widthM, setWidthM] = useState(2.0);
+    const [heightM, setHeightM] = useState(2.2);
     const [autoRotate, setAutoRotate] = useState(true);
 
     const canvasRef = useRef<HTMLDivElement>(null);
@@ -80,11 +80,10 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
 
     // ── Determine service config ──────────────────────────────────────────────
     const isTecho = serviceSlug === "techo";
-    const isVidrio = ["mampara", "ducha", "baranda", "balcones", "parapeto", "pvidrio", "pserie", "celosias"].includes(serviceSlug);
+    const hasGlass = ["mampara", "ducha", "baranda", "balcones", "parapeto", "pvidrio"].includes(serviceSlug);
 
     const systems = SERVICE_AR_MODELS_MAP[serviceSlug];
     const firstSystemKey = systems ? Object.keys(systems)[0] : undefined;
-    const glbUrl = systems && firstSystemKey ? systems[firstSystemKey].glbModelUrl : "/models/techo/default.glb";
     const systemLabel = systems && firstSystemKey ? systems[firstSystemKey].systemLabel : title || serviceSlug;
 
     // ── 3D Scene Setup ────────────────────────────────────────────────────────
@@ -112,20 +111,18 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
 
         // Scene
         const scene = new THREE.Scene();
-        scene.background = null;
+        scene.background = new THREE.Color(0xf8fafc);
         sceneRef.current = scene;
 
         // Camera
         const camera = new THREE.PerspectiveCamera(40, w / h, 0.01, 100);
-        camera.position.set(4, 3, 5);
+        camera.position.set(3, 2.5, 4);
         cameraRef.current = camera;
 
         // Renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(w, h);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.2;
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
@@ -136,77 +133,38 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
         controls.enableDamping = true;
         controls.dampingFactor = 0.08;
         controls.enablePan = false;
-        controls.minDistance = 2;
-        controls.maxDistance = 15;
-        controls.maxPolarAngle = Math.PI / 2.05;
-        controls.target.set(0, 1.2, 0);
+        controls.minDistance = 1.5;
+        controls.maxDistance = 10;
+        controls.maxPolarAngle = Math.PI / 1.5;
+        controls.target.set(0, 1.0, 0);
         controlsRef.current = controls;
 
         // Lights
-        scene.add(new THREE.AmbientLight(0xfff7ed, 1.6));
-        const key = new THREE.DirectionalLight(0xffedd5, 2.4);
-        key.position.set(5, 6, 4);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+        const key = new THREE.DirectionalLight(0xffffff, 0.9);
+        key.position.set(5, 10, 7);
         key.castShadow = true;
         key.shadow.mapSize.set(1024, 1024);
         key.shadow.camera.near = 0.5;
-        key.shadow.camera.far = 20;
+        key.shadow.camera.far = 30;
         key.shadow.camera.left = -6;
         key.shadow.camera.right = 6;
         key.shadow.camera.top = 6;
         key.shadow.camera.bottom = -6;
         scene.add(key);
-        const fill = new THREE.DirectionalLight(0xfde68a, 0.8);
-        fill.position.set(-4, -2, 3);
+        const fill = new THREE.DirectionalLight(0xe0f2fe, 0.4);
+        fill.position.set(-5, 0, -5);
         scene.add(fill);
-        scene.add(new THREE.DirectionalLight(0xffffff, 0.6).translateY(5).translateZ(-5));
-
-        // Ground shadow plane
-        const groundGeo = new THREE.PlaneGeometry(12, 12);
-        const groundMat = new THREE.ShadowMaterial({ opacity: 0.15 });
-        const ground = new THREE.Mesh(groundGeo, groundMat);
-        ground.rotation.x = -Math.PI / 2;
-        ground.receiveShadow = true;
-        scene.add(ground);
 
         // Ground grid
-        const grid = new THREE.GridHelper(12, 12, 0x94a3b8, 0xcbd5e1);
-        grid.position.y = 0.005;
-        grid.material.transparent = true;
-        grid.material.opacity = 0.15;
+        const grid = new THREE.GridHelper(8, 16, 0xcbd5e1, 0xe2e8f0);
+        grid.position.y = -0.01;
         scene.add(grid);
 
-        // Group
+        // Model group
         const group = new THREE.Group();
         scene.add(group);
         modelGroupRef.current = group;
-
-        // Load GLB
-        const loader = new GLTFLoader();
-        loader.load(
-            glbUrl,
-            (gltf) => {
-                const model = gltf.scene;
-                const box = new THREE.Box3().setFromObject(model);
-                const size = box.getSize(new THREE.Vector3());
-                const center = box.getCenter(new THREE.Vector3());
-                const maxDim = Math.max(size.x, size.y, size.z);
-                const scale = 3.5 / maxDim;
-                model.scale.setScalar(scale);
-                model.position.sub(center.multiplyScalar(scale));
-                model.position.y -= box.min.y * scale;
-
-                model.traverse((obj) => {
-                    if (obj instanceof THREE.Mesh) {
-                        obj.castShadow = true;
-                        obj.receiveShadow = true;
-                    }
-                });
-
-                group.add(model);
-            },
-            undefined,
-            (err) => console.error("Error loading GLB:", err)
-        );
 
         // Animation loop
         const animate = () => {
@@ -237,12 +195,60 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
             ro.disconnect();
             cleanup3D();
         };
-    }, [glbUrl, cleanup3D]);
+    }, [cleanup3D]);
 
     useEffect(() => {
         const destroy = init3D();
         return () => { destroy?.(); };
     }, [init3D]);
+
+    // ── Rebuild 3D model when config changes ──────────────────────────────────
+    useEffect(() => {
+        if (!modelGroupRef.current || !sceneRef.current) return;
+
+        // Remove old model
+        while (modelGroupRef.current.children.length > 0) {
+            const child = modelGroupRef.current.children[0];
+            modelGroupRef.current.remove(child);
+            child.traverse((obj) => {
+                if (obj instanceof THREE.Mesh) {
+                    obj.geometry?.dispose();
+                    if (Array.isArray(obj.material)) {
+                        obj.material.forEach((m) => m.dispose());
+                    } else {
+                        obj.material?.dispose();
+                    }
+                }
+            });
+        }
+
+        // Build new procedural model
+        const model = buildServiceModel({
+            serviceSlug,
+            widthM,
+            heightM,
+            aluminum,
+            glassColor,
+            wood,
+            poly,
+        });
+
+        // Enable shadows on all meshes
+        model.traverse((obj) => {
+            if (obj instanceof THREE.Mesh) {
+                obj.castShadow = true;
+                obj.receiveShadow = true;
+            }
+        });
+
+        // Center model
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        model.position.sub(center);
+        model.position.y += center.y;
+
+        modelGroupRef.current.add(model);
+    }, [serviceSlug, aluminum, glassColor, wood, poly, widthM, heightM]);
 
     // ── WhatsApp link ─────────────────────────────────────────────────────────
     const waText = encodeURIComponent(
@@ -251,8 +257,8 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
 
     // ── Config description ────────────────────────────────────────────────────
     const configDescription = isTecho
-        ? `${systemLabel} — Estructura de aluminio con acabado ${WOOD_FINISHES.find(w => w.id === wood)?.label || "Teca"} y policarbonato ${POLYCARBONATE_TYPES.find(p => p.id === poly)?.label || "Bronce"}. Dimensiones: ${widthM.toFixed(1)}m × ${heightM.toFixed(1)}m.`
-        : `${systemLabel} — Aluminio ${ALUMINUM_FINISHES.find(a => a.id === aluminum)?.label || "Negro"} y cristal ${GLASS_COLORS.find(g => g.id === glassColor)?.label || "Incoloro"}.`;
+        ? `${systemLabel} — Estructura con acabado ${WOOD_FINISHES.find(w => w.id === wood)?.label || "Teca"} y policarbonato ${POLYCARBONATE_TYPES.find(p => p.id === poly)?.label || "Bronce"}. Dimensiones: ${widthM.toFixed(1)}m × ${heightM.toFixed(1)}m.`
+        : `${systemLabel} — Aluminio ${ALUMINUM_FINISHES.find(a => a.id === aluminum)?.label || "Negro"} y cristal ${GLASS_COLORS.find(g => g.id === glassColor)?.label || "Incoloro"}. Dimensiones: ${widthM.toFixed(1)}m × ${heightM.toFixed(1)}m.`;
 
     return (
         <Box
@@ -389,8 +395,8 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                         </Box>
                     )}
 
-                    {/* ── NO-TECHO: Color de Vidrio ── */}
-                    {!isTecho && isVidrio && (
+                    {/* ── Color de Vidrio ── */}
+                    {hasGlass && (
                         <Box>
                             <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
                                 Color de Vidrio
@@ -437,12 +443,12 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                                 <Input
                                     type="number"
                                     value={widthM}
-                                    min={1}
+                                    min={0.5}
                                     max={8}
                                     step={0.1}
                                     onChange={(e) => {
                                         const v = parseFloat(e.target.value);
-                                        if (!isNaN(v) && v >= 1 && v <= 8) setWidthM(v);
+                                        if (!isNaN(v) && v >= 0.5 && v <= 8) setWidthM(v);
                                     }}
                                     size="xs"
                                     h="7"
@@ -454,12 +460,12 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                                 <Input
                                     type="number"
                                     value={heightM}
-                                    min={1}
+                                    min={0.5}
                                     max={5}
                                     step={0.1}
                                     onChange={(e) => {
                                         const v = parseFloat(e.target.value);
-                                        if (!isNaN(v) && v >= 1 && v <= 5) setHeightM(v);
+                                        if (!isNaN(v) && v >= 0.5 && v <= 5) setHeightM(v);
                                     }}
                                     size="xs"
                                     h="7"
