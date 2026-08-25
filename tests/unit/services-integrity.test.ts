@@ -131,7 +131,8 @@ describe('Integridad de Datos Estáticos de Servicios (FASE 5)', () => {
     const galleries = [
       { name: 'Ventana Nova', items: listVentana.nova },
       { name: 'Ventana Serie 25', items: listVentana.serie25 },
-      { name: 'Ventana Serie 31', items: listVentana.serie31 },
+      { name: 'Ventana Serie 35', items: listVentana.serie35 },
+      { name: 'Ventana Serie 62', items: listVentana.serie62 },
       { name: 'Balcones', items: listBalcon.items },
       { name: 'Barandas', items: listBaranda.baranda },
       { name: 'Celosías', items: listCelosias.celocias },
