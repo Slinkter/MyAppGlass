@@ -148,36 +148,149 @@ export function buildMampara(params: {
     return group;
 }
 
-// ── DUCHA ────────────────────────────────────────────────────────────────────
+// ── DUCHA (Alta Fidelidad Arquitectónica - Kit Ducha Pro Inox) ───────────────
 export function buildDucha(params: {
-    widthM: number; heightM: number; glassColor: string;
+    widthM: number; heightM: number; aluminum?: string; glassColor: string;
 }): THREE.Group {
-    const { widthM, heightM, glassColor } = params;
+    const { widthM, heightM, aluminum = "natural", glassColor } = params;
     const group = new THREE.Group();
     const matG = createGlassMaterial(glassColor);
-    const matS = createSteelMaterial();
+    const matS = createAluMaterial(aluminum); // Herrajes según acabado (natural/inox, negro, blanco, champagne, madera)
     const matSeal = createSealMaterial();
+    const glassThick = 0.008; // 8 mm vidrio templado
 
-    // Panel de vidrio templado
-    group.add(posBox(widthM, heightM, 0.012, matG, 0, 0, 0));
+    // Helper panel vidrio
+    function createGlassPane(w: number, h: number): THREE.Mesh {
+        const geo = new THREE.BoxGeometry(w, h, glassThick);
+        const mesh = new THREE.Mesh(geo, matG);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        return mesh;
+    }
 
-    // Barra superior
-    group.add(posBox(widthM + 0.1, 0.025, 0.025, matS, 0, heightM / 2 + 0.03, 0));
+    // 1. Tubo superior Ø25mm Inox
+    const tubeGeo = new THREE.CylinderGeometry(0.0125, 0.0125, widthM, 32);
+    const tube = new THREE.Mesh(tubeGeo, matS);
+    tube.rotation.z = Math.PI / 2;
+    tube.position.set(0, heightM / 2 - 0.04, 0);
+    tube.castShadow = true;
+    group.add(tube);
 
-    // Soportes de barra
-    group.add(posBox(0.04, 0.025, 0.04, matS, -widthM / 2 - 0.04, heightM / 2 + 0.03, 0));
-    group.add(posBox(0.04, 0.025, 0.04, matS, widthM / 2 + 0.04, heightM / 2 + 0.03, 0));
+    // 2. Conectores Pared - Tubo con Brida (Izquierda y Derecha)
+    const connGeo = new THREE.CylinderGeometry(0.022, 0.022, 0.04, 24);
+    const flangeGeo = new THREE.CylinderGeometry(0.035, 0.035, 0.008, 24);
 
-    // Tirador / manija
-    group.add(posBox(0.02, 0.35, 0.02, matS, widthM / 2 - 0.08, 0, 0.02));
+    const leftConnGroup = new THREE.Group();
+    const connMesh = new THREE.Mesh(connGeo, matS);
+    connMesh.rotation.x = Math.PI / 2;
+    leftConnGroup.add(connMesh);
 
-    // Bisagras
-    group.add(posBox(0.04, 0.06, 0.025, matS, -widthM / 2 + 0.02, heightM / 2 - 0.08, 0));
-    group.add(posBox(0.04, 0.06, 0.025, matS, -widthM / 2 + 0.02, -heightM / 2 + 0.08, 0));
+    const flangeMesh = new THREE.Mesh(flangeGeo, matS);
+    flangeMesh.rotation.x = Math.PI / 2;
+    flangeMesh.position.z = -0.02;
+    leftConnGroup.add(flangeMesh);
 
-    // Junquillo perimetral
-    group.add(posBox(widthM + 0.01, 0.012, 0.02, matSeal, 0, heightM / 2 - 0.005, 0));
-    group.add(posBox(widthM + 0.01, 0.012, 0.02, matSeal, 0, -heightM / 2 + 0.005, 0));
+    leftConnGroup.position.set(-widthM / 2 + 0.02, heightM / 2 - 0.04, 0);
+    group.add(leftConnGroup);
+
+    const rightConnGroup = leftConnGroup.clone();
+    rightConnGroup.position.x = widthM / 2 - 0.02;
+    group.add(rightConnGroup);
+
+    // 3. Topes de freno con goma en extremos del tubo
+    const stopperGeo = new THREE.CylinderGeometry(0.018, 0.018, 0.025, 24);
+    const rubberGeo = new THREE.CylinderGeometry(0.016, 0.016, 0.008, 24);
+
+    const leftStopper = new THREE.Mesh(stopperGeo, matS);
+    leftStopper.rotation.z = Math.PI / 2;
+    leftStopper.position.set(-widthM * 0.44, heightM / 2 - 0.04, 0);
+    group.add(leftStopper);
+
+    const leftRubber = new THREE.Mesh(rubberGeo, matSeal);
+    leftRubber.rotation.z = Math.PI / 2;
+    leftRubber.position.set(-widthM * 0.44 + 0.015, heightM / 2 - 0.04, 0);
+    group.add(leftRubber);
+
+    // 4. Panel Fijo (Lado Izquierdo)
+    const fixedW = widthM * 0.5;
+    const fixedH = heightM - 0.08;
+    const fixedGlass = createGlassPane(fixedW, fixedH);
+    fixedGlass.position.set(-widthM / 4, 0, -0.015);
+    group.add(fixedGlass);
+
+    // Perfil U a pared (Lado Izquierdo)
+    group.add(posBox(0.022, fixedH, 0.022, matS, -widthM / 2 + 0.011, 0, -0.015));
+
+    // Bridas de sujeción cristal fijo a tubo
+    const b1 = posBox(0.03, 0.06, 0.03, matS, -widthM * 0.38, heightM / 2 - 0.04, -0.015);
+    const b2 = posBox(0.03, 0.06, 0.03, matS, -widthM * 0.12, heightM / 2 - 0.04, -0.015);
+    group.add(b1, b2);
+
+    // 5. Panel Corredizo (Lado Derecho)
+    const doorW = widthM * 0.52; // Traslape
+    const doorH = heightM - 0.08;
+    const doorGroup = new THREE.Group();
+    const doorGlass = createGlassPane(doorW, doorH);
+    doorGlass.position.set(0, 0, 0.015);
+    doorGroup.add(doorGlass);
+
+    // Garruchas expuestas del Kit (2 rodamientos circulares con mordaza de fijación)
+    function createGarrucha(): THREE.Group {
+        const gGroup = new THREE.Group();
+        const wheelGeo = new THREE.CylinderGeometry(0.026, 0.026, 0.012, 32);
+        const capGeo = new THREE.CylinderGeometry(0.014, 0.014, 0.016, 24);
+        const clampGeo = new THREE.BoxGeometry(0.032, 0.075, 0.025);
+
+        const wheel = new THREE.Mesh(wheelGeo, matS);
+        wheel.rotation.x = Math.PI / 2;
+        wheel.position.y = 0.026;
+        gGroup.add(wheel);
+
+        const cap = new THREE.Mesh(capGeo, matS);
+        cap.rotation.x = Math.PI / 2;
+        cap.position.set(0, 0.026, 0.008);
+        gGroup.add(cap);
+
+        const clamp = new THREE.Mesh(clampGeo, matS);
+        clamp.position.set(0, -0.015, 0);
+        gGroup.add(clamp);
+
+        return gGroup;
+    }
+
+    const leftGarrucha = createGarrucha();
+    leftGarrucha.position.set(-doorW / 3, doorH / 2 + 0.02, 0.015);
+    doorGroup.add(leftGarrucha);
+
+    const rightGarrucha = createGarrucha();
+    rightGarrucha.position.set(doorW / 3, doorH / 2 + 0.02, 0.015);
+    doorGroup.add(rightGarrucha);
+
+    // Manijón Toallero Doble tubular
+    const barGeo = new THREE.CylinderGeometry(0.009, 0.009, 0.4, 24);
+    const studGeo = new THREE.CylinderGeometry(0.008, 0.008, 0.035, 16);
+
+    const handleBar = new THREE.Mesh(barGeo, matS);
+    handleBar.position.set(doorW / 3, 0, 0.045);
+    doorGroup.add(handleBar);
+
+    const topStud = new THREE.Mesh(studGeo, matS);
+    topStud.rotation.x = Math.PI / 2;
+    topStud.position.set(doorW / 3, 0.15, 0.025);
+    doorGroup.add(topStud);
+
+    const botStud = topStud.clone();
+    botStud.position.y = -0.15;
+    doorGroup.add(botStud);
+
+    doorGroup.position.set(widthM / 4, 0, 0);
+    group.add(doorGroup);
+
+    // Guiador inferior de piso continuo/nylon
+    group.add(posBox(0.045, 0.025, 0.06, matS, 0, -heightM / 2 + 0.012, 0));
+
+    // Sello vierteaguas / junquillo inferior
+    group.add(posBox(widthM, 0.012, 0.02, matSeal, 0, -heightM / 2 + 0.006, 0));
 
     return group;
 }
@@ -504,7 +617,7 @@ export function buildServiceModel(params: ServiceBuildParams): THREE.Group {
         case "mampara":
             return buildMampara({ widthM: params.widthM, heightM: params.heightM, aluminum: params.aluminum, glassColor: params.glassColor });
         case "ducha":
-            return buildDucha({ widthM: params.widthM, heightM: params.heightM, glassColor: params.glassColor });
+            return buildDucha({ widthM: params.widthM, heightM: params.heightM, aluminum: params.aluminum, glassColor: params.glassColor });
         case "baranda":
             return buildBaranda({ widthM: params.widthM, heightM: params.heightM, aluminum: params.aluminum, glassColor: params.glassColor });
         case "balcones":
