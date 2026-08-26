@@ -16,7 +16,6 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    viewTransition: true,
     optimizePackageImports: [
       '@chakra-ui/react',
       'lucide-react',
