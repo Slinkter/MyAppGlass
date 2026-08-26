@@ -1,5 +1,6 @@
+"use client";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
-import React, { useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Box } from "@chakra-ui/react";
 import { GoogleMap } from "@react-google-maps/api";
 import { useGoogleMapsLoader, useMapIcons, useMapState } from "@/shared/hooks/map";
@@ -26,17 +27,17 @@ const MapViewer: React.FC<MapViewerProps> = ({ lat, lng, projectData }) => {
   const { colorMode } = useColorMode();
   const { isLoaded, loadError } = useGoogleMapsLoader();
   const { map, onLoad, onUnmount } = useMapState();
-  const google = window.google;
+  const [google, setGoogle] = useState<typeof window.google | undefined>(undefined);
+  useEffect(() => {
+    setGoogle(window.google);
+  }, []);
   const icons = useMapIcons(isLoaded, google);
 
   const center = useMemo(() => ({ lat, lng }), [lat, lng]);
   
-  const currentMapStyle = useMemo(
-    () => (colorMode === "light" 
-      ? (mapStyles as { light: google.maps.MapTypeStyle[] }).light 
-      : (mapStyles as { dark: google.maps.MapTypeStyle[] }).dark),
-    [colorMode]
-  );
+  const currentMapStyle = colorMode === "light" 
+    ? (mapStyles as { light: google.maps.MapTypeStyle[] }).light 
+    : (mapStyles as { dark: google.maps.MapTypeStyle[] }).dark;
 
   const handleFitBounds = useCallback(() => {
     if (map) {

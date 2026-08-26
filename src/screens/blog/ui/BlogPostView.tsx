@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { 
   Box, 
   Container, 
@@ -26,6 +26,11 @@ interface BlogPostViewProps {
  * @description Premium reading experience for blog articles.
  */
 const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
+  const formattedDate = useMemo(
+    () => new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' }),
+    [post.date],
+  );
+
   // Estimate reading time
   const wordsPerMinute = 200;
   const wordCount = post.content.split(/\s+/).length;
@@ -71,7 +76,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
               </HStack>
               <HStack gap="2">
                 <LucideCalendar size={18} />
-                <Text>{new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}</Text>
+                <Text>{formattedDate}</Text>
               </HStack>
               <HStack gap="2">
                 <LucideClock size={18} />

@@ -101,6 +101,7 @@ const LandingPageSection: React.FC = React.memo(() => {
                             alt="Glass & Aluminum Company Logo"
                             fill
                             priority
+                            sizes="210px"
                             style={{ objectFit: "contain" }}
                         />
                     </Box>

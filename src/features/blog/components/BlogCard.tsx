@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Box, Heading, Text, VStack, HStack, Badge, Flex } from "@chakra-ui/react";
 import Link from "next/link";
 import { BlogPost } from "@/features/blog/data/blog-posts";
@@ -17,6 +17,10 @@ interface BlogCardProps {
  * @description Premium blog card with smooth 120Hz hover effects.
  */
 const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
+  const formattedDate = useMemo(
+    () => new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' }),
+    [post.date],
+  );
   return (
     <Link href={`/blog/${post.slug}`} style={{ width: "100%", height: "100%" }}>
       <Box
@@ -86,7 +90,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
             <HStack color="text.muted" fontSize="xs" gap="6">
               <HStack gap="2">
                 <LucideCalendar size={14} />
-                <Text>{new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}</Text>
+                <Text>{formattedDate}</Text>
               </HStack>
               <HStack gap="2">
                 <LucideUser size={14} />

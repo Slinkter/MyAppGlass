@@ -144,7 +144,6 @@ const ProjectsList: React.FC = React.memo(() => {
           transition: "opacity 0.2s ease-in-out",
           pointerEvents: isPending ? "none" : "auto",
         }}
-        onMouseEnter={() => {}}
       >
         {preloadedProjects.map((project, index) => (
           <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>

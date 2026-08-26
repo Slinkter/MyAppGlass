@@ -81,15 +81,12 @@ const GalleryRoot: React.FC<{
         [gallery, images],
     );
 
-    // Notify parent about active image change
+    // Notify parent about active image change & preload adjacent images
     useEffect(() => {
         if (gallery.currentImage && onActiveImageChange) {
             onActiveImageChange(gallery.currentImage, gallery.selectedIndex);
         }
-    }, [gallery.selectedIndex, gallery.currentImage, onActiveImageChange]);
 
-    // Pre-load adjacent images in the background
-    useEffect(() => {
         if (!images || gallery.imageCount === 0) return;
 
         const preloadImage = (src: string) => {
@@ -110,7 +107,7 @@ const GalleryRoot: React.FC<{
                 preloadImage(images[idx].src);
             }
         });
-    }, [gallery.selectedIndex, images, gallery.imageCount]);
+    }, [gallery.selectedIndex, gallery.currentImage, gallery.imageCount, images, onActiveImageChange]);
 
     const { handlePrevious, handleNext } = gallery;
 

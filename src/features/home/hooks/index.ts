@@ -4,8 +4,8 @@
  * @module features/home/hooks
  */
 
-export * from "@shared/hooks/map/useMapBounds";
-export * from "@shared/hooks/map/useMapIcons";
-export * from "./useMapProjects";
-export * from "@shared/hooks/map/useMapState";
-export * from "@shared/hooks/map/useGoogleMapsLoader";
+export { useMapBounds } from "@shared/hooks/map/useMapBounds";
+export { useMapIcons } from "@shared/hooks/map/useMapIcons";
+export { useMapProjects } from "./useMapProjects";
+export { useMapState } from "@shared/hooks/map/useMapState";
+export { useGoogleMapsLoader } from "@shared/hooks/map/useGoogleMapsLoader";

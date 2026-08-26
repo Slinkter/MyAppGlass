@@ -41,8 +41,6 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
     const interval = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
-          clearInterval(interval);
-          onClose(); // Ejecuta la redirección al completarse
           return 0;
         }
         return prev - 1;
@@ -50,7 +48,13 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isOpen, onClose]);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen && countdown <= 0) {
+      onClose();
+    }
+  }, [isOpen, countdown, onClose]);
 
   return (
     <DialogRoot

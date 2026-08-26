@@ -31,27 +31,27 @@ const StoreSection: React.FC = React.memo(() => {
 
     const handleMarkerToggle = useCallback(
         (marker: MarkerType) => {
-            if (isMobile) return; // Bloquear selección en móvil
+            if (isMobile) return;
             setSelectedMarker((prev) => {
-                const next = prev?.id === marker?.id ? null : marker;
-                if (
-                    next &&
-                    infoCardRef.current &&
-                    typeof window !== "undefined" &&
-                    window.innerWidth < 992
-                ) {
-                    requestAnimationFrame(() => {
-                        infoCardRef.current?.scrollIntoView({
-                            behavior: "smooth",
-                            block: "nearest",
-                            inline: "nearest",
-                        });
-                    });
-                }
-                return next;
+                return prev?.id === marker?.id ? null : marker;
             });
+            const next = selectedMarker?.id === marker?.id ? null : marker;
+            if (
+                next &&
+                infoCardRef.current &&
+                typeof window !== "undefined" &&
+                window.innerWidth < 992
+            ) {
+                requestAnimationFrame(() => {
+                    infoCardRef.current?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest",
+                        inline: "nearest",
+                    });
+                });
+            }
         },
-        [isMobile],
+        [isMobile, selectedMarker],
     );
 
     const isStore = selectedMarker?.type === "store";

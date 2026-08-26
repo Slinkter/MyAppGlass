@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useMemo } from "react";
+import React, { createContext, useContext, useState, useMemo, useCallback } from "react";
 import { OrderItem, Product } from "@/shared/schemas/ecommerce-schemas";
 import { orderService } from "@/features/products/services/orderService";
 
@@ -67,144 +67,162 @@ export const OrderDraftProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     return items.reduce((acc, item) => acc + item.quantity, 0);
   }, [items]);
 
-  const addItem = (product: Product, quantity: number) => {
-    if (!product.id) return { success: false, message: "Producto no identificado" };
-    if (quantity <= 0) return { success: false, message: "La cantidad debe ser mayor a 0" };
+  const addItem = useCallback(
+    (product: Product, quantity: number) => {
+      if (!product.id) return { success: false, message: "Producto no identificado" };
+      if (quantity <= 0) return { success: false, message: "La cantidad debe ser mayor a 0" };
 
-    const existingIndex = items.findIndex((i) => i.productId === product.id);
-    const currentQtyInDraft = existingIndex >= 0 ? items[existingIndex].quantity : 0;
-    const newTotalQty = currentQtyInDraft + quantity;
+      const existingIndex = items.findIndex((i) => i.productId === product.id);
+      const currentQtyInDraft = existingIndex >= 0 ? items[existingIndex].quantity : 0;
+      const newTotalQty = currentQtyInDraft + quantity;
 
-    if (newTotalQty > product.stock) {
-      return {
-        success: false,
-        message: `Stock insuficiente. Stock actual: ${product.stock}, ya en orden: ${currentQtyInDraft}`,
-      };
-    }
+      if (newTotalQty > product.stock) {
+        return {
+          success: false,
+          message: `Stock insuficiente. Stock actual: ${product.stock}, ya en orden: ${currentQtyInDraft}`,
+        };
+      }
 
-    if (existingIndex >= 0) {
-      const updated = [...items];
-      const newQty = updated[existingIndex].quantity + quantity;
-      updated[existingIndex] = {
-        ...updated[existingIndex],
-        quantity: newQty,
-        totalPrice: Math.round(newQty * updated[existingIndex].unitPrice * 100) / 100,
-      };
-      setItems(updated);
-    } else {
-      const newItem: OrderItem = {
-        productId: product.id,
-        sku: product.sku,
-        name: product.name,
-        category: product.category,
-        unit: product.unit,
-        unitPrice: product.unitPrice,
-        quantity: quantity,
-        totalPrice: Math.round(quantity * product.unitPrice * 100) / 100,
-      };
-      setItems([...items, newItem]);
-    }
+      if (existingIndex >= 0) {
+        const updated = [...items];
+        const newQty = updated[existingIndex].quantity + quantity;
+        updated[existingIndex] = {
+          ...updated[existingIndex],
+          quantity: newQty,
+          totalPrice: Math.round(newQty * updated[existingIndex].unitPrice * 100) / 100,
+        };
+        setItems(updated);
+      } else {
+        const newItem: OrderItem = {
+          productId: product.id,
+          sku: product.sku,
+          name: product.name,
+          category: product.category,
+          unit: product.unit,
+          unitPrice: product.unitPrice,
+          quantity: quantity,
+          totalPrice: Math.round(quantity * product.unitPrice * 100) / 100,
+        };
+        setItems([...items, newItem]);
+      }
 
-    return { success: true };
-  };
-
-  const removeItem = (productId: string) => {
-    setItems(items.filter((i) => i.productId !== productId));
-  };
-
-  const updateQuantity = (productId: string, quantity: number, maxStock: number) => {
-    if (quantity <= 0) {
-      removeItem(productId);
       return { success: true };
-    }
+    },
+    [items],
+  );
 
-    if (quantity > maxStock) {
-      return {
-        success: false,
-        message: `No puede exceder el stock disponible de ${maxStock} unidades`,
-      };
-    }
+  const removeItem = useCallback(
+    (productId: string) => {
+      setItems((prev) => prev.filter((i) => i.productId !== productId));
+    },
+    [],
+  );
 
-    setItems(
-      items.map((item) =>
-        item.productId === productId
-          ? {
-              ...item,
-              quantity,
-              totalPrice: Math.round(quantity * item.unitPrice * 100) / 100,
-            }
-          : item
-      )
-    );
-    return { success: true };
-  };
+  const updateQuantity = useCallback(
+    (productId: string, quantity: number, maxStock: number) => {
+      if (quantity <= 0) {
+        setItems((prev) => prev.filter((i) => i.productId !== productId));
+        return { success: true };
+      }
 
-  const clearDraft = () => {
+      if (quantity > maxStock) {
+        return {
+          success: false,
+          message: `No puede exceder el stock disponible de ${maxStock} unidades`,
+        };
+      }
+
+      setItems((prev) =>
+        prev.map((item) =>
+          item.productId === productId
+            ? {
+                ...item,
+                quantity,
+                totalPrice: Math.round(quantity * item.unitPrice * 100) / 100,
+              }
+            : item
+        )
+      );
+      return { success: true };
+    },
+    [],
+  );
+
+  const clearDraft = useCallback(() => {
     setClient(null);
     setItems([]);
     setPaymentMethod("TRANSFERENCIA_BCP");
     setNotes("");
-  };
+  }, []);
 
-  const submitOrder = async (adminUid: string, adminName: string) => {
-    if (!client) {
-      return { success: false, error: "Debe seleccionar o registrar un cliente para emitir la orden" };
-    }
-    if (items.length === 0) {
-      return { success: false, error: "La orden debe contener al menos un producto" };
-    }
+  const submitOrder = useCallback(
+    async (adminUid: string, adminName: string) => {
+      if (!client) {
+        return { success: false, error: "Debe seleccionar o registrar un cliente para emitir la orden" };
+      }
+      if (items.length === 0) {
+        return { success: false, error: "La orden debe contener al menos un producto" };
+      }
 
-    setIsSubmitting(true);
-    try {
-      const orderId = await orderService.saveOrderAndDecreaseStock({
-        adminUid,
-        adminName,
-        clientId: client.id,
-        clientName: client.name,
-        clientDniRuc: client.dniRuc,
-        clientPhone: client.phone,
-        clientAddress: client.address,
-        clientDistrict: client.district,
-        items,
-        subtotal,
-        igv,
-        total,
-        paymentMethod,
-        notes,
-      });
+      setIsSubmitting(true);
+      try {
+        const orderId = await orderService.saveOrderAndDecreaseStock({
+          adminUid,
+          adminName,
+          clientId: client.id,
+          clientName: client.name,
+          clientDniRuc: client.dniRuc,
+          clientPhone: client.phone,
+          clientAddress: client.address,
+          clientDistrict: client.district,
+          items,
+          subtotal,
+          igv,
+          total,
+          paymentMethod,
+          notes,
+        });
 
-      clearDraft();
-      return { success: true, orderId };
-    } catch (err: unknown) {
-      const errorMsg = err instanceof Error ? err.message : "Error desconocido al procesar la orden";
-      return { success: false, error: errorMsg };
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+        setClient(null);
+        setItems([]);
+        setPaymentMethod("TRANSFERENCIA_BCP");
+        setNotes("");
+        return { success: true, orderId };
+      } catch (err: unknown) {
+        const errorMsg = err instanceof Error ? err.message : "Error desconocido al procesar la orden";
+        return { success: false, error: errorMsg };
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [client, items, subtotal, igv, total, paymentMethod, notes],
+  );
+
+  const contextValue = useMemo(
+    () => ({
+      client,
+      items,
+      paymentMethod,
+      notes,
+      subtotal,
+      igv,
+      total,
+      totalUnits,
+      isSubmitting,
+      setClient,
+      setPaymentMethod,
+      setNotes,
+      addItem,
+      removeItem,
+      updateQuantity,
+      clearDraft,
+      submitOrder,
+    }),
+    [client, items, paymentMethod, notes, subtotal, igv, total, totalUnits, isSubmitting, addItem, removeItem, updateQuantity, clearDraft, submitOrder],
+  );
 
   return (
-    <OrderDraftContext.Provider
-      value={{
-        client,
-        items,
-        paymentMethod,
-        notes,
-        subtotal,
-        igv,
-        total,
-        totalUnits,
-        isSubmitting,
-        setClient,
-        setPaymentMethod,
-        setNotes,
-        addItem,
-        removeItem,
-        updateQuantity,
-        clearDraft,
-        submitOrder,
-      }}
-    >
+    <OrderDraftContext.Provider value={contextValue}>
       {children}
     </OrderDraftContext.Provider>
   );

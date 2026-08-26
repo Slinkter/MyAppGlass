@@ -27,4 +27,5 @@ const BlogList: React.FC = () => {
   );
 };
 
-export default BlogList;
+export default React.memo(BlogList);
+BlogList.displayName = "BlogList";

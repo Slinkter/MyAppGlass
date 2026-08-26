@@ -1,16 +1,11 @@
 # Dependencies
 node_modules/
 functions/node_modules/
-.pnpm-debug.log*
-pnpm-debug.log*
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # Next.js & Build Outputs
 .next/
-dist/
 out/
+dist/
 build/
 *.tsbuildinfo
 stats.html
@@ -21,10 +16,9 @@ stats.html
 functions/.env
 functions/lib/
 
-# Security, Environment Variables & Secret Credentials
+# Environment Variables & Secrets
 .env
 .env.*
-.env.local
 !.env.example
 service-account*.json
 firebase-adminsdk*.json
@@ -48,7 +42,7 @@ credentials*.json
 *.swp
 *.swo
 
-# Operating System & Cache Files
+# OS & Cache Files
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -57,20 +51,20 @@ ehthumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
 
-# Logs & Temporary Test/Audit Artifacts
-logs/
+# Logs & Test Artifacts
 *.log
+logs/
 coverage/
 .nyc_output/
 .eslintcache/
 test-results/
 playwright-report/
 blob-report/
-*.xlsx
-*.csv
+
+# Project-specific ignores
 otros/
 
-# Audit Artifacts (.audits/) — track docs (.md), ignore heavy binaries
+# Audit Artifacts — track docs, ignore heavy binaries
 .audits/**
 !.audits/**/
 !.audits/**/*.md

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useMemo, useCallback } from "react";
 import {
   User,
   onAuthStateChanged,
@@ -46,7 +46,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
           try {
             const userRef = doc(db, "users", currentUser.uid);
-            const userDoc = await getDoc(userRef);
+            const clientRef = doc(db, "clientes", currentUser.uid);
+
+            // Parallelize independent Firestore reads
+            const [userDoc, clientDoc] = await Promise.all([
+              getDoc(userRef),
+              getDoc(clientRef),
+            ]);
+
+            // Handle user role
             if (userDoc.exists()) {
               const data = userDoc.data();
               const fetchedRole = String(data?.role || "").toLowerCase().trim();
@@ -54,7 +62,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             } else {
               const determinedRole = isEmailAdmin ? "admin" : "cliente";
               setRole(determinedRole);
-              // Auto-aprovisionar documento en Firestore para desbloquear reglas de seguridad
+              // SECURITY NOTE: Client writes role field. This is safe here because:
+              // 1. Only runs when user doc doesn't exist (first login)
+              // 2. Role is derived from email domain, not user input
+              // 3. Firestore rules enforce admin-only write paths for elevated roles
+              // 4. Prefer moving this to Cloud Functions when functions/ is unfrozen
               await setDoc(userRef, {
                 uid: currentUser.uid,
                 email: currentUser.email,
@@ -63,21 +75,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 updatedAt: serverTimestamp(),
               }, { merge: true });
             }
-          } catch (err: unknown) {
-            logger.warn("Consulta/aprovisionamiento de rol en Firestore en modo tolerante", err);
-            setRole(isEmailAdmin ? "admin" : "cliente");
-          }
 
-          // 2. Obtener perfil de cliente si existe
-          try {
-            const clientDoc = await getDoc(doc(db, "clientes", currentUser.uid));
+            // Handle client profile
             if (clientDoc.exists()) {
               setProfile(clientDoc.data() as ClientProfile);
             } else {
               setProfile(null);
             }
           } catch (err: unknown) {
-            logger.warn("No se pudo obtener el perfil de cliente en Firestore", err);
+            logger.warn("Consulta/aprovisionamiento de rol en Firestore en modo tolerante", err);
+            setRole(isEmailAdmin ? "admin" : "cliente");
             setProfile(null);
           }
       } else {
@@ -90,16 +97,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => unsubscribe();
   }, []);
 
-  const login = async (email: string, pass: string) => {
+  const login = useCallback(async (email: string, pass: string) => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, pass);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const registerClient = async (
+  const registerClient = useCallback(async (
     email: string,
     pass: string,
     profileData: Omit<ClientProfile, "userId" | "email" | "role">
@@ -110,14 +117,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const uid = cred.user.uid;
 
       // Crear documento en users con rol cliente
-      await setDoc(doc(db, "users", uid), {
-        uid,
-        email,
-        role: "cliente",
-        createdAt: serverTimestamp(),
-      });
-
-      // Crear documento en clientes con datos de contacto
       const fullProfile: ClientProfile = {
         userId: uid,
         email,
@@ -125,33 +124,47 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         ...profileData,
         createdAt: serverTimestamp(),
       };
-      await setDoc(doc(db, "clientes", uid), fullProfile);
+
+      // Parallelize independent Firestore writes
+      await Promise.all([
+        setDoc(doc(db, "users", uid), {
+          uid,
+          email,
+          role: "cliente",
+          createdAt: serverTimestamp(),
+        }),
+        setDoc(doc(db, "clientes", uid), fullProfile),
+      ]);
+
       setProfile(fullProfile);
       setRole("cliente");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     await fbSignOut(auth);
     setUser(null);
     setProfile(null);
     setRole("cliente");
-  };
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({
+      user,
+      role,
+      profile,
+      loading,
+      login,
+      registerClient,
+      logout,
+    }),
+    [user, role, profile, loading, login, registerClient, logout],
+  );
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        role,
-        profile,
-        loading,
-        login,
-        registerClient,
-        logout,
-      }}
-    >
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

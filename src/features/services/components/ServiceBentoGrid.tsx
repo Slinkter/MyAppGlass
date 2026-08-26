@@ -192,4 +192,6 @@ const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ systemName, about }
   );
 };
 
-export default ServiceBentoGrid;
+const MemoizedServiceBentoGrid = React.memo(ServiceBentoGrid);
+MemoizedServiceBentoGrid.displayName = "ServiceBentoGrid";
+export default MemoizedServiceBentoGrid;

@@ -30,10 +30,11 @@ interface SuccessModalProps {
  * @component SuccessModal
  * @description Modal de éxito que confirma el registro del reclamo con opción de impresión/descarga de constancia.
  */
+const handlePrint = () => {
+  window.print();
+};
+
 const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId }) => {
-  const handlePrint = () => {
-    window.print();
-  };
 
   return (
     <DialogRoot 

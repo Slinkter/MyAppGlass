@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import {
   Box,
   VStack,
@@ -71,9 +71,9 @@ export const ReportsScreen: React.FC = () => {
     setExpandedOrderId(expandedOrderId === id ? null : id);
   };
 
-  const handlePrint = () => {
+  const handlePrint = useCallback(() => {
     window.print();
-  };
+  }, []);
 
   return (
     <Box maxW="1350px" mx="auto" py="8" px={{ base: "4", md: "6" }}>

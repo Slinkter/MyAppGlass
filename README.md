@@ -1,5 +1,7 @@
 # Glass & Aluminum Company S.A.C. - Portal Corporativo (Next.js 16)
 
+opencode -s ses_fbfd21e85ffeywTv1EHoxmp2t4
+
 Plataforma corporativa premium de alta gama optimizada para el rendimiento y SEO de autoridad. Diseñada para **Glass & Aluminum Company S.A.C.**, líderes en soluciones arquitectónicas de cristalería, ventanas antirruido, mamparas y estructuras de aluminio en Lima, Perú.
 
 ---
@@ -63,6 +65,7 @@ pnpm run deploy:hosting
 ## 📝 Documentación del Proyecto
 
 Para consultar los manuales técnicos, guías de desarrollo y auditorías:
+
 - 📚 **[Centro de Documentación (docs/README.md)](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/README.md)**
 - 🤖 **[Guía para Agentes LLM (AGENTS.md)](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/AGENTS.md)**
 - 🏛️ **[Manual de Arquitectura (docs/01_ARCHITECTURE.md)](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/docs/01_ARCHITECTURE.md)**

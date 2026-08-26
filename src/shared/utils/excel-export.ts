@@ -1,16 +1,16 @@
-import * as XLSX from "xlsx";
 import { Product, Order } from "@/shared/schemas/ecommerce-schemas";
 
 /**
  * Exporta cualquier lista de objetos a un archivo Excel (.xlsx) y dispara la descarga en el navegador.
  */
-export function exportToExcel<T extends Record<string, unknown>>(
+export async function exportToExcel<T extends Record<string, unknown>>(
   data: T[],
   fileName: string,
   sheetName: string = "Datos"
 ) {
   if (typeof window === "undefined" || data.length === 0) return;
 
+  const XLSX = await import("xlsx");
   const worksheet = XLSX.utils.json_to_sheet(data);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
@@ -21,7 +21,7 @@ export function exportToExcel<T extends Record<string, unknown>>(
 /**
  * Exporta el catálogo actual de inventario a Excel con columnas amigables.
  */
-export function exportInventoryToExcel(products: Product[]) {
+export async function exportInventoryToExcel(products: Product[]) {
   const formatted = products.map((p) => ({
     SKU: p.sku,
     "Nombre del Producto": p.name,
@@ -37,13 +37,13 @@ export function exportInventoryToExcel(products: Product[]) {
   }));
 
   const dateStr = new Date().toISOString().split("T")[0];
-  exportToExcel(formatted, `GYA_Inventario_${dateStr}`, "Inventario");
+  await exportToExcel(formatted, `GYA_Inventario_${dateStr}`, "Inventario");
 }
 
 /**
  * Exporta el historial de órdenes a Excel con detalle consolidado.
  */
-export function exportOrdersToExcel(orders: Order[]) {
+export async function exportOrdersToExcel(orders: Order[]) {
   const formatted = orders.map((o) => ({
     "N° Orden": o.orderNumber,
     "Cliente": o.clientName,
@@ -61,5 +61,5 @@ export function exportOrdersToExcel(orders: Order[]) {
   }));
 
   const dateStr = new Date().toISOString().split("T")[0];
-  exportToExcel(formatted, `GYA_Reporte_Ventas_${dateStr}`, "Ventas");
+  await exportToExcel(formatted, `GYA_Reporte_Ventas_${dateStr}`, "Ventas");
 }

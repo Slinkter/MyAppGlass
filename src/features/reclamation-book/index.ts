@@ -16,8 +16,29 @@ export { useReclamationForm } from "./hooks/useReclamationForm";
 export { useReclamationFormContext, ReclamationFormProvider } from "./components/ReclamationFormContext";
 
 // Actions & Utils
-export * from "./actions";
-export * from "./utils/sanitizer";
+export { submitReclamationAction } from "./actions";
+export type { ReclamationActionResult } from "./actions";
+export {
+  sanitizeSingleLine,
+  sanitizeMultilineText,
+  sanitizeEmail,
+  sanitizePhone,
+  sanitizeDocumentNumber,
+  sanitizeAmount,
+  sanitizeReclamationData,
+  isValidTipoDocumento,
+  isValidTipoBien,
+  isValidTipoSolicitud,
+} from "./utils/sanitizer";
 
 // Types
-export * from "./types";
+export type {
+  TipoDocumento,
+  TipoBien,
+  TipoSolicitud,
+  ReclamationFormState,
+  FormErrors,
+  ModalProps,
+  InputChangeEvent,
+  ReclamationFormContextValue,
+} from "./types";

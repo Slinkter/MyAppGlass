@@ -16,9 +16,18 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+/**
+ * Shared data resolver for both generateMetadata and BlogPostPage.
+ * Avoids duplicate slug resolution and post lookups per request.
+ */
+async function resolvePostData(params: Promise<{ slug: string }>) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
+  return { slug, post };
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug, post } = await resolvePostData(params);
   
   if (!post) return { title: "Artículo no encontrado | Blog GYA" };
 
@@ -50,8 +59,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { slug, post } = await resolvePostData(params);
 
   if (!post) {
     notFound();

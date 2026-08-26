@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Box,
   Heading,
@@ -21,6 +21,7 @@ import Link from "next/link";
 
 export const PresupuestoWizardScreen: React.FC = () => {
   const { user, profile, loading } = useAuth();
+  const formattedDate = useMemo(() => new Date().toLocaleDateString("es-PE"), []);
 
   const [params, setParams] = useState<QuoteCalculationInput>({
     systemType: "mampara_serie25",
@@ -358,7 +359,7 @@ export const PresupuestoWizardScreen: React.FC = () => {
               N° GYA-{new Date().getFullYear()}-0842
             </Text>
             <Text fontSize="xs" color="gray.500">
-              Fecha: {new Date().toLocaleDateString("es-PE")}
+              Fecha: {formattedDate}
             </Text>
           </Box>
         </HStack>

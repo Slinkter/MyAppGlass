@@ -4,5 +4,7 @@
  * @module features/contacto
  */
 
-export * from "./actions";
-export * from "./hooks/useContactForm";
+export { submitContactAction, checkStatusAction } from "./actions";
+export type { ContactData } from "./actions";
+export { useContactForm } from "./hooks/useContactForm";
+export type { TrackingResult } from "./hooks/useContactForm";

@@ -17,10 +17,19 @@ type Props = {
   params: Promise<{ serviceSlug: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+/**
+ * Shared data resolver for both generateMetadata and Page.
+ * Avoids duplicate Firestore/module lookups per request.
+ */
+async function resolveServiceData(params: Promise<{ serviceSlug: string }>) {
   const { serviceSlug } = await params;
   const pageData = servicePageDataMap[serviceSlug];
   const service = getServiceBySlug(serviceSlug);
+  return { serviceSlug, pageData, service };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { serviceSlug, pageData, service } = await resolveServiceData(params);
   
   if (!service) {
     return {
@@ -62,9 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const { serviceSlug } = await params;
-  const pageData = servicePageDataMap[serviceSlug];
-  const service = getServiceBySlug(serviceSlug);
+  const { serviceSlug, pageData, service } = await resolveServiceData(params);
 
   const title = pageData?.seo.title || service?.name || "Servicio";
   const description = pageData?.seo.description || service?.description || "";

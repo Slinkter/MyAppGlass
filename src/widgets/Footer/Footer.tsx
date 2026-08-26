@@ -29,6 +29,7 @@ import Link from "next/link";
 import Image from "next/image";
 import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/logosvg.svg";
+import React from "react";
 import type { ElementType, ReactNode } from "react";
 import NAV_ITEMS from "@/shared/config/nav-items";
 
@@ -81,6 +82,7 @@ const FooterRow = ({
                             alt=""
                             aria-hidden="true"
                             fill
+                            sizes="20px"
                             style={{ objectFit: "contain" }}
                         />
                     </Box>
@@ -252,6 +254,7 @@ const Footer = () => {
                                 src={logoGYA}
                                 alt="Logo GYA Glass & Aluminum"
                                 fill
+                                sizes="180px"
                                 style={{ objectFit: "contain" }}
                                 loading="lazy"
                             />
@@ -289,4 +292,5 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export default React.memo(Footer);
+Footer.displayName = "Footer";

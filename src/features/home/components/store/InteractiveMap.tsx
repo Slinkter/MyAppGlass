@@ -1,6 +1,6 @@
 "use client";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
-import React, { useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import { Box } from "@chakra-ui/react";
 
@@ -36,18 +36,18 @@ const InteractiveMapComponent: React.FC<InteractiveMapProps> = ({
 
   const { isLoaded, loadError } = useGoogleMapsLoader();
 
-  const google = typeof window !== "undefined" ? window.google : undefined;
+  const [google, setGoogle] = useState<typeof window.google | undefined>(undefined);
+  useEffect(() => {
+    setGoogle(window.google);
+  }, []);
 
   const { map, onLoad, onUnmount } = useMapState();
   const icons = useMapIcons(isLoaded, google);
 
-  const currentMapStyle = useMemo(
-    () => (colorMode === "light" ? mapStyles.light : mapStyles.dark),
-    [colorMode],
-  );
+  const currentMapStyle = colorMode === "light" ? mapStyles.light : mapStyles.dark;
 
-  const handleMarkerToggle = useMemo(
-    () => (marker: MarkerType) => onMarkerToggle(marker),
+  const handleMarkerToggle = useCallback(
+    (marker: MarkerType) => onMarkerToggle(marker),
     [onMarkerToggle],
   );
 

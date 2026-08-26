@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Box,
   Heading,
@@ -17,12 +17,12 @@ interface ServiceFaqSectionProps {
   serviceTitle: string;
 }
 
-export const ServiceFaqSection: React.FC<ServiceFaqSectionProps> = ({ faqs, serviceTitle }) => {
+const ServiceFaqSectionInner: React.FC<ServiceFaqSectionProps> = ({ faqs, serviceTitle }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const toggleFaq = (index: number) => {
+  const toggleFaq = useCallback((index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
-  };
+  }, []);
 
   if (!faqs || faqs.length === 0) return null;
 
@@ -82,3 +82,6 @@ export const ServiceFaqSection: React.FC<ServiceFaqSectionProps> = ({ faqs, serv
     </Box>
   );
 };
+
+export const ServiceFaqSection = React.memo(ServiceFaqSectionInner);
+ServiceFaqSection.displayName = "ServiceFaqSection";
