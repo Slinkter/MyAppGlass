@@ -148,149 +148,99 @@ export function buildMampara(params: {
     return group;
 }
 
-// ── DUCHA (Alta Fidelidad Arquitectónica - Kit Ducha Pro Inox) ───────────────
+// ── DUCHA (Alta Fidelidad Arquitectónica - Poliestireno Acrílica & Kit Inox) ──
 export function buildDucha(params: {
     widthM: number; heightM: number; aluminum?: string; glassColor: string;
 }): THREE.Group {
     const { widthM, heightM, aluminum = "natural", glassColor } = params;
     const group = new THREE.Group();
-    const matG = createGlassMaterial(glassColor);
-    const matS = createAluMaterial(aluminum); // Herrajes según acabado (natural/inox, negro, blanco, champagne, madera)
+    const matS = createAluMaterial(aluminum); // Perfilería de aluminio
     const matSeal = createSealMaterial();
-    const glassThick = 0.008; // 8 mm vidrio templado
 
-    // Helper panel vidrio
-    function createGlassPane(w: number, h: number): THREE.Mesh {
-        const geo = new THREE.BoxGeometry(w, h, glassThick);
-        const mesh = new THREE.Mesh(geo, matG);
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        return mesh;
+    // ──────────────────────────────────────────────────────────────────────────
+    // OPCIÓN: POLIESTIRENO / ACRÍLICO ECONÓMICO (Marco perimetral + hojas corredizas)
+    // ──────────────────────────────────────────────────────────────────────────
+    // Material de poliestireno / acrílico translúcido con textura de gota/escarcha
+    const canvas = document.createElement("canvas");
+    canvas.width = 128;
+    canvas.height = 128;
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+        ctx.fillStyle = "#e0f2fe";
+        ctx.fillRect(0, 0, 128, 128);
+        ctx.fillStyle = "#ffffff";
+        for (let i = 0; i < 80; i++) {
+            const rx = Math.random() * 128;
+            const ry = Math.random() * 128;
+            const rad = 1 + Math.random() * 2.5;
+            ctx.beginPath();
+            ctx.arc(rx, ry, rad, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    const acrylicTexture = new THREE.CanvasTexture(canvas);
+    acrylicTexture.wrapS = THREE.RepeatWrapping;
+    acrylicTexture.wrapT = THREE.RepeatWrapping;
+    acrylicTexture.repeat.set(4, 6);
+
+    const matAcrylic = new THREE.MeshPhysicalMaterial({
+        color: 0xe0f2fe,
+        map: acrylicTexture,
+        roughness: 0.45,
+        transmission: 0.75,
+        transparent: true,
+        opacity: 0.9,
+        ior: 1.49,
+    });
+
+    const frameW = 0.04;
+    const frameD = 0.045;
+
+    // 1. Marco exterior de aluminio perimetral (Cabezal, Riel inferior y Jambas laterales)
+    group.add(posBox(widthM, frameW, frameD, matS, 0, heightM / 2 - frameW / 2, 0)); // Cabezal superior
+    group.add(posBox(widthM, frameW, frameD, matS, 0, -heightM / 2 + frameW / 2, 0)); // Riel inferior
+    group.add(posBox(frameW, heightM, frameD, matS, -widthM / 2 + frameW / 2, 0, 0)); // Jamba izquierda
+    group.add(posBox(frameW, heightM, frameD, matS, widthM / 2 - frameW / 2, 0, 0)); // Jamba derecha
+
+    const inW = widthM - frameW * 2;
+    const inH = heightM - frameW * 2;
+    const sashW = inW / 2 + 0.015; // Traslape de 1.5 cm
+    const sashH = inH - 0.01;
+    const pProfile = 0.032; // Perfil de hoja
+    const pD = 0.025;
+
+    // Función para crear hoja de poliestireno enmarcada en aluminio
+    function createAcrylicSash(): THREE.Group {
+        const sGroup = new THREE.Group();
+        // Marco de la hoja
+        sGroup.add(posBox(sashW, pProfile, pD, matS, 0, sashH / 2 - pProfile / 2, 0));
+        sGroup.add(posBox(sashW, pProfile, pD, matS, 0, -sashH / 2 + pProfile / 2, 0));
+        sGroup.add(posBox(pProfile, sashH, pD, matS, -sashW / 2 + pProfile / 2, 0, 0));
+        sGroup.add(posBox(pProfile, sashH, pD, matS, sashW / 2 - pProfile / 2, 0, 0));
+
+        // Plancha de poliestireno acrílico
+        const panelW = sashW - pProfile * 2;
+        const panelH = sashH - pProfile * 2;
+        sGroup.add(posBox(panelW, panelH, 0.003, matAcrylic, 0, 0, 0));
+
+        // Tirador / Jalador embutido
+        sGroup.add(posBox(0.015, 0.12, 0.015, matS, sashW / 2 - pProfile - 0.01, 0, 0.008));
+        return sGroup;
     }
 
-    // 1. Tubo superior Ø25mm Inox
-    const tubeGeo = new THREE.CylinderGeometry(0.0125, 0.0125, widthM, 32);
-    const tube = new THREE.Mesh(tubeGeo, matS);
-    tube.rotation.z = Math.PI / 2;
-    tube.position.set(0, heightM / 2 - 0.04, 0);
-    tube.castShadow = true;
-    group.add(tube);
+    // 2. Hoja Fija (Izquierda)
+    const fixedSash = createAcrylicSash();
+    fixedSash.position.set(-inW / 4, 0, -pD / 2);
+    group.add(fixedSash);
 
-    // 2. Conectores Pared - Tubo con Brida (Izquierda y Derecha)
-    const connGeo = new THREE.CylinderGeometry(0.022, 0.022, 0.04, 24);
-    const flangeGeo = new THREE.CylinderGeometry(0.035, 0.035, 0.008, 24);
+    // 3. Hoja Corrediza Móvil (Derecha)
+    const movingSash = createAcrylicSash();
+    movingSash.position.set(inW / 4, 0, pD / 2);
+    movingSash.name = "slidingDoor"; // Permite que el botón Abrir/Cerrar la anime automáticamente
+    group.add(movingSash);
 
-    const leftConnGroup = new THREE.Group();
-    const connMesh = new THREE.Mesh(connGeo, matS);
-    connMesh.rotation.x = Math.PI / 2;
-    leftConnGroup.add(connMesh);
-
-    const flangeMesh = new THREE.Mesh(flangeGeo, matS);
-    flangeMesh.rotation.x = Math.PI / 2;
-    flangeMesh.position.z = -0.02;
-    leftConnGroup.add(flangeMesh);
-
-    leftConnGroup.position.set(-widthM / 2 + 0.02, heightM / 2 - 0.04, 0);
-    group.add(leftConnGroup);
-
-    const rightConnGroup = leftConnGroup.clone();
-    rightConnGroup.position.x = widthM / 2 - 0.02;
-    group.add(rightConnGroup);
-
-    // 3. Topes de freno con goma en extremos del tubo
-    const stopperGeo = new THREE.CylinderGeometry(0.018, 0.018, 0.025, 24);
-    const rubberGeo = new THREE.CylinderGeometry(0.016, 0.016, 0.008, 24);
-
-    const leftStopper = new THREE.Mesh(stopperGeo, matS);
-    leftStopper.rotation.z = Math.PI / 2;
-    leftStopper.position.set(-widthM * 0.44, heightM / 2 - 0.04, 0);
-    group.add(leftStopper);
-
-    const leftRubber = new THREE.Mesh(rubberGeo, matSeal);
-    leftRubber.rotation.z = Math.PI / 2;
-    leftRubber.position.set(-widthM * 0.44 + 0.015, heightM / 2 - 0.04, 0);
-    group.add(leftRubber);
-
-    // 4. Panel Fijo (Lado Izquierdo)
-    const fixedW = widthM * 0.5;
-    const fixedH = heightM - 0.08;
-    const fixedGlass = createGlassPane(fixedW, fixedH);
-    fixedGlass.position.set(-widthM / 4, 0, -0.015);
-    group.add(fixedGlass);
-
-    // Perfil U a pared (Lado Izquierdo)
-    group.add(posBox(0.022, fixedH, 0.022, matS, -widthM / 2 + 0.011, 0, -0.015));
-
-    // Bridas de sujeción cristal fijo a tubo
-    const b1 = posBox(0.03, 0.06, 0.03, matS, -widthM * 0.38, heightM / 2 - 0.04, -0.015);
-    const b2 = posBox(0.03, 0.06, 0.03, matS, -widthM * 0.12, heightM / 2 - 0.04, -0.015);
-    group.add(b1, b2);
-
-    // 5. Panel Corredizo (Lado Derecho)
-    const doorW = widthM * 0.52; // Traslape
-    const doorH = heightM - 0.08;
-    const doorGroup = new THREE.Group();
-    const doorGlass = createGlassPane(doorW, doorH);
-    doorGlass.position.set(0, 0, 0.015);
-    doorGroup.add(doorGlass);
-
-    // Garruchas expuestas del Kit (2 rodamientos circulares con mordaza de fijación)
-    function createGarrucha(): THREE.Group {
-        const gGroup = new THREE.Group();
-        const wheelGeo = new THREE.CylinderGeometry(0.026, 0.026, 0.012, 32);
-        const capGeo = new THREE.CylinderGeometry(0.014, 0.014, 0.016, 24);
-        const clampGeo = new THREE.BoxGeometry(0.032, 0.075, 0.025);
-
-        const wheel = new THREE.Mesh(wheelGeo, matS);
-        wheel.rotation.x = Math.PI / 2;
-        wheel.position.y = 0.026;
-        gGroup.add(wheel);
-
-        const cap = new THREE.Mesh(capGeo, matS);
-        cap.rotation.x = Math.PI / 2;
-        cap.position.set(0, 0.026, 0.008);
-        gGroup.add(cap);
-
-        const clamp = new THREE.Mesh(clampGeo, matS);
-        clamp.position.set(0, -0.015, 0);
-        gGroup.add(clamp);
-
-        return gGroup;
-    }
-
-    const leftGarrucha = createGarrucha();
-    leftGarrucha.position.set(-doorW / 3, doorH / 2 + 0.02, 0.015);
-    doorGroup.add(leftGarrucha);
-
-    const rightGarrucha = createGarrucha();
-    rightGarrucha.position.set(doorW / 3, doorH / 2 + 0.02, 0.015);
-    doorGroup.add(rightGarrucha);
-
-    // Manijón Toallero Doble tubular
-    const barGeo = new THREE.CylinderGeometry(0.009, 0.009, 0.4, 24);
-    const studGeo = new THREE.CylinderGeometry(0.008, 0.008, 0.035, 16);
-
-    const handleBar = new THREE.Mesh(barGeo, matS);
-    handleBar.position.set(doorW / 3, 0, 0.045);
-    doorGroup.add(handleBar);
-
-    const topStud = new THREE.Mesh(studGeo, matS);
-    topStud.rotation.x = Math.PI / 2;
-    topStud.position.set(doorW / 3, 0.15, 0.025);
-    doorGroup.add(topStud);
-
-    const botStud = topStud.clone();
-    botStud.position.y = -0.15;
-    doorGroup.add(botStud);
-
-    doorGroup.position.set(widthM / 4, 0, 0);
-    group.add(doorGroup);
-
-    // Guiador inferior de piso continuo/nylon
-    group.add(posBox(0.045, 0.025, 0.06, matS, 0, -heightM / 2 + 0.012, 0));
-
-    // Sello vierteaguas / junquillo inferior
-    group.add(posBox(widthM, 0.012, 0.02, matSeal, 0, -heightM / 2 + 0.006, 0));
+    // 4. Guía central y sello vierteaguas
+    group.add(posBox(0.03, 0.02, 0.04, matSeal, 0, -heightM / 2 + frameW + 0.01, 0));
 
     return group;
 }

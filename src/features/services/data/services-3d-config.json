@@ -44,12 +44,12 @@
   },
 
   "ducha": {
-    "displayLabel": "Ducha",
-    "tipoLabel": "Tipo de Ducha",
+    "displayLabel": "Puerta de Ducha",
+    "tipoLabel": "Sistema de Ducha",
     "tipos": [
-      { "id": "angular",     "label": "Angular"      },
-      { "id": "rectangular", "label": "Rectangular"  },
-      { "id": "walkin",      "label": "Walk-in"      }
+      { "id": "poliestireno", "label": "Poliestireno (Acrílica Económica)" },
+      { "id": "kit-inox",     "label": "Kit Tubo Inox (Vidrio Templado)"   },
+      { "id": "batiente",     "label": "Batiente Cristal Templado"         }
     ],
     "hasSistemas":   false,
     "hasGlassType":  true,
@@ -57,11 +57,11 @@
     "hasGlassColor": true,
     "hasWood":       false,
     "hasPoly":       false,
-    "hasOpenClose":  false,
+    "hasOpenClose":  true,
     "widthRange":    [0.7, 2.5],
-    "heightRange":   [1.8, 2.4],
-    "defaultWidth":  1.0,
-    "defaultHeight": 2.0,
+    "heightRange":   [1.7, 2.3],
+    "defaultWidth":  1.2,
+    "defaultHeight": 1.9,
     "camera": { "radius": 4.0, "polarDeg": 60, "azimuthDeg": 35, "minDist": 1.5, "maxDist": 9 }
   },
 

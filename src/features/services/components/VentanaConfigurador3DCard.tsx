@@ -240,6 +240,17 @@ export const VentanaConfigurador3DCard: React.FC<{
                     const targetRot = isOpenState ? -Math.PI / 3 : 0;
                     sash.rotation.y += (targetRot - sash.rotation.y) * speed;
                 }
+            } else if (windowGroupRef.current) {
+                // Animación para puertas de ducha y mamparas procedurales
+                const slidingDoor = windowGroupRef.current.getObjectByName("slidingDoor");
+                if (slidingDoor) {
+                    const speed = 0.08;
+                    const curWidth = curW / 1000;
+                    const closedX = curWidth / 4;
+                    const openX = -curWidth / 4 + 0.05; // Desliza detrás del panel fijo
+                    const targetX = isOpenState ? openX : closedX;
+                    slidingDoor.position.x += (targetX - slidingDoor.position.x) * speed;
+                }
             }
 
             if (rendererRef.current && sceneRef.current && cameraRef.current) {
@@ -305,7 +316,8 @@ export const VentanaConfigurador3DCard: React.FC<{
             });
             const box3   = new THREE.Box3().setFromObject(model);
             const center = box3.getCenter(new THREE.Vector3());
-            model.position.set(-center.x, -box3.min.y, -center.z);
+            // Centrado exacto del modelo en el origen 3D
+            model.position.set(-center.x, -center.y, -center.z);
             sceneRef.current.add(model);
             windowGroupRef.current = model as unknown as THREE.Group;
             sashGroupRef.current = null;
@@ -453,7 +465,7 @@ export const VentanaConfigurador3DCard: React.FC<{
             const sD = depth * 0.6;
 
             const sash = createSash(sW, sH, sP, sD, matA, matG);
-        sash.position.set(0, -sH / 2, 0);
+            sash.position.set(0, -sH / 2, 0);
 
             sashGroup.position.set(0, sH / 2, 0);
             sashGroup.add(sash);
