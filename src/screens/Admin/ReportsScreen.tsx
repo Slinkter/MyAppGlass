@@ -17,17 +17,12 @@ import {
   FileSpreadsheet,
   Printer,
   Search,
-  Calendar,
   DollarSign,
-  ShoppingCart,
   TrendingUp,
   Package,
   ChevronDown,
   ChevronUp,
   FileCheck,
-  Building2,
-  X,
-  QrCode,
 } from "lucide-react";
 import { useRealtimeOrders } from "@/features/products/hooks/useRealtimeOrders";
 import { Order } from "@/shared/schemas/ecommerce-schemas";

@@ -20,16 +20,6 @@ import MobileNav from "./MobileNav";
  */
 const AuraNavbar = React.memo(() => {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = React.useState(false);
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-    setScrolled(false);
-
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
 
   // Esconder el Navbar público en todas las rutas administrativas del dashboard
   if (pathname.startsWith("/admin")) {
@@ -52,8 +42,7 @@ const AuraNavbar = React.memo(() => {
           w="full"
           pointerEvents="auto"
           opacity={1}
-          transform={scrolled ? "translateY(0)" : "translateY(0)"}
-          transition="transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease"
+          transition="box-shadow 0.3s ease"
         >
           <Box pointerEvents="auto">
             <AuraDesktopNav />

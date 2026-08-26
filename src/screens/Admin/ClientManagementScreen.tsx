@@ -14,7 +14,6 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import {
-  Users,
   Search,
   UserPlus,
   Phone,
@@ -24,7 +23,6 @@ import {
   ShoppingCart,
   CheckCircle2,
   X,
-  Building,
   MessageCircle,
 } from "lucide-react";
 import { collection, addDoc, query, serverTimestamp, onSnapshot } from "firebase/firestore";

@@ -26,10 +26,6 @@ import {
   Package,
   FileCheck,
   RefreshCw,
-  CreditCard,
-  Building2,
-  Wallet,
-  Coins,
   Search,
 } from "lucide-react";
 import { useRealtimeProducts } from "@/features/products/hooks/useRealtimeProducts";

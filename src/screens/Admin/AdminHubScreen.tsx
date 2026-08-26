@@ -18,11 +18,8 @@ import {
   BarChart3,
   Calculator,
   Users,
-  ShieldCheck,
   ArrowUpRight,
-  TrendingUp,
   Plus,
-  Layers,
   Sparkles,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";

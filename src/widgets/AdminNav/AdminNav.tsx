@@ -13,7 +13,6 @@ import {
   Users,
   ShieldCheck,
   Globe,
-  LogOut,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 

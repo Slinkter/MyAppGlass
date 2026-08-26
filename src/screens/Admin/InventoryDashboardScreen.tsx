@@ -28,8 +28,6 @@ import {
   Trash2,
   PlusCircle,
   X,
-  Layers,
-  Filter,
 } from "lucide-react";
 import { useRealtimeProducts } from "@/features/products/hooks/useRealtimeProducts";
 import { productService } from "@/features/products/services/productService";
