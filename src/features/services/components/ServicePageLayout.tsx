@@ -20,13 +20,8 @@ import { serviceFaqsMap, defaultServiceFaqs } from "../data/serviceFaqs";
 
 import dynamic from "next/dynamic";
 
-const VentanaConfigurador3DCard = dynamic(
-  () => import("./VentanaConfigurador3DCard"),
-  { ssr: false, loading: () => <Skeleton height={{ base: "500px", lg: "500px" }} w="full" borderRadius={{ base: "none", md: "3xl" }} /> }
-);
-
 const ServiceConfigurator3DCard = dynamic(
-  () => import("./ServiceConfigurator3DCard").then(mod => mod.ServiceConfigurator3DCard),
+  () => import("./VentanaConfigurador3DCard"),
   { ssr: false, loading: () => <Skeleton height={{ base: "500px", lg: "500px" }} w="full" borderRadius={{ base: "none", md: "3xl" }} /> }
 );
 
@@ -146,16 +141,12 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
             </GridItem>
           </Grid>
 
-          {/* MÓDULO 3D AUTÓNOMO E INDEPENDIENTE */}
+          {/* MÓDULO 3D AUTÓNOMO E INDEPENDIENTE (Plantilla única para todos los servicios) */}
           <Box id="ar-viewer-section" pt="2">
-            {serviceSlug === "ventana" ? (
-              <VentanaConfigurador3DCard initialSystemId={activeVentanaSystemId} />
-            ) : (
-              <ServiceConfigurator3DCard
-                serviceSlug={serviceSlug || "mampara"}
-                title={dynamicViewerTitle}
-              />
-            )}
+            <ServiceConfigurator3DCard
+              serviceSlug={serviceSlug || "mampara"}
+              initialSystemId={activeVentanaSystemId}
+            />
           </Box>
 
           {/* Sección de Preguntas Frecuentes (FAQ / Rich Snippets) */}

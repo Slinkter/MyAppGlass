@@ -1,0 +1,216 @@
+{
+  "ventana": {
+    "displayLabel": "Ventana",
+    "tipoLabel": "Tipo de Ventana",
+    "tipos": [
+      { "id": "corredizo",   "label": "Corrediza"   },
+      { "id": "proyectante", "label": "Proyectante" },
+      { "id": "batiente",    "label": "Batiente"    },
+      { "id": "fija",        "label": "Luz Fija"    }
+    ],
+    "hasSistemas":   true,
+    "hasGlassType":  true,
+    "hasAluminum":   true,
+    "hasGlassColor": true,
+    "hasWood":       false,
+    "hasPoly":       false,
+    "hasOpenClose":  true,
+    "widthRange":    [0.25, 2.2],
+    "heightRange":   [0.30, 2.3],
+    "defaultWidth":  1.2,
+    "defaultHeight": 1.0,
+    "camera": { "radius": 3.5, "polarDeg": 81, "azimuthDeg": 27, "minDist": 1, "maxDist": 8 }
+  },
+
+  "mampara": {
+    "displayLabel": "Mampara",
+    "tipoLabel": "Tipo de Mampara",
+    "tipos": [
+      { "id": "corredizo", "label": "Corrediza" },
+      { "id": "fija",      "label": "Fija"      }
+    ],
+    "hasSistemas":   false,
+    "hasGlassType":  true,
+    "hasAluminum":   true,
+    "hasGlassColor": true,
+    "hasWood":       false,
+    "hasPoly":       false,
+    "hasOpenClose":  true,
+    "widthRange":    [0.8, 4.0],
+    "heightRange":   [1.5, 3.5],
+    "defaultWidth":  2.0,
+    "defaultHeight": 2.2,
+    "camera": { "radius": 4.5, "polarDeg": 60, "azimuthDeg": 35, "minDist": 1.5, "maxDist": 9 }
+  },
+
+  "ducha": {
+    "displayLabel": "Ducha",
+    "tipoLabel": "Tipo de Ducha",
+    "tipos": [
+      { "id": "angular",     "label": "Angular"      },
+      { "id": "rectangular", "label": "Rectangular"  },
+      { "id": "walkin",      "label": "Walk-in"      }
+    ],
+    "hasSistemas":   false,
+    "hasGlassType":  true,
+    "hasAluminum":   true,
+    "hasGlassColor": true,
+    "hasWood":       false,
+    "hasPoly":       false,
+    "hasOpenClose":  false,
+    "widthRange":    [0.7, 2.5],
+    "heightRange":   [1.8, 2.4],
+    "defaultWidth":  1.0,
+    "defaultHeight": 2.0,
+    "camera": { "radius": 4.0, "polarDeg": 60, "azimuthDeg": 35, "minDist": 1.5, "maxDist": 9 }
+  },
+
+  "baranda": {
+    "displayLabel": "Baranda",
+    "tipoLabel": "Tipo de Baranda",
+    "tipos": [
+      { "id": "exterior",  "label": "Exterior"  },
+      { "id": "interior",  "label": "Interior"  },
+      { "id": "escalera",  "label": "Escalera"  }
+    ],
+    "hasSistemas":   false,
+    "hasGlassType":  true,
+    "hasAluminum":   true,
+    "hasGlassColor": true,
+    "hasWood":       false,
+    "hasPoly":       false,
+    "hasOpenClose":  false,
+    "widthRange":    [0.5, 6.0],
+    "heightRange":   [0.8, 1.2],
+    "defaultWidth":  2.0,
+    "defaultHeight": 1.0,
+    "camera": { "radius": 5.0, "polarDeg": 60, "azimuthDeg": 35, "minDist": 1.5, "maxDist": 10 }
+  },
+
+  "balcones": {
+    "displayLabel": "Balcón",
+    "tipoLabel": "Tipo de Balcón",
+    "tipos": [
+      { "id": "recto", "label": "Recto" },
+      { "id": "curvo", "label": "Curvo" }
+    ],
+    "hasSistemas":   false,
+    "hasGlassType":  true,
+    "hasAluminum":   true,
+    "hasGlassColor": true,
+    "hasWood":       false,
+    "hasPoly":       false,
+    "hasOpenClose":  false,
+    "widthRange":    [0.8, 6.0],
+    "heightRange":   [0.9, 1.5],
+    "defaultWidth":  2.5,
+    "defaultHeight": 1.1,
+    "camera": { "radius": 5.0, "polarDeg": 60, "azimuthDeg": 35, "minDist": 1.5, "maxDist": 10 }
+  },
+
+  "parapeto": {
+    "displayLabel": "Parapeto",
+    "tipoLabel": "Tipo de Parapeto",
+    "tipos": [
+      { "id": "bajo",    "label": "Bajo (60 cm)"   },
+      { "id": "mediano", "label": "Mediano (90 cm)" },
+      { "id": "alto",    "label": "Alto (120 cm)"   }
+    ],
+    "hasSistemas":   false,
+    "hasGlassType":  true,
+    "hasAluminum":   true,
+    "hasGlassColor": true,
+    "hasWood":       false,
+    "hasPoly":       false,
+    "hasOpenClose":  false,
+    "widthRange":    [0.5, 8.0],
+    "heightRange":   [0.6, 1.2],
+    "defaultWidth":  2.0,
+    "defaultHeight": 0.9,
+    "camera": { "radius": 5.0, "polarDeg": 60, "azimuthDeg": 35, "minDist": 1.5, "maxDist": 10 }
+  },
+
+  "pvidrio": {
+    "displayLabel": "Puerta de Vidrio",
+    "tipoLabel": "Tipo de Puerta",
+    "tipos": [
+      { "id": "batiente",  "label": "Batiente"  },
+      { "id": "corredizo", "label": "Corrediza" }
+    ],
+    "hasSistemas":   false,
+    "hasGlassType":  true,
+    "hasAluminum":   true,
+    "hasGlassColor": true,
+    "hasWood":       false,
+    "hasPoly":       false,
+    "hasOpenClose":  true,
+    "widthRange":    [0.7, 1.5],
+    "heightRange":   [1.9, 2.8],
+    "defaultWidth":  0.9,
+    "defaultHeight": 2.1,
+    "camera": { "radius": 4.0, "polarDeg": 65, "azimuthDeg": 30, "minDist": 1.5, "maxDist": 9 }
+  },
+
+  "pserie": {
+    "displayLabel": "Puerta Serie",
+    "tipoLabel": "Tipo de Puerta",
+    "tipos": [
+      { "id": "estandar", "label": "Estándar" },
+      { "id": "premium",  "label": "Premium"  }
+    ],
+    "hasSistemas":   false,
+    "hasGlassType":  false,
+    "hasAluminum":   true,
+    "hasGlassColor": false,
+    "hasWood":       false,
+    "hasPoly":       false,
+    "hasOpenClose":  true,
+    "widthRange":    [0.8, 1.6],
+    "heightRange":   [2.0, 2.8],
+    "defaultWidth":  1.0,
+    "defaultHeight": 2.1,
+    "camera": { "radius": 4.0, "polarDeg": 65, "azimuthDeg": 30, "minDist": 1.5, "maxDist": 9 }
+  },
+
+  "celosias": {
+    "displayLabel": "Celosía",
+    "tipoLabel": "Tipo de Celosía",
+    "tipos": [
+      { "id": "fija",  "label": "Fija"  },
+      { "id": "movil", "label": "Móvil" }
+    ],
+    "hasSistemas":   false,
+    "hasGlassType":  false,
+    "hasAluminum":   true,
+    "hasGlassColor": false,
+    "hasWood":       false,
+    "hasPoly":       false,
+    "hasOpenClose":  false,
+    "widthRange":    [0.5, 4.0],
+    "heightRange":   [0.5, 3.0],
+    "defaultWidth":  1.5,
+    "defaultHeight": 1.2,
+    "camera": { "radius": 4.0, "polarDeg": 65, "azimuthDeg": 35, "minDist": 1.5, "maxDist": 9 }
+  },
+
+  "techo": {
+    "displayLabel": "Techo / Pérgola",
+    "tipoLabel": "Tipo de Techo",
+    "tipos": [
+      { "id": "pergola",    "label": "Pérgola"      },
+      { "id": "solysombra", "label": "Sol y Sombra" }
+    ],
+    "hasSistemas":   false,
+    "hasGlassType":  false,
+    "hasAluminum":   false,
+    "hasGlassColor": false,
+    "hasWood":       true,
+    "hasPoly":       true,
+    "hasOpenClose":  false,
+    "widthRange":    [1.0, 8.0],
+    "heightRange":   [1.0, 8.0],
+    "defaultWidth":  3.0,
+    "defaultHeight": 4.0,
+    "camera": { "radius": 7.0, "polarDeg": 45, "azimuthDeg": 35, "minDist": 2, "maxDist": 14 }
+  }
+}

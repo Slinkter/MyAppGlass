@@ -1,6 +1,18 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+/**
+ * ServiceConfigurator3DCard
+ *
+ * Visor 3D interactivo genérico para los 10 servicios de GYA Company.
+ * Sigue EXACTAMENTE la misma estructura visual y de código que VentanaConfigurador3DCard:
+ *   - Box exterior con p={{ base:"5", md:"8" }} + mismos estilos de card
+ *   - SimpleGrid 12 columnas: span 5 (config) | span 7 (visor 3D)
+ *   - Descripción de configuración actual (sin botón WhatsApp dentro)
+ *   - Infraestructura Three.js → hook `use3DViewer`
+ *   - Geometría procedural → `buildServiceModel()` de serviceGeometries.ts
+ */
+
+import React, { useState, useEffect, useCallback } from "react";
 import {
     Box,
     Flex,
@@ -8,218 +20,105 @@ import {
     Text,
     SimpleGrid,
     Input,
-    HStack,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { Video } from "lucide-react";
+import { RotateCcw, DoorOpen } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
-import { SERVICE_AR_MODELS_MAP } from "../data/serviceArModels";
+import { use3DViewer } from "./configurador3d/use3DViewer";
 import { buildServiceModel } from "./configurador3d/serviceGeometries";
 
-// ── Config data per service ───────────────────────────────────────────────────
+// ── Paletas (mismas que VentanaConfigurador3DCard) ───────────────────────────
 
 const ALUMINUM_FINISHES = [
-    { id: "negro", label: "Negro", color: "#1A1A1A" },
-    { id: "natural", label: "Natural", color: "#B0B4B8" },
-    { id: "blanco", label: "Blanco", color: "#F8F9FA" },
+    { id: "negro",     label: "Negro",     color: "#1A1A1A" },
+    { id: "natural",   label: "Natural",   color: "#B0B4B8" },
+    { id: "blanco",    label: "Blanco",    color: "#F8F9FA" },
     { id: "champagne", label: "Champagne", color: "#C4A265" },
-    { id: "madera", label: "Madera", color: "#8A5A36" },
+    { id: "madera",    label: "Madera",    color: "#8A5A36" },
 ];
 
 const GLASS_COLORS = [
     { id: "incoloro", label: "Incoloro", hex: "#E8F4F8" },
-    { id: "bronce", label: "Bronce", hex: "#8A5A36" },
-    { id: "gris", label: "Gris", hex: "#4B5563" },
+    { id: "bronce",   label: "Bronce",   hex: "#8A5A36" },
+    { id: "gris",     label: "Gris",     hex: "#4B5563" },
     { id: "satinado", label: "Satinado", hex: "#D1D5DB" },
 ];
 
 const WOOD_FINISHES = [
-    { id: "teca", label: "Teca", color: "#8A4A21" },
+    { id: "teca",  label: "Teca",  color: "#8A4A21" },
     { id: "nogal", label: "Nogal", color: "#3D2314" },
     { id: "roble", label: "Roble", color: "#C68B59" },
     { id: "negro", label: "Negro", color: "#1A1A1A" },
 ];
 
 const POLYCARBONATE_TYPES = [
-    { id: "bronce", label: "Bronce", color: "#8A5229" },
-    { id: "opalino", label: "Opalino", color: "#F0F4F8" },
+    { id: "bronce",       label: "Bronce",       color: "#8A5229" },
+    { id: "opalino",      label: "Opalino",      color: "#F0F4F8" },
     { id: "transparente", label: "Transparente", color: "#E2F1FF" },
-    { id: "humo", label: "Humo", color: "#2A2E33" },
+    { id: "humo",         label: "Humo",         color: "#2A2E33" },
 ];
+
+// ── Props ─────────────────────────────────────────────────────────────────────
 
 interface ServiceConfigurator3DCardProps {
     serviceSlug: string;
     title?: string;
 }
 
+// ── Configuración de cámara por tipo de servicio ──────────────────────────────
+function getCameraOpts(slug: string) {
+    if (slug === "techo")
+        return { cameraRadius: 7, cameraPolarDeg: 45, cameraAzimuthDeg: 35, minDistance: 2, maxDistance: 14 };
+    if (["baranda", "balcones", "parapeto"].includes(slug))
+        return { cameraRadius: 5, cameraPolarDeg: 60, cameraAzimuthDeg: 35, minDistance: 1.5, maxDistance: 10 };
+    return { cameraRadius: 4.5, cameraPolarDeg: 55, cameraAzimuthDeg: 35, minDistance: 1.5, maxDistance: 9 };
+}
+
+// ── Componente ────────────────────────────────────────────────────────────────
+
 export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps> = ({
     serviceSlug,
     title,
 }) => {
-    // ── State ─────────────────────────────────────────────────────────────────
-    const [aluminum, setAluminum] = useState("negro");
+    // ── Estado de configuración ───────────────────────────────────────────────
+    const [aluminum,   setAluminum]   = useState("negro");
     const [glassColor, setGlassColor] = useState("incoloro");
-    const [wood, setWood] = useState("teca");
-    const [poly, setPoly] = useState("bronce");
-    const [widthM, setWidthM] = useState(2.0);
-    const [heightM, setHeightM] = useState(2.2);
+    const [wood,       setWood]       = useState("teca");
+    const [poly,       setPoly]       = useState("bronce");
+    const [widthM,     setWidthM]     = useState(2.0);
+    const [heightM,    setHeightM]    = useState(2.2);
     const [autoRotate, setAutoRotate] = useState(true);
 
-    const canvasRef = useRef<HTMLDivElement>(null);
-    const sceneRef = useRef<THREE.Scene | null>(null);
-    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-    const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-    const controlsRef = useRef<OrbitControls | null>(null);
-    const modelGroupRef = useRef<THREE.Group | null>(null);
-    const reqRef = useRef<number | null>(null);
-    const autoRotateRef = useRef(autoRotate);
+    // ── Derivados del slug ────────────────────────────────────────────────────
+    const isTecho  = serviceSlug === "techo";
+    const hasGlass = ["mampara","ducha","baranda","balcones","parapeto","pvidrio"].includes(serviceSlug);
 
-    useEffect(() => { autoRotateRef.current = autoRotate; }, [autoRotate]);
+    // Etiquetas para la descripción de configuración actual
+    const currentAluLabel  = ALUMINUM_FINISHES.find((a) => a.id === aluminum)?.label  ?? "Negro";
+    const currentGlassLabel = GLASS_COLORS.find((g) => g.id === glassColor)?.label    ?? "Incoloro";
+    const currentWoodLabel  = WOOD_FINISHES.find((w) => w.id === wood)?.label          ?? "Teca";
+    const currentPolyLabel  = POLYCARBONATE_TYPES.find((p) => p.id === poly)?.label   ?? "Bronce";
 
-    // ── Determine service config ──────────────────────────────────────────────
-    const isTecho = serviceSlug === "techo";
-    const hasGlass = ["mampara", "ducha", "baranda", "balcones", "parapeto", "pvidrio"].includes(serviceSlug);
+    // ── Hook de infraestructura Three.js ──────────────────────────────────────
+    const {
+        canvasRef,
+        sceneRef,
+        modelGroupRef,
+        autoRotateRef,
+        initScene,
+        cleanup,
+        resetCamera: resetCameraBase,
+    } = use3DViewer();
 
-    const systems = SERVICE_AR_MODELS_MAP[serviceSlug];
-    const firstSystemKey = systems ? Object.keys(systems)[0] : undefined;
-    const systemLabel = systems && firstSystemKey ? systems[firstSystemKey].systemLabel : title || serviceSlug;
+    // Sincronizar autoRotate (ref ← state) sin re-inicializar la escena
+    useEffect(() => { autoRotateRef.current = autoRotate; }, [autoRotate, autoRotateRef]);
 
-    // ── 3D Scene Setup ────────────────────────────────────────────────────────
-    const cleanup3D = useCallback(() => {
-        if (reqRef.current) { cancelAnimationFrame(reqRef.current); reqRef.current = null; }
-        if (controlsRef.current) {
-            controlsRef.current.dispose();
-            controlsRef.current = null;
-        }
-        if (rendererRef.current) {
-            rendererRef.current.dispose();
-            if (canvasRef.current) {
-                canvasRef.current.innerHTML = "";
-            }
-            rendererRef.current = null;
-        }
-        sceneRef.current = null;
-        cameraRef.current = null;
-        modelGroupRef.current = null;
-    }, []);
-
-    const init3D = useCallback(() => {
-        if (rendererRef.current || !canvasRef.current) return;
-
-        const container = canvasRef.current;
-        const w = container.clientWidth || 600;
-        const h = container.clientHeight || 460;
-
-        // Scene
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf8fafc);
-        sceneRef.current = scene;
-
-        // Camera
-        const camera = new THREE.PerspectiveCamera(40, w / h, 0.01, 100);
-        camera.position.set(3, 2.5, 4);
-        cameraRef.current = camera;
-
-        // Renderer
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-        renderer.setSize(w, h);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFShadowMap;
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.1;
-        container.appendChild(renderer.domElement);
-        rendererRef.current = renderer;
-
-        // Controls
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.08;
-        controls.enablePan = true;
-        controls.minDistance = 1.2;
-        controls.maxDistance = 12;
-        controls.maxPolarAngle = Math.PI / 1.5;
-        controls.target.set(0, serviceSlug === "techo" ? 1.3 : 0, 0);
-        controlsRef.current = controls;
-
-        // Lights
-        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x334155, 0.75);
-        scene.add(hemiLight);
-
-        const key = new THREE.DirectionalLight(0xffffff, 1.2);
-        key.position.set(5, 10, 7);
-        key.castShadow = true;
-        key.shadow.mapSize.set(2048, 2048);
-        key.shadow.camera.near = 0.5;
-        key.shadow.camera.far = 30;
-        key.shadow.camera.left = -6;
-        key.shadow.camera.right = 6;
-        key.shadow.camera.top = 6;
-        key.shadow.camera.bottom = -6;
-        key.shadow.bias = -0.0005;
-        scene.add(key);
-
-        const fill = new THREE.DirectionalLight(0xe0f2fe, 0.45);
-        fill.position.set(-5, 0, -5);
-        scene.add(fill);
-
-        const ambient = new THREE.AmbientLight(0xffffff, 0.35);
-        scene.add(ambient);
-
-        // Ground grid
-        const grid = new THREE.GridHelper(8, 16, 0xcbd5e1, 0xe2e8f0);
-        grid.position.y = -0.01;
-        scene.add(grid);
-
-        // Model group
-        const group = new THREE.Group();
-        scene.add(group);
-        modelGroupRef.current = group;
-
-        // Animation loop
-        const animate = () => {
-            reqRef.current = requestAnimationFrame(animate);
-            if (autoRotateRef.current) {
-                controls.autoRotate = true;
-                controls.autoRotateSpeed = 1.2;
-            } else {
-                controls.autoRotate = false;
-            }
-            controls.update();
-            renderer.render(scene, camera);
-        };
-        animate();
-
-        // ResizeObserver
-        const ro = new ResizeObserver(() => {
-            if (!container || !cameraRef.current || !rendererRef.current) return;
-            const nw = container.clientWidth;
-            const nh = container.clientHeight;
-            cameraRef.current.aspect = nw / nh;
-            cameraRef.current.updateProjectionMatrix();
-            rendererRef.current.setSize(nw, nh);
-        });
-        ro.observe(container);
-    }, []);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            init3D();
-        }, 60);
-
-        return () => {
-            clearTimeout(timer);
-            cleanup3D();
-        };
-    }, [init3D, cleanup3D]);
-
-    // ── Rebuild 3D model when config changes ──────────────────────────────────
-    useEffect(() => {
+    // ── buildModel — limpia y reconstruye la geometría procedural ─────────────
+    const buildModel = useCallback(() => {
         if (!modelGroupRef.current || !sceneRef.current) return;
 
-        // Remove old model
+        // Limpiar geometrías anteriores
         while (modelGroupRef.current.children.length > 0) {
             const child = modelGroupRef.current.children[0];
             modelGroupRef.current.remove(child);
@@ -235,58 +134,51 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
             });
         }
 
-        // Build new procedural model
-        const model = buildServiceModel({
-            serviceSlug,
-            widthM,
-            heightM,
-            aluminum,
-            glassColor,
-            wood,
-            poly,
-        });
+        // Construir geometría procedural (sin archivos .glb)
+        const model = buildServiceModel({ serviceSlug, widthM, heightM, aluminum, glassColor, wood, poly });
 
-        // Enable shadows on all meshes
         model.traverse((obj) => {
             if (obj instanceof THREE.Mesh) {
-                obj.castShadow = true;
+                obj.castShadow    = true;
                 obj.receiveShadow = true;
             }
         });
 
-        // Center model
-        const box = new THREE.Box3().setFromObject(model);
-        const center = box.getCenter(new THREE.Vector3());
-        model.position.sub(center);
-        model.position.y += center.y;
+        // Centrar en X/Z, apoyar base en Y = 0
+        const box3   = new THREE.Box3().setFromObject(model);
+        const center = box3.getCenter(new THREE.Vector3());
+        model.position.set(-center.x, -box3.min.y, -center.z);
 
         modelGroupRef.current.add(model);
-    }, [serviceSlug, aluminum, glassColor, wood, poly, widthM, heightM]);
+    }, [serviceSlug, widthM, heightM, aluminum, glassColor, wood, poly, modelGroupRef, sceneRef]);
 
-    // ── WhatsApp link ─────────────────────────────────────────────────────────
-    const waText = encodeURIComponent(
-        `Hola GYA Company, estoy interesado en ${systemLabel}.\n¿Podrían brindarme una cotización?`
-    );
+    // ── Ciclo de vida — idéntico a VentanaConfigurador3DCard ─────────────────
+    useEffect(() => {
+        const opts = getCameraOpts(serviceSlug);
+        const timer = setTimeout(() => {
+            initScene(opts);
+            buildModel();
+        }, 60);
+        return () => { clearTimeout(timer); cleanup(); };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [serviceSlug]);
 
-    // ── Config description ────────────────────────────────────────────────────
-    const configDescription = isTecho
-        ? `${systemLabel} — Estructura con acabado ${WOOD_FINISHES.find(w => w.id === wood)?.label || "Teca"} y policarbonato ${POLYCARBONATE_TYPES.find(p => p.id === poly)?.label || "Bronce"}. Dimensiones: ${widthM.toFixed(1)}m × ${heightM.toFixed(1)}m.`
-        : `${systemLabel} — Aluminio ${ALUMINUM_FINISHES.find(a => a.id === aluminum)?.label || "Negro"} y cristal ${GLASS_COLORS.find(g => g.id === glassColor)?.label || "Incoloro"}. Dimensiones: ${widthM.toFixed(1)}m × ${heightM.toFixed(1)}m.`;
+    // Rebuild al cambiar configuración (escena ya inicializada)
+    useEffect(() => { buildModel(); }, [buildModel]);
 
+    // ── Reset cámara ──────────────────────────────────────────────────────────
     const resetCamera = useCallback(() => {
-        if (!cameraRef.current || !controlsRef.current) return;
-        const maxDim = Math.max(widthM, heightM);
-        const radius = isTecho ? maxDim * 1.2 + 2.5 : maxDim * 1.5 + 1.2;
-        cameraRef.current.position.set(radius * 0.8, isTecho ? 2.8 : radius * 0.5, radius * 0.9);
-        controlsRef.current.target.set(0, isTecho ? 1.3 : 0, 0);
-        controlsRef.current.update();
-    }, [widthM, heightM, isTecho]);
+        const { cameraRadius, cameraPolarDeg, cameraAzimuthDeg } = getCameraOpts(serviceSlug);
+        resetCameraBase({ cameraRadius, polarDeg: cameraPolarDeg, azimuthDeg: cameraAzimuthDeg });
+    }, [serviceSlug, resetCameraBase]);
 
+    // ── JSX — estructura idéntica a VentanaConfigurador3DCard ─────────────────
     return (
         <Box
             w="full"
             bg="surface.card"
             borderRadius="2xl"
+            p={{ base: "5", md: "8" }}
             border="1px solid"
             borderColor="border.glass"
             backdropFilter="blur(16px)"
@@ -294,7 +186,7 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
         >
             <SimpleGrid columns={{ base: 1, lg: 12 }} gap="6" alignItems="stretch">
 
-                {/* ═══════════════════ PANEL IZQUIERDO: Configuración ═══════════════ */}
+                {/* ══ PANEL IZQUIERDO: Configuración (span 5) ══ */}
                 <Box
                     gridColumn={{ base: "span 1", lg: "span 5" }}
                     display="flex"
@@ -308,204 +200,146 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                     boxShadow="0 10px 30px rgba(0,0,0,0.15)"
                     gap="4"
                     overflowY="auto"
-                    maxH={{ base: "none", lg: "520px" }}
                 >
-                    {/* ── TECHO: Acabado Madera ── */}
+                    {/* Techo: Acabado de estructura */}
                     {isTecho && (
                         <Box>
-                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                                Acabado de Estructura (Madera / Aluminio)
-                            </Text>
+                            <Label>Acabado de Estructura</Label>
                             <SimpleGrid columns={2} gap="1.5">
-                                {WOOD_FINISHES.map((w) => {
-                                    const sel = wood === w.id;
-                                    return (
-                                        <Flex
-                                            key={w.id}
-                                            as="button"
-                                            onClick={() => setWood(w.id)}
-                                            direction="column"
-                                            align="center"
-                                            gap="1"
-                                            p="2"
-                                            borderRadius="lg"
-                                            borderWidth={sel ? "2px" : "1px"}
-                                            borderColor={sel ? "primary.500" : "border.default"}
-                                            bg={sel ? "bg.subtle" : "transparent"}
-                                            cursor="pointer"
-                                            transition="all 0.2s ease"
-                                            _hover={{ borderColor: "primary.500" }}
-                                        >
-                                            <Box w="5" h="5" borderRadius="full" bg={w.color} border="1px solid rgba(0,0,0,0.2)" />
-                                            <Text fontSize="2xs" fontWeight={sel ? "bold" : "medium"} color="text.heading">{w.label}</Text>
-                                        </Flex>
-                                    );
-                                })}
+                                {WOOD_FINISHES.map((w) => (
+                                    <SwatchBtn
+                                        key={w.id}
+                                        label={w.label}
+                                        color={w.color}
+                                        selected={wood === w.id}
+                                        onClick={() => setWood(w.id)}
+                                    />
+                                ))}
                             </SimpleGrid>
                         </Box>
                     )}
 
-                    {/* ── TECHO: Policarbonato ── */}
+                    {/* Techo: Cubierta de policarbonato */}
                     {isTecho && (
                         <Box>
-                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                                Cubierta de Policarbonato
-                            </Text>
+                            <Label>Cubierta de Policarbonato</Label>
                             <SimpleGrid columns={2} gap="1.5">
-                                {POLYCARBONATE_TYPES.map((p) => {
-                                    const sel = poly === p.id;
-                                    return (
-                                        <Flex
-                                            key={p.id}
-                                            as="button"
-                                            onClick={() => setPoly(p.id)}
-                                            direction="column"
-                                            align="center"
-                                            gap="1"
-                                            p="2"
-                                            borderRadius="lg"
-                                            borderWidth={sel ? "2px" : "1px"}
-                                            borderColor={sel ? "primary.500" : "border.default"}
-                                            bg={sel ? "bg.subtle" : "transparent"}
-                                            cursor="pointer"
-                                            transition="all 0.2s ease"
-                                            _hover={{ borderColor: "primary.500" }}
-                                        >
-                                            <Box w="5" h="5" borderRadius="full" bg={p.color} border="1px solid rgba(0,0,0,0.15)" />
-                                            <Text fontSize="2xs" fontWeight={sel ? "bold" : "medium"} color="text.heading">{p.label}</Text>
-                                        </Flex>
-                                    );
-                                })}
+                                {POLYCARBONATE_TYPES.map((p) => (
+                                    <SwatchBtn
+                                        key={p.id}
+                                        label={p.label}
+                                        color={p.color}
+                                        selected={poly === p.id}
+                                        onClick={() => setPoly(p.id)}
+                                    />
+                                ))}
                             </SimpleGrid>
                         </Box>
                     )}
 
-                    {/* ── NO-TECHO: Color de Aluminio ── */}
+                    {/* No-techo: Color de aluminio */}
                     {!isTecho && (
                         <Box>
-                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                                Color de Aluminio
-                            </Text>
+                            <Label>Color de Aluminio</Label>
                             <SimpleGrid columns={5} gap="1.5">
-                                {ALUMINUM_FINISHES.map((a) => {
-                                    const sel = aluminum === a.id;
-                                    return (
-                                        <Flex
-                                            key={a.id}
-                                            as="button"
-                                            onClick={() => setAluminum(a.id)}
-                                            direction="column"
-                                            align="center"
-                                            gap="1"
-                                            p="1.5"
-                                            borderRadius="lg"
-                                            borderWidth={sel ? "2px" : "1px"}
-                                            borderColor={sel ? "primary.500" : "border.default"}
-                                            bg={sel ? "bg.subtle" : "transparent"}
-                                            cursor="pointer"
-                                            transition="all 0.2s ease"
-                                            _hover={{ borderColor: "primary.500" }}
-                                        >
-                                            <Box w="5" h="5" borderRadius="full" bg={a.color} border="1px solid rgba(0,0,0,0.2)" boxShadow="sm" />
-                                            <Text fontSize="2xs" fontWeight={sel ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
-                                                {a.label}
-                                            </Text>
-                                        </Flex>
-                                    );
-                                })}
+                                {ALUMINUM_FINISHES.map((a) => (
+                                    <SwatchBtn
+                                        key={a.id}
+                                        label={a.label}
+                                        color={a.color}
+                                        selected={aluminum === a.id}
+                                        onClick={() => setAluminum(a.id)}
+                                    />
+                                ))}
                             </SimpleGrid>
                         </Box>
                     )}
 
-                    {/* ── Color de Vidrio ── */}
+                    {/* Color de vidrio (servicios con vidrio) */}
                     {hasGlass && (
                         <Box>
-                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                                Color de Vidrio
-                            </Text>
-                            <SimpleGrid columns={4} gap="1.5">
-                                {GLASS_COLORS.map((g) => {
-                                    const sel = glassColor === g.id;
-                                    return (
-                                        <Flex
-                                            key={g.id}
-                                            as="button"
-                                            onClick={() => setGlassColor(g.id)}
-                                            direction="column"
-                                            align="center"
-                                            gap="1"
-                                            p="1.5"
-                                            borderRadius="lg"
-                                            borderWidth={sel ? "2px" : "1px"}
-                                            borderColor={sel ? "primary.500" : "border.default"}
-                                            bg={sel ? "bg.subtle" : "transparent"}
-                                            cursor="pointer"
-                                            transition="all 0.2s ease"
-                                            _hover={{ borderColor: "primary.500" }}
-                                        >
-                                            <Box w="5" h="5" borderRadius="full" bg={g.hex} border="1px solid" borderColor="border.default" />
-                                            <Text fontSize="2xs" fontWeight={sel ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
-                                                {g.label}
-                                            </Text>
-                                        </Flex>
-                                    );
-                                })}
+                            <Label>Color de Vidrio</Label>
+                            <SimpleGrid columns={5} gap="1.5">
+                                {GLASS_COLORS.map((g) => (
+                                    <SwatchBtn
+                                        key={g.id}
+                                        label={g.label}
+                                        color={g.hex}
+                                        selected={glassColor === g.id}
+                                        onClick={() => setGlassColor(g.id)}
+                                    />
+                                ))}
                             </SimpleGrid>
                         </Box>
                     )}
 
-                    {/* ── Dimensiones ── */}
+                    {/* Dimensiones */}
                     <Box>
-                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                            Dimensiones (m)
-                        </Text>
+                        <Label>Dimensiones (m)</Label>
                         <SimpleGrid columns={2} gap="2">
                             <Box>
-                                <Text fontSize="9px" color="text.muted" mb="0.5">Ancho (Frente)</Text>
+                                <Text fontSize="9px" color="text.muted" mb="0.5">Ancho</Text>
                                 <Input
                                     type="number"
                                     value={widthM}
-                                    min={0.5}
-                                    max={8}
-                                    step={0.1}
+                                    min={0.5} max={8} step={0.1}
                                     onChange={(e) => {
                                         const v = parseFloat(e.target.value);
                                         if (!isNaN(v) && v >= 0.5 && v <= 8) setWidthM(v);
                                     }}
-                                    size="xs"
-                                    h="7"
-                                    borderRadius="lg"
+                                    size="xs" h="7" borderRadius="lg"
                                 />
                             </Box>
                             <Box>
-                                <Text fontSize="9px" color="text.muted" mb="0.5">{isTecho ? "Largo (Proyección)" : "Alto"}</Text>
+                                <Text fontSize="9px" color="text.muted" mb="0.5">
+                                    {isTecho ? "Largo (Proyección)" : "Alto"}
+                                </Text>
                                 <Input
                                     type="number"
                                     value={heightM}
-                                    min={0.5}
-                                    max={6}
-                                    step={0.1}
+                                    min={0.5} max={6} step={0.1}
                                     onChange={(e) => {
                                         const v = parseFloat(e.target.value);
                                         if (!isNaN(v) && v >= 0.5 && v <= 6) setHeightM(v);
                                     }}
-                                    size="xs"
-                                    h="7"
-                                    borderRadius="lg"
+                                    size="xs" h="7" borderRadius="lg"
                                 />
                             </Box>
                         </SimpleGrid>
                     </Box>
+
+                    {/* CTA WhatsApp — mismo lugar que en Ventana (dentro del panel izq) */}
+                    <Box mt="auto" pt="2">
+                        <Button
+                            variant="solid"
+                            bg="linear-gradient(135deg, #10b981 0%, #059669 100%)"
+                            color="white"
+                            size="sm"
+                            w="full"
+                            fontWeight="bold"
+                            onClick={() => {
+                                const desc = isTecho
+                                    ? `${title ?? serviceSlug} — Estructura ${currentWoodLabel}, policarbonato ${currentPolyLabel}, ${widthM.toFixed(1)}m × ${heightM.toFixed(1)}m`
+                                    : `${title ?? serviceSlug} — Aluminio ${currentAluLabel}, cristal ${currentGlassLabel}, ${widthM.toFixed(1)}m × ${heightM.toFixed(1)}m`;
+                                window.open(
+                                    `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(`Hola GYA Company, estoy interesado en:\n${desc}\n¿Podrían brindarme una cotización?`)}`,
+                                    "_blank",
+                                );
+                            }}
+                        >
+                            Cotizar por WhatsApp
+                        </Button>
+                    </Box>
                 </Box>
 
-                {/* ═══════════════════ PANEL DERECHO: Visor 3D + Info ══════════════ */}
+                {/* ══ PANEL DERECHO: Render 3D + Descripción (span 7) ══ */}
                 <Box
                     gridColumn={{ base: "span 1", lg: "span 7" }}
                     display="flex"
                     flexDirection="column"
                     gap="4"
                 >
-                    {/* Visor 3D */}
+                    {/* VISOR 3D */}
                     <Box
                         position="relative"
                         h={{ base: "340px", sm: "380px", md: "460px" }}
@@ -514,53 +348,49 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                         border="1px solid"
                         borderColor="border.subtle"
                         overflow="hidden"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
                     >
+                        {/* Canvas Three.js */}
                         <Box
                             ref={canvasRef}
-                            w="full"
-                            h="full"
+                            w="full" h="full"
                             cursor="grab"
                             _active={{ cursor: "grabbing" }}
                         />
+
+                        {/* Botones flotantes (top-right) — igual que Ventana */}
                         <Flex position="absolute" top="3" right="3" direction="column" gap="1.5" zIndex="10">
                             <IconButton
                                 aria-label="Centrar Cámara"
                                 title="Centrar Cámara"
                                 onClick={resetCamera}
-                                bg="surface.card"
-                                borderRadius="lg"
-                                boxShadow="sm"
-                                color="text.body"
-                                size="xs"
-                                h="7"
-                                w="7"
-                                borderWidth="1px"
-                                borderColor="border.default"
+                                bg="surface.card" borderRadius="lg" boxShadow="sm"
+                                color="text.body" size="xs" h="7" w="7"
+                                borderWidth="1px" borderColor="border.default"
                                 _hover={{ bg: "bg.subtle", color: "primary.500" }}
                             >
-                                <Video size={13} />
+                                <RotateCcw size={13} style={{ flexShrink: 0 }} />
                             </IconButton>
                             <IconButton
-                                aria-label={autoRotate ? "Pausar giro" : "Activar giro"}
+                                aria-label={autoRotate ? "Pausar giro 360°" : "Activar giro 360°"}
                                 title={autoRotate ? "Pausar Giro 360°" : "Activar Giro 360°"}
-                                onClick={() => setAutoRotate(!autoRotate)}
+                                onClick={() => setAutoRotate((v) => !v)}
                                 bg={autoRotate ? "primary.500" : "surface.card"}
-                                borderRadius="lg"
-                                boxShadow="sm"
+                                borderRadius="lg" boxShadow="sm"
                                 color={autoRotate ? "white" : "text.body"}
-                                size="xs"
-                                h="7"
-                                w="7"
+                                size="xs" h="7" w="7"
                                 borderWidth="1px"
                                 borderColor={autoRotate ? "primary.500" : "border.default"}
                                 _hover={{ bg: autoRotate ? "primary.600" : "bg.subtle" }}
                             >
-                                <Video size={13} />
+                                <DoorOpen size={13} style={{ flexShrink: 0 }} />
                             </IconButton>
                         </Flex>
                     </Box>
 
-                    {/* Descripción de configuración */}
+                    {/* Descripción de la configuración — igual que Ventana */}
                     <Box
                         p="5"
                         bg="rgba(255, 255, 255, 0.03)"
@@ -569,36 +399,64 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                         border="1px solid"
                         borderColor="border.glass"
                     >
-                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="2">
+                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="3">
                             Configuración Actual
                         </Text>
                         <Text fontSize="sm" color="text.body" lineHeight="tall">
-                            {configDescription}
+                            {isTecho ? (
+                                <>
+                                    Estructura con acabado <strong>{currentWoodLabel}</strong> y
+                                    cubierta de policarbonato <strong>{currentPolyLabel}</strong>.
+                                    Dimensiones: <strong>{widthM.toFixed(2)} m × {heightM.toFixed(2)} m</strong>{" "}
+                                    ({(widthM * heightM).toFixed(2)} m²).
+                                </>
+                            ) : (
+                                <>
+                                    Perfil de aluminio en color <strong>{currentAluLabel}</strong>
+                                    {hasGlass && <> y vidrio tono <strong>{currentGlassLabel}</strong></>}.
+                                    Dimensiones: <strong>{widthM.toFixed(2)} m × {heightM.toFixed(2)} m</strong>{" "}
+                                    ({(widthM * heightM).toFixed(2)} m²).
+                                </>
+                            )}
                         </Text>
                     </Box>
-
-                    {/* CTA */}
-                    <HStack gap="2">
-                        <a
-                            href={`https://wa.me/${companyData.whatsappNumber}?text=${waText}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ flex: 1, textDecoration: "none" }}
-                        >
-                            <Button
-                                variant="solid"
-                                bg="linear-gradient(135deg, #10b981 0%, #059669 100%)"
-                                color="white"
-                                size="sm"
-                                w="full"
-                                fontWeight="bold"
-                            >
-                                Cotizar por WhatsApp
-                            </Button>
-                        </a>
-                    </HStack>
                 </Box>
             </SimpleGrid>
         </Box>
     );
 };
+
+// ── Sub-componentes internos ───────────────────────────────────────────────────
+
+function Label({ children }: { children: React.ReactNode }) {
+    return (
+        <Text
+            fontSize="xs" fontWeight="bold" color="text.muted"
+            textTransform="uppercase" letterSpacing="wider" mb="1.5"
+        >
+            {children}
+        </Text>
+    );
+}
+
+function SwatchBtn({
+    label, color, selected, onClick,
+}: { label: string; color: string; selected: boolean; onClick: () => void }) {
+    return (
+        <Flex
+            as="button" onClick={onClick}
+            direction="column" align="center" justify="center"
+            gap="1" p="1.5" borderRadius="lg"
+            borderWidth={selected ? "2px" : "1px"}
+            borderColor={selected ? "primary.500" : "border.default"}
+            bg={selected ? "bg.subtle" : "transparent"}
+            cursor="pointer" transition="all 0.2s ease"
+            _hover={{ borderColor: "primary.500" }}
+        >
+            <Box w="5" h="5" borderRadius="full" bg={color} border="1px solid rgba(0,0,0,0.2)" boxShadow="sm" />
+            <Text fontSize="2xs" fontWeight={selected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
+                {label}
+            </Text>
+        </Flex>
+    );
+}

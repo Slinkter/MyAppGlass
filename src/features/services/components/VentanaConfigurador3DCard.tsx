@@ -13,16 +13,35 @@ import { Button } from "@/components/ui/button";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import ventanasCatalogo from "../data/ventanas-catalogo.json";
+import servicesConfig from "../data/services-3d-config.json";
 import {
     WINDOW_CATALOG,
     FINISHES,
     GLASS_TYPES,
     GLASS_COLORS,
 } from "./configurador3d/constants";
+import { buildServiceModel } from "./configurador3d/serviceGeometries";
 import {
     DoorOpen,
     Video,
 } from "lucide-react";
+
+// Paletas para servicios no-ventana
+const WOOD_FINISHES = [
+    { id: "teca",  label: "Teca",  color: "#8A4A21" },
+    { id: "nogal", label: "Nogal", color: "#3D2314" },
+    { id: "roble", label: "Roble", color: "#C68B59" },
+    { id: "negro", label: "Negro", color: "#1A1A1A" },
+];
+const POLYCARBONATE_TYPES = [
+    { id: "bronce",       label: "Bronce",       color: "#8A5229" },
+    { id: "opalino",      label: "Opalino",      color: "#F0F4F8" },
+    { id: "transparente", label: "Transparente", color: "#E2F1FF" },
+    { id: "humo",         label: "Humo",         color: "#2A2E33" },
+];
+
+// Tipo del JSON de configuración por servicio
+type ServiceConfig = typeof servicesConfig[keyof typeof servicesConfig];
 
 export const MIN_VENTANA_WIDTH_M = 0.25;
 export const MAX_VENTANA_WIDTH_M = 2.20;
@@ -31,17 +50,24 @@ export const MAX_VENTANA_HEIGHT_M = 2.30;
 
 export const VentanaConfigurador3DCard: React.FC<{
     initialSystemId?: string;
-}> = ({ initialSystemId = "sistema-nova" }) => {
-    const [activeType, setActiveType] = useState<string>("corredizo");
-    const [widthMeters, setWidthMeters] = useState(1.2);
-    const [heightMeters, setHeightMeters] = useState(1.0);
-    const [systemId, setSystemId] = useState(initialSystemId);
-    const [finish, setFinish] = useState("negro");
-    const [glass, setGlass] = useState("templado");
+    serviceSlug?: string;
+}> = ({ initialSystemId = "sistema-nova", serviceSlug = "ventana" }) => {
+    // Config del JSON según el slug activo
+    const cfg: ServiceConfig = (servicesConfig as Record<string, ServiceConfig>)[serviceSlug]
+        ?? (servicesConfig as Record<string, ServiceConfig>)["ventana"];
+
+    const [activeType, setActiveType] = useState<string>(cfg.tipos[0]?.id ?? "corredizo");
+    const [widthMeters, setWidthMeters]   = useState(cfg.defaultWidth);
+    const [heightMeters, setHeightMeters] = useState(cfg.defaultHeight);
+    const [systemId, setSystemId]   = useState(initialSystemId);
+    const [finish, setFinish]       = useState("negro");
+    const [glass, setGlass]         = useState("templado");
     const [glassColor, setGlassColor] = useState("incoloro");
-    const [hasArenado, setHasArenado] = useState(false);
+    const [wood, setWood]   = useState("teca");
+    const [poly, setPoly]   = useState("bronce");
+    const [hasArenado, setHasArenado]           = useState(false);
     const [hasDisenoCliente, setHasDisenoCliente] = useState(false);
-    const [isWindowOpen, setIsWindowOpen] = useState(false);
+    const [isWindowOpen, setIsWindowOpen]       = useState(false);
     const [rotationAngle, setRotationAngle] = useState<{ azimuth: number; polar: number }>({ azimuth: 27, polar: 81 });
 
     // Sincronizar cuando cambia la selección externa del sistema en la cabecera
@@ -50,6 +76,14 @@ export const VentanaConfigurador3DCard: React.FC<{
             setSystemId(initialSystemId);
         }
     }, [initialSystemId]);
+
+    // Reset al navegar entre servicios
+    useEffect(() => {
+        setActiveType(cfg.tipos[0]?.id ?? "corredizo");
+        setWidthMeters(cfg.defaultWidth);
+        setHeightMeters(cfg.defaultHeight);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [serviceSlug]);
 
     const width = Math.round(widthMeters * 1000);
     const height = Math.round(heightMeters * 1000);
@@ -255,6 +289,30 @@ export const VentanaConfigurador3DCard: React.FC<{
         if (!sceneRef.current) return;
         if (windowGroupRef.current) sceneRef.current.remove(windowGroupRef.current);
 
+        // ── Para cualquier servicio que no sea ventana → geometría procedural ──
+        if (serviceSlug !== "ventana") {
+            const model = buildServiceModel({
+                serviceSlug,
+                widthM:    widthMeters,
+                heightM:   heightMeters,
+                aluminum:  finish,
+                glassColor,
+                wood,
+                poly,
+            });
+            model.traverse((obj) => {
+                if (obj instanceof THREE.Mesh) { obj.castShadow = true; obj.receiveShadow = true; }
+            });
+            const box3   = new THREE.Box3().setFromObject(model);
+            const center = box3.getCenter(new THREE.Vector3());
+            model.position.set(-center.x, -box3.min.y, -center.z);
+            sceneRef.current.add(model);
+            windowGroupRef.current = model as unknown as THREE.Group;
+            sashGroupRef.current = null;
+            return;
+        }
+
+        // ── Geometría original de ventana ─────────────────────────────────────
         const windowGroup = new THREE.Group();
         const sashGroup = new THREE.Group();
 
@@ -395,7 +453,7 @@ export const VentanaConfigurador3DCard: React.FC<{
             const sD = depth * 0.6;
 
             const sash = createSash(sW, sH, sP, sD, matA, matG);
-            sash.position.set(0, -sH / 2, 0);
+        sash.position.set(0, -sH / 2, 0);
 
             sashGroup.position.set(0, sH / 2, 0);
             sashGroup.add(sash);
@@ -422,7 +480,7 @@ export const VentanaConfigurador3DCard: React.FC<{
         sceneRef.current.add(windowGroup);
         windowGroupRef.current = windowGroup;
         sashGroupRef.current = sashGroup;
-    }, [width, height, systemId, glassColor, finish, glass, activeType, hasArenado, createSash]);
+    }, [width, height, systemId, glassColor, finish, glass, activeType, hasArenado, createSash, serviceSlug, widthMeters, heightMeters, wood, poly]);
 
     // Ciclo de vida Three.js
     useEffect(() => {
@@ -435,16 +493,17 @@ export const VentanaConfigurador3DCard: React.FC<{
             clearTimeout(timer);
             cleanup3D();
         };
-    }, [activeType, init3D, cleanup3D, generate3DModel, systemId]);
+    }, [activeType, init3D, cleanup3D, generate3DModel, systemId, serviceSlug]);
 
     useEffect(() => {
         generate3DModel();
-    }, [widthMeters, heightMeters, systemId, finish, glass, glassColor, hasArenado, generate3DModel]);
+    }, [widthMeters, heightMeters, systemId, finish, glass, glassColor, hasArenado, wood, poly, serviceSlug, generate3DModel]);
 
     const resetCamera = useCallback(() => {
         if (!cameraRef.current || !controlsRef.current) return;
         const maxDim = Math.max(width / 1000, height / 1000);
-        const radius = maxDim * 1.5 + 1.2;
+        const isTechoLocal = serviceSlug === "techo";
+        const radius = isTechoLocal ? maxDim * 1.2 + 2.5 : maxDim * 1.5 + 1.2;
         const phi = (81 * Math.PI) / 180;
         const theta = (27 * Math.PI) / 180;
         cameraRef.current.position.set(
@@ -455,13 +514,15 @@ export const VentanaConfigurador3DCard: React.FC<{
         controlsRef.current.target.set(0, 0, 0);
         controlsRef.current.update();
         setRotationAngle({ azimuth: 27, polar: 81 });
-    }, [width, height]);
+    }, [width, height, serviceSlug]);
 
-    const currentWindowLabel = WINDOW_CATALOG.find((w) => w.id === activeType)?.title || "Corrediza";
+    const currentWindowLabel = (cfg.tipos.find((t) => t.id === activeType)?.label) || WINDOW_CATALOG.find((w) => w.id === activeType)?.title || "Corrediza";
     const currentSystemLabel = availableSystems.find((s) => s.id === systemId)?.nombre || "Nova";
     const currentFinishLabel = FINISHES.find((f) => f.id === finish)?.label || "Negro";
     const currentGlassLabel = GLASS_TYPES.find((g) => g.id === glass)?.label || "Templado";
     const currentGlassColorLabel = GLASS_COLORS.find((c) => c.id === glassColor)?.label || "Incoloro";
+    const currentWoodLabel = WOOD_FINISHES.find((w) => w.id === wood)?.label || "Teca";
+    const currentPolyLabel = POLYCARBONATE_TYPES.find((p) => p.id === poly)?.label || "Bronce";
 
     return (
         <Box
@@ -490,15 +551,14 @@ export const VentanaConfigurador3DCard: React.FC<{
                     gap="4"
                     overflowY="auto"
                 >
-                    {/* Tipo de Ventana */}
+                    {/* Tipo de Producto / Servicio */}
                     <Box>
                         <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                            Tipo de Ventana
+                            {cfg.tipoLabel || "Tipo"}
                         </Text>
                         <SimpleGrid columns={2} gap="1.5">
-                            {WINDOW_CATALOG.map((item) => {
+                            {cfg.tipos.map((item) => {
                                 const isSelected = activeType === item.id;
-                                const IconComp = item.icon;
                                 return (
                                     <Button
                                         key={item.id}
@@ -513,143 +573,226 @@ export const VentanaConfigurador3DCard: React.FC<{
                                         justifyContent="center"
                                         px="2"
                                     >
-                                        <IconComp size={12} style={{ marginRight: "3px", flexShrink: 0 }} />
-                                        <Text truncate>{item.title}</Text>
+                                        <Text truncate>{item.label}</Text>
                                     </Button>
                                 );
                             })}
                         </SimpleGrid>
                     </Box>
 
-                    {/* Sistema de Ventana */}
-                    <Box>
-                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                            Sistema
-                        </Text>
-                        <SimpleGrid columns={2} gap="1.5">
-                            {availableSystems.map((sys) => {
-                                const isSelected = systemId === sys.id;
-                                return (
-                                    <Button
-                                        key={sys.id}
-                                        size="xs"
-                                        variant={isSelected ? "aura" : "outline"}
-                                        onClick={() => setSystemId(sys.id)}
-                                        borderRadius="lg"
-                                        h="8"
-                                        w="full"
-                                        fontSize="2xs"
-                                        fontWeight={isSelected ? "bold" : "medium"}
-                                        justifyContent="center"
-                                        px="2"
-                                    >
-                                        <Text truncate>{sys.nombre}</Text>
-                                    </Button>
-                                );
-                            })}
-                        </SimpleGrid>
-                    </Box>
+                    {/* Sistema (solo si el servicio lo soporta, e.g. ventana) */}
+                    {cfg.hasSistemas && (
+                        <Box>
+                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                                Sistema
+                            </Text>
+                            <SimpleGrid columns={2} gap="1.5">
+                                {availableSystems.map((sys) => {
+                                    const isSelected = systemId === sys.id;
+                                    return (
+                                        <Button
+                                            key={sys.id}
+                                            size="xs"
+                                            variant={isSelected ? "aura" : "outline"}
+                                            onClick={() => setSystemId(sys.id)}
+                                            borderRadius="lg"
+                                            h="8"
+                                            w="full"
+                                            fontSize="2xs"
+                                            fontWeight={isSelected ? "bold" : "medium"}
+                                            justifyContent="center"
+                                            px="2"
+                                        >
+                                            <Text truncate>{sys.nombre}</Text>
+                                        </Button>
+                                    );
+                                })}
+                            </SimpleGrid>
+                        </Box>
+                    )}
+
+                    {/* Acabado de Madera (Techo) */}
+                    {cfg.hasWood && (
+                        <Box>
+                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                                Acabado de Estructura
+                            </Text>
+                            <SimpleGrid columns={2} gap="1.5">
+                                {WOOD_FINISHES.map((w) => {
+                                    const isSelected = wood === w.id;
+                                    return (
+                                        <Flex
+                                            key={w.id}
+                                            as="button"
+                                            onClick={() => setWood(w.id)}
+                                            direction="column"
+                                            align="center"
+                                            justify="center"
+                                            gap="1"
+                                            p="1.5"
+                                            borderRadius="lg"
+                                            borderWidth={isSelected ? "2px" : "1px"}
+                                            borderColor={isSelected ? "primary.500" : "border.default"}
+                                            bg={isSelected ? "bg.subtle" : "transparent"}
+                                            cursor="pointer"
+                                            transition="all 0.2s ease"
+                                            _hover={{ borderColor: "primary.500" }}
+                                        >
+                                            <Box w="5" h="5" borderRadius="full" bg={w.color} border="1px solid rgba(0,0,0,0.2)" boxShadow="sm" />
+                                            <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
+                                                {w.label}
+                                            </Text>
+                                        </Flex>
+                                    );
+                                })}
+                            </SimpleGrid>
+                        </Box>
+                    )}
+
+                    {/* Cubierta de Policarbonato (Techo) */}
+                    {cfg.hasPoly && (
+                        <Box>
+                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                                Cubierta de Policarbonato
+                            </Text>
+                            <SimpleGrid columns={2} gap="1.5">
+                                {POLYCARBONATE_TYPES.map((p) => {
+                                    const isSelected = poly === p.id;
+                                    return (
+                                        <Flex
+                                            key={p.id}
+                                            as="button"
+                                            onClick={() => setPoly(p.id)}
+                                            direction="column"
+                                            align="center"
+                                            justify="center"
+                                            gap="1"
+                                            p="1.5"
+                                            borderRadius="lg"
+                                            borderWidth={isSelected ? "2px" : "1px"}
+                                            borderColor={isSelected ? "primary.500" : "border.default"}
+                                            bg={isSelected ? "bg.subtle" : "transparent"}
+                                            cursor="pointer"
+                                            transition="all 0.2s ease"
+                                            _hover={{ borderColor: "primary.500" }}
+                                        >
+                                            <Box w="5" h="5" borderRadius="full" bg={p.color} border="1px solid rgba(0,0,0,0.15)" boxShadow="sm" />
+                                            <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
+                                                {p.label}
+                                            </Text>
+                                        </Flex>
+                                    );
+                                })}
+                            </SimpleGrid>
+                        </Box>
+                    )}
 
                     {/* Tipo de Vidrio */}
-                    <Box>
-                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                            Tipo de Vidrio
-                        </Text>
-                        <SimpleGrid columns={3} gap="1.5">
-                            {GLASS_TYPES.map((g) => {
-                                const isSelected = glass === g.id;
-                                return (
-                                    <Button
-                                        key={g.id}
-                                        size="xs"
-                                        variant={isSelected ? "aura" : "outline"}
-                                        onClick={() => setGlass(g.id)}
-                                        borderRadius="lg"
-                                        h="8"
-                                        w="full"
-                                        fontSize="2xs"
-                                        fontWeight={isSelected ? "bold" : "medium"}
-                                        justifyContent="center"
-                                        px="1"
-                                    >
-                                        <Text truncate>{g.label}</Text>
-                                    </Button>
-                                );
-                            })}
-                        </SimpleGrid>
-                    </Box>
+                    {cfg.hasGlassType && (
+                        <Box>
+                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                                Tipo de Vidrio
+                            </Text>
+                            <SimpleGrid columns={3} gap="1.5">
+                                {GLASS_TYPES.map((g) => {
+                                    const isSelected = glass === g.id;
+                                    return (
+                                        <Button
+                                            key={g.id}
+                                            size="xs"
+                                            variant={isSelected ? "aura" : "outline"}
+                                            onClick={() => setGlass(g.id)}
+                                            borderRadius="lg"
+                                            h="8"
+                                            w="full"
+                                            fontSize="2xs"
+                                            fontWeight={isSelected ? "bold" : "medium"}
+                                            justifyContent="center"
+                                            px="1"
+                                        >
+                                            <Text truncate>{g.label}</Text>
+                                        </Button>
+                                    );
+                                })}
+                            </SimpleGrid>
+                        </Box>
+                    )}
 
                     {/* Color de Aluminio */}
-                    <Box>
-                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                            Color de Aluminio
-                        </Text>
-                        <SimpleGrid columns={5} gap="1.5">
-                            {FINISHES.map((f) => {
-                                const isSelected = finish === f.id;
-                                return (
-                                    <Flex
-                                        key={f.id}
-                                        as="button"
-                                        onClick={() => setFinish(f.id)}
-                                        direction="column"
-                                        align="center"
-                                        justify="center"
-                                        gap="1"
-                                        p="1.5"
-                                        borderRadius="lg"
-                                        borderWidth={isSelected ? "2px" : "1px"}
-                                        borderColor={isSelected ? "primary.500" : "border.default"}
-                                        bg={isSelected ? "bg.subtle" : "transparent"}
-                                        cursor="pointer"
-                                        transition="all 0.2s ease"
-                                        _hover={{ borderColor: "primary.500" }}
-                                    >
-                                        <Box w="5" h="5" borderRadius="full" bg={f.color} border="1px solid rgba(0,0,0,0.2)" boxShadow="sm" />
-                                        <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
-                                            {f.label.replace(" Claro", "")}
-                                        </Text>
-                                    </Flex>
-                                );
-                            })}
-                        </SimpleGrid>
-                    </Box>
+                    {cfg.hasAluminum && (
+                        <Box>
+                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                                Color de Aluminio
+                            </Text>
+                            <SimpleGrid columns={5} gap="1.5">
+                                {FINISHES.map((f) => {
+                                    const isSelected = finish === f.id;
+                                    return (
+                                        <Flex
+                                            key={f.id}
+                                            as="button"
+                                            onClick={() => setFinish(f.id)}
+                                            direction="column"
+                                            align="center"
+                                            justify="center"
+                                            gap="1"
+                                            p="1.5"
+                                            borderRadius="lg"
+                                            borderWidth={isSelected ? "2px" : "1px"}
+                                            borderColor={isSelected ? "primary.500" : "border.default"}
+                                            bg={isSelected ? "bg.subtle" : "transparent"}
+                                            cursor="pointer"
+                                            transition="all 0.2s ease"
+                                            _hover={{ borderColor: "primary.500" }}
+                                        >
+                                            <Box w="5" h="5" borderRadius="full" bg={f.color} border="1px solid rgba(0,0,0,0.2)" boxShadow="sm" />
+                                            <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
+                                                {f.label.replace(" Claro", "")}
+                                            </Text>
+                                        </Flex>
+                                    );
+                                })}
+                            </SimpleGrid>
+                        </Box>
+                    )}
 
                     {/* Color de Vidrio */}
-                    <Box>
-                        <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                            Color de Vidrio
-                        </Text>
-                        <SimpleGrid columns={5} gap="1.5">
-                            {GLASS_COLORS.map((gc) => {
-                                const isSelected = glassColor === gc.id;
-                                return (
-                                    <Flex
-                                        key={gc.id}
-                                        as="button"
-                                        onClick={() => setGlassColor(gc.id)}
-                                        direction="column"
-                                        align="center"
-                                        justify="center"
-                                        gap="1"
-                                        p="1.5"
-                                        borderRadius="lg"
-                                        borderWidth={isSelected ? "2px" : "1px"}
-                                        borderColor={isSelected ? "primary.500" : "border.default"}
-                                        bg={isSelected ? "bg.subtle" : "transparent"}
-                                        cursor="pointer"
-                                        transition="all 0.2s ease"
-                                        _hover={{ borderColor: "primary.500" }}
-                                    >
-                                        <Box w="5" h="5" borderRadius="full" bg={gc.colorHex} border="1px solid" borderColor="border.default" />
-                                        <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
-                                            {gc.label}
-                                        </Text>
-                                    </Flex>
-                                );
-                            })}
-                        </SimpleGrid>
-                    </Box>
+                    {cfg.hasGlassColor && (
+                        <Box>
+                            <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
+                                Color de Vidrio
+                            </Text>
+                            <SimpleGrid columns={4} gap="1.5">
+                                {GLASS_COLORS.map((gc) => {
+                                    const isSelected = glassColor === gc.id;
+                                    return (
+                                        <Flex
+                                            key={gc.id}
+                                            as="button"
+                                            onClick={() => setGlassColor(gc.id)}
+                                            direction="column"
+                                            align="center"
+                                            justify="center"
+                                            gap="1"
+                                            p="1.5"
+                                            borderRadius="lg"
+                                            borderWidth={isSelected ? "2px" : "1px"}
+                                            borderColor={isSelected ? "primary.500" : "border.default"}
+                                            bg={isSelected ? "bg.subtle" : "transparent"}
+                                            cursor="pointer"
+                                            transition="all 0.2s ease"
+                                            _hover={{ borderColor: "primary.500" }}
+                                        >
+                                            <Box w="5" h="5" borderRadius="full" bg={gc.colorHex} border="1px solid" borderColor="border.default" />
+                                            <Text fontSize="2xs" fontWeight={isSelected ? "bold" : "medium"} color="text.heading" truncate w="full" textAlign="center">
+                                                {gc.label}
+                                            </Text>
+                                        </Flex>
+                                    );
+                                })}
+                            </SimpleGrid>
+                        </Box>
+                    )}
 
                     {/* Dimensiones */}
                     <Box>
@@ -662,12 +805,14 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 <Input
                                     type="number"
                                     value={widthMeters}
-                                    min={MIN_VENTANA_WIDTH_M}
-                                    max={MAX_VENTANA_WIDTH_M}
+                                    min={cfg.widthRange?.[0] ?? 0.5}
+                                    max={cfg.widthRange?.[1] ?? 8.0}
                                     step={0.01}
                                     onChange={(e) => {
                                         const num = parseFloat(e.target.value);
-                                        if (!isNaN(num) && num >= MIN_VENTANA_WIDTH_M && num <= MAX_VENTANA_WIDTH_M) setWidthMeters(num);
+                                        const minW = cfg.widthRange?.[0] ?? 0.5;
+                                        const maxW = cfg.widthRange?.[1] ?? 8.0;
+                                        if (!isNaN(num) && num >= minW && num <= maxW) setWidthMeters(num);
                                     }}
                                     size="xs"
                                     h="7"
@@ -675,16 +820,18 @@ export const VentanaConfigurador3DCard: React.FC<{
                                 />
                             </Box>
                             <Box>
-                                <Text fontSize="9px" color="text.muted" mb="0.5">Alto</Text>
+                                <Text fontSize="9px" color="text.muted" mb="0.5">{cfg.hasWood ? "Largo" : "Alto"}</Text>
                                 <Input
                                     type="number"
                                     value={heightMeters}
-                                    min={MIN_VENTANA_HEIGHT_M}
-                                    max={MAX_VENTANA_HEIGHT_M}
+                                    min={cfg.heightRange?.[0] ?? 0.5}
+                                    max={cfg.heightRange?.[1] ?? 8.0}
                                     step={0.01}
                                     onChange={(e) => {
                                         const num = parseFloat(e.target.value);
-                                        if (!isNaN(num) && num >= MIN_VENTANA_HEIGHT_M && num <= MAX_VENTANA_HEIGHT_M) setHeightMeters(num);
+                                        const minH = cfg.heightRange?.[0] ?? 0.5;
+                                        const maxH = cfg.heightRange?.[1] ?? 8.0;
+                                        if (!isNaN(num) && num >= minH && num <= maxH) setHeightMeters(num);
                                     }}
                                     size="xs"
                                     h="7"
@@ -748,23 +895,25 @@ export const VentanaConfigurador3DCard: React.FC<{
                             >
                                 <Video size={13} />
                             </IconButton>
-                            <IconButton
-                                aria-label={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
-                                title={isWindowOpen ? "Cerrar ventana" : "Abrir ventana"}
-                                onClick={() => setIsWindowOpen((prev) => !prev)}
-                                bg={isWindowOpen ? "primary.500" : "surface.card"}
-                                borderRadius="lg"
-                                boxShadow="sm"
-                                color={isWindowOpen ? "white" : "text.body"}
-                                size="xs"
-                                h="7"
-                                w="7"
-                                borderWidth="1px"
-                                borderColor={isWindowOpen ? "primary.500" : "border.default"}
-                                _hover={{ bg: isWindowOpen ? "primary.600" : "bg.subtle" }}
-                            >
-                                <DoorOpen size={13} />
-                            </IconButton>
+                            {cfg.hasOpenClose && (
+                                <IconButton
+                                    aria-label={isWindowOpen ? "Cerrar" : "Abrir"}
+                                    title={isWindowOpen ? "Cerrar" : "Abrir"}
+                                    onClick={() => setIsWindowOpen((prev) => !prev)}
+                                    bg={isWindowOpen ? "primary.500" : "surface.card"}
+                                    borderRadius="lg"
+                                    boxShadow="sm"
+                                    color={isWindowOpen ? "white" : "text.body"}
+                                    size="xs"
+                                    h="7"
+                                    w="7"
+                                    borderWidth="1px"
+                                    borderColor={isWindowOpen ? "primary.500" : "border.default"}
+                                    _hover={{ bg: isWindowOpen ? "primary.600" : "bg.subtle" }}
+                                >
+                                    <DoorOpen size={13} />
+                                </IconButton>
+                            )}
                         </Flex>
                     </Box>
 
@@ -781,9 +930,31 @@ export const VentanaConfigurador3DCard: React.FC<{
                             Configuración Actual
                         </Text>
                         <Text fontSize="sm" color="text.body" lineHeight="tall">
-                            Sistema <strong>{currentSystemLabel}</strong> en tipo <strong>{currentWindowLabel}</strong>,
-                            con perfil de aluminio en color <strong>{currentFinishLabel}</strong> y vidrio <strong>{currentGlassLabel}</strong> tono <strong>{currentGlassColorLabel}</strong>.
-                            Dimensiones: <strong>{widthMeters.toFixed(2)}m × {heightMeters.toFixed(2)}m</strong> ({(widthMeters * heightMeters).toFixed(2)} m²).
+                            {cfg.hasWood ? (
+                                <>
+                                    Estructura con acabado <strong>{currentWoodLabel}</strong> y
+                                    cubierta de policarbonato <strong>{currentPolyLabel}</strong> en tipo <strong>{currentWindowLabel}</strong>.
+                                    Dimensiones: <strong>{widthMeters.toFixed(2)}m × {heightMeters.toFixed(2)}m</strong> ({(widthMeters * heightMeters).toFixed(2)} m²).
+                                </>
+                            ) : (
+                                <>
+                                    {cfg.hasSistemas ? (
+                                        <>Sistema <strong>{currentSystemLabel}</strong> en tipo <strong>{currentWindowLabel}</strong>, </>
+                                    ) : (
+                                        <>{cfg.displayLabel} en tipo <strong>{currentWindowLabel}</strong>, </>
+                                    )}
+                                    {cfg.hasAluminum && (
+                                        <>con perfil de aluminio en color <strong>{currentFinishLabel}</strong></>
+                                    )}
+                                    {cfg.hasGlassType && (
+                                        <> y vidrio <strong>{currentGlassLabel}</strong></>
+                                    )}
+                                    {cfg.hasGlassColor && (
+                                        <> tono <strong>{currentGlassColorLabel}</strong></>
+                                    )}
+                                    . Dimensiones: <strong>{widthMeters.toFixed(2)}m × {heightMeters.toFixed(2)}m</strong> ({(widthMeters * heightMeters).toFixed(2)} m²).
+                                </>
+                            )}
                         </Text>
                     </Box>
                 </Box>
@@ -792,4 +963,5 @@ export const VentanaConfigurador3DCard: React.FC<{
     );
 };
 
+export const ServiceConfigurator3DCard = VentanaConfigurador3DCard;
 export default VentanaConfigurador3DCard;
