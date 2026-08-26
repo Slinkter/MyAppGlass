@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import ventanasCatalogo from "../data/ventanas-catalogo.json";
 import servicesConfig from "../data/services-3d-config.json";
 import {
@@ -300,27 +301,68 @@ export const VentanaConfigurador3DCard: React.FC<{
         if (!sceneRef.current) return;
         if (windowGroupRef.current) sceneRef.current.remove(windowGroupRef.current);
 
-        // ── Para cualquier servicio que no sea ventana → geometría procedural ──
+        // ── Para cualquier servicio que no sea ventana: Carga .glb o genera procedural ──
         if (serviceSlug !== "ventana") {
-            const model = buildServiceModel({
-                serviceSlug,
-                widthM:    widthMeters,
-                heightM:   heightMeters,
-                aluminum:  finish,
-                glassColor,
-                wood,
-                poly,
-            });
-            model.traverse((obj) => {
-                if (obj instanceof THREE.Mesh) { obj.castShadow = true; obj.receiveShadow = true; }
-            });
-            const box3   = new THREE.Box3().setFromObject(model);
-            const center = box3.getCenter(new THREE.Vector3());
-            // Centrado exacto del modelo en el origen 3D
-            model.position.set(-center.x, -center.y, -center.z);
-            sceneRef.current.add(model);
-            windowGroupRef.current = model as unknown as THREE.Group;
-            sashGroupRef.current = null;
+            const glbPath = `/models/${serviceSlug}/default.glb`;
+            const loader = new GLTFLoader();
+
+            loader.load(
+                glbPath,
+                (gltf) => {
+                    if (!sceneRef.current) return;
+                    if (windowGroupRef.current) sceneRef.current.remove(windowGroupRef.current);
+
+                    const model = gltf.scene;
+                    model.traverse((obj) => {
+                        if (obj instanceof THREE.Mesh) {
+                            obj.castShadow = true;
+                            obj.receiveShadow = true;
+                        }
+                    });
+
+                    // Centrado y escalado según dimensiones configuradas
+                    const box3 = new THREE.Box3().setFromObject(model);
+                    const size = box3.getSize(new THREE.Vector3());
+                    const center = box3.getCenter(new THREE.Vector3());
+
+                    if (size.x > 0 && size.y > 0) {
+                        const scaleX = widthMeters / size.x;
+                        const scaleY = heightMeters / size.y;
+                        model.scale.set(scaleX, scaleY, (scaleX + scaleY) / 2);
+                    }
+
+                    const updatedBox = new THREE.Box3().setFromObject(model);
+                    const updatedCenter = updatedBox.getCenter(new THREE.Vector3());
+                    model.position.set(-updatedCenter.x, -updatedCenter.y, -updatedCenter.z);
+
+                    sceneRef.current.add(model);
+                    windowGroupRef.current = model as unknown as THREE.Group;
+                    sashGroupRef.current = null;
+                },
+                undefined,
+                () => {
+                    // Fallback a geometría procedural si no existe el .glb
+                    if (!sceneRef.current) return;
+                    const model = buildServiceModel({
+                        serviceSlug,
+                        widthM:    widthMeters,
+                        heightM:   heightMeters,
+                        aluminum:  finish,
+                        glassColor,
+                        wood,
+                        poly,
+                    });
+                    model.traverse((obj) => {
+                        if (obj instanceof THREE.Mesh) { obj.castShadow = true; obj.receiveShadow = true; }
+                    });
+                    const box3   = new THREE.Box3().setFromObject(model);
+                    const center = box3.getCenter(new THREE.Vector3());
+                    model.position.set(-center.x, -center.y, -center.z);
+                    sceneRef.current.add(model);
+                    windowGroupRef.current = model as unknown as THREE.Group;
+                    sashGroupRef.current = null;
+                }
+            );
             return;
         }
 
