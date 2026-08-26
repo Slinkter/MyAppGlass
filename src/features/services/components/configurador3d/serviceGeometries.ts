@@ -360,55 +360,128 @@ export function buildPserie(params: {
     return group;
 }
 
-// ── TECHO PERGOLA ────────────────────────────────────────────────────────────
+// ── TEXTURAS PROCEDURALES CANVAS ─────────────────────────────────────────────
+
+const WOOD_PALETTES: Record<string, { base: string; grain: string }> = {
+    teca:  { base: '#8A4A21', grain: '#4A230B' },
+    nogal: { base: '#3D2314', grain: '#1D0D06' },
+    roble: { base: '#C68B59', grain: '#7A4D27' },
+    negro: { base: '#1A1A1A', grain: '#2A2A2A' },
+};
+
+export function createProceduralWoodTexture(paletteKey = 'teca'): THREE.CanvasTexture | null {
+    if (typeof document === 'undefined') return null;
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+
+    const pal = WOOD_PALETTES[paletteKey] || WOOD_PALETTES.teca;
+
+    // Fondo
+    ctx.fillStyle = pal.base;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Vetas de madera
+    ctx.strokeStyle = pal.grain;
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.25;
+
+    for (let i = 0; i < 120; i++) {
+        ctx.beginPath();
+        const y = Math.random() * canvas.height;
+        ctx.moveTo(0, y);
+        ctx.bezierCurveTo(
+            170, y + (Math.random() - 0.5) * 40,
+            340, y + (Math.random() - 0.5) * 40,
+            512, y + (Math.random() - 0.5) * 20
+        );
+        ctx.stroke();
+    }
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(1, 4);
+    return texture;
+}
+
+// ── TECHO PERGOLA SOL Y SOMBRA (ARQUITECTURA DE ALTA FIDELIDAD) ───────────────
 export function buildTecho(params: {
     widthM: number; heightM: number; wood: string; poly: string;
 }): THREE.Group {
     const { widthM, heightM, wood, poly } = params;
     const group = new THREE.Group();
-    const w = WOOD_COLORS[wood] || WOOD_COLORS.teca;
     const p = POLY_COLORS[poly] || POLY_COLORS.bronce;
-    const matWood = new THREE.MeshStandardMaterial({ color: w.color, roughness: w.roughness, metalness: 0.1 });
-    const matPoly = new THREE.MeshPhysicalMaterial({
-        color: p.color, transmission: p.transmission, opacity: 0.6,
-        transparent: true, roughness: 0.15, ior: 1.52, side: THREE.DoubleSide,
+
+    // Material de madera con textura procedural si está en navegador
+    const woodTexture = createProceduralWoodTexture(wood);
+    const wCol = WOOD_COLORS[wood] || WOOD_COLORS.teca;
+    const matWood = new THREE.MeshStandardMaterial({
+        color: woodTexture ? 0xffffff : wCol.color,
+        map: woodTexture || undefined,
+        roughness: 0.6,
+        metalness: 0.1,
     });
-    const matSteel = createSteelMaterial();
-    const legH = 2.6;
 
-    // 4 Patas
-    const legPositions: [number, number, number][] = [
-        [-widthM / 2 + 0.1, legH / 2, -heightM / 2 + 0.1],
-        [widthM / 2 - 0.1, legH / 2, -heightM / 2 + 0.1],
-        [-widthM / 2 + 0.1, legH / 2, heightM / 2 - 0.1],
-        [widthM / 2 - 0.1, legH / 2, heightM / 2 - 0.1],
+    const matPoly = new THREE.MeshPhysicalMaterial({
+        color: p.color,
+        transmission: p.transmission,
+        opacity: 0.55,
+        transparent: true,
+        roughness: 0.15,
+        ior: 1.5,
+        thickness: 0.02,
+        side: THREE.DoubleSide,
+    });
+
+    const postSize = 0.12; // 12x12 cm columnas
+    const beamHeight = 0.18; // Vigas perimetrales
+    const beamWidth = 0.08;
+    const slatWidth = 0.04;  // Listones del sol y sombra
+    const slatHeight = 0.09;
+    const legH = 2.6; // Altura estándar columnas
+
+    // 1. COLUMNAS VERTICALES (4 Esquinas)
+    const posX = widthM / 2 - postSize / 2;
+    const posZ = heightM / 2 - postSize / 2;
+    const postPositions: [number, number, number][] = [
+        [-posX, legH / 2, -posZ],
+        [ posX, legH / 2, -posZ],
+        [-posX, legH / 2,  posZ],
+        [ posX, legH / 2,  posZ],
     ];
-    for (const [x, y, z] of legPositions) {
-        group.add(posBox(0.08, legH, 0.08, matWood, x, y, z));
+    postPositions.forEach(([x, y, z]) => {
+        group.add(posBox(postSize, legH, postSize, matWood, x, y, z));
+    });
+
+    // 2. VIGAS PERIMETRALES (Marco principal de aluminio/madera)
+    const beamTopY = legH + beamHeight / 2;
+
+    // Vigas Longitudinales (Largo/Proyección)
+    group.add(posBox(beamWidth, beamHeight, heightM, matWood, -widthM / 2 + beamWidth / 2, beamTopY - beamHeight / 2, 0));
+    group.add(posBox(beamWidth, beamHeight, heightM, matWood, widthM / 2 - beamWidth / 2, beamTopY - beamHeight / 2, 0));
+
+    // Vigas Transversales (Ancho/Frente)
+    group.add(posBox(widthM, beamHeight, beamWidth, matWood, 0, beamTopY - beamHeight / 2, heightM / 2 - beamWidth / 2));
+    group.add(posBox(widthM, beamHeight, beamWidth, matWood, 0, beamTopY - beamHeight / 2, -heightM / 2 + beamWidth / 2));
+
+    // 3. LISTONES INTERNOS (SOL Y SOMBRA PARAMÉTRICOS)
+    const innerLength = heightM - beamWidth * 2;
+    const slatSpacing = 0.15; // 15 cm de separación arquitectónica estándar
+    const numSlats = Math.max(3, Math.floor(innerLength / slatSpacing));
+    const actualSpacing = innerLength / (numSlats + 1);
+    const slatY = legH + slatHeight / 2;
+
+    for (let i = 1; i <= numSlats; i++) {
+        const zPos = -heightM / 2 + beamWidth + i * actualSpacing;
+        group.add(posBox(widthM - beamWidth * 2, slatHeight, slatWidth, matWood, 0, slatY, zPos));
     }
 
-    // Vigas principales (2)
-    group.add(posBox(0.1, 0.12, heightM, matWood, -widthM / 2 + 0.1, legH - 0.06, 0));
-    group.add(posBox(0.1, 0.12, heightM, matWood, widthM / 2 - 0.1, legH - 0.06, 0));
-
-    // Viguetas transversales
-    const numRafters = Math.max(3, Math.round(widthM / 0.6));
-    const rafterSpacing = (widthM - 0.3) / (numRafters - 1);
-    for (let i = 0; i < numRafters; i++) {
-        const x = -widthM / 2 + 0.15 + i * rafterSpacing;
-        group.add(posBox(0.06, 0.08, heightM - 0.2, matWood, x, legH - 0.16, 0));
-    }
-
-    // Policarbonato superior
-    group.add(posBox(widthM + 0.08, 0.02, heightM + 0.08, matPoly, 0, legH - 0.02, 0));
-
-    // Refuerzos en esquina (diagonales)
-    const bracePositions: [number, number][] = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
-    for (const [x, z] of bracePositions) {
-        group.add(posBox(0.04, 0.04, 0.35, matSteel,
-            x * (widthM / 2 - 0.28), legH - 0.2, z * (heightM / 2 - 0.28),
-            0, x * z * Math.PI / 4));
-    }
+    // 4. PLANCHA DE POLICARBONATO TRANSLÚCIDO SUPERIOR
+    const polyThickness = 0.012; // 12mm policarbonato alveolar
+    group.add(posBox(widthM + 0.1, polyThickness, heightM + 0.1, matPoly, 0, legH + slatHeight + polyThickness / 2 + 0.005, 0));
 
     return group;
 }

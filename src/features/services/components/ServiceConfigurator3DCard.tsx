@@ -89,11 +89,15 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
     // ── 3D Scene Setup ────────────────────────────────────────────────────────
     const cleanup3D = useCallback(() => {
         if (reqRef.current) { cancelAnimationFrame(reqRef.current); reqRef.current = null; }
-        if (controlsRef.current) { controlsRef.current.dispose(); controlsRef.current = null; }
+        if (controlsRef.current) {
+            controlsRef.current.dispose();
+            controlsRef.current = null;
+        }
         if (rendererRef.current) {
-            const c = canvasRef.current;
-            if (c && c.contains(rendererRef.current.domElement)) c.removeChild(rendererRef.current.domElement);
             rendererRef.current.dispose();
+            if (canvasRef.current) {
+                canvasRef.current.innerHTML = "";
+            }
             rendererRef.current = null;
         }
         sceneRef.current = null;
@@ -102,10 +106,9 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
     }, []);
 
     const init3D = useCallback(() => {
-        cleanup3D();
-        const container = canvasRef.current;
-        if (!container) return;
+        if (rendererRef.current || !canvasRef.current) return;
 
+        const container = canvasRef.current;
         const w = container.clientWidth || 600;
         const h = container.clientHeight || 460;
 
@@ -120,11 +123,13 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
         cameraRef.current = camera;
 
         // Renderer
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
         renderer.setSize(w, h);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.1;
         container.appendChild(renderer.domElement);
         rendererRef.current = renderer;
 
@@ -132,29 +137,36 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.08;
-        controls.enablePan = false;
-        controls.minDistance = 1.5;
-        controls.maxDistance = 10;
+        controls.enablePan = true;
+        controls.minDistance = 1.2;
+        controls.maxDistance = 12;
         controls.maxPolarAngle = Math.PI / 1.5;
-        controls.target.set(0, 1.0, 0);
+        controls.target.set(0, serviceSlug === "techo" ? 1.3 : 0, 0);
         controlsRef.current = controls;
 
         // Lights
-        scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-        const key = new THREE.DirectionalLight(0xffffff, 0.9);
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x334155, 0.75);
+        scene.add(hemiLight);
+
+        const key = new THREE.DirectionalLight(0xffffff, 1.2);
         key.position.set(5, 10, 7);
         key.castShadow = true;
-        key.shadow.mapSize.set(1024, 1024);
+        key.shadow.mapSize.set(2048, 2048);
         key.shadow.camera.near = 0.5;
         key.shadow.camera.far = 30;
         key.shadow.camera.left = -6;
         key.shadow.camera.right = 6;
         key.shadow.camera.top = 6;
         key.shadow.camera.bottom = -6;
+        key.shadow.bias = -0.0005;
         scene.add(key);
-        const fill = new THREE.DirectionalLight(0xe0f2fe, 0.4);
+
+        const fill = new THREE.DirectionalLight(0xe0f2fe, 0.45);
         fill.position.set(-5, 0, -5);
         scene.add(fill);
+
+        const ambient = new THREE.AmbientLight(0xffffff, 0.35);
+        scene.add(ambient);
 
         // Ground grid
         const grid = new THREE.GridHelper(8, 16, 0xcbd5e1, 0xe2e8f0);
@@ -190,17 +202,18 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
             rendererRef.current.setSize(nw, nh);
         });
         ro.observe(container);
-
-        return () => {
-            ro.disconnect();
-            cleanup3D();
-        };
-    }, [cleanup3D]);
+    }, []);
 
     useEffect(() => {
-        const destroy = init3D();
-        return () => { destroy?.(); };
-    }, [init3D]);
+        const timer = setTimeout(() => {
+            init3D();
+        }, 60);
+
+        return () => {
+            clearTimeout(timer);
+            cleanup3D();
+        };
+    }, [init3D, cleanup3D]);
 
     // ── Rebuild 3D model when config changes ──────────────────────────────────
     useEffect(() => {
@@ -260,6 +273,15 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
         ? `${systemLabel} — Estructura con acabado ${WOOD_FINISHES.find(w => w.id === wood)?.label || "Teca"} y policarbonato ${POLYCARBONATE_TYPES.find(p => p.id === poly)?.label || "Bronce"}. Dimensiones: ${widthM.toFixed(1)}m × ${heightM.toFixed(1)}m.`
         : `${systemLabel} — Aluminio ${ALUMINUM_FINISHES.find(a => a.id === aluminum)?.label || "Negro"} y cristal ${GLASS_COLORS.find(g => g.id === glassColor)?.label || "Incoloro"}. Dimensiones: ${widthM.toFixed(1)}m × ${heightM.toFixed(1)}m.`;
 
+    const resetCamera = useCallback(() => {
+        if (!cameraRef.current || !controlsRef.current) return;
+        const maxDim = Math.max(widthM, heightM);
+        const radius = isTecho ? maxDim * 1.2 + 2.5 : maxDim * 1.5 + 1.2;
+        cameraRef.current.position.set(radius * 0.8, isTecho ? 2.8 : radius * 0.5, radius * 0.9);
+        controlsRef.current.target.set(0, isTecho ? 1.3 : 0, 0);
+        controlsRef.current.update();
+    }, [widthM, heightM, isTecho]);
+
     return (
         <Box
             w="full"
@@ -292,7 +314,7 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                     {isTecho && (
                         <Box>
                             <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                                Acabado de Estructura
+                                Acabado de Estructura (Madera / Aluminio)
                             </Text>
                             <SimpleGrid columns={2} gap="1.5">
                                 {WOOD_FINISHES.map((w) => {
@@ -327,7 +349,7 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                     {isTecho && (
                         <Box>
                             <Text fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" mb="1.5">
-                                Tipo de Policarbonato
+                                Cubierta de Policarbonato
                             </Text>
                             <SimpleGrid columns={2} gap="1.5">
                                 {POLYCARBONATE_TYPES.map((p) => {
@@ -439,7 +461,7 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                         </Text>
                         <SimpleGrid columns={2} gap="2">
                             <Box>
-                                <Text fontSize="9px" color="text.muted" mb="0.5">Ancho</Text>
+                                <Text fontSize="9px" color="text.muted" mb="0.5">Ancho (Frente)</Text>
                                 <Input
                                     type="number"
                                     value={widthM}
@@ -456,16 +478,16 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                                 />
                             </Box>
                             <Box>
-                                <Text fontSize="9px" color="text.muted" mb="0.5">{isTecho ? "Largo" : "Alto"}</Text>
+                                <Text fontSize="9px" color="text.muted" mb="0.5">{isTecho ? "Largo (Proyección)" : "Alto"}</Text>
                                 <Input
                                     type="number"
                                     value={heightM}
                                     min={0.5}
-                                    max={5}
+                                    max={6}
                                     step={0.1}
                                     onChange={(e) => {
                                         const v = parseFloat(e.target.value);
-                                        if (!isNaN(v) && v >= 0.5 && v <= 5) setHeightM(v);
+                                        if (!isNaN(v) && v >= 0.5 && v <= 6) setHeightM(v);
                                     }}
                                     size="xs"
                                     h="7"
@@ -501,6 +523,23 @@ export const ServiceConfigurator3DCard: React.FC<ServiceConfigurator3DCardProps>
                             _active={{ cursor: "grabbing" }}
                         />
                         <Flex position="absolute" top="3" right="3" direction="column" gap="1.5" zIndex="10">
+                            <IconButton
+                                aria-label="Centrar Cámara"
+                                title="Centrar Cámara"
+                                onClick={resetCamera}
+                                bg="surface.card"
+                                borderRadius="lg"
+                                boxShadow="sm"
+                                color="text.body"
+                                size="xs"
+                                h="7"
+                                w="7"
+                                borderWidth="1px"
+                                borderColor="border.default"
+                                _hover={{ bg: "bg.subtle", color: "primary.500" }}
+                            >
+                                <Video size={13} />
+                            </IconButton>
                             <IconButton
                                 aria-label={autoRotate ? "Pausar giro" : "Activar giro"}
                                 title={autoRotate ? "Pausar Giro 360°" : "Activar Giro 360°"}
