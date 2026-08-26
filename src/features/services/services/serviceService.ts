@@ -4,20 +4,12 @@
  * @module services/services
  */
 
-import { services } from "@features/services/data/services";
-import { servicePageDataMap } from "@features/services/data/servicePageDataMap";
+import { services, type Service } from "@features/services/data/services";
+import { servicePageDataMap, type ServicePageData } from "@features/services/data/servicePageDataMap";
 import type { ElementType } from "react";
 import { GalleryItem } from "@/shared/types/gallery";
 
-export interface Service {
-    id: number;
-    image: string;
-    name: string;
-    category: string;
-    description: string;
-    link: string;
-    plink: string;
-}
+export type { Service, ServicePageData };
 
 export interface ServicePageSEO {
     title: string;
@@ -32,13 +24,6 @@ export interface ServicePageSystem {
 export interface ServicePageFeature {
     label: string;
     icon: ElementType;
-}
-
-export interface ServicePageData {
-    seo: ServicePageSEO;
-    systems: ServicePageSystem[];
-    features: ServicePageFeature[];
-    imageLists: GalleryItem[][];
 }
 
 /**

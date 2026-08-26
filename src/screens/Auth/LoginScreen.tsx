@@ -58,9 +58,9 @@ export const LoginScreen: React.FC = () => {
     try {
       await login(loginEmail, loginPass);
       toaster.create({ title: "Sesión iniciada con éxito", type: "success" });
-    } catch (err: any) {
+    } catch (err: unknown) {
       let errorMsg = "Credenciales incorrectas. Verifique su correo y contraseña.";
-      const code = err?.code || "";
+      const code = (err as { code?: string })?.code || "";
       if (code === "auth/invalid-credential" || code === "auth/wrong-password" || code === "auth/user-not-found") {
         errorMsg = "Correo o contraseña incorrectos.";
       } else if (code === "auth/invalid-email") {
@@ -69,7 +69,7 @@ export const LoginScreen: React.FC = () => {
         errorMsg = "Demasiados intentos fallidos. Intente nuevamente en unos minutos.";
       } else if (code === "auth/network-request-failed") {
         errorMsg = "Error de conexión de red. Verifique su conexión a internet.";
-      } else if (err?.message) {
+      } else if (err instanceof Error && err.message) {
         errorMsg = err.message;
       }
 
@@ -103,10 +103,10 @@ export const LoginScreen: React.FC = () => {
         district,
       });
       toaster.create({ title: "Cuenta de cliente creada con éxito", type: "success" });
-    } catch (err: any) {
+    } catch (err: unknown) {
       toaster.create({
         title: "Error al crear cuenta",
-        description: err?.message || "No se pudo completar el registro",
+        description: err instanceof Error ? err.message : "No se pudo completar el registro",
         type: "error",
       });
     } finally {

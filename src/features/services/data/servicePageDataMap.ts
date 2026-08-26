@@ -1,4 +1,4 @@
-import { ChevronRight, Check, LucideIcon } from "lucide-react";
+import { ChevronRight, Check, type LucideIcon } from "lucide-react";
 
 // Import all gallery data
 import { listVentana } from "@/features/services/data/gallery/ventana-data";

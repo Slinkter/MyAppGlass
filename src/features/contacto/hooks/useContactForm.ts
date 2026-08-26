@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toaster } from "@/components/ui/toaster-instance";
 import { submitContactAction, checkStatusAction } from "@features/contacto/actions";
-import { env } from "@/shared/config/env";
 import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
+import { executeRecaptcha } from "@/shared/utils/recaptcha";
 import { contactFormSchema } from "@/shared/schemas/contact-schema";
 import { logger } from "@/shared/utils/logger";
 
@@ -180,26 +180,7 @@ export const useContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      let recaptchaToken = "";
-
-      // Execute reCAPTCHA v3 if available on window
-      const win = typeof window !== "undefined" ? (window as unknown as { grecaptcha?: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } }) : null;
-      if (win && win.grecaptcha) {
-        try {
-          recaptchaToken = await new Promise<string>((resolve, reject) => {
-            win.grecaptcha?.ready(() => {
-              win.grecaptcha?.execute(
-                env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-                { action: "contact_submit" }
-              )
-                .then((token: string) => resolve(token))
-                .catch((err: unknown) => reject(err));
-            });
-          });
-        } catch (recaptchaErr) {
-          logger.error("reCAPTCHA execution error in Contact Form", recaptchaErr);
-        }
-      }
+      const recaptchaToken = await executeRecaptcha("contact_submit");
 
       const result = await submitContactAction({
         name: formData.name,

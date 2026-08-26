@@ -38,6 +38,7 @@ import { useAuth } from "@/features/auth/context/AuthContext";
 import { Product } from "@/shared/schemas/ecommerce-schemas";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
 import Link from "next/link";
+import { logger } from "@/shared/utils/logger";
 
 export const SalesOrderScreen: React.FC = () => {
   const { user } = useAuth();
@@ -124,7 +125,7 @@ export const SalesOrderScreen: React.FC = () => {
     const adminUid = user?.uid || "admin_system";
     const adminName = user?.displayName || user?.email || "Administrador GYA";
 
-    console.info("🛒 [Venta] Enviando orden de despacho...", {
+    logger.info("[Venta] Enviando orden de despacho...", {
       cliente: clientForm.name,
       dniRuc: clientForm.dniRuc,
       items: items.map((i) => ({ sku: i.sku, cant: i.quantity })),
@@ -135,11 +136,11 @@ export const SalesOrderScreen: React.FC = () => {
 
     const res = await submitOrder(adminUid, adminName);
     if (res.success && res.orderId) {
-      console.info("✅ [Venta Exitosa] Orden procesada con ID:", res.orderId);
+      logger.info("[Venta Exitosa] Orden procesada con ID: " + res.orderId);
       setCompletedOrderId(res.orderId);
       setErrorMessage(null);
     } else {
-      console.error("❌ [Venta Error] Falló el despacho de la orden:", res.error);
+      logger.error("Falló el despacho de la orden: " + (res.error || "unknown"));
       setErrorMessage(res.error || "Error al procesar el despacho en Firestore");
     }
   };

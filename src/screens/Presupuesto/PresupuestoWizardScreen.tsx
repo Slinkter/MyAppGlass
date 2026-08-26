@@ -137,7 +137,7 @@ export const PresupuestoWizardScreen: React.FC = () => {
                   <NativeSelect.Field
                     value={params.systemType}
                     onChange={(e) =>
-                      setParams({ ...params, systemType: e.target.value as any })
+                      setParams({ ...params, systemType: e.target.value as QuoteCalculationInput["systemType"] })
                     }
                   >
                     <option value="mampara_serie25">Mampara Corrediza Serie 25 (2 o 4 Hojas)</option>
@@ -180,7 +180,7 @@ export const PresupuestoWizardScreen: React.FC = () => {
                     <NativeSelect.Field
                       value={params.glassType}
                       onChange={(e) =>
-                        setParams({ ...params, glassType: e.target.value as any })
+                        setParams({ ...params, glassType: e.target.value as QuoteCalculationInput["glassType"] })
                       }
                     >
                       <option value="8mm_incoloro">Templado 8mm Incoloro</option>
@@ -197,7 +197,7 @@ export const PresupuestoWizardScreen: React.FC = () => {
                     <NativeSelect.Field
                       value={params.aluminumColor}
                       onChange={(e) =>
-                        setParams({ ...params, aluminumColor: e.target.value as any })
+                        setParams({ ...params, aluminumColor: e.target.value as QuoteCalculationInput["aluminumColor"] })
                       }
                     >
                       <option value="negro_mate">Negro Mate Anodizado</option>
@@ -221,7 +221,7 @@ export const PresupuestoWizardScreen: React.FC = () => {
                         setParams({
                           ...params,
                           includeInstallation: true,
-                          difficulty: e.target.value as any,
+                          difficulty: e.target.value as QuoteCalculationInput["difficulty"],
                         });
                       }
                     }}

@@ -261,9 +261,9 @@ export const ReportsScreen: React.FC = () => {
             {filteredOrders.map((ord) => {
               const isExpanded = expandedOrderId === (ord.id || ord.orderNumber);
               const orderDate = ord.createdAt
-                ? typeof (ord.createdAt as any).toDate === "function"
-                  ? (ord.createdAt as any).toDate().toLocaleDateString("es-PE")
-                  : new Date(ord.createdAt as any).toLocaleDateString("es-PE")
+                ? typeof ord.createdAt === "object" && "toDate" in ord.createdAt
+                  ? (ord.createdAt as { toDate: () => Date }).toDate().toLocaleDateString("es-PE")
+                  : new Date(ord.createdAt as string | number).toLocaleDateString("es-PE")
                 : "Hoy";
 
               return (

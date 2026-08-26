@@ -12,7 +12,6 @@
         "test": "vitest",
         "test:run": "vitest run",
         "optimize": "node scripts/optimize-images.mjs",
-        "generate:3d": "python scripts/generate-3d-from-image.py",
         "clean": "pnpm dlx rimraf node_modules .next dist out functions/node_modules",
         "deploy:hosting": "pnpm run build && npx firebase-tools deploy --only hosting",
         "deploy:functions": "firebase deploy --only functions"
@@ -21,9 +20,7 @@
         "@chakra-ui/react": "^3.35.0",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
-        "@google/model-viewer": "^4.3.1",
         "@react-google-maps/api": "^2.20.8",
-        "@types/three": "^0.185.4",
         "firebase": "^12.12.1",
         "framer-motion": "^12.40.0",
         "lucide-react": "^1.11.0",
@@ -32,13 +29,11 @@
         "pino": "^10.3.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "three": "^0.185.1",
         "xlsx": "^0.18.5",
         "zod": "^4.4.3"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.4",
-        "@gltf-transform/core": "^4.4.2",
         "@next/bundle-analyzer": "^16.3.2",
         "@testing-library/jest-dom": "^7.0.1",
         "@testing-library/react": "^16.3.2",

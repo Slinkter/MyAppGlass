@@ -53,7 +53,7 @@ function saveLocalOrder(order: Order): void {
     const current = getLocalOrders();
     localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify([order, ...current]));
   } catch (err) {
-    console.warn("No se pudo guardar orden en localStorage", err);
+    logger.warn("No se pudo guardar orden en localStorage");
   }
 }
 
@@ -89,11 +89,11 @@ export const orderService = {
       status: "DESPACHADO",
       paymentMethod: payload.paymentMethod || "TRANSFERENCIA_BCP",
       notes: payload.notes || "",
-      createdAt: new Date().toISOString() as any,
-      updatedAt: new Date().toISOString() as any,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
 
-    console.info(`📦 [GYA Transacción] Iniciando despacho atómico para ${orderNumber}...`, {
+    logger.info(`[GYA Transacción] Iniciando despacho atómico para ${orderNumber}`, {
       cliente: payload.clientName,
       items: payload.items.length,
       total: payload.total,
@@ -132,17 +132,18 @@ export const orderService = {
 
       // 3. Commit atómico
       await batch.commit();
-      console.info(`✅ [GYA Transacción Exitosa] Orden ${orderNumber} (ID: ${newOrderRef.id}) commit completado en Firestore.`);
+      logger.info(`[GYA Transacción Exitosa] Orden ${orderNumber} (ID: ${newOrderRef.id}) commit completado en Firestore.`);
       return newOrderRef.id;
-    } catch (err: any) {
-      console.warn(`⚠️ [GYA Firestore Fallback] Firestore rechazó la transacción (${err?.message}). Guardando orden en modo contingencia local...`, {
-        errorCode: err?.code,
-        errorMessage: err?.message,
+    } catch (err: unknown) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      logger.warn(`[GYA Firestore Fallback] Firestore rechazó la transacción (${error.message}). Guardando orden en modo contingencia local...`, {
+        errorCode: (err as Record<string, unknown>)?.code,
+        errorMessage: error.message,
       });
 
       // Si las reglas en la nube están pendientes de despliegue, guardamos localmente para no bloquear al usuario
       saveLocalOrder(fallbackOrder);
-      console.info(`✅ [GYA Modo Contingencia] Orden ${orderNumber} guardada en almacenamiento local con éxito.`);
+      logger.info(`[GYA Modo Contingencia] Orden ${orderNumber} guardada en almacenamiento local con éxito.`);
       return fallbackOrder.id || tempId;
     }
   },
@@ -166,7 +167,7 @@ export const orderService = {
         return unique.slice(0, limitCount);
       }
     } catch (err) {
-      console.warn("⚠️ Error al cargar órdenes remotas de Firestore, usando almacenamiento local:", err);
+      logger.warn("Error al cargar órdenes remotas de Firestore, usando almacenamiento local");
     }
     return local.slice(0, limitCount);
   },
@@ -196,14 +197,14 @@ export const orderService = {
           onData(unique.slice(0, limitCount));
         },
         (error) => {
-          console.warn("⚠️ Listener de órdenes Firestore en modo tolerante (usando registros locales):", error);
+          logger.warn("Listener de órdenes Firestore en modo tolerante (usando registros locales)");
           if (onError) onError(error);
           onData(getLocalOrders());
         }
       );
       return unsubscribe;
     } catch (err) {
-      console.warn("⚠️ No se pudo iniciar listener de órdenes remoto:", err);
+      logger.warn("No se pudo iniciar listener de órdenes remoto");
       onData(local);
       return () => {};
     }
@@ -223,7 +224,7 @@ export const orderService = {
         return orderSchema.parse({ id: docSnap.id, ...docSnap.data() });
       }
     } catch (err) {
-      console.warn("⚠️ Error al buscar orden por ID en Firestore:", err);
+      logger.warn("Error al buscar orden por ID en Firestore");
     }
     return null;
   },

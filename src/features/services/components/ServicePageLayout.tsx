@@ -18,13 +18,6 @@ import { UnifiedTechnicalCard } from "./ServiceBentoGrid";
 import { ServiceFaqSection } from "./ServiceFaqSection";
 import { serviceFaqsMap, defaultServiceFaqs } from "../data/serviceFaqs";
 
-import dynamic from "next/dynamic";
-
-const ServiceConfigurator3DCard = dynamic(
-  () => import("./VentanaConfigurador3DCard"),
-  { ssr: false, loading: () => <Skeleton height={{ base: "500px", lg: "500px" }} w="full" borderRadius={{ base: "none", md: "3xl" }} /> }
-);
-
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string } };
 }
@@ -49,18 +42,6 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
       setActiveIndex(index);
     });
   }, []);
-
-  // Mapear sistema activo al ID del catalogo si estamos en ventana
-  const activeVentanaSystemId = React.useMemo(() => {
-    const label = (activeSystem?.label || "").toLowerCase();
-    if (label.includes("25")) return "serie-25";
-    if (label.includes("35")) return "serie-35";
-    if (label.includes("62")) return "serie-62";
-    return "sistema-nova";
-  }, [activeSystem]);
-
-  // Título dinámico simplificado para el configurador 3D
-  const dynamicViewerTitle = `Modelos de ${serviceSlug?.replace("-", " ") || "estructuras"} 3d`;
 
   return (
     <Box animation="fadeIn 0.4s ease-out">
@@ -140,14 +121,6 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
               )}
             </GridItem>
           </Grid>
-
-          {/* MÓDULO 3D AUTÓNOMO E INDEPENDIENTE (Plantilla única para todos los servicios) */}
-          <Box id="ar-viewer-section" pt="2">
-            <ServiceConfigurator3DCard
-              serviceSlug={serviceSlug || "mampara"}
-              initialSystemId={activeVentanaSystemId}
-            />
-          </Box>
 
           {/* Sección de Preguntas Frecuentes (FAQ / Rich Snippets) */}
           <ServiceFaqSection faqs={faqs} serviceTitle={seo.title} />

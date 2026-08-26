@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProjects } from "@/shared/services/projectService";
+import { logger } from "@/shared/utils/logger";
 import type { Project } from "@/shared/types/project";
 import type { MapProject } from "@/shared/types/map";
 
@@ -28,7 +29,7 @@ export const useMapProjects = (): MapProject[] => {
 
         setProjects(projectsWithPositions);
       } catch (error) {
-        console.error("Failed to fetch projects for map:", error);
+        logger.error("Failed to fetch projects for map");
       }
     };
     fetchProjectsAndSetPositions();

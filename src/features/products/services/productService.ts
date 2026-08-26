@@ -28,7 +28,7 @@ export const productService = {
       const q = query(collection(db, PRODUCTS_COLL));
       const snapshot = await getDocs(q);
       if (snapshot.empty) {
-        console.info("🌱 [GYA Almacén] Sembrando catálogo inicial de productos en Firestore...");
+        logger.info("[GYA Almacén] Sembrando catálogo inicial de productos en Firestore...");
         const batch = writeBatch(db);
         INITIAL_PRODUCTS.forEach((prod) => {
           const docId = prod.id || `prod_${prod.sku.toLowerCase().replace(/[^a-z0-9]/g, "_")}`;
@@ -41,10 +41,10 @@ export const productService = {
           }, { merge: true });
         });
         await batch.commit();
-        console.info("✅ [GYA Almacén] Catálogo inicial sembrado con éxito en Firestore.");
+        logger.info("[GYA Almacén] Catálogo inicial sembrado con éxito en Firestore.");
       }
     } catch (err) {
-      console.warn("⚠️ No se pudo auto-sembrar productos en Firestore (modo offline o reglas pendientes):", err);
+      logger.warn("No se pudo auto-sembrar productos en Firestore (modo offline o reglas pendientes)");
     }
   },
 
@@ -59,7 +59,7 @@ export const productService = {
         });
       }
     } catch (err) {
-      console.warn("⚠️ Error al obtener productos de Firestore, usando catálogo base", err);
+      logger.warn("Error al obtener productos de Firestore, usando catálogo base");
     }
     return INITIAL_PRODUCTS;
   },
@@ -87,14 +87,14 @@ export const productService = {
           }
         },
         (error) => {
-          console.warn("⚠️ Listener de productos Firestore falló, activando catálogo base en memoria", error);
+          logger.warn("Listener de productos Firestore falló, activando catálogo base en memoria");
           if (onError) onError(error);
           onData(INITIAL_PRODUCTS);
         }
       );
       return unsubscribe;
     } catch (err) {
-      console.warn("⚠️ No se pudo iniciar el listener de productos", err);
+      logger.warn("No se pudo iniciar el listener de productos");
       onData(INITIAL_PRODUCTS);
       return () => {};
     }
@@ -108,7 +108,7 @@ export const productService = {
         return productSchema.parse({ id: docSnap.id, ...docSnap.data() });
       }
     } catch (err) {
-      console.warn("⚠️ Error al buscar producto por ID en Firestore", err);
+      logger.warn("Error al buscar producto por ID en Firestore");
     }
     const fallback = INITIAL_PRODUCTS.find((p) => p.id === id);
     return fallback || null;
@@ -124,7 +124,7 @@ export const productService = {
       });
       return docRef.id;
     } catch (err) {
-      console.warn("⚠️ [Firestore Fallback] No se pudo guardar producto en la nube, usando ID local:", err);
+      logger.warn("[Firestore Fallback] No se pudo guardar producto en la nube, usando ID local");
       return `prod_loc_${Date.now()}`;
     }
   },
@@ -137,7 +137,7 @@ export const productService = {
         updatedAt: serverTimestamp(),
       });
     } catch (err) {
-      console.warn("⚠️ [Firestore Fallback] No se pudo actualizar producto en la nube:", err);
+      logger.warn("[Firestore Fallback] No se pudo actualizar producto en la nube");
     }
   },
 
@@ -152,7 +152,7 @@ export const productService = {
         updatedAt: serverTimestamp(),
       });
     } catch (err) {
-      console.warn("⚠️ [Firestore Fallback] No se pudo reponer stock en la nube:", err);
+      logger.warn("[Firestore Fallback] No se pudo reponer stock en la nube");
     }
   },
 
@@ -167,7 +167,7 @@ export const productService = {
         updatedAt: serverTimestamp(),
       });
     } catch (err) {
-      console.warn("⚠️ [Firestore Fallback] No se pudo descontar stock en la nube:", err);
+      logger.warn("[Firestore Fallback] No se pudo descontar stock en la nube");
     }
   },
 
@@ -176,7 +176,7 @@ export const productService = {
       const docRef = doc(db, PRODUCTS_COLL, id);
       await deleteDoc(docRef);
     } catch (err) {
-      console.warn("⚠️ [Firestore Fallback] No se pudo eliminar producto en la nube:", err);
+      logger.warn("[Firestore Fallback] No se pudo eliminar producto en la nube");
     }
   },
 };

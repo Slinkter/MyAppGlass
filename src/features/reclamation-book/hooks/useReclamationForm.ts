@@ -8,7 +8,7 @@ import {
   sanitizeReclamationData,
 } from "@features/reclamation-book/utils/sanitizer";
 import { reclamationFormSchema } from "@/shared/schemas/reclamation-schema";
-import { env } from "@/shared/config/env";
+import { executeRecaptcha } from "@/shared/utils/recaptcha";
 import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
 import { logger } from "@/shared/utils/logger";
 
@@ -150,26 +150,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
       });
 
       try {
-        let recaptchaToken = "";
-        
-        // Execute reCAPTCHA v3 if available on window
-        const win = typeof window !== "undefined" ? (window as unknown as { grecaptcha?: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } }) : null;
-        if (win && win.grecaptcha) {
-          try {
-            recaptchaToken = await new Promise<string>((resolve, reject) => {
-              win.grecaptcha?.ready(() => {
-                win.grecaptcha?.execute(
-                  env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-                  { action: "reclamation_submit" }
-                )
-                  .then((token: string) => resolve(token))
-                  .catch((err: unknown) => reject(err));
-              });
-            });
-          } catch (recaptchaErr) {
-            logger.error("reCAPTCHA execution error in Reclamation Form", recaptchaErr);
-          }
-        }
+        const recaptchaToken = await executeRecaptcha("reclamation_submit");
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { archivos: _archivos, ...rawPayload } = formData;

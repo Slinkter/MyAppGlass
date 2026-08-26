@@ -34,6 +34,7 @@ import { exportToExcel } from "@/shared/utils/excel-export";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
 import { useOrderDraft } from "@/features/products/context/OrderDraftContext";
 import { useRouter } from "next/navigation";
+import { logger } from "@/shared/utils/logger";
 
 export const ClientManagementScreen: React.FC = () => {
   const router = useRouter();
@@ -96,7 +97,7 @@ export const ClientManagementScreen: React.FC = () => {
           setLoading(false);
         },
         (error) => {
-          console.warn("Error en listener de clientes, usando fallback", error);
+          logger.warn("Error en listener de clientes, usando fallback");
           setClients([
             {
               userId: "cli_01",
@@ -124,7 +125,7 @@ export const ClientManagementScreen: React.FC = () => {
       );
       return () => unsubscribe();
     } catch (err) {
-      console.warn("No se pudo conectar a colección clientes", err);
+      logger.warn("No se pudo conectar a colección clientes");
       setLoading(false);
     }
   }, []);

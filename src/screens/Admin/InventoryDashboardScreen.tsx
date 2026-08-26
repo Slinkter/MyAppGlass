@@ -751,7 +751,7 @@ export const InventoryDashboardScreen: React.FC = () => {
                   <NativeSelectRoot size="md" w="full">
                     <NativeSelectField
                       value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value as Product["category"] })}
                     >
                       <option value="vidrio">Vidrio</option>
                       <option value="aluminio">Aluminio</option>
@@ -796,7 +796,7 @@ export const InventoryDashboardScreen: React.FC = () => {
                   <NativeSelectRoot size="md" w="full">
                     <NativeSelectField
                       value={formData.unit}
-                      onChange={(e) => setFormData({ ...formData, unit: e.target.value as any })}
+                      onChange={(e) => setFormData({ ...formData, unit: e.target.value as Product["unit"] })}
                     >
                       <option value="m2">m²</option>
                       <option value="barra">Barra (6m)</option>
