@@ -7,7 +7,6 @@
 import { services, type Service } from "@features/services/data/services";
 import { servicePageDataMap, type ServicePageData } from "@features/services/data/servicePageDataMap";
 import type { ElementType } from "react";
-import { GalleryItem } from "@/shared/types/gallery";
 
 export type { Service, ServicePageData };
 

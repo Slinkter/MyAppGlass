@@ -29,6 +29,8 @@ const FeaturesSection: React.FC = React.memo(() => {
       seoTitle="Nuestros Beneficios - GYA Company"
       seoDescription="Descubre por qué somos los líderes en vidriería y aluminio. Calidad, garantía y puntualidad."
       seoCanonicalUrl="https://www.gyacompany.com/beneficios"
+      columns={{ base: 1, sm: 2, lg: 4 }}
+      gap={{ base: "4", md: "5" }}
       containerProps={{ mt: 0, pt: 0 }}
     >
       {features.map((feature, index) => {

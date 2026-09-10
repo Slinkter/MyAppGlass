@@ -18,7 +18,7 @@ import { useAuth } from "@/features/auth/context/AuthContext";
 
 export const AdminNav: React.FC = () => {
   const pathname = usePathname();
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   const navItems = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },

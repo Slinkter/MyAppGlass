@@ -11,7 +11,6 @@ import {
   Input,
   Tabs,
   Badge,
-  SimpleGrid,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

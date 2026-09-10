@@ -94,7 +94,7 @@ export const ClientManagementScreen: React.FC = () => {
           }
           setLoading(false);
         },
-        (error) => {
+        (_error) => {
           logger.warn("Error en listener de clientes, usando fallback");
           setClients([
             {
@@ -122,7 +122,7 @@ export const ClientManagementScreen: React.FC = () => {
         }
       );
       return () => unsubscribe();
-    } catch (err) {
+    } catch (_err) {
       logger.warn("No se pudo conectar a colección clientes");
       setLoading(false);
     }

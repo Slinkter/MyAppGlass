@@ -52,7 +52,7 @@ function saveLocalOrder(order: Order): void {
   try {
     const current = getLocalOrders();
     localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify([order, ...current]));
-  } catch (err) {
+  } catch (_err) {
     logger.warn("No se pudo guardar orden en localStorage");
   }
 }
@@ -166,7 +166,7 @@ export const orderService = {
         const unique = Array.from(new Map(all.map((item) => [item.orderNumber, item])).values());
         return unique.slice(0, limitCount);
       }
-    } catch (err) {
+    } catch (_err) {
       logger.warn("Error al cargar órdenes remotas de Firestore, usando almacenamiento local");
     }
     return local.slice(0, limitCount);
@@ -203,7 +203,7 @@ export const orderService = {
         }
       );
       return unsubscribe;
-    } catch (err) {
+    } catch (_err) {
       logger.warn("No se pudo iniciar listener de órdenes remoto");
       onData(local);
       return () => {};
@@ -223,7 +223,7 @@ export const orderService = {
       if (docSnap.exists()) {
         return orderSchema.parse({ id: docSnap.id, ...docSnap.data() });
       }
-    } catch (err) {
+    } catch (_err) {
       logger.warn("Error al buscar orden por ID en Firestore");
     }
     return null;

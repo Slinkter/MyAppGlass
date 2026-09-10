@@ -23,15 +23,15 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Servicios",
-    href: "/servicios",
+    href: "/#servicios",
   },
   {
     label: "Proyectos",
-    href: "/proyectos",
+    href: "/#proyectos",
   },
   {
-    label: "Contacto",
-    href: "/contacto",
+    label: "Ubicación",
+    href: "/#ubicacion",
   },
   {
     label: "Mi Cuenta",

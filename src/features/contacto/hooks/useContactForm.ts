@@ -7,7 +7,6 @@ import { submitContactAction, checkStatusAction } from "@features/contacto/actio
 import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
 import { executeRecaptcha } from "@/shared/utils/recaptcha";
 import { contactFormSchema } from "@/shared/schemas/contact-schema";
-import { logger } from "@/shared/utils/logger";
 
 interface ContactFormState {
   name: string;

@@ -28,7 +28,7 @@ export const useMapProjects = (): MapProject[] => {
           .filter((p): p is MapProject => p !== null);
 
         setProjects(projectsWithPositions);
-      } catch (error) {
+      } catch (_error) {
         logger.error("Failed to fetch projects for map");
       }
     };

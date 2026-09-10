@@ -43,7 +43,7 @@ export const productService = {
         await batch.commit();
         logger.info("[GYA Almacén] Catálogo inicial sembrado con éxito en Firestore.");
       }
-    } catch (err) {
+    } catch (_err) {
       logger.warn("No se pudo auto-sembrar productos en Firestore (modo offline o reglas pendientes)");
     }
   },
@@ -58,7 +58,7 @@ export const productService = {
           return productSchema.parse(data);
         });
       }
-    } catch (err) {
+    } catch (_err) {
       logger.warn("Error al obtener productos de Firestore, usando catálogo base");
     }
     return INITIAL_PRODUCTS;
@@ -93,7 +93,7 @@ export const productService = {
         }
       );
       return unsubscribe;
-    } catch (err) {
+    } catch (_err) {
       logger.warn("No se pudo iniciar el listener de productos");
       onData(INITIAL_PRODUCTS);
       return () => {};
@@ -107,7 +107,7 @@ export const productService = {
       if (docSnap.exists()) {
         return productSchema.parse({ id: docSnap.id, ...docSnap.data() });
       }
-    } catch (err) {
+    } catch (_err) {
       logger.warn("Error al buscar producto por ID en Firestore");
     }
     const fallback = INITIAL_PRODUCTS.find((p) => p.id === id);
@@ -123,7 +123,7 @@ export const productService = {
         updatedAt: serverTimestamp(),
       });
       return docRef.id;
-    } catch (err) {
+    } catch (_err) {
       logger.warn("[Firestore Fallback] No se pudo guardar producto en la nube, usando ID local");
       return `prod_loc_${Date.now()}`;
     }
@@ -136,7 +136,7 @@ export const productService = {
         ...updates,
         updatedAt: serverTimestamp(),
       });
-    } catch (err) {
+    } catch (_err) {
       logger.warn("[Firestore Fallback] No se pudo actualizar producto en la nube");
     }
   },
@@ -151,7 +151,7 @@ export const productService = {
         stock: increment(quantityToAdd),
         updatedAt: serverTimestamp(),
       });
-    } catch (err) {
+    } catch (_err) {
       logger.warn("[Firestore Fallback] No se pudo reponer stock en la nube");
     }
   },
@@ -166,7 +166,7 @@ export const productService = {
         stock: increment(-quantityToDecrease),
         updatedAt: serverTimestamp(),
       });
-    } catch (err) {
+    } catch (_err) {
       logger.warn("[Firestore Fallback] No se pudo descontar stock en la nube");
     }
   },
@@ -175,7 +175,7 @@ export const productService = {
     try {
       const docRef = doc(db, PRODUCTS_COLL, id);
       await deleteDoc(docRef);
-    } catch (err) {
+    } catch (_err) {
       logger.warn("[Firestore Fallback] No se pudo eliminar producto en la nube");
     }
   },
