@@ -44,7 +44,14 @@ export default tseslint.config(
       ...pluginJsxA11y.configs.recommended.rules,
       "react/jsx-no-target-blank": "off",
       "no-unused-vars": "off", // Disable base rule
-      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^React$" }],
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^React$",
+          "caughtErrorsIgnorePattern": "^_"
+        }
+      ],
       "@typescript-eslint/no-explicit-any": "warn",
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
@@ -55,7 +62,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ["src/app/**/*.{ts,tsx}"],
+    files: ["src/app/**/*.{ts,tsx}", "src/**/context/**/*.{ts,tsx}"],
     rules: {
       "react-refresh/only-export-components": "off",
     },
