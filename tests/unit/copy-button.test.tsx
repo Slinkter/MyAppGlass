@@ -2,11 +2,12 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import React from 'react';
 import { CopyButton } from '@/shared/components/ui/copy-button';
-import { Provider } from '@/components/ui/provider';
+import { ChakraProvider } from '@chakra-ui/react';
+import { system } from '@/shared/providers/theme';
 import { toaster } from '@/components/ui/toaster-instance';
 
 const renderWithProvider = (ui: React.ReactElement) => {
-  return render(<Provider>{ui}</Provider>);
+  return render(<ChakraProvider value={system}>{ui}</ChakraProvider>);
 };
 
 describe('CopyButton Component', () => {

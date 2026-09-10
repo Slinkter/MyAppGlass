@@ -3,10 +3,11 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import React from 'react';
 import { MathCaptchaField } from '@/shared/components/MathCaptchaField';
 import * as mathCaptchaUtils from '@/shared/utils/mathCaptcha';
-import { Provider } from '@/components/ui/provider';
+import { ChakraProvider } from '@chakra-ui/react';
+import { system } from '@/shared/providers/theme';
 
 const renderWithProvider = (ui: React.ReactElement) => {
-  return render(<Provider>{ui}</Provider>);
+  return render(<ChakraProvider value={system}>{ui}</ChakraProvider>);
 };
 
 describe('MathCaptchaField Component', () => {

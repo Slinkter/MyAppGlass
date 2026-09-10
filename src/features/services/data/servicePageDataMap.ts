@@ -45,7 +45,7 @@ export interface ServicePageData {
 export const servicePageDataMap: Record<string, ServicePageData> = {
     ventana: {
         seo: {
-            title: "Ventanas ",
+            title: "Ventanas de Aluminio y Antirruido | GYA La Molina",
             description:
                 "Ventanas de aluminio en La Molina y Lima ¡Cotiza hoy!",
         },
@@ -98,7 +98,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     balcones: {
         seo: {
-            title: "Balcones ",
+            title: "Balcones de Vidrio Templado y Acero | GYA La Molina",
             description:
                 "Diseño e instalación de balcones de vidrio templado de seguridad y acero inoxidable en La Molina y Lima. ",
         },
@@ -126,7 +126,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     baranda: {
         seo: {
-            title: "Barandas ",
+            title: "Barandas de Acero Inoxidable y Cristal | GYA Lima",
             description:
                 "Fabricación de barandas de acero para escaleras, terrazas y balcones en Lima. Seguridad certificada. ¡Solicita presupuesto!",
         },
@@ -184,7 +184,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     ducha: {
         seo: {
-            title: "Puertas de Ducha ",
+            title: "Puertas de Ducha en Cristal Templado | GYA La Molina",
             description:
                 "Boxes y puertas de ducha en vidrio templado de 8mm con accesorios de acero inoxidable y sistemas corredizos. Fabricación a medida en La Molina. ¡Cotiza ya!",
         },
@@ -225,7 +225,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     mampara: {
         seo: {
-            title: "Mamparas",
+            title: "Mamparas de Vidrio Templado y Aluminio | GYA Lima",
             description:
                 "Fabricación e instalación de mamparas de vidrio templado y aluminio hermético en La Molina y Lima.",
         },
@@ -382,7 +382,7 @@ export const servicePageDataMap: Record<string, ServicePageData> = {
     },
     techo: {
         seo: {
-            title: "Techos de Policarbonato ",
+            title: "Techos de Policarbonato y Cristal | GYA La Molina",
             description:
                 "Especialistas en techos de policarbonato y cristal templado con estructura de aluminio en La Molina y Lima. Protección UV e iluminación natural. ¡Cotiza!",
         },
