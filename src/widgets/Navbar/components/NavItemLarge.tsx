@@ -13,7 +13,21 @@ export interface NavItemLargeProps {
 
 export const NavItemLarge: React.FC<NavItemLargeProps> = ({ label, href, onClick }) => {
     const pathname = usePathname();
-    const isActive = pathname === href;
+    const cleanHref = href.split("#")[0] || "/";
+    const [activeHash, setActiveHash] = React.useState<string>("");
+
+    React.useEffect(() => {
+        setActiveHash(window.location.hash);
+        const handleHashChange = () => setActiveHash(window.location.hash);
+        window.addEventListener("hashchange", handleHashChange);
+        return () => window.removeEventListener("hashchange", handleHashChange);
+    }, []);
+
+    const isAnchor = href.includes("#");
+    const targetHash = isAnchor ? `#${href.split("#")[1]}` : "";
+    const isActive = isAnchor
+        ? pathname === cleanHref && activeHash === targetHash
+        : pathname === href;
 
     return (
         <NavLink

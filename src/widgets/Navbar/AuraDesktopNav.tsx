@@ -15,13 +15,22 @@ import NAV_ITEMS from "@/shared/config/nav-items";
 const AuraDesktopNav: React.FC = () => {
   const pathname = usePathname();
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const [activeHash, setActiveHash] = React.useState<string>("");
+
+  // Sincronizar hash exclusivamente en cliente para evitar hydration mismatch
+  React.useEffect(() => {
+    setActiveHash(window.location.hash);
+    const handleHashChange = () => setActiveHash(window.location.hash);
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
   // Auto-scroll centrado suave si la pantalla es más angosta
   React.useEffect(() => {
     if (!containerRef.current) return;
     const activeBtn = containerRef.current.querySelector<HTMLElement>('[data-active="true"]');
     activeBtn?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-  }, [pathname]);
+  }, [pathname, activeHash]);
 
   return (
     <HStack
@@ -46,7 +55,12 @@ const AuraDesktopNav: React.FC = () => {
       }}
     >
       {NAV_ITEMS.map((item) => {
-        const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+        const cleanHref = item.href.split("#")[0] || "/";
+        const isAnchor = item.href.includes("#");
+        const targetHash = isAnchor ? `#${item.href.split("#")[1]}` : "";
+        const isActive = isAnchor
+          ? pathname === cleanHref && activeHash === targetHash
+          : pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
         return (
           <Button
             key={item.label}
