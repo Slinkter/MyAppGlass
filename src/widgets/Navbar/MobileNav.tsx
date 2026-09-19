@@ -31,6 +31,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useNavbarActiveSection, type NavbarSection } from "./hooks/useNavbarActiveSection";
 import { NavItemLarge } from "./components/NavItemLarge";
 import { UtilityLink } from "./components/UtilityLink";
 
@@ -38,15 +39,31 @@ const MobileNav = React.memo(() => {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
     const { colorMode, toggleColorMode } = useColorMode();
+    const { activeSection, selectSection } = useNavbarActiveSection();
 
     // Close menu instantly when pathname changes
     useEffect(() => {
         setIsOpen(false);
     }, [pathname]);
 
-    const handleLinkClick = useCallback(() => {
+    const getItemSectionKey = (href: string): NavbarSection => {
+        if (href === "/") return "inicio";
+        if (href === "/auth" || href.startsWith("/auth")) return "auth";
+        if (href.includes("#servicios")) return "servicios";
+        if (href.includes("#proyectos")) return "proyectos";
+        if (href.includes("#ubicacion")) return "ubicacion";
+        return "";
+    };
+
+    const handleLinkClick = useCallback((hrefOrEvent?: string | React.MouseEvent) => {
+        if (typeof hrefOrEvent === "string") {
+            const key = getItemSectionKey(hrefOrEvent);
+            if (key) {
+                selectSection(key);
+            }
+        }
         setIsOpen(false);
-    }, []);
+    }, [selectSection]);
 
     const whatsappLink = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;
 
@@ -125,19 +142,24 @@ const MobileNav = React.memo(() => {
                         justify="flex-start"
                         gap={1}
                     >
-                        {NAV_ITEMS.map((item, index) => (
-                            <Box
-                                key={item.label}
-                                w="full"
-                                animation={`slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.05}s both`}
-                            >
-                                <NavItemLarge
-                                    label={item.label}
-                                    href={item.href}
-                                    onClick={handleLinkClick}
-                                />
-                            </Box>
-                        ))}
+                        {NAV_ITEMS.map((item, index) => {
+                            const itemKey = getItemSectionKey(item.href);
+                            const isActive = activeSection === itemKey;
+                            return (
+                                <Box
+                                    key={item.label}
+                                    w="full"
+                                    animation={`slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.05}s both`}
+                                >
+                                    <NavItemLarge
+                                        label={item.label}
+                                        href={item.href}
+                                        isActive={isActive}
+                                        onClick={() => handleLinkClick(item.href)}
+                                    />
+                                </Box>
+                            );
+                        })}
                     </VStack>
 
                     {/* WhatsApp CTA in drawer */}

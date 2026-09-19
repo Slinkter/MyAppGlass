@@ -2,32 +2,16 @@
 
 import React from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { usePathname } from "next/navigation";
 import NavLink from "next/link";
 
 export interface NavItemLargeProps {
     label: string;
     href: string;
+    isActive?: boolean;
     onClick: () => void;
 }
 
-export const NavItemLarge: React.FC<NavItemLargeProps> = ({ label, href, onClick }) => {
-    const pathname = usePathname();
-    const cleanHref = href.split("#")[0] || "/";
-    const [activeHash, setActiveHash] = React.useState<string>("");
-
-    React.useEffect(() => {
-        setActiveHash(window.location.hash);
-        const handleHashChange = () => setActiveHash(window.location.hash);
-        window.addEventListener("hashchange", handleHashChange);
-        return () => window.removeEventListener("hashchange", handleHashChange);
-    }, []);
-
-    const isAnchor = href.includes("#");
-    const targetHash = isAnchor ? `#${href.split("#")[1]}` : "";
-    const isActive = isAnchor
-        ? pathname === cleanHref && activeHash === targetHash
-        : pathname === href;
+export const NavItemLarge: React.FC<NavItemLargeProps> = ({ label, href, isActive = false, onClick }) => {
 
     return (
         <NavLink

@@ -3,34 +3,35 @@
 import React from "react";
 import { HStack } from "@chakra-ui/react";
 import RouterLink from "next/link";
-import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import NAV_ITEMS from "@/shared/config/nav-items";
+
+import { useNavbarActiveSection, type NavbarSection } from "./hooks/useNavbarActiveSection";
 
 /**
  * @component AuraDesktopNav
  * @description Barra de navegación de escritorio estilo píldora/chip ultra-fluida,
- * basada en el patrón de SystemSelector con soporte completo para SSR y routing de Next.js.
+ * basada en el patrón de SystemSelector con soporte completo para SSR, scroll-spy y routing de Next.js.
  */
 const AuraDesktopNav: React.FC = () => {
-  const pathname = usePathname();
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const [activeHash, setActiveHash] = React.useState<string>("");
-
-  // Sincronizar hash exclusivamente en cliente para evitar hydration mismatch
-  React.useEffect(() => {
-    setActiveHash(window.location.hash);
-    const handleHashChange = () => setActiveHash(window.location.hash);
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
+  const { activeSection, selectSection } = useNavbarActiveSection();
 
   // Auto-scroll centrado suave si la pantalla es más angosta
   React.useEffect(() => {
     if (!containerRef.current) return;
     const activeBtn = containerRef.current.querySelector<HTMLElement>('[data-active="true"]');
     activeBtn?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-  }, [pathname, activeHash]);
+  }, [activeSection]);
+
+  const getItemSectionKey = (item: (typeof NAV_ITEMS)[0]): NavbarSection => {
+    if (item.href === "/") return "inicio";
+    if (item.href === "/auth" || item.href.startsWith("/auth")) return "auth";
+    if (item.href.includes("#servicios")) return "servicios";
+    if (item.href.includes("#proyectos")) return "proyectos";
+    if (item.href.includes("#ubicacion")) return "ubicacion";
+    return "";
+  };
 
   return (
     <HStack
@@ -55,12 +56,15 @@ const AuraDesktopNav: React.FC = () => {
       }}
     >
       {NAV_ITEMS.map((item) => {
-        const cleanHref = item.href.split("#")[0] || "/";
-        const isAnchor = item.href.includes("#");
-        const targetHash = isAnchor ? `#${item.href.split("#")[1]}` : "";
-        const isActive = isAnchor
-          ? pathname === cleanHref && activeHash === targetHash
-          : pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+        const itemKey = getItemSectionKey(item);
+        const isActive = activeSection === itemKey;
+
+        const handleClick = () => {
+          if (itemKey) {
+            selectSection(itemKey);
+          }
+        };
+
         return (
           <Button
             key={item.label}
@@ -86,6 +90,7 @@ const AuraDesktopNav: React.FC = () => {
               href={item.href || "#"} 
               aria-current={isActive ? "page" : undefined}
               transitionTypes={['nav-forward']}
+              onClick={handleClick}
             >
               {item.label}
             </RouterLink>

@@ -2,6 +2,8 @@
 
 opencode -s ses_fbfd21e85ffeywTv1EHoxmp2t4
 
+agy --conversation=fe72b4a0-8565-4af5-b752-4979e5ae888d
+
 Plataforma corporativa premium de alta gama optimizada para el rendimiento y SEO de autoridad. Diseñada para **Glass & Aluminum Company S.A.C.**, líderes en soluciones arquitectónicas de cristalería, ventanas antirruido, mamparas y estructuras de aluminio en Lima, Perú.
 
 ---
