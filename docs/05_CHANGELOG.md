@@ -4,12 +4,28 @@ All notable changes to this project will be documented in this file.
 
 ## [2026-10-29] - Sincronización de documentación con el estado real del código
 
+### Added
+- **`functions/README.md`**: guía de arquitectura del backend (capas, flujo de un reclamo, tabla de funciones, modelo de datos, despliegue y cómo agregar una función nueva).
+- **Pruebas automatizadas** con `node:test`: 120 pruebas en `functions/test/` (`cd functions && npm test`), con dobles de Resend, Firestore y reCAPTCHA.
+- **Colecciones de Postman** actualizadas al contrato actual del backend en `tests/postman/` (commit `61af7db`).
+
 ### Changed
 - **Documentación técnica sincronizada**: `docs/01_ARCHITECTURE.md` (estructura real de directorios, FSD parcial sin `entities/`, tema en `src/shared/providers/theme/index.ts`), `docs/06_DOCS_DEVELOPMENT.md` (variables de entorno según `.env.example` y `src/shared/config/env.ts`, scripts reales), `docs/07_BACKEND_IMPLEMENTATION.md` y `docs/08_DOCS_SECURITY_BACKEND.md` (las 3 funciones `submitReclamo`, `submitContacto` y `checkStatus`, rate limit, CORS, validación Zod, captchas y sanitización).
 - **Documentos SEO sincronizados**: `docs/09_PLAN_SEO_CONTENIDOS.md`, `docs/10_SEO_JERARQUIA.md` (nuevo bloque de estado y tabla ruta → title real) y `docs/11_MANUAL_SEO_LOCAL.md` contrastados con `sitemap.ts`, `robots.ts`, `seo-utils.ts` y los 10 posts del blog.
 - **READMEs de módulos y skill `gya-cms`**: rutas y componentes corregidos según los archivos existentes.
 - **Rutas absolutas de Windows** de este changelog convertidas a texto de código.
 - **Runtime de Cloud Functions**: migración de `nodejs20` a `nodejs22` en `firebase.json` y `functions/package.json` por el retiro de Node.js 20 (2026-10-30). Desplegado el 2026-10-29: `submitReclamo`, `submitContacto` y `checkStatus` corren en `nodejs22` (ver `docs/08_DOCS_SECURITY_BACKEND.md` sobre el conflicto de `RECAPTCHA_SECRET_KEY` en el despliegue).
+- **Backend reorganizado en capas** (`functions/src/`: `http/`, `guards/`, `schemas/`, `services/`, `adapters/`, `templates/`, `config/`). `functions/index.js` solo inicializa `firebase-admin` y exporta; `emailSender.js` y `mathCaptchaValidator.js` quedan como shims de compatibilidad (commit `db5ab7e`). **Desplegado el 2026-10-29.**
+- **Reclamos y consultas: se guardan primero** en Firestore con código propio `GYA-REC-AAAA-XXXXXX` / `GYA-CON-AAAA-XXXXXX`, y después se envían los dos correos en paralelo. Antes el código era el ID de Resend y el correo al administrador llevaba el marcador `TEMP_ID` (commit `f565e53`). **Desplegado el 2026-10-29.**
+- **Rate limit por función** en transacción de Firestore: `submitReclamo` 8, `submitContacto` 8 y `checkStatus` 30 por IP cada 15 minutos, con campo `expireAt` para TTL (la política debe activarse en la consola) (commit `de58565`). **Desplegado el 2026-10-29.**
+- **Reglas de Firestore y Storage endurecidas** (commit `b398036`), ya publicadas en producción: `libro_de_reclamaciones`, `contact_submissions` y `rate_limits` sin acceso desde el cliente, con cierre por defecto.
+- **Dependencias de `functions/`**: aplicado `npm audit fix` (commit `a1ace1f`). Quedan 11 vulnerabilidades de producción (1 alta y 10 moderadas), pendientes de una actualización mayor.
+
+### Fixed
+- **IP del cliente**: ya no se toma el primer valor de `X-Forwarded-For`, que controla el cliente, sino la entrada que añade la infraestructura (`TRUSTED_PROXY_HOPS = 1`). **Desplegado el 2026-10-29.** Confirmado que un `X-Forwarded-For` forjado no evade el límite; falta confirmar en el log que la IP resuelta es la pública real.
+- **Rate limit fail-open**: `submitReclamo` y `submitContacto` responden 503 si Firestore falla, en lugar de dejar pasar la petición. `checkStatus` conserva el modo abierto a propósito. **Desplegado el 2026-10-29.**
+- **Marcador `TEMP_ID`** eliminado del correo al administrador: el correo lleva el código real. **Desplegado el 2026-10-29.**
+- **Errores internos**: los fallos de persistencia responden un mensaje genérico y el detalle queda en el log. Los handlers aún devuelven `error.message` para otras excepciones (pendiente, ver `functions/README.md`).
 
 ### Removed
 - **Configurador 3D de ventanas** (commit `2ca4f3e`, 2026-08-26): eliminados `VentanaConfigurador3DCard.tsx`, `components/configurador3d/`, `src/features/services/data/ventanas-catalogo.json` y `scripts/optimize-images.mjs`; la dependencia `three` fue retirada de `package.json`. Las entradas históricas que describen el simulador 3D reflejan el estado de su fecha.

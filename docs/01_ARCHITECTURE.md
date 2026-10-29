@@ -53,6 +53,10 @@ Utilizamos el patrón de componentes compuestos para elementos complejos como la
 </Gallery.Root>
 ```
 
+## ⚙️ Backend (`functions/`)
+
+Las funciones de Firebase (Node.js 22, CommonJS) atienden los formularios del sitio: Libro de Reclamaciones (`submitReclamo`), contacto y cotizaciones (`submitContacto`) y consulta del estado de una solicitud (`checkStatus`). El código está organizado en capas (`http/`, `guards/`, `services/`, `adapters/`, `schemas/`, `templates/` y `config/`). La arquitectura, el flujo de un reclamo, la tabla de funciones y el procedimiento de despliegue están en [functions/README.md](../functions/README.md).
+
 ## 📁 Estructura de Directorios
 
 El proyecto sigue una variante **parcial de Feature-Sliced Design (FSD)**: existen las capas `app`, `screens`, `widgets`, `features` y `shared`, pero **no hay capa `entities/`**. Con `output: 'export'`, las rutas se prerenderizan como HTML estático (55 páginas en el último build).
