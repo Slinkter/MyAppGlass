@@ -15,7 +15,7 @@ import { useMediaQuery } from "@chakra-ui/react";
  * @example
  * // Ejemplo de uso en un componente React
  * import { Text } from '@chakra-ui/react';
- * import useIsMobile from '@/hooks/useIsMobile';
+ * import { useIsMobile } from '@/shared/hooks/ui/useIsMobile';
  *
  * function ResponsiveComponent() {
  *   const isMobile = useIsMobile();
@@ -32,5 +32,3 @@ export const useIsMobile = (): boolean => {
   const [isMobile] = useMediaQuery(["(max-width: 768px)"]);
   return isMobile;
 };
-
-export default useIsMobile;

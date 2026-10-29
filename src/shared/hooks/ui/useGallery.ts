@@ -100,5 +100,3 @@ export const useGallery = (images: GalleryItem[]): UseGalleryReturn => {
     imageCount: images?.length || 0,
   };
 };
-
-export default useGallery;

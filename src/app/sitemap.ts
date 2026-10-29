@@ -3,7 +3,7 @@ import { MetadataRoute } from "next";
 export const dynamic = "force-static";
 import { services } from "@/features/services/data/services";
 import BLOG_POSTS from "@/features/blog/data/blog-posts";
-import { projects } from "@/features/projects/data/projects";
+import { projects } from "@/shared/data/projects";
 
 const BASE_URL = "https://www.gyacompany.com";
 

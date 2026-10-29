@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { RotateCcw, Home } from "lucide-react";

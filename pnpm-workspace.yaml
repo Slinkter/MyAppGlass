@@ -1,14 +1,7 @@
 allowBuilds:
   '@firebase/util': true
-  b: true
-  d: true
-  e: true
-  i: true
-  l: true
   protobufjs: true
-  s: true
   sharp: true
-  u: true
 minimumReleaseAgeExclude:
   - '@next/bundle-analyzer@16.3.2'
   - '@next/env@16.3.2'

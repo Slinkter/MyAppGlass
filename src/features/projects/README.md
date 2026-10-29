@@ -11,7 +11,6 @@ Handles the portfolio section of the application, showcasing completed work thro
   - `ProjectCard`: Individual project summary with glassmorphism styling.
   - `ProjectCardContent` and `ProjectDetailItem`: Card body and detail rows.
   - `modal/VisualViewer` and `modal/MapViewer`: Gallery and map views of a project.
-- **Hooks**: `useProjectModal` manages the project modal UI state.
 - **Data**: `data/projects.ts` holds the portfolio entries.
 - **Services**: `src/shared/services/projectService.ts` provides data for the portfolio (shared across features).
 

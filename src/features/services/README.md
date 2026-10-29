@@ -13,7 +13,7 @@ Módulo de negocio responsable de presentar el catálogo de servicios corporativ
 - **`ServicePageLayout.tsx`**: Layout maestro del detalle de servicio; orquesta la galería fotográfica (`Gallery`), las secciones descriptivas y las FAQ.
 - **`ServiceList.tsx`**: Listado del catálogo (usa `useFilterableList` e `ItemGridLayout`).
 - **`ServiceCard.tsx`**: Tarjeta de cada servicio.
-- **`ServiceBentoGrid.tsx`**: Cuadrícula tipo bento de la ficha del servicio.
+- **`ServiceBentoGrid.tsx`**: Tarjetas de la ficha del servicio (`UnifiedTechnicalCard` y `BentoCTA`).
 - **`ServiceHeader.tsx`**: Cabecera de la página de detalle.
 - **`ServiceFaqSection.tsx`**: Acordeón de preguntas frecuentes.
 

@@ -4,7 +4,6 @@ import {
   Box,
   Heading,
   Text,
-  SimpleGrid,
   HStack,
   VStack,
 } from "@chakra-ui/react";
@@ -13,11 +12,6 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
-
-interface ServiceBentoGridProps {
-  systemName: string;
-  about?: { description: string };
-}
 
 export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
   <a
@@ -51,11 +45,11 @@ export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
         boxShadow: "0 15px 35px rgba(168, 1, 0, 0.4)",
       }}
     >
-      <Box 
-        as={MessageSquareText} 
-        boxSize={8} 
-        mb="2.5" 
-        color="white" 
+      <Box
+        as={MessageSquareText}
+        boxSize={8}
+        mb="2.5"
+        color="white"
         transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
         _groupHover={{ transform: "scale(1.12)" }}
       />
@@ -69,31 +63,6 @@ export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
   </a>
 ));
 BentoCTA.displayName = "BentoCTA";
-
-export const AboutCard = React.memo(({ description }: { description: string }) => (
-  <Box
-    bg="bg.subtle"
-    borderRadius="3xl"
-    px={{ base: "5", lg: "8" }}
-    py="8"
-    h="full"
-    borderWidth="1px"
-    borderColor="border.default"
-  >
-    <Heading as="h3" size="sm" mb="5" letterSpacing="tight" color="text.heading">Concepto Técnico</Heading>
-    <Text color="text.muted" fontSize="sm" lineHeight="tall">
-      {description}
-    </Text>
-  </Box>
-));
-AboutCard.displayName = "AboutCard";
-
-const allFeatures = [
-  { label: "Materiales importados de alta resistencia" },
-  { label: "Cristal templado / laminado según norma" },
-  { label: "Acabados en color natural, negro y madera" },
-  { label: "Garantía de instalación profesional" },
-];
 
 export const UnifiedTechnicalCard = React.memo(({ description, features, systemName }: { description: string; features?: { label: string }[]; systemName: string }) => (
   <Box
@@ -149,49 +118,3 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
   </Box>
 ));
 UnifiedTechnicalCard.displayName = "UnifiedTechnicalCard";
-
-export const StructuralFeatures = React.memo(() => (
-  <Box
-    bg="bg.subtle"
-    borderRadius="3xl"
-    borderWidth="1px"
-    borderColor="border.default"
-    px={{ base: "5", lg: "8" }}
-    py="5"
-    w="full"
-  >
-    <Heading as="h3" size="sm" mb="5" letterSpacing="tight" color="text.heading">Ventajas Estructurales</Heading>
-    <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap="3">
-      {allFeatures.map((feat) => (
-        <HStack key={feat.label} gap="3">
-          <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={4} flexShrink={0} />
-          <Text fontSize="sm" fontWeight="medium" color="text.body">{feat.label}</Text>
-        </HStack>
-      ))}
-    </SimpleGrid>
-  </Box>
-));
-StructuralFeatures.displayName = "StructuralFeatures";
-
-const ServiceBentoGrid: React.FC<ServiceBentoGridProps> = ({ systemName, about }) => {
-  return (
-    <VStack gap="5" align="stretch">
-      <SimpleGrid columns={{ base: 1, md: about ? 3 : 1 }} gap="5">
-        {about && (
-          <Box gridColumn={{ md: "span 2" }}>
-            <AboutCard description={about.description} />
-          </Box>
-        )}
-        <Box>
-          <BentoCTA systemName={systemName} />
-        </Box>
-      </SimpleGrid>
-
-      <StructuralFeatures />
-    </VStack>
-  );
-};
-
-const MemoizedServiceBentoGrid = React.memo(ServiceBentoGrid);
-MemoizedServiceBentoGrid.displayName = "ServiceBentoGrid";
-export default MemoizedServiceBentoGrid;
