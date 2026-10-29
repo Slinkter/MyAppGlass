@@ -14,7 +14,7 @@ Plataforma corporativa premium de alta gama optimizada para el rendimiento y SEO
 - **Rendimiento 120Hz:** Optimización por GPU (`translateZ(0)`, `will-change`) y prevención de CLS mediante sincronización de esqueletos de carga.
 - **Catálogo Oficial:** 4 Sistemas oficiales independientes (`Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`) como regla de negocio (ver `AGENTS.md`).
   > Nota: el catálogo `ventanas-catalogo.json` y el configurador que lo consumía fueron eliminados (`2ca4f3e`); la regla de los 4 sistemas se conserva para contenidos y futura re-implementación.
-- **Backend Serverless:** Firebase Functions v2 (Node.js 20), Firestore y Resend para gestión legal de Libro de Reclamaciones.
+- **Backend Serverless:** Firebase Functions v2 (Node.js 22), Firestore y Resend para gestión legal de Libro de Reclamaciones.
 
 ---
 

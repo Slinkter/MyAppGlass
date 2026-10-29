@@ -5,7 +5,7 @@ Este documento es la referencia técnica para el mantenimiento y expansión del 
 ## 🛠️ Stack Tecnológico
 - **Frontend:** Next.js 16 (App Router) + Chakra UI v3.
 - **Estilos:** Chakra UI v3 (spacing scale 4px base) + Aura Components.
-- **Backend:** Firebase Functions v2 (Node.js 20+).
+- **Backend:** Firebase Functions v2 (Node.js 22).
 - **Base de Datos:** Firestore (NoSQL).
 - **Email:** Resend API.
 

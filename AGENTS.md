@@ -38,7 +38,7 @@ src/
 ├── features/     # Dominios de negocio: services/, home/, projects/, blog/
 ├── widgets/      # Componentes globales: AuraNavbar, AuraFooter, FloatingActions
 ├── shared/       # Utils transversales: company-data.ts, logger.ts
-functions/        # Firebase Functions v2 (Node.js 20 - CONGELADO)
+functions/        # Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde Node.js 20 el 2026-10-29 por retiro del runtime)
 ```
 
 **Archivos clave:**

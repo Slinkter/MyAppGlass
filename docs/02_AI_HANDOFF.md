@@ -14,7 +14,7 @@ El proyecto sigue estrictamente los principios de **Feature-Sliced Design** sobr
 * **`src/widgets/`**: **Capa de Bloques Estructurales**. Componentes globales (`Navbar` con `AuraNavbar`, `Footer`, `FloatingActions`, `AdminNav`).
 * **`src/features/`**: **Capa de Negocio**. Módulos reales: `ai-simulator`, `auth`, `blog`, `contacto`, `home`, `presupuesto`, `products`, `projects`, `reclamation-book`, `services`. Cada feature encapsula sus componentes, hooks y datos en su subcarpeta `/data`.
 * **`src/shared/`**: **Capa de Fundamentos**. Utilidades (`logger.ts`), configuración (`company-data.ts`), contratos API y componentes UI Aura.
-* **`functions/`**: Microservicios serverless en Firebase Functions v2 (Node.js 20 - **CONGELADO**).
+* **`functions/`**: Microservicios serverless en Firebase Functions v2 (Node.js 22 - **CONGELADO**).
 
 ---
 

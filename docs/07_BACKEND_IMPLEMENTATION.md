@@ -5,7 +5,7 @@ Esta documentación detalla el flujo técnico del backend serverless (`functions
 > Estado verificado contra `functions/index.js`, `functions/emailSender.js` y `functions/mathCaptchaValidator.js` (octubre 2026). Para el modelo de seguridad ver [08_DOCS_SECURITY_BACKEND.md](./08_DOCS_SECURITY_BACKEND.md).
 
 ## 🛠️ Stack Tecnológico
-- **Firebase Functions (v2, Node.js 20):** funciones HTTP `onRequest`.
+- **Firebase Functions (v2, Node.js 22):** funciones HTTP `onRequest`.
 - **Resend SDK:** motor de envío de correos electrónicos transaccionales.
 - **Firestore:** registro legal de reclamos, consultas de contacto y control de rate limit.
 - **Zod:** validación de esquemas en el servidor (`functions/emailSender.js`).
