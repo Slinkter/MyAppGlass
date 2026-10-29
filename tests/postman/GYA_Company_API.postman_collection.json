@@ -1,84 +1,451 @@
 {
 	"info": {
-		"_postman_id": "gya-reclamos-api-v1",
-		"name": "GYA Company - Libro de Reclamaciones",
-		"description": "Colección para validar el envío de reclamos y quejas al backend de GYA Glass & Aluminum.",
+		"_postman_id": "gya-company-api-safe-v2",
+		"name": "GYA Company - API Backend (casos seguros)",
+		"description": "Todos los casos son seguros en producción: fallan antes de enviar correos o guardar. Cada petición cuenta para el rate limit (8 por IP cada 15 min en submitReclamo/submitContacto, 30 en checkStatus): no ejecutar la colección repetidamente. El camino feliz NO se prueba aquí porque requiere reCAPTCHA v3 desde un navegador real.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://us-central1-gya-app-4c8a9.cloudfunctions.net",
+			"type": "string"
+		}
+	],
 	"item": [
 		{
-			"name": "Enviar Nuevo Reclamo (Producción)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"nombreCompleto\": \"Usuario Prueba Postman\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000001\",\n  \"domicilio\": \"Av. Las Pruebas 456, Lima\",\n  \"email\": \"usuario@ejemplo.com\",\n  \"telefono\": \"987654321\",\n  \"tipoBien\": \"Producto\",\n  \"montoReclamado\": \"250.00\",\n  \"descripcionBien\": \"Mampara Serie 20 con detalle en el perfil\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"detalle\": \"El perfil de aluminio presenta una rayadura visible de 5cm.\",\n  \"pedido\": \"Cambio del perfil afectado o pulido profesional.\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "submitReclamo",
+			"item": [
+				{
+					"name": "GET no permitido (405)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 405 Method Not Allowed', function () {",
+									"    pm.response.to.have.status(405);",
+									"});",
+									"",
+									"pm.test('Mensaje de método no permitido', function () {",
+									"    pm.expect(pm.response.text()).to.include('Método no permitido.');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitReclamo",
-					"protocol": "https",
-					"host": [
-						"us-central1-gya-app-4c8a9",
-						"cloudfunctions",
-						"net"
 					],
-					"path": [
-						"submitReclamo"
-					]
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/submitReclamo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"submitReclamo"
+							]
+						},
+						"description": "Solo POST está permitido. Un GET debe responder 405 antes de cualquier validación."
+					},
+					"response": []
+				},
+				{
+					"name": "POST vacío (400 Zod)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 400 Bad Request', function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test('success es false', function () {",
+									"    pm.expect(pm.response.json().success).to.eql(false);",
+									"});",
+									"",
+									"pm.test('Mensaje indica datos inválidos', function () {",
+									"    pm.expect(pm.response.json().message).to.include('Datos inválidos');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/submitReclamo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"submitReclamo"
+							]
+						},
+						"description": "Cuerpo vacío: falla la validación Zod (400) sin enviar correos ni guardar datos."
+					},
+					"response": []
+				},
+				{
+					"name": "Payload válido sin captcha (400 seguridad matemática)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 400 Bad Request', function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test('success es false', function () {",
+									"    pm.expect(pm.response.json().success).to.eql(false);",
+									"});",
+									"",
+									"pm.test('Mensaje de seguridad matemática', function () {",
+									"    pm.expect(pm.response.json().message).to.include('seguridad matemática');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Av. de Prueba 123, Lima\",\n  \"telefono\": \"999999999\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"tipoBien\": \"servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Prueba automatizada\",\n  \"detalle\": \"Prueba automatizada de validacion del backend.\",\n  \"pedido\": \"Caso de prueba sin envio real.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/submitReclamo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"submitReclamo"
+							]
+						},
+						"description": "Payload completo y válido según el schema Zod, pero sin mathToken, mathAnswer ni recaptchaToken. Falla en el captcha matemático (400) antes de reCAPTCHA, de cualquier envío de correo y de cualquier escritura en Firestore."
+					},
+					"response": []
+				},
+				{
+					"name": "Honeypot (200 GHOST_BLOCKED)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Respuesta silenciosa GHOST_BLOCKED', function () {",
+									"    pm.expect(pm.response.json().data.id).to.eql('GHOST_BLOCKED');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Av. de Prueba 123, Lima\",\n  \"telefono\": \"999999999\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"tipoBien\": \"servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Prueba automatizada\",\n  \"detalle\": \"Prueba automatizada de validacion del backend.\",\n  \"pedido\": \"Caso de prueba sin envio real.\",\n  \"website_hp\": \"bot\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/submitReclamo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"submitReclamo"
+							]
+						},
+						"description": "Honeypot: website_hp con valor. Responde 200 con data.id = GHOST_BLOCKED solo si el secreto ADMIN_EMAIL está configurado; si no lo está, la función responde 500 antes de evaluar el honeypot. En ambos casos no se envía correo ni se guarda nada."
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "Casos seguros de submitReclamo."
 		},
 		{
-			"name": "Enviar Nuevo Reclamo (Local)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"nombreCompleto\": \"Local Test User\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Localhost 127\",\n  \"email\": \"test@local.com\",\n  \"telefono\": \"000000\",\n  \"tipoBien\": \"Servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Test Local\",\n  \"tipoSolicitud\": \"Queja\",\n  \"detalle\": \"Probando emuladores locales\",\n  \"pedido\": \"Validación local exitosa\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "submitContacto",
+			"item": [
+				{
+					"name": "GET no permitido (405)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 405 Method Not Allowed', function () {",
+									"    pm.response.to.have.status(405);",
+									"});",
+									"",
+									"pm.test('Mensaje de método no permitido', function () {",
+									"    pm.expect(pm.response.text()).to.include('Método no permitido.');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:5001/gya-app-4c8a9/us-central1/submitReclamo",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
 					],
-					"port": "5001",
-					"path": [
-						"gya-app-4c8a9",
-						"us-central1",
-						"submitReclamo"
-					]
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/submitContacto",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"submitContacto"
+							]
+						},
+						"description": "Solo POST está permitido. Un GET debe responder 405."
+					},
+					"response": []
+				},
+				{
+					"name": "POST vacío (400 seguridad matemática)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 400 Bad Request', function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test('success es false', function () {",
+									"    pm.expect(pm.response.json().success).to.eql(false);",
+									"});",
+									"",
+									"pm.test('Mensaje de seguridad matemática', function () {",
+									"    pm.expect(pm.response.json().message).to.include('seguridad matemática');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/submitContacto",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"submitContacto"
+							]
+						},
+						"description": "Cuerpo vacío: pasa el anti-bot y falla en el captcha matemático (400) antes de reCAPTCHA."
+					},
+					"response": []
+				},
+				{
+					"name": "Honeypot (200 GHOST_BLOCKED)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Respuesta silenciosa GHOST_BLOCKED', function () {",
+									"    pm.expect(pm.response.json().data.id).to.eql('GHOST_BLOCKED');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"phone\": \"999999999\",\n  \"message\": \"Prueba automatizada sin envio real.\",\n  \"website_hp\": \"bot\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/submitContacto",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"submitContacto"
+							]
+						},
+						"description": "Honeypot: website_hp con valor. Responde 200 con data.id = GHOST_BLOCKED solo si el secreto ADMIN_EMAIL está configurado; si no lo está, la función responde 500 antes de evaluar el honeypot. En ambos casos no se envía correo ni se guarda nada."
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "Casos seguros de submitContacto."
+		},
+		{
+			"name": "checkStatus",
+			"item": [
+				{
+					"name": "Sin id (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 400 Bad Request', function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test('success es false', function () {",
+									"    pm.expect(pm.response.json().success).to.eql(false);",
+									"});",
+									"",
+									"pm.test('Mensaje de ID requerido', function () {",
+									"    pm.expect(pm.response.json().message).to.eql('ID de seguimiento requerido.');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/checkStatus",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"checkStatus"
+							]
+						},
+						"description": "Sin parámetro id: responde 400 sin consultar Firestore."
+					},
+					"response": []
+				},
+				{
+					"name": "ID inexistente (404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 404 Not Found', function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test('success es false', function () {",
+									"    pm.expect(pm.response.json().success).to.eql(false);",
+									"});",
+									"",
+									"pm.test('Mensaje de solicitud no encontrada', function () {",
+									"    pm.expect(pm.response.json().message).to.eql('No se encontró ninguna solicitud con ese código.');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/checkStatus?id=NO-EXISTE-XYZ",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"checkStatus"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "NO-EXISTE-XYZ"
+								}
+							]
+						},
+						"description": "Código inexistente: solo lectura en Firestore, responde 404."
+					},
+					"response": []
+				}
+			],
+			"description": "Consulta de estado (solo lectura)."
 		}
 	]
 }

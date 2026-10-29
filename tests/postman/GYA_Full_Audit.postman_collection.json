@@ -1,10 +1,17 @@
 {
 	"info": {
-		"_postman_id": "gya-full-audit-v1",
-		"name": "GYA Company - Auditoría y Formulario",
-		"description": "Colección completa para validar la página del Libro de Reclamaciones (SEO) y el envío de datos (API).",
+		"_postman_id": "gya-full-audit-v2",
+		"name": "GYA Company - Auditoría de Página (SEO)",
+		"description": "Valida la página del Libro de Reclamaciones (SEO y disponibilidad). No envía datos a ningún backend.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
+	"variable": [
+		{
+			"key": "siteUrl",
+			"value": "https://gyacompany.com",
+			"type": "string"
+		}
+	],
 	"item": [
 		{
 			"name": "Validación de Página (SEO & Health)",
@@ -40,11 +47,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://gyacompany.com/libro-de-reclamacion",
-							"protocol": "https",
+							"raw": "{{siteUrl}}/libro-de-reclamacion",
 							"host": [
-								"gyacompany",
-								"com"
+								"{{siteUrl}}"
 							],
 							"path": [
 								"libro-de-reclamacion"
@@ -56,47 +61,6 @@
 				}
 			],
 			"description": "Pruebas para la interfaz web."
-		},
-		{
-			"name": "Validación de Envío (API)",
-			"item": [
-				{
-					"name": "Enviar Reclamo Real (Producción)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Origin",
-								"value": "https://gyacompany.com",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"nombreCompleto\": \"Test Postman SEO Audit\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"GYA Digital Test\",\n  \"email\": \"test@gyacompany.com\",\n  \"telefono\": \"999888777\",\n  \"tipoBien\": \"Servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Validación de Integración Final\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"detalle\": \"Prueba de Postman con cabecera de Origen.\",\n  \"pedido\": \"Confirmar que CORS ya no bloquea.\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitReclamo",
-							"protocol": "https",
-							"host": [
-								"us-central1-gya-app-4c8a9",
-								"cloudfunctions",
-								"net"
-							],
-							"path": [
-								"submitReclamo"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "Pruebas para el backend en la nube."
 		}
 	]
 }
