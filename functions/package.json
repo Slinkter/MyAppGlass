@@ -21,10 +21,11 @@
     "private": true,
     "scripts": {
         "deploy": "firebase deploy --only functions",
-        "lint": "eslint .",
+        "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
         "logs": "firebase functions:log",
         "serve": "firebase emulators:start --only functions",
         "shell": "firebase functions:shell",
-        "start": "pnpm run shell"
+        "start": "pnpm run shell",
+        "test": "node --test test/*.test.js"
     }
 }
