@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-10-29] - Sincronización de documentación con el estado real del código
+
+### Changed
+- **Documentación técnica sincronizada**: `docs/01_ARCHITECTURE.md` (estructura real de directorios, FSD parcial sin `entities/`, tema en `src/shared/providers/theme/index.ts`), `docs/06_DOCS_DEVELOPMENT.md` (variables de entorno según `.env.example` y `src/shared/config/env.ts`, scripts reales), `docs/07_BACKEND_IMPLEMENTATION.md` y `docs/08_DOCS_SECURITY_BACKEND.md` (las 3 funciones `submitReclamo`, `submitContacto` y `checkStatus`, rate limit, CORS, validación Zod, captchas y sanitización).
+- **Documentos SEO sincronizados**: `docs/09_PLAN_SEO_CONTENIDOS.md`, `docs/10_SEO_JERARQUIA.md` (nuevo bloque de estado y tabla ruta → title real) y `docs/11_MANUAL_SEO_LOCAL.md` contrastados con `sitemap.ts`, `robots.ts`, `seo-utils.ts` y los 10 posts del blog.
+- **READMEs de módulos y skill `gya-cms`**: rutas y componentes corregidos según los archivos existentes.
+- **Rutas absolutas de Windows** de este changelog convertidas a texto de código.
+
+### Removed
+- **Configurador 3D de ventanas** (commit `2ca4f3e`, 2026-08-26): eliminados `VentanaConfigurador3DCard.tsx`, `components/configurador3d/`, `src/features/services/data/ventanas-catalogo.json` y `scripts/optimize-images.mjs`; la dependencia `three` fue retirada de `package.json`. Las entradas históricas que describen el simulador 3D reflejan el estado de su fecha.
+
+### Notes
+- Los sistemas oficiales de ventanas son 4: Nova, Serie 25, Serie 35 y Serie 62.
+- `PLAN_OPTIMIZACION.md` fue eliminado en el commit `a743595` (2026-07-24); `ARCHITECTURE.md` y `AI_HANDOFF.md` son hoy `docs/01_ARCHITECTURE.md` y `docs/02_AI_HANDOFF.md`.
+- Último build verificado: 55 páginas prerenderizadas.
+
 ## [2026-08-25] - Unificación Oficial de Ventanas 3D, Layout 65/35 & Optimización de Documentación
 
 ### Added
@@ -18,7 +34,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - **Extracción de Catálogos Técnicos**: Incorporación de geometrías de perfiles extruidos precisos para carpintería de aluminio. Catálogo alineado a 4 sistemas oficiales: Nova, Serie 25, Serie 35 y Serie 62.
-- **Dimensiones Paramétricas (W x H) y Selector de Sistemas**: Sliders interactivos para ancho y alto con recálculo en tiempo real, presets de vanos arquitectónicos y selector de 6 sistemas de ventanas.
+- **Dimensiones Paramétricas (W x H) y Selector de Sistemas**: Sliders interactivos para ancho y alto con recálculo en tiempo real, presets de vanos arquitectónicos y selector de 6 sistemas de ventanas. [Nota 2026-10-29: los sistemas oficiales son 4 — Nova, Serie 25, Serie 35 y Serie 62].
 - **Ficha Técnica en Vivo & Cotizador WhatsApp**: Desglose dinámico de materiales en tiempo real y enlace directo a WhatsApp con plantilla pre-llenada.
 - **Composición 2.5D y Shaders PBR**: Shader `MeshPhysicalMaterial` con IOR 1.52 para cristal, mapeo de tonos ACES Filmic para aluminio y ambientes con imágenes reales de showroom.
 
@@ -32,11 +48,11 @@ All notable changes to this project will be documented in this file.
 ## [2026-06-20] - Environment Recovery & Mobile Layout Fixes
 
 ### Added
-- **Configuración de Entorno Real**: Recuperación y configuración del archivo [.env](file:///C:/Users/LJCR/Documents/GitHub/MyAppGlass/.env) con API Keys de Firebase, Auth Domain, Storage Bucket, Messaging ID, App ID y Google Maps API Key reales de producción usando la sesión activa de Firebase CLI.
+- **Configuración de Entorno Real**: Recuperación y configuración del archivo `.env` (ruta local, no versionada) con API Keys de Firebase, Auth Domain, Storage Bucket, Messaging ID, App ID y Google Maps API Key reales de producción usando la sesión activa de Firebase CLI.
 - **Endpoints de Producción para API**: Vinculación directa con las URLs reales de producción de las Firebase Functions (`submitContacto`, `submitReclamo`, `checkStatus`) en el entorno local.
 
 ### Changed
-- **Optimización de Interfaz Móvil**: Ocultamiento del botón flotante de WhatsApp en dispositivos móviles (`display={{ base: "none", md: "flex" }}`) en [floating-whatsapp.tsx](file:///C:/Users/LJCR/Documents/GitHub/MyAppGlass/src/widgets/FloatingActions/floating-whatsapp.tsx) para resolver colisión y superposición con el botón del menú flotante móvil en [MobileNav.tsx](file:///C:/Users/LJCR/Documents/GitHub/MyAppGlass/src/widgets/Navbar/MobileNav.tsx). En pantallas desktop se mantiene en la esquina inferior derecha.
+- **Optimización de Interfaz Móvil**: Ocultamiento del botón flotante de WhatsApp en dispositivos móviles (`display={{ base: "none", md: "flex" }}`) en `src/widgets/FloatingActions/floating-whatsapp.tsx` para resolver colisión y superposición con el botón del menú flotante móvil en `src/widgets/Navbar/MobileNav.tsx`. En pantallas desktop se mantiene en la esquina inferior derecha.
 
 ## [2026-04-25] - Production Routing & Reclamation Book Fixes
 
@@ -50,7 +66,7 @@ All notable changes to this project will be documented in this file.
 ## [2026-04-25] - Performance & UX Optimizations
 
 ### Added
-- **Performance Plan**: Generated `PLAN_OPTIMIZACION.md` detailing the 4-phase performance execution.
+- **Performance Plan**: Generated `PLAN_OPTIMIZACION.md` detailing the 4-phase performance execution. [Nota 2026-10-29: `PLAN_OPTIMIZACION.md` fue eliminado en el commit a743595.]
 - **Git Hooks**: Implemented a `.git/hooks/pre-commit` script to enforce FSD compliance, 100% type safety, and zero linting errors prior to any commit.
 
 ### Changed
@@ -72,8 +88,8 @@ All notable changes to this project will be documented in this file.
 - **Dead Code & Junk**: Conducted a deep clean of the repository, removing unused files (such as `App.css`, `pdf/virtual_archivo.pdf`), empty folders, and debug `console.log` statements.
 
 ### Added
-- **AI Handoff Documentation (`AI_HANDOFF.md`)**: Created a dedicated handover document outlining the new architecture, path alias rules, and quality standards for future AI agents.
-- **Technical Architecture Guide (`ARCHITECTURE.md`)**: Drafted a comprehensive Full-Stack guide detailing the Next.js/FSD frontend approach and the Firebase (Functions, Firestore, Storage) backend and security stance.
+- **AI Handoff Documentation (`AI_HANDOFF.md`)**: Created a dedicated handover document (hoy `docs/02_AI_HANDOFF.md`) outlining the new architecture, path alias rules, and quality standards for future AI agents.
+- **Technical Architecture Guide (`ARCHITECTURE.md`)**: Drafted (hoy `docs/01_ARCHITECTURE.md`) a comprehensive Full-Stack guide detailing the Next.js/FSD frontend approach and the Firebase (Functions, Firestore, Storage) backend and security stance.
 
 ### Security
 - **Firebase Hardening**: Ensured that `storage.rules` and `firestore.rules` maintain strict zero-trust write access, relying on verified Cloud Functions for data mutations.

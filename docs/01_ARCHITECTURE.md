@@ -55,10 +55,18 @@ Utilizamos el patrón de componentes compuestos para elementos complejos como la
 
 ## 📁 Estructura de Directorios
 
-- `src/app/`: Rutas de Next.js (Server Components).
-- `src/features/`: Lógica de dominio (Projects, Services, Home).
-- `src/shared/`: Componentes, hooks y utilidades reutilizables.
-- `src/theme/`: Configuración central del Aura Design System (Chakra v3).
+El proyecto sigue una variante **parcial de Feature-Sliced Design (FSD)**: existen las capas `app`, `screens`, `widgets`, `features` y `shared`, pero **no hay capa `entities/`**. Con `output: 'export'`, las rutas se prerenderizan como HTML estático (55 páginas en el último build).
+
+- `src/app/`: Rutas de Next.js App Router (wrappers ligeros: `page.tsx`, `layout.tsx`, además de `sitemap.ts` y `robots.ts`).
+- `src/screens/`: Composición de pantallas completas (Admin, Auth, Presupuesto, SimuladorAI, blog, error, home, legal, projects, services).
+- `src/widgets/`: Bloques globales de UI (AdminNav, FloatingActions, Footer, Navbar).
+- `src/features/`: Lógica de dominio. Los 10 dominios son: `ai-simulator`, `auth`, `blog`, `contacto`, `home`, `presupuesto`, `products`, `projects`, `reclamation-book` y `services`.
+- `src/shared/`: Código transversal, con subcarpetas `api`, `components`, `config`, `data`, `hooks`, `lib`, `providers`, `schemas`, `services`, `types` y `utils`.
+  - `src/shared/hooks/ui/useFilterableList.ts`: hook de filtrado y scroll infinito.
+  - `src/shared/components/Layout/ItemGridLayout.tsx`: orquestador de cuadrícula.
+  - `src/shared/services/projectService.ts` y `src/features/services/services/serviceService.ts`: capa de servicios de datos.
+  - `src/shared/providers/theme/index.ts`: configuración central del tema (Aura Design System sobre Chakra v3).
+- `src/components/ui/`: wrappers de Chakra UI v3 (alert, button, dialog, drawer, toaster, etc.).
 - `public/images/`: Assets WebP optimizados.
 
 ---

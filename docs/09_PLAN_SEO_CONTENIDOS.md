@@ -5,6 +5,8 @@
 **Fecha de Creación:** 16 de Agosto de 2026  
 **Estado:** 🟡 En Planificación y Ejecución Activa  
 
+> **Nota de verificación (octubre 2026):** estado contrastado con el código. `src/app/sitemap.ts` y `src/app/robots.ts` existen (dominio `https://www.gyacompany.com`; `robots.ts` permite `/` y bloquea `/api/` y `/_next/`, e indica el sitemap). El blog tiene **10 posts** en `src/features/blog/data/blog-posts.ts` (no solo los dos artículos pilar de abajo). Los generadores JSON-LD están en `src/shared/utils/seo-utils.ts` (`LocalBusiness`/`HomeAndConstructionBusiness`, `Service`, `BreadcrumbList`, `FAQPage`) y `BlogPosting` se inyecta en `src/app/blog/[slug]/page.tsx`. Los metadatos reales por ruta están contrastados en [10_SEO_JERARQUIA.md](./10_SEO_JERARQUIA.md). El Sprint 5 (SEO local externo) sigue pendiente porque depende de Google Business Profile y Search Console, que no se verifican desde el código.
+
 ---
 
 ## 🎯 Resumen Ejecutivo del Plan SEO & Contenidos

@@ -12,22 +12,44 @@ Este documento es la referencia técnica para el mantenimiento y expansión del 
 ## 🚀 Configuración del Entorno Local
 
 ### 1. Variables de Entorno
-Cree los siguientes archivos (ignorados por Git):
+Cree los siguientes archivos (ignorados por Git). La plantilla sin secretos es `.env.example` y la validación (Zod, con valores por defecto) vive en `src/shared/config/env.ts`.
 
-**Raíz (`.env.local`):**
+**Raíz (`.env.local`)** — copie `.env.example` y complete los valores:
 ```bash
-NEXT_PUBLIC_API_URL=http://127.0.0.1:5001/gya-app-4c8a9/us-central1/submitReclamo
+# Firebase (cliente)
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_DATABASE_URL=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
+
+# Endpoints de Cloud Functions (por defecto apuntan a producción; para emuladores use http://127.0.0.1:5001/<proyecto>/us-central1/<función>)
+NEXT_PUBLIC_API_URL=        # submitReclamo
+NEXT_PUBLIC_CONTACT_API_URL= # submitContacto
+NEXT_PUBLIC_STATUS_API_URL=  # checkStatus
+
+# Servicios externos (opcionales)
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=
 ```
 
-**Carpeta Functions (`functions/.env`):**
+**Carpeta Functions (`functions/.env`)** — solo nombres; los valores nunca se versionan:
 ```bash
-RESEND_API_KEY=re_your_key_here
-ADMIN_EMAIL=admin@example.com
+RESEND_API_KEY=
+ADMIN_EMAIL=
+RECAPTCHA_SECRET_KEY=
 ```
+En producción estos tres valores se gestionan como secretos (Secret Manager); ver [07_BACKEND_IMPLEMENTATION.md](./07_BACKEND_IMPLEMENTATION.md).
 
 ### 2. Comandos de Inicio
-- **Frontend:** `pnpm run dev`
-- **Backend (Emuladores):** `cd functions && pnpm run serve` (Requiere Java JDK).
+- **Frontend:** `pnpm run dev` (ejecuta `next dev --webpack -H 0.0.0.0 -p 3000`).
+- **Backend (Emuladores):** `cd functions && pnpm run serve` (ejecuta `firebase emulators:start --only functions`; requiere Java JDK).
+
+### 3. Scripts de la raíz (`package.json`)
+`dev`, `build` (`next build --webpack`, exportación estática a `out/`), `start`, `lint` (ESLint en `src/`), `typecheck` (`tsc --noEmit -p tsconfig.build.json`), `test` (Vitest, modo watch), `test:run`, `clean`, `deploy:hosting` (build + Firebase Hosting) y `deploy:functions`.
 
 ## 💎 Chakra UI v3 Spacing Scale (4px base)
 Use **exclusivamente** los tokens nativos de spacing de Chakra UI. No definir tokens custom.
@@ -56,7 +78,7 @@ Use **exclusivamente** los tokens nativos de spacing de Chakra UI. No definir to
 Para asegurar fluidez en móviles modernos:
 1. Use `translateZ(0)` y `willChange` en elementos animados.
 2. Evite el **Layout Shift**: sincronice siempre el esqueleto (Skeleton) con el componente real.
-3. Use el `logger` integrado (`@shared/utils/logger`) para capturar errores de renderizado.
+3. Use el `logger` integrado (`src/shared/utils/logger.ts`, importable como `@/shared/utils/logger`) para capturar errores de renderizado.
 
 ## 🔍 SEO & Blog
 - Los artículos se gestionan en `src/features/blog/data/blog-posts.ts`.

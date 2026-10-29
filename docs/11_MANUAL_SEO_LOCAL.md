@@ -3,6 +3,8 @@
 > **Objetivo:** Posicionar la web en el **Top 3 de Google** para las búsquedas: *"vidriería en la molina"*, *"ventanas antirruido lima"*, *"mamparas de vidrio la molina"*.  
 > **Fecha de creación:** Julio 2026
 
+> **Qué sí está en el código (verificado octubre 2026):** `src/app/sitemap.ts` genera el sitemap con las páginas estáticas públicas, los servicios, los **10 posts** del blog y los proyectos; `src/app/robots.ts` declara `https://www.gyacompany.com/sitemap.xml`; el JSON-LD de negocio local (`LocalBusiness`/`HomeAndConstructionBusiness`) está en `src/shared/utils/seo-utils.ts`. Las fases siguientes son tareas **externas** (Google Business Profile, Search Console, redirección 301, citas locales) que no se pueden verificar desde el repositorio y se mantienen como pendientes.
+
 ---
 
 ## 📌 Checklist TODO (Lista de Tareas Pendientes)

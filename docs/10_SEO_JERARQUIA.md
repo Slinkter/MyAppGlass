@@ -1,5 +1,29 @@
 # 🎯 JERARQUÍA SEO RECOMENDADA - GLASS & ALUMINUM COMPANY S.A.C.
-> **Instrucción:** Revisa y edita este archivo a tu gusto. Cuando termines, indícamelo para implementar de inmediato todos los metadatos en el código (`page.tsx`, `layout.tsx`, `sitemap.ts`, `robots.ts` y `seo-utils.ts`).
+
+> **Estado (octubre 2026):** documento de referencia de la jerarquía SEO recomendada (títulos, descripciones, H1/H2 y keywords por ruta). Los metadatos ya están implementados en el código (`src/app/**/page.tsx`, `layout.tsx`, `sitemap.ts`, `robots.ts` y `src/shared/utils/seo-utils.ts`), con algunas diferencias respecto a lo recomendado aquí; la tabla siguiente las resume. Las secciones posteriores conservan el texto recomendado original.
+
+### Estado real en el código (title)
+
+| Ruta | Title en el código | ¿Coincide con lo recomendado? |
+|---|---|---|
+| `/` | `Vidriería en La Molina \| Glass & Aluminum Company S.A.C.` (`src/app/page.tsx`) | Sí |
+| `/servicios` | `Servicios de Vidriería y Aluminio \| GYA Company La Molina` | Sí |
+| `/servicios/ventana` | `Ventanas de Aluminio y Antirruido \| GYA La Molina` | Diferencia (recomendado: `Ventanas de Aluminio Antirruido \| GYA La Molina`) |
+| `/servicios/mampara` | `Mamparas de Vidrio Templado y Aluminio \| GYA Lima` | Diferencia |
+| `/servicios/ducha` | `Puertas de Ducha en Cristal Templado \| GYA La Molina` | Diferencia |
+| `/servicios/techo` | `Techos de Policarbonato y Cristal \| GYA La Molina` | Diferencia |
+| `/servicios/baranda` | `Barandas de Acero Inoxidable y Cristal \| GYA Lima` | Diferencia |
+| `/proyectos` | `Proyectos y Obras Entregadas \| GYA Glass & Aluminum` | Sí |
+| `/contacto` | `Cotizar Vidriería en La Molina \| GYA Company` | Sí |
+| `/blog` | `Blog de Vidriería y Aluminio \| Glass & Aluminum Company S.A.C.` | No (recomendado: `Blog de Vidriería y Arquitectura \| GYA Company`) |
+| `/politicas-empresa` | `Políticas de la Empresa y Garantías \| GYA Company` | Sí |
+| `/cuentas-bancarias` | `Cuentas Bancarias Oficiales \| GYA Company` | Sí |
+| `/libro-de-reclamacion` | `Libro de Reclamaciones \| Glass & Aluminum Company S.A.C.` | No (recomendado: `Libro de Reclamaciones Virtual \| GYA Company`) |
+
+Notas:
+- Los títulos de `/servicios/[serviceSlug]` provienen de `src/features/services/data/servicePageDataMap.ts` (campo `seo`); existen 10 servicios (`ventana`, `mampara`, `ducha`, `parapeto`, `baranda`, `balcones`, `techo`, `pvidrio`, `pserie`, `celosias`) y esta jerarquía solo recomienda 5.
+- Las meta descriptions no se contrastaron una a una: por ejemplo, la de `/` en el código ("Expertos en vidriería y aluminio en La Molina...") difiere de la recomendada ("Especialistas en vidriería..."), mientras que las de `/servicios`, `/proyectos`, `/contacto`, `/politicas-empresa` y `/cuentas-bancarias` sí coinciden. La de `/servicios/ventana` en el código es más corta que la recomendada.
+- Los posts de `/blog/[slug]` usan `<título del post> | Blog GYA Glass & Aluminum` (`generateMetadata` en `src/app/blog/[slug]/page.tsx`).
 
 ---
 
