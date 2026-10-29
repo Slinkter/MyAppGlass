@@ -3,6 +3,7 @@ const { onRequest } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const { ALLOWED_ORIGINS } = require("../config/cors");
 const { withGuards } = require("../guards/withGuards");
+const { RATE_LIMITS } = require("../config/limits");
 
 /**
  * Función HTTP para consultar estado de una solicitud (Contacto o Reclamo).
@@ -14,21 +15,34 @@ exports.checkStatus = onRequest(
     maxInstances: 10,
     cors: ALLOWED_ORIGINS,
   },
-  withGuards({ name: "checkStatus", methods: ["GET", "POST"] }, async (request, response, { db }) => {
-    const { id } = request.query.id ? request.query : request.body;
+  withGuards({ name: "checkStatus", methods: ["GET", "POST"], limit: RATE_LIMITS.checkStatus, failOpen: true }, async (request, response, { db }) => {
+    // body/query pueden faltar (p. ej. GET sin parámetros): se evita desestructurar undefined.
+    const { id } = ((request.query && request.query.id) ? request.query : request.body) || {};
 
     if (!id || typeof id !== "string") {
       response.status(400).json({ success: false, message: "ID de seguimiento requerido." });
       return;
     }
 
-    try {
-      let doc = await db.collection("contact_submissions").doc(id).get();
-      let type = "Consulta de Contacto";
+    // Un id con "/" o demasiado largo no puede ser un código válido (y rompería el path del documento).
+    if (id.length > 200 || id.includes("/")) {
+      response.status(404).json({ success: false, message: "No se encontró ninguna solicitud con ese código." });
+      return;
+    }
 
-      if (!doc.exists) {
-        doc = await db.collection("libro_de_reclamaciones").doc(id).get();
-        type = "Libro de Reclamaciones";
+    try {
+      // Acepta códigos antiguos (id de Resend) y nuevos (GYA-...): primero tal cual, luego en mayúsculas.
+      const candidates = /^gya-/i.test(id) && id.toUpperCase() !== id ? [id, id.toUpperCase()] : [id];
+      let doc;
+      let type;
+      for (const candidate of candidates) {
+        doc = await db.collection("contact_submissions").doc(candidate).get();
+        type = "Consulta de Contacto";
+        if (!doc.exists) {
+          doc = await db.collection("libro_de_reclamaciones").doc(candidate).get();
+          type = "Libro de Reclamaciones";
+        }
+        if (doc.exists) break;
       }
 
       if (!doc.exists) {

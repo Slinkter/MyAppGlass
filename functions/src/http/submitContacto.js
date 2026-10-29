@@ -4,6 +4,7 @@ const logger = require("firebase-functions/logger");
 const admin = require("firebase-admin");
 const { ALLOWED_ORIGINS } = require("../config/cors");
 const { withGuards } = require("../guards/withGuards");
+const { RATE_LIMITS } = require("../config/limits");
 const { sendContactEmailLogic } = require("../services/contactoService");
 
 /**
@@ -17,7 +18,7 @@ exports.submitContacto = onRequest(
     secrets: ["RESEND_API_KEY", "ADMIN_EMAIL", "RECAPTCHA_SECRET_KEY"],
     cors: ALLOWED_ORIGINS,
   },
-  withGuards({ name: "submitContacto", methods: ["POST"] }, async (request, response, { clientIp }) => {
+  withGuards({ name: "submitContacto", methods: ["POST"], limit: RATE_LIMITS.submitContacto, failOpen: false }, async (request, response, { clientIp }) => {
     try {
       const result = await sendContactEmailLogic(request.body, admin, clientIp);
       response.status(200).json({
