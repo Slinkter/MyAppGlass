@@ -1,7 +1,27 @@
 # 🏛️ Plan Maestro Multidisciplinario: E-Commerce, Inventario en Tiempo Real, Sistema de Presupuestos con PDF y Realidad Aumentada (AR)
 
-$$\text{\bfseries Glass \& Aluminum Company S.A.C. — Portal GYA}$$
-$$\text{Documento de Especificación de Producto \& Arquitectura Empresarial } \cdot \text{Anno Domini 2026}$$
+**Glass & Aluminum Company S.A.C. — Portal GYA**
+Documento de especificación de producto y arquitectura empresarial · 2026
+
+---
+
+## 📍 Estado de implementación (2026-10-29)
+
+> Las secciones siguientes (1 a 7) conservan la especificación original. Esta tabla refleja lo que existe realmente en el código (HEAD `d4e6685`).
+
+| Módulo | Estado | Evidencia |
+|---|---|---|
+| Autenticación y roles (RBAC) | Implementado, con diferencias | `src/features/auth/context/AuthContext.tsx` (`useAuth` con `profile` y `role`), `src/screens/Auth/LoginScreen.tsx` (`/auth`, registro con DNI/RUC), `src/shared/components/guards/AdminRouteGuard.tsx`. No hay `useUserProfile` ni `/mi-cuenta` |
+| Inventario CRUD (admin) | Implementado | `src/features/products/services/productService.ts` (colección `productos`), `src/screens/Admin/InventoryDashboardScreen.tsx` + `inventory/{MetricsSummary,ProductTable,SearchFilters}.tsx`, alerta de stock bajo con `minStockAlert`; ruta `/admin/inventario` |
+| Subida de imágenes a Storage | Pendiente | `storage` se inicializa en `src/shared/lib/firebase.ts`, pero ningún código de `src/` sube archivos |
+| Pedidos / ventas de admin | Implementado (no estaba en la especificación) | `src/features/products/services/orderService.ts` (descuento atómico de stock), `useRealtimeOrders.ts`, `OrderDraftContext.tsx`, `src/screens/Admin/SalesOrderScreen.tsx` (`/admin/ventas`); test `tests/unit/order-transactions.test.ts` |
+| Clientes y reportes (admin) | Implementado (no estaba en la especificación) | `ClientManagementScreen.tsx` (`/admin/clientes`), `ReportsScreen.tsx` (`/admin/reportes`), `AdminHubScreen.tsx` (`/admin`) |
+| Catálogo público / carrito / checkout | Pendiente | No existen `src/screens/Tienda/`, `useCartStore` ni ruta de tienda |
+| Cotizador de presupuesto | Casi completo | `src/screens/Presupuesto/PresupuestoWizardScreen.tsx` (`/presupuesto`), `src/features/presupuesto/utils/quoteCalculator.ts` (IGV 1.18) + `tests/unit/quote-calculator.test.ts`; hoja imprimible con `window.print()` |
+| Código QR y correlativo `GYA-AAAA-XXXX` en la hoja | Pendiente / parcial | No se encontró QR; el wizard muestra un correlativo fijo (`0842`); `ecommerce-schemas.ts` genera uno aleatorio |
+| Persistencia de presupuestos solicitados | Pendiente | La colección `presupuestos_solicitados` existe en `firestore.rules`, pero ningún código de `src/` la usa |
+| Realidad Aumentada (AR) | Pendiente | No existen `AuraModelViewer.tsx`, `<model-viewer>` ni archivos `.glb/.usdz` en `public/` |
+| Libro de reclamaciones / contacto (backend) | Implementado (fuera del alcance de este plan) | `functions/index.js` (`submitReclamo`, `submitContacto`, `checkStatus`) |
 
 ---
 
@@ -34,7 +54,7 @@ graph TD
 1. **💼 MBA & Product Strategist:** Define la viabilidad comercial, estrategia de conversión (B2C y B2B para instaladores), modelo de inventario, pricing dinámico y mejores prácticas globales de E-commerce (inspirado en líderes de la industria como Shopify Plus, Procore y Amazon B2B).
 2. **🛡️ Cloud & Security Officer:** Diseña el modelo de autenticación RBAC (*Role-Based Access Control*), reglas zero-trust en `firestore.rules` y `storage.rules`, protección de claves de API y prevención de fugas de datos de clientes y precios de costo.
 3. **🏗️ Enterprise Software Architect:** Estructura modular bajo **Feature-Sliced Design (FSD)** en Next.js 16 (App Router), contratos Zod compartidos entre frontend y Cloud Functions, y microservicios serverless idempotentes.
-4. **🎨 Lead UI/UX & Web Designer:** Diseña la experiencia de usuario bajo el sistema Aura, escala Fibonacci ($\Phi$), microinteracciones a 120Hz, generador de presupuesto con formato imprimible oficial y responsive design móvil.
+4. **🎨 Lead UI/UX & Web Designer:** Diseña la experiencia de usuario bajo el sistema Aura, escala Fibonacci (Φ), microinteracciones a 120Hz, generador de presupuesto con formato imprimible oficial y responsive design móvil.
 5. **🥽 3D & WebXR Specialist:** Diseña la arquitectura de Realidad Aumentada web nativa sin aplicaciones externas (iOS QuickLook `.usdz` y Android SceneViewer `.glb` con fallback 3D interactivo en desktop vía QR).
 6. **📊 Data Engineer & QA/DevOps Lead:** Modela las colecciones Firestore, índices compuestos, suite de testing automatizada con Vitest y pipeline de CI/CD.
 
@@ -124,6 +144,15 @@ erDiagram
 ## 🔐 3. Modelo de Seguridad & Reglas de Firestore y Storage
 
 ### 🛡️ Reglas de Firestore (`firestore.rules`)
+> Nota (2026-10-29): el bloque siguiente es la especificación original y **difiere** de las reglas reales de `firestore.rules`. Diferencias verificadas (solo lectura, sin modificar el archivo):
+> - `isAdmin()` real también concede admin si el email contiene `admin` o coincide con `@gyacompany.com` (además de claim `role` y `users/{uid}.role`).
+> - `users`: lectura para cualquier autenticado; escritura para el dueño o admin (la especificación: lectura dueño/admin, escritura solo admin).
+> - `clientes` y `productos`: la escritura es para cualquier usuario autenticado, no solo admin (la especificación exige `isAdmin()`); `productos` conserva lectura pública.
+> - `presupuestos` y `presupuestos_solicitados`: lectura/escritura para cualquier autenticado, sin comprobar `creatorUserId` ni `clientId`.
+> - Colecciones reales no contempladas en la especificación: `pedidos` y `listOrden` (lectura/escritura para cualquier autenticado).
+> - `libro_de_reclamaciones`: coincide (`allow read, write: if false;`).
+> - Pendiente que el responsable del proyecto decida si se endurecen las reglas; `firestore.rules` está congelado salvo petición explícita.
+
 Se implementa RBAC validando el Custom Claim de autenticación o la colección `/users/{userId}`:
 
 ```javascript
@@ -188,6 +217,8 @@ service cloud.firestore {
 ```
 
 ### 📦 Reglas de Firebase Storage (`storage.rules`)
+> Nota (2026-10-29): la regla real de `products/{allPaths=**}` permite escribir a cualquier usuario autenticado (`request.auth != null`), sin comprobar `token.role == 'admin'` como indica el bloque siguiente.
+
 ```javascript
 rules_version = '2';
 service firebase.storage {
@@ -217,9 +248,11 @@ service firebase.storage {
 ## 🧮 4. Motor de Presupuestos y Cotizador Inteligente
 
 ### Lógica de Cálculo de Presupuesto (Configurable & Extensible):
-$$\text{Subtotal Materiales} = \sum (\text{Vidrio } \text{m}^2 \times \text{Precio}) + \sum (\text{Aluminio Metros} \times \text{Precio}) + \sum (\text{Accesorios})$$
-$$\text{Costo Instalación} = \text{Mano de Obra}(\text{m}^2 \text{ o Tipo de Sistema}) + \text{Dificultad de Acceso (Piso/Andamio)}$$
-$$\text{Total Presupuesto} = (\text{Subtotal Materiales} + \text{Costo Instalación}) \times 1.18 \;\text{(IGV)}$$
+```text
+Subtotal Materiales = Σ(Vidrio m² × Precio) + Σ(Aluminio metros × Precio) + Σ(Accesorios)
+Costo Instalación   = Mano de Obra(m² o tipo de sistema) + Dificultad de Acceso (piso/andamio)
+Total Presupuesto   = (Subtotal Materiales + Costo Instalación) × 1.18   (IGV)
+```
 
 ### 📄 Impresión & Descarga en PDF:
 - Hoja membretada oficial con logo de **Glass & Aluminum Company S.A.C.**, RUC `20601542407`, dirección en La Molina, teléfonos y código de presupuesto con código QR de verificación.

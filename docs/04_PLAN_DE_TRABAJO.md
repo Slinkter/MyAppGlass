@@ -11,10 +11,10 @@
 | Fase | Enfoque Principal | Prioridad | Estimación | Estado |
 | :--- | :--- | :--- | :--- | :--- |
 | **Fase 1** | Blindaje Legal, Seguridad & Cumplimiento Normativo | 🔴 Crítica | Sprint 1 | ✅ Completada |
-| **Fase 2** | DevOps, CI/CD & Suite Automatizada de QA / Testing | 🟡 Alta | Sprint 2 | ✅ Completada |
+| **Fase 2** | DevOps, CI/CD & Suite Automatizada de QA / Testing | 🟡 Alta | Sprint 2 | 🟡 Parcial (falta E2E, tarea 2.5) |
 | **Fase 3** | Arquitectura Full-Stack, TypeScript & Contratos Zod | 🟢 Media-Alta | Sprint 3 | ✅ Completada |
 | **Fase 4** | UX/UI, Accesibilidad WCAG 2.1 & Descarga PDF | 🔵 Media | Sprint 4 | ✅ Completada |
-| **Fase 5** | Ingeniería de Datos, Resiliencia & Observabilidad | 🟣 Evolutiva | Sprint 5 | ✅ Completada |
+| **Fase 5** | Ingeniería de Datos, Resiliencia & Observabilidad | 🟣 Evolutiva | Sprint 5 | ⏳ Pendiente |
 
 ---
 
@@ -36,7 +36,7 @@
 - [x] **1.6 Cabeceras de Seguridad HTTP (Security Headers):**
   - [x] Configurar en `firebase.json`: `Strict-Transport-Security (HSTS)`, `X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`, `X-XSS-Protection`, `Referrer-Policy` y `Permissions-Policy`.
 - [x] **1.7 Rate Limiting & Protección contra Spam:**
-  - [x] Implementar limitador de tasa de peticiones por IP (sliding window) en Cloud Functions (`submitReclamo` y `submitContacto`) para mitigar abusos y ataques de saturación.
+  - [x] Implementar limitador de tasa de peticiones por IP (sliding window) en Cloud Functions (`submitReclamo`, `submitContacto` y `checkStatus`; 8 envíos por IP cada 15 minutos, colección `rate_limits`) para mitigar abusos y ataques de saturación.
   - [x] Sanitización HTML estricta contra ataques XSS en correos transaccionales de Resend.
 
 ---
@@ -54,13 +54,14 @@
 ### 🧪 Testing & Quality Assurance
 - [x] **2.3 Setup de Framework de Pruebas Unitarias:**
   - [x] Instalar y configurar **Vitest** + **React Testing Library** + **jsdom** con alias de rutas (`@`, `@features`, `@shared`, `@widgets`, `@screens`).
-  - [x] Añadir scripts `"test": "vitest"` y `"test:run": "vitest run"` a [`package.json`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/package.json).
+  - [x] Añadir scripts `"test": "vitest"` y `"test:run": "vitest run"` a [`package.json`](../package.json).
 - [x] **2.4 Cobertura de Pruebas Unitarias e Integración:**
-  - [x] Pruebas unitarias de sanitización y formateo de datos en el Libro de Reclamaciones ([`tests/unit/sanitizer.test.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/tests/unit/sanitizer.test.ts)).
-  - [x] Pruebas unitarias de esquemas Zod de contacto ([`tests/unit/contact-schema.test.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/tests/unit/contact-schema.test.ts)).
-  - [x] Pruebas unitarias de generador SEO JSON-LD ([`tests/unit/seo-utils.test.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/tests/unit/seo-utils.test.ts)).
-- [x] **2.5 Pruebas End-to-End (E2E) con Playwright:**
-  - [x] Configurar suite E2E de Playwright para flujos críticos:
+  - [x] Pruebas unitarias de sanitización y formateo de datos en el Libro de Reclamaciones ([`tests/unit/sanitizer.test.ts`](../tests/unit/sanitizer.test.ts)).
+  - [x] Pruebas unitarias de esquemas Zod de contacto ([`tests/unit/contact-schema.test.ts`](../tests/unit/contact-schema.test.ts)).
+  - [x] Pruebas unitarias de generador SEO JSON-LD ([`tests/unit/seo-utils.test.ts`](../tests/unit/seo-utils.test.ts)).
+- [ ] **2.5 Pruebas End-to-End (E2E) con Playwright:**
+  > Pendiente: no hay Playwright en el repo (ni dependencia ni configuración); hoy hay Vitest (21 archivos en `tests/unit/`) y 2 colecciones Postman en `tests/postman/`.
+  - [ ] Configurar suite E2E de Playwright para flujos críticos:
     - Flujo completo de registro y validación de reclamo.
     - Flujo de solicitud de cotización/contacto.
     - Navegación entre páginas, carga de blog y enlaces de sitemap/SEO.
@@ -72,10 +73,12 @@
 
 ### 🏛️ Arquitectura & Software Engineering
 - [x] **3.1 Paquete / Capa de Contratos de Datos Compartida:**
-  - [x] Crear capa compartida de esquemas Zod (`src/shared/schemas/`): [`reclamation-schema.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/schemas/reclamation-schema.ts), [`contact-schema.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/schemas/contact-schema.ts) y [`tracking-schema.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/schemas/tracking-schema.ts).
-  - [x] Unificar contratos de respuesta y tipos de datos en [`api-contracts.ts`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/types/api-contracts.ts).
+  - [x] Crear capa compartida de esquemas Zod (`src/shared/schemas/`): [`reclamation-schema.ts`](../src/shared/schemas/reclamation-schema.ts), [`contact-schema.ts`](../src/shared/schemas/contact-schema.ts) y [`ecommerce-schemas.ts`](../src/shared/schemas/ecommerce-schemas.ts).
+    > Nota (2026-10-29): `tracking-schema.ts` no existe en el repo (el seguimiento vive en `TrackingSection.tsx`).
+  - [x] Unificar contratos de respuesta y tipos de datos en `src/shared/schemas/` y `src/shared/types/`.
+    > Nota (2026-10-29): `src/shared/types/api-contracts.ts` no existe; hoy `src/shared/types/` contiene `gallery.ts`, `map.ts` y `project.ts`.
 - [x] **3.2 Error Boundaries y Manejo Unificado de Excepciones:**
-  - [x] Implementación de [`ComponentErrorBoundary.tsx`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/shared/components/ComponentErrorBoundary.tsx) en vistas y páginas clave con fallback accesible y logs de diagnóstico.
+  - [x] Implementación de [`ComponentErrorBoundary.tsx`](../src/shared/components/ComponentErrorBoundary.tsx) en vistas y páginas clave con fallback accesible y logs de diagnóstico.
 - [x] **3.3 Validación y Cobertura de Tipos:**
   - [x] Suite de pruebas automatizadas que valida los contratos y tipos Zod de entrada/salida.
 
@@ -86,9 +89,10 @@
 
 ### 🎨 Experiencia Visual & Accesibilidad (A11y)
 - [x] **4.1 Generación de Comprobante PDF Descargable:**
-  - [x] Implementación en [`SuccessModal.tsx`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/features/reclamation-book/components/SuccessModal.tsx) del botón e interfaz de impresión directa y guardado en PDF de la **Hoja de Reclamación**.
+  - [x] Implementación en [`SuccessModal.tsx`](../src/features/reclamation-book/components/SuccessModal.tsx) del botón e interfaz de impresión directa y guardado en PDF de la **Hoja de Reclamación**.
 - [x] **4.2 Módulo de Seguimiento Interactivo (Ticket Timeline):**
-  - [x] Stepper visual interactivo de 4 fases (*Registrado ➔ En Revisión ➔ En Proceso ➔ Atendido*) en [`TrackingSection.tsx`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/features/contacto/components/TrackingSection.tsx) y [`TrackingContent.tsx`](file:///C:/Users/luisj/Desktop/Github/MyAppGlass/src/features/contacto/components/TrackingContent.tsx).
+  - [x] Stepper visual interactivo de 4 fases (*Registrado ➔ En Revisión ➔ En Proceso ➔ Atendido*) en [`TrackingSection.tsx`](../src/features/contacto/components/TrackingSection.tsx).
+    > Nota (2026-10-29): `TrackingContent.tsx` ya no existe; el componente es `TrackingSection.tsx`.
 - [x] **4.3 Accesibilidad y Contraste Visual:**
   - [x] Verificación de contraste de colores según sistema Aura y estados de foco visibles en inputs y botones.
 
@@ -118,6 +122,7 @@
 | Versión | Fecha | Autor / Responsable | Descripción del Cambio |
 | :--- | :--- | :--- | :--- |
 | `v1.0.0` | 16/08/2026 | Arquitecto de Software & Comité Técnico | Creación inicial del plan maestro de mejoras multidisciplinarias. |
+| `v1.1.0` | 29/10/2026 | Redacción técnica (sincronización documental) | Sincronización con el estado real del código: tarea 2.5 (Playwright) vuelve a pendiente, rutas de Fase 3/4 corregidas, enlaces relativos y Fase 5 marcada pendiente. |
 
 ---
 > [!TIP]
