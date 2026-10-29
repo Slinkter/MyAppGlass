@@ -6,18 +6,20 @@ This module contains all components and services related to the main landing pag
 
 ## Architecture
 
-- **Components**: Section-specific components (Hero, Features, Clients, Store).
-- **Services**: Data fetching for clients and technical features.
-- **Data**: Static data for localized content.
+- **Components** (`components/`): `hero/`, `features/`, `clients/`, `store/` and `contact/` sections, with their cards and skeletons.
+- **Hooks**: `useMapProjects` feeds the store map with project locations.
+- **Services**: `clientService.ts` and `featureService.ts` serve clients and technical features.
+- **Data**: `data/clients.ts` and `data/features.ts` (static content).
 
 ## Key Components
 
-- `LandingPageSection`: The main Hero section with a call to action.
+- `LandingPageSection` (`hero/`): The main Hero section with a call to action.
 - `ClientsSection`: Displays a grid of clients with subtle animations.
 - `FeaturesSection`: Highlights key technical and business advantages.
-- `StoreSection`: Information about physical location and contact.
+- `StoreSection` (`store/`): Information about physical location and contact, with `InteractiveMap`, `DefaultInfoCard` and `ProjectDetailCard`.
+- `HomeContactSection` (`contact/`): Contact block of the home page.
 
 ## Performance
 
-- Uses `ItemGridLayout` for standardized responsive layouts.
+- Uses `ItemGridLayout` (`src/shared/components/Layout/ItemGridLayout.tsx`) for standardized responsive layouts.
 - Implements LCP candidate optimizations.

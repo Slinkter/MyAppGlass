@@ -6,9 +6,11 @@ Implements the "Libro de Reclamaciones", a legally required complaint form for P
 
 ## Architecture
 
-- **Components**: `ReclamationForm` is the main entry point, utilizing specialized form sub-components.
+- **Components**: `ReclamationForm` is the main entry point, utilizing specialized form sub-components (`PersonalInfoSection`, `ProductSection`, `ClaimDetailSection`, `DeclarationSection`), plus `ReclamationFormContext` and `SuccessModal`.
 - **Hooks**: `useReclamationForm` manages the complex state and validation of the multi-field form.
-- **API**: Connects via `reclamoService` to handle backend submission.
+- **API**: Connects via `reclamoService` (`src/shared/api/reclamoService.ts`) to submit to the `submitReclamo` Cloud Function (URL from `NEXT_PUBLIC_API_URL`).
+- **Utils**: `utils/sanitizer.ts` sanitizes input on the client; `types.ts` and `actions.ts` hold the module types and actions.
+- **Backend**: see `docs/07_BACKEND_IMPLEMENTATION.md`.
 
 ## Design
 

@@ -2,20 +2,27 @@
 
 ## Overview
 
-Módulo de negocio responsable de presentar el catálogo de servicios corporativos y la vista de detalle interactiva de cada servicio (`/servicios/[serviceSlug]`), incluyendo fichas técnicas, galerías de imágenes y el simulador 3D de ventanas.
+Módulo de negocio responsable de presentar el catálogo de servicios corporativos y la vista de detalle de cada servicio (`/servicios/[serviceSlug]`), incluyendo fichas técnicas, preguntas frecuentes (FAQ) y galerías de imágenes.
+
+> Nota: el simulador 3D de ventanas (`VentanaConfigurador3DCard`, `components/configurador3d/`) y `data/ventanas-catalogo.json` fueron eliminados en el commit `2ca4f3e` (2026-08-26). Los sistemas oficiales de ventanas son 4: Nova, Serie 25, Serie 35 y Serie 62.
 
 ---
 
-## 🏛️ Componentes Principales
+## 🏛️ Componentes (`components/`)
 
-- **`ServicePageLayout.tsx`**: Layout maestro del detalle de servicio. Orquesta la galería fotográfica (`Gallery`), la ficha técnica unificada (`UnifiedTechnicalCard`) y el visor interactivo 3D.
-- **`VentanaConfigurador3DCard.tsx`**: Simulador visual Three.js interactivo para ventanas. Proporción 65% visor / 35% configuración, con selección de los 4 sistemas oficiales (`Nova`, `Serie 25`, `Serie 35`, `Serie 62`), tipos de vidrio (`Crudo`, `Laminado`, `Templado`), acabados de aluminio y controles de cámara/apertura de hojas.
-- **`UnifiedTechnicalCard.tsx`**: Ficha técnica con navegación por tabs de características, especificaciones de aislamiento acústico/térmico y llamada a la acción.
-- **`components/configurador3d/`**: Mallas paramétricas, materiales PBR físicos (`materials.ts`), helpers geométricos y constantes (`constants.ts`).
+- **`ServicePageLayout.tsx`**: Layout maestro del detalle de servicio; orquesta la galería fotográfica (`Gallery`), las secciones descriptivas y las FAQ.
+- **`ServiceList.tsx`**: Listado del catálogo (usa `useFilterableList` e `ItemGridLayout`).
+- **`ServiceCard.tsx`**: Tarjeta de cada servicio.
+- **`ServiceBentoGrid.tsx`**: Cuadrícula tipo bento de la ficha del servicio.
+- **`ServiceHeader.tsx`**: Cabecera de la página de detalle.
+- **`ServiceFaqSection.tsx`**: Acordeón de preguntas frecuentes.
 
 ---
 
-## 📦 Datos Centralizados
+## 📦 Datos y Servicios
 
-- **`data/ventanas-catalogo.json`**: Definición de los 4 sistemas de ventanas, colores de aluminio, vidrios y accesorios.
-- **`data/gallery/`**: Repositorio de imágenes estáticas de alta resolución por servicio (`ventana-data.ts`, `mampara-data.ts`, `ducha-data.ts`, etc.).
+- **`data/services.ts`**: Catálogo de los 10 servicios (con `plink`, p. ej. `/servicios/ventana`).
+- **`data/servicePageDataMap.ts`**: Datos de cada página de detalle (SEO, descripción, beneficios, sistemas, características y galerías).
+- **`data/serviceFaqs.ts`**: Preguntas frecuentes por servicio.
+- **`data/gallery/`**: Imágenes por servicio (`ventana-data.ts`, `mampara-data.ts`, `ducha-data.ts`, `techo-data.ts`, `baranda-data.ts`, `parapeto-data.ts`, `balcon-data.ts`, `celosias-data.ts`, `puerta-serie-data.ts`, `puerta-vidrio-data.ts`).
+- **`services/serviceService.ts`**: Capa de acceso a los datos de servicios.
