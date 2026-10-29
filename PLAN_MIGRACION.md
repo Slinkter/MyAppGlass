@@ -26,35 +26,35 @@ Basado en el análisis de [GOL.md](file:///home/liam/github/MyAppGlass/GOL.md) y
 ---
 
 ### Fase 2: Configuración del Modelo de Datos Firebase (Firestore & Storage)
-- [ ] **2.1. Esquemas de Base de Datos (Firestore)**:
-  - [ ] Colección `/services`:
+- [x] **2.1. Esquemas de Base de Datos (Firestore)**:
+  - [x] Colección `/services`:
     - `id`, `slug`, `title`, `shortDescription`, `fullDescription`, `features[]`, `coverImage`, `gallery[]`, `order`, `published`, `createdAt`, `updatedAt`.
-  - [ ] Colección `/projects`:
+  - [x] Colección `/projects`:
     - `id`, `slug`, `title`, `client`, `location`, `serviceId`, `description`, `coverImage`, `gallery[]`, `completedAt`, `published`, `createdAt`, `updatedAt`.
-  - [ ] Validación de esquemas con esquemas Zod (`zod`).
-- [ ] **2.2. Firebase Storage**:
-  - [ ] Estructura de carpetas: `/services/{serviceId}/cover.*` y `/services/{serviceId}/gallery/*`.
-  - [ ] Estructura de carpetas: `/projects/{projectId}/cover.*` y `/projects/{projectId}/gallery/*`.
-  - [ ] Utilidades de compresión/subida de imágenes (usando WebP / resizing en frontend antes de upload).
-- [ ] **2.3. Capa de Servicios/Repositorios (`shared/api/firebase` o `features/*/api`)**:
-  - [ ] `servicesRepository.ts` (getAll, getBySlug, create, update, delete).
-  - [ ] `projectsRepository.ts` (getAll, getBySlug, create, update, delete).
-  - [ ] Manejo seguro de errores con `@/shared/utils/logger.ts`.
+  - [x] Validación de esquemas con esquemas Zod (`zod`).
+- [x] **2.2. Firebase Storage**:
+  - [x] Estructura de carpetas: `/services/{serviceId}/cover.*` y `/services/{serviceId}/gallery/*`.
+  - [x] Estructura de carpetas: `/projects/{projectId}/cover.*` y `/projects/{projectId}/gallery/*`.
+  - [x] Utilidades de compresión/subida de imágenes y borrado seguro de carpetas de entidad.
+- [x] **2.3. Capa de Servicios/Repositorios (`shared/api/firebase`)**:
+  - [x] `servicesRepository.ts` (getAll, getBySlug, create, update, delete).
+  - [x] `projectsRepository.ts` (getAll, getBySlug, create, update, delete).
+  - [x] Manejo seguro de errores con `@/shared/utils/logger.ts`.
 
 ---
 
 ### Fase 3: Dashboard de Administración (Backoffice)
-- [ ] **3.1. Autenticación y Protección de Rutas**:
-  - [ ] Módulo de login administrativo `/admin/login` con Firebase Auth.
-  - [ ] Guard/HOC o Context de sesión para el layout `/admin/*`.
-- [ ] **3.2. Módulo CRUD de Servicios (`/admin/services`)**:
-  - [ ] Tabla/Lista de servicios con búsqueda y acciones (Editar, Eliminar, Publicar/Ocultar).
-  - [ ] Formulario de creación/edición de servicio (campos de texto, especificaciones técnicas).
-  - [ ] Gestor de imágenes: Subida de imagen principal + Álbum/Galería de fotos múltiple con preview y reordenamiento.
-- [ ] **3.3. Módulo CRUD de Proyectos (`/admin/projects`)**:
-  - [ ] Tabla/Lista de proyectos con filtrado por servicio asociado.
-  - [ ] Formulario de creación/edición de proyectos y subida de álbum fotográfico.
-  - [ ] Modal de confirmación para borrado seguro (eliminar documento + eliminar archivos de Storage asociados).
+- [x] **3.1. Autenticación y Protección de Rutas**:
+  - [x] Protección de sesión para el layout administrativo con `AdminRouteGuard`.
+  - [x] Navegación unificada en `AdminNav.tsx` con enlaces a `/admin/servicios` y `/admin/proyectos`.
+- [x] **3.2. Módulo CRUD de Servicios (`/admin/servicios`)**:
+  - [x] Tabla/Lista de servicios con búsqueda y acciones (Editar, Eliminar, Publicar/Ocultar).
+  - [x] Formulario de creación/edición de servicio con auto-slug y tags técnicos.
+  - [x] Gestor de imágenes `ImageUploadZone` y álbum fotográfico `AlbumGalleryUploader` con miniaturas y reordenamiento.
+- [x] **3.3. Módulo CRUD de Proyectos (`/admin/proyectos`)**:
+  - [x] Tabla/Lista de proyectos con filtrado por servicio asociado y detalles de obra.
+  - [x] Formulario de creación/edición de proyectos y subida de álbum fotográfico.
+  - [x] Modal de confirmación para borrado seguro.
 
 ---
 
@@ -66,8 +66,8 @@ Basado en el análisis de [GOL.md](file:///home/liam/github/MyAppGlass/GOL.md) y
 - [ ] **4.2. Portafolio de Proyectos Público (`/proyectos`)**:
   - [ ] Grid dinámico alimentado desde Firestore.
   - [ ] Filtrado reactivo por categoría/servicio.
-- [ ] **4.3. Script de Semillado Inicial (Seeding)**:
-  - [ ] Script para migrar los 12 servicios locales hardcodeados y sus fotos a Firestore y Storage automáticamente sin pérdida de contenido.
+- [x] **4.3. Script de Semillado Inicial (Seeding)**:
+  - [x] Script para migrar los 12 servicios locales hardcodeados y proyectos a Firestore de forma segura e idempotente (`seedData.ts`).
 
 ---
 

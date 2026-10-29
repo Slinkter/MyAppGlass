@@ -13,6 +13,8 @@ import {
   Users,
   ShieldCheck,
   Globe,
+  Layers,
+  Building2,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 
@@ -22,6 +24,8 @@ export const AdminNav: React.FC = () => {
 
   const navItems = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+    { label: "Servicios", href: "/admin/servicios", icon: Layers },
+    { label: "Proyectos", href: "/admin/proyectos", icon: Building2 },
     { label: "Inventario", href: "/admin/inventario", icon: Package },
     { label: "Ventas", href: "/admin/ventas", icon: ShoppingCart },
     { label: "Reportes", href: "/admin/reportes", icon: BarChart3 },
