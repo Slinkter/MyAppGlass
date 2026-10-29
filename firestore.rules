@@ -118,22 +118,21 @@ service cloud.firestore {
 
     // ---------------------------------------------------------------
     // presupuestos y presupuestos_solicitados: HOY NINGÚN CÓDIGO de src/ los
-    // usa. Acceso mínimo: el dueño (campo userId) crea y lee los suyos;
-    // update/delete solo admin. Ajustar con hasOnly([...]) cuando exista el flujo.
+    // usa. Acceso mínimo: la creación está cerrada; el dueño (campo userId) o un
+    // admin leen; update/delete solo admin. Ajustar con hasOnly([...]) cuando exista el flujo.
     // ---------------------------------------------------------------
     match /presupuestos/{budgetId} {
-      allow create: if isSignedIn()
-        && request.resource.data.userId == request.auth.uid
-        && request.resource.data.keys().size() <= 30;
+      // Creación cerrada hasta que exista el flujo (ningún código de src/ la usa). Al implementarlo,
+      // reabrir con hasOnly([...]), validación de tipos y tamaños.
+      allow create: if false;
       allow read: if isAdmin()
         || (isSignedIn() && resource.data.get('userId', '') == request.auth.uid);
       allow update, delete: if isAdmin();
     }
 
     match /presupuestos_solicitados/{solicitudId} {
-      allow create: if isSignedIn()
-        && request.resource.data.userId == request.auth.uid
-        && request.resource.data.keys().size() <= 30;
+      // Creación cerrada hasta que exista el flujo (ver comentario de /presupuestos).
+      allow create: if false;
       allow read: if isAdmin()
         || (isSignedIn() && resource.data.get('userId', '') == request.auth.uid);
       allow update, delete: if isAdmin();
