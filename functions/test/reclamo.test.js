@@ -1,13 +1,17 @@
 "use strict";
 
-// Pruebas de caracterización de sendEmailLogic (Libro de Reclamaciones).
-// Fijan el comportamiento ACTUAL, incluidos sus defectos conocidos.
+// Pruebas de sendEmailLogic (Libro de Reclamaciones).
+// Reglas del flujo vigente: validar -> persistir (código propio GYA-REC-) -> notificar -> registrar resultado.
 
 const { describe, test, beforeEach, afterEach } = require("node:test");
 const assert = require("node:assert/strict");
 const h = require("./helpers");
 const { sendEmailLogic } = h.cargarEmailSender();
-const { resendCtl, FAKE_RESEND_ID, ADMIN_FALSO } = h;
+const { resendCtl, FAKE_RESEND_ID, ADMIN_FALSO, PATRON_CODIGO } = h;
+
+const COLECCION = "libro_de_reclamaciones";
+const EVENTO_CREATE = `firestore.create:${COLECCION}`;
+const EVENTO_UPDATE = `firestore.update:${COLECCION}`;
 
 let ctx;
 beforeEach(() => {
@@ -29,15 +33,17 @@ describe("sendEmailLogic (reclamo)", () => {
 
     assert.equal(ctx.admin.escrituras.length, 1);
     const { coleccion, id, datos } = ctx.admin.escrituras[0];
-    assert.equal(coleccion, "libro_de_reclamaciones");
-    assert.equal(id, FAKE_RESEND_ID);
+    assert.equal(coleccion, COLECCION);
+    assert.match(id, PATRON_CODIGO.REC);
+    assert.equal(id, resultado.id);
+    assert.equal(datos.id, resultado.id);
     assert.equal(datos.status, "RECIBIDO");
     assert.equal(datos.source, "PROD_WEB");
     assert.equal(datos.clientIp, "203.0.113.7");
     // Retención legal de 2 años
     assert.equal(new Date(datos.legalRetentionUntil).getFullYear(), antes.getFullYear() + 2);
 
-    assert.equal(resultado.id, FAKE_RESEND_ID);
+    assert.match(resultado.id, PATRON_CODIGO.REC);
     assert.equal(typeof resultado.createdAt, "string");
     assert.ok(!Number.isNaN(Date.parse(resultado.createdAt)));
   });
@@ -151,7 +157,7 @@ describe("sendEmailLogic (reclamo)", () => {
 
   test("RUC válido de 11 dígitos con prefijo 20 => ok", async () => {
     const r = await sendEmailLogic(h.reclamoValido({ tipoDocumento: "RUC", numeroDocumento: "20601542407" }), ctx.admin);
-    assert.equal(r.id, FAKE_RESEND_ID);
+    assert.match(r.id, PATRON_CODIGO.REC);
     assert.equal(resendCtl.llamadas.length, 2);
     assert.equal(ctx.admin.escrituras.length, 1);
   });
@@ -166,55 +172,106 @@ describe("sendEmailLogic (reclamo)", () => {
     assert.ok(!correoAdmin.html.includes("Tom & Jerry"), "no debe quedar el & crudo en el HTML");
   });
 
-  // ─── CARACTERIZACIÓN DE DEFECTOS ACTUALES (se cambiarán en una fase posterior) ───
-
-  test("COMPORTAMIENTO ACTUAL: el HTML del correo al ADMIN contiene el literal TEMP_ID", async () => {
-    // CARACTERIZACIÓN: el correo al admin se envía antes de tener el id de Resend,
-    // por eso el código de hoja aparece como "TEMP_ID". Se corregirá en una fase posterior.
-    await sendEmailLogic(h.reclamoValido(), ctx.admin);
+  test("el correo a la empresa lleva el código real y no TEMP_ID", async () => {
+    const r = await sendEmailLogic(h.reclamoValido(), ctx.admin);
     const [correoAdmin, correoCliente] = resendCtl.llamadas;
-    assert.ok(correoAdmin.html.includes("TEMP_ID"));
-    // El correo al cliente sí usa el id real
-    assert.ok(correoCliente.html.includes(FAKE_RESEND_ID));
+    assert.ok(correoAdmin.html.includes(r.id), "el correo al admin debe contener el código real");
+    assert.ok(!correoAdmin.html.includes("TEMP_ID"));
+    assert.ok(correoCliente.html.includes(r.id), "el correo al cliente debe contener el código real");
     assert.ok(!correoCliente.html.includes("TEMP_ID"));
+    assert.ok(correoAdmin.subject.endsWith(` - ${r.id}`), "el asunto del admin termina en el código");
+    assert.ok(correoCliente.subject.includes(r.id), "el asunto del cliente incluye el código");
   });
 
-  test("COMPORTAMIENTO ACTUAL: los correos se envían ANTES de guardar; si Firestore falla igualmente se envían 2 correos y se lanza internal", async () => {
-    // CARACTERIZACIÓN: no hay compensación. El reclamo queda notificado pero sin registro en Firestore.
+  test("persiste en Firestore antes de enviar correos", async () => {
+    await sendEmailLogic(h.reclamoValido(), ctx.admin);
+    assert.deepEqual(ctx.eventos, [EVENTO_CREATE, "resend.send:admin", "resend.send:cliente", EVENTO_UPDATE]);
+  });
+
+  test("el documento guardado tiene id, status RECIBIDO y notifications con SENT y resendId, y no tiene resendId de nivel superior", async () => {
+    const r = await sendEmailLogic(h.reclamoValido(), ctx.admin);
+    const doc = ctx.admin.documento(COLECCION, r.id);
+    assert.ok(doc, "el documento debe existir con el código como id");
+    assert.equal(doc.id, r.id);
+    assert.equal(doc.status, "RECIBIDO");
+    assert.deepEqual(doc.notifications.admin, { status: "SENT", resendId: FAKE_RESEND_ID });
+    assert.deepEqual(doc.notifications.client, { status: "SENT", resendId: FAKE_RESEND_ID });
+    assert.equal("resendId" in doc, false);
+  });
+
+  test("si Firestore falla no envía ningún correo y lanza internal", async () => {
     ctx.admin.falla = true;
     const err = await h.capturarError(sendEmailLogic(h.reclamoValido(), ctx.admin));
     assert.equal(err.code, "internal");
     assert.match(err.message, /^Error al procesar el reclamo: /);
-    assert.equal(resendCtl.llamadas.length, 2, "ya se enviaron ambos correos antes del fallo de Firestore");
+    assert.ok(!err.message.includes("Firestore no disponible"), "no debe filtrar el detalle interno al cliente");
+    assert.equal(resendCtl.llamadas.length, 0, "no debe enviarse ningún correo");
+    assert.deepEqual(ctx.eventos, [EVENTO_CREATE]);
     assert.equal(ctx.admin.escrituras.length, 0);
   });
 
-  test("COMPORTAMIENTO ACTUAL: un detalle con paréntesis '(factura 123)' es RECHAZADO con invalid-argument", async () => {
-    // CARACTERIZACIÓN: la regex de Zod excluye los caracteres ( ) < > { }; un reclamo real puede
-    // mencionar una factura entre paréntesis y será rechazado. Se revisará en una fase posterior.
-    const err = await h.capturarError(
-      sendEmailLogic(h.reclamoValido({ detalle: "Compré la ventana (factura 123) y llegó rota." }), ctx.admin)
-    );
-    assert.equal(err.code, "invalid-argument");
-    assert.match(err.message, /detalle: Caracteres no permitidos/);
+  test("acepta paréntesis en textos libres", async () => {
+    const detalle = "Compré la ventana (factura 123) y llegó rota.";
+    const r = await sendEmailLogic(h.reclamoValido({ detalle }), ctx.admin);
+    assert.match(r.id, PATRON_CODIGO.REC);
+    assert.equal(resendCtl.llamadas.length, 2);
+    assert.equal(ctx.admin.documento(COLECCION, r.id).detalle, detalle);
+  });
+
+  test("sigue rechazando < > { }", async () => {
+    for (const caracter of ["<", ">", "{", "}"]) {
+      const err = await h.capturarError(
+        sendEmailLogic(h.reclamoValido({ detalle: `Compré la ventana ${caracter} y llegó rota.` }), ctx.admin)
+      );
+      assert.equal(err.code, "invalid-argument", `debe rechazar ${caracter}`);
+      assert.match(err.message, /detalle: Caracteres no permitidos/);
+    }
     assert.equal(resendCtl.llamadas.length, 0);
+    assert.equal(ctx.admin.escrituras.length, 0);
   });
 
-  test("COMPORTAMIENTO ACTUAL: fallo del correo al cliente solo registra advertencia; se guarda y responde OK", async () => {
-    // CARACTERIZACIÓN: el error del correo al cliente no se propaga; el cliente puede no recibir su constancia.
-    let i = 0;
-    resendCtl.respuesta = () => {
-      i += 1;
-      return i === 1 ? { data: { id: FAKE_RESEND_ID }, error: null } : { data: null, error: { message: "rebote simulado" } };
-    };
+  test("si falla el correo al cliente responde éxito y deja notifications.client FAILED", async () => {
+    resendCtl.fallos.cliente = "rebote simulado";
     const r = await sendEmailLogic(h.reclamoValido(), ctx.admin);
-    assert.equal(r.id, FAKE_RESEND_ID);
-    assert.equal(ctx.admin.escrituras.length, 1);
+    assert.match(r.id, PATRON_CODIGO.REC);
+    const doc = ctx.admin.documento(COLECCION, r.id);
+    assert.deepEqual(doc.notifications.client, { status: "FAILED", error: "rebote simulado" });
+    assert.deepEqual(doc.notifications.admin, { status: "SENT", resendId: FAKE_RESEND_ID });
   });
 
-  test("COMPORTAMIENTO ACTUAL: el asunto del correo al admin NO escapa el nombre (solo el HTML se escapa)", async () => {
-    // CARACTERIZACIÓN: el subject usa el nombre crudo.
-    await sendEmailLogic(h.reclamoValido({ nombreCompleto: "Tom & Jerry" }), ctx.admin);
-    assert.equal(resendCtl.llamadas[0].subject, "HOJA DE RECLAMACIÓN - RECLAMO - Tom & Jerry");
+  test("si fallan ambos correos el registro queda guardado y responde éxito", async () => {
+    resendCtl.fallos.admin = "rebote admin";
+    resendCtl.fallos.cliente = "rebote cliente";
+    const r = await sendEmailLogic(h.reclamoValido(), ctx.admin);
+    assert.match(r.id, PATRON_CODIGO.REC);
+    const doc = ctx.admin.documento(COLECCION, r.id);
+    assert.ok(doc, "el registro debe quedar guardado");
+    assert.equal(doc.status, "RECIBIDO");
+    assert.deepEqual(doc.notifications.admin, { status: "FAILED", error: "rebote admin" });
+    assert.deepEqual(doc.notifications.client, { status: "FAILED", error: "rebote cliente" });
+  });
+
+  test("si falla el update de notifications responde igualmente éxito", async () => {
+    ctx.admin.fallaUpdate = true;
+    const r = await sendEmailLogic(h.reclamoValido(), ctx.admin);
+    assert.match(r.id, PATRON_CODIGO.REC);
+    assert.equal(resendCtl.llamadas.length, 2, "los correos sí se enviaron");
+    const doc = ctx.admin.documento(COLECCION, r.id);
+    assert.ok(doc, "el documento sigue guardado");
+    assert.deepEqual(doc.notifications.admin, { status: "PENDING" });
+    assert.deepEqual(doc.notifications.client, { status: "PENDING" });
+  });
+
+  test("el asunto no contiene saltos de línea aunque el nombre los traiga", async () => {
+    const r = await sendEmailLogic(h.reclamoValido({ nombreCompleto: "Tom &\nJerry\r\nPérez" }), ctx.admin);
+    const [correoAdmin, correoCliente] = resendCtl.llamadas;
+    assert.equal(correoAdmin.subject, `HOJA DE RECLAMACIÓN - RECLAMO - Tom & Jerry Pérez - ${r.id}`);
+    assert.doesNotMatch(correoAdmin.subject, /[\r\n]/);
+    assert.doesNotMatch(correoCliente.subject, /[\r\n]/);
+  });
+
+  test("el asunto conserva el nombre sin escapar HTML (el escape es solo para el cuerpo)", async () => {
+    const r = await sendEmailLogic(h.reclamoValido({ nombreCompleto: "Tom & Jerry" }), ctx.admin);
+    assert.equal(resendCtl.llamadas[0].subject, `HOJA DE RECLAMACIÓN - RECLAMO - Tom & Jerry - ${r.id}`);
   });
 });

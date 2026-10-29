@@ -1,8 +1,9 @@
-// Servicio del Libro de Reclamaciones: valida, envía correos y persiste en Firestore.
+// Servicio del Libro de Reclamaciones: valida, persiste en Firestore y luego notifica por correo.
 const { HttpsError } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const { FieldValue } = require("firebase-admin/firestore");
-const { createMailer } = require("../adapters/mailer");
+const { createMailer, sendNotifications, cleanSubject } = require("../adapters/mailer");
+const { createWithUniqueCode } = require("../adapters/idGenerator");
 const { buildSafeReclamoPayload } = require("../adapters/sanitize");
 const { reclamoSchema } = require("../schemas/reclamo");
 const { isGibberishOrSpamText, isHoneypotFilled, isSubmissionTooFast } = require("../guards/antiBot");
@@ -100,54 +101,64 @@ async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
   const now = new Date();
   const timestampFormatted = now.toLocaleString("es-PE", { timeZone: "America/Lima" });
 
+  // 1. Persistencia legal obligatoria PRIMERO (mínimo 2 años). Solo campos validados y sanitizados.
+  const safeReclamoPayload = buildSafeReclamoPayload(reclamoData);
+  let code;
   try {
-    // Notificación al Administrador
-    const adminEmail = await resend.emails.send({
-      from: "GYA Libro Reclamaciones <noreply@gyacompany.com>",
-      to: ADMIN_RECIPIENT,
-      subject: `HOJA DE RECLAMACIÓN - ${reclamoData.tipoSolicitud.toUpperCase()} - ${reclamoData.nombreCompleto}`,
-      html: createAdminEmailHtml(reclamoData, "TEMP_ID", timestampFormatted),
+    code = await createWithUniqueCode({
+      db,
+      collection: "libro_de_reclamaciones",
+      kind: "REC",
+      buildData: (id) => ({
+        ...safeReclamoPayload,
+        id,
+        status: "RECIBIDO",
+        createdAt: FieldValue.serverTimestamp(),
+        createdAtIso: now.toISOString(),
+        source: "PROD_WEB",
+        clientIp: clientIp,
+        legalRetentionUntil: new Date(now.getFullYear() + 2, now.getMonth(), now.getDate()).toISOString(),
+        notifications: { admin: { status: "PENDING" }, client: { status: "PENDING" } },
+      }),
     });
-
-    if (adminEmail.error) {
-      logger.error("RESEND_ADMIN_ERROR:", adminEmail.error);
-      throw new Error(`Resend Admin Error: ${adminEmail.error.message}`);
-    }
-
-    const reclamoId = adminEmail.data.id;
-
-    // Notificación y Constancia al Consumidor
-    const clientEmail = await resend.emails.send({
-      from: "GLASS & ALUMINUM COMPANY S.A.C. <noreply@gyacompany.com>",
-      to: reclamoData.email,
-      subject: `Constancia de Hoja de Reclamación - Código ${reclamoId}`,
-      html: createClientEmailHtml(reclamoData, reclamoId, timestampFormatted),
-    });
-
-    if (clientEmail.error) {
-      logger.warn("RESEND_CLIENT_WARNING:", clientEmail.error);
-    }
-
-    // Persistencia legal obligatoria en Firestore (mínimo 2 años)
-    // Solo se guardan campos validados y sanitizados (whitelist — no raw request.body)
-    const safeReclamoPayload = buildSafeReclamoPayload(reclamoData);
-    await db.collection("libro_de_reclamaciones").doc(reclamoId).set({
-      ...safeReclamoPayload,
-      status: "RECIBIDO",
-      createdAt: FieldValue.serverTimestamp(),
-      createdAtIso: now.toISOString(),
-      resendId: reclamoId,
-      source: "PROD_WEB",
-      clientIp: clientIp,
-      legalRetentionUntil: new Date(now.getFullYear() + 2, now.getMonth(), now.getDate()).toISOString(),
-    });
-
-    logger.info(`SUCCESS: Reclamo registrado y persistido con ID: ${reclamoId}`);
-    return { id: reclamoId, createdAt: now.toISOString() };
   } catch (error) {
     logger.error("CRITICAL_ERROR in sendEmailLogic:", error);
-    throw new HttpsError("internal", `Error al procesar el reclamo: ${error.message}`);
+    if (error instanceof HttpsError) throw error;
+    // El detalle técnico queda en el log; al cliente solo se le devuelve un mensaje genérico.
+    throw new HttpsError("internal", "Error al procesar el reclamo: no se pudo registrar. Por favor, inténtelo nuevamente.");
   }
+
+  // 2. Notificaciones en paralelo con el código real; un fallo de correo no invalida el registro.
+  const nombreAsunto = cleanSubject(reclamoData.nombreCompleto);
+  const notifications = await sendNotifications(
+    resend,
+    {
+      from: "GYA Libro Reclamaciones <noreply@gyacompany.com>",
+      to: ADMIN_RECIPIENT,
+      subject: `HOJA DE RECLAMACIÓN - ${reclamoData.tipoSolicitud.toUpperCase()} - ${nombreAsunto} - ${code}`,
+      html: createAdminEmailHtml(reclamoData, code, timestampFormatted),
+    },
+    {
+      from: "GLASS & ALUMINUM COMPANY S.A.C. <noreply@gyacompany.com>",
+      to: reclamoData.email,
+      subject: `Constancia de Hoja de Reclamación - Código ${code}`,
+      html: createClientEmailHtml(reclamoData, code, timestampFormatted),
+    },
+    code
+  );
+
+  // 3. Registrar el resultado de las notificaciones; si falla solo se loguea.
+  try {
+    await db.collection("libro_de_reclamaciones").doc(code).update({
+      "notifications.admin": notifications.admin,
+      "notifications.client": notifications.client,
+    });
+  } catch (error) {
+    logger.error("NOTIFICATIONS_UPDATE_FAILED", { code, message: error.message });
+  }
+
+  logger.info(`SUCCESS: Reclamo registrado y persistido con ID: ${code}`);
+  return { id: code, createdAt: now.toISOString() };
 }
 
 module.exports = { sendEmailLogic, validateIdentityDocument };

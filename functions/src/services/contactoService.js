@@ -1,8 +1,9 @@
-// Servicio de Contacto/Cotización: valida, envía correos y persiste en Firestore.
+// Servicio de Contacto/Cotización: valida, persiste en Firestore y luego notifica por correo.
 const { HttpsError } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const { FieldValue } = require("firebase-admin/firestore");
-const { createMailer } = require("../adapters/mailer");
+const { createMailer, sendNotifications, cleanSubject } = require("../adapters/mailer");
+const { createWithUniqueCode } = require("../adapters/idGenerator");
 const { buildSafeContactPayload } = require("../adapters/sanitize");
 const { contactSchema } = require("../schemas/contacto");
 const { isGibberishOrSpamText, isHoneypotFilled, isSubmissionTooFast } = require("../guards/antiBot");
@@ -62,46 +63,62 @@ async function sendContactEmailLogic(contactData, admin, clientIp = "unknown") {
   const now = new Date();
   const timestampFormatted = now.toLocaleString("es-PE", { timeZone: "America/Lima" });
 
+  // 1. Persistir PRIMERO (solo campos validados y sanitizados: whitelist, no raw request.body)
+  const safeContactPayload = buildSafeContactPayload(contactData);
+  let code;
   try {
-    const adminEmail = await resend.emails.send({
-      from: "GYA Contacto <noreply@gyacompany.com>",
-      to: ADMIN_RECIPIENT,
-      subject: `NUEVA CONSULTA - ${contactData.name}`,
-      html: createContactEmailHtml(contactData, "TEMP_ID", timestampFormatted),
-      reply_to: contactData.email,
+    code = await createWithUniqueCode({
+      db,
+      collection: "contact_submissions",
+      kind: "CON",
+      buildData: (id) => ({
+        ...safeContactPayload,
+        id,
+        status: "RECIBIDO",
+        createdAt: FieldValue.serverTimestamp(),
+        createdAtIso: now.toISOString(),
+        source: "PROD_WEB",
+        clientIp: clientIp,
+        notifications: { admin: { status: "PENDING" }, client: { status: "PENDING" } },
+      }),
     });
-
-    if (adminEmail.error) throw new Error(adminEmail.error.message);
-    const contactId = adminEmail.data.id;
-
-    const clientEmail = await resend.emails.send({
-      from: "GLASS & ALUMINUM COMPANY S.A.C. <noreply@gyacompany.com>",
-      to: contactData.email,
-      subject: `Confirmación de Recepción - Código ${contactId}`,
-      html: createContactClientEmailHtml(contactData, contactId),
-    });
-
-    if (clientEmail.error) {
-      logger.warn("RESEND_CLIENT_WARNING (Contacto):", clientEmail.error);
-    }
-
-    // Solo se guardan campos validados y sanitizados (whitelist — no raw request.body)
-    const safeContactPayload = buildSafeContactPayload(contactData);
-    await db.collection("contact_submissions").doc(contactId).set({
-      ...safeContactPayload,
-      status: "RECIBIDO",
-      createdAt: FieldValue.serverTimestamp(),
-      createdAtIso: now.toISOString(),
-      resendId: contactId,
-      source: "PROD_WEB",
-      clientIp: clientIp,
-    });
-
-    return { id: contactId, createdAt: now.toISOString() };
   } catch (error) {
     logger.error("Error en sendContactEmailLogic:", error);
-    throw new HttpsError("internal", error.message);
+    if (error instanceof HttpsError) throw error;
+    // El detalle técnico queda en el log; al cliente solo se le devuelve un mensaje genérico.
+    throw new HttpsError("internal", "Error al procesar la consulta. Por favor, inténtelo nuevamente.");
   }
+
+  // 2. Notificaciones en paralelo con el código real; un fallo de correo no invalida el registro.
+  const notifications = await sendNotifications(
+    resend,
+    {
+      from: "GYA Contacto <noreply@gyacompany.com>",
+      to: ADMIN_RECIPIENT,
+      subject: `NUEVA CONSULTA - ${cleanSubject(contactData.name)}`,
+      html: createContactEmailHtml(contactData, code, timestampFormatted),
+      reply_to: contactData.email,
+    },
+    {
+      from: "GLASS & ALUMINUM COMPANY S.A.C. <noreply@gyacompany.com>",
+      to: contactData.email,
+      subject: `Confirmación de Recepción - Código ${code}`,
+      html: createContactClientEmailHtml(contactData, code),
+    },
+    code
+  );
+
+  // 3. Registrar el resultado de las notificaciones; si falla solo se loguea.
+  try {
+    await db.collection("contact_submissions").doc(code).update({
+      "notifications.admin": notifications.admin,
+      "notifications.client": notifications.client,
+    });
+  } catch (error) {
+    logger.error("NOTIFICATIONS_UPDATE_FAILED", { code, message: error.message });
+  }
+
+  return { id: code, createdAt: now.toISOString() };
 }
 
 module.exports = { sendContactEmailLogic };
