@@ -1,5 +1,5 @@
 // Función HTTP: Contacto General y Cotizaciones.
-const { onRequest } = require("firebase-functions/v2/https");
+const { onRequest, HttpsError } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const admin = require("firebase-admin");
 const { ALLOWED_ORIGINS } = require("../config/cors");
@@ -30,7 +30,7 @@ exports.submitContacto = onRequest(
       logger.error("Error en submitContacto:", error);
       response
         .status(error.code === "invalid-argument" ? 400 : error.code === "permission-denied" ? 403 : 500)
-        .json({ success: false, message: error.message || "Error interno del servidor." });
+        .json({ success: false, message: error instanceof HttpsError ? error.message : "Error interno del servidor." });
     }
   })
 );

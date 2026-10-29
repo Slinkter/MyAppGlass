@@ -43,7 +43,7 @@ function validateIdentityDocument(tipoDocumento, numeroDocumento) {
  * Lógica de negocio para procesar y enviar el Libro de Reclamaciones.
  */
 async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
-  logger.info("INIT: sendEmailLogic", { email: reclamoData.email });
+  logger.info("INIT: sendEmailLogic");
 
   const resend = createMailer(process.env.RESEND_API_KEY);
   const db = admin.firestore();
@@ -56,7 +56,7 @@ async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
 
   // 1. Silent Drop: Honeypot check
   if (isHoneypotFilled(reclamoData)) {
-    logger.warn("BOT_BLOCKED: Honeypot filled", { email: reclamoData.email });
+    logger.warn("BOT_BLOCKED: Honeypot filled");
     return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
   }
 
@@ -67,8 +67,10 @@ async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
   }
 
   // 3. Silent Drop: Textos basura / gibberish identificados
-  if (isGibberishOrSpamText(reclamoData.nombreCompleto) || isGibberishOrSpamText(reclamoData.detalle) || isGibberishOrSpamText(reclamoData.pedido)) {
-    logger.warn("BOT_BLOCKED: Gibberish text detected", { name: reclamoData.nombreCompleto });
+  if (isGibberishOrSpamText(reclamoData.nombreCompleto) ||
+      isGibberishOrSpamText(reclamoData.detalle) ||
+      isGibberishOrSpamText(reclamoData.pedido)) {
+    logger.warn("BOT_BLOCKED: Gibberish text detected");
     return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
   }
 
@@ -76,14 +78,14 @@ async function sendEmailLogic(reclamoData, admin, clientIp = "unknown") {
   const parseResult = reclamoSchema.safeParse(reclamoData);
   if (!parseResult.success) {
     const issues = parseResult.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join(" | ");
-    logger.warn("ZOD_VALIDATION_FAILED (Reclamo):", { issues, email: reclamoData.email });
+    logger.warn("ZOD_VALIDATION_FAILED (Reclamo):", { issues });
     throw new HttpsError("invalid-argument", `Datos inválidos: ${issues}`);
   }
 
   // 5. Verificación de Captcha Matemático (Reto Humano)
   const mathValidation = validateMathCaptcha(reclamoData.mathAnswer, reclamoData.mathToken);
   if (!mathValidation.valid) {
-    logger.warn("MATH_CAPTCHA_FAILED (Reclamo):", { reason: mathValidation.message, email: reclamoData.email });
+    logger.warn("MATH_CAPTCHA_FAILED (Reclamo):", { reason: mathValidation.message });
     throw new HttpsError("invalid-argument", mathValidation.message);
   }
 

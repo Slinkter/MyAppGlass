@@ -84,8 +84,12 @@ async function verifyRecaptcha(token, expectedAction = null) {
   }
 
   try {
-    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${encodeURIComponent(token.trim())}`;
-    const recaptchaRes = await fetch(verificationUrl, { method: "POST" });
+    const recaptchaRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret: secretKey, response: token.trim() }),
+      signal: AbortSignal.timeout(5000),
+    });
     const recaptchaData = await recaptchaRes.json();
 
     if (!recaptchaData.success || typeof recaptchaData.score !== "number" || recaptchaData.score < 0.5) {

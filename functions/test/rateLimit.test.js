@@ -3,7 +3,7 @@
 const { describe, test, beforeEach } = require("node:test");
 const assert = require("node:assert/strict");
 const { Timestamp } = require("firebase-admin/firestore");
-const { checkRateLimitFirestore } = require("../src/guards/rateLimit");
+const { checkRateLimitFirestore, rateLimitKey } = require("../src/guards/rateLimit");
 const { crearFakeDb } = require("./fakeDb");
 
 const HORA_MS = 3600 * 1000;
@@ -98,9 +98,10 @@ describe("checkRateLimitFirestore: documento escrito", () => {
     assert.deepEqual(db.almacen.get("rate_limits/checkStatus_203_0_113_41").timestamps, [2800, 3200, 3600]);
   });
 
-  test("IPv6: el id del documento no contiene ':' ni '.'", async () => {
+  test("IPv6: el id usa el prefijo /64, no contiene ':' ni '.' y conserva la IP completa", async () => {
     await checkRateLimitFirestore(db, "2001:db8::1", opts(0));
-    assert.ok(db.almacen.has("rate_limits/checkStatus_2001_db8__1"));
+    assert.ok(db.almacen.has("rate_limits/checkStatus_v6_2001_0db8_0000_0000"));
+    assert.equal(db.almacen.get("rate_limits/checkStatus_v6_2001_0db8_0000_0000").ip, "2001:db8::1");
     const ids = [...db.almacen.keys()].map((k) => k.split("/")[1]);
     assert.ok(ids.length > 0);
     for (const id of ids) assert.ok(!/[:.]/.test(id), `id inválido: ${id}`);
@@ -129,5 +130,55 @@ describe("checkRateLimitFirestore: casos especiales y fallos", () => {
   test("si la lectura falla dentro de la transacción, el error se propaga", async () => {
     const dbCaido = crearFakeDb({ fallaLectura: true });
     await assert.rejects(checkRateLimitFirestore(dbCaido, "203.0.113.51", opts(0)), /Firestore no disponible/);
+  });
+});
+
+describe("rateLimitKey", () => {
+  test("IPv4: octetos separados por _", () => {
+    assert.equal(rateLimitKey("203.0.113.10"), "203_0_113_10");
+  });
+
+  test("::1 y 2001:db8::1 se expanden al prefijo /64", () => {
+    assert.equal(rateLimitKey("::1"), "v6_0000_0000_0000_0000");
+    assert.equal(rateLimitKey("2001:db8::1"), "v6_2001_0db8_0000_0000");
+  });
+
+  test("forma comprimida y expandida comparten clave", () => {
+    assert.equal(rateLimitKey("2001:0db8:0000:0000:0000:0000:0000:0001"), rateLimitKey("2001:db8::1"));
+  });
+
+  test("mismo /64 comparte clave; /64 distintos no", () => {
+    assert.equal(rateLimitKey("2001:db8:1:2::1"), rateLimitKey("2001:db8:1:2:aaaa:bbbb:cccc:dddd"));
+    assert.notEqual(rateLimitKey("2001:db8:1:2::1"), rateLimitKey("2001:db8:1:3::1"));
+    assert.notEqual(rateLimitKey("2001:db8:1:2::1"), rateLimitKey("2001:db8:2:2::1"));
+  });
+
+  test("mayúsculas y minúsculas dan la misma clave", () => {
+    assert.equal(rateLimitKey("2001:DB8:ABCD:EF01::1"), rateLimitKey("2001:db8:abcd:ef01::1"));
+    assert.equal(rateLimitKey("2001:DB8:ABCD:EF01::1"), "v6_2001_0db8_abcd_ef01");
+  });
+
+  test("IPv4 mapeada en IPv6 equivale a la IPv4", () => {
+    assert.equal(rateLimitKey("::ffff:1.2.3.4"), rateLimitKey("1.2.3.4"));
+    assert.equal(rateLimitKey("::FFFF:1.2.3.4"), "1_2_3_4");
+    assert.equal(rateLimitKey("::ffff:102:304"), "1_2_3_4");
+  });
+
+  test("se descarta la zona (%eth0)", () => {
+    assert.equal(rateLimitKey("fe80::1%eth0"), rateLimitKey("fe80::1"));
+    assert.equal(rateLimitKey("fe80::1%eth0"), "v6_fe80_0000_0000_0000");
+  });
+
+  test("la clave solo contiene [0-9a-z_] (incluso con entradas raras)", () => {
+    const entradas = ["203.0.113.10", "::1", "2001:db8::1", "FE80::1%eth0", "::ffff:1.2.3.4", "1:2:3:4:5:6:7:8", "basura/../x", "1::2::3", "::ffff:999.1.1.1"];
+    for (const ip of entradas) assert.match(rateLimitKey(ip), /^[0-9a-z_]+$/, ip);
+  });
+
+  test("dos IPv6 del mismo /64 comparten bucket en checkRateLimitFirestore", async () => {
+    const o = { max: 1 };
+    assert.equal(await checkRateLimitFirestore(db, "2001:db8:1:2::1", opts(0, o)), true);
+    assert.equal(await checkRateLimitFirestore(db, "2001:db8:1:2:dead:beef::9", opts(1, o)), false);
+    assert.equal(db.almacen.size, 1);
+    assert.equal(await checkRateLimitFirestore(db, "2001:db8:1:3::1", opts(2, o)), true);
   });
 });

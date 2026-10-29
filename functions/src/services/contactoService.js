@@ -14,7 +14,7 @@ const { createContactEmailHtml, createContactClientEmailHtml } = require("../tem
  * Lógica de negocio para procesar y enviar formularios de contacto y cotizaciones.
  */
 async function sendContactEmailLogic(contactData, admin, clientIp = "unknown") {
-  logger.info("INIT: sendContactEmailLogic", { email: contactData.email });
+  logger.info("INIT: sendContactEmailLogic");
 
   const resend = createMailer(process.env.RESEND_API_KEY);
   const db = admin.firestore();
@@ -26,7 +26,7 @@ async function sendContactEmailLogic(contactData, admin, clientIp = "unknown") {
 
   // 1. Silent Drop: Anti-bot Honeypot
   if (isHoneypotFilled(contactData)) {
-    logger.warn("BOT_BLOCKED: Contact honeypot triggered", { email: contactData.email });
+    logger.warn("BOT_BLOCKED: Contact honeypot triggered");
     return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
   }
 
@@ -38,14 +38,14 @@ async function sendContactEmailLogic(contactData, admin, clientIp = "unknown") {
 
   // 3. Silent Drop: Textos basura / gibberish identificados
   if (isGibberishOrSpamText(contactData.name) || isGibberishOrSpamText(contactData.message)) {
-    logger.warn("BOT_BLOCKED: Gibberish text detected in Contact", { name: contactData.name });
+    logger.warn("BOT_BLOCKED: Gibberish text detected in Contact");
     return { id: "GHOST_BLOCKED", createdAt: new Date().toISOString() };
   }
 
   // 4. Verificación de Captcha Matemático (Reto Humano)
   const mathValidation = validateMathCaptcha(contactData.mathAnswer, contactData.mathToken);
   if (!mathValidation.valid) {
-    logger.warn("MATH_CAPTCHA_FAILED (Contacto):", { reason: mathValidation.message, email: contactData.email });
+    logger.warn("MATH_CAPTCHA_FAILED (Contacto):", { reason: mathValidation.message });
     throw new HttpsError("invalid-argument", mathValidation.message);
   }
 
@@ -56,7 +56,7 @@ async function sendContactEmailLogic(contactData, admin, clientIp = "unknown") {
   const contactParseResult = contactSchema.safeParse(contactData);
   if (!contactParseResult.success) {
     const issues = contactParseResult.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join(" | ");
-    logger.warn("ZOD_VALIDATION_FAILED (Contacto):", { issues, email: contactData.email });
+    logger.warn("ZOD_VALIDATION_FAILED (Contacto):", { issues });
     throw new HttpsError("invalid-argument", `Datos inválidos: ${issues}`);
   }
 
