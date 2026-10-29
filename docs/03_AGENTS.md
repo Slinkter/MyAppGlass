@@ -32,14 +32,16 @@ Este documento define los roles y responsabilidades de los agentes de IA que orq
     - Asegurar alineación exacta y armonía visual en cuadrículas y layouts.
     - Refactorizar animaciones de entrada (stagger/cascada) para sensación orgánica.
     - Validar que tipografía, espaciado y colores sigan el design system.
-    - Prohibido usar `transition: all` — siempre propiedades explícitas.
+    - Transiciones: máximo 2 propiedades CSS por elemento; ver `AGENTS.md` §4 (es la autoridad).
+    > Nota: el ejemplo de AGENTS.md usa `transition="all ..."`; pendiente que el responsable del proyecto defina si se prefieren propiedades explícitas.
 
 ## 4. 🧪 QA & Build Integrity Engineer
 **Especialidad:** TypeScript strict, linting, builds estáticos.
 - **Stack:** TypeScript, ESLint, Next.js build pipeline.
 - **Responsabilidades:**
-    - Verificar que `pnpm run build` compile 36/36 rutas sin errores.
-    - Garantizar zero warnings de linter (`pnpm lint`).
+    - Verificar que `pnpm run build` compile las 55 páginas sin errores.
+    - Garantizar zero warnings de linter (`pnpm run lint`).
+    - La CI (`.github/workflows/ci.yml`, en push/PR a `main` y `develop`) ejecuta en orden: `pnpm run lint`, `pnpm run typecheck`, `pnpm run test:run` y `pnpm run build`. Los agentes de IA validan con `typecheck` y `build` y no ejecutan `test:run` salvo petición (regla de ahorro de tokens de `AGENTS.md`).
     - Detectar dead code, imports huérfanos, tipos incorrectos.
     - Validar que no haya console.log en producción.
     - Ejecutar pre-commit hook validation.
@@ -96,10 +98,10 @@ Este documento define los roles y responsabilidades de los agentes de IA que orq
 
 ## 10. 🤖 AI Workflow Orchestrator (Coordinador)
 **Especialidad:** Coordinación entre agentes, handoff, priorización.
-- **Stack:** FSD Architecture, AI_HANDOFF.md, AGENTS.md.
+- **Stack:** FSD Architecture, [`02_AI_HANDOFF.md`](./02_AI_HANDOFF.md), `AGENTS.md`.
 - **Responsabilidades:**
     - Determinar qué agente(s) invocar según la tarea solicitada.
-    - Mantener el plan de trabajo actualizado (PLAN_UX_UI_HOMEPAGE.md).
+    - Mantener el plan de trabajo actualizado ([`04_PLAN_DE_TRABAJO.md`](./04_PLAN_DE_TRABAJO.md) y [`13_PLAN_TRABAJO_SCRUM_FASES.md`](./13_PLAN_TRABAJO_SCRUM_FASES.md); `PLAN_UX_UI_HOMEPAGE.md` fue eliminado en `a743595`).
     - Coordinar handoffs entre agentes Frontend y Backend.
     - Priorizar tareas críticas vs. mejoras continuas.
     - Documentar decisiones arquitectónicas y estado del proyecto.

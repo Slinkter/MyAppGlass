@@ -1,16 +1,16 @@
-# $\mathbb{R}\mathrm{EADME}\;\|\;\text{Manual de Arquitectura e Ingeniería de Software}$
+# README | Manual de Arquitectura e Ingeniería de Software
 
-$$\text{\bfseries Portal Corporativo GYA — Glass \& Aluminum Company S.A.C.}$$
-$$\text{Documento Técnico de Referencia } \cdot \text{Versión 2.0} \cdot \text{Anno Domini 2026}$$
+**Portal Corporativo GYA — Glass & Aluminum Company S.A.C.**
+Documento técnico de referencia · Versión 2.0 · 2026
 
-$$\rule{\linewidth}{0.8pt}$$
+---
 
-> **Resumen Ejecutivo (Abstract):**  
-> Este compendio constituye la especificación canónica y manual de ingeniería para el ecosistema **MyAppGlass** de *Glass & Aluminum Company S.A.C.* El sistema implementa una arquitectura desacoplada basada en **Next.js 16 (Turbopack, App Router)** bajo la metodología **Feature-Sliced Design (FSD)**, renderizado estático de alto rendimiento (SSG/Export), aceleración por GPU para tasas de refresco de $120\,\text{Hz}$, contratos de datos formales con **Zod $\land$ TypeScript**, y microservicios serverless en **Google Cloud Functions v2 $\land$ Firestore**.
+> **Resumen ejecutivo:**
+> Este compendio constituye la especificación canónica y manual de ingeniería para el ecosistema **MyAppGlass** de *Glass & Aluminum Company S.A.C.* El sistema implementa una arquitectura desacoplada basada en **Next.js 16 (App Router; el build usa `next build --webpack`)** bajo la metodología **Feature-Sliced Design (FSD)**, renderizado estático de alto rendimiento (SSG/Export), aceleración por GPU para tasas de refresco de 120 Hz, contratos de datos formales con **Zod + TypeScript**, y microservicios serverless en **Google Cloud Functions v2 + Firestore**.
 
-$$\rule{\linewidth}{0.4pt}$$
+---
 
-## $\S\;1.\;\text{Tabla de Contenidos Estructurada (Table of Contents)}$
+## § 1. Tabla de Contenidos Estructurada
 
 ```
 ├── § 1. Tabla de Contenidos Estructurada
@@ -40,9 +40,9 @@ $$\rule{\linewidth}{0.4pt}$$
 └── § 6. Protocolo de Calidad, Verificación Formal y CI/CD
 ```
 
-$$\rule{\linewidth}{0.4pt}$$
+---
 
-## $\S\;2.\;\text{Taxonomía y Grafo de Navegación del Sistema}$
+## § 2. Taxonomía y Grafo de Navegación del Sistema
 
 ```mermaid
 graph TD
@@ -86,64 +86,64 @@ graph TD
     D6 --> F13["13_PLAN_TRABAJO_SCRUM_FASES.md (Checklist por Roles & DoD)"]:::leaf
 ```
 
-$$\rule{\linewidth}{0.4pt}$$
+---
 
-## $\S\;3.\;\text{Módulos y Especificaciones Formales}$
+## § 3. Módulos y Especificaciones Formales
 
-### $3.1.\;\text{Arquitectura y Gobierno del Código (Core Architecture)}$
+### 3.1. Arquitectura y Gobierno del Código (Core Architecture)
 
-$$\mathcal{D}_{\text{arch}} = \{\text{FSD Layers, Type Contracts, Agent Roles, Roadmap, Versioning}\}$$
+**Dominio:** capas FSD, contratos de tipos, roles de agentes, roadmap y versionado.
 
-* **[3.1.1. `01_ARCHITECTURE.md`](./01_ARCHITECTURE.md):**  
-  Define la descomposición en capas FSD: $\text{app} \to \text{screens} \to \text{widgets} \to \text{features} \to \text{shared}$. Detalla el patrón de componentes compuestos ($\text{Gallery.Root} \circ \text{Viewer} \circ \text{Thumbnails}$) y el flujo desacoplado de datos.
-* **[3.1.2. `02_AI_HANDOFF.md`](./02_AI_HANDOFF.md):**  
-  Especificación de interoperabilidad y lineamientos estrictos para agentes y desarrolladores: normalización de nomenclatura comercial (*Glass & Aluminum Company S.A.C.*), ortografía técnica (*antirruido* con doble $r$), y aislamiento del backend.
-* **[3.1.3. `03_AGENTS.md`](./03_AGENTS.md):**  
+* **[3.1.1. `01_ARCHITECTURE.md`](./01_ARCHITECTURE.md):**
+  Define la descomposición en capas FSD: `app` → `screens` → `widgets` → `features` → `shared`. Detalla el patrón de componentes compuestos (`Gallery.Root`, `Viewer`, `Thumbnails`) y el flujo desacoplado de datos.
+* **[3.1.2. `02_AI_HANDOFF.md`](./02_AI_HANDOFF.md):**
+  Especificación de interoperabilidad y lineamientos estrictos para agentes y desarrolladores: normalización de nomenclatura comercial (*Glass & Aluminum Company S.A.C.*), ortografía técnica (*antirruido* con doble *r*), y aislamiento del backend.
+* **[3.1.3. `03_AGENTS.md`](./03_AGENTS.md):**
   Matriz de responsabilidad de los 10 agentes seniors de ingeniería (Frontend Architect, Security Officer, QA Engineer, A11y Advocate, SEO Strategist, etc.).
-* **[3.1.4. `04_PLAN_DE_TRABAJO.md`](./04_PLAN_DE_TRABAJO.md):**  
+* **[3.1.4. `04_PLAN_DE_TRABAJO.md`](./04_PLAN_DE_TRABAJO.md):**
   Auditoría y estado de completitud de las 5 fases estratégicas del proyecto.
-* **[3.1.5. `05_CHANGELOG.md`](./05_CHANGELOG.md):**  
-  Registro histórico inmutable de despliegues, optimizaciones algorítmicas y refactorizaciones.
+* **[3.1.5. `05_CHANGELOG.md`](./05_CHANGELOG.md):**
+  Registro histórico de despliegues, optimizaciones y refactorizaciones.
 
 ---
 
-### $3.2.\;\text{Ingeniería de Frontend y Sistema de Diseño Aura (UI/UX Engine)}$
+### 3.2. Ingeniería de Frontend y Sistema de Diseño Aura (UI/UX Engine)
 
-* **[3.2.1. `06_DOCS_DEVELOPMENT.md`](./06_DOCS_DEVELOPMENT.md):**  
-  Manual de desarrollo local. Implementa el sistema de espaciado y tipografía basado en **Chakra UI v3 nativo** (spacing scale 4px base: `space.1`=4px, `space.4`=16px, `space.8`=32px, `space.12`=48px, `space.16`=64px).  
-  Establece los requisitos de aislamiento de repintado (`contain: layout style`) y aceleración por hardware (`translateZ(0)`) para garantizar una tasa de refresco constante de $120\,\text{Hz}$ y $\Delta\text{CLS} = 0$.
+* **[3.2.1. `06_DOCS_DEVELOPMENT.md`](./06_DOCS_DEVELOPMENT.md):**
+  Manual de desarrollo local. Implementa el sistema de espaciado y tipografía basado en **Chakra UI v3 nativo** (escala de espaciado con base de 4 px: `space.1`=4px, `space.4`=16px, `space.8`=32px, `space.12`=48px, `space.16`=64px).
+  Establece los requisitos de aislamiento de repintado (`contain: layout style`) y aceleración por hardware (`translateZ(0)`) para mantener una tasa de refresco constante de 120 Hz y un CLS de 0.
 
 ---
 
-### $3.3.\;\text{Infraestructura Backend, Seguridad y Normativa Legal (Backend \& Compliance)}$
+### 3.3. Infraestructura Backend, Seguridad y Normativa Legal (Backend & Compliance)
 
-$$\mathcal{S}_{\text{backend}} = \langle \text{Cloud Functions v2},\;\text{Firestore NoSQL},\;\text{Resend SDK},\;\text{Secret Manager} \rangle$$
+**Dominio:** Cloud Functions v2, Firestore (NoSQL), Resend SDK, Secret Manager.
 
-* **[3.3.1. `07_BACKEND_IMPLEMENTATION.md`](./07_BACKEND_IMPLEMENTATION.md):**  
+* **[3.3.1. `07_BACKEND_IMPLEMENTATION.md`](./07_BACKEND_IMPLEMENTATION.md):**
   Especificación de endpoints serverless (`submitContacto`, `submitReclamo`, `checkStatus`), transacciones atómicas y entrega de notificaciones vía Resend.
-* **[3.3.2. `08_DOCS_SECURITY_BACKEND.md`](./08_DOCS_SECURITY_BACKEND.md):**  
-  Protocolo de seguridad en la nube (Cloud Run + Secret Manager). Cumplimiento legal de retención de registros de INDECOPI ($\ge 2\,\text{años}$, $\Delta t \le 15\,\text{días hábiles}$ de respuesta) y Ley N° 29733 de Protección de Datos Personales.
+* **[3.3.2. `08_DOCS_SECURITY_BACKEND.md`](./08_DOCS_SECURITY_BACKEND.md):**
+  Protocolo de seguridad en la nube (Cloud Run + Secret Manager). Cumplimiento legal de retención de registros de INDECOPI (mínimo 2 años; respuesta en un máximo de 15 días hábiles) y Ley N° 29733 de Protección de Datos Personales.
 
 ---
 
-### $3.4.\;\text{Estrategia de SEO Técnico, Grafos de Conocimiento y Marketing (SEO \& Discovery)}$
+### 3.4. Estrategia de SEO Técnico, Grafos de Conocimiento y Marketing (SEO & Discovery)
 
-$$\mathcal{K}_{\text{SEO}} = \langle \text{Schema.org JSON-LD},\;\text{Topic Clusters},\;\text{Local 3-Pack},\;\text{Silo Architecture} \rangle$$
+**Dominio:** Schema.org JSON-LD, Topic Clusters, Local 3-Pack, arquitectura Silo.
 
-* **[3.4.1. `09_PLAN_SEO_CONTENIDOS.md`](./09_PLAN_SEO_CONTENIDOS.md):**  
+* **[3.4.1. `09_PLAN_SEO_CONTENIDOS.md`](./09_PLAN_SEO_CONTENIDOS.md):**
   Arquitectura Silo y Topic Clusters de autoridad técnica (Ventanas Antirruido, Mamparas de Vidrio Templado vs Laminado, Techos de Policarbonato).
-* **[3.4.2. `10_SEO_JERARQUIA.md`](./10_SEO_JERARQUIA.md):**  
-  Diccionario formal de etiquetas semánticas: $\langle\text{title}\rangle$, $\langle\text{meta name="description"}\rangle$, encabezados $\text{H}_1 \to \text{H}_2 \to \text{H}_3$ por ruta estática.
-* **[3.4.3. `11_MANUAL_SEO_LOCAL.md`](./11_MANUAL_SEO_LOCAL.md):**  
+* **[3.4.2. `10_SEO_JERARQUIA.md`](./10_SEO_JERARQUIA.md):**
+  Diccionario formal de etiquetas semánticas: `<title>`, `<meta name="description">`, encabezados H1 → H2 → H3 por ruta estática.
+* **[3.4.3. `11_MANUAL_SEO_LOCAL.md`](./11_MANUAL_SEO_LOCAL.md):**
   Manual de operaciones para dominancia local en La Molina, Lima (Google Business Profile, Google Search Console, Canonical 301, Citas NAP).
 
 ---
 
-### $3.5.\;\text{Plataforma Transaccional: E-Commerce, Inventario, Presupuestos y AR (Next Generation)}$
+### 3.5. Plataforma Transaccional: E-Commerce, Inventario, Presupuestos y AR (Next Generation)
 
-$$\mathcal{E}_{\text{commerce}} = \langle \text{RBAC Auth},\;\text{Stock Engine},\;\text{PDF Quote Generator},\;\text{Apple QuickLook / Google SceneViewer} \rangle$$
+**Dominio:** autenticación con roles (RBAC), motor de stock, generador de cotizaciones PDF, Apple QuickLook / Google SceneViewer.
 
-* **[3.5.1. `12_PLAN_ECOMMERCE_INVENTARIO_AR.md`](./12_PLAN_ECOMMERCE_INVENTARIO_AR.md):**  
+* **[3.5.1. `12_PLAN_ECOMMERCE_INVENTARIO_AR.md`](./12_PLAN_ECOMMERCE_INVENTARIO_AR.md):**
   Especificación maestra multidisciplinaria (MBA, Arquitecto de Software, Oficial de Seguridad, UI/UX y Especialista 3D):
   - Modelo de Usuarios y Roles (`admin` y `cliente` con DNI/RUC, teléfono, dirección).
   - CRUD de Productos e Inventario en tiempo real (vidrios, perfiles de aluminio y accesorios).
@@ -151,70 +151,66 @@ $$\mathcal{E}_{\text{commerce}} = \langle \text{RBAC Auth},\;\text{Stock Engine}
   - Módulo de Realidad Aumentada nativa (`.usdz` en iOS / `.glb` en Android y 3D en Desktop).
   - Reglas zero-trust en `firestore.rules` y `storage.rules` para `products/`.
 
+  > Nota: el documento es una especificación; el estado real de implementación (inventario, pedidos de admin y cotizador implementados; tienda pública y AR pendientes) está en su sección «Estado de implementación».
+
 ---
 
-### $3.6.\;\text{Gestión Ágil por Sprints: Framework Scrum y Roles Seniors (Agile Operations)}$
+### 3.6. Gestión Ágil por Sprints: Framework Scrum y Roles Seniors (Agile Operations)
 
-$$\mathcal{A}_{\text{scrum}} = \langle \text{Sprint Goals},\;\text{Checklist por Roles Seniors},\;\text{Definition of Done (DoD)} \rangle$$
+**Dominio:** objetivos de sprint, checklist por rol senior, Definition of Done (DoD).
 
-* **[3.6.1. `13_PLAN_TRABAJO_SCRUM_FASES.md`](./13_PLAN_TRABAJO_SCRUM_FASES.md):**  
+* **[3.6.1. `13_PLAN_TRABAJO_SCRUM_FASES.md`](./13_PLAN_TRABAJO_SCRUM_FASES.md):**
   Desglose operativo de los 5 Sprints del proyecto con checklist por especialista (Scrum Master, MBA, Arquitecto, Frontend, Backend, UI/UX, 3D Specialist, QA) y criterios de aceptación formales.
 
-$$\rule{\linewidth}{0.4pt}$$
+---
 
-## $\S\;4.\;\text{Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)}$
+## § 4. Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)
 
-$$\begin{array}{|l|l|c|c|l|}
-\hline
-\textbf{Componente / Servicio} & \textbf{Estructura de Datos} & \textbf{Búsqueda} & \textbf{Espacio} & \textbf{Justificación Técnica} \\
-\hline
-\text{projectService.ts} & \text{HashMap } (\text{Map}\langle\text{ID}, \text{Project}\rangle) & \mathcal{O}(1) & \mathcal{O}(n) & \text{Indexación instantánea sin iteración lineal.} \\
-\text{serviceService.ts} & \text{HashMap } (\text{Map}\langle\text{Slug}, \text{Service}\rangle) & \mathcal{O}(1) & \mathcal{O}(n) & \text{Resolución estática en SSG (\texttt{generateStaticParams}).} \\
-\text{blogService.ts} & \text{HashMap } (\text{Map}\langle\text{Slug}, \text{Post}\rangle) & \mathcal{O}(1) & \mathcal{O}(n) & \text{Cero latencia en renderizado de artículos.} \\
-\text{reclamation-schema.ts} & \text{Zod AST Parsing} & \mathcal{O}(k) & \mathcal{O}(k) & \text{Validación exhaustiva y tipado estricto en runtime.} \\
-\text{inventoryService.ts} & \text{Firestore Batch + Index} & \mathcal{O}(\log n) & \mathcal{O}(m) & \text{Consistencia transaccional de stock.} \\
-\hline
-\end{array}$$
+| Componente / Servicio | Estructura de datos | Búsqueda | Espacio | Justificación técnica |
+|---|---|:-:|:-:|---|
+| `projectService.ts` | HashMap (`Map<ID, Project>`) | O(1) | O(n) | Indexación instantánea sin iteración lineal. |
+| `serviceService.ts` | HashMap (`Map<Slug, Service>`) | O(1) | O(n) | Resolución estática en SSG (`generateStaticParams`). |
+| `blogService.ts` | HashMap (`Map<Slug, Post>`) | O(1) | O(n) | Cero latencia en renderizado de artículos. |
+| `reclamation-schema.ts` | Zod AST parsing | O(k) | O(k) | Validación exhaustiva y tipado estricto en runtime. |
+| `productService.ts` | Firestore (batch + índice) | O(log n) | O(m) | Consistencia transaccional de stock. |
 
-$$\rule{\linewidth}{0.4pt}$$
+---
 
-## $\S\;5.\;\text{Guía de Operaciones y Casos de Uso Frecuentes (Standard Operating Procedures)}$
+## § 5. Guía de Operaciones y Casos de Uso Frecuentes (Standard Operating Procedures)
 
-$$\begin{array}{|l|l|l|}
-\hline
-\textbf{Objetivo Operativo} & \textbf{Documento de Referencia} & \textbf{Ruta / Procedimiento} \\
-\hline
-\text{Inicializar entorno local y dependencias} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \texttt{pnpm install \&\& pnpm run dev} \\
-\text{Plan de Sprints Scrum \& Checklists} & \text{\texttt{13\_PLAN\_TRABAJO\_SCRUM\_FASES.md}} & \text{Checklist de actividades por rol senior} \\
-\text{Arquitectura E-Commerce \& Inventario} & \text{\texttt{12\_PLAN\_ECOMMERCE\_INVENTARIO\_AR.md}} & \text{Especificación completa y reglas RBAC} \\
-\text{Agregar o editar artículo del Blog} & \text{\texttt{09\_PLAN\_SEO\_CONTENIDOS.md}} & \texttt{src/features/blog/data/blog-posts.ts} \\
-\text{Modificar reglas de diseño y espaciado} & \text{\texttt{06\_DOCS\_DEVELOPMENT.md}} & \text{Chakra UI spacing en } \texttt{src/shared/providers/theme/} \\
-\text{Auditar flujo legal del Libro de Reclamaciones} & \text{\texttt{07\_BACKEND\_IMPLEMENTATION.md}} & \text{Colección Firestore } \texttt{libro\_de\_reclamaciones} \\
-\text{Configuración de SEO Local (Google Maps)} & \text{\texttt{11\_MANUAL\_SEO\_LOCAL.md}} & \text{Google Business Profile (La Molina, Lima)} \\
-\hline
-\end{array}$$
+| Objetivo operativo | Documento de referencia | Ruta / procedimiento |
+|---|---|---|
+| Inicializar entorno local y dependencias | `06_DOCS_DEVELOPMENT.md` | `pnpm install && pnpm run dev` |
+| Plan de Sprints Scrum y checklists | `13_PLAN_TRABAJO_SCRUM_FASES.md` | Checklist de actividades por rol senior |
+| Arquitectura E-Commerce e inventario | `12_PLAN_ECOMMERCE_INVENTARIO_AR.md` | Especificación completa y reglas RBAC |
+| Agregar o editar artículo del blog | `09_PLAN_SEO_CONTENIDOS.md` | `src/features/blog/data/blog-posts.ts` |
+| Modificar reglas de diseño y espaciado | `06_DOCS_DEVELOPMENT.md` | Chakra UI spacing en `src/shared/providers/theme/` |
+| Auditar flujo legal del Libro de Reclamaciones | `07_BACKEND_IMPLEMENTATION.md` | Colección Firestore `libro_de_reclamaciones` |
+| Configuración de SEO local (Google Maps) | `11_MANUAL_SEO_LOCAL.md` | Google Business Profile (La Molina, Lima) |
 
-$$\rule{\linewidth}{0.4pt}$$
+---
 
-## $\S\;6.\;\text{Protocolo de Calidad, Verificación Formal y CI/CD}$
+## § 6. Protocolo de Calidad, Verificación Formal y CI/CD
 
-El sistema ejecuta una canalización estricta de 4 etapas previo a cualquier despliegue a producción:
+El pipeline de CI (`.github/workflows/ci.yml`, en push/PR a `main` y `develop`) ejecuta en orden: ESLint → Typecheck (TSC) → pruebas unitarias (Vitest) → build de producción (`next build --webpack`, exportación estática a `out/`).
 
-$$\text{Pipeline} = \text{Linting} \;(\text{ESLint}) \;\longrightarrow\; \text{Typecheck} \;(\text{TSC}) \;\longrightarrow\; \text{Unit QA} \;(\text{Vitest}) \;\longrightarrow\; \text{Build} \;(\text{Next.js Turbopack})$$
+Comandos equivalentes en local:
 
 ```bash
-# 1. Pruebas Unitarias de Regresión (18 suites / 154 tests)
+# 1. Pruebas unitarias de regresión (21 archivos en tests/unit/, ~159 casos)
+#    Nota: los agentes de IA no la ejecutan salvo petición expresa (ver AGENTS.md)
 pnpm run test:run
 
-# 2. Verificación Estricta de Tipos
+# 2. Verificación estricta de tipos
 pnpm run typecheck
 
-# 3. Análisis Estático de Código
+# 3. Análisis estático de código
 pnpm run lint
 
-# 4. Compilación y Generación Estática (SSG 47/47 rutas)
+# 4. Compilación y generación estática (55 páginas)
 pnpm run build
 ```
 
-$$\rule{\linewidth}{0.8pt}$$
-$$\text{\footnotesize Glass \& Aluminum Company S.A.C. — Todos los derechos reservados.}$$
+---
+
+Glass & Aluminum Company S.A.C. — Todos los derechos reservados.
