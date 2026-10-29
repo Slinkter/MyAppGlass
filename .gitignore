@@ -7,19 +7,26 @@ functions/node_modules/
 out/
 dist/
 build/
+.turbo/
 *.tsbuildinfo
 stats.html
 
 # Firebase & Cloud Emulators
 .firebase/
 .firebaserc.local
-functions/.env
+functions/.env*
+!functions/.env.example
 functions/lib/
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+hub-debug.log*
 
 # Environment Variables & Secrets
 .env
 .env.*
 !.env.example
+!.env*.example
 service-account*.json
 firebase-adminsdk*.json
 credentials*.json
@@ -55,6 +62,7 @@ $RECYCLE.BIN/
 # Logs & Test Artifacts
 *.log
 logs/
+pnpm-debug.log*
 coverage/
 .nyc_output/
 .eslintcache/

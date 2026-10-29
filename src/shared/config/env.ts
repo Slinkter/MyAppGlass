@@ -2,15 +2,11 @@ import { z } from 'zod';
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
-  NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: z.string().min(1, 'Google Maps API Key is required').optional(),
+  NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: z.string().optional(),
   NEXT_PUBLIC_CONTACT_API_URL: z.string().url('Invalid Contact API URL').default('https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitContacto'),
   NEXT_PUBLIC_STATUS_API_URL: z.string().url('Invalid Status API URL').default('https://us-central1-gya-app-4c8a9.cloudfunctions.net/checkStatus'),
   NEXT_PUBLIC_API_URL: z.string().url('Invalid API URL').default('https://us-central1-gya-app-4c8a9.cloudfunctions.net/submitReclamo'),
-  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z
-    .string()
-    .min(1, 'NEXT_PUBLIC_RECAPTCHA_SITE_KEY es requerida para la seguridad del formulario')
-    .optional()
-    .default(''),
+  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().optional().default(''),
   NEXT_PUBLIC_FIREBASE_API_KEY: z.string().optional(),
   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: z.string().optional(),
   NEXT_PUBLIC_FIREBASE_DATABASE_URL: z.string().optional(),
