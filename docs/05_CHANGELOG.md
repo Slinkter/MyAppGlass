@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 - **Documentos SEO sincronizados**: `docs/09_PLAN_SEO_CONTENIDOS.md`, `docs/10_SEO_JERARQUIA.md` (nuevo bloque de estado y tabla ruta → title real) y `docs/11_MANUAL_SEO_LOCAL.md` contrastados con `sitemap.ts`, `robots.ts`, `seo-utils.ts` y los 10 posts del blog.
 - **READMEs de módulos y skill `gya-cms`**: rutas y componentes corregidos según los archivos existentes.
 - **Rutas absolutas de Windows** de este changelog convertidas a texto de código.
-- **Runtime de Cloud Functions**: migración de `nodejs20` a `nodejs22` en `firebase.json` y `functions/package.json` por el retiro de Node.js 20 (2026-10-30). Pendiente de despliegue.
+- **Runtime de Cloud Functions**: migración de `nodejs20` a `nodejs22` en `firebase.json` y `functions/package.json` por el retiro de Node.js 20 (2026-10-30). Desplegado el 2026-10-29: `submitReclamo`, `submitContacto` y `checkStatus` corren en `nodejs22` (ver `docs/08_DOCS_SECURITY_BACKEND.md` sobre el conflicto de `RECAPTCHA_SECRET_KEY` en el despliegue).
 
 ### Removed
 - **Configurador 3D de ventanas** (commit `2ca4f3e`, 2026-08-26): eliminados `VentanaConfigurador3DCard.tsx`, `components/configurador3d/`, `src/features/services/data/ventanas-catalogo.json` y `scripts/optimize-images.mjs`; la dependencia `three` fue retirada de `package.json`. Las entradas históricas que describen el simulador 3D reflejan el estado de su fecha.

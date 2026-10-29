@@ -62,5 +62,11 @@ Si el formulario falla en producción:
 3. Verifique que `RESEND_API_KEY` no haya expirado.
 4. Si recibe 403 con "Validación de seguridad", revise `RECAPTCHA_SECRET_KEY` y `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`; si recibe 429, se superó el rate limit (8 envíos / 15 min por IP).
 
+### Error de despliegue: «Secret environment variable overlaps non secret environment variable»
+Ocurrió el 2026-10-29 al migrar a Node.js 22: `submitReclamo` y `submitContacto` fallaron con HTTP 400 al actualizar. Causa: `functions/.env` (archivo local, ignorado por git) define `RECAPTCHA_SECRET_KEY` como variable de entorno, mientras que `functions/index.js` la declara también como secreto (`secrets: [...]`, Secret Manager). El CLI carga ambos y Cloud Run los rechaza.
+- **Qué se hizo:** se verificó que la última versión del secreto en Secret Manager coincide con la del `.env` y se desplegó apartando `functions/.env` solo durante el comando.
+- **Solución permanente (pendiente del responsable):** eliminar la línea `RECAPTCHA_SECRET_KEY` de `functions/.env`; el valor ya vive en Secret Manager. Mientras tanto, cada despliegue de esas funciones requiere apartar el archivo.
+- Nunca use `firebase deploy --only functions --force`: borra las funciones desplegadas que no estén en el código (por ejemplo `testFunction`).
+
 ---
 *Documentación generada por Gemini CLI - Versión 1.0 (Abril 2026)*
