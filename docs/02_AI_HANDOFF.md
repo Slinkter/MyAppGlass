@@ -44,6 +44,23 @@ El proyecto sigue estrictamente los principios de **Feature-Sliced Design** sobr
 
 ---
 
+## 🔒 Estado Canónico del Backend Serverless (`functions/`) - 2026-10-29
+
+* **Estado:** **CONGELADO Y 100% OPERATIVO**. NO modificar `functions/`, `firestore.rules` ni `storage.rules`.
+* **Cloud Functions Desplegadas:** `submitReclamo`, `submitContacto`, `checkStatus` (todas en `nodejs22` en `us-central1`).
+* **Secretos en Secret Manager:**
+  - `RESEND_API_KEY`: Versión 3 (Habilitada y verificada contra el dominio `gyacompany.com`).
+  - `ADMIN_EMAIL`: `acueva@gyacompany.com`.
+  - `RECAPTCHA_SECRET_KEY`: Versión 2 (Habilitada).
+* **Colecciones Firestore en Producción:**
+  - `libro_de_reclamaciones/{GYA-REC-AAAA-XXXXXX}`: Política persistir primero + 2 años retención legal.
+  - `contact_submissions/{GYA-CON-AAAA-XXXXXX}`: Política persistir primero.
+  - `rate_limits`: Rate limits atómicos por función con TTL.
+* **Calidad y Verificación:**
+  - Suite unitaria: 141 tests con `node:test` (`cd functions && npm test`), 100% pass.
+  - Linter: ESLint con 0 errores y 0 warnings (`cd functions && npm run lint`).
+  - Colección Postman: `tests/postman/GYA_Company_API.postman_collection.json` verificada en producción vía Newman (23 aserciones en verde).
+
 ## 🚀 Estado Técnico y Despliegue
 
 * **Build:** 55 páginas SSG pre-renderizadas estáticamente (último build: 55/55).

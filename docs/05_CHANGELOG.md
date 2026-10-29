@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-10-29] - Puesta Operativa de Backend, Resend API Key y Blindaje Serverless
+
+### Added
+- **Pruebas de Integración y Errores HTTP**: Agregados `functions/test/captcha.test.js` y `functions/test/httpErrors.test.js` ampliando la suite a **141 tests unitarios**, todos pasando al 100% con `node:test`.
+- **Soporte y Blindaje IPv6**: Agrupamiento por subred `/64` (`rateLimitKey`) en `functions/src/guards/rateLimit.js` evitando dispersión de buckets en Firestore.
+- **Validación Automatizada con Newman**: Ejecución exitosa de la colección `tests/postman/GYA_Company_API.postman_collection.json` contra producción (9 requests, 23 aserciones, 0 fallos).
+
+### Changed
+- **API Key de Resend en Firebase Secret Manager**: Actualizada a la **Versión 3** (`RESEND_API_KEY`) y verificada contra el dominio verificado `gyacompany.com`.
+- **Despliegue Completo de Cloud Functions (Node.js 22)**:
+  - `submitReclamo`: Actualizada y desplegada con vinculación a la versión activa del secreto.
+  - `submitContacto`: Actualizada y desplegada con vinculación a la versión activa del secreto.
+  - `checkStatus`: Actualizada y desplegada.
+- **reCAPTCHA v3 Hardening**: Envío seguro de credenciales mediante el cuerpo del POST (`application/x-www-form-urlencoded`) y timeout preventivo con `AbortSignal.timeout(5000)`.
+- **Protección de Privacidad (PII en Logs)**: Eliminación de correos personales en `logger.warn` dentro de `reclamoService.js` y `contactoService.js`.
+
+### Fixed
+- **Subsanación de Test Roto**: Corregido payload de `crearReclamoPayload` en `functions/test/httpErrors.test.js` completando los campos obligatorios de Zod (`tipoDocumento`, `domicilio`, `tipoBien: "producto"`).
+- **ESLint en `functions/`**: Subsanados 3 errores (`new-cap`, `quote-props`) y advertencia `max-len` (0 errores, 0 warnings).
+- **Conflicto de Secretos en Cloud Run**: Documentado y solventado el solapamiento de variables locales de entorno con Secret Manager durante el despliegue.
+
 ## [2026-10-29] - Sincronización de documentación con el estado real del código
 
 ### Added
