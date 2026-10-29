@@ -1,63 +1,163 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    // Función auxiliar para verificar si el usuario es Admin
+
+    // ---------------------------------------------------------------
+    // Funciones auxiliares
+    // ---------------------------------------------------------------
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Administrador = (a) claim role=admin, (b) users/{uid}.role == 'admin',
+    // o (c) correo corporativo @gyacompany.com VERIFICADO.
+    // Se eliminó el criterio "el correo contiene admin" (cualquiera podía
+    // registrarse con ese correo y obtener privilegios).
     function isAdmin() {
-      return request.auth != null && 
-        (request.auth.token.role == 'admin' || 
-         (request.auth.token.email != null && request.auth.token.email.matches('.*admin.*')) ||
-         (request.auth.token.email != null && request.auth.token.email.matches('.*@gyacompany[.]com.*')) ||
-         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
-          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'));
+      return isSignedIn() && (
+        request.auth.token.get('role', '') == 'admin' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin') ||
+        (request.auth.token.get('email_verified', false) == true &&
+         request.auth.token.get('email', '').matches('^[^@]+@gyacompany[.]com$'))
+      );
     }
-    
-    // Función auxiliar para verificar si el usuario es el dueño del documento
+
     function isOwner(userId) {
-      return request.auth != null && request.auth.uid == userId;
+      return isSignedIn() && request.auth.uid == userId;
     }
 
-    // Colección de Usuarios y Roles (users)
+    // ---------------------------------------------------------------
+    // users/{uid}: documento de rol. Lo escribe AuthContext.tsx al registrarse
+    // (uid, email, role, createdAt) y en el primer login (+ updatedAt).
+    // ---------------------------------------------------------------
     match /users/{userId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      // Solo el dueño o un admin pueden leer (antes: cualquier autenticado).
+      allow read: if isOwner(userId) || isAdmin();
+
+      // El dueño solo puede crearse como 'cliente' y con campos esperados:
+      // evita la autoescalada a admin.
+      allow create: if isOwner(userId)
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'role', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['uid', 'email', 'role'])
+        && request.resource.data.uid == userId
+        && request.resource.data.role == 'cliente'
+        && request.resource.data.email is string
+        && request.resource.data.email.size() <= 254;
+
+      // El dueño no puede cambiar 'role' ni 'uid'; solo email/updatedAt.
+      allow update: if isOwner(userId)
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['email', 'updatedAt'])
+        && request.resource.data.email is string
+        && request.resource.data.email.size() <= 254;
+
+      // Admin: control total (asignar/revocar roles). Solo admin borra.
+      allow create, update, delete: if isAdmin();
     }
 
-    // Colección de Perfiles de Clientes (clientes)
+    // ---------------------------------------------------------------
+    // clientes/{id}: datos personales (DNI/RUC, teléfono, dirección).
+    // Registro propio: id == uid. El panel admin crea clientes con id automático.
+    // ---------------------------------------------------------------
     match /clientes/{clientId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null;
+      // Antes: cualquier autenticado leía todos los perfiles. Ahora dueño o admin.
+      allow read: if isOwner(clientId) || isAdmin();
+
+      allow create: if isOwner(clientId)
+        && request.resource.data.keys().hasOnly(
+             ['userId', 'email', 'role', 'fullName', 'dniRuc', 'phone', 'address', 'district', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasAll(
+             ['userId', 'email', 'role', 'fullName', 'dniRuc', 'phone', 'address', 'district'])
+        && request.resource.data.userId == clientId
+        && request.resource.data.role == 'cliente'
+        && request.resource.data.email is string && request.resource.data.email.size() <= 254
+        && request.resource.data.fullName is string && request.resource.data.fullName.size() <= 200
+        && request.resource.data.dniRuc is string && request.resource.data.dniRuc.size() <= 11
+        && request.resource.data.phone is string && request.resource.data.phone.size() <= 30
+        && request.resource.data.address is string && request.resource.data.address.size() <= 300
+        && request.resource.data.district is string && request.resource.data.district.size() <= 100;
+
+      // El dueño edita sus datos de contacto, nunca role/userId/email.
+      allow update: if isOwner(clientId)
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.userId == resource.data.userId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fullName', 'phone', 'address', 'district', 'updatedAt'])
+        && request.resource.data.fullName is string && request.resource.data.fullName.size() <= 200
+        && request.resource.data.phone is string && request.resource.data.phone.size() <= 30
+        && request.resource.data.address is string && request.resource.data.address.size() <= 300
+        && request.resource.data.district is string && request.resource.data.district.size() <= 100;
+
+      // Admin: ClientManagementScreen lista (onSnapshot) y crea (addDoc).
+      allow read, create, update, delete: if isAdmin();
     }
 
-    // Colección de Productos e Inventario (productos)
+    // ---------------------------------------------------------------
+    // productos: catálogo con lectura pública; solo admin escribe
+    // (productService.ts y orderService.ts, que descuenta stock, se usan
+    // únicamente desde /admin/*).
+    // ---------------------------------------------------------------
     match /productos/{productId} {
-      allow read: if true; // Lectura pública para catálogo y cotizador
-      allow write: if request.auth != null; // Usuarios autenticados / administradores
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
     }
 
-    // Colección de Presupuestos (presupuestos)
-    match /presupuestos/{budgetId} {
-      allow read: if request.auth != null;
-      allow create: if request.auth != null;
-      allow update, delete: if request.auth != null;
-    }
-
-    // Colección de Presupuestos Solicitados (presupuestos_solicitados)
-    match /presupuestos_solicitados/{solicitudId} {
-      allow read, write: if request.auth != null;
-    }
-
-    // Colección de Pedidos y Órdenes de Salida (pedidos & listOrden)
+    // ---------------------------------------------------------------
+    // pedidos y listOrden: órdenes de venta emitidas por el admin
+    // (orderService.ts). No hay flujo de cliente: solo admin.
+    // ---------------------------------------------------------------
     match /pedidos/{orderId} {
-      allow read, write: if request.auth != null;
+      allow read, write: if isAdmin();
     }
 
     match /listOrden/{orderId} {
-      allow read, write: if request.auth != null;
+      allow read, write: if isAdmin();
     }
 
-    // Colección Legal del Libro de Reclamaciones (Aislada a Cloud Functions)
+    // ---------------------------------------------------------------
+    // presupuestos y presupuestos_solicitados: HOY NINGÚN CÓDIGO de src/ los
+    // usa. Acceso mínimo: el dueño (campo userId) crea y lee los suyos;
+    // update/delete solo admin. Ajustar con hasOnly([...]) cuando exista el flujo.
+    // ---------------------------------------------------------------
+    match /presupuestos/{budgetId} {
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().size() <= 30;
+      allow read: if isAdmin()
+        || (isSignedIn() && resource.data.get('userId', '') == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    match /presupuestos_solicitados/{solicitudId} {
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().size() <= 30;
+      allow read: if isAdmin()
+        || (isSignedIn() && resource.data.get('userId', '') == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    // ---------------------------------------------------------------
+    // Colecciones exclusivas del backend (Cloud Functions con Admin SDK,
+    // que ignora estas reglas). Denegadas explícitamente al cliente.
+    // ---------------------------------------------------------------
     match /libro_de_reclamaciones/{reclamoId} {
+      allow read, write: if false;
+    }
+
+    match /contact_submissions/{submissionId} {
+      allow read, write: if false;
+    }
+
+    match /rate_limits/{limitId} {
+      allow read, write: if false;
+    }
+
+    // Cierre por defecto (documentado): todo lo no listado queda denegado.
+    // Las coincidencias se combinan con OR, así que esto no anula lo anterior.
+    match /{document=**} {
       allow read, write: if false;
     }
   }
