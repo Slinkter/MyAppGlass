@@ -255,7 +255,7 @@ Total Presupuesto   = (Subtotal Materiales + Costo Instalación) × 1.18   (IGV)
 ```
 
 ### 📄 Impresión & Descarga en PDF:
-- Hoja membretada oficial con logo de **Glass & Aluminum Company S.A.C.**, RUC `20601542407`, dirección en La Molina, teléfonos y código de presupuesto con código QR de verificación.
+- Hoja membretada oficial con logo de **Glass & Aluminum Company S.A.C.**, RUC `20606432870`, dirección en La Molina, teléfonos y código de presupuesto con código QR de verificación.
 - Hoja de estilo CSS `@media print` optimizada para salida limpia en A4 sin botones ni cabeceras web superfluas.
 
 ---

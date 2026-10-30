@@ -64,7 +64,7 @@ describe("E-commerce & Inventario - Zod Schemas Validation", () => {
       creatorRole: "admin",
       customerData: {
         fullName: "Arq. María Elena Prado",
-        dniRuc: "20601542407",
+        dniRuc: "20606432870",
         email: "obras@pradoarq.pe",
         phone: "996537435",
         address: "Calle Los Cedros 340",

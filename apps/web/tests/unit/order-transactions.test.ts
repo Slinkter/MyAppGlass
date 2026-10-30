@@ -46,7 +46,7 @@ describe("Módulo de Ventas & Despacho - Pruebas Unitarias de Contratos y Transa
       adminName: "Luis Joya",
       clientId: "cli_constructora_fresnos",
       clientName: "Constructora Los Fresnos S.A.C.",
-      clientDniRuc: "20601542407",
+      clientDniRuc: "20606432870",
       clientPhone: "974278303",
       clientAddress: "Av. Los Fresnos 1214",
       clientDistrict: "La Molina",

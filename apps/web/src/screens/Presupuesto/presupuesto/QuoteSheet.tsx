@@ -31,10 +31,10 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
             GLASS & ALUMINUM COMPANY S.A.C.
           </Heading>
           <Text fontSize="xs" fontWeight="bold" color="gray.600">
-            RUC: 20601542407 | VIDRIERÍA Y CARPINTERÍA DE ALUMINIO
+            RUC: {companyData.ruc} | VIDRIERÍA Y CARPINTERÍA DE ALUMINIO
           </Text>
           <Text fontSize="xs" color="gray.600">
-            {`Av. Los Fresnos 1250, La Molina, Lima — Tel: (01) ${companyData.whatsappDisplay} / ${companyData.contactPhone.replace(/-/g, " ")}`}
+            {`${companyData.direccion} — Tel: (01) ${companyData.whatsappDisplay} / ${companyData.contactPhone.replace(/-/g, " ")}`}
           </Text>
           <Text fontSize="xs" color="gray.600">
             {`Web: www.gyacompany.com | Email: ${companyData.salesEmail}`}

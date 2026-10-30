@@ -5,7 +5,7 @@ export const SAMPLE_CLIENTS: ClientProfile[] = [
   {
     userId: "cli_01",
     fullName: "Constructora Los Fresnos S.A.C.",
-    dniRuc: "20601542407",
+    dniRuc: "20606432870",
     phone: "974278303",
     email: "compras@losfresnos.pe",
     address: "Av. Los Fresnos 1214",

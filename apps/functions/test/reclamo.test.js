@@ -156,7 +156,7 @@ describe("sendEmailLogic (reclamo)", () => {
   });
 
   test("RUC válido de 11 dígitos con prefijo 20 => ok", async () => {
-    const r = await sendEmailLogic(h.reclamoValido({ tipoDocumento: "RUC", numeroDocumento: "20601542407" }), ctx.admin);
+    const r = await sendEmailLogic(h.reclamoValido({ tipoDocumento: "RUC", numeroDocumento: "20606432870" }), ctx.admin);
     assert.match(r.id, PATRON_CODIGO.REC);
     assert.equal(resendCtl.llamadas.length, 2);
     assert.equal(ctx.admin.escrituras.length, 1);

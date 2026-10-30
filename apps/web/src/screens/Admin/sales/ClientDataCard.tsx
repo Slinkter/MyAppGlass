@@ -52,7 +52,7 @@ export const ClientDataCard: React.FC<ClientDataCardProps> = ({ clientForm, onCh
           <Input
             borderRadius="xl"
             name="dniRuc"
-            placeholder="ej. 20601542407"
+            placeholder="ej. 20606432870"
             value={clientForm.dniRuc}
             onChange={onChange}
           />

@@ -8,7 +8,7 @@ const createAdminEmailHtml = (data, reclamoId, timestampFormatted) => `
   <div style="font-family: Arial, sans-serif; padding: 24px; border: 1px solid #e2e8f0; border-radius: 8px; max-width: 650px; color: #1e293b; line-height: 1.5;">
     <div style="border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 20px;">
       <h2 style="margin: 0; color: #0f172a; font-size: 20px;">HOJA DE RECLAMACIÓN VIRTUAL</h2>
-      <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Razón Social: <strong>GLASS & ALUMINUM COMPANY S.A.C.</strong> | RUC: <strong>20601542407</strong></p>
+      <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Razón Social: <strong>GLASS & ALUMINUM COMPANY S.A.C.</strong> | RUC: <strong>20606432870</strong></p>
       <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Código de Hoja: <strong style="color: #0f172a;">${sanitizeHtml(reclamoId)}</strong> | Fecha: <strong>${timestampFormatted}</strong></p>
     </div>
 
@@ -61,7 +61,7 @@ const createClientEmailHtml = (data, reclamoId, timestampFormatted) => `
   <div style="font-family: Arial, sans-serif; padding: 24px; border: 1px solid #e2e8f0; border-radius: 8px; max-width: 650px; color: #1e293b; line-height: 1.5;">
     <div style="border-bottom: 2px solid #cc0202; padding-bottom: 14px; margin-bottom: 20px; text-align: center;">
       <h2 style="margin: 0; color: #0f172a; font-size: 22px;">CONSTANCIA DE HOJA DE RECLAMACIÓN VIRTUAL</h2>
-      <p style="margin: 6px 0 0 0; color: #475569; font-size: 13px;"><strong>GLASS & ALUMINUM COMPANY S.A.C.</strong> | RUC: <strong>20601542407</strong></p>
+      <p style="margin: 6px 0 0 0; color: #475569; font-size: 13px;"><strong>GLASS & ALUMINUM COMPANY S.A.C.</strong> | RUC: <strong>20606432870</strong></p>
       <p style="margin: 2px 0 0 0; color: #64748b; font-size: 12px;">Calle Los Cedros Mz. E Lt. 7, Huertos de La Molina, Lima - Perú</p>
     </div>
 
