@@ -3,6 +3,7 @@ import React from "react";
 import ProjectCardContent from "./ProjectCardContent";
 import { useRouter } from "next/navigation";
 import logger from "@shared/utils/logger";
+import { getProjectHref } from "@features/projects/hooks/projectMappers";
 
 export interface ProjectCardProps {
   id: string | number;
@@ -31,7 +32,7 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo((props) => {
       logger.warn({ id, props }, "ProjectCard: Attempted to navigate with undefined ID");
       return;
     }
-    router.push(`/proyectos/${id}`);
+    router.push(getProjectHref(id));
   }, [id, residencial, address, year, router, props]);
 
   return (

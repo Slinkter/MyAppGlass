@@ -15,7 +15,8 @@ import { Box, HStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
-import { getProjects } from "@shared/services/projectService";
+import { useProjects } from "@features/projects/hooks/useProjects";
+import { ProjectCardSkeletons } from "./ProjectSkeletons";
 import type { Project } from "@shared/types/project";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
 import logger from "@shared/utils/logger";
@@ -35,11 +36,13 @@ const normalizeYear = (year?: string | number): string => {
  * @description Orchestrator for the projects gallery, implementing Infinite Scroll (O1) for high performance.
  */
 const ProjectsList: React.FC = React.memo(() => {
-  const allProjects = useMemo(() => {
-    const projects = [...getProjects()].reverse();
+  // Firestore en cliente con fallback local (ver useProjects); ya viene más reciente primero.
+  const { data, isLoading } = useProjects();
+  const allProjects = useMemo<Project[]>(() => {
+    const projects = data ?? [];
     logger.debug({ total: projects.length }, "Projects loaded");
     return projects;
-  }, []);
+  }, [data]);
 
   // Get unique years
   const years = useMemo(() => {
@@ -146,7 +149,8 @@ const ProjectsList: React.FC = React.memo(() => {
           pointerEvents: isPending ? "none" : "auto",
         }}
       >
-        {preloadedProjects.map((project, index) => (
+        {isLoading && <ProjectCardSkeletons />}
+        {!isLoading && preloadedProjects.map((project, index) => (
           <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>
             <ProjectCard
               {...project}

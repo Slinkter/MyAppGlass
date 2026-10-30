@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useParams } from "next/navigation";
 import {
   Box,
   Flex,
@@ -20,12 +19,12 @@ import { serviceFaqsMap, defaultServiceFaqs } from "../data/serviceFaqs";
 
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string } };
+  /** Slug del servicio, para elegir las FAQ (en /servicios/ver no hay param de ruta). */
+  serviceSlug?: string;
 }
 
-const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
+const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData, serviceSlug }) => {
   const { seo, about, systems, imageLists } = pageData;
-  const params = useParams();
-  const serviceSlug = params?.serviceSlug as string | undefined;
   
   const faqs = serviceSlug && serviceFaqsMap[serviceSlug] 
     ? serviceFaqsMap[serviceSlug] 

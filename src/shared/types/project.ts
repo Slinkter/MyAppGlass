@@ -22,4 +22,6 @@ export interface Project {
   category?: string;
   thumbnail?: string;
   client?: string;
+  /** Servicio asociado (solo proyectos provenientes de Firestore). */
+  serviceId?: string;
 }

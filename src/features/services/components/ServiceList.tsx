@@ -5,27 +5,24 @@ import { Box, HStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
-import { getServices } from "@features/services/services/serviceService";
+import { useServices, type ServiceListItem } from "@features/services/hooks/useServices";
+import { ServiceCardSkeletons } from "./ServiceSkeletons";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Search } from "lucide-react";
 
-import { Service } from "@features/services/services/serviceService";
-
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
 
-export interface ServiceData extends Service {
-    category: string;
-    description: string;
-}
+export type ServiceData = ServiceListItem;
 
 /**
  * @component ServiceList
  * @description Renderiza la lista de servicios con filtro por categoría e Infinite Scroll.
  */
 const ServiceList: React.FC = React.memo(() => {
-    // Loading state removed; always render content
-    const allServices = useMemo(() => getServices() as ServiceData[], []);
+    // Firestore en cliente con fallback local (ver useServices).
+    const { data, isLoading } = useServices();
+    const allServices = useMemo<ServiceData[]>(() => data ?? [], [data]);
 
     const filterFn = useCallback((items: ServiceData[], category: string) => {
         if (category === "Todos") return items;
@@ -98,7 +95,9 @@ const ServiceList: React.FC = React.memo(() => {
                 </HStack>
             </Box>
 
-            {totalFilteredCount === 0 ? (
+            {isLoading ? (
+                <ServiceCardSkeletons />
+            ) : totalFilteredCount === 0 ? (
                 <Box gridColumn="1 / -1" py="22">
                     <EmptyState
                         icon={<Search />}

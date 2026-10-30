@@ -4,7 +4,7 @@
  * @description Inmersive detail view for projects.
  */
 
-import React, { useMemo, useState, useTransition, useCallback } from "react";
+import React, { useState, useTransition, useCallback } from "react";
 import { useParams } from "next/navigation";
 import {
   Box,
@@ -18,11 +18,12 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Map, Image as Photo, Home, Building2, MapPin, Calendar } from "lucide-react";
-import { getProjectById } from "@shared/services/projectService";
+import { useProject } from "@features/projects/hooks/useProjects";
+import { ProjectDetailSkeleton } from "@features/projects/components/ProjectSkeletons";
 import VisualViewer from "@features/projects/components/modal/VisualViewer";
 import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
 import BackButton from "@shared/components/navigation/BackButton";
-import { ErrorView as ErrorPage } from "@/screens/error";
+import { ErrorView as ErrorPage } from "@/screens/Error";
 
 export interface ViewSelectorProps {
   activeMode: string;
@@ -69,10 +70,15 @@ const ViewSelector: React.FC<ViewSelectorProps> = React.memo(({ activeMode, onSe
 
 ViewSelector.displayName = "ViewSelector";
 
-const ProjectDetailView: React.FC = () => {
+interface ProjectDetailViewProps {
+  /** Si se omite se toma de la ruta `/proyectos/[projectId]`. */
+  projectId?: string;
+}
+
+const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({ projectId: projectIdProp }) => {
   const params = useParams();
-  const projectId = params?.projectId as string | undefined;
-  const project = useMemo(() => getProjectById(projectId || ""), [projectId]);
+  const projectId = projectIdProp ?? (params?.projectId as string | undefined);
+  const { data: project, isLoading } = useProject(projectId);
   const [viewMode, setViewMode] = useState<"gallery" | "map">("gallery");
   const [isPending, startTransition] = useTransition();
 
@@ -82,6 +88,8 @@ const ProjectDetailView: React.FC = () => {
     });
   }, []);
 
+  if (!projectId) return <ErrorPage />;
+  if (isLoading) return <ProjectDetailSkeleton />;
   if (!project) return <ErrorPage />;
 
   return (
@@ -130,7 +138,7 @@ const ProjectDetailView: React.FC = () => {
                 viewMode={viewMode}
                 lat={project.lat}
                 lng={project.lng}
-                photos={project.photosObra}
+                photos={project.photos ?? project.photosObra}
                 projectData={project}
               />
             </Skeleton>
