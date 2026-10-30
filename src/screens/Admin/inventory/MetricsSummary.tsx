@@ -41,34 +41,34 @@ export const MetricsSummary: React.FC<MetricsSummaryProps> = ({ products }) => {
       label: "Total Productos",
       value: metrics.totalItems,
       subtitle: `${metrics.totalUnits} unidades en stock`,
-      color: "#38bdf8",
-      bg: "rgba(56, 189, 248, 0.1)",
+      color: "status.info",
+      bg: "status.infoSoft",
       icon: <Package size={22} />,
     },
     {
       label: "Stock Crítico",
       value: metrics.criticalStock,
       subtitle: "Productos agotados (0 stock)",
-      color: metrics.criticalStock > 0 ? "#f87171" : "#34d399",
-      bg: "rgba(239, 68, 68, 0.1)",
+      color: metrics.criticalStock > 0 ? "status.danger" : "status.success",
+      bg: "status.dangerSoft",
       icon: <AlertTriangle size={22} />,
-      iconColor: "#f87171",
+      iconColor: "status.danger",
     },
     {
       label: "Stock Bajo",
       value: metrics.lowStock,
       subtitle: "Bajo umbral de alerta mínima",
-      color: metrics.lowStock > 0 ? "#fbbf24" : "#34d399",
-      bg: "rgba(245, 158, 11, 0.1)",
+      color: metrics.lowStock > 0 ? "status.warning" : "status.success",
+      bg: "status.warningSoft",
       icon: <TrendingUp size={22} />,
-      iconColor: "#fbbf24",
+      iconColor: "status.warning",
     },
     {
       label: "Valorización de Stock",
       value: `S/. ${metrics.totalInventoryValue.toLocaleString("es-PE", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`,
       subtitle: "Valor de venta comercial",
-      color: "#34d399",
-      bg: "rgba(52, 211, 153, 0.1)",
+      color: "status.success",
+      bg: "status.successSoft",
       icon: <DollarSign size={22} />,
     },
   ];
@@ -84,7 +84,7 @@ export const MetricsSummary: React.FC<MetricsSummaryProps> = ({ products }) => {
           border="1px solid"
           borderColor="border.default"
           backdropFilter="blur(16px)"
-          boxShadow="0 4px 20px rgba(0, 0, 0, 0.04)"
+          boxShadow="adminCard"
         >
           <HStack justify="space-between" align="start">
             <VStack align="start" gap="1">

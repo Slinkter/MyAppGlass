@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
-import { ProjectsView } from "@/screens/projects";
+import { ProjectsView } from "@/screens/Projects";
 
 export const metadata: Metadata = {
   title: "Proyectos y Obras Entregadas | GYA Glass & Aluminum",

@@ -1,9 +1,9 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
-import { ServiceDetailView } from "@/screens/services";
+import { ServiceDetailView } from "@/screens/Services";
 import { getServiceBySlug, getServices } from "@/features/services/services/serviceService";
 import { servicePageDataMap } from "@/features/services/data/servicePageDataMap";
-import { getServiceJsonLd, getBreadcrumbJsonLd, getFaqJsonLd } from "@/shared/utils/seo-utils";
+import { getServiceJsonLd, getSectionBreadcrumbJsonLd, getFaqJsonLd } from "@/shared/utils/seo-utils";
 import { serviceFaqsMap, defaultServiceFaqs } from "@/features/services/data/serviceFaqs";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
@@ -83,11 +83,10 @@ export default async function Page({ params }: Props) {
     : defaultServiceFaqs;
 
   const serviceJsonLd = getServiceJsonLd(title, description, url);
-  const breadcrumbJsonLd = getBreadcrumbJsonLd([
-    { name: "Inicio", url: SITE_URL },
-    { name: "Servicios", url: `${SITE_URL}/servicios` },
-    { name: title, url },
-  ]);
+  const breadcrumbJsonLd = getSectionBreadcrumbJsonLd(
+    { name: "Servicios", path: "/servicios" },
+    { name: title, url }
+  );
   const faqJsonLd = getFaqJsonLd(faqs);
 
   return (

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ReportsScreen } from "@/screens/Admin/ReportsScreen";
-import { AdminRouteGuard } from "@/shared/components/guards/AdminRouteGuard";
+import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
   title: "Historial de Ventas y Reportes | Glass & Aluminum Company S.A.C.",

@@ -3,7 +3,7 @@
 import React from "react";
 import { Box, Text, Flex, Card } from "@chakra-ui/react";
 import { LucideIcon } from "lucide-react";
-import { CopyButton } from "./copy-button";
+import { CopyButton } from "./CopyButton";
 
 interface InfoItemProps {
   icon: LucideIcon;

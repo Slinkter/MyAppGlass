@@ -6,8 +6,10 @@ import {
   createUserWithEmailAndPassword,
   signOut as fbSignOut,
 } from "firebase/auth";
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
-import { auth, db } from "@/shared/lib/firebase";
+import { serverTimestamp } from "firebase/firestore";
+import { auth } from "@/shared/lib/firebase";
+import { getUserRoleDoc, provisionUserDoc, createClientUserDoc } from "@/shared/api/firebase/usersRepository";
+import { getClientProfile, setClientProfile } from "@/shared/api/firebase/clientsRepository";
 import { UserRole, ClientProfile } from "@/shared/schemas/ecommerce-schemas";
 import { logger } from "@/shared/utils/logger";
 
@@ -45,20 +47,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           );
 
           try {
-            const userRef = doc(db, "users", currentUser.uid);
-            const clientRef = doc(db, "clientes", currentUser.uid);
-
             // Parallelize independent Firestore reads
-            const [userDoc, clientDoc] = await Promise.all([
-              getDoc(userRef),
-              getDoc(clientRef),
+            const [fetchedRoleRaw, clientProfile] = await Promise.all([
+              getUserRoleDoc(currentUser.uid),
+              getClientProfile(currentUser.uid),
             ]);
 
             // Handle user role
-            if (userDoc.exists()) {
-              const data = userDoc.data();
-              const fetchedRole = String(data?.role || "").toLowerCase().trim();
-              setRole(fetchedRole === "admin" ? "admin" : "cliente");
+            if (fetchedRoleRaw !== null) {
+              setRole(fetchedRoleRaw === "admin" ? "admin" : "cliente");
             } else {
               const determinedRole = isEmailAdmin ? "admin" : "cliente";
               setRole(determinedRole);
@@ -67,21 +64,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               // 2. Role is derived from email domain, not user input
               // 3. Firestore rules enforce admin-only write paths for elevated roles
               // 4. Prefer moving this to Cloud Functions when functions/ is unfrozen
-              await setDoc(userRef, {
-                uid: currentUser.uid,
-                email: currentUser.email,
-                role: determinedRole,
-                createdAt: serverTimestamp(),
-                updatedAt: serverTimestamp(),
-              }, { merge: true });
+              await provisionUserDoc(currentUser.uid, currentUser.email, determinedRole);
             }
 
             // Handle client profile
-            if (clientDoc.exists()) {
-              setProfile(clientDoc.data() as ClientProfile);
-            } else {
-              setProfile(null);
-            }
+            setProfile(clientProfile);
           } catch (err: unknown) {
             logger.warn("Consulta/aprovisionamiento de rol en Firestore en modo tolerante", err);
             setRole(isEmailAdmin ? "admin" : "cliente");
@@ -127,13 +114,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       // Parallelize independent Firestore writes
       await Promise.all([
-        setDoc(doc(db, "users", uid), {
-          uid,
-          email,
-          role: "cliente",
-          createdAt: serverTimestamp(),
-        }),
-        setDoc(doc(db, "clientes", uid), fullProfile),
+        createClientUserDoc(uid, email),
+        setClientProfile(uid, fullProfile),
       ]);
 
       setProfile(fullProfile);

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClientManagementScreen } from "@/screens/Admin/ClientManagementScreen";
-import { AdminRouteGuard } from "@/shared/components/guards/AdminRouteGuard";
+import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
   title: "Gestión de Clientes y Empresas | Glass & Aluminum Company S.A.C.",

@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
-import { ProjectDetailView } from "@/screens/projects";
+import { ProjectDetailView } from "@/screens/Projects";
 import { getProjectById, getProjects } from "@shared/services/projectService";
 
 export function generateStaticParams() {

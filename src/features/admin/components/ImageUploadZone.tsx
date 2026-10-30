@@ -9,7 +9,6 @@ import {
   Button,
   Spinner,
   Badge,
-  Image,
 } from "@chakra-ui/react";
 import {
   UploadCloud,

@@ -15,7 +15,7 @@ import type {
   CreateServiceInput,
   UpdateServiceInput,
 } from "@/shared/api/firebase/types";
-import { seedDatabase } from "@/shared/api/firebase/seedData";
+import { seedDatabase } from "@/features/admin/seed/seedData";
 import { env } from "@/shared/config/env";
 import { toaster } from "@/components/ui/toaster-instance";
 

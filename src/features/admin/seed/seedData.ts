@@ -16,8 +16,6 @@ import {
   collection,
   doc,
   getDocs,
-  query,
-  where,
   writeBatch,
   serverTimestamp,
 } from "firebase/firestore";
@@ -28,7 +26,7 @@ import {
   CreateProjectSchema,
   type CreateServiceInput,
   type CreateProjectInput,
-} from "./types";
+} from "@/shared/api/firebase/types";
 import { services as localServices } from "@/features/services/data/services";
 import { servicePageDataMap } from "@/features/services/data/servicePageDataMap";
 import { projects as localProjects } from "@/shared/data/projects";

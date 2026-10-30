@@ -9,8 +9,6 @@ import {
   Badge,
   Button,
   Spinner,
-  IconButton,
-  Image,
 } from "@chakra-ui/react";
 import {
   Edit2,

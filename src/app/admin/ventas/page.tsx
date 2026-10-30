@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SalesOrderScreen } from "@/screens/Admin/SalesOrderScreen";
-import { AdminRouteGuard } from "@/shared/components/guards/AdminRouteGuard";
+import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
   title: "Emisión de Ventas y Despacho | Glass & Aluminum Company S.A.C.",

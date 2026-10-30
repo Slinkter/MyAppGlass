@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
-import ContactPageClient from "./contact-page-client";
+import ContactPageClient from "./ContactPageClient";
 
 export const metadata: Metadata = {
   title: "Cotizar Vidriería en La Molina | GYA Company",

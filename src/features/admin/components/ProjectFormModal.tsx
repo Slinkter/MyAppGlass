@@ -1,31 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  VStack,
-  HStack,
-  Text,
-  Input,
-  Textarea,
-  Button,
-  Spinner,
-  SimpleGrid,
-} from "@chakra-ui/react";
-import {
-  DialogRoot,
-  DialogContent,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  DialogTitle,
-  DialogCloseTrigger,
-} from "@/components/ui/dialog";
+import { Box, Input, Textarea, SimpleGrid } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Sparkles, Building2 } from "lucide-react";
-import { ImageUploadZone } from "./ImageUploadZone";
-import { AlbumGalleryUploader, type GalleryPhotoItem } from "./AlbumGalleryUploader";
+import { Building2 } from "lucide-react";
+import { type GalleryPhotoItem } from "./AlbumGalleryUploader";
+import { ProjectServiceSelect } from "./form/ProjectServiceSelect";
+import { validateProjectForm } from "./form/projectFormValidation";
+import { FormModalShell } from "./form/FormModalShell";
+import { TitleSlugFields } from "./form/TitleSlugFields";
+import { MediaFields } from "./form/MediaFields";
+import { PublishedCheckbox } from "./form/PublishedCheckbox";
+import { useAutoSlug } from "../hooks/useAutoSlug";
 import type {
   Project,
   CreateProjectInput,
@@ -54,7 +40,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
 
   // Estados del formulario
   const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState("");
+  const { slug, syncFromTitle, setManualSlug, resetSlug } = useAutoSlug();
   const [client, setClient] = useState("");
   const [location, setLocation] = useState("");
   const [serviceId, setServiceId] = useState("");
@@ -63,14 +49,12 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
   const [published, setPublished] = useState(true);
   const [coverImage, setCoverImage] = useState("");
   const [galleryItems, setGalleryItems] = useState<GalleryPhotoItem[]>([]);
-  const [autoSlug, setAutoSlug] = useState(true);
   const [formError, setFormError] = useState<string | null>(null);
 
   // Inicialización al abrir o cambiar de proyecto
   useEffect(() => {
     if (project) {
       setTitle(project.title || "");
-      setSlug(project.slug || "");
       setClient(project.client || "");
       setLocation(project.location || "");
       setServiceId(project.serviceId || (servicesList[0]?.id ?? "general"));
@@ -85,11 +69,10 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
           caption: g.caption || "",
         }))
       );
-      setAutoSlug(false);
+      resetSlug(project.slug || "", false);
     } else {
       // Modo creación
       setTitle("");
-      setSlug("");
       setClient("");
       setLocation("Lima, Perú");
       setServiceId(servicesList[0]?.id ?? "general");
@@ -98,57 +81,23 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
       setPublished(true);
       setCoverImage("");
       setGalleryItems([]);
-      setAutoSlug(true);
+      resetSlug("", true);
     }
     setFormError(null);
-  }, [project, isOpen, servicesList]);
+  }, [project, isOpen, servicesList, resetSlug]);
 
-  // Generador de slug automático
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
+  const handleTitleChange = (val: string) => {
     setTitle(val);
-    if (autoSlug) {
-      const generatedSlug = val
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)+/g, "");
-      setSlug(generatedSlug);
-    }
+    syncFromTitle(val);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
 
-    // Validaciones
-    if (!title.trim()) {
-      setFormError("El título de la obra es obligatorio");
-      return;
-    }
-    if (!slug.trim()) {
-      setFormError("El slug del proyecto es obligatorio");
-      return;
-    }
-    if (!client.trim()) {
-      setFormError("El cliente o constructora es obligatorio");
-      return;
-    }
-    if (!location.trim()) {
-      setFormError("La ubicación es obligatoria");
-      return;
-    }
-    if (!serviceId.trim()) {
-      setFormError("Debes seleccionar el servicio vinculado");
-      return;
-    }
-    if (!description.trim()) {
-      setFormError("La descripción técnica del proyecto es obligatoria");
-      return;
-    }
-    if (!coverImage.trim()) {
-      setFormError("Debes cargar una foto principal de portada");
+    const validationError = validateProjectForm({ title, slug, client, location, serviceId, description, coverImage });
+    if (validationError) {
+      setFormError(validationError);
       return;
     }
 
@@ -179,244 +128,102 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
   };
 
   return (
-    <DialogRoot
-      open={isOpen}
-      onOpenChange={(details) => !details.open && onClose()}
-      size="xl"
-      scrollBehavior="inside"
+    <FormModalShell
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      maxW="800px"
+      icon={<Building2 size={20} style={{ flexShrink: 0 }} />}
+      iconBg="rgba(168, 85, 247, 0.12)"
+      iconColor="#a855f7"
+      title={isEditing ? `Editar Obra: ${project?.title}` : "Registrar Nueva Obra / Proyecto"}
+      subtitle="Portafolio fotográfico de carpintería de aluminio y cristalería arquitectónica"
+      formError={formError}
+      loading={loading}
+      colorPalette="purple"
+      submitLabel={isEditing ? "Guardar Cambios" : "Publicar Proyecto"}
     >
-      <DialogContent maxW={{ base: "95vw", md: "800px" }} borderRadius="2xl" p="0" overflow="hidden">
-        <form onSubmit={handleSubmit}>
-          {/* Header */}
-          <DialogHeader p="5" borderBottom="1px solid" borderColor="border.default" bg="bg.subtle">
-            <HStack justify="space-between">
-              <HStack gap="2.5">
-                <Box
-                  p="2"
-                  borderRadius="lg"
-                  bg="rgba(168, 85, 247, 0.12)"
-                  color="#a855f7"
-                >
-                  <Building2 size={20} style={{ flexShrink: 0 }} />
-                </Box>
-                <VStack align="start" gap="0">
-                  <DialogTitle fontSize="lg" fontWeight="bold">
-                    {isEditing ? `Editar Obra: ${project?.title}` : "Registrar Nueva Obra / Proyecto"}
-                  </DialogTitle>
-                  <Text fontSize="xs" color="text.muted">
-                    Portafolio fotográfico de carpintería de aluminio y cristalería arquitectónica
-                  </Text>
-                </VStack>
-              </HStack>
-              <DialogCloseTrigger />
-            </HStack>
-          </DialogHeader>
+      <TitleSlugFields
+        titleLabel="Nombre del Proyecto / Obra"
+        titlePlaceholder="Ej. Residencial Las Palmeras - Miraflores"
+        title={title}
+        onTitleChange={handleTitleChange}
+        slugLabel="Slug identificador"
+        slugPlaceholder="ej. residencial-las-palmeras"
+        slug={slug}
+        onSlugChange={setManualSlug}
+        routePrefix="/proyectos/"
+        slugFallback="slug-del-proyecto"
+      />
 
-          {/* Body */}
-          <DialogBody p="6">
-            <VStack gap="5" align="stretch">
-              {formError && (
-                <Box
-                  p="3"
-                  borderRadius="lg"
-                  bg="rgba(239, 68, 68, 0.1)"
-                  border="1px solid"
-                  borderColor="red.500"
-                  color="red.500"
-                  fontSize="sm"
-                >
-                  {formError}
-                </Box>
-              )}
+      {/* Cliente, Ubicación, Año y Servicio */}
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap="4">
+        <Field label="Cliente / Constructora" required>
+          <Input
+            placeholder="Ej. Inmobiliaria Panorama"
+            value={client}
+            onChange={(e) => setClient(e.target.value)}
+            required
+          />
+        </Field>
 
-              {/* Título y Slug */}
-              <SimpleGrid columns={{ base: 1, md: 2 }} gap="4">
-                <Field label="Nombre del Proyecto / Obra" required>
-                  <Input
-                    placeholder="Ej. Residencial Las Palmeras - Miraflores"
-                    value={title}
-                    onChange={handleTitleChange}
-                    required
-                  />
-                </Field>
+        <Field label="Ubicación" required>
+          <Input
+            placeholder="Ej. San Isidro, Lima"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
+        </Field>
 
-                <Field
-                  label="Slug identificador"
-                  required
-                  helperText={
-                    <Text fontSize="2xs" color="text.muted">
-                      Ruta web: /proyectos/{slug || "slug-del-proyecto"}
-                    </Text>
-                  }
-                >
-                  <Input
-                    placeholder="ej. residencial-las-palmeras"
-                    value={slug}
-                    onChange={(e) => {
-                      setAutoSlug(false);
-                      setSlug(e.target.value);
-                    }}
-                    required
-                  />
-                </Field>
-              </SimpleGrid>
+        <Field label="Año / Conclusión">
+          <Input
+            placeholder="Ej. 2025"
+            value={completedAt}
+            onChange={(e) => setCompletedAt(e.target.value)}
+          />
+        </Field>
 
-              {/* Cliente, Ubicación, Año y Servicio */}
-              <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap="4">
-                <Field label="Cliente / Constructora" required>
-                  <Input
-                    placeholder="Ej. Inmobiliaria Panorama"
-                    value={client}
-                    onChange={(e) => setClient(e.target.value)}
-                    required
-                  />
-                </Field>
+        <ProjectServiceSelect value={serviceId} onChange={setServiceId} servicesList={servicesList} />
+      </SimpleGrid>
 
-                <Field label="Ubicación" required>
-                  <Input
-                    placeholder="Ej. San Isidro, Lima"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    required
-                  />
-                </Field>
+      {/* Descripción */}
+      <Field
+        label="Memoria Descriptiva de la Obra"
+        required
+        helperText="Detalla los sistemas empleados (ej. Serie 35 con vidrio laminado 8mm incoloro, muro cortina, etc.)"
+      >
+        <Textarea
+          placeholder="Instalación integral de mamparas corredizas Serie 35 y ventanas herméticas antirruido con herrajes importados..."
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows={4}
+          required
+        />
+      </Field>
 
-                <Field label="Año / Conclusión">
-                  <Input
-                    placeholder="Ej. 2025"
-                    value={completedAt}
-                    onChange={(e) => setCompletedAt(e.target.value)}
-                  />
-                </Field>
+      <MediaFields
+        entity="projects"
+        entityId={project?.id || slug || "nuevo-proyecto"}
+        coverImage={coverImage}
+        onCoverChange={setCoverImage}
+        coverLabel="Foto de Portada de la Obra"
+        galleryItems={galleryItems}
+        onGalleryChange={setGalleryItems}
+        albumLabel="Álbum de Fotos de Obra (Avance y Conclusión)"
+        captionFieldLabel="Leyenda"
+        maxFiles={20}
+      />
 
-                <Field label="Servicio Principal" required>
-                  <select
-                    style={{
-                      width: "100%",
-                      height: "40px",
-                      paddingLeft: "12px",
-                      paddingRight: "12px",
-                      borderRadius: "6px",
-                      border: "1px solid var(--chakra-colors-border-default, #e2e8f0)",
-                      backgroundColor: "var(--chakra-colors-surface-card, transparent)",
-                      color: "inherit",
-                      fontSize: "14px",
-                    }}
-                    value={serviceId}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setServiceId(e.target.value)}
-                    required
-                  >
-                    {servicesList.length > 0 ? (
-                      servicesList.map((s) => (
-                        <option key={s.id} value={s.id}>
-                          {s.title}
-                        </option>
-                      ))
-                    ) : (
-                      <>
-                        <option value="ventanas">Ventanas de Aluminio</option>
-                        <option value="mamparas">Mamparas</option>
-                        <option value="duchas">Boxes de Ducha</option>
-                        <option value="parapeto">Parapetos de Vidrio</option>
-                        <option value="general">Carpintería General</option>
-                      </>
-                    )}
-                  </select>
-                </Field>
-              </SimpleGrid>
-
-              {/* Descripción */}
-              <Field
-                label="Memoria Descriptiva de la Obra"
-                required
-                helperText="Detalla los sistemas empleados (ej. Serie 35 con vidrio laminado 8mm incoloro, muro cortina, etc.)"
-              >
-                <Textarea
-                  placeholder="Instalación integral de mamparas corredizas Serie 35 y ventanas herméticas antirruido con herrajes importados..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  rows={4}
-                  required
-                />
-              </Field>
-
-              {/* Cover Image Upload */}
-              <Box pt="2">
-                <ImageUploadZone
-                  value={coverImage}
-                  onChange={setCoverImage}
-                  entity="projects"
-                  entityId={project?.id || slug || "nuevo-proyecto"}
-                  label="Foto de Portada de la Obra"
-                  aspectRatio="16/9"
-                />
-              </Box>
-
-              {/* Álbum Galería Múltiple */}
-              <Box pt="2">
-                <AlbumGalleryUploader
-                  items={galleryItems}
-                  onChange={setGalleryItems}
-                  entity="projects"
-                  entityId={project?.id || slug || "nuevo-proyecto"}
-                  label="Álbum de Fotos de Obra (Avance y Conclusión)"
-                  captionFieldLabel="Leyenda"
-                  maxFiles={20}
-                />
-              </Box>
-
-              {/* Publicación */}
-              <Box pt="3" borderTop="1px solid" borderColor="border.subtle">
-                <Checkbox
-                  checked={published}
-                  onCheckedChange={(details) => setPublished(Boolean(details.checked))}
-                >
-                  <VStack align="start" gap="0">
-                    <Text fontSize="sm" fontWeight="medium">
-                      Publicado en el catálogo público de Proyectos
-                    </Text>
-                    <Text fontSize="xs" color="text.muted">
-                      Visible inmediatamente en la galería y portafolio de obras de la empresa
-                    </Text>
-                  </VStack>
-                </Checkbox>
-              </Box>
-            </VStack>
-          </DialogBody>
-
-          {/* Footer */}
-          <DialogFooter p="5" borderTop="1px solid" borderColor="border.default" bg="bg.subtle">
-            <HStack justify="flex-end" gap="3">
-              <Button
-                variant="outline"
-                borderColor="border.default"
-                onClick={onClose}
-                disabled={loading}
-                type="button"
-              >
-                Cancelar
-              </Button>
-              <Button
-                colorPalette="purple"
-                type="submit"
-                disabled={loading}
-              >
-                {loading ? (
-                  <>
-                    <Spinner size="xs" />
-                    Guardando...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles size={16} style={{ flexShrink: 0 }} />
-                    {isEditing ? "Guardar Cambios" : "Publicar Proyecto"}
-                  </>
-                )}
-              </Button>
-            </HStack>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </DialogRoot>
+      {/* Publicación */}
+      <Box pt="3" borderTop="1px solid" borderColor="border.subtle">
+        <PublishedCheckbox
+          checked={published}
+          onChange={setPublished}
+          label="Publicado en el catálogo público de Proyectos"
+          description="Visible inmediatamente en la galería y portafolio de obras de la empresa"
+        />
+      </Box>
+    </FormModalShell>
   );
 };

@@ -29,9 +29,9 @@ import { companyData } from "@/shared/config/company-data";
 import { bankAccountsData } from "@/shared/data/bank-accounts";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
-import { InfoItem } from "@/shared/components/ui/info-item";
-import { CopyButton } from "@/shared/components/ui/copy-button";
-import { BankAccountCard } from "@screens/legal/components/bank-account-card";
+import { InfoItem } from "@/shared/components/ui/InfoItem";
+import { CopyButton } from "@/shared/components/ui/CopyButton";
+import { BankAccountCard } from "@screens/Legal/components/BankAccountCard";
 
 const fiscalData: Array<{
     icon: LucideIcon;

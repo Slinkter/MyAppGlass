@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AdminHubScreen } from "@/screens/Admin/AdminHubScreen";
-import { AdminRouteGuard } from "@/shared/components/guards/AdminRouteGuard";
+import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
   title: "Panel de Administración Maestro | Glass & Aluminum Company S.A.C.",

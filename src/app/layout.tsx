@@ -2,7 +2,7 @@ import { SITE_URL } from "@/shared/config/company-data";
 import type { Metadata, Viewport } from "next";
 import { Lora } from "next/font/google";
 import "../styles/global.css";
-import { Providers } from "./providers";
+import { Providers } from "./Providers";
 import { Box } from "@chakra-ui/react";
 import { AuraNavbar as Navbar } from "@/widgets/Navbar";
 import { Footer } from "@/widgets/Footer";

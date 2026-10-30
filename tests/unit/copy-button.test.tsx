@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import React from 'react';
-import { CopyButton } from '@/shared/components/ui/copy-button';
+import { CopyButton } from '@/shared/components/ui/CopyButton';
 import { ChakraProvider } from '@chakra-ui/react';
 import { system } from '@/shared/providers/theme';
 import { toaster } from '@/components/ui/toaster-instance';

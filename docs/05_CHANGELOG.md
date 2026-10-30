@@ -90,7 +90,7 @@ All notable changes to this project will be documented in this file.
 - **Endpoints de Producción para API**: Vinculación directa con las URLs reales de producción de las Firebase Functions (`submitContacto`, `submitReclamo`, `checkStatus`) en el entorno local.
 
 ### Changed
-- **Optimización de Interfaz Móvil**: Ocultamiento del botón flotante de WhatsApp en dispositivos móviles (`display={{ base: "none", md: "flex" }}`) en `src/widgets/FloatingActions/floating-whatsapp.tsx` para resolver colisión y superposición con el botón del menú flotante móvil en `src/widgets/Navbar/MobileNav.tsx`. En pantallas desktop se mantiene en la esquina inferior derecha.
+- **Optimización de Interfaz Móvil**: Ocultamiento del botón flotante de WhatsApp en dispositivos móviles (`display={{ base: "none", md: "flex" }}`) en `src/widgets/FloatingActions/FloatingWhatsApp.tsx` para resolver colisión y superposición con el botón del menú flotante móvil en `src/widgets/Navbar/MobileNav.tsx`. En pantallas desktop se mantiene en la esquina inferior derecha.
 
 ## [2026-04-25] - Production Routing & Reclamation Book Fixes
 

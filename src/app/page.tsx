@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
-import { HomeView } from "@/screens/home";
+import { HomeView } from "@/screens/Home";
 
 export const metadata: Metadata = {
   title: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",

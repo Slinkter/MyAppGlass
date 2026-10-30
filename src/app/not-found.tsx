@@ -1,4 +1,4 @@
-import { ErrorView } from "@/screens/error";
+import { ErrorView } from "@/screens/Error";
 
 export default function NotFound() {
   return <ErrorView />;

@@ -2,4 +2,5 @@ export * from "./types";
 export * from "./servicesRepository";
 export * from "./projectsRepository";
 export * from "./storageService";
-export * from "./seedData";
+export * from "./clientsRepository";
+export * from "./usersRepository";

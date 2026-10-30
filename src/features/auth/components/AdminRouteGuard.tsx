@@ -35,7 +35,7 @@ export const AdminRouteGuard: React.FC<AdminRouteGuardProps> = ({ children }) =>
         bg="bg.surface"
         border="1px solid"
         borderColor="border.subtle"
-        boxShadow="0 8px 32px rgba(0, 0, 0, 0.12)"
+        boxShadow="elevatedLg"
         textAlign="center"
       >
         <VStack gap="5">

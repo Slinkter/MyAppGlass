@@ -2,8 +2,8 @@ import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPosts } from "@/features/blog/services/blogService";
-import BlogPostView from "@/screens/blog/ui/BlogPostView";
-import { getBreadcrumbJsonLd } from "@/shared/utils/seo-utils";
+import BlogPostView from "@/screens/Blog/ui/BlogPostView";
+import { getBlogPostJsonLd, getSectionBreadcrumbJsonLd } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 interface PageProps {
@@ -68,39 +68,11 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const postUrl = `${SITE_URL}/blog/${slug}`;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.title,
-    "image": `${SITE_URL}${post.image}`,
-    "datePublished": post.date,
-    "dateModified": post.date,
-    "author": {
-      "@type": "Organization",
-      "name": "Glass & Aluminum Company S.A.C.",
-      "url": SITE_URL
-    },
-    "description": post.description || post.excerpt,
-    "publisher": {
-      "@type": "Organization",
-      "name": "Glass & Aluminum Company S.A.C.",
-      "url": SITE_URL,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${SITE_URL}/images/branding-LogoCompanytrans.webp`
-      }
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": postUrl
-    }
-  };
-
-  const breadcrumbJsonLd = getBreadcrumbJsonLd([
-    { name: "Inicio", url: SITE_URL },
-    { name: "Blog de Expertos", url: `${SITE_URL}/blog` },
-    { name: post.title, url: postUrl },
-  ]);
+  const jsonLd = getBlogPostJsonLd(post, postUrl);
+  const breadcrumbJsonLd = getSectionBreadcrumbJsonLd(
+    { name: "Blog de Expertos", path: "/blog" },
+    { name: post.title, url: postUrl }
+  );
 
   return (
     <ComponentErrorBoundary>

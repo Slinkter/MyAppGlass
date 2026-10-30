@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { InventoryDashboardScreen } from "@/screens/Admin/InventoryDashboardScreen";
-import { AdminRouteGuard } from "@/shared/components/guards/AdminRouteGuard";
+import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
   title: "Gestión de Inventario | Glass & Aluminum Company S.A.C.",

@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
-import { ServicesListView } from "@/screens/services";
+import { ServicesListView } from "@/screens/Services";
 
 export const metadata: Metadata = {
   title: "Servicios de Vidriería y Aluminio | GYA Company La Molina",

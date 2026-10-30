@@ -25,7 +25,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";
-import { AdminRouteGuard } from "@/shared/components/guards/AdminRouteGuard";
+import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export interface AdminLayoutProps {
   children: ReactNode;

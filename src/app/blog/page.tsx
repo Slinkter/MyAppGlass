@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
-import { BlogView } from "@/screens/blog";
+import { BlogView } from "@/screens/Blog";
 
 export const metadata: Metadata = {
     title: "Blog de Vidriería y Aluminio | Glass & Aluminum Company S.A.C.",

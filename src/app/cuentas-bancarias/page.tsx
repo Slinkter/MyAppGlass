@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
-import { BankAccountsView } from "@/screens/legal";
+import { BankAccountsView } from "@/screens/Legal";
 
 export const metadata: Metadata = {
   title: "Cuentas Bancarias Oficiales | GYA Company",

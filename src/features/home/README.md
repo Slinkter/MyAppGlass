@@ -17,7 +17,6 @@ This module contains all components and services related to the main landing pag
 - `ClientsSection`: Displays a grid of clients with subtle animations.
 - `FeaturesSection`: Highlights key technical and business advantages.
 - `StoreSection` (`store/`): Information about physical location and contact, with `InteractiveMap`, `DefaultInfoCard` and `ProjectDetailCard`.
-- `HomeContactSection` (`contact/`): Contact block of the home page.
 
 ## Performance
 

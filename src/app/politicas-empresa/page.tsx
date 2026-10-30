@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
-import { CompanyPoliciesView } from "@/screens/legal";
+import { CompanyPoliciesView } from "@/screens/Legal";
 
 export const metadata: Metadata = {
   title: "Políticas de la Empresa y Garantías | GYA Company",
