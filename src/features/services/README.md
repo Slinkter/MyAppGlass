@@ -4,7 +4,7 @@
 
 Módulo de negocio responsable de presentar el catálogo de servicios corporativos y la vista de detalle de cada servicio (`/servicios/[serviceSlug]`), incluyendo fichas técnicas, preguntas frecuentes (FAQ) y galerías de imágenes.
 
-> Nota: el simulador 3D de ventanas (`VentanaConfigurador3DCard`, `components/configurador3d/`) y `data/ventanas-catalogo.json` fueron eliminados en el commit `2ca4f3e` (2026-08-26). Los sistemas oficiales de ventanas son 4: Nova, Serie 25, Serie 35 y Serie 62.
+> Nota: los sistemas oficiales de ventanas son 4: Nova, Serie 25, Serie 35 y Serie 62. El simulador vigente es `/simulador-ai` (superposición visual local).
 
 ---
 

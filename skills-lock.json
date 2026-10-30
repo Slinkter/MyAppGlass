@@ -139,12 +139,6 @@
       "skillPath": "skills/theme-factory/SKILL.md",
       "computedHash": "e9ec1fe85faa729e9f3d1731cd7e4e485f98c099ccc7c1c0d198f473aa4b654a"
     },
-    "three-best-practices": {
-      "source": "emalorenzo/three-agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/three-best-practices/SKILL.md",
-      "computedHash": "f1d2981c4a865dd90d7fbd4e43df4570a0275cae3fde51199e03b2c8a20a4776"
-    },
     "ui-ux-pro-max": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
