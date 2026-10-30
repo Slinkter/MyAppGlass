@@ -15,6 +15,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  transpilePackages: ['@gya/shared'],
   experimental: {
     optimizePackageImports: [
       '@chakra-ui/react',

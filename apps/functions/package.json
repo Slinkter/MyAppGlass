@@ -17,7 +17,7 @@
         "node": "22"
     },
     "main": "index.js",
-    "name": "functions",
+    "name": "@gya/functions",
     "private": true,
     "scripts": {
         "deploy": "firebase deploy --only functions",

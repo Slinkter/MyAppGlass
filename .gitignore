@@ -1,6 +1,6 @@
 # Dependencies
 node_modules/
-functions/node_modules/
+apps/functions/node_modules/
 
 # Next.js & Build Outputs
 .next/
@@ -14,9 +14,9 @@ stats.html
 # Firebase & Cloud Emulators
 .firebase/
 .firebaserc.local
-functions/.env*
-!functions/.env.example
-functions/lib/
+apps/functions/.env*
+!apps/functions/.env.example
+apps/functions/lib/
 firebase-debug.log*
 firestore-debug.log*
 ui-debug.log*

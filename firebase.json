@@ -33,7 +33,7 @@
                 "*.local"
             ],
             "runtime": "nodejs22",
-            "source": "functions"
+            "source": "apps/functions"
         }
     ],
     "hosting": {
@@ -97,7 +97,7 @@
             }
         ],
         "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-        "public": "out",
+        "public": "apps/web/out",
         "rewrites": [],
         "versionLimit": 5
     },
