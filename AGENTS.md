@@ -6,18 +6,19 @@
 
 ## 1. Comandos Esenciales y Flujo de Trabajo
 
-**Package Manager:** Usar exclusivamente `pnpm`.
+**Package Manager:** Usar exclusivamente `pnpm`. Monorepo pnpm workspace: ejecutar **siempre desde la raíz** del repo (`apps/*` y `packages/*`).
 
 | Comando | Acción |
 |---|---|
-| `pnpm run dev` | Inicia servidor Next.js (Port: 3000) |
-| `pnpm run typecheck` | `tsc --noEmit -p tsconfig.build.json` **(SIEMPRE ejecutar para validar tipos)** |
-| `pnpm run lint` | ESLint en `src/` |
-| `pnpm run build` | Compila para **exportación estática** (`next build` a `out/`) |
-| `pnpm run deploy:hosting` | Ejecuta `build` + despliega `out/` a Firebase Hosting |
-| `pnpm run deploy:functions` | Despliega Firebase Functions v2 |
-| `pnpm run test` | Vitest (watch mode) |
-| `pnpm run test:run` | Vitest (single run) |
+| `pnpm run dev` | Inicia servidor Next.js (`@gya/web`, Port: 3000) |
+| `pnpm run typecheck` | Typecheck de todos los paquetes (`pnpm -r --if-present typecheck`; web: `tsc --noEmit -p tsconfig.build.json`) **(SIEMPRE ejecutar para validar tipos)** |
+| `pnpm run lint` | ESLint de `apps/web/src/` |
+| `pnpm run build` | Compila `@gya/web` para **exportación estática** (`next build` → `apps/web/out/`) |
+| `pnpm run deploy:hosting` | Ejecuta `build` + despliega `apps/web/out/` a Firebase Hosting |
+| `pnpm run deploy:functions` | Despliega Firebase Functions v2 (`apps/functions`) |
+| `pnpm run test` | Vitest (watch mode, `@gya/web`) |
+| `pnpm run test:run` | Vitest (single run, `@gya/web`) |
+| `pnpm run test:functions` | Pruebas de `@gya/functions` |
 
 **⚠️ Token-saving rule:** NO ejecutar `pnpm run test:run` a menos que el usuario lo pida. Siempre validar con `pnpm run typecheck` y `pnpm run build`.
 
@@ -33,16 +34,20 @@ pnpm run deploy:hosting
 ## 2. Arquitectura (Feature-Sliced Design)
 
 ```
-src/
-├── app/          # Next.js App Router - wrappers ligeros (page.tsx, layout.tsx)
-├── features/     # Dominios de negocio: services/, home/, projects/, blog/
-├── widgets/      # Componentes globales: AuraNavbar, AuraFooter, FloatingActions
-├── shared/       # Utils transversales: company-data.ts, logger.ts
-functions/        # Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde Node.js 20 el 2026-10-29 por retiro del runtime)
+apps/
+├── web/                      # @gya/web (Next.js export estático → apps/web/out/)
+│   └── src/
+│       ├── app/              # Next.js App Router - wrappers ligeros (page.tsx, layout.tsx)
+│       ├── features/         # Dominios de negocio: services/, home/, projects/, blog/, admin/, ...
+│       ├── widgets/          # Componentes globales: AuraNavbar, AuraFooter, FloatingActions
+│       └── shared/           # Utils transversales: logger.ts, api/firebase, hooks, constants
+├── functions/                # @gya/functions: Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde Node.js 20 el 2026-10-29 por retiro del runtime)
+packages/
+└── shared/                   # @gya/shared: companyData, SITE_URL, CompanyInfo (importar desde @gya/shared; en web, `@/shared/config/company-data` reexporta)
 ```
 
 **Archivos clave:**
-- `features/services/components/ServicePageLayout.tsx` — Layout maestro página de servicio
+- `apps/web/src/features/services/components/ServicePageLayout.tsx` — Layout maestro página de servicio
 > Nota: `VentanaConfigurador3DCard.tsx`, `ventanas-catalogo.json` y `three` eliminados en `2ca4f3e`; el simulador vigente es `/simulador-ai`. Reglas de negocio vigentes: 4 sistemas, tipos y colores (sección 3).
 
 ---
@@ -84,7 +89,7 @@ functions/        # Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde
 
 ## 5. Backend (Firebase Functions)
 
-**⚠️ CÓDIGO CONGELADO:** NO modificar `functions/`, `firestore.rules` ni `firebase.json` a menos que sea explícitamente solicitado.
+**⚠️ CÓDIGO CONGELADO:** NO modificar `apps/functions/`, `firestore.rules` ni `firebase.json` a menos que sea explícitamente solicitado.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

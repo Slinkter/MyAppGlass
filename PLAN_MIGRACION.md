@@ -1,6 +1,6 @@
 # Plan de Trabajo: Migración a Firebase Serverless, CRUD Dinámico y Dashboard Admin
 
-Basado en el análisis de [GOL.md](file:///home/liam/github/MyAppGlass/GOL.md) y las reglas de negocio en [AGENTS.md](file:///home/liam/github/MyAppGlass/AGENTS.md).
+Basado en el análisis de [GOL.md](GOL.md) y las reglas de negocio en [AGENTS.md](AGENTS.md).
 
 ---
 
@@ -59,25 +59,47 @@ Basado en el análisis de [GOL.md](file:///home/liam/github/MyAppGlass/GOL.md) y
 ---
 
 ### Fase 4: Migración del Frontend Público (Consumo Dinámico / Fallback)
-- [ ] **4.1. Catálogo de Servicios Público (`/servicios` y `/servicios/[slug]`)**:
-  - [ ] Conectar `ServiceBentoGrid` y vistas de detalle al repositorio de Firestore.
-  - [ ] Implementar estados de carga (Skeletons) y fallback de datos offline si aplica.
-  - [ ] Galería interactiva con visor modal de fotos de alta resolución.
-- [ ] **4.2. Portafolio de Proyectos Público (`/proyectos`)**:
-  - [ ] Grid dinámico alimentado desde Firestore.
-  - [ ] Filtrado reactivo por categoría/servicio.
+- [x] **4.1. Catálogo de Servicios Público (`/servicios` y `/servicios/ver?slug=`)**:
+  - [x] Conectar `ServiceBentoGrid` y vistas de detalle al repositorio de Firestore.
+  - [x] Implementar estados de carga (Skeletons) y fallback de datos locales (hooks `useServices`/`useService` con `useAsyncResource`).
+  - [ ] Galería interactiva con visor modal de fotos de alta resolución (pendiente de verificar en navegador).
+  - Nota: la ruta de detalle es cliente (`/servicios/ver?slug=`), sin SEO propio por página.
+- [x] **4.2. Portafolio de Proyectos Público (`/proyectos` y `/proyectos/ver?id=`)**:
+  - [x] Grid dinámico alimentado desde Firestore (`useProjects`/`useProject` con fallback local).
+  - [x] Filtrado reactivo por categoría/servicio.
+  - Nota: la ruta de detalle es cliente (`/proyectos/ver?id=`), sin SEO propio por página.
 - [x] **4.3. Script de Semillado Inicial (Seeding)**:
   - [x] Script para migrar los 12 servicios locales hardcodeados y proyectos a Firestore de forma segura e idempotente (`seedData.ts`).
 
 ---
 
 ### Fase 5: QA, Pruebas y Despliegue
-- [ ] **5.1. Reglas de Seguridad en Firebase**:
-  - [ ] `firestore.rules`: Lectura pública (`allow read: if true`), escritura solo admin (`allow write: if request.auth != null`).
-  - [ ] `storage.rules`: Lectura pública, subida y eliminación restringida a usuarios autenticados.
-- [ ] **5.2. Verificación Estricta**:
-  - [ ] Ejecución de `pnpm run typecheck`.
-  - [ ] Ejecución de `pnpm run lint`.
-  - [ ] Compilación exitosa con `pnpm run build`.
-- [ ] **5.3. Documentación y Entrega**:
-  - [ ] Actualizar README y documentación de arquitectura.
+- [x] **5.1. Reglas de Seguridad en Firebase** (más estrictas que el plan original):
+  - [x] `firestore.rules`: lectura pública y **escritura solo para administradores** (no basta con `request.auth != null`).
+  - [x] `storage.rules`: lectura pública; subida y eliminación restringidas a administradores.
+  - [x] Prueba de reglas con emuladores: `apps/web/tests/rules/rules-smoke.sh`.
+- [x] **5.2. Verificación Estricta**:
+  - [x] Ejecución de `pnpm run typecheck` (pasa).
+  - [x] Ejecución de `pnpm run lint` (pasa).
+  - [x] Compilación exitosa con `pnpm run build` (pasa).
+- [x] **5.3. Documentación y Entrega**:
+  - [x] Actualizar README, AGENTS.md, `docs/01_ARCHITECTURE.md`, `docs/02_AI_HANDOFF.md` y changelog al monorepo.
+
+---
+
+### Fase 6: Reestructuración en Monorepo (pnpm workspace) — HECHA
+- [x] **6.1. Estructura**: `apps/web` (`@gya/web`, Next.js con export estático a `apps/web/out`), `apps/functions` (`@gya/functions`, Firebase Functions v2, Node 22) y `packages/shared` (`@gya/shared`: `companyData`, `SITE_URL`, `CompanyInfo`). Commit `522b52a`.
+- [x] **6.2. Configuración**: `pnpm-workspace.yaml` con `apps/*` y `packages/*`; scripts raíz que delegan con `pnpm --filter` (`dev`, `build`, `lint`, `typecheck`, `test`, `test:run`, `test:functions`, `start`, `clean`, `deploy:hosting`, `deploy:functions`).
+- [x] **6.3. Firebase en la raíz**: `firebase.json` con `hosting.public = apps/web/out` y `functions.source = apps/functions`; `firestore.rules` y `storage.rules` siguen en la raíz.
+- [x] **6.4. Unificación de datos**: `SITE_URL` único, dirección única ("Av. Los Fresnos 1250 - La Molina"), RUC único `20606432870`, contacto (`salesEmail`, `whatsappDisplay`) en `companyData`.
+
+---
+
+### Fase 7: Pendientes Reales (siguiente iteración)
+- [ ] **7.1. Pruebas en navegador con emuladores**: probar el panel admin (`/admin/*`) y las páginas públicas `/servicios` y `/proyectos` con `firebase emulators:start --only auth,firestore,storage --project gya-app-4c8a9` y `NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev`.
+- [ ] **7.2. Pruebas con Firestore apagado**: verificar que las páginas públicas muestran el fallback local cuando Firestore no responde.
+- [ ] **7.3. Despliegue**: los cambios del monorepo y de las reglas **no están desplegados** en Firebase Hosting ni en Firestore/Storage.
+- [ ] **7.4. Esquemas compartidos**: mover los esquemas Zod (servicios, proyectos) a `packages/shared`, aún no extraídos.
+- [ ] **7.5. ESLint compartido**: extraer la configuración de ESLint a `packages/shared` (hoy `apps/web` y `apps/functions` tienen configuración propia).
+- [x] **7.6. Alinear pnpm en CI**: `package.json` fija `packageManager: pnpm@12.5.1`, los workflows usan `pnpm/action-setup@v4` sin `version` (toma el campo) y `pnpm install --frozen-lockfile` pasa en local. Falta confirmar la ejecución real en GitHub Actions.
+- [ ] **7.7. Galería con visor modal** de servicios (ver 4.1).

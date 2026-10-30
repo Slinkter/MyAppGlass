@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-10-30] - Migración a Monorepo pnpm, Firestore en el Frontend Público y Reglas Admin
+
+### Added
+- **Monorepo pnpm**: `apps/web` (`@gya/web`, Next.js con export estático a `apps/web/out`), `apps/functions` (`@gya/functions`, Firebase Functions v2) y `packages/shared` (`@gya/shared`: `companyData`, `SITE_URL`, `CompanyInfo`). Commit `522b52a`.
+- **Páginas públicas desde Firestore**: `/servicios` y `/proyectos` leen de Firestore en cliente con skeletons y fallback local (hooks `useServices`/`useService`/`useProjects`/`useProject` y `shared/hooks/data/useAsyncResource.ts`). Rutas de detalle en cliente: `/servicios/ver?slug=` y `/proyectos/ver?id=`.
+- **Prueba de reglas con emuladores**: `apps/web/tests/rules/rules-smoke.sh`.
+- **Componentes comunes de modales admin** en `features/admin/components/form`.
+
+### Changed
+- **Reglas de seguridad**: `firestore.rules` y `storage.rules` con escritura solo para administradores (más estricta que el plan original).
+- **CSP de Firebase Hosting**: ampliado para permitir Firestore, Auth y Storage (`firebase.json`).
+- **Unificación de datos**: `SITE_URL` único; dirección única "Av. Los Fresnos 1250 - La Molina"; RUC único `20606432870`; contacto (`salesEmail`, `whatsappDisplay`) centralizado en `companyData`.
+- **Tema**: tokens de color de estado en el tema.
+- **Pantallas divididas**: admin, simulador y presupuesto separadas en componentes más pequeños; constantes en `shared/constants`.
+- **Arquitectura FSD**: `AdminRouteGuard` en `features/auth`, `seedData` en `features/admin/seed`, `clientsRepository`/`usersRepository` en `shared/api/firebase`.
+- **Nombres PascalCase** para componentes y pantallas (`Providers.tsx`, `ContactPageClient`, `FloatingWhatsApp`, `screens/Blog|Error|Home|Legal|Services|Projects`).
+
+### Fixed
+- **Purga de imágenes basura y duplicados**, y eliminación de three.js obsoleto (commit `a7c3e1a`).
+- **Dirección y SEO**: centralización de `SITE_URL` y unificación de la dirección (commit `f9e3781`).
+
+### Pendiente
+- Probar admin y páginas públicas en navegador con emuladores y con Firestore apagado.
+- Reglas, hosting y datos **no desplegados** aún.
+- Esquemas Zod y configuración de ESLint aún no extraídos a `packages/shared`.
+- Alinear la versión de pnpm de CI (workflows con pnpm 11; lockfile generado con pnpm 12).
+
 ## [2026-10-29] - Puesta Operativa de Backend, Resend API Key y Blindaje Serverless
 
 ### Added
