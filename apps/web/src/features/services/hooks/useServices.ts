@@ -48,7 +48,10 @@ export function useService(slug: string | undefined): AsyncResource<ServicePageD
       // Documento oculto desde el admin: no mostrar ni siquiera el local.
       return { pageData: service.published ? toServicePageData(service) : null };
     },
-    () => ({ pageData: slug ? getLocalServicePageData(slug) : null }),
+    () => {
+      const pageData = slug ? getLocalServicePageData(slug) : null;
+      return pageData ? { pageData } : null; // null: slug solo en Firestore, queda en carga
+    },
     Boolean(slug)
   );
   return { ...resource, data: resource.data?.pageData ?? null };

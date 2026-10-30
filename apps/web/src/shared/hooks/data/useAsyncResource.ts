@@ -4,7 +4,7 @@
  * @module shared/hooks/data
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { logger } from "@/shared/utils/logger";
 
 /** Tiempo máximo de espera a Firestore antes de usar el fallback local. */
@@ -43,7 +43,8 @@ const withTimeout = <T,>(promise: Promise<T>, ms: number): Promise<T> =>
 
 /**
  * Ejecuta `fetcher` al montar (o cuando cambia `key`). Si falla, expira o devuelve
- * `null` (vacío), usa `getFallback()`.
+ * `null` (vacío), usa `getFallback()`. Mientras responde, devuelve `getFallback()` si
+ * tiene datos (si devuelve `null`, queda en carga).
  *
  * @param key - Identifica la consulta; al cambiar se vuelve a consultar.
  * @param fetcher - Lectura remota. Devolver `null` significa "vacío, usa fallback".
@@ -89,7 +90,15 @@ export function useAsyncResource<T>(
     };
   }, [key, enabled]);
 
+  // Primer render (servidor y cliente): datos locales, para que el HTML exportado
+  // traiga contenido (SEO) y no un skeleton. Firestore los reemplaza al responder.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const initial = useMemo(() => (enabled ? getFallback() : null), [key, enabled]);
+
   if (!enabled || !state || state.key !== key) {
+    if (enabled && initial !== null) {
+      return { data: initial, isLoading: false, error: null, source: "fallback" };
+    }
     return { data: null, isLoading: true, error: null, source: null };
   }
   return { data: state.data, isLoading: false, error: state.error, source: state.source };

@@ -62,7 +62,8 @@ Basado en el análisis de [GOL.md](GOL.md) y las reglas de negocio en [AGENTS.md
 - [x] **4.1. Catálogo de Servicios Público (`/servicios` y `/servicios/ver?slug=`)**:
   - [x] Conectar `ServiceBentoGrid` y vistas de detalle al repositorio de Firestore.
   - [x] Implementar estados de carga (Skeletons) y fallback de datos locales (hooks `useServices`/`useService` con `useAsyncResource`).
-  - [ ] Galería interactiva con visor modal de fotos de alta resolución (pendiente de verificar en navegador).
+  - [x] Galería interactiva con visor modal: `ServicePageLayout` usa `Gallery` con `Gallery.Viewer` y `Gallery.Thumbnails` sobre `gallery[]` de Firestore (o el álbum local).
+  - [x] Primer render con datos locales (`useAsyncResource`): el HTML exportado trae el contenido real para SEO y Firestore lo reemplaza en el cliente.
   - Nota: la ruta de detalle es cliente (`/servicios/ver?slug=`), sin SEO propio por página.
 - [x] **4.2. Portafolio de Proyectos Público (`/proyectos` y `/proyectos/ver?id=`)**:
   - [x] Grid dinámico alimentado desde Firestore (`useProjects`/`useProject` con fallback local).
@@ -102,4 +103,4 @@ Basado en el análisis de [GOL.md](GOL.md) y las reglas de negocio en [AGENTS.md
 - [x] **7.4. Esquemas compartidos**: mover los esquemas Zod (servicios, proyectos) a `packages/shared`, extraídos a `packages/shared/src/schemas` (con reexports en web).
 - [x] **7.5. ESLint compartido**: extraída a `packages/eslint-config` (`@gya/eslint-config`; `apps/functions` sigue congelado con config propia) (hoy `apps/web` y `apps/functions` tienen configuración propia).
 - [x] **7.6. Alinear pnpm en CI**: `package.json` fija `packageManager: pnpm@12.5.1`, los workflows usan `pnpm/action-setup@v4` sin `version` (toma el campo) y `pnpm install --frozen-lockfile` pasa en local. Falta confirmar la ejecución real en GitHub Actions.
-- [ ] **7.7. Galería con visor modal** de servicios (ver 4.1).
+- [x] **7.7. Galería con visor modal** de servicios (ver 4.1).

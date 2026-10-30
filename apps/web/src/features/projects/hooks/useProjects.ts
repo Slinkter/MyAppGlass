@@ -64,7 +64,10 @@ export function useProject(id: string | undefined): AsyncResource<Project> {
       if (!remote) return null; // sin documento: usar local
       return { project: remote.published ? toProject(remote) : null };
     },
-    () => ({ project: (id && getLocalProjectById(id)) || null }),
+    () => {
+      const project = (id && getLocalProjectById(id)) || null;
+      return project ? { project } : null; // null: id solo en Firestore, queda en carga
+    },
     Boolean(id)
   );
   return { ...resource, data: resource.data?.project ?? null };
