@@ -1,6 +1,6 @@
 "use client";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useMemo, useCallback } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import { Box } from "@chakra-ui/react";
 
@@ -36,10 +36,8 @@ const InteractiveMapComponent: React.FC<InteractiveMapProps> = ({
 
   const { isLoaded, loadError } = useGoogleMapsLoader();
 
-  const [google, setGoogle] = useState<typeof window.google | undefined>(undefined);
-  useEffect(() => {
-    setGoogle(window.google);
-  }, []);
+  // window.google existe recién cuando el loader termina (carga async).
+  const google = isLoaded ? window.google : undefined;
 
   const { map, onLoad, onUnmount } = useMapState();
   const icons = useMapIcons(isLoaded, google);
