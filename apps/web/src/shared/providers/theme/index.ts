@@ -250,7 +250,11 @@ const config = defineConfig({
       colors: {
         "bg.page": { value: { _light: "{colors.gray.50}", _dark: "#09090b" } },
         "bg.section": { value: { _light: "white", _dark: "#121215" } },
+        "bg.surface": { value: "{colors.surface.card}" },
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
+
+        // Brand
+        "brand.primary": { value: { _light: "{colors.primary.900}", _dark: "white" } },
 
         "surface.card": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "surface.nav": { value: { _light: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" } },
@@ -260,6 +264,7 @@ const config = defineConfig({
 
         // Borders
         "border.default": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.08)" } },
+        "border.subtle": { value: { _light: "rgba(0,0,0,0.06)", _dark: "rgba(255,255,255,0.08)" } },
         "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
         "border.glass": { value: "{colors.border.default}" },
         "border.slate": { value: "#e2e8f0" },
@@ -267,6 +272,9 @@ const config = defineConfig({
         "text.slate": { value: "#64748b" },
         "text.slateStrong": { value: "#475569" },
         "bg.glass": { value: "{colors.bg.section}" },
+
+        // Status Borders
+        "status.dangerBorder": { value: "rgba(248, 113, 113, 0.25)" },
 
         // Focus
         "ring.primary": { value: { _light: "{colors.primary.400}", _dark: "{colors.primary.500}" } },

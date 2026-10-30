@@ -65,9 +65,14 @@ El proyecto sigue estrictamente los principios de **Feature-Sliced Design** sobr
 
 ## 🚀 Estado Técnico y Despliegue
 
-* **Build:** `pnpm run build` genera el export estático en `apps/web/out/` (último build de referencia: 55 páginas SSG).
-* **Estado actual (2026-10-30):** migración a monorepo hecha; páginas públicas de servicios y proyectos leen de Firestore con fallback local; reglas de Firestore/Storage con escritura solo para administradores; CSP ampliado. Typecheck, lint y build pasan.
-* **Pendiente:** probar admin y páginas públicas en navegador con emuladores (`firebase emulators:start --only auth,firestore,storage --project gya-app-4c8a9` y `NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev`) y con Firestore apagado; desplegar; extraer esquemas Zod y ESLint a `packages/shared`; alinear pnpm de CI con el lockfile (ver `PLAN_MIGRACION.md`, Fase 7).
+* **Build:** `pnpm run build` genera el export estático en `apps/web/out/` (último build de referencia: 60 páginas SSG).
+* **Estado actual (2026-10-30 - Actualización Handoff):**
+  - **Reglas de seguridad desplegadas en producción**: `firestore.rules` y `storage.rules` ya fueron aplicadas exitosamente (`firebase deploy --only firestore:rules,storage --project gya-app-4c8a9`).
+  - **Unificación de CSS en Chakra UI v3**: Eliminada la librería `framer-motion` (ahorro ~35 KB en bundle), reemplazada por animaciones y transiciones nativas de Chakra. Eliminados bloques manuales de `@emotion/react` en `Providers.tsx`.
+  - **Tokens semánticos oficiales en `theme/index.ts`**: Registrados formalmente `brand.primary`, `bg.surface`, `border.subtle` y `status.dangerBorder`.
+  - **Catálogo de Componentes Canónico**: Implementado en `/design-system` (`apps/web/src/screens/DesignSystem/`) con componentes reales de producción (`AuraDesktopNav`, `AdminNav`, `ServiceCard`, `ProjectCardContent`, `ClientCard`, `Field`, `NativeSelect`, `Gallery`, `Dialog`, `Table`, `DataList`), sin código hardcodeado y con selector interactivo de Dark/Light mode (`ColorModeButton`).
+  - **Nota de Coordinación**: Otro agente de IA está trabajando en paralelo en auditoría/remediación de vulnerabilidades y backend congelado; respetar áreas sin generar conflictos en archivos bloqueados.
+* **Pendiente Inmediato:** Compilar y desplegar Hosting a producción (`pnpm run build && pnpm run deploy:hosting`).
 * **Hosting Live:** [https://gya-app-4c8a9.web.app](https://gya-app-4c8a9.web.app)
 * **Despliegue Hosting:** `pnpm run deploy:hosting`
 

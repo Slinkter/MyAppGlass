@@ -26,6 +26,24 @@ body.light-mode {
     /* No specific background changes for light mode here, handled by Layout */
 }
 
+/* Keyframes globales de utilidad */
+@keyframes slideUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes scaleIn {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes pulse-shadow {
+  0%, 100% { box-shadow: 0 4px 20px var(--chakra-colors-overlay-faint); }
+  50% { box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18); }
+}
+
 /* View Transitions API */
 :root {
   --duration-exit: 200ms;

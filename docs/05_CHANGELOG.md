@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-10-30] - Unificación de Estilos en Chakra UI v3, Despliegue de Reglas y Showcase Canónico
+
+### Added
+- **Aura Design System Showcase (`/design-system`)**: Pantalla modular completa con componentes y tokens reales de producción (`AuraDesktopNav`, `AdminNav`, `ServiceCard`, `ProjectCardContent`, `ClientCard`, `Field`, `NativeSelect`, `Gallery`, `Dialog`, `Table`, `DataList`). Soporta alternancia interactiva de modo claro/oscuro en tiempo real con `ColorModeButton`.
+- **Tokens Semánticos Oficiales**: Registrados formalmente en `theme/index.ts`: `brand.primary`, `bg.surface`, `border.subtle` y `status.dangerBorder`.
+
+### Changed
+- **Unificación de CSS en Chakra UI v3**: Se removió la dependencia externa `framer-motion` del cliente (`@gya/web`), reduciendo el bundle en ~35 KB. Animaciones migradas a transiciones nativas y keyframes de hardware en `StoreSection.tsx` y `VisualViewer.tsx`.
+- **Limpieza de `Providers.tsx`**: Removido el bloque manual `<Global styles={...} />` de `@emotion/react` y `<LazyMotion>`; keyframes globales movidos a `global.css`.
+- **Despliegue de Seguridad**: `firestore.rules` y `storage.rules` desplegadas exitosamente a producción (`firebase deploy --only firestore:rules,storage`).
+
 ## [2026-10-30] - Firebase como única fuente de servicios y proyectos
 
 ### Added

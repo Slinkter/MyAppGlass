@@ -20,7 +20,6 @@ const nextConfig = {
     optimizePackageImports: [
       '@chakra-ui/react',
       'lucide-react',
-      'framer-motion',
       'next-themes',
       'zod',
     ],

@@ -4,7 +4,6 @@ import { SITE_URL } from "@/shared/config/company-data";
 import React, { useState, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
 import { Box, VStack } from "@chakra-ui/react";
-import { AnimatePresence, m } from "framer-motion";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 import MapLoader from "@shared/components/map/MapLoader";
@@ -133,45 +132,33 @@ const StoreSection: React.FC = React.memo(() => {
                         justifyContent="stretch"
                         transition="all 0.3s ease"
                     >
-                        <AnimatePresence mode="wait">
-                            {!displaySelected ? (
-                                <m.div
-                                    key="default-card"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    transition={{ duration: 0.2 }}
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                    }}
-                                >
-                                    <DefaultInfoCard />
-                                </m.div>
-                            ) : (
-                                <m.div
-                                    key={`project-card-${selectedMarker?.id}`}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    transition={{ duration: 0.2 }}
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                    }}
-                                >
-                                    <ProjectDetailCard
-                                        selectedMarker={selectedMarker!}
-                                        isStore={isStore}
-                                        onClose={() => setSelectedMarker(null)}
-                                    />
-                                </m.div>
-                            )}
-                        </AnimatePresence>
+                        {!displaySelected ? (
+                            <Box
+                                key="default-card"
+                                animation="fadeIn 0.2s ease"
+                                w="full"
+                                h="full"
+                                display="flex"
+                                flexDirection="column"
+                            >
+                                <DefaultInfoCard />
+                            </Box>
+                        ) : (
+                            <Box
+                                key={`project-card-${selectedMarker?.id}`}
+                                animation="fadeIn 0.2s ease"
+                                w="full"
+                                h="full"
+                                display="flex"
+                                flexDirection="column"
+                            >
+                                <ProjectDetailCard
+                                    selectedMarker={selectedMarker!}
+                                    isStore={isStore}
+                                    onClose={() => setSelectedMarker(null)}
+                                />
+                            </Box>
+                        )}
                     </VStack>
                 </Box>
             </ItemGridLayout.Item>

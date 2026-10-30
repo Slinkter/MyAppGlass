@@ -20,3 +20,8 @@ minimumReleaseAgeExclude:
   - '@next/swc-win32-arm64-msvc@16.3.2'
   - '@next/swc-win32-x64-msvc@16.3.2'
   - next@16.3.2
+overrides:
+  '@grpc/grpc-js@<1.13.6': ^1.14.7
+  protobufjs@<7.6.1: ^7.6.1
+  websocket-driver@<0.7.5: ^0.7.5
+  source-map-js@<1.2.2: ^1.2.2

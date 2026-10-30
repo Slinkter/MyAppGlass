@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { Box, Flex } from "@chakra-ui/react";
-import { AnimatePresence, m } from "framer-motion";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import MapLoader from "@/shared/components/map/MapLoader";
@@ -57,59 +56,53 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
       position="relative"
     >
       <Box position="absolute" inset="0">
-        <AnimatePresence mode="wait">
-          {viewMode === "map" && hasValidCoords ? (
-            <m.div
-              key="map-view"
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.2 }}
-              style={{ width: "100%", height: "100%" }}
+        {viewMode === "map" && hasValidCoords ? (
+          <Box
+            key="map-view"
+            animation="fadeIn 0.2s ease"
+            w="full"
+            h="full"
+          >
+            <Box
+              w="full"
+              h="full"
+              borderRadius="3xl"
+              overflow="hidden"
+              boxShadow="2xl"
+              border="1px solid"
+              borderColor="border.glass"
+              bg="bg.subtle"
             >
-              <Box
-                w="full"
-                h="full"
-                borderRadius="3xl"
-                overflow="hidden"
-                boxShadow="2xl"
-                border="1px solid"
-                borderColor="border.glass"
-                bg="bg.subtle"
-              >
-                <MapViewer lat={lat!} lng={lng!} projectData={projectData} />
-              </Box>
-            </m.div>
-          ) : (
-            <m.div
-              key="gallery-view"
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.2 }}
-              style={{ width: "100%", height: "100%" }}
-            >
-              {galleryImages.length > 0 ? (
-                <Gallery images={galleryImages}>
-                  <Flex
-                    direction={{ base: "column", md: "row" }}
-                    gap={{ base: "3", md: "4" }}
-                    h="100%"
-                    w="100%"
-                    p={{ base: "1", md: "2" }}
-                    minW={0}
-                    overflow="hidden"
-                  >
-                    <Gallery.Viewer />
-                    <Gallery.Thumbnails />
-                  </Flex>
-                </Gallery>
-              ) : (
-                <ComingSoonDisplay />
-              )}
-            </m.div>
-          )}
-        </AnimatePresence>
+              <MapViewer lat={lat!} lng={lng!} projectData={projectData} />
+            </Box>
+          </Box>
+        ) : (
+          <Box
+            key="gallery-view"
+            animation="scaleIn 0.2s ease"
+            w="full"
+            h="full"
+          >
+            {galleryImages.length > 0 ? (
+              <Gallery images={galleryImages}>
+                <Flex
+                  direction={{ base: "column", md: "row" }}
+                  gap={{ base: "3", md: "4" }}
+                  h="100%"
+                  w="100%"
+                  p={{ base: "1", md: "2" }}
+                  minW={0}
+                  overflow="hidden"
+                >
+                  <Gallery.Viewer />
+                  <Gallery.Thumbnails />
+                </Flex>
+              </Gallery>
+            ) : (
+              <ComingSoonDisplay />
+            )}
+          </Box>
+        )}
       </Box>
     </Box>
   );
