@@ -41,7 +41,7 @@ El proyecto sigue estrictamente los principios de **Feature-Sliced Design** sobr
 
 ## ⚡ Reglas de Ahorro de Tokens para LLMs
 
-* **NO ejecutar suites de tests (`pnpm run test:run`)** salvo petición explícita del usuario para evitar consumo de tokens (regla de `AGENTS.md`). Los tests existen (21 archivos en `apps/web/tests/unit/`, Vitest) y se ejecutan en la CI (`.github/workflows/ci.yml`) o bajo petición.
+* **NO ejecutar suites de tests (`pnpm run test:run`)** salvo petición explícita del usuario para evitar consumo de tokens (regla de `AGENTS.md`). Los tests existen (18 archivos en `apps/web/tests/unit/`, ~129 casos, Vitest) y se ejecutan en la CI (`.github/workflows/ci.yml`) o bajo petición.
 * Validar siempre cambios con `pnpm run typecheck` y `pnpm run build`.
 
 ---

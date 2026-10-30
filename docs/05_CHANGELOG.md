@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-10-30] - Sincronización documental con el código
+
+### Changed
+- Conteos corregidos en README, `docs/README.md`, `docs/02_AI_HANDOFF.md`, `docs/03_AGENTS.md` y `docs/04_PLAN_DE_TRABAJO.md`: **60 páginas** prerenderizadas (verificado con `pnpm run build`) y **18 archivos / ~129 casos** de test unitarios en `apps/web/tests/unit/`.
+
 ## [2026-10-30] - Unificación de Estilos en Chakra UI v3, Despliegue de Reglas y Showcase Canónico
 
 ### Added

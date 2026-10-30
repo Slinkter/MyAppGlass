@@ -197,7 +197,7 @@ El pipeline de CI (`.github/workflows/ci.yml`, en push/PR a `main` y `develop`) 
 Comandos equivalentes en local:
 
 ```bash
-# 1. Pruebas unitarias de regresión (21 archivos en tests/unit/, ~159 casos)
+# 1. Pruebas unitarias de regresión (18 archivos en tests/unit/, ~129 casos)
 #    Nota: los agentes de IA no la ejecutan salvo petición expresa (ver AGENTS.md)
 pnpm run test:run
 
@@ -207,7 +207,7 @@ pnpm run typecheck
 # 3. Análisis estático de código
 pnpm run lint
 
-# 4. Compilación y generación estática (55 páginas)
+# 4. Compilación y generación estática (60 páginas)
 pnpm run build
 ```
 

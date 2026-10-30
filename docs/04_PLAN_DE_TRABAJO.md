@@ -60,7 +60,7 @@
   - [x] Pruebas unitarias de esquemas Zod de contacto ([`tests/unit/contact-schema.test.ts`](../tests/unit/contact-schema.test.ts)).
   - [x] Pruebas unitarias de generador SEO JSON-LD ([`tests/unit/seo-utils.test.ts`](../tests/unit/seo-utils.test.ts)).
 - [ ] **2.5 Pruebas End-to-End (E2E) con Playwright:**
-  > Pendiente: no hay Playwright en el repo (ni dependencia ni configuración); hoy hay Vitest (21 archivos en `tests/unit/`) y 2 colecciones Postman en `tests/postman/`.
+  > Pendiente: no hay Playwright en el repo (ni dependencia ni configuración); hoy hay Vitest (18 archivos en `tests/unit/`) y 2 colecciones Postman en `tests/postman/`.
   - [ ] Configurar suite E2E de Playwright para flujos críticos:
     - Flujo completo de registro y validación de reclamo.
     - Flujo de solicitud de cotización/contacto.

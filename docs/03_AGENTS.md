@@ -39,7 +39,7 @@ Este documento define los roles y responsabilidades de los agentes de IA que orq
 **Especialidad:** TypeScript strict, linting, builds estáticos.
 - **Stack:** TypeScript, ESLint, Next.js build pipeline.
 - **Responsabilidades:**
-    - Verificar que `pnpm run build` compile las 55 páginas sin errores.
+    - Verificar que `pnpm run build` compile las 60 páginas sin errores.
     - Garantizar zero warnings de linter (`pnpm run lint`).
     - La CI (`.github/workflows/ci.yml`, en push/PR a `main` y `develop`) ejecuta en orden: `pnpm run lint`, `pnpm run typecheck`, `pnpm run test:run` y `pnpm run build`. Los agentes de IA validan con `typecheck` y `build` y no ejecutan `test:run` salvo petición (regla de ahorro de tokens de `AGENTS.md`).
     - Detectar dead code, imports huérfanos, tipos incorrectos.
