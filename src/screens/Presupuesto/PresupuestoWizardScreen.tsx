@@ -345,7 +345,7 @@ export const PresupuestoWizardScreen: React.FC = () => {
               RUC: 20601542407 | VIDRIERÍA Y CARPINTERÍA DE ALUMINIO
             </Text>
             <Text fontSize="xs" color="gray.600">
-              Av. Los Fresnos 1214-1274, La Molina, Lima — Tel: (01) 974 278 303 / 996 537 435
+              Av. Los Fresnos 1250, La Molina, Lima — Tel: (01) 974 278 303 / 996 537 435
             </Text>
             <Text fontSize="xs" color="gray.600">
               Web: www.gyacompany.com | Email: ventas@gyacompany.com

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { ProjectDetailView } from "@/screens/projects";
 import { getProjectById, getProjects } from "@shared/services/projectService";
@@ -27,12 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${project.residencial} | Proyecto GYA`,
     description: `Detalles del proyecto ${project.residencial} ubicado en ${project.address}. Realizado en el año ${project.year}.`,
     alternates: {
-      canonical: `https://www.gyacompany.com/proyectos/${projectId}`,
+      canonical: `${SITE_URL}/proyectos/${projectId}`,
     },
     openGraph: {
       title: `${project.residencial} | Proyecto GYA`,
       description: `Detalles del proyecto ${project.residencial} ubicado en ${project.address}. Realizado en el año ${project.year}.`,
-      url: `https://www.gyacompany.com/proyectos/${projectId}`,
+      url: `${SITE_URL}/proyectos/${projectId}`,
       siteName: "Glass & Aluminum Company S.A.C.",
       locale: "es_PE",
       type: "website",

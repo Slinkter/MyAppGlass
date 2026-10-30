@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/shared/config/company-data";
 import type { Metadata, Viewport } from "next";
 import { Lora } from "next/font/google";
 import "../styles/global.css";
@@ -29,7 +30,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://www.gyacompany.com"),
+    metadataBase: new URL(SITE_URL),
     title: {
         default: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",
         template: "%s | Glass & Aluminum Company S.A.C.",
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
         title: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",
         description:
             "Especialistas en vidriería, instalación de ventanas antirruido, mamparas de vidrio templado y aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
-        url: "https://www.gyacompany.com",
+        url: SITE_URL,
         siteName: "Glass & Aluminum Company S.A.C.",
         locale: "es_PE",
         type: "website",

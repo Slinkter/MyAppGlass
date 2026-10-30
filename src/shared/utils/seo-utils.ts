@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/shared/config/company-data";
 /**
  * @file seo-utils.ts
  * @description Generador de datos estructurados Schema.org para SEO Técnico y Local (LocalBusiness, HomeAndConstructionBusiness, Service, BreadcrumbList, FAQPage).
@@ -8,36 +9,36 @@ export const getCompanyJsonLd = () => ({
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://www.gyacompany.com/#website",
-      "url": "https://www.gyacompany.com",
+      "@id": `${SITE_URL}/#website`,
+      "url": SITE_URL,
       "name": "Glass & Aluminum Company S.A.C.",
       "alternateName": "GYA Company",
-      "publisher": { "@id": "https://www.gyacompany.com/#organization" },
+      "publisher": { "@id": `${SITE_URL}/#organization` },
       "potentialAction": [
         {
           "@type": "SearchAction",
-          "target": "https://www.gyacompany.com/servicios?q={search_term_string}",
+          "target": `${SITE_URL}/servicios?q={search_term_string}`,
           "query-input": "required name=search_term_string"
         }
       ],
       "hasPart": [
-        { "@type": "WebPage", "name": "Inicio", "url": "https://www.gyacompany.com/" },
-        { "@type": "WebPage", "name": "Servicios de Vidriería y Aluminio", "url": "https://www.gyacompany.com/servicios" },
-        { "@type": "WebPage", "name": "Proyectos y Obras", "url": "https://www.gyacompany.com/proyectos" },
-        { "@type": "WebPage", "name": "Blog Técnico de Expertos", "url": "https://www.gyacompany.com/blog" },
-        { "@type": "WebPage", "name": "Cotizaciones y Contacto", "url": "https://www.gyacompany.com/contacto" },
-        { "@type": "WebPage", "name": "Libro de Reclamaciones Virtual", "url": "https://www.gyacompany.com/libro-de-reclamacion" }
+        { "@type": "WebPage", "name": "Inicio", "url": `${SITE_URL}/` },
+        { "@type": "WebPage", "name": "Servicios de Vidriería y Aluminio", "url": `${SITE_URL}/servicios` },
+        { "@type": "WebPage", "name": "Proyectos y Obras", "url": `${SITE_URL}/proyectos` },
+        { "@type": "WebPage", "name": "Blog Técnico de Expertos", "url": `${SITE_URL}/blog` },
+        { "@type": "WebPage", "name": "Cotizaciones y Contacto", "url": `${SITE_URL}/contacto` },
+        { "@type": "WebPage", "name": "Libro de Reclamaciones Virtual", "url": `${SITE_URL}/libro-de-reclamacion` }
       ]
     },
     {
       "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-      "@id": "https://www.gyacompany.com/#organization",
+      "@id": `${SITE_URL}/#organization`,
       "name": "Glass & Aluminum Company S.A.C.",
       "legalName": "Glass & Aluminum Company S.A.C.",
       "alternateName": "GYA Company",
-      "image": "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp",
-      "logo": "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp",
-      "url": "https://www.gyacompany.com",
+      "image": `${SITE_URL}/images/branding-LogoCompanytrans.webp`,
+      "logo": `${SITE_URL}/images/branding-LogoCompanytrans.webp`,
+      "url": SITE_URL,
       "telephone": "+51974278303",
       "email": "ventas@gyacompany.com",
       "priceRange": "$$",
@@ -58,7 +59,7 @@ export const getCompanyJsonLd = () => ({
       ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Av. los Fresnos 1214-1274",
+        "streetAddress": "Av. Los Fresnos 1250",
         "addressLocality": "La Molina",
         "addressRegion": "Lima",
         "postalCode": "15024",
@@ -105,12 +106,12 @@ export const getServiceJsonLd = (name: string, description: string, url: string,
   "name": name,
   "description": description,
   "url": url,
-  "image": image || "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp",
+  "image": image || `${SITE_URL}/images/branding-LogoCompanytrans.webp`,
   "provider": {
     "@type": "LocalBusiness",
     "name": "Glass & Aluminum Company S.A.C.",
     "telephone": "+51974278303",
-    "url": "https://www.gyacompany.com"
+    "url": SITE_URL
   },
   "areaServed": [
     { "@type": "AdministrativeArea", "name": "La Molina" },

@@ -6,6 +6,7 @@
  * @module home/components
  */
 
+import { SITE_URL } from "@/shared/config/company-data";
 import React from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { getFeatures } from "@features/home/services/featureService";
@@ -28,7 +29,7 @@ const FeaturesSection: React.FC = React.memo(() => {
       subtitle="Innovación y precisión en cada estructura"
       seoTitle="Nuestros Beneficios - GYA Company"
       seoDescription="Descubre por qué somos los líderes en vidriería y aluminio. Calidad, garantía y puntualidad."
-      seoCanonicalUrl="https://www.gyacompany.com/beneficios"
+      seoCanonicalUrl={`${SITE_URL}/beneficios`}
       columns={{ base: 1, sm: 2, lg: 4 }}
       gap={{ base: "4", md: "5" }}
       containerProps={{ mt: 0, pt: 0 }}

@@ -6,6 +6,7 @@
  * @module home/components
  */
 
+import { SITE_URL } from "@/shared/config/company-data";
 import React from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { getClients } from "@features/home/services/clientService";
@@ -26,7 +27,7 @@ const ClientsSection: React.FC = React.memo(() => {
             subtitle="Confianza sólida en cada estructura"
             seoTitle="Nuestros Clientes - GYA Company"
             seoDescription="Descubre por qué somos los líderes en vidriería y aluminio."
-            seoCanonicalUrl="https://www.gyacompany.com/clientes"
+            seoCanonicalUrl={`${SITE_URL}/clientes`}
             containerProps={{ mt: 0, pt: 0 }}
         >
             {clients.map((client, index) => (

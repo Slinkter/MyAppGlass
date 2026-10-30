@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { ServiceDetailView } from "@/screens/services";
 import { getServiceBySlug, getServices } from "@/features/services/services/serviceService";
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const canonicalUrl = `https://www.gyacompany.com/servicios/${serviceSlug}`;
+  const canonicalUrl = `${SITE_URL}/servicios/${serviceSlug}`;
 
   if (pageData?.seo) {
     return {
@@ -75,7 +76,7 @@ export default async function Page({ params }: Props) {
 
   const title = pageData?.seo.title || service?.name || "Servicio";
   const description = pageData?.seo.description || service?.description || "";
-  const url = `https://www.gyacompany.com/servicios/${serviceSlug}`;
+  const url = `${SITE_URL}/servicios/${serviceSlug}`;
 
   const faqs = serviceSlug && serviceFaqsMap[serviceSlug]
     ? serviceFaqsMap[serviceSlug]
@@ -83,8 +84,8 @@ export default async function Page({ params }: Props) {
 
   const serviceJsonLd = getServiceJsonLd(title, description, url);
   const breadcrumbJsonLd = getBreadcrumbJsonLd([
-    { name: "Inicio", url: "https://www.gyacompany.com" },
-    { name: "Servicios", url: "https://www.gyacompany.com/servicios" },
+    { name: "Inicio", url: SITE_URL },
+    { name: "Servicios", url: `${SITE_URL}/servicios` },
     { name: title, url },
   ]);
   const faqJsonLd = getFaqJsonLd(faqs);

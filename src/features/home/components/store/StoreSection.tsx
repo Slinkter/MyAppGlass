@@ -1,5 +1,6 @@
 "use client";
 
+import { SITE_URL } from "@/shared/config/company-data";
 import React, { useState, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
 import { Box, VStack } from "@chakra-ui/react";
@@ -63,7 +64,7 @@ const StoreSection: React.FC = React.memo(() => {
             subtitle="SEDE PRINCIPAL | PROYECTOS ENTREGADOS"
             seoTitle="Ubicaciones - GYA Company"
             seoDescription="Encuentra nuestra tienda principal en Lima y explora la ubicación de nuestros proyectos de vidriería y aluminio."
-            seoCanonicalUrl="https://www.gyacompany.com/ubicaciones"
+            seoCanonicalUrl={`${SITE_URL}/ubicaciones`}
             columns={{ base: 1 }}
             gap="6"
             containerProps={{

@@ -21,12 +21,17 @@ export interface CompanyInfo {
 }
 
 /**
+ * URL pública del sitio (sin barra final).
+ */
+export const SITE_URL = "https://www.gyacompany.com";
+
+/**
  * Centralized store for static legal and contact information of GYA Company.
  */
 export const companyData: CompanyInfo = {
   razonSocial: "GLASS & ALUMINUM COMPANY S.A.C.",
   ruc: "20606432870",
-  direccion: "Av. Los Fresnos MZ H Lt.16 - La Molina",
+  direccion: "Av. Los Fresnos 1250 - La Molina",
   whatsappNumber: "51974278303", // Example: "519XXXXXXXX" for Peru
   whatsappMessage: "Quisiera una cotización para ....", // Default message for quotes
   companyName: "GLASS & ALUMINUM COMPANY S.A.C.",

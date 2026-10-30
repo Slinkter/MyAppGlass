@@ -9,6 +9,7 @@
  * - Cascade animation effect for each item.
  */
 
+import { SITE_URL } from "@/shared/config/company-data";
 import React, { useMemo, useCallback } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
@@ -89,7 +90,7 @@ const ProjectsList: React.FC = React.memo(() => {
       subtitle="Obras Entregadas"
       seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
       seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
-      seoCanonicalUrl="https://www.gyacompany.com/proyectos"
+      seoCanonicalUrl={`${SITE_URL}/proyectos`}
       columns={{ base: 1, md: 2, lg: 3 }}
     >
       {/* Filter Pills */}

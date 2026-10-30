@@ -14,7 +14,7 @@ export const center = { lat: -12.103252, lng: -76.942035 };
 export const mainStore: StoreLocation = {
   id: "store",
   name: "GYA Glass & Aluminum",
-  address: "Av. Los Fresnos MZ. H LT. 1250 - La Molina - Lima",
+  address: "Av. Los Fresnos 1250 - La Molina - Lima",
   type: "store",
   client: "Sede Principal",
   position: { lat: -12.103252, lng: -76.942035 },

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPosts } from "@/features/blog/services/blogService";
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   
   if (!post) return { title: "Artículo no encontrado | Blog GYA" };
 
-  const canonicalUrl = `https://www.gyacompany.com/blog/${slug}`;
+  const canonicalUrl = `${SITE_URL}/blog/${slug}`;
 
   return {
     title: `${post.title} | Blog GYA Glass & Aluminum`,
@@ -65,28 +66,28 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const postUrl = `https://www.gyacompany.com/blog/${slug}`;
+  const postUrl = `${SITE_URL}/blog/${slug}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": post.title,
-    "image": `https://www.gyacompany.com${post.image}`,
+    "image": `${SITE_URL}${post.image}`,
     "datePublished": post.date,
     "dateModified": post.date,
     "author": {
       "@type": "Organization",
       "name": "Glass & Aluminum Company S.A.C.",
-      "url": "https://www.gyacompany.com"
+      "url": SITE_URL
     },
     "description": post.description || post.excerpt,
     "publisher": {
       "@type": "Organization",
       "name": "Glass & Aluminum Company S.A.C.",
-      "url": "https://www.gyacompany.com",
+      "url": SITE_URL,
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.gyacompany.com/images/branding-LogoCompanytrans.webp"
+        "url": `${SITE_URL}/images/branding-LogoCompanytrans.webp`
       }
     },
     "mainEntityOfPage": {
@@ -96,8 +97,8 @@ export default async function BlogPostPage({ params }: PageProps) {
   };
 
   const breadcrumbJsonLd = getBreadcrumbJsonLd([
-    { name: "Inicio", url: "https://www.gyacompany.com" },
-    { name: "Blog de Expertos", url: "https://www.gyacompany.com/blog" },
+    { name: "Inicio", url: SITE_URL },
+    { name: "Blog de Expertos", url: `${SITE_URL}/blog` },
     { name: post.title, url: postUrl },
   ]);
 

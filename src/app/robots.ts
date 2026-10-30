@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/shared/config/company-data";
 import { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
@@ -11,6 +12,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/_next/"],
       },
     ],
-    sitemap: "https://www.gyacompany.com/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

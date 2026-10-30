@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import ReclamationForm from "@/features/reclamation-book/components/ReclamationForm";
 
@@ -5,12 +6,12 @@ export const metadata: Metadata = {
   title: "Libro de Reclamaciones | Glass & Aluminum Company S.A.C.",
   description: "Presenta tu queja o reclamo formal a través del Libro de Reclamaciones virtual de Glass & Aluminum Company S.A.C. Cumplimos con la normativa del INDECOPI.",
   alternates: {
-    canonical: "https://www.gyacompany.com/libro-de-reclamacion",
+    canonical: `${SITE_URL}/libro-de-reclamacion`,
   },
   openGraph: {
     title: "Libro de Reclamaciones | Glass & Aluminum Company S.A.C.",
     description: "Presenta tu queja o reclamo formal a través del Libro de Reclamaciones virtual. Cumplimos con la normativa del INDECOPI.",
-    url: "https://www.gyacompany.com/libro-de-reclamacion",
+    url: `${SITE_URL}/libro-de-reclamacion`,
     siteName: "Glass & Aluminum Company S.A.C.",
     locale: "es_PE",
     type: "website",

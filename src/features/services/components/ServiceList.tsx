@@ -1,4 +1,5 @@
 "use client";
+import { SITE_URL } from "@/shared/config/company-data";
 import React, { useMemo, useCallback } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
@@ -53,7 +54,7 @@ const ServiceList: React.FC = React.memo(() => {
             headingAs="h1"
             seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
             seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina. Ventanas, mamparas y más."
-            seoCanonicalUrl="https://www.gyacompany.com/servicios"
+            seoCanonicalUrl={`${SITE_URL}/servicios`}
             columns={{ base: 1, md: 2, lg: 3 }}
         >
             <Box gridColumn="1 / -1" w="full" mt="5">
