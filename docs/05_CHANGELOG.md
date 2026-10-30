@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-10-30] - Firebase como única fuente de servicios y proyectos
+
+### Added
+- `scripts/migrate-to-firebase.mjs`: migración ejecutada en producción (10 servicios, 14 proyectos, 137 imágenes en Storage, con FAQ, SEO y álbum por sistema).
+- `apps/web/src/shared/api/firebase/publicRest.ts`: lectura de Firestore en build para `generateStaticParams`, metadata, JSON-LD, sitemap y `initialData`.
+
+### Changed
+- Las páginas públicas usan los datos de build como `initialData` y se refrescan desde Firestore en el cliente; las lecturas usan `*FromServer`.
+
+### Removed
+- Datos locales de servicios y proyectos, el seed del admin y 640 imágenes (`public/images` 74 MB → 7,8 MB; `src/assets` 139 MB → 19 MB).
+
+### Pendiente
+- Desplegar reglas de Firestore y Storage, asignar el claim `role=admin` al admin y desplegar Hosting.
+
 ## [2026-10-30] - Migración a Monorepo pnpm, Firestore en el Frontend Público y Reglas Admin
 
 ### Added

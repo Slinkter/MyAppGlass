@@ -21,8 +21,9 @@ Módulo de negocio responsable de presentar el catálogo de servicios corporativ
 
 ## 📦 Datos y Servicios
 
-- **`data/services.ts`**: Catálogo de los 10 servicios (con `plink`, p. ej. `/servicios/ventana`).
-- **`data/servicePageDataMap.ts`**: Datos de cada página de detalle (SEO, descripción, beneficios, sistemas, características y galerías).
-- **`data/serviceFaqs.ts`**: Preguntas frecuentes por servicio.
-- **`data/gallery/`**: Imágenes por servicio (`ventana-data.ts`, `mampara-data.ts`, `ducha-data.ts`, `techo-data.ts`, `baranda-data.ts`, `parapeto-data.ts`, `balcon-data.ts`, `celosias-data.ts`, `puerta-serie-data.ts`, `puerta-vidrio-data.ts`).
-- **`services/serviceService.ts`**: Capa de acceso a los datos de servicios.
+Firebase (Firestore + Storage) es la única fuente de servicios; ya no hay datos locales.
+
+- **Build (SEO del export estático)**: `shared/api/firebase/publicRest.ts` lee `/services` por la API REST pública y alimenta `generateStaticParams`, metadatos, JSON-LD y `initialData`. Si falla, devuelve `[]` y la ruta usa el slug centinela `_`.
+- **Cliente**: `hooks/useServices.ts` renderiza primero con `initialData` y luego refresca desde Firestore (`shared/hooks/data/useAsyncResource.ts`).
+- **`hooks/serviceMappers.ts`**: Convierte `Service` de Firestore a `ServiceListItem` y `ServicePageData` (galería agrupada por `system`, FAQ desde `faqs`).
+- **`types.ts`**: Tipos de vista (`ServicePageData`, `ServiceListItem`, `ServicePageSystem`).

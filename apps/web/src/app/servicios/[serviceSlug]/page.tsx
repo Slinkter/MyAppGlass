@@ -1,68 +1,54 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { ServiceDetailView } from "@/screens/Services";
-import { getServiceBySlug, getServices } from "@/features/services/services/serviceService";
-import { servicePageDataMap } from "@/features/services/data/servicePageDataMap";
+import { getBuildServices } from "@/shared/api/firebase/publicRest";
+import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
+import { getServiceSeo } from "@/features/services/hooks/serviceMappers";
 import { getServiceJsonLd, getSectionBreadcrumbJsonLd, getFaqJsonLd } from "@/shared/utils/seo-utils";
-import { serviceFaqsMap, defaultServiceFaqs } from "@/features/services/data/serviceFaqs";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
-export function generateStaticParams() {
-  const servicesList = getServices();
-  return servicesList.map((service) => ({
-    serviceSlug: service.plink.split("/").pop() || "",
-  }));
+/**
+ * Los slugs salen de Firestore (lectura REST en build). Si la lectura falla o no hay
+ * servicios se devuelve un centinela para que `output: 'export'` no falle.
+ */
+export async function generateStaticParams() {
+  const services = await getBuildServices();
+  return services.length > 0
+    ? services.map((service) => ({ serviceSlug: service.slug }))
+    : [{ serviceSlug: BUILD_SENTINEL }];
 }
 
 type Props = {
   params: Promise<{ serviceSlug: string }>;
 };
 
-/**
- * Shared data resolver for both generateMetadata and Page.
- * Avoids duplicate Firestore/module lookups per request.
- */
 async function resolveServiceData(params: Promise<{ serviceSlug: string }>) {
   const { serviceSlug } = await params;
-  const pageData = servicePageDataMap[serviceSlug];
-  const service = getServiceBySlug(serviceSlug);
-  return { serviceSlug, pageData, service };
+  const services = await getBuildServices();
+  const service = services.find((s) => s.slug === serviceSlug);
+  return { serviceSlug, service };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { serviceSlug, pageData, service } = await resolveServiceData(params);
-  
+  const { serviceSlug, service } = await resolveServiceData(params);
+
   if (!service) {
     return {
-      title: "Servicio no encontrado | Glass & Aluminum Company S.A.C.",
+      title: "Servicio | Glass & Aluminum Company S.A.C.",
+      robots: { index: false, follow: true },
     };
   }
 
   const canonicalUrl = `${SITE_URL}/servicios/${serviceSlug}`;
-
-  if (pageData?.seo) {
-    return {
-      title: pageData.seo.title,
-      description: pageData.seo.description,
-      alternates: { canonical: canonicalUrl },
-      openGraph: {
-        title: pageData.seo.title,
-        description: pageData.seo.description,
-        url: canonicalUrl,
-        siteName: "Glass & Aluminum Company S.A.C.",
-        locale: "es_PE",
-        type: "website",
-      },
-    };
-  }
+  const seo = getServiceSeo(service);
 
   return {
-    title: `${service.name} en La Molina | Glass & Aluminum Company S.A.C.`,
-    description: `Fabricación e instalación de ${service.name} a medida en La Molina y Lima. ${service.description?.substring(0, 120)}`,
+    title: seo.title,
+    description: seo.description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${service.name} en La Molina | Glass & Aluminum Company S.A.C.`,
-      description: `Fabricación e instalación de ${service.name} a medida en La Molina y Lima.`,
+      title: seo.title,
+      description: seo.description,
       url: canonicalUrl,
       siteName: "Glass & Aluminum Company S.A.C.",
       locale: "es_PE",
@@ -72,22 +58,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const { serviceSlug, pageData, service } = await resolveServiceData(params);
+  const { serviceSlug, service } = await resolveServiceData(params);
 
-  const title = pageData?.seo.title || service?.name || "Servicio";
-  const description = pageData?.seo.description || service?.description || "";
+  // Sin datos de build (centinela o slug desconocido): el detalle se resuelve en el cliente.
+  if (!service) {
+    return (
+      <ComponentErrorBoundary>
+        <ServiceDetailView serviceSlug={serviceSlug} />
+      </ComponentErrorBoundary>
+    );
+  }
+
+  const { title, description } = getServiceSeo(service);
   const url = `${SITE_URL}/servicios/${serviceSlug}`;
 
-  const faqs = serviceSlug && serviceFaqsMap[serviceSlug]
-    ? serviceFaqsMap[serviceSlug]
-    : defaultServiceFaqs;
-
-  const serviceJsonLd = getServiceJsonLd(title, description, url);
+  const serviceJsonLd = getServiceJsonLd(title, description, url, service.coverImage);
   const breadcrumbJsonLd = getSectionBreadcrumbJsonLd(
     { name: "Servicios", path: "/servicios" },
     { name: title, url }
   );
-  const faqJsonLd = getFaqJsonLd(faqs);
 
   return (
     <ComponentErrorBoundary>
@@ -99,11 +88,13 @@ export default async function Page({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <ServiceDetailView serviceSlug={serviceSlug} />
+      {service.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqJsonLd(service.faqs)) }}
+        />
+      )}
+      <ServiceDetailView serviceSlug={serviceSlug} initialData={service} />
     </ComponentErrorBoundary>
   );
 }

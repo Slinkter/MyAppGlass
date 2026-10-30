@@ -18,6 +18,9 @@ import ProjectCard from "./ProjectCard";
 import { useProjects } from "@features/projects/hooks/useProjects";
 import { ProjectCardSkeletons } from "./ProjectSkeletons";
 import type { Project } from "@shared/types/project";
+import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
+import { EmptyState } from "@/components/ui/empty-state";
+import { AlertTriangle } from "lucide-react";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
 import logger from "@shared/utils/logger";
 
@@ -31,13 +34,19 @@ const normalizeYear = (year?: string | number): string => {
   return match ? match[1] : "Otros";
 };
 
+export interface ProjectsListProps {
+  /** Proyectos leídos de Firestore en build (primer render, para el HTML exportado). */
+  initialData?: FirestoreProject[];
+}
+
 /**
  * @component ProjectsList
  * @description Orchestrator for the projects gallery, implementing Infinite Scroll (O1) for high performance.
  */
-const ProjectsList: React.FC = React.memo(() => {
-  // Firestore en cliente con fallback local (ver useProjects); ya viene más reciente primero.
-  const { data, isLoading } = useProjects();
+const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData }) => {
+  // Primer render con los datos de build; Firestore en cliente los refresca (ver useProjects).
+  // Ya viene más reciente primero.
+  const { data, isLoading, error } = useProjects(initialData);
   const allProjects = useMemo<Project[]>(() => {
     const projects = data ?? [];
     logger.debug({ total: projects.length }, "Projects loaded");
@@ -150,6 +159,15 @@ const ProjectsList: React.FC = React.memo(() => {
         }}
       >
         {isLoading && <ProjectCardSkeletons />}
+        {!isLoading && Boolean(error) && !data && (
+          <Box gridColumn="1 / -1" py="22">
+            <EmptyState
+              icon={<AlertTriangle />}
+              title="No pudimos cargar los proyectos"
+              description={error instanceof Error ? error.message : undefined}
+            />
+          </Box>
+        )}
         {!isLoading && preloadedProjects.map((project, index) => (
           <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>
             <ProjectCard

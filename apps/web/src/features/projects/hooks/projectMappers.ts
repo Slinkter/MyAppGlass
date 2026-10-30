@@ -1,32 +1,38 @@
 /**
  * @file projectMappers.ts
- * @description Adaptadores entre el modelo Firestore (`Project`) y el modelo de vista local.
+ * @description Adaptadores entre el modelo Firestore (`Project`) y el modelo de vista.
  * @module projects/hooks
  */
 
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import type { Project } from "@shared/types/project";
-import { getProjects as getLocalProjects } from "@shared/services/projectService";
-
-/** Ids prerenderizados en el export estático (generateStaticParams). */
-const prerenderedIds = new Set(getLocalProjects().map((p) => String(p.id)));
 
 /**
- * Los proyectos locales tienen HTML estático; los creados desde el admin se atienden en
- * la ruta cliente `/proyectos/ver?id=...` (necesario con `output: 'export'`).
+ * Con `output: 'export'` solo existe HTML para los ids leídos en build
+ * (`prerenderedIds`, que llegan desde page.tsx). El resto —proyectos creados después
+ * desde el admin o sin lista de build— se atiende en la ruta cliente
+ * `/proyectos/ver?id=...`.
  */
-export const getProjectHref = (id: string | number): string =>
-  prerenderedIds.has(String(id))
+export const getProjectHref = (
+  id: string | number,
+  prerenderedIds?: ReadonlySet<string>
+): string =>
+  prerenderedIds?.has(String(id))
     ? `/proyectos/${id}`
     : `/proyectos/ver?id=${encodeURIComponent(String(id))}`;
 
-export const toProject = (project: FirestoreProject): Project => ({
+export const toProject = (
+  project: FirestoreProject,
+  prerenderedIds?: ReadonlySet<string>
+): Project => ({
   id: project.id,
+  href: getProjectHref(project.id, prerenderedIds),
   image: project.coverImage,
   residencial: project.title,
   name: project.client,
   address: project.location,
   numdpto: project.numdpto,
+  g_maps: project.address,
   year: project.completedAt ?? "",
   lat: project.lat ?? null,
   lng: project.lng ?? null,
@@ -38,7 +44,7 @@ export const toProject = (project: FirestoreProject): Project => ({
   })),
 });
 
-/** Ordena como la lista local: más reciente primero (ids numéricos descendentes). */
+/** Más reciente primero (ids numéricos descendentes). */
 const compareRecentFirst = (a: Project, b: Project): number => {
   const na = Number(a.id);
   const nb = Number(b.id);
@@ -46,7 +52,11 @@ const compareRecentFirst = (a: Project, b: Project): number => {
   return 0; // conserva el orden `createdAt desc` del repositorio
 };
 
-export const toProjectList = (projects: FirestoreProject[]): Project[] =>
-  projects.filter((p) => p.published).map(toProject).sort(compareRecentFirst);
-
-export const getLocalProjectList = (): Project[] => [...getLocalProjects()].reverse();
+export const toProjectList = (
+  projects: FirestoreProject[],
+  prerenderedIds?: ReadonlySet<string>
+): Project[] =>
+  projects
+    .filter((p) => p.published)
+    .map((p) => toProject(p, prerenderedIds))
+    .sort(compareRecentFirst);

@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import BackButton from "@shared/components/navigation/BackButton";
-import { ServicePageSystem } from "@features/services/services/serviceService";
+import type { ServicePageSystem } from "@features/services/types";
 
 interface SystemSelectorProps {
   systems: ServicePageSystem[];

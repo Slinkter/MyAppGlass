@@ -11,6 +11,8 @@ export interface ProjectCardProps {
   address: string;
   year: string | number;
   image: string;
+  /** Enlace al detalle (prerenderizado o `/proyectos/ver?id=`); si falta se calcula del id. */
+  href?: string;
   isLCP?: boolean;
   loading?: "lazy" | "eager";
   fetchPriority?: "auto" | "high" | "low";
@@ -23,7 +25,7 @@ export interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = React.memo((props) => {
   const router = useRouter();
   const {
-    id, residencial, address, year, image, isLCP, loading, fetchPriority,
+    id, residencial, address, year, image, href, isLCP, loading, fetchPriority,
   } = props;
 
   const handleNavigate = React.useCallback(() => {
@@ -32,8 +34,8 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo((props) => {
       logger.warn({ id, props }, "ProjectCard: Attempted to navigate with undefined ID");
       return;
     }
-    router.push(getProjectHref(id));
-  }, [id, residencial, address, year, router, props]);
+    router.push(href ?? getProjectHref(id));
+  }, [id, residencial, address, year, href, router, props]);
 
   return (
     <ProjectCardContent

@@ -1,8 +1,10 @@
+// Las lecturas usan *FromServer: sin conexión lanzan error en lugar de devolver la caché
+// local vacía, y así las páginas públicas conservan los datos leídos en build.
 import {
   collection,
   doc,
-  getDoc,
-  getDocs,
+  getDocFromServer,
+  getDocsFromServer,
   setDoc,
   updateDoc,
   deleteDoc,
@@ -60,7 +62,7 @@ export const getProjects = async (
     constraints.push(orderBy("createdAt", "desc"));
 
     const q = query(projectsRef, ...constraints);
-    const snapshot = await getDocs(q);
+    const snapshot = await getDocsFromServer(q);
 
     const items: Project[] = [];
     snapshot.forEach((docSnap) => {
@@ -88,7 +90,7 @@ export const getProjects = async (
 export const getProjectById = async (id: string): Promise<Project | null> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
-    const snapshot = await getDoc(docRef);
+    const snapshot = await getDocFromServer(docRef);
 
     if (!snapshot.exists()) {
       return null;
@@ -108,7 +110,7 @@ export const getProjectBySlug = async (slug: string): Promise<Project | null> =>
   try {
     const projectsRef = collection(db, COLLECTION_NAME);
     const q = query(projectsRef, where("slug", "==", slug));
-    const snapshot = await getDocs(q);
+    const snapshot = await getDocsFromServer(q);
 
     if (snapshot.empty) {
       return null;
@@ -154,7 +156,7 @@ export const createProject = async (
     await setDoc(docRef, payload);
     logger.info("Proyecto creado exitosamente en Firestore", { id: docRef.id });
 
-    const created = await getDoc(docRef);
+    const created = await getDocFromServer(docRef);
     return mapDocToProject(created.id, created.data() || payload);
   } catch (error) {
     logger.error("Error al crear proyecto en Firestore", error, { input });
@@ -182,7 +184,7 @@ export const updateProject = async (
     await updateDoc(docRef, payload);
     logger.info("Proyecto actualizado exitosamente en Firestore", { id });
 
-    const updated = await getDoc(docRef);
+    const updated = await getDocFromServer(docRef);
     if (!updated.exists()) {
       throw new Error(`Proyecto con id ${id} no encontrado tras actualizar.`);
     }

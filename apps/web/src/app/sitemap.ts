@@ -2,13 +2,15 @@ import { SITE_URL } from "@/shared/config/company-data";
 import { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
-import { services } from "@/features/services/data/services";
 import BLOG_POSTS from "@/features/blog/data/blog-posts";
-import { projects } from "@/shared/data/projects";
+import { getBuildProjects, getBuildServices } from "@/shared/api/firebase/publicRest";
 
 const SITE_LAUNCH = new Date("2025-06-01");
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Servicios y proyectos salen de Firestore (lectura REST en build); si falla, quedan solo las páginas fijas.
+  const [services, projects] = await Promise.all([getBuildServices(), getBuildProjects()]);
+
   const staticPages = [
     { url: SITE_URL, lastModified: SITE_LAUNCH, changeFrequency: "weekly" as const, priority: 1.0 },
     { url: `${SITE_URL}/servicios`, lastModified: SITE_LAUNCH, changeFrequency: "weekly" as const, priority: 0.9 },
@@ -21,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const servicePages = services.map((service) => ({
-    url: `${SITE_URL}${service.plink}`,
+    url: `${SITE_URL}/servicios/${service.slug}`,
     lastModified: SITE_LAUNCH,
     changeFrequency: "monthly" as const,
     priority: 0.8,

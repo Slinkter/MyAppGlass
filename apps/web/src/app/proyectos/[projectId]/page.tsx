@@ -1,39 +1,56 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { ProjectDetailView } from "@/screens/Projects";
-import { getProjectById, getProjects } from "@shared/services/projectService";
+import { getBuildProjects } from "@/shared/api/firebase/publicRest";
+import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
+import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
-export function generateStaticParams() {
-  const projectsList = getProjects();
-  return projectsList.map((project) => ({
-    projectId: project.id.toString(),
-  }));
+/**
+ * Los ids salen de Firestore (lectura REST en build). Si la lectura falla o no hay
+ * proyectos se devuelve un centinela para que `output: 'export'` no falle.
+ */
+export async function generateStaticParams() {
+  const projects = await getBuildProjects();
+  return projects.length > 0
+    ? projects.map((project) => ({ projectId: String(project.id) }))
+    : [{ projectId: BUILD_SENTINEL }];
 }
 
 type Props = {
   params: Promise<{ projectId: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+async function resolveProjectData(params: Promise<{ projectId: string }>) {
   const { projectId } = await params;
-  const project = getProjectById(projectId);
-  
+  const projects = await getBuildProjects();
+  const project = projects.find((p) => String(p.id) === projectId);
+  return { projectId, project };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { projectId, project } = await resolveProjectData(params);
+
   if (!project) {
     return {
-      title: "Proyecto no encontrado | GYA Glass & Aluminum",
+      title: "Proyecto | GYA Glass & Aluminum",
+      robots: { index: false, follow: true },
     };
   }
 
+  const title = `${project.title} | Proyecto GYA`;
+  const description = `Detalles del proyecto ${project.title} ubicado en ${project.location}.${
+    project.completedAt ? ` Realizado en ${project.completedAt}.` : ""
+  }`;
+  const url = `${SITE_URL}/proyectos/${projectId}`;
+
   return {
-    title: `${project.residencial} | Proyecto GYA`,
-    description: `Detalles del proyecto ${project.residencial} ubicado en ${project.address}. Realizado en el año ${project.year}.`,
-    alternates: {
-      canonical: `${SITE_URL}/proyectos/${projectId}`,
-    },
+    title,
+    description,
+    alternates: { canonical: url },
     openGraph: {
-      title: `${project.residencial} | Proyecto GYA`,
-      description: `Detalles del proyecto ${project.residencial} ubicado en ${project.address}. Realizado en el año ${project.year}.`,
-      url: `${SITE_URL}/proyectos/${projectId}`,
+      title,
+      description,
+      url,
       siteName: "Glass & Aluminum Company S.A.C.",
       locale: "es_PE",
       type: "website",
@@ -41,13 +58,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+export default async function Page({ params }: Props) {
+  const { projectId, project } = await resolveProjectData(params);
 
-import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
-
-export default function Page() {
   return (
     <ComponentErrorBoundary>
-      <ProjectDetailView />
+      <ProjectDetailView projectId={projectId} initialData={project} />
     </ComponentErrorBoundary>
   );
 }

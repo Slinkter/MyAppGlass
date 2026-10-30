@@ -20,7 +20,16 @@ export const ServiceGalleryItemSchema = z.object({
   id: z.string().min(1, "El id del item de galería es obligatorio"),
   url: z.string().min(1, "Ruta o URL de imagen requerida"),
   alt: z.string().optional(),
+  /** Sistema al que pertenece la foto (agrupa el álbum por sistema). */
+  system: z.string().optional(),
 });
+
+export const ServiceFaqSchema = z.object({
+  question: z.string().min(1),
+  answer: z.string().min(1),
+});
+
+export type ServiceFaq = z.infer<typeof ServiceFaqSchema>;
 
 export type ServiceGalleryItem = z.infer<typeof ServiceGalleryItemSchema>;
 
@@ -39,6 +48,9 @@ export const ServiceSchema = z.object({
   benefits: z.array(z.string()).optional().default([]),
   coverImage: z.string().min(1, "Ruta o URL de imagen de portada requerida"),
   gallery: z.array(ServiceGalleryItemSchema).default([]),
+  faqs: z.array(ServiceFaqSchema).optional().default([]),
+  seoTitle: z.string().optional(),
+  seoDescription: z.string().optional(),
   order: z.number().int().default(0),
   published: z.boolean().default(true),
   createdAt: DateSchema.optional(),

@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import AuraSurface from "@/shared/components/aura/AuraSurface";
-import { ServiceFaq } from "../data/serviceFaqs";
+import type { ServiceFaq } from "@features/services/types";
 
 interface ServiceFaqSectionProps {
   faqs: ServiceFaq[];

@@ -6,7 +6,13 @@
 
 import React from "react";
 import { Box } from "@chakra-ui/react";
+import type { Project } from "@/shared/api/firebase/types";
 import { ProjectsList } from "@features/projects";
+
+interface ProjectsViewProps {
+  /** Proyectos leídos de Firestore en build (primer render, para el HTML exportado). */
+  initialData?: Project[];
+}
 
 /**
  * @component ProjectsView
@@ -14,10 +20,10 @@ import { ProjectsList } from "@features/projects";
  * Displays all completed projects in a grid layout.
  * @returns {JSX.Element} The project page with projects list
  */
-const ProjectsView: React.FC = () => {
+const ProjectsView: React.FC<ProjectsViewProps> = ({ initialData }) => {
   return (
     <Box as="section" py={1}>
-      <ProjectsList />
+      <ProjectsList initialData={initialData} />
     </Box>
   );
 };

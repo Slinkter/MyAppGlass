@@ -22,6 +22,7 @@ import {
   PlusCircle,
 } from "lucide-react";
 import type { Service } from "@/shared/api/firebase/types";
+import { getServiceHref } from "@/features/services/hooks/serviceMappers";
 
 export interface ServiceAdminTableProps {
   services: Service[];
@@ -233,7 +234,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
                         size="2xs"
                         variant="ghost"
                         color="text.muted"
-                        onClick={() => window.open(`/servicios/${item.slug}`, "_blank")}
+                        onClick={() => window.open(getServiceHref(item.slug), "_blank")}
                       >
                         <ExternalLink size={12} style={{ flexShrink: 0 }} />
                       </IconButton>

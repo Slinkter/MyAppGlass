@@ -1,6 +1,7 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { ServicesListView } from "@/screens/Services";
+import { getBuildServices } from "@/shared/api/firebase/publicRest";
 
 export const metadata: Metadata = {
   title: "Servicios de Vidriería y Aluminio | GYA Company La Molina",
@@ -20,10 +21,12 @@ export const metadata: Metadata = {
 
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
-export default function Page() {
+export default async function Page() {
+  // Datos de build (Firestore REST); la lista no usa la galería, se omite del payload.
+  const services = (await getBuildServices()).map((service) => ({ ...service, gallery: [] }));
   return (
     <ComponentErrorBoundary>
-      <ServicesListView />
+      <ServicesListView initialData={services} />
     </ComponentErrorBoundary>
   );
 }

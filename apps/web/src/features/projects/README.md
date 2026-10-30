@@ -11,8 +11,7 @@ Handles the portfolio section of the application, showcasing completed work thro
   - `ProjectCard`: Individual project summary with glassmorphism styling.
   - `ProjectCardContent` and `ProjectDetailItem`: Card body and detail rows.
   - `modal/VisualViewer` and `modal/MapViewer`: Gallery and map views of a project.
-- **Data**: `data/projects.ts` holds the portfolio entries.
-- **Services**: `src/shared/services/projectService.ts` provides data for the portfolio (shared across features).
+- **Data**: Firestore (`/projects`) is the only source. `shared/api/firebase/publicRest.ts` reads it at build time (REST) for the static export and `hooks/useProjects.ts` renders with that `initialData` and then refreshes from Firestore on the client.
 
 ## Key Features
 

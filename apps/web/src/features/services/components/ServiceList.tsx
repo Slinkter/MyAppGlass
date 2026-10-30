@@ -9,19 +9,25 @@ import { useServices, type ServiceListItem } from "@features/services/hooks/useS
 import { ServiceCardSkeletons } from "./ServiceSkeletons";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Search } from "lucide-react";
+import { AlertTriangle, Search } from "lucide-react";
+import type { Service } from "@/shared/api/firebase/types";
 
 const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
 
 export type ServiceData = ServiceListItem;
 
+export interface ServiceListProps {
+    /** Servicios leídos de Firestore en build (primer render, para el HTML exportado). */
+    initialData?: Service[];
+}
+
 /**
  * @component ServiceList
  * @description Renderiza la lista de servicios con filtro por categoría e Infinite Scroll.
  */
-const ServiceList: React.FC = React.memo(() => {
-    // Firestore en cliente con fallback local (ver useServices).
-    const { data, isLoading } = useServices();
+const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData }) => {
+    // Primer render con los datos de build; Firestore en cliente los refresca (ver useServices).
+    const { data, isLoading, error } = useServices(initialData);
     const allServices = useMemo<ServiceData[]>(() => data ?? [], [data]);
 
     const filterFn = useCallback((items: ServiceData[], category: string) => {
@@ -97,6 +103,14 @@ const ServiceList: React.FC = React.memo(() => {
 
             {isLoading ? (
                 <ServiceCardSkeletons />
+            ) : error && !data ? (
+                <Box gridColumn="1 / -1" py="22">
+                    <EmptyState
+                        icon={<AlertTriangle />}
+                        title="No pudimos cargar los servicios"
+                        description={error instanceof Error ? error.message : undefined}
+                    />
+                </Box>
             ) : totalFilteredCount === 0 ? (
                 <Box gridColumn="1 / -1" py="22">
                     <EmptyState

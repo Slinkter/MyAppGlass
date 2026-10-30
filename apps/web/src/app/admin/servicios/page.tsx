@@ -15,8 +15,6 @@ import type {
   CreateServiceInput,
   UpdateServiceInput,
 } from "@/shared/api/firebase/types";
-import { seedDatabase } from "@/features/admin/seed/seedData";
-import { env } from "@/shared/config/env";
 import { toaster } from "@/components/ui/toaster-instance";
 
 export default function AdminServiciosPage() {
@@ -45,18 +43,6 @@ export default function AdminServiciosPage() {
   useEffect(() => {
     fetchServices();
   }, [fetchServices]);
-
-  const handleSeed = async () => {
-    const result = await seedDatabase();
-    toaster.create({
-      title: result.errors.length ? "Error al sembrar datos" : "Datos sembrados",
-      description: result.errors.length
-        ? result.errors[0]
-        : `Servicios: ${result.servicesInserted} nuevos, ${result.servicesSkipped} omitidos. Proyectos: ${result.projectsInserted} nuevos, ${result.projectsSkipped} omitidos.`,
-      type: result.errors.length ? "error" : "success",
-    });
-    await fetchServices();
-  };
 
   const handleCreate = () => {
     setSelectedService(null);
@@ -151,12 +137,6 @@ export default function AdminServiciosPage() {
       subtitle="Administración de líneas de producto y carpintería de vidrio y aluminio"
       badge="Catálogo Maestro"
     >
-      {env.NEXT_PUBLIC_USE_EMULATORS === "true" && (
-        <button type="button" onClick={handleSeed} data-testid="seed-button">
-          Sembrar datos iniciales (emulador)
-        </button>
-      )}
-
       <ServiceAdminTable
         services={services}
         loading={loading}

@@ -1,8 +1,10 @@
+// Las lecturas usan *FromServer: sin conexión lanzan error en lugar de devolver la caché
+// local vacía, y así las páginas públicas conservan los datos leídos en build.
 import {
   collection,
   doc,
-  getDoc,
-  getDocs,
+  getDocFromServer,
+  getDocsFromServer,
   setDoc,
   updateDoc,
   deleteDoc,
@@ -56,7 +58,7 @@ export const getServices = async (
     constraints.push(orderBy("order", "asc"));
 
     const q = query(servicesRef, ...constraints);
-    const snapshot = await getDocs(q);
+    const snapshot = await getDocsFromServer(q);
 
     const items: Service[] = [];
     snapshot.forEach((docSnap) => {
@@ -82,7 +84,7 @@ export const getServices = async (
 export const getServiceById = async (id: string): Promise<Service | null> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
-    const snapshot = await getDoc(docRef);
+    const snapshot = await getDocFromServer(docRef);
 
     if (!snapshot.exists()) {
       return null;
@@ -102,7 +104,7 @@ export const getServiceBySlug = async (slug: string): Promise<Service | null> =>
   try {
     const servicesRef = collection(db, COLLECTION_NAME);
     const q = query(servicesRef, where("slug", "==", slug));
-    const snapshot = await getDocs(q);
+    const snapshot = await getDocsFromServer(q);
 
     if (snapshot.empty) {
       return null;
@@ -138,7 +140,7 @@ export const createService = async (
     await setDoc(docRef, payload);
     logger.info("Servicio creado exitosamente en Firestore", { id: docRef.id });
 
-    const created = await getDoc(docRef);
+    const created = await getDocFromServer(docRef);
     return mapDocToService(created.id, created.data() || payload);
   } catch (error) {
     logger.error("Error al crear servicio en Firestore", error, { input });
@@ -166,7 +168,7 @@ export const updateService = async (
     await updateDoc(docRef, payload);
     logger.info("Servicio actualizado exitosamente en Firestore", { id });
 
-    const updated = await getDoc(docRef);
+    const updated = await getDocFromServer(docRef);
     if (!updated.exists()) {
       throw new Error(`Servicio con id ${id} no encontrado tras actualizar.`);
     }

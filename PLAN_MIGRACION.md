@@ -97,10 +97,12 @@ Basado en el análisis de [GOL.md](GOL.md) y las reglas de negocio en [AGENTS.md
 ---
 
 ### Fase 7: Pendientes Reales (siguiente iteración)
-- [ ] **7.1. Pruebas en navegador con emuladores**: probar el panel admin (`/admin/*`) y las páginas públicas `/servicios` y `/proyectos` con `firebase emulators:start --only auth,firestore,storage --project gya-app-4c8a9` y `NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev`.
-- [ ] **7.2. Pruebas con Firestore apagado**: verificar que las páginas públicas muestran el fallback local cuando Firestore no responde.
-- [ ] **7.3. Despliegue**: los cambios del monorepo y de las reglas **no están desplegados** en Firebase Hosting ni en Firestore/Storage.
+- [x] **7.1. Pruebas en navegador con emuladores**: Playwright (Chromium headless) contra el export estático servido con cleanUrls y los emuladores: 14/14 OK (guard sin sesión, login admin, tabla, borrar desde la UI, público con datos de Firestore, ocultos no visibles, slug nuevo en `/servicios/ver`, detalle con galería, `/proyectos`, subida admin a Storage).
+- [x] **7.2. Pruebas con Firestore apagado**: con los emuladores detenidos, `/servicios`, `/servicios/ventana` y `/proyectos` conservan el contenido leído en build. Las lecturas usan `getDocsFromServer`/`getDocFromServer` para que la caché vacía no pise esos datos.
+- [ ] **7.3. Despliegue**: datos e imágenes **ya migrados** a producción (10 servicios, 14 proyectos, 137 imágenes en Storage con `scripts/migrate-to-firebase.mjs`). Falta (requiere permiso del usuario): `firebase deploy --only firestore:rules,storage` (producción aún no tiene reglas de `/services` y `/projects`), el claim `role=admin` para el usuario admin en Storage, y desplegar Hosting.
 - [x] **7.4. Esquemas compartidos**: mover los esquemas Zod (servicios, proyectos) a `packages/shared`, extraídos a `packages/shared/src/schemas` (con reexports en web).
 - [x] **7.5. ESLint compartido**: extraída a `packages/eslint-config` (`@gya/eslint-config`; `apps/functions` sigue congelado con config propia) (hoy `apps/web` y `apps/functions` tienen configuración propia).
 - [x] **7.6. Alinear pnpm en CI**: `package.json` fija `packageManager: pnpm@12.5.1`, los workflows usan `pnpm/action-setup@v4` sin `version` (toma el campo) y `pnpm install --frozen-lockfile` pasa en local. Falta confirmar la ejecución real en GitHub Actions.
 - [x] **7.7. Galería con visor modal** de servicios (ver 4.1).
+
+- [x] **7.8. Firebase como única fuente**: borrados los datos locales de servicios y proyectos y sus imágenes (`public/images` 74 MB → 7,8 MB; `src/assets` 139 MB → 19 MB). Las páginas leen Firestore en build (SEO, `publicRest.ts`) y en cliente (cambios del admin).

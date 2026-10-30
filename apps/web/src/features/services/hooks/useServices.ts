@@ -1,19 +1,20 @@
 /**
  * @file useServices.ts
- * @description Hooks públicos de servicios: leen Firestore en el cliente y caen a los
- * datos locales si falla, expira o no hay documentos.
+ * @description Hooks públicos de servicios: el primer render usa `initialData` (datos de
+ * build leídos de Firestore, para el HTML exportado) y luego se refresca desde Firestore
+ * en el cliente.
  * @module services/hooks
  */
 
+import { useMemo } from "react";
+import type { Service } from "@/shared/api/firebase/types";
 import { getServices, getServiceBySlug } from "@/shared/api/firebase/servicesRepository";
 import {
   useAsyncResource,
   type AsyncResource,
 } from "@/shared/hooks/data/useAsyncResource";
-import type { ServicePageData } from "@/features/services/services/serviceService";
+import type { ServicePageData } from "@/features/services/types";
 import {
-  getLocalServiceListItems,
-  getLocalServicePageData,
   toServiceListItem,
   toServicePageData,
   type ServiceListItem,
@@ -21,37 +22,60 @@ import {
 
 export type { ServiceListItem };
 
-/** Lista de servicios publicados, ordenados por `order`. */
-export function useServices(): AsyncResource<ServiceListItem[]> {
+/**
+ * Lista de servicios publicados, ordenados por `order`.
+ * `initialData` son los servicios leídos en build; sus slugs son los que tienen HTML
+ * prerenderizado (el resto enlaza a `/servicios/ver?slug=`).
+ */
+export function useServices(initialData?: Service[]): AsyncResource<ServiceListItem[]> {
+  const prerenderedSlugs = useMemo(
+    () => new Set((initialData ?? []).map((s) => s.slug)),
+    [initialData]
+  );
+  const initialItems = useMemo(
+    () =>
+      initialData && initialData.length > 0
+        ? initialData.map((s) => toServiceListItem(s, prerenderedSlugs))
+        : null,
+    [initialData, prerenderedSlugs]
+  );
+
   return useAsyncResource<ServiceListItem[]>(
     "services",
     async () => {
       // Se filtra `published` en cliente para no requerir índice compuesto.
       const all = await getServices();
-      if (all.length === 0) return null;
-      return all.filter((s) => s.published).map(toServiceListItem);
+      return all.filter((s) => s.published).map((s) => toServiceListItem(s, prerenderedSlugs));
     },
-    getLocalServiceListItems
+    initialItems
   );
 }
 
 /**
- * Datos de la página de detalle de un servicio por slug.
+ * Datos de la página de detalle de un servicio por slug. `initialData` es el servicio
+ * leído en build para ese slug.
  * `data === null` y `isLoading === false` significa "no encontrado".
  */
-export function useService(slug: string | undefined): AsyncResource<ServicePageData> {
+export function useService(
+  slug: string | undefined,
+  initialData?: Service
+): AsyncResource<ServicePageData> {
+  const initialPage = useMemo(
+    () =>
+      initialData && initialData.slug === slug
+        ? { pageData: toServicePageData(initialData) }
+        : null,
+    [initialData, slug]
+  );
+
   const resource = useAsyncResource<{ pageData: ServicePageData | null }>(
     `service:${slug ?? ""}`,
     async () => {
       const service = await getServiceBySlug(slug ?? "");
-      if (!service) return null; // sin documento: usar local
-      // Documento oculto desde el admin: no mostrar ni siquiera el local.
-      return { pageData: service.published ? toServicePageData(service) : null };
+      // Sin documento o documento oculto desde el admin: no encontrado.
+      return { pageData: service && service.published ? toServicePageData(service) : null };
     },
-    () => {
-      const pageData = slug ? getLocalServicePageData(slug) : null;
-      return pageData ? { pageData } : null; // null: slug solo en Firestore, queda en carga
-    },
+    initialPage,
     Boolean(slug)
   );
   return { ...resource, data: resource.data?.pageData ?? null };

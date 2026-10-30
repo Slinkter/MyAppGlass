@@ -11,24 +11,17 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import Gallery from "@shared/components/common/Gallery";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
-import { ServicePageData } from "@features/services/services/serviceService";
+import type { ServicePageData } from "@features/services/types";
 import ServiceHeader from "./ServiceHeader";
 import { UnifiedTechnicalCard } from "./ServiceBentoGrid";
 import { ServiceFaqSection } from "./ServiceFaqSection";
-import { serviceFaqsMap, defaultServiceFaqs } from "../data/serviceFaqs";
 
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string } };
-  /** Slug del servicio, para elegir las FAQ (en /servicios/ver no hay param de ruta). */
-  serviceSlug?: string;
 }
 
-const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData, serviceSlug }) => {
-  const { seo, about, systems, imageLists } = pageData;
-  
-  const faqs = serviceSlug && serviceFaqsMap[serviceSlug] 
-    ? serviceFaqsMap[serviceSlug] 
-    : defaultServiceFaqs;
+const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
+  const { seo, about, systems, imageLists, faqs } = pageData;
 
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [isPending, startTransition] = React.useTransition();

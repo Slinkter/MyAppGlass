@@ -24,4 +24,6 @@ export interface Project {
   client?: string;
   /** Servicio asociado (solo proyectos provenientes de Firestore). */
   serviceId?: string;
+  /** Enlace al detalle: `/proyectos/<id>` si está prerenderizado o `/proyectos/ver?id=`. */
+  href?: string;
 }

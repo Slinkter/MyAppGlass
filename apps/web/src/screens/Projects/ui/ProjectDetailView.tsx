@@ -5,7 +5,7 @@
  */
 
 import React, { useState, useTransition, useCallback } from "react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import {
   Box,
   Heading,
@@ -18,6 +18,8 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Map, Image as Photo, Home, Building2, MapPin, Calendar } from "lucide-react";
+import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
+import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
 import { useProject } from "@features/projects/hooks/useProjects";
 import { ProjectDetailSkeleton } from "@features/projects/components/ProjectSkeletons";
 import VisualViewer from "@features/projects/components/modal/VisualViewer";
@@ -73,12 +75,21 @@ ViewSelector.displayName = "ViewSelector";
 interface ProjectDetailViewProps {
   /** Si se omite se toma de la ruta `/proyectos/[projectId]`. */
   projectId?: string;
+  /** Proyecto leído de Firestore en build (primer render, para el HTML exportado). */
+  initialData?: FirestoreProject;
 }
 
-const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({ projectId: projectIdProp }) => {
+const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
+  projectId: projectIdProp,
+  initialData,
+}) => {
   const params = useParams();
-  const projectId = projectIdProp ?? (params?.projectId as string | undefined);
-  const { data: project, isLoading } = useProject(projectId);
+  const pathname = usePathname();
+  const rawId = projectIdProp ?? (params?.projectId as string | undefined);
+  // Página centinela (`/proyectos/_`, sin datos de build): el id sale de la URL.
+  const projectId =
+    rawId === BUILD_SENTINEL ? pathname?.split("/").filter(Boolean).pop() : rawId;
+  const { data: project, isLoading } = useProject(projectId, initialData);
   const [viewMode, setViewMode] = useState<"gallery" | "map">("gallery");
   const [isPending, startTransition] = useTransition();
 
@@ -88,7 +99,7 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({ projectId: projec
     });
   }, []);
 
-  if (!projectId) return <ErrorPage />;
+  if (!projectId || projectId === BUILD_SENTINEL) return <ErrorPage />;
   if (isLoading) return <ProjectDetailSkeleton />;
   if (!project) return <ErrorPage />;
 
