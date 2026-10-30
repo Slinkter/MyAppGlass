@@ -18,6 +18,6 @@
         "deploy:functions": "firebase deploy --only functions"
     },
     "devDependencies": {
-        "typescript": "^5.8.2"
+        "typescript": "^6.0.3"
     }
 }
