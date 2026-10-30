@@ -43,10 +43,7 @@ functions/        # Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde
 
 **Archivos clave:**
 - `features/services/components/ServicePageLayout.tsx` — Layout maestro página de servicio
-- `features/services/components/VentanaConfigurador3DCard.tsx` — Simulador 3D Three.js
-- `features/services/data/ventanas-catalogo.json` — Catálogo oficial de sistemas de ventanas
-
-> Nota (2026-10-29): `VentanaConfigurador3DCard.tsx` y `ventanas-catalogo.json` fueron eliminados en el commit `2ca4f3e` (2026-08-26) junto con el render 3D y `three`. Las reglas de negocio de abajo se conservan como especificación histórica / pendiente de re-implementación.
+> Nota: `VentanaConfigurador3DCard.tsx`, `ventanas-catalogo.json` y `three` eliminados en `2ca4f3e`; el simulador vigente es `/simulador-ai`. Reglas de negocio vigentes: 4 sistemas, tipos y colores (sección 3).
 
 ---
 
@@ -59,9 +56,7 @@ functions/        # Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde
 - `"antirruido"` (doble 'r', NO 'antiruido')
 - `"vidrio y aluminio"` (en singular)
 
-**Catálogo Oficial de Ventanas (`ventanas-catalogo.json`):**
-> Nota (2026-10-29): el archivo JSON fue eliminado en `2ca4f3e` (2026-08-26); la regla de los 4 sistemas sigue vigente como regla de negocio.
-
+**Catálogo Oficial de Ventanas:**
 - Solo existen 4 sistemas: `Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`
 - NO inventar series inexistentes (Serie 31, Serie 20, etc.)
 - Tipos de ventana: `Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`
@@ -70,9 +65,7 @@ functions/        # Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde
 - Colores de aluminio: `Negro`, `Mate`, `Blanco`, `Madera`, `Champagne`
 - Adicionales: `Arenado`, `Diseño según cliente`
 
-**Simulador 3D (`VentanaConfigurador3DCard`):**
-> Nota (2026-10-29): componente eliminado en `2ca4f3e` (2026-08-26); estas reglas quedan como especificación histórica / pendiente de re-implementación. El simulador vigente es `/simulador-ai` (superposición visual local, sin IA generativa).
-
+**Simulador 3D (histórico, pendiente de re-implementación):**
 - NO es cotizador individual de precios — es simulador visual de características técnicas
 - Proporción: **65%** Visor 3D (izq) / **35%** Panel de configuración (der)
 - Altura estándar desktop: **`460px`**

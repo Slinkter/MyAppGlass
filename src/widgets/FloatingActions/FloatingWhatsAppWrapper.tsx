@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
-const FloatingWhatsApp = dynamic(() => import("./floating-whatsapp"), {
+const FloatingWhatsApp = dynamic(() => import("./FloatingWhatsApp"), {
   ssr: false
 });
 

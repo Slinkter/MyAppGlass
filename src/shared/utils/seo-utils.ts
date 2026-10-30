@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/shared/config/company-data";
+import { SITE_URL, companyData } from "@/shared/config/company-data";
 /**
  * @file seo-utils.ts
  * @description Generador de datos estructurados Schema.org para SEO Técnico y Local (LocalBusiness, HomeAndConstructionBusiness, Service, BreadcrumbList, FAQPage).
@@ -39,8 +39,8 @@ export const getCompanyJsonLd = () => ({
       "image": `${SITE_URL}/images/branding-LogoCompanytrans.webp`,
       "logo": `${SITE_URL}/images/branding-LogoCompanytrans.webp`,
       "url": SITE_URL,
-      "telephone": "+51974278303",
-      "email": "ventas@gyacompany.com",
+      "telephone": `+${companyData.whatsappNumber}`,
+      "email": companyData.salesEmail,
       "priceRange": "$$",
       "currenciesAccepted": "PEN, USD",
       "paymentAccepted": "Cash, Credit Card, Bank Transfer",
@@ -100,6 +100,51 @@ export const getBreadcrumbJsonLd = (items: Array<{ name: string; url: string }>)
   }))
 });
 
+/**
+ * Breadcrumb de 3 niveles: Inicio > Sección > Página actual.
+ * Compartido por blog y servicios.
+ */
+export const getSectionBreadcrumbJsonLd = (
+  section: { name: string; path: string },
+  page: { name: string; url: string }
+) =>
+  getBreadcrumbJsonLd([
+    { name: "Inicio", url: SITE_URL },
+    { name: section.name, url: `${SITE_URL}${section.path}` },
+    { name: page.name, url: page.url },
+  ]);
+
+export const getBlogPostJsonLd = (
+  post: { title: string; image: string; date: string; description?: string; excerpt?: string },
+  postUrl: string
+) => ({
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "image": `${SITE_URL}${post.image}`,
+  "datePublished": post.date,
+  "dateModified": post.date,
+  "author": {
+    "@type": "Organization",
+    "name": "Glass & Aluminum Company S.A.C.",
+    "url": SITE_URL
+  },
+  "description": post.description || post.excerpt,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Glass & Aluminum Company S.A.C.",
+    "url": SITE_URL,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${SITE_URL}/images/branding-LogoCompanytrans.webp`
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": postUrl
+  }
+});
+
 export const getServiceJsonLd = (name: string, description: string, url: string, image?: string) => ({
   "@context": "https://schema.org",
   "@type": "Service",
@@ -110,7 +155,7 @@ export const getServiceJsonLd = (name: string, description: string, url: string,
   "provider": {
     "@type": "LocalBusiness",
     "name": "Glass & Aluminum Company S.A.C.",
-    "telephone": "+51974278303",
+    "telephone": `+${companyData.whatsappNumber}`,
     "url": SITE_URL
   },
   "areaServed": [

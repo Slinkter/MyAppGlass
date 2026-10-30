@@ -41,6 +41,7 @@ function getRawEnv(): Record<string, unknown> {
 const _env = envSchema.safeParse(getRawEnv());
 
 if (!_env.success) {
+  // Se usa console directamente: este modulo se evalua antes que el logger (que depende de env).
   console.error('Invalid environment variables:', _env.error.flatten().fieldErrors);
   throw new Error('Invalid environment variables');
 }

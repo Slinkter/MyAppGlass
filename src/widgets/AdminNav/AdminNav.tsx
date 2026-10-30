@@ -42,7 +42,7 @@ export const AdminNav: React.FC = () => {
       border="1px solid"
       borderColor="border.default"
       backdropFilter="blur(20px)"
-      boxShadow="0 10px 30px rgba(0, 0, 0, 0.06)"
+      boxShadow="adminNav"
     >
       <HStack justify="space-between" wrap="wrap" gap="3">
         <HStack gap="1.5" wrap="wrap">
@@ -121,9 +121,10 @@ export const AdminNav: React.FC = () => {
             fontSize="2xs"
             fontWeight="bold"
             letterSpacing="wider"
-            bg="rgba(56, 189, 248, 0.12)"
-            color="#38bdf8"
-            border="1px solid rgba(56, 189, 248, 0.25)"
+            bg="status.infoSubtle"
+            color="status.info"
+            border="1px solid"
+            borderColor="status.infoBorder"
           >
             <ShieldCheck size={12} style={{ display: "inline", marginRight: 4 }} />
             ADMIN GYA

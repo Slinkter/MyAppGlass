@@ -18,6 +18,8 @@ export interface CompanyInfo {
   contactTitle: string;
   contactPhone: string;
   contactEmail: string;
+  salesEmail: string;
+  whatsappDisplay: string;
 }
 
 /**
@@ -39,4 +41,6 @@ export const companyData: CompanyInfo = {
   contactTitle: "Gerente General",
   contactPhone: "996-537-435",
   contactEmail: "acueva@gyacompany.com", // New contact email
+  salesEmail: "ventas@gyacompany.com",
+  whatsappDisplay: "974 278 303", // Formato visual para mostrar al usuario
 };

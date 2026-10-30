@@ -15,7 +15,6 @@ export default defineConfig({
       '@': path.resolve(import.meta.dirname, './src'),
       '@features': path.resolve(import.meta.dirname, './src/features'),
       '@shared': path.resolve(import.meta.dirname, './src/shared'),
-      '@widgets': path.resolve(import.meta.dirname, './src/widgets'),
       '@screens': path.resolve(import.meta.dirname, './src/screens'),
     },
   },

@@ -32,6 +32,7 @@ import logoGYA from "@/assets/branding/logosvg.svg";
 import React from "react";
 import type { ElementType, ReactNode } from "react";
 import NAV_ITEMS from "@/shared/config/nav-items";
+import { companyData } from "@/shared/config/company-data";
 
 import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
 import { usePathname } from "next/navigation";
@@ -197,16 +198,16 @@ const Footer = () => {
                                 icon={WhatsAppIcon}
                                 customIconColor="brand.whatsapp"
                             >
-                                974 278 303
+                                {companyData.whatsappDisplay}
                             </FooterRow>
                             <FooterRow
                                 icon={WhatsAppIcon}
                                 customIconColor="brand.whatsapp"
                             >
-                                996 537 435
+                                {companyData.contactPhone.replace(/-/g, " ")}
                             </FooterRow>
                             <FooterRow icon={Mail}>
-                                acueva@gyacompany.com
+                                {companyData.contactEmail}
                             </FooterRow>
                         </FooterSection>
 

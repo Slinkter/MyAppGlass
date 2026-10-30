@@ -44,7 +44,7 @@ const AuraDesktopNav: React.FC = () => {
       display="inline-flex"
       borderWidth="1px"
       borderColor="border.default"
-      boxShadow="0 8px 32px 0 rgba(0, 0, 0, 0.08)"
+      boxShadow="navDesktop"
       maxW="full"
       overflowX="auto"
       gap="1.5"

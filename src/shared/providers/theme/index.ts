@@ -208,12 +208,30 @@ const config = defineConfig({
           redHover: { value: "#E0484D" },
           redDark: { value: "#D9444A" },
         },
+        status: {
+          info: { value: "#38bdf8" },
+          infoSoft: { value: "rgba(56, 189, 248, 0.1)" },
+          infoSubtle: { value: "rgba(56, 189, 248, 0.12)" },
+          infoBorder: { value: "rgba(56, 189, 248, 0.25)" },
+          danger: { value: "#f87171" },
+          dangerSoft: { value: "rgba(239, 68, 68, 0.1)" },
+          success: { value: "#34d399" },
+          successSoft: { value: "rgba(52, 211, 153, 0.1)" },
+          warning: { value: "#fbbf24" },
+          warningSoft: { value: "rgba(245, 158, 11, 0.1)" },
+        },
       },
       radii: {
         card: { value: "16px" },
         modal: { value: "24px" },
       },
-      shadows: {},
+      shadows: {
+        navDesktop: { value: "0 8px 32px 0 rgba(0, 0, 0, 0.08)" },
+        adminNav: { value: "0 10px 30px rgba(0, 0, 0, 0.06)" },
+        adminCard: { value: "0 4px 20px rgba(0, 0, 0, 0.04)" },
+        elevatedLg: { value: "0 8px 32px rgba(0, 0, 0, 0.12)" },
+        modalLg: { value: "0 20px 50px rgba(0,0,0,0.3)" },
+      },
     },
     semanticTokens: {
       colors: {
