@@ -15,6 +15,7 @@ const envSchema = z.object({
   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: z.string().optional(),
   NEXT_PUBLIC_FIREBASE_APP_ID: z.string().optional(),
   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: z.string().optional(),
+  NEXT_PUBLIC_USE_EMULATORS: z.enum(['true', 'false']).optional().default('false'),
 });
 
 function getRawEnv(): Record<string, unknown> {
@@ -33,6 +34,7 @@ function getRawEnv(): Record<string, unknown> {
     NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
     NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+    NEXT_PUBLIC_USE_EMULATORS: process.env.NEXT_PUBLIC_USE_EMULATORS,
   };
 }
 

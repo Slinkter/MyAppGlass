@@ -105,6 +105,20 @@ service cloud.firestore {
     }
 
     // ---------------------------------------------------------------
+    // services y projects: contenido del sitio público gestionado desde
+    // /admin/servicios y /admin/proyectos. Lectura pública, escritura admin.
+    // ---------------------------------------------------------------
+    match /services/{serviceId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /projects/{projectId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ---------------------------------------------------------------
     // pedidos y listOrden: órdenes de venta emitidas por el admin
     // (orderService.ts). No hay flujo de cliente: solo admin.
     // ---------------------------------------------------------------

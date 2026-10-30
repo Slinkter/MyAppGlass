@@ -1,7 +1,7 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 import { env } from "@/shared/config/env";
 
@@ -16,9 +16,17 @@ const firebaseConfig = {
   measurementId: env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+const isNewApp = getApps().length === 0;
+const app = isNewApp ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+// Solo en desarrollo local con `NEXT_PUBLIC_USE_EMULATORS=true`.
+if (isNewApp && env.NEXT_PUBLIC_USE_EMULATORS === "true") {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
+  connectFirestoreEmulator(db, "127.0.0.1", 8081);
+  connectStorageEmulator(storage, "127.0.0.1", 9199);
+}
 export default app;

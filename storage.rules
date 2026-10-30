@@ -4,8 +4,8 @@ service firebase.storage {
 
     // Admin en Storage: claim role=admin, o correo @gyacompany.com verificado.
     // NO se consulta users/{uid} de Firestore (firestore.get): esa vía exige
-    // conceder permisos IAM a la cuenta de servicio de Storage al desplegar, y hoy
-    // src/ no sube archivos. Si se necesita, añadirla en una decisión aparte.
+    // conceder permisos IAM a la cuenta de servicio de Storage al desplegar. Si se
+    // necesita, añadirla en una decisión aparte.
     function isAdmin() {
       return request.auth != null && (
         request.auth.token.get('role', '') == 'admin' ||
@@ -22,7 +22,7 @@ service firebase.storage {
 
     // Imágenes y modelos 3D de productos: lectura pública; solo admin escribe,
     // con tope de 25 MB y tipos de contenido de imagen/modelo 3D.
-    // (Hoy src/ no sube archivos a Storage.)
+    // (El admin de servicios y proyectos sube a /services y /projects, ver abajo.)
     match /products/{allPaths=**} {
       allow read: if true;
       allow write: if isAdmin()
@@ -30,6 +30,18 @@ service firebase.storage {
         && request.resource.size < 25 * 1024 * 1024
         && request.resource.contentType.matches('image/.*|model/.*|application/octet-stream');
       allow delete: if isAdmin();
+    }
+
+    // Portadas y álbumes de servicios y proyectos (storageService.ts):
+    // lectura pública; solo admin escribe imágenes de hasta 10 MB.
+    match /{collection}/{entityId}/{allPaths=**} {
+      allow read: if collection in ['services', 'projects'];
+      allow write: if collection in ['services', 'projects']
+        && isAdmin()
+        && request.resource != null
+        && request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if collection in ['services', 'projects'] && isAdmin();
     }
 
     // Denegar todo lo demás por defecto.
