@@ -23,7 +23,7 @@
 
 ### ⚖️ Legal & Cumplimiento (Indecopi & LPDP)
 - [x] **1.1 Actualizar Plazo Legal Indecopi:** Verificar y garantizar que todo texto e email informativo señale expresamente el plazo máximo de **15 días hábiles improrrogables** de respuesta (conforme a la Ley N° 29571 / D.S. N° 011-2011-PCM y Ley N° 31435).
-- [x] **1.2 Formato Oficial de Hoja de Reclamación:** Ajustar la plantilla del correo al consumidor y el registro en BD para que incluya todos los campos obligatorios: Razón Social (Glass & Aluminum Company S.A.C.), RUC (20601542407), código correlativo único, fecha/hora exacta y detalle de acciones del proveedor.
+- [x] **1.2 Formato Oficial de Hoja de Reclamación:** Ajustar la plantilla del correo al consumidor y el registro en BD para que incluya todos los campos obligatorios: Razón Social (Glass & Aluminum Company S.A.C.), RUC (20606432870), código correlativo único, fecha/hora exacta y detalle de acciones del proveedor.
 - [x] **1.3 Consentimiento Expreso Ley N° 29733 (Datos Personales):**
   - [x] Añadir checkbox obligatorio y no pre-marcado en el formulario de Contacto y Libro de Reclamaciones con enlace directo a la Política de Privacidad.
   - [x] Añadir cláusula informativa con identificación del Banco de Datos Personales registrado ante la ANPDP (Ministerio de Justicia) y derechos ARCO.

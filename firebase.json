@@ -33,7 +33,7 @@
                 "*.local"
             ],
             "runtime": "nodejs22",
-            "source": "functions"
+            "source": "apps/functions"
         }
     ],
     "hosting": {
@@ -43,7 +43,7 @@
                 "headers": [
                     {
                         "key": "Content-Security-Policy",
-                        "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://maps.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.firebasestorage.app https://maps.gstatic.com https://*.googleapis.com; connect-src 'self' https://us-central1-gya-app-4c8a9.cloudfunctions.net https://www.google.com https://maps.googleapis.com; frame-src https://www.google.com; object-src 'none'; base-uri 'self';"
+                        "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://maps.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.firebasestorage.app https://firebasestorage.googleapis.com https://maps.gstatic.com https://*.googleapis.com; connect-src 'self' https://us-central1-gya-app-4c8a9.cloudfunctions.net https://www.google.com https://maps.googleapis.com https://firestore.googleapis.com https://firebasestorage.googleapis.com https://*.firebasestorage.app https://identitytoolkit.googleapis.com https://securetoken.googleapis.com; frame-src https://www.google.com; object-src 'none'; base-uri 'self';"
                     },
                     {
                         "key": "X-Content-Type-Options",
@@ -97,7 +97,7 @@
             }
         ],
         "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-        "public": "out",
+        "public": "apps/web/out",
         "rewrites": [],
         "versionLimit": 5
     },

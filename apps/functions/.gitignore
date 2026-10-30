@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Environment Variables & Local Secrets
+.env
+.env.*
+.env*.local
+*.local
+!*.example
+
+# Logs
+*.log
+firebase-debug.log*
+
+# Test & Coverage
+coverage/
+.nyc_output/

@@ -2,6 +2,59 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-10-30] - Unificación de Estilos en Chakra UI v3, Despliegue de Reglas y Showcase Canónico
+
+### Added
+- **Aura Design System Showcase (`/design-system`)**: Pantalla modular completa con componentes y tokens reales de producción (`AuraDesktopNav`, `AdminNav`, `ServiceCard`, `ProjectCardContent`, `ClientCard`, `Field`, `NativeSelect`, `Gallery`, `Dialog`, `Table`, `DataList`). Soporta alternancia interactiva de modo claro/oscuro en tiempo real con `ColorModeButton`.
+- **Tokens Semánticos Oficiales**: Registrados formalmente en `theme/index.ts`: `brand.primary`, `bg.surface`, `border.subtle` y `status.dangerBorder`.
+
+### Changed
+- **Unificación de CSS en Chakra UI v3**: Se removió la dependencia externa `framer-motion` del cliente (`@gya/web`), reduciendo el bundle en ~35 KB. Animaciones migradas a transiciones nativas y keyframes de hardware en `StoreSection.tsx` y `VisualViewer.tsx`.
+- **Limpieza de `Providers.tsx`**: Removido el bloque manual `<Global styles={...} />` de `@emotion/react` y `<LazyMotion>`; keyframes globales movidos a `global.css`.
+- **Despliegue de Seguridad**: `firestore.rules` y `storage.rules` desplegadas exitosamente a producción (`firebase deploy --only firestore:rules,storage`).
+
+## [2026-10-30] - Firebase como única fuente de servicios y proyectos
+
+### Added
+- `scripts/migrate-to-firebase.mjs`: migración ejecutada en producción (10 servicios, 14 proyectos, 137 imágenes en Storage, con FAQ, SEO y álbum por sistema).
+- `apps/web/src/shared/api/firebase/publicRest.ts`: lectura de Firestore en build para `generateStaticParams`, metadata, JSON-LD, sitemap y `initialData`.
+
+### Changed
+- Las páginas públicas usan los datos de build como `initialData` y se refrescan desde Firestore en el cliente; las lecturas usan `*FromServer`.
+
+### Removed
+- Datos locales de servicios y proyectos, el seed del admin y 640 imágenes (`public/images` 74 MB → 7,8 MB; `src/assets` 139 MB → 19 MB).
+
+### Pendiente
+- Desplegar reglas de Firestore y Storage, asignar el claim `role=admin` al admin y desplegar Hosting.
+
+## [2026-10-30] - Migración a Monorepo pnpm, Firestore en el Frontend Público y Reglas Admin
+
+### Added
+- **Monorepo pnpm**: `apps/web` (`@gya/web`, Next.js con export estático a `apps/web/out`), `apps/functions` (`@gya/functions`, Firebase Functions v2) y `packages/shared` (`@gya/shared`: `companyData`, `SITE_URL`, `CompanyInfo`). Commit `522b52a`.
+- **Páginas públicas desde Firestore**: `/servicios` y `/proyectos` leen de Firestore en cliente con skeletons y fallback local (hooks `useServices`/`useService`/`useProjects`/`useProject` y `shared/hooks/data/useAsyncResource.ts`). Rutas de detalle en cliente: `/servicios/ver?slug=` y `/proyectos/ver?id=`.
+- **Prueba de reglas con emuladores**: `apps/web/tests/rules/rules-smoke.sh`.
+- **Componentes comunes de modales admin** en `features/admin/components/form`.
+
+### Changed
+- **Reglas de seguridad**: `firestore.rules` y `storage.rules` con escritura solo para administradores (más estricta que el plan original).
+- **CSP de Firebase Hosting**: ampliado para permitir Firestore, Auth y Storage (`firebase.json`).
+- **Unificación de datos**: `SITE_URL` único; dirección única "Av. Los Fresnos 1250 - La Molina"; RUC único `20606432870`; contacto (`salesEmail`, `whatsappDisplay`) centralizado en `companyData`.
+- **Tema**: tokens de color de estado en el tema.
+- **Pantallas divididas**: admin, simulador y presupuesto separadas en componentes más pequeños; constantes en `shared/constants`.
+- **Arquitectura FSD**: `AdminRouteGuard` en `features/auth`, `seedData` en `features/admin/seed`, `clientsRepository`/`usersRepository` en `shared/api/firebase`.
+- **Nombres PascalCase** para componentes y pantallas (`Providers.tsx`, `ContactPageClient`, `FloatingWhatsApp`, `screens/Blog|Error|Home|Legal|Services|Projects`).
+
+### Fixed
+- **Purga de imágenes basura y duplicados**, y eliminación de three.js obsoleto (commit `a7c3e1a`).
+- **Dirección y SEO**: centralización de `SITE_URL` y unificación de la dirección (commit `f9e3781`).
+
+### Pendiente
+- Probar admin y páginas públicas en navegador con emuladores y con Firestore apagado.
+- Reglas, hosting y datos **no desplegados** aún.
+- Esquemas Zod y configuración de ESLint aún no extraídos a `packages/shared`.
+- Alinear la versión de pnpm de CI (workflows con pnpm 11; lockfile generado con pnpm 12).
+
 ## [2026-10-29] - Puesta Operativa de Backend, Resend API Key y Blindaje Serverless
 
 ### Added
@@ -90,7 +143,7 @@ All notable changes to this project will be documented in this file.
 - **Endpoints de Producción para API**: Vinculación directa con las URLs reales de producción de las Firebase Functions (`submitContacto`, `submitReclamo`, `checkStatus`) en el entorno local.
 
 ### Changed
-- **Optimización de Interfaz Móvil**: Ocultamiento del botón flotante de WhatsApp en dispositivos móviles (`display={{ base: "none", md: "flex" }}`) en `src/widgets/FloatingActions/floating-whatsapp.tsx` para resolver colisión y superposición con el botón del menú flotante móvil en `src/widgets/Navbar/MobileNav.tsx`. En pantallas desktop se mantiene en la esquina inferior derecha.
+- **Optimización de Interfaz Móvil**: Ocultamiento del botón flotante de WhatsApp en dispositivos móviles (`display={{ base: "none", md: "flex" }}`) en `src/widgets/FloatingActions/FloatingWhatsApp.tsx` para resolver colisión y superposición con el botón del menú flotante móvil en `src/widgets/Navbar/MobileNav.tsx`. En pantallas desktop se mantiene en la esquina inferior derecha.
 
 ## [2026-04-25] - Production Routing & Reclamation Book Fixes
 
