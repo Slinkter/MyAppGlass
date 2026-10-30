@@ -67,7 +67,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
             border="1px solid"
             borderColor="border.default"
             backdropFilter="blur(20px)"
-            boxShadow="0 10px 30px rgba(0, 0, 0, 0.06)"
+            boxShadow="var(--chakra-shadows-admin-nav)"
           >
             <HStack justify="space-between" wrap="wrap" gap="3">
               <HStack gap="1.5" wrap="wrap">
@@ -125,7 +125,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       bg={isActive ? "bg.subtle" : "transparent"}
                       border="1px solid"
                       borderColor={isActive ? "border.default" : "transparent"}
-                      boxShadow={isActive ? "0 2px 8px rgba(0, 0, 0, 0.04)" : "none"}
+                      boxShadow={isActive ? "0 2px 8px var(--chakra-colors-overlay-subtle)" : "none"}
                       transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
                       _hover={{
                         color: "brand.primary",

@@ -19,7 +19,7 @@ export const ProjectServiceSelect: React.FC<ProjectServiceSelectProps> = ({ valu
         paddingLeft: "12px",
         paddingRight: "12px",
         borderRadius: "6px",
-        border: "1px solid var(--chakra-colors-border-default, #e2e8f0)",
+        border: "1px solid var(--chakra-colors-border-default, var(--chakra-colors-border-slate))",
         backgroundColor: "var(--chakra-colors-surface-card, transparent)",
         color: "inherit",
         fontSize: "14px",

@@ -142,8 +142,8 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
       onSubmit={handleSubmit}
       maxW="780px"
       icon={<Layers size={20} style={{ flexShrink: 0 }} />}
-      iconBg="rgba(56, 189, 248, 0.12)"
-      iconColor="#38bdf8"
+      iconBg="var(--chakra-colors-status-info-subtle)"
+      iconColor="var(--chakra-colors-status-info)"
       title={isEditing ? `Editar Servicio: ${service?.title}` : "Crear Nuevo Servicio"}
       subtitle="Completa la información técnica, galería y estado de publicación"
       formError={formError}

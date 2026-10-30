@@ -48,7 +48,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
       borderColor="border.default"
       backdropFilter="blur(20px)"
       overflow="hidden"
-      boxShadow="0 8px 30px rgba(0, 0, 0, 0.04)"
+      boxShadow="var(--chakra-shadows-admin-table)"
     >
       {/* Header bar del módulo */}
       <HStack
@@ -62,7 +62,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
       >
         <VStack align="start" gap="0.5">
           <HStack gap="2">
-            <Layers size={18} style={{ flexShrink: 0, color: "#38bdf8" }} />
+            <Layers size={18} style={{ flexShrink: 0, color: "var(--chakra-colors-status-info)" }} />
             <Text fontSize="md" fontWeight="bold" color="text.primary">
               Catálogo de Servicios
             </Text>

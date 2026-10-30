@@ -278,9 +278,9 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
               borderColor="border.default"
               bg="surface.card"
               overflow="hidden"
-              boxShadow="0 4px 12px rgba(0, 0, 0, 0.04)"
+              boxShadow="0 4px 12px var(--chakra-colors-overlay-subtle)"
               transition="all 0.2s ease"
-              _hover={{ borderColor: "brand.primary", boxShadow: "0 6px 16px rgba(0, 0, 0, 0.08)" }}
+              _hover={{ borderColor: "brand.primary", boxShadow: "0 6px 16px var(--chakra-colors-overlay-faint)" }}
             >
               {/* Thumbnail Container */}
               <Box position="relative" w="full" h="130px" bg="bg.subtle" overflow="hidden">

@@ -22,7 +22,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
       borderColor="border.default"
       backdropFilter="blur(20px)"
       overflow="hidden"
-      boxShadow="0 8px 30px rgba(0, 0, 0, 0.04)"
+      boxShadow="var(--chakra-shadows-admin-table)"
     >
       {loading ? (
         <Box p="16" textAlign="center">
@@ -83,7 +83,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
                         <Text fontSize="2xs" color="text.muted">
                           {orderDate} · {ord.paymentMethod.replace(/_/g, " ")}
                         </Text>
-                        <Heading size="sm" color="#34d399">
+                        <Heading size="sm" color="var(--chakra-colors-status-success)">
                           S/. {ord.total.toFixed(2)}
                         </Heading>
                       </VStack>

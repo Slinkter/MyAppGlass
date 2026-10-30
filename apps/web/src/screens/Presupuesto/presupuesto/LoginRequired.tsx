@@ -16,7 +16,7 @@ export const LoginRequired: React.FC = () => {
         border="1px solid"
         borderColor="border.glass"
         backdropFilter="blur(16px)"
-        boxShadow="0 20px 40px rgba(0,0,0,0.3)"
+        boxShadow="var(--chakra-shadows-card-lift)"
       >
         <Box p="4" bg="blue.500/10" color="blue.400" borderRadius="full" display="inline-flex" mb="4">
           <Lock size={40} />

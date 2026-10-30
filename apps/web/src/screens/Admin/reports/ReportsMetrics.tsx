@@ -25,21 +25,21 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
         border="1px solid"
         borderColor="border.default"
         backdropFilter="blur(16px)"
-        boxShadow="0 4px 20px rgba(0, 0, 0, 0.04)"
+        boxShadow="0 4px 20px var(--chakra-colors-overlay-subtle)"
       >
         <HStack justify="space-between" align="start">
           <VStack align="start" gap="1">
             <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
               Ventas Totales
             </Text>
-            <Heading size="xl" color="#34d399">
+            <Heading size="xl" color="var(--chakra-colors-status-success)">
               S/. {stats.totalRevenue.toLocaleString("es-PE", { minimumFractionDigits: 2 })}
             </Heading>
             <Text fontSize="xs" color="text.muted">
               {stats.totalOrders} órdenes registradas
             </Text>
           </VStack>
-          <Box p="3" borderRadius="xl" bg="rgba(52, 211, 153, 0.1)" color="#34d399">
+          <Box p="3" borderRadius="xl" bg="status.successSoft" color="var(--chakra-colors-status-success)">
             <DollarSign size={22} />
           </Box>
         </HStack>
@@ -52,7 +52,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
         border="1px solid"
         borderColor="border.default"
         backdropFilter="blur(16px)"
-        boxShadow="0 4px 20px rgba(0, 0, 0, 0.04)"
+        boxShadow="0 4px 20px var(--chakra-colors-overlay-subtle)"
       >
         <HStack justify="space-between" align="start">
           <VStack align="start" gap="1">
@@ -66,7 +66,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
               Por transacción
             </Text>
           </VStack>
-          <Box p="3" borderRadius="xl" bg="rgba(56, 189, 248, 0.1)" color="#38bdf8">
+          <Box p="3" borderRadius="xl" bg="status.infoSoft" color="var(--chakra-colors-status-info)">
             <TrendingUp size={22} />
           </Box>
         </HStack>
@@ -79,7 +79,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
         border="1px solid"
         borderColor="border.default"
         backdropFilter="blur(16px)"
-        boxShadow="0 4px 20px rgba(0, 0, 0, 0.04)"
+        boxShadow="0 4px 20px var(--chakra-colors-overlay-subtle)"
       >
         <HStack justify="space-between" align="start">
           <VStack align="start" gap="1">
@@ -93,7 +93,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
               Vidrios, barras y accesorios
             </Text>
           </VStack>
-          <Box p="3" borderRadius="xl" bg="rgba(167, 139, 250, 0.1)" color="#a78bfa">
+          <Box p="3" borderRadius="xl" bg="rgba(167, 139, 250, 0.1)" color="var(--chakra-colors-accent-violet-soft)">
             <Package size={22} />
           </Box>
         </HStack>
@@ -106,21 +106,21 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
         border="1px solid"
         borderColor="border.default"
         backdropFilter="blur(16px)"
-        boxShadow="0 4px 20px rgba(0, 0, 0, 0.04)"
+        boxShadow="0 4px 20px var(--chakra-colors-overlay-subtle)"
       >
         <HStack justify="space-between" align="start">
           <VStack align="start" gap="1">
             <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
               Estado de Despacho
             </Text>
-            <Heading size="xl" color="#34d399">
+            <Heading size="xl" color="var(--chakra-colors-status-success)">
               100%
             </Heading>
             <Text fontSize="xs" color="text.muted">
               Todos confirmados
             </Text>
           </VStack>
-          <Box p="3" borderRadius="xl" bg="rgba(52, 211, 153, 0.1)" color="#34d399">
+          <Box p="3" borderRadius="xl" bg="status.successSoft" color="var(--chakra-colors-status-success)">
             <FileCheck size={22} />
           </Box>
         </HStack>

@@ -219,7 +219,7 @@ const GalleryViewer: React.FC = () => {
                         position="relative"
                         borderRadius="2xl"
                         overflow="hidden"
-                        boxShadow="0 25px 60px rgba(0, 0, 0, 0.5)"
+                        boxShadow="0 25px 60px var(--chakra-colors-overlay-scrim)"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <FadingImage

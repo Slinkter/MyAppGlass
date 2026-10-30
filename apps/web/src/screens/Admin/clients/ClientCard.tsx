@@ -22,7 +22,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
       border="1px solid"
       borderColor="border.default"
       backdropFilter="blur(16px)"
-      boxShadow="0 6px 24px rgba(0, 0, 0, 0.04)"
+      boxShadow="0 6px 24px var(--chakra-colors-overlay-subtle)"
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
@@ -35,8 +35,8 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
             variant="subtle"
             size="sm"
             borderRadius="md"
-            bg={isCompany ? "rgba(167, 139, 250, 0.1)" : "rgba(56, 189, 248, 0.1)"}
-            color={isCompany ? "#a78bfa" : "#38bdf8"}
+            bg={isCompany ? "rgba(167, 139, 250, 0.1)" : "var(--chakra-colors-status-info-soft)"}
+            color={isCompany ? "var(--chakra-colors-accent-violet-soft)" : "var(--chakra-colors-status-info)"}
           >
             {isCompany ? "Empresa / RUC" : "Persona Natural"}
           </Badge>
@@ -57,7 +57,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
         <VStack align="start" gap="2" pt="2" fontSize="xs" color="text.muted" w="full">
           <HStack justify="space-between" w="full">
             <HStack gap="2">
-              <Phone size={14} color="#38bdf8" />
+              <Phone size={14} color="var(--chakra-colors-status-info)" />
               <Text>{c.phone}</Text>
             </HStack>
             {c.phone && (
@@ -80,7 +80,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
             <Text truncate maxW="200px">{c.email}</Text>
           </HStack>
           <HStack gap="2">
-            <MapPin size={14} color="#34d399" />
+            <MapPin size={14} color="var(--chakra-colors-status-success)" />
             <Text truncate maxW="220px">{c.address}</Text>
           </HStack>
         </VStack>

@@ -80,7 +80,7 @@ export const FormModalShell: React.FC<FormModalShellProps> = ({
               <Box
                 p="3"
                 borderRadius="lg"
-                bg="rgba(239, 68, 68, 0.1)"
+                bg="status.dangerSoft"
                 border="1px solid"
                 borderColor="red.500"
                 color="red.500"

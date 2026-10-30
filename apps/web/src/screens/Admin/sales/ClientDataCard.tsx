@@ -19,10 +19,10 @@ export const ClientDataCard: React.FC<ClientDataCardProps> = ({ clientForm, onCh
       border="1px solid"
       borderColor="border.default"
       backdropFilter="blur(16px)"
-      boxShadow="0 4px 20px rgba(0, 0, 0, 0.04)"
+      boxShadow="0 4px 20px var(--chakra-colors-overlay-subtle)"
     >
       <HStack mb="4" gap="2.5">
-        <Box p="2" borderRadius="lg" bg="rgba(56, 189, 248, 0.1)" color="#38bdf8">
+        <Box p="2" borderRadius="lg" bg="status.infoSoft" color="var(--chakra-colors-status-info)">
           <UserCheck size={18} />
         </Box>
         <Heading size="md" color="text.heading">

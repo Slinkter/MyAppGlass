@@ -48,7 +48,7 @@ export const ReplenishStockModal: React.FC<ReplenishStockModalProps> = ({
         w="full"
         border="1px solid"
         borderColor="border.default"
-        boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+        boxShadow="0 25px 50px -12px var(--chakra-colors-overlay-scrim)"
       >
         <HStack justify="space-between" mb="4">
           <Heading size="md" color="text.heading">
@@ -86,8 +86,8 @@ export const ReplenishStockModal: React.FC<ReplenishStockModalProps> = ({
             <Box
               p="3"
               borderRadius="xl"
-              bg={statusMessage.type === "success" ? "rgba(52, 211, 153, 0.1)" : "rgba(239, 68, 68, 0.1)"}
-              color={statusMessage.type === "success" ? "#34d399" : "#f87171"}
+              bg={statusMessage.type === "success" ? "var(--chakra-colors-status-success-soft)" : "var(--chakra-colors-status-danger-soft)"}
+              color={statusMessage.type === "success" ? "var(--chakra-colors-status-success)" : "var(--chakra-colors-status-danger)"}
               border={`1px solid ${statusMessage.type === "success" ? "rgba(52, 211, 153, 0.25)" : "rgba(239, 68, 68, 0.25)"}`}
               fontSize="xs"
             >

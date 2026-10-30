@@ -47,7 +47,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
       backdropFilter="blur(16px)"
     >
       <Heading size="md" mb="4" display="flex" alignItems="center" gap="2">
-        <UploadCloud size={20} color="#38bdf8" /> 2. Sube la Foto de tu Espacio Real
+        <UploadCloud size={20} color="var(--chakra-colors-status-info)" /> 2. Sube la Foto de tu Espacio Real
       </Heading>
 
       {!userImage ? (
@@ -94,7 +94,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
             border="2px solid"
             borderColor={simulatedReady ? "purple.400" : "whiteAlpha.200"}
             h="360px"
-            bg="#0f172a"
+            bg="brand.ink"
           >
             {/* 1. Fondo: Foto real del cliente */}
             <img
@@ -124,7 +124,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
                     borderRadius: "8px",
                     boxShadow: "0 20px 40px rgba(0,0,0,0.6)",
                     border: "1px solid rgba(255,255,255,0.3)",
-                    filter: "drop-shadow(0px 10px 15px rgba(0,0,0,0.5))",
+                    filter: "drop-shadow(0px 10px 15px var(--chakra-colors-overlay-scrim))",
                   }}
                 />
                 <Badge

@@ -49,7 +49,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
     >
       <HStack justify="space-between" mb="4">
         <HStack gap="2.5">
-          <Box p="2" borderRadius="lg" bg="rgba(56, 189, 248, 0.1)" color="#38bdf8">
+          <Box p="2" borderRadius="lg" bg="status.infoSoft" color="var(--chakra-colors-status-info)">
             <ShoppingCart size={18} />
           </Box>
           <Heading size="md" color="text.heading">
@@ -129,7 +129,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
           <Text fontSize="sm" fontWeight="bold" color="text.heading">
             Total a Pagar:
           </Text>
-          <Heading size="md" color="#34d399">
+          <Heading size="md" color="var(--chakra-colors-status-success)">
             S/. {total.toFixed(2)}
           </Heading>
         </HStack>
@@ -172,7 +172,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
 
       {/* Alerta de Error */}
       {errorMessage && (
-        <Box p="3" mb="3" borderRadius="xl" bg="rgba(239, 68, 68, 0.1)" color="#f87171" border="1px solid rgba(239, 68, 68, 0.25)" fontSize="xs">
+        <Box p="3" mb="3" borderRadius="xl" bg="status.dangerSoft" color="var(--chakra-colors-status-danger)" border="1px solid rgba(239, 68, 68, 0.25)" fontSize="xs">
           <HStack gap="2">
             <AlertCircle size={14} />
             <Text>{errorMessage}</Text>

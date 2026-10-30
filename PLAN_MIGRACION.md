@@ -99,7 +99,7 @@ Basado en el análisis de [GOL.md](GOL.md) y las reglas de negocio en [AGENTS.md
 - [ ] **7.1. Pruebas en navegador con emuladores**: probar el panel admin (`/admin/*`) y las páginas públicas `/servicios` y `/proyectos` con `firebase emulators:start --only auth,firestore,storage --project gya-app-4c8a9` y `NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev`.
 - [ ] **7.2. Pruebas con Firestore apagado**: verificar que las páginas públicas muestran el fallback local cuando Firestore no responde.
 - [ ] **7.3. Despliegue**: los cambios del monorepo y de las reglas **no están desplegados** en Firebase Hosting ni en Firestore/Storage.
-- [ ] **7.4. Esquemas compartidos**: mover los esquemas Zod (servicios, proyectos) a `packages/shared`, aún no extraídos.
-- [ ] **7.5. ESLint compartido**: extraer la configuración de ESLint a `packages/shared` (hoy `apps/web` y `apps/functions` tienen configuración propia).
+- [x] **7.4. Esquemas compartidos**: mover los esquemas Zod (servicios, proyectos) a `packages/shared`, extraídos a `packages/shared/src/schemas` (con reexports en web).
+- [x] **7.5. ESLint compartido**: extraída a `packages/eslint-config` (`@gya/eslint-config`; `apps/functions` sigue congelado con config propia) (hoy `apps/web` y `apps/functions` tienen configuración propia).
 - [x] **7.6. Alinear pnpm en CI**: `package.json` fija `packageManager: pnpm@12.5.1`, los workflows usan `pnpm/action-setup@v4` sin `version` (toma el campo) y `pnpm install --frozen-lockfile` pasa en local. Falta confirmar la ejecución real en GitHub Actions.
 - [ ] **7.7. Galería con visor modal** de servicios (ver 4.1).

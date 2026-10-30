@@ -31,7 +31,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             100% { transform: scale(1); opacity: 1; }
           }
           @keyframes pulse-shadow {
-            0%, 100% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); }
+            0%, 100% { box-shadow: 0 4px 20px var(--chakra-colors-overlay-faint); }
             50% { box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18); }
           }
         `} />

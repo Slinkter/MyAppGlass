@@ -38,7 +38,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
       borderColor="border.default"
       backdropFilter="blur(20px)"
       overflow="hidden"
-      boxShadow="0 8px 30px rgba(0, 0, 0, 0.04)"
+      boxShadow="var(--chakra-shadows-admin-table)"
     >
       {loading ? (
         <Box p="16" textAlign="center">
@@ -115,7 +115,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                         borderRadius="md"
                         textTransform="capitalize"
                         bg="rgba(56, 189, 248, 0.08)"
-                        color="#38bdf8"
+                        color="var(--chakra-colors-status-info)"
                         border="1px solid rgba(56, 189, 248, 0.2)"
                       >
                         {p.category}
@@ -134,18 +134,18 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                           w="8px"
                           h="8px"
                           borderRadius="full"
-                          bg={isCritical ? "#f87171" : isLow ? "#fbbf24" : "#34d399"}
-                          boxShadow={`0 0 8px ${isCritical ? "#f87171" : isLow ? "#fbbf24" : "#34d399"}`}
+                          bg={isCritical ? "var(--chakra-colors-status-danger)" : isLow ? "var(--chakra-colors-status-warning)" : "var(--chakra-colors-status-success)"}
+                          boxShadow={`0 0 8px ${isCritical ? "var(--chakra-colors-status-danger)" : isLow ? "var(--chakra-colors-status-warning)" : "var(--chakra-colors-status-success)"}`}
                         />
                         <Text fontWeight="bold" fontSize="sm" color="text.heading">
                           {p.stock}
                         </Text>
                         {isCritical ? (
-                          <Badge bg="rgba(239, 68, 68, 0.15)" color="#f87171" fontSize="2xs" px="1.5" borderRadius="sm">
+                          <Badge bg="rgba(239, 68, 68, 0.15)" color="var(--chakra-colors-status-danger)" fontSize="2xs" px="1.5" borderRadius="sm">
                             Agotado
                           </Badge>
                         ) : isLow ? (
-                          <Badge bg="rgba(245, 158, 11, 0.15)" color="#fbbf24" fontSize="2xs" px="1.5" borderRadius="sm">
+                          <Badge bg="rgba(245, 158, 11, 0.15)" color="var(--chakra-colors-status-warning)" fontSize="2xs" px="1.5" borderRadius="sm">
                             Mínimo ({p.minStockAlert})
                           </Badge>
                         ) : null}
@@ -163,7 +163,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                         <Text fontSize="2xs" color="text.muted">
                           Costo: S/. {(p.costPrice || 0).toFixed(2)}
                         </Text>
-                        <Text fontSize="2xs" color={marginPct >= 30 ? "#34d399" : "#fbbf24"} fontWeight="bold">
+                        <Text fontSize="2xs" color={marginPct >= 30 ? "var(--chakra-colors-status-success)" : "var(--chakra-colors-status-warning)"} fontWeight="bold">
                           Margen: {marginPct}%
                         </Text>
                       </VStack>

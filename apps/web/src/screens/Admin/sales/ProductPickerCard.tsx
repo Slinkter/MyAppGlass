@@ -36,12 +36,12 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
       border="1px solid"
       borderColor="border.default"
       backdropFilter="blur(16px)"
-      boxShadow="0 4px 20px rgba(0, 0, 0, 0.04)"
+      boxShadow="0 4px 20px var(--chakra-colors-overlay-subtle)"
     >
       <VStack align="stretch" gap="4" mb="4">
         <HStack justify="space-between" wrap="wrap" gap="2">
           <HStack gap="2.5">
-            <Box p="2" borderRadius="lg" bg="rgba(56, 189, 248, 0.1)" color="#38bdf8">
+            <Box p="2" borderRadius="lg" bg="status.infoSoft" color="var(--chakra-colors-status-info)">
               <Package size={18} />
             </Box>
             <Heading size="md" color="text.heading">
@@ -120,7 +120,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
                     <Badge size="xs" variant="subtle" fontSize="2xs" px="1.5">
                       {prod.category}
                     </Badge>
-                    <Text fontSize="2xs" fontWeight="bold" color={isOutOfStock ? "#f87171" : "#34d399"}>
+                    <Text fontSize="2xs" fontWeight="bold" color={isOutOfStock ? "var(--chakra-colors-status-danger)" : "var(--chakra-colors-status-success)"}>
                       Stock: {prod.stock} {prod.unit}
                     </Text>
                   </HStack>

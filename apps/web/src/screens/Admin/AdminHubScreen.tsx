@@ -46,8 +46,8 @@ export const AdminHubScreen: React.FC = () => {
       href: "/admin/inventario",
       stat: `${products.length} productos`,
       statDetail: `${totalUnits} unidades en almacén`,
-      accentColor: "#38bdf8",
-      accentBg: "rgba(56, 189, 248, 0.1)",
+      accentColor: "var(--chakra-colors-status-info)",
+      accentBg: "var(--chakra-colors-status-info-soft)",
     },
     {
       title: "Módulo de Ventas",
@@ -57,8 +57,8 @@ export const AdminHubScreen: React.FC = () => {
       href: "/admin/ventas",
       stat: "Venta Directa",
       statDetail: "Validación de stock en vivo",
-      accentColor: "#34d399",
-      accentBg: "rgba(52, 211, 153, 0.1)",
+      accentColor: "var(--chakra-colors-status-success)",
+      accentBg: "var(--chakra-colors-status-success-soft)",
     },
     {
       title: "Historial & Reportes",
@@ -68,7 +68,7 @@ export const AdminHubScreen: React.FC = () => {
       href: "/admin/reportes",
       stat: `${orders.length} órdenes`,
       statDetail: `S/. ${totalRevenue.toLocaleString("es-PE", { minimumFractionDigits: 2 })} recaudados`,
-      accentColor: "#a78bfa",
+      accentColor: "var(--chakra-colors-accent-violet-soft)",
       accentBg: "rgba(167, 139, 250, 0.1)",
     },
     {
@@ -79,8 +79,8 @@ export const AdminHubScreen: React.FC = () => {
       href: "/presupuesto",
       stat: "Motor de Obra",
       statDetail: "Presupuestos formales con QR",
-      accentColor: "#38bdf8",
-      accentBg: "rgba(56, 189, 248, 0.1)",
+      accentColor: "var(--chakra-colors-status-info)",
+      accentBg: "var(--chakra-colors-status-info-soft)",
     },
     {
       title: "Directorio de Clientes",
@@ -107,7 +107,7 @@ export const AdminHubScreen: React.FC = () => {
         border="1px solid"
         borderColor="border.default"
         backdropFilter="blur(24px)"
-        boxShadow="0 20px 50px rgba(0, 0, 0, 0.08)"
+        boxShadow="0 20px 50px var(--chakra-colors-overlay-faint)"
         position="relative"
         overflow="hidden"
         mb="8"
@@ -120,7 +120,7 @@ export const AdminHubScreen: React.FC = () => {
           w="400px"
           h="400px"
           borderRadius="full"
-          bg="radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(0,0,0,0) 70%)"
+          bg="radial-gradient(circle, var(--chakra-colors-status-info-subtle) 0%, rgba(0,0,0,0) 70%)"
           pointerEvents="none"
         />
 
@@ -135,8 +135,8 @@ export const AdminHubScreen: React.FC = () => {
                   fontSize="2xs"
                   fontWeight="bold"
                   letterSpacing="widest"
-                  bg="rgba(56, 189, 248, 0.12)"
-                  color="#38bdf8"
+                  bg="status.infoSubtle"
+                  color="var(--chakra-colors-status-info)"
                   border="1px solid rgba(56, 189, 248, 0.25)"
                 >
                   <Sparkles size={12} style={{ display: "inline", marginRight: 5 }} />
@@ -150,7 +150,7 @@ export const AdminHubScreen: React.FC = () => {
                     fontSize="2xs"
                     fontWeight="bold"
                     bg="rgba(239, 68, 68, 0.15)"
-                    color="#f87171"
+                    color="var(--chakra-colors-status-danger)"
                     border="1px solid rgba(239, 68, 68, 0.3)"
                   >
                     🔴 {criticalStock} AGOTADOS
@@ -163,7 +163,7 @@ export const AdminHubScreen: React.FC = () => {
                     fontSize="2xs"
                     fontWeight="bold"
                     bg="rgba(245, 158, 11, 0.15)"
-                    color="#fbbf24"
+                    color="var(--chakra-colors-status-warning)"
                     border="1px solid rgba(245, 158, 11, 0.3)"
                   >
                     🟡 {lowStock} EN ALERTA DE STOCK
@@ -176,7 +176,7 @@ export const AdminHubScreen: React.FC = () => {
                     fontSize="2xs"
                     fontWeight="bold"
                     bg="rgba(52, 211, 153, 0.15)"
-                    color="#34d399"
+                    color="var(--chakra-colors-status-success)"
                     border="1px solid rgba(52, 211, 153, 0.3)"
                   >
                     🟢 INVENTARIO EN NIVEL ÓPTIMO
@@ -242,7 +242,7 @@ export const AdminHubScreen: React.FC = () => {
               <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
                 Facturación Total
               </Text>
-              <Heading size="lg" color="#34d399">
+              <Heading size="lg" color="var(--chakra-colors-status-success)">
                 S/. {totalRevenue.toLocaleString("es-PE", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
               </Heading>
             </VStack>
@@ -263,7 +263,7 @@ export const AdminHubScreen: React.FC = () => {
               border="1px solid"
               borderColor="border.default"
               backdropFilter="blur(16px)"
-              boxShadow="0 8px 30px rgba(0, 0, 0, 0.04)"
+              boxShadow="var(--chakra-shadows-admin-table)"
               transition="all 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
               _hover={{
                 transform: "translateY(-4px)",

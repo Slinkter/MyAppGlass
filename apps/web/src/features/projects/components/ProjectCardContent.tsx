@@ -60,7 +60,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         onKeyDown={handleKeyDown}
         transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
         _hover={{ 
-          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+          boxShadow: "var(--chakra-shadows-card-lift)",
           transform: "translateY(-6px)"
         }}
         _focusVisible={{

@@ -207,6 +207,7 @@ const config = defineConfig({
           red: { value: "#FF5A5F" },
           redHover: { value: "#E0484D" },
           redDark: { value: "#D9444A" },
+          ink: { value: "#0f172a" },
         },
         status: {
           info: { value: "#38bdf8" },
@@ -220,6 +221,16 @@ const config = defineConfig({
           warning: { value: "#fbbf24" },
           warningSoft: { value: "rgba(245, 158, 11, 0.1)" },
         },
+        accent: {
+          violet: { value: "#a855f7" },
+          violetSoft: { value: "#a78bfa" },
+        },
+        overlay: {
+          subtle: { value: "rgba(0, 0, 0, 0.04)" },
+          faint: { value: "rgba(0, 0, 0, 0.08)" },
+          dim: { value: "rgba(0, 0, 0, 0.3)" },
+          scrim: { value: "rgba(0, 0, 0, 0.5)" },
+        },
       },
       radii: {
         card: { value: "16px" },
@@ -229,6 +240,8 @@ const config = defineConfig({
         navDesktop: { value: "0 8px 32px 0 rgba(0, 0, 0, 0.08)" },
         adminNav: { value: "0 10px 30px rgba(0, 0, 0, 0.06)" },
         adminCard: { value: "0 4px 20px rgba(0, 0, 0, 0.04)" },
+        adminTable: { value: "0 8px 30px rgba(0, 0, 0, 0.04)" },
+        cardLift: { value: "0 20px 40px rgba(0, 0, 0, 0.3)" },
         elevatedLg: { value: "0 8px 32px rgba(0, 0, 0, 0.12)" },
         modalLg: { value: "0 20px 50px rgba(0,0,0,0.3)" },
       },
@@ -249,6 +262,10 @@ const config = defineConfig({
         "border.default": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.08)" } },
         "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
         "border.glass": { value: "{colors.border.default}" },
+        "border.slate": { value: "#e2e8f0" },
+        "border.slateStrong": { value: "#cbd5e1" },
+        "text.slate": { value: "#64748b" },
+        "text.slateStrong": { value: "#475569" },
         "bg.glass": { value: "{colors.bg.section}" },
 
         // Focus

@@ -16,18 +16,18 @@ export const OrderSuccessBanner: React.FC<OrderSuccessBannerProps> = ({ orderId,
       p="8"
       mb="8"
       borderRadius="2xl"
-      bg="rgba(52, 211, 153, 0.1)"
+      bg="status.successSoft"
       border="1px solid rgba(52, 211, 153, 0.3)"
       backdropFilter="blur(16px)"
       boxShadow="0 10px 40px rgba(52, 211, 153, 0.12)"
     >
       <HStack justify="space-between" wrap="wrap" gap="4">
         <HStack gap="4">
-          <Box p="3" bg="rgba(52, 211, 153, 0.2)" color="#34d399" borderRadius="full">
+          <Box p="3" bg="rgba(52, 211, 153, 0.2)" color="var(--chakra-colors-status-success)" borderRadius="full">
             <CheckCircle2 size={36} />
           </Box>
           <VStack align="start" gap="0.5">
-            <Heading size="lg" color="#34d399">
+            <Heading size="lg" color="var(--chakra-colors-status-success)">
               ¡Orden Despachada Exitosamente!
             </Heading>
             <Text fontSize="sm" color="text.muted">

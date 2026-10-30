@@ -21,7 +21,7 @@ export const ProductSelector: React.FC<ProductSelectorProps> = ({ selectedProduc
       backdropFilter="blur(16px)"
     >
       <Heading size="md" mb="4" display="flex" alignItems="center" gap="2">
-        <CheckCircle2 size={20} color="#38bdf8" /> 1. Selecciona el Producto a Proyectar
+        <CheckCircle2 size={20} color="var(--chakra-colors-status-info)" /> 1. Selecciona el Producto a Proyectar
       </Heading>
 
       <SimpleGrid columns={{ base: 1, sm: 2 }} gap="3">

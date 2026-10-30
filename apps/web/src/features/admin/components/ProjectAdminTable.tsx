@@ -49,7 +49,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
       borderColor="border.default"
       backdropFilter="blur(20px)"
       overflow="hidden"
-      boxShadow="0 8px 30px rgba(0, 0, 0, 0.04)"
+      boxShadow="var(--chakra-shadows-admin-table)"
     >
       {/* Header bar del módulo */}
       <HStack
@@ -63,7 +63,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
       >
         <VStack align="start" gap="0.5">
           <HStack gap="2">
-            <Building2 size={18} style={{ flexShrink: 0, color: "#a855f7" }} />
+            <Building2 size={18} style={{ flexShrink: 0, color: "var(--chakra-colors-accent-violet)" }} />
             <Text fontSize="md" fontWeight="bold" color="text.primary">
               Portafolio de Proyectos y Obras
             </Text>
@@ -213,7 +213,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
                   <Box as="td" p="4">
                     <VStack align="start" gap="1">
                       <HStack gap="1.5" fontSize="xs" color="text.primary">
-                        <User size={13} style={{ flexShrink: 0, color: "#a855f7" }} />
+                        <User size={13} style={{ flexShrink: 0, color: "var(--chakra-colors-accent-violet)" }} />
                         <Text fontWeight="medium">{proj.client}</Text>
                       </HStack>
                       <HStack gap="1.5" fontSize="2xs" color="text.muted">

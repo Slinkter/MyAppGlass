@@ -135,7 +135,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
       maxW="800px"
       icon={<Building2 size={20} style={{ flexShrink: 0 }} />}
       iconBg="rgba(168, 85, 247, 0.12)"
-      iconColor="#a855f7"
+      iconColor="var(--chakra-colors-accent-violet)"
       title={isEditing ? `Editar Obra: ${project?.title}` : "Registrar Nueva Obra / Proyecto"}
       subtitle="Portafolio fotográfico de carpintería de aluminio y cristalería arquitectónica"
       formError={formError}

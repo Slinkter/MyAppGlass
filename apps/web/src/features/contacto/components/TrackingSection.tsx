@@ -45,7 +45,7 @@ export function TrackingSection({
 }: TrackingSectionProps) {
   const inputBg = useColorModeValue("rgba(240, 242, 245, 0.85)", "rgba(24, 24, 27, 0.75)");
   const inputBorderColor = useColorModeValue("rgba(0, 0, 0, 0.15)", "rgba(255, 255, 255, 0.18)");
-  const inputHoverBorderColor = useColorModeValue("rgba(0, 0, 0, 0.3)", "rgba(255, 255, 255, 0.35)");
+  const inputHoverBorderColor = useColorModeValue("var(--chakra-colors-overlay-dim)", "rgba(255, 255, 255, 0.35)");
 
   const currentStageIndex = trackingResult ? getStageIndex(trackingResult.status) : 0;
 

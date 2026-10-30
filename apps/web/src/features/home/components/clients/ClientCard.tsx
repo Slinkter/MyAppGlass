@@ -16,7 +16,7 @@ interface ClientCardProps {
  */
 const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, descClient }) => {
   const bgOverlay =
-    "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)";
+    "linear-gradient(to top, rgba(0,0,0,0.95) 0%, var(--chakra-colors-overlay-dim) 50%, transparent 100%)";
 
   return (
     <Card.Root
