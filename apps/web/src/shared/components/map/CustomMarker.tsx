@@ -1,4 +1,3 @@
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import React, { useCallback, useState } from "react";
 import { OverlayViewF } from "@react-google-maps/api";
 import { Box, Flex, Image } from "@chakra-ui/react";
@@ -28,18 +27,9 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
     [],
   );
 
-  const markerBg = useColorModeValue(
-    isSelected ? "primary.900" : "white",
-    isSelected ? "primary.100" : "primary.900",
-  );
-  const markerBorder = useColorModeValue(
-    isSelected ? "primary.700" : "border.default",
-    isSelected ? "primary.600" : "whiteAlpha.200",
-  );
-  const iconColor = useColorModeValue(
-    isSelected ? "white" : "primary.900",
-    isSelected ? "primary.900" : "white",
-  );
+  const markerBg = { base: isSelected ? "primary.900" : "white", _dark: isSelected ? "primary.100" : "primary.900" };
+  const markerBorder = { base: isSelected ? "primary.700" : "border.default", _dark: isSelected ? "primary.600" : "whiteAlpha.200" };
+  const iconColor = { base: isSelected ? "white" : "primary.900", _dark: isSelected ? "primary.900" : "white" };
 
   if (!map || !google) return null;
 

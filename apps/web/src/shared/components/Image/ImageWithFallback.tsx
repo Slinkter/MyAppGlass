@@ -1,4 +1,3 @@
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 /**
  * @file ImageWithFallback.tsx
  * @description Enhanced image component with next/image, skeleton loaders, and fallback handling.
@@ -84,11 +83,11 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
       setHasError(false);
     }, [src, forceShow]);
 
-    const placeholderBg = useColorModeValue("gray.100", "gray.800");
-    const shimmerBg = useColorModeValue(
-      "linear-gradient(90deg, rgba(200,200,200,0) 0%, rgba(200,200,200,0.3) 50%, rgba(200,200,200,0) 100%)",
-      "linear-gradient(90deg, rgba(100,100,100,0) 0%, rgba(100,100,100,0.3) 50%, rgba(100,100,100,0) 100%)"
-    );
+    const placeholderBg = { base: "gray.100", _dark: "gray.800" };
+    const shimmerBg = {
+      base: "linear-gradient(90deg, rgba(200,200,200,0) 0%, rgba(200,200,200,0.3) 50%, rgba(200,200,200,0) 100%)",
+      _dark: "linear-gradient(90deg, rgba(100,100,100,0) 0%, rgba(100,100,100,0.3) 50%, rgba(100,100,100,0) 100%)",
+    };
 
     const handleImageError = useCallback(() => {
       setHasError(true);

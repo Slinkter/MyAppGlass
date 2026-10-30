@@ -92,7 +92,7 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
             borderColor="border.default"
           >
             <Box flex="1">
-              <Text fontSize="10px" fontWeight="800" color="primary.500" textTransform="uppercase" letterSpacing="0.15em">
+              <Text fontSize="xs" fontWeight="800" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
                 {acc.label}
               </Text>
               <Text fontSize="sm" fontWeight="700" color="text.heading" mt="0.5">

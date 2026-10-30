@@ -69,6 +69,7 @@ const FooterRow = ({
             justify={{ base: "center", sm: "flex-start" }}
             w="full"
             py={1.5}
+            minH={{ base: "11", sm: "auto" }}
         >
             {icon && (
                 isStaticImage ? (
@@ -114,9 +115,10 @@ const FooterRow = ({
                 href={to}
                 style={{ textDecoration: "none", width: "100%" }}
                 target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
                 className="group"
             >
-                <Box role="group" transition="transform 0.2s" w="full">
+                <Box transition="transform 0.2s" w="full">
                     {content}
                 </Box>
             </Link>
@@ -139,7 +141,7 @@ const FooterSection = ({ title, children }: FooterSectionProps) => {
             w="full"
         >
             <Heading
-                as="h4"
+                as="h2"
                 fontSize="xs"
                 fontWeight="800"
                 color="text.accent"
@@ -195,18 +197,21 @@ const Footer = () => {
 
                         <FooterSection title="Contacto">
                             <FooterRow
+                                to={`https://wa.me/${companyData.whatsappNumber}`}
+                                isExternal
                                 icon={WhatsAppIcon}
                                 customIconColor="brand.whatsapp"
                             >
                                 {companyData.whatsappDisplay}
                             </FooterRow>
                             <FooterRow
+                                to={`tel:+51${companyData.contactPhone.replace(/\D/g, "")}`}
                                 icon={WhatsAppIcon}
                                 customIconColor="brand.whatsapp"
                             >
                                 {companyData.contactPhone.replace(/-/g, " ")}
                             </FooterRow>
-                            <FooterRow icon={Mail}>
+                            <FooterRow to={`mailto:${companyData.contactEmail}`} icon={Mail}>
                                 {companyData.contactEmail}
                             </FooterRow>
                         </FooterSection>
@@ -262,7 +267,7 @@ const Footer = () => {
                         </Box>
 
                         <Text
-                            fontSize="9px"
+                            fontSize="2xs"
                             color="text.muted"
                             fontWeight="800"
                             letterSpacing="0.35em"
@@ -271,10 +276,10 @@ const Footer = () => {
                             maxW="280px"
                             lineHeight="1.8"
                         >
-                            GLASS & ALUMINUM COMPANY S.A.C.
+                            {companyData.razonSocial}
                         </Text>
                         <Text
-                            fontSize="9px"
+                            fontSize="2xs"
                             color="text.muted"
                             fontWeight="800"
                             letterSpacing="0.25em"

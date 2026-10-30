@@ -2,7 +2,7 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import React, { useMemo, useCallback } from "react";
 import { Box, HStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { FilterPill } from "@/shared/components/ui/FilterPill";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import { useServices, type ServiceListItem } from "@features/services/hooks/useServices";
@@ -19,13 +19,15 @@ export type ServiceData = ServiceListItem;
 export interface ServiceListProps {
     /** Servicios leídos de Firestore en build (primer render, para el HTML exportado). */
     initialData?: Service[];
+    /** Nivel del título: `h1` en su página propia, `h2` cuando se incrusta (p. ej. en la home). */
+    headingAs?: "h1" | "h2";
 }
 
 /**
  * @component ServiceList
  * @description Renderiza la lista de servicios con filtro por categoría e Infinite Scroll.
  */
-const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData }) => {
+const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headingAs = "h1" }) => {
     // Primer render con los datos de build; Firestore en cliente los refresca (ver useServices).
     const { data, isLoading, error } = useServices(initialData);
     const allServices = useMemo<ServiceData[]>(() => data ?? [], [data]);
@@ -54,7 +56,7 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData }) => 
         <ItemGridLayout
             title="SERVICIOS"
             subtitle="Descubre nuestros servicios de fabricacion e instalación "
-            headingAs="h1"
+            headingAs={headingAs}
             seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
             seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina. Ventanas, mamparas y más."
             seoCanonicalUrl={`${SITE_URL}/servicios`}
@@ -63,39 +65,13 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData }) => 
             <Box gridColumn="1 / -1" w="full" mt="5">
                 <HStack gap="2" justify="center" flexWrap="wrap" pb="5">
                     {CATEGORIES.map((cat) => {
-                        const isActive = activeCategory === cat;
                         return (
-                            <Button
-                                key={cat}
-                                size="sm"
-                                px="5"
-                                mt="2"
-                                borderRadius="full"
-                                fontWeight="bold"
-                                fontSize="xs"
-                                letterSpacing="wider"
-                                textTransform="uppercase"
-                                bg={isActive ? "primary.900" : "blackAlpha.100"}
-                                color={isActive ? "white" : "text.heading"}
-                                border="1px solid"
-                                borderColor={isActive ? "primary.900" : "blackAlpha.200"}
-                                _dark={{
-                                    bg: isActive ? "white" : "whiteAlpha.100",
-                                    color: isActive ? "black" : "white",
-                                    borderColor: isActive ? "white" : "whiteAlpha.200",
-                                    _hover: {
-                                        bg: isActive ? "white" : "whiteAlpha.200",
-                                    }
-                                }}
-                                _hover={{
-                                    bg: isActive ? "primary.900" : "blackAlpha.200",
-                                    transform: "translateY(-1px)",
-                                }}
-                                transition="all 0.2s ease"
-                                onClick={() => handleCategoryChange(cat)}
-                            >
-                                {cat}
-                            </Button>
+                          <FilterPill
+                            key={cat}
+                            label={String(cat)}
+                            isActive={activeCategory === cat}
+                            onClick={() => handleCategoryChange(cat)}
+                          />
                         );
                     })}
                 </HStack>

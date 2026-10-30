@@ -8,7 +8,6 @@ import {
 import { ChevronLeft, ChevronRight, MoveHorizontal, Maximize2 } from "lucide-react";
 
 import FadingImage from "@shared/components/common/FadingImage";
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { GalleryItem } from "@/shared/types/gallery";
 import { keyframes } from "@emotion/react";
 
@@ -53,7 +52,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
 
-  const dotActiveColor = useColorModeValue("primary.500", "primary.300");
+  const dotActiveColor = { base: "primary.500", _dark: "primary.300" };
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -146,7 +145,9 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
         left={0}
         right={0}
         h="40%"
-        bgGradient="linear(to-t, blackAlpha.600, transparent)"
+        bgGradient="to-t"
+        gradientFrom="blackAlpha.600"
+        gradientTo="transparent"
         pointerEvents="none"
         opacity={0}
         _groupHover={{ opacity: 1 }}

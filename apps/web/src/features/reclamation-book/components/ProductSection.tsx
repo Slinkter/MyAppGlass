@@ -42,7 +42,7 @@ const ProductSection: React.FC = () => {
           2
         </Box>
         <Heading
-          as="h3"
+          as="h2"
           size="sm"
           fontWeight="800"
           color="text.heading"

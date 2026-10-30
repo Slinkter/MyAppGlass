@@ -247,7 +247,7 @@ const BankAccountsView: React.FC = () => {
                             <Text
                                 as="span"
                                 fontWeight="800"
-                                color="primary.500"
+                                color="text.accent"
                             >
                                 Contacte a: {companyData.contactEmail}
                             </Text>

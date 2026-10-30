@@ -54,7 +54,7 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
     >
       <VStack align="stretch" gap="2.5">
         <HStack justify="space-between" align="center">
-          <HStack gap="1.5" color={error ? "red.500" : "primary.500"}>
+          <HStack gap="1.5" color={error ? "red.500" : "text.accent"}>
             <ShieldCheck size={16} />
             <Text fontSize="xs" fontWeight="700" letterSpacing="wide" textTransform="uppercase">
               Verificación de Seguridad

@@ -84,7 +84,7 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
     }}
   >
     <Box>
-      <Heading as="h3" size={{ base: "sm", md: "md" }} mb="2" letterSpacing="tight" color="text.heading" fontWeight="700">
+      <Heading as="h2" size={{ base: "sm", md: "md" }} mb="2" letterSpacing="tight" color="text.heading" fontWeight="700">
         Concepto Técnico
       </Heading>
       <Text color="text.muted" fontSize={{ base: "sm", md: "xs" }} lineHeight={{ base: "relaxed", md: "tall" }} mb="3">

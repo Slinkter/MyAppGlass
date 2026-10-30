@@ -160,7 +160,7 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
             <Heading
               size="xs"
               fontWeight="800"
-              color="primary.500"
+              color="text.accent"
               textTransform="uppercase"
               letterSpacing="0.25em"
               display="flex"

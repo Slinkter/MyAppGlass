@@ -18,7 +18,7 @@ const buttonRecipe = defineRecipe({
     textTransform: "uppercase",
     letterSpacing: "wider",
     borderRadius: "full",
-    transition: "background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+    transition: "background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
   },
     variants: {
       variant: {
@@ -109,34 +109,49 @@ const buttonRecipe = defineRecipe({
 
 /**
  * High-end form fields with Aura styling.
+ * En Chakra v3 `input` y `textarea` son recetas simples (no slot recipes); los estilos
+ * van en la variante `outline` (la predeterminada) para que no los pise el `bg`/`borderColor` de Chakra.
  */
-const inputRecipe = defineSlotRecipe({
-  slots: ["root", "content", "field"],
+const fieldOutline = {
+  bg: "surface.container",
+  borderWidth: "1px",
+  borderColor: "border.default",
+  borderRadius: "md",
+  transition: "border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+  _placeholder: { color: "text.muted" },
+  _hover: { borderColor: "border.strong" },
+  _focusVisible: {
+    borderColor: "ring.primary",
+    boxShadow: "0 0 0 1px var(--chakra-colors-ring-primary)",
+  },
+};
+
+const inputRecipe = defineRecipe({
+  variants: { variant: { outline: fieldOutline } },
+});
+
+const textareaRecipe = defineRecipe({
+  variants: { variant: { outline: fieldOutline } },
+});
+
+/**
+ * Card es una slot recipe en v3: la superficie va en el slot `root`
+ * (en la variante `outline`, la predeterminada, que si no fija `bg.panel`/`border`).
+ */
+const cardRecipe = defineSlotRecipe({
+  slots: ["root", "header", "body", "footer", "title", "description"],
   base: {
-    field: {
-      bg: "surface.container",
-      borderWidth: "1px",
-      borderColor: "border.default",
-      borderRadius: "md",
-      px: "3",
-      transition: "border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-      _placeholder: { color: "text.muted" },
-      _hover: { borderColor: "border.strong" },
-      _focus: {
-        borderColor: "ring.primary",
-        boxShadow: "0 0 0 1px var(--chakra-colors-ring-primary)",
-      },
-    },
+    root: { borderRadius: "card" },
   },
   variants: {
     variant: {
-      aura: {
-        field: {},
+      outline: {
+        root: { bg: "surface.card", borderColor: "border.default" },
+      },
+      solid: {
+        root: { bg: "bg.section", borderWidth: "0" },
       },
     },
-  },
-  defaultVariants: {
-    variant: "aura",
   },
 });
 
@@ -276,42 +291,29 @@ const config = defineConfig({
         // Status Borders
         "status.dangerBorder": { value: "rgba(248, 113, 113, 0.25)" },
 
-        // Focus
-        "ring.primary": { value: { _light: "{colors.primary.400}", _dark: "{colors.primary.500}" } },
+        // Focus (≥3:1 sobre el fondo en ambos temas, WCAG 1.4.11)
+        "ring.primary": { value: { _light: "{colors.primary.700}", _dark: "{colors.primary.300}" } },
 
         // Text
         "text.body": { value: { _light: "{colors.gray.800}", _dark: "{colors.gray.300}" } },
         "text.heading": { value: { _light: "{colors.gray.900}", _dark: "white" } },
         "text.muted": { value: { _light: "{colors.gray.600}", _dark: "{colors.gray.400}" } },
-        "text.subtle": { value: { _light: "{colors.gray.500}", _dark: "{colors.gray.500}" } },
+        "text.subtle": { value: { _light: "{colors.gray.500}", _dark: "{colors.gray.400}" } },
+
+        // Alias usados por admin/contacto que no existían (Chakra emitía CSS inválido)
+        "text.primary": { value: "{colors.text.heading}" },
+        "bg.canvas": { value: "{colors.bg.page}" },
+        "surface.muted": { value: "{colors.bg.subtle}" },
         "text.accent": { value: { _light: "{colors.primary.600}", _dark: "{colors.primary.300}" } },
       },
     },
     recipes: {
       button: buttonRecipe,
-      card: defineRecipe({
-        base: {
-          bg: "surface.card",
-          borderWidth: "1px",
-          borderColor: "border.default",
-          borderRadius: "card",
-          boxShadow: "sm",
-          p: "6",
-        },
-        variants: {
-          variant: {
-            solid: {
-              bg: "bg.section",
-              borderWidth: "0",
-            }
-          }
-        }
-      })
+      input: inputRecipe,
+      textarea: textareaRecipe,
     },
     slotRecipes: {
-      input: inputRecipe,
-      select: inputRecipe,
-      textarea: inputRecipe,
+      card: cardRecipe,
     },
   },
 });

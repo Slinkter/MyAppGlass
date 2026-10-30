@@ -36,10 +36,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
         animation={`slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s both`}
         _hover={{ 
           boxShadow: "lg",
-          borderColor: "whiteAlpha.300",
           transform: "translateY(-12px) scale(1.02)",
         }}
-        transition="box-shadow 0.4s cubic-bezier(0.33, 1, 0.68, 1), border-color 0.4s cubic-bezier(0.33, 1, 0.68, 1), transform 0.4s cubic-bezier(0.33, 1, 0.68, 1)"
+        transition="box-shadow 0.4s cubic-bezier(0.33, 1, 0.68, 1), transform 0.4s cubic-bezier(0.33, 1, 0.68, 1)"
         display="flex"
         flexDirection="column"
         position="relative"
@@ -59,8 +58,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
           <Box 
             position="absolute" 
             inset={0} 
-            bgGradient="linear(to-t, blackAlpha.600, transparent)" 
-            opacity={0.4}
+            bgGradient="to-t"
+            gradientFrom="blackAlpha.600"
+            gradientTo="transparent"
           />
           
           {/* Tag Overlay */}
@@ -68,10 +68,10 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
             {post.tags.slice(0, 2).map((tag) => (
               <Badge 
                 key={tag} 
-                bg="whiteAlpha.200"
+                bg="blackAlpha.700"
                 color="white" 
                 border="1px solid"
-                borderColor="whiteAlpha.300"
+                borderColor="whiteAlpha.400"
                 px="4" 
                 py="0.5"
                 borderRadius="full"
@@ -126,7 +126,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
             gap="2"
             transition="color 0.3s ease"
           >
-            <Text opacity={0} transform="translateX(10px)" _groupHover={{ opacity: 1, transform: "translateX(0)" }} transition="opacity 0.4s ease, transform 0.4s ease">
+            <Text opacity={{ base: 1, md: 0 }} transform={{ base: "none", md: "translateX(10px)" }} _groupHover={{ opacity: 1, transform: "translateX(0)" }} transition="opacity 0.4s ease, transform 0.4s ease">
               Leer más
             </Text>
             <Box 
@@ -134,9 +134,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
               borderRadius="full" 
               bg="bg.subtle" 
               _groupHover={{ bg: "text.accent", color: "white", transform: "rotate(-45deg)" }}
-              transition="background-color 0.4s ease, color 0.4s ease, transform 0.4s ease"
+              transition="background-color 0.4s ease, transform 0.4s ease"
             >
-              <LucideArrowRight size={16} />
+              <LucideArrowRight size={16} style={{ flexShrink: 0 }} />
             </Box>
           </Flex>
         </VStack>

@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { Search, CheckCircle2, Clock, FileSearch, CheckCheck } from "lucide-react";
 import AuraSurface from "@/shared/components/aura/AuraSurface";
 import { TrackingResult } from "@/features/contacto/hooks/useContactForm";
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 interface TrackingSectionProps {
   trackingId: string;
@@ -43,9 +42,11 @@ export function TrackingSection({
   handleTrackingChange,
   handleTrackingSubmit,
 }: TrackingSectionProps) {
-  const inputBg = useColorModeValue("rgba(240, 242, 245, 0.85)", "rgba(24, 24, 27, 0.75)");
-  const inputBorderColor = useColorModeValue("rgba(0, 0, 0, 0.15)", "rgba(255, 255, 255, 0.18)");
-  const inputHoverBorderColor = useColorModeValue("var(--chakra-colors-overlay-dim)", "rgba(255, 255, 255, 0.35)");
+  // Condiciones CSS (base/_dark) en lugar del hook de color mode: mismo HTML en servidor y cliente
+  const inputBg = { base: "rgba(240, 242, 245, 0.85)", _dark: "rgba(24, 24, 27, 0.75)" };
+  const inputBorderColor = { base: "rgba(0, 0, 0, 0.15)", _dark: "rgba(255, 255, 255, 0.18)" };
+  const inputHoverBorderColor = { base: "var(--chakra-colors-overlay-dim)", _dark: "rgba(255, 255, 255, 0.35)" };
+  const inputFocusBg = { base: "white", _dark: "blackAlpha.800" };
 
   const currentStageIndex = trackingResult ? getStageIndex(trackingResult.status) : 0;
 
@@ -66,6 +67,7 @@ export function TrackingSection({
           <Input 
             variant="outline" 
             placeholder="Ej. resend-id-... o código oficial" 
+            aria-label="Código de seguimiento"
             size="md" 
             value={trackingId}
             onChange={handleTrackingChange}
@@ -75,7 +77,7 @@ export function TrackingSection({
             borderColor={inputBorderColor}
             _hover={{ borderColor: inputHoverBorderColor }}
             _focus={{ 
-              bg: useColorModeValue("white", "blackAlpha.800"),
+              bg: inputFocusBg,
               borderColor: "primary.500",
               boxShadow: "0 0 0 2px var(--chakra-colors-primary-500)"
             }}

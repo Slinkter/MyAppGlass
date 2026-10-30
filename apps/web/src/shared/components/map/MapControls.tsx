@@ -1,4 +1,3 @@
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import React from "react";
 import {
   Box,
@@ -12,9 +11,9 @@ interface MapControlsProps {
 }
 
 const MapControls: React.FC<MapControlsProps> = ({ onFitBounds }) => {
-  const btnBg = useColorModeValue("white", "gray.800");
-  const btnColor = useColorModeValue("gray.600", "white");
-  const btnHoverBg = useColorModeValue("gray.100", "gray.700");
+  const btnBg = { base: "white", _dark: "gray.800" };
+  const btnColor = { base: "gray.600", _dark: "white" };
+  const btnHoverBg = { base: "gray.100", _dark: "gray.700" };
 
   return (
     <Box position="absolute" top={4} right={4} zIndex={10}>

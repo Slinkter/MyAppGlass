@@ -12,7 +12,7 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import React, { useMemo, useCallback } from "react";
 import { Box, HStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { FilterPill } from "@/shared/components/ui/FilterPill";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { useProjects } from "@features/projects/hooks/useProjects";
@@ -37,13 +37,15 @@ const normalizeYear = (year?: string | number): string => {
 export interface ProjectsListProps {
   /** Proyectos leídos de Firestore en build (primer render, para el HTML exportado). */
   initialData?: FirestoreProject[];
+  /** Nivel del título: `h1` en su página propia, `h2` cuando se incrusta (p. ej. en la home). */
+  headingAs?: "h1" | "h2";
 }
 
 /**
  * @component ProjectsList
  * @description Orchestrator for the projects gallery, implementing Infinite Scroll (O1) for high performance.
  */
-const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData }) => {
+const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, headingAs = "h1" }) => {
   // Primer render con los datos de build; Firestore en cliente los refresca (ver useProjects).
   // Ya viene más reciente primero.
   const { data, isLoading, error } = useProjects(initialData);
@@ -98,7 +100,7 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData }) =
   return (
     <ItemGridLayout
       title="PROYECTOS"
-      headingAs="h1"
+      headingAs={headingAs}
       subtitle="Obras Entregadas"
       seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
       seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
@@ -109,41 +111,13 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData }) =
       <Box gridColumn="1 / -1" w="full" mt="5">
         <HStack gap="2" justify="center" flexWrap="wrap" pb="5">
           {years.map((year) => {
-            const isActive = activeYear === year;
             return (
-              <Button
+              <FilterPill
                 key={year}
-                size="sm"
-                px="5"
-                mt="2"
-                borderRadius="full"
-                fontWeight="bold"
-                fontSize="xs"
-                letterSpacing="wider"
-                textTransform="uppercase"
-                bg={isActive ? "primary.900" : "blackAlpha.100"}
-                color={isActive ? "white" : "text.heading"}
-                border="1px solid"
-                borderColor={isActive ? "primary.900" : "blackAlpha.200"}
-                _dark={{
-                  bg: isActive ? "white" : "whiteAlpha.100",
-                  color: isActive ? "black" : "white",
-                  borderColor: isActive ? "white" : "whiteAlpha.200",
-                  _hover: {
-                    bg: isActive ? "white" : "whiteAlpha.200",
-                  }
-                }}
-                _hover={{
-                  bg: isActive ? "primary.900" : "blackAlpha.200",
-                  transform: "translateY(-1px)",
-                }}
-                transition="all 0.2s ease"
-                onClick={() => {
-                  handleYearChange(year);
-                }}
-              >
-                {year}
-              </Button>
+                label={String(year)}
+                isActive={activeYear === year}
+                onClick={() => handleYearChange(year)}
+              />
             );
           })}
         </HStack>

@@ -20,12 +20,12 @@ const HomeView: React.FC = React.memo(() => {
 
             {/* Sección 3: SERVICIO */}
             <Box id="servicios" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <ServiceList />
+                <ServiceList headingAs="h2" />
             </Box>
 
             {/* Sección 4: Proyectos */}
             <Box id="proyectos" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <ProjectsList />
+                <ProjectsList headingAs="h2" />
             </Box>
 
             {/* Sección 5: Ubicación / Mapa */}

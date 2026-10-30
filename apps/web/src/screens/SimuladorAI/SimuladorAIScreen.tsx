@@ -88,11 +88,11 @@ export const SimuladorAIScreen: React.FC = () => {
     setChatInput("");
 
     setTimeout(() => {
-      let reply = "Para este espacio te recomendamos cristal templado de 8mm o 10mm para garantizar la máxima seguridad e iluminación.";
+      let reply = "Para este espacio te recomendamos vidrio Templado o Laminado para garantizar la máxima seguridad e iluminación.";
       if (userText.toLowerCase().includes("precio") || userText.toLowerCase().includes("costo") || userText.toLowerCase().includes("cotizar")) {
         reply = `Puedes cotizar este sistema de inmediato en la sección Presupuesto con hoja membretada PDF o escribirnos al WhatsApp oficial 974 278 303.`;
       } else if (userText.toLowerCase().includes("color") || userText.toLowerCase().includes("aluminio")) {
-        reply = `Disponemos de aluminio en Negro Mate Anodizado, Natural Mate, Blanco Esmaltado y Champagne Titanio.`;
+        reply = `Disponemos de aluminio en Negro, Mate, Blanco, Madera y Champagne.`;
       }
 
       setChatMessages((prev) => [...prev, { sender: "ai", text: reply }]);
@@ -103,15 +103,15 @@ export const SimuladorAIScreen: React.FC = () => {
     <Box py="10" maxW="1280px" mx="auto" px={{ base: "4", md: "6" }}>
       {/* CABECERA */}
       <VStack gap="2" align="start" mb="8">
-        <HStack gap="2">
-          <Badge colorPalette="purple" variant="subtle" px="3" py="1" borderRadius="full">
-            <Sparkles size={14} style={{ marginRight: 4 }} /> Generador de Espacios con IA (Inpainting)
+        <HStack gap="2" flexWrap="wrap">
+          <Badge colorPalette="purple" variant="subtle" px="3" py="1" borderRadius="full" whiteSpace="normal" textAlign="left">
+            <Sparkles size={14} style={{ marginRight: 4, flexShrink: 0 }} /> Generador de Espacios con IA (Inpainting)
           </Badge>
-          <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full">
+          <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full" whiteSpace="normal">
             Composición Interactiva
           </Badge>
         </HStack>
-        <Heading size="2xl" color="brand.primary">
+        <Heading as="h1" size="2xl" color="brand.primary">
           Simulador Visual con Inteligencia Artificial
         </Heading>
         <Text color="text.muted" maxW="800px">

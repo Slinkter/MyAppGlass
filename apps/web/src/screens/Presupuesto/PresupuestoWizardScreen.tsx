@@ -74,7 +74,7 @@ export const PresupuestoWizardScreen: React.FC = () => {
       {/* SECCIÓN INTERACTIVA (Oculta al imprimir) */}
       <Box className="no-print">
         <VStack gap="2" align="start" mb="8">
-          <Heading size="2xl" color="brand.primary">
+          <Heading as="h1" size="2xl" color="brand.primary">
             Calculadora de Presupuestos & Cotizador a Medida
           </Heading>
           <Text color="text.muted">

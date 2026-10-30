@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field } from "@/components/ui/field";
 import { Send, Lock } from "lucide-react";
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 
 /**
  * @file ContactFormSection.tsx
@@ -65,9 +64,11 @@ export function ContactFormSection({
   handleMathChange,
   handleSubmit,
 }: ContactFormSectionProps) {
-  const inputBg = useColorModeValue("rgba(240, 242, 245, 0.85)", "rgba(24, 24, 27, 0.75)");
-  const inputBorderColor = useColorModeValue("rgba(0, 0, 0, 0.15)", "rgba(255, 255, 255, 0.18)");
-  const inputHoverBorderColor = useColorModeValue("var(--chakra-colors-overlay-dim)", "rgba(255, 255, 255, 0.35)");
+  // Condiciones CSS (base/_dark) en lugar del hook de color mode: mismo HTML en servidor y cliente
+  const inputBg = { base: "rgba(240, 242, 245, 0.85)", _dark: "rgba(24, 24, 27, 0.75)" };
+  const inputBorderColor = { base: "rgba(0, 0, 0, 0.15)", _dark: "rgba(255, 255, 255, 0.18)" };
+  const inputHoverBorderColor = { base: "var(--chakra-colors-overlay-dim)", _dark: "rgba(255, 255, 255, 0.35)" };
+  const inputFocusBg = { base: "white", _dark: "blackAlpha.800" };
   return (
     <Box w="full">
       <VStack align="flex-start" gap="7" as="form" onSubmit={handleSubmit}>
@@ -111,6 +112,7 @@ export function ContactFormSection({
               w="full" 
               placeholder="Ej. Juan Pérez" 
               name="name"
+              autoComplete="name"
               value={formData.name}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -121,7 +123,7 @@ export function ContactFormSection({
               borderColor={errors?.name ? "red.500" : inputBorderColor}
               _hover={{ borderColor: errors?.name ? "red.500" : inputHoverBorderColor }}
               _focus={{ 
-                bg: useColorModeValue("white", "blackAlpha.800"),
+                bg: inputFocusBg,
                 borderColor: errors?.name ? "red.500" : "primary.500",
                 boxShadow: errors?.name ? "0 0 0 1px var(--chakra-colors-red-500)" : "0 0 0 2px var(--chakra-colors-primary-500)" 
               }}
@@ -141,6 +143,7 @@ export function ContactFormSection({
               w="full" 
               placeholder="tu@email.com" 
               name="email"
+              autoComplete="email"
               value={formData.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -152,7 +155,7 @@ export function ContactFormSection({
               borderColor={errors?.email ? "red.500" : inputBorderColor}
               _hover={{ borderColor: errors?.email ? "red.500" : inputHoverBorderColor }}
               _focus={{ 
-                bg: useColorModeValue("white", "blackAlpha.800"),
+                bg: inputFocusBg,
                 borderColor: errors?.email ? "red.500" : "primary.500",
                 boxShadow: errors?.email ? "0 0 0 1px var(--chakra-colors-red-500)" : "0 0 0 2px var(--chakra-colors-primary-500)" 
               }}
@@ -171,6 +174,7 @@ export function ContactFormSection({
               w="full" 
               placeholder="Ej. +51 987 654 321" 
               name="phone"
+              autoComplete="tel"
               value={formData.phone}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -182,7 +186,7 @@ export function ContactFormSection({
               borderColor={errors?.phone ? "red.500" : inputBorderColor}
               _hover={{ borderColor: errors?.phone ? "red.500" : inputHoverBorderColor }}
               _focus={{ 
-                bg: useColorModeValue("white", "blackAlpha.800"),
+                bg: inputFocusBg,
                 borderColor: errors?.phone ? "red.500" : "primary.500",
                 boxShadow: errors?.phone ? "0 0 0 1px var(--chakra-colors-red-500)" : "0 0 0 2px var(--chakra-colors-primary-500)" 
               }}
@@ -212,7 +216,7 @@ export function ContactFormSection({
               borderColor={errors?.message ? "red.500" : inputBorderColor}
               _hover={{ borderColor: errors?.message ? "red.500" : inputHoverBorderColor }}
               _focus={{ 
-                bg: useColorModeValue("white", "blackAlpha.800"),
+                bg: inputFocusBg,
                 borderColor: errors?.message ? "red.500" : "primary.500",
                 boxShadow: errors?.message ? "0 0 0 1px var(--chakra-colors-red-500)" : "0 0 0 2px var(--chakra-colors-primary-500)" 
               }}
@@ -263,11 +267,11 @@ export function ContactFormSection({
             letterSpacing="widest"
             loading={isSubmitting}
             loadingText="ENVIANDO SOLICITUD..."
-            boxShadow="0 8px 24px rgba(204, 2, 2, 0.35)"
-            _hover={{ transform: "translateY(-2px)", boxShadow: "0 12px 28px rgba(204, 2, 2, 0.45)" }}
-            transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+            boxShadow="elevatedLg"
+            _hover={{ transform: "translateY(-2px)", boxShadow: "cardLift" }}
+            transition="transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
           >
-            ENVIAR SOLICITUD <Send size={18} style={{ marginLeft: '8px' }} />
+            ENVIAR SOLICITUD <Send size={18} style={{ marginLeft: '8px', flexShrink: 0 }} />
           </Button>
           <HStack gap="1" color="text.muted" fontSize="2xs" justify="center">
             <Lock size={12} />

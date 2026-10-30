@@ -1,6 +1,5 @@
 "use client";
 
-import { useColorModeValue } from "@/components/ui/color-mode-hooks";
 import { useState } from "react";
 import { Box, Text, Link, VStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
@@ -24,8 +23,8 @@ import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
 const FloatingWhatsApp = () => {
   const [isOpen, setIsOpen] = useState(false);
   const whatsappLink = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;
-  const modalBg = useColorModeValue("white", "gray.700");
-  const modalColor = useColorModeValue("gray.800", "white");
+  const modalBg = { base: "white", _dark: "gray.700" };
+  const modalColor = { base: "gray.800", _dark: "white" };
 
   return (
     <>
@@ -35,7 +34,7 @@ const FloatingWhatsApp = () => {
         left={4}
         right="auto"
         zIndex="popover"
-        display={{ base: "none", md: "flex" }}
+        display="flex"
         css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))" }}
       >
         <Button
@@ -45,12 +44,12 @@ const FloatingWhatsApp = () => {
           _active={{ bg: "brand.whatsappActive" }}
           variant="solid"
           borderRadius="full"
-          w={16}
-          h={16}
+          w={{ base: 14, md: 16 }}
+          h={{ base: 14, md: 16 }}
           boxShadow="lg"
           onClick={() => setIsOpen(true)}
           aria-label="Abrir chat de WhatsApp"
-           transition="background-color 0.2s ease, transform 0.2s ease"
+          transition="background-color 0.2s ease, transform 0.2s ease"
         >
           {/* WhatsApp Brand Icon */}
           <WhatsAppIcon size={32} />
