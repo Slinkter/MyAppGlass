@@ -2,7 +2,7 @@
     "name": "myappglass",
     "version": "1.0.0",
     "private": true,
-    "packageManager": "pnpm@12.5.1",
+    "packageManager": "pnpm@12.16.1",
     "type": "module",
     "scripts": {
         "dev": "pnpm --filter @gya/web dev",
