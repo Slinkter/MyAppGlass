@@ -15,6 +15,32 @@ import { companyData } from "@/shared/config/company-data";
 
 import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
 
+interface FloatingWhatsAppButtonProps {
+  onClick?: () => void;
+}
+
+export const FloatingWhatsAppButton: React.FC<FloatingWhatsAppButtonProps> = ({ onClick }) => (
+  <Button
+    bg="brand.whatsapp"
+    color="white"
+    _hover={{ bg: "brand.whatsappHover", transform: "scale(1.08)" }}
+    _active={{ bg: "brand.whatsappActive" }}
+    variant="solid"
+    borderRadius="full"
+    w={{ base: 14, md: 16 }}
+    h={{ base: 14, md: 16 }}
+    minW="0"
+    p="0"
+    boxShadow="lg"
+    onClick={onClick}
+    aria-label="Abrir chat de WhatsApp"
+    transition="background-color 0.2s ease, transform 0.2s ease"
+  >
+    {/* WhatsApp Brand Icon */}
+    <WhatsAppIcon size={32} />
+  </Button>
+);
+
 /**
  * @component FloatingWhatsApp
  * @description Botón flotante de WhatsApp que abre un modal con overlay.
@@ -37,23 +63,7 @@ const FloatingWhatsApp = () => {
         display="flex"
         css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))" }}
       >
-        <Button
-          bg="brand.whatsapp"
-          color="white"
-          _hover={{ bg: "brand.whatsappHover", transform: "scale(1.08)" }}
-          _active={{ bg: "brand.whatsappActive" }}
-          variant="solid"
-          borderRadius="full"
-          w={{ base: 14, md: 16 }}
-          h={{ base: 14, md: 16 }}
-          boxShadow="lg"
-          onClick={() => setIsOpen(true)}
-          aria-label="Abrir chat de WhatsApp"
-          transition="background-color 0.2s ease, transform 0.2s ease"
-        >
-          {/* WhatsApp Brand Icon */}
-          <WhatsAppIcon size={32} />
-        </Button>
+        <FloatingWhatsAppButton onClick={() => setIsOpen(true)} />
       </Box>
 
       {/* v3: Dialog instead of Modal */}

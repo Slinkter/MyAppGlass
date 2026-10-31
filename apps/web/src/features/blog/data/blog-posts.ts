@@ -39,7 +39,7 @@ const BLOG_POSTS: BlogPost[] = [
 
       <blockquote>"El vidrio no solo es lo que ves a través de él, es cómo transforma el espacio que habitas."</blockquote>
 
-      <p>En Glass & Aluminum Company S.A.C., estamos a la vanguardia de estas tecnologías para ofrecer cerramientos que superan las exigencias estéticas y estructurales. Conoce más en nuestra sección de <a href="/servicios">servicios de vidriería</a>.</p>
+      <p>En Glass & Aluminum Company S.A.C., estamos a la vanguardia de estas tecnologías para ofrecer cerramientos que superan las exigencias estéticas y estructurales. Conoce más en nuestra sección de <a href="/#servicios">servicios de vidriería</a>.</p>
     `,
   },
   {

@@ -20,11 +20,16 @@ export const metadata: Metadata = {
 };
 
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { getBuildProjects, getBuildServices } from "@/shared/api/firebase/publicRest";
 
-export default function Page() {
+export default async function Page() {
+  const [rawServices, rawProjects] = await Promise.all([getBuildServices(), getBuildProjects()]);
+  const services = rawServices.map((service) => ({ ...service, gallery: [] }));
+  const projects = rawProjects.map((project) => ({ ...project, gallery: [] }));
+
   return (
     <ComponentErrorBoundary>
-      <HomeView />
+      <HomeView initialServices={services} initialProjects={projects} />
     </ComponentErrorBoundary>
   );
 }

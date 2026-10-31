@@ -104,7 +104,7 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
       subtitle="Obras Entregadas"
       seoTitle="Proyectos de Vidriería y Aluminio en La Molina - GYA Company"
       seoDescription="Descubre nuestros proyectos de instalación de vidriería y aluminio en La Molina. Calidad y experiencia en cada obra."
-      seoCanonicalUrl={`${SITE_URL}/proyectos`}
+      seoCanonicalUrl={`${SITE_URL}/#proyectos`}
       columns={{ base: 1, md: 2, lg: 3 }}
     >
       {/* Filter Pills */}

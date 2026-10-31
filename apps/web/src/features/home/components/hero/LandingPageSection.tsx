@@ -144,12 +144,12 @@ const LandingPageSection: React.FC = React.memo(() => {
                             animation="slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both"
                         >
                             <Button asChild variant="aura" size={{ base: "md", md: "lg" }} px="8" borderRadius="full" fontWeight="800">
-                                <RouterLink href="/servicios">
+                                <RouterLink href="/#servicios">
                                     Explorar Servicios
                                 </RouterLink>
                             </Button>
                             <Button asChild variant="outline" size={{ base: "md", md: "lg" }} px="8" borderRadius="full" fontWeight="700">
-                                <RouterLink href="/proyectos">
+                                <RouterLink href="/#proyectos">
                                     Ver Portafolio de Obras
                                 </RouterLink>
                             </Button>

@@ -16,18 +16,28 @@ export function ColorModeProvider(props: ColorModeProviderProps) {
   )
 }
 
-export function ColorModeIcon() {
-  const { colorMode } = useColorMode()
-  return colorMode === 'dark' ? <Moon /> : <Sun />
+export interface ColorModeIconProps {
+  size?: number | string
 }
 
-export type ColorModeButtonProps = IconButtonProps
+export function ColorModeIcon({ size }: ColorModeIconProps) {
+  const { colorMode } = useColorMode()
+  return colorMode === 'dark' ? (
+    <Moon size={size} style={{ flexShrink: 0 }} />
+  ) : (
+    <Sun size={size} style={{ flexShrink: 0 }} />
+  )
+}
+
+export interface ColorModeButtonProps extends IconButtonProps {
+  iconSize?: number | string
+}
 
 export const ColorModeButton = React.forwardRef<HTMLButtonElement, ColorModeButtonProps>(
-  function ColorModeButton(props, ref) {
+  function ColorModeButton({ iconSize, ...props }, ref) {
     const { toggleColorMode } = useColorMode()
     return (
-      <ClientOnly fallback={<Skeleton boxSize='9' />}>
+      <ClientOnly fallback={<Skeleton boxSize='9' borderRadius='full' />}>
         <IconButton
           onClick={toggleColorMode}
           variant='ghost'
@@ -35,14 +45,18 @@ export const ColorModeButton = React.forwardRef<HTMLButtonElement, ColorModeButt
           size='sm'
           ref={ref}
           {...props}
-          css={{
-            _icon: {
-              width: '5',
-              height: '5',
-            },
-          }}
+          css={
+            iconSize
+              ? undefined
+              : {
+                  _icon: {
+                    width: '5',
+                    height: '5',
+                  },
+                }
+          }
         >
-          <ColorModeIcon />
+          <ColorModeIcon size={iconSize} />
         </IconButton>
       </ClientOnly>
     )

@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, VStack } from "@chakra-ui/react";
+import type { Project, Service } from "@/shared/api/firebase/types";
 import LandingPageSection from "@features/home/components/hero/LandingPageSection";
 import FeaturesSection from "@features/home/components/features/FeaturesSection";
 import ServiceList from "@/features/services/components/ServiceList";
@@ -7,7 +8,12 @@ import ClientsSection from "@features/home/components/clients/ClientsSection";
 import { ProjectsList } from "@features/projects";
 import StoreSection from "@features/home/components/store/StoreSection";
 
-const HomeView: React.FC = React.memo(() => {
+export interface HomeViewProps {
+    initialServices?: Service[];
+    initialProjects?: Project[];
+}
+
+const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initialProjects }) => {
     return (
         <VStack gap={{ base: "16", md: "24" }} w="full" align="stretch">
             {/* Sección 1: Hero / Portada */}
@@ -20,12 +26,12 @@ const HomeView: React.FC = React.memo(() => {
 
             {/* Sección 3: SERVICIO */}
             <Box id="servicios" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <ServiceList headingAs="h2" />
+                <ServiceList initialData={initialServices} headingAs="h2" />
             </Box>
 
             {/* Sección 4: Proyectos */}
             <Box id="proyectos" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <ProjectsList headingAs="h2" />
+                <ProjectsList initialData={initialProjects} headingAs="h2" />
             </Box>
 
             {/* Sección 5: Ubicación / Mapa */}

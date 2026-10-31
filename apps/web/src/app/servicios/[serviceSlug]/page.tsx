@@ -74,7 +74,7 @@ export default async function Page({ params }: Props) {
 
   const serviceJsonLd = getServiceJsonLd(title, description, url, service.coverImage);
   const breadcrumbJsonLd = getSectionBreadcrumbJsonLd(
-    { name: "Servicios", path: "/servicios" },
+    { name: "Servicios", path: "/#servicios" },
     { name: title, url }
   );
 

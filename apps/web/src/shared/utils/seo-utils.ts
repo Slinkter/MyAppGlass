@@ -14,17 +14,10 @@ export const getCompanyJsonLd = () => ({
       "name": "Glass & Aluminum Company S.A.C.",
       "alternateName": "GYA Company",
       "publisher": { "@id": `${SITE_URL}/#organization` },
-      "potentialAction": [
-        {
-          "@type": "SearchAction",
-          "target": `${SITE_URL}/servicios?q={search_term_string}`,
-          "query-input": "required name=search_term_string"
-        }
-      ],
       "hasPart": [
         { "@type": "WebPage", "name": "Inicio", "url": `${SITE_URL}/` },
-        { "@type": "WebPage", "name": "Servicios de Vidriería y Aluminio", "url": `${SITE_URL}/servicios` },
-        { "@type": "WebPage", "name": "Proyectos y Obras", "url": `${SITE_URL}/proyectos` },
+        { "@type": "WebPage", "name": "Servicios de Vidriería y Aluminio", "url": `${SITE_URL}/#servicios` },
+        { "@type": "WebPage", "name": "Proyectos y Obras", "url": `${SITE_URL}/#proyectos` },
         { "@type": "WebPage", "name": "Blog Técnico de Expertos", "url": `${SITE_URL}/blog` },
         { "@type": "WebPage", "name": "Cotizaciones y Contacto", "url": `${SITE_URL}/contacto` },
         { "@type": "WebPage", "name": "Libro de Reclamaciones Virtual", "url": `${SITE_URL}/libro-de-reclamacion` }

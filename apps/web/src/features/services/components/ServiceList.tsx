@@ -59,7 +59,7 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
             headingAs={headingAs}
             seoTitle="Servicios de Vidriería y Aluminio en La Molina - GYA Company"
             seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina. Ventanas, mamparas y más."
-            seoCanonicalUrl={`${SITE_URL}/servicios`}
+            seoCanonicalUrl={`${SITE_URL}/#servicios`}
             columns={{ base: 1, md: 2, lg: 3 }}
         >
             <Box gridColumn="1 / -1" w="full" mt="5">

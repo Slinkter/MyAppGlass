@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import AuraDesktopNav from "@/widgets/Navbar/AuraDesktopNav";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
+import { FloatingWhatsAppButton, ThemeToggleButton } from "@/widgets/FloatingActions";
 
 export const NavigationShowcase: React.FC = () => {
   return (
@@ -83,6 +84,56 @@ export const NavigationShowcase: React.FC = () => {
             <Text fontSize="xs" color="text.muted" textAlign="center" mt="2">
               Barra fija con acceso a Servicios, Proyectos, Inventario, Clientes y Ventas.
             </Text>
+          </Box>
+        </Card.Body>
+      </Card.Root>
+
+      {/* 3. FloatingActions (WhatsApp & ThemeToggle Homologados) */}
+      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
+        <Card.Header pb="4">
+          <HStack justify="space-between" wrap="wrap">
+            <Box>
+              <Card.Title fontSize="xl">FloatingActions — Acciones Flotantes Homologadas</Card.Title>
+              <Card.Description>
+                Componentes globales (`widgets/FloatingActions/`) con dimensiones simétricas (`w`/`h` 14 en móvil, 16 en escritorio e icono `size={32}`).
+              </Card.Description>
+            </Box>
+            <Badge colorPalette="green" px="3" py="1" borderRadius="full">Global Widgets</Badge>
+          </HStack>
+        </Card.Header>
+        <Card.Body>
+          <Box
+            p={{ base: "6", md: "8" }}
+            bg="bg.page"
+            borderRadius="2xl"
+            borderWidth="1px"
+            borderColor="border.subtle"
+          >
+            <HStack justify="space-around" align="center" wrap="wrap" gap="8">
+              <VStack gap="3">
+                <FloatingWhatsAppButton />
+                <VStack gap="0.5">
+                  <Text fontSize="xs" fontWeight="bold" color="text.heading">
+                    FloatingWhatsApp
+                  </Text>
+                  <Text fontSize="xs" color="text.muted">
+                    64×64px (md) · Icono 32px
+                  </Text>
+                </VStack>
+              </VStack>
+
+              <VStack gap="3">
+                <ThemeToggleButton />
+                <VStack gap="0.5">
+                  <Text fontSize="xs" fontWeight="bold" color="text.heading">
+                    ThemeToggle
+                  </Text>
+                  <Text fontSize="xs" color="text.muted">
+                    64×64px (md) · Icono 32px
+                  </Text>
+                </VStack>
+              </VStack>
+            </HStack>
           </Box>
         </Card.Body>
       </Card.Root>

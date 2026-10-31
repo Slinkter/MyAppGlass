@@ -115,7 +115,7 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
             gap={4}
           >
             <VStack gap={2} align="flex-start">
-              <BackButton to="/proyectos" />
+              <BackButton to="/#proyectos" />
               <Heading
                 as="h1"
                 fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}

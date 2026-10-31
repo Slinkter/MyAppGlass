@@ -1,3 +1,3 @@
-export { default as FloatingWhatsApp } from "./FloatingWhatsApp";
+export { default as FloatingWhatsApp, FloatingWhatsAppButton } from "./FloatingWhatsApp";
 export { default as FloatingWhatsAppWrapper } from "./FloatingWhatsAppWrapper";
-export { ThemeToggle } from "./ThemeToggle";
+export { ThemeToggle, ThemeToggleButton } from "./ThemeToggle";

@@ -14,6 +14,7 @@ import {
   Card,
 } from "@chakra-ui/react";
 import { ArrowRight, Eye, Sliders, Copy } from "lucide-react";
+import { FloatingWhatsAppButton, ThemeToggleButton } from "@/widgets/FloatingActions";
 import { Field } from "@/components/ui/field";
 import { NativeSelectRoot, NativeSelectField } from "@/components/ui/native-select";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -72,9 +73,9 @@ export const FormControlsShowcase: React.FC = () => {
 
             <Box>
               <Text fontWeight="semibold" mb="3" color="text.muted" fontSize="sm">
-                BOTONES DE ICONO
+                BOTONES DE ICONO & ACCIONES FLOTANTES (WHATSAPP Y THEME HOMOLOGADOS)
               </Text>
-              <HStack gap="4">
+              <HStack gap="4" wrap="wrap" align="center">
                 <IconButton aria-label="Ver" variant="subtle" size="sm">
                   <Eye size={16} style={{ flexShrink: 0 }} />
                 </IconButton>
@@ -84,7 +85,12 @@ export const FormControlsShowcase: React.FC = () => {
                 <IconButton aria-label="Copiar" colorPalette="blue" size="lg">
                   <Copy size={20} style={{ flexShrink: 0 }} />
                 </IconButton>
+                <FloatingWhatsAppButton />
+                <ThemeToggleButton />
               </HStack>
+              <Text fontSize="xs" color="text.muted" mt="2">
+                Estándar de icono flotante: botón circular <code>w/h=&#123;&#123; base: 14, md: 16 &#125;&#125;</code> (56px / 64px) con icono interno de <code>32px</code> (<code>WhatsAppIcon size=&#123;32&#125;</code> y <code>ColorModeIcon size=&#123;32&#125;</code>).
+              </Text>
             </Box>
           </VStack>
         </Card.Body>
