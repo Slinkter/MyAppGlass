@@ -157,12 +157,20 @@ const LocationMap: React.FC<LocationMapProps> = ({
             size="sm"
             minW="11"
             minH="11"
-            bg="bg.surface/92"
-            backdropFilter="blur(20px)"
+            bg="bg.surface/88"
+            backdropFilter="blur(24px) saturate(1.4)"
             borderRadius="xl"
             boxShadow="md"
             aria-label="Ver todas las ubicaciones"
             onClick={fitAll}
+            css={{
+              WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+              "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
+                backdropFilter: "none",
+                WebkitBackdropFilter: "none",
+                background: "var(--chakra-colors-bg-surface)",
+              },
+            }}
           >
             <Compass size={17} style={{ flexShrink: 0 }} />
           </Button>

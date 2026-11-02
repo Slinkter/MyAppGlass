@@ -27,23 +27,35 @@ import { Cover } from "./Cover";
 
 const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;
 
-/** Superficie minimalista tipo lente de vidrio esmerilado con borde de perfil fino. */
-const glassSurface = {
-  bg: "bg.surface/92",
-  backdropFilter: "blur(20px)",
+/**
+ * Superficie Liquid Glass Regular (`liquid-glass.md › Cross-platform translation`):
+ * - `blur(24px) saturate(1.4)` con relleno translúcido y borde de 1px.
+ * - Respeta `prefers-reduced-transparency` y `prefers-contrast: more` cayendo a superficie opaca.
+ */
+const liquidGlassRegular = {
+  bg: "bg.surface/88",
+  backdropFilter: "blur(24px) saturate(1.4)",
   borderWidth: "1px",
   borderColor: "border.default",
   borderRadius: "2xl",
   boxShadow: "xl",
+  css: {
+    WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+    "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
+      backdropFilter: "none",
+      WebkitBackdropFilter: "none",
+      background: "var(--chakra-colors-bg-surface)",
+    },
+  },
 } as const;
 
-/** Posicionamiento flotante: esquina superior izquierda, respetando el botón de recentrar en móvil/tablet. */
-const floatingAnchor = {
+/** Posicionamiento Place Card (`maps.md › Place cards` y `layout.md › Visual hierarchy`). */
+const placeCardAnchor = {
   position: "absolute",
   top: { base: "3", lg: "5" },
   left: { base: "3", lg: "5" },
   right: { base: "16", md: "auto" },
-  w: { md: "340px", lg: "360px" },
+  w: { md: "336px", lg: "356px" },
   zIndex: 2,
 } as const;
 
@@ -55,24 +67,25 @@ export interface StorePanelProps {
 }
 
 /**
- * Panel flotante minimalista de la Sede Principal.
- * En móvil se comporta como una cápsula ultracompacta para dejar libre el 85% del mapa;
- * en tablet/escritorio despliega la tarjeta arquitectónica con estado en vivo y acciones limpias.
+ * Place Card de la Sede Principal (`maps.md › Place cards`, `liquid-glass.md › Color on glass`).
+ * - Una sola acción prominente con relleno (`Cómo llegar`, `variant="aura"`) y secundaria monocromática (`variant="outline"`).
+ * - Estado de apertura comunicado con texto + indicador visual (`accessibility.md › Vision`: nunca solo por color).
  */
 export const StorePanel: React.FC<StorePanelProps> = React.memo(
   ({ address, projectCount, selected, onSelectStore }) => {
     const isOpen = useIsStoreOpen();
+    const statusLabel = isOpen === null ? "Lun–Sáb" : isOpen ? "Abierto" : "Cerrado";
 
     return (
       <Box
         as="section"
         aria-label="Sede principal de GYA"
-        {...floatingAnchor}
-        {...glassSurface}
+        {...placeCardAnchor}
+        {...liquidGlassRegular}
         p={{ base: "2.5", md: "5" }}
       >
-        {/* Vista compacta en móvil (base): cápsula de 1 línea + acciones rápidas */}
-        <HStack gap="2" align="center" display={{ base: "flex", md: "none" }} minW={0}>
+        {/* Vista compacta en móvil (base): Place Card conciso con separación de 8px entre controles */}
+        <HStack gap="2.5" align="center" display={{ base: "flex", md: "none" }} minW={0}>
           <Box
             as="button"
             onClick={onSelectStore}
@@ -90,24 +103,26 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
             cursor="pointer"
             _focusVisible={{ outline: "2px solid", outlineColor: "primary.500", outlineOffset: "2px" }}
           >
-            <Box
-              w="2"
-              h="2"
-              borderRadius="full"
-              bg={isOpen ? "status.success" : "text.accent"}
-              flexShrink={0}
-            />
             <Box minW={0} flex="1">
-              <Text fontSize="xs" fontWeight="700" color="text.heading" truncate>
-                Sede La Molina · {projectCount} obras
-              </Text>
-              <Text fontSize="xs" color="text.muted" truncate>
+              <HStack gap="1.5" align="center">
+                <Box
+                  w="2"
+                  h="2"
+                  borderRadius="full"
+                  bg={isOpen === null ? "text.muted" : isOpen ? "status.success" : "status.danger"}
+                  flexShrink={0}
+                />
+                <Text fontSize="xs" fontWeight="700" color="text.heading" truncate>
+                  Sede La Molina · {statusLabel}
+                </Text>
+              </HStack>
+              <Text fontSize="xs" color="text.muted" truncate mt="0.5">
                 {address}
               </Text>
             </Box>
           </Box>
 
-          <HStack gap="1" flexShrink={0}>
+          <HStack gap="2" flexShrink={0}>
             <Button
               asChild
               variant="aura"
@@ -127,7 +142,7 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
             </Button>
             <Button
               asChild
-              variant="whatsapp"
+              variant="outline"
               minW={TOUCH_MIN}
               h={TOUCH_MIN}
               p="0"
@@ -145,10 +160,10 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
           </HStack>
         </HStack>
 
-        {/* Vista editorial minimalista en tablet y escritorio (md+) */}
+        {/* Vista Place Card completa en tablet y escritorio (md+) */}
         <VStack align="stretch" gap="4" display={{ base: "none", md: "flex" }}>
           <HStack justify="space-between" align="center">
-            <HStack gap="2">
+            <HStack gap="2" role="status">
               <Box
                 w="2"
                 h="2"
@@ -159,14 +174,14 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
               <Text
                 fontSize="xs"
                 fontWeight="700"
-                letterSpacing="0.14em"
+                letterSpacing="0.12em"
                 textTransform="uppercase"
                 color="text.muted"
               >
                 {isOpen === null ? "Sede Principal" : isOpen ? "Abierto ahora" : "Cerrado ahora"}
               </Text>
             </HStack>
-            <Text fontSize="xs" fontWeight="600" color="text.accent">
+            <Text fontSize="xs" fontWeight="600" color="text.muted">
               {projectCount} obras
             </Text>
           </HStack>
@@ -205,7 +220,7 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
 
           <Box h="1px" bg="border.default" />
 
-          <HStack gap="2">
+          <HStack gap="2.5">
             <Button
               asChild
               variant="aura"
@@ -228,8 +243,8 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
               asChild
               variant="outline"
               size="sm"
+              flex="1"
               minH={TOUCH_MIN}
-              px="3.5"
               borderRadius="xl"
             >
               <a
@@ -256,8 +271,8 @@ export interface ProjectDetailProps {
 }
 
 /**
- * Ficha flotante minimalista de obra seleccionada.
- * Incluye galería limpia si la obra tiene varias fotos, distancia a la sede y acceso directo.
+ * Place Card de obra seleccionada (`maps.md › Place cards`, `liquid-glass.md › Review checklist`).
+ * - Evita apilar vidrio sobre vidrio: los controles sobre la foto usan capa de atenuación del 35% (`rgba(0,0,0,0.45)`) sin `backdrop-filter` anidado.
  */
 export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project, onClose }) => {
   const href = project.href ?? `/proyectos/ver?id=${project.id}`;
@@ -273,12 +288,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
     <Box
       as="section"
       aria-label={`Detalle de la obra ${project.name}`}
-      {...floatingAnchor}
-      {...glassSurface}
+      {...placeCardAnchor}
+      {...liquidGlassRegular}
       overflow="hidden"
       p={{ base: "2.5", md: "0" }}
     >
-      {/* Vista compacta en móvil (base): miniatura + datos clave + acciones 44px */}
+      {/* Vista compacta en móvil (base): Place Card conciso con 8px de separación entre botones */}
       <HStack gap="2.5" align="center" display={{ base: "flex", md: "none" }} minW={0}>
         <Box
           position="relative"
@@ -295,18 +310,18 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
           <Heading as="h3" fontSize="xs" color="text.heading" fontWeight="800" lineClamp={1}>
             {project.residencial || project.name}
           </Heading>
-          <Text fontSize="xs" color="text.muted" truncate>
+          <Text fontSize="xs" color="text.muted" truncate mt="0.5">
             {[project.address, `${project.distanceKm.toLocaleString("es-PE")} km`].filter(Boolean).join(" · ")}
           </Text>
         </Box>
-        <HStack gap="1" flexShrink={0}>
+        <HStack gap="2" flexShrink={0}>
           <Button asChild variant="aura" minW={TOUCH_MIN} h={TOUCH_MIN} p="0" borderRadius="xl">
             <RouterLink href={href} aria-label={`Ver la obra ${project.name}`}>
               <ArrowUpRight size={17} aria-hidden="true" style={{ flexShrink: 0 }} />
             </RouterLink>
           </Button>
           <Button
-            variant="ghost"
+            variant="outline"
             onClick={onClose}
             aria-label="Cerrar detalle de la obra"
             minW={TOUCH_MIN}
@@ -319,17 +334,26 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
         </HStack>
       </HStack>
 
-      {/* Vista editorial minimalista en tablet y escritorio (md+) */}
+      {/* Vista Place Card completa en tablet y escritorio (md+) */}
       <Box display={{ base: "none", md: "block" }}>
-        <Box position="relative" h="190px" bg="bg.subtle" overflow="hidden">
+        <Box position="relative" h="188px" bg="bg.subtle" overflow="hidden">
           <Cover key={activePhoto} src={activePhoto} alt={`Foto de ${project.name}`} />
 
-          {/* Controles de galería minimalistas si hay más de 1 foto */}
+          {/* Atenuación inferior del 35% sobre media brillante (`liquid-glass.md › Which variant`) */}
+          <Box
+            position="absolute"
+            inset={0}
+            background="linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 50%, rgba(0,0,0,0.25) 100%)"
+            pointerEvents="none"
+            zIndex={1}
+          />
+
+          {/* Controles de galería sin apilar blur sobre blur (`liquid-glass.md › Restraint`) */}
           {gallery.length > 1 && (
             <Flex
               position="absolute"
-              insetX="2"
-              bottom="2"
+              insetX="2.5"
+              bottom="2.5"
               justify="space-between"
               align="center"
               zIndex={2}
@@ -341,19 +365,13 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
                 h={TOUCH_MIN}
                 p="0"
                 borderRadius="full"
-                bg="bg.surface/85"
+                bg="bg.surface"
                 onClick={() => setPhotoIdx((i) => (i === 0 ? gallery.length - 1 : i - 1))}
                 aria-label="Foto anterior"
               >
                 <ChevronLeft size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
               </Button>
-              <Box
-                px="2.5"
-                py="0.5"
-                borderRadius="full"
-                bg="bg.surface/85"
-                backdropFilter="blur(8px)"
-              >
+              <Box px="2.5" py="0.5" borderRadius="full" bg="bg.surface">
                 <Text fontSize="xs" fontWeight="700" color="text.heading">
                   {photoIdx + 1} / {gallery.length}
                 </Text>
@@ -365,7 +383,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
                 h={TOUCH_MIN}
                 p="0"
                 borderRadius="full"
-                bg="bg.surface/85"
+                bg="bg.surface"
                 onClick={() => setPhotoIdx((i) => (i === gallery.length - 1 ? 0 : i + 1))}
                 aria-label="Siguiente foto"
               >
@@ -383,7 +401,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
               h={TOUCH_MIN}
               p="0"
               borderRadius="full"
-              bg="bg.surface/85"
+              bg="bg.surface"
             >
               <X size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
             </Button>
