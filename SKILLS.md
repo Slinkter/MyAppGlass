@@ -10,10 +10,11 @@ Generado el 2026-11-02 a partir de `skills-lock.json`, `.agents/skills/` y `~/.c
 
 Están en `.agents/skills/` y el lock en `skills-lock.json`. **Al clonar el repo ya vienen incluidas**; no hace falta instalarlas de nuevo.
 
-Total: **32 skills**. Último cambio del lock: 2026-10-30 (commit `a7c3e1a`).
+Total: **33 skills** (32 en `.agents/skills/` + `apple-design`, añadida el 2026-11-02). Último cambio del lock: 2026-11-02.
 
 | Skill | Origen (GitHub) | Ruta en el origen |
 |---|---|---|
+| apple-design | dickwu/apple-design-skill | SKILL.md (se instala en `.claude/skills/apple-design`, carpeta ignorada por git; restaurar con `npx skills add dickwu/apple-design-skill -a claude-code`) |
 | extension-to-functions-codebase | firebase/agent-skills | skills/extension-to-functions-codebase |
 | find-skills | vercel-labs/skills | skills/find-skills |
 | firebase-ai-logic-basics | firebase/agent-skills | skills/firebase-ai-logic-basics |

@@ -72,9 +72,13 @@ Hallazgos de severidad baja/media **no aplicados** (decisión: no tocar sin prue
 - Faltan `minW={0}` en textos de `SheetHandle.tsx` y `SheetStoreCard.tsx`.
 
 ### Fase 5 — Cierre
-- [ ] `pnpm run typecheck && pnpm run build`
-- [ ] Actualizar `SKILLS.md` y este plan
-- [ ] Commit final
+- [x] `pnpm run typecheck && pnpm run build` (ambos correctos)
+- [x] Actualizar `SKILLS.md` y este plan
+- [x] Commit final
+
+## Estado final (2026-11-02)
+Plan completo. Nuevos modelos para comparar: prototipos E y F en `/design-system-ubicacion`, pestaña "Nuevos modelos ★" en `/design-system`.
+Pendiente del usuario: revisar en navegador (móvil, tablet, escritorio) el arrastre de la hoja (E), el foco con Tab en posición mínima (E) y el mapa plegable (F).
 
 ## Pendiente fuera de alcance
 Cambios de la sesión anterior sin commitear en `LocationMap.tsx`, `FloatingPanel.tsx`, `ProjectCarousel.tsx` (trabajo en curso del usuario) y `apps/web/next-env.d.ts`: no se incluyen en los commits de este plan.
