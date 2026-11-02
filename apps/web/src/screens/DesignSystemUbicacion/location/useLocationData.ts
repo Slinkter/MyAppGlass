@@ -16,6 +16,8 @@ export const STORE_SCHEDULE = { days: "Lunes a Sábado", hours: "9:00 am – 5:0
 export const STORE_DIRECTIONS_URL = "https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36";
 
 export interface LocationProject extends MapProject {
+  /** Enlace al detalle (`/proyectos/<id>` o `/proyectos/ver?id=`); llega del proyecto de Firestore. */
+  href?: string;
   /** Año numérico extraído de `year` (p. ej. "Junio 2025" → 2025); `null` si no hay. */
   yearNumber: number | null;
   /** Distancia en línea recta a la sede, en km (1 decimal). */
