@@ -21,6 +21,8 @@ import { EditorialCardsShowcase } from "./sections/EditorialCardsShowcase";
 import { FormControlsShowcase } from "./sections/FormControlsShowcase";
 import { OverlaysShowcase } from "./sections/OverlaysShowcase";
 import { DataDisplayShowcase } from "./sections/DataDisplayShowcase";
+import { ResponsiveScaleShowcase } from "./sections/v2/ResponsiveScaleShowcase";
+import { CardVariantsShowcase } from "./sections/v2/CardVariantsShowcase";
 
 export const DesignSystemScreen: React.FC = () => {
   return (
@@ -68,6 +70,7 @@ export const DesignSystemScreen: React.FC = () => {
             <Tabs.Trigger value="overlays" flexShrink={0} whiteSpace="nowrap" minH="11">Galería & Modales</Tabs.Trigger>
             <Tabs.Trigger value="data" flexShrink={0} whiteSpace="nowrap" minH="11">Tablas & Fichas Técnicas</Tabs.Trigger>
             <Tabs.Trigger value="tokens" flexShrink={0} whiteSpace="nowrap" minH="11">Tokens & Reglas Oficiales</Tabs.Trigger>
+            <Tabs.Trigger value="v2" flexShrink={0} whiteSpace="nowrap" minH="11">Nuevos modelos ★</Tabs.Trigger>
           </Tabs.List>
 
           {/* 1. Cards Editoriales */}
@@ -98,6 +101,14 @@ export const DesignSystemScreen: React.FC = () => {
           {/* 6. Tokens & Reglas Inmutables */}
           <Tabs.Content value="tokens">
             <TokensSection />
+          </Tabs.Content>
+
+          {/* 7. Nuevos modelos (comparar con las pestañas anteriores) */}
+          <Tabs.Content value="v2">
+            <VStack align="stretch" gap={{ base: "8", md: "12" }}>
+              <ResponsiveScaleShowcase />
+              <CardVariantsShowcase />
+            </VStack>
           </Tabs.Content>
         </Tabs.Root>
       </Container>

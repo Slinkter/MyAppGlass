@@ -55,10 +55,10 @@ Obras agrupadas por año con encabezados fijos, mapa que acompaña la selección
 
 ### Fase 3 — Design System · Pestaña "Nuevos modelos" (agentes ligeros)
 Secciones nuevas en `sections/v2/`: escala de espaciado y breakpoints (móvil/tablet/escritorio) y variantes de tarjeta (compacta, horizontal, destacada). Sin tocar `EditorialCardsShowcase` ni las demás.
-- [ ] `ResponsiveScaleShowcase`
-- [ ] `CardVariantsShowcase`
-- [ ] Registrar pestaña "Nuevos modelos" en `DesignSystemScreen.tsx`
-- [ ] Typecheck + commit
+- [x] `ResponsiveScaleShowcase` (agente ligero)
+- [x] `CardVariantsShowcase` (agente ligero; foco cambiado a `primary.500`)
+- [x] Registrar pestaña "Nuevos modelos ★" en `DesignSystemScreen.tsx`
+- [x] Typecheck + commit
 
 ### Fase 4 — Revisión responsive y pulido
 Auditoría (agente ligero) de los archivos nuevos contra la lista de reglas; el orquestador aplica correcciones.
