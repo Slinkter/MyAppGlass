@@ -16,7 +16,7 @@ export const CustomerPanel: React.FC<CustomerPanelProps> = ({ customer, setCusto
   return (
     <Box
       bg="surface.card"
-      p="6"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       border="1px solid"
       borderColor="border.glass"
@@ -85,7 +85,7 @@ export const CustomerPanel: React.FC<CustomerPanelProps> = ({ customer, setCusto
         </Field.Root>
 
         <Button
-          colorPalette="blue"
+          variant="aura"
           size="lg"
           w="full"
           mt="2"

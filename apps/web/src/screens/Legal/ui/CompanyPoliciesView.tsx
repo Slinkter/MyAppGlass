@@ -56,7 +56,7 @@ const CompanyPoliciesView: React.FC = () => {
 
         {/* Resumen de Garantía y Normativa en 3 Bloques */}
         <SimpleGrid columns={{ base: 1, md: 3 }} gap={4} mb={2}>
-          <AuraSurface p="5" variant="glass">
+          <AuraSurface p={{ base: "3", md: "5" }} variant="glass">
             <HStack gap="3">
               <Box p="2.5" borderRadius="xl" bg="whiteAlpha.100" color="text.accent">
                 <UserCheck size={20} />
@@ -68,7 +68,7 @@ const CompanyPoliciesView: React.FC = () => {
             </HStack>
           </AuraSurface>
 
-          <AuraSurface p="5" variant="glass">
+          <AuraSurface p={{ base: "3", md: "5" }} variant="glass">
             <HStack gap="3">
               <Box p="2.5" borderRadius="xl" bg="whiteAlpha.100" color="text.accent">
                 <Building2 size={20} />
@@ -80,7 +80,7 @@ const CompanyPoliciesView: React.FC = () => {
             </HStack>
           </AuraSurface>
 
-          <AuraSurface p="5" variant="glass">
+          <AuraSurface p={{ base: "3", md: "5" }} variant="glass">
             <HStack gap="3">
               <Box p="2.5" borderRadius="xl" bg="whiteAlpha.100" color="text.accent">
                 <FileCheck size={20} />

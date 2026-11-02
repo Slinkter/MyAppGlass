@@ -4,12 +4,15 @@ import React from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import BlogCard from "./BlogCard";
 import BLOG_POSTS from "@/features/blog/data/blog-posts";
+import { useImagePrefetch } from "@shared/hooks/ui/useImagePrefetch";
 
 /**
  * @component BlogList
  * @description Orchestrator for the blog gallery, leveraging ItemGridLayout.
  */
 const BlogList: React.FC = () => {
+  // Precarga las portadas del listado para que las tarjetas se revelen sin esperar.
+  useImagePrefetch(BLOG_POSTS.map((post) => post.image));
   return (
     <ItemGridLayout
       title="Blog de Expertos en Vidriería y Aluminio"
@@ -19,7 +22,7 @@ const BlogList: React.FC = () => {
       headingAs="h1"
     >
       {BLOG_POSTS.map((post, index) => (
-        <ItemGridLayout.Item key={post.id} delay={index * 0.1}>
+        <ItemGridLayout.Item key={post.id}>
           <BlogCard post={post} index={index} />
         </ItemGridLayout.Item>
       ))}

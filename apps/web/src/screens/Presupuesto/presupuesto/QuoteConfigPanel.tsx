@@ -14,7 +14,7 @@ export const QuoteConfigPanel: React.FC<QuoteConfigPanelProps> = ({ params, setP
   return (
     <Box
       bg="surface.card"
-      p="6"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       border="1px solid"
       borderColor="border.glass"

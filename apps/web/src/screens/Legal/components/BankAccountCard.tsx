@@ -28,7 +28,7 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
       borderColor="border.default"
       overflow="hidden"
       p={{ base: "5", md: "6" }}
-      transition="all 0.3s ease"
+      transition="border-color 0.3s ease, box-shadow 0.3s ease"
       _hover={{
         borderColor: "primary.500",
         boxShadow: "sm",

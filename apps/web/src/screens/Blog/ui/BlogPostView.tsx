@@ -16,6 +16,7 @@ import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideChevronRight, LucideClock, LucideArrowRight } from "lucide-react";
 import Link from "next/link";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 
 interface BlogPostViewProps {
   post: BlogPost;
@@ -26,6 +27,8 @@ interface BlogPostViewProps {
  * @description Premium reading experience for blog articles.
  */
 const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
+  // La portada destacada se revela cuando termina de cargar.
+  const { loaded, onLoad, reveal } = useImageReveal();
   const formattedDate = useMemo(
     () => new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' }),
     [post.date],
@@ -95,14 +98,20 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
             border="1px solid"
             borderColor="border.glass"
           >
-            <ResponsiveImage 
-              src={post.image} 
-              alt={post.title} 
-              w="full" 
-              h="full" 
-              objectFit="cover" 
-              loading="eager"
-            />
+            <Box position="relative" w="full" h="full">
+              <ImageRevealSkeleton loaded={loaded} />
+              <Box position="absolute" inset={0} {...reveal}>
+                <ResponsiveImage 
+                  src={post.image} 
+                  alt={post.title} 
+                  w="full" 
+                  h="full" 
+                  objectFit="cover" 
+                  loading="eager"
+                  onLoad={onLoad}
+                />
+              </Box>
+            </Box>
           </Box>
 
           {/* Content with optimized typography */}
@@ -151,7 +160,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
             <HStack gap="4">
                <Text fontWeight="bold" color="text.heading">Compartir:</Text>
                {/* Simplified social sharing */}
-               <Box p="2" borderRadius="full" border="1px solid" borderColor="border.glass" _hover={{ bg: "text.accent", color: "white" }} cursor="pointer" transition="all 0.3s">
+               <Box p="2" borderRadius="full" border="1px solid" borderColor="border.glass" _hover={{ bg: "text.accent", color: "white" }} cursor="pointer" transition="background-color 0.3s ease, color 0.3s ease">
                  <LucideArrowRight size={18} />
                </Box>
             </HStack>

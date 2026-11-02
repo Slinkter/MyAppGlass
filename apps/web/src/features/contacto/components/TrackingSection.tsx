@@ -104,7 +104,7 @@ export function TrackingSection({
                   </Text>
                   <Text fontWeight="800" fontSize="sm" color="text.heading">{trackingResult.name}</Text>
                 </VStack>
-                <Badge colorPalette={trackingResult.status === "ATENDIDO" ? "green" : "blue"} variant="solid" fontSize="10px" px="2" py="0.5">
+                <Badge colorPalette={trackingResult.status === "ATENDIDO" ? "green" : "blue"} variant="solid" fontSize="xs" px="2" py="0.5">
                   {trackingResult.status}
                 </Badge>
               </HStack>

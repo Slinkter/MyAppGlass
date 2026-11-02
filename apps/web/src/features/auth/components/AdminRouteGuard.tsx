@@ -2,7 +2,8 @@
 
 import React from "react";
 import { useAuth } from "@/features/auth/context/AuthContext";
-import { Box, VStack, Heading, Text, Button, Spinner } from "@chakra-ui/react";
+import { Box, VStack, Heading, Text, Spinner } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ShieldAlert, LogIn, Home } from "lucide-react";
 
@@ -30,7 +31,7 @@ export const AdminRouteGuard: React.FC<AdminRouteGuardProps> = ({ children }) =>
         maxW="550px"
         mx="auto"
         my="16"
-        p="8"
+        p={{ base: "4", md: "8" }}
         borderRadius="2xl"
         bg="bg.surface"
         border="1px solid"
@@ -51,7 +52,7 @@ export const AdminRouteGuard: React.FC<AdminRouteGuardProps> = ({ children }) =>
           </Text>
           <VStack gap="3" w="full" pt="2">
             {!user ? (
-              <Button asChild colorPalette="cyan" w="full" size="lg">
+              <Button asChild variant="aura" w="full" size="lg">
                 <Link href="/auth">
                   <LogIn size={18} style={{ marginRight: 8 }} />
                   Iniciar Sesión como Administrador

@@ -235,7 +235,7 @@ const BankAccountsView: React.FC = () => {
 
                     {/* Banner de Contacto */}
                     <Box
-                        p="6"
+                        p={{ base: "4", md: "6" }}
                         textAlign="center"
                         borderColor="border.default"
                         borderWidth="1px"
