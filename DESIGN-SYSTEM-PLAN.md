@@ -1,6 +1,6 @@
 # Plan: Pulir y definir el Aura Design System
 
-> **Estado: ejecutado el 2026-11-02** (commits de las fases 1 a 3). Pendiente: etapa 4 (migración de pantallas) y revisión visual en navegador.
+> **Estado: ejecutado el 2026-11-02** (commits de las fases 1 a 3). Etapa 4 parcial: showcase y componentes compartidos responsive (2026-11-02, commits `ec7ee09`, `e11daee`, `61b1e14`, `d1267fe`). Pendiente: migración del resto de pantallas y revisión visual de páginas reales.
 
 > Plan para retomar en futuras sesiones. Creado el 2026-10-30 en la rama `feat/ux-ui`.
 

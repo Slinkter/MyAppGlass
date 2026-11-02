@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [2026-11-02] - Pulido del Aura Design System
 
+### Responsive (móvil, tablet, desktop)
+- Componentes base del showcase (`ShowcaseCard`, `ShowcasePanel`, `ShowcaseStack`, `SubsectionLabel`) y constantes `RESPONSIVE_GRIDS` / `TOUCH_MIN`.
+- Secciones de `/design-system` con padding, gaps y tamaños responsive; Overlays fusionados en una card "Feedback y Overlays".
+- `ServiceCard`, `ProjectCardContent` y `ClientCard`: badges `xs`, tracking responsive y `lineClamp` en títulos.
+- `AdminNav` en una fila con scroll horizontal; `AuraDesktopNav` con `h` 44px en móvil.
+- Galería (`GalleryViewer`, `GalleryThumbnails`, botón cerrar de `Gallery`): botones de 44px y miniaturas con scroll horizontal.
+
 ### Added
 - Variantes de botón `whatsapp` y `brand` en el tema.
 - `_focusVisible` y `_disabled` en el botón base.
