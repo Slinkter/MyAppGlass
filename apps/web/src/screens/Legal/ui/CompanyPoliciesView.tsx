@@ -63,7 +63,7 @@ const CompanyPoliciesView: React.FC = () => {
               </Box>
               <VStack align="flex-start" gap="0">
                 <Text fontSize="xs" fontWeight="800" color="text.heading">Servicios Residenciales</Text>
-                <Text fontSize="2xs" color="text.muted">Presupuesto 5 días • Garantía 6 meses</Text>
+                <Text fontSize="xs" color="text.muted">Presupuesto 5 días • Garantía 6 meses</Text>
               </VStack>
             </HStack>
           </AuraSurface>
@@ -75,7 +75,7 @@ const CompanyPoliciesView: React.FC = () => {
               </Box>
               <VStack align="flex-start" gap="0">
                 <Text fontSize="xs" fontWeight="800" color="text.heading">Proyectos y Empresas</Text>
-                <Text fontSize="2xs" color="text.muted">Propuesta 30 días • Garantía 12 meses</Text>
+                <Text fontSize="xs" color="text.muted">Propuesta 30 días • Garantía 12 meses</Text>
               </VStack>
             </HStack>
           </AuraSurface>
@@ -87,7 +87,7 @@ const CompanyPoliciesView: React.FC = () => {
               </Box>
               <VStack align="flex-start" gap="0">
                 <Text fontSize="xs" fontWeight="800" color="text.heading">Ley N° 29733</Text>
-                <Text fontSize="2xs" color="text.muted">Protección de Datos Personales</Text>
+                <Text fontSize="xs" color="text.muted">Protección de Datos Personales</Text>
               </VStack>
             </HStack>
           </AuraSurface>

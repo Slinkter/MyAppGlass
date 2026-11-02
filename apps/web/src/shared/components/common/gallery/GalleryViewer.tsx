@@ -342,7 +342,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
               gap="2"
             >
               <MoveHorizontal size={14} style={{ flexShrink: 0 }} />
-              <Text fontSize="10px" fontWeight="bold" letterSpacing="widest">
+              <Text fontSize="xs" fontWeight="bold" letterSpacing="widest">
                 DESLIZA
               </Text>
             </HStack>

@@ -267,7 +267,7 @@ const Footer = () => {
                         </Box>
 
                         <Text
-                            fontSize="2xs"
+                            fontSize="xs"
                             color="text.muted"
                             fontWeight="800"
                             letterSpacing="0.35em"
@@ -279,7 +279,7 @@ const Footer = () => {
                             {companyData.razonSocial}
                         </Text>
                         <Text
-                            fontSize="2xs"
+                            fontSize="xs"
                             color="text.muted"
                             fontWeight="800"
                             letterSpacing="0.25em"

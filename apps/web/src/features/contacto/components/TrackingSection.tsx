@@ -99,7 +99,7 @@ export function TrackingSection({
             <VStack align="flex-start" gap="3" w="full">
               <HStack justify="space-between" w="full" wrap="wrap" gap="2">
                 <VStack align="start" gap="0">
-                  <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="700">
+                  <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="700">
                     {trackingResult.type}
                   </Text>
                   <Text fontWeight="800" fontSize="sm" color="text.heading">{trackingResult.name}</Text>
@@ -129,7 +129,7 @@ export function TrackingSection({
                           <IconComponent size={16} />
                         </Box>
                       </HStack>
-                      <Text fontSize="2xs" fontWeight={isCompleted ? "bold" : "normal"} color={isCompleted ? "text.heading" : "text.muted"}>
+                      <Text fontSize="xs" fontWeight={isCompleted ? "bold" : "normal"} color={isCompleted ? "text.heading" : "text.muted"}>
                         {stage.label}
                       </Text>
                     </Box>
@@ -137,7 +137,7 @@ export function TrackingSection({
                 })}
               </SimpleGrid>
 
-              <HStack justify="space-between" w="full" pt="1" fontSize="2xs" color="text.muted">
+              <HStack justify="space-between" w="full" pt="1" fontSize="xs" color="text.muted">
                 <Text>ID: {trackingResult.id.substring(0, 20)}...</Text>
                 <Text>Fecha: {new Date(trackingResult.createdAt).toLocaleDateString()}</Text>
               </HStack>

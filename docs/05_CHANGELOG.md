@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [2026-11-02] - Pulido del Aura Design System
 
+### Design system aplicado a toda la página
+- Aplicado por fases a widgets, home, servicios, proyectos, blog, contacto, legal, presupuesto, auth, simulador AI y admin (seis commits `refactor(...)`).
+- `transition="all"`: 28 → 0. `colorPalette`: 83 → 39 (los botones ya usan `variant` del tema; quedan Badges y marcas de identidad como YAPE/PLIN). Íconos Lucide sin `flexShrink`: 111 → 48. Paddings fijos de card: 189 → 148 (los pequeños se dejaron). Texto de 10-11px: 4 → 0.
+- Nuevo `AdminRowActions` compartido por `ServiceAdminTable` y `ProjectAdminTable`.
+- `BlogCard` y `BlogPostView` con revelado sincronizado de imagen; `BlogList` precarga portadas.
+- `/servicios/[slug]`: preload de la primera foto de la galería y miniaturas con prioridad baja (primera foto pedida a los 84 ms en lugar de 924 ms).
+- Pendiente: colores `rgba`/hex sin token equivalente (97), `IconButton` de chips en admin menores de 44px y avisos de fast-refresh en `ImageReveal.tsx` y `Gallery.tsx`.
+
 ### Responsive (móvil, tablet, desktop)
 - Componentes base del showcase (`ShowcaseCard`, `ShowcasePanel`, `ShowcaseStack`, `SubsectionLabel`) y constantes `RESPONSIVE_GRIDS` / `TOUCH_MIN`.
 - Secciones de `/design-system` con padding, gaps y tamaños responsive; Overlays fusionados en una card "Feedback y Overlays".
