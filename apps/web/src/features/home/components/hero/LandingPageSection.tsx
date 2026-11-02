@@ -8,8 +8,8 @@
  */
 
 import React from "react";
-import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import { ChevronDown } from "lucide-react";
 import RouterLink from "next/link";
 import Image from "next/image";
 
@@ -134,28 +134,36 @@ const LandingPageSection: React.FC = React.memo(() => {
                             Especialistas en la fabricación, diseño e instalación de ventanas antirruido, mamparas herméticas y carpintería de aluminio de alta resistencia.
                         </Text>
 
-                        <HStack
-                            gap={{ base: "4", sm: "6" }}
-                            mt={{ base: "8", md: "10" }}
-                            justify="center"
-                            w="full"
-                            px={2}
-                            flexWrap="wrap"
-                            animation="slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both"
-                        >
-                            <Button asChild variant="aura" size={{ base: "md", md: "lg" }} px="8" borderRadius="full" fontWeight="800">
-                                <RouterLink href="/#servicios">
-                                    Explorar Servicios
-                                </RouterLink>
-                            </Button>
-                            <Button asChild variant="outline" size={{ base: "md", md: "lg" }} px="8" borderRadius="full" fontWeight="700">
-                                <RouterLink href="/#proyectos">
-                                    Ver Portafolio de Obras
-                                </RouterLink>
-                            </Button>
-                        </HStack>
                     </Box>
                 </VStack>
+
+                {/* Indicador de scroll: chevron flotante que invita a seguir bajando */}
+                <Box
+                    position="absolute"
+                    bottom={{ base: "4", md: "6" }}
+                    left="0"
+                    right="0"
+                    display="flex"
+                    justifyContent="center"
+                    zIndex={1}
+                    animation="fadeIn 0.8s ease 1s both"
+                >
+                    <RouterLink
+                        href="/#servicios"
+                        aria-label="Ver servicios"
+                        style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "44px", height: "44px" }}
+                    >
+                        <Box
+                            as={ChevronDown}
+                            boxSize={{ base: 7, md: 8 }}
+                            color="text.muted"
+                            style={{ flexShrink: 0 }}
+                            animation="floatDown 2s ease-in-out infinite"
+                            transition="color 0.2s ease"
+                            _hover={{ color: "text.heading" }}
+                        />
+                    </RouterLink>
+                </Box>
             </Flex>
     );
 });
