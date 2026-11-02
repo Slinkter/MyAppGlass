@@ -29,13 +29,12 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo((props) => {
   } = props;
 
   const handleNavigate = React.useCallback(() => {
-    logger.debug({ id, residencial, address, year }, "ProjectCard navigate clicked");
     if (!id || id === "undefined") {
       logger.warn({ id, props }, "ProjectCard: Attempted to navigate with undefined ID");
       return;
     }
     router.push(href ?? getProjectHref(id));
-  }, [id, residencial, address, year, href, router, props]);
+  }, [id, href, router, props]);
 
   return (
     <ProjectCardContent

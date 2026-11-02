@@ -23,7 +23,6 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { AlertTriangle } from "lucide-react";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
 import { useImagePrefetch } from "@shared/hooks/ui/useImagePrefetch";
-import logger from "@shared/utils/logger";
 
 /**
  * Normaliza nombres de años para extraer solo el año de 4 dígitos (ej. 2024, 2023).
@@ -50,11 +49,7 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
   // Primer render con los datos de build; Firestore en cliente los refresca (ver useProjects).
   // Ya viene más reciente primero.
   const { data, isLoading, error } = useProjects(initialData);
-  const allProjects = useMemo<Project[]>(() => {
-    const projects = data ?? [];
-    logger.debug({ total: projects.length }, "Projects loaded");
-    return projects;
-  }, [data]);
+  const allProjects = useMemo<Project[]>(() => data ?? [], [data]);
 
   // Calienta el caché con todas las portadas cuando el navegador está libre:
   // al llegar a #proyectos las fotos ya están descargadas.
@@ -62,8 +57,6 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
 
   // Get unique years
   const years = useMemo(() => {
-    const allNormalized = allProjects.map(p => ({ id: p.id, year: p.year, normalized: normalizeYear(p.year) }));
-    logger.debug({ allNormalized }, "normalizeYear for all projects");
     const rawYears = allProjects.map((p) => normalizeYear(p.year));
     const unique = [...new Set(rawYears)].sort((a, b) => b.localeCompare(a));
     // Move "Otros" to the end if it exists
@@ -76,18 +69,8 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
   }, [allProjects]);
 
   const filterFn = useCallback((items: Project[], category: string) => {
-    logger.debug({ category, totalItems: items.length }, "Filter function called");
-    if (category === "Todos") {
-      logger.debug({ result: items.length }, "Returning all items for 'Todos'");
-      return items;
-    }
-    const filtered = items.filter((p) => {
-      const normalized = normalizeYear(p.year);
-      const matches = normalized === category;
-      return matches;
-    });
-    logger.debug({ category, filtered: filtered.length, items: filtered.map(p => p.id) }, "Filter result");
-    return filtered;
+    if (category === "Todos") return items;
+    return items.filter((p) => normalizeYear(p.year) === category);
   }, []);
 
   const {
