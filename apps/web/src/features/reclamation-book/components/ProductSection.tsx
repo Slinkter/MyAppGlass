@@ -6,7 +6,6 @@ import {
   Heading,
   Group,
   InputAddon,
-  VStack,
   HStack,
   Box,
 } from "@chakra-ui/react";
@@ -16,6 +15,7 @@ import {
   NativeSelectRoot,
 } from "@/components/ui/native-select";
 import { useReclamationFormContext } from "./ReclamationFormContext";
+import FormCard from "./FormCard";
 
 /**
  * @component ProductSection
@@ -25,7 +25,7 @@ const ProductSection: React.FC = () => {
   const { formData, handleInputsChange, errors } = useReclamationFormContext();
 
   return (
-    <VStack gap="5" align="stretch">
+    <FormCard>
       <HStack gap="2.5" pb="2" borderBottomWidth="1px" borderColor="border.default">
         <Box 
           w="24px" 
@@ -59,7 +59,7 @@ const ProductSection: React.FC = () => {
           invalid={!!errors.tipoBien} 
           errorText={errors.tipoBien}
         >
-          <NativeSelectRoot variant="subtle">
+          <NativeSelectRoot variant="outline">
             <NativeSelectField
               name="tipoBien"
               value={formData.tipoBien}
@@ -76,7 +76,7 @@ const ProductSection: React.FC = () => {
           <Group attached w="full">
             <InputAddon>S/.</InputAddon>
             <Input
-              variant="subtle"
+              variant="outline"
               type="number"
               name="montoReclamado"
               value={formData.montoReclamado}
@@ -94,7 +94,7 @@ const ProductSection: React.FC = () => {
         errorText={errors.descripcionBien}
       >
         <Textarea
-          variant="subtle"
+          variant="outline"
           name="descripcionBien"
           value={formData.descripcionBien}
           onChange={handleInputsChange}
@@ -102,7 +102,7 @@ const ProductSection: React.FC = () => {
           rows={3}
         />
       </Field>
-    </VStack>
+    </FormCard>
   );
 };
 

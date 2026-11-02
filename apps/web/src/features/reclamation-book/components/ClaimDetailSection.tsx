@@ -2,7 +2,6 @@ import React from "react";
 import {
   Textarea,
   Heading,
-  VStack,
   HStack,
   Box,
 } from "@chakra-ui/react";
@@ -17,6 +16,7 @@ import {
   FileUploadRoot,
 } from "@/components/ui/file-upload";
 import { useReclamationFormContext } from "./ReclamationFormContext";
+import FormCard from "./FormCard";
 
 /**
  * @component ClaimDetailSection
@@ -26,7 +26,7 @@ const ClaimDetailSection: React.FC = () => {
   const { formData, handleInputsChange, handleFileChange, errors } = useReclamationFormContext();
 
   return (
-    <VStack gap="5" align="stretch">
+    <FormCard>
       <HStack gap="2.5" pb="2" borderBottomWidth="1px" borderColor="border.default">
         <Box 
           w="24px" 
@@ -59,7 +59,7 @@ const ClaimDetailSection: React.FC = () => {
         invalid={!!errors.tipoSolicitud} 
         errorText={errors.tipoSolicitud}
       >
-        <NativeSelectRoot variant="subtle">
+        <NativeSelectRoot variant="outline">
           <NativeSelectField
             name="tipoSolicitud"
             value={formData.tipoSolicitud}
@@ -83,7 +83,7 @@ const ClaimDetailSection: React.FC = () => {
         errorText={errors.detalle}
       >
         <Textarea
-          variant="subtle"
+          variant="outline"
           name="detalle"
           value={formData.detalle}
           onChange={handleInputsChange}
@@ -99,7 +99,7 @@ const ClaimDetailSection: React.FC = () => {
         errorText={errors.pedido}
       >
         <Textarea
-          variant="subtle"
+          variant="outline"
           name="pedido"
           value={formData.pedido}
           onChange={handleInputsChange}
@@ -113,8 +113,8 @@ const ClaimDetailSection: React.FC = () => {
         helperText="Puede adjuntar fotografías, comprobantes o documentos que sustenten su solicitud (Máx 5MB por archivo)."
       >
         <FileUploadRoot 
-          maxW="xl" 
-          alignItems="stretch" 
+          w="full"
+          alignItems="stretch"
           maxFiles={3}
           onFileChange={handleFileChange}
         >
@@ -125,7 +125,7 @@ const ClaimDetailSection: React.FC = () => {
           <FileUploadList clearable showSize />
         </FileUploadRoot>
       </Field>
-    </VStack>
+    </FormCard>
   );
 };
 

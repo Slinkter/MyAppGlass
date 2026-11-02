@@ -3,7 +3,6 @@ import {
   Input,
   SimpleGrid,
   Heading,
-  VStack,
   HStack,
   Box,
 } from "@chakra-ui/react";
@@ -13,6 +12,7 @@ import {
   NativeSelectRoot,
 } from "@/components/ui/native-select";
 import { useReclamationFormContext } from "./ReclamationFormContext";
+import FormCard from "./FormCard";
 import { ReclamationFormState, InputChangeEvent } from "@features/reclamation-book/types";
 
 interface FormFieldProps {
@@ -41,7 +41,7 @@ const FormField: React.FC<FormFieldProps> = ({
     required={required}
   >
     <Input
-      variant="subtle"
+      variant="outline"
       type={type}
       name={name}
       value={value}
@@ -73,7 +73,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
     errorText={error} 
     required
   >
-    <NativeSelectRoot variant="subtle">
+    <NativeSelectRoot variant="outline">
       <NativeSelectField
         name={name}
         value={value}
@@ -94,7 +94,7 @@ const PersonalInfoSection: React.FC = () => {
   const { formData, handleInputsChange, errors } = useReclamationFormContext();
 
   return (
-    <VStack gap="5" align="stretch">
+    <FormCard>
       <HStack gap="2.5" pb="2" borderBottomWidth="1px" borderColor="border.default">
         <Box 
           w="24px" 
@@ -186,7 +186,7 @@ const PersonalInfoSection: React.FC = () => {
         onChange={handleInputsChange}
         required={false}
       />
-    </VStack>
+    </FormCard>
   );
 };
 

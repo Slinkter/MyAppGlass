@@ -6,6 +6,7 @@ import { Field } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
 import { MathCaptchaField } from "@/shared/components/MathCaptchaField";
 import { useReclamationFormContext } from "./ReclamationFormContext";
+import FormCard from "./FormCard";
 
 /**
  * @component DeclarationSection
@@ -16,7 +17,7 @@ const DeclarationSection: React.FC = () => {
   const { formData, handleInputsChange, handleCheckboxChange, handleMathChange, errors } = useReclamationFormContext();
 
   return (
-    <VStack gap="5" align="stretch">
+    <FormCard>
       <HStack gap="2.5" pb="2" borderBottomWidth="1px" borderColor="border.default">
         <Box 
           w="24px" 
@@ -56,10 +57,10 @@ const DeclarationSection: React.FC = () => {
 
       <Box
         p="4"
-        bg="surface.card"
-        borderRadius="2xl"
-        borderWidth="1px"
-        borderColor="border.default"
+        bg="bg.subtle"
+        borderRadius="md"
+        borderLeftWidth="4px"
+        borderLeftColor="brand.red"
       >
         <Text fontSize="xs" color="text.muted" lineHeight="relaxed">
           * Conforme a lo establecido en el <strong>Código de Protección y Defensa del Consumidor (Ley N° 29571)</strong> y su modificatoria por <strong>Ley N° 31435</strong>, la respuesta a la presente solicitud será remitida a la dirección de correo electrónico consignada en un plazo máximo e improrrogable de <strong>quince (15) días hábiles</strong>.
@@ -114,16 +115,21 @@ const DeclarationSection: React.FC = () => {
       <Button
         type="submit"
         variant="aura"
-        size="xl"
+        size={{ base: "lg", md: "xl" }}
         borderRadius="full"
-        fontWeight="900"
-        letterSpacing="widest"
+        fontWeight="800"
+        letterSpacing="wider"
         width="full"
         mt="2"
+        h="auto"
+        minH="12"
+        py="3"
+        whiteSpace="normal"
+        textAlign="center"
       >
         REGISTRAR RECLAMO / QUEJA
       </Button>
-    </VStack>
+    </FormCard>
   );
 };
 

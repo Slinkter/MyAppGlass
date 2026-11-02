@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { Box, Heading, Stack, Text, VStack, HStack, SimpleGrid, Badge } from "@chakra-ui/react";
 import { companyData } from "@/shared/config/company-data";
 import { ReclamationFormProvider, useReclamationFormContext } from "./ReclamationFormContext";
@@ -26,6 +27,7 @@ const ReclamationFormInner: React.FC = () => {
     >
       {/* Header del Libro de Reclamaciones */}
       <VStack gap={{ base: "2", sm: "3" }} align="center" textAlign="center" mb={{ base: "6", md: "8" }}>
+        <Image src="/logovcr.png" alt="GYA Glass & Aluminum" width={56} height={56} priority style={{ flexShrink: 0 }} />
         <HStack gap="2" flexWrap="wrap" justify="center">
           <Badge
             colorPalette="primary"
@@ -107,7 +109,7 @@ const ReclamationFormInner: React.FC = () => {
 
       {/* Formulario por Secciones */}
       <form onSubmit={handleBtnSubmit}>
-        <Stack gap="8">
+        <Stack gap={{ base: "5", md: "6" }}>
           <PersonalInfoSection />
           <ProductSection />
           <ClaimDetailSection />
