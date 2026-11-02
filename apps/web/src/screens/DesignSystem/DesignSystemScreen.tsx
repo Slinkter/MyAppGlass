@@ -25,11 +25,11 @@ import { DataDisplayShowcase } from "./sections/DataDisplayShowcase";
 export const DesignSystemScreen: React.FC = () => {
   return (
     <Box minH="100vh" bg="bg.page" py={{ base: "8", md: "16" }}>
-      <Container maxW="7xl">
+      <Container maxW="7xl" px={{ base: "4", md: "6" }}>
         {/* Header con alternador de tema */}
-        <HStack justify="space-between" align="flex-start" wrap="wrap" gap="6" mb="12">
-          <VStack gap="4" align="flex-start" maxW="3xl">
-            <HStack gap="2">
+        <HStack justify="space-between" align="flex-start" wrap="wrap" gap={{ base: "4", md: "6" }} mb={{ base: "8", md: "12" }}>
+          <VStack gap={{ base: "3", md: "4" }} align="flex-start" maxW="3xl">
+            <HStack wrap="wrap" gap="2">
               <Badge colorPalette="gray" px="3" py="1" borderRadius="full">
                 <Sparkles size={12} style={{ flexShrink: 0 }} />
                 Aura Design System
@@ -38,29 +38,36 @@ export const DesignSystemScreen: React.FC = () => {
                 Chakra UI v3 Oficial
               </Badge>
             </HStack>
-            <Heading as="h1" size={{ base: "3xl", md: "4xl" }} fontWeight="bold" letterSpacing="tight" color="text.heading">
+            <Heading as="h1" size={{ base: "2xl", md: "4xl" }} fontWeight="bold" letterSpacing="tight" color="text.heading">
               Aura Design System — Catálogo Canónico de Componentes
             </Heading>
-            <Text color="text.muted" fontSize="lg">
+            <Text color="text.muted" fontSize={{ base: "md", md: "lg" }}>
               Showcase oficial con los componentes y tokens reales de producción de <strong>Glass & Aluminum Company S.A.C.</strong> Todos los elementos utilizan arquitectura de tokens de Chakra UI v3 sin estilos hardcodeados.
             </Text>
           </VStack>
 
           <HStack p="2" bg="surface.container" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
-            <Text fontSize="xs" fontWeight="medium" color="text.muted" px="2">Modo Claro / Oscuro:</Text>
+            <Text display={{ base: "none", sm: "block" }} fontSize="xs" fontWeight="medium" color="text.muted" px="2">Modo Claro / Oscuro:</Text>
             <ColorModeButton />
           </HStack>
         </HStack>
 
         {/* Pestañas del Sistema */}
-        <Tabs.Root defaultValue="cards" variant="line" size="lg">
-          <Tabs.List mb="8" borderBottomWidth="1px" borderColor="border.default" overflowX="auto">
-            <Tabs.Trigger value="cards">Cards Editoriales Reales</Tabs.Trigger>
-            <Tabs.Trigger value="nav">Navegación & Barras</Tabs.Trigger>
-            <Tabs.Trigger value="forms">Formularios & Botones</Tabs.Trigger>
-            <Tabs.Trigger value="overlays">Galería & Modales</Tabs.Trigger>
-            <Tabs.Trigger value="data">Tablas & Fichas Técnicas</Tabs.Trigger>
-            <Tabs.Trigger value="tokens">Tokens & Reglas Oficiales</Tabs.Trigger>
+        <Tabs.Root defaultValue="cards" variant="line" size={{ base: "sm", md: "lg" }}>
+          <Tabs.List
+            mb={{ base: "5", md: "8" }}
+            borderBottomWidth="1px"
+            borderColor="border.default"
+            overflowX="auto"
+            flexWrap="nowrap"
+            css={{ "&::-webkit-scrollbar": { display: "none" }, scrollbarWidth: "none" }}
+          >
+            <Tabs.Trigger value="cards" flexShrink={0} whiteSpace="nowrap">Cards Editoriales Reales</Tabs.Trigger>
+            <Tabs.Trigger value="nav" flexShrink={0} whiteSpace="nowrap">Navegación & Barras</Tabs.Trigger>
+            <Tabs.Trigger value="forms" flexShrink={0} whiteSpace="nowrap">Formularios & Botones</Tabs.Trigger>
+            <Tabs.Trigger value="overlays" flexShrink={0} whiteSpace="nowrap">Galería & Modales</Tabs.Trigger>
+            <Tabs.Trigger value="data" flexShrink={0} whiteSpace="nowrap">Tablas & Fichas Técnicas</Tabs.Trigger>
+            <Tabs.Trigger value="tokens" flexShrink={0} whiteSpace="nowrap">Tokens & Reglas Oficiales</Tabs.Trigger>
           </Tabs.List>
 
           {/* 1. Cards Editoriales */}
