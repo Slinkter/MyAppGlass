@@ -1,11 +1,11 @@
 # ==============================================================================
-# Dependencies & Package Managers
+# Dependencias
 # ==============================================================================
 node_modules/
 .pnpm-store/
 
 # ==============================================================================
-# Next.js, Turbo & Monorepo Build Outputs
+# Salidas de build (Next.js, Turbo, TypeScript)
 # ==============================================================================
 .next/
 out/
@@ -14,35 +14,27 @@ build/
 .turbo/
 .cache/
 *.tsbuildinfo
-*.tsbuildinfo.*
+# Lo regenera `next dev`
+next-env.d.ts
+# Reporte de @next/bundle-analyzer
 stats.html
 
 # ==============================================================================
-# Firebase & Cloud Emulators
+# Firebase y emuladores
 # ==============================================================================
 .firebase/
 .firebaserc.local
 apps/functions/lib/
-firebase-debug.log*
-firestore-debug.log*
-ui-debug.log*
-hub-debug.log*
-pubsub-debug.log*
-database-debug.log*
-auth-debug.log*
-storage-debug.log*
 firebase-export-*/
+# Logs de debug de firebase, firestore, ui, hub, pubsub, database, auth y storage
+*-debug.log*
 
 # ==============================================================================
-# Environment Variables & Secrets
+# Variables de entorno y secretos (se versionan solo los .env.example)
 # ==============================================================================
 .env
 .env.*
-.env*.local
-*.local
 !.env.example
-!*.env.example
-!**/.env.example
 service-account*.json
 firebase-adminsdk*.json
 credentials*.json
@@ -54,19 +46,19 @@ credentials*.json
 *.jks
 
 # ==============================================================================
-# Spreadsheets, Office & Generated Exports
+# Hojas de cálculo y exportaciones generadas
 # ==============================================================================
 *.xlsx
 *.xls
 
 # ==============================================================================
-# AI Agents, IDE & Editor Local Artifacts
+# Herramientas de IA, IDE y editores (artefactos locales)
 # ==============================================================================
-.playwright-mcp/
-.agents/mcp_config.local.json
 .claude/
 .cursor/
 .idea/
+.playwright-mcp/
+.agents/mcp_config.local.json
 .gemini/*
 !.gemini/settings.json
 !.gemini/skills/
@@ -79,10 +71,9 @@ credentials*.json
 *~
 
 # ==============================================================================
-# OS & File System Junk
+# Sistema operativo
 # ==============================================================================
 .DS_Store
-.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
@@ -94,18 +85,13 @@ ehthumbs.db
 $RECYCLE.BIN/
 
 # ==============================================================================
-# Logs & Test Artifacts
+# Logs, caché de lint y artefactos de pruebas
 # ==============================================================================
 *.log
 logs/
-pnpm-debug.log*
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+.eslintcache
 coverage/
 .nyc_output/
-.eslintcache
-.eslintcache/
 test-results/
 playwright-report/
 blob-report/
@@ -117,17 +103,14 @@ __pycache__/
 *.py[cod]
 
 # ==============================================================================
-# Project-specific / Temporary
+# Temporales del proyecto
 # ==============================================================================
 otros/
 *.tmp
 *.temp
 *.bak
 
-# Audit Artifacts — track docs, ignore heavy binaries
+# Auditorías: se versionan los .md, se ignoran los binarios
 .audits/**
 !.audits/**/
 !.audits/**/*.md
-
-# Generado por next dev
-apps/web/next-env.d.ts
