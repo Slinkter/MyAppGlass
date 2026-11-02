@@ -194,8 +194,8 @@ const GalleryViewer: React.FC = () => {
                         right={{ base: "4", md: "6" }}
                         color="white"
                         bg="whiteAlpha.200"
-                        w={{ base: "40px", md: "44px" }}
-                        h={{ base: "40px", md: "44px" }}
+                        w="44px"
+                        h="44px"
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
