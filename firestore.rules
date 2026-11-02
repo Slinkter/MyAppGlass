@@ -10,17 +10,17 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Administrador = (a) claim role=admin, (b) users/{uid}.role == 'admin',
-    // o (c) correo corporativo @gyacompany.com VERIFICADO.
+    // Administrador = (a) claim role=admin, (b) correo corporativo @gyacompany.com VERIFICADO,
+    // o (c) users/{uid}.role == 'admin' (evaluado al final por cortocircuito para ahorrar lecturas).
     // Se eliminó el criterio "el correo contiene admin" (cualquiera podía
     // registrarse con ese correo y obtener privilegios).
     function isAdmin() {
       return isSignedIn() && (
         request.auth.token.get('role', '') == 'admin' ||
-        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
-         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin') ||
         (request.auth.token.get('email_verified', false) == true &&
-         request.auth.token.get('email', '').matches('^[^@]+@gyacompany[.]com$'))
+         request.auth.token.get('email', '').matches('^[^@]+@gyacompany[.]com$')) ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', '') == 'admin')
       );
     }
 
@@ -90,8 +90,8 @@ service cloud.firestore {
         && request.resource.data.address is string && request.resource.data.address.size() <= 300
         && request.resource.data.district is string && request.resource.data.district.size() <= 100;
 
-      // Admin: ClientManagementScreen lista (onSnapshot) y crea (addDoc).
-      allow read, create, update, delete: if isAdmin();
+      // Admin: ClientManagementScreen crea (addDoc), edita y elimina (lectura ya cubierta arriba).
+      allow create, update, delete: if isAdmin();
     }
 
     // ---------------------------------------------------------------
@@ -153,15 +153,24 @@ service cloud.firestore {
     }
 
     // ---------------------------------------------------------------
-    // Colecciones exclusivas del backend (Cloud Functions con Admin SDK,
-    // que ignora estas reglas). Denegadas explícitamente al cliente.
+    // Colecciones legales y de contacto (creación exclusiva vía Cloud Functions
+    // con Admin SDK; prohibido borrar desde cliente por retención legal de 2 años).
+    // El administrador puede leer y actualizar únicamente el estado de atención.
     // ---------------------------------------------------------------
     match /libro_de_reclamaciones/{reclamoId} {
-      allow read, write: if false;
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt', 'adminNotes'])
+        && request.resource.data.status in ['RECIBIDO', 'EN_REVISION', 'EN_PROCESO', 'ATENDIDO'];
+      allow create, delete: if false;
     }
 
     match /contact_submissions/{submissionId} {
-      allow read, write: if false;
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt', 'adminNotes'])
+        && request.resource.data.status in ['RECIBIDO', 'EN_REVISION', 'EN_PROCESO', 'ATENDIDO'];
+      allow create, delete: if false;
     }
 
     match /rate_limits/{limitId} {

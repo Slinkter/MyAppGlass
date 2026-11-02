@@ -21,7 +21,8 @@ Documento técnico de referencia · Versión 2.0 · 2026
 │   │   ├── 02_AI_HANDOFF.md
 │   │   ├── 03_AGENTS.md
 │   │   ├── 04_PLAN_DE_TRABAJO.md
-│   │   └── 05_CHANGELOG.md
+│   │   ├── 05_CHANGELOG.md
+│   │   └── api/ (README.md + openapi.json: contrato frontend ↔ backend)
 │   ├── 3.2. Ingeniería de Frontend y Sistema de Diseño Aura (UI/UX Engine)
 │   │   └── 06_DOCS_DEVELOPMENT.md
 │   ├── 3.3. Infraestructura Backend, Seguridad y Normativa Legal (Backend & Compliance)
@@ -104,6 +105,8 @@ graph TD
   Auditoría y estado de completitud de las 5 fases estratégicas del proyecto.
 * **[3.1.5. `05_CHANGELOG.md`](./05_CHANGELOG.md):**
   Registro histórico de despliegues, optimizaciones y refactorizaciones.
+* **[3.1.6. `api/README.md`](./api/README.md) y `api/openapi.json`:**
+  Contrato de las Cloud Functions HTTP (`submitReclamo`, `submitContacto`, `checkStatus`) en OpenAPI 3.1. Lo genera `pnpm run contract:generate` desde los schemas Zod del backend; explica cómo lo consume el frontend y cómo cambiarlo. Otros documentos de trabajo en `docs/`: `PLAN-DISENO.md`, `DESIGN-SYSTEM-PLAN.md`, `SKILLS.md` y `GOL.md`.
 
 ---
 

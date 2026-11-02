@@ -81,10 +81,13 @@ Plan completo. Nuevos modelos para comparar: prototipos E y F en `/design-system
 Pendiente del usuario: revisar en navegador (móvil, tablet, escritorio) el arrastre de la hoja (E), el foco con Tab en posición mínima (E) y el mapa plegable (F).
 
 ## Pendiente fuera de alcance
-Cambios de la sesión anterior sin commitear en `LocationMap.tsx`, `FloatingPanel.tsx`, `ProjectCarousel.tsx` (trabajo en curso del usuario) y `apps/web/next-env.d.ts`: no se incluyen en los commits de este plan.
+Nota obsoleta resuelta: los cambios que estaban sin commitear en `LocationMap.tsx`, `FloatingPanel.tsx` y `ProjectCarousel.tsx` ya se incorporaron (el módulo pasó a `features/location`, commit `b90d6a0`), y `apps/web/next-env.d.ts` ahora está en `.gitignore` (lo regenera `next dev`).
 
 ## Registro de decisiones
 - 2026-11-02: los modelos nuevos se agregan como pestañas; los A-D y las 6 pestañas actuales no se modifican.
 - 2026-11-02: error de hidratación en `/design-system-ubicacion` (clase CSS distinta en `Tabs.List`). Causa aislada: las props `lazyMount unmountOnExit` del `Tabs.Root`. Solución: estado controlado y render condicional del prototipo activo (`PrototypeTabs`). Verificado en navegador: 0 errores.
 - 2026-11-02: la pestaña "Nuevos modelos ★" pasa a ser la primera y la inicial en `/design-system` para que se vea sin desplazar la barra.
 - 2026-11-02: refactor: el módulo compartido de ubicación (mapa, marcador, `useLocationData`, `useIsStoreOpen`, mapa inmersivo y su dock/ficha) pasó de `screens/DesignSystemUbicacion/` a `features/location/`; el home y el design system lo importan desde ahí. Se eliminaron `InteractiveMap`, `DefaultInfoCard` y `ProjectDetailCard` del home (sin uso).
+- 2026-11-02 (rama `feat/ux-ui-2026-11-02`): las tarjetas de servicio y proyecto se unificaron sobre `shared/components/Card/MediaCard` (borde limpio, un solo gesto de hover, `GLASS_FALLBACK_CSS`, `prefers-reduced-motion`). El marco negro del mapa de Google era el `outline` de foco del contenedor: se oculta con el mouse y se mantiene con `:focus-visible`.
+- 2026-11-02: el hero de la home ya no tiene botones; usa un chevron flotante hacia `#servicios` (`floatDown` en `styles/global.css`).
+- 2026-11-02: el libro de reclamaciones aplica el design system (`FormCard`, campos `variant="outline"`, logo en el encabezado) y comparte lenguaje visual con los correos (`apps/functions/src/templates/emailLayout.js`). Detalle en `docs/05_CHANGELOG.md`.

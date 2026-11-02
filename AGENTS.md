@@ -56,6 +56,7 @@ packages/
 
 **Identidad:**
 - Razón Social: `"GLASS & ALUMINUM COMPANY S.A.C."` → usar `companyData` de `@/shared/config/company-data`
+- Datos vigentes: dirección **Av. Los Fresnos 1250 - La Molina**, WhatsApp **974 278 303**, correo **acueva@gyacompany.com**. La Ficha RUC de SUNAT (2022) está desactualizada: no usarla como fuente de dirección, teléfonos ni correo.
 
 **Ortografía (siempre en español):**
 - `"antirruido"` (doble 'r', NO 'antiruido')
@@ -93,6 +94,8 @@ packages/
 ## 5. Backend (Firebase Functions)
 
 **⚠️ CÓDIGO CONGELADO:** NO modificar `apps/functions/`, `firestore.rules` ni `firebase.json` a menos que sea explícitamente solicitado.
+
+**⚠️ Despliegue de functions:** `apps/functions/.env` (local) repite los 3 secretos que las funciones leen de Secret Manager y hace fallar `firebase deploy` ("Secret environment variable overlaps non secret environment variable"). Apártalo durante el despliegue y restáuralo después (o renómbralo a `.env.local`). Detalle en `apps/functions/README.md` sección 9. Desplegar solo cuando el usuario lo pida: primero `functions`, luego `hosting`.
 
 **Contrato frontend ↔ backend:** el backend manda. Los campos y límites de `submitReclamo`/`submitContacto`/`checkStatus` están en `docs/api/openapi.json`, generado con `pnpm run contract:generate` desde los schemas Zod de `apps/functions/src/schemas/`. Si cambias un campo, sigue `docs/api/README.md` (regenerar, actualizar `packages/shared/src/schemas/reclamation-schema.ts` y pasar los tests de contrato).
 

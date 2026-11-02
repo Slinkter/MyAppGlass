@@ -45,7 +45,7 @@ flowchart TD
 | `src/adapters/mailer.js` | Cliente de Resend y `sendNotifications` (envío en paralelo con `Promise.allSettled`). |
 | `src/adapters/idGenerator.js` | Códigos de seguimiento `GYA-REC-...` / `GYA-CON-...` con `createWithUniqueCode`. |
 | `src/adapters/sanitize.js` | `stripHtml`, listas blancas de campos (`buildSafeReclamoPayload`, `buildSafeContactPayload`) y `sanitizeHtml`. |
-| `src/templates/` | HTML de los correos (administrador y cliente) para cada flujo. |
+| `src/templates/` | HTML de los correos (administrador y cliente) para cada flujo. `emailLayout.js` es el layout compartido (tablas, estilos en línea, logo por URL pública `https://gyacompany.com/logovcr.png`, pie con datos de la empresa); `reclamoEmails.js` y `contactoEmails.js` solo arman el cuerpo. Los datos del usuario siempre pasan por `sanitizeHtml`. |
 | `src/config/cors.js` | Orígenes permitidos: en producción solo dominios de la empresa y Firebase Hosting; `localhost` y `127.0.0.1` fuera de producción. |
 | `src/config/limits.js` | Ventana del rate limit, máximos por función, `TRUSTED_PROXY_HOPS` y horas de TTL. |
 | `emailSender.js`, `mathCaptchaValidator.js` | Shims de compatibilidad: solo re-exportan código de `src/`. |
@@ -109,6 +109,8 @@ Errores de los handlers: el código `invalid-argument` responde 400, `permission
 | Campo | Origen / valor |
 |---|---|
 | `nombreCompleto`, `email`, `tipoDocumento`, `numeroDocumento`, `domicilio`, `telefono`, `tipoSolicitud`, `tipoBien`, `descripcionBien`, `detalle`, `pedido` | `buildSafeReclamoPayload` (texto sin etiquetas HTML; `email` en minúsculas) |
+| `nombrePadreMadre` | Padre, madre o tutor (texto sin etiquetas; vacío si no aplica). Obligatorio para menores de edad según el formulario. |
+| `aceptaTerminos`, `autorizaEmail` | `true` (el schema exige `true`): evidencia del consentimiento del consumidor. |
 | `montoReclamado` | Número (`Number(...)`, 0 por defecto) |
 | `id` | Código de seguimiento |
 | `status` | `"RECIBIDO"` |
@@ -139,16 +141,18 @@ Las reglas incluyen un cierre por defecto que deniega todo lo no listado. Las re
 
 ## 8. Calidad: pruebas, lint y auditoría
 
-Ejecutar desde `functions/`:
+Ejecutar desde `apps/functions/` (o `pnpm run test:functions` desde la raíz):
 
 ```bash
-cd functions
+cd apps/functions
 npm test          # node --test test/*.test.js
 npm run lint      # ESLint 8 con .eslintrc.js
 npm audit --omit=dev
 ```
 
-- **Pruebas**: 120 pruebas en 21 suites, todas en verde el 2026-10-29. Usan `node:test` con dobles de Resend, Firestore y reCAPTCHA (`fetch`); no necesitan emulador.
+- **Pruebas**: 147 pruebas, todas en verde el 2026-11-02. Usan `node:test` con dobles de Resend, Firestore y reCAPTCHA (`fetch`); no necesitan emulador. `test/openapi.test.js` falla si `docs/api/openapi.json` está desactualizado respecto de los schemas de `src/schemas/` (regenerar con `pnpm run contract:generate` desde la raíz).
+- **Contrato de la API**: el schema Zod de `src/schemas/` es la fuente de `docs/api/openapi.json`. Si cambias un campo, sigue `docs/api/README.md` (también hay que agregarlo a la lista blanca `buildSafeReclamoPayload` si se persiste).
+- **Prueba de punta a punta sin producción**: con `firebase emulators:start --only firestore` se puede ejecutar `sendEmailLogic` real contra el Firestore del emulador, con Resend y reCAPTCHA simulados. Un envío real por Resend manda correos de verdad.
 - **Lint**: 0 errores y 1 advertencia de `max-len` en `src/services/reclamoService.js` (línea 70).
 - **Auditoría de producción**: 11 vulnerabilidades (1 alta, 10 moderadas). La alta es `body-parser`, transitiva vía `@google-cloud/functions-framework`, que es dependencia directa. Según el análisis previo del equipo, corregirlas exige subir `@google-cloud/functions-framework` a 4.0.1 (Express 5) o `firebase-admin` a 14, cambios que rompen compatibilidad y no se han aplicado.
 - **Emulador local**: `npm run serve` (requiere Java JDK). Las URL del frontend se apuntan al emulador según [06_DOCS_DEVELOPMENT.md](../docs/06_DOCS_DEVELOPMENT.md).
@@ -158,7 +162,7 @@ npm audit --omit=dev
 
 ### Estado actual
 
-- Producción corre `nodejs22` con el código actual de la rama: capas, persistir primero con código propio y rate limit endurecido (desplegado el 2026-10-29).
+- Producción corre `nodejs22` con el código actual de la rama: capas, persistir primero con código propio y rate limit endurecido (desplegado el 2026-10-29). **Redespliegue del 2026-11-02:** correos rediseñados, `nombrePadreMadre`, `aceptaTerminos` y `autorizaEmail` (obligatorios) y contrato `docs/api/openapi.json`. Verificado en producción: un payload sin consentimientos responde 400 con los mensajes nuevos.
 - Verificado en producción tras el despliegue: las tres funciones listan `nodejs22`; `GET` a `submitReclamo` responde 405; con 9 peticiones seguidas y un `X-Forwarded-For` distinto y forjado en cada una, la 9.ª recibe 429 (el límite no usa el valor forjado); un honeypot responde 200 con `GHOST_BLOCKED` sin enviar ni guardar nada; CORS rechaza `http://localhost:3000` y acepta `https://www.gyacompany.com`.
 - Sin confirmar todavía: que la IP resuelta sea la IP pública real del cliente y no una IP compartida de Google (no se pudo leer el log desde esta máquina). Ver la sección 11, punto 3.
 
@@ -167,7 +171,8 @@ npm audit --omit=dev
 Desde la raíz del repositorio, con validación previa en `functions/`:
 
 ```bash
-cd functions && npm test && npm run lint && cd ..
+cd apps/functions && npm test && npm run lint && cd ../..
+# Apartar el .env local antes (ver "Advertencias") y restaurarlo después
 firebase deploy --only functions:submitReclamo,functions:submitContacto,functions:checkStatus --non-interactive
 ```
 
@@ -180,7 +185,7 @@ Tras el despliegue:
 ### Advertencias
 
 - **Nunca usar `--force`**: `firebase deploy --only functions --force` borra las funciones desplegadas que no estén en el código. `testFunction` existe en producción y no está en el repositorio.
-- **Conflicto con `RECAPTCHA_SECRET_KEY`**: el `.env` local de `functions/` (ignorado por git) define `RECAPTCHA_SECRET_KEY` y el código la declara también como secreto. Cloud Run rechaza el despliegue. Hasta que se elimine esa línea del `.env`, el archivo debe apartarse de `functions/` durante el comando y restaurarse después. Detalle en [08_DOCS_SECURITY_BACKEND.md](../docs/08_DOCS_SECURITY_BACKEND.md).
+- **Conflicto del `.env` con los secretos** (ocurrió el 2026-11-02): el `.env` local de `apps/functions/` (ignorado por git) define `RESEND_API_KEY`, `ADMIN_EMAIL` y `RECAPTCHA_SECRET_KEY`, y el código las declara también como secretos de Secret Manager (`secrets: [...]`). El despliegue falla con `Secret environment variable overlaps non secret environment variable: RESEND_API_KEY`. Mientras exista ese `.env`, apartarlo durante el `firebase deploy` y restaurarlo después (un `trap` en un script garantiza la restauración), o renombrarlo a `.env.local`, que solo cargan los emuladores. Un despliegue fallido deja las versiones anteriores sirviendo. Detalle en [08_DOCS_SECURITY_BACKEND.md](../docs/08_DOCS_SECURITY_BACKEND.md).
 
 ## 10. Cómo agregar una función nueva (p. ej. `submitPresupuesto`)
 
@@ -229,7 +234,7 @@ Pasos:
 | 3 | `TRUSTED_PROXY_HOPS = 1` | Parcialmente confirmado | Confirmado: un `X-Forwarded-For` forjado no evade el límite (la 9.ª petición da 429). Falta confirmar en el log que la IP registrada es la IP pública real y no una IP compartida de Google. Riesgo si fuera compartida: todos los usuarios comparten un cupo de 8 envíos cada 15 minutos. |
 | 4 | Captcha matemático: sal pública y firma de 32 bits | Fuera de alcance, documentado | La sal `GYA_MATH_SECURE_SALT_2026` está en `src/shared/utils/mathCaptcha.ts` y como valor por defecto en `src/guards/captcha.js`. El token es reutilizable durante 15 minutos. |
 | 5 | Secreto de reCAPTCHA en la URL de `siteverify` | Fuera de alcance, documentado | Google también admite enviarlo en el cuerpo del POST. |
-| 6 | Conflicto de `RECAPTCHA_SECRET_KEY` en `functions/.env` | Pendiente del responsable | Eliminar la línea; el valor ya está en Secret Manager. |
+| 6 | Conflicto de los secretos en `apps/functions/.env` | Pendiente del responsable | El archivo repite `RESEND_API_KEY`, `ADMIN_EMAIL` y `RECAPTCHA_SECRET_KEY`, ya en Secret Manager, y rompe el despliegue. Renombrarlo a `.env.local` (solo emuladores) o eliminarlo. |
 | 7 | Fallo al actualizar `notifications` | Abierto | El documento queda en `PENDING` sin reintento; solo se registra en el log. |
 | 8 | Sin reintento automático de correos | Abierto (idea) | Posible trigger `onDocumentCreated` sobre las colecciones de solicitudes. |
 | 9 | Mensajes de error no controlados | Abierto | Los handlers responden `error.message` para cualquier excepción que no sea `HttpsError`. |

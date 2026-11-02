@@ -2,6 +2,49 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-02] - Rediseño UX/UI, contrato API y correos (rama `feat/ux-ui-2026-11-02`)
+
+Desplegado el 2026-11-02: `functions` (`submitReclamo`, `submitContacto`, `checkStatus`) y `hosting` (https://gya-app-4c8a9.web.app).
+
+### Added
+- **Contrato frontend ↔ backend** (`80b9dad`): `docs/api/openapi.json` (OpenAPI 3.1) se genera desde los schemas Zod del backend con `pnpm run contract:generate` (`scripts/generate-openapi.cjs`). Guía en `docs/api/README.md`. Dos tests lo protegen: `apps/functions/test/openapi.test.js` (el archivo no puede quedar desactualizado) y `apps/web/tests/unit/api-contract.test.ts` (el schema del frontend debe cumplir los límites del backend).
+- **Backend guarda** `nombrePadreMadre` (obligatorio para menores), `aceptaTerminos` y `autorizaEmail`; los dos consentimientos son obligatorios (`true`). Antes se pedían en el formulario pero se perdían.
+- **`MediaCard`** (`apps/web/src/shared/components/Card/MediaCard.tsx`, `79feb15`): base compartida de `ServiceCard` y `ProjectCardContent`. Borde limpio (sin fondo negro en las esquinas), un solo gesto de hover y `GLASS_FALLBACK_CSS` (`shared/constants/layout.ts`) para `prefers-reduced-transparency`.
+- **`FormCard`** (`features/reclamation-book/components/FormCard.tsx`, `1c81a9e`): tarjeta que envuelve cada sección del libro de reclamaciones.
+- **Correos rediseñados** (`bf73c7b`, `e39f977`): layout compartido `apps/functions/src/templates/emailLayout.js` con logo por URL pública (`https://gyacompany.com/logovcr.png`, PNG porque Gmail/Outlook no muestran SVG), caja de código, pie con datos de la empresa. Los 4 correos (reclamo y contacto, empresa y cliente) lo usan. La hoja de reclamación muestra tutor y consentimientos; el monto sale como `S/. 1,250.50`.
+- Indicador de scroll (chevron flotante) en el hero en lugar de los botones "Explorar Servicios" y "Ver Portafolio de Obras" (`3752f84`).
+
+### Changed
+- **Límites del frontend alineados con el backend** (`packages/shared/src/schemas/reclamation-schema.ts`): `pedido` mínimo 10, `numeroDocumento` 6-15 alfanumérico, `domicilio` hasta 300, `descripcionBien` hasta 500, teléfono con regex, `< > { }` prohibidos, consentimientos `z.literal(true)`.
+- Formulario del libro de reclamaciones: campos `variant="outline"` como en `/design-system`, botón de enviar responsive, zona de evidencias a ancho completo, aviso legal con borde de marca.
+- `pnpm run dev` usa **Turbopack** (se quitó `--webpack`): `Ready` de ~1.0 s a ~0.5 s y primera compilación de `/` de ~20 s a ~6 s en frío (`965b026`). `build` sigue con `--webpack`.
+- `publicRest.ts`: en desarrollo el caché de lecturas de Firestore dura 5 min con stale-while-revalidate; producción y build no cambian.
+- Raíz del repo ordenada: los `.md` y planes pasan a `docs/` (`28379a2`). `.gitignore` consolidado (`b7bc43f`).
+- Colección Postman: el payload "válido sin captcha" incluye los consentimientos.
+
+### Fixed
+- Marco negro del navegador al hacer clic en el mapa de Google y solapamiento del botón de recentrar con el panel de la sede en móvil (`9da0f97`).
+- Sombra de hover de las tarjetas (`var(--chakra-shadows-card-lift)` no existía; ahora `cardLift`).
+- Correo a la empresa desbordaba la pantalla en móvil por valores sin espacios; dirección del pie corregida a **Av. Los Fresnos 1250 - La Molina** (`e39f977`).
+- Script `clean` de la raíz (`pnpm -r --if-present run clean`).
+
+### Removed
+- Logs `logger.debug` que serializaban todos los proyectos en cada render (`ec199e9`) y el reexport sin uso `shared/utils/constants.ts` (`7d992ed`).
+
+### Notas operativas
+- **Despliegue de functions:** `apps/functions/.env` (local, ignorado por git) define `RESEND_API_KEY`, `ADMIN_EMAIL` y `RECAPTCHA_SECRET_KEY`, que las funciones ya leen como secretos de Secret Manager. Cloud Run rechaza el despliegue con "Secret environment variable overlaps non secret environment variable". Apartar el archivo durante `firebase deploy` y restaurarlo después (o renombrarlo a `.env.local`, que solo cargan los emuladores).
+- **Datos vigentes de la empresa:** dirección Av. Los Fresnos 1250 - La Molina, WhatsApp 974 278 303, correo acueva@gyacompany.com. La Ficha RUC de SUNAT (2022) está desactualizada; no usarla como fuente.
+- **Colección `libro_de_reclamaciones`:** filtrar por fecha con `createdAt`. El último registro previo era del 2026-08-17; el 2026-11-02 se registró y verificó en producción la queja `GYA-REC-2026-LK3SG3` (ambos correos `SENT` vía Resend y consulta `200 OK` en `checkStatus`). Los documentos anteriores al 2026-10-29 tienen como ID el código de Resend y pueden traer campos extra (p. ej. `recaptchaToken`).
+- **Reglas `firestore.rules` optimizadas y desplegadas:** `isAdmin()` evalúa claims y correo `@gyacompany.com` en el JWT antes de leer `/users/{uid}` (ahorro de lecturas por cortocircuito), y permite al admin leer y actualizar el estado (`status`, `updatedAt`, `adminNotes`) en `libro_de_reclamaciones` y `contact_submissions` manteniendo `create, delete: if false` desde cliente.
+- **Colecciones Postman (`apps/web/tests/postman/`):** actualizadas al contrato vigente (casos de `Queja`, validación de consentimientos obligatorios `400 Zod`, `checkStatus` `200 OK` con `GYA-REC-2026-LK3SG3`, y auditoría de reCAPTCHA v3 + cabeceras HTTP). Guía replicable para otros formularios en `docs/api/README.md`.
+- Pruebas: 147 del backend (`pnpm run test:functions`) y 61 del frontend relacionadas con reclamaciones y contrato.
+
+### Pendiente
+- Replicar el protocolo de actualización y prueba E2E (`docs/api/README.md`) en los demás formularios (`/contacto`, `/presupuesto`).
+- Rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (quedaron expuestas en una conversación).
+- Purga de archivos: `scripts/`, `docs/diplomado/`, `.gemini/`, `.agents/` y planes antiguos de `docs/` (decisión del responsable). Hay un PDF de la Ficha RUC sin rastrear en `docs/api/`.
+- Revisar en navegador el modo oscuro del formulario, los selects, y los botones flotantes que se superponen con el mapa en móvil.
+
 ## [2026-11-02] - Pulido del Aura Design System
 
 ### Design system aplicado a toda la página

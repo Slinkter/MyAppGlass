@@ -2,13 +2,18 @@
 	"info": {
 		"_postman_id": "gya-company-api-safe-v2",
 		"name": "GYA Company - API Backend (casos seguros)",
-		"description": "Todos los casos son seguros en producción: fallan antes de enviar correos o guardar. Cada petición cuenta para el rate limit (8 por IP cada 15 min en submitReclamo/submitContacto, 30 en checkStatus): no ejecutar la colección repetidamente. El camino feliz NO se prueba aquí porque requiere reCAPTCHA v3 desde un navegador real.",
+		"description": "Todos los casos son seguros en producción: fallan antes de enviar correos o guardar, o solo realizan lecturas (checkStatus). Cada petición cuenta para el rate limit (8 por IP cada 15 min en submitReclamo/submitContacto, 30 en checkStatus): no ejecutar la colección repetidamente. El camino feliz de escritura NO se prueba aquí porque requiere reCAPTCHA v3 desde un navegador real.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"variable": [
 		{
 			"key": "baseUrl",
 			"value": "https://us-central1-gya-app-4c8a9.cloudfunctions.net",
+			"type": "string"
+		},
+		{
+			"key": "existingReclamoId",
+			"value": "GYA-REC-2026-LK3SG3",
 			"type": "string"
 		}
 	],
@@ -106,7 +111,63 @@
 					"response": []
 				},
 				{
-					"name": "Payload válido sin captcha (400 seguridad matemática)",
+					"name": "POST sin consentimientos obligatorios (400 Zod)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 400 Bad Request', function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test('success es false', function () {",
+									"    pm.expect(pm.response.json().success).to.eql(false);",
+									"});",
+									"",
+									"pm.test('Mensaje exige aceptación de términos y autorización de correo', function () {",
+									"    var msg = pm.response.json().message;",
+									"    pm.expect(msg).to.include('aceptaTerminos');",
+									"    pm.expect(msg).to.include('autorizaEmail');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Av. Los Fresnos 1250, La Molina\",\n  \"telefono\": \"974278303\",\n  \"tipoSolicitud\": \"Queja\",\n  \"tipoBien\": \"servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Prueba automatizada\",\n  \"detalle\": \"Prueba automatizada de validacion del backend para una queja.\",\n  \"pedido\": \"Caso de prueba sin consentimientos obligatorios.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/submitReclamo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"submitReclamo"
+							]
+						},
+						"description": "Verifica el contrato OpenAPI 3.1: aceptaTerminos y autorizaEmail son obligatorios (const true). Si faltan, falla en Zod (400) antes del captcha."
+					},
+					"response": []
+				},
+				{
+					"name": "Payload Reclamo válido sin captcha (400 seguridad matemática)",
 					"event": [
 						{
 							"listen": "test",
@@ -139,7 +200,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Av. de Prueba 123, Lima\",\n  \"telefono\": \"999999999\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"tipoBien\": \"servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Prueba automatizada\",\n  \"detalle\": \"Prueba automatizada de validacion del backend.\",\n  \"pedido\": \"Caso de prueba sin envio real.\",\n  \"nombrePadreMadre\": \"\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
+							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Av. Los Fresnos 1250, La Molina\",\n  \"telefono\": \"974278303\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"tipoBien\": \"servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Prueba automatizada\",\n  \"detalle\": \"Prueba automatizada de validacion del backend.\",\n  \"pedido\": \"Caso de prueba sin envio real.\",\n  \"nombrePadreMadre\": \"\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -155,7 +216,61 @@
 								"submitReclamo"
 							]
 						},
-						"description": "Payload completo y válido según el schema Zod, pero sin mathToken, mathAnswer ni recaptchaToken. Falla en el captcha matemático (400) antes de reCAPTCHA, de cualquier envío de correo y de cualquier escritura en Firestore."
+						"description": "Payload completo y válido según el schema Zod (tipoSolicitud = Reclamo), pero sin mathToken, mathAnswer ni recaptchaToken. Falla en el captcha matemático (400) antes de reCAPTCHA, de cualquier envío de correo y de cualquier escritura en Firestore."
+					},
+					"response": []
+				},
+				{
+					"name": "Payload Queja válido sin captcha (400 seguridad matemática)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 400 Bad Request', function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test('success es false', function () {",
+									"    pm.expect(pm.response.json().success).to.eql(false);",
+									"});",
+									"",
+									"pm.test('Mensaje de seguridad matemática', function () {",
+									"    pm.expect(pm.response.json().message).to.include('seguridad matemática');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA QUEJA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"45678912\",\n  \"domicilio\": \"Av. Los Fresnos 1250, La Molina\",\n  \"telefono\": \"974278303\",\n  \"tipoSolicitud\": \"Queja\",\n  \"tipoBien\": \"producto\",\n  \"montoReclamado\": \"1250.50\",\n  \"descripcionBien\": \"Ventana antirruido Serie 62\",\n  \"detalle\": \"Prueba automatizada de validacion del backend para modalidad Queja.\",\n  \"pedido\": \"Caso de prueba de queja sin envio real.\",\n  \"nombrePadreMadre\": \"\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/submitReclamo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"submitReclamo"
+							]
+						},
+						"description": "Payload completo y válido para una Queja (tipoSolicitud = Queja, tipoBien = producto). Pasa Zod y falla de forma segura en el captcha matemático (400)."
 					},
 					"response": []
 				},
@@ -189,7 +304,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Av. de Prueba 123, Lima\",\n  \"telefono\": \"999999999\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"tipoBien\": \"servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Prueba automatizada\",\n  \"detalle\": \"Prueba automatizada de validacion del backend.\",\n  \"pedido\": \"Caso de prueba sin envio real.\",\n  \"website_hp\": \"bot\"\n}",
+							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Av. Los Fresnos 1250, La Molina\",\n  \"telefono\": \"974278303\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"tipoBien\": \"servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Prueba automatizada\",\n  \"detalle\": \"Prueba automatizada de validacion del backend.\",\n  \"pedido\": \"Caso de prueba sin envio real.\",\n  \"nombrePadreMadre\": \"\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true,\n  \"website_hp\": \"bot\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -441,6 +556,56 @@
 							]
 						},
 						"description": "Código inexistente: solo lectura en Firestore, responde 404."
+					},
+					"response": []
+				},
+				{
+					"name": "ID existente en Firestore (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Código 200 OK', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('success es true y devuelve Libro de Reclamaciones', function () {",
+									"    var body = pm.response.json();",
+									"    pm.expect(body.success).to.eql(true);",
+									"    pm.expect(body.data.id).to.eql(pm.collectionVariables.get('existingReclamoId'));",
+									"    pm.expect(body.data.type).to.eql('Libro de Reclamaciones');",
+									"    pm.expect(body.data.status).to.be.oneOf(['RECIBIDO', 'EN_REVISION', 'EN_PROCESO', 'ATENDIDO']);",
+									"});",
+									"",
+									"pm.test('Nombre ofuscado por privacidad (Ley N° 29733)', function () {",
+									"    var body = pm.response.json();",
+									"    pm.expect(body.data.maskedName).to.include('*');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/checkStatus?id={{existingReclamoId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"checkStatus"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{existingReclamoId}}"
+								}
+							]
+						},
+						"description": "Consulta el registro real GYA-REC-2026-LK3SG3 almacenado en la colección libro_de_reclamaciones de Firestore."
 					},
 					"response": []
 				}

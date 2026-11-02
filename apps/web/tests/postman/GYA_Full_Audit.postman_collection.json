@@ -1,23 +1,23 @@
 {
 	"info": {
 		"_postman_id": "gya-full-audit-v2",
-		"name": "GYA Company - Auditoría de Página (SEO)",
-		"description": "Valida la página del Libro de Reclamaciones (SEO y disponibilidad). No envía datos a ningún backend.",
+		"name": "GYA Company - Auditoría de Página (SEO & Seguridad)",
+		"description": "Valida la página del Libro de Reclamaciones (SEO, reCAPTCHA v3 y cabeceras de seguridad HTTP). No envía datos a ningún backend.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"variable": [
 		{
 			"key": "siteUrl",
-			"value": "https://gyacompany.com",
+			"value": "https://gya-app-4c8a9.web.app",
 			"type": "string"
 		}
 	],
 	"item": [
 		{
-			"name": "Validación de Página (SEO & Health)",
+			"name": "Validación de Página (SEO, Seguridad & Health)",
 			"item": [
 				{
-					"name": "Verificar SEO - Libro de Reclamaciones",
+					"name": "Verificar SEO y Seguridad - Libro de Reclamaciones",
 					"event": [
 						{
 							"listen": "test",
@@ -37,6 +37,15 @@
 									"",
 									"pm.test('JSON-LD de Autoridad presente', function () {",
 									"    pm.expect(pm.response.text()).to.include('application/ld+json');",
+									"});",
+									"",
+									"pm.test('Script de Google reCAPTCHA v3 cargado', function () {",
+									"    pm.expect(pm.response.text()).to.include('google.com/recaptcha/api.js');",
+									"});",
+									"",
+									"pm.test('Cabeceras de seguridad HTTP presentes', function () {",
+									"    pm.expect(pm.response.headers.get('X-Content-Type-Options')).to.eql('nosniff');",
+									"    pm.expect(pm.response.headers.get('Content-Security-Policy')).to.include('us-central1-gya-app-4c8a9.cloudfunctions.net');",
 									"});"
 								],
 								"type": "text/javascript"
@@ -55,7 +64,7 @@
 								"libro-de-reclamacion"
 							]
 						},
-						"description": "Verifica que la página sea accesible y contenga los metadatos SEO que optimizamos."
+						"description": "Verifica que la página sea accesible y contenga los metadatos SEO, script de reCAPTCHA v3 y cabeceras HTTP de seguridad."
 					},
 					"response": []
 				}
