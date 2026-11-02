@@ -60,11 +60,13 @@ export const SheetStoreCard: React.FC<SheetStoreCardProps> = React.memo(({ store
           </Heading>
           <HStack gap="1.5" mt="1.5" color="text.muted" fontSize="xs" align="start">
             <MapPin size={14} aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }} />
-            <Text>{store.address}</Text>
+            <Text minW={0} flex="1">
+              {store.address}
+            </Text>
           </HStack>
           <HStack gap="1.5" mt="1" color="text.muted" fontSize="xs">
             <Clock size={14} aria-hidden="true" style={{ flexShrink: 0 }} />
-            <Text>
+            <Text minW={0} flex="1">
               {STORE_SCHEDULE.days} · {STORE_SCHEDULE.hours}
             </Text>
           </HStack>
