@@ -1,10 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Box, Heading, Text, VStack, HStack } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { Skeleton } from "@/components/ui/skeleton";
+
+/** Tiempo máximo esperando la foto: pasado este plazo se muestra la card igualmente. */
+const IMAGE_REVEAL_TIMEOUT_MS = 7000;
 
 export interface ServiceCardProps {
   image: string;
@@ -31,6 +35,22 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   loading = "lazy",
   isLCP = false
 }) => {
+  // La card se revela entera (foto + textos) cuando la imagen termina de cargar,
+  // así nada aparece desfasado; mientras tanto se ve un skeleton de la misma altura.
+  const [loaded, setLoaded] = useState(false);
+  const handleLoad = useCallback(() => setLoaded(true), []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setLoaded(true), IMAGE_REVEAL_TIMEOUT_MS);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const reveal = {
+    opacity: loaded ? 1 : 0,
+    transition: "opacity 0.5s ease",
+    _motionReduce: { transition: "none" },
+  };
+
   return (
     <RouterLink href={plink} style={{ width: "100%", height: "100%", textDecoration: "none" }}>
       <Box
@@ -49,7 +69,20 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         }}
       >
         {/* Fotografía de Fondo */}
-        <Box position="absolute" inset={0} zIndex={0} overflow="hidden">
+        <Skeleton
+          aria-hidden
+          position="absolute"
+          inset={0}
+          zIndex={1}
+          borderRadius="0"
+          pointerEvents="none"
+          opacity={loaded ? 0 : 1}
+          // La animación `pulse` de Chakra anima la opacidad y pisaría el desvanecido.
+          animation={loaded ? "none" : undefined}
+          transition="opacity 0.5s ease"
+          _motionReduce={{ transition: "none" }}
+        />
+        <Box position="absolute" inset={0} zIndex={0} overflow="hidden" {...reveal}>
           <ResponsiveImage
             src={image}
             alt={`Servicio de ${name} - GYA Glass & Aluminum`}
@@ -58,6 +91,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             objectFit="cover"
             loading={loading}
             isLCP={isLCP}
+            onLoad={handleLoad}
             transition="transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
             _groupHover={{ transform: "scale(1.06)" }}
           />
@@ -69,8 +103,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
           inset={0}
           zIndex={1}
           background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)"
-          transition="opacity 0.3s ease"
-          _groupHover={{ opacity: 0.95 }}
+          {...reveal}
         />
 
         {/* Badge de Categoría Superior Floating Glass */}
@@ -87,6 +120,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             py="1"
             borderRadius="full"
             border="1px solid rgba(255, 255, 255, 0.15)"
+            {...reveal}
           >
             <Text
               fontSize="xs"
@@ -112,6 +146,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
           justify="space-between"
           align="flex-end"
           minW={0}
+          {...reveal}
         >
           <VStack align="flex-start" gap="1" minW={0} maxW="calc(100% - 52px)">
             <Heading
