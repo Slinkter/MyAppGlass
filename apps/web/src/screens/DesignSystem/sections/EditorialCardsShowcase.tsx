@@ -26,15 +26,15 @@ export const EditorialCardsShowcase: React.FC = () => {
                 Componente real (`features/services/components/ServiceCard.tsx`) con fotografía a sangre, gradación de luz fina, píldora frosted glass y zoom cinemático al hover.
               </Card.Description>
             </Box>
-            <Badge colorPalette="blue" px="3" py="1" borderRadius="full">features/services</Badge>
+            <Badge colorPalette="gray" px="3" py="1" borderRadius="full">features/services</Badge>
           </HStack>
         </Card.Header>
         <Card.Body>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="6">
             <ServiceCard
               name="Ventanas de Aluminio"
-              category="Serie 62 Antirruido"
-              description="Aislamiento acústico y térmico con doble vidriado hermético."
+              category="Serie 62"
+              description="Aislamiento antirruido y térmico con perfiles de alta hermeticidad."
               image="/images/services-products-01.Ventanas-nova-a10.webp"
               plink="/servicios/ventana"
             />
@@ -47,7 +47,7 @@ export const EditorialCardsShowcase: React.FC = () => {
             />
             <ServiceCard
               name="Duchas & Baños"
-              category="Acero Inox"
+              category="Laminado"
               description="Sistemas corredizos y batientes con herrajes importados."
               image="/images/services-products-03.Ducha-ducha01.webp"
               plink="/servicios/ducha"

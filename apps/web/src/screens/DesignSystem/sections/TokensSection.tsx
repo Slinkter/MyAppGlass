@@ -11,6 +11,7 @@ import {
   Badge,
   Separator,
   Card,
+  Tabs,
 } from "@chakra-ui/react";
 import { Copy } from "lucide-react";
 
@@ -50,23 +51,23 @@ export const TokensSection: React.FC = () => {
         <Card.Body>
           <VStack gap="5" align="stretch">
             <Box>
-              <Heading size="4xl" color="text.heading">Heading 4XL (3rem / 48px)</Heading>
+              <Heading size="4xl" color="text.heading">Heading 4XL (2.25rem / 36px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos Hero de la portada</Text>
             </Box>
             <Box>
-              <Heading size="3xl" color="text.heading">Heading 3XL (2.25rem / 36px)</Heading>
+              <Heading size="3xl" color="text.heading">Heading 3XL (1.875rem / 30px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos de secciones principales</Text>
             </Box>
             <Box>
-              <Heading size="2xl" color="text.heading">Heading 2XL (1.875rem / 30px)</Heading>
+              <Heading size="2xl" color="text.heading">Heading 2XL (1.5rem / 24px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Encabezados de módulos y catálogos</Text>
             </Box>
             <Box>
-              <Heading size="xl" color="text.heading">Heading XL (1.5rem / 24px)</Heading>
+              <Heading size="xl" color="text.heading">Heading XL (1.25rem / 20px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos de tarjetas y modales</Text>
             </Box>
             <Box>
-              <Heading size="md" color="text.heading">Heading MD (1.125rem / 18px)</Heading>
+              <Heading size="md" color="text.heading">Heading MD (1rem / 16px)</Heading>
               <Text fontSize="xs" color="text.muted">Subtítulos técnicos y encabezados de tablas</Text>
             </Box>
             <Separator borderColor="border.subtle" />
@@ -97,7 +98,7 @@ export const TokensSection: React.FC = () => {
                 LOS 4 SISTEMAS OFICIALES DE VENTANAS
               </Text>
               <HStack gap="3" wrap="wrap">
-                <Badge colorPalette="blue" px="3" py="1.5" borderRadius="full" fontSize="xs">
+                <Badge colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
                   Sistema Nova
                 </Badge>
                 <Badge colorPalette="cyan" px="3" py="1.5" borderRadius="full" fontSize="xs">
@@ -107,7 +108,7 @@ export const TokensSection: React.FC = () => {
                   Serie 35
                 </Badge>
                 <Badge colorPalette="purple" px="3" py="1.5" borderRadius="full" fontSize="xs">
-                  Serie 62 Antirruido
+                  Serie 62
                 </Badge>
               </HStack>
             </Box>
@@ -122,7 +123,7 @@ export const TokensSection: React.FC = () => {
                 <Badge variant="outline" colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
                   Crudo
                 </Badge>
-                <Badge variant="outline" colorPalette="blue" px="3" py="1.5" borderRadius="full" fontSize="xs">
+                <Badge variant="outline" colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
                   Laminado
                 </Badge>
                 <Badge variant="outline" colorPalette="purple" px="3" py="1.5" borderRadius="full" fontSize="xs">
@@ -175,6 +176,10 @@ export const TokensSection: React.FC = () => {
               { token: "border.subtle", label: "Borde Tenue" },
               { token: "border.default", label: "Borde Base" },
               { token: "border.strong", label: "Borde Fuerte" },
+              { token: "text.heading", label: "Texto Títulos" },
+              { token: "text.body", label: "Texto Cuerpo" },
+              { token: "text.muted", label: "Texto Apagado" },
+              { token: "ring.primary", label: "Anillo Foco" },
             ].map((item) => (
               <Box
                 key={item.token}
@@ -209,6 +214,34 @@ export const TokensSection: React.FC = () => {
               </Box>
             ))}
           </SimpleGrid>
+        </Card.Body>
+      </Card.Root>
+
+      {/* 4. Ejemplo de Tabs (variante line) */}
+      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
+        <Card.Header pb="4">
+          <Card.Title fontSize="xl">Ejemplo de Pestañas (Tabs)</Card.Title>
+          <Card.Description>
+            Patrón de Tabs.Root con variante line para alternar contenido relacionado.
+          </Card.Description>
+        </Card.Header>
+        <Card.Body>
+          <Tabs.Root defaultValue="texto" variant="line" size="sm">
+            <Tabs.List mb="4" borderBottomWidth="1px" borderColor="border.default">
+              <Tabs.Trigger value="texto">Texto</Tabs.Trigger>
+              <Tabs.Trigger value="superficie">Superficies</Tabs.Trigger>
+            </Tabs.List>
+            <Tabs.Content value="texto">
+              <Text fontSize="sm" color="text.body">
+                Títulos con <strong>text.heading</strong> y párrafos con <strong>text.body</strong>.
+              </Text>
+            </Tabs.Content>
+            <Tabs.Content value="superficie">
+              <Text fontSize="sm" color="text.muted">
+                Superficies base: <strong>bg.page</strong>, <strong>bg.section</strong> y <strong>surface.container</strong>.
+              </Text>
+            </Tabs.Content>
+          </Tabs.Root>
         </Card.Body>
       </Card.Root>
     </VStack>

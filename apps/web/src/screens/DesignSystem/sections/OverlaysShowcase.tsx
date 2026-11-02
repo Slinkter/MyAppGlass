@@ -6,10 +6,24 @@ import {
   Text,
   VStack,
   HStack,
-  Button,
   Card,
   Badge,
+  IconButton,
 } from "@chakra-ui/react";
+import { Info } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Tooltip } from "@/components/ui/tooltip";
+import {
+  DrawerRoot,
+  DrawerTrigger,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerCloseTrigger,
+} from "@/components/ui/drawer";
+import { toaster } from "@/components/ui/toaster-instance";
 import Gallery from "@/shared/components/common/Gallery";
 import {
   DialogRoot,
@@ -39,7 +53,7 @@ export const OverlaysShowcase: React.FC = () => {
     {
       id: "gal-3",
       src: "/images/services-products-03.Ducha-ducha01.webp",
-      title: "Ducha de Acero Inoxidable",
+      title: "Ducha de Vidrio Templado",
     },
   ];
 
@@ -55,7 +69,7 @@ export const OverlaysShowcase: React.FC = () => {
                 Componente real de producción (`shared/components/common/Gallery.tsx`) con visor fotográfico modal y tira interactiva de miniaturas.
               </Card.Description>
             </Box>
-            <Badge colorPalette="blue" px="3" py="1" borderRadius="full">shared/components/common</Badge>
+            <Badge colorPalette="gray" px="3" py="1" borderRadius="full">shared/components/common</Badge>
           </HStack>
         </Card.Header>
         <Card.Body>
@@ -99,7 +113,7 @@ export const OverlaysShowcase: React.FC = () => {
               Haz clic en el botón inferior para abrir la simulación de modal interactivo:
             </Text>
             <Button
-              colorPalette="blue"
+              variant="aura"
               onClick={() => setIsDialogOpen(true)}
             >
               Abrir Modal de Demostración
@@ -117,20 +131,20 @@ export const OverlaysShowcase: React.FC = () => {
                     </Text>
                     <Box p="3" bg="surface.container" borderRadius="lg" borderWidth="1px" borderColor="border.subtle" w="full">
                       <Text fontSize="xs" color="text.muted">
-                        • Sistema: Serie 62 Antirruido<br />
-                        • Vidrio: DVH Templado 6mm + Cámara 12mm + Laminado 4+4mm<br />
-                        • Acabado: Perfilería anodizada negra mate
+                        • Sistema: Serie 62<br />
+                        • Vidrio: Templado · Color: Incoloro<br />
+                        • Aluminio: Negro
                       </Text>
                     </Box>
                   </VStack>
                 </DialogBody>
                 <DialogFooter>
                   <DialogActionTrigger asChild>
-                    <Button variant="outline" borderColor="border.default" onClick={() => setIsDialogOpen(false)}>
+                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
                       Cerrar
                     </Button>
                   </DialogActionTrigger>
-                  <Button colorPalette="blue" onClick={() => setIsDialogOpen(false)}>
+                  <Button variant="aura" onClick={() => setIsDialogOpen(false)}>
                     Entendido
                   </Button>
                 </DialogFooter>
@@ -138,6 +152,94 @@ export const OverlaysShowcase: React.FC = () => {
               </DialogContent>
             </DialogRoot>
           </VStack>
+        </Card.Body>
+      </Card.Root>
+
+      {/* 3. Tooltip */}
+      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
+        <Card.Header pb="4">
+          <HStack justify="space-between" wrap="wrap">
+            <Box>
+              <Card.Title fontSize="xl">Tooltip</Card.Title>
+              <Card.Description>
+                Ayuda contextual accesible al pasar el cursor o enfocar con teclado.
+              </Card.Description>
+            </Box>
+            <Badge colorPalette="gray" px="3" py="1" borderRadius="full">components/ui/tooltip</Badge>
+          </HStack>
+        </Card.Header>
+        <Card.Body>
+          <Tooltip content="Serie 62 antirruido" showArrow positioning={{ placement: "top" }}>
+            <IconButton aria-label="Más información" variant="ghost" size="sm">
+              <Info size={16} style={{ flexShrink: 0 }} />
+            </IconButton>
+          </Tooltip>
+        </Card.Body>
+      </Card.Root>
+
+      {/* 4. Drawer */}
+      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
+        <Card.Header pb="4">
+          <HStack justify="space-between" wrap="wrap">
+            <Box>
+              <Card.Title fontSize="xl">Drawer</Card.Title>
+              <Card.Description>
+                Panel lateral deslizable para detalles o filtros sin abandonar la página.
+              </Card.Description>
+            </Box>
+            <Badge colorPalette="gray" px="3" py="1" borderRadius="full">components/ui/drawer</Badge>
+          </HStack>
+        </Card.Header>
+        <Card.Body>
+          <DrawerRoot placement="end" size="md">
+            <DrawerTrigger asChild>
+              <Button variant="outline" size="sm">Abrir Drawer</Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerCloseTrigger />
+              <DrawerHeader>
+                <DrawerTitle>Detalle del sistema</DrawerTitle>
+              </DrawerHeader>
+              <DrawerBody>
+                <Text fontSize="sm" color="text.body">
+                  Sistema: Serie 62 · Vidrio: Templado · Color: Incoloro · Aluminio: Negro
+                </Text>
+              </DrawerBody>
+              <DrawerFooter>
+                <Button variant="aura">Entendido</Button>
+              </DrawerFooter>
+            </DrawerContent>
+          </DrawerRoot>
+        </Card.Body>
+      </Card.Root>
+
+      {/* 5. Toast */}
+      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
+        <Card.Header pb="4">
+          <HStack justify="space-between" wrap="wrap">
+            <Box>
+              <Card.Title fontSize="xl">Toast</Card.Title>
+              <Card.Description>
+                Notificaciones efímeras disparadas con toaster.create.
+              </Card.Description>
+            </Box>
+            <Badge colorPalette="gray" px="3" py="1" borderRadius="full">components/ui/toaster-instance</Badge>
+          </HStack>
+        </Card.Header>
+        <Card.Body>
+          <Button
+            variant="aura"
+            onClick={() =>
+              toaster.create({
+                title: "Cotización enviada",
+                description: "Te contactaremos a la brevedad.",
+                type: "success",
+                closable: true,
+              })
+            }
+          >
+            Mostrar Toast
+          </Button>
         </Card.Body>
       </Card.Root>
     </VStack>

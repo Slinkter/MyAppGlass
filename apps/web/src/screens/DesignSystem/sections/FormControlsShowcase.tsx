@@ -7,14 +7,15 @@ import {
   VStack,
   HStack,
   SimpleGrid,
-  Button,
   Input,
+  Textarea,
   IconButton,
   Separator,
   Card,
 } from "@chakra-ui/react";
 import { ArrowRight, Eye, Sliders, Copy } from "lucide-react";
 import { FloatingWhatsAppButton, ThemeToggleButton } from "@/widgets/FloatingActions";
+import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { NativeSelectRoot, NativeSelectField } from "@/components/ui/native-select";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -39,14 +40,16 @@ export const FormControlsShowcase: React.FC = () => {
           <VStack gap="6" align="stretch">
             <Box>
               <Text fontWeight="semibold" mb="3" color="text.muted" fontSize="sm">
-                BOTONES PRINCIPALES (BLUE / BRAND SOLID)
+                VARIANTES (AURA / OUTLINE / GHOST / WHATSAPP / BRAND)
               </Text>
               <HStack gap="4" wrap="wrap">
-                <Button colorPalette="blue" size="sm">Brand Small</Button>
-                <Button colorPalette="blue" size="md">
-                  Brand Medium <ArrowRight size={16} style={{ flexShrink: 0 }} />
+                <Button variant="aura">
+                  Aura <ArrowRight size={16} style={{ flexShrink: 0 }} />
                 </Button>
-                <Button colorPalette="blue" size="lg">Brand Large</Button>
+                <Button variant="outline">Outline</Button>
+                <Button variant="ghost">Ghost</Button>
+                <Button variant="whatsapp">WhatsApp Contacto</Button>
+                <Button variant="brand">Brand GYA</Button>
               </HStack>
             </Box>
 
@@ -54,18 +57,27 @@ export const FormControlsShowcase: React.FC = () => {
 
             <Box>
               <Text fontWeight="semibold" mb="3" color="text.muted" fontSize="sm">
-                VARIANTES SEMÁNTICAS
+                TAMAÑOS (SM / MD / LG / XL)
               </Text>
-              <HStack gap="4" wrap="wrap">
-                <Button variant="outline" borderColor="border.default" size="md">Outline</Button>
-                <Button variant="ghost" size="md">Ghost Button</Button>
-                <Button variant="subtle" size="md">Subtle Button</Button>
-                <Button bg="brand.whatsapp" color="white" _hover={{ bg: "brand.whatsappHover" }} borderRadius="full" px="6">
-                  WhatsApp Contacto
-                </Button>
-                <Button bg="brand.red" color="white" _hover={{ bg: "brand.redHover" }} borderRadius="full" px="6">
-                  Red Brand GYA
-                </Button>
+              <HStack gap="4" wrap="wrap" align="center">
+                <Button variant="aura" size="sm">Small</Button>
+                <Button variant="aura" size="md">Medium</Button>
+                <Button variant="aura" size="lg">Large</Button>
+                <Button variant="aura" size="xl">Extra Large</Button>
+              </HStack>
+            </Box>
+
+            <Separator borderColor="border.subtle" />
+
+            <Box>
+              <Text fontWeight="semibold" mb="3" color="text.muted" fontSize="sm">
+                ESTADOS (LOADING / DISABLED)
+              </Text>
+              <HStack gap="4" wrap="wrap" align="center">
+                <Button variant="aura" loading loadingText="Enviando...">Enviar</Button>
+                <Button variant="outline" loading loadingText="Cargando...">Cargar</Button>
+                <Button variant="aura" disabled>Aura Disabled</Button>
+                <Button variant="outline" disabled>Outline Disabled</Button>
               </HStack>
             </Box>
 
@@ -82,9 +94,9 @@ export const FormControlsShowcase: React.FC = () => {
                 <IconButton aria-label="Ajustes" variant="outline" borderColor="border.default" size="md">
                   <Sliders size={18} style={{ flexShrink: 0 }} />
                 </IconButton>
-                <IconButton aria-label="Copiar" colorPalette="blue" size="lg">
+                <Button aria-label="Copiar" variant="aura" size="lg" px="0" minW="12">
                   <Copy size={20} style={{ flexShrink: 0 }} />
-                </IconButton>
+                </Button>
                 <FloatingWhatsAppButton />
                 <ThemeToggleButton />
               </HStack>
@@ -116,6 +128,17 @@ export const FormControlsShowcase: React.FC = () => {
                   placeholder="ejemplo@cliente.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                />
+              </Field>
+
+              <Field
+                label="Observaciones de la Obra"
+                helperText="Indique medidas aproximadas, ubicación o acabados deseados."
+              >
+                <Textarea
+                  variant="outline"
+                  placeholder="Ej. Ventanas corredizas para sala y dormitorios..."
+                  rows={4}
                 />
               </Field>
 
@@ -162,7 +185,7 @@ export const FormControlsShowcase: React.FC = () => {
               </Alert>
 
               <Alert status="info" title="Sistema Antirruido">
-                La Serie 62 cuenta con doble vidriado hermético (DVH) garantizado.
+                La Serie 62 ofrece excelente aislamiento acústico antirruido.
               </Alert>
 
               <Alert status="warning" title="Stock limitado de perfiles">

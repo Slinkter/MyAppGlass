@@ -30,7 +30,7 @@ export const DesignSystemScreen: React.FC = () => {
         <HStack justify="space-between" align="flex-start" wrap="wrap" gap="6" mb="12">
           <VStack gap="4" align="flex-start" maxW="3xl">
             <HStack gap="2">
-              <Badge colorPalette="purple" px="3" py="1" borderRadius="full">
+              <Badge colorPalette="gray" px="3" py="1" borderRadius="full">
                 <Sparkles size={12} style={{ flexShrink: 0 }} />
                 Aura Design System
               </Badge>

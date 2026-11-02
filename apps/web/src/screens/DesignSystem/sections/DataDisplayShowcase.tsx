@@ -6,6 +6,7 @@ import {
   Heading,
   Text,
   VStack,
+  HStack,
   Table,
   Badge,
   Card,
@@ -40,22 +41,22 @@ export const DataDisplayShowcase: React.FC = () => {
               </Table.Header>
               <Table.Body>
                 {[
-                  { order: 1, name: "Ventanas de Aluminio", system: "Serie 62 Antirruido", photos: 12, published: true },
+                  { order: 1, name: "Ventanas de Aluminio", system: "Serie 62", photos: 12, published: true },
                   { order: 2, name: "Mamparas de Baño", system: "Templado", photos: 8, published: true },
-                  { order: 3, name: "Techos de Policarbonato", system: "Estructura Aluminio", photos: 6, published: false },
+                  { order: 3, name: "Techos de Policarbonato", system: "Serie 35", photos: 6, published: false },
                 ].map((row) => (
                   <Table.Row key={row.name} _hover={{ bg: "bg.subtle" }}>
                     <Table.Cell fontWeight="bold">{row.order}</Table.Cell>
                     <Table.Cell fontWeight="medium">{row.name}</Table.Cell>
                     <Table.Cell>
-                      <Badge colorPalette="blue" size="sm">{row.system}</Badge>
+                      <Badge colorPalette="gray" size="sm">{row.system}</Badge>
                     </Table.Cell>
                     <Table.Cell color="text.muted">{row.photos} imágenes</Table.Cell>
                     <Table.Cell>
                       {row.published ? (
                         <Badge colorPalette="green" size="sm">Publicado</Badge>
                       ) : (
-                        <Badge colorPalette="yellow" size="sm">Borrador</Badge>
+                        <Badge colorPalette="orange" size="sm">Borrador</Badge>
                       )}
                     </Table.Cell>
                   </Table.Row>
@@ -63,6 +64,36 @@ export const DataDisplayShowcase: React.FC = () => {
               </Table.Body>
             </Table.Root>
           </Box>
+        </Card.Body>
+      </Card.Root>
+
+      {/* Badges: catálogo de variantes y estados */}
+      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
+        <Card.Header pb="4">
+          <Card.Title fontSize="xl">Badges</Card.Title>
+          <Card.Description>
+            Variantes neutras (gray) y estados semánticos para etiquetas de catálogo y tablas.
+          </Card.Description>
+        </Card.Header>
+        <Card.Body>
+          <VStack gap="6" align="stretch">
+            <Box p="5" bg="surface.container" borderRadius="xl" borderWidth="1px" borderColor="border.subtle">
+              <Heading size="sm" mb="4" color="text.heading">Variantes</Heading>
+              <HStack gap="3" wrap="wrap">
+                <Badge colorPalette="gray" variant="solid">Solid</Badge>
+                <Badge colorPalette="gray" variant="subtle">Subtle</Badge>
+                <Badge colorPalette="gray" variant="outline">Outline</Badge>
+              </HStack>
+            </Box>
+            <Box p="5" bg="surface.container" borderRadius="xl" borderWidth="1px" borderColor="border.subtle">
+              <Heading size="sm" mb="4" color="text.heading">Estados</Heading>
+              <HStack gap="3" wrap="wrap">
+                <Badge colorPalette="green" variant="subtle">Success</Badge>
+                <Badge colorPalette="orange" variant="subtle">Warning</Badge>
+                <Badge colorPalette="red" variant="subtle">Error</Badge>
+              </HStack>
+            </Box>
+          </VStack>
         </Card.Body>
       </Card.Root>
 

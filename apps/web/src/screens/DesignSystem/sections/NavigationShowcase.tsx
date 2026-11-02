@@ -26,7 +26,7 @@ export const NavigationShowcase: React.FC = () => {
                 Componente real de producción (`widgets/Navbar/AuraDesktopNav.tsx`) con desenfoque de cristal (backdrop-blur) y sombra `navDesktop`.
               </Card.Description>
             </Box>
-            <Badge colorPalette="blue" px="3" py="1" borderRadius="full">Web Pública</Badge>
+            <Badge colorPalette="gray" px="3" py="1" borderRadius="full">Web Pública</Badge>
           </HStack>
         </Card.Header>
         <Card.Body>
