@@ -46,7 +46,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         position="relative"
         bg="black"
         boxShadow="sm"
-        transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+        transition="box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
         _hover={{
           boxShadow: "var(--chakra-shadows-card-lift)",
           transform: "translateY(-6px)"
@@ -157,7 +157,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             border="1px solid rgba(255, 255, 255, 0.25)"
             color="white"
             flexShrink={0}
-            transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+            transition="background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
             _groupHover={{
               bg: "primary.500",
               borderColor: "primary.500",

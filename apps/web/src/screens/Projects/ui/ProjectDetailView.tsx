@@ -62,7 +62,7 @@ const ViewSelector: React.FC<ViewSelectorProps> = React.memo(({ activeMode, onSe
             fontWeight={activeMode === opt.id ? "bold" : "medium"}
             gap={2}
           >
-            <IconComp size={16} /> {opt.label}
+            <IconComp size={16} style={{ flexShrink: 0 }} /> {opt.label}
           </Button>
         );
       })}

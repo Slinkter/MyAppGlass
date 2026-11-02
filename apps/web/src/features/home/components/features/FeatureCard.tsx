@@ -32,7 +32,7 @@ const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, descripti
       borderColor="border.default"
       borderRadius="xl"
       boxShadow="xs"
-      transition="all 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
+      transition="transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
       _hover={{ 
         boxShadow: "md",
         borderColor: "text.accent",
@@ -70,7 +70,7 @@ const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ heading, descripti
             color="text.accent"
             border="1px solid"
             borderColor="border.default"
-            transition="all 0.25s ease-out"
+            transition="background-color 0.25s ease-out, color 0.25s ease-out"
             _groupHover={{ 
               bg: activeBgStyle,
               color: activeColor,

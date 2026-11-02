@@ -56,7 +56,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
             px="5"
             flexShrink={0}
             fontWeight={isActive ? "bold" : "medium"}
-            transition="all 0.2s ease"
+            transition="background-color 0.2s ease, color 0.2s ease"
           >
             {system.label}
           </Button>

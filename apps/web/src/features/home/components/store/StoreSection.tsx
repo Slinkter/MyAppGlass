@@ -104,7 +104,7 @@ const StoreSection: React.FC = React.memo(() => {
                         align={{ base: "center", lg: "flex-start" }}
                         p={0}
                         bg={{
-                            base: "rgba(255, 255, 255, 0.8)",
+                            base: "whiteAlpha.800",
                             _dark: "rgba(18, 18, 20, 0.8)",
                         }}
                         backdropFilter="blur(16px)"
@@ -130,7 +130,7 @@ const StoreSection: React.FC = React.memo(() => {
                         overflow="hidden"
                         display="flex"
                         justifyContent="stretch"
-                        transition="all 0.3s ease"
+                        transition="width 0.3s ease, height 0.3s ease"
                     >
                         {!displaySelected ? (
                             <Box

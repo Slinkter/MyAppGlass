@@ -19,12 +19,12 @@ const ProjectDetailItem: React.FC<ProjectDetailItemProps> = ({ icon: IconComp, l
     <VStack
       align="start"
       gap="5"
-      p="5"
+      p={{ base: "3", md: "5" }}
       bg="bg.subtle"
       borderRadius="xl"
       border="1px solid"
       borderColor="border.glass"
-      transition="all 0.2s"
+      transition="transform 0.2s ease, border-color 0.2s ease"
       _hover={{ transform: "translateX(2px)", borderColor: "primary.500" }}
     >
       <Box color="text.accent">

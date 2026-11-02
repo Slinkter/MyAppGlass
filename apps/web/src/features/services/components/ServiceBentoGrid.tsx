@@ -31,13 +31,13 @@ export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
       alignItems="center"
       textAlign="center"
       borderRadius="3xl"
-      px="6"
-      py="6"
+      px={{ base: "4", md: "6" }}
+      py={{ base: "4", md: "6" }}
       borderWidth="1px"
       borderColor="rgba(255, 255, 255, 0.15)"
       boxShadow="0 10px 30px rgba(168, 1, 0, 0.25)"
       willChange="transform"
-      transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+      transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
       cursor="pointer"
       role="group"
       _hover={{
@@ -70,8 +70,8 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
     borderRadius="3xl"
     borderWidth="1px"
     borderColor="border.default"
-    px={{ base: "5", md: "6" }}
-    py={{ base: "5", md: "6" }}
+    px={{ base: "4", md: "6" }}
+    py={{ base: "4", md: "6" }}
     w="full"
     h="full"
     display="flex"
@@ -101,7 +101,7 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
           <VStack align="stretch" gap="2">
             {features.map((feat) => (
               <HStack key={feat.label} gap="2.5" align="flex-start">
-                <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={4} mt="0.5" flexShrink={0} />
+                <Box as={CheckCircle2} color="primary.500" _dark={{ color: "primary.300" }} boxSize={4} mt="0.5" style={{ flexShrink: 0 }} />
                 <Text fontSize={{ base: "xs", sm: "sm", md: "xs" }} fontWeight="500" color="text.body" lineHeight="short">
                   {feat.label}
                 </Text>
