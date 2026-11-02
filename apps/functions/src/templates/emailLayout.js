@@ -5,7 +5,7 @@ const { sanitizeHtml } = require("../adapters/sanitize");
 const BRAND = {
   name: "GLASS & ALUMINUM COMPANY S.A.C.",
   ruc: "20606432870",
-  address: "Calle Los Cedros Mz. E Lt. 7, Huertos de La Molina, Lima - Perú",
+  address: "Av. Los Fresnos 1250 - La Molina, Lima - Perú",
   siteUrl: "https://www.gyacompany.com",
   whatsappUrl: "https://wa.me/51974278303",
   whatsappLabel: "974 278 303",
@@ -31,8 +31,8 @@ const FONT = "-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 /** Fila etiqueta/valor. `valueHtml` debe venir ya escapado (usar `sanitizeHtml`). */
 const row = (label, valueHtml, { strong = false } = {}) => `
   <tr>
-    <td valign="top" style="width: 38%; padding: 7px 12px 7px 0; font-size: 13px; color: ${COLOR.muted}; line-height: 1.45;">${label}</td>
-    <td valign="top" style="padding: 7px 0; font-size: 14px; color: ${COLOR.ink}; line-height: 1.45; ${strong ? "font-weight: 600;" : ""}">${valueHtml}</td>
+    <td valign="top" style="width: 33%; padding: 7px 10px 7px 0; font-size: 13px; color: ${COLOR.muted}; line-height: 1.45;">${label}</td>
+    <td valign="top" style="padding: 7px 0; font-size: 14px; color: ${COLOR.ink}; line-height: 1.45; word-break: break-word; overflow-wrap: anywhere; ${strong ? "font-weight: 600;" : ""}">${valueHtml}</td>
   </tr>`;
 
 /** Tabla de filas etiqueta/valor. */
@@ -56,7 +56,7 @@ const textPanel = (blocks) => `
         .map(
           ({ label, valueHtml }, i) => `
       <p style="margin: ${i === 0 ? "0" : "14px"} 0 4px 0; font-size: 12px; font-weight: 700; color: ${COLOR.ink}; letter-spacing: 0.04em; text-transform: uppercase;">${label}</p>
-      <p style="margin: 0; font-size: 14px; color: ${COLOR.body}; line-height: 1.6; white-space: pre-wrap;">${valueHtml}</p>`,
+      <p style="margin: 0; font-size: 14px; color: ${COLOR.body}; line-height: 1.6; white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;">${valueHtml}</p>`,
         )
         .join("")}
     </td></tr>

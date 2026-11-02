@@ -2,7 +2,12 @@
 const { sanitizeHtml } = require("../adapters/sanitize");
 const { BRAND, COLOR, emailLayout, row, detailTable, section, textPanel, codeBox, notice, paragraph } = require("./emailLayout");
 
-const monto = (data) => `S/. ${sanitizeHtml(String(data.montoReclamado || "0.00"))}`;
+/** Monto en soles con dos decimales y separador de miles (ej. "S/. 1,250.50"). */
+const monto = (data) => {
+  const value = Number(data.montoReclamado || 0);
+  const safe = Number.isFinite(value) ? value : 0;
+  return `S/. ${safe.toLocaleString("es-PE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+};
 
 /** Primera letra en mayúscula ("servicio" -> "Servicio"), ya escapado. */
 const tipoBien = (data) => {
