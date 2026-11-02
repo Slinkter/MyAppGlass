@@ -112,7 +112,18 @@ const LocationMap: React.FC<LocationMapProps> = ({
   if (!isLoaded || !googleReady) return <MapLoader />;
 
   return (
-    <Box w="100%" h="100%" position="relative">
+    <Box
+      w="100%"
+      h="100%"
+      position="relative"
+      borderRadius="inherit"
+      // El contenedor de Google es enfocable: al hacer clic no debe aparecer el marco negro
+      // del navegador. El foco por teclado sigue visible con :focus-visible.
+      css={{
+        "& :focus": { outline: "none" },
+        "& :focus-visible": { outline: "2px solid", outlineColor: "primary.500", outlineOffset: "-2px" },
+      }}
+    >
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -155,6 +166,9 @@ const LocationMap: React.FC<LocationMapProps> = ({
           <Button
             variant="outline"
             size="sm"
+            w="11"
+            h="11"
+            px="0"
             minW="11"
             minH="11"
             bg="bg.surface/88"
