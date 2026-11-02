@@ -42,7 +42,7 @@ export const DataDisplayShowcase: React.FC = () => {
               <Table.Body>
                 {[
                   { order: 1, name: "Ventanas de Aluminio", system: "Serie 62", photos: 12, published: true },
-                  { order: 2, name: "Mamparas de Baño", system: "Templado", photos: 8, published: true },
+                  { order: 2, name: "Mamparas de Baño", system: "Sistema Nova", photos: 8, published: true },
                   { order: 3, name: "Techos de Policarbonato", system: "Serie 35", photos: 6, published: false },
                 ].map((row) => (
                   <Table.Row key={row.name} _hover={{ bg: "bg.subtle" }}>

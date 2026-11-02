@@ -148,10 +148,10 @@ export const FormControlsShowcase: React.FC = () => {
                     value={systemChoice}
                     onChange={(e) => setSystemChoice(e.target.value)}
                   >
-                    <option value="nova">Sistema Nova (Estándar)</option>
-                    <option value="s25">Serie 25 (Residencial)</option>
-                    <option value="s35">Serie 35 (Hermético)</option>
-                    <option value="s62">Serie 62 (Acústico Antirruido)</option>
+                    <option value="nova">Sistema Nova</option>
+                    <option value="s25">Serie 25</option>
+                    <option value="s35">Serie 35</option>
+                    <option value="s62">Serie 62</option>
                   </NativeSelectField>
                 </NativeSelectRoot>
               </Field>
@@ -185,7 +185,7 @@ export const FormControlsShowcase: React.FC = () => {
               </Alert>
 
               <Alert status="info" title="Sistema Antirruido">
-                La Serie 62 ofrece excelente aislamiento acústico antirruido.
+                La Serie 62 es nuestro sistema antirruido.
               </Alert>
 
               <Alert status="warning" title="Stock limitado de perfiles">

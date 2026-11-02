@@ -47,7 +47,7 @@ export const EditorialCardsShowcase: React.FC = () => {
             />
             <ServiceCard
               name="Duchas & Baños"
-              category="Laminado"
+              category="Templado"
               description="Sistemas corredizos y batientes con herrajes importados."
               image="/images/services-products-03.Ducha-ducha01.webp"
               plink="/servicios/ducha"
