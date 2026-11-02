@@ -128,3 +128,6 @@ otros/
 .audits/**
 !.audits/**/
 !.audits/**/*.md
+
+# Generado por next dev
+apps/web/next-env.d.ts
