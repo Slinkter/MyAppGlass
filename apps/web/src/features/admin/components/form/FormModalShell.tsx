@@ -43,7 +43,6 @@ export const FormModalShell: React.FC<FormModalShellProps> = ({
   subtitle,
   formError,
   loading,
-  colorPalette,
   submitLabel,
   children,
 }) => (
@@ -55,7 +54,7 @@ export const FormModalShell: React.FC<FormModalShellProps> = ({
   >
     <DialogContent maxW={{ base: "95vw", md: maxW }} borderRadius="2xl" p="0" overflow="hidden">
       <form onSubmit={onSubmit}>
-        <DialogHeader p="5" borderBottom="1px solid" borderColor="border.default" bg="bg.subtle">
+        <DialogHeader p={{ base: "3", md: "5" }} borderBottom="1px solid" borderColor="border.default" bg="bg.subtle">
           <HStack justify="space-between">
             <HStack gap="2.5">
               <Box p="2" borderRadius="lg" bg={iconBg} color={iconColor}>
@@ -74,7 +73,7 @@ export const FormModalShell: React.FC<FormModalShellProps> = ({
           </HStack>
         </DialogHeader>
 
-        <DialogBody p="6">
+        <DialogBody p={{ base: "4", md: "6" }}>
           <VStack gap="5" align="stretch">
             {formError && (
               <Box
@@ -93,12 +92,12 @@ export const FormModalShell: React.FC<FormModalShellProps> = ({
           </VStack>
         </DialogBody>
 
-        <DialogFooter p="5" borderTop="1px solid" borderColor="border.default" bg="bg.subtle">
+        <DialogFooter p={{ base: "3", md: "5" }} borderTop="1px solid" borderColor="border.default" bg="bg.subtle">
           <HStack justify="flex-end" gap="3">
             <Button variant="outline" borderColor="border.default" onClick={onClose} disabled={loading} type="button">
               Cancelar
             </Button>
-            <Button colorPalette={colorPalette} type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading}>
               {loading ? (
                 <>
                   <Spinner size="xs" />

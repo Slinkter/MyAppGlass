@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import AdminRowActions from "./AdminRowActions";
 import {
   Box,
   VStack,
@@ -12,8 +13,6 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import {
-  Edit2,
-  Trash2,
   ExternalLink,
   Layers,
   Image as ImageIcon,
@@ -53,7 +52,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
     >
       {/* Header bar del módulo */}
       <HStack
-        p="5"
+        p={{ base: "3", md: "5" }}
         justify="space-between"
         wrap="wrap"
         gap="3"
@@ -78,7 +77,6 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
 
         <Button
           size="sm"
-          colorPalette="blue"
           onClick={onCreateNew}
           style={{ cursor: "pointer" }}
         >
@@ -89,14 +87,14 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
 
       {/* Contenido / Tabla */}
       {loading ? (
-        <Box p="16" textAlign="center">
+        <Box p={{ base: "8", md: "16" }} textAlign="center">
           <Spinner size="xl" color="brand.primary" />
           <Text mt="4" color="text.muted" fontSize="sm">
             Cargando catálogo de servicios desde Firebase Firestore...
           </Text>
         </Box>
       ) : services.length === 0 ? (
-        <Box p="16" textAlign="center">
+        <Box p={{ base: "8", md: "16" }} textAlign="center">
           <Box
             p="3"
             borderRadius="full"
@@ -116,7 +114,6 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
           <Button
             mt="4"
             size="sm"
-            colorPalette="blue"
             onClick={onCreateNew}
           >
             <PlusCircle size={16} style={{ flexShrink: 0 }} />
@@ -125,28 +122,28 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
         </Box>
       ) : (
         <Box overflowX="auto">
-          <Box as="table" w="full" textAlign="left" style={{ borderCollapse: "collapse" }}>
+          <Box as="table" w="full" minW="640px" textAlign="left" style={{ borderCollapse: "collapse" }}>
             <Box as="thead" bg="bg.subtle" borderBottom="1px solid" borderColor="border.default">
               <Box as="tr">
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Orden
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Servicio
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Slug / URL
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Características
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Galería
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Estado
                 </Box>
-                <Box as="th" p="4" textAlign="right" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" textAlign="right" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Acciones
                 </Box>
               </Box>
@@ -285,25 +282,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
 
                   {/* Acciones */}
                   <Box as="td" p="4" textAlign="right">
-                    <HStack justify="flex-end" gap="1.5">
-                      <Button
-                        size="xs"
-                        variant="subtle"
-                        colorPalette="blue"
-                        onClick={() => onEdit(item)}
-                      >
-                        <Edit2 size={12} style={{ flexShrink: 0 }} />
-                        Editar
-                      </Button>
-                      <Button
-                        size="xs"
-                        variant="ghost"
-                        colorPalette="red"
-                        onClick={() => onDelete(item)}
-                      >
-                        <Trash2 size={12} style={{ flexShrink: 0 }} />
-                      </Button>
-                    </HStack>
+                    <AdminRowActions onEdit={() => onEdit(item)} onDelete={() => onDelete(item)} />
                   </Box>
                 </Box>
               ))}
