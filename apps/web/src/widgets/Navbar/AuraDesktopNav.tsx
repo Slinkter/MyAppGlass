@@ -74,7 +74,7 @@ const AuraDesktopNav: React.FC = () => {
             variant={isActive ? "aura" : "ghost"}
             borderRadius="full"
             w={{ base: "115px", xl: "130px" }}
-            h={{ base: "9", md: "10" }}
+            h={{ base: "11", md: "10" }}
             px="0"
             flexShrink={0}
             fontWeight={isActive ? "bold" : "medium"}

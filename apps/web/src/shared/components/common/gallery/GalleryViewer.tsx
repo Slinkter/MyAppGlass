@@ -161,13 +161,13 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             position="absolute"
             left="6"
             top="50%"
-            transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
+            transform="translateY(-50%)"
             onClick={handlePrevious}
             color="white"
             bg="blackAlpha.500"
             p="0"
-            w="44px"
-            h="44px"
+            minW="11"
+            minH="11"
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -184,20 +184,20 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={24} style={{ flexShrink: 0 }} />
           </Box>
           <Box
             as="button"
             position="absolute"
             right="6"
             top="50%"
-            transform={`translateY(-50%) ${isDragging ? "none" : ""}`}
+            transform="translateY(-50%)"
             onClick={handleNext}
             color="white"
             bg="blackAlpha.500"
             p="0"
-            w="44px"
-            h="44px"
+            minW="11"
+            minH="11"
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -214,7 +214,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={24} style={{ flexShrink: 0 }} />
           </Box>
 
           <Box
@@ -232,8 +232,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 onClick={onOpenModal}
                 color="white"
                 bg="blackAlpha.700"
-                w={{ base: "32px", md: "36px" }}
-                h={{ base: "32px", md: "36px" }}
+                minW={{ base: "11", md: "10" }}
+                minH={{ base: "11", md: "10" }}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -248,9 +248,9 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                   transform: "scale(0.95)",
                 }}
                 aria-label="Ampliar imagen"
-                transition="all 0.2s ease"
+                transition="background-color 0.2s ease, transform 0.2s ease"
               >
-                <Maximize2 size={15} />
+                <Maximize2 size={15} style={{ flexShrink: 0 }} />
               </Box>
             )}
 
@@ -289,8 +289,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             {Array.from({ length: imageCount }).map((_, index) => (
               <Box
                 key={index}
-                w="20px"
-                h="20px"
+                minW={{ base: "11", md: "8" }}
+                minH={{ base: "11", md: "8" }}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -336,7 +336,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
               borderColor="whiteAlpha.300"
               gap="2"
             >
-              <MoveHorizontal size={14} />
+              <MoveHorizontal size={14} style={{ flexShrink: 0 }} />
               <Text fontSize="10px" fontWeight="bold" letterSpacing="widest">
                 DESLIZA
               </Text>

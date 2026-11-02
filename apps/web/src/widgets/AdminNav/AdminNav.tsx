@@ -45,13 +45,27 @@ export const AdminNav: React.FC = () => {
       boxShadow="adminNav"
     >
       <HStack justify="space-between" wrap="wrap" gap="3">
-        <HStack gap="1.5" wrap="wrap">
+        <HStack
+          gap="1.5"
+          wrap="nowrap"
+          flex="1"
+          minW="0"
+          maxW="100%"
+          overflowX="auto"
+          css={{
+            "&::-webkit-scrollbar": { display: "none" },
+            scrollbarWidth: "none",
+          }}
+        >
           {/* Botón Volver al Sitio Web */}
           <Box
             asChild
             display="inline-flex"
             alignItems="center"
             gap="1.5"
+            flexShrink={0}
+            whiteSpace="nowrap"
+            minH={{ base: "11", md: "auto" }}
             px="3"
             py="2"
             borderRadius="xl"
@@ -70,7 +84,7 @@ export const AdminNav: React.FC = () => {
             }}
           >
             <Link href="/" title="Volver al Sitio Web">
-              <Globe size={14} />
+              <Globe size={14} style={{ flexShrink: 0 }} />
               <span>Sitio Web</span>
             </Link>
           </Box>
@@ -85,6 +99,9 @@ export const AdminNav: React.FC = () => {
                 display="inline-flex"
                 alignItems="center"
                 gap="2"
+                flexShrink={0}
+                whiteSpace="nowrap"
+                minH={{ base: "11", md: "auto" }}
                 px="3.5"
                 py="2"
                 borderRadius="xl"
@@ -104,7 +121,11 @@ export const AdminNav: React.FC = () => {
                 _active={{ transform: "translateY(0)" }}
               >
                 <Link href={item.href}>
-                  <IconComponent size={15} strokeWidth={isActive ? 2.2 : 1.8} />
+                  <IconComponent
+                    size={15}
+                    strokeWidth={isActive ? 2.2 : 1.8}
+                    style={{ flexShrink: 0 }}
+                  />
                   <span>{item.label}</span>
                 </Link>
               </Box>

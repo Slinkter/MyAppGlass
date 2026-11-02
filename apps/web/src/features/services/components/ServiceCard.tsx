@@ -43,7 +43,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         bg="black"
         boxShadow="sm"
         transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
-        _hover={{ 
+        _hover={{
           boxShadow: "var(--chakra-shadows-card-lift)",
           transform: "translateY(-6px)"
         }}
@@ -64,11 +64,11 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         </Box>
 
         {/* Degradado Oscuro de Gradación Fina */}
-        <Box 
-          position="absolute" 
-          inset={0} 
+        <Box
+          position="absolute"
+          inset={0}
           zIndex={1}
-          background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)" 
+          background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)"
           transition="opacity 0.3s ease"
           _groupHover={{ opacity: 0.95 }}
         />
@@ -77,8 +77,9 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         {category && (
           <Box
             position="absolute"
-            top="4"
-            left="4"
+            top={{ base: "3", md: "4" }}
+            left={{ base: "3", md: "4" }}
+            maxW="calc(100% - 24px)"
             zIndex={2}
             bg="rgba(0, 0, 0, 0.55)"
             backdropFilter="blur(10px)"
@@ -87,12 +88,13 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             borderRadius="full"
             border="1px solid rgba(255, 255, 255, 0.15)"
           >
-            <Text 
-              fontSize="10px" 
-              fontWeight="800" 
+            <Text
+              fontSize="xs"
+              fontWeight="800"
               color="white"
-              letterSpacing="0.2em"
+              letterSpacing={{ base: "0.08em", md: "0.2em" }}
               textTransform="uppercase"
+              truncate
             >
               {category}
             </Text>
@@ -106,18 +108,20 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
           left="0"
           right="0"
           zIndex={2}
-          p={{ base: "5", md: "6" }}
+          p={{ base: "4", md: "6" }}
           justify="space-between"
           align="flex-end"
+          minW={0}
         >
-          <VStack align="flex-start" gap="1" maxW="calc(100% - 40px)">
-            <Heading 
-              as="h3" 
-              fontSize={{ base: "xl", md: "2xl" }} 
+          <VStack align="flex-start" gap="1" minW={0} maxW="calc(100% - 52px)">
+            <Heading
+              as="h3"
+              fontSize={{ base: "xl", md: "2xl" }}
               color="white"
               fontWeight="800"
               letterSpacing="tight"
               lineHeight="tight"
+              lineClamp={2}
             >
               {name}
             </Heading>
@@ -134,7 +138,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
           </VStack>
 
           {/* Botón Circular Acción Floating */}
-          <Box 
+          <Box
             w="40px"
             h="40px"
             display="flex"
@@ -147,13 +151,13 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
             color="white"
             flexShrink={0}
             transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-            _groupHover={{ 
-              bg: "primary.500", 
+            _groupHover={{
+              bg: "primary.500",
               borderColor: "primary.500",
-              transform: "scale(1.1) rotate(45deg)" 
+              transform: "scale(1.1) rotate(45deg)"
             }}
           >
-            <Box as={ArrowUpRight} boxSize={5} />
+            <Box as={ArrowUpRight} boxSize={5} style={{ flexShrink: 0 }} />
           </Box>
         </HStack>
       </Box>

@@ -18,6 +18,8 @@ const GalleryThumbnailItem = React.memo(
         flexShrink={0}
         w={{ base: "80px", sm: "88px", md: "100%" }}
         h={{ base: "64px", sm: "70px", md: "80px", lg: "90px" }}
+        minW="11"
+        minH="11"
         cursor="pointer"
         borderRadius="xl"
         borderWidth="2px"
@@ -91,15 +93,16 @@ const GalleryThumbnails: React.FC<GalleryThumbnailsProps> = ({ images, selectedI
   }, [selectedIndex]);
 
   return (
-    <ScrollAreaRoot h="full" w="full">
+    <ScrollAreaRoot h={{ base: "96px", md: "full" }} w="full">
       <ScrollAreaViewport h="full" w="full">
         <Flex
           ref={containerRef}
           direction={{ base: "row", md: "column" }}
           gap="4"
           p="2"
-          h="full"
-          w="full"
+          h={{ base: "auto", md: "full" }}
+          w={{ base: "max-content", md: "full" }}
+          minW="full"
         >
           {images.map((img, index) => (
             <GalleryThumbnailItem
