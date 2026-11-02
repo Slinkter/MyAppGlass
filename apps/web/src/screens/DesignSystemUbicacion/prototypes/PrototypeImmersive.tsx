@@ -60,12 +60,20 @@ export const PrototypeImmersive: React.FC = () => {
           right={{ base: "3", lg: "5" }}
           bottom={{ base: "3", lg: "4" }}
           zIndex={2}
-          bg="bg.surface/92"
-          backdropFilter="blur(20px)"
+          bg="bg.surface/88"
+          backdropFilter="blur(24px) saturate(1.4)"
           borderWidth="1px"
           borderColor="border.default"
           borderRadius="2xl"
           p="4"
+          css={{
+            WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+            "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
+              backdropFilter: "none",
+              WebkitBackdropFilter: "none",
+              background: "var(--chakra-colors-bg-surface)",
+            },
+          }}
         >
           <Text fontSize="sm" color="text.muted" role="status">
             Aún no hay obras con ubicación para mostrar.

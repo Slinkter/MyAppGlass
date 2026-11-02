@@ -144,7 +144,7 @@ export const DesignSystemUbicacionScreen: React.FC = () => (
           css={{ scrollbarWidth: "none", "&::-webkit-scrollbar": { display: "none" } }}
         >
           {PROTOTYPES.map((p) => (
-            <Tabs.Trigger key={p.value} value={p.value} flexShrink={0} whiteSpace="nowrap">
+            <Tabs.Trigger key={p.value} value={p.value} flexShrink={0} whiteSpace="nowrap" minH="11">
               {p.label}
             </Tabs.Trigger>
           ))}
