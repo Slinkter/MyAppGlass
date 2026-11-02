@@ -40,14 +40,14 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
   return (
     <Box
       bg="surface.card"
-      p="6"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       border="1px solid"
       borderColor="border.glass"
       backdropFilter="blur(16px)"
     >
       <Heading size="md" mb="4" display="flex" alignItems="center" gap="2">
-        <UploadCloud size={20} color="var(--chakra-colors-status-info)" /> 2. Sube la Foto de tu Espacio Real
+        <UploadCloud size={20} color="var(--chakra-colors-status-info)" style={{ flexShrink: 0 }} /> 2. Sube la Foto de tu Espacio Real
       </Heading>
 
       {!userImage ? (
@@ -55,7 +55,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
           border="2px dashed"
           borderColor="whiteAlpha.300"
           borderRadius="xl"
-          p="8"
+          p={{ base: "5", md: "8" }}
           textAlign="center"
           position="relative"
           cursor="pointer"
@@ -76,7 +76,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
             }}
           />
           <Box display="inline-flex" p="4" bg="blue.500/10" color="blue.400" borderRadius="full" mb="3">
-            <ImageIcon size={32} />
+            <ImageIcon size={32} style={{ flexShrink: 0 }} />
           </Box>
           <Text fontWeight="bold" fontSize="md">
             Haz clic aquí o arrastra la foto de tu sala/pared
@@ -113,7 +113,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
                 transform="translate(-50%, -50%)"
                 w={`${overlayScale}%`}
                 pointerEvents="none"
-                transition="all 0.1s ease"
+                transition="left 0.1s ease, top 0.1s ease"
                 style={{ opacity: overlayOpacity / 100 }}
               >
                 <img
@@ -132,7 +132,6 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
                   position="absolute"
                   top="-10px"
                   right="-10px"
-                  colorPalette="purple"
                   size="xs"
                 >
                   {selectedProduct.name}
@@ -144,14 +143,14 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
             <HStack position="absolute" top="3" right="3" gap="2">
               <Button
                 size="xs"
-                variant="subtle"
-                colorPalette="gray"
+                variant="outline"
+                minH="11"
                 onClick={() => {
                   setUserImage(null);
                   setSimulatedReady(false);
                 }}
               >
-                <RefreshCw size={12} style={{ marginRight: 4 }} /> Cambiar Foto
+                <RefreshCw size={12} style={{ marginRight: 4, flexShrink: 0 }} /> Cambiar Foto
               </Button>
             </HStack>
           </Box>
@@ -160,7 +159,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
           {simulatedReady && (
             <Box bg="surface.card" p="4" borderRadius="xl" border="1px solid" borderColor="whiteAlpha.100">
               <Text fontSize="xs" fontWeight="bold" color="purple.300" mb="3" display="flex" alignItems="center" gap="1">
-                <Layers size={14} /> Controles de Calibración sobre tu Foto:
+                <Layers size={14} style={{ flexShrink: 0 }} /> Controles de Calibración sobre tu Foto:
               </Text>
               <SimpleGrid columns={{ base: 1, sm: 3 }} gap="4" fontSize="xs">
                 <Box>
@@ -206,7 +205,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
       )}
 
       <Button
-        colorPalette="purple"
+        variant="aura"
         size="lg"
         w="full"
         mt="5"
@@ -216,7 +215,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
         alignItems="center"
         gap="2"
       >
-        <Sparkles size={20} /> Generar Simulación de Espacio con IA
+        <Sparkles size={20} style={{ flexShrink: 0 }} /> Generar Simulación de Espacio con IA
       </Button>
     </Box>
   );

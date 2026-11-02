@@ -21,7 +21,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ chatMessages, chat
   return (
     <Box
       bg="surface.card"
-      p="6"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       border="1px solid"
       borderColor="border.glass"
@@ -32,7 +32,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ chatMessages, chat
     >
       <HStack gap="3" mb="4" pb="4" borderBottom="1px solid" borderColor="whiteAlpha.100">
         <Box p="2.5" bg="purple.500/20" color="purple.300" borderRadius="xl">
-          <Bot size={24} />
+          <Bot size={24} style={{ flexShrink: 0 }} />
         </Box>
         <Box>
           <Heading size="sm">Asistente de Diseño & Vidriería IA</Heading>
@@ -79,10 +79,11 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ chatMessages, chat
               color: "white",
               fontSize: "13px",
               outline: "none",
+              minHeight: 44,
             }}
           />
-          <Button type="submit" colorPalette="purple" size="md" aria-label="Enviar mensaje">
-            <Send size={16} />
+          <Button type="submit" variant="aura" size="md" minW="11" minH="11" aria-label="Enviar mensaje">
+            <Send size={16} style={{ flexShrink: 0 }} />
           </Button>
         </HStack>
       </form>
