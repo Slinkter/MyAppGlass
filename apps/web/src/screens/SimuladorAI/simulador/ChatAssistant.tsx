@@ -66,6 +66,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ chatMessages, chat
         <HStack gap="2">
           <input
             type="text"
+            aria-label="Escribe tu mensaje"
             placeholder="Pregúntale a la IA sobre cristales, colores o precios..."
             value={chatInput}
             onChange={(e) => setChatInput(e.target.value)}
@@ -80,7 +81,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ chatMessages, chat
               outline: "none",
             }}
           />
-          <Button type="submit" colorPalette="purple" size="md">
+          <Button type="submit" colorPalette="purple" size="md" aria-label="Enviar mensaje">
             <Send size={16} />
           </Button>
         </HStack>
