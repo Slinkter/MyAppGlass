@@ -7,9 +7,10 @@
  */
 
 import { SITE_URL } from "@/shared/config/company-data";
-import React from "react";
+import React, { useMemo } from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { getClients } from "@features/home/services/clientService";
+import { useImagePrefetch } from "@shared/hooks/ui/useImagePrefetch";
 import ClientCard from "./ClientCard";
 
 /**
@@ -21,6 +22,9 @@ import ClientCard from "./ClientCard";
 const ClientsSection: React.FC = React.memo(() => {
     const clients = getClients();
 
+    // Calienta el caché con las fotos cuando el navegador está libre.
+    useImagePrefetch(useMemo(() => clients.map((c) => c.imgClient), [clients]));
+
     return (
         <ItemGridLayout
             title="NUESTROS CLIENTES"
@@ -30,8 +34,10 @@ const ClientsSection: React.FC = React.memo(() => {
             seoCanonicalUrl={`${SITE_URL}/clientes`}
             containerProps={{ mt: 0, pt: 0 }}
         >
-            {clients.map((client, index) => (
-                <ItemGridLayout.Item key={client.id} delay={index * 0.1}>
+            {clients.map((client) => (
+                // Sin `delay` escalonado: cada ClientCard se revela sola al cargar su
+                // imagen (ver ClientCard); un retardo fijo la mostraría vacía.
+                <ItemGridLayout.Item key={client.id}>
                     <ClientCard
                         image={client.imgClient}
                         nameClient={client.nameClient}

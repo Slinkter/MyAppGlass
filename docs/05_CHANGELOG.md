@@ -11,6 +11,12 @@ All notable changes to this project will be documented in this file.
 - `AdminNav` en una fila con scroll horizontal; `AuraDesktopNav` con `h` 44px en móvil.
 - Galería (`GalleryViewer`, `GalleryThumbnails`, botón cerrar de `Gallery`): botones de 44px y miniaturas con scroll horizontal.
 
+### Performance
+- `useImageReveal` / `ImageRevealSkeleton` (`shared/components/Image/ImageReveal`): skeleton de la misma medida y revelado sincronizado (foto, degradado y textos) con timeout de 7 s.
+- `useImagePrefetch`: precarga de portadas en caché.
+- Revelado sincronizado aplicado en servicios, proyectos y clientes.
+- Nuevo showcase "Revelado sincronizado de imagen" en `/design-system` con demo interactiva y reglas del patrón.
+
 ### Added
 - Variantes de botón `whatsapp` y `brand` en el tema.
 - `_focusVisible` y `_disabled` en el botón base.

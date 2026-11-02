@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { MapPin, ArrowRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 
 interface ProjectCardContentProps {
   image?: string;
@@ -33,6 +34,9 @@ interface ProjectCardContentProps {
  */
 const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
   ({ image = "", residencial, address, year, onExplore, isLCP, loading }) => {
+    // La card se revela entera (foto + degradado + textos) cuando la imagen termina de cargar.
+    const { loaded, onLoad: handleLoad, reveal } = useImageReveal();
+
     const handleKeyDown = React.useCallback(
       (e: React.KeyboardEvent) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -69,7 +73,8 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         }}
       >
         {/* Fotografía del Proyecto */}
-        <Box position="absolute" inset={0} zIndex={0} overflow="hidden">
+        <ImageRevealSkeleton loaded={loaded} />
+        <Box position="absolute" inset={0} zIndex={0} overflow="hidden" {...reveal}>
           <ResponsiveImage
             src={image}
             alt={`Proyecto ${residencial} - GYA Glass & Aluminum`}
@@ -78,6 +83,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
             objectFit="cover"
             loading={loading || (isLCP ? "eager" : "lazy")}
             isLCP={isLCP}
+            onLoad={handleLoad}
             transition="transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
             _groupHover={{ transform: "scale(1.06)" }}
           />
@@ -89,8 +95,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           inset={0}
           zIndex={1}
           background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)"
-          transition="opacity 0.3s ease"
-          _groupHover={{ opacity: 0.95 }}
+          {...reveal}
         />
 
         {/* Badge de Año / Ubicación Glass Floating */}
@@ -106,6 +111,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           py="1"
           borderRadius="full"
           border="1px solid rgba(255, 255, 255, 0.15)"
+          {...reveal}
         >
           <HStack gap="1.5" minW={0}>
             <Box as={MapPin} boxSize={3} color="primary.400" style={{ flexShrink: 0 }} />
@@ -134,6 +140,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           justify="space-between"
           align="flex-end"
           minW={0}
+          {...reveal}
         >
           <VStack align="flex-start" gap="1" minW={0} maxW="calc(100% - 52px)">
             <Heading

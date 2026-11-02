@@ -1,14 +1,11 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { Box, Heading, Text, VStack, HStack } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { Skeleton } from "@/components/ui/skeleton";
-
-/** Tiempo máximo esperando la foto: pasado este plazo se muestra la card igualmente. */
-const IMAGE_REVEAL_TIMEOUT_MS = 7000;
+import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 
 export interface ServiceCardProps {
   image: string;
@@ -35,21 +32,8 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   loading = "lazy",
   isLCP = false
 }) => {
-  // La card se revela entera (foto + textos) cuando la imagen termina de cargar,
-  // así nada aparece desfasado; mientras tanto se ve un skeleton de la misma altura.
-  const [loaded, setLoaded] = useState(false);
-  const handleLoad = useCallback(() => setLoaded(true), []);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => setLoaded(true), IMAGE_REVEAL_TIMEOUT_MS);
-    return () => window.clearTimeout(timer);
-  }, []);
-
-  const reveal = {
-    opacity: loaded ? 1 : 0,
-    transition: "opacity 0.5s ease",
-    _motionReduce: { transition: "none" },
-  };
+  // La card se revela entera (foto + textos) cuando la imagen termina de cargar.
+  const { loaded, onLoad: handleLoad, reveal } = useImageReveal();
 
   return (
     <RouterLink href={plink} style={{ width: "100%", height: "100%", textDecoration: "none" }}>
@@ -69,19 +53,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
         }}
       >
         {/* Fotografía de Fondo */}
-        <Skeleton
-          aria-hidden
-          position="absolute"
-          inset={0}
-          zIndex={1}
-          borderRadius="0"
-          pointerEvents="none"
-          opacity={loaded ? 0 : 1}
-          // La animación `pulse` de Chakra anima la opacidad y pisaría el desvanecido.
-          animation={loaded ? "none" : undefined}
-          transition="opacity 0.5s ease"
-          _motionReduce={{ transition: "none" }}
-        />
+        <ImageRevealSkeleton loaded={loaded} />
         <Box position="absolute" inset={0} zIndex={0} overflow="hidden" {...reveal}>
           <ResponsiveImage
             src={image}
