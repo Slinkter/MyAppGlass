@@ -96,7 +96,7 @@ export const AdminHubScreen: React.FC = () => {
   ];
 
   return (
-    <Box maxW="1350px" mx="auto" py="8" px={{ base: "4", md: "6" }}>
+    <Box maxW="1350px" mx="auto" py={{ base: "5", md: "8" }} px={{ base: "4", md: "6" }}>
       <AdminNav />
 
       {/* Hero Administrativo Ejecutivo */}
@@ -124,7 +124,7 @@ export const AdminHubScreen: React.FC = () => {
           pointerEvents="none"
         />
 
-        <VStack align="stretch" gap="6" position="relative" zIndex="1">
+        <VStack align="stretch" gap={{ base: "4", md: "6" }} position="relative" zIndex="1">
           <HStack justify="space-between" align="start" wrap="wrap" gap="4">
             <VStack align="start" gap="2">
               <HStack gap="2">
@@ -132,14 +132,15 @@ export const AdminHubScreen: React.FC = () => {
                   px="3"
                   py="1"
                   borderRadius="full"
-                  fontSize="2xs"
+                  fontSize="xs"
                   fontWeight="bold"
                   letterSpacing="widest"
                   bg="status.infoSubtle"
                   color="var(--chakra-colors-status-info)"
-                  border="1px solid rgba(56, 189, 248, 0.25)"
+                  border="1px solid"
+                  borderColor="status.infoBorder"
                 >
-                  <Sparkles size={12} style={{ display: "inline", marginRight: 5 }} />
+                  <Sparkles size={12} style={{ flexShrink: 0, display: "inline", marginRight: 5 }} />
                   CENTRO DE COMANDO GYA
                 </Badge>
                 {criticalStock > 0 ? (
@@ -147,7 +148,7 @@ export const AdminHubScreen: React.FC = () => {
                     px="3"
                     py="1"
                     borderRadius="full"
-                    fontSize="2xs"
+                    fontSize="xs"
                     fontWeight="bold"
                     bg="rgba(239, 68, 68, 0.15)"
                     color="var(--chakra-colors-status-danger)"
@@ -160,7 +161,7 @@ export const AdminHubScreen: React.FC = () => {
                     px="3"
                     py="1"
                     borderRadius="full"
-                    fontSize="2xs"
+                    fontSize="xs"
                     fontWeight="bold"
                     bg="rgba(245, 158, 11, 0.15)"
                     color="var(--chakra-colors-status-warning)"
@@ -173,7 +174,7 @@ export const AdminHubScreen: React.FC = () => {
                     px="3"
                     py="1"
                     borderRadius="full"
-                    fontSize="2xs"
+                    fontSize="xs"
                     fontWeight="bold"
                     bg="rgba(52, 211, 153, 0.15)"
                     color="var(--chakra-colors-status-success)"
@@ -194,15 +195,15 @@ export const AdminHubScreen: React.FC = () => {
             </VStack>
 
             <HStack gap="3">
-              <Button asChild size="md" colorPalette="cyan">
+              <Button asChild size="md">
                 <Link href="/admin/ventas">
-                  <ShoppingCart size={16} style={{ marginRight: 6 }} />
+                  <ShoppingCart size={16} style={{ flexShrink: 0, marginRight: 6 }} />
                   Nueva Venta
                 </Link>
               </Button>
               <Button asChild size="md" variant="outline">
                 <Link href="/admin/inventario">
-                  <Plus size={16} style={{ marginRight: 6 }} />
+                  <Plus size={16} style={{ flexShrink: 0, marginRight: 6 }} />
                   Ingresar Stock
                 </Link>
               </Button>
@@ -212,7 +213,7 @@ export const AdminHubScreen: React.FC = () => {
           {/* Mini Tira de Estadísticas del Taller */}
           <SimpleGrid columns={{ base: 2, sm: 4 }} gap="4" pt="4" borderTop="1px solid" borderColor="border.default">
             <VStack align="start" gap="0">
-              <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+              <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
                 Catálogo Activo
               </Text>
               <Heading size="lg" color="text.heading">
@@ -221,7 +222,7 @@ export const AdminHubScreen: React.FC = () => {
             </VStack>
 
             <VStack align="start" gap="0">
-              <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+              <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
                 Stock Total
               </Text>
               <Heading size="lg" color="text.heading">
@@ -230,7 +231,7 @@ export const AdminHubScreen: React.FC = () => {
             </VStack>
 
             <VStack align="start" gap="0">
-              <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+              <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
                 Despachos Realizados
               </Text>
               <Heading size="lg" color="text.heading">
@@ -239,7 +240,7 @@ export const AdminHubScreen: React.FC = () => {
             </VStack>
 
             <VStack align="start" gap="0">
-              <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+              <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
                 Facturación Total
               </Text>
               <Heading size="lg" color="var(--chakra-colors-status-success)">
@@ -251,20 +252,20 @@ export const AdminHubScreen: React.FC = () => {
       </Box>
 
       {/* Grid de Módulos del Sistema */}
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="6">
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={{ base: "4", md: "6" }}>
         {modules.map((mod) => {
           const IconComp = mod.icon;
           return (
             <Box
               key={mod.href}
-              p="7"
+              p={{ base: "4", md: "6" }}
               borderRadius="2xl"
               bg="surface.card"
               border="1px solid"
               borderColor="border.default"
               backdropFilter="blur(16px)"
               boxShadow="var(--chakra-shadows-admin-table)"
-              transition="all 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
+              transition="transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
               _hover={{
                 transform: "translateY(-4px)",
                 borderColor: mod.accentColor,
@@ -283,21 +284,21 @@ export const AdminHubScreen: React.FC = () => {
                     color={mod.accentColor}
                     border={`1px solid ${mod.accentColor}30`}
                   >
-                    <IconComp size={26} strokeWidth={1.8} />
+                    <IconComp size={26} style={{ flexShrink: 0 }} strokeWidth={1.8} />
                   </Box>
 
                   <VStack align="end" gap="0">
                     <Text fontSize="xs" fontWeight="bold" color="text.heading">
                       {mod.stat}
                     </Text>
-                    <Text fontSize="2xs" color="text.muted">
+                    <Text fontSize="xs" color="text.muted">
                       {mod.statDetail}
                     </Text>
                   </VStack>
                 </HStack>
 
                 <VStack align="start" gap="1.5">
-                  <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+                  <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
                     {mod.subtitle}
                   </Text>
                   <Heading size="md" color="text.heading" letterSpacing="-0.01em">
@@ -324,7 +325,7 @@ export const AdminHubScreen: React.FC = () => {
                 >
                   <Link href={mod.href}>
                     <span>Ingresar al Módulo</span>
-                    <ArrowUpRight size={14} style={{ marginLeft: 6 }} />
+                    <ArrowUpRight size={14} style={{ flexShrink: 0, marginLeft: 6 }} />
                   </Link>
                 </Button>
               </Box>

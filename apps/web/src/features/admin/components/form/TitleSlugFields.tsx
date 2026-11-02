@@ -46,7 +46,7 @@ export const TitleSlugFields: React.FC<TitleSlugFieldsProps> = ({
       label={slugLabel}
       required
       helperText={
-        <Text fontSize="2xs" color="text.muted">
+        <Text fontSize="xs" color="text.muted">
           Ruta web: {routePrefix}
           {slug || slugFallback}
         </Text>

@@ -143,8 +143,8 @@ export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint
           <Button variant="outline" size="sm" onClick={() => onClose()}>
             Cerrar
           </Button>
-          <Button colorPalette="blue" size="sm" onClick={onPrint}>
-            <Printer size={16} style={{ marginRight: 6 }} />
+          <Button size="sm" onClick={onPrint}>
+            <Printer size={16} style={{ flexShrink: 0, marginRight: 6 }} />
             Imprimir Documento
           </Button>
         </HStack>

@@ -57,7 +57,7 @@ export const ReportsScreen: React.FC = () => {
   }, []);
 
   return (
-    <Box maxW="1350px" mx="auto" py="8" px={{ base: "4", md: "6" }}>
+    <Box maxW="1350px" mx="auto" py={{ base: "5", md: "8" }} px={{ base: "4", md: "6" }}>
       <AdminNav />
 
       {/* Encabezado */}
@@ -73,12 +73,11 @@ export const ReportsScreen: React.FC = () => {
 
         <Button
           variant="outline"
-          colorPalette="green"
           borderRadius="xl"
           onClick={() => exportOrdersToExcel(orders)}
           size="md"
         >
-          <FileSpreadsheet size={16} style={{ marginRight: 6 }} />
+          <FileSpreadsheet size={16} style={{ flexShrink: 0, marginRight: 6 }} />
           Exportar Ventas a Excel
         </Button>
       </HStack>
@@ -90,7 +89,7 @@ export const ReportsScreen: React.FC = () => {
       <Box p="4" borderRadius="2xl" bg="surface.card" border="1px solid" borderColor="border.default" mb="6">
         <HStack gap="2">
           <Box color="text.muted" pl="2">
-            <Search size={18} />
+            <Search size={18} style={{ flexShrink: 0 }} />
           </Box>
           <Input
             placeholder="Buscar por correlativo (ORD-2026-XXXX), cliente, DNI/RUC o método de pago..."

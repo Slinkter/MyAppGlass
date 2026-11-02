@@ -16,7 +16,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
 
   return (
       <Box
-      p="6"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       bg="surface.card"
       border="1px solid"
@@ -26,7 +26,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
-      transition="all 0.2s ease"
+      transition="transform 0.2s ease, border-color 0.2s ease"
       _hover={{ borderColor: "rgba(56, 189, 248, 0.4)", transform: "translateY(-2px)" }}
     >
       <VStack align="start" gap="3">
@@ -40,7 +40,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
           >
             {isCompany ? "Empresa / RUC" : "Persona Natural"}
           </Badge>
-          <Text fontSize="2xs" color="text.muted" fontFamily="mono">
+          <Text fontSize="xs" color="text.muted" fontFamily="mono">
             {c.dniRuc}
           </Text>
         </HStack>
@@ -57,7 +57,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
         <VStack align="start" gap="2" pt="2" fontSize="xs" color="text.muted" w="full">
           <HStack justify="space-between" w="full">
             <HStack gap="2">
-              <Phone size={14} color="var(--chakra-colors-status-info)" />
+              <Phone size={14} style={{ flexShrink: 0 }} color="var(--chakra-colors-status-info)" />
               <Text>{c.phone}</Text>
             </HStack>
             {c.phone && (
@@ -65,10 +65,9 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
                 asChild
                 size="2xs"
                 variant="ghost"
-                colorPalette="green"
               >
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle size={12} style={{ marginRight: 4 }} />
+                  <MessageCircle size={12} style={{ flexShrink: 0, marginRight: 4 }} />
                   WhatsApp
                 </a>
               </Button>
@@ -76,11 +75,11 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
           </HStack>
 
           <HStack gap="2">
-            <Mail size={14} color="#818cf8" />
+            <Mail size={14} style={{ flexShrink: 0 }} color="#818cf8" />
             <Text truncate maxW="200px">{c.email}</Text>
           </HStack>
           <HStack gap="2">
-            <MapPin size={14} color="var(--chakra-colors-status-success)" />
+            <MapPin size={14} style={{ flexShrink: 0 }} color="var(--chakra-colors-status-success)" />
             <Text truncate maxW="220px">{c.address}</Text>
           </HStack>
         </VStack>
@@ -88,14 +87,13 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
 
       <Box pt="6" w="full">
         <Button
-          colorPalette="cyan"
           variant="subtle"
           size="sm"
           borderRadius="xl"
           w="full"
           onClick={() => onCreateSale(c)}
         >
-          <ShoppingCart size={14} style={{ marginRight: 6 }} />
+          <ShoppingCart size={14} style={{ flexShrink: 0, marginRight: 6 }} />
           Emitir Venta a este Cliente
         </Button>
       </Box>

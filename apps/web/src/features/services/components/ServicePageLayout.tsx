@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { preconnect, preload } from "react-dom";
 import {
   Box,
   Flex,
@@ -28,6 +29,14 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
 
   const activeImageList = React.useMemo(() => imageLists[activeIndex] || [], [imageLists, activeIndex]);
   const activeSystem = React.useMemo(() => systems[activeIndex], [systems, activeIndex]);
+
+  // El visor se carga con `dynamic(ssr:false)`: sin esto la primera foto no se pide hasta que
+  // llegan el JS y el chunk del visor (cascada). React 19 emite estos <link> en el <head> del HTML.
+  const firstImageSrc = activeImageList[0]?.src;
+  if (firstImageSrc) {
+    preconnect("https://firebasestorage.googleapis.com");
+    preload(firstImageSrc, { as: "image", fetchPriority: "high" });
+  }
 
   const handleSelect = React.useCallback((index: number) => {
     startTransition(() => {

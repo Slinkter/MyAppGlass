@@ -56,38 +56,38 @@ const CompanyPoliciesView: React.FC = () => {
 
         {/* Resumen de Garantía y Normativa en 3 Bloques */}
         <SimpleGrid columns={{ base: 1, md: 3 }} gap={4} mb={2}>
-          <AuraSurface p="5" variant="glass">
+          <AuraSurface p={{ base: "3", md: "5" }} variant="glass">
             <HStack gap="3">
               <Box p="2.5" borderRadius="xl" bg="whiteAlpha.100" color="text.accent">
                 <UserCheck size={20} />
               </Box>
               <VStack align="flex-start" gap="0">
                 <Text fontSize="xs" fontWeight="800" color="text.heading">Servicios Residenciales</Text>
-                <Text fontSize="2xs" color="text.muted">Presupuesto 5 días • Garantía 6 meses</Text>
+                <Text fontSize="xs" color="text.muted">Presupuesto 5 días • Garantía 6 meses</Text>
               </VStack>
             </HStack>
           </AuraSurface>
 
-          <AuraSurface p="5" variant="glass">
+          <AuraSurface p={{ base: "3", md: "5" }} variant="glass">
             <HStack gap="3">
               <Box p="2.5" borderRadius="xl" bg="whiteAlpha.100" color="text.accent">
                 <Building2 size={20} />
               </Box>
               <VStack align="flex-start" gap="0">
                 <Text fontSize="xs" fontWeight="800" color="text.heading">Proyectos y Empresas</Text>
-                <Text fontSize="2xs" color="text.muted">Propuesta 30 días • Garantía 12 meses</Text>
+                <Text fontSize="xs" color="text.muted">Propuesta 30 días • Garantía 12 meses</Text>
               </VStack>
             </HStack>
           </AuraSurface>
 
-          <AuraSurface p="5" variant="glass">
+          <AuraSurface p={{ base: "3", md: "5" }} variant="glass">
             <HStack gap="3">
               <Box p="2.5" borderRadius="xl" bg="whiteAlpha.100" color="text.accent">
                 <FileCheck size={20} />
               </Box>
               <VStack align="flex-start" gap="0">
                 <Text fontSize="xs" fontWeight="800" color="text.heading">Ley N° 29733</Text>
-                <Text fontSize="2xs" color="text.muted">Protección de Datos Personales</Text>
+                <Text fontSize="xs" color="text.muted">Protección de Datos Personales</Text>
               </VStack>
             </HStack>
           </AuraSurface>

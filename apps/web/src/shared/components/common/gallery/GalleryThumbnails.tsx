@@ -1,8 +1,9 @@
 "use client";
 import React, { useLayoutEffect } from "react";
-import { Box, Flex, Image, chakra } from "@chakra-ui/react";
+import { Flex, Image, chakra } from "@chakra-ui/react";
 import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar } from "@/components/ui/scroll-area";
 import { GalleryItem } from "@/shared/types/gallery";
+import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 
 interface GalleryThumbnailItemProps {
   img: GalleryItem;
@@ -13,6 +14,8 @@ interface GalleryThumbnailItemProps {
 
 const GalleryThumbnailItem = React.memo(
   ({ img, index, isSelected, onClick }: GalleryThumbnailItemProps) => {
+    // Skeleton hasta que la miniatura carga: ya no "saltan" al llegar cada una a su ritmo.
+    const { loaded, onLoad } = useImageReveal();
     return (
       <chakra.button
         type="button"
@@ -42,6 +45,7 @@ const GalleryThumbnailItem = React.memo(
           borderColor: isSelected ? "text.accent" : "border.strong",
         }}
       >
+        <ImageRevealSkeleton loaded={loaded} borderRadius="xl" />
         <Image
           w="100%"
           h="100%"
@@ -50,8 +54,11 @@ const GalleryThumbnailItem = React.memo(
           objectFit="cover"
           loading="lazy"
           decoding="async"
-          opacity={isSelected ? 1 : 0.6}
-          transition="transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.2s ease"
+          // Las miniaturas usan la foto grande: prioridad baja para no competir con el visor.
+          fetchPriority="low"
+          onLoad={onLoad}
+          opacity={loaded ? (isSelected ? 1 : 0.6) : 0}
+          transition="transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease"
           _groupHover={{
             opacity: 1,
             transform: "scale(1.1)",

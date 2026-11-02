@@ -273,7 +273,7 @@ export function ContactFormSection({
           >
             ENVIAR SOLICITUD <Send size={18} style={{ marginLeft: '8px', flexShrink: 0 }} />
           </Button>
-          <HStack gap="1" color="text.muted" fontSize="2xs" justify="center">
+          <HStack gap="1" color="text.muted" fontSize="xs" justify="center">
             <Lock size={12} />
             <Text fontWeight="600">Tus datos están protegidos. Respuesta en menos de 24 horas hábiles.</Text>
           </HStack>

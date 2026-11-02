@@ -13,7 +13,7 @@ interface ClientDataCardProps {
 export const ClientDataCard: React.FC<ClientDataCardProps> = ({ clientForm, onChange }) => {
   return (
     <Box
-      p="6"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       bg="surface.card"
       border="1px solid"
@@ -23,7 +23,7 @@ export const ClientDataCard: React.FC<ClientDataCardProps> = ({ clientForm, onCh
     >
       <HStack mb="4" gap="2.5">
         <Box p="2" borderRadius="lg" bg="status.infoSoft" color="var(--chakra-colors-status-info)">
-          <UserCheck size={18} />
+          <UserCheck size={18} style={{ flexShrink: 0 }} />
         </Box>
         <Heading size="md" color="text.heading">
           1. Datos del Cliente / Empresa

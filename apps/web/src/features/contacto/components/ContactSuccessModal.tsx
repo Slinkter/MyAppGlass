@@ -99,7 +99,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
               Hemos registrado tu solicitud de cotización correctamente.
             </Text>
             <VStack gap={1} bg="surface.muted" p={3} borderRadius="xl" border="1px solid" borderColor="border.default" w="full">
-              <Text fontSize="2xs" color="text.muted" fontWeight="800" letterSpacing="widest" textTransform="uppercase">
+              <Text fontSize="xs" color="text.muted" fontWeight="800" letterSpacing="widest" textTransform="uppercase">
                 Código de Seguimiento
               </Text>
               <Text fontSize="lg" fontWeight="900" color="text.heading">
@@ -120,7 +120,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
         </DialogBody>
 
         <DialogFooter>
-          <Button colorPalette="primary" variant="aura" borderRadius="full" w="full" onClick={onClose} fontWeight="800">
+          <Button variant="aura" borderRadius="full" w="full" onClick={onClose} fontWeight="800">
             Volver al Inicio Ahora
           </Button>
         </DialogFooter>

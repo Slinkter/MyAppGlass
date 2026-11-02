@@ -98,6 +98,8 @@ export const ProjectDetailCard: React.FC<ProjectDetailCardProps> = React.memo(({
         <IconButton
           aria-label="Cerrar detalles"
           size="xs"
+          minW="11"
+          minH="11"
           onClick={onClose}
           position="absolute"
           top="3"
@@ -108,7 +110,7 @@ export const ProjectDetailCard: React.FC<ProjectDetailCardProps> = React.memo(({
           color="white"
           _hover={{ bg: "blackAlpha.800" }}
         >
-          <Box as={X} boxSize={4} />
+          <Box as={X} boxSize={4} style={{ flexShrink: 0 }} />
         </IconButton>
       )}
 
@@ -129,30 +131,34 @@ export const ProjectDetailCard: React.FC<ProjectDetailCardProps> = React.memo(({
           <IconButton
             aria-label="Foto anterior"
             size="xs"
+            minW="11"
+            minH="11"
             onClick={handlePrevImage}
             pointerEvents="auto"
             borderRadius="full"
             bg="blackAlpha.600"
             color="white"
           >
-            <Box as={ChevronLeft} boxSize={4} />
+            <Box as={ChevronLeft} boxSize={4} style={{ flexShrink: 0 }} />
           </IconButton>
           <IconButton
             aria-label="Siguiente foto"
             size="xs"
+            minW="11"
+            minH="11"
             onClick={handleNextImage}
             pointerEvents="auto"
             borderRadius="full"
             bg="blackAlpha.600"
             color="white"
           >
-            <Box as={ChevronRight} boxSize={4} />
+            <Box as={ChevronRight} boxSize={4} style={{ flexShrink: 0 }} />
           </IconButton>
         </Flex>
       )}
 
       {/* Información Inferior Limpia */}
-      <VStack p="5" zIndex={2} w="full" align="flex-start" gap="1.5">
+      <VStack p={{ base: "4", md: "5" }} zIndex={2} w="full" align="flex-start" gap="1.5">
         <Heading 
           size="md" 
           color="white" 
@@ -163,7 +169,7 @@ export const ProjectDetailCard: React.FC<ProjectDetailCardProps> = React.memo(({
         </Heading>
 
         <HStack gap={1.5} color="whiteAlpha.900" fontSize="xs">
-          <Box as={MapPin} boxSize={3.5} />
+          <Box as={MapPin} boxSize={3.5} style={{ flexShrink: 0 }} />
           <Text fontWeight="500">{selectedMarker?.address}</Text>
         </HStack>
       </VStack>

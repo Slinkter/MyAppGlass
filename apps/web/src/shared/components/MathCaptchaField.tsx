@@ -50,12 +50,12 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
       borderRadius="xl"
       borderWidth="1.5px"
       borderColor={error ? "red.500" : { base: "gray.200", _dark: "whiteAlpha.200" }}
-      transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+      transition="background-color 0.2s ease, border-color 0.2s ease"
     >
       <VStack align="stretch" gap="2.5">
         <HStack justify="space-between" align="center">
           <HStack gap="1.5" color={error ? "red.500" : "text.accent"}>
-            <ShieldCheck size={16} />
+            <ShieldCheck size={16} style={{ flexShrink: 0 }} />
             <Text fontSize="xs" fontWeight="700" letterSpacing="wide" textTransform="uppercase">
               Verificación de Seguridad
             </Text>
@@ -64,13 +64,15 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
           <IconButton
             size="xs"
             variant="ghost"
+            minW={{ base: "11", md: "auto" }}
+            minH={{ base: "11", md: "auto" }}
             aria-label="Generar nueva operación matemática"
             title="Cambiar operación"
             onClick={refreshChallenge}
             transform={isRotating ? "rotate(180deg)" : "rotate(0deg)"}
             transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
           >
-            <RotateCcw size={14} />
+            <RotateCcw size={14} style={{ flexShrink: 0 }} />
           </IconButton>
         </HStack>
 
@@ -124,7 +126,7 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
 
         {error && (
           <HStack id={`${id}-error`} role="alert" aria-live="polite" gap="1.5" color="red.500" fontSize="xs" fontWeight="600" pt="0.5">
-            <AlertCircle size={14} />
+            <AlertCircle size={14} style={{ flexShrink: 0 }} />
             <Text>{error}</Text>
           </HStack>
         )}

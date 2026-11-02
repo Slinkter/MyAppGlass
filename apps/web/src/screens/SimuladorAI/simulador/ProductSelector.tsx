@@ -14,7 +14,7 @@ export const ProductSelector: React.FC<ProductSelectorProps> = ({ selectedProduc
   return (
     <Box
       bg="surface.card"
-      p="6"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       border="1px solid"
       borderColor="border.glass"

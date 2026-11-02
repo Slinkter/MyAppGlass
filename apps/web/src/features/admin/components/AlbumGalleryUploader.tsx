@@ -220,14 +220,14 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
 
       {/* Zona de Drop para agregar imágenes al álbum */}
       <Box
-        p="5"
+        p={{ base: "3", md: "5" }}
         borderRadius="xl"
         border="2px dashed"
         borderColor={isDragging ? "brand.primary" : "border.subtle"}
         bg={isDragging ? "rgba(56, 189, 248, 0.08)" : "bg.subtle"}
         cursor={disabled || uploading ? "not-allowed" : "pointer"}
         textAlign="center"
-        transition="all 0.2s ease"
+        transition="border-color 0.2s ease, background-color 0.2s ease"
         onClick={() => fileInputRef.current?.click()}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -254,7 +254,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
               <Text fontSize="xs" fontWeight="medium" color="text.primary">
                 Arrastra múltiples fotos para el álbum o haz clic aquí
               </Text>
-              <Text fontSize="2xs" color="text.muted">
+              <Text fontSize="xs" color="text.muted">
                 Hasta {maxFiles} imágenes (PNG, JPG, WebP de máx {maxSizeMB}MB c/u)
               </Text>
             </VStack>
@@ -281,7 +281,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
               bg="surface.card"
               overflow="hidden"
               boxShadow="0 4px 12px var(--chakra-colors-overlay-subtle)"
-              transition="all 0.2s ease"
+              transition="border-color 0.2s ease, box-shadow 0.2s ease"
               _hover={{ borderColor: "brand.primary", boxShadow: "0 6px 16px var(--chakra-colors-overlay-faint)" }}
             >
               {/* Thumbnail Container */}
@@ -304,7 +304,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
                   variant="solid"
                   borderRadius="full"
                   px="2"
-                  fontSize="2xs"
+                  fontSize="xs"
                 >
                   #{index + 1}
                 </Badge>
@@ -315,7 +315,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
                   top="2"
                   right="2"
                   gap="1"
-                  bg="rgba(0, 0, 0, 0.6)"
+                  bg="blackAlpha.700"
                   p="1"
                   borderRadius="md"
                   backdropFilter="blur(4px)"
@@ -379,7 +379,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
                     </Button>
                   </HStack>
 
-                  <HStack gap="1" color="text.muted" fontSize="2xs">
+                  <HStack gap="1" color="text.muted" fontSize="xs">
                     <GripVertical size={12} style={{ flexShrink: 0 }} />
                     <Text>Posición {index + 1}</Text>
                   </HStack>

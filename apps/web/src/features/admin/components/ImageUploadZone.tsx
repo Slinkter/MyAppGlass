@@ -178,7 +178,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
         }
         p="4"
         cursor={disabled || uploading ? "not-allowed" : "pointer"}
-        transition="all 0.2s ease"
+        transition="border-color 0.2s ease, background-color 0.2s ease"
         onClick={handleZoneClick}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -210,7 +210,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
             <Box
               position="absolute"
               inset="0"
-              bg="rgba(0, 0, 0, 0.45)"
+              bg="blackAlpha.600"
               opacity="0"
               _hover={{ opacity: 1 }}
               display="flex"
@@ -228,8 +228,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
               <HStack gap="2">
                 <Button
                   size="xs"
-                  variant="subtle"
-                  colorPalette="gray"
+                  variant="outline"
                   onClick={(e) => {
                     e.stopPropagation();
                     window.open(value, "_blank", "noopener,noreferrer");
@@ -239,9 +238,9 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
                   Ver original
                 </Button>
                 <Button
+                  color="red.500"
                   size="xs"
-                  colorPalette="red"
-                  variant="solid"
+                  variant="outline"
                   onClick={handleRemove}
                 >
                   <Trash2 size={14} style={{ flexShrink: 0 }} />
@@ -275,7 +274,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
                   borderRadius="full"
                   bg="bg.subtle"
                   color={isDragging ? "brand.primary" : "text.muted"}
-                  transition="all 0.2s ease"
+                  transition="background-color 0.2s ease, color 0.2s ease"
                 >
                   {isDragging ? (
                     <ImageIcon size={28} style={{ flexShrink: 0 }} />

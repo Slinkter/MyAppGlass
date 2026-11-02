@@ -86,7 +86,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                   border="1px solid"
                   borderColor="border.default"
                   bg="bg.subtle"
-                  transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                  transition="border-color 0.2s ease, color 0.2s ease"
                   _hover={{
                     color: "text.primary",
                     borderColor: "brand.primary",
@@ -126,7 +126,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                       border="1px solid"
                       borderColor={isActive ? "border.default" : "transparent"}
                       boxShadow={isActive ? "0 2px 8px var(--chakra-colors-overlay-subtle)" : "none"}
-                      transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                      transition="background-color 0.2s ease, box-shadow 0.2s ease"
                       _hover={{
                         color: "brand.primary",
                         bg: "bg.subtle",
@@ -150,7 +150,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                   px="2.5"
                   py="1"
                   borderRadius="full"
-                  fontSize="2xs"
+                  fontSize="xs"
                   fontWeight="600"
                   colorPalette="blue"
                   variant="subtle"

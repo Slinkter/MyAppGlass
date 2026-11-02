@@ -128,7 +128,7 @@ export const SalesOrderScreen: React.FC = () => {
   });
 
   return (
-    <Box maxW="1350px" mx="auto" py="8" px={{ base: "4", md: "6" }}>
+    <Box maxW="1350px" mx="auto" py={{ base: "5", md: "8" }} px={{ base: "4", md: "6" }}>
       <AdminNav />
 
       {/* Encabezado */}
@@ -143,8 +143,8 @@ export const SalesOrderScreen: React.FC = () => {
         </VStack>
 
         {items.length > 0 && (
-          <Button variant="ghost" colorPalette="red" size="sm" borderRadius="xl" onClick={clearDraft}>
-            <RefreshCw size={14} style={{ marginRight: 6 }} />
+          <Button variant="ghost" color="status.danger" size="sm" borderRadius="xl" onClick={clearDraft}>
+            <RefreshCw size={14} style={{ flexShrink: 0, marginRight: 6 }} />
             Limpiar Borrador ({items.length} partidas)
           </Button>
         )}
@@ -152,8 +152,8 @@ export const SalesOrderScreen: React.FC = () => {
 
       {completedOrderId && <OrderSuccessBanner orderId={completedOrderId} onNewSale={() => setCompletedOrderId(null)} />}
 
-      <SimpleGrid columns={{ base: 1, lg: 12 }} gap="6">
-        <VStack align="stretch" gap="6" gridColumn={{ lg: "span 7" }}>
+      <SimpleGrid columns={{ base: 1, lg: 12 }} gap={{ base: "4", md: "6" }}>
+        <VStack align="stretch" gap={{ base: "4", md: "6" }} gridColumn={{ lg: "span 7" }}>
           <ClientDataCard clientForm={clientForm} onChange={handleUpdateClient} />
           <ProductPickerCard
             products={filteredProducts}
@@ -168,7 +168,7 @@ export const SalesOrderScreen: React.FC = () => {
           />
         </VStack>
 
-        <VStack align="stretch" gap="6" gridColumn={{ lg: "span 5" }}>
+        <VStack align="stretch" gap={{ base: "4", md: "6" }} gridColumn={{ lg: "span 5" }}>
           <OrderSummaryCard
             items={items}
             totalUnits={totalUnits}

@@ -39,7 +39,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
 }) => {
   return (
     <Box
-      p="6"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       bg="surface.card"
       border="1px solid"
@@ -50,7 +50,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
       <HStack justify="space-between" mb="4">
         <HStack gap="2.5">
           <Box p="2" borderRadius="lg" bg="status.infoSoft" color="var(--chakra-colors-status-info)">
-            <ShoppingCart size={18} />
+            <ShoppingCart size={18} style={{ flexShrink: 0 }} />
           </Box>
           <Heading size="md" color="text.heading">
             Orden de Despacho
@@ -63,7 +63,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
 
       {/* Lista de Ítems en la Orden */}
       {items.length === 0 ? (
-        <Box p="8" textAlign="center" borderRadius="xl" bg="bg.subtle" border="1px dashed" borderColor="border.default">
+        <Box p={{ base: "5", md: "8" }} textAlign="center" borderRadius="xl" bg="bg.subtle" border="1px dashed" borderColor="border.default">
           <Text color="text.muted" fontSize="xs">
             Selecciona productos del catálogo izquierdo para agregarlos a la orden de despacho.
           </Text>
@@ -84,7 +84,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
                 <Text fontSize="xs" fontWeight="bold" color="text.heading">
                   {item.name}
                 </Text>
-                <Text fontSize="2xs" color="text.muted">
+                <Text fontSize="xs" color="text.muted">
                   {item.quantity} {item.unit} x S/. {item.unitPrice.toFixed(2)}
                 </Text>
               </VStack>
@@ -96,10 +96,10 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
                 <Button
                   size="2xs"
                   variant="ghost"
-                  colorPalette="red"
+                  color="status.danger"
                   onClick={() => onRemoveItem(item.productId)}
                 >
-                  <Trash2 size={12} />
+                  <Trash2 size={12} style={{ flexShrink: 0 }} />
                 </Button>
               </HStack>
             </HStack>
@@ -174,7 +174,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
       {errorMessage && (
         <Box p="3" mb="3" borderRadius="xl" bg="status.dangerSoft" color="var(--chakra-colors-status-danger)" border="1px solid rgba(239, 68, 68, 0.25)" fontSize="xs">
           <HStack gap="2">
-            <AlertCircle size={14} />
+            <AlertCircle size={14} style={{ flexShrink: 0 }} />
             <Text>{errorMessage}</Text>
           </HStack>
         </Box>
@@ -182,7 +182,6 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
 
       {/* Botón de Emisión Atómica */}
       <Button
-        colorPalette="cyan"
         size="lg"
         borderRadius="xl"
         w="full"
@@ -190,7 +189,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
         disabled={items.length === 0 || isSubmitting}
         onClick={onSubmit}
       >
-        <CheckCircle2 size={18} style={{ marginRight: 8 }} />
+        <CheckCircle2 size={18} style={{ flexShrink: 0, marginRight: 8 }} />
         Emitir Orden y Despachar Stock
       </Button>
     </Box>

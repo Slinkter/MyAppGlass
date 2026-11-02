@@ -18,17 +18,18 @@ import React, { createContext, useContext, useEffect, useMemo } from "react";
 
 import { useGallery, UseGalleryReturn } from "@shared/hooks/ui/useGallery";
 import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const InternalViewer = dynamic(() => import("./gallery/GalleryViewer"), {
     ssr: false, // Opcional, pero recomendado para galerías pesadas
-    loading: () => <Box h="400px" bg="bg.subtle" borderRadius="3xl" />,
+    loading: () => <Skeleton flex="1" w="full" h="full" minH="0" borderRadius="3xl" />,
 });
 
 const InternalThumbnails = dynamic(
     () => import("./gallery/GalleryThumbnails"),
     {
         ssr: false,
-        loading: () => <Box h="100px" bg="bg.subtle" borderRadius="xl" />,
+        loading: () => <Skeleton h={{ base: "96px", md: "full" }} w={{ base: "full", md: "120px" }} borderRadius="xl" />,
     },
 );
 import { X } from "lucide-react";

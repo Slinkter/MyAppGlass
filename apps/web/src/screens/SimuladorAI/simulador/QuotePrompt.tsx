@@ -15,7 +15,7 @@ export const QuotePrompt: React.FC<QuotePromptProps> = ({ selectedProduct }) => 
   return (
     <Box
           bg="surface.card"
-          p="6"
+          p={{ base: "4", md: "6" }}
           borderRadius="2xl"
           border="2px solid"
           borderColor="purple.400"
@@ -23,16 +23,16 @@ export const QuotePrompt: React.FC<QuotePromptProps> = ({ selectedProduct }) => 
         >
           <HStack justify="space-between" mb="3">
             <Heading size="md" color="purple.300" display="flex" alignItems="center" gap="2">
-              <Eye size={20} /> Simulación Compuesta Lista
+              <Eye size={20} style={{ flexShrink: 0 }} /> Simulación Compuesta Lista
             </Heading>
             <Badge colorPalette="green">Listo para Cotizar</Badge>
           </HStack>
           <Text fontSize="sm" color="text.muted" mb="4">
             ¿Te gusta cómo encaja {selectedProduct.name} en tu habitación? Puedes generar la cotización oficial ahora mismo.
           </Text>
-          <Button asChild colorPalette="blue" w="full" size="lg">
+          <Button asChild variant="aura" w="full" size="lg">
             <Link href="/presupuesto">
-              Cotizar este Sistema Exacto en PDF <ArrowRight size={18} />
+              Cotizar este Sistema Exacto en PDF <ArrowRight size={18} style={{ flexShrink: 0 }} />
             </Link>
           </Button>
         </Box>

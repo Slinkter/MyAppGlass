@@ -42,7 +42,7 @@ export const ReplenishStockModal: React.FC<ReplenishStockModalProps> = ({
     >
       <Box
         bg="surface.card"
-        p="6"
+        p={{ base: "4", md: "6" }}
         borderRadius="2xl"
         maxW="440px"
         w="full"
@@ -55,7 +55,7 @@ export const ReplenishStockModal: React.FC<ReplenishStockModalProps> = ({
             Entrada Rápida de Stock
           </Heading>
           <Button size="xs" variant="ghost" onClick={() => onClose()}>
-            <X size={18} />
+            <X size={18} style={{ flexShrink: 0 }} />
           </Button>
         </HStack>
 
@@ -100,13 +100,12 @@ export const ReplenishStockModal: React.FC<ReplenishStockModalProps> = ({
               Cancelar
             </Button>
             <Button
-              colorPalette="green"
               size="sm"
               borderRadius="xl"
               loading={actionLoading}
               onClick={onConfirm}
             >
-              <PlusCircle size={16} style={{ marginRight: 6 }} />
+              <PlusCircle size={16} style={{ flexShrink: 0, marginRight: 6 }} />
               Confirmar Ingreso
             </Button>
           </HStack>

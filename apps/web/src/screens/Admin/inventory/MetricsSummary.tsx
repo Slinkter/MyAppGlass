@@ -43,7 +43,7 @@ export const MetricsSummary: React.FC<MetricsSummaryProps> = ({ products }) => {
       subtitle: `${metrics.totalUnits} unidades en stock`,
       color: "status.info",
       bg: "status.infoSoft",
-      icon: <Package size={22} />,
+      icon: <Package size={22} style={{ flexShrink: 0 }} />,
     },
     {
       label: "Stock Crítico",
@@ -51,7 +51,7 @@ export const MetricsSummary: React.FC<MetricsSummaryProps> = ({ products }) => {
       subtitle: "Productos agotados (0 stock)",
       color: metrics.criticalStock > 0 ? "status.danger" : "status.success",
       bg: "status.dangerSoft",
-      icon: <AlertTriangle size={22} />,
+      icon: <AlertTriangle size={22} style={{ flexShrink: 0 }} />,
       iconColor: "status.danger",
     },
     {
@@ -60,7 +60,7 @@ export const MetricsSummary: React.FC<MetricsSummaryProps> = ({ products }) => {
       subtitle: "Bajo umbral de alerta mínima",
       color: metrics.lowStock > 0 ? "status.warning" : "status.success",
       bg: "status.warningSoft",
-      icon: <TrendingUp size={22} />,
+      icon: <TrendingUp size={22} style={{ flexShrink: 0 }} />,
       iconColor: "status.warning",
     },
     {
@@ -69,7 +69,7 @@ export const MetricsSummary: React.FC<MetricsSummaryProps> = ({ products }) => {
       subtitle: "Valor de venta comercial",
       color: "status.success",
       bg: "status.successSoft",
-      icon: <DollarSign size={22} />,
+      icon: <DollarSign size={22} style={{ flexShrink: 0 }} />,
     },
   ];
 
@@ -78,7 +78,7 @@ export const MetricsSummary: React.FC<MetricsSummaryProps> = ({ products }) => {
       {cards.map((card) => (
         <Box
           key={card.label}
-          p="5"
+          p={{ base: "4", md: "6" }}
           borderRadius="2xl"
           bg="surface.card"
           border="1px solid"
@@ -88,7 +88,7 @@ export const MetricsSummary: React.FC<MetricsSummaryProps> = ({ products }) => {
         >
           <HStack justify="space-between" align="start">
             <VStack align="start" gap="1">
-              <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+              <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
                 {card.label}
               </Text>
               <Heading size="xl" color="text.heading">

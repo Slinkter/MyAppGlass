@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import AdminRowActions from "./AdminRowActions";
 import {
   Box,
   VStack,
@@ -11,8 +12,6 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import {
-  Edit2,
-  Trash2,
   Building2,
   MapPin,
   User,
@@ -53,7 +52,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
     >
       {/* Header bar del módulo */}
       <HStack
-        p="5"
+        p={{ base: "3", md: "5" }}
         justify="space-between"
         wrap="wrap"
         gap="3"
@@ -78,7 +77,6 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
 
         <Button
           size="sm"
-          colorPalette="purple"
           onClick={onCreateNew}
           style={{ cursor: "pointer" }}
         >
@@ -89,14 +87,14 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
 
       {/* Contenido / Tabla */}
       {loading ? (
-        <Box p="16" textAlign="center">
+        <Box p={{ base: "8", md: "16" }} textAlign="center">
           <Spinner size="xl" color="purple.500" />
           <Text mt="4" color="text.muted" fontSize="sm">
             Cargando portafolio de proyectos desde Firebase Firestore...
           </Text>
         </Box>
       ) : projects.length === 0 ? (
-        <Box p="16" textAlign="center">
+        <Box p={{ base: "8", md: "16" }} textAlign="center">
           <Box
             p="3"
             borderRadius="full"
@@ -116,7 +114,6 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
           <Button
             mt="4"
             size="sm"
-            colorPalette="purple"
             onClick={onCreateNew}
           >
             <PlusCircle size={16} style={{ flexShrink: 0 }} />
@@ -125,28 +122,28 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
         </Box>
       ) : (
         <Box overflowX="auto">
-          <Box as="table" w="full" textAlign="left" style={{ borderCollapse: "collapse" }}>
+          <Box as="table" w="full" minW="640px" textAlign="left" style={{ borderCollapse: "collapse" }}>
             <Box as="thead" bg="bg.subtle" borderBottom="1px solid" borderColor="border.default">
               <Box as="tr">
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Proyecto / Obra
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Cliente & Ubicación
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Servicio Vinculado
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Álbum Fotográfico
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Año / Conclusión
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Estado
                 </Box>
-                <Box as="th" p="4" textAlign="right" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" textAlign="right" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Acciones
                 </Box>
               </Box>
@@ -216,7 +213,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
                         <User size={13} style={{ flexShrink: 0, color: "var(--chakra-colors-accent-violet)" }} />
                         <Text fontWeight="medium">{proj.client}</Text>
                       </HStack>
-                      <HStack gap="1.5" fontSize="2xs" color="text.muted">
+                      <HStack gap="1.5" fontSize="xs" color="text.muted">
                         <MapPin size={12} style={{ flexShrink: 0 }} />
                         <Text>{proj.location}</Text>
                       </HStack>
@@ -275,25 +272,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
 
                   {/* Acciones */}
                   <Box as="td" p="4" textAlign="right">
-                    <HStack justify="flex-end" gap="1.5">
-                      <Button
-                        size="xs"
-                        variant="subtle"
-                        colorPalette="purple"
-                        onClick={() => onEdit(proj)}
-                      >
-                        <Edit2 size={12} style={{ flexShrink: 0 }} />
-                        Editar
-                      </Button>
-                      <Button
-                        size="xs"
-                        variant="ghost"
-                        colorPalette="red"
-                        onClick={() => onDelete(proj)}
-                      >
-                        <Trash2 size={12} style={{ flexShrink: 0 }} />
-                      </Button>
-                    </HStack>
+                    <AdminRowActions onEdit={() => onEdit(proj)} onDelete={() => onDelete(proj)} />
                   </Box>
                 </Box>
               ))}

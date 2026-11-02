@@ -81,13 +81,13 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
               borderColor="primary.500"
               textAlign="center"
             >
-              <Text fontSize="2xs" fontWeight="800" color="text.muted" letterSpacing="0.15em" textTransform="uppercase">
+              <Text fontSize="xs" fontWeight="800" color="text.muted" letterSpacing="0.15em" textTransform="uppercase">
                 CÓDIGO DE SEGUIMIENTO OFICIAL
               </Text>
               <Text fontSize="xl" fontWeight="900" color="text.accent" fontFamily="monospace" my="1">
                 {trackingId || "GYA-REC-OK"}
               </Text>
-              <Text fontSize="2xs" color="text.muted">
+              <Text fontSize="xs" color="text.muted">
                 Guarde este código para consultar el avance de su solicitud en cualquier momento.
               </Text>
             </Box>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideArrowRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -17,6 +18,8 @@ interface BlogCardProps {
  * @description Premium blog card with smooth 120Hz hover effects.
  */
 const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
+  // La tarjeta se revela (foto + textos) cuando la portada termina de cargar.
+  const { loaded, onLoad, reveal } = useImageReveal();
   const formattedDate = useMemo(
     () => new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' }),
     [post.date],
@@ -45,26 +48,31 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
       >
         {/* Image Container */}
         <Box position="relative" h="240px" overflow="hidden">
-          <ResponsiveImage
-            src={post.image}
-            alt={post.title}
-            w="full"
-            h="full"
-            objectFit="cover"
-            loading="lazy"
-            transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
-            _groupHover={{ transform: "scale(1.1)" }}
-          />
+          <ImageRevealSkeleton loaded={loaded} />
+          <Box position="absolute" inset={0} {...reveal}>
+            <ResponsiveImage
+              src={post.image}
+              alt={post.title}
+              w="full"
+              h="full"
+              objectFit="cover"
+              loading="lazy"
+              onLoad={onLoad}
+              transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
+              _groupHover={{ transform: "scale(1.1)" }}
+            />
+          </Box>
           <Box 
             position="absolute" 
             inset={0} 
             bgGradient="to-t"
             gradientFrom="blackAlpha.600"
             gradientTo="transparent"
+            {...reveal}
           />
           
           {/* Tag Overlay */}
-          <HStack position="absolute" top="6" left="6" gap="2">
+          <HStack position="absolute" top={{ base: "4", md: "6" }} left={{ base: "4", md: "6" }} gap="2" {...reveal}>
             {post.tags.slice(0, 2).map((tag) => (
               <Badge 
                 key={tag} 
@@ -85,7 +93,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
         </Box>
 
         {/* Content Container */}
-        <VStack p="8" align="flex-start" gap="6" flex="1">
+        <VStack p={{ base: "4", md: "6" }} align="flex-start" gap={{ base: "4", md: "6" }} flex="1">
           <VStack align="flex-start" gap="2" w="full">
             <HStack color="text.muted" fontSize="xs" gap="6">
               <HStack gap="2">

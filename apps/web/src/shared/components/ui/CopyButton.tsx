@@ -42,13 +42,15 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ value, label }) => {
     <Tooltip content={`Copiar ${label}`}>
       <IconButton
         size="sm"
+        minW={{ base: "11", md: "auto" }}
+        minH={{ base: "11", md: "auto" }}
         aria-label={`Copiar ${label}`}
         onClick={handleCopy}
         variant="ghost"
         colorPalette={hasCopied ? "green" : "gray"}
         borderRadius="full"
       >
-        {hasCopied ? <Check size={16} /> : <Copy size={16} />}
+        {hasCopied ? <Check size={16} style={{ flexShrink: 0 }} /> : <Copy size={16} style={{ flexShrink: 0 }} />}
       </IconButton>
     </Tooltip>
   );

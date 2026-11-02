@@ -104,10 +104,10 @@ export const SimuladorAIScreen: React.FC = () => {
       {/* CABECERA */}
       <VStack gap="2" align="start" mb="8">
         <HStack gap="2" flexWrap="wrap">
-          <Badge colorPalette="purple" variant="subtle" px="3" py="1" borderRadius="full" whiteSpace="normal" textAlign="left">
+          <Badge variant="subtle" px="3" py="1" borderRadius="full" whiteSpace="normal" textAlign="left">
             <Sparkles size={14} style={{ marginRight: 4, flexShrink: 0 }} /> Generador de Espacios con IA (Inpainting)
           </Badge>
-          <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full" whiteSpace="normal">
+          <Badge variant="subtle" px="3" py="1" borderRadius="full" whiteSpace="normal">
             Composición Interactiva
           </Badge>
         </HStack>

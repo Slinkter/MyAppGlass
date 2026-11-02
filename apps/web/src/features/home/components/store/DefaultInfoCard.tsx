@@ -12,7 +12,7 @@ import { MapPin, Clock, Navigation } from "lucide-react";
 export const DefaultInfoCard: React.FC = React.memo(() => {
   return (
     <VStack
-      p={{ base: "6", sm: "8" }}
+      p={{ base: "4", md: "6" }}
       w="full"
       h="full"
       flex={1}
@@ -26,7 +26,7 @@ export const DefaultInfoCard: React.FC = React.memo(() => {
         {/* Sección Horarios */}
         <VStack gap="1.5" align="flex-start" w="full">
           <HStack gap={2} color="text.accent">
-            <Box as={Clock} boxSize={4} aria-hidden="true" />
+            <Box as={Clock} boxSize={4} aria-hidden="true" style={{ flexShrink: 0 }} />
             <Text fontWeight="700" fontSize="xs" textTransform="uppercase" letterSpacing="0.15em">
               Horarios de Atención
             </Text>
@@ -42,7 +42,7 @@ export const DefaultInfoCard: React.FC = React.memo(() => {
         {/* Sección Dirección */}
         <VStack gap="1.5" align="flex-start" w="full">
           <HStack gap={2} color="text.accent">
-            <Box as={MapPin} boxSize={4} aria-hidden="true" />
+            <Box as={MapPin} boxSize={4} aria-hidden="true" style={{ flexShrink: 0 }} />
             <Text fontWeight="700" fontSize="xs" textTransform="uppercase" letterSpacing="0.15em">
               Dirección Principal
             </Text>
@@ -67,7 +67,7 @@ export const DefaultInfoCard: React.FC = React.memo(() => {
         mt="4"
       >
         <HStack gap={2} align="center" justify="center">
-          <Box as={Navigation} boxSize={4} />
+          <Box as={Navigation} boxSize={4} style={{ flexShrink: 0 }} />
           <Text>CÓMO LLEGAR</Text>
         </HStack>
       </Button>

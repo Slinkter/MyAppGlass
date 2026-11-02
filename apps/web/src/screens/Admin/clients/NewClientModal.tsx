@@ -41,7 +41,7 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
       as="form"
       onSubmit={onSubmit}
       bg="surface.card"
-      p="7"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       maxW="520px"
       w="full"
@@ -54,7 +54,7 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
           Registrar Nuevo Cliente / Empresa
         </Heading>
         <Button size="xs" variant="ghost" onClick={() => onClose()}>
-          <X size={18} />
+          <X size={18} style={{ flexShrink: 0 }} />
         </Button>
       </HStack>
 
@@ -158,8 +158,8 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
           <Button variant="outline" size="sm" borderRadius="xl" type="button" onClick={() => onClose()}>
             Cancelar
           </Button>
-          <Button colorPalette="cyan" size="sm" borderRadius="xl" type="submit" loading={actionLoading}>
-            <CheckCircle2 size={16} style={{ marginRight: 6 }} />
+          <Button size="sm" borderRadius="xl" type="submit" loading={actionLoading}>
+            <CheckCircle2 size={16} style={{ flexShrink: 0, marginRight: 6 }} />
             Guardar Cliente
           </Button>
         </HStack>

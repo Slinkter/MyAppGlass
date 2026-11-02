@@ -53,7 +53,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
                 _hover={{ bg: "bg.subtle" }}
                 transition="background-color 0.15s ease"
               >
-                <Box p="5">
+                <Box p={{ base: "3", md: "5" }}>
                   <HStack justify="space-between" align="center" wrap="wrap" gap="3">
                     <HStack gap="3">
                       <Button
@@ -61,7 +61,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
                         variant="ghost"
                         onClick={() => onToggleExpand(ord.id || ord.orderNumber)}
                       >
-                        {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                        {isExpanded ? <ChevronUp size={16} style={{ flexShrink: 0 }} /> : <ChevronDown size={16} style={{ flexShrink: 0 }} />}
                       </Button>
                       <VStack align="start" gap="0.5">
                         <HStack gap="2">
@@ -80,7 +80,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
 
                     <HStack gap="4">
                       <VStack align="end" gap="0">
-                        <Text fontSize="2xs" color="text.muted">
+                        <Text fontSize="xs" color="text.muted">
                           {orderDate} · {ord.paymentMethod.replace(/_/g, " ")}
                         </Text>
                         <Heading size="sm" color="var(--chakra-colors-status-success)">
@@ -94,7 +94,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
                         borderRadius="lg"
                         onClick={() => onPrint(ord)}
                       >
-                        <Printer size={14} style={{ marginRight: 4 }} />
+                        <Printer size={14} style={{ flexShrink: 0, marginRight: 4 }} />
                         Guía A4
                       </Button>
                     </HStack>
@@ -103,7 +103,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
                   {/* Detalle Expandible de Partidas */}
                   {isExpanded && (
                     <Box mt="4" pt="4" borderTop="1px dashed" borderColor="border.default">
-                      <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" mb="2">
+                      <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" mb="2">
                         Partidas Despachadas ({ord.items.length} ítems):
                       </Text>
                       <VStack align="stretch" gap="1.5">
@@ -126,7 +126,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
                         ))}
                       </VStack>
                       {ord.notes && (
-                        <Text fontSize="2xs" color="text.muted" mt="2">
+                        <Text fontSize="xs" color="text.muted" mt="2">
                           <strong>Notas:</strong> {ord.notes}
                         </Text>
                       )}

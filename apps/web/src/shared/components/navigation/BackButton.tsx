@@ -36,7 +36,7 @@ const BackButton: React.FC<BackButtonProps> = ({ to }) => {
       fontWeight="600"
       _hover={{ color: "text.accent" }}
     >
-      <ArrowLeft size={16} /> Regresar
+      <ArrowLeft size={16} style={{ flexShrink: 0 }} /> Regresar
     </Button>
   );
 };
