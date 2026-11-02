@@ -19,7 +19,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
   return (
     <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap="4" mb="8">
       <Box
-        p="5"
+        p={{ base: "4", md: "6" }}
         borderRadius="2xl"
         bg="surface.card"
         border="1px solid"
@@ -29,7 +29,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
       >
         <HStack justify="space-between" align="start">
           <VStack align="start" gap="1">
-            <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+            <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
               Ventas Totales
             </Text>
             <Heading size="xl" color="var(--chakra-colors-status-success)">
@@ -40,13 +40,13 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
             </Text>
           </VStack>
           <Box p="3" borderRadius="xl" bg="status.successSoft" color="var(--chakra-colors-status-success)">
-            <DollarSign size={22} />
+            <DollarSign size={22} style={{ flexShrink: 0 }} />
           </Box>
         </HStack>
       </Box>
 
       <Box
-        p="5"
+        p={{ base: "4", md: "6" }}
         borderRadius="2xl"
         bg="surface.card"
         border="1px solid"
@@ -56,7 +56,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
       >
         <HStack justify="space-between" align="start">
           <VStack align="start" gap="1">
-            <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+            <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
               Ticket Promedio
             </Text>
             <Heading size="xl" color="text.heading">
@@ -67,13 +67,13 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
             </Text>
           </VStack>
           <Box p="3" borderRadius="xl" bg="status.infoSoft" color="var(--chakra-colors-status-info)">
-            <TrendingUp size={22} />
+            <TrendingUp size={22} style={{ flexShrink: 0 }} />
           </Box>
         </HStack>
       </Box>
 
       <Box
-        p="5"
+        p={{ base: "4", md: "6" }}
         borderRadius="2xl"
         bg="surface.card"
         border="1px solid"
@@ -83,7 +83,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
       >
         <HStack justify="space-between" align="start">
           <VStack align="start" gap="1">
-            <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+            <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
               Unidades Movilizadas
             </Text>
             <Heading size="xl" color="text.heading">
@@ -94,13 +94,13 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
             </Text>
           </VStack>
           <Box p="3" borderRadius="xl" bg="rgba(167, 139, 250, 0.1)" color="var(--chakra-colors-accent-violet-soft)">
-            <Package size={22} />
+            <Package size={22} style={{ flexShrink: 0 }} />
           </Box>
         </HStack>
       </Box>
 
       <Box
-        p="5"
+        p={{ base: "4", md: "6" }}
         borderRadius="2xl"
         bg="surface.card"
         border="1px solid"
@@ -110,7 +110,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
       >
         <HStack justify="space-between" align="start">
           <VStack align="start" gap="1">
-            <Text fontSize="2xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
+            <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">
               Estado de Despacho
             </Text>
             <Heading size="xl" color="var(--chakra-colors-status-success)">
@@ -121,7 +121,7 @@ export const ReportsMetrics: React.FC<ReportsMetricsProps> = ({ stats }) => {
             </Text>
           </VStack>
           <Box p="3" borderRadius="xl" bg="status.successSoft" color="var(--chakra-colors-status-success)">
-            <FileCheck size={22} />
+            <FileCheck size={22} style={{ flexShrink: 0 }} />
           </Box>
         </HStack>
       </Box>

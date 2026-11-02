@@ -131,7 +131,7 @@ export const ClientManagementScreen: React.FC = () => {
   };
 
   return (
-    <Box maxW="1350px" mx="auto" py="8" px={{ base: "4", md: "6" }}>
+    <Box maxW="1350px" mx="auto" py={{ base: "5", md: "8" }} px={{ base: "4", md: "6" }}>
       <AdminNav />
 
       {/* Encabezado */}
@@ -147,11 +147,11 @@ export const ClientManagementScreen: React.FC = () => {
 
         <HStack gap="3">
           <Button variant="outline" borderRadius="xl" onClick={handleExportClients} size="md">
-            <FileSpreadsheet size={16} style={{ marginRight: 6 }} />
+            <FileSpreadsheet size={16} style={{ flexShrink: 0, marginRight: 6 }} />
             Exportar Excel
           </Button>
-          <Button colorPalette="cyan" borderRadius="xl" onClick={() => setIsModalOpen(true)} size="md">
-            <UserPlus size={16} style={{ marginRight: 6 }} />
+          <Button borderRadius="xl" onClick={() => setIsModalOpen(true)} size="md">
+            <UserPlus size={16} style={{ flexShrink: 0, marginRight: 6 }} />
             Registrar Cliente
           </Button>
         </HStack>
@@ -161,7 +161,7 @@ export const ClientManagementScreen: React.FC = () => {
       <Box p="4" borderRadius="2xl" bg="surface.card" border="1px solid" borderColor="border.default" mb="6">
         <HStack gap="2">
           <Box color="text.muted" pl="2">
-            <Search size={18} />
+            <Search size={18} style={{ flexShrink: 0 }} />
           </Box>
           <Input
             placeholder="Buscar cliente por nombre, DNI/RUC, teléfono o distrito..."
@@ -187,7 +187,7 @@ export const ClientManagementScreen: React.FC = () => {
           <Text color="text.muted">No se encontraron clientes coincidentes con la búsqueda.</Text>
         </Box>
       ) : (
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap="6">
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={{ base: "4", md: "6" }}>
           {filteredClients.map((c) => (
             <ClientCard key={c.userId || c.dniRuc} client={c} onCreateSale={handleCreateSaleForClient} />
           ))}

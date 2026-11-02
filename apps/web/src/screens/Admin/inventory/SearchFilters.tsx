@@ -35,7 +35,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
       <HStack wrap="wrap" justify="space-between" gap="4">
         <HStack flex="1" minW="260px" gap="2">
           <Box color="text.muted" pl="2">
-            <Search size={18} />
+            <Search size={18} style={{ flexShrink: 0 }} />
           </Box>
           <Input
             placeholder="Buscar por SKU, nombre del producto o especificación..."
@@ -56,7 +56,6 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
                 size="xs"
                 borderRadius="lg"
                 variant={isSelected ? "solid" : "ghost"}
-                colorPalette={isSelected ? "cyan" : "gray"}
                 onClick={() => onCategoryChange(cat)}
                 textTransform="capitalize"
                 fontWeight={isSelected ? "bold" : "medium"}

@@ -13,7 +13,7 @@ interface OrderSuccessBannerProps {
 export const OrderSuccessBanner: React.FC<OrderSuccessBannerProps> = ({ orderId, onNewSale }) => {
   return (
     <Box
-      p="8"
+      p={{ base: "5", md: "8" }}
       mb="8"
       borderRadius="2xl"
       bg="status.successSoft"
@@ -24,7 +24,7 @@ export const OrderSuccessBanner: React.FC<OrderSuccessBannerProps> = ({ orderId,
       <HStack justify="space-between" wrap="wrap" gap="4">
         <HStack gap="4">
           <Box p="3" bg="rgba(52, 211, 153, 0.2)" color="var(--chakra-colors-status-success)" borderRadius="full">
-            <CheckCircle2 size={36} />
+            <CheckCircle2 size={36} style={{ flexShrink: 0 }} />
           </Box>
           <VStack align="start" gap="0.5">
             <Heading size="lg" color="var(--chakra-colors-status-success)">
@@ -37,9 +37,9 @@ export const OrderSuccessBanner: React.FC<OrderSuccessBannerProps> = ({ orderId,
         </HStack>
 
         <HStack gap="3">
-          <Button asChild colorPalette="green" size="md" borderRadius="xl">
+          <Button asChild size="md" borderRadius="xl">
             <Link href="/admin/reportes">
-              <FileCheck size={16} style={{ marginRight: 6 }} />
+              <FileCheck size={16} style={{ flexShrink: 0, marginRight: 6 }} />
               Ver Historial de Ventas
             </Link>
           </Button>

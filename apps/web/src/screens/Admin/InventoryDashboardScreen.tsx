@@ -161,7 +161,7 @@ export const InventoryDashboardScreen: React.FC = () => {
   };
 
   return (
-    <Box maxW="1350px" mx="auto" py="8" px={{ base: "4", md: "6" }}>
+    <Box maxW="1350px" mx="auto" py={{ base: "5", md: "8" }} px={{ base: "4", md: "6" }}>
       <AdminNav />
 
       {/* Encabezado Principal */}
@@ -182,16 +182,15 @@ export const InventoryDashboardScreen: React.FC = () => {
             size="md"
             borderRadius="xl"
           >
-            <FileSpreadsheet size={16} style={{ marginRight: 6 }} />
+            <FileSpreadsheet size={16} style={{ flexShrink: 0, marginRight: 6 }} />
             Exportar Excel
           </Button>
           <Button
-            colorPalette="cyan"
             onClick={() => openCreateModal()}
             size="md"
             borderRadius="xl"
           >
-            <Plus size={16} style={{ marginRight: 6 }} />
+            <Plus size={16} style={{ flexShrink: 0, marginRight: 6 }} />
             Nuevo Producto
           </Button>
         </HStack>

@@ -56,25 +56,25 @@ export const ProductTable: React.FC<ProductTableProps> = ({
           <Box as="table" w="full" textAlign="left" style={{ borderCollapse: "collapse" }}>
             <Box as="thead" bg="bg.subtle" borderBottom="1px solid" borderColor="border.default">
               <Box as="tr">
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   SKU & Producto
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Categoría
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Unidad
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Stock Disponible
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Precio Venta
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                   Costo & Margen
                 </Box>
-                <Box as="th" p="4" fontSize="2xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" textAlign="right">
+                <Box as="th" p="4" fontSize="xs" fontWeight="bold" color="text.muted" textTransform="uppercase" letterSpacing="wider" textAlign="right">
                   Acciones
                 </Box>
               </Box>
@@ -100,7 +100,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                         <Text fontWeight="600" color="text.heading" fontSize="sm">
                           {p.name}
                         </Text>
-                        <Text fontSize="2xs" color="text.muted" fontFamily="mono" letterSpacing="wider">
+                        <Text fontSize="xs" color="text.muted" fontFamily="mono" letterSpacing="wider">
                           {p.sku}
                         </Text>
                       </VStack>
@@ -109,7 +109,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                     <Box as="td" p="4">
                       <Badge
                         variant="subtle"
-                        fontSize="2xs"
+                        fontSize="xs"
                         px="2"
                         py="0.5"
                         borderRadius="md"
@@ -141,11 +141,11 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                           {p.stock}
                         </Text>
                         {isCritical ? (
-                          <Badge bg="rgba(239, 68, 68, 0.15)" color="var(--chakra-colors-status-danger)" fontSize="2xs" px="1.5" borderRadius="sm">
+                          <Badge bg="rgba(239, 68, 68, 0.15)" color="var(--chakra-colors-status-danger)" fontSize="xs" px="1.5" borderRadius="sm">
                             Agotado
                           </Badge>
                         ) : isLow ? (
-                          <Badge bg="rgba(245, 158, 11, 0.15)" color="var(--chakra-colors-status-warning)" fontSize="2xs" px="1.5" borderRadius="sm">
+                          <Badge bg="rgba(245, 158, 11, 0.15)" color="var(--chakra-colors-status-warning)" fontSize="xs" px="1.5" borderRadius="sm">
                             Mínimo ({p.minStockAlert})
                           </Badge>
                         ) : null}
@@ -160,10 +160,10 @@ export const ProductTable: React.FC<ProductTableProps> = ({
 
                     <Box as="td" p="4">
                       <VStack align="start" gap="0">
-                        <Text fontSize="2xs" color="text.muted">
+                        <Text fontSize="xs" color="text.muted">
                           Costo: S/. {(p.costPrice || 0).toFixed(2)}
                         </Text>
-                        <Text fontSize="2xs" color={marginPct >= 30 ? "var(--chakra-colors-status-success)" : "var(--chakra-colors-status-warning)"} fontWeight="bold">
+                        <Text fontSize="xs" color={marginPct >= 30 ? "var(--chakra-colors-status-success)" : "var(--chakra-colors-status-warning)"} fontWeight="bold">
                           Margen: {marginPct}%
                         </Text>
                       </VStack>
@@ -175,11 +175,10 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                           size="2xs"
                           variant="outline"
                           borderRadius="md"
-                          colorPalette="green"
                           onClick={() => onReplenish(p)}
                           title="Entrada rápida de stock"
                         >
-                          <PlusCircle size={13} style={{ marginRight: 4 }} />
+                          <PlusCircle size={13} style={{ flexShrink: 0, marginRight: 4 }} />
                           + Stock
                         </Button>
                         <Button
@@ -188,19 +187,23 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                           borderRadius="md"
                           onClick={() => onEdit(p)}
                           title="Editar producto"
+                          minW={{ base: "11", md: "auto" }}
+                          minH={{ base: "11", md: "auto" }}
                         >
-                          <Edit2 size={13} />
+                          <Edit2 size={13} style={{ flexShrink: 0 }} />
                         </Button>
                         {p.id && (
                           <Button
                             size="2xs"
                             variant="ghost"
-                            colorPalette="red"
+                            color="status.danger"
                             borderRadius="md"
                             onClick={() => onDelete(p.id!, p.name)}
                             title="Eliminar producto"
+                            minW={{ base: "11", md: "auto" }}
+                            minH={{ base: "11", md: "auto" }}
                           >
-                            <Trash2 size={13} />
+                            <Trash2 size={13} style={{ flexShrink: 0 }} />
                           </Button>
                         )}
                       </HStack>

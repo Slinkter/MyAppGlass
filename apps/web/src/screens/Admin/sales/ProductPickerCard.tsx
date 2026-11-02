@@ -30,7 +30,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
 }) => {
   return (
     <Box
-      p="6"
+      p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       bg="surface.card"
       border="1px solid"
@@ -42,7 +42,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
         <HStack justify="space-between" wrap="wrap" gap="2">
           <HStack gap="2.5">
             <Box p="2" borderRadius="lg" bg="status.infoSoft" color="var(--chakra-colors-status-info)">
-              <Package size={18} />
+              <Package size={18} style={{ flexShrink: 0 }} />
             </Box>
             <Heading size="md" color="text.heading">
               2. Catálogo & Existencias
@@ -51,7 +51,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
 
           <HStack gap="2">
             <Box color="text.muted">
-              <Search size={16} />
+              <Search size={16} style={{ flexShrink: 0 }} />
             </Box>
             <Input
               placeholder="Filtrar catálogo..."
@@ -73,7 +73,6 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
                 size="2xs"
                 borderRadius="md"
                 variant={isSel ? "solid" : "ghost"}
-                colorPalette={isSel ? "cyan" : "gray"}
                 onClick={() => onCategoryChange(cat)}
                 textTransform="capitalize"
               >
@@ -85,7 +84,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
       </VStack>
 
       {loading ? (
-        <Box p="8" textAlign="center">
+        <Box p={{ base: "5", md: "8" }} textAlign="center">
           <Spinner size="md" color="brand.primary" />
           <Text fontSize="xs" color="text.muted" mt="2">
             Cargando inventario disponible...
@@ -106,7 +105,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
                 justify="space-between"
                 border="1px solid"
                 borderColor="border.default"
-                transition="all 0.2s ease"
+                transition="border-color 0.2s ease, background-color 0.2s ease"
                 _hover={{ borderColor: "rgba(56, 189, 248, 0.4)", bg: "surface.card" }}
               >
                 <VStack align="start" gap="0.5" flex="1">
@@ -114,13 +113,13 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
                     {prod.name}
                   </Text>
                   <HStack gap="2">
-                    <Text fontSize="2xs" color="text.muted" fontFamily="mono">
+                    <Text fontSize="xs" color="text.muted" fontFamily="mono">
                       {prod.sku}
                     </Text>
-                    <Badge size="xs" variant="subtle" fontSize="2xs" px="1.5">
+                    <Badge size="xs" variant="subtle" fontSize="xs" px="1.5">
                       {prod.category}
                     </Badge>
-                    <Text fontSize="2xs" fontWeight="bold" color={isOutOfStock ? "var(--chakra-colors-status-danger)" : "var(--chakra-colors-status-success)"}>
+                    <Text fontSize="xs" fontWeight="bold" color={isOutOfStock ? "var(--chakra-colors-status-danger)" : "var(--chakra-colors-status-success)"}>
                       Stock: {prod.stock} {prod.unit}
                     </Text>
                   </HStack>
@@ -138,11 +137,11 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
                         size="2xs"
                         variant="ghost"
                         p="1"
-                        h="24px"
-                        minW="24px"
+                        h={{ base: "11", md: "24px" }}
+                        minW={{ base: "11", md: "24px" }}
                         onClick={() => onQtyChange(prod.id!, -1, prod.stock)}
                       >
-                        <Minus size={12} />
+                        <Minus size={12} style={{ flexShrink: 0 }} />
                       </Button>
                       <Text fontSize="xs" fontWeight="bold" px="1" minW="18px" textAlign="center">
                         {currentQty}
@@ -151,11 +150,11 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
                         size="2xs"
                         variant="ghost"
                         p="1"
-                        h="24px"
-                        minW="24px"
+                        h={{ base: "11", md: "24px" }}
+                        minW={{ base: "11", md: "24px" }}
                         onClick={() => onQtyChange(prod.id!, 1, prod.stock)}
                       >
-                        <Plus size={12} />
+                        <Plus size={12} style={{ flexShrink: 0 }} />
                       </Button>
                     </HStack>
                   )}
@@ -163,11 +162,10 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
                   <Button
                     size="xs"
                     borderRadius="lg"
-                    colorPalette="cyan"
                     disabled={isOutOfStock}
                     onClick={() => onAddItem(prod)}
                   >
-                    <Plus size={14} style={{ marginRight: 4 }} />
+                    <Plus size={14} style={{ flexShrink: 0, marginRight: 4 }} />
                     Agregar
                   </Button>
                 </HStack>
