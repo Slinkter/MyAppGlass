@@ -1,21 +1,13 @@
 "use client";
 /**
  * @file ProjectCardContent.tsx
- * @description Refactored project card content to match the unified design of ClientCard and ServiceCard.
- * Updated to Chakra v3 with semantic tokens and optimized Skeleton.
+ * @description Tarjeta de proyecto: botón accesible (teclado y foco) sobre `MediaCard`.
  */
 
 import React from "react";
-import {
-  Box,
-  Heading,
-  Text,
-  HStack,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, HStack, Text } from "@chakra-ui/react";
 import { MapPin, ArrowRight } from "lucide-react";
-import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
+import { MediaCard } from "@shared/components/Card/MediaCard";
 
 interface ProjectCardContentProps {
   image?: string;
@@ -31,12 +23,10 @@ interface ProjectCardContentProps {
 /**
  * @component ProjectCardContent
  * @description Presentational component for the project card visual structure.
+ * La raíz es un `role="button"`, así que el hover de la foto usa la clase `group`.
  */
 const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
   ({ image = "", residencial, address, year, onExplore, isLCP, loading }) => {
-    // La card se revela entera (foto + degradado + textos) cuando la imagen termina de cargar.
-    const { loaded, onLoad: handleLoad, reveal } = useImageReveal();
-
     const handleKeyDown = React.useCallback(
       (e: React.KeyboardEvent) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -44,82 +34,21 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           onExplore();
         }
       },
-      [onExplore]
+      [onExplore],
     );
 
     return (
-      <Box
-        role="button"
-        tabIndex={0}
-        aria-label={`Ver detalles del proyecto ${residencial}`}
-        w="full"
-        h={{ base: "260px", sm: "280px", md: "310px" }}
-        borderRadius="3xl"
-        overflow="hidden"
-        position="relative"
-        bg="black"
-        boxShadow="sm"
-        cursor="pointer"
-        onClick={onExplore}
-        onKeyDown={handleKeyDown}
-        transition="box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
-        _hover={{
-          boxShadow: "var(--chakra-shadows-card-lift)",
-          transform: "translateY(-6px)"
-        }}
-        _focusVisible={{
-          outline: "none",
-          boxShadow: "0 0 0 3px var(--chakra-colors-primary-500, #a80100)",
-        }}
-      >
-        {/* Fotografía del Proyecto */}
-        <ImageRevealSkeleton loaded={loaded} />
-        <Box position="absolute" inset={0} zIndex={0} overflow="hidden" {...reveal}>
-          <ResponsiveImage
-            src={image}
-            alt={`Proyecto ${residencial} - GYA Glass & Aluminum`}
-            w="full"
-            h="full"
-            objectFit="cover"
-            loading={loading || (isLCP ? "eager" : "lazy")}
-            isLCP={isLCP}
-            onLoad={handleLoad}
-            transition="transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
-            _groupHover={{ transform: "scale(1.06)" }}
-          />
-        </Box>
-
-        {/* Degradado Fino de Lectura */}
-        <Box
-          position="absolute"
-          inset={0}
-          zIndex={1}
-          background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)"
-          {...reveal}
-        />
-
-        {/* Badge de Año / Ubicación Glass Floating */}
-        <Box
-          position="absolute"
-          top={{ base: "3", md: "4" }}
-          left={{ base: "3", md: "4" }}
-          maxW="calc(100% - 24px)"
-          zIndex={2}
-          bg="rgba(0, 0, 0, 0.55)"
-          backdropFilter="blur(10px)"
-          px="3"
-          py="1"
-          borderRadius="full"
-          border="1px solid rgba(255, 255, 255, 0.15)"
-          {...reveal}
-        >
+      <MediaCard
+        image={image}
+        imageAlt={`Proyecto ${residencial} - GYA Glass & Aluminum`}
+        badge={
           <HStack gap="1.5" minW={0}>
             <Box as={MapPin} boxSize={3} color="primary.400" style={{ flexShrink: 0 }} />
             <Text
               fontSize="xs"
-              fontWeight="800"
+              fontWeight="semibold"
               color="white"
-              letterSpacing={{ base: "0.08em", md: "0.15em" }}
+              letterSpacing="0.12em"
               textTransform="uppercase"
               truncate
               minW={0}
@@ -127,62 +56,23 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
               {address} · {year}
             </Text>
           </HStack>
-        </Box>
-
-        {/* Bloque Inferior con Título y Botón de Exploración */}
-        <HStack
-          position="absolute"
-          bottom="0"
-          left="0"
-          right="0"
-          zIndex={2}
-          p={{ base: "4", md: "6" }}
-          justify="space-between"
-          align="flex-end"
-          minW={0}
-          {...reveal}
-        >
-          <VStack align="flex-start" gap="1" minW={0} maxW="calc(100% - 52px)">
-            <Heading
-              as="h3"
-              fontSize={{ base: "xl", md: "2xl" }}
-              color="white"
-              fontWeight="800"
-              letterSpacing="tight"
-              lineHeight="tight"
-              lineClamp={2}
-            >
-              {residencial}
-            </Heading>
-            <Text fontSize="xs" color="whiteAlpha.800" fontWeight="400">
-              Obra Residencial / Comercial
-            </Text>
-          </VStack>
-
-          {/* Botón Circular Flotante */}
-          <Box
-            w="40px"
-            h="40px"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            borderRadius="full"
-            bg="whiteAlpha.200"
-            backdropFilter="blur(8px)"
-            border="1px solid rgba(255, 255, 255, 0.25)"
-            color="white"
-            flexShrink={0}
-            transition="background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-            _groupHover={{
-              bg: "primary.500",
-              borderColor: "primary.500",
-              transform: "scale(1.1) rotate(45deg)"
-            }}
-          >
-            <Box as={ArrowRight} boxSize={5} style={{ flexShrink: 0 }} />
-          </Box>
-        </HStack>
-      </Box>
+        }
+        title={residencial}
+        description="Obra Residencial / Comercial"
+        actionIcon={ArrowRight}
+        loading={loading || (isLCP ? "eager" : "lazy")}
+        isLCP={isLCP}
+        rootProps={{
+          as: "div",
+          role: "button",
+          tabIndex: 0,
+          "aria-label": `Ver detalles del proyecto ${residencial}`,
+          cursor: "pointer",
+          onClick: onExplore,
+          onKeyDown: handleKeyDown,
+          _focusVisible: { outline: "none", boxShadow: "0 0 0 3px var(--chakra-colors-primary-500)" },
+        }}
+      />
     );
   },
 );

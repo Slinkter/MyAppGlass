@@ -67,8 +67,8 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
             seoCanonicalUrl={`${SITE_URL}/#servicios`}
             columns={{ base: 1, md: 2, lg: 3 }}
         >
-            <Box gridColumn="1 / -1" w="full" mt="5">
-                <HStack gap="2" justify="center" flexWrap="wrap" pb="5">
+            <Box gridColumn="1 / -1" w="full">
+                <HStack gap="2" justify="center" flexWrap="wrap" pt="2" pb="5">
                     {CATEGORIES.map((cat) => {
                         return (
                           <FilterPill

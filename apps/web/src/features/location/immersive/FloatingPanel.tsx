@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { companyData } from "@/shared/config/company-data";
-import { TOUCH_MIN } from "@/shared/constants/layout";
+import { GLASS_FALLBACK_CSS, TOUCH_MIN } from "@/shared/constants/layout";
 import {
   STORE_DIRECTIONS_URL,
   STORE_SCHEDULE,
@@ -41,11 +41,7 @@ const liquidGlassRegular = {
   boxShadow: "xl",
   css: {
     WebkitBackdropFilter: "blur(24px) saturate(1.4)",
-    "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
-      backdropFilter: "none",
-      WebkitBackdropFilter: "none",
-      background: "var(--chakra-colors-bg-surface)",
-    },
+    ...GLASS_FALLBACK_CSS,
   },
 } as const;
 
