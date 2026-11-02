@@ -2,8 +2,6 @@
 
 import React from "react";
 import {
-  Box,
-  Flex,
   IconButton,
   List,
   SimpleGrid,
@@ -37,27 +35,9 @@ import {
 } from "@/components/ui/drawer";
 import { Tooltip } from "@/components/ui/tooltip";
 import { toaster } from "@/components/ui/toaster-instance";
-import Gallery from "@/shared/components/common/Gallery";
 import { TOUCH_MIN } from "@/shared/constants/layout";
+import { GalleryShowcase } from "./GalleryShowcase";
 import { ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel } from "../components";
-
-const sampleGallery = [
-  {
-    id: "gal-1",
-    src: "/images/services-products-01.Ventanas-nova-a10.webp",
-    title: "Ventana Corrediza Sistema Nova",
-  },
-  {
-    id: "gal-2",
-    src: "/images/services-products-02.Mampara-save-mampara01.webp",
-    title: "Mampara de Cristal Templado",
-  },
-  {
-    id: "gal-3",
-    src: "/images/services-products-03.Ducha-ducha01.webp",
-    title: "Ducha de Vidrio Templado",
-  },
-];
 
 const specs = [
   "Sistema: Serie 62",
@@ -68,30 +48,8 @@ const specs = [
 export const OverlaysShowcase: React.FC = () => {
   return (
     <ShowcaseStack>
-      {/* 1. Visor de Galería Compuesta (Gallery.Viewer + Thumbnails) */}
-      <ShowcaseCard
-        title="Gallery Compuesta (Viewer + Thumbnails)"
-        description="Componente real de producción (`shared/components/common/Gallery.tsx`) con visor fotográfico y tira de miniaturas."
-        badge="shared/components/common"
-      >
-        <ShowcasePanel borderRadius="2xl" maxW="4xl" mx="auto" w="full" minW="0" overflow="hidden">
-          <Gallery images={sampleGallery}>
-            <Flex direction={{ base: "column", md: "row" }} gap="4" w="full" minW="0">
-              <Box flex="1" minW="0" h={{ base: "220px", sm: "280px", md: "360px" }}>
-                <Gallery.Viewer />
-              </Box>
-              <Box
-                minW="0"
-                w={{ base: "full", md: "auto" }}
-                flexShrink={{ md: 0 }}
-                h={{ base: "96px", md: "360px" }}
-              >
-                <Gallery.Thumbnails />
-              </Box>
-            </Flex>
-          </Gallery>
-        </ShowcasePanel>
-      </ShowcaseCard>
+      {/* 1. Galerías (compuesta, tira, mosaico y catálogo) */}
+      <GalleryShowcase />
 
       {/* 2. Modales Interactivos (Dialog de Chakra UI v3) */}
       <ShowcaseCard
