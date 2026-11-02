@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 import { TOUCH_MIN } from "@/shared/constants/layout";
-import type { LocationProject } from "../../location/useLocationData";
+import type { LocationProject } from "@/features/location/useLocationData";
 
 interface SplitProjectRowProps {
   project: LocationProject;

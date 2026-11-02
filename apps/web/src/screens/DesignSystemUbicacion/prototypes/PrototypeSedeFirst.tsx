@@ -9,8 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { FilterPill } from "@/shared/components/ui/FilterPill";
 import { useImagePrefetch } from "@shared/hooks/ui/useImagePrefetch";
-import LocationMapLazy from "../location/LocationMapLazy";
-import { useLocationData } from "../location/useLocationData";
+import LocationMapLazy from "@/features/location/LocationMapLazy";
+import { useLocationData } from "@/features/location/useLocationData";
 import { SedeCard } from "./sede/SedeCard";
 import { SedeProjectCard } from "./sede/SedeProjectCard";
 

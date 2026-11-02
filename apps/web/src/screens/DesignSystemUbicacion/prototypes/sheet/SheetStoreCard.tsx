@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { companyData } from "@/shared/config/company-data";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import type { StoreLocation } from "@/shared/types/map";
-import { STORE_DIRECTIONS_URL, STORE_SCHEDULE } from "../../location/useLocationData";
-import { useIsStoreOpen } from "../sede/useIsStoreOpen";
+import { STORE_DIRECTIONS_URL, STORE_SCHEDULE } from "@/features/location/useLocationData";
+import { useIsStoreOpen } from "@/features/location/useIsStoreOpen";
 
 interface SheetStoreCardProps {
   store: StoreLocation;

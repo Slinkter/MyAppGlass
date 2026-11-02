@@ -7,12 +7,12 @@
 
 import React, { useCallback, useMemo, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
-import LocationMapLazy from "../location/LocationMapLazy";
-import { STORE_ID, useLocationData } from "../location/useLocationData";
+import LocationMapLazy from "./LocationMapLazy";
+import { STORE_ID, useLocationData } from "./useLocationData";
 import { StorePanel, ProjectDetail } from "./immersive/FloatingPanel";
 import { ProjectCarousel } from "./immersive/ProjectCarousel";
 
-export const PrototypeImmersive: React.FC = () => {
+export const ImmersiveLocationMap: React.FC = () => {
   const { store, projects } = useLocationData();
   const [selectedId, setSelectedId] = useState<string | number | null>(null);
 
@@ -84,4 +84,4 @@ export const PrototypeImmersive: React.FC = () => {
   );
 };
 
-export default PrototypeImmersive;
+export default ImmersiveLocationMap;

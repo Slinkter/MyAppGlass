@@ -6,7 +6,7 @@ import { Badge, Box, Container, Heading, HStack, List, Tabs, Text, VStack } from
 import { ArrowLeft, MapPinned } from "lucide-react";
 import { ColorModeButton } from "@/components/ui/color-mode";
 import { PrototypeSplit } from "./prototypes/PrototypeSplit";
-import { PrototypeImmersive } from "./prototypes/PrototypeImmersive";
+import { ImmersiveLocationMap as PrototypeImmersive } from "@/features/location/ImmersiveLocationMap";
 import { PrototypeSedeFirst } from "./prototypes/PrototypeSedeFirst";
 import { PrototypeFilters } from "./prototypes/PrototypeFilters";
 import { PrototypeSheet } from "./prototypes/PrototypeSheet";

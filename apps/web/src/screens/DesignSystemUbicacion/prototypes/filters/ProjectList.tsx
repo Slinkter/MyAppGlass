@@ -7,7 +7,7 @@ import { companyData } from "@/shared/config/company-data";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 import type { StoreLocation } from "@/shared/types/map";
-import { STORE_ID, type LocationProject } from "../../location/useLocationData";
+import { STORE_ID, type LocationProject } from "@/features/location/useLocationData";
 
 const rowProps = {
   as: "button",

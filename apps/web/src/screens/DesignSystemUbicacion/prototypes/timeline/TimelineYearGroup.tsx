@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Text, chakra } from "@chakra-ui/react";
-import type { LocationProject } from "../../location/useLocationData";
+import type { LocationProject } from "@/features/location/useLocationData";
 import { TimelineProjectItem } from "./TimelineProjectItem";
 
 export interface YearGroup {

@@ -4,8 +4,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Box, Grid, chakra, HStack, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { MapPinOff } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
-import LocationMapLazy from "../location/LocationMapLazy";
-import { STORE_ID, useLocationData } from "../location/useLocationData";
+import LocationMapLazy from "@/features/location/LocationMapLazy";
+import { STORE_ID, useLocationData } from "@/features/location/useLocationData";
 import { SplitProjectRow } from "./split/SplitProjectRow";
 import { SplitStorePanel } from "./split/SplitStorePanel";
 

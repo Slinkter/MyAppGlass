@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { Store } from "lucide-react";
 import { TOUCH_MIN } from "@/shared/constants/layout";
-import { STORE_ID, type LocationProject } from "../../location/useLocationData";
+import { STORE_ID, type LocationProject } from "../useLocationData";
 import { Cover } from "./Cover";
 
 interface PillSharedProps {

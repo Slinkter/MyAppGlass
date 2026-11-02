@@ -4,8 +4,8 @@ import React from "react";
 import { Box, HStack, Text, chakra } from "@chakra-ui/react";
 import { Route } from "lucide-react";
 import { TOUCH_MIN } from "@/shared/constants/layout";
-import type { LocationProject } from "../../location/useLocationData";
-import { Cover } from "../immersive/Cover";
+import type { LocationProject } from "@/features/location/useLocationData";
+import { Cover } from "@/features/location/immersive/Cover";
 
 interface TimelineProjectItemProps {
   project: LocationProject;

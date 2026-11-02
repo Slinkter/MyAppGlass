@@ -14,7 +14,7 @@ import {
   STORE_DIRECTIONS_URL,
   STORE_SCHEDULE,
   type LocationProject,
-} from "../../location/useLocationData";
+} from "@/features/location/useLocationData";
 
 const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
   companyData.whatsappMessage,

@@ -16,8 +16,8 @@ import {
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { companyData } from "@/shared/config/company-data";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
-import LocationMapLazy from "../location/LocationMapLazy";
-import { STORE_ID, useLocationData } from "../location/useLocationData";
+import LocationMapLazy from "@/features/location/LocationMapLazy";
+import { STORE_ID, useLocationData } from "@/features/location/useLocationData";
 import { FilterBar, type SortMode } from "./filters/FilterBar";
 import { ProjectList } from "./filters/ProjectList";
 import { ProjectDetail } from "./filters/ProjectDetail";

@@ -3,10 +3,10 @@
 import React from "react";
 import { SITE_URL } from "@/shared/config/company-data";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
-import { PrototypeImmersive } from "@/screens/DesignSystemUbicacion/prototypes/PrototypeImmersive";
+import { ImmersiveLocationMap } from "@/features/location/ImmersiveLocationMap";
 
 /**
- * Sección de ubicación del home: mapa inmersivo minimalista (prototipo B del design system).
+ * Sección de ubicación del home: mapa inmersivo minimalista (antes prototipo B del design system).
  * El mapa ocupa el escenario; la sede, las obras entregadas y el dock inferior flotan encima.
  * @component
  */
@@ -25,7 +25,7 @@ const StoreSection: React.FC = React.memo(() => (
         }}
     >
         <ItemGridLayout.Item>
-            <PrototypeImmersive />
+            <ImmersiveLocationMap />
         </ItemGridLayout.Item>
     </ItemGridLayout>
 ));

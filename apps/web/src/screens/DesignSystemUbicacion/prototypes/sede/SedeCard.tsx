@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { companyData } from "@/shared/config/company-data";
 import { TOUCH_MIN } from "@/shared/constants/layout";
-import LocationMapLazy from "../../location/LocationMapLazy";
-import { STORE_DIRECTIONS_URL, STORE_ID, STORE_SCHEDULE } from "../../location/useLocationData";
-import { useIsStoreOpen } from "./useIsStoreOpen";
+import LocationMapLazy from "@/features/location/LocationMapLazy";
+import { STORE_DIRECTIONS_URL, STORE_ID, STORE_SCHEDULE } from "@/features/location/useLocationData";
+import { useIsStoreOpen } from "@/features/location/useIsStoreOpen";
 
 const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
   companyData.whatsappMessage,

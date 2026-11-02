@@ -6,8 +6,8 @@ import { ChevronDown, MapPinOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { TOUCH_MIN } from "@/shared/constants/layout";
-import LocationMapLazy from "../location/LocationMapLazy";
-import { useLocationData } from "../location/useLocationData";
+import LocationMapLazy from "@/features/location/LocationMapLazy";
+import { useLocationData } from "@/features/location/useLocationData";
 import { TimelineYearChips } from "./timeline/TimelineYearChips";
 import { TimelineYearGroup, type YearGroup } from "./timeline/TimelineYearGroup";
 
