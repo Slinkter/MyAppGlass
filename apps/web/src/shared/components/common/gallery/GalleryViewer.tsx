@@ -4,6 +4,7 @@ import {
   Box,
   Text,
   HStack,
+  chakra,
 } from "@chakra-ui/react";
 import { ChevronLeft, ChevronRight, MoveHorizontal, Maximize2 } from "lucide-react";
 
@@ -108,7 +109,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      _focusVisible={{ outline: "none" }}
+      _focusVisible={{ outline: "2px solid", outlineColor: "primary.500", outlineOffset: "-2px" }}
       userSelect="none"
       touchAction="pan-y"
     >
@@ -156,8 +157,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
 
       {imageCount > 1 && (
         <>
-          <Box
-            as="button"
+          <chakra.button
+            type="button"
             position="absolute"
             left="6"
             top="50%"
@@ -185,9 +186,9 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             transition="opacity 0.2s ease, transform 0.2s ease"
           >
             <ChevronLeft size={24} style={{ flexShrink: 0 }} />
-          </Box>
-          <Box
-            as="button"
+          </chakra.button>
+          <chakra.button
+            type="button"
             position="absolute"
             right="6"
             top="50%"
@@ -215,7 +216,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             transition="opacity 0.2s ease, transform 0.2s ease"
           >
             <ChevronRight size={24} style={{ flexShrink: 0 }} />
-          </Box>
+          </chakra.button>
 
           <Box
             position="absolute"
@@ -227,8 +228,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             zIndex={15}
           >
             {onOpenModal && (
-              <Box
-                as="button"
+              <chakra.button
+                type="button"
                 onClick={onOpenModal}
                 color="white"
                 bg="blackAlpha.700"
@@ -251,7 +252,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 transition="background-color 0.2s ease, transform 0.2s ease"
               >
                 <Maximize2 size={15} style={{ flexShrink: 0 }} />
-              </Box>
+              </chakra.button>
             )}
 
             <Box
@@ -287,7 +288,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             display={{ base: "none", md: "flex" }}
           >
             {Array.from({ length: imageCount }).map((_, index) => (
-              <Box
+              <chakra.button
+                type="button"
                 key={index}
                 minW={{ base: "11", md: "8" }}
                 minH={{ base: "11", md: "8" }}
@@ -297,8 +299,11 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 cursor="pointer"
                 onClick={() => setSelectedIndex(index)}
                 aria-label={`Ir a imagen ${index + 1}`}
+                aria-current={selectedIndex === index ? "true" : undefined}
               >
                 <Box
+                  as="span"
+                  display="block"
                   w={selectedIndex === index ? "24px" : "6px"}
                   h="1.5"
                   bg={selectedIndex === index ? dotActiveColor : "whiteAlpha.400"}
@@ -306,7 +311,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                   transition="width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
                   _hover={{ bg: "whiteAlpha.800" }}
                 />
-              </Box>
+              </chakra.button>
             ))}
           </HStack>
         </>

@@ -303,7 +303,7 @@ const config = defineConfig({
       colors: {
         "bg.page": { value: { _light: "{colors.gray.50}", _dark: "#09090b" } },
         "bg.section": { value: { _light: "white", _dark: "#121215" } },
-        "bg.surface": { value: "{colors.surface.card}" },
+        "bg.surface": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
 
         // Brand
