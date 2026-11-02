@@ -1,0 +1,1 @@
+export { DesignSystemUbicacionScreen } from "./DesignSystemUbicacionScreen";
