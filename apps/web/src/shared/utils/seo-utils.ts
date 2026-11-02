@@ -182,3 +182,13 @@ export const getFaqJsonLd = (faqs: Array<{ question: string; answer: string }>) 
     }
   }))
 });
+
+/**
+ * Serializa datos para incrustarlos en <script type="application/ld+json">.
+ * Escapa "<" (y U+2028/U+2029) para que un texto con "</script>" o "<!--" no rompa la etiqueta.
+ */
+export const serializeJsonLd = (data: unknown): string =>
+  JSON.stringify(data)
+    .replace(/</g, "\\u003c")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
