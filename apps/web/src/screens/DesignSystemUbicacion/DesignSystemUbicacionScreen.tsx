@@ -10,6 +10,7 @@ import { PrototypeImmersive } from "./prototypes/PrototypeImmersive";
 import { PrototypeSedeFirst } from "./prototypes/PrototypeSedeFirst";
 import { PrototypeFilters } from "./prototypes/PrototypeFilters";
 import { PrototypeSheet } from "./prototypes/PrototypeSheet";
+import { PrototypeTimeline } from "./prototypes/PrototypeTimeline";
 
 interface PrototypeFrameProps {
   title: string;
@@ -100,6 +101,17 @@ const PROTOTYPES = [
       "Tablet y escritorio: la hoja pasa a panel lateral fijo con la sede y la lista de obras.",
     ],
     Component: PrototypeSheet,
+  },
+  {
+    value: "timeline",
+    label: "F · Línea de tiempo",
+    title: "F · Línea de tiempo por año",
+    description: "Las obras entregadas se leen año por año y el mapa acompaña la selección.",
+    highlights: [
+      "Encabezados de año fijos y chips para saltar entre años.",
+      "Móvil: el mapa se puede plegar para leer la lista a ancho completo.",
+    ],
+    Component: PrototypeTimeline,
   },
 ] as const;
 

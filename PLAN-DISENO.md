@@ -49,9 +49,9 @@ Mapa a pantalla completa; en móvil una hoja inferior con 3 posiciones (mínima,
 
 ### Fase 2 — Ubicación · Prototipo F "Línea de tiempo por año" (agente senior)
 Obras agrupadas por año con encabezados fijos, mapa que acompaña la selección; móvil: mapa plegable. Carpeta: `prototypes/timeline/` + `PrototypeTimeline.tsx`.
-- [ ] Implementar
-- [ ] Registrar pestaña F
-- [ ] Typecheck + commit
+- [x] Implementar (agente senior; sin vidrio; pendiente probar en navegador: el mapa plegado con `display: none` puede necesitar recalcular tamaño al reaparecer)
+- [x] Registrar pestaña F
+- [x] Typecheck + commit
 
 ### Fase 3 — Design System · Pestaña "Nuevos modelos" (agentes ligeros)
 Secciones nuevas en `sections/v2/`: escala de espaciado y breakpoints (móvil/tablet/escritorio) y variantes de tarjeta (compacta, horizontal, destacada). Sin tocar `EditorialCardsShowcase` ni las demás.
