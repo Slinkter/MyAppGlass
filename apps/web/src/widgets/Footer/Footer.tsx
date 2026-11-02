@@ -137,7 +137,7 @@ const FooterSection = ({ title, children }: FooterSectionProps) => {
     return (
         <VStack
             align={{ base: "center", sm: "flex-start" }}
-            gap="6"
+            gap={{ base: "4", md: "6" }}
             w="full"
         >
             <Heading
@@ -174,7 +174,7 @@ const Footer = () => {
             as="footer"
             mt="20"
             mb={{ base: "20", md: "8" }}
-            px="6"
+            px={{ base: "4", md: "6" }}
         >
             <Container maxW="7xl" px={0}>
                 <Box

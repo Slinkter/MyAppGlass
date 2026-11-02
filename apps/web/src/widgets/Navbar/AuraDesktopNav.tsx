@@ -81,7 +81,7 @@ const AuraDesktopNav: React.FC = () => {
             letterSpacing="0.05em"
             textAlign="center"
             justifyContent="center"
-            transition="all 0.2s ease"
+            transition="transform 0.2s ease, background-color 0.2s ease"
             _hover={{
               transform: isActive ? "none" : "translateY(-1px)",
             }}

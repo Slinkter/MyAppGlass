@@ -39,7 +39,7 @@ class ComponentErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <Box
-          p="6"
+          p={{ base: "4", md: "6" }}
           m="6"
           bg="red.50"
           _dark={{ bg: "rgba(255, 0, 0, 0.05)" }}
@@ -48,7 +48,7 @@ class ComponentErrorBoundary extends Component<Props, State> {
           borderRadius="lg"
           role="alert"
         >
-          <VStack align="start" gap="6">
+          <VStack align="start" gap={{ base: "4", md: "6" }}>
             <Heading size="md" color="red.600">
               Ha ocurrido un error inesperado
             </Heading>

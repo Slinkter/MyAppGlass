@@ -21,11 +21,8 @@ interface FloatingWhatsAppButtonProps {
 
 export const FloatingWhatsAppButton: React.FC<FloatingWhatsAppButtonProps> = ({ onClick }) => (
   <Button
-    bg="brand.whatsapp"
-    color="white"
-    _hover={{ bg: "brand.whatsappHover", transform: "scale(1.08)" }}
-    _active={{ bg: "brand.whatsappActive" }}
-    variant="solid"
+    variant="whatsapp"
+    _hover={{ transform: "scale(1.08)" }}
     borderRadius="full"
     w={{ base: 14, md: 16 }}
     h={{ base: 14, md: 16 }}
@@ -99,9 +96,7 @@ const FloatingWhatsApp = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 w="full"
-                bg="brand.whatsapp"
-                color="white"
-                _hover={{ bg: "brand.whatsappHover" }}
+                variant="whatsapp"
                 onClick={() => setIsOpen(false)}
                 gap="2"
               >

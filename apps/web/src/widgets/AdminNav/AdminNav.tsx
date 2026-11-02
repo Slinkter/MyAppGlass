@@ -75,7 +75,7 @@ export const AdminNav: React.FC = () => {
             border="1px solid"
             borderColor="border.default"
             bg="bg.subtle"
-            transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+            transition="transform 0.2s ease, background-color 0.2s ease"
             _hover={{
               color: "text.heading",
               bg: "surface.card",
@@ -112,7 +112,7 @@ export const AdminNav: React.FC = () => {
                 color={isActive ? "bg.page" : "text.muted"}
                 border="1px solid"
                 borderColor={isActive ? "text.heading" : "transparent"}
-                transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                transition="transform 0.2s ease, background-color 0.2s ease"
                 _hover={{
                   color: isActive ? "bg.page" : "text.heading",
                   bg: isActive ? "text.heading" : "bg.subtle",
@@ -139,7 +139,7 @@ export const AdminNav: React.FC = () => {
             px="2.5"
             py="1"
             borderRadius="full"
-            fontSize="2xs"
+            fontSize="xs"
             fontWeight="bold"
             letterSpacing="wider"
             bg="status.infoSubtle"
@@ -151,7 +151,7 @@ export const AdminNav: React.FC = () => {
             ADMIN GYA
           </Badge>
           {user?.email && (
-            <Text fontSize="2xs" color="text.muted" fontFamily="mono" display={{ base: "none", md: "block" }}>
+            <Text fontSize="xs" color="text.muted" fontFamily="mono" display={{ base: "none", md: "block" }}>
               {user.email}
             </Text>
           )}

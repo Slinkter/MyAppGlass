@@ -111,7 +111,7 @@ const MobileNav = React.memo(() => {
                             transition="transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                             transform={isOpen ? "rotate(90deg)" : "rotate(0deg)"}
                         >
-                            {isOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+                            {isOpen ? <X size={24} strokeWidth={1.5} style={{ flexShrink: 0 }} /> : <Menu size={24} strokeWidth={1.5} style={{ flexShrink: 0 }} />}
                         </Box>
                     </Box>
                 </DrawerTrigger>
@@ -131,9 +131,9 @@ const MobileNav = React.memo(() => {
                 <DrawerBody
                     display="flex"
                     flexDirection="column"
-                    px={6}
-                    pt={8}
-                    pb={6}
+                    px={{ base: "4", md: "6" }}
+                    pt={{ base: "6", md: "8" }}
+                    pb={{ base: "4", md: "6" }}
                     css={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-6))" }}
                 >
                     <VStack
@@ -192,7 +192,7 @@ const MobileNav = React.memo(() => {
                                 rel="noopener noreferrer"
                                 onClick={handleLinkClick}
                             >
-                                <MessageCircle size={20} />
+                                <MessageCircle size={20} style={{ flexShrink: 0 }} />
                                 Chatea por WhatsApp
                             </a>
                         </Box>
@@ -250,12 +250,12 @@ const MobileNav = React.memo(() => {
                             borderColor="border.glass"
                             color="text.heading"
                             _hover={{ bg: "bg.subtle" }}
-                            transition="background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease"
+                            transition="background-color 0.3s ease, color 0.3s ease"
                         >
                             {colorMode === "dark" ? (
-                                <Sun size={16} />
+                                <Sun size={16} style={{ flexShrink: 0 }} />
                             ) : (
-                                <Moon size={16} />
+                                <Moon size={16} style={{ flexShrink: 0 }} />
                             )}
                             <Text
                                 fontSize="xs"

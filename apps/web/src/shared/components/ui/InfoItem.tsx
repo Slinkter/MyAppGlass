@@ -33,7 +33,7 @@ export const InfoItem: React.FC<InfoItemProps> = ({
       borderColor="border.default"
       borderRadius="xl"
       bg="surface.container"
-      transition="all 0.2s"
+      transition="transform 0.2s ease, border-color 0.2s ease"
       _hover={{
         borderColor: "border.strong",
         transform: "translateY(-2px)",
