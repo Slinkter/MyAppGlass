@@ -4,39 +4,34 @@ import React from "react";
 import {
   Box,
   Heading,
-  Text,
   VStack,
   HStack,
   Table,
   Badge,
-  Card,
   Skeleton,
 } from "@chakra-ui/react";
+import { ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel } from "../components";
 import { EmptyState } from "@/components/ui/empty-state";
 import { DataListRoot, DataListItem } from "@/components/ui/data-list";
 import { Layers } from "lucide-react";
 
 export const DataDisplayShowcase: React.FC = () => {
   return (
-    <VStack gap="8" align="stretch">
+    <ShowcaseStack>
       {/* 1. Tablas Administrativas de Servicios / Proyectos */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <Card.Title fontSize="xl">Estructura de Tabla Administrativa (Admin Table)</Card.Title>
-          <Card.Description>
-            Diseño utilizado en `/admin/servicios` y `/admin/proyectos` para gestionar colecciones de Firestore.
-          </Card.Description>
-        </Card.Header>
-        <Card.Body>
+      <ShowcaseCard
+        title="Estructura de Tabla Administrativa (Admin Table)"
+        description="Diseño utilizado en `/admin/servicios` y `/admin/proyectos` para gestionar colecciones de Firestore."
+      >
           <Box overflowX="auto" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
-            <Table.Root size="md" variant="line">
+            <Table.Root size={{ base: "sm", md: "md" }} variant="line" minW="560px">
               <Table.Header bg="surface.container">
                 <Table.Row>
-                  <Table.ColumnHeader color="text.muted">Orden</Table.ColumnHeader>
-                  <Table.ColumnHeader color="text.muted">Servicio</Table.ColumnHeader>
-                  <Table.ColumnHeader color="text.muted">Sistema Principal</Table.ColumnHeader>
-                  <Table.ColumnHeader color="text.muted">Fotos</Table.ColumnHeader>
-                  <Table.ColumnHeader color="text.muted">Estado</Table.ColumnHeader>
+                  <Table.ColumnHeader whiteSpace="nowrap" color="text.muted">Orden</Table.ColumnHeader>
+                  <Table.ColumnHeader whiteSpace="nowrap" color="text.muted">Servicio</Table.ColumnHeader>
+                  <Table.ColumnHeader whiteSpace="nowrap" color="text.muted">Sistema Principal</Table.ColumnHeader>
+                  <Table.ColumnHeader whiteSpace="nowrap" color="text.muted">Fotos</Table.ColumnHeader>
+                  <Table.ColumnHeader whiteSpace="nowrap" color="text.muted">Estado</Table.ColumnHeader>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -46,13 +41,13 @@ export const DataDisplayShowcase: React.FC = () => {
                   { order: 3, name: "Techos de Policarbonato", system: "Serie 35", photos: 6, published: false },
                 ].map((row) => (
                   <Table.Row key={row.name} _hover={{ bg: "bg.subtle" }}>
-                    <Table.Cell fontWeight="bold">{row.order}</Table.Cell>
-                    <Table.Cell fontWeight="medium">{row.name}</Table.Cell>
-                    <Table.Cell>
+                    <Table.Cell whiteSpace="nowrap" fontWeight="bold">{row.order}</Table.Cell>
+                    <Table.Cell whiteSpace="nowrap" fontWeight="medium">{row.name}</Table.Cell>
+                    <Table.Cell whiteSpace="nowrap">
                       <Badge colorPalette="gray" size="sm">{row.system}</Badge>
                     </Table.Cell>
-                    <Table.Cell color="text.muted">{row.photos} imágenes</Table.Cell>
-                    <Table.Cell>
+                    <Table.Cell whiteSpace="nowrap" color="text.muted">{row.photos} imágenes</Table.Cell>
+                    <Table.Cell whiteSpace="nowrap">
                       {row.published ? (
                         <Badge colorPalette="green" size="sm">Publicado</Badge>
                       ) : (
@@ -64,53 +59,43 @@ export const DataDisplayShowcase: React.FC = () => {
               </Table.Body>
             </Table.Root>
           </Box>
-        </Card.Body>
-      </Card.Root>
+        </ShowcaseCard>
 
       {/* Badges: catálogo de variantes y estados */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <Card.Title fontSize="xl">Badges</Card.Title>
-          <Card.Description>
-            Variantes neutras (gray) y estados semánticos para etiquetas de catálogo y tablas.
-          </Card.Description>
-        </Card.Header>
-        <Card.Body>
-          <VStack gap="6" align="stretch">
-            <Box p="5" bg="surface.container" borderRadius="xl" borderWidth="1px" borderColor="border.subtle">
+      <ShowcaseCard
+        title="Badges"
+        description="Variantes neutras (gray) y estados semánticos para etiquetas de catálogo y tablas."
+      >
+          <ShowcaseStack gap="4">
+            <ShowcasePanel bg="surface.container">
               <Heading size="sm" mb="4" color="text.heading">Variantes</Heading>
-              <HStack gap="3" wrap="wrap">
+              <HStack gap="2" wrap="wrap">
                 <Badge colorPalette="gray" variant="solid">Solid</Badge>
                 <Badge colorPalette="gray" variant="subtle">Subtle</Badge>
                 <Badge colorPalette="gray" variant="outline">Outline</Badge>
               </HStack>
-            </Box>
-            <Box p="5" bg="surface.container" borderRadius="xl" borderWidth="1px" borderColor="border.subtle">
+            </ShowcasePanel>
+            <ShowcasePanel bg="surface.container">
               <Heading size="sm" mb="4" color="text.heading">Estados</Heading>
-              <HStack gap="3" wrap="wrap">
+              <HStack gap="2" wrap="wrap">
                 <Badge colorPalette="green" variant="subtle">Success</Badge>
                 <Badge colorPalette="orange" variant="subtle">Warning</Badge>
                 <Badge colorPalette="red" variant="subtle">Error</Badge>
               </HStack>
-            </Box>
-          </VStack>
-        </Card.Body>
-      </Card.Root>
+            </ShowcasePanel>
+          </ShowcaseStack>
+        </ShowcaseCard>
 
       {/* 2. Ficha Técnica (DataList) & EmptyState */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <Card.Title fontSize="xl">Fichas Técnicas (DataList) & Estados de Vacío (EmptyState)</Card.Title>
-          <Card.Description>
-            Componentes especializados para metadatos y pantallas sin registros.
-          </Card.Description>
-        </Card.Header>
-        <Card.Body>
-          <VStack gap="8" align="stretch">
+      <ShowcaseCard
+        title="Fichas Técnicas (DataList) & Estados de Vacío (EmptyState)"
+        description="Componentes especializados para metadatos y pantallas sin registros."
+      >
+          <ShowcaseStack>
             {/* DataList */}
-            <Box p="5" bg="surface.container" borderRadius="xl" borderWidth="1px" borderColor="border.subtle">
+            <ShowcasePanel bg="surface.container">
               <Heading size="sm" mb="4" color="text.heading">Ficha Técnica de Fabricación</Heading>
-              <DataListRoot orientation="horizontal">
+              <DataListRoot orientation={{ base: "vertical", md: "horizontal" }}>
                 <DataListItem
                   label="Razón Social:"
                   value="GLASS & ALUMINUM COMPANY S.A.C."
@@ -128,31 +113,30 @@ export const DataDisplayShowcase: React.FC = () => {
                   value="RNE Norma E.040 Vidrio"
                 />
               </DataListRoot>
-            </Box>
+            </ShowcasePanel>
 
             {/* EmptyState y Skeletons */}
-            <Box p="4" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
+            <ShowcasePanel>
               <EmptyState
-                icon={<Layers />}
+                icon={<Layers style={{ flexShrink: 0 }} />}
                 title="Sin presupuestos pendientes"
                 description="Todos los pedidos de carpintería y cotizaciones han sido atendidos."
               />
-            </Box>
+            </ShowcasePanel>
 
             {/* Skeletons de Carga */}
             <Box>
-              <Text fontSize="xs" fontWeight="semibold" color="text.muted" mb="2">
-                PLACEHOLDERS DE CARGA (SKELETONS)
-              </Text>
+              <SubsectionLabel mb="2">
+                Placeholders de carga (Skeletons)
+              </SubsectionLabel>
               <VStack gap="2" align="stretch">
                 <Skeleton height="20px" borderRadius="md" />
                 <Skeleton height="20px" width="80%" borderRadius="md" />
                 <Skeleton height="20px" width="60%" borderRadius="md" />
               </VStack>
             </Box>
-          </VStack>
-        </Card.Body>
-      </Card.Root>
-    </VStack>
+          </ShowcaseStack>
+        </ShowcaseCard>
+    </ShowcaseStack>
   );
 };

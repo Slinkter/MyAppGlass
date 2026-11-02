@@ -11,7 +11,6 @@ import {
   Textarea,
   IconButton,
   Separator,
-  Card,
 } from "@chakra-ui/react";
 import { ArrowRight, Eye, Sliders, Copy } from "lucide-react";
 import { FloatingWhatsAppButton, ThemeToggleButton } from "@/widgets/FloatingActions";
@@ -20,6 +19,7 @@ import { Field } from "@/components/ui/field";
 import { NativeSelectRoot, NativeSelectField } from "@/components/ui/native-select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert } from "@/components/ui/alert";
+import { ShowcaseCard, ShowcaseStack, SubsectionLabel } from "../components";
 
 export const FormControlsShowcase: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -27,22 +27,18 @@ export const FormControlsShowcase: React.FC = () => {
   const [isTempered, setIsTempered] = useState(true);
 
   return (
-    <VStack gap="8" align="stretch">
+    <ShowcaseStack>
       {/* 1. Botones del Sistema Aura */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <Card.Title fontSize="xl">Botones & Acciones Oficiales</Card.Title>
-          <Card.Description>
-            Botones con tokens semánticos nativos de Chakra UI v3.
-          </Card.Description>
-        </Card.Header>
-        <Card.Body>
+      <ShowcaseCard
+ title="Botones & Acciones Oficiales"
+ description="Botones con tokens semánticos nativos de Chakra UI v3."
+>
           <VStack gap="6" align="stretch">
             <Box>
-              <Text fontWeight="semibold" mb="3" color="text.muted" fontSize="sm">
+              <SubsectionLabel mb="3">
                 VARIANTES (AURA / OUTLINE / GHOST / WHATSAPP / BRAND)
-              </Text>
-              <HStack gap="4" wrap="wrap">
+              </SubsectionLabel>
+              <HStack gap={{ base: "2", md: "4" }} wrap="wrap">
                 <Button variant="aura">
                   Aura <ArrowRight size={16} style={{ flexShrink: 0 }} />
                 </Button>
@@ -56,10 +52,10 @@ export const FormControlsShowcase: React.FC = () => {
             <Separator borderColor="border.subtle" />
 
             <Box>
-              <Text fontWeight="semibold" mb="3" color="text.muted" fontSize="sm">
+              <SubsectionLabel mb="3">
                 TAMAÑOS (SM / MD / LG / XL)
-              </Text>
-              <HStack gap="4" wrap="wrap" align="center">
+              </SubsectionLabel>
+              <HStack gap={{ base: "2", md: "4" }} wrap="wrap" align="center">
                 <Button variant="aura" size="sm">Small</Button>
                 <Button variant="aura" size="md">Medium</Button>
                 <Button variant="aura" size="lg">Large</Button>
@@ -70,10 +66,10 @@ export const FormControlsShowcase: React.FC = () => {
             <Separator borderColor="border.subtle" />
 
             <Box>
-              <Text fontWeight="semibold" mb="3" color="text.muted" fontSize="sm">
+              <SubsectionLabel mb="3">
                 ESTADOS (LOADING / DISABLED)
-              </Text>
-              <HStack gap="4" wrap="wrap" align="center">
+              </SubsectionLabel>
+              <HStack gap={{ base: "2", md: "4" }} wrap="wrap" align="center">
                 <Button variant="aura" loading loadingText="Enviando...">Enviar</Button>
                 <Button variant="outline" loading loadingText="Cargando...">Cargar</Button>
                 <Button variant="aura" disabled>Aura Disabled</Button>
@@ -84,11 +80,11 @@ export const FormControlsShowcase: React.FC = () => {
             <Separator borderColor="border.subtle" />
 
             <Box>
-              <Text fontWeight="semibold" mb="3" color="text.muted" fontSize="sm">
+              <SubsectionLabel mb="3">
                 BOTONES DE ICONO & ACCIONES FLOTANTES (WHATSAPP Y THEME HOMOLOGADOS)
-              </Text>
-              <HStack gap="4" wrap="wrap" align="center">
-                <IconButton aria-label="Ver" variant="subtle" size="sm">
+              </SubsectionLabel>
+              <HStack gap={{ base: "2", md: "4" }} wrap="wrap" align="center">
+                <IconButton aria-label="Ver" variant="subtle" size={{ base: "md", md: "sm" }}>
                   <Eye size={16} style={{ flexShrink: 0 }} />
                 </IconButton>
                 <IconButton aria-label="Ajustes" variant="outline" borderColor="border.default" size="md">
@@ -100,30 +96,26 @@ export const FormControlsShowcase: React.FC = () => {
                 <FloatingWhatsAppButton />
                 <ThemeToggleButton />
               </HStack>
-              <Text fontSize="xs" color="text.muted" mt="2">
+              <Text fontSize="xs" color="text.muted" mt="2" wordBreak="break-word" overflowWrap="anywhere">
                 Estándar de icono flotante: botón circular <code>w/h=&#123;&#123; base: 14, md: 16 &#125;&#125;</code> (56px / 64px) con icono interno de <code>32px</code> (<code>WhatsAppIcon size=&#123;32&#125;</code> y <code>ColorModeIcon size=&#123;32&#125;</code>).
               </Text>
             </Box>
           </VStack>
-        </Card.Body>
-      </Card.Root>
+        </ShowcaseCard>
 
       {/* 2. Snippets Oficiales: Field, Select, Checkbox */}
       <SimpleGrid columns={{ base: 1, md: 2 }} gap="6">
-        <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-          <Card.Header pb="4">
-            <Card.Title fontSize="xl">Formularios Estructurados (Chakra UI v3 Snippets)</Card.Title>
-            <Card.Description>
-              Campos enriquecidos con labels, ayuda y selectores nativos.
-            </Card.Description>
-          </Card.Header>
-          <Card.Body>
+        <ShowcaseCard
+ title="Formularios Estructurados (Chakra UI v3 Snippets)"
+ description="Campos enriquecidos con labels, ayuda y selectores nativos."
+>
             <VStack gap="5" align="stretch">
               <Field
                 label="Correo Electrónico de Contacto"
                 helperText="Le enviaremos la cotización formal con membrete."
               >
                 <Input
+                  w="full"
                   type="email"
                   placeholder="ejemplo@cliente.com"
                   value={email}
@@ -136,6 +128,7 @@ export const FormControlsShowcase: React.FC = () => {
                 helperText="Indique medidas aproximadas, ubicación o acabados deseados."
               >
                 <Textarea
+                  w="full"
                   variant="outline"
                   placeholder="Ej. Ventanas corredizas para sala y dormitorios..."
                   rows={4}
@@ -143,7 +136,7 @@ export const FormControlsShowcase: React.FC = () => {
               </Field>
 
               <Field label="Seleccionar Sistema de Ventana Oficial">
-                <NativeSelectRoot>
+                <NativeSelectRoot w="full">
                   <NativeSelectField
                     value={systemChoice}
                     onChange={(e) => setSystemChoice(e.target.value)}
@@ -167,18 +160,13 @@ export const FormControlsShowcase: React.FC = () => {
                 </Checkbox>
               </Box>
             </VStack>
-          </Card.Body>
-        </Card.Root>
+          </ShowcaseCard>
 
         {/* 3. Alertas Oficiales (Chakra UI Snippet Alert) */}
-        <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-          <Card.Header pb="4">
-            <Card.Title fontSize="xl">Alertas Semánticas (Snippet Alert)</Card.Title>
-            <Card.Description>
-              Retroalimentación visual oficial (`components/ui/alert.tsx`).
-            </Card.Description>
-          </Card.Header>
-          <Card.Body>
+        <ShowcaseCard
+ title="Alertas Semánticas (Snippet Alert)"
+ description="Retroalimentación visual oficial (`components/ui/alert.tsx`)."
+>
             <VStack gap="4" align="stretch">
               <Alert status="success" title="Cotización enviada">
                 Se registró el presupuesto en Firestore y se envió copia al cliente.
@@ -196,9 +184,8 @@ export const FormControlsShowcase: React.FC = () => {
                 Verifique que las dimensiones de obra sean mayores a 0.50m.
               </Alert>
             </VStack>
-          </Card.Body>
-        </Card.Root>
+          </ShowcaseCard>
       </SimpleGrid>
-    </VStack>
+    </ShowcaseStack>
   );
 };
