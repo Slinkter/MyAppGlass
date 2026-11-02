@@ -6,7 +6,7 @@ Este documento define los roles y responsabilidades de los agentes de IA que orq
 
 ## 1. 🎨 Senior Frontend Architect (Aura Specialist)
 **Especialidad:** UI/UX Premium & Performance Optimization.
-- **Stack:** Next.js 16 (App Router), Chakra UI v3, Framer Motion, TypeScript.
+- **Stack:** Next.js 16 (App Router), Chakra UI v3, TypeScript.
 - **Responsabilidades:**
     - Mantener la armonía visual basada en los tokens del sistema de diseño.
     - Optimizar el renderizado para pantallas de 120Hz (Aceleración GPU).
@@ -26,22 +26,21 @@ Este documento define los roles y responsabilidades de los agentes de IA que orq
 
 ## 3. 🖌️ UI/UX Designer (Micro-interactions Specialist)
 **Especialidad:** Estética visual, animaciones CSS, consistencia de diseño.
-- **Stack:** Chakra UI v3 tokens, CSS animations, Framer Motion.
+- **Stack:** Chakra UI v3 tokens, CSS animations y transiciones nativas de Chakra.
 - **Responsabilidades:**
     - Diseñar y suavizar micro-interacciones hover con sensación premium.
     - Asegurar alineación exacta y armonía visual en cuadrículas y layouts.
     - Refactorizar animaciones de entrada (stagger/cascada) para sensación orgánica.
     - Validar que tipografía, espaciado y colores sigan el design system.
     - Transiciones: máximo 2 propiedades CSS por elemento; ver `AGENTS.md` §4 (es la autoridad).
-    > Nota: el ejemplo de AGENTS.md usa `transition="all ..."`; pendiente que el responsable del proyecto defina si se prefieren propiedades explícitas.
 
 ## 4. 🧪 QA & Build Integrity Engineer
 **Especialidad:** TypeScript strict, linting, builds estáticos.
 - **Stack:** TypeScript, ESLint, Next.js build pipeline.
 - **Responsabilidades:**
-    - Verificar que `pnpm run build` compile las 60 páginas sin errores.
+    - Verificar que `pnpm run build` compile las 58 páginas sin errores.
     - Garantizar zero warnings de linter (`pnpm run lint`).
-    - La CI (`.github/workflows/ci.yml`, en push/PR a `main` y `develop`) ejecuta en orden: `pnpm run lint`, `pnpm run typecheck`, `pnpm run test:run` y `pnpm run build`. Los agentes de IA validan con `typecheck` y `build` y no ejecutan `test:run` salvo petición (regla de ahorro de tokens de `AGENTS.md`).
+    - La CI (`.github/workflows/ci.yml`) corre lint, typecheck, test:run y build en push/PR a `main` y `develop`. Comandos y reglas de validación: ver `AGENTS.md` §1.
     - Detectar dead code, imports huérfanos, tipos incorrectos.
     - Validar que no haya console.log en producción.
     - Ejecutar pre-commit hook validation.
@@ -101,7 +100,7 @@ Este documento define los roles y responsabilidades de los agentes de IA que orq
 - **Stack:** FSD Architecture, [`02_AI_HANDOFF.md`](./02_AI_HANDOFF.md), `AGENTS.md`.
 - **Responsabilidades:**
     - Determinar qué agente(s) invocar según la tarea solicitada.
-    - Mantener el plan de trabajo actualizado ([`04_PLAN_DE_TRABAJO.md`](./04_PLAN_DE_TRABAJO.md) y [`13_PLAN_TRABAJO_SCRUM_FASES.md`](./13_PLAN_TRABAJO_SCRUM_FASES.md); `PLAN_UX_UI_HOMEPAGE.md` fue eliminado en `a743595`).
+    - Mantener el plan de trabajo actualizado ([`04_PLAN_DE_TRABAJO.md`](./04_PLAN_DE_TRABAJO.md) y [`13_PLAN_TRABAJO_SCRUM_FASES.md`](./13_PLAN_TRABAJO_SCRUM_FASES.md)).
     - Coordinar handoffs entre agentes Frontend y Backend.
     - Priorizar tareas críticas vs. mejoras continuas.
     - Documentar decisiones arquitectónicas y estado del proyecto.
@@ -120,4 +119,4 @@ Cuando se solicita una tarea compleja:
 6. **A11y + SEO** auditan y corrigen semántica y accesibilidad.
 7. **Security Officer** hace revisión final de reglas y datos sensibles.
 
-> Todos los cambios deben respetar la arquitectura FSD (`src/screens/`, `src/features/`, `src/shared/`, `src/widgets/`).
+> Todos los cambios deben respetar la arquitectura FSD (`apps/web/src/screens/`, `apps/web/src/features/`, `apps/web/src/shared/`, `apps/web/src/widgets/`).

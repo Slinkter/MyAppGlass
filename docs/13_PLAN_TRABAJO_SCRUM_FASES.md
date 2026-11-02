@@ -128,7 +128,7 @@ Estado verificado contra el código el 2026-10-29 (HEAD `d4e6685`).
 #### 2. 🎨 Lead Frontend & UI/UX Designer
 - [ ] **3.3** Construir la vista de Catálogo Comercial en `src/screens/Tienda/ShopScreen.tsx` con filtros por categoría.
   > Pendiente: `src/screens/Tienda/` no existe.
-- [ ] **3.4** Diseñar Drawer lateral de Carrito de Compras con micro-animaciones Framer Motion a 120Hz.
+- [ ] **3.4** Diseñar Drawer lateral de Carrito de Compras con transiciones CSS nativas de Chakra a 120Hz.
 - [ ] **3.5** Crear pantalla de Checkout (`/tienda/checkout`) con resumen de compra y datos de envío/visita técnica.
 
 #### 3. 💼 MBA & Product Strategist

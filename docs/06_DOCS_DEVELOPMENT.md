@@ -12,9 +12,9 @@ Este documento es la referencia técnica para el mantenimiento y expansión del 
 ## 🚀 Configuración del Entorno Local
 
 ### 1. Variables de Entorno
-Cree los siguientes archivos (ignorados por Git). La plantilla sin secretos es `.env.example` y la validación (Zod, con valores por defecto) vive en `src/shared/config/env.ts`.
+Cree los siguientes archivos (ignorados por Git). La plantilla sin secretos es `apps/web/.env.example` y la validación (Zod, con valores por defecto) vive en `apps/web/src/shared/config/env.ts`.
 
-**Raíz (`.env.local`)** — copie `.env.example` y complete los valores:
+**Web (`apps/web/.env.local`)** — copie `apps/web/.env.example` y complete los valores:
 ```bash
 # Firebase (cliente)
 NEXT_PUBLIC_FIREBASE_API_KEY=
@@ -36,7 +36,7 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=
 ```
 
-**Carpeta Functions (`functions/.env`)** — solo nombres; los valores nunca se versionan:
+**Carpeta Functions (`apps/functions/.env`)** — solo nombres; los valores nunca se versionan:
 ```bash
 RESEND_API_KEY=
 ADMIN_EMAIL=
@@ -45,11 +45,8 @@ RECAPTCHA_SECRET_KEY=
 En producción estos tres valores se gestionan como secretos (Secret Manager); ver [07_BACKEND_IMPLEMENTATION.md](./07_BACKEND_IMPLEMENTATION.md).
 
 ### 2. Comandos de Inicio
-- **Frontend:** `pnpm run dev` (ejecuta `next dev --webpack -H 0.0.0.0 -p 3000`).
-- **Backend (Emuladores):** `cd functions && pnpm run serve` (ejecuta `firebase emulators:start --only functions`; requiere Java JDK).
-
-### 3. Scripts de la raíz (`package.json`)
-`dev`, `build` (`next build --webpack`, exportación estática a `out/`), `start`, `lint` (ESLint en `src/`), `typecheck` (`tsc --noEmit -p tsconfig.build.json`), `test` (Vitest, modo watch), `test:run`, `clean`, `deploy:hosting` (build + Firebase Hosting) y `deploy:functions`.
+Los comandos de desarrollo, validación y despliegue están en [`AGENTS.md` §1](../AGENTS.md) (ejecutar siempre desde la raíz del monorepo).
+- **Backend (Emuladores):** `cd apps/functions && pnpm run serve` (ejecuta `firebase emulators:start --only functions`; requiere Java JDK).
 
 ## 💎 Chakra UI v3 Spacing Scale (4px base)
 Use **exclusivamente** los tokens nativos de spacing de Chakra UI. No definir tokens custom.
@@ -78,12 +75,12 @@ Use **exclusivamente** los tokens nativos de spacing de Chakra UI. No definir to
 Para asegurar fluidez en móviles modernos:
 1. Use `translateZ(0)` y `willChange` en elementos animados.
 2. Evite el **Layout Shift**: sincronice siempre el esqueleto (Skeleton) con el componente real.
-3. Use el `logger` integrado (`src/shared/utils/logger.ts`, importable como `@/shared/utils/logger`) para capturar errores de renderizado.
+3. Use el `logger` integrado (`apps/web/src/shared/utils/logger.ts`, importable como `@/shared/utils/logger`) para capturar errores de renderizado.
 
 ## 🔍 SEO & Blog
-- Los artículos se gestionan en `src/features/blog/data/blog-posts.ts`.
+- Los artículos se gestionan en `apps/web/src/features/blog/data/blog-posts.ts`.
 - Cada post genera automáticamente JSON-LD y Metadatos para Google.
-- **Importante:** La generación de `sitemap.xml` y `robots.txt` es dinámica en `src/app/sitemap.ts` y `src/app/robots.ts`.
+- **Importante:** La generación de `sitemap.xml` y `robots.txt` es dinámica en `apps/web/src/app/sitemap.ts` y `apps/web/src/app/robots.ts`.
 
 ---
 *Documentación generada por Gemini CLI - Versión 1.0 (Abril 2026)*

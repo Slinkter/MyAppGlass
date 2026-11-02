@@ -56,11 +56,11 @@
   - [x] Instalar y configurar **Vitest** + **React Testing Library** + **jsdom** con alias de rutas (`@`, `@features`, `@shared`, `@widgets`, `@screens`).
   - [x] Añadir scripts `"test": "vitest"` y `"test:run": "vitest run"` a [`package.json`](../package.json).
 - [x] **2.4 Cobertura de Pruebas Unitarias e Integración:**
-  - [x] Pruebas unitarias de sanitización y formateo de datos en el Libro de Reclamaciones ([`tests/unit/sanitizer.test.ts`](../tests/unit/sanitizer.test.ts)).
-  - [x] Pruebas unitarias de esquemas Zod de contacto ([`tests/unit/contact-schema.test.ts`](../tests/unit/contact-schema.test.ts)).
-  - [x] Pruebas unitarias de generador SEO JSON-LD ([`tests/unit/seo-utils.test.ts`](../tests/unit/seo-utils.test.ts)).
+  - [x] Pruebas unitarias de sanitización y formateo de datos en el Libro de Reclamaciones ([`tests/unit/sanitizer.test.ts`](../apps/web/tests/unit/sanitizer.test.ts)).
+  - [x] Pruebas unitarias de esquemas Zod de contacto ([`tests/unit/contact-schema.test.ts`](../apps/web/tests/unit/contact-schema.test.ts)).
+  - [x] Pruebas unitarias de generador SEO JSON-LD ([`tests/unit/seo-utils.test.ts`](../apps/web/tests/unit/seo-utils.test.ts)).
 - [ ] **2.5 Pruebas End-to-End (E2E) con Playwright:**
-  > Pendiente: no hay Playwright en el repo (ni dependencia ni configuración); hoy hay Vitest (18 archivos en `tests/unit/`) y 2 colecciones Postman en `tests/postman/`.
+  > Pendiente: no hay Playwright en el repo (ni dependencia ni configuración); hoy hay Vitest (18 archivos en `apps/web/tests/unit/`) y 2 colecciones Postman en `tests/postman/`.
   - [ ] Configurar suite E2E de Playwright para flujos críticos:
     - Flujo completo de registro y validación de reclamo.
     - Flujo de solicitud de cotización/contacto.
@@ -73,12 +73,12 @@
 
 ### 🏛️ Arquitectura & Software Engineering
 - [x] **3.1 Paquete / Capa de Contratos de Datos Compartida:**
-  - [x] Crear capa compartida de esquemas Zod (`src/shared/schemas/`): [`reclamation-schema.ts`](../src/shared/schemas/reclamation-schema.ts), [`contact-schema.ts`](../src/shared/schemas/contact-schema.ts) y [`ecommerce-schemas.ts`](../src/shared/schemas/ecommerce-schemas.ts).
+  - [x] Crear capa compartida de esquemas Zod (`apps/web/src/shared/schemas/`): [`reclamation-schema.ts`](../apps/web/src/shared/schemas/reclamation-schema.ts), [`contact-schema.ts`](../apps/web/src/shared/schemas/contact-schema.ts) y [`ecommerce-schemas.ts`](../apps/web/src/shared/schemas/ecommerce-schemas.ts).
     > Nota (2026-10-29): `tracking-schema.ts` no existe en el repo (el seguimiento vive en `TrackingSection.tsx`).
-  - [x] Unificar contratos de respuesta y tipos de datos en `src/shared/schemas/` y `src/shared/types/`.
+  - [x] Unificar contratos de respuesta y tipos de datos en `apps/web/src/shared/schemas/` y `apps/web/src/shared/types/`.
     > Nota (2026-10-29): `src/shared/types/api-contracts.ts` no existe; hoy `src/shared/types/` contiene `gallery.ts`, `map.ts` y `project.ts`.
 - [x] **3.2 Error Boundaries y Manejo Unificado de Excepciones:**
-  - [x] Implementación de [`ComponentErrorBoundary.tsx`](../src/shared/components/ComponentErrorBoundary.tsx) en vistas y páginas clave con fallback accesible y logs de diagnóstico.
+  - [x] Implementación de [`ComponentErrorBoundary.tsx`](../apps/web/src/shared/components/ComponentErrorBoundary.tsx) en vistas y páginas clave con fallback accesible y logs de diagnóstico.
 - [x] **3.3 Validación y Cobertura de Tipos:**
   - [x] Suite de pruebas automatizadas que valida los contratos y tipos Zod de entrada/salida.
 
@@ -89,9 +89,9 @@
 
 ### 🎨 Experiencia Visual & Accesibilidad (A11y)
 - [x] **4.1 Generación de Comprobante PDF Descargable:**
-  - [x] Implementación en [`SuccessModal.tsx`](../src/features/reclamation-book/components/SuccessModal.tsx) del botón e interfaz de impresión directa y guardado en PDF de la **Hoja de Reclamación**.
+  - [x] Implementación en [`SuccessModal.tsx`](../apps/web/src/features/reclamation-book/components/SuccessModal.tsx) del botón e interfaz de impresión directa y guardado en PDF de la **Hoja de Reclamación**.
 - [x] **4.2 Módulo de Seguimiento Interactivo (Ticket Timeline):**
-  - [x] Stepper visual interactivo de 4 fases (*Registrado ➔ En Revisión ➔ En Proceso ➔ Atendido*) en [`TrackingSection.tsx`](../src/features/contacto/components/TrackingSection.tsx).
+  - [x] Stepper visual interactivo de 4 fases (*Registrado ➔ En Revisión ➔ En Proceso ➔ Atendido*) en [`TrackingSection.tsx`](../apps/web/src/features/contacto/components/TrackingSection.tsx).
     > Nota (2026-10-29): `TrackingContent.tsx` ya no existe; el componente es `TrackingSection.tsx`.
 - [x] **4.3 Accesibilidad y Contraste Visual:**
   - [x] Verificación de contraste de colores según sistema Aura y estados de foco visibles en inputs y botones.

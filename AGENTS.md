@@ -82,6 +82,7 @@ packages/
 - **Static Export:** El proyecto usa `output: 'export'`. Rutas dinámicas requieren `generateStaticParams`.
 - **Chakra UI v3:** Usar tokens nativos (`space.1` a `space.16`, `borderRadius="xl"`, `fontSize="xs"`).
 - **Lucide icons en flexbox:** Usar `style={{ flexShrink: 0 }}` (la prop directa `flexShrink` da error de tipos TS en Lucide).
+- **Botones:** usar `Button` de `@/components/ui/button` con `variant` del tema: `aura` (primario, por defecto), `outline`, `ghost`, `whatsapp`, `brand`. No usar `colorPalette` (blue/cyan/etc.) ni armar `bg`/`_hover` a mano. Referencia visual en `/design-system`.
 - **Transiciones:** Máximo 2 propiedades CSS (`transition="all 0.2s ease"`, `transform="translateZ(0)"`).
 - **Logger:** Usar `@/shared/utils/logger.ts`. NO usar `console.log` en producción.
 

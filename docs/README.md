@@ -180,11 +180,11 @@ graph TD
 
 | Objetivo operativo | Documento de referencia | Ruta / procedimiento |
 |---|---|---|
-| Inicializar entorno local y dependencias | `06_DOCS_DEVELOPMENT.md` | `pnpm install && pnpm run dev` |
+| Inicializar entorno local y dependencias | `06_DOCS_DEVELOPMENT.md` | Comandos en [`AGENTS.md` §1](../AGENTS.md) |
 | Plan de Sprints Scrum y checklists | `13_PLAN_TRABAJO_SCRUM_FASES.md` | Checklist de actividades por rol senior |
 | Arquitectura E-Commerce e inventario | `12_PLAN_ECOMMERCE_INVENTARIO_AR.md` | Especificación completa y reglas RBAC |
-| Agregar o editar artículo del blog | `09_PLAN_SEO_CONTENIDOS.md` | `src/features/blog/data/blog-posts.ts` |
-| Modificar reglas de diseño y espaciado | `06_DOCS_DEVELOPMENT.md` | Chakra UI spacing en `src/shared/providers/theme/` |
+| Agregar o editar artículo del blog | `09_PLAN_SEO_CONTENIDOS.md` | `apps/web/src/features/blog/data/blog-posts.ts` |
+| Modificar reglas de diseño y espaciado | `06_DOCS_DEVELOPMENT.md` | Chakra UI spacing en `apps/web/src/shared/providers/theme/` |
 | Auditar flujo legal del Libro de Reclamaciones | `07_BACKEND_IMPLEMENTATION.md` | Colección Firestore `libro_de_reclamaciones` |
 | Configuración de SEO local (Google Maps) | `11_MANUAL_SEO_LOCAL.md` | Google Business Profile (La Molina, Lima) |
 
@@ -192,24 +192,7 @@ graph TD
 
 ## § 6. Protocolo de Calidad, Verificación Formal y CI/CD
 
-El pipeline de CI (`.github/workflows/ci.yml`, en push/PR a `main` y `develop`) ejecuta en orden: ESLint → Typecheck (TSC) → pruebas unitarias (Vitest) → build de producción (`next build --webpack`, exportación estática a `out/`).
-
-Comandos equivalentes en local:
-
-```bash
-# 1. Pruebas unitarias de regresión (18 archivos en tests/unit/, ~129 casos)
-#    Nota: los agentes de IA no la ejecutan salvo petición expresa (ver AGENTS.md)
-pnpm run test:run
-
-# 2. Verificación estricta de tipos
-pnpm run typecheck
-
-# 3. Análisis estático de código
-pnpm run lint
-
-# 4. Compilación y generación estática (60 páginas)
-pnpm run build
-```
+El pipeline de CI (`.github/workflows/ci.yml`) corre lint, typecheck, pruebas unitarias y build en push/PR a `main` y `develop`. Los comandos locales equivalentes, las reglas de validación y la restricción sobre `test:run` están en [`AGENTS.md` §1](../AGENTS.md).
 
 ---
 
