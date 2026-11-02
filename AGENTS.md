@@ -94,6 +94,14 @@ packages/
 
 **⚠️ CÓDIGO CONGELADO:** NO modificar `apps/functions/`, `firestore.rules` ni `firebase.json` a menos que sea explícitamente solicitado.
 
+---
+
+## 6. Organización de la raíz
+
+- **No saturar la raíz del repo.** En la raíz solo van `AGENTS.md`, `README.md` y `CHANGELOG.md` (el historial real está en `docs/05_CHANGELOG.md`).
+- Los demás `.md`, planes y documentos de trabajo van en `docs/` (o una subcarpeta).
+- **Excepción:** archivos que las herramientas leen desde la raíz no se mueven sin confirmar: `firebase.json`, `firestore.rules`, `storage.rules` y `.firebaserc` (Firebase CLI; `firebase.json` referencia las reglas con rutas relativas a la raíz), `.mcp.json` (MCP), `package.json`, `pnpm-workspace.yaml` y configs de Next/TS. Si un movimiento puede romper un comando, avisar antes.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know
