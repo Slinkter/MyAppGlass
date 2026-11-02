@@ -3,13 +3,32 @@ name: CI Pipeline
 on:
   push:
     branches: [main, develop, 'firebase-hosting-*']
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.agents/**'
+      - '.gemini/**'
   pull_request:
     branches: [main, develop]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.agents/**'
+      - '.gemini/**'
+
+# Cancela ejecuciones anteriores de la misma rama/PR para ahorrar minutos.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   validate:
     name: Lint, Typecheck & Test
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
@@ -38,6 +57,14 @@ jobs:
 
       - name: Run Automated Tests
         run: pnpm run test:run
+
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**/*.[jt]s', 'apps/web/src/**/*.[jt]sx') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
 
       - name: Run Production Build
         env:
