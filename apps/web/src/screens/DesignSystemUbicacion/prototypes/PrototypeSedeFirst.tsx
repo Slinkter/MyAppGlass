@@ -15,8 +15,6 @@ import { SedeCard } from "./sede/SedeCard";
 import { SedeProjectCard } from "./sede/SedeProjectCard";
 
 const PAGE_SIZE = 6;
-/** Sin señal de carga en el hook: si tras este plazo no hay obras, se muestra el estado vacío. */
-const LOADING_GRACE_MS = 6000;
 
 const Stat: React.FC<{ value: string; label: string }> = ({ value, label }) => (
   <VStack gap="0" p={{ base: "3", md: "5" }} bg="bg.subtle" borderRadius="2xl" minW={0} textAlign="center">
@@ -31,19 +29,13 @@ const Stat: React.FC<{ value: string; label: string }> = ({ value, label }) => (
 
 /** Prototipo C · Sede primero: la empresa como protagonista y las obras como prueba social. */
 export const PrototypeSedeFirst: React.FC = () => {
-  const { projects, years, districts } = useLocationData();
+  const { projects, years, districts, isLoading } = useLocationData();
   const [year, setYear] = useState<number | null>(null);
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [mapOpen, setMapOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | number | null>(null);
   const [scrollTick, setScrollTick] = useState(0);
-  const [graceOver, setGraceOver] = useState(false);
   const mapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const id = window.setTimeout(() => setGraceOver(true), LOADING_GRACE_MS);
-    return () => window.clearTimeout(id);
-  }, []);
 
   const filtered = useMemo(
     () => (year === null ? projects : projects.filter((p) => p.yearNumber === year)),
@@ -73,7 +65,6 @@ export const PrototypeSedeFirst: React.FC = () => {
     return () => window.cancelAnimationFrame(raf);
   }, [scrollTick]);
 
-  const isLoading = projects.length === 0 && !graceOver;
   const oldestYear = years.length > 0 ? years[years.length - 1] : null;
 
   return (
@@ -99,10 +90,22 @@ export const PrototypeSedeFirst: React.FC = () => {
         </VStack>
 
         {years.length > 1 && (
-          <Flex wrap="wrap" gap="2" role="group" aria-label="Filtrar obras por año">
-            <FilterPill label="Todas" isActive={year === null} onClick={() => handleYear(null)} />
+          <Flex
+            gap="2"
+            role="group"
+            aria-label="Filtrar obras por año"
+            overflowX={{ base: "auto", md: "visible" }}
+            flexWrap={{ base: "nowrap", md: "wrap" }}
+            pb="1"
+            css={{ scrollbarWidth: "none", "&::-webkit-scrollbar": { display: "none" } }}
+          >
+            <Box flexShrink={0}>
+              <FilterPill label="Todas" isActive={year === null} onClick={() => handleYear(null)} />
+            </Box>
             {years.map((y) => (
-              <FilterPill key={y} label={String(y)} isActive={year === y} onClick={() => handleYear(y)} />
+              <Box key={y} flexShrink={0}>
+                <FilterPill label={String(y)} isActive={year === y} onClick={() => handleYear(y)} />
+              </Box>
             ))}
           </Flex>
         )}
@@ -176,7 +179,7 @@ export const PrototypeSedeFirst: React.FC = () => {
                 borderColor="border.default"
                 position="relative"
               >
-                <LocationMapLazy projects={projects} selectedId={selectedId} onSelect={setSelectedId} showStore />
+                <LocationMapLazy projects={filtered} selectedId={selectedId} onSelect={setSelectedId} showStore />
               </Box>
             )}
           </Box>

@@ -97,7 +97,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, store, hi
           </Text>
           {!hideTitle && (
             <Heading as="h3" fontSize="xl" color="text.heading" mt="1">
-              {store.client}
+              {companyData.razonSocial}
             </Heading>
           )}
         </Box>

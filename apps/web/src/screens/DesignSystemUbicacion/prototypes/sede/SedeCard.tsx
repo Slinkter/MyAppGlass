@@ -54,13 +54,13 @@ export const SedeCard: React.FC = React.memo(() => (
         <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" textTransform="uppercase" color="text.accent">
           Nuestra sede
         </Text>
-        <Heading as="h3" fontSize={{ base: "2xl", md: "4xl" }} color="text.heading" lineHeight="tight">
-          Glass & Aluminum Company
+        <Heading as="h3" fontSize={{ base: "xl", md: "3xl" }} color="text.heading" lineHeight="tight">
+          {companyData.razonSocial}
         </Heading>
         <HStack align="flex-start" gap="2" color="text.heading" minW={0}>
           <MapPin size={20} style={{ flexShrink: 0, marginTop: 4 }} aria-hidden />
-          <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="semibold">
-            Av. Los Fresnos 1250, La Molina, Lima
+          <Text fontSize={{ base: "md", md: "xl" }} fontWeight="semibold">
+            {companyData.direccion}, Lima
           </Text>
         </HStack>
         <HStack align="flex-start" gap="2" color="text.muted" minW={0}>
@@ -100,7 +100,7 @@ export const SedeCard: React.FC = React.memo(() => (
             minH={TOUCH_MIN}
             aria-label={`Llamar al ${companyData.whatsappDisplay}`}
           >
-            <a href={`tel:${companyData.contactPhone}`}>
+            <a href={`tel:+${companyData.whatsappNumber}`}>
               <Phone size={18} style={{ flexShrink: 0 }} aria-hidden />
               {companyData.whatsappDisplay}
             </a>

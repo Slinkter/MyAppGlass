@@ -14,8 +14,8 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { TOUCH_MIN } from "@/shared/constants/layout";
+import { companyData } from "@/shared/config/company-data";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
-import { useProjects } from "@/features/projects/hooks/useProjects";
 import LocationMapLazy from "../location/LocationMapLazy";
 import { STORE_ID, useLocationData } from "../location/useLocationData";
 import { FilterBar, type SortMode } from "./filters/FilterBar";
@@ -36,8 +36,7 @@ const INITIAL: FilterState = { year: null, district: null, sort: "recent", selec
  * lg+: lista | mapa | detalle. md: lista | mapa + Drawer lateral. base: mapa, lista y panel inferior.
  */
 export const PrototypeFilters: React.FC = () => {
-  const { store, projects, years, districts } = useLocationData();
-  const { isLoading } = useProjects();
+  const { store, projects, years, districts, isLoading } = useLocationData();
   const isMobile = useIsMobile();
   const [isDesktop] = useMediaQuery(["(min-width: 62em)"]);
   const [state, setState] = useState<FilterState>(INITIAL);
@@ -126,7 +125,10 @@ export const PrototypeFilters: React.FC = () => {
         <Box
           gridArea="list"
           minH={0}
-          overflowY={{ base: "visible", md: "auto" }}
+          maxH={{ base: "380px", md: "none" }}
+          overflowY="auto"
+          overscrollBehavior="contain"
+          position="relative"
           borderTop={{ base: "1px solid", md: "none" }}
           borderEnd={{ md: "1px solid" }}
           borderColor="border.default"
@@ -177,7 +179,7 @@ export const PrototypeFilters: React.FC = () => {
           >
             <DrawerHeader pe="14">
               <DrawerTitle color="text.heading" fontSize="lg">
-                {selectedProject ? selectedProject.name : store.client}
+                {selectedProject ? selectedProject.name : companyData.razonSocial}
               </DrawerTitle>
             </DrawerHeader>
             <DrawerBody pb="6">

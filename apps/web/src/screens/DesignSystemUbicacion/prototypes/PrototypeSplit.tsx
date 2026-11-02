@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Box, Grid, chakra, HStack, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { MapPinOff } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
-import { useProjects } from "@/features/projects/hooks/useProjects";
 import LocationMapLazy from "../location/LocationMapLazy";
 import { STORE_ID, useLocationData } from "../location/useLocationData";
 import { SplitProjectRow } from "./split/SplitProjectRow";
@@ -20,9 +19,7 @@ const LOADING_ROWS = [0, 1, 2, 3];
  * tablet: panel angosto; móvil: mapa arriba y lista apilada debajo.
  */
 export const PrototypeSplit: React.FC = () => {
-  const { store, projects } = useLocationData();
-  // Solo para el estado de carga (no hay flag en useLocationData); comparte el mismo origen de datos.
-  const { isLoading } = useProjects();
+  const { store, projects, isLoading } = useLocationData();
   const [selectedId, setSelectedId] = useState<SelectedId>(null);
   const listRef = useRef<HTMLUListElement>(null);
 

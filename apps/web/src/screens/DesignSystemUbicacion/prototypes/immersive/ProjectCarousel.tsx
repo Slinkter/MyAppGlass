@@ -79,7 +79,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, sele
   useEffect(() => {
     const list = listRef.current;
     if (!list || selectedId === null) return;
-    const card = list.querySelector<HTMLElement>(`[data-project-id="${String(selectedId)}"]`);
+    const card = list.querySelector<HTMLElement>(`[data-project-id="${CSS.escape(String(selectedId))}"]`);
     if (!card) return;
     const l = list.getBoundingClientRect();
     const c = card.getBoundingClientRect();

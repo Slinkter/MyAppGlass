@@ -4,6 +4,7 @@ import React from "react";
 import { Box, HStack, Text, chakra } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { ArrowUpRight, Route } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 import { TOUCH_MIN } from "@/shared/constants/layout";
@@ -96,27 +97,12 @@ export const SplitProjectRow: React.FC<SplitProjectRowProps> = React.memo(({ pro
       </chakra.button>
       {selected && (
         <Box px="2" pb="2">
-          <RouterLink
-            href={href}
-            aria-label={`Ver la obra ${project.name}`}
-            style={{ textDecoration: "none", display: "block" }}
-          >
-            <HStack
-              justify="center"
-              gap="2"
-              minH={TOUCH_MIN}
-              borderRadius="lg"
-              bg="primary.500"
-              color="white"
-              fontSize="sm"
-              fontWeight="700"
-              transition="opacity 0.2s ease"
-              _hover={{ opacity: 0.9 }}
-            >
+          <Button asChild variant="aura" w="full" minH={TOUCH_MIN}>
+            <RouterLink href={href} aria-label={`Ver la obra ${project.name}`}>
               <Text>Ver obra</Text>
-              <Box as={ArrowUpRight} boxSize={4} aria-hidden="true" style={{ flexShrink: 0 }} />
-            </HStack>
-          </RouterLink>
+              <ArrowUpRight size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
+            </RouterLink>
+          </Button>
         </Box>
       )}
     </Box>

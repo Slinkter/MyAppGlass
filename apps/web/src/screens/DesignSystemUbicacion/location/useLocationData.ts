@@ -7,6 +7,7 @@
  */
 
 import { useMemo } from "react";
+import { useProjects } from "@/features/projects/hooks/useProjects";
 import { useMapProjects } from "@features/home/hooks/useMapProjects";
 import { mainStore } from "@shared/components/map/mapConfig";
 import type { MapProject, StoreLocation } from "@/shared/types/map";
@@ -52,15 +53,19 @@ export interface LocationData {
   years: number[];
   /** Distritos (campo `address` de la obra) ordenados alfabéticamente. */
   districts: string[];
+  /** Estado de carga desde Firestore. */
+  isLoading: boolean;
 }
 
 export function useLocationData(): LocationData {
   const raw = useMapProjects();
+  const { isLoading } = useProjects();
 
   return useMemo(() => {
     const projects: LocationProject[] = raw
       .map((project) => ({
         ...project,
+        href: (project as LocationProject).href ?? `/proyectos/ver?id=${project.id}`,
         yearNumber: extractYear(project.year),
         distanceKm:
           Math.round(distanceBetweenKm(mainStore.position, project.position) * 10) / 10,
@@ -74,6 +79,6 @@ export function useLocationData(): LocationData {
       a.localeCompare(b, "es"),
     );
 
-    return { store: mainStore, projects, years, districts };
-  }, [raw]);
+    return { store: mainStore, projects, years, districts, isLoading };
+  }, [raw, isLoading]);
 }
