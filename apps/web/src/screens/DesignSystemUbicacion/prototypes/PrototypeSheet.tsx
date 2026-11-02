@@ -67,7 +67,8 @@ export const PrototypeSheet: React.FC = () => {
       ref={containerRef}
       position="relative"
       overflow="hidden"
-      h={{ base: "580px", md: "620px", lg: "680px" }}
+      h={{ base: "min(580px, 85dvh)", md: "620px", lg: "680px" }}
+      minH={{ base: "420px", md: "0" }}
       borderRadius="2xl"
       borderWidth="1px"
       borderColor="border.default"

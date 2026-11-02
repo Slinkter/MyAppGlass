@@ -106,7 +106,13 @@ export const PrototypeTimeline: React.FC = () => {
         borderColor="border.default"
         bg="bg.subtle"
       >
-        <LocationMapLazy projects={projects} selectedId={selectedId} onSelect={setSelectedId} />
+        {/* `key`: al reabrir el mapa en móvil se vuelve a montar con el tamaño correcto (estaba en display: none). */}
+        <LocationMapLazy
+          key={mapOpen ? "open" : "closed"}
+          projects={projects}
+          selectedId={selectedId}
+          onSelect={setSelectedId}
+        />
       </Box>
 
       <VStack gridArea="panel" align="stretch" gap="3" minH={0} minW={0}>

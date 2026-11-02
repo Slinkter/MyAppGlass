@@ -62,9 +62,14 @@ Secciones nuevas en `sections/v2/`: escala de espaciado y breakpoints (móvil/ta
 
 ### Fase 4 — Revisión responsive y pulido
 Auditoría (agente ligero) de los archivos nuevos contra la lista de reglas; el orquestador aplica correcciones.
-- [ ] Auditoría móvil / tablet / escritorio
-- [ ] Correcciones
-- [ ] Typecheck + commit
+- [x] Auditoría móvil / tablet / escritorio (agente ligero, solo lectura: sin hallazgos altos)
+- [x] Correcciones aplicadas: alto del prototipo E en móvil `min(580px, 85dvh)` con `minH` 420px; el mapa del prototipo F se remonta al reabrirlo
+- [x] Typecheck + commit
+
+Hallazgos de severidad baja/media **no aplicados** (decisión: no tocar sin pruebas visuales):
+- `ResponsiveScaleShowcase.tsx`: botón demo de 28 px (deliberado, ilustra el mínimo absoluto).
+- `TimelineYearChips.tsx`, `TimelineProjectItem.tsx`, `CardVariantsShowcase.tsx`: chips/filas con `bg`/`_hover` armados a mano en lugar de `Button` (son ítems de lista, no botones de acción).
+- Faltan `minW={0}` en textos de `SheetHandle.tsx` y `SheetStoreCard.tsx`.
 
 ### Fase 5 — Cierre
 - [ ] `pnpm run typecheck && pnpm run build`
