@@ -1,5 +1,7 @@
 # Plan: Pulir y definir el Aura Design System
 
+> **Estado: ejecutado el 2026-11-02** (commits de las fases 1 a 3). Pendiente: etapa 4 (migración de pantallas) y revisión visual en navegador.
+
 > Plan para retomar en futuras sesiones. Creado el 2026-10-30 en la rama `feat/ux-ui`.
 
 ## Context

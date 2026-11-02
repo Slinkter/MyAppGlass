@@ -6,7 +6,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 
 ## 🏗️ Estado de la Arquitectura (FSD - Feature-Sliced Design)
 
-El proyecto sigue estrictamente los principios de **Feature-Sliced Design** sobre Next.js 16 (App Router con `output: 'export'`):
+El proyecto sigue estrictamente los principios de **Feature-Sliced Design** sobre Next.js 16 con React 19 y TypeScript 6 (App Router con `output: 'export'`):
 
 ### Estructura de Directorios:
 * **Monorepo pnpm** (`pnpm-workspace.yaml`: `apps/*`, `packages/*`). Ejecutar todos los comandos desde la raíz.
@@ -17,6 +17,7 @@ El proyecto sigue estrictamente los principios de **Feature-Sliced Design** sobr
 * **`apps/web/src/shared/`**: **Capa de Fundamentos**. Utilidades (`logger.ts`), API Firebase (`api/firebase`), hooks, constantes y componentes UI Aura.
 * **`packages/shared/`** (`@gya/shared`): `companyData`, `SITE_URL` y `CompanyInfo`. Fuente de `company-data.ts`, reexportada desde `apps/web/src/shared/config/company-data.ts`.
 * **`apps/functions/`**: Microservicios serverless en Firebase Functions v2 (Node.js 22 - **CONGELADO**).
+* **Rutas de servicios y proyectos**: las rutas de listado `/servicios` y `/proyectos` fueron eliminadas el 2026-10-30. Quedan `/servicios/[serviceSlug]`, `/servicios/ver` y `/proyectos/ver` (y la ruta dinámica `/proyectos/[projectId]`).
 
 ---
 
