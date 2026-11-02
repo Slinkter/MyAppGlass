@@ -9,6 +9,7 @@ import { PrototypeSplit } from "./prototypes/PrototypeSplit";
 import { PrototypeImmersive } from "./prototypes/PrototypeImmersive";
 import { PrototypeSedeFirst } from "./prototypes/PrototypeSedeFirst";
 import { PrototypeFilters } from "./prototypes/PrototypeFilters";
+import { PrototypeSheet } from "./prototypes/PrototypeSheet";
 
 interface PrototypeFrameProps {
   title: string;
@@ -88,6 +89,17 @@ const PROTOTYPES = [
       "Detalle de la obra en panel lateral (escritorio) o panel inferior (móvil).",
     ],
     Component: PrototypeFilters,
+  },
+  {
+    value: "sheet",
+    label: "E · Hoja inferior",
+    title: "E · Mapa con hoja inferior",
+    description: "El mapa ocupa todo el espacio y la información sube desde abajo en tres alturas.",
+    highlights: [
+      "Móvil: hoja con tres posiciones (mínima, media y completa); el asa se toca, se arrastra o se mueve con el teclado.",
+      "Tablet y escritorio: la hoja pasa a panel lateral fijo con la sede y la lista de obras.",
+    ],
+    Component: PrototypeSheet,
   },
 ] as const;
 

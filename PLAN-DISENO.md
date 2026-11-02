@@ -43,9 +43,9 @@ Cada fase termina con: `pnpm run typecheck` → commit propio → este checklist
 
 ### Fase 1 — Ubicación · Prototipo E "Hoja inferior" (agente senior)
 Mapa a pantalla completa; en móvil una hoja inferior con 3 posiciones (mínima, media, completa) y lista de obras; en tablet/escritorio panel lateral. Carpeta: `prototypes/sheet/` + `PrototypeSheet.tsx`.
-- [ ] Implementar
-- [ ] Registrar pestaña E en `DesignSystemUbicacionScreen.tsx`
-- [ ] Typecheck + commit
+- [x] Implementar (agente senior; panel opaco sin vidrio; pendiente probar en navegador: arrastre y foco con Tab en posición mínima)
+- [x] Registrar pestaña E en `DesignSystemUbicacionScreen.tsx`
+- [x] Typecheck + commit
 
 ### Fase 2 — Ubicación · Prototipo F "Línea de tiempo por año" (agente senior)
 Obras agrupadas por año con encabezados fijos, mapa que acompaña la selección; móvil: mapa plegable. Carpeta: `prototypes/timeline/` + `PrototypeTimeline.tsx`.
