@@ -140,6 +140,8 @@ const crearReclamoPayload = () => ({
   montoReclamado: 1500,
   detalle: "El producto llegó con un rayón en el vidrio durante la entrega.",
   pedido: "Solicito el cambio del producto por uno nuevo.",
+  aceptaTerminos: true,
+  autorizaEmail: true,
   _ts: Date.now() - 10000,
   recaptchaToken: "TOKEN_RECAPTCHA_FALSO",
   ...mathToken(),

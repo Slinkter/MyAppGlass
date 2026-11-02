@@ -85,6 +85,36 @@ describe("sendEmailLogic (reclamo)", () => {
     assert.equal(resendCtl.llamadas.length, 0);
   });
 
+  test("sin aceptar la declaración jurada => invalid-argument y no guarda ni envía", async () => {
+    const err = await h.capturarError(sendEmailLogic(h.reclamoValido({ aceptaTerminos: false }), ctx.admin));
+    assert.equal(err.code, "invalid-argument");
+    assert.match(err.message, /aceptaTerminos/);
+    assert.equal(resendCtl.llamadas.length, 0);
+    assert.equal(ctx.eventos.includes(EVENTO_CREATE), false);
+  });
+
+  test("sin autorizar la notificación por correo => invalid-argument", async () => {
+    const err = await h.capturarError(sendEmailLogic(h.reclamoValido({ autorizaEmail: undefined }), ctx.admin));
+    assert.equal(err.code, "invalid-argument");
+    assert.match(err.message, /autorizaEmail/);
+  });
+
+  test("persiste nombrePadreMadre y los consentimientos, y el tutor aparece en ambos correos", async () => {
+    const r = await sendEmailLogic(h.reclamoValido({ nombrePadreMadre: "Rosa Pérez Díaz" }), ctx.admin);
+    const doc = ctx.admin.documento(COLECCION, r.id);
+    assert.equal(doc.nombrePadreMadre, "Rosa Pérez Díaz");
+    assert.equal(doc.aceptaTerminos, true);
+    assert.equal(doc.autorizaEmail, true);
+    const [correoAdmin, correoCliente] = resendCtl.llamadas;
+    assert.ok(correoAdmin.html.includes("Rosa Pérez Díaz"), "el correo a la empresa debe incluir al tutor");
+    assert.ok(correoCliente.html.includes("Rosa Pérez Díaz"), "el correo al cliente debe incluir al tutor");
+  });
+
+  test("sin tutor no se muestra la fila 'Padre, madre o tutor'", async () => {
+    await sendEmailLogic(h.reclamoValido(), ctx.admin);
+    assert.equal(resendCtl.llamadas[0].html.includes("Padre, madre o tutor"), false);
+  });
+
   test("captcha matemático ausente => invalid-argument", async () => {
     const err = await h.capturarError(sendEmailLogic(h.reclamoValido({ mathToken: undefined }), ctx.admin));
     assert.equal(err.code, "invalid-argument");

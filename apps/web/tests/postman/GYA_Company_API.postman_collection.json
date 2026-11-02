@@ -139,7 +139,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Av. de Prueba 123, Lima\",\n  \"telefono\": \"999999999\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"tipoBien\": \"servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Prueba automatizada\",\n  \"detalle\": \"Prueba automatizada de validacion del backend.\",\n  \"pedido\": \"Caso de prueba sin envio real.\"\n}",
+							"raw": "{\n  \"nombreCompleto\": \"PRUEBA AUTOMATIZADA\",\n  \"email\": \"prueba@example.com\",\n  \"tipoDocumento\": \"DNI\",\n  \"numeroDocumento\": \"00000000\",\n  \"domicilio\": \"Av. de Prueba 123, Lima\",\n  \"telefono\": \"999999999\",\n  \"tipoSolicitud\": \"Reclamo\",\n  \"tipoBien\": \"servicio\",\n  \"montoReclamado\": \"0.00\",\n  \"descripcionBien\": \"Prueba automatizada\",\n  \"detalle\": \"Prueba automatizada de validacion del backend.\",\n  \"pedido\": \"Caso de prueba sin envio real.\",\n  \"nombrePadreMadre\": \"\",\n  \"aceptaTerminos\": true,\n  \"autorizaEmail\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"

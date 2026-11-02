@@ -14,6 +14,11 @@ const reclamoSchema = z.object({
   descripcionBien: z.string().min(3).max(500).regex(/^[^<>{}]+$/, "Caracteres no permitidos"),
   detalle: z.string().min(10, "El detalle es muy corto").max(2000).regex(/^[^<>{}]+$/, "Caracteres no permitidos"),
   pedido: z.string().min(10, "El pedido es muy corto").max(1000).regex(/^[^<>{}]+$/, "Caracteres no permitidos"),
+  // Obligatorio solo para menores de edad; el formulario lo envía siempre (vacío si no aplica).
+  nombrePadreMadre: z.string().max(120).regex(/^[^<>{}]*$/, "Caracteres no permitidos").optional().default(""),
+  // Consentimientos: el registro conserva la evidencia de que el consumidor los otorgó.
+  aceptaTerminos: z.literal(true, { message: "Debe aceptar la declaración jurada y las políticas de privacidad" }),
+  autorizaEmail: z.literal(true, { message: "Debe autorizar la notificación por correo electrónico" }),
 });
 
 module.exports = { reclamoSchema };

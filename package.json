@@ -13,7 +13,8 @@
         "test": "pnpm --filter @gya/web test",
         "test:run": "pnpm --filter @gya/web test:run",
         "test:functions": "pnpm --filter @gya/functions test",
-        "clean": "pnpm -r --if-present clean && pnpm dlx rimraf node_modules apps/functions/node_modules packages/shared/node_modules",
+        "contract:generate": "node scripts/generate-openapi.cjs",
+        "clean": "pnpm -r --if-present run clean && pnpm dlx rimraf node_modules apps/functions/node_modules packages/shared/node_modules",
         "deploy:hosting": "pnpm run build && npx firebase-tools deploy --only hosting",
         "deploy:functions": "firebase deploy --only functions"
     },

@@ -26,6 +26,9 @@ function buildSafeReclamoPayload(data) {
     descripcionBien: stripHtml(data.descripcionBien),
     detalle: stripHtml(data.detalle),
     pedido: stripHtml(data.pedido),
+    nombrePadreMadre: stripHtml(data.nombrePadreMadre ?? ""),
+    aceptaTerminos: data.aceptaTerminos === true,
+    autorizaEmail: data.autorizaEmail === true,
   };
 }
 

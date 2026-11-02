@@ -1,0 +1,549 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "GYA Company API",
+    "version": "1.0.0",
+    "description": "Contrato de las Cloud Functions HTTP de Glass & Aluminum Company S.A.C.\n\nFuente: los schemas Zod de `apps/functions/src/schemas`. Este archivo se genera con `pnpm run contract:generate`; no se edita a mano.\nEl frontend debe cumplir estos límites y valores (`packages/shared/src/schemas/reclamation-schema.ts`); un test de contrato falla si divergen.\n\nOrden de validación de `submitReclamo`: antibot (descartes silenciosos con 200 y `GHOST_BLOCKED`) → schema → captcha matemático → reCAPTCHA v3 → documento de identidad → guardado en Firestore → correos."
+  },
+  "servers": [
+    {
+      "url": "https://us-central1-gya-app-4c8a9.cloudfunctions.net",
+      "description": "Producción"
+    }
+  ],
+  "paths": {
+    "/submitReclamo": {
+      "post": {
+        "operationId": "submitReclamo",
+        "summary": "Registra una hoja del Libro de Reclamaciones",
+        "description": "Guarda el registro en la colección `libro_de_reclamaciones` (campos `createdAt`, `createdAtIso`, `status`, `notifications`) y envía un correo a la empresa y otro al consumidor. Límite por IP: 8 solicitudes cada 15 minutos (responde 429 al superarlo).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReclamoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registrado. `data.id` es el código de seguimiento (`GYA-REC-AAAA-XXXXXX`), o `GHOST_BLOCKED` si el antibot lo descartó.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos o captcha matemático incorrecto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "reCAPTCHA no superado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Método no permitido (solo POST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de solicitudes superado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submitContacto": {
+      "post": {
+        "operationId": "submitContacto",
+        "summary": "Registra una consulta de contacto o cotización",
+        "description": "Guarda el registro en `contact_submissions` y envía un correo a la empresa y otro al cliente. Límite por IP: 8 solicitudes cada 15 minutos (responde 429 al superarlo).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registrado. `data.id` es el código `GYA-CON-AAAA-XXXXXX`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos o captcha matemático incorrecto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "reCAPTCHA no superado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Método no permitido (solo POST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de solicitudes superado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/checkStatus": {
+      "get": {
+        "operationId": "checkStatus",
+        "summary": "Consulta el estado de una solicitud por su código",
+        "description": "Acepta códigos nuevos (`GYA-...`) y antiguos (id de Resend). El nombre se devuelve ofuscado (Ley N° 29733). Límite por IP: 30 solicitudes cada 15 minutos (responde 429 al superarlo).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "description": "Código de seguimiento."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Solicitud encontrada.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Falta el id de seguimiento.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No existe una solicitud con ese código.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de solicitudes superado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ReclamoRequest": {
+        "type": "object",
+        "properties": {
+          "nombreCompleto": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 120,
+            "pattern": "^[^<>{}]+$"
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 200,
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "enum": [
+              "DNI",
+              "CE",
+              "Carné de Extranjería",
+              "PASAPORTE",
+              "Pasaporte",
+              "RUC"
+            ]
+          },
+          "numeroDocumento": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 15,
+            "pattern": "^[a-zA-Z0-9]+$"
+          },
+          "domicilio": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 300,
+            "pattern": "^[^<>{}]+$"
+          },
+          "telefono": {
+            "type": "string",
+            "minLength": 7,
+            "maxLength": 20,
+            "pattern": "^\\+?[0-9 \\-()]+$"
+          },
+          "tipoSolicitud": {
+            "type": "string",
+            "enum": [
+              "Reclamo",
+              "Queja"
+            ]
+          },
+          "tipoBien": {
+            "type": "string",
+            "enum": [
+              "producto",
+              "servicio"
+            ]
+          },
+          "montoReclamado": {
+            "default": 0,
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "descripcionBien": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 500,
+            "pattern": "^[^<>{}]+$"
+          },
+          "detalle": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 2000,
+            "pattern": "^[^<>{}]+$"
+          },
+          "pedido": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 1000,
+            "pattern": "^[^<>{}]+$"
+          },
+          "nombrePadreMadre": {
+            "default": "",
+            "type": "string",
+            "maxLength": 120,
+            "pattern": "^[^<>{}]*$"
+          },
+          "aceptaTerminos": {
+            "type": "boolean",
+            "const": true
+          },
+          "autorizaEmail": {
+            "type": "boolean",
+            "const": true
+          },
+          "mathToken": {
+            "type": "string",
+            "description": "Token base64 firmado del reto matemático (ver `mathCaptcha` del frontend). Vigencia: 15 minutos."
+          },
+          "mathAnswer": {
+            "type": [
+              "string",
+              "number"
+            ],
+            "description": "Respuesta del consumidor al reto matemático."
+          },
+          "recaptchaToken": {
+            "type": "string",
+            "description": "Token de reCAPTCHA v3 generado en el navegador."
+          },
+          "_ts": {
+            "type": "number",
+            "description": "Marca de tiempo (ms) del render del formulario. Un envío en menos de 1.8 s se descarta como bot."
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Honeypot: debe ir vacío. Si viene con texto, el envío se descarta en silencio."
+          },
+          "website_hp": {
+            "type": "string",
+            "description": "Honeypot: debe ir vacío."
+          }
+        },
+        "required": [
+          "nombreCompleto",
+          "email",
+          "tipoDocumento",
+          "numeroDocumento",
+          "domicilio",
+          "telefono",
+          "tipoSolicitud",
+          "tipoBien",
+          "descripcionBien",
+          "detalle",
+          "pedido",
+          "aceptaTerminos",
+          "autorizaEmail",
+          "mathToken",
+          "mathAnswer",
+          "recaptchaToken"
+        ]
+      },
+      "ContactoRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100,
+            "pattern": "^[^<>{}]+$"
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 200,
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "phone": {
+            "default": "",
+            "type": "string",
+            "maxLength": 20,
+            "pattern": "^\\+?[0-9 \\-()]*$"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 2000,
+            "pattern": "^[^<>{}]+$"
+          },
+          "mathToken": {
+            "type": "string",
+            "description": "Token base64 firmado del reto matemático (ver `mathCaptcha` del frontend). Vigencia: 15 minutos."
+          },
+          "mathAnswer": {
+            "type": [
+              "string",
+              "number"
+            ],
+            "description": "Respuesta del consumidor al reto matemático."
+          },
+          "recaptchaToken": {
+            "type": "string",
+            "description": "Token de reCAPTCHA v3 generado en el navegador."
+          },
+          "_ts": {
+            "type": "number",
+            "description": "Marca de tiempo (ms) del render del formulario. Un envío en menos de 1.8 s se descarta como bot."
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Honeypot: debe ir vacío. Si viene con texto, el envío se descarta en silencio."
+          },
+          "website_hp": {
+            "type": "string",
+            "description": "Honeypot: debe ir vacío."
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "message",
+          "mathToken",
+          "mathAnswer",
+          "recaptchaToken"
+        ]
+      },
+      "SubmitResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "const": true
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Código de seguimiento."
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "StatusResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "const": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "Consulta de Contacto",
+                  "Libro de Reclamaciones"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "examples": [
+                  "RECIBIDO"
+                ]
+              },
+              "createdAt": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Fecha de registro (`createdAt` en Firestore)."
+              },
+              "name": {
+                "type": "string",
+                "description": "Nombre ofuscado."
+              },
+              "maskedName": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "properties": {
+          "success": {
+            "const": false
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

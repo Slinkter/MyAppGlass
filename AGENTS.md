@@ -94,6 +94,8 @@ packages/
 
 **⚠️ CÓDIGO CONGELADO:** NO modificar `apps/functions/`, `firestore.rules` ni `firebase.json` a menos que sea explícitamente solicitado.
 
+**Contrato frontend ↔ backend:** el backend manda. Los campos y límites de `submitReclamo`/`submitContacto`/`checkStatus` están en `docs/api/openapi.json`, generado con `pnpm run contract:generate` desde los schemas Zod de `apps/functions/src/schemas/`. Si cambias un campo, sigue `docs/api/README.md` (regenerar, actualizar `packages/shared/src/schemas/reclamation-schema.ts` y pasar los tests de contrato).
+
 ---
 
 ## 6. Organización de la raíz
