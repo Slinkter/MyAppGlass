@@ -29,18 +29,19 @@ export const PrototypeImmersive: React.FC = () => {
     <Box
       position="relative"
       overflow="hidden"
-      h={{ base: "600px", lg: "680px" }}
+      h={{ base: "560px", md: "620px", lg: "680px" }}
       borderRadius={{ base: "2xl", lg: "3xl" }}
-      border="1px solid"
+      borderWidth="1px"
       borderColor="border.default"
       bg="bg.subtle"
+      boxShadow="sm"
     >
       <Box position="absolute" inset={0}>
         <LocationMapLazy projects={projects} selectedId={selectedId} onSelect={handleSelect} showStore showRecenter />
       </Box>
 
       {selectedProject ? (
-        <ProjectDetail project={selectedProject} onClose={handleClose} />
+        <ProjectDetail key={selectedProject.id} project={selectedProject} onClose={handleClose} />
       ) : (
         <StorePanel
           address={store.address}
@@ -53,7 +54,19 @@ export const PrototypeImmersive: React.FC = () => {
       {projects.length > 0 ? (
         <ProjectCarousel projects={projects} selectedId={selectedId} onSelect={handleSelect} />
       ) : (
-        <Box position="absolute" left="3" right="3" bottom="3" zIndex={2} bg="bg.surface/90" backdropFilter="blur(14px)" border="1px solid" borderColor="border.default" borderRadius="xl" p="4">
+        <Box
+          position="absolute"
+          left={{ base: "3", lg: "5" }}
+          right={{ base: "3", lg: "5" }}
+          bottom={{ base: "3", lg: "4" }}
+          zIndex={2}
+          bg="bg.surface/92"
+          backdropFilter="blur(20px)"
+          borderWidth="1px"
+          borderColor="border.default"
+          borderRadius="2xl"
+          p="4"
+        >
           <Text fontSize="sm" color="text.muted" role="status">
             Aún no hay obras con ubicación para mostrar.
           </Text>

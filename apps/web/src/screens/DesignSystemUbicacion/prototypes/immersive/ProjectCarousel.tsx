@@ -1,10 +1,85 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { Store } from "lucide-react";
 import { TOUCH_MIN } from "@/shared/constants/layout";
-import type { LocationProject } from "../../location/useLocationData";
+import { STORE_ID, type LocationProject } from "../../location/useLocationData";
 import { Cover } from "./Cover";
+
+interface PillSharedProps {
+  active: boolean;
+}
+
+const pillStyle = ({ active }: PillSharedProps) =>
+  ({
+    flexShrink: 0,
+    minH: TOUCH_MIN,
+    scrollSnapAlign: "center",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: "2.5",
+    p: "2",
+    pr: "3.5",
+    textAlign: "left",
+    overflow: "hidden",
+    cursor: "pointer",
+    bg: active ? "bg.surface" : "bg.surface/88",
+    backdropFilter: "blur(20px)",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: active ? "primary.500" : "border.default",
+    borderRadius: "2xl",
+    boxShadow: active ? "lg" : "sm",
+    transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+    _hover: { borderColor: "primary.500" },
+    _focusVisible: { outline: "2px solid", outlineColor: "primary.500", outlineOffset: "2px" },
+  }) as const;
+
+interface StorePillProps {
+  active: boolean;
+  onSelectStore: () => void;
+}
+
+const StorePill = React.memo(({ active, onSelectStore }: StorePillProps) => (
+  <Box
+    as="button"
+    data-project-id={STORE_ID}
+    onClick={onSelectStore}
+    aria-pressed={active}
+    aria-current={active ? "true" : undefined}
+    aria-label="Sede Principal en La Molina"
+    w={{ base: "190px", md: "205px" }}
+    {...pillStyle({ active })}
+  >
+    <Flex
+      w="42px"
+      h="42px"
+      flexShrink={0}
+      borderRadius="xl"
+      bg={active ? "primary.900" : "bg.subtle"}
+      color={active ? "white" : "text.heading"}
+      _dark={{
+        bg: active ? "white" : "bg.subtle",
+        color: active ? "primary.900" : "text.heading",
+      }}
+      align="center"
+      justify="center"
+    >
+      <Store size={18} aria-hidden="true" style={{ flexShrink: 0 }} />
+    </Flex>
+    <Box minW={0} flex="1">
+      <Text fontSize="xs" fontWeight="800" color="text.heading" truncate>
+        Sede Principal
+      </Text>
+      <Text fontSize="xs" color="text.muted" truncate>
+        La Molina
+      </Text>
+    </Box>
+  </Box>
+));
+StorePill.displayName = "StorePill";
 
 interface CardProps {
   project: LocationProject;
@@ -20,45 +95,26 @@ const ProjectCard = React.memo(({ project, active, onSelect }: CardProps) => (
     aria-pressed={active}
     aria-current={active ? "true" : undefined}
     aria-label={`${project.name}, ${project.address}${project.year ? `, ${project.year}` : ""}`}
-    flexShrink={0}
-    w={{ base: "260px", md: "300px", lg: "240px" }}
-    minH={TOUCH_MIN}
-    scrollSnapAlign="center"
-    display="flex"
-    flexDirection={{ base: "column", lg: "row" }}
-    alignItems={{ lg: "center" }}
-    gap={{ base: "0", lg: "3" }}
-    textAlign="left"
-    overflow="hidden"
-    cursor="pointer"
-    bg="bg.surface/90"
-    backdropFilter="blur(14px)"
-    border="2px solid"
-    borderColor={active ? "primary.500" : "border.default"}
-    borderRadius="xl"
-    boxShadow={active ? "lg" : "sm"}
-    p={{ lg: "2" }}
-    transition="border-color 0.2s ease, box-shadow 0.2s ease"
-    _hover={{ borderColor: "primary.500" }}
-    _focusVisible={{ outline: "2px solid", outlineColor: "primary.500", outlineOffset: "2px" }}
+    w={{ base: "215px", md: "235px" }}
+    {...pillStyle({ active })}
   >
     <Box
       position="relative"
       overflow="hidden"
       bg="bg.subtle"
       flexShrink={0}
-      w={{ base: "full", lg: "48px" }}
-      h={{ base: "110px", md: "130px", lg: "48px" }}
-      borderRadius={{ lg: "lg" }}
+      w="42px"
+      h="42px"
+      borderRadius="xl"
     >
       <Cover src={project.image} alt="" />
     </Box>
-    <Box minW={0} p={{ base: "3", lg: "0" }} flex="1">
-      <Text fontSize="sm" fontWeight="800" color="text.heading" truncate>
-        {project.name}
+    <Box minW={0} flex="1">
+      <Text fontSize="xs" fontWeight="800" color="text.heading" truncate>
+        {project.residencial || project.name}
       </Text>
       <Text fontSize="xs" color="text.muted" truncate>
-        {[project.address, project.year].filter(Boolean).join(" · ")}
+        {[project.address, `${project.distanceKm.toLocaleString("es-PE")} km`].filter(Boolean).join(" · ")}
       </Text>
     </Box>
   </Box>
@@ -71,11 +127,11 @@ export interface ProjectCarouselProps {
   onSelect: (id: string | number | null) => void;
 }
 
-/** Carrusel horizontal con scroll-snap flotando sobre el mapa. */
+/** Dock minimalista de baja altura flotando en la base del mapa. */
 export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, selectedId, onSelect }) => {
   const listRef = useRef<HTMLDivElement>(null);
 
-  // Centra la tarjeta activa DENTRO del carrusel (sin mover la página).
+  // Centra la cápsula activa DENTRO del carrusel sin mover la página.
   useEffect(() => {
     const list = listRef.current;
     if (!list || selectedId === null) return;
@@ -97,29 +153,31 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, sele
     items[Math.min(items.length - 1, Math.max(0, i + (e.key === "ArrowRight" ? 1 : -1)))]?.focus();
   }, []);
 
+  const handleSelectStore = useCallback(() => onSelect(STORE_ID), [onSelect]);
+
   return (
     <Box
       ref={listRef}
       role="region"
-      aria-label="Obras entregadas, carrusel horizontal"
+      aria-label="Ubicaciones: sede principal y obras entregadas"
       onKeyDown={handleKeyDown}
       position="absolute"
       left="0"
       right="0"
-      bottom="0"
+      bottom={{ base: "2.5", lg: "4" }}
       zIndex={2}
       display="flex"
-      gap="3"
-      px="3"
-      pt="2"
-      pb="3"
+      gap="2.5"
+      px={{ base: "3", lg: "5" }}
+      py="1"
       overflowX="auto"
       scrollSnapType="x mandatory"
       overscrollBehaviorX="contain"
-      scrollPaddingInline="3"
+      scrollPaddingInline="4"
       css={{ scrollbarWidth: "none", "&::-webkit-scrollbar": { display: "none" } }}
       scrollBehavior="auto"
     >
+      <StorePill active={selectedId === STORE_ID || selectedId === null} onSelectStore={handleSelectStore} />
       {projects.map((p) => (
         <ProjectCard key={p.id} project={p} active={p.id === selectedId} onSelect={onSelect} />
       ))}

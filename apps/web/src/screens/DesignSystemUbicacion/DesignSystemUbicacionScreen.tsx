@@ -57,12 +57,13 @@ const PROTOTYPES = [
   },
   {
     value: "immersive",
-    label: "B · Inmersivo",
-    title: "B · Mapa inmersivo",
-    description: "El mapa ocupa todo el ancho y el contenido flota encima, como una app de mapas.",
+    label: "B · Inmersivo Minimalista ★",
+    title: "B · Mapa inmersivo minimalista (Lente de Cristal y Aluminio)",
+    description:
+      "El mapa respira como protagonista (más del 80 % libre). Superficies esmeriladas de perfil fino y dock inferior compacto.",
     highlights: [
-      "Escritorio: ficha de la sede flotante y detalle de la obra al seleccionar.",
-      "Móvil: carrusel de obras o panel inferior (bottom sheet) sobre el mapa.",
+      "Móvil: cápsula superior de 1 línea y dock horizontal compacto (sin bloquear el mapa).",
+      "Tablet y escritorio: ficha arquitectónica con horario en vivo, galería de fotos al seleccionar obra y retorno rápido a la sede.",
     ],
     Component: PrototypeImmersive,
   },
@@ -133,7 +134,7 @@ export const DesignSystemUbicacionScreen: React.FC = () => (
         </HStack>
       </HStack>
 
-      <Tabs.Root defaultValue="split" variant="line" size={{ base: "sm", md: "lg" }} lazyMount unmountOnExit>
+      <Tabs.Root defaultValue="immersive" variant="line" size={{ base: "sm", md: "lg" }} lazyMount unmountOnExit>
         <Tabs.List
           mb={{ base: "5", md: "8" }}
           borderBottomWidth="1px"

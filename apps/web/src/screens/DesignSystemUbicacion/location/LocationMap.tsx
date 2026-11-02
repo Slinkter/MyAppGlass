@@ -151,18 +151,20 @@ const LocationMap: React.FC<LocationMapProps> = ({
       </GoogleMap>
 
       {showRecenter && (
-        <Box position="absolute" top="3" right="3" zIndex={10}>
+        <Box position="absolute" top={{ base: "3", lg: "5" }} right={{ base: "3", lg: "5" }} zIndex={10}>
           <Button
             variant="outline"
             size="sm"
             minW="11"
             minH="11"
-            bg="bg.surface"
+            bg="bg.surface/92"
+            backdropFilter="blur(20px)"
             borderRadius="xl"
+            boxShadow="md"
             aria-label="Ver todas las ubicaciones"
             onClick={fitAll}
           >
-            <Compass size={18} style={{ flexShrink: 0 }} />
+            <Compass size={17} style={{ flexShrink: 0 }} />
           </Button>
         </Box>
       )}
