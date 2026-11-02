@@ -55,7 +55,7 @@ export const DesignSystemScreen: React.FC = () => {
         </HStack>
 
         {/* Pestañas del Sistema */}
-        <Tabs.Root defaultValue="cards" variant="line" size={{ base: "sm", md: "lg" }}>
+        <Tabs.Root defaultValue="v2" variant="line" size={{ base: "sm", md: "lg" }}>
           <Tabs.List
             mb={{ base: "5", md: "8" }}
             borderBottomWidth="1px"
@@ -64,13 +64,13 @@ export const DesignSystemScreen: React.FC = () => {
             flexWrap="nowrap"
             css={{ "&::-webkit-scrollbar": { display: "none" }, scrollbarWidth: "none" }}
           >
+            <Tabs.Trigger value="v2" flexShrink={0} whiteSpace="nowrap" minH="11">Nuevos modelos ★</Tabs.Trigger>
             <Tabs.Trigger value="cards" flexShrink={0} whiteSpace="nowrap" minH="11">Cards Editoriales Reales</Tabs.Trigger>
             <Tabs.Trigger value="nav" flexShrink={0} whiteSpace="nowrap" minH="11">Navegación & Barras</Tabs.Trigger>
             <Tabs.Trigger value="forms" flexShrink={0} whiteSpace="nowrap" minH="11">Formularios & Botones</Tabs.Trigger>
             <Tabs.Trigger value="overlays" flexShrink={0} whiteSpace="nowrap" minH="11">Galería & Modales</Tabs.Trigger>
             <Tabs.Trigger value="data" flexShrink={0} whiteSpace="nowrap" minH="11">Tablas & Fichas Técnicas</Tabs.Trigger>
             <Tabs.Trigger value="tokens" flexShrink={0} whiteSpace="nowrap" minH="11">Tokens & Reglas Oficiales</Tabs.Trigger>
-            <Tabs.Trigger value="v2" flexShrink={0} whiteSpace="nowrap" minH="11">Nuevos modelos ★</Tabs.Trigger>
           </Tabs.List>
 
           {/* 1. Cards Editoriales */}

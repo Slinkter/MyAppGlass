@@ -115,6 +115,49 @@ const PROTOTYPES = [
   },
 ] as const;
 
+/**
+ * Pestañas de prototipos. Solo se monta el prototipo activo (cada uno carga su propio mapa).
+ * Se hace con estado controlado y no con `lazyMount`/`unmountOnExit` del `Tabs.Root`: esas props
+ * provocaban un desajuste de hidratación en la clase CSS del `Tabs.List`.
+ */
+const PrototypeTabs: React.FC = () => {
+  const [active, setActive] = React.useState<string>("immersive");
+
+  return (
+    <Tabs.Root
+      value={active}
+      onValueChange={(details) => setActive(details.value)}
+      variant="line"
+      size={{ base: "sm", md: "lg" }}
+    >
+      <Tabs.List
+        mb={{ base: "5", md: "8" }}
+        borderBottomWidth="1px"
+        borderColor="border.default"
+        overflowX="auto"
+        flexWrap="nowrap"
+        css={{ scrollbarWidth: "none", "&::-webkit-scrollbar": { display: "none" } }}
+      >
+        {PROTOTYPES.map((p) => (
+          <Tabs.Trigger key={p.value} value={p.value} flexShrink={0} whiteSpace="nowrap" minH="11">
+            {p.label}
+          </Tabs.Trigger>
+        ))}
+      </Tabs.List>
+
+      {PROTOTYPES.map(({ value, title, description, highlights, Component }) => (
+        <Tabs.Content key={value} value={value}>
+          {active === value && (
+            <PrototypeFrame title={title} description={description} highlights={[...highlights]}>
+              <Component />
+            </PrototypeFrame>
+          )}
+        </Tabs.Content>
+      ))}
+    </Tabs.Root>
+  );
+};
+
 export const DesignSystemUbicacionScreen: React.FC = () => (
   <Box minH="100dvh" bg="bg.page" py={{ base: "8", md: "16" }}>
     <Container maxW="7xl" px={{ base: "4", md: "6" }}>
@@ -139,7 +182,7 @@ export const DesignSystemUbicacionScreen: React.FC = () => (
             Rediseño de la sección Ubicación
           </Heading>
           <Text color="text.muted" fontSize={{ base: "md", md: "lg" }}>
-            Cuatro propuestas con el mapa de Google, la sede de la empresa y las obras entregadas. Cambia el ancho de la
+            Seis propuestas con el mapa de Google, la sede de la empresa y las obras entregadas. Cambia el ancho de la
             ventana (móvil, tablet, escritorio) para ver cómo responde cada una.
           </Text>
           <NextLink href="/design-system" style={{ textDecoration: "none" }}>
@@ -158,30 +201,7 @@ export const DesignSystemUbicacionScreen: React.FC = () => (
         </HStack>
       </HStack>
 
-      <Tabs.Root defaultValue="immersive" variant="line" size={{ base: "sm", md: "lg" }} lazyMount unmountOnExit>
-        <Tabs.List
-          mb={{ base: "5", md: "8" }}
-          borderBottomWidth="1px"
-          borderColor="border.default"
-          overflowX="auto"
-          flexWrap="nowrap"
-          css={{ scrollbarWidth: "none", "&::-webkit-scrollbar": { display: "none" } }}
-        >
-          {PROTOTYPES.map((p) => (
-            <Tabs.Trigger key={p.value} value={p.value} flexShrink={0} whiteSpace="nowrap" minH="11">
-              {p.label}
-            </Tabs.Trigger>
-          ))}
-        </Tabs.List>
-
-        {PROTOTYPES.map(({ value, title, description, highlights, Component }) => (
-          <Tabs.Content key={value} value={value}>
-            <PrototypeFrame title={title} description={description} highlights={[...highlights]}>
-              <Component />
-            </PrototypeFrame>
-          </Tabs.Content>
-        ))}
-      </Tabs.Root>
+      <PrototypeTabs />
     </Container>
   </Box>
 );

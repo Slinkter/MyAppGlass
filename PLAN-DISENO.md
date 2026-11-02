@@ -85,3 +85,5 @@ Cambios de la sesión anterior sin commitear en `LocationMap.tsx`, `FloatingPane
 
 ## Registro de decisiones
 - 2026-11-02: los modelos nuevos se agregan como pestañas; los A-D y las 6 pestañas actuales no se modifican.
+- 2026-11-02: error de hidratación en `/design-system-ubicacion` (clase CSS distinta en `Tabs.List`). Causa aislada: las props `lazyMount unmountOnExit` del `Tabs.Root`. Solución: estado controlado y render condicional del prototipo activo (`PrototypeTabs`). Verificado en navegador: 0 errores.
+- 2026-11-02: la pestaña "Nuevos modelos ★" pasa a ser la primera y la inicial en `/design-system` para que se vea sin desplazar la barra.
