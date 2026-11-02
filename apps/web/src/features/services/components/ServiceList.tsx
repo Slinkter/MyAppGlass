@@ -8,6 +8,7 @@ import ServiceCard from "./ServiceCard";
 import { useServices, type ServiceListItem } from "@features/services/hooks/useServices";
 import { ServiceCardSkeletons } from "./ServiceSkeletons";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
+import { useImagePrefetch } from "@shared/hooks/ui/useImagePrefetch";
 import { EmptyState } from "@/components/ui/empty-state";
 import { AlertTriangle, Search } from "lucide-react";
 import type { Service } from "@/shared/api/firebase/types";
@@ -31,6 +32,10 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
     // Primer render con los datos de build; Firestore en cliente los refresca (ver useServices).
     const { data, isLoading, error } = useServices(initialData);
     const allServices = useMemo<ServiceData[]>(() => data ?? [], [data]);
+
+    // Calienta el caché con todas las portadas cuando el navegador está libre:
+    // al llegar a #servicios las fotos ya están descargadas.
+    useImagePrefetch(useMemo(() => allServices.map((s) => s.image), [allServices]));
 
     const filterFn = useCallback((items: ServiceData[], category: string) => {
         if (category === "Todos") return items;
@@ -103,10 +108,9 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
                     transition="opacity 0.2s ease"
                 >
                     {preparedServices.map((service, index) => (
-                        <ItemGridLayout.Item
-                            key={`${activeCategory}-${service.id}`}
-                            delay={(index % 6) * 0.08}
-                        >
+                        // Sin animación de montaje: cada ServiceCard se revela sola cuando
+                        // su imagen termina de cargar (ver ServiceCard).
+                        <ItemGridLayout.Item key={`${activeCategory}-${service.id}`}>
                             <ServiceCard
                                 image={service.image}
                                 name={service.name}

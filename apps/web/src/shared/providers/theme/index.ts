@@ -19,6 +19,16 @@ const buttonRecipe = defineRecipe({
     letterSpacing: "wider",
     borderRadius: "full",
     transition: "background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+    _focusVisible: {
+      outline: "none",
+      boxShadow: "0 0 0 2px var(--chakra-colors-ring-primary)",
+    },
+    _disabled: {
+      opacity: 0.5,
+      cursor: "not-allowed",
+      transform: "none",
+      boxShadow: "none",
+    },
   },
     variants: {
       variant: {
@@ -45,6 +55,34 @@ const buttonRecipe = defineRecipe({
             _active: {
               bg: "gray.200",
             },
+          },
+        },
+        whatsapp: {
+          bg: "brand.whatsapp",
+          color: "white",
+          px: "8",
+          _hover: {
+            bg: "brand.whatsappHover",
+            transform: "translateY(-2px)",
+            boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+          },
+          _active: {
+            bg: "brand.whatsappActive",
+            transform: "translateY(0)",
+          },
+        },
+        brand: {
+          bg: "brand.red",
+          color: "white",
+          px: "8",
+          _hover: {
+            bg: "brand.redHover",
+            transform: "translateY(-2px)",
+            boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+          },
+          _active: {
+            bg: "brand.redDark",
+            transform: "translateY(0)",
           },
         },
         outline: {
@@ -265,7 +303,7 @@ const config = defineConfig({
       colors: {
         "bg.page": { value: { _light: "{colors.gray.50}", _dark: "#09090b" } },
         "bg.section": { value: { _light: "white", _dark: "#121215" } },
-        "bg.surface": { value: "{colors.surface.card}" },
+        "bg.surface": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
 
         // Brand
@@ -281,11 +319,11 @@ const config = defineConfig({
         "border.default": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.08)" } },
         "border.subtle": { value: { _light: "rgba(0,0,0,0.06)", _dark: "rgba(255,255,255,0.08)" } },
         "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
+        // @deprecated: usar border.default
         "border.glass": { value: "{colors.border.default}" },
+        // @deprecated: solo fallback en ProjectServiceSelect.tsx
         "border.slate": { value: "#e2e8f0" },
-        "border.slateStrong": { value: "#cbd5e1" },
-        "text.slate": { value: "#64748b" },
-        "text.slateStrong": { value: "#475569" },
+        // @deprecated: usar bg.section
         "bg.glass": { value: "{colors.bg.section}" },
 
         // Status Borders
@@ -301,8 +339,11 @@ const config = defineConfig({
         "text.subtle": { value: { _light: "{colors.gray.500}", _dark: "{colors.gray.400}" } },
 
         // Alias usados por admin/contacto que no existían (Chakra emitía CSS inválido)
+        // @deprecated: usar text.heading
         "text.primary": { value: "{colors.text.heading}" },
+        // @deprecated: usar bg.page
         "bg.canvas": { value: "{colors.bg.page}" },
+        // @deprecated: usar bg.subtle
         "surface.muted": { value: "{colors.bg.subtle}" },
         "text.accent": { value: { _light: "{colors.primary.600}", _dark: "{colors.primary.300}" } },
       },

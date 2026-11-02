@@ -9,7 +9,7 @@ import { Footer } from "@/widgets/Footer";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { FloatingWhatsAppWrapper as FloatingWhatsApp, ThemeToggle } from "@/widgets/FloatingActions";
 import SkipLink from "@/shared/components/navigation/SkipLink";
-import { getCompanyJsonLd } from "@/shared/utils/seo-utils";
+import { getCompanyJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
 
 import { env } from "@/shared/config/env";
 
@@ -91,7 +91,7 @@ export default function RootLayout({
             <head>
                 <script
                     type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                    dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
                 />
                 {env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
                     <script

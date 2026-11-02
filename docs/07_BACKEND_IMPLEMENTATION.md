@@ -4,7 +4,7 @@ Esta documentación resume el flujo técnico del backend serverless (`functions/
 
 > Estado verificado contra el código de `functions/` el 2026-10-29. La arquitectura por capas, el flujo "guardar primero" y el rate limit por función están commiteados en la rama `chore/verificar-functions-backend` y desplegados en producción el 2026-10-29 (runtime `nodejs22`).
 >
-> La guía completa (capas, tablas, procedimiento de despliegue y cómo agregar una función) está en [functions/README.md](../functions/README.md). El modelo de seguridad está en [08_DOCS_SECURITY_BACKEND.md](./08_DOCS_SECURITY_BACKEND.md).
+> La guía completa (capas, tablas, procedimiento de despliegue y cómo agregar una función) está en [functions/README.md](../apps/functions/README.md). El modelo de seguridad está en [08_DOCS_SECURITY_BACKEND.md](./08_DOCS_SECURITY_BACKEND.md).
 
 ## 🛠️ Stack Tecnológico
 - **Firebase Functions (v2, Node.js 22, CommonJS):** funciones HTTP `onRequest`.
@@ -76,7 +76,7 @@ firebase functions:secrets:set RECAPTCHA_SECRET_KEY
 
 *Nota: Asegúrese de que el dominio `gyacompany.com` esté verificado en el panel de Resend.*
 
-Si `functions/.env` define también `RECAPTCHA_SECRET_KEY`, el despliegue falla. Ver la advertencia en [functions/README.md](../functions/README.md), sección 9.
+Si `functions/.env` define también `RECAPTCHA_SECRET_KEY`, el despliegue falla. Ver la advertencia en [functions/README.md](../apps/functions/README.md), sección 9.
 
 ## 🧪 Pruebas Locales
 Pruebas unitarias sin emulador:

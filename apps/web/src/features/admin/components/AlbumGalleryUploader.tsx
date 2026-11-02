@@ -90,6 +90,8 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
       const uploadedItems: GalleryPhotoItem[] = [];
       const targetEntityId = entityId || "temp_" + Date.now();
 
+      // Secuencial a propósito: si una subida falla, no se lanzan las siguientes
+      // (evita archivos huérfanos en Storage) y el contador refleja el progreso real.
       for (let i = 0; i < fileArray.length; i++) {
         const file = fileArray[i];
         setUploadCount({ current: i + 1, total: fileArray.length });

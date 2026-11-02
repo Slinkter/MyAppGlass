@@ -10,9 +10,11 @@ import {
   SimpleGrid,
   Badge,
   Separator,
-  Card,
+  Tabs,
 } from "@chakra-ui/react";
 import { Copy } from "lucide-react";
+import { RESPONSIVE_GRIDS } from "@/shared/constants/layout";
+import { ShowcaseCard, ShowcaseStack, SubsectionLabel } from "../components";
 
 export const TokensSection: React.FC = () => {
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
@@ -38,35 +40,31 @@ export const TokensSection: React.FC = () => {
   };
 
   return (
-    <VStack gap="8" align="stretch">
+    <ShowcaseStack>
       {/* 1. Jerarquía Tipográfica Lora */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <Card.Title fontSize="xl">Tipografía Oficial (Fuente Lora)</Card.Title>
-          <Card.Description>
-            Jerarquía tipográfica editorial inspirada en diseño arquitectónico.
-          </Card.Description>
-        </Card.Header>
-        <Card.Body>
+      <ShowcaseCard
+ title="Tipografía Oficial (Fuente Lora)"
+ description="Jerarquía tipográfica editorial inspirada en diseño arquitectónico."
+>
           <VStack gap="5" align="stretch">
             <Box>
-              <Heading size="4xl" color="text.heading">Heading 4XL (3rem / 48px)</Heading>
+              <Heading size="4xl" color="text.heading" wordBreak="break-word">Heading 4XL (2.25rem / 36px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos Hero de la portada</Text>
             </Box>
             <Box>
-              <Heading size="3xl" color="text.heading">Heading 3XL (2.25rem / 36px)</Heading>
+              <Heading size="3xl" color="text.heading" wordBreak="break-word">Heading 3XL (1.875rem / 30px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos de secciones principales</Text>
             </Box>
             <Box>
-              <Heading size="2xl" color="text.heading">Heading 2XL (1.875rem / 30px)</Heading>
+              <Heading size="2xl" color="text.heading" wordBreak="break-word">Heading 2XL (1.5rem / 24px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Encabezados de módulos y catálogos</Text>
             </Box>
             <Box>
-              <Heading size="xl" color="text.heading">Heading XL (1.5rem / 24px)</Heading>
+              <Heading size="xl" color="text.heading" wordBreak="break-word">Heading XL (1.25rem / 20px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos de tarjetas y modales</Text>
             </Box>
             <Box>
-              <Heading size="md" color="text.heading">Heading MD (1.125rem / 18px)</Heading>
+              <Heading size="md" color="text.heading" wordBreak="break-word">Heading MD (1rem / 16px)</Heading>
               <Text fontSize="xs" color="text.muted">Subtítulos técnicos y encabezados de tablas</Text>
             </Box>
             <Separator borderColor="border.subtle" />
@@ -79,25 +77,20 @@ export const TokensSection: React.FC = () => {
               </Text>
             </Box>
           </VStack>
-        </Card.Body>
-      </Card.Root>
+        </ShowcaseCard>
 
       {/* 2. Reglas de Negocio Inmutables (AGENTS.md) */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <Card.Title fontSize="xl">Catálogo Oficial de Sistemas & Vidrios (Inmutable)</Card.Title>
-          <Card.Description>
-            Definiciones canónicas estrictas que no deben alterarse en ninguna pantalla.
-          </Card.Description>
-        </Card.Header>
-        <Card.Body>
+      <ShowcaseCard
+ title="Catálogo Oficial de Sistemas & Vidrios (Inmutable)"
+ description="Definiciones canónicas estrictas que no deben alterarse en ninguna pantalla."
+>
           <VStack gap="6" align="stretch">
             <Box>
-              <Text fontWeight="semibold" mb="3" fontSize="sm" color="text.heading">
+              <SubsectionLabel mb="3">
                 LOS 4 SISTEMAS OFICIALES DE VENTANAS
-              </Text>
+              </SubsectionLabel>
               <HStack gap="3" wrap="wrap">
-                <Badge colorPalette="blue" px="3" py="1.5" borderRadius="full" fontSize="xs">
+                <Badge colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
                   Sistema Nova
                 </Badge>
                 <Badge colorPalette="cyan" px="3" py="1.5" borderRadius="full" fontSize="xs">
@@ -107,7 +100,7 @@ export const TokensSection: React.FC = () => {
                   Serie 35
                 </Badge>
                 <Badge colorPalette="purple" px="3" py="1.5" borderRadius="full" fontSize="xs">
-                  Serie 62 Antirruido
+                  Serie 62
                 </Badge>
               </HStack>
             </Box>
@@ -115,14 +108,14 @@ export const TokensSection: React.FC = () => {
             <Separator borderColor="border.subtle" />
 
             <Box>
-              <Text fontWeight="semibold" mb="3" fontSize="sm" color="text.heading">
+              <SubsectionLabel mb="3">
                 LOS 3 TIPOS DE VIDRIO (SIN SUFIJO DE GROSOR)
-              </Text>
+              </SubsectionLabel>
               <HStack gap="3" wrap="wrap">
                 <Badge variant="outline" colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
                   Crudo
                 </Badge>
-                <Badge variant="outline" colorPalette="blue" px="3" py="1.5" borderRadius="full" fontSize="xs">
+                <Badge variant="outline" colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
                   Laminado
                 </Badge>
                 <Badge variant="outline" colorPalette="purple" px="3" py="1.5" borderRadius="full" fontSize="xs">
@@ -134,9 +127,9 @@ export const TokensSection: React.FC = () => {
             <Separator borderColor="border.subtle" />
 
             <Box>
-              <Text fontWeight="semibold" mb="3" fontSize="sm" color="text.heading">
+              <SubsectionLabel mb="3">
                 ACABADOS DE ALUMINIO REGLAMENTARIOS
-              </Text>
+              </SubsectionLabel>
               <HStack gap="2" wrap="wrap">
                 {["Negro", "Mate", "Blanco", "Madera", "Champagne"].map((color) => (
                   <Badge key={color} variant="subtle" colorPalette="gray" px="3" py="1" borderRadius="md">
@@ -146,19 +139,14 @@ export const TokensSection: React.FC = () => {
               </HStack>
             </Box>
           </VStack>
-        </Card.Body>
-      </Card.Root>
+        </ShowcaseCard>
 
       {/* 3. Swatches Dinámicos de Tokens */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <Card.Title fontSize="xl">Tokens Semánticos de Color</Card.Title>
-          <Card.Description>
-            Variables vivas del tema Aura. Haz clic en cualquiera para copiar la prop de Chakra UI.
-          </Card.Description>
-        </Card.Header>
-        <Card.Body>
-          <SimpleGrid columns={{ base: 2, sm: 3, md: 5 }} gap="4">
+      <ShowcaseCard
+ title="Tokens Semánticos de Color"
+ description="Variables vivas del tema Aura. Haz clic en cualquiera para copiar la prop de Chakra UI."
+>
+          <SimpleGrid columns={RESPONSIVE_GRIDS.tokens} gap={{ base: "3", md: "4" }}>
             {[
               { token: "bg.page", label: "Fondo General" },
               { token: "bg.surface", label: "Fondo Tarjeta" },
@@ -175,9 +163,14 @@ export const TokensSection: React.FC = () => {
               { token: "border.subtle", label: "Borde Tenue" },
               { token: "border.default", label: "Borde Base" },
               { token: "border.strong", label: "Borde Fuerte" },
+              { token: "text.heading", label: "Texto Títulos" },
+              { token: "text.body", label: "Texto Cuerpo" },
+              { token: "text.muted", label: "Texto Apagado" },
+              { token: "ring.primary", label: "Anillo Foco" },
             ].map((item) => (
               <Box
                 key={item.token}
+                minW={0}
                 p="3"
                 borderRadius="lg"
                 borderWidth="1px"
@@ -196,8 +189,8 @@ export const TokensSection: React.FC = () => {
                   borderColor="border.subtle"
                 />
                 <Text fontSize="xs" fontWeight="bold" color="text.heading">{item.label}</Text>
-                <HStack justify="space-between" mt="1">
-                  <Text fontSize="xs" color="text.muted">{item.token}</Text>
+                <HStack justify="space-between" mt="1" gap="2" minW={0}>
+                  <Text fontSize="xs" color="text.muted" truncate minW={0}>{item.token}</Text>
                   {copiedToken === item.token ? (
                     <Badge colorPalette="green" size="xs">Copiado</Badge>
                   ) : (
@@ -209,8 +202,30 @@ export const TokensSection: React.FC = () => {
               </Box>
             ))}
           </SimpleGrid>
-        </Card.Body>
-      </Card.Root>
-    </VStack>
+        </ShowcaseCard>
+
+      {/* 4. Ejemplo de Tabs (variante line) */}
+      <ShowcaseCard
+ title="Ejemplo de Pestañas (Tabs)"
+ description="Patrón de Tabs.Root con variante line para alternar contenido relacionado."
+>
+          <Tabs.Root defaultValue="texto" variant="line" size="sm">
+            <Tabs.List mb="4" borderBottomWidth="1px" borderColor="border.default">
+              <Tabs.Trigger value="texto">Texto</Tabs.Trigger>
+              <Tabs.Trigger value="superficie">Superficies</Tabs.Trigger>
+            </Tabs.List>
+            <Tabs.Content value="texto">
+              <Text fontSize="sm" color="text.body">
+                Títulos con <strong>text.heading</strong> y párrafos con <strong>text.body</strong>.
+              </Text>
+            </Tabs.Content>
+            <Tabs.Content value="superficie">
+              <Text fontSize="sm" color="text.muted">
+                Superficies base: <strong>bg.page</strong>, <strong>bg.section</strong> y <strong>surface.container</strong>.
+              </Text>
+            </Tabs.Content>
+          </Tabs.Root>
+        </ShowcaseCard>
+    </ShowcaseStack>
   );
 };

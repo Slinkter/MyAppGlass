@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPosts } from "@/features/blog/services/blogService";
 import BlogPostView from "@/screens/Blog/ui/BlogPostView";
-import { getBlogPostJsonLd, getSectionBreadcrumbJsonLd } from "@/shared/utils/seo-utils";
+import { getBlogPostJsonLd, getSectionBreadcrumbJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 interface PageProps {
@@ -78,11 +78,11 @@ export default async function BlogPostPage({ params }: PageProps) {
     <ComponentErrorBoundary>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       <BlogPostView post={post} />
     </ComponentErrorBoundary>

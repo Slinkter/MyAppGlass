@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { MapPin, ArrowRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 
 interface ProjectCardContentProps {
   image?: string;
@@ -33,6 +34,9 @@ interface ProjectCardContentProps {
  */
 const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
   ({ image = "", residencial, address, year, onExplore, isLCP, loading }) => {
+    // La card se revela entera (foto + degradado + textos) cuando la imagen termina de cargar.
+    const { loaded, onLoad: handleLoad, reveal } = useImageReveal();
+
     const handleKeyDown = React.useCallback(
       (e: React.KeyboardEvent) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -59,7 +63,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         onClick={onExplore}
         onKeyDown={handleKeyDown}
         transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
-        _hover={{ 
+        _hover={{
           boxShadow: "var(--chakra-shadows-card-lift)",
           transform: "translateY(-6px)"
         }}
@@ -69,7 +73,8 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         }}
       >
         {/* Fotografía del Proyecto */}
-        <Box position="absolute" inset={0} zIndex={0} overflow="hidden">
+        <ImageRevealSkeleton loaded={loaded} />
+        <Box position="absolute" inset={0} zIndex={0} overflow="hidden" {...reveal}>
           <ResponsiveImage
             src={image}
             alt={`Proyecto ${residencial} - GYA Glass & Aluminum`}
@@ -78,26 +83,27 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
             objectFit="cover"
             loading={loading || (isLCP ? "eager" : "lazy")}
             isLCP={isLCP}
+            onLoad={handleLoad}
             transition="transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
             _groupHover={{ transform: "scale(1.06)" }}
           />
         </Box>
 
         {/* Degradado Fino de Lectura */}
-        <Box 
-          position="absolute" 
-          inset={0} 
+        <Box
+          position="absolute"
+          inset={0}
           zIndex={1}
-          background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)" 
-          transition="opacity 0.3s ease"
-          _groupHover={{ opacity: 0.95 }}
+          background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)"
+          {...reveal}
         />
 
         {/* Badge de Año / Ubicación Glass Floating */}
         <Box
           position="absolute"
-          top="4"
-          left="4"
+          top={{ base: "3", md: "4" }}
+          left={{ base: "3", md: "4" }}
+          maxW="calc(100% - 24px)"
           zIndex={2}
           bg="rgba(0, 0, 0, 0.55)"
           backdropFilter="blur(10px)"
@@ -105,15 +111,18 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           py="1"
           borderRadius="full"
           border="1px solid rgba(255, 255, 255, 0.15)"
+          {...reveal}
         >
-          <HStack gap="1.5">
-            <Box as={MapPin} boxSize={3} color="primary.400" />
-            <Text 
-              fontSize="10px" 
-              fontWeight="800" 
+          <HStack gap="1.5" minW={0}>
+            <Box as={MapPin} boxSize={3} color="primary.400" style={{ flexShrink: 0 }} />
+            <Text
+              fontSize="xs"
+              fontWeight="800"
               color="white"
-              letterSpacing="0.15em"
+              letterSpacing={{ base: "0.08em", md: "0.15em" }}
               textTransform="uppercase"
+              truncate
+              minW={0}
             >
               {address} · {year}
             </Text>
@@ -127,19 +136,21 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           left="0"
           right="0"
           zIndex={2}
-          p={{ base: "5", md: "6" }}
+          p={{ base: "4", md: "6" }}
           justify="space-between"
           align="flex-end"
+          minW={0}
+          {...reveal}
         >
-          <VStack align="flex-start" gap="1" maxW="calc(100% - 44px)">
-            <Heading 
-              as="h3" 
-              fontSize={{ base: "xl", md: "2xl" }} 
+          <VStack align="flex-start" gap="1" minW={0} maxW="calc(100% - 52px)">
+            <Heading
+              as="h3"
+              fontSize={{ base: "xl", md: "2xl" }}
               color="white"
               fontWeight="800"
               letterSpacing="tight"
               lineHeight="tight"
-              lineClamp={1}
+              lineClamp={2}
             >
               {residencial}
             </Heading>
@@ -149,7 +160,7 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           </VStack>
 
           {/* Botón Circular Flotante */}
-          <Box 
+          <Box
             w="40px"
             h="40px"
             display="flex"
@@ -162,13 +173,13 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
             color="white"
             flexShrink={0}
             transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-            _groupHover={{ 
-              bg: "primary.500", 
+            _groupHover={{
+              bg: "primary.500",
               borderColor: "primary.500",
-              transform: "scale(1.1) rotate(45deg)" 
+              transform: "scale(1.1) rotate(45deg)"
             }}
           >
-            <Box as={ArrowRight} boxSize={5} />
+            <Box as={ArrowRight} boxSize={5} style={{ flexShrink: 0 }} />
           </Box>
         </HStack>
       </Box>

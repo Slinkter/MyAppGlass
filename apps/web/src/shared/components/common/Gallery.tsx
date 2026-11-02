@@ -6,7 +6,14 @@
 
 "use client";
 
-import { Box } from "@chakra-ui/react";
+import { Box, Dialog as ChakraDialog } from "@chakra-ui/react";
+import {
+    DialogBody,
+    DialogContent,
+    DialogRoot,
+    DialogTitle,
+} from "@/components/ui/dialog";
+import { CloseButton } from "@/components/ui/close-button";
 import React, { createContext, useContext, useEffect, useMemo } from "react";
 
 import { useGallery, UseGalleryReturn } from "@shared/hooks/ui/useGallery";
@@ -58,12 +65,12 @@ const useGalleryContext = () => {
 
 /**
  * Root component of the Gallery that provides state and context.
- * @description Initializes the gallery logic and sets up background pre-loading and keyboard navigation.
+ * @description Initializes the gallery logic and sets up background pre-loading.
  * @param props.images - Array of items to be displayed in the gallery
  * @param props.children - Child components (usually Gallery.Viewer and Gallery.Thumbnails)
  * @remarks
  * - Implements background pre-loading of the current and adjacent images for zero-latency transitions.
- * - Manages keyboard listeners for ArrowLeft/ArrowRight navigation.
+ * - Keyboard navigation (ArrowLeft/ArrowRight) lives in the viewer and in the zoom modal (no global listener).
  * - Uses `GalleryContext.Provider` to share state with sub-components without prop drilling.
  */
 const GalleryRoot: React.FC<{
@@ -108,18 +115,6 @@ const GalleryRoot: React.FC<{
             }
         });
     }, [gallery.selectedIndex, gallery.currentImage, gallery.imageCount, images, onActiveImageChange]);
-
-    const { handlePrevious, handleNext } = gallery;
-
-    // Keyboard navigation
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "ArrowLeft") handlePrevious();
-            if (event.key === "ArrowRight") handleNext();
-        };
-        window.addEventListener("keydown", handleKeyDown, { passive: true });
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [handlePrevious, handleNext]);
 
     if (!images || gallery.imageCount === 0 || !gallery.currentImage)
         return null;
@@ -170,70 +165,95 @@ const GalleryViewer: React.FC = () => {
                 onOpenModal={onOpenModal}
             />
 
-            {/* Modal de Imagen Completa (Desktop & Mobile) */}
-            {isModalOpen && currentImage && (
-                <Box
-                    position="fixed"
-                    inset={0}
-                    zIndex={9999}
-                    bg="rgba(0, 0, 0, 0.92)"
-                    backdropFilter="blur(16px)"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    p={{ base: "3", md: "8" }}
-                    animation="fadeIn 0.25s ease-out"
-                    onClick={onCloseModal}
+            {/* Modal de Imagen Completa (Desktop & Mobile): Dialog accesible de Chakra v3
+                (role=dialog, focus trap, Escape, bloqueo de scroll y Portal). */}
+            {currentImage && (
+                <DialogRoot
+                    open={isModalOpen}
+                    onOpenChange={(e) => {
+                        if (!e.open) onCloseModal();
+                    }}
+                    size="full"
+                    motionPreset="scale"
+                    lazyMount
+                    unmountOnExit
                 >
-                    {/* Botón Cerrar */}
-                    <Box
-                        as="button"
-                        onClick={onCloseModal}
-                        position="absolute"
-                        top={{ base: "4", md: "6" }}
-                        right={{ base: "4", md: "6" }}
+                    <DialogContent
+                        backdrop={false}
+                        bg="blackAlpha.900"
                         color="white"
-                        bg="whiteAlpha.200"
-                        w={{ base: "40px", md: "44px" }}
-                        h={{ base: "40px", md: "44px" }}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        borderRadius="full"
-                        border="1px solid rgba(255, 255, 255, 0.2)"
-                        _hover={{
-                            bg: "whiteAlpha.400",
-                            transform: "scale(1.08)",
+                        backdropFilter="blur(16px)"
+                        borderRadius="0"
+                        boxShadow="none"
+                        minH="100dvh"
+                        onClick={onCloseModal}
+                        onKeyDown={(e) => {
+                            // Navegación con flechas mientras el modal está abierto
+                            // (el foco queda atrapado dentro del Dialog).
+                            if (e.key === "ArrowLeft") handlePrevious();
+                            else if (e.key === "ArrowRight") handleNext();
                         }}
-                        transition="all 0.2s ease"
-                        aria-label="Cerrar modal"
-                        zIndex={10000}
                     >
-                        <X size={22} />
-                    </Box>
+                        <DialogTitle srOnly>
+                            {currentImage.title || "Vista ampliada"}
+                        </DialogTitle>
 
-                    {/* Contenedor de Imagen de Alta Calidad */}
-                    <Box
-                        w={{ base: "94vw", md: "80vw" }}
-                        h={{ base: "75vh", md: "80vh" }}
-                        position="relative"
-                        borderRadius="2xl"
-                        overflow="hidden"
-                        boxShadow="0 25px 60px var(--chakra-colors-overlay-scrim)"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <FadingImage
-                            src={currentImage.src}
-                            alt={currentImage.title || "Vista ampliada"}
-                            w="100%"
-                            h="100%"
-                            objectFit="contain"
-                            loading="eager"
-                            fetchPriority="high"
-                            borderRadius="2xl"
-                        />
-                    </Box>
-                </Box>
+                        {/* Botón Cerrar (44px) */}
+                        <ChakraDialog.CloseTrigger asChild>
+                            <CloseButton
+                                aria-label="Cerrar modal"
+                                position="absolute"
+                                top={{ base: "4", md: "6" }}
+                                right={{ base: "4", md: "6" }}
+                                zIndex={1}
+                                color="white"
+                                bg="whiteAlpha.200"
+                                w="44px"
+                                h="44px"
+                                minW="44px"
+                                borderRadius="full"
+                                border="1px solid"
+                                borderColor="whiteAlpha.300"
+                                _hover={{
+                                    bg: "whiteAlpha.400",
+                                    transform: "scale(1.08)",
+                                }}
+                                transition="background-color 0.2s ease, transform 0.2s ease"
+                            >
+                                <X size={22} style={{ flexShrink: 0 }} />
+                            </CloseButton>
+                        </ChakraDialog.CloseTrigger>
+
+                        <DialogBody
+                            p="0"
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                        >
+                            {/* Contenedor de Imagen de Alta Calidad */}
+                            <Box
+                                w={{ base: "94vw", md: "80vw" }}
+                                h={{ base: "75dvh", md: "80dvh" }}
+                                position="relative"
+                                borderRadius="2xl"
+                                overflow="hidden"
+                                boxShadow="0 25px 60px var(--chakra-colors-overlay-scrim)"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                <FadingImage
+                                    src={currentImage.src}
+                                    alt={currentImage.title || "Vista ampliada"}
+                                    w="100%"
+                                    h="100%"
+                                    objectFit="contain"
+                                    loading="eager"
+                                    fetchPriority="high"
+                                    borderRadius="2xl"
+                                />
+                            </Box>
+                        </DialogBody>
+                    </DialogContent>
+                </DialogRoot>
             )}
         </Box>
     );

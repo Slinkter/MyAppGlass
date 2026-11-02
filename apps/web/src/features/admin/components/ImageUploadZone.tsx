@@ -232,7 +232,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
                   colorPalette="gray"
                   onClick={(e) => {
                     e.stopPropagation();
-                    window.open(value, "_blank");
+                    window.open(value, "_blank", "noopener,noreferrer");
                   }}
                 >
                   <ExternalLink size={14} style={{ flexShrink: 0 }} />

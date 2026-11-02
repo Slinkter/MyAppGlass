@@ -3,6 +3,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { system } from "@/shared/providers/theme";
 import { ColorModeProvider } from "@/components/ui/color-mode";
+import { Toaster } from "@/components/ui/toaster";
 import * as React from "react";
 
 import { AuthProvider } from "@/features/auth/context/AuthContext";
@@ -17,6 +18,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             {children}
           </OrderDraftProvider>
         </AuthProvider>
+        <Toaster />
       </ChakraProvider>
     </ColorModeProvider>
   );

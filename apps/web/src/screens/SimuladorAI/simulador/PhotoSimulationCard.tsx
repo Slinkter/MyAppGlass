@@ -64,6 +64,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
           <input
             type="file"
             accept="image/*"
+            aria-label="Subir foto de tu espacio real"
             onChange={handleImageUpload}
             style={{
               position: "absolute",
@@ -166,6 +167,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
                   <Text color="text.muted" mb="1">Tamaño: {overlayScale}%</Text>
                   <input
                     type="range"
+                    aria-label="Tamaño del producto en la foto"
                     min="30"
                     max="100"
                     value={overlayScale}
@@ -177,6 +179,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
                   <Text color="text.muted" mb="1">Posición Horizontal: {overlayPos.x}%</Text>
                   <input
                     type="range"
+                    aria-label="Posición horizontal del producto"
                     min="20"
                     max="80"
                     value={overlayPos.x}
@@ -188,6 +191,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
                   <Text color="text.muted" mb="1">Posición Vertical: {overlayPos.y}%</Text>
                   <input
                     type="range"
+                    aria-label="Posición vertical del producto"
                     min="20"
                     max="80"
                     value={overlayPos.y}

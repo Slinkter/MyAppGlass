@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Box, Flex, VStack, HStack, Text, Heading, IconButton } from "@chakra-ui/react";
 import { MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 import { type MarkerType } from "./InteractiveMap";
 
 interface ProjectDetailCardProps {
@@ -11,6 +12,33 @@ interface ProjectDetailCardProps {
   isStore?: boolean;
   onClose?: () => void;
 }
+
+interface ProjectPhotoProps {
+  src: string;
+  alt: string;
+}
+
+/**
+ * Foto con skeleton y revelado. Se monta con `key={src}` para que cada foto de la
+ * galería reinicie su propio estado de carga (los textos y controles no parpadean).
+ */
+const ProjectPhoto: React.FC<ProjectPhotoProps> = ({ src, alt }) => {
+  const { loaded, onLoad, reveal } = useImageReveal();
+  return (
+    <>
+      <ImageRevealSkeleton loaded={loaded} />
+      <Box position="absolute" inset={0} {...reveal}>
+        <ResponsiveImage
+          src={src}
+          alt={alt}
+          w="100%" h="100%" objectFit="cover"
+          loading="lazy"
+          onLoad={onLoad}
+        />
+      </Box>
+    </>
+  );
+};
 
 /**
  * @component ProjectDetailCard
@@ -52,12 +80,7 @@ export const ProjectDetailCard: React.FC<ProjectDetailCardProps> = React.memo(({
       {/* Imagen del Proyecto */}
       <Box position="absolute" inset={0} zIndex={0} overflow="hidden">
         {activeImage && (
-          <ResponsiveImage 
-            src={activeImage} 
-            alt={selectedMarker?.name || "Proyecto GYA"}
-            w="100%" h="100%" objectFit="cover"
-            loading="lazy"
-          />
+          <ProjectPhoto key={activeImage} src={activeImage} alt={selectedMarker?.name || "Proyecto GYA"} />
         )}
       </Box>
 

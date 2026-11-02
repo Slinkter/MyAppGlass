@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-02] - Pulido del Aura Design System
+
+### Responsive (móvil, tablet, desktop)
+- Componentes base del showcase (`ShowcaseCard`, `ShowcasePanel`, `ShowcaseStack`, `SubsectionLabel`) y constantes `RESPONSIVE_GRIDS` / `TOUCH_MIN`.
+- Secciones de `/design-system` con padding, gaps y tamaños responsive; Overlays fusionados en una card "Feedback y Overlays".
+- `ServiceCard`, `ProjectCardContent` y `ClientCard`: badges `xs`, tracking responsive y `lineClamp` en títulos.
+- `AdminNav` en una fila con scroll horizontal; `AuraDesktopNav` con `h` 44px en móvil.
+- Galería (`GalleryViewer`, `GalleryThumbnails`, botón cerrar de `Gallery`): botones de 44px y miniaturas con scroll horizontal.
+
+### Performance
+- `useImageReveal` / `ImageRevealSkeleton` (`shared/components/Image/ImageReveal`): skeleton de la misma medida y revelado sincronizado (foto, degradado y textos) con timeout de 7 s.
+- `useImagePrefetch`: precarga de portadas en caché.
+- Revelado sincronizado aplicado en servicios, proyectos y clientes.
+- Nuevo showcase "Revelado sincronizado de imagen" en `/design-system` con demo interactiva y reglas del patrón.
+
+### Added
+- Variantes de botón `whatsapp` y `brand` en el tema.
+- `_focusVisible` y `_disabled` en el botón base.
+- `<Toaster />` montado en `app/Providers.tsx`.
+- En `/design-system`: estados loading/disabled, `Textarea`, `Tooltip`, `Drawer`, `Toast`, catálogo de `Badge`, `Tabs` y swatches de `text.heading`, `text.body`, `text.muted` y `ring.primary`.
+
+### Changed
+- Showcase `/design-system` sin `colorPalette="blue"`; botones con variantes del tema.
+- Etiquetas tipográficas corregidas y contenido alineado al catálogo oficial (sin DVH, grosores ni "Acero Inox").
+- Wrapper `components/ui/button.tsx` acepta las variantes `whatsapp` y `brand`.
+- Alias `border.glass`, `bg.glass`, `text.primary`, `bg.canvas`, `surface.muted` y `border.slate` marcados `@deprecated`.
+
+### Removed
+- Tokens sin uso `border.slateStrong`, `text.slate` y `text.slateStrong`.
+
+## [2026-10-30] - Mantenimiento posterior
+
+### Removed
+- Rutas de listado `/servicios` y `/proyectos` (commit `752a5fe`). Quedan las rutas de detalle `/servicios/[serviceSlug]`, `/servicios/ver` y `/proyectos/ver`.
+
+### Changed
+- `ThemeToggle` homologado con `FloatingWhatsApp` (commit `752a5fe`).
+- Carga de Google Maps con `loading=async` (commit `448d8ea`).
+- Actualización a TypeScript 6.0.3 y React 19 (commit `833547d`).
+
 ## [2026-10-30] - Sincronización documental con el código
 
 ### Changed

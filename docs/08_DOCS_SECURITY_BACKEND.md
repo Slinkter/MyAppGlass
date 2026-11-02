@@ -4,7 +4,7 @@ Este documento detalla la gestión de servicios serverless y la protección de d
 
 > Estado verificado contra el código de `functions/` el 2026-10-29. Los cambios de rate limit, IP, persistencia y errores descritos abajo están commiteados en la rama `chore/verificar-functions-backend` y desplegados en producción el 2026-10-29 (runtime `nodejs22`).
 >
-> Arquitectura completa, tabla de funciones y procedimiento de despliegue: [functions/README.md](../functions/README.md).
+> Arquitectura completa, tabla de funciones y procedimiento de despliegue: [functions/README.md](../apps/functions/README.md).
 
 ## ☁️ Firebase Functions v2
 Las funciones están alojadas en Google Cloud Run (vía Firebase). Runtime `nodejs22`.
@@ -87,7 +87,7 @@ Si el formulario falla en producción:
 Ocurrió el 2026-10-29 al migrar a Node.js 22: `submitReclamo` y `submitContacto` fallaron con HTTP 400 al actualizar. Causa: `functions/.env` (archivo local, ignorado por git) define `RECAPTCHA_SECRET_KEY` como variable de entorno, mientras que `functions/index.js` la declara también como secreto (`secrets: [...]`, Secret Manager). El CLI carga ambos y Cloud Run los rechaza.
 - **Qué se hizo:** se verificó que la última versión del secreto en Secret Manager coincide con la del `.env` y se desplegó apartando `functions/.env` solo durante el comando.
 - **Solución permanente (pendiente del responsable):** eliminar la línea `RECAPTCHA_SECRET_KEY` de `functions/.env`; el valor ya vive en Secret Manager. Mientras tanto, cada despliegue de esas funciones requiere apartar el archivo.
-- Nunca use `firebase deploy --only functions --force`: borra las funciones desplegadas que no estén en el código (por ejemplo `testFunction`). El comando seguro para estas tres funciones está en [functions/README.md](../functions/README.md), sección 9.
+- Nunca use `firebase deploy --only functions --force`: borra las funciones desplegadas que no estén en el código (por ejemplo `testFunction`). El comando seguro para estas tres funciones está en [functions/README.md](../apps/functions/README.md), sección 9.
 
 ---
 *Documentación original generada por Gemini CLI - Versión 1.0 (Abril 2026). Actualizada con el estado real del código el 2026-10-29.*

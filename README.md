@@ -9,7 +9,7 @@ Plataforma corporativa premium de alta gama optimizada para el rendimiento y SEO
 - **Framework:** [Next.js 16](https://nextjs.org/) (App Router) con exportación estática total (`output: 'export'`).
 - **UI Engine:** [Chakra UI v3](https://chakra-ui.com/) - Sistema de diseño Aura con tokens nativos (`space.1` a `space.16`).
 - **Simulador visual (`/simulador-ai`):** simulador 100% local que superpone la imagen de un producto sobre la foto subida por el usuario (queda en el navegador) y un chat con respuestas predefinidas; no usa IA generativa ni APIs externas.
-- **Módulos de gestión (cliente + Firestore):** panel de administración en `/admin` con CRUD de servicios y proyectos (`/admin/servicios`, `/admin/proyectos`), protegido con `AdminRouteGuard`; páginas públicas de servicios y proyectos leídas desde Firestore con fallback local; cotizador de presupuesto en `/presupuesto`. No existe tienda pública ni carrito.
+- **Módulos de gestión (cliente + Firestore):** panel de administración en `/admin` con CRUD de servicios y proyectos (`/admin/servicios`, `/admin/proyectos`), protegido con `AdminRouteGuard`; páginas públicas de servicios y proyectos leídas desde Firestore (única fuente de datos); cotizador de presupuesto en `/presupuesto`. No existe tienda pública ni carrito.
 - **Rendimiento 120Hz:** Optimización por GPU (`translateZ(0)`, `will-change`) y prevención de CLS mediante sincronización de esqueletos de carga.
 - **Catálogo Oficial:** 4 Sistemas oficiales independientes (`Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`) como regla de negocio (ver `AGENTS.md`).
 - **Backend Serverless:** Firebase Functions v2 (Node.js 22, `apps/functions/`), Firestore y Resend para gestión legal de Libro de Reclamaciones.
@@ -20,31 +20,19 @@ Plataforma corporativa premium de alta gama optimizada para el rendimiento y SEO
 
 - **SEO Local:** Posicionamiento estructurado para términos de alta conversión (_"Vidriería en La Molina"_, _"Ventanas Antirruido Lima"_).
 - **Rich Snippets & Sitelinks:** Marcado Schema.org JSON-LD para indexación jerárquica en Google.
-- **SSG:** 60 páginas pre-renderizadas estáticamente en build time.
+- **SSG:** 58 páginas pre-renderizadas estáticamente en build time.
 
 ---
 
-## 📂 Estructura del Proyecto (Monorepo pnpm)
+## 📂 Estructura del Proyecto
 
-```
-MyAppGlass/
-├── AGENTS.md                      # Guía maestra de contexto para LLMs e IA
-├── firebase.json                  # Hosting (public: apps/web/out) y Functions (source: apps/functions)
-├── firestore.rules / storage.rules
-├── pnpm-workspace.yaml            # apps/* y packages/*
-├── apps/
-│   ├── web/                       # @gya/web: Next.js 16 con export estático (salida en apps/web/out)
-│   │   ├── src/app/               # Rutas Next.js (App Router), wrappers ligeros
-│   │   ├── src/features/          # Módulos de negocio (FSD): admin, ai-simulator, auth, blog, contacto,
-│   │   │                          #   home, presupuesto, products, projects, reclamation-book, services
-│   │   ├── src/screens/           # Composiciones visuales de página
-│   │   ├── src/widgets/           # Bloques estructurales (Navbar, Footer, FloatingActions, AdminNav)
-│   │   ├── src/shared/            # Utilidades, API Firebase, hooks, constantes y UI base
-│   │   └── tests/rules/           # Prueba de reglas con emuladores (rules-smoke.sh)
-│   └── functions/                 # @gya/functions: Firebase Functions v2 (Node.js 22)
-└── packages/
-    └── shared/                    # @gya/shared: companyData, SITE_URL, CompanyInfo
-```
+Monorepo pnpm con Feature-Sliced Design:
+
+- `apps/web/` (`@gya/web`): Next.js 16 con export estático (salida en `apps/web/out`).
+- `apps/functions/` (`@gya/functions`): Firebase Functions v2 (Node.js 22).
+- `packages/shared/` (`@gya/shared`): `companyData`, `SITE_URL`, `CompanyInfo`.
+
+Detalle de capas y módulos en [docs/01_ARCHITECTURE.md](docs/01_ARCHITECTURE.md).
 
 ---
 
@@ -59,19 +47,12 @@ pnpm install
 # Servidor de desarrollo (puerto 3000)
 pnpm run dev
 
-# Verificación de tipos, lint y compilación
+# Verificación de tipos y compilación
 pnpm run typecheck
-pnpm run lint
 pnpm run build            # Export estático a apps/web/out
-
-# Pruebas (solo bajo petición; ver AGENTS.md)
-pnpm run test:run         # Vitest (apps/web)
-pnpm run test:functions   # node:test (apps/functions)
-
-# Despliegue
-pnpm run deploy:hosting   # build + Firebase Hosting
-pnpm run deploy:functions # Firebase Functions
 ```
+
+Tabla completa de comandos, despliegue y reglas de pruebas: [AGENTS.md §1](AGENTS.md).
 
 ### Emuladores de Firebase (desarrollo local)
 
@@ -89,10 +70,8 @@ NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev
 
 ### Rutas principales
 
-- Públicas: `/`, `/servicios`, `/servicios/ver?slug=…` (detalle de cliente), `/proyectos`, `/proyectos/ver?id=…` (detalle de cliente), `/presupuesto`, `/simulador-ai`, `/contacto`, `/blog`, `/libro-de-reclamacion`, `/cuentas-bancarias`, `/politicas-empresa`, `/auth`.
+- Públicas: `/`, `/servicios/[serviceSlug]`, `/servicios/ver?slug=…`, `/proyectos/[projectId]`, `/proyectos/ver?id=…`, `/presupuesto`, `/simulador-ai`, `/contacto`, `/blog`, `/blog/[slug]`, `/libro-de-reclamacion`, `/cuentas-bancarias`, `/politicas-empresa`, `/auth`, `/design-system` (showcase del Aura Design System).
 - Admin (requiere sesión de administrador, `AdminRouteGuard`): `/admin`, `/admin/servicios`, `/admin/proyectos`, `/admin/inventario`, `/admin/ventas`, `/admin/clientes`, `/admin/reportes`.
-
-> Las rutas de detalle `/servicios/ver` y `/proyectos/ver` son de cliente (query string), por lo que no tienen SEO propio por página. Las rutas `/servicios/[serviceSlug]` y `/proyectos/[projectId]` existen como rutas prerenderizadas.
 
 ---
 
@@ -101,7 +80,7 @@ NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev
 Para consultar los manuales técnicos, guías de desarrollo y auditorías:
 
 - 📚 **[Centro de Documentación (docs/README.md)](docs/README.md)**
-- 🗺️ **[Plan de Migración (PLAN_MIGRACION.md)](PLAN_MIGRACION.md)**
+- 🎨 **[Plan del Design System (DESIGN-SYSTEM-PLAN.md)](DESIGN-SYSTEM-PLAN.md)**
 - 🤖 **[Guía para Agentes LLM (AGENTS.md)](AGENTS.md)**
 - 🏛️ **[Manual de Arquitectura (docs/01_ARCHITECTURE.md)](docs/01_ARCHITECTURE.md)**
 - 📋 **[Historial de Versiones (docs/05_CHANGELOG.md)](docs/05_CHANGELOG.md)**

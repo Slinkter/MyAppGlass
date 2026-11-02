@@ -11,7 +11,7 @@ Este documento detalla la estructura técnica, flujos de datos y patrones de dis
 
 ```text
 +---------------------+
-|    Service/Project  |  <-- Fuentes de Datos (Static/CMS)
+|    Service/Project  |  <-- Fuente de Datos (Firestore)
 |       Data          |
 +----------+----------+
            |
@@ -83,7 +83,7 @@ El proyecto sigue una variante **parcial de Feature-Sliced Design (FSD)**: exist
 - `apps/web/src/features/`: Lógica de dominio: `admin`, `ai-simulator`, `auth`, `blog`, `contacto`, `home`, `presupuesto`, `products`, `projects`, `reclamation-book` y `services`.
   - `features/admin/`: CRUD de servicios y proyectos; componentes de formulario comunes en `components/form`; seed en `seed/`.
   - `features/auth/`: `AdminRouteGuard`.
-  - `features/*/hooks/`: hooks públicos (`useServices`/`useService`, `useProjects`/`useProject`) con fallback local.
+  - `features/*/hooks/`: hooks públicos (`useServices`/`useService`, `useProjects`/`useProject`) que leen de Firestore.
 - `apps/web/src/shared/`: Código transversal: `api/firebase` (repositorios de servicios, proyectos, clientes y usuarios), `components`, `config`, `constants`, `data`, `hooks` (incluye `hooks/data/useAsyncResource.ts` y `hooks/ui/useFilterableList.ts`), `lib`, `providers`, `schemas`, `services`, `types` y `utils`.
   - `shared/providers/theme/index.ts`: configuración central del tema (Aura Design System sobre Chakra v3), con tokens de color de estado.
   - `shared/components/Layout/ItemGridLayout.tsx`: orquestador de cuadrícula.
@@ -93,15 +93,23 @@ El proyecto sigue una variante **parcial de Feature-Sliced Design (FSD)**: exist
 
 ## 🔌 Acceso a datos público y admin
 
-- Las páginas públicas `/servicios` y `/proyectos` leen de Firestore en cliente con skeletons; si la lectura falla o no hay datos, usan el catálogo local como fallback.
-- Las rutas de detalle son de cliente: `/servicios/ver?slug=` y `/proyectos/ver?id=`.
+- Firestore es la **única fuente** de servicios y proyectos: los datos locales fueron purgados y no existe fallback local (`features/{services,projects}` y `shared/api/firebase` no contienen catálogos locales).
+- Las rutas de listado `/servicios` y `/proyectos` fueron eliminadas (commit `752a5fe`). Quedan las rutas de detalle: `/servicios/[serviceSlug]`, `/proyectos/[projectId]` y las de cliente `/servicios/ver?slug=` y `/proyectos/ver?id=`.
+- Los hooks públicos (`useServices`/`useService`, `useProjects`/`useProject`) leen de Firestore en cliente con skeletons.
 - El panel `/admin` usa `AdminRouteGuard` y escribe en Firestore/Storage; las reglas permiten escritura solo a administradores.
 
-## ✅ Estado actual (2026-10-30)
+## 🎨 Aura Design System
 
-- **Hecho:** monorepo pnpm; purga de imágenes basura; SITE_URL, dirección y RUC únicos; contacto en `companyData`; FSD corregido; modales admin con componentes comunes; pantallas admin/simulador/presupuesto divididas; hooks públicos con fallback; reglas de Firestore/Storage (escritura solo admin); CSP ampliado para Firestore, Auth y Storage.
-- **Verificado:** `pnpm run typecheck`, `pnpm run lint` y `pnpm run build` pasan.
-- **Pendiente:** probar admin y páginas públicas en navegador con emuladores y con Firestore apagado; despliegue de reglas y hosting aún no realizado; esquemas Zod y ESLint compartido aún no extraídos a `packages/shared`; alinear la versión de pnpm de CI con el lockfile.
+- Tema central: `apps/web/src/shared/providers/theme/index.ts` (Chakra v3, tokens semánticos y de estado).
+- Showcase en la ruta `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón `aura`, `outline`, `ghost`, `whatsapp` y `brand`.
+- Plan y cierre del pulido: `DESIGN-SYSTEM-PLAN.md` (raíz del repo).
+
+## ✅ Estado actual (2026-11-02)
+
+- El build prerenderiza 58 páginas; hay 18 archivos de test unitarios en `apps/web/tests/unit/`.
+- Stack: Next.js 16, React 19, TypeScript 6.0.3; `framer-motion` fue retirado.
+- Las reglas de Firestore/Storage ya están desplegadas (ver `docs/05_CHANGELOG.md`, 2026-10-30).
+- **Pendiente:** revisión visual de `/design-system` en navegador; probar admin y páginas públicas con emuladores; esquemas Zod y ESLint compartido aún no extraídos a `packages/shared`; alinear la versión de pnpm de CI con el lockfile.
 
 ---
 *Documentación generada con ascii-diagram-boxflow.*

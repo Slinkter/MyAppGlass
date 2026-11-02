@@ -3,6 +3,7 @@
 import React from "react";
 import { Box, Card, Text, VStack } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
+import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 
 interface ClientCardProps {
   image: string;
@@ -18,6 +19,9 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
   const bgOverlay =
     "linear-gradient(to top, rgba(0,0,0,0.95) 0%, var(--chakra-colors-overlay-dim) 50%, transparent 100%)";
 
+  // Foto, degradado y textos se revelan a la vez cuando la imagen termina de cargar.
+  const { loaded, onLoad, reveal } = useImageReveal();
+
   return (
     <Card.Root
       as="article"
@@ -25,7 +29,6 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
       cursor="pointer"
       position="relative"
       w="full"
-      minH={{ base: "220px", sm: "260px", md: "320px" }}
       h={{ base: "220px", sm: "260px", md: "320px" }}
       borderRadius="xl"
       overflow="hidden"
@@ -43,38 +46,45 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
       }}
     >
       <Card.Body p="0" position="absolute" inset={0} overflow="hidden" borderRadius="xl">
-        <ResponsiveImage
-          src={image}
-          alt={nameClient}
-          objectFit="cover"
-          w="full"
-          h="full"
-          loading="eager"
-          decoding="async"
-          transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
-          _groupHover={{ transform: "scale(1.08)" }}
-          _active={{ transform: "scale(1.08)" }}
-        />
+        <ImageRevealSkeleton loaded={loaded} />
+        <Box position="absolute" inset={0} overflow="hidden" {...reveal}>
+          <ResponsiveImage
+            src={image}
+            alt={nameClient}
+            objectFit="cover"
+            w="full"
+            h="full"
+            loading="eager"
+            decoding="async"
+            onLoad={onLoad}
+            transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
+            _groupHover={{ transform: "scale(1.08)" }}
+            _active={{ transform: "scale(1.08)" }}
+          />
+        </Box>
 
-        <Box position="absolute" inset="0" css={{ background: bgOverlay }} />
+        <Box position="absolute" inset="0" css={{ background: bgOverlay }} {...reveal} />
 
         <VStack
           position="absolute"
           bottom={0}
           left={0}
           right={0}
-          p={{ base: "4", md: "8" }}
+          p={{ base: "4", md: "6" }}
           gap="2"
+          minW={0}
           align="center"
           justify="flex-end"
           textAlign="center"
+          {...reveal}
         >
           <Text
             color="white"
             fontSize={{ base: "lg", md: "2xl" }}
             fontWeight="900"
             textTransform="uppercase"
-            letterSpacing="0.2em"
+            letterSpacing={{ base: "0.08em", md: "0.2em" }}
+            lineClamp={2}
             position="relative"
           >
             {nameClient}

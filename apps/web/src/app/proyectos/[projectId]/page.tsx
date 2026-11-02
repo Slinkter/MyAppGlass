@@ -21,8 +21,7 @@ type Props = {
 };
 
 async function resolveProjectData(params: Promise<{ projectId: string }>) {
-  const { projectId } = await params;
-  const projects = await getBuildProjects();
+  const [{ projectId }, projects] = await Promise.all([params, getBuildProjects()]);
   const project = projects.find((p) => String(p.id) === projectId);
   return { projectId, project };
 }

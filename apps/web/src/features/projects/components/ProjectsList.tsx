@@ -6,7 +6,7 @@
  * @remarks
  * - Implements built-in SEO optimizations via metadata props.
  * - Handles eager loading for items above the fold (first 2 items) to improve LCP.
- * - Cascade animation effect for each item.
+ * - Each card reveals itself when its photo loads (no staggered mount animation).
  */
 
 import { SITE_URL } from "@/shared/config/company-data";
@@ -22,6 +22,7 @@ import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import { EmptyState } from "@/components/ui/empty-state";
 import { AlertTriangle } from "lucide-react";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
+import { useImagePrefetch } from "@shared/hooks/ui/useImagePrefetch";
 import logger from "@shared/utils/logger";
 
 /**
@@ -54,6 +55,10 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
     logger.debug({ total: projects.length }, "Projects loaded");
     return projects;
   }, [data]);
+
+  // Calienta el caché con todas las portadas cuando el navegador está libre:
+  // al llegar a #proyectos las fotos ya están descargadas.
+  useImagePrefetch(useMemo(() => allProjects.map((p) => p.image), [allProjects]));
 
   // Get unique years
   const years = useMemo(() => {
@@ -143,7 +148,9 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
           </Box>
         )}
         {!isLoading && preloadedProjects.map((project, index) => (
-          <ItemGridLayout.Item key={`${activeYear}-${project.id}`} delay={(index % 6) * 0.1}>
+          // Sin `delay`/animación de montaje: cada card se revela sola cuando su foto
+          // termina de cargar (ver ProjectCardContent).
+          <ItemGridLayout.Item key={`${activeYear}-${project.id}`}>
             <ProjectCard
               {...project}
               isLCP={index < 3}

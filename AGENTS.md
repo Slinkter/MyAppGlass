@@ -82,8 +82,11 @@ packages/
 - **Static Export:** El proyecto usa `output: 'export'`. Rutas dinámicas requieren `generateStaticParams`.
 - **Chakra UI v3:** Usar tokens nativos (`space.1` a `space.16`, `borderRadius="xl"`, `fontSize="xs"`).
 - **Lucide icons en flexbox:** Usar `style={{ flexShrink: 0 }}` (la prop directa `flexShrink` da error de tipos TS en Lucide).
+- **Botones:** usar `Button` de `@/components/ui/button` con `variant` del tema: `aura` (primario, por defecto), `outline`, `ghost`, `whatsapp`, `brand`. No usar `colorPalette` (blue/cyan/etc.) ni armar `bg`/`_hover` a mano. Referencia visual en `/design-system`.
 - **Transiciones:** Máximo 2 propiedades CSS (`transition="all 0.2s ease"`, `transform="translateZ(0)"`).
+- **Responsive (mobile-first):** Card `p={{ base: "4", md: "6" }}`; sub-paneles `p={{ base: "3", md: "5" }}`; targets táctiles ≥44px (`minH`/`minW="11"`); grids `{ base: 1, sm: 2, lg: 3 }`; tablas con `minW` y `overflowX="auto"`; listas de chips con scroll horizontal (`flexShrink={0}`, `whiteSpace="nowrap"`); sin texto de `10px` ni `100vh` (usar `dvh`).
 - **Logger:** Usar `@/shared/utils/logger.ts`. NO usar `console.log` en producción.
+- **Tarjetas con foto:** usar `useImageReveal` + `ImageRevealSkeleton` (`@/shared/components/Image/ImageReveal`) para skeleton y revelado sincronizado; precargar portadas con `useImagePrefetch`; sin `delay` de montaje en `ItemGridLayout.Item`. Referencia: `ServiceCard`/`/design-system`.
 
 ---
 

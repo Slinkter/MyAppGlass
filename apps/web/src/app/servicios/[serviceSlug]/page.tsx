@@ -4,7 +4,7 @@ import { ServiceDetailView } from "@/screens/Services";
 import { getBuildServices } from "@/shared/api/firebase/publicRest";
 import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
 import { getServiceSeo } from "@/features/services/hooks/serviceMappers";
-import { getServiceJsonLd, getSectionBreadcrumbJsonLd, getFaqJsonLd } from "@/shared/utils/seo-utils";
+import { getServiceJsonLd, getSectionBreadcrumbJsonLd, getFaqJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 /**
@@ -23,8 +23,7 @@ type Props = {
 };
 
 async function resolveServiceData(params: Promise<{ serviceSlug: string }>) {
-  const { serviceSlug } = await params;
-  const services = await getBuildServices();
+  const [{ serviceSlug }, services] = await Promise.all([params, getBuildServices()]);
   const service = services.find((s) => s.slug === serviceSlug);
   return { serviceSlug, service };
 }
@@ -82,16 +81,16 @@ export default async function Page({ params }: Props) {
     <ComponentErrorBoundary>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(serviceJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       {service.faqs.length > 0 && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqJsonLd(service.faqs)) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(getFaqJsonLd(service.faqs)) }}
         />
       )}
       <ServiceDetailView serviceSlug={serviceSlug} initialData={service} />

@@ -1,6 +1,6 @@
 "use client";
 import React, { useLayoutEffect } from "react";
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Flex, Image, chakra } from "@chakra-ui/react";
 import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar } from "@/components/ui/scroll-area";
 import { GalleryItem } from "@/shared/types/gallery";
 
@@ -14,10 +14,15 @@ interface GalleryThumbnailItemProps {
 const GalleryThumbnailItem = React.memo(
   ({ img, index, isSelected, onClick }: GalleryThumbnailItemProps) => {
     return (
-      <Box
+      <chakra.button
+        type="button"
+        aria-label={img.title || `Miniatura ${index + 1}`}
+        aria-current={isSelected ? "true" : undefined}
         flexShrink={0}
         w={{ base: "80px", sm: "88px", md: "100%" }}
         h={{ base: "64px", sm: "70px", md: "80px", lg: "90px" }}
+        minW="11"
+        minH="11"
         cursor="pointer"
         borderRadius="xl"
         borderWidth="2px"
@@ -27,10 +32,11 @@ const GalleryThumbnailItem = React.memo(
           borderColor: isSelected ? "primary.300" : "transparent",
         }}
         boxShadow={isSelected ? "0 0 0 2px rgba(168, 1, 0, 0.3)" : "none"}
+        _focusVisible={{ outline: "2px solid", outlineColor: "primary.500", outlineOffset: "2px" }}
         onClick={onClick}
         position="relative"
         overflow="hidden"
-        role="group"
+        className="group"
         transition="border-color 0.2s ease-out, box-shadow 0.2s ease-out"
         _hover={{
           borderColor: isSelected ? "text.accent" : "border.strong",
@@ -51,7 +57,7 @@ const GalleryThumbnailItem = React.memo(
             transform: "scale(1.1)",
           }}
         />
-      </Box>
+      </chakra.button>
     );
   },
 );
@@ -81,25 +87,27 @@ const GalleryThumbnails: React.FC<GalleryThumbnailsProps> = ({ images, selectedI
 
   useLayoutEffect(() => {
     const activeItem = containerRef.current?.children[selectedIndex] as HTMLElement | undefined;
-    if (activeItem) {
-      activeItem.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
-      });
-    }
+    const viewport = activeItem?.closest<HTMLElement>("[data-radix-scroll-area-viewport]");
+    if (!activeItem || !viewport) return;
+    // Centra la miniatura dentro del viewport sin desplazar la página (clamp automático en scrollTo).
+    const itemRect = activeItem.getBoundingClientRect();
+    const viewportRect = viewport.getBoundingClientRect();
+    const left = viewport.scrollLeft + (itemRect.left - viewportRect.left) - (viewport.clientWidth - itemRect.width) / 2;
+    const top = viewport.scrollTop + (itemRect.top - viewportRect.top) - (viewport.clientHeight - itemRect.height) / 2;
+    viewport.scrollTo({ left, top, behavior: "smooth" });
   }, [selectedIndex]);
 
   return (
-    <ScrollAreaRoot h="full" w="full">
+    <ScrollAreaRoot h={{ base: "96px", md: "full" }} w="full">
       <ScrollAreaViewport h="full" w="full">
         <Flex
           ref={containerRef}
           direction={{ base: "row", md: "column" }}
           gap="4"
           p="2"
-          h="full"
-          w="full"
+          h={{ base: "auto", md: "full" }}
+          w={{ base: "max-content", md: "full" }}
+          minW="full"
         >
           {images.map((img, index) => (
             <GalleryThumbnailItem

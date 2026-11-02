@@ -1,142 +1,98 @@
 "use client";
 
 import React from "react";
-import {
-  Box,
-  Text,
-  VStack,
-  HStack,
-  Card,
-  Badge,
-} from "@chakra-ui/react";
+import { Box, Text, VStack, HStack } from "@chakra-ui/react";
+import { ShowcaseCard, ShowcasePanel, ShowcaseStack } from "../components";
 import AuraDesktopNav from "@/widgets/Navbar/AuraDesktopNav";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
 import { FloatingWhatsAppButton, ThemeToggleButton } from "@/widgets/FloatingActions";
 
 export const NavigationShowcase: React.FC = () => {
   return (
-    <VStack gap="8" align="stretch">
+    <ShowcaseStack>
       {/* 1. Navbar Público en Cápsula (AuraDesktopNav) */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <HStack justify="space-between" wrap="wrap">
-            <Box>
-              <Card.Title fontSize="xl">AuraDesktopNav — Barra Pública en Cápsula Flotante</Card.Title>
-              <Card.Description>
-                Componente real de producción (`widgets/Navbar/AuraDesktopNav.tsx`) con desenfoque de cristal (backdrop-blur) y sombra `navDesktop`.
-              </Card.Description>
-            </Box>
-            <Badge colorPalette="blue" px="3" py="1" borderRadius="full">Web Pública</Badge>
-          </HStack>
-        </Card.Header>
-        <Card.Body>
+      <ShowcaseCard
+        title="AuraDesktopNav — Barra Pública en Cápsula Flotante"
+        description="Componente real de producción (`widgets/Navbar/AuraDesktopNav.tsx`) con desenfoque de cristal (backdrop-blur) y sombra `navDesktop`."
+        badge="Web Pública"
+      >
+        <ShowcasePanel
+          p={{ base: "4", md: "8" }}
+          borderRadius="2xl"
+          minH="180px"
+          position="relative"
+          maxW="100%"
+          minW="0"
+        >
+          {/* Fondo simulando el hero de cristal */}
           <Box
-            p={{ base: "6", md: "10" }}
-            bg="bg.page"
+            position="absolute"
+            inset="0"
             borderRadius="2xl"
-            borderWidth="1px"
-            borderColor="border.subtle"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            minH="180px"
-            position="relative"
-            overflow="hidden"
-          >
-            {/* Fondo simulando el hero de cristal */}
-            <Box
-              position="absolute"
-              inset="0"
-              bg="radial-gradient(ellipse at center, rgba(56, 189, 248, 0.08) 0%, transparent 70%)"
-              pointerEvents="none"
-            />
-            <Text fontSize="xs" color="text.muted" mb="4" fontWeight="medium">
+            bg="radial-gradient(ellipse at center, rgba(56, 189, 248, 0.08) 0%, transparent 70%)"
+            pointerEvents="none"
+          />
+          <Box position="relative" display="flex" flexDirection="column" alignItems="center" justifyContent="center" minH="140px">
+            <Text fontSize="xs" color="text.muted" mb="4" fontWeight="medium" textAlign="center">
               VISTA PREVIA INTERACTIVA (SCROLL SPY & ROUTING)
             </Text>
-            <AuraDesktopNav />
+            <Box maxW="100%" overflowX="auto" display="flex" justifyContent={{ base: "flex-start", md: "center" }} w="full">
+              <AuraDesktopNav />
+            </Box>
           </Box>
-        </Card.Body>
-      </Card.Root>
+        </ShowcasePanel>
+      </ShowcaseCard>
 
       {/* 2. AdminNav del Dashboard */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <HStack justify="space-between" wrap="wrap">
-            <Box>
-              <Card.Title fontSize="xl">AdminNav — Barra de Navegación del Dashboard Backoffice</Card.Title>
-              <Card.Description>
-                Componente real de administración (`widgets/AdminNav/AdminNav.tsx`) con selector de módulos e iconos Lucide nativos.
-              </Card.Description>
-            </Box>
-            <Badge colorPalette="purple" px="3" py="1" borderRadius="full">Backoffice Admin</Badge>
-          </HStack>
-        </Card.Header>
-        <Card.Body>
-          <Box
-            p={{ base: "4", md: "6" }}
-            bg="bg.page"
-            borderRadius="2xl"
-            borderWidth="1px"
-            borderColor="border.subtle"
-          >
+      <ShowcaseCard
+        title="AdminNav — Barra de Navegación del Dashboard Backoffice"
+        description="Componente real de administración (`widgets/AdminNav/AdminNav.tsx`) con selector de módulos e iconos Lucide nativos."
+        badge="Backoffice Admin"
+      >
+        <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="2xl" minW="0">
+          <Box maxW="100%" overflowX="auto" mb="-8">
             <AdminNav />
-            <Text fontSize="xs" color="text.muted" textAlign="center" mt="2">
-              Barra fija con acceso a Servicios, Proyectos, Inventario, Clientes y Ventas.
-            </Text>
           </Box>
-        </Card.Body>
-      </Card.Root>
+          <Text fontSize="xs" color="text.muted" textAlign="center" mt="2">
+            Barra fija con acceso a Servicios, Proyectos, Inventario, Clientes y Ventas.
+          </Text>
+        </ShowcasePanel>
+      </ShowcaseCard>
 
       {/* 3. FloatingActions (WhatsApp & ThemeToggle Homologados) */}
-      <Card.Root bg="bg.surface" borderColor="border.default" p="6" borderRadius="card">
-        <Card.Header pb="4">
-          <HStack justify="space-between" wrap="wrap">
-            <Box>
-              <Card.Title fontSize="xl">FloatingActions — Acciones Flotantes Homologadas</Card.Title>
-              <Card.Description>
-                Componentes globales (`widgets/FloatingActions/`) con dimensiones simétricas (`w`/`h` 14 en móvil, 16 en escritorio e icono `size={32}`).
-              </Card.Description>
-            </Box>
-            <Badge colorPalette="green" px="3" py="1" borderRadius="full">Global Widgets</Badge>
-          </HStack>
-        </Card.Header>
-        <Card.Body>
-          <Box
-            p={{ base: "6", md: "8" }}
-            bg="bg.page"
-            borderRadius="2xl"
-            borderWidth="1px"
-            borderColor="border.subtle"
-          >
-            <HStack justify="space-around" align="center" wrap="wrap" gap="8">
-              <VStack gap="3">
-                <FloatingWhatsAppButton />
-                <VStack gap="0.5">
-                  <Text fontSize="xs" fontWeight="bold" color="text.heading">
-                    FloatingWhatsApp
-                  </Text>
-                  <Text fontSize="xs" color="text.muted">
-                    64×64px (md) · Icono 32px
-                  </Text>
-                </VStack>
+      <ShowcaseCard
+        title="FloatingActions — Acciones Flotantes Homologadas"
+        description="Componentes globales (`widgets/FloatingActions/`) con dimensiones simétricas (`w`/`h` 14 en móvil, 16 en escritorio e icono `size={32}`)."
+        badge="Global Widgets"
+      >
+        <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="2xl">
+          <HStack justify="space-around" align="center" wrap="wrap" gap={{ base: "6", md: "8" }}>
+            <VStack gap="3">
+              <FloatingWhatsAppButton />
+              <VStack gap="0.5">
+                <Text fontSize="xs" fontWeight="bold" color="text.heading">
+                  FloatingWhatsApp
+                </Text>
+                <Text fontSize="xs" color="text.muted">
+                  64×64px (md) · Icono 32px
+                </Text>
               </VStack>
+            </VStack>
 
-              <VStack gap="3">
-                <ThemeToggleButton />
-                <VStack gap="0.5">
-                  <Text fontSize="xs" fontWeight="bold" color="text.heading">
-                    ThemeToggle
-                  </Text>
-                  <Text fontSize="xs" color="text.muted">
-                    64×64px (md) · Icono 32px
-                  </Text>
-                </VStack>
+            <VStack gap="3">
+              <ThemeToggleButton />
+              <VStack gap="0.5">
+                <Text fontSize="xs" fontWeight="bold" color="text.heading">
+                  ThemeToggle
+                </Text>
+                <Text fontSize="xs" color="text.muted">
+                  64×64px (md) · Icono 32px
+                </Text>
               </VStack>
-            </HStack>
-          </Box>
-        </Card.Body>
-      </Card.Root>
-    </VStack>
+            </VStack>
+          </HStack>
+        </ShowcasePanel>
+      </ShowcaseCard>
+    </ShowcaseStack>
   );
 };
