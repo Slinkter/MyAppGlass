@@ -23,6 +23,8 @@ const PAGE_SIZE = 300;
 const REQUEST_TIMEOUT_MS = 15000;
 /** Evita repetir la lectura en cada página del build (generateStaticParams + metadata + page). */
 const CACHE_TTL_MS = 30000;
+/** En desarrollo, 5 min: recargar `/` no vuelve a esperar a Firestore en cada petición. */
+const DEV_CACHE_TTL_MS = 5 * 60 * 1000;
 
 type RestValue = Record<string, unknown>;
 
@@ -115,12 +117,43 @@ const readCollection = async <T>(
   }
 };
 
+/**
+ * Caché en memoria por proceso. En desarrollo usa un TTL largo y "stale-while-revalidate":
+ * si el valor venció, responde al instante con el anterior y refresca en segundo plano,
+ * así recargar `/` no vuelve a esperar a Firestore. En producción/build: TTL corto, sin SWR.
+ */
+const IS_DEV = process.env.NODE_ENV !== "production";
+
 const memoize = <T,>(load: () => Promise<T>): (() => Promise<T>) => {
   let cached: { at: number; value: Promise<T> } | null = null;
+  let refreshing = false;
+
+  const refreshInBackground = () => {
+    if (refreshing) return;
+    refreshing = true;
+    load()
+      .then((value) => {
+        cached = { at: Date.now(), value: Promise.resolve(value) };
+      })
+      .catch(() => undefined)
+      .finally(() => {
+        refreshing = false;
+      });
+  };
+
   return () => {
-    if (!cached || Date.now() - cached.at > CACHE_TTL_MS) {
-      cached = { at: Date.now(), value: load() };
+    const now = Date.now();
+    if (!cached) {
+      cached = { at: now, value: load() };
+      return cached.value;
     }
+    if (now - cached.at <= (IS_DEV ? DEV_CACHE_TTL_MS : CACHE_TTL_MS)) return cached.value;
+
+    if (IS_DEV) {
+      refreshInBackground();
+      return cached.value;
+    }
+    cached = { at: now, value: load() };
     return cached.value;
   };
 };
