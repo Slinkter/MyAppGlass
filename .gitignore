@@ -1,11 +1,12 @@
 # ==============================================================================
-# Dependencias
+# 1. Dependencias y Gestores de Paquetes (pnpm monorepo)
 # ==============================================================================
 node_modules/
 .pnpm-store/
+.npm/
 
 # ==============================================================================
-# Salidas de build (Next.js, Turbo, TypeScript)
+# 2. Salidas de Build y Cachés (Next.js 16, Turbopack, TypeScript, Vitest)
 # ==============================================================================
 .next/
 out/
@@ -13,28 +14,28 @@ dist/
 build/
 .turbo/
 .cache/
+.vitest/
 *.tsbuildinfo
-# Lo regenera `next dev`
 next-env.d.ts
-# Reporte de @next/bundle-analyzer
 stats.html
 
 # ==============================================================================
-# Firebase y emuladores
+# 3. Firebase, Emuladores y Cloud Functions
 # ==============================================================================
 .firebase/
 .firebaserc.local
+.runtimeconfig.json
 apps/functions/lib/
 firebase-export-*/
-# Logs de debug de firebase, firestore, ui, hub, pubsub, database, auth y storage
-*-debug.log*
 
 # ==============================================================================
-# Variables de entorno y secretos (se versionan solo los .env.example)
+# 4. Variables de Entorno, Secretos y Certificados (Zero-Trust)
 # ==============================================================================
 .env
 .env.*
+*.local
 !.env.example
+!*.example
 service-account*.json
 firebase-adminsdk*.json
 credentials*.json
@@ -46,16 +47,11 @@ credentials*.json
 *.jks
 
 # ==============================================================================
-# Hojas de cálculo y exportaciones generadas
-# ==============================================================================
-*.xlsx
-*.xls
-
-# ==============================================================================
-# Herramientas de IA, IDE y editores (artefactos locales)
+# 5. Herramientas de IA, MCP e IDEs (Artefactos Locales)
 # ==============================================================================
 .claude/
 .cursor/
+.windsurf/
 .idea/
 .playwright-mcp/
 .agents/mcp_config.local.json
@@ -71,7 +67,20 @@ credentials*.json
 *~
 
 # ==============================================================================
-# Sistema operativo
+# 6. Logs, Caché de Lint y Artefactos de Pruebas / E2E
+# ==============================================================================
+*.log
+*.log.*
+logs/
+.eslintcache
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+blob-report/
+
+# ==============================================================================
+# 7. Sistema Operativo, Python (Skills), Exportaciones y Temporales
 # ==============================================================================
 .DS_Store
 ._*
@@ -83,28 +92,10 @@ Thumbs.db
 ehthumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
-
-# ==============================================================================
-# Logs, caché de lint y artefactos de pruebas
-# ==============================================================================
-*.log
-logs/
-.eslintcache
-coverage/
-.nyc_output/
-test-results/
-playwright-report/
-blob-report/
-
-# ==============================================================================
-# Python (scripts de skills)
-# ==============================================================================
 __pycache__/
 *.py[cod]
-
-# ==============================================================================
-# Temporales del proyecto
-# ==============================================================================
+*.xlsx
+*.xls
 otros/
 *.tmp
 *.temp
