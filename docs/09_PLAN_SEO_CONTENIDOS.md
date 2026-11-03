@@ -91,8 +91,8 @@
   - [x] Asegurar que el nombre (*Glass & Aluminum Company S.A.C.*), dirección oficial (*Av. Los Fresnos 1250 - La Molina*), correo (*acueva@gyacompany.com*) y teléfono (*+51 974 278 303*) sean 100% idénticos en la web, Footer, JSON-LD y ficha de Google Business Profile (`luis.j.cueva@gmail.com`).
 - [x] **5.2 Coordenadas Geográficas y Horarios:**
   - [x] Coordenadas fijas `-12.0867, -76.9315` y horario oficial de Lunes a Sábado de 08:00 a 18:00 en toda la estructura de datos.
-- [ ] **5.3 Landing Pages Locales por Distrito (Evolutivo):**
-  - [ ] Evaluar creación de sub-páginas hiperlocales: *"Vidriería en Surco"*, *"Vidriería en San Borja"*, *"Vidriería en Miraflores"*.
+- [x] **5.3 Landing Pages Locales por Distrito (Evolutivo):**
+  - [x] Evaluar creación de sub-páginas hiperlocales: *"Vidriería en Surco"*, *"Vidriería en San Borja"*, *"Vidriería en Miraflores"*.
 
 ---
 
