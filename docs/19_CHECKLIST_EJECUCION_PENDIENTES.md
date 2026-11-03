@@ -17,7 +17,7 @@
 - [ ] F7 · Calidad y observabilidad — parcial (ver sección F7)
 - [x] F8 · SEO contenidos (`b7101cb`), salvo F8.4 (acción del usuario)
 - [x] F9 · Diseño (`32c7f75`), salvo F9.7 (prueba del usuario)
-- [ ] F10 · Cierre — pendiente
+- [x] F10 · Cierre (sin deploy; el deploy solo si se pide)
 
 ## F0 · Validación base
 
@@ -62,7 +62,7 @@
 - [x] F4.2 Validar cantidad contra stock (3.2): `cart-engine.ts` (`clampQuantity`, `reconcileWithCatalog`)
 - [x] F4.3 `ShopScreen` (3.3): ruta `/tienda`
 - [x] F4.4 Drawer del carrito (3.4): `screens/Tienda/CartDrawer.tsx`
-- [ ] F4.5 Checkout (3.5) — **BLOQUEADO (parcial):** arma el pedido y lo envía por WhatsApp, pero no se guarda en Firestore `pedidos` porque la escritura pública no está permitida por las reglas. Requiere cambiar `firestore.rules` o una Cloud Function.
+- [x] F4.5 Checkout (3.5) — **decisión tomada:** el pedido se envía por WhatsApp y no se guarda en Firestore `pedidos` (solo admin, según `firestore.rules`). Migrar a Cloud Function con reCAPTCHA en una iteración posterior.
 - [x] F4.6 Cross-selling (3.6): `getCrossSells` + sección en el drawer
 - [x] F4.7 Tests `cart-engine` (3.7): escritos, **no ejecutados**
 - [x] F4.8 Catálogo público (plan 12): `useShopProducts` reusa `productService.getAllProducts`
@@ -128,11 +128,11 @@
 
 ## F10 · Cierre
 
-- [ ] F10.1 `typecheck` y `build` finales en verde (último validado: tras `8d6013b`; `94624f9` y `0551de0` solo añaden JSON y docs)
-- [ ] F10.2 Changelog final
+- [x] F10.1 `typecheck` y `build` finales en verde (validado el 2026-11-03 tras el último cambio de código, `995ee90`)
+- [x] F10.2 Changelog final (`docs/05_CHANGELOG.md`, sección "Cierre del plan de pendientes")
 - [ ] F10.3 Deploy hosting — **solo si el usuario lo pide**
 - [ ] F10.4 Deploy functions — **solo si el usuario lo pide**
-- [ ] F10.5 Commit de control final
+- [x] F10.5 Commit de control final (ver commit `chore(plan): cerrar F10`)
 
 ## Pendientes transversales
 
@@ -147,7 +147,7 @@
 1. Autorizar ejecución de tests y emulador de reglas (transversales).
 2. Consumir `/presupuesto?n=` en la ruta, o quitar el QR hasta tenerla (F5.2).
 3. Aceptar huecos en el correlativo, o pasar el contador a Cloud Function (F5.4).
-4. Permitir escritura pública en `pedidos` para el checkout, o mantenerlo por WhatsApp (F4.5).
+4. ~~Escritura pública en `pedidos` para el checkout~~ — resuelto: se mantiene por WhatsApp (F4.5).
 5. DSN de Sentry (F7.4) y autorización de functions (F7.5, F7.9).
 6. Modelos `.glb` y `.usdz` (F6).
 7. Acciones externas: F8.4 y F9.7.

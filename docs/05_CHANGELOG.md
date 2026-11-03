@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-03] - Cierre del plan de pendientes (`docs/19_CHECKLIST_EJECUCION_PENDIENTES.md`)
+
+### Added
+- **Auth y RBAC** (`dd9b246`, `995ee90`): hook `useUserProfile`, guardia `AccountRouteGuard` y ruta `/mi-cuenta`, validación de DNI (8) o RUC (11) en el registro de cliente, y `auth-service` con tests.
+- **Subida de imágenes de producto a Storage** (`a2a5913`): `ImageUploadZone` en el modal de producto del inventario.
+- **Tienda y carrito** (`1340b11`): rutas `/tienda` y `/tienda/checkout`, carrito con límite de stock e IGV 18 %, cross-selling. El checkout envía el pedido por WhatsApp; no se guarda en Firestore.
+- **Presupuesto** (`8d6013b`): precios parametrizables en `features/presupuesto/config/pricing.ts`, QR en la hoja A4, correlativo `GYA-AAAA-XXXX` con contador transaccional y persistencia en `presupuestos_solicitados`.
+- **Landings por distrito** (`b7101cb`): `/vidrieria/surco`, `/vidrieria/san-borja` y `/vidrieria/miraflores`, con metadatos y breadcrumb JSON-LD.
+- **Pruebas** (`e3a42cd`, `2ae6086`): specs E2E de Playwright (reclamo, contacto, navegación) y suite de reglas de Firestore con el emulador (16 casos).
+- **Configuración GCP** (`94624f9`): definiciones de alertas, uptime, BigQuery y presupuesto en `gcp/`. No verificado si están aplicadas en el proyecto.
+
+### Changed
+- **Diseño** (`32c7f75`): `colorPalette` retirado de los botones de acción, WhatsApp del menú móvil con `variant="whatsapp"`, alias de tema migrados (`border.glass`, `text.primary`, `bg.canvas`, `surface.muted`, `bg.glass`).
+- **`firestore.rules`** (`dd9b246`, `8d6013b`): `dniRuc` valida 8 u 11 dígitos; `presupuestos_solicitados` y `contadores` con creación validada.
+- **`AuthContext`** (`dd9b246`): el rol admin ya no se asigna por correo desde el cliente.
+
+### Pending
+- Checkout con guardado en Firestore: decisión tomada, se mantiene por WhatsApp.
+- `isAdmin()` en `firestore.rules` otorga admin a correos `@gyacompany.com` verificados: pendiente de decisión.
+- Sentry, auditoría de reclamos y deploy: pendientes (ver checklist).
+
+---
+
 ## [2026-11-03] - Optimización Algorítmica O(1), Purga de Peso del Repositorio y Planes 16/17 (`docs/16_PLAN_OPTIMIZACION_PESO_REPO.md`, `docs/17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md`)
 
 ### Changed
