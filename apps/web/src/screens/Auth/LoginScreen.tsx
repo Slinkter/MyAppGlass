@@ -16,6 +16,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { toaster } from "@/components/ui/toaster-instance";
 import { useAuth } from "@/features/auth/context/AuthContext";
+import { isValidDniRuc } from "@/features/auth/services/auth-service";
 import {
   Lock,
   Mail,
@@ -88,6 +89,14 @@ export const LoginScreen: React.FC = () => {
       toaster.create({
         title: "Campos requeridos",
         description: "Por favor complete todos los campos de cliente (DNI/RUC, teléfono, dirección).",
+        type: "warning",
+      });
+      return;
+    }
+    if (!isValidDniRuc(dniRuc)) {
+      toaster.create({
+        title: "DNI o RUC inválido",
+        description: "El DNI debe tener 8 dígitos y el RUC 11.",
         type: "warning",
       });
       return;
