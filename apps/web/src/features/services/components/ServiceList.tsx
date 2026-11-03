@@ -3,6 +3,7 @@ import { SITE_URL } from "@/shared/config/company-data";
 import React, { useMemo, useCallback } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import { FilterPill } from "@/shared/components/ui/FilterPill";
+import { createGroupMap } from "@/shared/utils/algorithm-utils";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import { useServices, type ServiceListItem } from "@features/services/hooks/useServices";
@@ -37,10 +38,14 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
     // al llegar a #servicios las fotos ya están descargadas.
     useImagePrefetch(useMemo(() => allServices.map((s) => s.image), [allServices]));
 
+    const servicesByCategory = useMemo(() => {
+        return createGroupMap(allServices, (s) => s.category);
+    }, [allServices]);
+
     const filterFn = useCallback((items: ServiceData[], category: string) => {
         if (category === "Todos") return items;
-        return items.filter((s) => s.category === category);
-    }, []);
+        return servicesByCategory.get(category) ?? [];
+    }, [servicesByCategory]);
 
     const {
         paginatedItems: preparedServices,

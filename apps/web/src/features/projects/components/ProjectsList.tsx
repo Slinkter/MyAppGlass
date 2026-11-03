@@ -13,6 +13,7 @@ import { SITE_URL } from "@/shared/config/company-data";
 import React, { useMemo, useCallback } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import { FilterPill } from "@/shared/components/ui/FilterPill";
+import { createGroupMap } from "@/shared/utils/algorithm-utils";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
 import { useProjects } from "@features/projects/hooks/useProjects";
@@ -68,10 +69,14 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
     return ["Todos", ...unique];
   }, [allProjects]);
 
+  const projectsByYear = useMemo(() => {
+    return createGroupMap(allProjects, (p) => normalizeYear(p.year));
+  }, [allProjects]);
+
   const filterFn = useCallback((items: Project[], category: string) => {
     if (category === "Todos") return items;
-    return items.filter((p) => normalizeYear(p.year) === category);
-  }, []);
+    return projectsByYear.get(category) ?? [];
+  }, [projectsByYear]);
 
   const {
     paginatedItems: preloadedProjects,

@@ -16,8 +16,12 @@ import { db } from "@/shared/lib/firebase";
 import { Product, productSchema } from "@/shared/schemas/ecommerce-schemas";
 import { INITIAL_PRODUCTS } from "@/features/products/data/initial-products";
 import { logger } from "@/shared/utils/logger";
+import { createLookupMap } from "@/shared/utils/algorithm-utils";
 
 const PRODUCTS_COLL = "productos";
+
+// Mapa indexado O(1) para fallback y consultas instantáneas
+const INITIAL_PRODUCTS_MAP = createLookupMap(INITIAL_PRODUCTS, (p) => p.id ?? "");
 
 export const productService = {
   /**
@@ -110,7 +114,7 @@ export const productService = {
     } catch (_err) {
       logger.warn("Error al buscar producto por ID en Firestore");
     }
-    const fallback = INITIAL_PRODUCTS.find((p) => p.id === id);
+    const fallback = INITIAL_PRODUCTS_MAP.get(id);
     return fallback || null;
   },
 

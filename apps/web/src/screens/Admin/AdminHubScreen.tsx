@@ -32,9 +32,22 @@ export const AdminHubScreen: React.FC = () => {
   const { products } = useRealtimeProducts();
   const { orders } = useRealtimeOrders();
 
-  const totalUnits = products.reduce((acc, p) => acc + (p.stock || 0), 0);
-  const criticalStock = products.filter((p) => p.stock === 0).length;
-  const lowStock = products.filter((p) => p.stock > 0 && p.stock <= p.minStockAlert).length;
+    const { totalUnits, criticalStock, lowStock } = React.useMemo(() => {
+    let units = 0;
+    let critical = 0;
+    let low = 0;
+    for (let i = 0; i < products.length; i++) {
+      const p = products[i];
+      const stock = p.stock || 0;
+      units += stock;
+      if (stock === 0) {
+        critical++;
+      } else if (stock <= p.minStockAlert) {
+        low++;
+      }
+    }
+    return { totalUnits: units, criticalStock: critical, lowStock: low };
+  }, [products]);
   const totalRevenue = orders.reduce((acc, o) => acc + (o.total || 0), 0);
 
   const modules = [
