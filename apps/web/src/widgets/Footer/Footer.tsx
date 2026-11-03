@@ -46,6 +46,17 @@ interface FooterRowProps {
     customIconColor?: string;
 }
 
+const SITELINKS_ITEMS = [
+    { label: "Ventanas Antirruido", href: "/servicios/ventana" },
+    { label: "Mamparas de Vidrio Templado", href: "/servicios/mampara" },
+    { label: "Barandas de Vidrio y Acero", href: "/servicios/baranda" },
+    { label: "Techos de Policarbonato", href: "/servicios/techo" },
+    { label: "Boxes y Puertas de Ducha", href: "/servicios/ducha" },
+    { label: "Cotizador de Presupuestos", href: "/presupuesto" },
+    { label: "Blog Técnico", href: "/blog" },
+    { label: "Cotizaciones y Contacto", href: "/contacto" },
+];
+
 /**
  * @component FooterRow
  * @description Unifica FooterItem y FooterLink en un solo estándar de alineación.
@@ -77,7 +88,7 @@ const FooterRow = ({
                         position="relative"
                         w="20px"
                         h="20px"
-                        flexShrink={0}
+                        style={{ flexShrink: 0 }}
                     >
                         <Image
                             src={icon}
@@ -89,7 +100,7 @@ const FooterRow = ({
                         />
                     </Box>
                 ) : (
-                    <Box as={icon} boxSize="20px" color={iconColor} flexShrink={0} />
+                    <Box as={icon} boxSize="20px" color={iconColor} style={{ flexShrink: 0 }} />
                 )
             )}
             <Text
@@ -131,10 +142,12 @@ const FooterRow = ({
 interface FooterSectionProps {
     title: string;
     children: ReactNode;
+    asNav?: boolean;
+    navAriaLabel?: string;
 }
 
-const FooterSection = ({ title, children }: FooterSectionProps) => {
-    return (
+const FooterSection = ({ title, children, asNav, navAriaLabel }: FooterSectionProps) => {
+    const inner = (
         <VStack
             align={{ base: "center", sm: "flex-start" }}
             gap={{ base: "4", md: "6" }}
@@ -161,6 +174,16 @@ const FooterSection = ({ title, children }: FooterSectionProps) => {
             </VStack>
         </VStack>
     );
+
+    if (asNav && navAriaLabel) {
+        return (
+            <Box as="nav" aria-label={navAriaLabel} w="full">
+                {inner}
+            </Box>
+        );
+    }
+
+    return inner;
 };
 
 const Footer = () => {
@@ -183,11 +206,15 @@ const Footer = () => {
                     px={{ base: "4", md: "6" }}
                 >
                     <SimpleGrid
-                        columns={{ base: 1, sm: 2, md: 4 }}
+                        columns={{ base: 1, sm: 2, lg: 4 }}
                         gap={{ base: "8", md: "10", lg: "14" }}
                         mb="14"
                     >
-                        <FooterSection title="Explorar">
+                        <FooterSection
+                            title="Explorar"
+                            asNav
+                            navAriaLabel="Navegación principal del sitio"
+                        >
                             {NAV_ITEMS.map((item) => (
                                 <FooterRow key={item.label} to={item.href}>
                                     {item.label}
@@ -195,14 +222,35 @@ const Footer = () => {
                             ))}
                         </FooterSection>
 
-                        <FooterSection title="Contacto">
+                        <FooterSection
+                            title="Servicios y Sitelinks"
+                            asNav
+                            navAriaLabel="Servicios y sitelinks estratégicos"
+                        >
+                            {SITELINKS_ITEMS.map((item) => (
+                                <FooterRow key={item.href} to={item.href}>
+                                    {item.label}
+                                </FooterRow>
+                            ))}
+                        </FooterSection>
+
+                        <FooterSection title="Contacto y Ubicación">
+                            <FooterRow icon={MapPin}>
+                                {companyData.direccion}
+                            </FooterRow>
+                            <FooterRow icon={Calendar}>
+                                Lunes a Sábado
+                            </FooterRow>
+                            <FooterRow icon={Clock}>
+                                8:00 am – 6:00 pm
+                            </FooterRow>
                             <FooterRow
                                 to={`https://wa.me/${companyData.whatsappNumber}`}
                                 isExternal
                                 icon={WhatsAppIcon}
                                 customIconColor="brand.whatsapp"
                             >
-                                {companyData.whatsappDisplay}
+                                WhatsApp: {companyData.whatsappDisplay}
                             </FooterRow>
                             <FooterRow
                                 to={`tel:+51${companyData.contactPhone.replace(/\D/g, "")}`}
@@ -216,19 +264,11 @@ const Footer = () => {
                             </FooterRow>
                         </FooterSection>
 
-                        <FooterSection title="Horarios">
-                            <FooterRow icon={Calendar}>
-                                Lunes a Sábado
-                            </FooterRow>
-                            <FooterRow icon={Clock}>
-                                9:00 am – 5:00 pm
-                            </FooterRow>
-                            <FooterRow icon={MapPin}>
-                                La Molina, Lima - Perú
-                            </FooterRow>
-                        </FooterSection>
-
-                        <FooterSection title="Corporativo">
+                        <FooterSection
+                            title="Corporativo"
+                            asNav
+                            navAriaLabel="Enlaces corporativos y legales"
+                        >
                             <FooterRow to="/politicas-empresa" icon={FileText}>
                                 Políticas de Empresa
                             </FooterRow>

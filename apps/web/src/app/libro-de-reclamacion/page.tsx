@@ -1,26 +1,15 @@
-import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import ReclamationForm from "@/features/reclamation-book/components/ReclamationForm";
-
-export const metadata: Metadata = {
-  title: "Libro de Reclamaciones | Glass & Aluminum Company S.A.C.",
-  description: "Presenta tu queja o reclamo formal a través del Libro de Reclamaciones virtual de Glass & Aluminum Company S.A.C. Cumplimos con la normativa del INDECOPI.",
-  alternates: {
-    canonical: `${SITE_URL}/libro-de-reclamacion`,
-  },
-  openGraph: {
-    title: "Libro de Reclamaciones | Glass & Aluminum Company S.A.C.",
-    description: "Presenta tu queja o reclamo formal a través del Libro de Reclamaciones virtual. Cumplimos con la normativa del INDECOPI.",
-    url: `${SITE_URL}/libro-de-reclamacion`,
-    siteName: "Glass & Aluminum Company S.A.C.",
-    locale: "es_PE",
-    type: "website",
-  },
-};
-
 import AuraContainer from "@/shared/components/aura/AuraContainer";
-
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { buildPageMetadata } from "@/shared/utils/seo-utils";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Libro de Reclamaciones Virtual",
+  description:
+    "Presenta tu queja o reclamo formal a través del Libro de Reclamaciones virtual de Glass & Aluminum Company S.A.C., conforme a las disposiciones de INDECOPI.",
+  path: "/libro-de-reclamacion",
+});
 
 export default function Page() {
   return (

@@ -3,8 +3,9 @@ import { SalesOrderScreen } from "@/screens/Admin/SalesOrderScreen";
 import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
-  title: "Emisión de Ventas y Despacho | Glass & Aluminum Company S.A.C.",
+  title: "Emisión de Ventas y Despacho | Admin GYA",
   description: "Registro de órdenes de salida y descuento atómico de inventario en almacén.",
+  robots: { index: false, follow: false },
 };
 
 export default function AdminSalesPage() {

@@ -10,13 +10,13 @@
 ## 📊 Barra de Progreso en Tiempo Real
 
 ```text
-Progreso Global: [██████░░░░░░] 50% (3 / 6 Fases completadas)
+Progreso Global: [████████░░░░] 67% (4 / 6 Fases completadas)
 ├── [🟢 100%] Fase 0: Línea Base, Limpieza de public/ y Registro de Plan Maestro
 ├── [🟢 100%] Fase 1: Schemas Zod, Grafo JSON-LD (SiteNavigationElement) y buildPageMetadata
 ├── [🟢 100%] Fase 2: Rastreo (robots.ts), Sitemap Dinámico + Image Sitemap (sitemap.ts) y Manifest
-├── [🔄  50%] Fase 3: Ejecución Paralela — Copywriting, Storytelling, Sitelinks en Footer y noindex
-├── [⏳   0%] Fase 4: Conexión Ecosistema Google (GA4 G-TY0NJP1S81, GTM, Search Console y CSP)
-└── [⏳   0%] Fase 5: Sincronización Documental, Build Estático y Auditoría de .html
+├── [🟢 100%] Fase 3: Ejecución Paralela — Copywriting, Storytelling, Sitelinks en Footer y noindex
+├── [🔄  95%] Fase 4: Conexión Ecosistema Google (GA4 G-TY0NJP1S81, GTM, Search Console y CSP)
+└── [🔄  80%] Fase 5: Sincronización Documental, Build Estático y Auditoría de .html
 ```
 
 ---
@@ -57,13 +57,13 @@ Progreso Global: [██████░░░░░░] 50% (3 / 6 Fases complet
 - [x] **2.5.** Commit Preventivo 3 (`feat(seo): optimizar robots.txt, enriquecer sitemap.xml para sitelinks e imagenes y agregar manifest`).
 
 ### Fase 3: Ejecución en Paralelo — Copywriting, Storytelling, Enlaces Sitelinks y Blindaje `noindex`
-- [ ] **3.A.1.** Enlaces internos semánticos (`<nav>` + `<Link>`) hacia las 5 rutas clave de Sitelinks y dirección `Av. Los Fresnos 1250 - La Molina` en `apps/web/src/widgets/Footer/Footer.tsx`.
-- [ ] **3.A.2.** Diccionario `SERVICE_SEO_FALLBACKS` y limpieza de títulos en `apps/web/src/features/services/hooks/serviceMappers.ts`.
-- [ ] **3.A.3.** Aplicar `buildPageMetadata` en `/`, `/servicios/[serviceSlug]`, `/blog`, `/blog/[slug]`, `/contacto`, `/presupuesto`, `/simulador-ai`, `/libro-de-reclamacion`, `/cuentas-bancarias` y `/politicas-empresa`.
-- [ ] **3.B.1.** Storytelling E-E-A-T y JSON-LD (`BreadcrumbList` + `getProjectJsonLd`) en `apps/web/src/app/proyectos/[projectId]/page.tsx`.
-- [ ] **3.B.2.** Blindaje `noindex` en `apps/web/src/app/admin/layout.tsx`, `apps/web/src/app/admin/**/page.tsx`, `apps/web/src/app/servicios/ver/layout.tsx`, `apps/web/src/app/proyectos/ver/layout.tsx`, `apps/web/src/app/auth/page.tsx` y `apps/web/src/app/not-found.tsx`.
-- [ ] **3.C.** Validar `pnpm run typecheck && pnpm run lint`.
-- [ ] **3.D.** Commit Preventivo 4 (`feat(seo): aplicar copywriting, storytelling, enlaces sitelinks en footer y noindex en rutas internas`).
+- [x] **3.A.1.** Enlaces internos semánticos (`<nav>` + `<Link>`) hacia las 5 rutas clave de Sitelinks y dirección `Av. Los Fresnos 1250 - La Molina` en `apps/web/src/widgets/Footer/Footer.tsx`.
+- [x] **3.A.2.** Diccionario `SERVICE_SEO_FALLBACKS` y limpieza de títulos en `apps/web/src/features/services/hooks/serviceMappers.ts`.
+- [x] **3.A.3.** Aplicar `buildPageMetadata` en `/`, `/servicios/[serviceSlug]`, `/blog`, `/blog/[slug]`, `/contacto`, `/presupuesto`, `/simulador-ai`, `/libro-de-reclamacion`, `/cuentas-bancarias` y `/politicas-empresa`.
+- [x] **3.B.1.** Storytelling E-E-A-T y JSON-LD (`BreadcrumbList` + `getProjectJsonLd`) en `apps/web/src/app/proyectos/[projectId]/page.tsx`.
+- [x] **3.B.2.** Blindaje `noindex` en `apps/web/src/app/admin/layout.tsx`, `apps/web/src/app/admin/**/page.tsx`, `apps/web/src/app/servicios/ver/layout.tsx`, `apps/web/src/app/proyectos/ver/layout.tsx`, `apps/web/src/app/auth/page.tsx` y `apps/web/src/app/not-found.tsx`.
+- [x] **3.C.** Validar `pnpm run typecheck && pnpm run lint`.
+- [x] **3.D.** Commit Preventivo 4 (`feat(seo): aplicar copywriting, storytelling, enlaces sitelinks en footer y noindex en rutas internas`).
 
 ### Fase 4: Conexión Ecosistema Google (GA4 `G-TY0NJP1S81`, GTM, Search Console y CSP)
 - [ ] **4.1.** Crear `apps/web/src/shared/lib/analytics.ts` con inicialización segura de Firebase Analytics (`G-TY0NJP1S81`) y `trackEvent()`.

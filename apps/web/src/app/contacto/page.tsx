@@ -1,24 +1,22 @@
-import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import ContactPageClient from "./ContactPageClient";
-
-export const metadata: Metadata = {
-  title: "Cotizar Vidriería en La Molina | GYA Company",
-  description: "Solicita tu presupuesto sin compromiso para ventanas antirruido, mamparas y techos. Atención directa por WhatsApp y formulario.",
-  alternates: {
-    canonical: `${SITE_URL}/contacto`,
-  },
-  openGraph: {
-    title: "Cotizar Vidriería en La Molina | GYA Company",
-    description: "Solicita tu presupuesto sin compromiso para ventanas antirruido, mamparas y techos. Atención directa por WhatsApp y formulario.",
-    url: `${SITE_URL}/contacto`,
-    siteName: "Glass & Aluminum Company S.A.C.",
-    locale: "es_PE",
-    type: "website",
-  },
-};
-
+import { buildPageMetadata } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Cotizaciones y Contacto en La Molina, Lima",
+  description:
+    "Solicita tu presupuesto sin compromiso para ventanas antirruido, mamparas y estructuras de vidrio y aluminio. Visítanos en Av. Los Fresnos 1250 - La Molina o escríbenos al WhatsApp 974 278 303.",
+  path: "/contacto",
+  keywords: [
+    "contacto vidriería la molina",
+    "cotización ventanas antirruido",
+    "mamparas de vidrio lima",
+    "vidrio y aluminio la molina",
+    "Av. Los Fresnos 1250",
+    "974 278 303",
+  ],
+});
 
 export default function ContactPage() {
   return (

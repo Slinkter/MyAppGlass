@@ -3,7 +3,12 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPosts } from "@/features/blog/services/blogService";
 import BlogPostView from "@/screens/Blog/ui/BlogPostView";
-import { getBlogPostJsonLd, getSectionBreadcrumbJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
+import {
+  buildPageMetadata,
+  getBlogPostJsonLd,
+  getSectionBreadcrumbJsonLd,
+  serializeJsonLd,
+} from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 interface PageProps {
@@ -29,34 +34,23 @@ async function resolvePostData(params: Promise<{ slug: string }>) {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug, post } = await resolvePostData(params);
-  
-  if (!post) return { title: "Artículo no encontrado | Blog GYA" };
 
-  const canonicalUrl = `${SITE_URL}/blog/${slug}`;
+  if (!post) {
+    return {
+      title: "Artículo no encontrado",
+      robots: { index: false, follow: true },
+    };
+  }
 
-  return {
-    title: `${post.title} | Blog GYA Glass & Aluminum`,
+  return buildPageMetadata({
+    title: post.title,
     description: post.description || post.excerpt,
-    alternates: {
-      canonical: canonicalUrl,
-    },
-    openGraph: {
-      title: `${post.title} | GYA Company`,
-      description: post.excerpt,
-      images: [post.image],
-      url: canonicalUrl,
-      type: "article",
-      publishedTime: post.date,
-      authors: ["Glass & Aluminum Company S.A.C."],
-      tags: post.tags,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
-      images: [post.image],
-    },
-  };
+    path: `/blog/${slug}`,
+    image: post.image,
+    type: "article",
+    publishedTime: post.date,
+    tags: post.tags,
+  });
 }
 
 export default async function BlogPostPage({ params }: PageProps) {

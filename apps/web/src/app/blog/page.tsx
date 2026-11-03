@@ -1,28 +1,29 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { BlogView } from "@/screens/Blog";
-
-export const metadata: Metadata = {
-    title: "Blog de Vidriería y Aluminio | Glass & Aluminum Company S.A.C.",
-    description:
-        "Guías y consejos sobre vidrio templado, ventanas antirruido, perfiles de aluminio y tendencias en arquitectura moderna. Expertos en cerramientos en Lima.",
-    alternates: {
-        canonical: `${SITE_URL}/blog`,
-    },
-    openGraph: {
-        title: "Blog de Vidriería y Aluminio | Glass & Aluminum Company S.A.C.",
-        description:
-            "Guías y consejos sobre vidrio templado, ventanas antirruido, perfiles de aluminio y tendencias en arquitectura moderna.",
-        type: "website",
-    },
-};
-
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { buildPageMetadata, getBreadcrumbJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Blog Técnico de Vidriería, Aluminio y Aislamiento Acústico",
+  description:
+    "Artículos técnicos y guías sobre ventanas antirruido, vidrio templado, laminado y carpintería de aluminio en Lima por especialistas de GYA Company.",
+  path: "/blog",
+});
 
 export default function BlogPage() {
-    return (
-        <ComponentErrorBoundary>
-            <BlogView />
-        </ComponentErrorBoundary>
-    );
+  const breadcrumbJsonLd = getBreadcrumbJsonLd([
+    { name: "Inicio", url: SITE_URL },
+    { name: "Blog Técnico", url: `${SITE_URL}/blog` },
+  ]);
+
+  return (
+    <ComponentErrorBoundary>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
+      />
+      <BlogView />
+    </ComponentErrorBoundary>
+  );
 }

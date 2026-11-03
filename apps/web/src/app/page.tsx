@@ -1,26 +1,24 @@
-import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { HomeView } from "@/screens/Home";
-
-export const metadata: Metadata = {
-  title: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",
-  description: "Expertos en vidriería y aluminio en La Molina. Ventanas antirruido, mamparas, duchas y barandas de vidrio. ¡Cotiza a domicilio con GYA Company!",
-  keywords: ["vidriería la molina", "Glass & Aluminum Company S.A.C.", "GYA Company", "ventanas antirruido la molina", "mamparas de vidrio"],
-  alternates: {
-    canonical: SITE_URL,
-  },
-  openGraph: {
-    title: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",
-    description: "Expertos en vidriería y aluminio en La Molina. Ventanas antirruido, mamparas, duchas y barandas de vidrio. ¡Cotiza a domicilio con GYA Company!",
-    url: SITE_URL,
-    siteName: "Glass & Aluminum Company S.A.C.",
-    locale: "es_PE",
-    type: "website",
-  },
-};
-
+import { buildPageMetadata } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { getBuildProjects, getBuildServices } from "@/shared/api/firebase/publicRest";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Vidriería en La Molina | Ventanas Antirruido y Mamparas",
+  description:
+    "Especialistas en fabricación e instalación de ventanas antirruido (Sistema Nova, Serie 25, Serie 35, Serie 62), mamparas de vidrio templado, boxes de ducha y estructuras de aluminio en La Molina y Lima.",
+  path: "/",
+  useAbsoluteTitle: true,
+  keywords: [
+    "vidriería la molina",
+    "Glass & Aluminum Company S.A.C.",
+    "GYA Company",
+    "ventanas antirruido la molina",
+    "mamparas de vidrio templado",
+    "aluminio la molina",
+  ],
+});
 
 export default async function Page() {
   const [rawServices, rawProjects] = await Promise.all([getBuildServices(), getBuildProjects()]);

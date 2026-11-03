@@ -4,6 +4,12 @@ import { ProjectDetailView } from "@/screens/Projects";
 import { getBuildProjects } from "@/shared/api/firebase/publicRest";
 import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import {
+  buildPageMetadata,
+  getProjectJsonLd,
+  getSectionBreadcrumbJsonLd,
+  serializeJsonLd,
+} from "@/shared/utils/seo-utils";
 
 /**
  * Los ids salen de Firestore (lectura REST en build). Si la lectura falla o no hay
@@ -36,33 +42,49 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const title = `${project.title} | Proyecto GYA`;
-  const description = `Detalles del proyecto ${project.title} ubicado en ${project.location}.${
-    project.completedAt ? ` Realizado en ${project.completedAt}.` : ""
-  }`;
-  const url = `${SITE_URL}/proyectos/${projectId}`;
+  const rawTitle = project.seoTitle || `${project.title} en ${project.location} | Proyecto GYA`;
+  const rawDesc =
+    project.seoDescription ||
+    `${project.description} Obra ejecutada en ${project.location} por Glass & Aluminum Company S.A.C.`;
 
-  return {
-    title,
-    description,
-    alternates: { canonical: url },
-    openGraph: {
-      title,
-      description,
-      url,
-      siteName: "Glass & Aluminum Company S.A.C.",
-      locale: "es_PE",
-      type: "website",
-    },
-  };
+  return buildPageMetadata({
+    title: rawTitle,
+    description: rawDesc,
+    path: `/proyectos/${projectId}`,
+    image: project.coverImage,
+  });
 }
 
-export default async function Page({ params }: Props) {
+export default async function ProjectDetailPage({ params }: Props) {
   const { projectId, project } = await resolveProjectData(params);
+  const initialProject = project;
 
   return (
     <ComponentErrorBoundary>
-      <ProjectDetailView projectId={projectId} initialData={project} />
+      {initialProject && (
+        <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: serializeJsonLd(
+                getSectionBreadcrumbJsonLd(
+                  { name: "Proyectos", path: "/#proyectos" },
+                  { name: initialProject.title, url: `${SITE_URL}/proyectos/${projectId}` }
+                )
+              ),
+            }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: serializeJsonLd(
+                getProjectJsonLd(initialProject, `${SITE_URL}/proyectos/${projectId}`)
+              ),
+            }}
+          />
+        </>
+      )}
+      <ProjectDetailView projectId={projectId} initialData={initialProject} />
     </ComponentErrorBoundary>
   );
 }

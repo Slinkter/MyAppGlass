@@ -3,8 +3,9 @@ import { InventoryDashboardScreen } from "@/screens/Admin/InventoryDashboardScre
 import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
-  title: "Gestión de Inventario | Glass & Aluminum Company S.A.C.",
+  title: "Gestión de Inventario | Admin GYA",
   description: "Panel de administración y control de existencias en tiempo real de vidrios, perfiles y accesorios.",
+  robots: { index: false, follow: false },
 };
 
 export default function AdminInventoryPage() {

@@ -4,7 +4,13 @@ import { ServiceDetailView } from "@/screens/Services";
 import { getBuildServices } from "@/shared/api/firebase/publicRest";
 import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
 import { getServiceSeo } from "@/features/services/hooks/serviceMappers";
-import { getServiceJsonLd, getSectionBreadcrumbJsonLd, getFaqJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
+import {
+  buildPageMetadata,
+  getServiceJsonLd,
+  getSectionBreadcrumbJsonLd,
+  getFaqJsonLd,
+  serializeJsonLd,
+} from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 /**
@@ -33,27 +39,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!service) {
     return {
-      title: "Servicio | Glass & Aluminum Company S.A.C.",
+      ...buildPageMetadata({
+        title: "Servicio no encontrado",
+        description: "El servicio de vidriería y aluminio solicitado no existe.",
+        path: `/servicios/${serviceSlug}`,
+      }),
       robots: { index: false, follow: true },
     };
   }
 
-  const canonicalUrl = `${SITE_URL}/servicios/${serviceSlug}`;
   const seo = getServiceSeo(service);
 
-  return {
+  return buildPageMetadata({
     title: seo.title,
     description: seo.description,
-    alternates: { canonical: canonicalUrl },
-    openGraph: {
-      title: seo.title,
-      description: seo.description,
-      url: canonicalUrl,
-      siteName: "Glass & Aluminum Company S.A.C.",
-      locale: "es_PE",
-      type: "website",
-    },
-  };
+    path: `/servicios/${serviceSlug}`,
+    image: service.coverImage,
+  });
 }
 
 export default async function Page({ params }: Props) {

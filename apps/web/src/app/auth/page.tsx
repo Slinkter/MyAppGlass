@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import { LoginScreen } from "@/screens/Auth/LoginScreen";
 
 export const metadata: Metadata = {
-  title: "Iniciar Sesión & Registro de Clientes | Glass & Aluminum Company S.A.C.",
+  title: "Acceso de Clientes",
   description:
-    "Accede al portal transaccional de Glass & Aluminum Company S.A.C. para gestionar pedidos, cotizaciones y perfiles de cliente.",
+    "Inicia sesión o regístrate en el portal de clientes de Glass & Aluminum Company S.A.C.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function AuthPage() {
