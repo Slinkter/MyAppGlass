@@ -9,12 +9,26 @@
 ## 📊 Barra de Progreso en Tiempo Real
 
 ```text
-Progreso Global: [█████████░░░] 75% (3 / 4 Fases completadas)
+Progreso Global: [████████████] 100% (4 / 4 Fases completadas)
 ├── [🟢 100%] Fase 0: Creación de Rama, Registro de Plan Maestro y Commit Preventivo Inicial
 ├── [🟢 100%] Fase 1: Purga de 31 imágenes JPG/PNG muertas en apps/web/src/assets/ (-18.10 MB)
 ├── [🟢 100%] Fase 2: Purga de 30 imágenes huérfanas en apps/web/public/images/ (-5.27 MB)
-└── [⚪   0%] Fase 3: Saneamiento de Cachés (.next + .pnpm), Build Limpio y Cierre Documental
+└── [🟢 100%] Fase 3: Saneamiento de Cachés (.next + .pnpm), Build Limpio y Cierre Documental
 ```
+
+---
+
+## 📈 3. Balance Comparativo de Reducción de Peso (Antes vs. Después)
+
+| Ubicación / Módulo | Peso Inicial | Peso Final | Reducción Lograda | Impacto en el Proyecto |
+|---|---:|---:|---:|---|
+| **`apps/web/src/assets/`** | `18.30 MB` | **`0.20 MB`** | **`-18.10 MB` (-98.9%)** | Eliminadas 31 imágenes de alta resolución sin referencias. Git ya no rastrea estos binarios pesados. |
+| **`apps/web/public/images/`** | `7.60 MB` | **`2.93 MB`** | **`-4.67 MB` (-61.4%)** | Eliminadas 30 imágenes huérfanas; conservadas exclusivamente las 18 en uso. |
+| **`apps/web/out/` (Firebase Hosting)** | `20.69 MB` | **`17.54 MB`** | **`-3.15 MB` (-15.2%)** | Despliegue más rápido y menor consumo de ancho de banda en Firebase Hosting. |
+| **`apps/web/.next/` (Caché compilación)** | `790.32 MB` | **`499.25 MB`** | **`-291.07 MB` (-36.8%)** | Limpieza total de cachés viejos acumulados de Webpack/Turbopack. |
+| **`node_modules/`** | `1,011.09 MB` | **`747.01 MB`** | **`-264.08 MB` (-26.1%)** | Poda de paquetes y enlaces huérfanos de compilaciones anteriores. |
+| **`apps/` total** | `839.69 MB` | **`522.72 MB`** | **`-316.97 MB` (-37.8%)** | La carpeta de aplicaciones redujo su tamaño total considerablemente. |
+| **Total Proyecto en Disco** | **`~1,895 MB`** | **`~1,314 MB`** | **`-581 MB` (-30.7%)** | Saneamiento inmediato de espacio y artefactos limpios. |
 
 ---
 
@@ -52,8 +66,8 @@ Al auditar el repositorio antes de comenzar (`commit 089a45a`), el proyecto ocup
 - [x] **2.4.** Crear Commit Preventivo 2 (`chore(public): eliminar 30 imagenes huerfanas en apps/web/public/images (-5.27 MB)`).
 
 ### Fase 3: Saneamiento de Cachés (`.next` + `.pnpm`), Build Limpio y Cierre Documental
-- [ ] **3.1.** Eliminar `apps/web/.next` (`790.32 MB`) y `apps/web/tsconfig.build.tsbuildinfo` (`1.35 MB`).
-- [ ] **3.2.** Podar paquetes huérfanos duplicados en `node_modules/.pnpm` y ejecutar `git gc --prune=now`.
-- [ ] **3.3.** Ejecutar `pnpm run typecheck && pnpm run lint && pnpm run build` y medir los pesos finales.
-- [ ] **3.4.** Actualizar tabla comparativa final en `docs/16_PLAN_OPTIMIZACION_PESO_REPO.md` (`100%`), `docs/05_CHANGELOG.md` y `docs/README.md`.
-- [ ] **3.5.** Crear Commit Preventivo 3 (`docs(repo): cerrar plan de optimización de peso y actualizar changelog`).
+- [x] **3.1.** Eliminar `apps/web/.next` (`790.32 MB`) y `apps/web/tsconfig.build.tsbuildinfo` (`1.35 MB`).
+- [x] **3.2.** Podar paquetes huérfanos duplicados en `node_modules/.pnpm` y ejecutar `git gc --prune=now`.
+- [x] **3.3.** Ejecutar `pnpm run typecheck && pnpm run lint && pnpm run build` y medir los pesos finales.
+- [x] **3.4.** Actualizar tabla comparativa final en `docs/16_PLAN_OPTIMIZACION_PESO_REPO.md` (`100%`), `docs/05_CHANGELOG.md` y `docs/README.md`.
+- [x] **3.5.** Crear Commit Preventivo 3 (`docs(repo): cerrar plan de optimización de peso y actualizar changelog`).
