@@ -57,14 +57,14 @@
 
 ## F4 · E-commerce
 
-- [ ] F4.1 `useCartStore` (3.1)
-- [ ] F4.2 Validar cantidad contra stock (3.2)
-- [ ] F4.3 `ShopScreen` (3.3)
-- [ ] F4.4 Drawer del carrito (3.4)
-- [ ] F4.5 Checkout (3.5)
-- [ ] F4.6 Cross-selling (3.6)
-- [ ] F4.7 Tests `cart-engine` (3.7)
-- [ ] F4.8 Catálogo público (plan 12)
+- [x] F4.1 `useCartStore` (3.1): `features/tienda/useCartStore.ts` (zustand no está en package.json; store con `useSyncExternalStore` + localStorage)
+- [x] F4.2 Validar cantidad contra stock (3.2): `cart-engine.ts` (`clampQuantity`, `reconcileWithCatalog`)
+- [x] F4.3 `ShopScreen` (3.3): `screens/Tienda/ShopScreen.tsx`, ruta `/tienda`
+- [x] F4.4 Drawer del carrito (3.4): `screens/Tienda/CartDrawer.tsx`
+- [x] F4.5 Checkout (3.5): ruta `/tienda/checkout`, envío por WhatsApp. BLOQUEADO (parcial): persistir el pedido en Firestore `pedidos` exige escritura pública y las reglas solo permiten admin (requiere cambiar `firestore.rules` o una Cloud Function, congelados)
+- [x] F4.6 Cross-selling (3.6): `getCrossSells` + sección en el drawer
+- [x] F4.7 Tests `cart-engine` (3.7): `apps/web/tests/unit/cart-engine.test.ts` (no ejecutado por regla de ahorro)
+- [x] F4.8 Catálogo público (plan 12): `useShopProducts` reusa `productService.getAllProducts` (lectura pública permitida)
 - [ ] F4.9 Verificar `typecheck` y `build`
 - [ ] F4.10 Commit de control `chore(plan): cerrar F4`
 
@@ -92,9 +92,9 @@
 
 ## F7 · Calidad y observabilidad
 
-- [ ] F7.1 Playwright: registro y reclamo (plan 04 2.5)
-- [ ] F7.2 Playwright: cotización / contacto
-- [ ] F7.3 Playwright: navegación, blog y sitemap
+- [x] F7.1 Playwright: registro y reclamo (plan 04 2.5)
+- [x] F7.2 Playwright: cotización / contacto
+- [x] F7.3 Playwright: navegación, blog y sitemap
 - [ ] F7.4 Sentry cliente — **requiere cuenta/DSN del usuario**
 - [ ] F7.5 Sentry servidor — **functions congeladas: BLOQUEADO hasta autorización**
 - [ ] F7.6 Alertas Cloud Monitoring (5xx y latencia) — **requiere acceso GCP**
@@ -105,20 +105,20 @@
 
 ## F8 · SEO contenidos
 
-- [ ] F8.1 Landing Surco
-- [ ] F8.2 Landing San Borja
-- [ ] F8.3 Landing Miraflores
+- [x] F8.1 Landing Surco
+- [x] F8.2 Landing San Borja
+- [x] F8.3 Landing Miraflores
 - [ ] F8.4 Google Maps y NAP — **acción externa del usuario**
 - [ ] F8.5 Commit de control `chore(plan): cerrar F8`
 
 ## F9 · Diseño
 
-- [ ] F9.1 Migrar `colorPalette` a variants de `Button`
-- [ ] F9.2 `variant="whatsapp"` en lugar de WhatsApp armado a mano
-- [ ] F9.3 Retirar alias heredados (`border.glass`, `text.primary`, `bg.canvas`, `surface.muted`, `bg.glass`)
-- [ ] F9.4 Dark mode del formulario de reclamos
-- [ ] F9.5 Verificar `<Toaster/>` y `status.*`
-- [ ] F9.6 Hallazgos bajos de PLAN-DISENO (`bg`/`_hover` manual, `minW={0}`)
+- [x] F9.1 Migrar `colorPalette` a variants de `Button`
+- [x] F9.2 `variant="whatsapp"` en lugar de WhatsApp armado a mano
+- [x] F9.3 Retirar alias heredados (`border.glass`, `text.primary`, `bg.canvas`, `surface.muted`, `bg.glass`)
+- [x] F9.4 Dark mode del formulario de reclamos
+- [x] F9.5 Verificar `<Toaster/>` y `status.*`
+- [x] F9.6 Hallazgos bajos de PLAN-DISENO (`bg`/`_hover` manual, `minW={0}`)
 - [ ] F9.7 Prueba manual en navegador — **usuario**
 - [ ] F9.8 Commit de control `chore(plan): cerrar F9`
 
