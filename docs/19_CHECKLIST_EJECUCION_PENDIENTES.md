@@ -40,19 +40,19 @@
 
 ## F2 · Auth y RBAC
 
-- [ ] F2.1 Bloquear auto-asignación de rol admin (1.3) — **requiere `firestore.rules`: BLOQUEADO hasta autorización**
-- [ ] F2.2 Hook `useUserProfile` (1.5)
-- [ ] F2.3 Guardias de `/admin` y `/mi-cuenta` (1.6)
-- [ ] F2.4 Validación estricta DNI 8 / RUC 11 (1.8)
-- [ ] F2.5 Tests de `auth-service` (1.10)
-- [ ] F2.6 Verificar `typecheck` y `build`
+- [x] F2.1 Bloquear auto-asignación de rol admin (1.3)
+- [x] F2.2 Hook `useUserProfile` (1.5)
+- [x] F2.3 Guardias de `/admin` y `/mi-cuenta` (1.6)
+- [x] F2.4 Validación estricta DNI 8 / RUC 11 (1.8)
+- [x] F2.5 Tests de `auth-service` (1.10)
+- [x] F2.6 Verificar `typecheck` y `build`
 - [ ] F2.7 Commit de control `chore(plan): cerrar F2`
 
 ## F3 · Inventario e imágenes
 
-- [ ] F3.1 Subida de imágenes a Storage (2.2) — **requiere `storage.rules`: BLOQUEADO hasta autorización**
-- [ ] F3.2 Tests de `inventory-crud` (2.7)
-- [ ] F3.3 Verificar `typecheck` y `build`
+- [x] F3.1 Subida de imágenes a Storage (2.2): `ImageUploadZone` en `CreateProductModal` (entity `products`); `storage.rules` ya limita `products/**` a admin
+- [x] F3.2 Tests de `inventory-crud` (2.7)
+- [x] F3.3 Verificar `typecheck` y `build`
 - [ ] F3.4 Commit de control `chore(plan): cerrar F3`
 
 ## F4 · E-commerce

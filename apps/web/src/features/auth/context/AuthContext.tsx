@@ -40,11 +40,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(currentUser);
       if (currentUser) {
           // 1. Obtener y asegurar rol del usuario en Firestore
-          const isEmailAdmin = Boolean(
-            currentUser.email &&
-            (currentUser.email.toLowerCase().includes("admin") ||
-             currentUser.email.toLowerCase().endsWith("@gyacompany.com"))
-          );
+          // El rol admin lo define Firestore/claims; el cliente solo aprovisiona "cliente".
+          const isEmailAdmin = false;
 
           try {
             // Parallelize independent Firestore reads
@@ -57,7 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             if (fetchedRoleRaw !== null) {
               setRole(fetchedRoleRaw === "admin" ? "admin" : "cliente");
             } else {
-              const determinedRole = isEmailAdmin ? "admin" : "cliente";
+              const determinedRole: UserRole = "cliente";
               setRole(determinedRole);
               // SECURITY NOTE: Client writes role field. This is safe here because:
               // 1. Only runs when user doc doesn't exist (first login)

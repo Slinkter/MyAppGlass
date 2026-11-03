@@ -52,7 +52,7 @@ export const clientProfileSchema = z.object({
   email: z.string().email("Correo electrónico no válido"),
   role: userRoleSchema.default("cliente"),
   fullName: z.string().min(3, "El nombre completo es requerido"),
-  dniRuc: z.string().min(8, "DNI o RUC debe tener al menos 8 dígitos").max(11, "DNI o RUC no puede exceder 11 dígitos"),
+  dniRuc: z.string().regex(/^(\d{8}|\d{11})$/, "DNI (8 dígitos) o RUC (11 dígitos) inválido"),
   phone: z.string().min(9, "El teléfono celular debe tener al menos 9 dígitos"),
   address: z.string().min(5, "La dirección es requerida"),
   district: z.string().min(3, "El distrito es requerido"),

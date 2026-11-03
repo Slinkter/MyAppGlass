@@ -32,6 +32,8 @@ service cloud.firestore {
     // users/{uid}: documento de rol. Lo escribe AuthContext.tsx al registrarse
     // (uid, email, role, createdAt) y en el primer login (+ updatedAt).
     // ---------------------------------------------------------------
+    // F2.1: 'role' nunca lo escribe el cliente salvo un admin: la creación propia
+    // exige role == 'cliente' y la actualización propia no puede tocar 'role' ni 'uid'.
     match /users/{userId} {
       // Solo el dueño o un admin pueden leer (antes: cualquier autenticado).
       allow read: if isOwner(userId) || isAdmin();
@@ -75,7 +77,7 @@ service cloud.firestore {
         && request.resource.data.role == 'cliente'
         && request.resource.data.email is string && request.resource.data.email.size() <= 254
         && request.resource.data.fullName is string && request.resource.data.fullName.size() <= 200
-        && request.resource.data.dniRuc is string && request.resource.data.dniRuc.size() <= 11
+        && request.resource.data.dniRuc is string && request.resource.data.dniRuc.matches('^([0-9]{8}|[0-9]{11})$')
         && request.resource.data.phone is string && request.resource.data.phone.size() <= 30
         && request.resource.data.address is string && request.resource.data.address.size() <= 300
         && request.resource.data.district is string && request.resource.data.district.size() <= 100;
