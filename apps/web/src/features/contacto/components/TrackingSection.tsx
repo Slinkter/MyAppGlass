@@ -30,9 +30,12 @@ const STAGES = [
   { id: "ATENDIDO", label: "Atendido", icon: CheckCheck },
 ];
 
+const STAGE_INDEX_MAP: Record<string, number> = Object.fromEntries(
+  STAGES.map((s, idx) => [s.id, idx])
+);
+
 function getStageIndex(status: string) {
-  const index = STAGES.findIndex((s) => s.id === status);
-  return index === -1 ? 0 : index;
+  return STAGE_INDEX_MAP[status] ?? 0;
 }
 
 export function TrackingSection({

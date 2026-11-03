@@ -4,6 +4,7 @@ import { ServiceDetailView } from "@/screens/Services";
 import { getBuildServices } from "@/shared/api/firebase/publicRest";
 import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
 import { getServiceSeo } from "@/features/services/hooks/serviceMappers";
+import { createLookupMap } from "@/shared/utils/algorithm-utils";
 import {
   buildPageMetadata,
   getServiceJsonLd,
@@ -30,7 +31,8 @@ type Props = {
 
 async function resolveServiceData(params: Promise<{ serviceSlug: string }>) {
   const [{ serviceSlug }, services] = await Promise.all([params, getBuildServices()]);
-  const service = services.find((s) => s.slug === serviceSlug);
+  const serviceMap = createLookupMap(services, (s) => s.slug);
+  const service = serviceMap.get(serviceSlug);
   return { serviceSlug, service };
 }
 

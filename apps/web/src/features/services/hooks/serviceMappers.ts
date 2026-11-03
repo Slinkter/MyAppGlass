@@ -9,6 +9,7 @@ import type { Service as FirestoreService } from "@/shared/api/firebase/types";
 import type { GalleryItem } from "@/shared/types/gallery";
 import type { ServiceListItem, ServicePageData } from "@/features/services/types";
 import { cleanSeoTitle } from "@/shared/utils/seo-utils";
+import { createGroupMap } from "@/shared/utils/algorithm-utils";
 
 export type { ServiceListItem };
 
@@ -134,11 +135,18 @@ export const toServicePageData = (service: FirestoreService): ServicePageData =>
     title: g.alt || service.title,
   });
 
-  const lists = service.systems.map((system) =>
-    service.gallery.filter((g) => g.system === system).map(toItem)
+  const validSystems = new Set(service.systems);
+  const galleryBySystem = createGroupMap(
+    service.gallery.filter((g) => g.system && validSystems.has(g.system)),
+    (g) => g.system as string
   );
+
+  const lists = service.systems.map((system) =>
+    (galleryBySystem.get(system) || []).map(toItem)
+  );
+
   const loose = service.gallery
-    .filter((g) => !g.system || !service.systems.includes(g.system))
+    .filter((g) => !g.system || !validSystems.has(g.system))
     .map(toItem);
 
   const systems = service.systems.filter((_, i) => lists[i].length > 0);

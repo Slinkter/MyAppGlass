@@ -4,6 +4,7 @@ import { ProjectDetailView } from "@/screens/Projects";
 import { getBuildProjects } from "@/shared/api/firebase/publicRest";
 import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { createLookupMap } from "@/shared/utils/algorithm-utils";
 import {
   buildPageMetadata,
   getProjectJsonLd,
@@ -28,7 +29,8 @@ type Props = {
 
 async function resolveProjectData(params: Promise<{ projectId: string }>) {
   const [{ projectId }, projects] = await Promise.all([params, getBuildProjects()]);
-  const project = projects.find((p) => String(p.id) === projectId);
+  const projectMap = createLookupMap(projects, (p) => String(p.id));
+  const project = projectMap.get(projectId);
   return { projectId, project };
 }
 

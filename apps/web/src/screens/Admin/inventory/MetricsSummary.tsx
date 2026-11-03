@@ -21,11 +21,23 @@ interface MetricsSummaryProps {
 
 export const MetricsSummary: React.FC<MetricsSummaryProps> = ({ products }) => {
   const metrics = useMemo(() => {
-    const totalItems = products.length;
-    const totalUnits = products.reduce((acc, p) => acc + (p.stock || 0), 0);
-    const criticalStock = products.filter((p) => p.stock === 0).length;
-    const lowStock = products.filter((p) => p.stock > 0 && p.stock <= p.minStockAlert).length;
-    const totalInventoryValue = products.reduce((acc, p) => acc + (p.stock || 0) * p.unitPrice, 0);
+        const totalItems = products.length;
+    let totalUnits = 0;
+    let criticalStock = 0;
+    let lowStock = 0;
+    let totalInventoryValue = 0;
+
+    for (let i = 0; i < products.length; i++) {
+      const p = products[i];
+      const stock = p.stock || 0;
+      totalUnits += stock;
+      totalInventoryValue += stock * p.unitPrice;
+      if (stock === 0) {
+        criticalStock++;
+      } else if (stock <= p.minStockAlert) {
+        lowStock++;
+      }
+    }
 
     return {
       totalItems,

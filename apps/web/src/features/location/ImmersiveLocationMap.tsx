@@ -8,6 +8,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import LocationMapLazy from "./LocationMapLazy";
+import { createLookupMap } from "@/shared/utils/algorithm-utils";
 import { STORE_ID, useLocationData } from "./useLocationData";
 import { StorePanel, ProjectDetail } from "./immersive/FloatingPanel";
 import { ProjectCarousel } from "./immersive/ProjectCarousel";
@@ -20,9 +21,11 @@ export const ImmersiveLocationMap: React.FC = () => {
   const handleSelectStore = useCallback(() => setSelectedId(STORE_ID), []);
   const handleClose = useCallback(() => setSelectedId(null), []);
 
+  const projectMap = useMemo(() => createLookupMap(projects, (p) => p.id), [projects]);
+
   const selectedProject = useMemo(
-    () => (selectedId === null ? null : projects.find((p) => p.id === selectedId) ?? null),
-    [projects, selectedId],
+    () => (selectedId === null ? null : (projectMap.get(selectedId) ?? null)),
+    [projectMap, selectedId],
   );
 
   return (

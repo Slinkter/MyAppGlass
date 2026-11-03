@@ -13,6 +13,7 @@ import MapLoader from "@shared/components/map/MapLoader";
 import MapError from "@shared/components/map/MapError";
 import { containerStyle, center, mainStore } from "@shared/components/map/mapConfig";
 import { mapStyles } from "@shared/components/map/mapStyles";
+import { createLookupMap } from "@/shared/utils/algorithm-utils";
 import LocationMarker from "./LocationMarker";
 import type { LocationProject } from "./useLocationData";
 
@@ -98,15 +99,17 @@ const LocationMap: React.FC<LocationMapProps> = ({
     fitAll();
   }, [fitAll]);
 
+  const projectMap = useMemo(() => createLookupMap(projects, (p) => p.id), [projects]);
+
   // Centra el mapa en la selección hecha desde fuera (lista, carrusel, tarjeta).
   useEffect(() => {
     if (!map || selectedId === null) return;
     const target =
       selectedId === mainStore.id
         ? mainStore.position
-        : projects.find((p) => p.id === selectedId)?.position;
+        : (selectedId !== null ? projectMap.get(selectedId)?.position : undefined);
     if (target) map.panTo(target);
-  }, [map, selectedId, projects]);
+  }, [map, selectedId, projectMap]);
 
   if (loadError) return <MapError message={loadError.message} />;
   if (!isLoaded || !googleReady) return <MapLoader />;

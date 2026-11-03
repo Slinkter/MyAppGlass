@@ -15,7 +15,8 @@ const computeIsOpen = (): boolean => {
     minute: "2-digit",
     hourCycle: "h23",
   }).formatToParts(new Date());
-  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+  const partsMap = new Map<string, string>(parts.map((p) => [p.type, p.value]));
+  const get = (type: string) => partsMap.get(type) ?? "";
   if (get("weekday") === "Sun") return false;
   const minutes = Number(get("hour")) * 60 + Number(get("minute"));
   return minutes >= OPEN_MINUTE && minutes < CLOSE_MINUTE;
