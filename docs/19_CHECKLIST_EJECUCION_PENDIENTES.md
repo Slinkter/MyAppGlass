@@ -70,12 +70,12 @@
 
 ## F5 · Presupuesto
 
-- [ ] F5.1 Tabla de precios parametrizable (4.2)
-- [ ] F5.2 Hoja A4 con QR (4.4)
-- [ ] F5.3 Correlativo `GYA-AAAA-XXXX` real (reemplaza `0842`)
-- [ ] F5.4 Persistir en `presupuestos_solicitados` (4.5) — **puede requerir `firestore.rules` y functions: BLOQUEADO hasta autorización**
-- [ ] F5.5 Tests de metraje y correlativo (4.6)
-- [ ] F5.6 Verificar `typecheck` y `build`
+- [x] F5.1 Tabla de precios parametrizable (4.2)
+- [x] F5.2 Hoja A4 con QR (4.4)
+- [x] F5.3 Correlativo `GYA-AAAA-XXXX` real (reemplaza `0842`)
+- [x] F5.4 Persistir en `presupuestos_solicitados` (4.5) (reglas + contador transaccional `contadores/presupuesto-AAAA`, sin Cloud Function)
+- [x] F5.5 Tests de metraje y correlativo (4.6)
+- [x] F5.6 Verificar `typecheck` y `build`
 - [ ] F5.7 Commit de control `chore(plan): cerrar F5`
 
 ## F6 · Realidad aumentada
@@ -131,6 +131,8 @@
 - [ ] F10.5 Commit de control `chore(plan): cerrar F10`
 
 ## Bloqueos abiertos (esperan decisión del usuario)
+
+> **Traspaso Firebase/GCP:** F7.6, F7.7 y F7.8 (Cloud Monitoring, uptime/SSL y BigQuery) se hacen fuera de este agente, por quien tiene credenciales y acceso directo a Firebase (Gemini Argon 4, según indicó el usuario). Entregable esperado de vuelta: confirmación por escrito de cada punto y, si hay código en el repo, un commit en `plan/pendientes-fases`. Sin credenciales en el repo ni en el chat.
 
 1. Autorizar cambios en código congelado (`apps/functions/`, `firestore.rules`, `storage.rules`): afecta F2.1, F3.1, F5.4, F7.5, F7.9.
 2. Acceso a GCP (Cloud Monitoring, BigQuery, uptime): F7.6–F7.8.

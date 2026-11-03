@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { quoteCalculator } from "@/features/presupuesto/utils/quoteCalculator";
+import { QUOTE_PRICING } from "@/features/presupuesto/config/pricing";
 
 describe("Quote Calculator Parametric Engine", () => {
   it("calcula correctamente el presupuesto de una mampara Serie 25 con instalación", () => {
@@ -33,5 +34,28 @@ describe("Quote Calculator Parametric Engine", () => {
 
     expect(result.installationCost).toBe(0);
     expect(result.items.length).toBe(3);
+  });
+});
+
+describe("Metraje y tabla de precios", () => {
+  const base = {
+    systemType: "ventana_nova" as const,
+    glassType: "8mm_incoloro" as const,
+    aluminumColor: "negro_mate" as const,
+    difficulty: "primer_piso" as const,
+    includeInstallation: false,
+  };
+
+  it("calcula m2 de vidrio y metros lineales de perfil", () => {
+    const r = quoteCalculator.calculateQuote({ ...base, width: 2, height: 1.5 });
+    expect(r.items[0].quantity).toBe(3); // 2 x 1.5 m2
+    expect(r.items[1].quantity).toBe(7); // 2 * (2 + 1.5) m
+    expect(r.items[0].totalPrice).toBe(QUOTE_PRICING.glass["8mm_incoloro"].pricePerM2 * 3);
+  });
+
+  it("aplica mínimos de área y perímetro", () => {
+    const r = quoteCalculator.calculateQuote({ ...base, width: 0.01, height: 0.01 });
+    expect(r.items[0].quantity).toBe(QUOTE_PRICING.minAreaM2);
+    expect(r.items[1].quantity).toBe(QUOTE_PRICING.minPerimeterM);
   });
 });

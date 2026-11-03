@@ -146,12 +146,43 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    // F5.4: solicitud de presupuesto desde /presupuesto. El id del documento es el
+    // correlativo GYA-AAAA-XXXX. Creación pública con validación de campos; lectura
+    // (también del dueño por userId) y actualización solo admin / dueño; borrar solo admin.
     match /presupuestos_solicitados/{solicitudId} {
-      // Creación cerrada hasta que exista el flujo (ver comentario de /presupuestos).
-      allow create: if false;
+      allow create: if solicitudId.matches('^GYA-[0-9]{4}-[0-9]{4,}$')
+        && request.resource.data.keys().hasOnly(
+             ['number', 'userId', 'fullName', 'dniRuc', 'email', 'phone', 'address', 'district', 'params', 'total', 'status', 'createdAt'])
+        && request.resource.data.keys().hasAll(
+             ['number', 'userId', 'fullName', 'phone', 'params', 'total', 'status', 'createdAt'])
+        && request.resource.data.number == solicitudId
+        && request.resource.data.status == 'PENDIENTE'
+        && request.resource.data.userId is string && request.resource.data.userId.size() <= 128
+        && (!isSignedIn() || request.resource.data.userId == request.auth.uid)
+        && request.resource.data.fullName is string && request.resource.data.fullName.size() > 0 && request.resource.data.fullName.size() <= 200
+        && request.resource.data.get('dniRuc', '') is string && request.resource.data.get('dniRuc', '').size() <= 20
+        && request.resource.data.get('email', '') is string && request.resource.data.get('email', '').size() <= 254
+        && request.resource.data.phone is string && request.resource.data.phone.size() > 0 && request.resource.data.phone.size() <= 30
+        && request.resource.data.get('address', '') is string && request.resource.data.get('address', '').size() <= 300
+        && request.resource.data.get('district', '') is string && request.resource.data.get('district', '').size() <= 100
+        && request.resource.data.params is map
+        && request.resource.data.total is number && request.resource.data.total >= 0 && request.resource.data.total < 10000000
+        && request.resource.data.createdAt == request.time;
       allow read: if isAdmin()
         || (isSignedIn() && resource.data.get('userId', '') == request.auth.uid);
       allow update, delete: if isAdmin();
+    }
+
+    // Contador atómico del correlativo (contadores/presupuesto-AAAA). Cualquiera puede
+    // crearlo en 1 o incrementarlo exactamente en 1; nunca leerlo ni borrarlo.
+    match /contadores/{counterId} {
+      allow create: if counterId.matches('^presupuesto-[0-9]{4}$')
+        && request.resource.data.keys().hasOnly(['seq'])
+        && request.resource.data.seq == 1;
+      allow update: if counterId.matches('^presupuesto-[0-9]{4}$')
+        && request.resource.data.keys().hasOnly(['seq'])
+        && request.resource.data.seq == resource.data.seq + 1;
+      allow read, delete: if isAdmin();
     }
 
     // ---------------------------------------------------------------

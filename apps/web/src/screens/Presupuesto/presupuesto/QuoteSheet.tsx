@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Box, Heading, Text, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Box, Heading, Text, HStack, SimpleGrid, QrCode } from "@chakra-ui/react";
 import { ShieldCheck } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
+import { SITE_URL } from "@gya/shared";
 import type { quoteCalculator } from "@/features/presupuesto/utils/quoteCalculator";
 import type { QuoteCustomer } from "./types";
 
@@ -11,9 +12,10 @@ interface QuoteSheetProps {
   customer: QuoteCustomer;
   quote: ReturnType<typeof quoteCalculator.calculateQuote>;
   formattedDate: string;
+  quoteNumber?: string | null;
 }
 
-export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formattedDate }) => {
+export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formattedDate, quoteNumber }) => {
   return (
     <Box
       p={{ base: "6", md: "10" }}
@@ -45,7 +47,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
             PRESUPUESTO FORMAL
           </Text>
           <Text fontSize="xs" color="gray.500">
-            N° GYA-{new Date().getFullYear()}-0842
+            N° {quoteNumber ?? "Se asigna al imprimir"}
           </Text>
           <Text fontSize="xs" color="gray.500">
             Fecha: {formattedDate}
@@ -96,6 +98,18 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
           </tbody>
         </table>
       </Box>
+
+      {/* QR de verificación */}
+      {quoteNumber && (
+        <HStack gap="3" mb="4" fontSize="xs" color="gray.600">
+          <QrCode.Root value={`${SITE_URL}/presupuesto?n=${quoteNumber}`} size="sm">
+            <QrCode.Frame>
+              <QrCode.Pattern />
+            </QrCode.Frame>
+          </QrCode.Root>
+          <Text>Escanee para consultar este presupuesto ({quoteNumber}) en {SITE_URL.replace("https://", "")}.</Text>
+        </HStack>
+      )}
 
       {/* RESUMEN DE TOTALES */}
       <HStack justify="space-between" align="start" pt="4" borderTop="2px solid #0f172a">

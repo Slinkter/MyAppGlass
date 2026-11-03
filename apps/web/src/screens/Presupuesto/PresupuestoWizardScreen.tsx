@@ -5,6 +5,8 @@ import { Box, Heading, Text, VStack, SimpleGrid } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster-instance";
 import { quoteCalculator, QuoteCalculationInput } from "@/features/presupuesto/utils/quoteCalculator";
 import { useAuth } from "@/features/auth/context/AuthContext";
+import { submitQuoteRequest } from "@/features/presupuesto/services/quoteService";
+import { logger } from "@/shared/utils/logger";
 import { LoginRequired } from "./presupuesto/LoginRequired";
 import { QuoteConfigPanel } from "./presupuesto/QuoteConfigPanel";
 import { CustomerPanel } from "./presupuesto/CustomerPanel";
@@ -50,6 +52,14 @@ export const PresupuestoWizardScreen: React.FC = () => {
     }
   }, [profile, user]);
 
+  const [quoteNumber, setQuoteNumber] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  // Un cambio de datos invalida el correlativo ya emitido: el siguiente se reserva al imprimir.
+  React.useEffect(() => {
+    setQuoteNumber(null);
+  }, [params, customer]);
+
   const quote = quoteCalculator.calculateQuote(params);
 
   // Si no está autenticado, bloquear acceso y mostrar pantalla de Login Requerido
@@ -57,13 +67,34 @@ export const PresupuestoWizardScreen: React.FC = () => {
     return <LoginRequired />;
   }
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
     if (!customer.fullName || !customer.phone) {
       toaster.create({
         title: "Datos de cliente requeridos",
         description: "Por favor complete su nombre y teléfono para generar la hoja membretada.",
         type: "warning",
       });
+      return;
+    }
+    if (saving) return;
+    if (!quoteNumber) {
+      setSaving(true);
+      try {
+        const number = await submitQuoteRequest({
+          userId: user?.uid ?? "",
+          ...customer,
+          params,
+          total: quote.total,
+        });
+        setQuoteNumber(number);
+        // Esperar al render con el número y el QR antes de abrir el diálogo de impresión.
+        setTimeout(() => window.print(), 300);
+      } catch (error) {
+        logger.error("Error al guardar el presupuesto", error);
+        toaster.create({ title: "No se pudo registrar el presupuesto", description: "Inténtelo nuevamente.", type: "error" });
+      } finally {
+        setSaving(false);
+      }
       return;
     }
     window.print();
@@ -89,7 +120,7 @@ export const PresupuestoWizardScreen: React.FC = () => {
       </Box>
 
       {/* HOJA MEMBRETADA FORMAL (Visible en pantalla y al imprimir con @media print) */}
-      <QuoteSheet customer={customer} quote={quote} formattedDate={formattedDate} />
+      <QuoteSheet customer={customer} quote={quote} formattedDate={formattedDate} quoteNumber={quoteNumber} />
     </Box>
   );
 };

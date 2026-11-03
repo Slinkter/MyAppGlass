@@ -3,6 +3,7 @@
 import React from "react";
 import { Box, Heading, VStack, SimpleGrid, Field, NativeSelect, Input } from "@chakra-ui/react";
 import { Calculator } from "lucide-react";
+import { QUOTE_PRICING } from "@/features/presupuesto/config/pricing";
 import type { QuoteCalculationInput } from "@/features/presupuesto/utils/quoteCalculator";
 
 interface QuoteConfigPanelProps {
@@ -34,10 +35,9 @@ export const QuoteConfigPanel: React.FC<QuoteConfigPanelProps> = ({ params, setP
                 setParams({ ...params, systemType: e.target.value as QuoteCalculationInput["systemType"] })
               }
             >
-              <option value="mampara_serie25">Mampara Corrediza Serie 25 (2 o 4 Hojas)</option>
-              <option value="ventana_nova">Ventana Corrediza Sistema Nova Hermética</option>
-              <option value="ducha_cristal">Puerta / Box de Ducha en Cristal Templado</option>
-              <option value="techo_policarbonato">Techo de Policarbonato / Cobertura de Vidrio</option>
+              {Object.entries(QUOTE_PRICING.systems).map(([k, v]) => (
+                <option key={k} value={k}>{v.label}</option>
+              ))}
             </NativeSelect.Field>
           </NativeSelect.Root>
         </Field.Root>
@@ -77,10 +77,9 @@ export const QuoteConfigPanel: React.FC<QuoteConfigPanelProps> = ({ params, setP
                   setParams({ ...params, glassType: e.target.value as QuoteCalculationInput["glassType"] })
                 }
               >
-                <option value="8mm_incoloro">Templado 8mm Incoloro</option>
-                <option value="10mm_incoloro">Templado 10mm Incoloro</option>
-                <option value="6mm_incoloro">Templado 6mm Incoloro</option>
-                <option value="8mm_laminado">Laminado de Seguridad 8mm</option>
+                {Object.entries(QUOTE_PRICING.glass).map(([k, v]) => (
+                  <option key={k} value={k}>{v.label}</option>
+                ))}
               </NativeSelect.Field>
             </NativeSelect.Root>
           </Field.Root>
@@ -94,10 +93,9 @@ export const QuoteConfigPanel: React.FC<QuoteConfigPanelProps> = ({ params, setP
                   setParams({ ...params, aluminumColor: e.target.value as QuoteCalculationInput["aluminumColor"] })
                 }
               >
-                <option value="negro_mate">Negro Mate Anodizado</option>
-                <option value="aluminio_mate">Aluminio Mate Natural</option>
-                <option value="blanco">Blanco Esmaltado</option>
-                <option value="champagne">Champagne Titanio</option>
+                {Object.entries(QUOTE_PRICING.aluminum).map(([k, v]) => (
+                  <option key={k} value={k}>{v.label}</option>
+                ))}
               </NativeSelect.Field>
             </NativeSelect.Root>
           </Field.Root>
@@ -120,9 +118,9 @@ export const QuoteConfigPanel: React.FC<QuoteConfigPanelProps> = ({ params, setP
                 }
               }}
             >
-              <option value="primer_piso">Instalación en Primer Piso / Fácil Acceso</option>
-              <option value="piso_alto_sin_andamio">Piso Alto (Ascensor / Escalera Amplia)</option>
-              <option value="piso_alto_con_andamio">Piso Alto con Andamio / Fachada Exterior</option>
+              {Object.entries(QUOTE_PRICING.installation.surcharge).map(([k, v]) => (
+                <option key={k} value={k}>{v.label}</option>
+              ))}
               <option value="sin_instalacion">Solo Fabricación (Sin Instalación)</option>
             </NativeSelect.Field>
           </NativeSelect.Root>

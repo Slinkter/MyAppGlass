@@ -1,3 +1,4 @@
+import { QUOTE_PRICING } from "../config/pricing";
 import { BudgetItem } from "@/shared/schemas/ecommerce-schemas";
 
 export interface QuoteCalculationInput {
@@ -18,37 +19,20 @@ export const quoteCalculator = {
     igv: number;
     total: number;
   } {
-    const areaM2 = Math.max(0.1, Number((input.width * input.height).toFixed(2)));
-    const perimeterM = Math.max(0.5, Number((2 * (input.width + input.height)).toFixed(2)));
+    const P = QUOTE_PRICING;
+    const areaM2 = Math.max(P.minAreaM2, Number((input.width * input.height).toFixed(2)));
+    const perimeterM = Math.max(P.minPerimeterM, Number((2 * (input.width + input.height)).toFixed(2)));
 
-    // 1. Vidrio
-    const glassPricePerM2: Record<string, number> = {
-      "6mm_incoloro": 95.0,
-      "8mm_incoloro": 135.0,
-      "10mm_incoloro": 165.0,
-      "8mm_laminado": 190.0,
-    };
-    const unitPriceGlass = glassPricePerM2[input.glassType] || 135.0;
+    const unitPriceGlass = P.glass[input.glassType]?.pricePerM2 ?? P.glass["8mm_incoloro"].pricePerM2;
     const totalGlass = Number((areaM2 * unitPriceGlass).toFixed(2));
 
-    // 2. Aluminio
-    const aluPricePerMeter: Record<string, number> = {
-      negro_mate: 45.0,
-      aluminio_mate: 38.0,
-      blanco: 40.0,
-      champagne: 48.0,
-    };
-    const unitPriceAlu = aluPricePerMeter[input.aluminumColor] || 45.0;
+    const unitPriceAlu = P.aluminum[input.aluminumColor]?.pricePerMeter ?? P.aluminum.negro_mate.pricePerMeter;
     const totalAlu = Number((perimeterM * unitPriceAlu).toFixed(2));
 
-    // 3. Accesorios
-    const accessoriesCostBySystem: Record<string, { desc: string; cost: number }> = {
-      ventana_nova: { desc: "Kit de Accesorios y Rodajes Sistema Nova", cost: 85.0 },
-      mampara_serie25: { desc: "Kit de Cerradura Pico Loro, Tirador y Rodajes Serie 25", cost: 160.0 },
-      ducha_cristal: { desc: "Kit de Accesorios en Acero Inoxidable para Puerta de Ducha", cost: 220.0 },
-      techo_policarbonato: { desc: "Kit de Perfilería Unión H y Selladores Estructurales", cost: 140.0 },
-    };
-    const accKit = accessoriesCostBySystem[input.systemType] || { desc: "Kit de Accesorios Estándar", cost: 100.0 };
+    const system = P.systems[input.systemType];
+    const accKit = system
+      ? { desc: system.kitDescription, cost: system.kitCost }
+      : { desc: "Kit de Accesorios Estándar", cost: 100 };
 
     const items: BudgetItem[] = [
       {
@@ -84,10 +68,10 @@ export const quoteCalculator = {
     // 4. Mano de obra e instalación
     let installationCost = 0;
     if (input.includeInstallation) {
-      let baseLaborRate = areaM2 * 80.0; // 80 soles x m2 de instalación
-      if (input.difficulty === "piso_alto_sin_andamio") baseLaborRate += 100;
-      if (input.difficulty === "piso_alto_con_andamio") baseLaborRate += 250;
-      installationCost = Number(Math.max(150, baseLaborRate).toFixed(2));
+      const baseLaborRate = areaM2 * P.installation.ratePerM2 + (P.installation.surcharge[input.difficulty]?.amount ?? 0);
+      installationCost = Number(Math.max(P.installation.minCost, baseLaborRate).toFixed(2));
+
+
 
       items.push({
         description: `Servicio de Instalación y Montaje Profesional (${input.difficulty.replace(/_/g, " ")})`,
@@ -100,7 +84,7 @@ export const quoteCalculator = {
     }
 
     const subtotalConInstalacion = Number((subtotal + installationCost).toFixed(2));
-    const igv = Number((subtotalConInstalacion * 0.18).toFixed(2));
+    const igv = Number((subtotalConInstalacion * P.igvRate).toFixed(2));
     const total = Number((subtotalConInstalacion + igv).toFixed(2));
 
     return {
