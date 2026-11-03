@@ -1,6 +1,8 @@
 # 🤖 Equipo de 10 Agentes Senior - GYA Company
 
-Este documento define los roles y responsabilidades de los agentes de IA que orquestan el desarrollo de MyAppGlass. Cada agente tiene un dominio específico y puede ser invocado según la tarea.
+> **Nota de autoridad:** La única fuente de verdad normativa para reglas de negocio, comandos y arquitectura es [`AGENTS.md`](../AGENTS.md) en la raíz del repositorio. Los subagentes especializados en SEO Técnico, Sitelinks y Ecosistema Google están documentados en [`14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md`](./14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md).
+
+Este documento define los roles y responsabilidades de referencia de los agentes de IA que orquestan el desarrollo de MyAppGlass. Cada agente tiene un dominio específico y puede ser invocado según la tarea.
 
 ---
 
@@ -38,7 +40,7 @@ Este documento define los roles y responsabilidades de los agentes de IA que orq
 **Especialidad:** TypeScript strict, linting, builds estáticos.
 - **Stack:** TypeScript, ESLint, Next.js build pipeline.
 - **Responsabilidades:**
-    - Verificar que `pnpm run build` compile las 58 páginas sin errores.
+    - Verificar que `pnpm run build` compile las 60 rutas estáticas (`56` páginas `.html` en `apps/web/out/`) sin errores.
     - Garantizar zero warnings de linter (`pnpm run lint`).
     - La CI (`.github/workflows/ci.yml`) corre lint, typecheck, test:run y build en push/PR a `main` y `develop`. Comandos y reglas de validación: ver `AGENTS.md` §1.
     - Detectar dead code, imports huérfanos, tipos incorrectos.

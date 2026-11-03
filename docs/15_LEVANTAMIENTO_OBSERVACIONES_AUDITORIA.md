@@ -8,10 +8,10 @@
 ## 📊 Barra de Progreso en Tiempo Real
 
 ```text
-Progreso Remediación: [██████░░░░░░] 50% (2 / 4 Fases completadas)
+Progreso Remediación: [█████████░░░] 75% (3 / 4 Fases completadas)
 ├── [🟢 100%] Fase 1: Telemetría Limpia GA4/GTM (send_page_view: false, prod-only, import() dinámico)
 ├── [🟢 100%] Fase 2: Ajustes Finos SEO, robots.txt, 404, Dimensiones OG, JSON-LD ISO y Retiro de SAMPLE_CLIENTS
-├── [⏳   0%] Fase 3: Corrección de Deriva Documental en 6 Archivos .md (01, 02, 03, 05, 07, README, diplomado)
+├── [🟢 100%] Fase 3: Corrección de Deriva Documental en 6 Archivos .md (01, 02, 03, 05, 07, README, diplomado)
 └── [⏳   0%] Fase 4: Saneamiento de Memoria de Agentes (gya-cms SKILL.md, MCP unificado y Build/Audit Final)
 ```
 
@@ -41,12 +41,12 @@ Progreso Remediación: [██████░░░░░░] 50% (2 / 4 Fases c
 
 | ID | Documento | Problema Detectado | Estado | Corrección Aplicada |
 |---|---|---|---|---|
-| **DOC-01** | `docs/01_ARCHITECTURE.md` | Menciona `projectService.ts` / `serviceService.ts` (inexistentes), ruta rota de `DESIGN-SYSTEM-PLAN.md` y conteo `58 páginas / 18 tests`. | ⏳ En curso (Fase 3) | Actualizado a `projectsRepository.ts` / `servicesRepository.ts` / `publicRest.ts`, `docs/DESIGN-SYSTEM-PLAN.md` y `60 rutas estáticas (56 HTML) / 19 archivos de test`. |
-| **DOC-02** | `docs/02_AI_HANDOFF.md` | Pide "purga de `scripts/`" (cuando `scripts/generate-openapi.cjs` es obligatorio) y dice `58 páginas`. | ⏳ En curso (Fase 3) | Se retira `scripts/` de la lista de purga aclarando el rol de `scripts/generate-openapi.cjs` y se actualiza el conteo del build. |
-| **DOC-03** | `docs/03_AGENTS.md` y `README.md` | Conteo `58 páginas` desactualizado y divergencia de número de agentes. | ⏳ En curso (Fase 3) | Conteo actualizado a `60 rutas estáticas (56 HTML)` y nota de autoridad apuntando a `AGENTS.md` y `docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md`. |
-| **DOC-04** | `docs/05_CHANGELOG.md` | Discrepancia histórica en conteos de páginas y archivos de test (`18` vs `19`). | ⏳ En curso (Fase 3) | Añadida nota aclaratoria en la entrada vigente (`19 archivos de test unitario en apps/web/tests/unit/ y 60 rutas / 56 HTML en out/`). |
-| **DOC-05** | `docs/07_BACKEND_IMPLEMENTATION.md` | Dice `120 pruebas` (son `147`) y usa `cd functions` / `functions/.env` en lugar de `apps/functions`. | ⏳ En curso (Fase 3) | Actualizado a `147 pruebas` (`pnpm run test:functions`) y rutas `apps/functions/` y `apps/functions/.env`. |
-| **DOC-06** | `docs/diplomado/README.md` | Cita `functions/` sin `apps/` y regla "No tocar `firebase.json`" sin mencionar la excepción autorizada para CSP GA4. | ⏳ En curso (Fase 3) | Rutas corregidas a `apps/functions/` y nota de excepción autorizada en `firebase.json` (`3d47f61`). |
+| **DOC-01** | `docs/01_ARCHITECTURE.md` | Menciona `projectService.ts` / `serviceService.ts` (inexistentes), ruta rota de `DESIGN-SYSTEM-PLAN.md` y conteo `58 páginas / 18 tests`. | ✅ Levantada | Actualizado a `projectsRepository.ts` / `servicesRepository.ts` / `publicRest.ts`, `docs/DESIGN-SYSTEM-PLAN.md` y `60 rutas estáticas (56 HTML) / 19 archivos de test`. |
+| **DOC-02** | `docs/02_AI_HANDOFF.md` | Pide "purga de `scripts/`" (cuando `scripts/generate-openapi.cjs` es obligatorio) y dice `58 páginas`. | ✅ Levantada | Se retiró `scripts/` de la lista de purga aclarando el rol de `scripts/generate-openapi.cjs` y se actualizó el conteo del build. |
+| **DOC-03** | `docs/03_AGENTS.md` y `README.md` | Conteo `58 páginas` desactualizado y divergencia de número de agentes. | ✅ Levantada | Conteo actualizado a `60 rutas estáticas (56 HTML)` y nota de autoridad apuntando a `AGENTS.md` y `docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md`. |
+| **DOC-04** | `docs/05_CHANGELOG.md` | Discrepancia histórica en conteos de páginas y archivos de test (`18` vs `19`). | ✅ Levantada | Añadida nota aclaratoria en la entrada vigente (`19 archivos de test unitario en apps/web/tests/unit/ y 60 rutas / 56 HTML en out/`). |
+| **DOC-05** | `docs/07_BACKEND_IMPLEMENTATION.md` | Dice `120 pruebas` (son `147`) y usa `cd functions` / `functions/.env` en lugar de `apps/functions`. | ✅ Levantada | Actualizado a `147 pruebas` (`pnpm run test:functions`) y rutas `apps/functions/` y `apps/functions/.env`. |
+| **DOC-06** | `docs/diplomado/README.md` | Cita `functions/` sin `apps/` y regla "No tocar `firebase.json`" sin mencionar la excepción autorizada para CSP GA4. | ✅ Levantada | Rutas corregidas a `apps/functions/` y nota de excepción autorizada en `firebase.json` (`3d47f61`). |
 
 ---
 

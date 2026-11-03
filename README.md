@@ -20,7 +20,7 @@ Plataforma corporativa premium de alta gama optimizada para el rendimiento y SEO
 
 - **SEO Local:** Posicionamiento estructurado para términos de alta conversión (_"Vidriería en La Molina"_, _"Ventanas Antirruido Lima"_).
 - **Rich Snippets & Sitelinks:** Marcado Schema.org JSON-LD para indexación jerárquica en Google.
-- **SSG:** 58 páginas pre-renderizadas estáticamente en build time.
+- **SSG:** 60 rutas estáticas (`56` páginas `.html` en `apps/web/out/` + `sitemap.xml`, `robots.txt`, `manifest.webmanifest`, `icon.svg`) pre-renderizadas en build time.
 
 ---
 

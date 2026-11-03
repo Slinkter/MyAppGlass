@@ -11,7 +11,7 @@ Esta documentación resume el flujo técnico del backend serverless (`functions/
 - **Resend SDK:** envío de correos transaccionales (`functions/src/adapters/mailer.js`).
 - **Firestore (Admin SDK):** registro legal de reclamos, consultas de contacto y control de rate limit.
 - **Zod:** validación de esquemas en el servidor (`functions/src/schemas/`).
-- **Pruebas:** `node:test`, 120 pruebas (`cd functions && npm test`).
+- **Pruebas:** `node:test`, **147 pruebas** (`pnpm run test:functions` desde la raíz o `cd apps/functions && npm test`).
 
 ## ⚙️ Funciones Expuestas
 
@@ -76,17 +76,18 @@ firebase functions:secrets:set RECAPTCHA_SECRET_KEY
 
 *Nota: Asegúrese de que el dominio `gyacompany.com` esté verificado en el panel de Resend.*
 
-Si `functions/.env` define también `RECAPTCHA_SECRET_KEY`, el despliegue falla. Ver la advertencia en [functions/README.md](../apps/functions/README.md), sección 9.
+Si `apps/functions/.env` define también `RECAPTCHA_SECRET_KEY`, el despliegue falla. Ver la advertencia en [apps/functions/README.md](../apps/functions/README.md), sección 9.
 
 ## 🧪 Pruebas Locales
-Pruebas unitarias sin emulador:
+Pruebas unitarias sin emulador (desde la raíz del monorepo):
 ```bash
-cd functions && npm test
+pnpm run test:functions
+# o dentro del paquete: cd apps/functions && npm test
 ```
 
 Para probar el backend con el emulador de Firebase (requiere Java JDK):
 ```bash
-cd functions && npm run serve   # firebase emulators:start --only functions
+cd apps/functions && npm run serve   # firebase emulators:start --only functions
 ```
 Apunte `NEXT_PUBLIC_API_URL`, `NEXT_PUBLIC_CONTACT_API_URL` y `NEXT_PUBLIC_STATUS_API_URL` a las URL del emulador (ver [06_DOCS_DEVELOPMENT.md](./06_DOCS_DEVELOPMENT.md)).
 

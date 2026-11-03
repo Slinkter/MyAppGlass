@@ -17,9 +17,10 @@ Este documento detalla la estructura técnica, flujos de datos y patrones de dis
            |
            v
 +----------+----------+      +--------------------------+
-|   Feature Service   | <--- |   projectService.ts      |
-|  (Logic Layer)      |      |   serviceService.ts      |
-+----------+----------+      +--------------------------+
+|   Feature Hooks &   | <--- |  projectsRepository.ts   |
+|  Repositories Layer |      |  servicesRepository.ts   |
++----------+----------+      |  publicRest.ts (SSG)     |
+           |                 +--------------------------+
            |
            v
 +----------+----------+      +--------------------------+
@@ -102,11 +103,11 @@ El proyecto sigue una variante **parcial de Feature-Sliced Design (FSD)**: exist
 
 - Tema central: `apps/web/src/shared/providers/theme/index.ts` (Chakra v3, tokens semánticos y de estado).
 - Showcase en la ruta `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón `aura`, `outline`, `ghost`, `whatsapp` y `brand`.
-- Plan y cierre del pulido: `DESIGN-SYSTEM-PLAN.md` (raíz del repo).
+- Plan y cierre del pulido: `docs/DESIGN-SYSTEM-PLAN.md`.
 
 ## ✅ Estado actual (2026-11-02)
 
-- El build prerenderiza 58 páginas; hay 18 archivos de test unitarios en `apps/web/tests/unit/`.
+- El build prerenderiza **60 rutas estáticas** (`56` archivos `.html` en `apps/web/out/` + `sitemap.xml`, `robots.txt`, `manifest.webmanifest`, `icon.svg`); hay **19 archivos de test unitarios** en `apps/web/tests/unit/`.
 - Stack: Next.js 16, React 19, TypeScript 6.0.3; `framer-motion` fue retirado.
 - Las reglas de Firestore/Storage ya están desplegadas (ver `docs/05_CHANGELOG.md`, 2026-10-30).
 - **Pendiente:** revisión visual de `/design-system` en navegador; probar admin y páginas públicas con emuladores; esquemas Zod y ESLint compartido aún no extraídos a `packages/shared`; alinear la versión de pnpm de CI con el lockfile.

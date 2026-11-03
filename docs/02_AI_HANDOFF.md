@@ -27,7 +27,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 * **Pruebas locales de correos:** con emuladores (`firebase emulators:start --only firestore`) se puede ejecutar `sendEmailLogic` real con Resend simulado; un envío real a Resend exige autorización explícita del usuario y **debe apuntar al Firestore de producción** (si se usa Resend real con emulador local, llegan los correos pero no queda registro en producción).
 * **Prueba E2E en producción verificada (2026-11-02):** registrada la queja `GYA-REC-2026-LK3SG3` en `libro_de_reclamaciones` de producción con ambos correos `SENT` y verificada en `checkStatus` (`200 OK`). El protocolo paso a paso para replicar en otros formularios está en `docs/api/README.md`.
 * **Reglas `firestore.rules` optimizadas y desplegadas (2026-11-02):** `isAdmin()` evalúa primero claims/correo JWT por cortocircuito antes de `exists`/`get`, y habilita `read` + `update` de estado para admin en `libro_de_reclamaciones` y `contact_submissions`.
-* **Pendiente:** aplicar el mismo protocolo de actualización a los formularios restantes (`/contacto`, `/presupuesto`), rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (quedaron expuestas en una conversación), y la purga de archivos (`scripts/`, `docs/diplomado/`, `.gemini/`, `.agents/`, planes viejos) a decidir por el responsable.
+* **Pendiente:** aplicar el mismo protocolo de actualización a los formularios restantes (`/contacto`, `/presupuesto`), rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (quedaron expuestas en una conversación), y evaluar con el responsable la limpieza de documentos históricos (`docs/diplomado/`, planes antiguos). **Nota importante:** `scripts/generate-openapi.cjs` NO debe eliminarse porque es requerido por `pnpm run contract:generate`.
 
 ---
 
@@ -50,7 +50,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 
 ## 🚀 Estado Técnico y Despliegue
 
-* **Build:** `pnpm run build` genera el export estático en `apps/web/out/` (referencia verificada 2026-11-02: 58 páginas SSG).
+* **Build:** `pnpm run build` genera el export estático en `apps/web/out/` (referencia verificada 2026-11-02: **60 rutas estáticas generadas / 56 archivos HTML** en `apps/web/out/`).
 * **Estado actual (2026-10-30 - Actualización Handoff):**
   - **Reglas de seguridad desplegadas en producción**: `firestore.rules` y `storage.rules` ya fueron aplicadas exitosamente (`firebase deploy --only firestore:rules,storage --project gya-app-4c8a9`).
   - **Unificación de CSS en Chakra UI v3**: Eliminada la librería `framer-motion` (ahorro ~35 KB en bundle), reemplazada por animaciones y transiciones nativas de Chakra. Eliminados bloques manuales de `@emotion/react` en `Providers.tsx`.

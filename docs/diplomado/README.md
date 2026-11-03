@@ -24,7 +24,7 @@ Guía de estudio para cursar el **Diploma Ingeniería de Software con IA** (DMC 
 
 - **Contexto obligatorio:** leer `AGENTS.md` (reglas de negocio, comandos y convenciones) antes de cada taller.
 - **Una rama por taller**, partiendo de `main`: `diplomado/mod-04-refactor-frontend`, `diplomado/mod-09-orquestacion`, etc.
-- **No tocar** `functions/`, `firestore.rules` ni `firebase.json` salvo petición explícita del dueño del proyecto.
+- **No tocar** `apps/functions/`, `firestore.rules` ni `firebase.json` salvo petición explícita del dueño del proyecto *(nota: `firebase.json` fue actualizado con autorización explícita en `3d47f61` para permitir dominios de GA4/GTM en `Content-Security-Policy`)*.
 - **Validar siempre** con `pnpm run typecheck && pnpm run build` (solo `pnpm`). No ejecutar `pnpm run test:run` salvo que se pida.
 - **Commits semánticos**: `feat(modulo): descripción clara`, `refactor(admin): ...`, `docs(diplomado): ...`.
 - Ortografía: «antirruido» y «vidrio y aluminio» (singular). Logger de `src/shared/utils/logger.ts`, nunca `console.log`.
@@ -69,15 +69,15 @@ Guía de estudio para cursar el **Diploma Ingeniería de Software con IA** (DMC 
 - Objetivo: entender el enfoque serverless actual y compararlo con otros.
 - [ ] Scaffold backend asistido (en `/tmp` o repo aparte)
 - [ ] Componentes para distintas arquitecturas
-- Entregable: documento de arquitectura de `functions/index.js` (3 funciones HTTP v2: `submitReclamo`, `submitContacto`, `checkStatus`).
-- Repo: solo lectura de `functions/`; `docs/07_BACKEND_IMPLEMENTATION.md` está desactualizado (omite submitContacto, checkStatus, rate limit, Zod y captchas).
+- Entregable: documento de arquitectura de `apps/functions/index.js` (3 funciones HTTP v2: `submitReclamo`, `submitContacto`, `checkStatus`).
+- Repo: solo lectura de `apps/functions/`; ver `apps/functions/README.md` y `docs/07_BACKEND_IMPLEMENTATION.md`.
 
 **Módulo 6. Refactorización y migración backend**
 - Objetivo: detectar deuda en backend y proponer evolución.
 - [ ] Evolución de la arquitectura
 - [ ] Mitigación de deuda técnica
-- Entregable: propuesta escrita (no aplicada) sobre `functions/`.
-- Repo: rate limit en Firestore (`rate_limits`, 8 envíos por IP cada 15 min), validación Zod en `functions/emailSender.js`, `functions/mathCaptchaValidator.js`. Aplicar cambios requiere autorización explícita.
+- Entregable: propuesta escrita (no aplicada) sobre `apps/functions/`.
+- Repo: rate limit en Firestore (`rate_limits`, 8 envíos por IP cada 15 min), validación Zod en `apps/functions/src/schemas/`. Aplicar cambios requiere autorización explícita.
 
 ### Bloque III. IA embebida
 
