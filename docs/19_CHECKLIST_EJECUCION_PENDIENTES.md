@@ -21,10 +21,10 @@
 ## F0 · Validación base
 
 - [x] F0.1 Sonnet valida `docs/18` (secciones 2 y 5). Correcciones: `<Toaster/>` ya montado en `app/Providers.tsx:21` (no es pendiente); el correlativo `0842` está en `screens/Presupuesto/presupuesto/QuoteSheet.tsx:48` y existe un generador en `apps/functions/src/adapters/idGenerator.js` (congelado).
-- [ ] F0.2 Haiku confirma con grep los pendientes marcados como ausentes
-- [ ] F0.3 Línea base: `pnpm run typecheck`
-- [ ] F0.4 Línea base: `pnpm run build`
-- [ ] F0.5 Commit de control `chore(plan): cerrar F0`
+- [x] F0.2 Haiku confirma con grep los pendientes marcados como ausentes (`useCartStore`, `presupuestos_solicitados`, `model-viewer`: 0 ocurrencias)
+- [x] F0.3 Línea base: `pnpm run typecheck` (pasa, exit 0)
+- [x] F0.4 Línea base: `pnpm run build` (pasa, exit 0)
+- [x] F0.5 Commit de control `chore(plan): cerrar F0`
 
 ## F1 · Documentación y seguridad
 
