@@ -13,7 +13,7 @@ import { logger } from "@/shared/utils/logger";
 /**
  * Entidades admitidas para almacenamiento estructurado
  */
-export type StorageEntity = "services" | "projects";
+export type StorageEntity = "services" | "projects" | "products";
 
 export interface UploadFileOptions {
   entity: StorageEntity;

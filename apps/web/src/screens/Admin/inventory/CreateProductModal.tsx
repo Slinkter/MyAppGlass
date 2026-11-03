@@ -14,6 +14,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { CheckCircle2, X } from "lucide-react";
+import { ImageUploadZone } from "@/features/admin/components/ImageUploadZone";
 import type { Product } from "@/shared/schemas/ecommerce-schemas";
 import type { InventoryStatusMessage, ProductFormData } from "./productForm";
 
@@ -207,6 +208,16 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
               />
             </VStack>
           </SimpleGrid>
+
+          <ImageUploadZone
+            label="Foto del producto"
+            entity="products"
+            entityId={formData.id || formData.sku || ""}
+            value={formData.imageUrl}
+            aspectRatio="4/3"
+            disabled={actionLoading}
+            onChange={(url) => onChange({ ...formData, imageUrl: url })}
+          />
 
           {statusMessage && (
             <Box
