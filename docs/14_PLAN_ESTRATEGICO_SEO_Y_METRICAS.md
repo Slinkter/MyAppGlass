@@ -10,10 +10,10 @@
 ## 📊 Barra de Progreso en Tiempo Real
 
 ```text
-Progreso Global: [████░░░░░░░░] 33% (2 / 6 Fases completadas)
+Progreso Global: [██████░░░░░░] 50% (3 / 6 Fases completadas)
 ├── [🟢 100%] Fase 0: Línea Base, Limpieza de public/ y Registro de Plan Maestro
 ├── [🟢 100%] Fase 1: Schemas Zod, Grafo JSON-LD (SiteNavigationElement) y buildPageMetadata
-├── [⏳   0%] Fase 2: Rastreo (robots.ts), Sitemap Dinámico + Image Sitemap (sitemap.ts) y Manifest
+├── [🟢 100%] Fase 2: Rastreo (robots.ts), Sitemap Dinámico + Image Sitemap (sitemap.ts) y Manifest
 ├── [🔄  50%] Fase 3: Ejecución Paralela — Copywriting, Storytelling, Sitelinks en Footer y noindex
 ├── [⏳   0%] Fase 4: Conexión Ecosistema Google (GA4 G-TY0NJP1S81, GTM, Search Console y CSP)
 └── [⏳   0%] Fase 5: Sincronización Documental, Build Estático y Auditoría de .html
@@ -50,11 +50,11 @@ Progreso Global: [████░░░░░░░░] 33% (2 / 6 Fases complet
 - [x] **1.6.** Commit Preventivo 2 (`feat(seo): actualizar schemas zod, grafo json-ld con SiteNavigationElement y buildPageMetadata`).
 
 ### Fase 2: Rastreo de Bots (`robots.ts`), Sitemap Dinámico (`sitemap.ts`) y Manifest (`manifest.ts`)
-- [ ] **2.1.** Actualizar `apps/web/src/app/robots.ts`: desbloquear `/_next/`, bloquear `/api/`, `/admin/`, `/auth/`, `/design-system*`, `/servicios/ver`, `/proyectos/ver`, permitir bots IA de búsqueda/citación (`OAI-SearchBot`, `ChatGPT-User`, `Claude-SearchBot`, `Claude-User`, `PerplexityBot`) y bloquear `Bytespider`.
-- [ ] **2.2.** Actualizar `apps/web/src/app/sitemap.ts`: añadir `/presupuesto` y `/simulador-ai`, prioridades jerárquicas de Sitelinks, `lastModified` real desde Firestore e Image Sitemap (`images`).
-- [ ] **2.3.** Crear `apps/web/src/app/manifest.ts` para Web App Manifest estático.
-- [ ] **2.4.** Validar `pnpm run typecheck`.
-- [ ] **2.5.** Commit Preventivo 3 (`feat(seo): optimizar robots.txt, enriquecer sitemap.xml para sitelinks e imagenes y agregar manifest`).
+- [x] **2.1.** Actualizar `apps/web/src/app/robots.ts`: desbloquear `/_next/`, bloquear `/api/`, `/admin/`, `/auth/`, `/design-system*`, `/servicios/ver`, `/proyectos/ver`, permitir bots IA de búsqueda/citación (`OAI-SearchBot`, `ChatGPT-User`, `Claude-SearchBot`, `Claude-User`, `PerplexityBot`) y bloquear `Bytespider`.
+- [x] **2.2.** Actualizar `apps/web/src/app/sitemap.ts`: añadir `/presupuesto` y `/simulador-ai`, prioridades jerárquicas de Sitelinks, `lastModified` real desde Firestore e Image Sitemap (`images`).
+- [x] **2.3.** Crear `apps/web/src/app/manifest.ts` para Web App Manifest estático.
+- [x] **2.4.** Validar `pnpm run typecheck`.
+- [x] **2.5.** Commit Preventivo 3 (`feat(seo): optimizar robots.txt, enriquecer sitemap.xml para sitelinks e imagenes y agregar manifest`).
 
 ### Fase 3: Ejecución en Paralelo — Copywriting, Storytelling, Enlaces Sitelinks y Blindaje `noindex`
 - [ ] **3.A.1.** Enlaces internos semánticos (`<nav>` + `<Link>`) hacia las 5 rutas clave de Sitelinks y dirección `Av. Los Fresnos 1250 - La Molina` en `apps/web/src/widgets/Footer/Footer.tsx`.

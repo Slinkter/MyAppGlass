@@ -3,13 +3,38 @@ import { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
 
+const DISALLOW_PATHS = [
+  "/api/",
+  "/admin/",
+  "/auth/",
+  "/design-system/",
+  "/design-system-ubicacion/",
+  "/servicios/ver",
+  "/proyectos/ver",
+];
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/"],
+        disallow: DISALLOW_PATHS,
+      },
+      {
+        userAgent: [
+          "OAI-SearchBot",
+          "ChatGPT-User",
+          "Claude-SearchBot",
+          "Claude-User",
+          "PerplexityBot",
+        ],
+        allow: "/",
+        disallow: DISALLOW_PATHS,
+      },
+      {
+        userAgent: "Bytespider",
+        disallow: "/",
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
