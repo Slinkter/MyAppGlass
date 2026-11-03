@@ -137,7 +137,8 @@
 ## Pendientes transversales
 
 - [x] **Ejecutar tests escritos:** `cart-engine`, `inventory-crud`, `auth-service`, `quote-calculator`, `quote-number`: 5/5 archivos y 23/23 tests pasan (verificado dos veces, exit 0). Corrido con vitest sobre esos archivos, no con `test:run` completo.
-- [ ] **Validar reglas de Firestore con emulador:** las nuevas de `presupuestos_solicitados` y `contadores`, y las de `users`/`clientes`. `tests/rules/rules-smoke.sh` no las cubre.
+- [x] **Validar reglas de Firestore con emulador:** `tests/rules/firestore.rules.test.mjs` ejecutado con `firebase emulators:exec` (proyecto `demo-gya`, puerto 8081): 16/16 casos OK (presupuestos, contadores, users, clientes).
+- [ ] **Decisión de seguridad:** `isAdmin()` en `firestore.rules` (línea 17) da rol admin a cualquier correo `@gyacompany.com` con `email_verified`. El frontend ya no lo hace (F2.1), así que hay inconsistencia. Decidir si se mantiene (depende de que el dominio sea solo de la empresa) o se restringe a `users/{uid}.role` / claims.
 - [ ] **Confirmar aplicación en GCP** de F7.6–F7.8 (ver sección F7).
 - [ ] **Confirmar admin en Firestore:** `users/{uid}.role = 'admin'` para la cuenta del responsable (F2.1).
 

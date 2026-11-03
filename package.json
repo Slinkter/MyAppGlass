@@ -19,6 +19,8 @@
         "deploy:functions": "firebase deploy --only functions"
     },
     "devDependencies": {
+        "@firebase/rules-unit-testing": "^6.0.0",
+        "firebase": "^13.2.0",
         "typescript": "^6.0.3"
     }
 }
