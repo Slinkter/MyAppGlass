@@ -3,28 +3,29 @@
 > Rama: `plan/pendientes-fases`. Base: `docs/18_REPORTE_PLANES_PENDIENTES.md`.
 > Modelos: **Haiku** para tareas mecánicas (docs, grep, tests simples, cambios repetitivos); **Sonnet** para lógica, seguridad, arquitectura y validación.
 > Cada fase cierra con un commit de control `chore(plan): cerrar Fx ...`.
+> Última actualización de estado: 2026-11-03, tras commit `0551de0`.
 
 ## Estado
 
-- [ ] F0 · Validación base
-- [ ] F1 · Documentación y seguridad
-- [ ] F2 · Auth y RBAC (plan 13 S1)
-- [ ] F3 · Inventario e imágenes (plan 13 S2)
-- [ ] F4 · E-commerce (plan 13 S3 / plan 12)
-- [ ] F5 · Presupuesto (plan 13 S4)
-- [ ] F6 · Realidad aumentada (plan 13 S5)
-- [ ] F7 · Calidad y observabilidad (plan 04)
-- [ ] F8 · SEO contenidos (plan 09)
-- [ ] F9 · Diseño (DESIGN-SYSTEM-PLAN / PLAN-DISENO)
-- [ ] F10 · Cierre
+- [x] F0 · Validación base (`796c06d`)
+- [x] F1 · Documentación y seguridad (`2368df0`)
+- [x] F2 · Auth y RBAC (`dd9b246`)
+- [x] F3 · Inventario e imágenes (`a2a5913`)
+- [x] F4 · E-commerce (`1340b11`), con bloqueo parcial en F4.5
+- [x] F5 · Presupuesto (`8d6013b`)
+- [ ] F6 · Realidad aumentada — **bloqueada: faltan modelos 3D**
+- [ ] F7 · Calidad y observabilidad — parcial (ver sección F7)
+- [x] F8 · SEO contenidos (`b7101cb`), salvo F8.4 (acción del usuario)
+- [x] F9 · Diseño (`32c7f75`), salvo F9.7 (prueba del usuario)
+- [ ] F10 · Cierre — pendiente
 
 ## F0 · Validación base
 
 - [x] F0.1 Sonnet valida `docs/18` (secciones 2 y 5). Correcciones: `<Toaster/>` ya montado en `app/Providers.tsx:21` (no es pendiente); el correlativo `0842` está en `screens/Presupuesto/presupuesto/QuoteSheet.tsx:48` y existe un generador en `apps/functions/src/adapters/idGenerator.js` (congelado).
-- [x] F0.2 Haiku confirma con grep los pendientes marcados como ausentes (`useCartStore`, `presupuestos_solicitados`, `model-viewer`: 0 ocurrencias)
-- [x] F0.3 Línea base: `pnpm run typecheck` (pasa, exit 0)
-- [x] F0.4 Línea base: `pnpm run build` (pasa, exit 0)
-- [x] F0.5 Commit de control `chore(plan): cerrar F0`
+- [x] F0.2 Grep confirma ausencia de `useCartStore`, `presupuestos_solicitados`, `model-viewer` (0 ocurrencias en la línea base)
+- [x] F0.3 Línea base: `pnpm run typecheck` (exit 0)
+- [x] F0.4 Línea base: `pnpm run build` (exit 0)
+- [x] F0.5 Commit de control `796c06d`
 
 ## F1 · Documentación y seguridad
 
@@ -34,51 +35,51 @@
 - [x] F1.4 Doc 13: ruta de `AdminRouteGuard`
 - [x] F1.5 Archivar `GOL.md` en `docs/diplomado/` o marcarlo histórico
 - [x] F1.6 Nota de planes 16 y 17 en `02_AI_HANDOFF.md`
-- [ ] F1.7 Verificar `typecheck`
-- [ ] F1.8 Commit de control `chore(plan): cerrar F1`
+- [x] F1.7 Verificar `typecheck`
+- [x] F1.8 Commit de control `2368df0`
 - [ ] F1.9 **Usuario:** rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (fuera de alcance del agente)
 
-## F2 · Auth y RBAC
+## F2 · Auth y RBAC (`dd9b246`)
 
-- [x] F2.1 Bloquear auto-asignación de rol admin (1.3)
+- [x] F2.1 Bloquear auto-asignación de rol admin (1.3): `firestore.rules` restringe `role` y `AuthContext` ya no asigna admin por correo. **Confirmar:** la cuenta admin debe tener `users/{uid}.role = 'admin'` en Firestore.
 - [x] F2.2 Hook `useUserProfile` (1.5)
 - [x] F2.3 Guardias de `/admin` y `/mi-cuenta` (1.6)
 - [x] F2.4 Validación estricta DNI 8 / RUC 11 (1.8)
-- [x] F2.5 Tests de `auth-service` (1.10)
+- [x] F2.5 Tests de `auth-service` (1.10): escritos, **no ejecutados**
 - [x] F2.6 Verificar `typecheck` y `build`
-- [ ] F2.7 Commit de control `chore(plan): cerrar F2`
+- [x] F2.7 Commit de control `dd9b246`
 
-## F3 · Inventario e imágenes
+## F3 · Inventario e imágenes (`a2a5913`)
 
 - [x] F3.1 Subida de imágenes a Storage (2.2): `ImageUploadZone` en `CreateProductModal` (entity `products`); `storage.rules` ya limita `products/**` a admin
-- [x] F3.2 Tests de `inventory-crud` (2.7)
+- [x] F3.2 Tests de `inventory-crud` (2.7): escritos, **no ejecutados**
 - [x] F3.3 Verificar `typecheck` y `build`
-- [ ] F3.4 Commit de control `chore(plan): cerrar F3`
+- [x] F3.4 Commit de control `a2a5913`
 
-## F4 · E-commerce
+## F4 · E-commerce (`1340b11`)
 
-- [x] F4.1 `useCartStore` (3.1): `features/tienda/useCartStore.ts` (zustand no está en package.json; store con `useSyncExternalStore` + localStorage)
+- [x] F4.1 `useCartStore` (3.1): store con `useSyncExternalStore` + localStorage (zustand no está en package.json)
 - [x] F4.2 Validar cantidad contra stock (3.2): `cart-engine.ts` (`clampQuantity`, `reconcileWithCatalog`)
-- [x] F4.3 `ShopScreen` (3.3): `screens/Tienda/ShopScreen.tsx`, ruta `/tienda`
+- [x] F4.3 `ShopScreen` (3.3): ruta `/tienda`
 - [x] F4.4 Drawer del carrito (3.4): `screens/Tienda/CartDrawer.tsx`
-- [x] F4.5 Checkout (3.5): ruta `/tienda/checkout`, envío por WhatsApp. BLOQUEADO (parcial): persistir el pedido en Firestore `pedidos` exige escritura pública y las reglas solo permiten admin (requiere cambiar `firestore.rules` o una Cloud Function, congelados)
+- [ ] F4.5 Checkout (3.5) — **BLOQUEADO (parcial):** arma el pedido y lo envía por WhatsApp, pero no se guarda en Firestore `pedidos` porque la escritura pública no está permitida por las reglas. Requiere cambiar `firestore.rules` o una Cloud Function.
 - [x] F4.6 Cross-selling (3.6): `getCrossSells` + sección en el drawer
-- [x] F4.7 Tests `cart-engine` (3.7): `apps/web/tests/unit/cart-engine.test.ts` (no ejecutado por regla de ahorro)
-- [x] F4.8 Catálogo público (plan 12): `useShopProducts` reusa `productService.getAllProducts` (lectura pública permitida)
-- [ ] F4.9 Verificar `typecheck` y `build`
-- [ ] F4.10 Commit de control `chore(plan): cerrar F4`
+- [x] F4.7 Tests `cart-engine` (3.7): escritos, **no ejecutados**
+- [x] F4.8 Catálogo público (plan 12): `useShopProducts` reusa `productService.getAllProducts`
+- [x] F4.9 `typecheck` y `build` pasan (validado tras integrar F4, F8, F9)
+- [x] F4.10 Commit de control `1340b11`
 
-## F5 · Presupuesto
+## F5 · Presupuesto (`8d6013b`)
 
-- [x] F5.1 Tabla de precios parametrizable (4.2)
-- [x] F5.2 Hoja A4 con QR (4.4)
-- [x] F5.3 Correlativo `GYA-AAAA-XXXX` real (reemplaza `0842`)
-- [x] F5.4 Persistir en `presupuestos_solicitados` (4.5) (reglas + contador transaccional `contadores/presupuesto-AAAA`, sin Cloud Function)
-- [x] F5.5 Tests de metraje y correlativo (4.6)
+- [x] F5.1 Tabla de precios parametrizable (4.2): `features/presupuesto/config/pricing.ts`
+- [x] F5.2 Hoja A4 con QR (4.4): el QR apunta a `/presupuesto?n=<correlativo>`, **ruta aún sin consumir**
+- [x] F5.3 Correlativo `GYA-AAAA-XXXX` real (reemplaza `0842`): contador transaccional `contadores/presupuesto-AAAA`
+- [x] F5.4 Persistir en `presupuestos_solicitados` (4.5): reglas + transacción, sin Cloud Function. **Pendiente:** el contador es público, así que puede dejar huecos en la secuencia.
+- [x] F5.5 Tests de metraje y correlativo (4.6): escritos, **no ejecutados**
 - [x] F5.6 Verificar `typecheck` y `build`
-- [ ] F5.7 Commit de control `chore(plan): cerrar F5`
+- [x] F5.7 Commit de control `8d6013b`
 
-## F6 · Realidad aumentada
+## F6 · Realidad aumentada — BLOQUEADA
 
 - [ ] F6.1 `AuraModelViewer` con `<model-viewer>` (5.1)
 - [ ] F6.2 Soporte `.usdz` (5.2) — **BLOQUEADO: faltan modelos 3D**
@@ -92,56 +93,60 @@
 
 ## F7 · Calidad y observabilidad
 
-- [x] F7.1 Playwright: registro y reclamo (plan 04 2.5)
-- [x] F7.2 Playwright: cotización / contacto
-- [x] F7.3 Playwright: navegación, blog y sitemap
-- [ ] F7.4 Sentry cliente — **requiere cuenta/DSN del usuario**
-- [ ] F7.5 Sentry servidor — **functions congeladas: BLOQUEADO hasta autorización**
-- [x] F7.6 Alertas Cloud Monitoring (5xx y latencia) — políticas declarativas listas en `gcp/monitoring/alert-policies/` y canal en `gcp/monitoring/channels/`
-- [x] F7.7 Uptime y SSL — verificación de disponibilidad y SSL (< 30 días) en `gcp/monitoring/uptime-checks/` y alerta en `gcp/monitoring/alert-policies/`
-- [x] F7.8 Export Firestore a BigQuery (5.1) — esquemas JSON en `gcp/bigquery/schemas/` y vistas analíticas estándar en `gcp/bigquery/views/views_bi.sql` (Costo $0.00)
-- [ ] F7.9 Log de auditoría inmutable de reclamos (5.2) — **functions congeladas: BLOQUEADO**
-- [ ] F7.10 Commit de control `chore(plan): cerrar F7`
+- [x] F7.1 Playwright: registro y reclamo (`e3a42cd`): 13/13 specs de F7.1–F7.3 pasaron contra el export estático
+- [x] F7.2 Playwright: cotización / contacto (`e3a42cd`): solo validación de envíos inválidos; los envíos reales no se prueban
+- [x] F7.3 Playwright: navegación, blog y sitemap (`e3a42cd`)
+- [ ] F7.4 Sentry cliente — **BLOQUEADO: falta cuenta/DSN del usuario**
+- [ ] F7.5 Sentry servidor — **BLOQUEADO: functions congeladas sin autorización explícita**
+- [ ] F7.6 Alertas Cloud Monitoring (5xx y latencia) — **archivos listos** en `gcp/monitoring/alert-policies/` (commit `94624f9`). **No verificado si está aplicado en GCP.**
+- [ ] F7.7 Uptime y SSL — **archivos listos** en `gcp/monitoring/uptime-checks/` y `alert-uptime-ssl.json` (`94624f9`). **No verificado si está aplicado en GCP.**
+- [ ] F7.8 Export Firestore a BigQuery (5.1) — **archivos listos** en `gcp/bigquery/schemas/` y `views_bi.sql` (`94624f9`). **No verificado si está aplicado en GCP.**
+- [ ] F7.9 Log de auditoría inmutable de reclamos (5.2) — **BLOQUEADO: functions congeladas sin autorización explícita**
+- [ ] F7.10 Commit de control de F7 (pendiente hasta cerrar F7.4–F7.9)
 
-## F8 · SEO contenidos
+> **Verificación de F7.6–F7.8:** `gcp/scripts/validate-configs.mjs` pasa (exit 0) sobre los JSON y el SQL. Eso prueba que los archivos son válidos, no que estén creados en GCP. Para cerrarlo se necesita la salida de `gcloud` o de la consola de GCP, o confirmación escrita de quien tiene el acceso.
+> Traspaso: quien tiene acceso a Firebase/GCP (Gemini Argon 4, según indicó el usuario) debe confirmar la aplicación. Sin credenciales en el repo ni en el chat.
 
-- [x] F8.1 Landing Surco
-- [x] F8.2 Landing San Borja
-- [x] F8.3 Landing Miraflores
+## F8 · SEO contenidos (`b7101cb`)
+
+- [x] F8.1 Landing Surco (`/vidrieria/surco`)
+- [x] F8.2 Landing San Borja (`/vidrieria/san-borja`)
+- [x] F8.3 Landing Miraflores (`/vidrieria/miraflores`)
 - [ ] F8.4 Google Maps y NAP — **acción externa del usuario**
-- [ ] F8.5 Commit de control `chore(plan): cerrar F8`
+- [x] F8.5 Commit de control `b7101cb`
 
-## F9 · Diseño
+## F9 · Diseño (`32c7f75`)
 
-- [x] F9.1 Migrar `colorPalette` a variants de `Button`
-- [x] F9.2 `variant="whatsapp"` en lugar de WhatsApp armado a mano
+- [x] F9.1 Migrar `colorPalette` a variants de `Button`: 4 botones de acción migrados. Los ~24 `Badge` restantes se mantienen, porque `Badge` usa `colorPalette` como forma normal de dar color (requiere receta propia si se quiere retirar).
+- [x] F9.2 `variant="whatsapp"` en el CTA del menú móvil
 - [x] F9.3 Retirar alias heredados (`border.glass`, `text.primary`, `bg.canvas`, `surface.muted`, `bg.glass`)
-- [x] F9.4 Dark mode del formulario de reclamos
+- [x] F9.4 Dark mode del modal de reclamos (`SuccessModal`). No probado visualmente.
 - [x] F9.5 Verificar `<Toaster/>` y `status.*`
-- [x] F9.6 Hallazgos bajos de PLAN-DISENO (`bg`/`_hover` manual, `minW={0}`)
+- [x] F9.6 Hallazgos bajos de PLAN-DISENO: chips de timeline migrados; filas `_hover` de `TimelineProjectItem` y `CardVariantsShowcase` se conservan a propósito (no son botones)
 - [ ] F9.7 Prueba manual en navegador — **usuario**
-- [ ] F9.8 Commit de control `chore(plan): cerrar F9`
+- [x] F9.8 Commit de control `32c7f75`
 
 ## F10 · Cierre
 
-- [ ] F10.1 `typecheck` y `build` finales en verde
+- [ ] F10.1 `typecheck` y `build` finales en verde (último validado: tras `8d6013b`; `94624f9` y `0551de0` solo añaden JSON y docs)
 - [ ] F10.2 Changelog final
 - [ ] F10.3 Deploy hosting — **solo si el usuario lo pide**
 - [ ] F10.4 Deploy functions — **solo si el usuario lo pide**
-- [ ] F10.5 Commit de control `chore(plan): cerrar F10`
+- [ ] F10.5 Commit de control final
 
-## Bloqueos abiertos (esperan decisión del usuario)
+## Pendientes transversales
 
-> **Traspaso Firebase/GCP (COMPLETADO Y CONFIRMADO PARA CLAUDE):**
-> - **F7.6 (Cloud Monitoring 5xx y Latencia):** Completado. Definiciones en `gcp/monitoring/alert-policies/` y canal `acueva@gyacompany.com` en `gcp/monitoring/channels/notification-email.json`.
-> - **F7.7 (Uptime Checks y SSL):** Completado. Chequeo multirregional cada 5m en `gcp/monitoring/uptime-checks/uptime-gyacompany.json` y alerta SSL (<30 días) en `gcp/monitoring/alert-policies/alert-uptime-ssl.json`.
-> - **F7.8 (BigQuery Analytics BI):** Completado. Esquemas JSON de 4 colecciones en `gcp/bigquery/schemas/` y vistas Standard SQL en `gcp/bigquery/views/views_bi.sql`.
-> - **Garantía de Costo:** $0.00 (Free Tier nativo de GCP), con plantilla preventiva de presupuesto en `gcp/budget/zero-cost-budget-alert.json`.
-> - **Validación:** `validate-configs.mjs`, `typecheck` y `build` 100% en verde.
-> - **Commit de control en `plan/pendientes-fases`:** `94624f9` (`feat(observability): cerrar F7.6, F7.7 y F7.8 con configs de costo cero`).
-> - **Estado para Claude:** Desbloqueado. Claude puede continuar con los siguientes pendientes de la rama.
+- [ ] **Ejecutar tests escritos** (no corridos hasta ahora): `cart-engine`, `inventory-crud`, `auth-service`, `quote-calculator`, `quote-number`. Requiere permiso explícito, porque `AGENTS.md` prohíbe `test:run` sin pedido.
+- [ ] **Validar reglas de Firestore con emulador:** las nuevas de `presupuestos_solicitados` y `contadores`, y las de `users`/`clientes`. `tests/rules/rules-smoke.sh` no las cubre.
+- [ ] **Confirmar aplicación en GCP** de F7.6–F7.8 (ver sección F7).
+- [ ] **Confirmar admin en Firestore:** `users/{uid}.role = 'admin'` para la cuenta del responsable (F2.1).
 
-1. Autorizar cambios en código congelado (`apps/functions/`, `firestore.rules`, `storage.rules`): afecta F2.1, F3.1, F5.4, F7.5, F7.9.
-2. DSN de Sentry: F7.4.
-3. Modelos `.glb` y `.usdz`: F6.2 y F6.3.
-4. Acciones externas: F8.4 y F9.7.
+## Decisiones abiertas
+
+1. Autorizar ejecución de tests y emulador de reglas (transversales).
+2. Consumir `/presupuesto?n=` en la ruta, o quitar el QR hasta tenerla (F5.2).
+3. Aceptar huecos en el correlativo, o pasar el contador a Cloud Function (F5.4).
+4. Permitir escritura pública en `pedidos` para el checkout, o mantenerlo por WhatsApp (F4.5).
+5. DSN de Sentry (F7.4) y autorización de functions (F7.5, F7.9).
+6. Modelos `.glb` y `.usdz` (F6).
+7. Acciones externas: F8.4 y F9.7.
