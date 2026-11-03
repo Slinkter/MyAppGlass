@@ -10,11 +10,11 @@
 ## 📊 Barra de Progreso en Tiempo Real
 
 ```text
-Progreso Global: [██░░░░░░░░░░] 17% (1 / 6 Fases completadas)
+Progreso Global: [████░░░░░░░░] 33% (2 / 6 Fases completadas)
 ├── [🟢 100%] Fase 0: Línea Base, Limpieza de public/ y Registro de Plan Maestro
-├── [⏳   0%] Fase 1: Schemas Zod, Grafo JSON-LD (SiteNavigationElement) y buildPageMetadata
+├── [🟢 100%] Fase 1: Schemas Zod, Grafo JSON-LD (SiteNavigationElement) y buildPageMetadata
 ├── [⏳   0%] Fase 2: Rastreo (robots.ts), Sitemap Dinámico + Image Sitemap (sitemap.ts) y Manifest
-├── [⏳   0%] Fase 3: Ejecución Paralela — Copywriting, Storytelling, Sitelinks en Footer y noindex
+├── [🔄  50%] Fase 3: Ejecución Paralela — Copywriting, Storytelling, Sitelinks en Footer y noindex
 ├── [⏳   0%] Fase 4: Conexión Ecosistema Google (GA4 G-TY0NJP1S81, GTM, Search Console y CSP)
 └── [⏳   0%] Fase 5: Sincronización Documental, Build Estático y Auditoría de .html
 ```
@@ -42,12 +42,12 @@ Progreso Global: [██░░░░░░░░░░] 17% (1 / 6 Fases complet
 - [x] **0.4.** Commit Preventivo 1 (`chore(seo): eliminar plantillas html residuales de public y registrar plan maestro seo`).
 
 ### Fase 1: Schemas Zod, Grafo JSON-LD (`SiteNavigationElement`) y Motor de Metadatos
-- [ ] **1.1.** Añadir `seoTitle` y `seoDescription` opcionales a `ProjectSchema` en `packages/shared/src/schemas/firebase-types.ts`.
-- [ ] **1.2.** Añadir `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` y `NEXT_PUBLIC_GTM_ID` en `apps/web/src/shared/config/env.ts`.
-- [ ] **1.3.** Enriquecer `getCompanyJsonLd()` con `WebSite`, `LocalBusiness`/`HomeAndConstructionBusiness` y `SiteNavigationElement` (5 rutas clave de Sitelinks + soporte), y crear `buildPageMetadata()`, `getProjectJsonLd()` y `getWebAppJsonLd()` en `apps/web/src/shared/utils/seo-utils.ts`.
-- [ ] **1.4.** Ampliar tests unitarios en `apps/web/tests/unit/seo-utils.test.ts`.
-- [ ] **1.5.** Validar `pnpm run typecheck` y `vitest run tests/unit/seo-utils.test.ts`.
-- [ ] **1.6.** Commit Preventivo 2 (`feat(seo): actualizar schemas zod, grafo json-ld con SiteNavigationElement y buildPageMetadata`).
+- [x] **1.1.** Añadir `seoTitle` y `seoDescription` opcionales a `ProjectSchema` en `packages/shared/src/schemas/firebase-types.ts`.
+- [x] **1.2.** Añadir `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` y `NEXT_PUBLIC_GTM_ID` en `apps/web/src/shared/config/env.ts`.
+- [x] **1.3.** Enriquecer `getCompanyJsonLd()` con `WebSite`, `LocalBusiness`/`HomeAndConstructionBusiness` y `SiteNavigationElement` (5 rutas clave de Sitelinks + soporte), y crear `buildPageMetadata()`, `getProjectJsonLd()` y `getWebAppJsonLd()` en `apps/web/src/shared/utils/seo-utils.ts`.
+- [x] **1.4.** Ampliar tests unitarios en `apps/web/tests/unit/seo-utils.test.ts`.
+- [x] **1.5.** Validar `pnpm run typecheck` y `vitest run tests/unit/seo-utils.test.ts`.
+- [x] **1.6.** Commit Preventivo 2 (`feat(seo): actualizar schemas zod, grafo json-ld con SiteNavigationElement y buildPageMetadata`).
 
 ### Fase 2: Rastreo de Bots (`robots.ts`), Sitemap Dinámico (`sitemap.ts`) y Manifest (`manifest.ts`)
 - [ ] **2.1.** Actualizar `apps/web/src/app/robots.ts`: desbloquear `/_next/`, bloquear `/api/`, `/admin/`, `/auth/`, `/design-system*`, `/servicios/ver`, `/proyectos/ver`, permitir bots IA de búsqueda/citación (`OAI-SearchBot`, `ChatGPT-User`, `Claude-SearchBot`, `Claude-User`, `PerplexityBot`) y bloquear `Bytespider`.

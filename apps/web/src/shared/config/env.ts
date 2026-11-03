@@ -15,6 +15,8 @@ const envSchema = z.object({
   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: z.string().default('784433037193'),
   NEXT_PUBLIC_FIREBASE_APP_ID: z.string().default('1:784433037193:web:2582cc84b6a9027fd66b58'),
   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: z.string().default('G-TY0NJP1S81'),
+  NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.string().optional().default(''),
+  NEXT_PUBLIC_GTM_ID: z.string().optional().default(''),
   NEXT_PUBLIC_USE_EMULATORS: z.enum(['true', 'false']).optional().default('false'),
 });
 
@@ -34,6 +36,8 @@ function getRawEnv(): Record<string, unknown> {
     NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
     NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    NEXT_PUBLIC_GTM_ID: process.env.NEXT_PUBLIC_GTM_ID,
     NEXT_PUBLIC_USE_EMULATORS: process.env.NEXT_PUBLIC_USE_EMULATORS,
   };
 }

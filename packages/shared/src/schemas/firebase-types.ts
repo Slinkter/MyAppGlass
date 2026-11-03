@@ -108,6 +108,8 @@ export const ProjectSchema = z.object({
   numdpto: z.string().optional(),
   lat: z.number().nullable().optional(),
   lng: z.number().nullable().optional(),
+  seoTitle: z.string().optional(),
+  seoDescription: z.string().optional(),
   published: z.boolean().default(true),
   createdAt: DateSchema.optional(),
   updatedAt: DateSchema.optional(),
