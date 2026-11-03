@@ -132,7 +132,14 @@
 
 ## Bloqueos abiertos (esperan decisión del usuario)
 
-> **Traspaso Firebase/GCP:** F7.6, F7.7 y F7.8 (Cloud Monitoring, uptime/SSL y BigQuery) completados por Gemini (Antigravity) con entrega de configuraciones declarativas plug-and-play bajo el directorio `gcp/` con garantía de costo $0.00 (Free Tier). Validados con `validate-configs.mjs`, `typecheck` y `build` en verde. Commit de control registrado en `plan/pendientes-fases`.
+> **Traspaso Firebase/GCP (COMPLETADO Y CONFIRMADO PARA CLAUDE):**
+> - **F7.6 (Cloud Monitoring 5xx y Latencia):** Completado. Definiciones en `gcp/monitoring/alert-policies/` y canal `acueva@gyacompany.com` en `gcp/monitoring/channels/notification-email.json`.
+> - **F7.7 (Uptime Checks y SSL):** Completado. Chequeo multirregional cada 5m en `gcp/monitoring/uptime-checks/uptime-gyacompany.json` y alerta SSL (<30 días) en `gcp/monitoring/alert-policies/alert-uptime-ssl.json`.
+> - **F7.8 (BigQuery Analytics BI):** Completado. Esquemas JSON de 4 colecciones en `gcp/bigquery/schemas/` y vistas Standard SQL en `gcp/bigquery/views/views_bi.sql`.
+> - **Garantía de Costo:** $0.00 (Free Tier nativo de GCP), con plantilla preventiva de presupuesto en `gcp/budget/zero-cost-budget-alert.json`.
+> - **Validación:** `validate-configs.mjs`, `typecheck` y `build` 100% en verde.
+> - **Commit de control en `plan/pendientes-fases`:** `94624f9` (`feat(observability): cerrar F7.6, F7.7 y F7.8 con configs de costo cero`).
+> - **Estado para Claude:** Desbloqueado. Claude puede continuar con los siguientes pendientes de la rama.
 
 1. Autorizar cambios en código congelado (`apps/functions/`, `firestore.rules`, `storage.rules`): afecta F2.1, F3.1, F5.4, F7.5, F7.9.
 2. DSN de Sentry: F7.4.
