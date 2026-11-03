@@ -1,0 +1,11 @@
+[
+  { "name": "document_name", "type": "STRING", "mode": "REQUIRED", "description": "ID del documento en Firestore" },
+  { "name": "timestamp", "type": "TIMESTAMP", "mode": "REQUIRED", "description": "Marca de tiempo de sincronización" },
+  { "name": "fullName", "type": "STRING", "mode": "NULLABLE", "description": "Nombre de contacto" },
+  { "name": "email", "type": "STRING", "mode": "NULLABLE", "description": "Correo del remitente" },
+  { "name": "phone", "type": "STRING", "mode": "NULLABLE", "description": "Teléfono de contacto" },
+  { "name": "service", "type": "STRING", "mode": "NULLABLE", "description": "Servicio de interés" },
+  { "name": "message", "type": "STRING", "mode": "NULLABLE", "description": "Mensaje enviado" },
+  { "name": "status", "type": "STRING", "mode": "NULLABLE", "description": "Estado del lead" },
+  { "name": "createdAt", "type": "TIMESTAMP", "mode": "NULLABLE", "description": "Fecha de contacto" }
+]

@@ -1,0 +1,32 @@
+{
+  "displayName": "GYA Functions - Latencia Elevada (>5s p95)",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Cloud Functions Latency p95 > 5000ms",
+      "conditionThreshold": {
+        "filter": "resource.type = \"cloud_run_revision\" AND metric.type = \"run.googleapis.com/request_latencies\"",
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 5000,
+        "duration": "300s",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95"
+          }
+        ],
+        "trigger": {
+          "count": 1
+        }
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "604800s"
+  },
+  "documentation": {
+    "content": "La latencia percentil 95 (p95) de las Cloud Functions de GYA Company superó los 5 segundos de respuesta continua.",
+    "mimeType": "text/markdown"
+  }
+}

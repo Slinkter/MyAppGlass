@@ -1,0 +1,9 @@
+{
+  "type": "email",
+  "displayName": "Correo Corporativo GYA (Administración)",
+  "description": "Canal de notificaciones para alertas de estabilidad, latencia y certificados SSL de GYA Company.",
+  "labels": {
+    "email_address": "acueva@gyacompany.com"
+  },
+  "enabled": true
+}

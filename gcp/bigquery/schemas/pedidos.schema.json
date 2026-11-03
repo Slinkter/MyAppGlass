@@ -1,0 +1,11 @@
+[
+  { "name": "document_name", "type": "STRING", "mode": "REQUIRED", "description": "ID del pedido" },
+  { "name": "timestamp", "type": "TIMESTAMP", "mode": "REQUIRED", "description": "Marca de tiempo de sincronización" },
+  { "name": "orderNumber", "type": "STRING", "mode": "NULLABLE", "description": "Correlativo de orden" },
+  { "name": "customerName", "type": "STRING", "mode": "NULLABLE", "description": "Nombre del comprador" },
+  { "name": "customerPhone", "type": "STRING", "mode": "NULLABLE", "description": "Teléfono" },
+  { "name": "total", "type": "FLOAT", "mode": "NULLABLE", "description": "Monto total del pedido en PEN" },
+  { "name": "status", "type": "STRING", "mode": "NULLABLE", "description": "PENDIENTE, CONFIRMADO, ENTREGADO" },
+  { "name": "itemCount", "type": "INTEGER", "mode": "NULLABLE", "description": "Cantidad de productos" },
+  { "name": "createdAt", "type": "TIMESTAMP", "mode": "NULLABLE", "description": "Fecha de pedido" }
+]

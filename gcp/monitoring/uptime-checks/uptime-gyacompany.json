@@ -1,0 +1,25 @@
+{
+  "displayName": "GYA Company - Web Uptime & SSL Monitor",
+  "monitoredResource": {
+    "type": "uptime_url",
+    "labels": {
+      "host": "www.gyacompany.com",
+      "project_id": "gya-app-4c8a9"
+    }
+  },
+  "httpCheck": {
+    "requestMethod": "GET",
+    "path": "/",
+    "port": 443,
+    "useSsl": true,
+    "validateSsl": true
+  },
+  "period": "300s",
+  "timeout": "10s",
+  "selectedRegions": [
+    "USA_VIRGINIA",
+    "USA_OREGON",
+    "SOUTH_AMERICA",
+    "EUROPE"
+  ]
+}

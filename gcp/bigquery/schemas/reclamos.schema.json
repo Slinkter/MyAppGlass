@@ -1,0 +1,18 @@
+[
+  { "name": "document_name", "type": "STRING", "mode": "REQUIRED", "description": "ID del documento en Firestore" },
+  { "name": "timestamp", "type": "TIMESTAMP", "mode": "REQUIRED", "description": "Marca de tiempo de sincronización" },
+  { "name": "numeroReclamo", "type": "STRING", "mode": "NULLABLE", "description": "Correlativo formal del reclamo" },
+  { "name": "tipoReclamo", "type": "STRING", "mode": "NULLABLE", "description": "QUEJA o RECLAMO" },
+  { "name": "status", "type": "STRING", "mode": "NULLABLE", "description": "RECIBIDO, EN_REVISION, EN_PROCESO, ATENDIDO" },
+  { "name": "consumidor_nombre", "type": "STRING", "mode": "NULLABLE", "description": "Nombre completo del consumidor" },
+  { "name": "consumidor_documento", "type": "STRING", "mode": "NULLABLE", "description": "DNI o RUC del reclamante" },
+  { "name": "consumidor_email", "type": "STRING", "mode": "NULLABLE", "description": "Correo electrónico del consumidor" },
+  { "name": "consumidor_telefono", "type": "STRING", "mode": "NULLABLE", "description": "Teléfono de contacto" },
+  { "name": "bien_tipo", "type": "STRING", "mode": "NULLABLE", "description": "PRODUCTO o SERVICIO" },
+  { "name": "montoReclamado", "type": "FLOAT", "mode": "NULLABLE", "description": "Monto reclamado en Soles (PEN)" },
+  { "name": "descripcionReclamo", "type": "STRING", "mode": "NULLABLE", "description": "Detalle del reclamo" },
+  { "name": "pedidoConsumidor", "type": "STRING", "mode": "NULLABLE", "description": "Petición concreta del consumidor" },
+  { "name": "adminNotes", "type": "STRING", "mode": "NULLABLE", "description": "Notas internas del administrador" },
+  { "name": "createdAt", "type": "TIMESTAMP", "mode": "NULLABLE", "description": "Fecha de registro legal" },
+  { "name": "updatedAt", "type": "TIMESTAMP", "mode": "NULLABLE", "description": "Fecha de última modificación" }
+]

@@ -1,0 +1,26 @@
+{
+  "displayName": "Presupuesto Preventivo de Costo Cero - GYA Company",
+  "budgetFilter": {
+    "projects": ["projects/gya-app-4c8a9"]
+  },
+  "amount": {
+    "specifiedAmount": {
+      "currencyCode": "USD",
+      "units": "1"
+    }
+  },
+  "thresholdRules": [
+    {
+      "thresholdPercent": 0.5,
+      "spendBasis": "CURRENT_SPEND"
+    },
+    {
+      "thresholdPercent": 1.0,
+      "spendBasis": "CURRENT_SPEND"
+    }
+  ],
+  "notificationsRule": {
+    "monitoringNotificationChannels": [],
+    "disableDefaultIamRecipients": false
+  }
+}

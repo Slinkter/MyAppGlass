@@ -1,0 +1,49 @@
+{
+  "displayName": "GYA Company - Web Caída o Certificado SSL por Vencer",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Disponibilidad Web Fallida (Uptime Check Failed)",
+      "conditionThreshold": {
+        "filter": "resource.type = \"uptime_url\" AND metric.type = \"monitoring.googleapis.com/uptime_check/check_passed\"",
+        "comparison": "COMPARISON_LT",
+        "thresholdValue": 1,
+        "duration": "300s",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "perSeriesAligner": "ALIGN_FRACTION_TRUE"
+          }
+        ],
+        "trigger": {
+          "count": 1
+        }
+      }
+    },
+    {
+      "displayName": "Certificado SSL por Vencer (< 30 días)",
+      "conditionThreshold": {
+        "filter": "resource.type = \"uptime_url\" AND metric.type = \"monitoring.googleapis.com/uptime_check/time_until_ssl_cert_expires\"",
+        "comparison": "COMPARISON_LT",
+        "thresholdValue": 2592000,
+        "duration": "86400s",
+        "aggregations": [
+          {
+            "alignmentPeriod": "3600s",
+            "perSeriesAligner": "ALIGN_MIN"
+          }
+        ],
+        "trigger": {
+          "count": 1
+        }
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "604800s"
+  },
+  "documentation": {
+    "content": "Alerta crítica: El dominio www.gyacompany.com no responde o el certificado TLS/SSL está próximo a expirar en menos de 30 días.",
+    "mimeType": "text/markdown"
+  }
+}

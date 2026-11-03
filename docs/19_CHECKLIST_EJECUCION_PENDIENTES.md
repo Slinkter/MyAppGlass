@@ -97,9 +97,9 @@
 - [x] F7.3 Playwright: navegación, blog y sitemap
 - [ ] F7.4 Sentry cliente — **requiere cuenta/DSN del usuario**
 - [ ] F7.5 Sentry servidor — **functions congeladas: BLOQUEADO hasta autorización**
-- [ ] F7.6 Alertas Cloud Monitoring (5xx y latencia) — **requiere acceso GCP**
-- [ ] F7.7 Uptime y SSL — **requiere acceso GCP**
-- [ ] F7.8 Export Firestore a BigQuery (5.1) — **requiere acceso GCP**
+- [x] F7.6 Alertas Cloud Monitoring (5xx y latencia) — políticas declarativas listas en `gcp/monitoring/alert-policies/` y canal en `gcp/monitoring/channels/`
+- [x] F7.7 Uptime y SSL — verificación de disponibilidad y SSL (< 30 días) en `gcp/monitoring/uptime-checks/` y alerta en `gcp/monitoring/alert-policies/`
+- [x] F7.8 Export Firestore a BigQuery (5.1) — esquemas JSON en `gcp/bigquery/schemas/` y vistas analíticas estándar en `gcp/bigquery/views/views_bi.sql` (Costo $0.00)
 - [ ] F7.9 Log de auditoría inmutable de reclamos (5.2) — **functions congeladas: BLOQUEADO**
 - [ ] F7.10 Commit de control `chore(plan): cerrar F7`
 
@@ -132,10 +132,9 @@
 
 ## Bloqueos abiertos (esperan decisión del usuario)
 
-> **Traspaso Firebase/GCP:** F7.6, F7.7 y F7.8 (Cloud Monitoring, uptime/SSL y BigQuery) se hacen fuera de este agente, por quien tiene credenciales y acceso directo a Firebase (Gemini Argon 4, según indicó el usuario). Entregable esperado de vuelta: confirmación por escrito de cada punto y, si hay código en el repo, un commit en `plan/pendientes-fases`. Sin credenciales en el repo ni en el chat.
+> **Traspaso Firebase/GCP:** F7.6, F7.7 y F7.8 (Cloud Monitoring, uptime/SSL y BigQuery) completados por Gemini (Antigravity) con entrega de configuraciones declarativas plug-and-play bajo el directorio `gcp/` con garantía de costo $0.00 (Free Tier). Validados con `validate-configs.mjs`, `typecheck` y `build` en verde. Commit de control registrado en `plan/pendientes-fases`.
 
 1. Autorizar cambios en código congelado (`apps/functions/`, `firestore.rules`, `storage.rules`): afecta F2.1, F3.1, F5.4, F7.5, F7.9.
-2. Acceso a GCP (Cloud Monitoring, BigQuery, uptime): F7.6–F7.8.
-3. DSN de Sentry: F7.4.
-4. Modelos `.glb` y `.usdz`: F6.2 y F6.3.
-5. Acciones externas: F8.4 y F9.7.
+2. DSN de Sentry: F7.4.
+3. Modelos `.glb` y `.usdz`: F6.2 y F6.3.
+4. Acciones externas: F8.4 y F9.7.

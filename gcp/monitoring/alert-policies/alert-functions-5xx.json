@@ -1,0 +1,31 @@
+{
+  "displayName": "GYA Functions - Error 5xx o Fallo de Ejecución",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Cloud Function HTTP 5xx Response Rate",
+      "conditionThreshold": {
+        "filter": "resource.type = \"cloud_run_revision\" AND metric.type = \"run.googleapis.com/request_count\" AND metric.labels.response_code_class = \"5xx\"",
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 0,
+        "duration": "300s",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "perSeriesAligner": "ALIGN_RATE"
+          }
+        ],
+        "trigger": {
+          "count": 1
+        }
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "604800s"
+  },
+  "documentation": {
+    "content": "Una o más Cloud Functions en GYA Company presentaron respuestas HTTP 5xx o fallos en ejecución en los últimos 5 minutos.",
+    "mimeType": "text/markdown"
+  }
+}

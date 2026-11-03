@@ -1,0 +1,20 @@
+[
+  { "name": "document_name", "type": "STRING", "mode": "REQUIRED", "description": "Correlativo GYA-AAAA-XXXX" },
+  { "name": "timestamp", "type": "TIMESTAMP", "mode": "REQUIRED", "description": "Marca de tiempo de sincronización" },
+  { "name": "number", "type": "STRING", "mode": "NULLABLE", "description": "Número formal de presupuesto" },
+  { "name": "fullName", "type": "STRING", "mode": "NULLABLE", "description": "Nombre del solicitante" },
+  { "name": "dniRuc", "type": "STRING", "mode": "NULLABLE", "description": "DNI o RUC" },
+  { "name": "email", "type": "STRING", "mode": "NULLABLE", "description": "Correo electrónico" },
+  { "name": "phone", "type": "STRING", "mode": "NULLABLE", "description": "Teléfono" },
+  { "name": "address", "type": "STRING", "mode": "NULLABLE", "description": "Dirección" },
+  { "name": "district", "type": "STRING", "mode": "NULLABLE", "description": "Distrito (Surco, La Molina, etc.)" },
+  { "name": "total", "type": "FLOAT", "mode": "NULLABLE", "description": "Monto total cotizado en PEN" },
+  { "name": "status", "type": "STRING", "mode": "NULLABLE", "description": "Estado de la solicitud" },
+  { "name": "sistema", "type": "STRING", "mode": "NULLABLE", "description": "Sistema de ventana (Nova, Serie 25, 35, 62)" },
+  { "name": "colorAluminio", "type": "STRING", "mode": "NULLABLE", "description": "Color de perfil aluminio" },
+  { "name": "tipoVidrio", "type": "STRING", "mode": "NULLABLE", "description": "Tipo de vidrio (Crudo, Laminado, Templado)" },
+  { "name": "colorVidrio", "type": "STRING", "mode": "NULLABLE", "description": "Color del vidrio" },
+  { "name": "ancho", "type": "FLOAT", "mode": "NULLABLE", "description": "Ancho en mm" },
+  { "name": "alto", "type": "FLOAT", "mode": "NULLABLE", "description": "Alto en mm" },
+  { "name": "createdAt", "type": "TIMESTAMP", "mode": "NULLABLE", "description": "Fecha de creación" }
+]
