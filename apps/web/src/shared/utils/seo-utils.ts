@@ -59,6 +59,7 @@ export const buildPageMetadata = (options: BuildPageMetadataOptions): Metadata =
       ? SITE_URL
       : `${SITE_URL}${options.path.startsWith("/") ? options.path : `/${options.path}`}`;
 
+  const hasCustomImage = Boolean(options.image?.trim());
   const imageUrl = resolveSeoImageUrl(options.image, "/logovcr.png");
 
   return {
@@ -78,8 +79,8 @@ export const buildPageMetadata = (options: BuildPageMetadataOptions): Metadata =
       images: [
         {
           url: imageUrl,
-          width: 1200,
-          height: 630,
+          width: hasCustomImage ? 1200 : 906,
+          height: hasCustomImage ? 630 : 904,
           alt: cleanTitle,
         },
       ],
@@ -356,6 +357,8 @@ export const getServiceJsonLd = (name: string, description: string, url: string,
   }
 });
 
+const ISO_DATE_REGEX = /^\d{4}(?:-\d{2}(?:-\d{2})?)?$/;
+
 export const getProjectJsonLd = (
   project: {
     title: string;
@@ -367,25 +370,30 @@ export const getProjectJsonLd = (
     client?: string;
   },
   url: string
-) => ({
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": project.title,
-  "description": project.description,
-  "url": url,
-  "image": resolveSeoImageUrl(project.coverImage),
-  "creator": {
-    "@type": "Organization",
-    "@id": `${SITE_URL}/#organization`,
-    "name": "Glass & Aluminum Company S.A.C."
-  },
-  "locationCreated": {
-    "@type": "Place",
-    "name": project.location,
-    ...(project.address ? { address: project.address } : {})
-  },
-  ...(project.completedAt ? { dateCreated: project.completedAt } : {})
-});
+) => {
+  const trimmedDate = project.completedAt?.trim();
+  const validIsoDate = trimmedDate && ISO_DATE_REGEX.test(trimmedDate) ? trimmedDate : undefined;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": project.title,
+    "description": project.description,
+    "url": url,
+    "image": resolveSeoImageUrl(project.coverImage),
+    "creator": {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      "name": "Glass & Aluminum Company S.A.C."
+    },
+    "locationCreated": {
+      "@type": "Place",
+      "name": project.location,
+      ...(project.address ? { address: project.address } : {})
+    },
+    ...(validIsoDate ? { dateCreated: validIsoDate } : {})
+  };
+};
 
 export const getWebAppJsonLd = (name: string, description: string, url: string) => ({
   "@context": "https://schema.org",

@@ -86,8 +86,8 @@ export const metadata: Metadata = {
         images: [
             {
                 url: "/logovcr.png",
-                width: 512,
-                height: 512,
+                width: 906,
+                height: 904,
                 alt: "Glass & Aluminum Company Logo",
             },
         ],

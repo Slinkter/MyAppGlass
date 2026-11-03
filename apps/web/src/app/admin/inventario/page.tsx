@@ -3,7 +3,7 @@ import { InventoryDashboardScreen } from "@/screens/Admin/InventoryDashboardScre
 import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
-  title: "Gestión de Inventario | Admin GYA",
+  title: "Gestión de Inventario",
   description: "Panel de administración y control de existencias en tiempo real de vidrios, perfiles y accesorios.",
   robots: { index: false, follow: false },
 };

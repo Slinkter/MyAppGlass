@@ -3,7 +3,7 @@ import { AdminHubScreen } from "@/screens/Admin/AdminHubScreen";
 import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
-  title: "Panel de Administración Maestro | Admin GYA",
+  title: "Panel de Administración Maestro",
   description: "Centro de control y gestión integral de inventario, ventas, reportes y clientes.",
   robots: { index: false, follow: false },
 };

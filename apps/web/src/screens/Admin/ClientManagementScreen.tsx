@@ -21,7 +21,6 @@ import { subscribeToClients, addClient } from "@/shared/api/firebase/clientsRepo
 import { ClientCard } from "./clients/ClientCard";
 import { NewClientModal } from "./clients/NewClientModal";
 import { EMPTY_NEW_CLIENT, type NewClientForm } from "./clients/newClientForm";
-import { SAMPLE_CLIENTS } from "./clients/sampleClients";
 import { ClientProfile } from "@/shared/schemas/ecommerce-schemas";
 import { exportToExcel } from "@/shared/utils/excel-export";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
@@ -48,12 +47,16 @@ export const ClientManagementScreen: React.FC = () => {
     try {
       const unsubscribe = subscribeToClients(
         (data) => {
-          setClients(data.length > 0 ? data : SAMPLE_CLIENTS);
+          setClients(data);
           setLoading(false);
         },
         (_error) => {
-          logger.warn("Error en listener de clientes, usando fallback");
-          setClients(SAMPLE_CLIENTS);
+          logger.warn("Error en listener de clientes en Firestore");
+          setClients([]);
+          setStatusMessage({
+            type: "error",
+            text: "No se pudo cargar el directorio de clientes desde Firestore.",
+          });
           setLoading(false);
         }
       );

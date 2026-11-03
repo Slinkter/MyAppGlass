@@ -126,6 +126,17 @@ describe('SEO JSON-LD Generators & Metadata Helpers', () => {
     expect(project.name).toBe('Residencia La Planicie');
     expect(project.locationCreated.name).toBe('La Molina, Lima');
     expect(project.dateCreated).toBe('2026-05-10');
+
+    const nonIsoProject = getProjectJsonLd(
+      {
+        title: 'Edificio Surco',
+        description: 'Mamparas y barandas.',
+        location: 'Surco, Lima',
+        completedAt: 'Mayo 2026',
+      },
+      'https://www.gyacompany.com/proyectos/13'
+    );
+    expect(nonIsoProject.dateCreated).toBeUndefined();
   });
 
   it('should generate valid WebApplication Schema', () => {

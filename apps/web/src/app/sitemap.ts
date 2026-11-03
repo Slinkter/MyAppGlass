@@ -6,6 +6,7 @@ import { getBuildProjects, getBuildServices } from "@/shared/api/firebase/public
 export const dynamic = "force-static";
 
 const DEFAULT_LAST_MODIFIED = new Date("2026-11-02");
+const BUILD_DATE = new Date();
 
 const PRIORITY_SERVICE_SLUGS = new Set(["ventana", "mampara", "baranda", "techo", "ducha"]);
 
@@ -49,14 +50,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [services, projects] = await Promise.all([getBuildServices(), getBuildProjects()]);
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: SITE_URL, lastModified: DEFAULT_LAST_MODIFIED, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${SITE_URL}/contacto`, lastModified: DEFAULT_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE_URL}/presupuesto`, lastModified: DEFAULT_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE_URL}/simulador-ai`, lastModified: DEFAULT_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/blog`, lastModified: DEFAULT_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${SITE_URL}/libro-de-reclamacion`, lastModified: DEFAULT_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.4 },
-    { url: `${SITE_URL}/cuentas-bancarias`, lastModified: DEFAULT_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.4 },
-    { url: `${SITE_URL}/politicas-empresa`, lastModified: DEFAULT_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.3 },
+    { url: SITE_URL, lastModified: BUILD_DATE, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${SITE_URL}/contacto`, lastModified: BUILD_DATE, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/presupuesto`, lastModified: BUILD_DATE, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/simulador-ai`, lastModified: BUILD_DATE, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/blog`, lastModified: BUILD_DATE, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/libro-de-reclamacion`, lastModified: BUILD_DATE, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${SITE_URL}/cuentas-bancarias`, lastModified: BUILD_DATE, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${SITE_URL}/politicas-empresa`, lastModified: BUILD_DATE, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const servicePages: MetadataRoute.Sitemap = services.map((service) => ({

@@ -5,10 +5,9 @@ export const dynamic = "force-static";
 
 const DISALLOW_PATHS = [
   "/api/",
-  "/admin/",
-  "/auth/",
-  "/design-system/",
-  "/design-system-ubicacion/",
+  "/admin",
+  "/auth",
+  "/design-system",
   "/servicios/ver",
   "/proyectos/ver",
 ];

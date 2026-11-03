@@ -21,7 +21,7 @@ export default function manifest(): MetadataRoute.Manifest {
       },
       {
         src: "/logovcr.png",
-        sizes: "512x512",
+        sizes: "906x904",
         type: "image/png",
       },
     ],
