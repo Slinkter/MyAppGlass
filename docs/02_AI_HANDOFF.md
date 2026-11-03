@@ -17,6 +17,12 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 
 ---
 
+## 🆕 Cambios 2026-11-03
+
+* **Commit `a91a9ab`** (merge de `feat(perf)`): optimización de rutas SSG, mapa a 120 fps e inventario/listados con complejidad O(1) (`apps/web/src/shared/utils/algorithm-utils.ts`).
+* **Plan 16 (`docs/16_PLAN_OPTIMIZACION_PESO_REPO.md`)**: purga de imágenes sin uso en `apps/web/public/images` (≈ -23 MB).
+* **Plan 17 (`docs/17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md`)**: auditoría de complejidad de los 311 archivos `.ts`/`.tsx` de `apps/web/src/`, con catálogo de operaciones lineales (`.find()`, `.filter()`, `.indexOf()`) y su ruta de optimización.
+
 ## 🆕 Actualización 2026-11-02 (rama `feat/ux-ui-2026-11-02`, desplegada)
 
 * **Desplegado hoy:** `functions` (3 funciones) y `hosting`. Detalle y commits en `docs/05_CHANGELOG.md`.

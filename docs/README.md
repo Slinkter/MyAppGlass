@@ -31,11 +31,19 @@ Documento técnico de referencia · Versión 2.0 · 2026
 │   ├── 3.4. Estrategia de SEO Técnico, Grafos de Conocimiento y Marketing (SEO & Discovery)
 │   │   ├── 09_PLAN_SEO_CONTENIDOS.md
 │   │   ├── 10_SEO_JERARQUIA.md
-│   │   └── 11_MANUAL_SEO_LOCAL.md
+│   │   ├── 11_MANUAL_SEO_LOCAL.md
+│   │   └── 14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md
 │   ├── 3.5. Plataforma Transaccional: E-Commerce, Inventario, Presupuestos y AR (Next Generation)
 │   │   └── 12_PLAN_ECOMMERCE_INVENTARIO_AR.md
-│   └── 3.6. Gestión Ágil por Sprints: Framework Scrum y Roles Seniors (Agile Operations)
-│       └── 13_PLAN_TRABAJO_SCRUM_FASES.md
+│   ├── 3.6. Gestión Ágil por Sprints: Framework Scrum y Roles Seniors (Agile Operations)
+│   │   └── 13_PLAN_TRABAJO_SCRUM_FASES.md
+│   ├── 3.7. Auditoría y Trazabilidad de Hallazgos (Audit)
+│   │   └── 15_LEVANTAMIENTO_OBSERVACIONES_AUDITORIA.md
+│   ├── 3.8. Optimización de Peso y Complejidad Algorítmica (Performance)
+│   │   ├── 16_PLAN_OPTIMIZACION_PESO_REPO.md
+│   │   └── 17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md
+│   └── 3.9. Archivo y Formación (Archive & Training)
+│       └── diplomado/ (README.md, brochure-isia.md, GOL.md archivado)
 ├── § 4. Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)
 ├── § 5. Guía de Operaciones y Casos de Uso Frecuentes (Standard Operating Procedures)
 └── § 6. Protocolo de Calidad, Verificación Formal y CI/CD
@@ -106,7 +114,7 @@ graph TD
 * **[3.1.5. `05_CHANGELOG.md`](./05_CHANGELOG.md):**
   Registro histórico de despliegues, optimizaciones y refactorizaciones.
 * **[3.1.6. `api/README.md`](./api/README.md) y `api/openapi.json`:**
-  Contrato de las Cloud Functions HTTP (`submitReclamo`, `submitContacto`, `checkStatus`) en OpenAPI 3.1. Lo genera `pnpm run contract:generate` desde los schemas Zod del backend; explica cómo lo consume el frontend y cómo cambiarlo. Otros documentos de trabajo en `docs/`: `PLAN-DISENO.md`, `DESIGN-SYSTEM-PLAN.md`, `SKILLS.md` y `GOL.md`.
+  Contrato de las Cloud Functions HTTP (`submitReclamo`, `submitContacto`, `checkStatus`) en OpenAPI 3.1. Lo genera `pnpm run contract:generate` desde los schemas Zod del backend; explica cómo lo consume el frontend y cómo cambiarlo. Otros documentos de trabajo en `docs/`: `PLAN-DISENO.md`, `DESIGN-SYSTEM-PLAN.md` y `SKILLS.md`. El histórico `GOL.md` fue archivado en `docs/diplomado/` (ver § 3.9).
 
 ---
 
@@ -139,6 +147,8 @@ graph TD
   Diccionario formal de etiquetas semánticas: `<title>`, `<meta name="description">`, encabezados H1 → H2 → H3 por ruta estática.
 * **[3.4.3. `11_MANUAL_SEO_LOCAL.md`](./11_MANUAL_SEO_LOCAL.md):**
   Manual de operaciones para dominancia local en La Molina, Lima (Google Business Profile, Google Search Console, Canonical 301, Citas NAP).
+* **[3.4.4. `14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md`](./14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md):**
+  Plan maestro SEO técnico: arquitectura de Sitelinks (`SiteNavigationElement`), metadata centralizada, Image Sitemap y telemetría GA4 / Search Console.
 
 ---
 
@@ -164,6 +174,35 @@ graph TD
 
 * **[3.6.1. `13_PLAN_TRABAJO_SCRUM_FASES.md`](./13_PLAN_TRABAJO_SCRUM_FASES.md):**
   Desglose operativo de los 5 Sprints del proyecto con checklist por especialista (Scrum Master, MBA, Arquitecto, Frontend, Backend, UI/UX, 3D Specialist, QA) y criterios de aceptación formales.
+
+---
+
+### 3.7. Auditoría y Trazabilidad de Hallazgos (Audit)
+
+**Dominio:** levantamiento de observaciones, cierre de hallazgos y trazabilidad.
+
+* **[3.7.1. `15_LEVANTAMIENTO_OBSERVACIONES_AUDITORIA.md`](./15_LEVANTAMIENTO_OBSERVACIONES_AUDITORIA.md):**
+  Segunda auditoría cruzada (código, telemetría, documentación y memoria de agentes) con el registro de hallazgos y su estado de cierre.
+
+---
+
+### 3.8. Optimización de Peso y Complejidad Algorítmica (Performance)
+
+**Dominio:** peso del repositorio y despliegue, complejidad O(1)/O(n) en el frontend.
+
+* **[3.8.1. `16_PLAN_OPTIMIZACION_PESO_REPO.md`](./16_PLAN_OPTIMIZACION_PESO_REPO.md):**
+  Diagnóstico y purga de imágenes sin uso rastreadas en Git (≈ 23 MB) y reducción del artefacto desplegable.
+* **[3.8.2. `17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md`](./17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md):**
+  Auditoría de complejidad de los archivos `.ts`/`.tsx` del frontend y ruta de optimización a O(1) (`apps/web/src/shared/utils/algorithm-utils.ts`).
+
+---
+
+### 3.9. Archivo y Formación (Archive & Training)
+
+**Dominio:** documentación histórica y material del diplomado ISIA aplicado al repositorio.
+
+* **[3.9.1. `diplomado/`](./diplomado/README.md):**
+  Guía de estudio del diplomado ISIA (`brochure-isia.md`, PDF original) y documento histórico archivado `diplomado/GOL.md`.
 
 ---
 

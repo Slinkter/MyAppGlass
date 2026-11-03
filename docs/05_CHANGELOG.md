@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-03] - Optimización Algorítmica O(1), Purga de Peso del Repositorio y Planes 16/17 (`docs/16_PLAN_OPTIMIZACION_PESO_REPO.md`, `docs/17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md`)
+
+### Changed
+- **Complejidad O(1) en rutas SSG, mapa (120 fps) e inventario/listados** (`apps/web/src/shared/utils/algorithm-utils.ts`, commit `a91a9ab`): búsquedas y resoluciones por `Map` en lugar de iteraciones lineales.
+- **Plan 17** (`docs/17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md`): auditoría de complejidad de los 311 archivos `.ts`/`.tsx` de `apps/web/src/`, con catálogo de operaciones lineales y su ruta de optimización.
+
+### Removed
+- **Plan 16 de peso del repo** (`docs/16_PLAN_OPTIMIZACION_PESO_REPO.md`): eliminación de imágenes sin uso en `apps/web/public/images` (≈ -23 MB).
+
+---
+
 ## [2026-11-02] - Optimización Integral de SEO Técnico, Sitelinks, Copywriting/Storytelling y Ecosistema Google (`docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md`)
 
 ### Added

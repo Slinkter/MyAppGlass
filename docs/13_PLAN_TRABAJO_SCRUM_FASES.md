@@ -70,7 +70,7 @@ Estado verificado contra el código el 2026-10-29 (HEAD `d4e6685`).
 - [ ] **1.5** Diseñar los hooks de negocio `useAuth` y `useUserProfile` con sincronización de Firestore.
   > Parcial: `useAuth` existe y expone `profile` y `role`; no hay un hook `useUserProfile` separado.
 - [ ] **1.6** Implementar guardias de rutas protegidas para la sección administrativa (`/admin/**`) y de cliente (`/mi-cuenta/**`).
-  > Parcial: `/admin/**` está protegido con `src/shared/components/guards/AdminRouteGuard.tsx` (guard en cliente; las rutas se prerenderizan estáticas). La ruta `/mi-cuenta` no existe.
+  > Parcial: `/admin/**` está protegido con `apps/web/src/features/auth/components/AdminRouteGuard.tsx` (guard en cliente; las rutas se prerenderizan estáticas). La ruta `/mi-cuenta` no existe.
 
 #### 3. 🎨 Lead Frontend & UI/UX Designer
 - [x] **1.7** Diseñar la pantalla de Login con estética Aura Glass en `src/screens/Auth/LoginScreen.tsx`.

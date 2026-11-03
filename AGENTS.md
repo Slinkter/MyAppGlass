@@ -39,7 +39,7 @@ apps/
 │   └── src/
 │       ├── app/              # Next.js App Router - wrappers ligeros (page.tsx, layout.tsx)
 │       ├── features/         # Dominios de negocio: services/, home/, projects/, blog/, admin/, ...
-│       ├── widgets/          # Componentes globales: AuraNavbar, AuraFooter, FloatingActions
+│       ├── widgets/          # Componentes globales: Navbar, Footer, FloatingActions
 │       └── shared/           # Utils transversales: logger.ts, api/firebase, hooks, constants
 ├── functions/                # @gya/functions: Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde Node.js 20 el 2026-10-29 por retiro del runtime)
 packages/
@@ -76,6 +76,7 @@ packages/
 - Adicionales: `Arenado`, `Diseño según cliente`
 
 **Simulador 3D (histórico, pendiente de re-implementación):**
+- El simulador vigente es `/simulador-ai`; el visor 3D anterior fue eliminado (`2ca4f3e`) y no debe reactivarse sin pedido explícito
 - NO es cotizador individual de precios — es simulador visual de características técnicas
 - Proporción: **65%** Visor 3D (izq) / **35%** Panel de configuración (der)
 - Altura estándar desktop: **`460px`**
