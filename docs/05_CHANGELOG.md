@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-02] - Optimización Integral de SEO Técnico, Sitelinks, Copywriting/Storytelling y Ecosistema Google (`docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md`)
+
+### Added
+- **Grafo JSON-LD con `SiteNavigationElement` (`#sitelinks`), `CreativeWork` y `WebApplication`** (`apps/web/src/shared/utils/seo-utils.ts`): `getCompanyJsonLd()` ahora incluye un nodo `ItemList` de `SiteNavigationElement` con las 8 rutas prioritarias para Google Sitelinks (`/servicios/ventana`, `/servicios/mampara`, `/servicios/baranda`, `/servicios/techo`, `/servicios/ducha`, `/presupuesto`, `/contacto`, `/blog`), además de `contactPoint`, `knowsAbout`, `getProjectJsonLd()` y `getWebAppJsonLd()`.
+- **Motor unificado `buildPageMetadata()` y `cleanSeoTitle()`** (`apps/web/src/shared/utils/seo-utils.ts`): centraliza `title`, `description`, `alternates.canonical`, `openGraph` (incluyendo `og:image`) y `twitter` en todas las rutas públicas, eliminando la duplicación del sufijo `| Glass & Aluminum Company S.A.C.`.
+- **Web App Manifest (`apps/web/src/app/manifest.ts`)**: genera `/manifest.webmanifest` estático con colores e íconos oficiales.
+- **Conexión con Google Analytics 4 (`G-TY0NJP1S81`), GTM y Search Console**:
+  - `apps/web/src/shared/lib/analytics.ts` y `apps/web/src/shared/components/Analytics/GoogleMetricsProvider.tsx` inicializan Firebase Analytics en cliente y registran vistas de página y eventos SEO.
+  - `apps/web/src/app/layout.tsx` soporta `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` y directivas `max-image-preview: "large"`.
+  - `firebase.json` actualiza la cabecera `Content-Security-Policy` para permitir `googletagmanager.com`, `google-analytics.com` y `firebaseinstallations.googleapis.com`.
+- **Blindaje `noindex` en rutas internas y shells CSR**: nuevos `layout.tsx` en `/admin`, `/servicios/ver` y `/proyectos/ver`, más `robots: { index: false }` en `/auth` y `/not-found`.
+
+### Changed
+- **`apps/web/src/app/robots.ts`**: se eliminó `/_next/` de `disallow` (permitiendo a Googlebot renderizar CSS/JS), se bloquearon `/admin/`, `/auth/`, `/design-system*`, `/servicios/ver` y `/proyectos/ver`, y se añadieron reglas explícitas para bots de búsqueda IA (`OAI-SearchBot`, `ChatGPT-User`, `Claude-SearchBot`, `Claude-User`, `PerplexityBot`) y bloqueo de `Bytespider`.
+- **`apps/web/src/app/sitemap.ts`**: incluye `/presupuesto` y `/simulador-ai`, asigna prioridad `0.9` a los 5 servicios clave de Sitelinks, resuelve `lastModified` real desde Firestore e incorpora **Image Sitemap** (`images`) en servicios, blog y proyectos.
+- **`apps/web/src/widgets/Footer/Footer.tsx` y `serviceMappers.ts`**: enlaces semánticos `<nav>` + `<Link>` a los 5 servicios principales de Sitelinks, dirección física `Av. Los Fresnos 1250 - La Molina` en el pie de página y diccionario `SERVICE_SEO_FALLBACKS` para los 10 servicios.
+- **Documentación sincronizada**: `docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md`, `docs/11_MANUAL_SEO_LOCAL.md` (guía paso a paso de Search Console y Google Business Profile con cuenta `luis.j.cueva@gmail.com`), `docs/10_SEO_JERARQUIA.md` y `docs/09_PLAN_SEO_CONTENIDOS.md`.
+
+### Removed
+- Plantillas HTML residuales de Firebase CLI en `apps/web/public/index.html` y `apps/web/public/404.html`.
+
+---
+
 ## [2026-11-02] - Rediseño UX/UI, contrato API y correos (rama `feat/ux-ui-2026-11-02`)
 
 Desplegado el 2026-11-02: `functions` (`submitReclamo`, `submitContacto`, `checkStatus`) y `hosting` (https://gya-app-4c8a9.web.app).

@@ -1,29 +1,25 @@
 # 🎯 JERARQUÍA SEO RECOMENDADA - GLASS & ALUMINUM COMPANY S.A.C.
 
-> **Estado (octubre 2026):** documento de referencia de la jerarquía SEO recomendada (títulos, descripciones, H1/H2 y keywords por ruta). Los metadatos ya están implementados en el código (`src/app/**/page.tsx`, `layout.tsx`, `sitemap.ts`, `robots.ts` y `src/shared/utils/seo-utils.ts`), con algunas diferencias respecto a lo recomendado aquí; la tabla siguiente las resume. Las secciones posteriores conservan el texto recomendado original.
+> **Estado (noviembre 2026):** la jerarquía SEO ha sido unificada mediante `buildPageMetadata()` y `cleanSeoTitle()` en `apps/web/src/shared/utils/seo-utils.ts` y `SERVICE_SEO_FALLBACKS` en `apps/web/src/features/services/hooks/serviceMappers.ts`. Todas las rutas públicas incluyen `<title>` limpio con sufijo único `| Glass & Aluminum Company S.A.C.`, `<meta name="description">` de 135–158 caracteres, `alternates.canonical`, `og:image` y `twitter:image`, mientras que las rutas privadas (`/admin/**`, `/auth`) y shells CSR (`/servicios/ver`, `/proyectos/ver`, `/not-found`) están protegidas con `robots: { index: false }`.
 
-### Estado real en el código (title)
+### Estado vigente en el código (`buildPageMetadata` + `layout.tsx`)
 
-| Ruta | Title en el código | ¿Coincide con lo recomendado? |
-|---|---|---|
-| `/` | `Vidriería en La Molina \| Glass & Aluminum Company S.A.C.` (`src/app/page.tsx`) | Sí |
-| `/servicios` | `Servicios de Vidriería y Aluminio \| GYA Company La Molina` | Sí |
-| `/servicios/ventana` | `Ventanas de Aluminio y Antirruido \| GYA La Molina` | Diferencia (recomendado: `Ventanas de Aluminio Antirruido \| GYA La Molina`) |
-| `/servicios/mampara` | `Mamparas de Vidrio Templado y Aluminio \| GYA Lima` | Diferencia |
-| `/servicios/ducha` | `Puertas de Ducha en Cristal Templado \| GYA La Molina` | Diferencia |
-| `/servicios/techo` | `Techos de Policarbonato y Cristal \| GYA La Molina` | Diferencia |
-| `/servicios/baranda` | `Barandas de Acero Inoxidable y Cristal \| GYA Lima` | Diferencia |
-| `/proyectos` | `Proyectos y Obras Entregadas \| GYA Glass & Aluminum` | Sí |
-| `/contacto` | `Cotizar Vidriería en La Molina \| GYA Company` | Sí |
-| `/blog` | `Blog de Vidriería y Aluminio \| Glass & Aluminum Company S.A.C.` | No (recomendado: `Blog de Vidriería y Arquitectura \| GYA Company`) |
-| `/politicas-empresa` | `Políticas de la Empresa y Garantías \| GYA Company` | Sí |
-| `/cuentas-bancarias` | `Cuentas Bancarias Oficiales \| GYA Company` | Sí |
-| `/libro-de-reclamacion` | `Libro de Reclamaciones \| Glass & Aluminum Company S.A.C.` | No (recomendado: `Libro de Reclamaciones Virtual \| GYA Company`) |
-
-Notas:
-- Los títulos de `/servicios/[serviceSlug]` provienen de `src/features/services/data/servicePageDataMap.ts` (campo `seo`); existen 10 servicios (`ventana`, `mampara`, `ducha`, `parapeto`, `baranda`, `balcones`, `techo`, `pvidrio`, `pserie`, `celosias`) y esta jerarquía solo recomienda 5.
-- Las meta descriptions no se contrastaron una a una: por ejemplo, la de `/` en el código ("Expertos en vidriería y aluminio en La Molina...") difiere de la recomendada ("Especialistas en vidriería..."), mientras que las de `/servicios`, `/proyectos`, `/contacto`, `/politicas-empresa` y `/cuentas-bancarias` sí coinciden. La de `/servicios/ventana` en el código es más corta que la recomendada.
-- Los posts de `/blog/[slug]` usan `<título del post> | Blog GYA Glass & Aluminum` (`generateMetadata` en `src/app/blog/[slug]/page.tsx`).
+| Ruta | Title base (el template añade `\| Glass & Aluminum Company S.A.C.`) | Prioridad Sitemap | Estado |
+|---|---|---|---|
+| `/` | `Vidriería en La Molina \| Ventanas Antirruido y Mamparas` | `1.0` | ✅ Sitelink Raíz |
+| `/servicios/ventana` | `Ventanas Antirruido y de Aluminio en Lima` | `0.9` | ✅ Sitelink Prioridad 1 |
+| `/servicios/mampara` | `Mamparas de Vidrio Templado y Aluminio en Lima` | `0.9` | ✅ Sitelink Prioridad 2 |
+| `/servicios/baranda` | `Barandas de Vidrio Templado y Acero Inoxidable` | `0.9` | ✅ Sitelink Prioridad 3 |
+| `/servicios/techo` | `Techos de Policarbonato y Sol y Sombra en Aluminio` | `0.9` | ✅ Sitelink Prioridad 4 |
+| `/servicios/ducha` | `Boxes y Puertas de Ducha en Vidrio Templado` | `0.9` | ✅ Sitelink Prioridad 5 |
+| `/presupuesto` | `Cotizador de Presupuestos de Vidrio y Aluminio Online` | `0.9` | ✅ Sitelink Conversión |
+| `/contacto` | `Cotizaciones y Contacto en La Molina, Lima` | `0.9` | ✅ Sitelink Contacto |
+| `/simulador-ai` | `Simulador Visual de Ventanas y Mamparas en Tu Espacio` | `0.8` | ✅ Herramienta Interactiva |
+| `/blog` | `Blog Técnico de Vidriería, Aluminio y Aislamiento Acústico` | `0.8` | ✅ Hub de Autoridad E-E-A-T |
+| `/proyectos/[projectId]` | `<Proyecto> en <Ubicación> \| Proyecto GYA` | `0.75` | ✅ Storytelling E-E-A-T + `CreativeWork` |
+| `/politicas-empresa` | `Políticas de la Empresa y Garantías` | `0.3` | ✅ Legal |
+| `/cuentas-bancarias` | `Cuentas Bancarias Oficiales` | `0.4` | ✅ Legal |
+| `/libro-de-reclamacion` | `Libro de Reclamaciones Virtual` | `0.4` | ✅ Legal |
 
 ---
 

@@ -5,7 +5,7 @@
 **Fecha de Creación:** 16 de Agosto de 2026  
 **Estado:** 🟡 En Planificación y Ejecución Activa  
 
-> **Nota de verificación (octubre 2026):** estado contrastado con el código. `src/app/sitemap.ts` y `src/app/robots.ts` existen (dominio `https://www.gyacompany.com`; `robots.ts` permite `/` y bloquea `/api/` y `/_next/`, e indica el sitemap). El blog tiene **10 posts** en `src/features/blog/data/blog-posts.ts` (no solo los dos artículos pilar de abajo). Los generadores JSON-LD están en `src/shared/utils/seo-utils.ts` (`LocalBusiness`/`HomeAndConstructionBusiness`, `Service`, `BreadcrumbList`, `FAQPage`) y `BlogPosting` se inyecta en `src/app/blog/[slug]/page.tsx`. Los metadatos reales por ruta están contrastados en [10_SEO_JERARQUIA.md](./10_SEO_JERARQUIA.md). El Sprint 5 (SEO local externo) sigue pendiente porque depende de Google Business Profile y Search Console, que no se verifican desde el código.
+> **Nota de verificación (noviembre 2026):** estado contrastado con el código tras la optimización integral de Sitelinks, JSON-LD y Ecosistema Google ([14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md](./14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md)). `src/app/sitemap.ts` incluye todas las rutas estáticas (incluyendo `/presupuesto` y `/simulador-ai`), los 10 servicios con prioridades Sitelinks (`0.9` / `0.85`), los 10 posts del blog y los proyectos con Image Sitemap. `src/app/robots.ts` desbloquea `/_next/`, bloquea rutas privadas/shells (`/admin/`, `/auth/`, `/design-system*`, `/servicios/ver`, `/proyectos/ver`) y habilita bots de búsqueda IA. `src/shared/utils/seo-utils.ts` incluye `WebSite`, `LocalBusiness`/`HomeAndConstructionBusiness`, `SiteNavigationElement` (`#sitelinks`), `Service`, `CreativeWork`, `WebApplication`, `BreadcrumbList`, `FAQPage` y el motor `buildPageMetadata()`.
 
 ---
 
@@ -13,11 +13,11 @@
 
 | Sprint / Fase | Objetivo Principal | Rol Responsable | Prioridad | Estado |
 | :--- | :--- | :--- | :--- | :--- |
-| **Sprint 1** | Auditoría & Enriquecimiento de Metadatos On-Page | `seo-copywriter` | 🔴 Alta | ✅ Completado |
+| **Sprint 1** | Auditoría & Enriquecimiento de Metadatos On-Page (`buildPageMetadata`) | `seo-copywriter` | 🔴 Alta | ✅ Completado |
 | **Sprint 2** | Calendario Editorial & Artículos de Autoridad (Blog) | `storyteller-content-strategist` | 🟡 Alta | ✅ Completado |
-| **Sprint 3** | Arquitectura Silo, Topic Clusters & Enlazado Interno | `seo-copywriter` | 🟢 Media | ✅ Completado |
-| **Sprint 4** | Rich Snippets Avanzados (`FAQPage` & `Article` Schema) | `Lead SEO Architect` | 🔵 Media | ✅ Completado |
-| **Sprint 5** | SEO Local, Consistencia NAP & Google Maps | `Lead SEO Architect` | 🟣 Continua | ⏳ Pendiente |
+| **Sprint 3** | Arquitectura Silo, Sitelinks en Footer & Enlazado Interno | `seo-copywriter` | 🟢 Media | ✅ Completado |
+| **Sprint 4** | Rich Snippets Avanzados (`SiteNavigationElement`, `FAQPage`, `CreativeWork`, `WebApplication`) | `Lead SEO Architect` | 🔵 Media | ✅ Completado |
+| **Sprint 5** | SEO Local, Consistencia NAP (`Av. Los Fresnos 1250 - La Molina`) & Google Maps | `Lead SEO Architect` | 🟣 Continua | ✅ Código / ⏳ Externo |
 
 ---
 
@@ -87,10 +87,10 @@
 ## 📌 Sprint 5: Dominio de SEO Local & Google Business Profile
 *Objetivo: Capturar los primeros lugares en el mapa de Google (Local 3-Pack) en La Molina y distritos vecinos.*
 
-- [ ] **5.1 Consistencia NAP (Name, Address, Phone):**
-  - [ ] Asegurar que el nombre (*Glass & Aluminum Company S.A.C.*), dirección (*Av. Los Fresnos 1214-1274, La Molina*) y teléfono (*+51 974 278 303*) sean 100% idénticos en la web, redes sociales y ficha de Google.
-- [ ] **5.2 Coordenadas Geográficas y Horarios:**
-  - [ ] Coordenadas fijas `-12.0867, -76.9315` y horario oficial de Lunes a Sábado de 08:00 a 18:00 en toda la estructura de datos.
+- [x] **5.1 Consistencia NAP (Name, Address, Phone):**
+  - [x] Asegurar que el nombre (*Glass & Aluminum Company S.A.C.*), dirección oficial (*Av. Los Fresnos 1250 - La Molina*), correo (*acueva@gyacompany.com*) y teléfono (*+51 974 278 303*) sean 100% idénticos en la web, Footer, JSON-LD y ficha de Google Business Profile (`luis.j.cueva@gmail.com`).
+- [x] **5.2 Coordenadas Geográficas y Horarios:**
+  - [x] Coordenadas fijas `-12.0867, -76.9315` y horario oficial de Lunes a Sábado de 08:00 a 18:00 en toda la estructura de datos.
 - [ ] **5.3 Landing Pages Locales por Distrito (Evolutivo):**
   - [ ] Evaluar creación de sub-páginas hiperlocales: *"Vidriería en Surco"*, *"Vidriería en San Borja"*, *"Vidriería en Miraflores"*.
 
