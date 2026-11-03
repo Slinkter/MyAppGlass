@@ -49,17 +49,6 @@ export const metadata: Metadata = {
     alternates: {
         canonical: SITE_URL,
     },
-    robots: {
-        index: true,
-        follow: true,
-        googleBot: {
-            index: true,
-            follow: true,
-            "max-image-preview": "large",
-            "max-snippet": -1,
-            "max-video-preview": -1,
-        },
-    },
     ...(env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
         ? {
               verification: {

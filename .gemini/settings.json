@@ -32,7 +32,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "@playwright/mcp"
+        "@playwright/mcp@latest"
       ]
     },
     "firebase-mcp-server": {
@@ -55,7 +55,7 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "/mnt/c/Users/luisj/Desktop/Github/MyAppGlass"
+        "."
       ]
     }
   },

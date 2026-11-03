@@ -8,11 +8,11 @@
 ## 📊 Barra de Progreso en Tiempo Real
 
 ```text
-Progreso Remediación: [█████████░░░] 75% (3 / 4 Fases completadas)
+Progreso Remediación: [████████████] 100% (4 / 4 Fases completadas)
 ├── [🟢 100%] Fase 1: Telemetría Limpia GA4/GTM (send_page_view: false, prod-only, import() dinámico)
 ├── [🟢 100%] Fase 2: Ajustes Finos SEO, robots.txt, 404, Dimensiones OG, JSON-LD ISO y Retiro de SAMPLE_CLIENTS
 ├── [🟢 100%] Fase 3: Corrección de Deriva Documental en 6 Archivos .md (01, 02, 03, 05, 07, README, diplomado)
-└── [⏳   0%] Fase 4: Saneamiento de Memoria de Agentes (gya-cms SKILL.md, MCP unificado y Build/Audit Final)
+└── [🟢 100%] Fase 4: Saneamiento de Memoria de Agentes (gya-cms SKILL.md, MCP unificado y Build/Audit Final)
 ```
 
 ---
@@ -54,5 +54,5 @@ Progreso Remediación: [█████████░░░] 75% (3 / 4 Fases c
 
 | ID | Archivo | Problema Detectado | Estado | Corrección Aplicada |
 |---|---|---|---|---|
-| **MEM-01** | `.gemini/skills/gya-cms/SKILL.md` | Obsoleto y peligroso: manda editar `src/features/projects/data/projects.ts` y `services.ts` (eliminados), usar `npx eslint src` y dice que `scripts/` no existe. | ⏳ En curso (Fase 4) | Reescrito íntegramente para reflejar Firestore (`servicesRepository.ts`, `projectsRepository.ts`, `publicRest.ts`), `scripts/generate-openapi.cjs` y validación con `pnpm run typecheck && pnpm run lint && pnpm run build`. |
-| **MEM-02** | `.gemini/settings.json`, `.mcp.json`, `.agents/mcp_config.json` | 3 fuentes divergentes de MCP y ruta absoluta de Windows `/mnt/c/Users/luisj/Desktop/Github/MyAppGlass` en `.gemini/settings.json`. | ⏳ En curso (Fase 4) | Ruta de Windows reemplazada por `"."` y servidores MCP alineados en los 3 archivos. |
+| **MEM-01** | `.gemini/skills/gya-cms/SKILL.md` | Obsoleto y peligroso: manda editar `src/features/projects/data/projects.ts` y `services.ts` (eliminados), usar `npx eslint src` y dice que `scripts/` no existe. | ✅ Levantada | Reescrito íntegramente en [`.gemini/skills/gya-cms/SKILL.md`](../.gemini/skills/gya-cms/SKILL.md) para reflejar Firestore (`servicesRepository.ts`, `projectsRepository.ts`, `publicRest.ts`), `scripts/generate-openapi.cjs` y validación con `pnpm run typecheck && pnpm run lint && pnpm run build`. |
+| **MEM-02** | `.gemini/settings.json`, `.mcp.json`, `.agents/mcp_config.json` | 3 fuentes divergentes de MCP y ruta absoluta de Windows `/mnt/c/Users/luisj/Desktop/Github/MyAppGlass` en `.gemini/settings.json`. | ✅ Levantada | Ruta de Windows reemplazada por `"."` en [`.gemini/settings.json`](../.gemini/settings.json) y servidores MCP alineados en [`.mcp.json`](../.mcp.json) y [`.agents/mcp_config.json`](../.agents/mcp_config.json). |
