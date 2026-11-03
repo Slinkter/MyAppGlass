@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { env } from "@/shared/config/env";
-import { trackSeoEvent } from "@/shared/lib/analytics";
+import { isProductionAnalyticsEnabled, trackSeoEvent } from "@/shared/lib/analytics";
 
 declare global {
   interface Window {
@@ -17,8 +17,12 @@ export default function GoogleMetricsProvider() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (!isProductionAnalyticsEnabled() || typeof document === "undefined") {
+      return;
+    }
+
     const gtmId = env.NEXT_PUBLIC_GTM_ID?.trim();
-    if (!gtmId || typeof document === "undefined") {
+    if (!gtmId) {
       return;
     }
 
@@ -40,28 +44,34 @@ export default function GoogleMetricsProvider() {
   }, []);
 
   useEffect(() => {
-    if (!pathname || typeof window === "undefined") {
+    if (!pathname || !isProductionAnalyticsEnabled()) {
       return;
     }
+
+    const gtmId = env.NEXT_PUBLIC_GTM_ID?.trim();
 
     const timer = window.setTimeout(() => {
       const pageTitle = document.title;
       const pageLocation = window.location.href;
 
-      trackSeoEvent("page_view", {
-        page_path: pathname,
-        page_location: pageLocation,
-        page_title: pageTitle,
-      });
-
-      if (Array.isArray(window.dataLayer)) {
+      // Si hay un contenedor GTM configurado, delegamos la vista de página a dataLayer
+      // para evitar doble medición en caso de que GTM ya contenga una etiqueta GA4.
+      if (gtmId) {
+        window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "virtual_page_view",
           page_path: pathname,
           page_location: pageLocation,
           page_title: pageTitle,
         });
+        return;
       }
+
+      trackSeoEvent("page_view", {
+        page_path: pathname,
+        page_location: pageLocation,
+        page_title: pageTitle,
+      });
     }, 0);
 
     return () => window.clearTimeout(timer);
