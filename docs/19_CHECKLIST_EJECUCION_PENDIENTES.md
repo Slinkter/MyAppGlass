@@ -151,3 +151,29 @@
 5. DSN de Sentry (F7.4) y autorización de functions (F7.5, F7.9).
 6. Modelos `.glb` y `.usdz` (F6).
 7. Acciones externas: F8.4 y F9.7.
+
+## Estado al cierre (2026-11-03)
+
+**Despliegue**
+- [x] Hosting desplegado manualmente con `pnpm run deploy:hosting` (proyecto `gya-app-4c8a9`). Rutas en vivo verificadas (200): `/`, `/tienda`, `/tienda/checkout` (con `noindex`), `/vidrieria/surco`, `/presupuesto`, `/mi-cuenta`, `/sitemap.xml`, `/robots.txt`.
+- [x] Rama `plan/pendientes-fases` mergeada en `main` (fast-forward, `406fd4b`) y subida a `origin`.
+- [x] CI corregido (`09b5323`): el typecheck corre después del build, porque `next-env.d.ts` (tipos de `*.svg`) se genera en el build. CI pasa en `main`.
+- [ ] **Pendiente tuyo:** el workflow `Deploy Production` falla porque falta el secreto `FIREBASE_SERVICE_ACCOUNT_GYA_APP_4C8A9` en GitHub Actions. Opciones: `firebase init hosting:github` (interactivo, lo crea solo) o una clave de cuenta de servicio cargada con `gh secret set`. Cuando exista, cada push a `main` desplegará solo.
+
+**Seguridad (decisiones y acciones tuyas)**
+- [ ] Rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (F1.9). Quedaron en `apps/functions/.env` y en una conversación.
+- [ ] Decidir `isAdmin()` en `firestore.rules` (correo `@gyacompany.com` verificado = admin).
+- [ ] Restringir por dominio la API key web de Firebase en `apps/web/src/shared/config/env.ts` (es pública por diseño).
+- [ ] Revisar el commit `f28b102` (`firebase.json`, congelado): no lo reconozco.
+
+**Pendientes técnicos**
+- [ ] F4.5: el checkout guarda el pedido solo por WhatsApp (decisión tomada). Migrar a Cloud Function con reCAPTCHA más adelante.
+- [ ] F5.4 y F5.2: el contador de presupuesto es público (acepta huecos), y el QR apunta a `/presupuesto?n=`, que aún no consume el número.
+- [ ] F6 (realidad aumentada): faltan los modelos `.glb` y `.usdz`.
+- [ ] F7.4 y F7.5 (Sentry): falta el DSN.
+- [ ] F7.9 (auditoría de reclamos): requiere autorizar cambios en `apps/functions`.
+- [ ] F7.6–F7.8: los archivos de GCP están en `gcp/`, pero no verificado si están aplicados en el proyecto.
+- [ ] Plan 17: 5 filas pendientes de optimización (FloatingPanel, ProjectCarousel, OrderDraftContext, PrototypeTimeline, ProjectDetail).
+- [ ] F8.4 (Google Maps y NAP) y F9.7 (prueba manual en navegador): acciones tuyas.
+- [ ] Confirmar que tu cuenta admin tiene `users/{uid}.role = 'admin'` en Firestore.
+- [ ] Las reglas de esta rama (`presupuestos_solicitados`, `contadores`, `users`, `clientes`) están validadas en el emulador (16/16) pero **no desplegadas** en Firestore.

@@ -31,7 +31,10 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
   - **GCP:** configuraciones de alertas, uptime y BigQuery en `gcp/`. Son archivos válidos (`gcp/scripts/validate-configs.mjs`), pero **no verificado** si están aplicadas en el proyecto.
   - **⚠️ Reglas de Firestore:** los cambios de `firestore.rules` de esta rama **no están desplegados**. `presupuestos_solicitados` y `contadores` existen solo en el repo.
   - **Pendiente:** `isAdmin()` en `firestore.rules` da admin a correos `@gyacompany.com` verificados (decisión abierta). Sentry (F7.4, F7.5) y auditoría de reclamos (F7.9) dependen de DSN y de autorizar `apps/functions`. F6 (AR) espera los modelos `.glb`/`.usdz`. F8.4 (Google Maps/NAP) y F9.7 (prueba en navegador) son del usuario. Rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (F1.9).
-  - **Deploy:** no hecho. Solo `pnpm run deploy:hosting` / `deploy:functions` si el usuario lo pide.
+  - **Deploy hosting (2026-11-03):** hecho manualmente con `pnpm run deploy:hosting` desde `main` (`406fd4b`). Rutas verificadas en `https://gya-app-4c8a9.web.app`.
+  - **CI:** corregido en `09b5323` (typecheck después del build). Pasa en `main`.
+  - **Deploy automático:** `Deploy Production` falla hasta que exista el secreto `FIREBASE_SERVICE_ACCOUNT_GYA_APP_4C8A9` en GitHub Actions. Ver checklist `docs/19`, sección "Estado al cierre".
+  - **Functions:** no desplegadas. Solo con petición explícita.
 
 ## 🆕 Actualización 2026-11-02 (rama `feat/ux-ui-2026-11-02`, desplegada)
 
