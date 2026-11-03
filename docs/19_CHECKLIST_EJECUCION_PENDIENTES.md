@@ -44,7 +44,7 @@
 - [x] F2.1 Bloquear auto-asignación de rol admin (1.3): `firestore.rules` restringe `role` y `AuthContext` ya no asigna admin por correo. **Confirmar:** la cuenta admin debe tener `users/{uid}.role = 'admin'` en Firestore.
 - [x] F2.2 Hook `useUserProfile` (1.5)
 - [x] F2.3 Guardias de `/admin` y `/mi-cuenta` (1.6)
-- [x] F2.4 Validación estricta DNI 8 / RUC 11 (1.8)
+- [x] F2.4 Validación estricta DNI 8 / RUC 11 (1.8): en el esquema y en el formulario de registro (`995ee90`)
 - [x] F2.5 Tests de `auth-service` (1.10): escritos, **no ejecutados**
 - [x] F2.6 Verificar `typecheck` y `build`
 - [x] F2.7 Commit de control `dd9b246`

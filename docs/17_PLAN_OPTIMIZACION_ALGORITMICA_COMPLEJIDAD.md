@@ -167,3 +167,45 @@ pnpm run lint
 # 4. Build de exportación estática (60 rutas / 56 HTML)
 pnpm run build
 ```
+
+---
+
+## 🗂️ 5. Estado de filas no aplicadas
+
+Verificación del 2026-11-03 de las 25 filas de la matriz sin registro en el commit `63532ae` (filas 1, 2, 6, 7, 8, 10, 16, 19, 20, 23, 24 y 28 sí se tocaron). Se revisó el archivo actual con búsqueda en código.
+
+- **PENDIENTE:** el problema de complejidad sigue existiendo y el cambio sí mejora la complejidad.
+- **DESCARTADA:** el archivo ya no existe, o el cambio no mejora la complejidad (p. ej. `.filter(Boolean)`, `slice` directo, filtro único O(n) sin búsquedas repetidas, o búsqueda por substring donde O(log n) no aplica).
+
+| Fila | Archivo | Estado | Motivo |
+|---|---|---|---|
+| 3 | `apps/web/src/shared/api/firebase/publicRest.ts` | DESCARTADA | Filtro único O(n) por llamada; cachearlo no cambia la complejidad |
+| 4 | `apps/web/src/features/services/hooks/useServices.ts` | DESCARTADA | Filtro único O(n) seguido de `map`; no hay búsquedas repetidas |
+| 5 | `apps/web/src/features/projects/hooks/projectMappers.ts` | DESCARTADA | Filtro único O(n) seguido de `map`; sin búsquedas repetidas |
+| 9 | `apps/web/src/features/location/useLocationData.ts` | DESCARTADA | Deduplicación ya se hace con `Set` en O(n) |
+| 11 | `apps/web/src/features/location/immersive/FloatingPanel.tsx` | PENDIENTE | `filter` con `arr.indexOf(src)` es O(n²); cambiar a `Set` dedupe en O(n) |
+| 12 | `apps/web/src/features/location/immersive/ProjectCarousel.tsx` | PENDIENTE | `items.indexOf(activeElement)` en cada tecla es O(n); `Map<Element, number>` lo deja en O(1) (n pequeño, impacto bajo) |
+| 13 | `apps/web/src/features/home/hooks/useMapProjects.ts` | DESCARTADA | `map` + `filter` en una sola pasada O(n); sin búsqueda |
+| 14 | `apps/web/src/features/products/context/OrderDraftContext.tsx` | PENDIENTE | `items.findIndex` por producto es O(n) en cada alta; índice `Map<productId, index>` lo reduce a O(1) |
+| 15 | `apps/web/src/features/products/services/orderService.ts` | DESCARTADA | `find` sobre pedidos locales; construir un `Map` por llamada cuesta igual O(n) |
+| 17 | `apps/web/src/screens/Admin/InventoryDashboardScreen.tsx` | DESCARTADA | Filtro por substring en nombre, SKU y categoría; búsqueda binaria no aplica |
+| 18 | `apps/web/src/screens/Admin/SalesOrderScreen.tsx` | DESCARTADA | Filtro por substring; O(log n) no aplica |
+| 21 | `apps/web/src/screens/Admin/ClientManagementScreen.tsx` | DESCARTADA | Filtro por substring en varios campos; O(log n) no aplica |
+| 22 | `apps/web/src/screens/Admin/ReportsScreen.tsx` | DESCARTADA | Filtro por substring en varios campos; O(log n) no aplica |
+| 25 | `apps/web/src/screens/Services/ui/ServiceDetailView.tsx` | DESCARTADA | `.split("/").filter(Boolean)` sobre la ruta; costo constante |
+| 26 | `apps/web/src/screens/Projects/ui/ProjectDetailView.tsx` | DESCARTADA | `.split("/").filter(Boolean)` sobre la ruta; costo constante |
+| 27 | `apps/web/src/shared/hooks/ui/useImagePrefetch.ts` | DESCARTADA | `filter(Boolean)` sobre URLs; no mejora la complejidad |
+| 29 | `apps/web/src/features/admin/components/AlbumGalleryUploader.tsx` | DESCARTADA | Eliminar por índice con `filter` es O(n) igual que `slice` |
+| 30 | `apps/web/src/features/admin/components/form/FeaturesEditor.tsx` | DESCARTADA | Eliminar por índice con `filter` es O(n) igual que `slice` |
+| 31 | `apps/web/src/screens/DesignSystemUbicacion/prototypes/PrototypeFilters.tsx` | DESCARTADA | Un `find` por cambio dentro de `useMemo`; un `Map` cuesta lo mismo |
+| 32 | `apps/web/src/screens/DesignSystemUbicacion/prototypes/PrototypeTimeline.tsx` | PENDIENTE | `years.map` con `projects.filter` por año es O(Y·n); agrupar en una pasada con `Map<year, Project[]>` lo deja en O(n) |
+| 33 | `apps/web/src/screens/DesignSystemUbicacion/prototypes/PrototypeSedeFirst.tsx` | DESCARTADA | Un solo `filter` por año dentro de `useMemo`; sin búsquedas repetidas |
+| 34 | `apps/web/src/screens/DesignSystemUbicacion/prototypes/filters/ProjectDetail.tsx` | PENDIENTE | `all.indexOf(src) === i` dentro de `filter` es O(n²); cambiar a `Set` en O(n) |
+| 35 | `apps/web/src/screens/DesignSystemUbicacion/prototypes/sede/SedeProjectCard.tsx` | DESCARTADA | `.filter(Boolean).join(...)` sobre 2 elementos; costo constante |
+| 36 | `apps/web/src/screens/DesignSystemUbicacion/prototypes/split/SplitProjectRow.tsx` | DESCARTADA | `.filter(Boolean).join(...)` sobre 2 elementos; costo constante |
+| 37 | `apps/web/src/screens/DesignSystemUbicacion/prototypes/sheet/SheetHandle.tsx` | DESCARTADA | `indexOf` sobre `SHEET_POSITIONS`, array fijo de tamaño constante |
+
+**Conteo:** 5 PENDIENTE, 20 DESCARTADA (total 25).
+
+**PENDIENTE:** filas 11, 12, 14, 32, 34.
+
