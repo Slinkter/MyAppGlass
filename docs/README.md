@@ -194,6 +194,10 @@ graph TD
   Diagnóstico y purga de imágenes sin uso rastreadas en Git (≈ 23 MB) y reducción del artefacto desplegable.
 * **[3.8.2. `17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md`](./17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md):**
   Auditoría de complejidad de los archivos `.ts`/`.tsx` del frontend y ruta de optimización a O(1) (`apps/web/src/shared/utils/algorithm-utils.ts`).
+* **[3.8.3. `18_REPORTE_PLANES_PENDIENTES.md`](./18_REPORTE_PLANES_PENDIENTES.md):**
+  Reporte de solo lectura del estado de los planes antes de ejecutarlos. Snapshot histórico: el estado vigente está en el `19`.
+* **[3.8.4. `19_CHECKLIST_EJECUCION_PENDIENTES.md`](./19_CHECKLIST_EJECUCION_PENDIENTES.md):**
+  Checklist vivo de la ejecución de pendientes por fases (F0–F10), con commit de control por fase, bloqueos y decisiones abiertas.
 
 ---
 

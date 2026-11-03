@@ -21,7 +21,17 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 
 * **Commit `a91a9ab`** (merge de `feat(perf)`): optimización de rutas SSG, mapa a 120 fps e inventario/listados con complejidad O(1) (`apps/web/src/shared/utils/algorithm-utils.ts`).
 * **Plan 16 (`docs/16_PLAN_OPTIMIZACION_PESO_REPO.md`)**: purga de imágenes sin uso en `apps/web/public/images` (≈ -23 MB).
-* **Plan 17 (`docs/17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md`)**: auditoría de complejidad de los 311 archivos `.ts`/`.tsx` de `apps/web/src/`, con catálogo de operaciones lineales (`.find()`, `.filter()`, `.indexOf()`) y su ruta de optimización.
+* **Plan 17 (`docs/17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md`)**: auditoría de complejidad de los 311 archivos `.ts`/`.tsx` de `apps/web/src/`, con catálogo de operaciones lineales (`.find()`, `.filter()`, `.indexOf()`) y su ruta de optimización. Estado de las 25 filas sin registro en la sección 5: 20 descartadas y 5 pendientes.
+* **Plan de pendientes (`docs/19_CHECKLIST_EJECUCION_PENDIENTES.md`)**, rama `plan/pendientes-fases`, sin mergear a `main`. Commits de control: F0 `796c06d`, F1 `2368df0`, F2 `dd9b246`, F3 `a2a5913`, F4 `1340b11`, F5 `8d6013b`, F7.1–F7.3 `e3a42cd`, F8 `b7101cb`, F9 `32c7f75`, F10 `1f80cd9`.
+  - **Auth:** el rol admin sale solo de `users/{uid}.role`. Ya no se asigna por correo desde el cliente. Registro de cliente valida DNI (8) o RUC (11).
+  - **Tienda:** `/tienda` y `/tienda/checkout`. El checkout envía el pedido por WhatsApp; **no** se guarda en Firestore (decisión tomada).
+  - **Presupuesto:** precios en `features/presupuesto/config/pricing.ts`, correlativo `GYA-AAAA-XXXX` transaccional (`contadores/presupuesto-AAAA`) y persistencia en `presupuestos_solicitados`.
+  - **Landings:** `/vidrieria/[distrito]` para Surco, San Borja y Miraflores.
+  - **Pruebas:** E2E Playwright (13/13 contra el export estático); tests unitarios 23/23; reglas de Firestore 16/16 con el emulador (`tests/rules/firestore.rules.test.mjs`).
+  - **GCP:** configuraciones de alertas, uptime y BigQuery en `gcp/`. Son archivos válidos (`gcp/scripts/validate-configs.mjs`), pero **no verificado** si están aplicadas en el proyecto.
+  - **⚠️ Reglas de Firestore:** los cambios de `firestore.rules` de esta rama **no están desplegados**. `presupuestos_solicitados` y `contadores` existen solo en el repo.
+  - **Pendiente:** `isAdmin()` en `firestore.rules` da admin a correos `@gyacompany.com` verificados (decisión abierta). Sentry (F7.4, F7.5) y auditoría de reclamos (F7.9) dependen de DSN y de autorizar `apps/functions`. F6 (AR) espera los modelos `.glb`/`.usdz`. F8.4 (Google Maps/NAP) y F9.7 (prueba en navegador) son del usuario. Rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (F1.9).
+  - **Deploy:** no hecho. Solo `pnpm run deploy:hosting` / `deploy:functions` si el usuario lo pide.
 
 ## 🆕 Actualización 2026-11-02 (rama `feat/ux-ui-2026-11-02`, desplegada)
 
