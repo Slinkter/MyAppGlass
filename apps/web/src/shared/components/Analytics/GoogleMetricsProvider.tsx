@@ -44,11 +44,27 @@ export default function GoogleMetricsProvider() {
       return;
     }
 
-    trackSeoEvent("page_view", {
-      page_path: pathname,
-      page_location: window.location.href,
-      page_title: document.title,
-    });
+    const timer = window.setTimeout(() => {
+      const pageTitle = document.title;
+      const pageLocation = window.location.href;
+
+      trackSeoEvent("page_view", {
+        page_path: pathname,
+        page_location: pageLocation,
+        page_title: pageTitle,
+      });
+
+      if (Array.isArray(window.dataLayer)) {
+        window.dataLayer.push({
+          event: "virtual_page_view",
+          page_path: pathname,
+          page_location: pageLocation,
+          page_title: pageTitle,
+        });
+      }
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, [pathname]);
 
   return null;

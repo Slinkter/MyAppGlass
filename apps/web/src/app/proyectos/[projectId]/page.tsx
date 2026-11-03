@@ -42,7 +42,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const rawTitle = project.seoTitle || `${project.title} en ${project.location} | Proyecto GYA`;
+  const includesLocation = project.title
+    .toLowerCase()
+    .includes(project.location.trim().toLowerCase());
+  const rawTitle =
+    project.seoTitle ||
+    (includesLocation
+      ? `${project.title} — Proyecto Ejecutado`
+      : `${project.title} — Proyecto en ${project.location}`);
   const rawDesc =
     project.seoDescription ||
     `${project.description} Obra ejecutada en ${project.location} por Glass & Aluminum Company S.A.C.`;

@@ -35,6 +35,20 @@ export interface BuildPageMetadataOptions {
 }
 
 /**
+ * Normaliza cualquier ruta de imagen (relativa o absoluta de Firebase Storage) a una URL absoluta canónica.
+ */
+export const resolveSeoImageUrl = (
+  image?: string,
+  fallbackPath = "/images/branding-LogoCompanytrans.webp"
+): string => {
+  const target = image?.trim() || fallbackPath;
+  if (target.startsWith("http://") || target.startsWith("https://")) {
+    return target;
+  }
+  return `${SITE_URL}${target.startsWith("/") ? target : `/${target}`}`;
+};
+
+/**
  * Construye un objeto `Metadata` completo de Next.js con canonical, OpenGraph y Twitter Card coherentes.
  */
 export const buildPageMetadata = (options: BuildPageMetadataOptions): Metadata => {
@@ -45,11 +59,7 @@ export const buildPageMetadata = (options: BuildPageMetadataOptions): Metadata =
       ? SITE_URL
       : `${SITE_URL}${options.path.startsWith("/") ? options.path : `/${options.path}`}`;
 
-  const imageUrl = options.image
-    ? options.image.startsWith("http")
-      ? options.image
-      : `${SITE_URL}${options.image.startsWith("/") ? options.image : `/${options.image}`}`
-    : `${SITE_URL}/logovcr.png`;
+  const imageUrl = resolveSeoImageUrl(options.image, "/logovcr.png");
 
   return {
     title: options.useAbsoluteTitle ? { absolute: fullTitle } : cleanTitle,
@@ -290,7 +300,7 @@ export const getBlogPostJsonLd = (
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": post.title,
-  "image": `${SITE_URL}${post.image}`,
+  "image": resolveSeoImageUrl(post.image),
   "datePublished": post.date,
   "dateModified": post.date,
   "author": {
@@ -320,7 +330,7 @@ export const getServiceJsonLd = (name: string, description: string, url: string,
   "name": name,
   "description": description,
   "url": url,
-  "image": image || `${SITE_URL}/images/branding-LogoCompanytrans.webp`,
+  "image": resolveSeoImageUrl(image),
   "provider": {
     "@type": "LocalBusiness",
     "name": "Glass & Aluminum Company S.A.C.",
@@ -363,7 +373,7 @@ export const getProjectJsonLd = (
   "name": project.title,
   "description": project.description,
   "url": url,
-  "image": project.coverImage || `${SITE_URL}/images/branding-LogoCompanytrans.webp`,
+  "image": resolveSeoImageUrl(project.coverImage),
   "creator": {
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,

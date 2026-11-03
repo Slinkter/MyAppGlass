@@ -7,6 +7,7 @@ import {
   getProjectJsonLd,
   getWebAppJsonLd,
   cleanSeoTitle,
+  resolveSeoImageUrl,
   buildPageMetadata,
 } from '@/shared/utils/seo-utils';
 
@@ -51,6 +52,21 @@ describe('SEO JSON-LD Generators & Metadata Helpers', () => {
     expect(cleanSeoTitle('Techos | GYA Lima')).toBe('Techos');
     expect(cleanSeoTitle('Duchas | GYA')).toBe('Duchas');
     expect(cleanSeoTitle('Título Limpio')).toBe('Título Limpio');
+  });
+
+  it('should normalize relative and absolute image URLs in resolveSeoImageUrl', () => {
+    expect(resolveSeoImageUrl('/images/ventana.webp')).toBe(
+      'https://www.gyacompany.com/images/ventana.webp'
+    );
+    expect(resolveSeoImageUrl('images/ventana.webp')).toBe(
+      'https://www.gyacompany.com/images/ventana.webp'
+    );
+    expect(resolveSeoImageUrl('https://firebasestorage.googleapis.com/v0/b/test/o/img.webp')).toBe(
+      'https://firebasestorage.googleapis.com/v0/b/test/o/img.webp'
+    );
+    expect(resolveSeoImageUrl(undefined)).toBe(
+      'https://www.gyacompany.com/images/branding-LogoCompanytrans.webp'
+    );
   });
 
   it('should build normalized Next.js Metadata in buildPageMetadata', () => {

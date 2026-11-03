@@ -9,6 +9,23 @@ const DEFAULT_LAST_MODIFIED = new Date("2026-11-02");
 
 const PRIORITY_SERVICE_SLUGS = new Set(["ventana", "mampara", "baranda", "techo", "ducha"]);
 
+/**
+ * Convierte rutas de imagen en URLs absolutas y escapa entidades XML (`&` -> `&amp;`),
+ * ya que Next.js `MetadataRoute.Sitemap` no escapa query params (como `&token=` de Firebase Storage)
+ * dentro de `<image:loc>`, lo que rompería el parser XML de Google Search Console.
+ */
+const toSitemapImageUrl = (rawUrl: string): string => {
+  const absolute = rawUrl.startsWith("http")
+    ? rawUrl
+    : `${SITE_URL}${rawUrl.startsWith("/") ? rawUrl : `/${rawUrl}`}`;
+  return absolute
+    .replace(/&(?!amp;|lt;|gt;|quot;|apos;)/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+};
+
 const resolveLastModified = (value: unknown, fallback: Date): Date => {
   if (!value) return fallback;
   if (value instanceof Date) {
@@ -47,9 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: resolveLastModified(service.updatedAt ?? service.createdAt, DEFAULT_LAST_MODIFIED),
     changeFrequency: "monthly",
     priority: PRIORITY_SERVICE_SLUGS.has(service.slug) ? 0.9 : 0.85,
-    images: service.coverImage
-      ? [service.coverImage.startsWith("http") ? service.coverImage : `${SITE_URL}${service.coverImage}`]
-      : undefined,
+    images: service.coverImage ? [toSitemapImageUrl(service.coverImage)] : undefined,
   }));
 
   const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
@@ -57,7 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: resolveLastModified(post.date, DEFAULT_LAST_MODIFIED),
     changeFrequency: "monthly",
     priority: 0.7,
-    images: post.image ? [`${SITE_URL}${post.image}`] : undefined,
+    images: post.image ? [toSitemapImageUrl(post.image)] : undefined,
   }));
 
   const projectPages: MetadataRoute.Sitemap = projects.map((project) => ({
@@ -65,9 +80,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: resolveLastModified(project.updatedAt ?? project.createdAt, DEFAULT_LAST_MODIFIED),
     changeFrequency: "monthly",
     priority: 0.75,
-    images: project.coverImage
-      ? [project.coverImage.startsWith("http") ? project.coverImage : `${SITE_URL}${project.coverImage}`]
-      : undefined,
+    images: project.coverImage ? [toSitemapImageUrl(project.coverImage)] : undefined,
   }));
 
   return [...staticPages, ...servicePages, ...blogPages, ...projectPages];

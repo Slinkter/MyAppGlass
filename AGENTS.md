@@ -48,6 +48,10 @@ packages/
 
 **Archivos clave:**
 - `apps/web/src/features/services/components/ServicePageLayout.tsx` — Layout maestro página de servicio
+- `apps/web/src/shared/utils/seo-utils.ts` — Motor central de Metadata (`buildPageMetadata`, `cleanSeoTitle`, `resolveSeoImageUrl`) y generadores Schema.org JSON-LD (`getCompanyJsonLd` con `SiteNavigationElement` `#sitelinks`, `Service`, `CreativeWork`, `WebApplication`, `BreadcrumbList`, `FAQPage`, `serializeJsonLd`)
+- `apps/web/src/app/sitemap.ts` y `apps/web/src/app/robots.ts` — Sitemap dinámico con Image Sitemap (escapando entidades XML en URLs de Firebase Storage) y reglas de rastreo (Googlebot + bots IA)
+- `apps/web/src/shared/lib/analytics.ts` y `apps/web/src/shared/components/Analytics/GoogleMetricsProvider.tsx` — Telemetría GA4 (`G-TY0NJP1S81`) y GTM opcional (`NEXT_PUBLIC_GTM_ID`)
+- `docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md` — Plan maestro SEO, arquitectura de Sitelinks y guía de contexto para auditoría cruzada entre modelos de IA
 > Nota: `VentanaConfigurador3DCard.tsx`, `ventanas-catalogo.json` y `three` eliminados en `2ca4f3e`; el simulador vigente es `/simulador-ai`. Reglas de negocio vigentes: 4 sistemas, tipos y colores (sección 3).
 
 ---
