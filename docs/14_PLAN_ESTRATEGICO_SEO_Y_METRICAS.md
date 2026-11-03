@@ -10,12 +10,12 @@
 ## 📊 Barra de Progreso en Tiempo Real
 
 ```text
-Progreso Global: [████████░░░░] 67% (4 / 6 Fases completadas)
+Progreso Global: [██████████░░] 83% (5 / 6 Fases completadas)
 ├── [🟢 100%] Fase 0: Línea Base, Limpieza de public/ y Registro de Plan Maestro
 ├── [🟢 100%] Fase 1: Schemas Zod, Grafo JSON-LD (SiteNavigationElement) y buildPageMetadata
 ├── [🟢 100%] Fase 2: Rastreo (robots.ts), Sitemap Dinámico + Image Sitemap (sitemap.ts) y Manifest
 ├── [🟢 100%] Fase 3: Ejecución Paralela — Copywriting, Storytelling, Sitelinks en Footer y noindex
-├── [🔄  95%] Fase 4: Conexión Ecosistema Google (GA4 G-TY0NJP1S81, GTM, Search Console y CSP)
+├── [🟢 100%] Fase 4: Conexión Ecosistema Google (GA4 G-TY0NJP1S81, GTM, Search Console y CSP)
 └── [🔄  80%] Fase 5: Sincronización Documental, Build Estático y Auditoría de .html
 ```
 
@@ -66,11 +66,11 @@ Progreso Global: [████████░░░░] 67% (4 / 6 Fases complet
 - [x] **3.D.** Commit Preventivo 4 (`feat(seo): aplicar copywriting, storytelling, enlaces sitelinks en footer y noindex en rutas internas`).
 
 ### Fase 4: Conexión Ecosistema Google (GA4 `G-TY0NJP1S81`, GTM, Search Console y CSP)
-- [ ] **4.1.** Crear `apps/web/src/shared/lib/analytics.ts` con inicialización segura de Firebase Analytics (`G-TY0NJP1S81`) y `trackEvent()`.
-- [ ] **4.2.** Crear `apps/web/src/shared/components/Analytics/GoogleMetricsProvider.tsx` para registro automático de vistas de página y contenedor opcional `NEXT_PUBLIC_GTM_ID`.
-- [ ] **4.3.** Actualizar `apps/web/src/app/layout.tsx` (`verification.google`, `robots` con `max-image-preview: large` y `<GoogleMetricsProvider />`) y `firebase.json` (CSP para dominios de Google Analytics / Tag Manager).
-- [ ] **4.4.** Validar `pnpm run typecheck && pnpm run lint`.
-- [ ] **4.5.** Commit Preventivo 5 (`feat(analytics): conectar firebase google analytics G-TY0NJP1S81, search console y csp`).
+- [x] **4.1.** Crear `apps/web/src/shared/lib/analytics.ts` con inicialización segura de Firebase Analytics (`G-TY0NJP1S81`) y `trackEvent()`.
+- [x] **4.2.** Crear `apps/web/src/shared/components/Analytics/GoogleMetricsProvider.tsx` para registro automático de vistas de página y contenedor opcional `NEXT_PUBLIC_GTM_ID`.
+- [x] **4.3.** Actualizar `apps/web/src/app/layout.tsx` (`verification.google`, `robots` con `max-image-preview: large` y `<GoogleMetricsProvider />`) y `firebase.json` (CSP para dominios de Google Analytics / Tag Manager).
+- [x] **4.4.** Validar `pnpm run typecheck && pnpm run lint`.
+- [x] **4.5.** Commit Preventivo 5 (`feat(analytics): conectar firebase google analytics G-TY0NJP1S81, search console y csp`).
 
 ### Fase 5: Sincronización Documental, Build Estático y Auditoría de `.html`
 - [ ] **5.1.** Actualizar `docs/09_PLAN_SEO_CONTENIDOS.md`, `docs/10_SEO_JERARQUIA.md`, `docs/11_MANUAL_SEO_LOCAL.md` (con guía paso a paso de Search Console y Google Business Profile en `luis.j.cueva@gmail.com`) y `docs/05_CHANGELOG.md`.

@@ -9,6 +9,7 @@ import { Footer } from "@/widgets/Footer";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { FloatingWhatsAppWrapper as FloatingWhatsApp, ThemeToggle } from "@/widgets/FloatingActions";
 import SkipLink from "@/shared/components/navigation/SkipLink";
+import GoogleMetricsProvider from "@/shared/components/Analytics/GoogleMetricsProvider";
 import { getCompanyJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
 
 import { env } from "@/shared/config/env";
@@ -45,6 +46,27 @@ export const metadata: Metadata = {
         "vidrio templado precio",
     ],
     authors: [{ name: "Glass & Aluminum Company S.A.C." }],
+    alternates: {
+        canonical: SITE_URL,
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+        },
+    },
+    ...(env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+        ? {
+              verification: {
+                  google: env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+              },
+          }
+        : {}),
     icons: {
         icon: [
             { url: "/favicon.svg", type: "image/svg+xml" },
@@ -103,6 +125,7 @@ export default function RootLayout({
             </head>
             <body>
                 <Providers>
+                    <GoogleMetricsProvider />
                     <Box minH="100dvh" position="relative">
                         <SkipLink />
 
