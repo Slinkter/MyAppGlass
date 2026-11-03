@@ -136,7 +136,7 @@
 
 ## Pendientes transversales
 
-- [ ] **Ejecutar tests escritos** (no corridos hasta ahora): `cart-engine`, `inventory-crud`, `auth-service`, `quote-calculator`, `quote-number`. Requiere permiso explícito, porque `AGENTS.md` prohíbe `test:run` sin pedido.
+- [x] **Ejecutar tests escritos:** `cart-engine`, `inventory-crud`, `auth-service`, `quote-calculator`, `quote-number`: 5/5 archivos y 23/23 tests pasan (verificado dos veces, exit 0). Corrido con vitest sobre esos archivos, no con `test:run` completo.
 - [ ] **Validar reglas de Firestore con emulador:** las nuevas de `presupuestos_solicitados` y `contadores`, y las de `users`/`clientes`. `tests/rules/rules-smoke.sh` no las cubre.
 - [ ] **Confirmar aplicación en GCP** de F7.6–F7.8 (ver sección F7).
 - [ ] **Confirmar admin en Firestore:** `users/{uid}.role = 'admin'` para la cuenta del responsable (F2.1).
