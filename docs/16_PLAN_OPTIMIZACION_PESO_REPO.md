@@ -9,9 +9,9 @@
 ## 📊 Barra de Progreso en Tiempo Real
 
 ```text
-Progreso Global: [███░░░░░░░░░] 25% (1 / 4 Fases completadas)
+Progreso Global: [██████░░░░░░] 50% (2 / 4 Fases completadas)
 ├── [🟢 100%] Fase 0: Creación de Rama, Registro de Plan Maestro y Commit Preventivo Inicial
-├── [⚪   0%] Fase 1: Purga de 31 imágenes JPG/PNG muertas en apps/web/src/assets/ (-18.10 MB)
+├── [🟢 100%] Fase 1: Purga de 31 imágenes JPG/PNG muertas en apps/web/src/assets/ (-18.10 MB)
 ├── [⚪   0%] Fase 2: Purga de 30 imágenes huérfanas en apps/web/public/images/ (-5.27 MB)
 └── [⚪   0%] Fase 3: Saneamiento de Cachés (.next + .pnpm), Build Limpio y Cierre Documental
 ```
@@ -40,10 +40,10 @@ Al auditar el repositorio antes de comenzar (`commit 089a45a`), el proyecto ocup
 - [x] **0.3.** Crear Commit Preventivo 0 (`docs(plan): registrar plan de diagnóstico y optimización de peso del repositorio`).
 
 ### Fase 1: Purga de 31 imágenes muertas en `apps/web/src/assets/` (`-18.10 MB`)
-- [ ] **1.1.** Conservar únicamente los 5 archivos en uso (`branding/logosvg.svg`, `branding/LogoIcon.tsx`, `bbva.svg`, `banconacion.svg`, `libro.svg`).
-- [ ] **1.2.** Eliminar `apps/web/src/assets/common/` (`11` archivos, `9.26 MB`), `apps/web/src/assets/home/` (`8` archivos, `7.56 MB`), `apps/web/src/assets/clients/` (`3` archivos, `1.14 MB`), `apps/web/src/assets/firma/` (`7` archivos, `29.4 KB`), `glassqr2026.jpg` (`71.7 KB`) y `branding/LogoCompanytrans.png` (`42.1 KB`).
-- [ ] **1.3.** Validar `pnpm run typecheck` y actualizar barra de progreso al `50%`.
-- [ ] **1.4.** Crear Commit Preventivo 1 (`chore(assets): eliminar 31 imagenes jpg/png sin uso en apps/web/src/assets (-18.1 MB)`).
+- [x] **1.1.** Conservar únicamente los 5 archivos en uso (`branding/logosvg.svg`, `branding/LogoIcon.tsx`, `bbva.svg`, `banconacion.svg`, `libro.svg`).
+- [x] **1.2.** Eliminar `apps/web/src/assets/common/` (`11` archivos, `9.26 MB`), `apps/web/src/assets/home/` (`8` archivos, `7.56 MB`), `apps/web/src/assets/clients/` (`3` archivos, `1.14 MB`), `apps/web/src/assets/firma/` (`7` archivos, `29.4 KB`), `glassqr2026.jpg` (`71.7 KB`) y `branding/LogoCompanytrans.png` (`42.1 KB`).
+- [x] **1.3.** Validar `pnpm run typecheck` y actualizar barra de progreso al `50%`.
+- [x] **1.4.** Crear Commit Preventivo 1 (`chore(assets): eliminar 31 imagenes jpg/png sin uso en apps/web/src/assets (-18.1 MB)`).
 
 ### Fase 2: Purga de 30 imágenes huérfanas en `apps/web/public/images/` (`-5.27 MB`)
 - [ ] **2.1.** Conservar intactas las 18 imágenes referenciadas por Blog, Clientes, Simulador AI, Cuentas Bancarias, SEO/Navbar y Design System (`2.33 MB`).
