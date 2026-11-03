@@ -45,7 +45,7 @@ const ViewSelector: React.FC<ViewSelectorProps> = React.memo(({ activeMode, onSe
       borderRadius="full"
       display="inline-flex"
       border="1px solid"
-      borderColor="border.glass"
+      borderColor="border.default"
       _dark={{ bg: "blackAlpha.400", borderColor: "whiteAlpha.100" }}
     >
       {viewSelectorOptions.map((opt) => {

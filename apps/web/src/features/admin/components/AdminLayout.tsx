@@ -56,7 +56,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
 
   return (
     <AdminRouteGuard>
-      <Box minH="100vh" bg="bg.canvas" py="8" px={{ base: "4", md: "8" }}>
+      <Box minH="100vh" bg="bg.page" py="8" px={{ base: "4", md: "8" }}>
         <Container maxW="7xl">
           {/* Barra de navegación administrativa */}
           <Box
@@ -88,7 +88,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                   bg="bg.subtle"
                   transition="border-color 0.2s ease, color 0.2s ease"
                   _hover={{
-                    color: "text.primary",
+                    color: "text.heading",
                     borderColor: "brand.primary",
                     bg: "surface.card",
                     transform: "translateY(-1px)",
@@ -175,7 +175,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           {title && (
             <VStack align="start" gap="1" mb="6">
               <HStack gap="2">
-                <Heading size="lg" fontWeight="bold" color="text.primary">
+                <Heading size="lg" fontWeight="bold" color="text.heading">
                   {title}
                 </Heading>
                 {badge && (

@@ -98,7 +98,7 @@ export function TrackingSection({
         </HStack>
 
         {trackingResult && (
-          <Box w="full" p="4" bg="whiteAlpha.100" _dark={{ bg: "blackAlpha.400" }} borderRadius="xl" border="1px solid" borderColor="border.glass">
+          <Box w="full" p="4" bg="whiteAlpha.100" _dark={{ bg: "blackAlpha.400" }} borderRadius="xl" border="1px solid" borderColor="border.default">
             <VStack align="flex-start" gap="3" w="full">
               <HStack justify="space-between" w="full" wrap="wrap" gap="2">
                 <VStack align="start" gap="0">

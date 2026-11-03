@@ -319,12 +319,8 @@ const config = defineConfig({
         "border.default": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.08)" } },
         "border.subtle": { value: { _light: "rgba(0,0,0,0.06)", _dark: "rgba(255,255,255,0.08)" } },
         "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
-        // @deprecated: usar border.default
-        "border.glass": { value: "{colors.border.default}" },
         // @deprecated: solo fallback en ProjectServiceSelect.tsx
         "border.slate": { value: "#e2e8f0" },
-        // @deprecated: usar bg.section
-        "bg.glass": { value: "{colors.bg.section}" },
 
         // Status Borders
         "status.dangerBorder": { value: "rgba(248, 113, 113, 0.25)" },
@@ -338,13 +334,6 @@ const config = defineConfig({
         "text.muted": { value: { _light: "{colors.gray.600}", _dark: "{colors.gray.400}" } },
         "text.subtle": { value: { _light: "{colors.gray.500}", _dark: "{colors.gray.400}" } },
 
-        // Alias usados por admin/contacto que no existían (Chakra emitía CSS inválido)
-        // @deprecated: usar text.heading
-        "text.primary": { value: "{colors.text.heading}" },
-        // @deprecated: usar bg.page
-        "bg.canvas": { value: "{colors.bg.page}" },
-        // @deprecated: usar bg.subtle
-        "surface.muted": { value: "{colors.bg.subtle}" },
         "text.accent": { value: { _light: "{colors.primary.600}", _dark: "{colors.primary.300}" } },
       },
     },

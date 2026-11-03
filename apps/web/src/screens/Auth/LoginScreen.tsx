@@ -123,7 +123,7 @@ export const LoginScreen: React.FC = () => {
           borderRadius="2xl"
           p={{ base: "6", md: "8" }}
           border="1px solid"
-          borderColor="border.glass"
+          borderColor="border.default"
           backdropFilter="blur(16px)"
           boxShadow="0 20px 40px rgba(0,0,0,0.2)"
         >
@@ -184,7 +184,7 @@ export const LoginScreen: React.FC = () => {
                 </Button>
               )}
 
-              <Button colorPalette="red" variant="ghost" w="full" size="sm" onClick={logout}>
+              <Button color="status.danger" variant="ghost" w="full" size="sm" onClick={logout}>
                 Cerrar Sesión
               </Button>
             </VStack>
@@ -201,7 +201,7 @@ export const LoginScreen: React.FC = () => {
         borderRadius="2xl"
         p={{ base: "6", md: "8" }}
         border="1px solid"
-        borderColor="border.glass"
+        borderColor="border.default"
         backdropFilter="blur(16px)"
         boxShadow="0 20px 40px rgba(0,0,0,0.2)"
       >
@@ -349,7 +349,7 @@ export const LoginScreen: React.FC = () => {
 
                 <Button
                   type="submit"
-                  colorPalette="green"
+                  variant="aura"
                   size="lg"
                   w="full"
                   mt="2"

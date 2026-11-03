@@ -281,7 +281,7 @@ const Footer = () => {
                         </FooterSection>
                     </SimpleGrid>
 
-                    <Separator borderColor="border.glass" mb="6" />
+                    <Separator borderColor="border.default" mb="6" />
 
                     <Flex
                         direction="column"

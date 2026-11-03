@@ -76,7 +76,7 @@ export default function ContactPageClient() {
         </Box>
 
         {/* SECCIÓN 2: Consulta tu Cotización */}
-        <VStack gap={6} align="flex-start" pt={8} borderTop="1px solid" borderColor="border.glass">
+        <VStack gap={6} align="flex-start" pt={8} borderTop="1px solid" borderColor="border.default">
           <Box>
             <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.15em" mb="2">
               Seguimiento

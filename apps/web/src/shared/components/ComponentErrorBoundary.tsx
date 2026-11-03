@@ -6,7 +6,8 @@
  * and display a user-friendly (or developer-friendly) fallback.
  */
 import { Component, ErrorInfo, ReactNode } from 'react';
-import { Box, Code, Heading, Text, VStack, Button } from '@chakra-ui/react';
+import { Box, Code, Heading, Text, VStack } from '@chakra-ui/react';
+import { Button } from '@/components/ui/button';
 import { logger } from '@/shared/utils/logger';
 import { env } from '@/shared/config/env';
 
@@ -74,7 +75,7 @@ class ComponentErrorBoundary extends Component<Props, State> {
 
             <Button
               size="sm"
-              colorPalette="red"
+              variant="brand"
               onClick={() => window.location.reload()}
             >
               Recargar página

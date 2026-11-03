@@ -23,7 +23,7 @@ const ProjectDetailItem: React.FC<ProjectDetailItemProps> = ({ icon: IconComp, l
       bg="bg.subtle"
       borderRadius="xl"
       border="1px solid"
-      borderColor="border.glass"
+      borderColor="border.default"
       transition="transform 0.2s ease, border-color 0.2s ease"
       _hover={{ transform: "translateX(2px)", borderColor: "primary.500" }}
     >

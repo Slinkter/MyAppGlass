@@ -96,7 +96,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
             overflow="hidden" 
             boxShadow="md"
             border="1px solid"
-            borderColor="border.glass"
+            borderColor="border.default"
           >
             <Box position="relative" w="full" h="full">
               <ImageRevealSkeleton loaded={loaded} />
@@ -153,14 +153,14 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
-          <Separator borderColor="border.glass" my="14" />
+          <Separator borderColor="border.default" my="14" />
 
           {/* Footer of the article */}
           <Flex w="full" justify="space-between" align="center">
             <HStack gap="4">
                <Text fontWeight="bold" color="text.heading">Compartir:</Text>
                {/* Simplified social sharing */}
-               <Box p="2" borderRadius="full" border="1px solid" borderColor="border.glass" _hover={{ bg: "text.accent", color: "white" }} cursor="pointer" transition="background-color 0.3s ease, color 0.3s ease">
+               <Box p="2" borderRadius="full" border="1px solid" borderColor="border.default" _hover={{ bg: "text.accent", color: "white" }} cursor="pointer" transition="background-color 0.3s ease, color 0.3s ease">
                  <LucideArrowRight size={18} />
                </Box>
             </HStack>

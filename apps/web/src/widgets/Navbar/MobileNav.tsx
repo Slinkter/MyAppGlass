@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import NAV_ITEMS from "@/shared/config/nav-items";
 import { companyData } from "@/shared/config/company-data";
 import { useColorMode } from "@/components/ui/color-mode-hooks";
@@ -168,24 +169,7 @@ const MobileNav = React.memo(() => {
                         animation="slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both"
                         mt={4}
                     >
-                        <Box
-                            asChild
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="center"
-                            gap={3}
-                            w="full"
-                            py={4}
-                            borderRadius="xl"
-                            bg="brand.whatsapp"
-                            color="white"
-                            fontWeight="600"
-                            fontSize="md"
-                            letterSpacing="0.1em"
-                            textTransform="uppercase"
-                            _hover={{ bg: "brand.whatsappHover" }}
-                            transition="background-color 0.2s ease"
-                        >
+                        <Button asChild variant="whatsapp" size="lg" w="full" gap={3}>
                             <a
                                 href={whatsappLink}
                                 target="_blank"
@@ -195,10 +179,10 @@ const MobileNav = React.memo(() => {
                                 <MessageCircle size={20} style={{ flexShrink: 0 }} />
                                 Chatea por WhatsApp
                             </a>
-                        </Box>
+                        </Button>
                     </Box>
 
-                    <Separator borderColor="border.glass" opacity={0.6} my={6} />
+                    <Separator borderColor="border.default" opacity={0.6} my={6} />
 
                     <SimpleGrid columns={2} gapY={5} gapX={4} w="full" mb={6}>
                         <UtilityLink
@@ -247,7 +231,7 @@ const MobileNav = React.memo(() => {
                             minH="44px"
                             borderRadius="full"
                             border="1px solid"
-                            borderColor="border.glass"
+                            borderColor="border.default"
                             color="text.heading"
                             _hover={{ bg: "bg.subtle" }}
                             transition="background-color 0.3s ease, color 0.3s ease"

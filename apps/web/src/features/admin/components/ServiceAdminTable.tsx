@@ -63,7 +63,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
         <VStack align="start" gap="0.5">
           <HStack gap="2">
             <Layers size={18} style={{ flexShrink: 0, color: "var(--chakra-colors-status-info)" }} />
-            <Text fontSize="md" fontWeight="bold" color="text.primary">
+            <Text fontSize="md" fontWeight="bold" color="text.heading">
               Catálogo de Servicios
             </Text>
             <Badge size="sm" variant="subtle" colorPalette="blue">
@@ -105,7 +105,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
           >
             <Layers size={32} style={{ flexShrink: 0 }} />
           </Box>
-          <Text fontWeight="semibold" color="text.primary">
+          <Text fontWeight="semibold" color="text.heading">
             No hay servicios registrados
           </Text>
           <Text color="text.muted" fontSize="sm" mt="1" maxW="400px" mx="auto">
@@ -201,7 +201,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
                         )}
                       </Box>
                       <VStack align="start" gap="0.5">
-                        <Text fontSize="sm" fontWeight="semibold" color="text.primary">
+                        <Text fontSize="sm" fontWeight="semibold" color="text.heading">
                           {item.title}
                         </Text>
                         <Text

@@ -17,7 +17,7 @@ export const QuoteConfigPanel: React.FC<QuoteConfigPanelProps> = ({ params, setP
       p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       border="1px solid"
-      borderColor="border.glass"
+      borderColor="border.default"
       backdropFilter="blur(12px)"
     >
       <Heading size="md" mb="6" display="flex" alignItems="center" gap="2">

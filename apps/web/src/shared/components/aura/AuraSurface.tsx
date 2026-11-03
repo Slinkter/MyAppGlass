@@ -25,7 +25,7 @@ const AuraSurface = React.memo(React.forwardRef<HTMLDivElement, AuraSurfaceProps
   return (
     <Box
       ref={ref}
-      bg={isStrong ? "bg.glass" : isGlass ? { _light: "rgba(255,255,255,0.25)", _dark: "rgba(10,10,12,0.35)" } : "surface.card"}
+      bg={isStrong ? "bg.section" : isGlass ? { _light: "rgba(255,255,255,0.25)", _dark: "rgba(10,10,12,0.35)" } : "surface.card"}
       backdropFilter={isGlass ? "blur(24px) saturate(180%)" : undefined}
       css={isGlass ? { WebkitBackdropFilter: "blur(24px) saturate(180%)" } : undefined}
       borderWidth="1px"

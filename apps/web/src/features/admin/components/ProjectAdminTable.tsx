@@ -63,7 +63,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
         <VStack align="start" gap="0.5">
           <HStack gap="2">
             <Building2 size={18} style={{ flexShrink: 0, color: "var(--chakra-colors-accent-violet)" }} />
-            <Text fontSize="md" fontWeight="bold" color="text.primary">
+            <Text fontSize="md" fontWeight="bold" color="text.heading">
               Portafolio de Proyectos y Obras
             </Text>
             <Badge size="sm" variant="subtle" colorPalette="purple">
@@ -105,7 +105,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
           >
             <Building2 size={32} style={{ flexShrink: 0 }} />
           </Box>
-          <Text fontWeight="semibold" color="text.primary">
+          <Text fontWeight="semibold" color="text.heading">
             No hay proyectos registrados en el portafolio
           </Text>
           <Text color="text.muted" fontSize="sm" mt="1" maxW="400px" mx="auto">
@@ -196,7 +196,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
                         )}
                       </Box>
                       <VStack align="start" gap="0.5">
-                        <Text fontSize="sm" fontWeight="semibold" color="text.primary">
+                        <Text fontSize="sm" fontWeight="semibold" color="text.heading">
                           {proj.title}
                         </Text>
                         <Badge size="xs" variant="surface" colorPalette="gray" fontFamily="mono">
@@ -209,7 +209,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
                   {/* Cliente & Ubicación */}
                   <Box as="td" p="4">
                     <VStack align="start" gap="1">
-                      <HStack gap="1.5" fontSize="xs" color="text.primary">
+                      <HStack gap="1.5" fontSize="xs" color="text.heading">
                         <User size={13} style={{ flexShrink: 0, color: "var(--chakra-colors-accent-violet)" }} />
                         <Text fontWeight="medium">{proj.client}</Text>
                       </HStack>

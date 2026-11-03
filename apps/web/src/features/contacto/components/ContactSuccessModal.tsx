@@ -66,7 +66,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
       <DialogContent
         bg="surface.card"
         border="1px solid"
-        borderColor="border.glass"
+        borderColor="border.default"
         backdropFilter="blur(16px)"
         boxShadow="0 24px 48px rgba(0,0,0,0.15)"
         borderRadius="2xl"
@@ -98,7 +98,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
             <Text fontSize="sm" color="text.body">
               Hemos registrado tu solicitud de cotización correctamente.
             </Text>
-            <VStack gap={1} bg="surface.muted" p={3} borderRadius="xl" border="1px solid" borderColor="border.default" w="full">
+            <VStack gap={1} bg="bg.subtle" p={3} borderRadius="xl" border="1px solid" borderColor="border.default" w="full">
               <Text fontSize="xs" color="text.muted" fontWeight="800" letterSpacing="widest" textTransform="uppercase">
                 Código de Seguimiento
               </Text>

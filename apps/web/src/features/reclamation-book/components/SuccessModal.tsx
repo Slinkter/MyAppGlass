@@ -46,7 +46,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
       <DialogContent
         bg="surface.card"
         border="1px solid"
-        borderColor="border.glass"
+        borderColor="border.default"
         backdropFilter="blur(16px)"
         boxShadow="modalLg"
         borderRadius="2xl"
@@ -56,7 +56,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
       >
         <DialogHeader pb="2">
           <HStack gap="3" align="center">
-            <Box color="green.500" display="flex" alignItems="center">
+            <Box color="status.success" display="flex" alignItems="center">
               <CheckCircle2 size={28} />
             </Box>
             <DialogTitle fontSize="lg" fontWeight="900" color="text.heading">
@@ -75,8 +75,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
             <Box
               p="4"
               borderRadius="xl"
-              bg="whiteAlpha.100"
-              _dark={{ bg: "blackAlpha.400" }}
+              bg="bg.subtle"
               border="1px dashed"
               borderColor="primary.500"
               textAlign="center"
@@ -92,7 +91,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
               </Text>
             </Box>
 
-            <HStack gap="2" p="3" borderRadius="lg" bg="blue.500/10" color="blue.400" fontSize="xs">
+            <HStack gap="2" p="3" borderRadius="lg" bg="status.infoSoft" color="status.info" fontSize="xs">
               <ShieldCheck size={18} style={{ flexShrink: 0 }} />
               <Text fontSize="xs">
                 Se ha remitido una copia completa a su correo electrónico. Plazo legal de respuesta: <strong>15 días hábiles improrrogables</strong>.

@@ -47,7 +47,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ value, label }) => {
         aria-label={`Copiar ${label}`}
         onClick={handleCopy}
         variant="ghost"
-        colorPalette={hasCopied ? "green" : "gray"}
+        color={hasCopied ? "status.success" : undefined}
         borderRadius="full"
       >
         {hasCopied ? <Check size={16} style={{ flexShrink: 0 }} /> : <Copy size={16} style={{ flexShrink: 0 }} />}

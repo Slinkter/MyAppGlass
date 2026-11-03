@@ -17,7 +17,7 @@ export const ProductSelector: React.FC<ProductSelectorProps> = ({ selectedProduc
       p={{ base: "4", md: "6" }}
       borderRadius="2xl"
       border="1px solid"
-      borderColor="border.glass"
+      borderColor="border.default"
       backdropFilter="blur(16px)"
     >
       <Heading size="md" mb="4" display="flex" alignItems="center" gap="2">

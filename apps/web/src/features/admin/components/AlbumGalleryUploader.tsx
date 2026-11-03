@@ -188,7 +188,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
     <VStack align="stretch" gap="3" w="full">
       <HStack justify="space-between" wrap="wrap">
         <HStack gap="2">
-          <Text fontSize="sm" fontWeight="semibold" color="text.primary">
+          <Text fontSize="sm" fontWeight="semibold" color="text.heading">
             {label}
           </Text>
           <Badge size="sm" variant="subtle" colorPalette="blue">
@@ -251,7 +251,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
               <UploadCloud size={20} style={{ flexShrink: 0 }} />
             </Box>
             <VStack align="start" gap="0">
-              <Text fontSize="xs" fontWeight="medium" color="text.primary">
+              <Text fontSize="xs" fontWeight="medium" color="text.heading">
                 Arrastra múltiples fotos para el álbum o haz clic aquí
               </Text>
               <Text fontSize="xs" color="text.muted">

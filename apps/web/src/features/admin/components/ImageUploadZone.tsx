@@ -134,7 +134,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
     <VStack align="stretch" gap="2" w="full">
       {label && (
         <HStack justify="space-between">
-          <Text fontSize="sm" fontWeight="semibold" color="text.primary">
+          <Text fontSize="sm" fontWeight="semibold" color="text.heading">
             {label}
           </Text>
           {value && (
@@ -283,7 +283,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
                   )}
                 </Box>
                 <VStack gap="0.5">
-                  <Text fontSize="sm" fontWeight="medium" color="text.primary">
+                  <Text fontSize="sm" fontWeight="medium" color="text.heading">
                     {isDragging ? "Suelta la imagen aquí" : "Arrastra o selecciona una foto"}
                   </Text>
                   <Text fontSize="xs" color="text.muted" maxW="320px">
@@ -294,7 +294,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
                   size="xs"
                   variant="outline"
                   borderColor="border.default"
-                  color="text.primary"
+                  color="text.heading"
                   mt="1"
                 >
                   Explorar archivo

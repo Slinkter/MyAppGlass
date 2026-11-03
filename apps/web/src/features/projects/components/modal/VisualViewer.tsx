@@ -70,7 +70,7 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
               overflow="hidden"
               boxShadow="2xl"
               border="1px solid"
-              borderColor="border.glass"
+              borderColor="border.default"
               bg="bg.subtle"
             >
               <MapViewer lat={lat!} lng={lng!} projectData={projectData} />
