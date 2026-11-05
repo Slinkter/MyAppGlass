@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--
+  TALLER 2 (Sesión 2) · FINAL · catalogo.html · HU-01
+  Resultado esperado de la primera tarea AI-Augmented: Claude Code propuso el plan y el código;
+  la persona revisó el plan, cada diff y verificó con teclado, 360 px y Lighthouse.
+  Las marcas [HU01-n] indican qué criterio de aceptación cumple cada parte.
+  Reglas del CLAUDE.md respetadas: solo tokens (0 #hex), componentes existentes, WCAG 2.2 AA.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Servicios · Barbería Don Raúl · TurnoYa</title>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/components.css">
+<style>
+  /* Solo layout de esta página. Todo valor sale de un token. */
+  header { background: var(--color-surface); border-bottom: 1px solid var(--color-divider); padding: var(--space-3) var(--space-4);
+           display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; }
+  header nav a { display: inline-block; padding: var(--space-3) var(--space-1); }
+  main { max-width: 960px; margin: var(--space-6) auto; padding: 0 var(--space-4); }
+  h1 { font-size: var(--font-size-2xl); margin: 0 0 var(--space-1); line-height: var(--line-height-tight); }
+  .sub { color: var(--color-text-muted); margin: 0 0 var(--space-5); }
+
+  /* [HU01-3] Filtros: chips con selección única */
+  .filters { display: flex; gap: var(--space-2); flex-wrap: wrap; margin: 0 0 var(--space-5); padding: 0; list-style: none; }
+  .chip {
+    min-height: var(--field-height); padding: 0 var(--space-4); border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text);
+    font: inherit; font-weight: var(--font-weight-medium); cursor: pointer;
+    display: inline-flex; align-items: center; gap: var(--space-1);
+  }
+  .chip:hover { background: var(--color-bg); }
+  /* activo: relleno + check + aria-pressed (no depende solo del color, WCAG 1.4.1) */
+  .chip[aria-pressed="true"] { background: var(--color-action-primary); color: var(--color-on-action); border-color: transparent; }
+  .chip[aria-pressed="true"]::before { content: "✓"; }
+
+  /* [HU01-2] Grilla intrínseca: 1 columna en móvil, varias en tablet sin media queries */
+  .service-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+                  list-style: none; margin: 0; padding: 0; }
+
+  /* [HU01-4] Toda la tarjeta es el enlace: área táctil grande */
+  .service-card { display: flex; flex-direction: column; gap: var(--space-1); min-height: 96px;
+                  color: inherit; text-decoration: none; padding: var(--space-5); }
+  .service-card:hover { box-shadow: var(--shadow-2), var(--card-shadow); }
+  .service-card .row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+  .service-card .card__title { margin: 0; font-weight: var(--font-weight-semibold); }
+  .service-card .card__meta { margin: 0; }
+  .service-card .cta { color: var(--color-action-primary); font-weight: var(--font-weight-semibold); margin-top: var(--space-2); }
+
+  /* [HU01-5] Skeleton */
+  .skeleton { display: grid; gap: var(--space-2); min-height: 96px; }
+  .skeleton span { display: block; height: var(--space-3); border-radius: var(--radius-pill); background: var(--color-surface-muted); }
+  .skeleton span:first-child { width: 60%; height: var(--space-4); }
+  .skeleton span:last-child { width: 35%; }
+
+  /* [HU01-6] Estado vacío */
+  .empty { text-align: center; }
+  .empty p { margin: 0 0 var(--space-4); }
+</style>
+</head>
+<body>
+<header>
+  <strong>TurnoYa</strong>
+  <nav aria-label="Principal"><a href="catalogo.html" aria-current="page">Servicios</a> <a href="#">Mis citas</a> <a href="#">Ayuda</a></nav>
+</header>
+
+<main>
+  <!-- [HU01-1] Datos del negocio -->
+  <h1>Barbería Don Raúl</h1>
+  <p class="sub">Av. Larco 345, Miraflores · Abierto hasta 8:00 p. m.</p>
+
+  <section aria-labelledby="titulo-servicios">
+    <h2 id="titulo-servicios" class="visually-hidden">Servicios</h2>
+
+    <ul class="filters" aria-label="Filtrar servicios por categoría" id="filtros"></ul>
+
+    <!-- aria-live anuncia cuántos resultados hay al filtrar -->
+    <p class="visually-hidden" id="anuncio" aria-live="polite"></p>
+
+    <ul class="service-grid" id="lista" aria-busy="true"></ul>
+
+    <div class="card empty" id="vacio" hidden>
+      <p id="vacio-texto"></p>
+      <button type="button" class="btn btn--secondary" id="ver-todos">Ver todos los servicios</button>
+    </div>
+  </section>
+</main>
+
+<script>
+  // [HU01-2] Datos (en la Sesión 3 vendrán de un contrato/DTO tipado)
+  const SERVICIOS = [
+    { id: 'corte-clasico',   nombre: 'Corte clásico',      categoria: 'cortes', minutos: 30, precio: 35 },
+    { id: 'perfilado-barba', nombre: 'Perfilado de barba', categoria: 'barba',  minutos: 20, precio: 25 },
+    { id: 'corte-barba',     nombre: 'Corte + barba',      categoria: 'combos', minutos: 45, precio: 55 },
+    { id: 'corte-ninos',     nombre: 'Corte para niños',   categoria: 'cortes', minutos: 25, precio: 30, nota: 'hasta 12 años' },
+  ];
+  const FILTROS = [
+    { id: 'todos', nombre: 'Todos' }, { id: 'cortes', nombre: 'Cortes' },
+    { id: 'barba', nombre: 'Barba' }, { id: 'combos', nombre: 'Combos' }, { id: 'tintes', nombre: 'Tintes' },
+  ];
+
+  const lista = document.getElementById('lista');
+  const vacio = document.getElementById('vacio');
+  const anuncio = document.getElementById('anuncio');
+  const filtrosEl = document.getElementById('filtros');
+  let servicios = [];
+  let filtroActivo = 'todos';
+
+  // [HU01-3] Filtros como botones con aria-pressed (selección única)
+  FILTROS.forEach(f => filtrosEl.insertAdjacentHTML('beforeend',
+    `<li><button type="button" class="chip" data-filtro="${f.id}" aria-pressed="${f.id === filtroActivo}">${f.nombre}</button></li>`));
+  filtrosEl.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-filtro]');
+    if (b) aplicarFiltro(b.dataset.filtro);
+  });
+  document.getElementById('ver-todos').addEventListener('click', () => {
+    aplicarFiltro('todos');
+    filtrosEl.querySelector('[data-filtro="todos"]').focus();
+  });
+
+  function aplicarFiltro(id) {
+    filtroActivo = id;
+    filtrosEl.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filtro === id)));
+    render();
+  }
+
+  // [HU01-4] Cada tarjeta completa es un enlace a la reserva
+  function tarjeta(s) {
+    const nota = s.nota ? ` · ${s.nota}` : '';
+    return `<li><a class="card service-card" href="reserva.html?servicio=${s.id}">
+      <span class="row"><span class="card__title">${s.nombre}</span><span class="card__price">S/ ${s.precio}</span></span>
+      <span class="card__meta">${s.minutos} min${nota}</span>
+      <span class="cta" aria-hidden="true">Elegir horario →</span>
+    </a></li>`;
+  }
+
+  function render() {
+    const visibles = servicios.filter(s => filtroActivo === 'todos' || s.categoria === filtroActivo);
+    lista.innerHTML = visibles.map(tarjeta).join('');
+    lista.setAttribute('aria-busy', 'false');
+    // [HU01-6] Estado vacío con salida clara
+    const nombre = FILTROS.find(f => f.id === filtroActivo).nombre;
+    vacio.hidden = visibles.length > 0;
+    document.getElementById('vacio-texto').textContent = `No hay servicios en "${nombre}" por ahora.`;
+    anuncio.textContent = visibles.length
+      ? `${visibles.length} servicio${visibles.length > 1 ? 's' : ''} en ${nombre}.`
+      : `Sin servicios en ${nombre}.`;
+  }
+
+  // [HU01-5] Estado de carga: skeleton mientras "llegan" los datos (600 ms simulados)
+  lista.innerHTML = Array.from({ length: 3 }, () =>
+    '<li class="card skeleton" aria-hidden="true"><span></span><span></span><span></span></li>').join('');
+  anuncio.textContent = 'Cargando servicios…';
+  setTimeout(() => { servicios = SERVICIOS; render(); }, 600);
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!--
+  TALLER 1 · FINAL · Wireframe de referencia (baja fidelidad) de TurnoYa
+  Es el RESULTADO ESPERADO del taller: lo que deberías obtener en Figma Make
+  después de iterar y revisar. También sirve como Plan B si te quedas sin créditos.
+
+  Reglas de baja fidelidad que respeta:
+    - Solo escala de grises: el color se decide después, con los tokens.
+    - Contenido REAL (servicios, precios, horarios), nunca "Lorem ipsum".
+    - Cada pantalla muestra al menos un estado además del "feliz".
+    - Las anotaciones (círculos numerados) explican decisiones para el desarrollador.
+  Ábrelo con Live Server. Cada marco mide 360 px (móvil) o 1024 px (tablet).
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe de referencia · TurnoYa</title>
+<style>
+  :root { --ink:#1f1f1f; --mid:#6b6b6b; --line:#9a9a9a; --soft:#e6e6e6; --paper:#ffffff; --bg:#f2f2f2; --note:#2b2b2b; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px; background: var(--bg); color: var(--ink);
+         font: 14px/1.45 "Segoe UI", system-ui, Arial, sans-serif; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .lead { color: var(--mid); margin: 0 0 24px; max-width: 900px; }
+  .board { display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
+  .frame-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .frame-title { font-weight: 700; font-size: 13px; }
+  .frame-title span { font-weight: 400; color: var(--mid); }
+  .frame { width: 360px; min-height: 740px; background: var(--paper); border: 2px solid var(--ink);
+           border-radius: 24px; padding: 16px; position: relative; display: flex; flex-direction: column; gap: 12px; }
+  .frame.tablet { width: 1024px; min-height: 600px; border-radius: 16px; }
+  .bar { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+  .logo { width: 84px; height: 20px; background: var(--soft); border: 1px solid var(--line); font-size: 11px; text-align: center; line-height: 18px; }
+  .icon { width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 6px; background: var(--soft); font-size: 11px; text-align: center; line-height: 26px; }
+  .h { font-size: 20px; font-weight: 700; margin: 0; }
+  .sub { color: var(--mid); margin: 0; font-size: 13px; }
+  .chips { display: flex; gap: 8px; overflow: hidden; }
+  .chip { border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 13px; white-space: nowrap; }
+  .chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: center; }
+  .img { width: 56px; height: 56px; background: var(--soft); border: 1px solid var(--line); border-radius: 8px; position: relative; overflow: hidden; }
+  .img::before, .img::after { content: ""; position: absolute; inset: 0; border-top: 1px solid var(--line); transform: rotate(45deg) scale(1.5); }
+  .img::after { transform: rotate(-45deg) scale(1.5); }
+  .card b { display: block; }
+  .meta { color: var(--mid); font-size: 13px; }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .btn { border: 2px solid var(--ink); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; font-weight: 600; padding: 0 14px; }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.ghost { border-style: dashed; color: var(--mid); }
+  .btn.sm { min-height: 36px; font-size: 13px; }
+  .sticky { margin-top: auto; border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; }
+  .days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .day { border: 1px solid var(--line); border-radius: 8px; text-align: center; padding: 6px 0; font-size: 12px; }
+  .day.on { background: var(--ink); color: var(--paper); }
+  .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .slot { border: 1px solid var(--line); border-radius: 8px; min-height: 44px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .slot.on { background: var(--ink); color: var(--paper); }
+  .slot.off { background: var(--soft); color: var(--mid); text-decoration: line-through; }
+  .label { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .input { border: 1px solid var(--line); border-radius: 8px; min-height: 44px; padding: 10px; color: var(--mid); font-size: 13px; }
+  .input.err { border: 2px solid var(--ink); }
+  .err-msg { font-size: 12px; margin-top: 4px; }
+  .err-msg::before { content: "⚠ "; }
+  .summary { border: 1px dashed var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 4px; }
+  .check { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--ink); margin: 24px auto 8px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+  .center { text-align: center; }
+  .code { font-size: 24px; font-weight: 700; letter-spacing: .15em; text-align: center; border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+  .state { border: 1px dashed var(--ink); border-radius: 12px; padding: 12px; background: #fafafa; }
+  .state-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--mid); margin-bottom: 6px; }
+  .skeleton { height: 12px; background: var(--soft); border-radius: 6px; margin: 6px 0; }
+  .note { position: absolute; width: 22px; height: 22px; border-radius: 50%; background: var(--note); color: #fff;
+          font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .notes { width: 360px; font-size: 12px; color: var(--ink); padding-left: 18px; margin: 4px 0 0; }
+  .notes li { margin-bottom: 4px; }
+  /* tablet */
+  .t-grid { display: grid; grid-template-columns: 220px 1fr; gap: 16px; flex: 1; }
+  .side { border-right: 1px solid var(--line); padding-right: 12px; display: grid; gap: 8px; align-content: start; }
+  .cal { display: grid; grid-template-columns: 64px repeat(3, 1fr); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .cal div { border-bottom: 1px solid var(--soft); border-right: 1px solid var(--soft); min-height: 44px; padding: 6px; font-size: 12px; }
+  .cal .hd { background: var(--soft); font-weight: 700; }
+  .appt { background: #d9d9d9; border-left: 0 !important; border-radius: 6px; margin: 2px; }
+  .blocked { background: repeating-linear-gradient(45deg, #eee, #eee 6px, #fff 6px, #fff 12px); color: var(--mid); }
+</style>
+</head>
+<body>
+<h1>TurnoYa · Wireframes de baja fidelidad</h1>
+<p class="lead">Flujo de Camila (cliente, móvil): Catálogo → Horario → Datos → Confirmación. Flujo de Don Raúl (dueño, tablet): Agenda del día.
+Escala de grises, contenido real y estados alternos. Los números son anotaciones para el desarrollador.</p>
+
+<div class="board">
+
+  <!-- ===================== 01 · CATÁLOGO (HU-01) ===================== -->
+  <div class="frame-wrap">
+    <div class="frame-title">01 · Catálogo de servicios <span>HU-01 · móvil 360</span></div>
+    <div class="frame" id="w-catalogo">
+      <div class="bar"><div class="logo">TurnoYa</div><div class="icon" aria-label="Menú">☰</div></div>
+      <div>
+        <p class="h">Barbería Don Raúl</p>
+        <p class="sub">Av. Larco 345, Miraflores · Abierto hasta 8:00 p. m.</p>
+      </div>
+      <div class="chips" role="list">
+        <span class="chip on">Todos</span><span class="chip">Cortes</span><span class="chip">Barba</span><span class="chip">Combos</span><span class="chip">Tintes</span>
+      </div>
+      <span class="note" style="top:150px;right:-11px">1</span>
+
+      <div class="card"><div class="img"></div><div>
+        <b>Corte clásico</b><div class="row"><span class="meta">30 min</span><b>S/ 35</b></div></div></div>
+      <div class="card"><div class="img"></div><div>
+        <b>Perfilado de barba</b><div class="row"><span class="meta">20 min</span><b>S/ 25</b></div></div></div>
+      <div class="card"><div class="img"></div><div>
+        <b>Corte + barba</b><div class="row"><span class="meta">45 min</span><b>S/ 55</b></div></div></div>
+      <div class="card"><div class="img"></div><div>
+        <b>Corte para niños</b><div class="row"><span class="meta">25 min · hasta 12 años</span><b>S/ 30</b></div></div></div>
+      <span class="note" style="top:250px;right:-11px">2</span>
+
+      <div class="state">
+        <div class="state-title">Estado vacío (filtro sin resultados)</div>
+        No hay servicios en "Tintes" por ahora.
+        <div class="btn sm ghost" style="margin-top:8px">Ver todos los servicios</div>
+      </div>
+      <div class="state">
+        <div class="state-title">Estado de carga</div>
+        <div class="skeleton" style="width:70%"></div><div class="skeleton" style="width:45%"></div>
+      </div>
+      <span class="note" style="top:600px;right:-11px">3</span>
+    </div>
+    <ol class="notes">
+      <li>Chips de filtro con selección única; el activo se distingue por relleno y por <code>aria-pressed</code>, no solo por color.</li>
+      <li>Toda la tarjeta es un enlace a "Elegir horario" (área táctil grande, Fitts). Precio alineado a la derecha para escanear.</li>
+      <li>Estados obligatorios: carga (skeleton, no spinner a pantalla completa) y vacío con salida clara.</li>
+    </ol>
+  </div>
+
+  <!-- ===================== 02 · HORARIO (HU-02) ===================== -->
+  <div class="frame-wrap">
+    <div class="frame-title">02 · Selección de horario <span>HU-02 · móvil 360</span></div>
+    <div class="frame">
+      <div class="bar"><div class="icon" aria-label="Volver">←</div><b>Elige tu horario</b><div style="width:28px"></div></div>
+      <div class="summary"><b>Corte clásico</b><span class="meta">30 min · S/ 35 · Don Raúl</span></div>
+      <div class="label">Día</div>
+      <div class="days">
+        <div class="day on">Lun<br><b>27</b></div><div class="day">Mar<br><b>28</b></div><div class="day">Mié<br><b>29</b></div><div class="day">Jue<br><b>30</b></div><div class="day">Vie<br><b>31</b></div>
+      </div>
+      <span class="note" style="top:170px;right:-11px">1</span>
+      <div class="label">Mañana</div>
+      <div class="slots">
+        <div class="slot off">9:00</div><div class="slot">9:30</div><div class="slot on">✓ 10:00</div>
+        <div class="slot">10:30</div><div class="slot off">11:00</div><div class="slot">11:30</div>
+      </div>
+      <div class="label">Tarde</div>
+      <div class="slots">
+        <div class="slot">3:00</div><div class="slot">3:30</div><div class="slot off">4:00</div>
+      </div>
+      <span class="note" style="top:330px;right:-11px">2</span>
+      <div class="state">
+        <div class="state-title">Estado sin disponibilidad</div>
+        No quedan horarios el lunes 27. <b>Próximo libre: martes 28, 9:30 a. m.</b>
+      </div>
+      <div class="sticky">
+        <div class="meta center">Lunes 27 · 10:00 a. m.</div>
+        <div class="btn primary">Continuar</div>
+      </div>
+      <span class="note" style="bottom:40px;right:-11px">3</span>
+    </div>
+    <ol class="notes">
+      <li>Fecha como tira de 5 días (menos carga que un calendario completo; Hick).</li>
+      <li>Horarios = radio buttons. Ocupado: tachado + fondo gris (no solo color). Seleccionado: relleno + check.</li>
+      <li>CTA fijo abajo en la zona del pulgar; repite la elección para confirmar sin volver a mirar arriba.</li>
+    </ol>
+  </div>
+
+  <!-- ===================== 03 · DATOS (HU-03) ===================== -->
+  <div class="frame-wrap">
+    <div class="frame-title">03 · Tus datos <span>HU-03 · móvil 360</span></div>
+    <div class="frame">
+      <div class="bar"><div class="icon">←</div><b>Confirma tu reserva</b><div style="width:28px"></div></div>
+      <div class="summary"><b>Corte clásico · S/ 35</b><span class="meta">Lunes 27 de octubre · 10:00 a. m.</span><span class="meta">Barbería Don Raúl · Miraflores</span></div>
+      <div><div class="label">Tu nombre</div><div class="input">Ej. Camila Torres</div></div>
+      <div><div class="label">Celular</div><div class="input err">98765</div><div class="err-msg">Escribe los 9 dígitos de tu celular. Ej.: 987 654 321</div></div>
+      <span class="note" style="top:250px;right:-11px">1</span>
+      <p class="meta">Puedes cancelar gratis hasta 2 horas antes. No se realiza ningún cobro en línea.</p>
+      <span class="note" style="top:330px;right:-11px">2</span>
+      <div class="sticky">
+        <div class="btn primary">Confirmar reserva</div>
+        <div class="state"><div class="state-title">Estado enviando</div><div class="btn primary" style="opacity:.7">◌ Reservando…</div></div>
+      </div>
+      <span class="note" style="bottom:40px;right:-11px">3</span>
+    </div>
+    <ol class="notes">
+      <li>Error junto al campo, en lenguaje del cliente y con ejemplo. Lo escrito no se borra (H9).</li>
+      <li>Condiciones visibles antes de confirmar: reduce ansiedad y llamadas.</li>
+      <li>Botón cambia a "Reservando…" y se bloquea: evita doble reserva (H1).</li>
+    </ol>
+  </div>
+
+  <!-- ===================== 04 · CONFIRMACIÓN (HU-03) ===================== -->
+  <div class="frame-wrap">
+    <div class="frame-title">04 · Confirmación <span>HU-03 · móvil 360</span></div>
+    <div class="frame">
+      <div class="bar"><div class="logo">TurnoYa</div><div style="width:28px"></div></div>
+      <div class="check" aria-hidden="true">✓</div>
+      <p class="h center">¡Listo, Camila!</p>
+      <p class="sub center">Tu cita quedó reservada. Te enviamos el detalle por SMS al 987 654 321.</p>
+      <div class="code">TY-4821</div>
+      <span class="note" style="top:300px;right:-11px">1</span>
+      <div class="summary"><b>Corte clásico · S/ 35</b><span class="meta">Lunes 27 de octubre · 10:00 a. m.</span><span class="meta">Av. Larco 345, Miraflores</span></div>
+      <div class="btn">Agregar a mi calendario</div>
+      <div class="btn ghost">Cancelar cita</div>
+      <span class="note" style="top:520px;right:-11px">2</span>
+      <div class="sticky"><div class="btn primary">Volver al inicio</div></div>
+    </div>
+    <ol class="notes">
+      <li>Código corto y legible para mostrar en el local. Se anuncia con <code>aria-live</code>.</li>
+      <li>Acción destructiva (cancelar) con menor peso visual y confirmación posterior.</li>
+    </ol>
+  </div>
+
+  <!-- ===================== 05 · AGENDA DEL NEGOCIO (HU-05/06) ===================== -->
+  <div class="frame-wrap">
+    <div class="frame-title">05 · Agenda del negocio <span>HU-05/06 · tablet 1024 horizontal</span></div>
+    <div class="frame tablet">
+      <div class="bar"><div class="logo">TurnoYa</div><b>Hoy · lunes 27 de octubre</b><div class="row"><div class="btn sm">◀ Ayer</div><div class="btn sm">Mañana ▶</div></div></div>
+      <div class="t-grid">
+        <div class="side">
+          <div class="summary"><b>9 citas hoy</b><span class="meta">2 libres · 1 bloqueado</span></div>
+          <div class="btn primary">+ Bloquear horario</div>
+          <div class="btn">Nueva cita manual</div>
+          <div class="label" style="margin-top:8px">Próxima cita</div>
+          <div class="summary"><b>10:00 · Camila T.</b><span class="meta">Corte clásico · TY-4821</span></div>
+        </div>
+        <div>
+          <div class="cal">
+            <div class="hd">Hora</div><div class="hd">Raúl</div><div class="hd">Diego</div><div class="hd">Lucía</div>
+            <div>9:00</div><div class="appt">Jorge P. · Corte</div><div></div><div class="appt">Ana R. · Barba</div>
+            <div>9:30</div><div></div><div class="appt">Luis M. · Corte + barba</div><div></div>
+            <div>10:00</div><div class="appt"><b>Camila T. · Corte</b></div><div></div><div class="blocked">Bloqueado · almuerzo</div>
+            <div>10:30</div><div></div><div></div><div class="blocked">Bloqueado · almuerzo</div>
+            <div>11:00</div><div class="appt">Pedro S. · Niños</div><div class="appt">Rosa V. · Corte</div><div></div>
+            <div>11:30</div><div></div><div></div><div></div>
+          </div>
+          <div class="state" style="margin-top:12px">
+            <div class="state-title">Estado sin conexión</div>
+            Sin conexión. Mostrando la agenda de las 9:42 a. m. Los cambios se guardarán al reconectar.
+          </div>
+        </div>
+      </div>
+      <span class="note" style="top:120px;left:-11px">1</span>
+      <span class="note" style="top:200px;right:-11px">2</span>
+    </div>
+    <ol class="notes" style="width:1024px">
+      <li>Panel lateral con resumen del día y acciones frecuentes de Don Raúl; botones de 44 px mínimo (usa la tablet de pie, con prisa).</li>
+      <li>Columnas por profesional; bloqueado con trama (no solo color). El estado sin conexión es crítico: el local tiene wifi inestable.</li>
+    </ol>
+  </div>
+
+</div>
+</body>
+</html>

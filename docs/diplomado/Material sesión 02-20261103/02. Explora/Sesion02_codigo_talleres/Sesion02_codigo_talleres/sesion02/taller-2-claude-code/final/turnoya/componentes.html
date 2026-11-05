@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+  TALLER 2 · FINAL · Catálogo de componentes de TurnoYa
+  Es la "vitrina" del design system: cada componente con sus variantes y estados.
+  Prueba: presiona "Tema oscuro". Ningún componente se modificó para soportarlo.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Componentes · TurnoYa</title>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/components.css">
+<style>
+  /* estilos solo de la vitrina (también con tokens) */
+  .page { max-width: 960px; margin: 0 auto; padding: var(--space-8) var(--space-4); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-bottom: var(--space-4); }
+  h2 { font-size: var(--font-size-xl); margin: var(--space-8) 0 var(--space-3); }
+  .demo { max-width: 360px; }
+  .card__footer { display: flex; justify-content: space-between; align-items: center; }
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="row" style="justify-content: space-between">
+    <h1 style="margin:0">Design System · TurnoYa</h1>
+    <button class="btn btn--secondary" id="toggle-theme" aria-pressed="false">Tema oscuro</button>
+  </div>
+
+  <h2>Button · variantes</h2>
+  <div class="row">
+    <button class="btn">Reservar</button>
+    <button class="btn btn--secondary">Ver detalle</button>
+    <button class="btn btn--danger">Cancelar cita</button>
+    <button class="btn btn--link">Volver</button>
+  </div>
+
+  <h2>Button · estados</h2>
+  <p>Usa <kbd>Tab</kbd> para ver el foco; pasa el mouse para <em>hover</em>; mantén presionado para <em>active</em>.</p>
+  <div class="row">
+    <button class="btn">Default</button>
+    <button class="btn" disabled>Disabled</button>
+    <button class="btn is-loading" aria-busy="true">Reservando…</button>
+    <button class="btn btn--secondary is-loading" aria-busy="true">Cargando…</button>
+  </div>
+
+  <h2>Field · normal y con error</h2>
+  <div class="demo">
+    <div class="field">
+      <label class="field__label" for="d1">Tu nombre</label>
+      <input class="field__control" id="d1" placeholder="Ej. Camila Torres">
+      <p class="field__error"></p>
+    </div>
+    <div class="field">
+      <label class="field__label" for="d2">Celular <span class="field__hint">(te enviaremos la confirmación)</span></label>
+      <input class="field__control" id="d2" value="12345" aria-invalid="true" aria-describedby="d2e">
+      <p class="field__error" id="d2e">Ingresa un celular de 9 dígitos que empiece con 9.</p>
+    </div>
+  </div>
+
+  <h2>Slot group · disponible, ocupado y seleccionado</h2>
+  <fieldset class="slot-group demo">
+    <legend>Horario</legend>
+    <div class="slot-group__grid">
+      <div class="slot"><input type="radio" name="d" id="s1"><label for="s1">9:00 a. m.</label></div>
+      <div class="slot"><input type="radio" name="d" id="s2" disabled><label for="s2">9:30 a. m.<span class="visually-hidden"> (ocupado)</span></label></div>
+      <div class="slot"><input type="radio" name="d" id="s3" checked><label for="s3">10:00 a. m.</label></div>
+    </div>
+  </fieldset>
+
+  <h2>Card de servicio</h2>
+  <article class="card demo">
+    <span class="badge">Disponible hoy</span>
+    <h3 class="card__title">Corte clásico</h3>
+    <p class="card__meta">30 min · Barbería Don Raúl</p>
+    <div class="card__footer">
+      <span class="card__price">S/ 35</span>
+      <button class="btn">Reservar</button>
+    </div>
+  </article>
+</main>
+
+<script>
+  // El tema se cambia con UN atributo en <html>. Los componentes no saben que existe.
+  const t = document.getElementById('toggle-theme');
+  t.addEventListener('click', () => {
+    const dark = document.documentElement.dataset.theme !== 'dark';
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    t.setAttribute('aria-pressed', String(dark));
+    t.textContent = dark ? 'Tema claro' : 'Tema oscuro';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+/* ==========================================================================
+   TurnoYa · components.css  (Taller 2 · FINAL)
+   Componentes que consumen SOLO tokens semánticos o de componente. Cero #hex.
+   Patrón: las VARIANTES reasignan tokens; los ESTADOS se escriben una sola vez.
+   ========================================================================== */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font-family-base); font-size: var(--font-size-md); line-height: var(--line-height-base);
+  color: var(--color-text); background: var(--color-bg);
+}
+a { color: var(--color-action-primary); }
+:focus-visible { outline: var(--focus-ring-width) solid var(--color-focus-ring); outline-offset: 2px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ==========================================================================
+   [T2-5] BUTTON
+   ========================================================================== */
+.btn {
+  /* A · tokens locales: cada variante puede reasignarlos */
+  --_bg:        var(--color-action-primary);
+  --_bg-hover:  var(--color-action-primary-hover);
+  --_bg-active: var(--color-action-primary-active);
+  --_fg:        var(--color-on-action);
+  --_border:    transparent;
+
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: var(--button-height); padding: 0 var(--button-padding-x);
+  border: 1px solid var(--_border); border-radius: var(--button-radius);
+  font: inherit; font-size: var(--button-font-size); font-weight: var(--font-weight-semibold);
+  background: var(--_bg); color: var(--_fg); cursor: pointer; text-decoration: none;
+  transition: background-color var(--duration-fast) ease;
+}
+
+/* B · variantes: 3–5 líneas, sin repetir reglas de estado */
+.btn--secondary {
+  --_bg: var(--color-surface); --_bg-hover: var(--color-bg); --_bg-active: var(--color-divider);
+  --_fg: var(--color-action-primary); --_border: var(--color-action-primary);
+}
+.btn--danger {
+  --_bg: var(--color-danger); --_bg-hover: var(--color-danger-hover); --_bg-active: var(--color-danger-hover);
+}
+.btn--link {
+  --_bg: transparent; --_bg-hover: transparent; --_bg-active: transparent;
+  --_fg: var(--color-action-primary); text-decoration: underline;
+}
+.btn--block { width: 100%; }
+
+/* [T2-6] C · estados (valen para todas las variantes) */
+.btn:hover:not(:disabled)  { background: var(--_bg-hover); }
+.btn:active:not(:disabled) { background: var(--_bg-active); transform: translateY(1px); }
+.btn:disabled {
+  background: var(--color-disabled-bg); color: var(--color-disabled-text);
+  border-color: transparent; cursor: not-allowed;
+}
+/* D · loading: bloquea el doble clic; el spinner usa el color del texto (currentColor) */
+.btn.is-loading { pointer-events: none; cursor: progress; }
+.btn.is-loading::before {
+  content: ""; width: 1em; height: 1em; border-radius: 50%;
+  border: 2px solid currentColor; border-right-color: transparent;
+  animation: btn-spin .8s linear infinite;
+}
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn.is-loading::before { animation-duration: 2.4s; }
+}
+
+/* ==========================================================================
+   [T2-7] FIELD (label + control + ayuda + error)
+   ========================================================================== */
+.field { margin-bottom: var(--space-5); }
+.field__label { display: block; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-2); }
+.field__hint  { color: var(--color-text-muted); font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); }
+.field__control {
+  width: 100%; min-height: var(--field-height); padding: var(--space-2) var(--space-3);
+  font: inherit; color: inherit; background: var(--color-surface);
+  border: 1px solid var(--field-border); border-radius: var(--field-radius);
+}
+.field__control[aria-invalid="true"] { border: 2px solid var(--color-danger); }
+.field__error { color: var(--color-danger); font-size: var(--font-size-sm); margin: var(--space-2) 0 0; min-height: 1.25em; }
+
+/* ==========================================================================
+   SLOT GROUP (horarios como radio buttons)
+   ========================================================================== */
+.slot-group { border: 0; padding: 0; margin: 0 0 var(--space-5); }
+.slot-group legend { font-weight: var(--font-weight-semibold); margin-bottom: var(--space-2); }
+.slot-group__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: var(--space-2); }
+.slot input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.slot label {
+  min-height: var(--field-height); display: flex; align-items: center; justify-content: center; gap: var(--space-1);
+  border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-medium); cursor: pointer;
+}
+.slot input:checked + label { background: var(--color-action-primary); color: var(--color-on-action); border-color: transparent; }
+.slot input:checked + label::before { content: "✓"; }
+.slot input:focus-visible + label { outline: var(--focus-ring-width) solid var(--color-focus-ring); outline-offset: 2px; }
+.slot input:disabled + label {
+  background: var(--color-surface-muted); color: var(--color-text-muted);
+  text-decoration: line-through; cursor: not-allowed;
+}
+
+/* ==========================================================================
+   CARD y BADGE
+   ========================================================================== */
+.card {
+  background: var(--card-bg); border-radius: var(--card-radius);
+  padding: var(--card-padding); box-shadow: var(--card-shadow);
+}
+.card__title { font-size: var(--font-size-lg); margin: var(--space-2) 0 var(--space-1); line-height: var(--line-height-tight); }
+.card__meta  { color: var(--color-text-muted); font-size: var(--font-size-sm); margin: 0 0 var(--space-4); }
+.card__price { color: var(--color-action-primary); font-size: var(--font-size-xl); font-weight: var(--font-weight-bold); }
+
+.badge {
+  display: inline-block; padding: 2px var(--space-2); border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
+  background: var(--color-success-bg); color: var(--color-success-text);
+}
