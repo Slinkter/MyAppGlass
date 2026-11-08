@@ -8,6 +8,10 @@ const DISALLOW_PATHS = [
   "/admin",
   "/auth",
   "/design-system",
+  "/design-system-ubicacion",
+  "/tienda",
+  "/tienda/",
+  "/mi-cuenta",
   "/servicios/ver",
   "/proyectos/ver",
 ];

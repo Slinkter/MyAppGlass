@@ -41,9 +41,12 @@ Documento técnico de referencia · Versión 2.0 · 2026
 │   │   └── 15_LEVANTAMIENTO_OBSERVACIONES_AUDITORIA.md
 │   ├── 3.8. Optimización de Peso y Complejidad Algorítmica (Performance)
 │   │   ├── 16_PLAN_OPTIMIZACION_PESO_REPO.md
-│   │   └── 17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md
+│   │   ├── 17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md
+│   │   ├── 18_REPORTE_PLANES_PENDIENTES.md
+│   │   ├── 19_CHECKLIST_EJECUCION_PENDIENTES.md
+│   │   └── 20_PLAN_TRABAJO_ANALISIS_FASES.md
 │   └── 3.9. Archivo y Formación (Archive & Training)
-│       └── diplomado/ (README.md, brochure-isia.md, GOL.md archivado)
+│       └── diplomado/ (README.md, brochure-isia.md, brochure_dip_ISIA.md, GOL.md archivado, talleres y materiales)
 ├── § 4. Matriz de Decisiones de Ingeniería y Algoritmos (Complexity Matrix)
 ├── § 5. Guía de Operaciones y Casos de Uso Frecuentes (Standard Operating Procedures)
 └── § 6. Protocolo de Calidad, Verificación Formal y CI/CD
@@ -198,6 +201,8 @@ graph TD
   Reporte de solo lectura del estado de los planes antes de ejecutarlos. Snapshot histórico: el estado vigente está en el `19`.
 * **[3.8.4. `19_CHECKLIST_EJECUCION_PENDIENTES.md`](./19_CHECKLIST_EJECUCION_PENDIENTES.md):**
   Checklist vivo de la ejecución de pendientes por fases (F0–F10), con commit de control por fase, bloqueos y decisiones abiertas.
+* **[3.8.5. `20_PLAN_TRABAJO_ANALISIS_FASES.md`](./20_PLAN_TRABAJO_ANALISIS_FASES.md):**
+  Plan maestro de trabajo derivado del análisis integral del repositorio (Fases 0 a 6: workflows CI/CD, seguridad, dependencias, cumplimiento de reglas de negocio, SEO, documentación y deuda técnica).
 
 ---
 
@@ -206,7 +211,11 @@ graph TD
 **Dominio:** documentación histórica y material del diplomado ISIA aplicado al repositorio.
 
 * **[3.9.1. `diplomado/`](./diplomado/README.md):**
-  Guía de estudio del diplomado ISIA (`brochure-isia.md`, PDF original) y documento histórico archivado `diplomado/GOL.md`.
+  Directorio de capacitación e investigación ISIA:
+  - `diplomado/README.md`: guía y temario del diplomado.
+  - `diplomado/brochure-isia.md` y `diplomado/brochure_dip_ISIA.md`: especificaciones académicas del programa.
+  - `diplomado/GOL.md`: especificación técnica histórica archivada (Game of Life / canvas).
+  - Subdirectorios con materiales de sesión (`Material sesión 01-20261030`, `Material sesión 02-20261103`) y `taller-1-wireframes-cotizador-ventana`.
 
 ---
 

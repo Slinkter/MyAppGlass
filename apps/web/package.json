@@ -19,6 +19,7 @@
         "@emotion/react": "^11.14.0",
         "@gya/shared": "workspace:*",
         "@react-google-maps/api": "^2.20.8",
+        "exceljs": "^4.4.0",
         "firebase": "^12.19.0",
         "lucide-react": "^1.64.0",
         "next": "^16.4.3",
@@ -26,7 +27,6 @@
         "pino": "^10.4.0",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
-        "xlsx": "^0.18.5",
         "zod": "^4.6.7"
     },
     "devDependencies": {

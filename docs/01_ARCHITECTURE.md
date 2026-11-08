@@ -79,16 +79,15 @@ MyAppGlass/
 El proyecto sigue una variante **parcial de Feature-Sliced Design (FSD)**: existen las capas `app`, `screens`, `widgets`, `features` y `shared`, pero **no hay capa `entities/`**. Con `output: 'export'`, las rutas se prerenderizan como HTML estático en `apps/web/out/`.
 
 - `apps/web/src/app/`: Rutas de Next.js App Router (wrappers ligeros: `page.tsx`, `layout.tsx`, además de `sitemap.ts` y `robots.ts`).
-- `apps/web/src/screens/`: Composición de pantallas completas (Admin, Auth, Presupuesto, SimuladorAI, Blog, Error, Home, Legal, Projects, Services). Nombres de componentes en PascalCase.
+- `apps/web/src/screens/`: Composición de vistas completas de página (Admin, Auth, Blog, DesignSystem, DesignSystemUbicacion, Error, Home, Legal, Presupuesto, Projects, Services, SimuladorAI, Tienda). Nombres de componentes y subdirectorios en PascalCase.
 - `apps/web/src/widgets/`: Bloques globales de UI (AdminNav, FloatingActions, Footer, Navbar).
-- `apps/web/src/features/`: Lógica de dominio: `admin`, `ai-simulator`, `auth`, `blog`, `contacto`, `home`, `presupuesto`, `products`, `projects`, `reclamation-book` y `services`.
+- `apps/web/src/features/`: Lógica de dominio: `admin`, `ai-simulator`, `auth`, `blog`, `contacto`, `home`, `presupuesto`, `products`, `projects`, `reclamation-book`, `services` y `tienda`.
   - `features/admin/`: CRUD de servicios y proyectos; componentes de formulario comunes en `components/form`; seed en `seed/`.
-  - `features/auth/`: `AdminRouteGuard`.
+  - `features/auth/`: `AdminRouteGuard`, `AccountRouteGuard`.
+  - `features/tienda/`: Motor de carrito (`cart-engine.ts`), store Zustand (`useCartStore.ts`) y hooks de inventario para la tienda.
   - `features/*/hooks/`: hooks públicos (`useServices`/`useService`, `useProjects`/`useProject`) que leen de Firestore.
+- `apps/web/src/components/ui/`: Primitivas y wrappers base de Chakra UI v3 (alert, button, dialog, drawer, popover, toaster, etc.), proveyendo la base atómica del sistema de componentes.
 - `apps/web/src/shared/`: Código transversal: `api/firebase` (repositorios de servicios, proyectos, clientes y usuarios), `components`, `config`, `constants`, `data`, `hooks` (incluye `hooks/data/useAsyncResource.ts` y `hooks/ui/useFilterableList.ts`), `lib`, `providers`, `schemas`, `services`, `types` y `utils`.
-  - `shared/providers/theme/index.ts`: configuración central del tema (Aura Design System sobre Chakra v3), con tokens de color de estado.
-  - `shared/components/Layout/ItemGridLayout.tsx`: orquestador de cuadrícula.
-- `apps/web/src/components/ui/`: wrappers de Chakra UI v3 (alert, button, dialog, drawer, toaster, etc.).
 - `apps/web/public/images/`: Assets WebP optimizados.
 - `packages/shared/src/`: `company-data.ts` (fuente real de `companyData`, reexportada en `apps/web/src/shared/config/company-data.ts`) e `index.ts`.
 

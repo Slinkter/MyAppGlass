@@ -6,7 +6,7 @@ describe('Formulario de Contacto - contactFormSchema Zod Validation', () => {
     name: 'Carlos Mendoza',
     email: 'carlos.mendoza@example.com',
     phone: '+51 912345678',
-    message: 'Hola, deseo solicitar una cotización formal para 4 ventanas antiruido.',
+    message: 'Hola, deseo solicitar una cotización formal para 4 ventanas antirruido.',
     acceptedTerms: true,
   };
 

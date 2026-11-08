@@ -44,9 +44,24 @@ RECAPTCHA_SECRET_KEY=
 ```
 En producción estos tres valores se gestionan como secretos (Secret Manager); ver [07_BACKEND_IMPLEMENTATION.md](./07_BACKEND_IMPLEMENTATION.md).
 
-### 2. Comandos de Inicio
+### 2. Comandos de Inicio y Flujo de Trabajo
 Los comandos de desarrollo, validación y despliegue están en [`AGENTS.md` §1](../AGENTS.md) (ejecutar siempre desde la raíz del monorepo).
 - **Backend (Emuladores):** `cd apps/functions && pnpm run serve` (ejecuta `firebase emulators:start --only functions`; requiere Java JDK).
+
+#### 🔄 Flujo Oficial de Validación, Commit y Despliegue
+Para asegurar consistencia e integridad entre el tipado estricto, la exportación estática y el entorno de producción, debe seguirse estrictamente la siguiente secuencia de comandos:
+
+```bash
+# 1. Validación estricta de tipos y generación del export estático (apps/web/out/)
+pnpm run typecheck && pnpm run build
+
+# 2. Control de versiones con commit semántico
+git commit -m "feat(modulo): descripción clara y concisa"
+
+# 3. Despliegue manual a Firebase Hosting
+pnpm run deploy:hosting
+```
+> **Nota de optimización de tokens:** No ejecutar `pnpm run test:run` salvo requerimiento explícito del usuario. La validación estándar del proyecto se realiza con `pnpm run typecheck` y `pnpm run build`.
 
 ## 💎 Chakra UI v3 Spacing Scale (4px base)
 Use **exclusivamente** los tokens nativos de spacing de Chakra UI. No definir tokens custom.

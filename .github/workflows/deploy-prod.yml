@@ -1,13 +1,25 @@
 name: Deploy Production
 
+# NOTA SOBRE SECRETOS REQUERIDOS:
+# Para habilitar y ejecutar este workflow con éxito, se deben configurar los siguientes secretos en el repositorio (Settings > Secrets and variables > Actions):
+# - FIREBASE_SERVICE_ACCOUNT_GYA_APP_4C8A9: Clave de cuenta de servicio de Firebase (JSON) con permisos de despliegue en Firebase Hosting.
+# - NEXT_PUBLIC_*: Variables públicas requeridas para la compilación de Next.js (@gya/web en apps/web/.env.example):
+#     - NEXT_PUBLIC_FIREBASE_API_KEY
+#     - NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+#     - NEXT_PUBLIC_FIREBASE_PROJECT_ID
+#     - NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+#     - NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+#     - NEXT_PUBLIC_FIREBASE_APP_ID
+#     - NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID (opcional)
+#     - NEXT_PUBLIC_CONTACT_API_URL
+#     - NEXT_PUBLIC_STATUS_API_URL
+#     - NEXT_PUBLIC_API_URL
+#     - NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+#
+# Se mantiene con disparador manual (workflow_dispatch) mientras se terminan de aprovisionar dichos secretos.
+
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - '.agents/**'
-      - '.gemini/**'
+  workflow_dispatch:
 
 # Un solo despliegue a la vez; no se cancela uno en curso para no dejar la release a medias.
 concurrency:

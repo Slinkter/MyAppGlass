@@ -104,7 +104,7 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
   if (!project) return <ErrorPage />;
 
   return (
-    <Box bg="bg.page" minH="100vh" pt={{ base: 4, md: 6 }} pb={{ base: 16, md: 24 }}>
+    <Box bg="bg.page" minH="dvh" pt={{ base: 4, md: 6 }} pb={{ base: 16, md: 24 }}>
       <Container maxW="7xl" px={{ base: 4, sm: 6, md: 8 }}>
         <VStack gap={{ base: 6, md: 8 }} align="stretch" w="full">
           {/* Header Superior con Botón Regresar y Selector */}

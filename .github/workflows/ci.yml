@@ -47,13 +47,16 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Audit production dependencies
-        run: pnpm audit --prod --audit-level=critical
+        run: pnpm audit --prod --audit-level=high
 
       - name: Run ESLint
         run: pnpm run lint
 
       - name: Run Automated Tests
         run: pnpm run test:run
+
+      - name: Run Cloud Functions Tests
+        run: pnpm run test:functions
 
       - name: Cache Next.js build
         uses: actions/cache@v4

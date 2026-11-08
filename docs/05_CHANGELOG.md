@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-08] - Normalización de Documentación, Higiene y Fases 0 & 5 (`docs/20_PLAN_TRABAJO_ANALISIS_FASES.md`)
+
+### Changed
+- **Guía de Desarrollo (`docs/06_DOCS_DEVELOPMENT.md`)**: documentado el flujo oficial de validación, commit y despliegue (`pnpm run typecheck && pnpm run build` -> `git commit` -> `pnpm run deploy:hosting`).
+- **README Principal (`README.md`)**: corregida la mención a la tienda online (`/tienda`, `/tienda/checkout`, `features/tienda`); agregadas las rutas de tienda y cuenta (`/mi-cuenta`) al catálogo de rutas principales.
+- **Índice Canónico de Documentación (`docs/README.md`)**: indexados los documentos 14 al 20 (incluyendo `18_REPORTE_PLANES_PENDIENTES.md`, `19_CHECKLIST_EJECUCION_PENDIENTES.md` y `20_PLAN_TRABAJO_ANALISIS_FASES.md`) y el contenido de `docs/diplomado/` (temario, brochures, GOL archivado y materiales de sesión).
+- **Arquitectura y Contexto de Agentes (`AGENTS.md` y `docs/01_ARCHITECTURE.md`)**: documentada la estructura de capas `screens/` (vistas PascalCase) y `components/ui/` (primitivas de Chakra UI v3) junto al módulo `features/tienda/`.
+- **Plan de Trabajo (`docs/20_PLAN_TRABAJO_ANALISIS_FASES.md`)**: actualizadas a estado completado la Fase 0 (limpieza y control de workflows) y la Fase 5 (documentación e higiene).
+
+### Removed
+- **Archivo de log residual**: eliminado `firestore-debug.log` de la raíz del repositorio.
+
+---
+
 ## [2026-11-03] - Cierre del plan de pendientes (`docs/19_CHECKLIST_EJECUCION_PENDIENTES.md`)
 
 ### Added

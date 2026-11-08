@@ -9,7 +9,7 @@ Plataforma corporativa premium de alta gama optimizada para el rendimiento y SEO
 - **Framework:** [Next.js 16](https://nextjs.org/) (App Router) con exportación estática total (`output: 'export'`).
 - **UI Engine:** [Chakra UI v3](https://chakra-ui.com/) - Sistema de diseño Aura con tokens nativos (`space.1` a `space.16`).
 - **Simulador visual (`/simulador-ai`):** simulador 100% local que superpone la imagen de un producto sobre la foto subida por el usuario (queda en el navegador) y un chat con respuestas predefinidas; no usa IA generativa ni APIs externas.
-- **Módulos de gestión (cliente + Firestore):** panel de administración en `/admin` con CRUD de servicios y proyectos (`/admin/servicios`, `/admin/proyectos`), protegido con `AdminRouteGuard`; páginas públicas de servicios y proyectos leídas desde Firestore (única fuente de datos); cotizador de presupuesto en `/presupuesto`. No existe tienda pública ni carrito.
+- **Módulos de gestión (cliente + Firestore):** panel de administración en `/admin` con CRUD de servicios y proyectos (`/admin/servicios`, `/admin/proyectos`), protegido con `AdminRouteGuard`; páginas públicas de servicios y proyectos leídas desde Firestore (única fuente de datos); cotizador de presupuesto en `/presupuesto`. Catálogo comercial y tienda online en `/tienda` con carrito de compras en `/tienda/checkout` (`features/tienda`, checkout vía WhatsApp con límite de stock e IGV).
 - **Rendimiento 120Hz:** Optimización por GPU (`translateZ(0)`, `will-change`) y prevención de CLS mediante sincronización de esqueletos de carga.
 - **Catálogo Oficial:** 4 Sistemas oficiales independientes (`Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`) como regla de negocio (ver `AGENTS.md`).
 - **Backend Serverless:** Firebase Functions v2 (Node.js 22, `apps/functions/`), Firestore y Resend para gestión legal de Libro de Reclamaciones.
@@ -70,7 +70,7 @@ NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev
 
 ### Rutas principales
 
-- Públicas: `/`, `/servicios/[serviceSlug]`, `/servicios/ver?slug=…`, `/proyectos/[projectId]`, `/proyectos/ver?id=…`, `/presupuesto`, `/simulador-ai`, `/contacto`, `/blog`, `/blog/[slug]`, `/libro-de-reclamacion`, `/cuentas-bancarias`, `/politicas-empresa`, `/auth`, `/design-system` (showcase del Aura Design System).
+- Públicas: `/`, `/servicios/[serviceSlug]`, `/servicios/ver?slug=…`, `/proyectos/[projectId]`, `/proyectos/ver?id=…`, `/tienda`, `/tienda/checkout`, `/mi-cuenta`, `/presupuesto`, `/simulador-ai`, `/contacto`, `/blog`, `/blog/[slug]`, `/libro-de-reclamacion`, `/cuentas-bancarias`, `/politicas-empresa`, `/auth`, `/design-system` (showcase del Aura Design System).
 - Admin (requiere sesión de administrador, `AdminRouteGuard`): `/admin`, `/admin/servicios`, `/admin/proyectos`, `/admin/inventario`, `/admin/ventas`, `/admin/clientes`, `/admin/reportes`.
 
 ---

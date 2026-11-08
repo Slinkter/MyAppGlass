@@ -191,7 +191,7 @@ const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: "9",
-    slug: "ventanas-antiruido-lima-guia-aislamiento-acustico",
+    slug: "ventanas-antirruido-lima-guia-aislamiento-acustico",
     title: "Guía Definitiva de Ventanas Antirruido en Lima: Aislamiento Acústico y Confort",
     description: "Aprende cómo funcionan las ventanas antirruido en Lima. Cristales insulados DVH y perfiles herméticos para eliminar el ruido del tráfico.",
     excerpt: "¿Cansado del ruido vehicular en La Molina o Surco? Descubre cómo las ventanas acústicas de aluminio reducen hasta un 80% del ruido exterior.",

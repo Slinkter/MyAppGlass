@@ -38,9 +38,11 @@ apps/
 ├── web/                      # @gya/web (Next.js export estático → apps/web/out/)
 │   └── src/
 │       ├── app/              # Next.js App Router - wrappers ligeros (page.tsx, layout.tsx)
-│       ├── features/         # Dominios de negocio: services/, home/, projects/, blog/, admin/, ...
-│       ├── widgets/          # Componentes globales: Navbar, Footer, FloatingActions
-│       └── shared/           # Utils transversales: logger.ts, api/firebase, hooks, constants
+│       ├── screens/          # Vistas compuestas por página (Home, Services, Projects, Admin, Tienda, Presupuesto, etc.)
+│       ├── widgets/          # Componentes globales: Navbar, Footer, FloatingActions, AdminNav
+│       ├── features/         # Dominios de negocio: services/, home/, projects/, blog/, admin/, tienda/, etc.
+│       ├── components/       # Primitivas UI base (components/ui: wrappers Chakra UI v3 como button, dialog, alert)
+│       └── shared/           # Utils transversales: logger.ts, api/firebase, hooks, constants, theme
 ├── functions/                # @gya/functions: Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde Node.js 20 el 2026-10-29 por retiro del runtime)
 packages/
 └── shared/                   # @gya/shared: companyData, SITE_URL, CompanyInfo (importar desde @gya/shared; en web, `@/shared/config/company-data` reexporta)

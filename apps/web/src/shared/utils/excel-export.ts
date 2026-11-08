@@ -10,12 +10,38 @@ export async function exportToExcel<T extends Record<string, unknown>>(
 ) {
   if (typeof window === "undefined" || data.length === 0) return;
 
-  const XLSX = await import("xlsx");
-  const worksheet = XLSX.utils.json_to_sheet(data);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+  const ExcelJS = await import("exceljs");
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet(sheetName);
 
-  XLSX.writeFile(workbook, `${fileName}.xlsx`);
+  const headers = Object.keys(data[0]);
+  worksheet.columns = headers.map((header) => ({
+    header,
+    key: header,
+    width: Math.max(header.length + 4, 15),
+  }));
+
+  data.forEach((item) => {
+    worksheet.addRow(item);
+  });
+
+  // Estilo opcional para el encabezado
+  const headerRow = worksheet.getRow(1);
+  headerRow.font = { bold: true };
+
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  const url = window.URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `${fileName}.xlsx`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
+  window.URL.revokeObjectURL(url);
 }
 
 /**

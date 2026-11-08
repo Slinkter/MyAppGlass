@@ -56,7 +56,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
 
   return (
     <AdminRouteGuard>
-      <Box minH="100vh" bg="bg.page" py="8" px={{ base: "4", md: "8" }}>
+      <Box minH="dvh" bg="bg.page" py="8" px={{ base: "4", md: "8" }}>
         <Container maxW="7xl">
           {/* Barra de navegación administrativa */}
           <Box

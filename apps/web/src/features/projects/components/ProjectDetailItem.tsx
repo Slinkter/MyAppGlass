@@ -35,7 +35,7 @@ const ProjectDetailItem: React.FC<ProjectDetailItemProps> = ({ icon: IconComp, l
             label={label}
             value={value || "No especificado"}
             labelProps={{
-                fontSize: "10px",
+                fontSize: "xs",
                 fontWeight: "900",
                 color: "text.muted",
                 textTransform: "uppercase",

@@ -21,7 +21,7 @@ const AuraContainer: React.FC<AuraContainerProps> = ({ children, animate = true,
   return (
     <Box 
       bg="bg.page" 
-      minH="100vh" 
+      minH="dvh" 
       pb={{ base: "20", md: "36" }}
       animation={animate ? "fadeIn 0.5s ease-out" : undefined}
     >
