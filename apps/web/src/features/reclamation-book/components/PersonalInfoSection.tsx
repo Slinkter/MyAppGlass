@@ -103,7 +103,7 @@ const PersonalInfoSection: React.FC = () => {
           bg="primary.500" 
           color="white" 
           fontSize="xs" 
-          fontWeight="900"
+          fontWeight="700"
           display="flex"
           alignItems="center"
           justifyContent="center"

@@ -36,7 +36,7 @@ const SlidingTabs: React.FC = () => {
             flex="1"
             minH="11"
             borderRadius="0"
-            color={active === i ? "accent.navy" : "text.muted"}
+            color={active === i ? "accent.ink" : "text.muted"}
             fontWeight="semibold"
             onClick={() => setActive(i)}
           >
@@ -50,7 +50,7 @@ const SlidingTabs: React.FC = () => {
         left="0"
         h="0.5"
         w={`${100 / TABS.length}%`}
-        bg="brand.navy"
+        bg="brand.ink"
         style={{
           transform: `translateX(${active * 100}%)`,
           transition: `transform 250ms ${EASE_TEXT}`,
@@ -136,7 +136,7 @@ const RevealDemo: React.FC = () => {
         {["Medimos en tu casa", "Fabricamos en taller", "Instalamos con garantía"].map((t, i) => (
           <Reveal key={t} index={i}>
             <Box bg="bg.surface" borderWidth="1px" borderColor="border.default" borderRadius="xl" p="4" minH="20">
-              <Text fontWeight="semibold" color="accent.navy">
+              <Text fontWeight="semibold" color="accent.ink">
                 {t}
               </Text>
             </Box>

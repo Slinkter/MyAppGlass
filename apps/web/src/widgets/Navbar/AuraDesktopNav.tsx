@@ -127,7 +127,7 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ isScrolled = false, var
                     left="0"
                     right="0"
                     h="1.5px"
-                    bg="brand.navy"
+                    bg="brand.ink"
                     _dark={{ bg: "white" }}
                     transformOrigin="left"
                     transform={isActive ? "scaleX(1)" : "scaleX(0)"}

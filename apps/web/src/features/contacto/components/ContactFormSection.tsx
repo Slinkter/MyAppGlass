@@ -75,11 +75,11 @@ export function ContactFormSection({
         <VStack align="flex-start" gap="1">
           <HStack gap="2">
             <Box w="2" h="2" borderRadius="full" bg="text.accent" />
-            <Text fontSize="xs" fontWeight="900" color="text.accent" letterSpacing="0.2em" textTransform="uppercase">
+            <Text fontSize="xs" fontWeight="700" color="text.accent" letterSpacing="0.2em" textTransform="uppercase">
               Solicitud Directa
             </Text>
           </HStack>
-          <Heading size="lg" color="text.heading" fontWeight="900" letterSpacing="tight">
+          <Heading size="lg" color="text.heading" fontWeight="700" letterSpacing="tight">
             Formulario de Cotización
           </Heading>
           <Text fontSize="sm" color="text.muted">
@@ -263,7 +263,7 @@ export function ContactFormSection({
             size="xl" 
             w="full" 
             borderRadius="full"
-            fontWeight="900"
+            fontWeight="700"
             letterSpacing="widest"
             loading={isSubmitting}
             loadingText="ENVIANDO SOLICITUD..."

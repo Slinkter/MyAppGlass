@@ -67,7 +67,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
               fontSize={{ base: "3xl", md: "5xl" }} 
               color="text.heading" 
               lineHeight="1.2"
-              fontWeight="900"
+              fontWeight="700"
             >
               {post.title}
             </Heading>
@@ -123,7 +123,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
             css={{
               "& h2": {
                 fontSize: "2xl",
-                fontWeight: "900",
+                fontWeight: "700",
                 color: "text.heading",
                 mt: "14",
                 mb: "6",

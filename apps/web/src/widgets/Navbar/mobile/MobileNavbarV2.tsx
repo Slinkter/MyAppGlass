@@ -7,7 +7,7 @@
  * - Sangra a los bordes de la página (`mx="-6"`) y reserva su propio espacio.
  * - Alto de 60 px + env(safe-area-inset-top, 0px).
  * - Logo oficial (/brand/logo.png) nítido a 32×32 + lockup corporativo.
- * - Fondo translúcido fijo (`bg.paper/85` + GLASS_BLUR) y borde inferior siempre visible.
+ * - Fondo translúcido fijo (`bg.section/85` + GLASS_BLUR) y borde inferior siempre visible.
  * - WhatsApp y MenuToggle como targets táctiles de 44 px con estados homogéneos.
  * - Modo `contained={true}` para visualización embebida en el marco de 390px en /design-system.
  */
@@ -84,13 +84,13 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
         px="6"
         pt="env(safe-area-inset-top, 0px)"
         h="calc(60px + env(safe-area-inset-top, 0px))"
-        bg="bg.paper/85"
+        bg="bg.section/85"
         css={{
           backdropFilter: GLASS_BLUR,
           WebkitBackdropFilter: GLASS_BLUR,
           "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
             backdropFilter: "none",
-            background: "{colors.bg.paper}",
+            background: "{colors.bg.section}",
           },
         }}
         borderBottomWidth="1px"

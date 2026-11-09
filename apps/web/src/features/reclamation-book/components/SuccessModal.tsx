@@ -59,7 +59,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
             <Box color="status.success" display="flex" alignItems="center">
               <CheckCircle2 size={28} />
             </Box>
-            <DialogTitle fontSize="lg" fontWeight="900" color="text.heading">
+            <DialogTitle fontSize="lg" fontWeight="700" color="text.heading">
               ¡Reclamo Registrado con Éxito!
             </DialogTitle>
           </HStack>
@@ -83,7 +83,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
               <Text fontSize="xs" fontWeight="800" color="text.muted" letterSpacing="0.15em" textTransform="uppercase">
                 CÓDIGO DE SEGUIMIENTO OFICIAL
               </Text>
-              <Text fontSize="xl" fontWeight="900" color="text.accent" fontFamily="monospace" my="1">
+              <Text fontSize="xl" fontWeight="700" color="text.accent" fontFamily="monospace" my="1">
                 {trackingId || "GYA-REC-OK"}
               </Text>
               <Text fontSize="xs" color="text.muted">

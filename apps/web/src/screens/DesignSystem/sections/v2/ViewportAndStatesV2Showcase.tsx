@@ -143,10 +143,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           borderRadius="full"
                           borderWidth="1px"
                           borderColor={
-                            isSelected ? "accent.navy" : "border.warmStrong"
+                            isSelected ? "accent.ink" : "border.warmStrong"
                           }
-                          bg={isSelected ? "accent.navy" : "bg.surface"}
-                          color={isSelected ? "accent.navyContrast" : "text.heading"}
+                          bg={isSelected ? "accent.ink" : "bg.surface"}
+                          color={isSelected ? "accent.inkContrast" : "text.heading"}
                           fontSize="sm"
                           fontWeight={isSelected ? "bold" : "medium"}
                           display="inline-flex"
@@ -156,7 +156,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           cursor="pointer"
                           transition="background-color 0.2s ease, border-color 0.2s ease"
                           _hover={{
-                            borderColor: "accent.navy",
+                            borderColor: "accent.ink",
                           }}
                         >
                           <IconComp size={15} style={{ flexShrink: 0 }} />
@@ -200,10 +200,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           borderRadius="full"
                           borderWidth="1px"
                           borderColor={
-                            isSelected ? "accent.navy" : "border.warmStrong"
+                            isSelected ? "accent.ink" : "border.warmStrong"
                           }
-                          bg={isSelected ? "accent.navy" : "bg.surface"}
-                          color={isSelected ? "accent.navyContrast" : "text.heading"}
+                          bg={isSelected ? "accent.ink" : "bg.surface"}
+                          color={isSelected ? "accent.inkContrast" : "text.heading"}
                           fontSize="sm"
                           fontWeight={isSelected ? "bold" : "medium"}
                           display="inline-flex"
@@ -213,7 +213,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           cursor="pointer"
                           transition="background-color 0.2s ease, border-color 0.2s ease"
                           _hover={{
-                            borderColor: "accent.navy",
+                            borderColor: "accent.ink",
                           }}
                         >
                           <Maximize2 size={13} style={{ flexShrink: 0 }} />
@@ -244,10 +244,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 {DIAGNOSTIC_RULES.map((rule) => (
                   <Badge
                     key={rule.label}
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     borderWidth="1px"
-                    borderColor="accent.navy"
+                    borderColor="accent.ink"
                     px="3"
                     py="1.5"
                     borderRadius="full"
@@ -279,7 +279,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 mx="auto"
                 borderWidth="1px"
                 borderColor="border.warmStrong"
-                bg="bg.warm"
+                bg="bg.section"
                 borderRadius="xl"
                 p={{ base: "3", md: "5" }}
                 transition="max-width 0.35s cubic-bezier(0.22, 1, 0.36, 1)"
@@ -299,7 +299,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                       w="3"
                       h="3"
                       borderRadius="full"
-                      bg="accent.navy"
+                      bg="accent.ink"
                       style={{ flexShrink: 0 }}
                     />
                     <Text fontSize="xs" fontWeight="bold" color="text.heading">
@@ -308,8 +308,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   </HStack>
                   <Badge
                     fontSize="xs"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     borderRadius="full"
                     px="2"
                     py="0.5"
@@ -324,10 +324,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   <VStack align="stretch" gap="3">
                     <Box>
                       <Badge
-                        bg="bg.tintNavy"
-                        color="accent.navy"
+                        bg="bg.tint"
+                        color="accent.ink"
                         borderWidth="1px"
-                        borderColor="accent.navy"
+                        borderColor="accent.ink"
                         px="2.5"
                         py="1"
                         borderRadius="full"
@@ -401,10 +401,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   >
                     <VStack align="start" gap="2">
                       <Badge
-                        bg="bg.tintNavy"
-                        color="accent.navy"
+                        bg="bg.tint"
+                        color="accent.ink"
                         borderWidth="1px"
-                        borderColor="accent.navy"
+                        borderColor="accent.ink"
                         px="3"
                         py="1"
                         borderRadius="full"
@@ -484,10 +484,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     {/* Columna 1: Título y descripción de marca */}
                     <VStack align="start" gap="2">
                       <Badge
-                        bg="bg.tintNavy"
-                        color="accent.navy"
+                        bg="bg.tint"
+                        color="accent.ink"
                         borderWidth="1px"
-                        borderColor="accent.navy"
+                        borderColor="accent.ink"
                         px="3"
                         py="1"
                         borderRadius="full"
@@ -549,7 +549,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                       align="stretch"
                       gap="3"
                       p="4"
-                      bg="bg.tintNavy"
+                      bg="bg.tint"
                       borderRadius="lg"
                       borderWidth="1px"
                       borderColor="border.warmStrong"
@@ -618,8 +618,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 1/9
@@ -667,8 +667,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 2/9
@@ -694,9 +694,9 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
               <Box
                 p="3"
                 borderRadius="lg"
-                bg="bg.warm"
+                bg="bg.section"
                 borderWidth="1px"
-                borderColor="accent.navy"
+                borderColor="accent.ink"
                 transform="translateY(-2px)"
                 boxShadow="adminCard"
                 transition="transform 0.2s ease, border-color 0.2s ease"
@@ -705,7 +705,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   <Text fontSize="xs" fontWeight="bold" color="text.heading">
                     Tarjeta en Hover
                   </Text>
-                  <Text fontSize="xs" fontWeight="semibold" color="accent.navy">
+                  <Text fontSize="xs" fontWeight="semibold" color="accent.ink">
                     -2px
                   </Text>
                 </HStack>
@@ -733,8 +733,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 3/9
@@ -765,7 +765,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 borderRadius="full"
                 bg="bg.surface"
                 borderWidth="2px"
-                borderColor="accent.navy"
+                borderColor="accent.ink"
                 outline="2px solid"
                 outlineColor="ring.primary"
                 outlineOffset="2px"
@@ -780,7 +780,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
               </Box>
             </Box>
 
-            {/* 4. Active / Seleccionado (brand.navy) */}
+            {/* 4. Active / Seleccionado (brand.ink) */}
             <Box
               bg="bg.surface"
               p={{ base: "4", md: "5" }}
@@ -798,8 +798,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 4/9
@@ -818,7 +818,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   4. Active / Seleccionado
                 </Text>
                 <Text fontSize="xs" color="text.muted">
-                  Token brand.navy (#002060) para elementos activos, píldoras y tabs seleccionados.
+                  Token brand.ink (#002060) para elementos activos, píldoras y tabs seleccionados.
                 </Text>
               </Box>
 
@@ -829,7 +829,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   flex="1"
                   px="3"
                   borderRadius="full"
-                  bg="brand.navy"
+                  bg="brand.ink"
                   color="white"
                   fontWeight="bold"
                   fontSize="xs"
@@ -845,7 +845,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   flex="1"
                   px="3"
                   borderRadius="full"
-                  bg="bg.warm"
+                  bg="bg.section"
                   color="text.body"
                   borderWidth="1px"
                   borderColor="border.warmStrong"
@@ -877,8 +877,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 5/9
@@ -932,8 +932,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 6/9
@@ -968,7 +968,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 <HStack
                   gap="2"
                   p="2"
-                  bg="bg.warm"
+                  bg="bg.section"
                   borderRadius="md"
                   borderWidth="1px"
                   borderColor="border.warmStrong"
@@ -976,7 +976,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 >
                   <Spinner
                     size="sm"
-                    color="accent.navy"
+                    color="accent.ink"
                     style={{ flexShrink: 0 }}
                   />
                   <Box flex="1">
@@ -1081,8 +1081,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 8/9
@@ -1109,7 +1109,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 align="center"
                 textAlign="center"
                 p="3"
-                bg="bg.warm"
+                bg="bg.section"
                 borderRadius="lg"
                 borderWidth="1px"
                 borderColor="border.warmStrong"

@@ -54,7 +54,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
   const touchStartY = useRef(0);
 
   // Aura Studio: punto activo con contraste nítido sobre el overlay de la imagen
-  const dotActiveColor = { base: "accent.navyContrast", _dark: "white" };
+  const dotActiveColor = { base: "accent.inkContrast", _dark: "white" };
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;

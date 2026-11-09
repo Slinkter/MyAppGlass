@@ -33,10 +33,10 @@ const BRAND_TOKENS = [
 ] as const;
 
 const SEMANTIC_TOKENS = [
-  { token: "bg.warm", label: "Papel cálido v2" },
-  { token: "bg.tintNavy", label: "Tinte frío v2" },
-  { token: "accent.navy", label: "Azul de foco y enlaces" },
-  { token: "brand.navy", label: "Acento histórico (retirado)" },
+  { token: "bg.section", label: "Papel cálido v2" },
+  { token: "bg.tint", label: "Tinte frío v2" },
+  { token: "accent.ink", label: "Azul de foco y enlaces" },
+  { token: "brand.ink", label: "Acento histórico (retirado)" },
   { token: "brand.quoteRed", label: "Rojo presupuesto (#D62828)" },
   { token: "border.warm", label: "Línea cálida v2" },
   { token: "border.warmStrong", label: "Borde cálido fuerte v2" },
@@ -259,7 +259,7 @@ export const TokensSection: React.FC = () => {
               borderWidth="1px"
               borderColor="border.subtle"
               cursor="pointer"
-              _hover={{ borderColor: "accent.navy", transform: "translateY(-2px)" }}
+              _hover={{ borderColor: "accent.ink", transform: "translateY(-2px)" }}
               _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
               transition="transform 0.2s ease, border-color 0.2s ease"
               onClick={() => copyToClipboard(item.token)}

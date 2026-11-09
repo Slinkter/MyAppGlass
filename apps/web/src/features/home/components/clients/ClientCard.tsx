@@ -82,7 +82,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
           <Text
             color="white"
             fontSize={{ base: "lg", md: "2xl" }}
-            fontWeight="900"
+            fontWeight="700"
             textTransform="uppercase"
             letterSpacing={{ base: "0.08em", md: "0.2em" }}
             lineClamp={2}

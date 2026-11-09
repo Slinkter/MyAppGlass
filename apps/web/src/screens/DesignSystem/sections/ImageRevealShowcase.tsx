@@ -43,8 +43,8 @@ const rules = [
   },
 ];
 
-const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de inmediato sobre fondo base brand.navy
-<Box position="relative" overflow="hidden" bg="brand.navy">
+const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de inmediato sobre fondo base brand.ink
+<Box position="relative" overflow="hidden" bg="brand.ink">
   <ImageRevealSkeleton loaded={loaded} />
   <Box
     position="absolute"
@@ -83,7 +83,7 @@ const DemoRevealCard: React.FC = () => {
       borderRadius="3xl"
       overflow="hidden"
       position="relative"
-      bg="brand.navy"
+      bg="brand.ink"
       boxShadow="sm"
     >
       <ImageRevealSkeleton loaded={loaded} />

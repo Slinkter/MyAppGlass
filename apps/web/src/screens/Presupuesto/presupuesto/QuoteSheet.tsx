@@ -80,7 +80,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
           <Text fontSize="xs" fontWeight="semibold" letterSpacing="0.16em" color="gray.600">
             VIDRIERÍA & ALUMINIO
           </Text>
-          <Heading as="h2" fontSize={{ base: "xl", md: "2xl" }} color="brand.navy" lineHeight="1.15" mt="1">
+          <Heading as="h2" fontSize={{ base: "xl", md: "2xl" }} color="brand.ink" lineHeight="1.15" mt="1">
             Glass & Aluminum Company S.A.C.
           </Heading>
           <Text fontSize="xs" color="gray.600" mt="2">
@@ -142,7 +142,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
               return (
                 <React.Fragment key={result.line.id}>
                   <tr>
-                    <Td colSpan={6} bg="gray.50" fontWeight="semibold" color="brand.navy" borderColor="gray.200">
+                    <Td colSpan={6} bg="gray.50" fontWeight="semibold" color="brand.ink" borderColor="gray.200">
                       {lineIdx + 1}. {title} ({result.line.width} × {result.line.height} m)
                     </Td>
                   </tr>
@@ -200,7 +200,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
           </Flex>
           <Flex justify="space-between" align="baseline" pt="3" mt="2" borderTop="2px solid" borderColor="gray.900">
             <Text fontWeight="semibold">TOTAL</Text>
-            <Text fontFamily="heading" fontWeight="700" fontSize="2xl" color="brand.navy">
+            <Text fontFamily="heading" fontWeight="700" fontSize="2xl" color="brand.ink">
               {money(quote.total)}
             </Text>
           </Flex>

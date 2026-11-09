@@ -181,7 +181,7 @@ export const CardVariantsShowcase: React.FC = () => {
                   h={{ base: "120px", sm: "auto" }}
                   minH={{ sm: "132px" }}
                   flexShrink={0}
-                  bg="bg.tintNavy"
+                  bg="bg.tint"
                   borderBottomWidth={{ base: "1px", sm: "0" }}
                   borderRightWidth={{ base: "0", sm: "1px" }}
                   borderColor="border.subtle"
@@ -191,7 +191,7 @@ export const CardVariantsShowcase: React.FC = () => {
                   p="3"
                   textAlign="center"
                 >
-                  <Text fontSize="xs" fontWeight="semibold" color="accent.navy">
+                  <Text fontSize="xs" fontWeight="semibold" color="accent.ink">
                     Vista técnica · {it.badge}
                   </Text>
                 </Box>
@@ -246,7 +246,7 @@ export const CardVariantsShowcase: React.FC = () => {
                   position="relative"
                   w="100%"
                   aspectRatio="16 / 9"
-                  bg="bg.tintNavy"
+                  bg="bg.tint"
                   borderBottomWidth="1px"
                   borderColor="border.warm"
                   display="flex"
@@ -267,7 +267,7 @@ export const CardVariantsShowcase: React.FC = () => {
                   >
                     {it.system}
                   </Badge>
-                  <Text fontSize="xs" fontWeight="semibold" color="accent.navy">
+                  <Text fontSize="xs" fontWeight="semibold" color="accent.ink">
                     Vista técnica · {it.badge}
                   </Text>
                 </Box>

@@ -59,7 +59,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
         isolation="isolate"
         transform="translateZ(0)"
         boxShadow="sm"
-        bg="brand.navy"
+        bg="brand.ink"
         {...cardMotion}
         {...rootProps}
       >

@@ -95,7 +95,7 @@ const buttonRecipe = defineRecipe({
 });
 
 /**
- * Receta propia para Badge: añade variantes semánticas v2 (`neutral`, `navy`, `success`, `warning`, `danger`, `info`)
+ * Receta propia para Badge: añade variantes semánticas v2 (`neutral`, `ink`, `success`, `warning`, `danger`, `info`)
  * sin alterar las variantes por defecto de Chakra (`subtle`, `outline`, `solid`) que usan el Home y Servicios actuales.
  */
 const studioBadgeBase = {
@@ -118,15 +118,15 @@ const badgeRecipe = defineRecipe({
         borderWidth: "1px",
         borderColor: "border.default",
       },
-      navy: {
-        bg: "bg.tintNavy",
-        color: "accent.navy",
+      ink: {
+        bg: "bg.tint",
+        color: "accent.ink",
         borderWidth: "1px",
         borderColor: "border.default",
       },
-      navySolid: {
-        bg: "accent.navy",
-        color: "accent.navyContrast",
+      inkSolid: {
+        bg: "accent.ink",
+        color: "accent.inkContrast",
       },
       success: {
         bg: "status.successSoft",
@@ -242,7 +242,7 @@ const cardRecipe = defineSlotRecipe({
         root: { bg: "bg.section", borderWidth: "0" },
       },
       warm: {
-        root: { bg: "bg.warm", borderWidth: "1px", borderColor: "border.warm" },
+        root: { bg: "bg.section", borderWidth: "1px", borderColor: "border.warm" },
       },
       /* Aura Studio: radio grande, borde fino, sin sombra; título en la fuente de títulos. */
       studio: {
@@ -255,7 +255,7 @@ const cardRecipe = defineSlotRecipe({
 });
 
 /**
- * Tabs slot recipe: añade variante `navyLine` para v2 sin cambiar el color de las pestañas existentes del sitio.
+ * Tabs slot recipe: añade variantes para v2 sin cambiar el color de las pestañas existentes del sitio.
  */
 const tabsRecipe = defineSlotRecipe({
   slots: ["root", "trigger", "list", "content", "contentGroup", "indicator"],
@@ -301,7 +301,7 @@ const tableRecipe = defineSlotRecipe({
       color: "text.heading",
       fontWeight: "700",
       borderColor: "border.default",
-      bg: "bg.warm",
+      bg: "bg.section",
     },
     cell: {
       borderColor: "border.subtle",
@@ -540,10 +540,6 @@ const config = defineConfig({
           inkSoft: { value: "#4A4A4A" },
           /* Coral del logo: exclusivo del logo, nunca en texto ni botones. */
           logoCoral: { value: "#FF5A5A" },
-          /* @deprecated: alias de `ink*` hasta migrar los usos (plan 25, fase 5). */
-          navy: { value: "{colors.brand.ink}" },
-          navyHover: { value: "{colors.brand.inkHover}" },
-          navyActive: { value: "{colors.brand.inkActive}" },
         },
         status: {
           info: { value: "#38bdf8" },
@@ -592,19 +588,11 @@ const config = defineConfig({
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
         /* Bloque destacado neutro (sin azul). */
         "bg.tint": { value: { _light: "{colors.primary.100}", _dark: "rgba(255,255,255,0.06)" } },
-        /* @deprecated: `bg.warm` y `bg.paper` valen blanco en claro; usar `bg.page` o `bg.section`. */
-        "bg.warm": { value: { _light: "white", _dark: "#161614" } },
-        "bg.paper": { value: { _light: "white", _dark: "#161614" } },
-        /* @deprecated: alias de `bg.tint` hasta migrar los usos (plan 25, fase 5). */
-        "bg.tintNavy": { value: "{colors.bg.tint}" },
 
         // Brand
         "brand.primary": { value: { _light: "{colors.primary.900}", _dark: "white" } },
         "accent.ink": { value: { _light: "{colors.brand.ink}", _dark: "white" } },
         "accent.inkContrast": { value: { _light: "white", _dark: "{colors.brand.ink}" } },
-        /* @deprecated: alias de `accent.ink*` hasta migrar los usos (plan 25, fase 5). */
-        "accent.navy": { value: "{colors.accent.ink}" },
-        "accent.navyContrast": { value: "{colors.accent.inkContrast}" },
 
         "surface.card": { value: "{colors.bg.surface}" },
         "surface.container": { value: { _light: "white", _dark: "rgba(255,255,255,0.04)" } },

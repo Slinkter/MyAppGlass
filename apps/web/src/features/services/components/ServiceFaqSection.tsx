@@ -32,7 +32,7 @@ const ServiceFaqSectionInner: React.FC<ServiceFaqSectionProps> = ({ faqs, servic
         <VStack align="flex-start" gap={1}>
           <HStack gap={2} color="text.accent">
             <HelpCircle size={18} />
-            <Text fontSize="xs" fontWeight="900" textTransform="uppercase" letterSpacing="widest">
+            <Text fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="widest">
               Preguntas Frecuentes
             </Text>
           </HStack>

@@ -119,7 +119,7 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
               <Heading
                 as="h1"
                 fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
-                fontWeight="900"
+                fontWeight="700"
                 letterSpacing="tight"
                 color="text.heading"
                 lineHeight="1.1"

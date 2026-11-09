@@ -87,7 +87,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
             >
               <Check size={24} strokeWidth={3} />
             </HStack>
-            <DialogTitle fontSize="xl" fontWeight="900" textAlign="center" letterSpacing="tight">
+            <DialogTitle fontSize="xl" fontWeight="700" textAlign="center" letterSpacing="tight">
               ¡Consulta Recibida!
             </DialogTitle>
           </VStack>
@@ -102,7 +102,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
               <Text fontSize="xs" color="text.muted" fontWeight="800" letterSpacing="widest" textTransform="uppercase">
                 Código de Seguimiento
               </Text>
-              <Text fontSize="lg" fontWeight="900" color="text.heading">
+              <Text fontSize="lg" fontWeight="700" color="text.heading">
                 {trackingId}
               </Text>
             </VStack>

@@ -52,7 +52,7 @@ export default function ContactPageClient() {
       <Container maxW="4xl" position="relative" zIndex={1}>
         {/* Header Section */}
         <VStack gap={3} align="flex-start" mb={10}>
-          <Heading as="h1" size={{ base: "2xl", md: "4xl" }} fontWeight="900" letterSpacing="tighter">
+          <Heading as="h1" size={{ base: "2xl", md: "4xl" }} fontWeight="700" letterSpacing="tighter">
             Cotiza tu Proyecto <br />
             <Text as="span" color="text.accent">con Glass & Aluminum Company S.A.C.</Text>
           </Heading>

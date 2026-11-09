@@ -49,8 +49,8 @@ export const AcousticRatingBadge: React.FC<AcousticRatingBadgeProps> = ({
       px="3.5"
       py="1.5"
       borderWidth="1px"
-      borderColor="accent.navy"
-      bg="bg.tintNavy"
+      borderColor="accent.ink"
+      bg="bg.tint"
     >
       <HStack gap="1" align="center">
         {Array.from({ length: 5 }).map((_, index) => (
@@ -59,12 +59,12 @@ export const AcousticRatingBadge: React.FC<AcousticRatingBadgeProps> = ({
             w="2.5"
             h="2.5"
             borderRadius="xs"
-            bg={index < filledCount ? "accent.navy" : "border.warmStrong"}
+            bg={index < filledCount ? "accent.ink" : "border.warmStrong"}
             style={{ flexShrink: 0 }}
           />
         ))}
       </HStack>
-      <Text fontSize="xs" fontWeight="bold" color="accent.navy">
+      <Text fontSize="xs" fontWeight="bold" color="accent.ink">
         -{percentage}% antirruido
       </Text>
     </Box>
@@ -240,7 +240,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                 Especificación del componente canónico
               </SubsectionLabel>
               <Text fontSize="sm" color="text.body" maxW="3xl">
-                La insignia antirruido se genera con 5 barras discretas de relleno. Cada barra equivale a un 20% de atenuación. El texto utiliza obligatoriamente la grafía correcta en español <strong>&quot;antirruido&quot;</strong> con doble &apos;r&apos;, token de color <code>accent.navy</code> y contenedor de fondo <code>bg.tintNavy</code>.
+                La insignia antirruido se genera con 5 barras discretas de relleno. Cada barra equivale a un 20% de atenuación. El texto utiliza obligatoriamente la grafía correcta en español <strong>&quot;antirruido&quot;</strong> con doble &apos;r&apos;, token de color <code>accent.ink</code> y contenedor de fondo <code>bg.tint</code>.
               </Text>
             </Box>
 
@@ -253,7 +253,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                   borderRadius="xl"
                   borderWidth="1px"
                   borderColor="border.warmStrong"
-                  bg="bg.warm"
+                  bg="bg.section"
                   display="flex"
                   flexDirection="column"
                   justifyContent="space-between"
@@ -344,10 +344,10 @@ export const BrandModulesV2Showcase: React.FC = () => {
                         borderRadius="full"
                         borderWidth="1px"
                         borderColor={
-                          isSelected ? "accent.navy" : "border.warmStrong"
+                          isSelected ? "accent.ink" : "border.warmStrong"
                         }
-                        bg={isSelected ? "accent.navy" : "bg.surface"}
-                        color={isSelected ? "accent.navyContrast" : "text.heading"}
+                        bg={isSelected ? "accent.ink" : "bg.surface"}
+                        color={isSelected ? "accent.inkContrast" : "text.heading"}
                         fontSize="sm"
                         fontWeight={isSelected ? "bold" : "medium"}
                         display="inline-flex"
@@ -357,7 +357,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                         cursor="pointer"
                         transition="background-color 0.2s ease, border-color 0.2s ease"
                         _hover={{
-                          borderColor: "accent.navy",
+                          borderColor: "accent.ink",
                         }}
                       >
                         <Layers size={14} style={{ flexShrink: 0 }} />
@@ -374,7 +374,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
               {/* LADO IZQUIERDO: Ficha Técnica (7 columnas) */}
               <Box
                 gridColumn={{ base: "span 1", lg: "span 7" }}
-                bg="bg.warm"
+                bg="bg.section"
                 borderWidth="1px"
                 borderColor="border.warmStrong"
                 borderRadius="xl"
@@ -406,8 +406,8 @@ export const BrandModulesV2Showcase: React.FC = () => {
                           px="3"
                           py="1"
                           borderRadius="full"
-                          bg="bg.tintNavy"
-                          color="accent.navy"
+                          bg="bg.tint"
+                          color="accent.ink"
                           borderWidth="1px"
                           borderColor="border.warmStrong"
                           fontSize="xs"
@@ -471,10 +471,10 @@ export const BrandModulesV2Showcase: React.FC = () => {
                               borderRadius="full"
                               borderWidth="1px"
                               borderColor={
-                                isSelected ? "accent.navy" : "border.warmStrong"
+                                isSelected ? "accent.ink" : "border.warmStrong"
                               }
-                              bg={isSelected ? "accent.navy" : "bg.surface"}
-                              color={isSelected ? "accent.navyContrast" : "text.heading"}
+                              bg={isSelected ? "accent.ink" : "bg.surface"}
+                              color={isSelected ? "accent.inkContrast" : "text.heading"}
                               fontSize="sm"
                               fontWeight={isSelected ? "bold" : "medium"}
                               display="inline-flex"
@@ -483,7 +483,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                               cursor="pointer"
                               transition="background-color 0.2s ease, border-color 0.2s ease"
                               _hover={{
-                                borderColor: "accent.navy",
+                                borderColor: "accent.ink",
                               }}
                             >
                               {glass.name}
@@ -523,10 +523,10 @@ export const BrandModulesV2Showcase: React.FC = () => {
                               borderRadius="full"
                               borderWidth="1px"
                               borderColor={
-                                isSelected ? "accent.navy" : "border.warmStrong"
+                                isSelected ? "accent.ink" : "border.warmStrong"
                               }
-                              bg={isSelected ? "accent.navy" : "bg.surface"}
-                              color={isSelected ? "accent.navyContrast" : "text.heading"}
+                              bg={isSelected ? "accent.ink" : "bg.surface"}
+                              color={isSelected ? "accent.inkContrast" : "text.heading"}
                               fontSize="sm"
                               fontWeight={isSelected ? "bold" : "medium"}
                               display="inline-flex"
@@ -536,7 +536,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                               cursor="pointer"
                               transition="background-color 0.2s ease, border-color 0.2s ease"
                               _hover={{
-                                borderColor: "accent.navy",
+                                borderColor: "accent.ink",
                               }}
                             >
                               <Box
@@ -568,7 +568,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                     <VStack align="stretch" gap="1.5">
                       {activeSystem.features.map((feat, idx) => (
                         <HStack key={idx} align="start" gap="2">
-                          <Box as="span" color="accent.navy" display="inline-flex" mt="0.5">
+                          <Box as="span" color="accent.ink" display="inline-flex" mt="0.5">
                             <Check size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
                           </Box>
                           <Text fontSize="xs" color="text.body">
@@ -584,7 +584,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
               {/* LADO DERECHO: Vista Canónica del Presupuesto v2 (5 columnas) */}
               <Box
                 gridColumn={{ base: "span 1", lg: "span 5" }}
-                bg="bg.tintNavy"
+                bg="bg.tint"
                 borderWidth="1px"
                 borderColor="border.warmStrong"
                 borderRadius="xl"
@@ -609,7 +609,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                       fontFamily="heading"
                       fontSize={{ base: "md", md: "lg" }}
                       fontWeight="bold"
-                      color="accent.navy"
+                      color="accent.ink"
                       lineHeight="tight"
                       mt="0.5"
                     >
@@ -646,7 +646,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
 
                   {/* Resumen dinámico del ítem presupuestado */}
                   <Box
-                    bg="bg.warm"
+                    bg="bg.section"
                     p="3"
                     borderRadius="lg"
                     borderWidth="1px"
@@ -680,7 +680,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                       </HStack>
                       <HStack justify="space-between">
                         <Text color="text.muted">Rendimiento acústico:</Text>
-                        <Text fontWeight="bold" color="accent.navy">
+                        <Text fontWeight="bold" color="accent.ink">
                           {activeSystem.acousticPercentage
                             ? `-${activeSystem.acousticPercentage}% antirruido`
                             : "Estándar residencial"}

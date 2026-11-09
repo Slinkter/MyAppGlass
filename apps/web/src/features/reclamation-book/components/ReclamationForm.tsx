@@ -57,7 +57,7 @@ const ReclamationFormInner: React.FC = () => {
         <Heading
           as="h1"
           fontSize={{ base: "xl", sm: "3xl", md: "4xl" }}
-          fontWeight="900"
+          fontWeight="700"
           letterSpacing="tight"
           color="text.heading"
           lineHeight="1.2"
@@ -81,7 +81,7 @@ const ReclamationFormInner: React.FC = () => {
       >
         <SimpleGrid columns={{ base: 1, sm: 3 }} gap={{ base: "3", sm: "4" }}>
           <Box>
-            <Text fontSize="xs" fontWeight="900" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
+            <Text fontSize="xs" fontWeight="700" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
               Razón Social
             </Text>
             <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5" wordBreak="break-word">
@@ -89,7 +89,7 @@ const ReclamationFormInner: React.FC = () => {
             </Text>
           </Box>
           <Box>
-            <Text fontSize="xs" fontWeight="900" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
+            <Text fontSize="xs" fontWeight="700" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
               R.U.C.
             </Text>
             <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5">
@@ -97,7 +97,7 @@ const ReclamationFormInner: React.FC = () => {
             </Text>
           </Box>
           <Box>
-            <Text fontSize="xs" fontWeight="900" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
+            <Text fontSize="xs" fontWeight="700" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
               Dirección Fiscal
             </Text>
             <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5">

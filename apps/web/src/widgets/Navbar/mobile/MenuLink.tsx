@@ -4,7 +4,7 @@
  * @file MenuLink.tsx
  * @description Enlace principal numerado del menú móvil v2 con tipografía editorial y revelación por máscara.
  * - Ejes del menú: gutter 24, número 24–48, etiqueta en 56 (columna `minW="6"` + `gap="2"`).
- * - Numeración `xs` mono 600 con `aria-hidden="true"`; activo en `accent.navy`.
+ * - Numeración `xs` mono 600 con `aria-hidden="true"`; activo en `accent.ink`.
  * - Hover/pressed sobre TODA la fila (`mx="-2" px="2"` + `bg.subtle`) sin mover la etiqueta de su eje.
  * - Máscara con overflow="hidden": translateY(105%) -> translateY(0) en 500ms con EASE_TEXT.
  * - Cascada de 60ms por ítem, comenzando tras la apertura del panel (DUR_MS.textDelayAfterPanel).
@@ -82,7 +82,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
         fontSize="xs"
         fontFamily="mono"
         fontWeight="600"
-        color={isActive ? "accent.navy" : "text.muted"}
+        color={isActive ? "accent.ink" : "text.muted"}
         display="inline-block"
         minW="6"
         textAlign="left"
@@ -102,7 +102,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
         fontWeight="500"
         letterSpacing="-0.01em"
         lineHeight="1.2"
-        color={isActive ? "accent.navy" : "text.heading"}
+        color={isActive ? "accent.ink" : "text.heading"}
         transition={`color ${DUR_CSS.fast} ${EASE_SOFT}`}
       >
         {label}

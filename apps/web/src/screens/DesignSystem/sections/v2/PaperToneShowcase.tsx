@@ -3,7 +3,7 @@
 /**
  * @file PaperToneShowcase.tsx
  * @description Comparador del tono de papel cálido (decisión abierta de BRAND-KIT §12):
- * #F7F6F3 (manual v2) frente a #FBF8F3 (tema actual `bg.paper`). Muestra el mismo contenido
+ * #F7F6F3 (manual v2) frente a #FBF8F3 (tema actual `bg.section`). Muestra el mismo contenido
  * sobre cada tono: texto, tarjeta blanca, barra de vidrio y chip. Los dos hex son constantes
  * con nombre porque la comparación exige valores literales (excepción documentada a R1).
  */
@@ -41,7 +41,7 @@ const Sample: React.FC<SampleProps> = ({ name, hex }) => (
       </Text>
 
       <HStack gap="2" wrap="wrap" {...glassSurface} color="text.body" borderRadius="full" p="2" w="fit-content" maxW="full">
-        <Box px="3" py="2" borderRadius="full" bg="brand.navy" color="white" fontSize="sm" fontWeight="semibold">
+        <Box px="3" py="2" borderRadius="full" bg="brand.ink" color="white" fontSize="sm" fontWeight="semibold">
           Inicio
         </Box>
         <Box px="3" py="2" fontSize="sm">
@@ -67,7 +67,7 @@ const Sample: React.FC<SampleProps> = ({ name, hex }) => (
 export const PaperToneShowcase: React.FC = () => (
   <ShowcaseCard
     title="Decidido · tono del papel: A (#F7F6F3)"
-    description="El dueño eligió el tono A (#F7F6F3, ahora en el token bg.paper). Se conserva la comparación como referencia."
+    description="El dueño eligió el tono A (#F7F6F3, ahora en el token bg.section). Se conserva la comparación como referencia."
     badge="Decidido"
   >
     <SimpleGrid columns={{ base: 1, md: 2 }} gap="4">

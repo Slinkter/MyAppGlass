@@ -142,7 +142,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
       h={contained ? "full" : "100dvh"}
       overflow="hidden"
       zIndex={1800}
-      bg="bg.paper"
+      bg="bg.section"
       pointerEvents={isOpen ? "auto" : "none"}
       visibility={isVisibleInDom ? "visible" : "hidden"}
       style={{
@@ -256,7 +256,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
         pb="calc(env(safe-area-inset-bottom, 0px) + 0.75rem)"
         borderTopWidth="1px"
         borderTopColor="border.warm"
-        bg="bg.paper"
+        bg="bg.section"
       >
         <VStack align="stretch" gap="3" w="full">
           {/* CTA principal */}
