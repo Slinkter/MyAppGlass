@@ -689,7 +689,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                     </VStack>
                   </Box>
 
-                  {/* Monto total con Source Serif 4 */}
+                  {/* Monto total con Lora */}
                   <Box
                     pt="3"
                     borderTopWidth="1px"

@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import type { Metadata, Viewport } from "next";
-import { Source_Serif_4, Inter } from "next/font/google";
+import { Lora, Inter } from "next/font/google";
 import "../styles/global.css";
 import { Providers } from "./Providers";
 import { Box } from "@chakra-ui/react";
@@ -14,10 +14,10 @@ import { getCompanyJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
 
 import { env } from "@/shared/config/env";
 
-const sourceSerif = Source_Serif_4({
+const lora = Lora({
     subsets: ["latin"],
-    weight: ["400", "600", "700"],
-    variable: "--font-source-serif",
+    weight: ["400", "500", "600", "700"],
+    variable: "--font-lora",
     display: "swap",
 });
 
@@ -106,7 +106,7 @@ export default function RootLayout({
     const jsonLd = getCompanyJsonLd();
 
     return (
-        <html lang="es" suppressHydrationWarning className={`${sourceSerif.variable} ${inter.variable}`} data-scroll-behavior="smooth">
+        <html lang="es" suppressHydrationWarning className={`${lora.variable} ${inter.variable}`} data-scroll-behavior="smooth">
             <head>
                 <script
                     type="application/ld+json"

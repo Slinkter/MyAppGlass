@@ -7,7 +7,7 @@
  * - Máscara con overflow="hidden": translateY(105%) -> translateY(0) en 500ms con EASE_TEXT.
  * - Cascada de 60ms por ítem, comenzando +200ms tras la apertura del panel (DUR_MS.textDelayAfterPanel).
  * - Al cerrar sale primero en 200ms (DUR_CSS.fast).
- * - Tipografía: numeración en Inter xs uppercase; título en Source Serif 4 3xl–4xl.
+ * - Tipografía: numeración en Inter xs uppercase; título en Lora 3xl–4xl.
  * - Área táctil >= 44px (minH="11").
  * - Foco visible de 2px con ring.primary (R7).
  * - Compatible con RouterLink o como botón disparador del acordeón de servicios.
@@ -86,7 +86,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
           {number}
         </Text>
 
-        {/* Título editorial en Source Serif 4 */}
+        {/* Título editorial en Lora */}
         <Text
           as="span"
           fontFamily="heading"

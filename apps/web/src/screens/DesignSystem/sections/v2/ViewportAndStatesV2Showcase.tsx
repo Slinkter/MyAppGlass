@@ -84,7 +84,7 @@ const SHELL_CONFIGS: Record<
 const DIAGNOSTIC_RULES = [
   { label: "Sin scroll horizontal", detail: "overflowX controlado y chips flex" },
   { label: "Touch targets ≥ 44px", detail: "minH='11' en botones y selectores" },
-  { label: "Escala tipográfica fluida", detail: "Source Serif 4 + Inter normalizados" },
+  { label: "Escala tipográfica fluida", detail: "Lora + Inter normalizados" },
   { label: "Contraste WCAG AA ≥ 4.5:1", detail: "Paleta v2 probada en claro/oscuro" },
 ];
 

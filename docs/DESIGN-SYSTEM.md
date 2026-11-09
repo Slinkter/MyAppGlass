@@ -8,7 +8,7 @@
 
 | # | Decisión | Quién |
 |---|---|---|
-| D1 | La base visual es la **marca v2** aplicada también a la web: Source Serif 4 + Inter, navy `#002060`, fondos cálidos | Usuario, 2026-11-08 |
+| D1 | La base visual es la **marca v2** aplicada también a la web: Lora + Inter, navy `#002060`, fondos cálidos | Usuario, 2026-11-08 |
 | D2 | Un solo documento de design system; lo antiguo o duplicado se elimina | Usuario, 2026-11-08 |
 | D3 | El usuario aprueba el manual **antes** de tocar código y otra vez al ver `/design-system` terminada | Usuario, 2026-11-08 |
 | D4 | Catálogo vigente de **6 sistemas**: Sistema Nova, Serie 25, Serie 35, Serie 62, Acústica, PVC abatible. **Provisional:** el catálogo canónico (D6) lo puede reemplazar | Usuario, 2026-11-08 |
@@ -63,7 +63,7 @@ Donde la v1 (`claude.md`) y la v2 diferían, **manda la v2** (D1).
 El logo de la empresa (`apps/web/public/brand/logo.png`) y el de BBVA no se modifican, recolorean ni deforman. Un solo rojo por página.
 
 ### 2.3 Tipografía
-- **Source Serif 4** 700: títulos, nombre de empresa y montos.
+- **Lora** 700: títulos, nombre de empresa y montos.
 - **Inter** 400/500/600/700: texto, tablas, etiquetas e interfaz.
 - Carga con `next/font/google`. Montos con cifras tabulares. En impresión: cuerpo ≥ 10 pt, notas ≥ 9 pt.
 
@@ -104,7 +104,7 @@ La web **no sigue ningún manual**: usa Lora y una escala zinc en blanco y negro
 ### 4.1 P0 — contradicen la marca
 | Hallazgo | Dónde |
 |---|---|
-| Lora en lugar de Source Serif 4 + Inter | `app/layout.tsx:3,17`, `shared/providers/theme/index.ts:228-229`, `screens/DesignSystem/sections/TokensSection.tsx:44-46` |
+| Lora en lugar de Lora + Inter | `app/layout.tsx:3,17`, `shared/providers/theme/index.ts:228-229`, `screens/DesignSystem/sections/TokensSection.tsx:44-46` |
 | Rojo del tema `#FF5A5F` (no es `#FF5A5A` ni `#D62828`) | `theme/index.ts:260`, `ComponentErrorBoundary.tsx:78`, `FeatureCard`, `DeclarationSection.tsx:63`, `LogoIcon.tsx:22` |
 | Degradados | `features/services/components/ServiceBentoGrid.tsx:24`, `features/home/components/features/FeatureCard.tsx:20-21`, radiales en `app/contacto/ContactPageClient.tsx:33,45` y `LandingPageSection.tsx:53,65` |
 | Emojis en la UI | `screens/Admin/AdminHubScreen.tsx:170,183,196` |
@@ -141,7 +141,7 @@ Siete pestañas (nuevos modelos, cards, nav, forms, overlays, data, tokens). Doc
 | Color | Tokens de marca de §2.2 como base; semánticos `text.{body,muted,heading}`, `bg.{page,section,surface,subtle}`, `border.{default,subtle,strong}`, `brand.primary` (navy) |
 | Estado | `status.{info,success,warning,danger}` con `_light`/`_dark` y variantes `Soft`/`Border`; reemplazan los `colorPalette` de estado |
 | Overlay | `overlay.{subtle,faint,dim,scrim}` únicos para modales y scrims (reemplazan los `rgba` sueltos) |
-| Tipografía | `fonts.heading` = Source Serif 4, `fonts.body` = Inter, `fonts.mono` definido; tamaños `xs` a `6xl` documentados con su valor real |
+| Tipografía | `fonts.heading` = Lora, `fonts.body` = Inter, `fonts.mono` definido; tamaños `xs` a `6xl` documentados con su valor real |
 | Forma | Radios `card` y `modal`; sombras con nombre solo para elevación suave; sin sombras fuertes |
 | Motion | Duraciones y curvas únicas, `prefers-reduced-motion` respetado |
 | Layout | `PageShell` con tres anchos (`narrow`, `default`, `wide`) y header de página común |
@@ -184,7 +184,7 @@ Agentes existentes en `.claude/agents` más la skill `apple-design`. No se lanza
 | 1 | Diagnóstico: medir contraste real de la paleta, revisar con `apple-design` las pantallas (Home, Servicios, Proyectos, Presupuesto, Simulador, Contacto, Reclamos, Admin, Tienda) y completar §4 | No |
 | 2 | Cerrar las decisiones de §5.3, completar la especificación de §5 y presentarla | No |
 | **Puerta 1** | **El usuario aprueba el manual y las decisiones. No se toca código antes.** | |
-| 3 | Tema y tokens: `next/font` con Source Serif 4 e Inter, paleta navy, `status.*` claro/oscuro, `overlay.*`, recetas de Badge, Dialog, Tabs, Table, Alert; botón con `minH` por tamaño; quitar `border.slate` y el rojo `#FF5A5F`; evaluar dividir `theme/index.ts` (351 líneas) | Sí |
+| 3 | Tema y tokens: `next/font` con Lora e Inter, paleta navy, `status.*` claro/oscuro, `overlay.*`, recetas de Badge, Dialog, Tabs, Table, Alert; botón con `minH` por tamaño; quitar `border.slate` y el rojo `#FF5A5F`; evaluar dividir `theme/index.ts` (351 líneas) | Sí |
 | 4 | Componentes: una sola API de imagen, `PageShell`, un solo modal (los 4 manuales pasan a `Dialog` con `FormModalShell`), Badge del tema, estados de carga, vacío y error | Sí |
 | 5 | Migrar pantallas por lotes (público → formularios → admin y tienda); limpiar P0; hoja de presupuesto y `PrintOrderModal` a tokens | Sí |
 | 6 | Reconstruir `/design-system` (las tarjetas de servicio se muestran con los 13 servicios del catálogo aprobado): principios, color (claro/oscuro), tipografía, espaciado, radios y sombras, iconografía, motion, componentes con matriz de estados, patrones de página, accesibilidad, marca. Enlazar `/design-system-ubicacion` | Sí |
@@ -196,7 +196,7 @@ Agentes existentes en `.claude/agents` más la skill `apple-design`. No se lanza
 
 **[BLOQUE 2 – USUARIOS]** (a) Cliente del sitio: busca ventanas, mamparas y techos, ve proyectos, solicita un presupuesto, casi siempre desde el móvil. (b) Vendedor y administración: redactan y revisan presupuestos y gestionan inventario. (c) Equipo de desarrollo y agentes de IA: necesitan reglas sin ambigüedad.
 
-**[BLOQUE 3 – TAREAS]** Auditar tokens y componentes; cerrar las decisiones abiertas de §5.3; definir el tema (color, tipografía, radios, sombras, motion) y las recetas; especificar cada componente (API, variantes, estados); reconstruir `/design-system`. Reglas fijas: texto `#111111`; navy `#002060` para nombre de empresa, títulos y acentos; rojo `#D62828` solo en la palabra PRESUPUESTO; coral `#FF5A5A` solo en el logo; Source Serif 4 (títulos y montos) + Inter (texto); sin degradados, emojis ni sombras fuertes; contraste ≥ 4.5:1; datos de empresa solo desde `companyData`; catálogo de 6 sistemas; "antirruido" con doble r.
+**[BLOQUE 3 – TAREAS]** Auditar tokens y componentes; cerrar las decisiones abiertas de §5.3; definir el tema (color, tipografía, radios, sombras, motion) y las recetas; especificar cada componente (API, variantes, estados); reconstruir `/design-system`. Reglas fijas: texto `#111111`; navy `#002060` para nombre de empresa, títulos y acentos; rojo `#D62828` solo en la palabra PRESUPUESTO; coral `#FF5A5A` solo en el logo; Lora (títulos y montos) + Inter (texto); sin degradados, emojis ni sombras fuertes; contraste ≥ 4.5:1; datos de empresa solo desde `companyData`; catálogo de 6 sistemas; "antirruido" con doble r.
 
 **[BLOQUE 4 – FLUJO]** Descubrir (Home, Servicios, Proyectos) → decidir (Simulador, detalle) → solicitar presupuesto (partidas, resumen, envío, confirmación, WhatsApp) → seguimiento (Mi cuenta). Interno: Admin (inventario, clientes, ventas, reportes). Cada pantalla usa `PageShell` con tres anchos y un header de página común.
 

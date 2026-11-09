@@ -2,7 +2,7 @@
  * @file index.ts
  * @description Aura Design System v2 - Chakra UI v3 Core Configuration.
  * Single source of truth for design tokens, component recipes, and semantic themes.
- * Marca v2: Source Serif 4 + Inter, negro de marca (#111111), papel cálido #F7F6F3.
+ * Marca v2: Lora + Inter, negro de marca (#111111), papel cálido #F7F6F3.
  */
 
 import { createSystem, defineConfig, defaultConfig, defineRecipe, defineSlotRecipe } from "@chakra-ui/react";
@@ -471,7 +471,7 @@ const config = defineConfig({
   theme: {
     tokens: {
       fonts: {
-        heading: { value: `var(--font-source-serif), Georgia, serif` },
+        heading: { value: `var(--font-lora), Georgia, serif` },
         body: { value: `var(--font-inter), system-ui, -apple-system, sans-serif` },
         mono: {
           value: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`,

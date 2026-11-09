@@ -47,7 +47,7 @@ Archivo: `apps/web/public/brand/logo.png` (1024×1024, fondo blanco). Símbolo: 
 | Tamaño mínimo | **(propuesta)** 24 px en pantalla / 12 mm en impresión |
 | Prohibido | Recolorear, deformar, rotar, añadir sombra o degradado, ponerlo sobre fotos sin velo plano, usar coral en textos |
 | Logo de BBVA | Va en el pie bancario; tampoco se modifica |
-| Wordmark | Texto "Glass & Aluminum Company S.A.C." en Source Serif 4 700, negro (no es imagen) |
+| Wordmark | Texto "Glass & Aluminum Company S.A.C." en Lora 700, negro (no es imagen) |
 
 **Pendiente:** el PNG actual tiene mucho margen blanco y no hay SVG ni versiones horizontal/monocromo (§12).
 
@@ -78,11 +78,11 @@ Contrastes medidos con la fórmula WCAG 2.x (2026-11-09). Reglas:
 
 | Rol | Fuente | Pesos | Uso |
 |---|---|---|---|
-| Títulos, nombre de empresa, montos | **Source Serif 4** | 700 | H1–H3, membrete, totales (cifras tabulares) |
+| Títulos, nombre de empresa, montos | **Lora** | 700 | H1–H3, membrete, totales (cifras tabulares) |
 | Texto e interfaz | **Inter** | 400 / 500 / 600 / 700 | Párrafos, tablas, botones, etiquetas |
 | Monoespaciada | `fonts.mono` del tema | — | Códigos y correlativos (GYA-AAAA-XXXX) |
 
-- Carga con `next/font/google` (ya en `app/layout.tsx`: `--font-source-serif`, `--font-inter`).
+- Carga con `next/font/google` (ya en `app/layout.tsx`: `--font-lora`, `--font-inter`).
 - Etiquetas cortas en Inter 11 px (≥ 0,6875 rem) **solo** mayúsculas con tracking amplio y nunca como único texto de estado.
 - Impresión: cuerpo ≥ 10 pt, notas ≥ 9 pt.
 - Escala web: la definida en el tema (`xs`–`6xl`); títulos de enlaces móviles 32–36 px serif.
@@ -124,7 +124,7 @@ Descartados: "Mz H Lt 16" y 998 225 739. La Ficha RUC de SUNAT (2022) no es fuen
 
 | Medio | Reglas de marca |
 |---|---|
-| **Web** | Fondo `paper-warm`/blanco con tarjetas cálidas, títulos Source Serif 4 navy, botón primario navy, WhatsApp como acción principal móvil, modo claro/oscuro |
+| **Web** | Fondo `paper-warm`/blanco con tarjetas cálidas, títulos Lora navy, botón primario navy, WhatsApp como acción principal móvil, modo claro/oscuro |
 | **Presupuesto A4** | Membrete: "VIDRIERÍA & ALUMINIO" · nombre en navy serif · "PRESUPUESTO" en rojo serif · dirección, teléfonos, web · logo con RUC · línea negra de 2 px. Jerarquía: membrete → cliente → productos → TOTAL → plazo/garantía → pago → condiciones → firmas → pie bancario. A4 vertical, márgenes ≥ 12 mm. Insignia antirruido (píldora navy de 5 segmentos con el %). 6 conceptos de hoja en `docs/gya/conceptos-presupuesto.md` (base C1) |
 | **WhatsApp** | Mensaje breve, saludo + dato + siguiente paso; presupuesto C6 como portada (`docs/gya/prompts/01-redactar-presupuesto-whatsapp.md`) |
 | **Flyer A4** | Navy + papel; sin rojo ni degradados (`docs/gya/prompts/03-flyer-a4-nextjs.md`) |
@@ -143,7 +143,7 @@ Descartados: "Mz H Lt 16" y 998 225 739. La Ficha RUC de SUNAT (2022) no es fuen
 
 - [ ] Datos de empresa desde `companyData`, no escritos a mano.
 - [ ] Solo colores de §4; coral solo en el logo, rojo solo en "PRESUPUESTO".
-- [ ] Source Serif 4 en títulos y montos, Inter en lo demás.
+- [ ] Lora en títulos y montos, Inter en lo demás.
 - [ ] Sin degradados, emojis ni sombras fuertes; velos planos sobre fotos.
 - [ ] Contraste ≥ 4,5:1 medido, claro y oscuro; targets ≥ 44 px; foco visible.
 - [ ] "antirruido", "vidrio y aluminio"; nombres de sistemas de §10.

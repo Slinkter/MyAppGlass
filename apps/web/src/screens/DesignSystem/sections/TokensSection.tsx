@@ -41,30 +41,30 @@ export const TokensSection: React.FC = () => {
 
   return (
     <ShowcaseStack>
-      {/* 1. Jerarquía Tipográfica Source Serif 4 + Inter */}
+      {/* 1. Jerarquía Tipográfica Lora + Inter */}
       <ShowcaseCard
-        title="Tipografía Oficial (Source Serif 4 + Inter)"
-        description="Source Serif 4 (700/600) para títulos, nombre de empresa y montos; Inter (400–700) para cuerpo, tablas, etiquetas e interfaz."
+        title="Tipografía Oficial (Lora + Inter)"
+        description="Lora (700/600) para títulos, nombre de empresa y montos; Inter (400–700) para cuerpo, tablas, etiquetas e interfaz."
       >
           <VStack gap="5" align="stretch">
             <Box>
-              <Heading size="4xl" color="text.heading" wordBreak="break-word">Heading 4XL · Source Serif 4 (2.25rem / 36px)</Heading>
+              <Heading size="4xl" color="text.heading" wordBreak="break-word">Heading 4XL · Lora (2.25rem / 36px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos Hero de la portada y cabeceras principales</Text>
             </Box>
             <Box>
-              <Heading size="3xl" color="text.heading" wordBreak="break-word">Heading 3XL · Source Serif 4 (1.875rem / 30px)</Heading>
+              <Heading size="3xl" color="text.heading" wordBreak="break-word">Heading 3XL · Lora (1.875rem / 30px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos de secciones principales</Text>
             </Box>
             <Box>
-              <Heading size="2xl" color="text.heading" wordBreak="break-word">Heading 2XL · Source Serif 4 (1.5rem / 24px)</Heading>
+              <Heading size="2xl" color="text.heading" wordBreak="break-word">Heading 2XL · Lora (1.5rem / 24px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Encabezados de módulos y catálogos</Text>
             </Box>
             <Box>
-              <Heading size="xl" color="text.heading" wordBreak="break-word">Heading XL · Source Serif 4 (1.25rem / 20px)</Heading>
+              <Heading size="xl" color="text.heading" wordBreak="break-word">Heading XL · Lora (1.25rem / 20px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos de tarjetas y modales</Text>
             </Box>
             <Box>
-              <Heading size="md" color="text.heading" wordBreak="break-word">Heading MD · Source Serif 4 (1rem / 16px)</Heading>
+              <Heading size="md" color="text.heading" wordBreak="break-word">Heading MD · Lora (1rem / 16px)</Heading>
               <Text fontSize="xs" color="text.muted">Subtítulos técnicos y encabezados de tablas</Text>
             </Box>
             <Separator borderColor="border.subtle" />
