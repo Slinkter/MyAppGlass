@@ -383,7 +383,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
 
                     <Box pt="1">
                       <Button
-                        variant="aura"
+                        variant="primary"
                         w="full"
                         minH="11"
                         fontSize="xs"
@@ -460,7 +460,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                         </Text>
                       </Box>
                       <VStack align="stretch" gap="2">
-                        <Button variant="aura" minH="11" w="full" fontSize="xs">
+                        <Button variant="primary" minH="11" w="full" fontSize="xs">
                           Cotizar por WhatsApp
                         </Button>
                         <Button
@@ -572,7 +572,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           Visita técnica sin costo
                         </Text>
                       </Box>
-                      <Button variant="aura" minH="11" w="full" fontSize="xs">
+                      <Button variant="primary" minH="11" w="full" fontSize="xs">
                         Solicitar Visita
                       </Button>
                       <Button
@@ -902,7 +902,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
               </Box>
 
               <Button
-                variant="aura"
+                variant="primary"
                 minH="11"
                 w="full"
                 disabled
@@ -958,7 +958,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
 
               <VStack align="stretch" gap="2">
                 <Button
-                  variant="aura"
+                  variant="primary"
                   minH="11"
                   w="full"
                   loading

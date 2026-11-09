@@ -82,7 +82,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ chatMessages, chat
               minHeight: 44,
             }}
           />
-          <Button type="submit" variant="aura" size="md" minW="11" minH="11" aria-label="Enviar mensaje">
+          <Button type="submit" variant="primary" size="md" minW="11" minH="11" aria-label="Enviar mensaje">
             <Send size={16} style={{ flexShrink: 0 }} />
           </Button>
         </HStack>

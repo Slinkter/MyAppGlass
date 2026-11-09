@@ -95,7 +95,7 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ isScrolled = false, var
               className="group"
               data-active={isActive ? "true" : "false"}
               size={{ base: "sm", md: "md" }}
-              variant={isActive ? "aura" : "ghost"}
+              variant={isActive ? "primary" : "ghost"}
               borderRadius="full"
               w={{ base: "auto", sm: "110px", xl: "130px" }}
               minW="11"
@@ -149,7 +149,7 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ isScrolled = false, var
             className="group"
             data-active={isActive ? "true" : "false"}
             size={{ base: "sm", md: "md" }}
-            variant={isActive ? "studio" : "studioGhost"}
+            variant={isActive ? "primary" : "ghost"}
             borderRadius="full"
             w="auto"
             minW="11"

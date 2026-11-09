@@ -51,7 +51,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
             data-index={index}
             onClick={() => onSelect(index)}
             size={{ base: "sm", md: "md" }}
-            variant={isActive ? "aura" : "ghost"}
+            variant={isActive ? "primary" : "ghost"}
             borderRadius="full"
             px="5"
             flexShrink={0}

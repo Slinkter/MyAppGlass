@@ -58,7 +58,7 @@ export const DesignSystemScreen: React.FC = () => {
           </VStack>
 
           <HStack gap="2" w={{ base: "full", md: "auto" }} justify={{ base: "space-between", sm: "flex-start", md: "flex-end" }}>
-            <Button asChild variant="studioOutline" size="sm" minH="11" flex={{ base: "1", sm: "initial" }}>
+            <Button asChild variant="outline" size="sm" minH="11" flex={{ base: "1", sm: "initial" }}>
               <RouterLink href="/design-system-ubicacion">
                 <MapPin size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
                 Prototipos de ubicación

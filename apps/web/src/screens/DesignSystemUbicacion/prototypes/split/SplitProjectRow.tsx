@@ -98,7 +98,7 @@ export const SplitProjectRow: React.FC<SplitProjectRowProps> = React.memo(({ pro
       </chakra.button>
       {selected && (
         <Box px="2" pb="2">
-          <Button asChild variant="aura" w="full" minH={TOUCH_MIN}>
+          <Button asChild variant="primary" w="full" minH={TOUCH_MIN}>
             <RouterLink href={href} aria-label={`Ver la obra ${project.name}`}>
               <Text>Ver obra</Text>
               <ArrowUpRight size={16} aria-hidden="true" style={{ flexShrink: 0 }} />

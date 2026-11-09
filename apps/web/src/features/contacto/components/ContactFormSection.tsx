@@ -259,7 +259,7 @@ export function ContactFormSection({
         <VStack w="full" gap="3" pt={2}>
           <Button 
             type="submit"
-            variant="aura" 
+            variant="primary" 
             size="xl" 
             w="full" 
             borderRadius="full"

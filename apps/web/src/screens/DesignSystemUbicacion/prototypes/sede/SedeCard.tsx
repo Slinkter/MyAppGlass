@@ -74,7 +74,7 @@ export const SedeCard: React.FC = React.memo(() => (
       <VStack align="stretch" gap="3">
         <Button
           asChild
-          variant="aura"
+          variant="primary"
           minH={TOUCH_MIN}
           aria-label="Cómo llegar a la sede en Google Maps (se abre en una pestaña nueva)"
         >

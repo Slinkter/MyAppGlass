@@ -208,7 +208,7 @@ export const CtaBand: React.FC<CtaBandProps> = ({ title, primary, secondary }) =
     <Flex gap="3" justify="center" direction={{ base: "column", sm: "row" }} maxW="md" mx="auto">
       <Button
         asChild
-        variant="aura"
+        variant="primary"
         px="6"
         flex="1"
         whiteSpace="nowrap"

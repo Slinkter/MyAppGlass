@@ -26,7 +26,7 @@ export default function GlobalRouteError({
           Ha ocurrido un inconveniente al cargar esta sección. Puedes reintentar la operación o volver al inicio.
         </Text>
         <VStack gap={3} w="full" sm={{ flexDirection: "row", justifyContent: "center" }}>
-          <Button variant="aura" size="md" onClick={() => reset()} gap={2}>
+          <Button variant="primary" size="md" onClick={() => reset()} gap={2}>
             <RotateCcw size={16} /> Reintentar
           </Button>
           <Button as={RouterLink} href="/" variant="outline" size="md" gap={2}>

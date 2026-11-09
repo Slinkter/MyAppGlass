@@ -120,7 +120,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
         </DialogBody>
 
         <DialogFooter>
-          <Button variant="aura" borderRadius="full" w="full" onClick={onClose} fontWeight="800">
+          <Button variant="primary" borderRadius="full" w="full" onClick={onClose} fontWeight="800">
             Volver al Inicio Ahora
           </Button>
         </DialogFooter>

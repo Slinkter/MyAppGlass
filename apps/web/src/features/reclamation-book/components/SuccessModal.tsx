@@ -111,7 +111,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
             <Printer size={16} style={{ marginRight: '6px' }} /> Imprimir / Guardar PDF
           </Button>
           <DialogActionTrigger asChild>
-            <Button variant="aura" size="md" borderRadius="full" onClick={onClose}>
+            <Button variant="primary" size="md" borderRadius="full" onClick={onClose}>
               Finalizar
             </Button>
           </DialogActionTrigger>

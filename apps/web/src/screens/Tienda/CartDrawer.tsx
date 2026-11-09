@@ -133,7 +133,7 @@ export function CartDrawer({ catalog }: { catalog: Product[] }) {
             <Button
               as={NextLink}
               href="/tienda/checkout"
-              variant="aura"
+              variant="primary"
               minH={TOUCH_MIN}
               disabled={cart.lines.length === 0}
               onClick={() => cart.close()}

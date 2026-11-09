@@ -201,7 +201,7 @@ export const ResponsiveScaleShowcase: React.FC = () => {
             </VStack>
             <VStack align="stretch" gap="2">
               <SubsectionLabel>CTA Principal · 48px (minH=&quot;12&quot;)</SubsectionLabel>
-              <Button variant="aura" size="lg" minH="12" minW="12" w="full">
+              <Button variant="primary" size="lg" minH="12" minW="12" w="full">
                 Solicitar presupuesto
               </Button>
               <Text fontSize="xs" color="text.muted">

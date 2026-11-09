@@ -121,7 +121,7 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
           <HStack gap="2" flexShrink={0}>
             <Button
               asChild
-              variant="aura"
+              variant="primary"
               minW={TOUCH_MIN}
               h={TOUCH_MIN}
               p="0"
@@ -219,7 +219,7 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
           <HStack gap="2.5">
             <Button
               asChild
-              variant="aura"
+              variant="primary"
               size="sm"
               flex="1"
               minH={TOUCH_MIN}
@@ -311,7 +311,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
           </Text>
         </Box>
         <HStack gap="2" flexShrink={0}>
-          <Button asChild variant="aura" minW={TOUCH_MIN} h={TOUCH_MIN} p="0" borderRadius="xl">
+          <Button asChild variant="primary" minW={TOUCH_MIN} h={TOUCH_MIN} p="0" borderRadius="xl">
             <RouterLink href={href} aria-label={`Ver la obra ${project.name}`}>
               <ArrowUpRight size={17} aria-hidden="true" style={{ flexShrink: 0 }} />
             </RouterLink>
@@ -443,7 +443,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
             )}
           </Box>
 
-          <Button asChild variant="aura" size="sm" minH={TOUCH_MIN} borderRadius="xl" w="full">
+          <Button asChild variant="primary" size="sm" minH={TOUCH_MIN} borderRadius="xl" w="full">
             <RouterLink href={href} aria-label={`Ver detalles de la obra ${project.name}`}>
               Ver obra completa
               <ArrowUpRight size={15} aria-hidden="true" style={{ flexShrink: 0 }} />

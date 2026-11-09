@@ -735,7 +735,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                     </Text>
                   </VStack>
                   <Button
-                    variant="aura"
+                    variant="primary"
                     w="full"
                     minH="11"
                     mt="4"

@@ -55,7 +55,7 @@ const ViewSelector: React.FC<ViewSelectorProps> = React.memo(({ activeMode, onSe
             key={opt.id}
             onClick={() => onSelect(opt.id)}
             size={{ base: "sm", md: "md" }}
-            variant={activeMode === opt.id ? "aura" : "ghost"}
+            variant={activeMode === opt.id ? "primary" : "ghost"}
             borderRadius="full"
             px={{ base: 6, md: 8 }}
             flexShrink={0}

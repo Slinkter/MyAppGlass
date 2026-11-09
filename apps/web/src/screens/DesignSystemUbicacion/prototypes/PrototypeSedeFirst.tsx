@@ -158,7 +158,7 @@ export const PrototypeSedeFirst: React.FC = () => {
       {projects.length > 0 && (
         <VStack align="stretch" gap="4" ref={mapRef} scrollMarginTop="24">
           <Button
-            variant="aura"
+            variant="primary"
             minH={TOUCH_MIN}
             alignSelf={{ base: "stretch", md: "center" }}
             onClick={() => setMapOpen((o) => !o)}

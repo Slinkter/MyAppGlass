@@ -205,7 +205,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
       )}
 
       <Button
-        variant="aura"
+        variant="primary"
         size="lg"
         w="full"
         mt="5"

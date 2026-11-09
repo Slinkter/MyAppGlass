@@ -71,7 +71,7 @@ export const SheetStoreCard: React.FC<SheetStoreCardProps> = React.memo(({ store
             </Text>
           </HStack>
         </Box>
-        <Button asChild variant="aura" minH={TOUCH_MIN} w="full">
+        <Button asChild variant="primary" minH={TOUCH_MIN} w="full">
           <a
             href={STORE_DIRECTIONS_URL}
             target="_blank"

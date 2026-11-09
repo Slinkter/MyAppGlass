@@ -114,7 +114,7 @@ const DeclarationSection: React.FC = () => {
 
       <Button
         type="submit"
-        variant="aura"
+        variant="primary"
         size={{ base: "lg", md: "xl" }}
         borderRadius="full"
         fontWeight="800"

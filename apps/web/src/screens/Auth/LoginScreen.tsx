@@ -171,7 +171,7 @@ export const LoginScreen: React.FC = () => {
             <VStack w="full" gap="3" pt="2">
               {isAdmin ? (
                 <>
-                  <Button asChild variant="aura" size="lg" w="full">
+                  <Button asChild variant="primary" size="lg" w="full">
                     <Link href="/admin">
                       <LayoutDashboard size={18} style={{ marginRight: 8 }} />
                       Ir al Dashboard de Administración
@@ -185,7 +185,7 @@ export const LoginScreen: React.FC = () => {
                   </Button>
                 </>
               ) : (
-                <Button asChild variant="aura" size="lg" w="full">
+                <Button asChild variant="primary" size="lg" w="full">
                   <Link href="/presupuesto">
                     <Calculator size={18} style={{ marginRight: 8 }} />
                     Cotizar Presupuesto de Obra
@@ -263,7 +263,7 @@ export const LoginScreen: React.FC = () => {
 
                 <Button
                   type="submit"
-                  variant="aura"
+                  variant="primary"
                   size="lg"
                   w="full"
                   mt="2"
@@ -358,7 +358,7 @@ export const LoginScreen: React.FC = () => {
 
                 <Button
                   type="submit"
-                  variant="aura"
+                  variant="primary"
                   size="lg"
                   w="full"
                   mt="2"

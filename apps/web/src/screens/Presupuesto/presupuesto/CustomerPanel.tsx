@@ -97,7 +97,7 @@ export const CustomerPanel: React.FC<CustomerPanelProps> = ({ customer, setCusto
           {errors.address && <Field.ErrorText>{errors.address}</Field.ErrorText>}
         </Field.Root>
 
-        <Button variant="aura" size="lg" w="full" minH="11" mt="2" loading={saving} onClick={onSubmit}>
+        <Button variant="primary" size="lg" w="full" minH="11" mt="2" loading={saving} onClick={onSubmit}>
           <Send size={20} style={{ flexShrink: 0 }} /> Enviar solicitud de presupuesto
         </Button>
       </VStack>

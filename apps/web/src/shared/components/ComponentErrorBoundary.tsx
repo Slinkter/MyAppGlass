@@ -75,7 +75,7 @@ class ComponentErrorBoundary extends Component<Props, State> {
 
             <Button
               size="sm"
-              variant="brand"
+              variant="primary"
               onClick={() => window.location.reload()}
             >
               Recargar página

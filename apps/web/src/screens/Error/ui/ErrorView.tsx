@@ -25,7 +25,7 @@ const ErrorView: React.FC = () => {
         <Button 
           as={RouterLink} 
           href="/" 
-          variant="aura" 
+          variant="primary" 
           size="lg"
           gap={3}
         >

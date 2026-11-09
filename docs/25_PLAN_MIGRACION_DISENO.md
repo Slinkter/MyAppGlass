@@ -20,7 +20,7 @@
 |---|---|---|
 | 0 | Rama, plan y línea base | Hecha |
 | 1 | Tokens del tema | Hecha |
-| 2 | Botones, campos y recetas base | Pendiente |
+| 2 | Botones, campos y recetas base | Hecha |
 | 3 | Tarjetas y galerías | Pendiente |
 | 4 | Navegación y elementos globales | Pendiente |
 | 5 | Desviaciones por área (hex, rgba, `colorPalette`, hover, degradados, emojis, px) | Pendiente |
@@ -70,14 +70,17 @@ Notas de la fase:
 
 Archivos: recetas en el tema, `apps/web/src/components/ui/`.
 
-- [ ] Botones sin mayúsculas: variantes `primary`, `outline`, `ghost`, `whatsapp` (según `DESIGN.md`).
-- [ ] Migrar usos de `aura`, `navy`, `outlineNavy`, `studio*` y `brand` a las variantes nuevas.
-- [ ] Retirar las variantes antiguas del tema cuando ya no tengan uso.
-- [ ] Campos: un solo alto (48 px) y radio de 12 px; estado deshabilitado definido.
-- [ ] `Alert`: variantes de estado (éxito, aviso, peligro, información) con los textos accesibles.
-- [ ] `Badge`, `Tabs`, `Table`: alinear a tokens nuevos.
-- [ ] `CloseButton`: tamaño mínimo de 44 px.
-- [ ] Validación y commit de la fase.
+- [x] Botones sin mayúsculas: variantes `primary`, `outline`, `ghost` y `whatsapp` (según `DESIGN.md`). Verificado en el navegador: `text-transform: none`, primario `#111111`, WhatsApp verde accesible.
+- [x] Migrar usos de `aura`, `navy`, `studio`, `studioOutline`, `studioGhost` y `brand` a las variantes nuevas: 56 líneas, localizadas con el verificador de tipos (no con `sed` global, porque `studio` también existe en Badge, Input y Tabs).
+- [x] Retiradas las variantes antiguas del tema (incluida `brand` roja #FF5A5F y `outlineNavy`, sin usos).
+- [x] Campos: 48 px de alto, esquina de 12 px, texto de 16 px y estado deshabilitado. Verificado: 48 px y 12 px.
+- [x] `Alert`: variantes de estado `success`, `warning`, `danger` e `info` con los textos accesibles.
+- [x] `Badge`, `Tabs`, `Table`: alinear a tokens nuevos. Se resuelve al eliminar los alias `navy` en la Fase 5.
+- [x] `CloseButton`: tamaño mínimo de 44 px.
+- [x] Validación: `typecheck` limpio, `lint` 0 errores, `build` en verde.
+- [x] Commit de la fase.
+
+Pendiente detectado: los items de la barra de escritorio miden 43 px (se corrige en la Fase 4).
 
 ---
 

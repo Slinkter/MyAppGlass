@@ -52,7 +52,7 @@ export const AdminRouteGuard: React.FC<AdminRouteGuardProps> = ({ children }) =>
           </Text>
           <VStack gap="3" w="full" pt="2">
             {!user ? (
-              <Button asChild variant="aura" w="full" size="lg">
+              <Button asChild variant="primary" w="full" size="lg">
                 <Link href="/auth">
                   <LogIn size={18} style={{ marginRight: 8 }} />
                   Iniciar Sesión como Administrador

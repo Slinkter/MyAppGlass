@@ -205,7 +205,7 @@ export const CardVariantsShowcase: React.FC = () => {
                     </Text>
                   </Box>
                   <Box>
-                    <Button variant="aura" size="sm" minH="11" px="4">
+                    <Button variant="primary" size="sm" minH="11" px="4">
                       Cotizar
                     </Button>
                   </Box>

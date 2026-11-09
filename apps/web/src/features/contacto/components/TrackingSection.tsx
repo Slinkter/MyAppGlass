@@ -87,7 +87,7 @@ export function TrackingSection({
           />
           <Button 
             size="md" 
-            variant="aura" 
+            variant="primary" 
             type="submit" 
             loading={isTracking}
             px="6"

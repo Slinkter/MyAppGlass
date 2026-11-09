@@ -134,7 +134,7 @@ export const MobileNavV2Showcase: React.FC = () => {
 
               <HStack wrap="wrap" gap="3">
                 <Button
-                  variant={isMenuOpen ? "studio" : "studioOutline"}
+                  variant={isMenuOpen ? "primary" : "outline"}
                   size="sm"
                   minH="11"
                   onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -152,7 +152,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                 </Button>
 
                 <Button
-                  variant={isReducedMotionSimulated ? "studio" : "outline"}
+                  variant={isReducedMotionSimulated ? "primary" : "outline"}
                   size="sm"
                   minH="11"
                   onClick={() => setIsReducedMotionSimulated((prev) => !prev)}
@@ -305,7 +305,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                     </Text>
                     <HStack pt="2" gap="3">
                       <Button
-                        variant="studio"
+                        variant="primary"
                         size="sm"
                         minH="11"
                       >

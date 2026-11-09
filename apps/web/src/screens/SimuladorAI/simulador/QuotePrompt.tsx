@@ -30,7 +30,7 @@ export const QuotePrompt: React.FC<QuotePromptProps> = ({ selectedProduct }) => 
           <Text fontSize="sm" color="text.muted" mb="4">
             ¿Te gusta cómo encaja {selectedProduct.name} en tu habitación? Puedes generar la cotización oficial ahora mismo.
           </Text>
-          <Button asChild variant="aura" w="full" size="lg">
+          <Button asChild variant="primary" w="full" size="lg">
             <Link href={`/presupuesto?sistema=${selectedProduct.quoteSystemType}`}>
               Cotizar este sistema <ArrowRight size={18} style={{ flexShrink: 0 }} />
             </Link>

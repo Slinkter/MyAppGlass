@@ -11,37 +11,50 @@ import { EASE_SOFT, DUR_CSS } from "@/shared/constants/motion";
 // ─── Component Recipes (v3 Architecture) ───────────────────────────────────
 
 /**
- * Receta de botones del Design System v2:
- * - Variante primaria `aura`: negro de marca en claro, blanco con texto oscuro en modo oscuro (el acento navy se retiró: la marca es negra).
- * - `uppercase` por defecto (Decisión #3 aprobada por el usuario).
- * - Todos los tamaños garantizan área táctil >= 44px (`minH: "11"`, `minW: "11"`, Regla R3).
- * - `transition` restringida a 2 propiedades (Regla R5).
+ * Receta de botones (apps/web/DESIGN.md): píldora, texto en oración, negro de marca.
+ * - Variantes: `primary` (negro; blanco en modo oscuro), `outline`, `ghost` y `whatsapp` (verde accesible).
+ * - Todos los tamaños garantizan área táctil >= 44px (`minH: "11"`, `minW: "11"`).
+ * - `transition` restringida a 2 propiedades; `:active` escala 0,98 (sin sombras ni elevación).
  */
-/** Base común de las variantes Studio del botón (sin MAYÚSCULAS ni tracking). */
-const studioButtonBase = {
-  textTransform: "none",
-  letterSpacing: "normal",
-  fontWeight: "600",
-  _active: { transform: "scale(0.98)" },
+const primaryButton = {
+  bg: "brand.ink",
+  color: "white",
+  _hover: { bg: "brand.inkHover" },
+  _active: { bg: "brand.inkActive" },
+  _dark: {
+    bg: "white",
+    color: "brand.ink",
+    _hover: { bg: "gray.200" },
+    _active: { bg: "gray.300" },
+  },
 } as const;
 
-/** El tamaño del botón pisa al de la variante: se fija el cuerpo de texto por tamaño para Studio. */
-const studioButtonCompounds = (["studio", "studioOutline", "studioGhost"] as const).flatMap((variant) => [
-  { variant, size: "sm" as const, css: { fontSize: "sm", px: "5" } },
-  { variant, size: "md" as const, css: { fontSize: "md", px: "6" } },
-  { variant, size: "lg" as const, css: { fontSize: "lg", px: "8" } },
-  { variant, size: "xl" as const, css: { fontSize: "xl", px: "10" } },
-]);
+const outlineButton = {
+  bg: "transparent",
+  borderWidth: "1.5px",
+  borderColor: "brand.ink",
+  color: "brand.ink",
+  _hover: { bg: "blackAlpha.50" },
+  _dark: { borderColor: "white", color: "white", _hover: { bg: "whiteAlpha.100" } },
+} as const;
+
+const ghostButton = {
+  bg: "transparent",
+  color: "text.body",
+  _hover: { bg: "blackAlpha.50" },
+  _dark: { color: "gray.300", _hover: { bg: "whiteAlpha.100", color: "white" } },
+} as const;
 
 const buttonRecipe = defineRecipe({
   base: {
     fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: "wider",
+    textTransform: "none",
+    letterSpacing: "normal",
     borderRadius: "full",
     minH: "11",
     minW: "11",
     transition: `background-color ${DUR_CSS.fast} ${EASE_SOFT}, transform ${DUR_CSS.fast} ${EASE_SOFT}`,
+    _active: { transform: "scale(0.98)" },
     _focusVisible: {
       outline: "2px solid",
       outlineColor: "ring.primary",
@@ -56,194 +69,27 @@ const buttonRecipe = defineRecipe({
   },
   variants: {
     variant: {
-      aura: {
-        bg: "primary.900",
-        color: "white",
-        px: "8",
-        _hover: {
-          bg: "primary.700",
-          transform: "translateY(-2px)",
-          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
-        },
-        _active: {
-          bg: "primary.800",
-          transform: "translateY(0)",
-        },
-        _dark: {
-          bg: "white",
-          color: "#18181b",
-          _hover: {
-            bg: "gray.100",
-            boxShadow: "0 0 20px rgba(255, 255, 255, 0.25)",
-          },
-          _active: {
-            bg: "gray.200",
-          },
-        },
-      },
-      navy: {
-        bg: "brand.navy",
-        color: "white",
-        px: "8",
-        _hover: {
-          bg: "brand.navyHover",
-          transform: "translateY(-2px)",
-        },
-        _active: {
-          bg: "brand.navyActive",
-          transform: "translateY(0)",
-        },
-        _dark: {
-          bg: "accent.navy",
-          color: "accent.navyContrast",
-          _hover: {
-            bg: "blue.200",
-          },
-          _active: {
-            bg: "blue.300",
-          },
-        },
-      },
+      primary: primaryButton,
+      outline: outlineButton,
+      ghost: ghostButton,
       whatsapp: {
         // Verde accesible: blanco sobre #15803d da >= 4,5:1 (el #25D366 daba 1,98:1).
         bg: "brand.whatsappAccessible",
         color: "white",
-        px: "8",
-        _hover: {
-          bg: "brand.whatsappAccessibleHover",
-          transform: "translateY(-2px)",
-          boxShadow: "md",
-        },
-        _active: {
-          bg: "brand.whatsappAccessibleActive",
-          transform: "translateY(0)",
-        },
-      },
-      brand: {
-        bg: "brand.red",
-        color: "white",
-        px: "8",
-        _hover: {
-          bg: "brand.redHover",
-          transform: "translateY(-2px)",
-          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
-        },
-        _active: {
-          bg: "brand.redDark",
-          transform: "translateY(0)",
-        },
-      },
-      outline: {
-        borderWidth: "2px",
-        borderColor: "primary.900",
-        color: "primary.900",
-        px: "8",
-        _hover: {
-          bg: "blackAlpha.50",
-        },
-        _dark: {
-          borderColor: "white",
-          color: "white",
-          _hover: {
-            bg: "whiteAlpha.100",
-          },
-        },
-      },
-      outlineNavy: {
-        borderWidth: "2px",
-        borderColor: "accent.navy",
-        color: "accent.navy",
-        px: "8",
-        _hover: {
-          bg: "bg.tintNavy",
-        },
-        _dark: {
-          borderColor: "accent.navy",
-          color: "accent.navy",
-          _hover: {
-            bg: "whiteAlpha.100",
-          },
-        },
-      },
-      ghost: {
-        color: "text.body",
-        _hover: {
-          bg: "blackAlpha.50",
-        },
-        _dark: {
-          color: "gray.300",
-          _hover: {
-            bg: "whiteAlpha.100",
-            color: "white",
-          },
-        },
-      },
-      /* Aura Studio (dirección 2026-11-09, de scroll-craft): pastilla en minúscula/oración, negro de marca. */
-      studio: {
-        ...studioButtonBase,
-        bg: "gray.900",
-        color: "white",
-        _hover: { bg: "gray.700" },
-        _dark: { bg: "white", color: "gray.900", _hover: { bg: "gray.200" } },
-      },
-      studioOutline: {
-        ...studioButtonBase,
-        bg: "transparent",
-        borderWidth: "1.5px",
-        borderColor: "gray.900",
-        color: "gray.900",
-        _hover: { bg: "blackAlpha.50" },
-        _dark: { borderColor: "white", color: "white", _hover: { bg: "whiteAlpha.100" } },
-      },
-      studioGhost: {
-        ...studioButtonBase,
-        bg: "transparent",
-        color: "text.body",
-        _hover: { bg: "blackAlpha.50" },
-        _dark: { color: "gray.300", _hover: { bg: "whiteAlpha.100", color: "white" } },
+        _hover: { bg: "brand.whatsappAccessibleHover" },
+        _active: { bg: "brand.whatsappAccessibleActive" },
       },
     },
     size: {
-      xs: {
-        h: "11",
-        minH: "11",
-        minW: "11",
-        px: "3",
-        fontSize: "xs",
-      },
-      sm: {
-        h: "11",
-        minH: "11",
-        minW: "11",
-        px: "4",
-        fontSize: "xs",
-      },
-      md: {
-        h: "11",
-        minH: "11",
-        minW: "11",
-        px: "6",
-        fontSize: "sm",
-      },
-      lg: {
-        h: "12",
-        minH: "12",
-        minW: "12",
-        px: "8",
-        fontSize: "md",
-      },
-      xl: {
-        h: "14",
-        minH: "14",
-        minW: "14",
-        fontSize: "lg",
-        px: "14",
-      },
+      xs: { h: "11", minH: "11", minW: "11", px: "3", fontSize: "sm" },
+      sm: { h: "11", minH: "11", minW: "11", px: "4", fontSize: "sm" },
+      md: { h: "11", minH: "11", minW: "11", px: "6", fontSize: "sm" },
+      lg: { h: "12", minH: "12", minW: "12", px: "8", fontSize: "md" },
+      xl: { h: "14", minH: "14", minW: "14", px: "10", fontSize: "lg" },
     },
   },
-  compoundVariants: studioButtonCompounds,
   defaultVariants: {
-    variant: "aura",
+    variant: "primary",
     size: "md",
   },
 });
@@ -318,11 +164,13 @@ const badgeRecipe = defineRecipe({
 });
 
 /**
- * Campos de formulario (`input`, `textarea`, `nativeSelect`) con altura mínima táctil de 44px (`minH: "11"`).
+ * Campos de formulario (`input`, `textarea`, `nativeSelect`): 48 px de alto (`minH: "12"`), esquina de 12 px y texto de 16 px (evita el zoom de iOS).
  * Usa el token `ring.primary` directamente en lugar de `var(--chakra-colors-ring-primary)` (Regla R8).
  */
 const fieldOutline = {
-  minH: "11",
+  minH: "12",
+  px: "4",
+  fontSize: "md",
   bg: "surface.container",
   borderWidth: "1px",
   borderColor: "border.default",
@@ -338,6 +186,10 @@ const fieldOutline = {
   },
   _invalid: {
     borderColor: "status.dangerText",
+  },
+  _disabled: {
+    opacity: 0.5,
+    cursor: "not-allowed",
   },
 };
 
@@ -477,8 +329,19 @@ const tableRecipe = defineSlotRecipe({
   },
 });
 
+/** Variante de Alert por estado: fondo suave, borde del estado y texto con contraste verificado (>= 4,5:1). */
+const alertStatusVariant = (name: "success" | "warning" | "danger" | "info") => ({
+  root: {
+    bg: `status.${name}Soft`,
+    borderColor: `status.${name}Border`,
+    borderRadius: "card",
+  },
+  title: { color: `status.${name}Text` },
+  indicator: { color: `status.${name}Text` },
+});
+
 /**
- * Alert slot recipe: estados semánticos con contraste verificado.
+ * Alert slot recipe: variantes de estado (`success`, `warning`, `danger`, `info`) con contraste verificado.
  */
 const alertRecipe = defineSlotRecipe({
   slots: ["title", "description", "root", "indicator", "content"],
@@ -504,6 +367,10 @@ const alertRecipe = defineSlotRecipe({
         root: { bg: "bg.surface", borderRadius: "2xl", borderWidth: "1px", borderColor: "border.default" },
         title: { fontFamily: "heading", fontWeight: "700", fontSize: "lg" },
       },
+      success: alertStatusVariant("success"),
+      warning: alertStatusVariant("warning"),
+      danger: alertStatusVariant("danger"),
+      info: alertStatusVariant("info"),
     },
   },
 });

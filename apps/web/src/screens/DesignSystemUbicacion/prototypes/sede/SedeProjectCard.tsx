@@ -69,7 +69,7 @@ export const SedeProjectCard: React.FC<Props> = React.memo(({ project, onShowOnM
             <MapPinned size={16} style={{ flexShrink: 0 }} aria-hidden />
             Ver en el mapa
           </Button>
-          <Button asChild variant="aura" minH={TOUCH_MIN}>
+          <Button asChild variant="primary" minH={TOUCH_MIN}>
             <RouterLink href={href} aria-label={`Ver la obra ${project.name}`}>
               Ver obra
               <ArrowUpRight size={16} style={{ flexShrink: 0 }} aria-hidden />
