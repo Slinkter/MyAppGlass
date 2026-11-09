@@ -37,7 +37,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
       imageAlt={`Servicio de ${name} - GYA Glass & Aluminum`}
       badge={
         category ? (
-          <Text fontSize="xs" fontWeight="semibold" color="white" letterSpacing="0.12em" textTransform="uppercase" truncate>
+          <Text fontSize="xs" fontWeight="semibold" color="gray.900" letterSpacing="0.12em" textTransform="uppercase" truncate>
             {category}
           </Text>
         ) : undefined

@@ -11,7 +11,7 @@ import React from "react";
 import { Box, Heading, Text, VStack, HStack, type BoxProps } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
-import { glassControl, glassOnPhoto } from "@/shared/constants/glass";
+import { glassLightOnPhoto } from "@/shared/constants/glass";
 
 /** Curva de desaceleración suave del sistema de movimiento de las cards. */
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
@@ -104,7 +104,8 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
             px="3"
             py="1"
             borderRadius="full"
-            {...glassOnPhoto}
+            color="gray.900"
+            {...glassLightOnPhoto}
           >
             {badge}
           </Box>
@@ -118,7 +119,8 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
           right={{ base: "2", md: "3" }}
           zIndex={2}
           borderRadius={{ base: "xl", md: "2xl" }}
-          {...glassOnPhoto}
+          color="gray.900"
+          {...glassLightOnPhoto}
           p={{ base: "3", md: "4" }}
           justify="space-between"
           align="flex-end"
@@ -128,7 +130,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
             <Heading
               as="h3"
               fontSize={{ base: "xl", md: "2xl" }}
-              color="white"
+              color="gray.900"
               fontWeight="semibold"
               letterSpacing="-0.02em"
               lineHeight="tight"
@@ -137,7 +139,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
               {title}
             </Heading>
             {description && (
-              <Text fontSize="sm" color="whiteAlpha.900" lineClamp={2} fontWeight="normal">
+              <Text fontSize="sm" color="gray.700" lineClamp={2} fontWeight="normal">
                 {description}
               </Text>
             )}
@@ -152,10 +154,10 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
             justifyContent="center"
             borderRadius="full"
             color="white"
+            bg="gray.900"
             flexShrink={0}
-            {...glassControl}
             transition={`background-color 0.4s ${EASE}`}
-            _groupHover={{ bg: "whiteAlpha.500" }}
+            _groupHover={{ bg: "blackAlpha.800" }}
             _motionReduce={{ transition: "none" }}
           >
             <Box as={actionIcon} boxSize={5} style={{ flexShrink: 0 }} />

@@ -43,11 +43,11 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
         imageAlt={`Proyecto ${residencial} - GYA Glass & Aluminum`}
         badge={
           <HStack gap="1.5" minW={0}>
-            <Box as={MapPin} boxSize={3} color="primary.400" style={{ flexShrink: 0 }} />
+            <Box as={MapPin} boxSize={3} color="gray.700" style={{ flexShrink: 0 }} />
             <Text
               fontSize="xs"
               fontWeight="semibold"
-              color="white"
+              color="gray.900"
               letterSpacing="0.12em"
               textTransform="uppercase"
               truncate

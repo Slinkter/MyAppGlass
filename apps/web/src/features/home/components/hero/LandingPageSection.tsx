@@ -2,23 +2,24 @@
 
 /**
  * @file LandingPageSection.tsx
- * @description Hero de la home: fotografía a pantalla completa con un panel de vidrio esmerilado
- * que contiene la marca, el título (H1), la descripción y las llamadas a la acción.
- * Datos de contacto desde `companyData`. Animaciones solo con transform/opacity y respeto de
+ * @description Hero de la home en el lenguaje del mapa inmersivo (`/design-system-ubicacion` › B):
+ * la fotografía es la protagonista y sobre ella flota una «place card» de vidrio claro con
+ * etiqueta pequeña, nombre en negrita, datos con íconos y dos acciones (negro relleno + borde negro).
+ * Marca negra: sin azul. Datos de contacto desde `companyData`. Solo transform/opacity y respeto de
  * `prefers-reduced-motion`.
  * @module home/components
  */
 
 import React from "react";
 import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
-import { ChevronDown, MessageCircle } from "lucide-react";
+import { ChevronDown, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 import RouterLink from "next/link";
 import Image from "next/image";
 
 import logoGYA from "@/assets/branding/logosvg.svg";
 import { Button } from "@/components/ui/button";
 import { companyData } from "@/shared/config/company-data";
-import { glassControl, glassOnPhoto } from "@/shared/constants/glass";
+import { glassLightOnPhoto } from "@/shared/constants/glass";
 
 const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
   companyData.whatsappMessage,
@@ -41,7 +42,7 @@ const LandingPageSection: React.FC = React.memo(() => {
       justify={{ base: "center", md: "flex-start" }}
       px={{ base: "3", md: "12", lg: "16" }}
       py={{ base: "3", md: "16" }}
-      bg="brand.navy"
+      bg="gray.900"
       css={{
         "@media (prefers-reduced-motion: reduce)": {
           "*": { animation: "none !important", transition: "none !important", transform: "none !important" },
@@ -58,42 +59,48 @@ const LandingPageSection: React.FC = React.memo(() => {
         style={{ objectFit: "cover", objectPosition: "60% 50%" }}
       />
 
-      {/* Panel de vidrio con el mensaje principal */}
+      {/* Place card de vidrio claro */}
       <VStack
-        align="flex-start"
-        gap={{ base: "4", md: "6" }}
+        align="stretch"
+        gap={{ base: "4", md: "5" }}
         position="relative"
         zIndex={1}
         w="full"
-        maxW={{ base: "full", md: "560px" }}
-        p={{ base: "5", md: "8" }}
-        borderRadius={{ base: "2xl", md: "3xl" }}
-        color="white"
+        maxW={{ base: "full", md: "440px" }}
+        p={{ base: "5", md: "6" }}
+        borderRadius="2xl"
+        color="gray.900"
+        boxShadow="xl"
         animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both"
-        {...glassOnPhoto}
+        {...glassLightOnPhoto}
       >
-        <HStack gap="3">
-          <Box position="relative" w="10" h="10" flexShrink={0}>
-            <Image
-              src={logoGYA}
-              alt="Logo de Glass & Aluminum Company"
-              fill
-              sizes="40px"
-              style={{ objectFit: "contain" }}
-            />
-          </Box>
-          <Text fontSize="xs" fontWeight="600" letterSpacing="0.18em" textTransform="uppercase" color="whiteAlpha.900">
-            VIDRIERÍA & ALUMINIO · LA MOLINA
+        <HStack justify="space-between" align="center" gap="3">
+          <HStack gap="2.5" minW={0}>
+            <Box position="relative" w="8" h="8" flexShrink={0}>
+              <Image
+                src={logoGYA}
+                alt="Logo de Glass & Aluminum Company"
+                fill
+                sizes="32px"
+                style={{ objectFit: "contain" }}
+              />
+            </Box>
+            <Text fontSize="xs" fontWeight="700" letterSpacing="0.12em" textTransform="uppercase" color="gray.700" truncate>
+              Vidriería & Aluminio
+            </Text>
+          </HStack>
+          <Text display={{ base: "none", sm: "block" }} fontSize="xs" fontWeight="600" color="gray.700" flexShrink={0}>
+            La Molina
           </Text>
         </HStack>
 
         <Heading
           as="h1"
-          fontSize={{ base: "3xl", sm: "4xl", md: "5xl" }}
-          fontWeight="700"
+          fontSize={{ base: "3xl", md: "4xl" }}
+          fontWeight="800"
           lineHeight="1.08"
           letterSpacing="tight"
-          color="white"
+          color="gray.900"
         >
           Glass & Aluminum
           <Text as="span" display="block">
@@ -101,27 +108,30 @@ const LandingPageSection: React.FC = React.memo(() => {
           </Text>
         </Heading>
 
-        <Text fontSize={{ base: "sm", md: "md" }} color="whiteAlpha.900" lineHeight="relaxed" fontWeight="normal">
+        <Text fontSize={{ base: "sm", md: "md" }} color="gray.700" lineHeight="relaxed">
           Especialistas en la fabricación, diseño e instalación de ventanas antirruido, mamparas herméticas y
           carpintería de aluminio de alta resistencia.
         </Text>
 
-        <Flex gap="3" wrap="wrap" w="full">
-          <Button asChild variant="whatsapp" px="5" flex={{ base: "1 1 100%", sm: "0 1 auto" }}>
+        <VStack align="stretch" gap="2" pt="4" borderTopWidth="1px" borderColor="blackAlpha.200">
+          <HStack gap="2" color="gray.700" fontSize="sm">
+            <MapPin size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
+            <Text>{companyData.direccion}</Text>
+          </HStack>
+          <HStack gap="2" color="gray.700" fontSize="sm">
+            <ShieldCheck size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
+            <Text>Visita técnica sin costo</Text>
+          </HStack>
+        </VStack>
+
+        <Flex gap="3" wrap="wrap">
+          <Button asChild variant="aura" px="5" whiteSpace="nowrap" flex={{ base: "1 1 100%", sm: "1 1 auto" }}>
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
+              <MessageCircle size={18} aria-hidden="true" style={{ flexShrink: 0 }} />
               Cotizar por WhatsApp
             </a>
           </Button>
-          <Button
-            asChild
-            variant="ghost"
-            px="5"
-            color="white"
-            flex={{ base: "1 1 100%", sm: "0 1 auto" }}
-            _hover={{ bg: "whiteAlpha.400" }}
-            {...glassControl}
-          >
+          <Button asChild variant="outline" px="5" whiteSpace="nowrap" flex={{ base: "1 1 100%", sm: "1 1 auto" }}>
             <RouterLink href="/#proyectos">Ver proyectos</RouterLink>
           </Button>
         </Flex>

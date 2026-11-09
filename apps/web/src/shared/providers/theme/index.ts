@@ -12,7 +12,7 @@ import { EASE_SOFT, DUR_CSS } from "@/shared/constants/motion";
 
 /**
  * Receta de botones del Design System v2:
- * - Variante primaria `aura`: Navy (#002060) en claro, navy claro (#93C5FD) con texto oscuro en modo oscuro.
+ * - Variante primaria `aura`: negro de marca en claro, blanco con texto oscuro en modo oscuro (el acento navy se retiró: la marca es negra).
  * - `uppercase` por defecto (Decisión #3 aprobada por el usuario).
  * - Todos los tamaños garantizan área táctil >= 44px (`minH: "11"`, `minW: "11"`, Regla R3).
  * - `transition` restringida a 2 propiedades (Regla R5).
@@ -518,9 +518,10 @@ const config = defineConfig({
           ink: { value: "#0f172a" },
           inkV2: { value: "#111111" },
           inkSoft: { value: "#4A4A4A" },
-          navy: { value: "#002060" },
-          navyHover: { value: "#001848" },
-          navyActive: { value: "#001030" },
+          /* Dirección 2026-11-09: la marca es NEGRA. Los tokens "navy" se mantienen por compatibilidad pero resuelven a negro de marca (#111111); el azul queda solo en foco y enlaces. */
+          navy: { value: "#111111" },
+          navyHover: { value: "#2A2A2A" },
+          navyActive: { value: "#000000" },
           redQuote: { value: "#D62828" },
           logoCoral: { value: "#FF5A5A" },
           paperWarm: { value: "#F7F6F3" },
@@ -577,8 +578,8 @@ const config = defineConfig({
 
         // Brand
         "brand.primary": { value: { _light: "{colors.primary.900}", _dark: "white" } },
-        "accent.navy": { value: { _light: "#002060", _dark: "#93C5FD" } },
-        "accent.navyContrast": { value: { _light: "white", _dark: "#0f172a" } },
+        "accent.navy": { value: { _light: "#111111", _dark: "#FFFFFF" } },
+        "accent.navyContrast": { value: { _light: "white", _dark: "#111111" } },
 
         "surface.card": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "surface.nav": { value: { _light: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" } },

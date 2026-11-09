@@ -38,6 +38,26 @@ export const glassSurface = {
 } as const;
 
 /**
+ * Leyenda de vidrio CLARO sobre fotografías (lenguaje del mapa inmersivo): texto negro,
+ * ≥ 14:1 sobre cualquier foto (blanco 90 % sobre negro ≈ #E6E6E6 con texto #111).
+ */
+export const glassLightOnPhoto = {
+  bg: "whiteAlpha.900",
+  borderWidth: "1px",
+  borderColor: "whiteAlpha.800",
+  css: {
+    backdropFilter: "blur(24px) saturate(1.4)",
+    WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+    boxShadow: GLASS_HIGHLIGHT,
+    [REDUCED]: {
+      backdropFilter: "none",
+      WebkitBackdropFilter: "none",
+      background: "{colors.white}",
+    },
+  },
+} as const;
+
+/**
  * Subtítulo/leyenda de vidrio OSCURO sobre fotografías (texto blanco, ≥ 5,7:1 en el peor caso).
  */
 export const glassOnPhoto = {
@@ -51,7 +71,7 @@ export const glassOnPhoto = {
     [REDUCED]: {
       backdropFilter: "none",
       WebkitBackdropFilter: "none",
-      background: "{colors.brand.navy}",
+      background: "{colors.gray.900}",
     },
   },
 } as const;
@@ -67,7 +87,7 @@ export const glassControl = {
     [REDUCED]: {
       backdropFilter: "none",
       WebkitBackdropFilter: "none",
-      background: "{colors.brand.navy}",
+      background: "{colors.gray.900}",
     },
   },
 } as const;

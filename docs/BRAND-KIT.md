@@ -47,19 +47,19 @@ Archivo: `apps/web/public/brand/logo.png` (1024×1024, fondo blanco). Símbolo: 
 | Tamaño mínimo | **(propuesta)** 24 px en pantalla / 12 mm en impresión |
 | Prohibido | Recolorear, deformar, rotar, añadir sombra o degradado, ponerlo sobre fotos sin velo plano, usar coral en textos |
 | Logo de BBVA | Va en el pie bancario; tampoco se modifica |
-| Wordmark | Texto "Glass & Aluminum Company S.A.C." en Source Serif 4 700, navy (no es imagen) |
+| Wordmark | Texto "Glass & Aluminum Company S.A.C." en Source Serif 4 700, negro (no es imagen) |
 
 **Pendiente:** el PNG actual tiene mucho margen blanco y no hay SVG ni versiones horizontal/monocromo (§12).
 
 ## 4. Color
 
-El color de la marca es **navy** (acento institucional) sobre **papel cálido**, con texto casi negro. El coral vive solo en el logo; el rojo solo en la palabra "PRESUPUESTO". Valores en `docs/DESIGN-SYSTEM.md` §2.2 (donde la v1 y la v2 difieren, manda la v2).
+**Dirección 2026-11-09 (dueño): la marca es NEGRA.** El negro (`#111111`) es el color protagonista —texto, botones primarios, títulos, íconos de acción—; el azul se reduce al mínimo (solo foco de teclado y enlaces). El navy `#002060` deja de ser color de marca (los tokens `brand.navy`/`accent.navy` se conservan por compatibilidad pero resuelven a negro). Modelo visual: el mapa inmersivo de `/design-system-ubicacion` (contenido protagonista + paneles mínimos de vidrio claro con borde fino, etiqueta pequeña en mayúsculas, botón negro relleno + botón con borde negro). El coral vive solo en el logo; el rojo solo en la palabra "PRESUPUESTO". Valores en `docs/DESIGN-SYSTEM.md` §2.2 (donde la v1 y la v2 difieren, manda la v2).
 
 | Token | Hex | Uso | Contraste sobre blanco / paper |
 |---|---|---|---|
 | `ink` | `#111111` | Todo el texto | 18,88 / 17,47 |
 | `ink-soft` | `#4A4A4A` | Etiquetas, texto secundario | 8,86 / 8,20 |
-| `brand-navy` | `#002060` | Nombre de la empresa, títulos de sección, franjas de acción, pie bancario, botón primario | 15,27 / 14,13 |
+| `brand-ink` (antes `brand-navy`) | `#111111` | Nombre de la empresa, títulos, botón primario, franjas de acción, pie bancario. En modo oscuro: blanco | 18,88 / 17,47 |
 | `brand-red` | `#D62828` | **Solo** la palabra "PRESUPUESTO" | 5,01 / 4,63 |
 | `logo-coral` | `#FF5A5A` | **Solo** el logo; **no usar en texto** (3,06 sobre blanco no pasa AA) | 3,06 |
 | `tint-navy` | `#F3F5F9` | Fondos de bloques destacados (grupos, totales) | navy/tint 13,99 |

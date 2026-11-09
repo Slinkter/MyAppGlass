@@ -107,7 +107,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
       </Flex>
 
       {/* DATOS DEL CLIENTE */}
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap="3" mb="6" fontSize="sm" bg="blue.50" p="4" borderRadius="lg">
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap="3" mb="6" fontSize="sm" bg="gray.50" p="4" borderRadius="lg">
         <Box>
           <Text><strong>Cliente:</strong> {customer.fullName || "Cliente Particular"}</Text>
           <Text><strong>DNI / RUC:</strong> {customer.dniRuc || "—"}</Text>
@@ -142,7 +142,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
               return (
                 <React.Fragment key={result.line.id}>
                   <tr>
-                    <Td colSpan={6} bg="blue.50" fontWeight="semibold" color="brand.navy" borderColor="blue.100">
+                    <Td colSpan={6} bg="gray.50" fontWeight="semibold" color="brand.navy" borderColor="gray.200">
                       {lineIdx + 1}. {title} ({result.line.width} × {result.line.height} m)
                     </Td>
                   </tr>

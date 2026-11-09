@@ -290,3 +290,10 @@ Feedback del dueño: el diseño plano "no encaja con una vidriería"; pide aire 
 ### Barrido final 768 px y modo oscuro real (2026-11-09)
 - Home (hero, barra, tarjetas de servicio) verificada con Playwright en 768 px claro y en 360/768/1280 px con el modo oscuro del propio sitio (clave `theme=dark`; la preferencia del sistema no lo activa): sin desborde, sin errores JS, vidrio legible. Capturas revisadas a ojo.
 - Estado: todo el trabajo está **sin commit** y a la espera de la revisión del dueño (BRAND-KIT §12 y dirección de vidrio).
+
+### Marca NEGRA y lenguaje del mapa inmersivo (2026-11-09)
+Decisión del dueño: la marca usa **negro**, el azul se reduce al mínimo, y el mapa inmersivo (`/design-system-ubicacion` › B) es el modelo visual para el resto de componentes. Sustituye la decisión D1 (navy como color de marca).
+- Tokens: `brand.navy` → `#111111`, `brand.navyHover` → `#2A2A2A`, `brand.navyActive` → `#000000`, `accent.navy` → negro/blanco (claro/oscuro), `accent.navyContrast` → blanco/negro. Los nombres se conservan por compatibilidad; todo lo que los usa (menú móvil, subrayados, badges, showcases) pasa a negro. El azul queda en foco y enlaces.
+- Lenguaje del mapa aplicado: `glassLightOnPhoto` (vidrio claro 90 %, `blur(24px) saturate(1.4)`, texto negro) en la leyenda e insignia de `MediaCard` (acción circular negra) y en el hero, que ahora es una place card (etiqueta pequeña, nombre en negrita, datos con íconos, botón negro relleno + botón con borde).
+- `QuoteSheet`: tintes grises en lugar de azules. Brand Kit y presentación actualizados a "negro".
+- Verificado: hero a 360/768/1280 px y modo oscuro (sin desborde, sin errores JS); capturas revisadas.
