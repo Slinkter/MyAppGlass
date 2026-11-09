@@ -16,6 +16,7 @@
  *   por cambio de ruta o viewport >= 1024px.
  */
 
+import { GLASS_BLUR } from "@/shared/constants/glass";
 import React, { useEffect, useRef, useState } from "react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
@@ -164,8 +165,9 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
       w="full"
       h={contained ? "full" : undefined}
       minH={contained ? "100%" : "100dvh"}
-      zIndex={1200}
-      bg="bg.paper"
+      zIndex={1600}
+      bg="bg.paper/88"
+      css={{ backdropFilter: GLASS_BLUR, WebkitBackdropFilter: GLASS_BLUR, "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": { backdropFilter: "none", background: "{colors.bg.paper}" } }}
       overflowY="auto"
       overscrollBehavior="contain"
       pointerEvents={isOpen ? "auto" : "none"}

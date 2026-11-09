@@ -5,6 +5,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { Button } from "@/components/ui/button";
 import NAV_ITEMS from "@/shared/config/nav-items";
+import { glassSurface } from "@/shared/constants/glass";
 
 import { useNavbarActiveSection, type NavbarSection } from "./hooks/useNavbarActiveSection";
 
@@ -42,23 +43,21 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ isScrolled = false }) =
       ref={containerRef}
       as="nav"
       aria-label="Navegación principal"
-      bg={isScrolled ? "bg.surface/95" : "bg.surface/65"}
-      borderColor={isScrolled ? "border.default" : "border.subtle"}
+      {...glassSurface}
+      bg={isScrolled ? { base: "whiteAlpha.800", _dark: "blackAlpha.700" } : glassSurface.bg}
       boxShadow={isScrolled ? "navDesktop" : "none"}
-      transition="background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1)"
+      transition="background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1)"
       _motionReduce={{ transition: "none" }}
       p="2"
       borderRadius="full"
       display="inline-flex"
-      borderWidth="1px"
       maxW="full"
       overflowX="auto"
       gap="1.5"
       css={{
         "&::-webkit-scrollbar": { display: "none" },
         scrollbarWidth: "none",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
+        ...glassSurface.css,
       }}
     >
       {NAV_ITEMS.map((item) => {

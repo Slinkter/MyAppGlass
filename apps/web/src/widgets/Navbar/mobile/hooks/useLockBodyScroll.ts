@@ -24,9 +24,12 @@ export function useLockBodyScroll(locked: boolean): void {
     }
 
     document.body.style.overflow = "hidden";
+    // Permite ocultar los botones flotantes mientras el menú cubre la pantalla.
+    document.body.dataset.scrollLocked = "true";
 
     return () => {
       document.body.style.overflow = originalOverflow;
+      delete document.body.dataset.scrollLocked;
       document.body.style.paddingRight = originalPaddingRight;
     };
   }, [locked]);

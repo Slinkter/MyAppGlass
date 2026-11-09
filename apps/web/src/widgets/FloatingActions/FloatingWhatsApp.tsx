@@ -58,7 +58,7 @@ const FloatingWhatsApp = () => {
         right="auto"
         zIndex="popover"
         display="flex"
-        css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))" }}
+        css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))", "body[data-scroll-locked] &": { display: "none" } }}
       >
         <FloatingWhatsAppButton onClick={() => setIsOpen(true)} />
       </Box>

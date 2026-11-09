@@ -13,6 +13,7 @@
  * - Modo `contained={true}` para visualización embebida en el marco de 390px en /design-system.
  */
 
+import { GLASS_BLUR } from "@/shared/constants/glass";
 import React, { useCallback, useRef, useState } from "react";
 import RouterLink from "next/link";
 import Image from "next/image";
@@ -101,11 +102,12 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
         left="0"
         right="0"
         w="full"
-        zIndex={1300}
+        zIndex={1700}
         pt="env(safe-area-inset-top, 0px)"
         minH="16"
         h="calc(var(--chakra-spacing-16) + env(safe-area-inset-top, 0px))"
-        bg={shouldBeSolid ? "bg.paper" : "transparent"}
+        bg={shouldBeSolid ? { base: "whiteAlpha.800", _dark: "blackAlpha.700" } : { base: "whiteAlpha.600", _dark: "blackAlpha.500" }}
+        css={{ backdropFilter: GLASS_BLUR, WebkitBackdropFilter: GLASS_BLUR, "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": { backdropFilter: "none", background: "{colors.bg.paper}" } }}
         borderBottomWidth="1px"
         borderBottomColor={shouldBeSolid ? "border.warm" : "transparent"}
         style={{
@@ -199,8 +201,8 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
               alignItems="center"
               justifyContent="center"
               borderRadius="full"
-              color={shouldBeSolid ? "brand.whatsapp" : "text.heading"}
-              _hover={{ bg: "bg.subtle", color: "brand.whatsappHover" }}
+              color={shouldBeSolid ? "brand.whatsappAccessible" : "text.heading"}
+              _hover={{ bg: "bg.subtle", color: "brand.whatsappAccessibleHover" }}
               _active={{ transform: "scale(0.94)" }}
               _focusVisible={{
                 outline: "2px solid",

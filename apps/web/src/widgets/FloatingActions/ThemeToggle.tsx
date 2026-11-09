@@ -56,7 +56,7 @@ export const ThemeToggle: React.FC = () => {
       right={4}
       zIndex="popover"
       display={{ base: "none", md: "flex" }}
-      css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))" }}
+      css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))", "body[data-scroll-locked] &": { display: "none" } }}
     >
       <ThemeToggleButton />
     </Box>

@@ -12,7 +12,7 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
 import AuraDesktopNav from "./AuraDesktopNav";
-import MobileNav from "./MobileNav";
+import { MobileNavbarV2 } from "./mobile";
 
 /**
  * @component AuraNavbar
@@ -66,7 +66,7 @@ const AuraNavbar = React.memo(() => {
 
       {/* MOBILE NAVBAR (Always visible — no scroll-reveal) */}
       <Box display={{ base: "block", md: "none" }}>
-        <MobileNav />
+        <MobileNavbarV2 />
       </Box>
     </>
   );
