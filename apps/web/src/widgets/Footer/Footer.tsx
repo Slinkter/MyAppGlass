@@ -31,7 +31,7 @@ import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/logosvg.svg";
 import React from "react";
 import type { ElementType, ReactNode } from "react";
-import NAV_ITEMS from "@/shared/config/nav-items";
+import NAV_ITEMS, { ACCOUNT_NAV_ITEM } from "@/shared/config/nav-items";
 import { companyData } from "@/shared/config/company-data";
 
 import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
@@ -86,8 +86,7 @@ const FooterRow = ({
                 isStaticImage ? (
                     <Box
                         position="relative"
-                        w="20px"
-                        h="20px"
+                        boxSize="5"
                         style={{ flexShrink: 0 }}
                     >
                         <Image
@@ -101,7 +100,7 @@ const FooterRow = ({
                         />
                     </Box>
                 ) : (
-                    <Box as={icon} boxSize="20px" color={iconColor} style={{ flexShrink: 0 }} />
+                    <Box as={icon} boxSize="5" color={iconColor} style={{ flexShrink: 0 }} />
                 )
             )}
             <Text
@@ -109,7 +108,8 @@ const FooterRow = ({
                 fontWeight="500"
                 color="text.body"
                 textAlign={{ base: "center", sm: "left" }}
-                transition="color 0.2s, transform 0.2s"
+                transition="color 0.2s ease, transform 0.2s ease"
+                _motionReduce={{ transition: "none" }}
                 _groupHover={
                     to
                         ? { color: hoverColor, transform: "translateX(2px)" }
@@ -130,7 +130,7 @@ const FooterRow = ({
                 rel={isExternal ? "noopener noreferrer" : undefined}
                 className="group"
             >
-                <Box transition="transform 0.2s" w="full">
+                <Box w="full">
                     {content}
                 </Box>
             </Link>
@@ -157,7 +157,7 @@ const FooterSection = ({ title, children, asNav, navAriaLabel }: FooterSectionPr
             <Heading
                 as="h2"
                 fontSize="xs"
-                fontWeight="800"
+                fontWeight="700"
                 color="text.accent"
                 textTransform="uppercase"
                 letterSpacing="0.2em"
@@ -216,7 +216,7 @@ const Footer = () => {
                             asNav
                             navAriaLabel="Navegación principal del sitio"
                         >
-                            {NAV_ITEMS.map((item) => (
+                            {[...NAV_ITEMS, ACCOUNT_NAV_ITEM].map((item) => (
                                 <FooterRow key={item.label} to={item.href}>
                                     {item.label}
                                 </FooterRow>
@@ -249,16 +249,9 @@ const Footer = () => {
                                 to={`https://wa.me/${companyData.whatsappNumber}`}
                                 isExternal
                                 icon={WhatsAppIcon}
-                                customIconColor="brand.whatsapp"
+                                customIconColor="brand.whatsappAccessible"
                             >
                                 WhatsApp: {companyData.whatsappDisplay}
-                            </FooterRow>
-                            <FooterRow
-                                to={`tel:+51${companyData.contactPhone.replace(/\D/g, "")}`}
-                                icon={WhatsAppIcon}
-                                customIconColor="brand.whatsapp"
-                            >
-                                {companyData.contactPhone.replace(/-/g, " ")}
                             </FooterRow>
                             <FooterRow to={`mailto:${companyData.contactEmail}`} icon={Mail}>
                                 {companyData.contactEmail}
@@ -293,8 +286,8 @@ const Footer = () => {
                     >
                         <Box
                             position="relative"
-                            h="56px"
-                            w="180px"
+                            h="14"
+                            w="44"
                             mb="2"
                         >
                             <Image
@@ -311,11 +304,11 @@ const Footer = () => {
                         <Text
                             fontSize="xs"
                             color="text.muted"
-                            fontWeight="800"
+                            fontWeight="700"
                             letterSpacing="0.35em"
                             textTransform="uppercase"
                             textAlign="center"
-                            maxW="280px"
+                            maxW="72"
                             lineHeight="1.8"
                         >
                             {companyData.razonSocial}
@@ -323,11 +316,11 @@ const Footer = () => {
                         <Text
                             fontSize="xs"
                             color="text.muted"
-                            fontWeight="800"
+                            fontWeight="700"
                             letterSpacing="0.25em"
                             textTransform="uppercase"
                             textAlign="center"
-                            maxW="280px"
+                            maxW="72"
                             lineHeight="1.8"
                             suppressHydrationWarning
                         >

@@ -36,10 +36,19 @@ const NAV_ITEMS: NavItem[] = [
     href: "/#ubicacion",
   },
   {
-    label: "Mi Cuenta",
-    href: "/auth",
+    label: "Contacto",
+    href: "/contacto",
   },
 ];
+
+/**
+ * Acceso a la cuenta del cliente: una sola ruta para escritorio, móvil y footer.
+ * Se mantiene fuera de NAV_ITEMS para que la barra principal priorice a constructoras.
+ */
+export const ACCOUNT_NAV_ITEM: NavItem = {
+  label: "Mi cuenta",
+  href: "/mi-cuenta",
+};
 
 /**
  * Arquitectura de información de la navbar móvil: 5 enlaces primarios,

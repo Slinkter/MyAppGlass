@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 
-export type NavbarSection = "inicio" | "servicios" | "proyectos" | "ubicacion" | "auth" | "";
+export type NavbarSection = "inicio" | "servicios" | "proyectos" | "ubicacion" | "contacto" | "auth" | "";
 
 /**
  * Hook para determinar la sección activa en la barra de navegación.
@@ -16,8 +16,13 @@ export function useNavbarActiveSection() {
 
   useEffect(() => {
     // Fuera de la home (p. ej. en /auth, /blog, /servicios/..., etc.)
-    if (pathname.startsWith("/auth")) {
+    if (pathname.startsWith("/auth") || pathname.startsWith("/mi-cuenta")) {
       setActiveSection("auth");
+      return;
+    }
+
+    if (pathname.startsWith("/contacto")) {
+      setActiveSection("contacto");
       return;
     }
 
