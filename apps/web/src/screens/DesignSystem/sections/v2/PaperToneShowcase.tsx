@@ -66,13 +66,13 @@ const Sample: React.FC<SampleProps> = ({ name, hex }) => (
 
 export const PaperToneShowcase: React.FC = () => (
   <ShowcaseCard
-    title="Decisión pendiente · tono del papel"
-    description="Compara los dos tonos con el mismo contenido. Elige el que se vea más cálido y limpio junto al navy y a las fotos."
-    badge="Decisión"
+    title="Decidido · tono del papel: A (#F7F6F3)"
+    description="El dueño eligió el tono A (#F7F6F3, ahora en el token bg.paper). Se conserva la comparación como referencia."
+    badge="Decidido"
   >
     <SimpleGrid columns={{ base: 1, md: 2 }} gap="4">
-      <Sample name="A · Manual v2" hex={PAPER_V2} />
-      <Sample name="B · Tema actual" hex={PAPER_THEME} />
+      <Sample name="A · Elegido" hex={PAPER_V2} />
+      <Sample name="B · Descartado" hex={PAPER_THEME} />
     </SimpleGrid>
   </ShowcaseCard>
 );

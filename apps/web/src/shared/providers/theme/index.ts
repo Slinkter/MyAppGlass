@@ -2,7 +2,7 @@
  * @file index.ts
  * @description Aura Design System v2 - Chakra UI v3 Core Configuration.
  * Single source of truth for design tokens, component recipes, and semantic themes.
- * Marca v2: Source Serif 4 + Inter, Navy #002060, fondos cálidos (#F7F6F3 / #FBF8F3).
+ * Marca v2: Source Serif 4 + Inter, negro de marca (#111111), papel cálido #F7F6F3.
  */
 
 import { createSystem, defineConfig, defaultConfig, defineRecipe, defineSlotRecipe } from "@chakra-ui/react";
@@ -573,7 +573,8 @@ const config = defineConfig({
         "bg.surface": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
         "bg.warm": { value: { _light: "#F7F6F3", _dark: "#161614" } },
-        "bg.paper": { value: { _light: "#FBF8F3", _dark: "#161614" } },
+        /* Papel decidido por el dueño (2026-11-09): A · #F7F6F3 */
+        "bg.paper": { value: { _light: "#F7F6F3", _dark: "#161614" } },
         "bg.tintNavy": { value: { _light: "#F3F5F9", _dark: "rgba(0, 32, 96, 0.24)" } },
 
         // Brand

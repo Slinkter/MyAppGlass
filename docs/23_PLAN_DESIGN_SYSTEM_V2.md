@@ -303,3 +303,6 @@ Decisión del dueño: la marca usa **negro**, el azul se reduce al mínimo, y el
 - `AdminDialog` admite `eyebrow` (etiqueta pequeña en mayúsculas sobre el título); los 3 modales de formulario lo usan ("Clientes", "Inventario").
 - Campos del tema (`input`, `textarea`, `nativeSelect`): radio `xl` en lugar de `md`.
 - Verificado: 8 casos de modales (360/1280 px), menú móvil a 360 px; sin errores JS. Pendiente: decisión de papel (A/B), revisión humana del lienzo de Claude Design.
+
+### Papel decidido (2026-11-09)
+El dueño eligió **A · `#F7F6F3`**. `bg.paper` (claro) pasa de `#FBF8F3` a `#F7F6F3`; lo usan el menú móvil v2 y el fallback de vidrio. Pendientes que no dependen de diseño: horario, teléfono secundario, correo público, garantía/IGV por producto, logo vectorial y catálogo (BRAND-KIT §12); prueba de `/admin` con datos reales.

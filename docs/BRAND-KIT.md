@@ -1,6 +1,6 @@
 # Brand Kit — Glass & Aluminum Company S.A.C.
 
-> **Estado (2026-11-09): dirección APROBADA por el dueño** (vidrio esmerilado estilo Apple, navy + serif, modo oscuro conservado, verde de WhatsApp accesible `#15803d`). **Pendiente de decisión:** tono del papel (comparador en `/design-system` > pestaña v2), horario, teléfono secundario, correo público, garantía/IGV, frase de marca, logo vectorial y catálogo. Consolida la identidad que estaba dispersa en `docs/DESIGN-SYSTEM.md` §2, `docs/gya/data/company.json`, `docs/gya/catalogo/CATALOGO.md`, `docs/11_MANUAL_SEO_LOCAL.md`, `AGENTS.md` y el logo de `apps/web/public/brand/logo.png`. Nada de aquí es nuevo salvo lo marcado **(propuesta)**; lo no resuelto está en §12.
+> **Estado (2026-11-09): dirección APROBADA por el dueño** (vidrio esmerilado estilo Apple, navy + serif, modo oscuro conservado, verde de WhatsApp accesible `#15803d`). **Papel decidido: `#F7F6F3`.** **Pendiente de decisión:** horario, teléfono secundario, correo público, garantía/IGV, frase de marca, logo vectorial y catálogo. Consolida la identidad que estaba dispersa en `docs/DESIGN-SYSTEM.md` §2, `docs/gya/data/company.json`, `docs/gya/catalogo/CATALOGO.md`, `docs/11_MANUAL_SEO_LOCAL.md`, `AGENTS.md` y el logo de `apps/web/public/brand/logo.png`. Nada de aquí es nuevo salvo lo marcado **(propuesta)**; lo no resuelto está en §12.
 > **Regla:** no se rediseña ni se toca la web hasta que este Brand Kit esté aprobado. Una vez aprobado, `DESIGN-SYSTEM.md` §2 pasa a enlazar este documento.
 > Los datos de empresa en código salen **siempre** de `companyData` (`@/shared/config/company-data`); este archivo es referencia, no fuente de runtime.
 
@@ -152,7 +152,7 @@ Descartados: "Mz H Lt 16" y 998 225 739. La Ficha RUC de SUNAT (2022) no es fuen
 
 ## 12. Pendientes y decisiones del dueño (no publicar hasta confirmar)
 
-1. **Fondo de página y papel:** `#F7F6F3` (v2) vs `#FBF8F3` (tema actual `bg.paper`). **El dueño decidirá viéndolos lado a lado** en `/design-system` (pestaña v2, «Decisión pendiente · tono del papel»).
+1. **Fondo de página y papel:** ✅ **Decidido (2026-11-09): A · `#F7F6F3`**, aplicado en el token `bg.paper`.
 2. **Modo oscuro:** ✅ **Decidido: se conserva** (2026-11-09).
 3. **Horario:** SEO documenta lun–sáb 8:00–18:00; `company.json` lista 9:00–17:00 como por verificar.
 4. **Teléfono secundario 996-537-435:** figura en `companyData` y SEO; el kit solo reconoce WhatsApp 974 278 303 como vigente. ¿Se publica?
