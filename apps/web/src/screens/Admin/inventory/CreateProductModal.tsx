@@ -5,7 +5,6 @@ import {
   Box,
   VStack,
   HStack,
-  Heading,
   Text,
   Button,
   Input,
@@ -13,7 +12,8 @@ import {
   NativeSelectField,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { CheckCircle2, X } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
+import { AdminDialog } from "@/features/admin/components/form/AdminDialog";
 import { ImageUploadZone } from "@/features/admin/components/ImageUploadZone";
 import type { Product } from "@/shared/schemas/ecommerce-schemas";
 import type { InventoryStatusMessage, ProductFormData } from "./productForm";
@@ -38,41 +38,7 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
   statusMessage,
 }) => {
   return (
-    <Box
-      position="fixed"
-      top="0"
-      left="0"
-      w="100vw"
-      h="dvh"
-      bg="rgba(0, 0, 0, 0.75)"
-      backdropFilter="blur(12px)"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      zIndex="1000"
-      p="4"
-      overflowY="auto"
-    >
-      <Box
-        as="form"
-        onSubmit={onSubmit}
-        bg="surface.card"
-        p={{ base: "4", md: "6" }}
-        borderRadius="2xl"
-        maxW="580px"
-        w="full"
-        border="1px solid"
-        borderColor="border.default"
-        boxShadow="0 25px 50px -12px var(--chakra-colors-overlay-scrim)"
-      >
-        <HStack justify="space-between" mb="5">
-          <Heading size="md" color="text.heading">
-            {isEditing ? "Editar Producto" : "Nuevo Producto en Catálogo"}
-          </Heading>
-          <Button size="xs" variant="ghost" onClick={() => onClose()}>
-            <X size={18} style={{ flexShrink: 0 }} />
-          </Button>
-        </HStack>
+    <AdminDialog title={isEditing ? "Editar producto" : "Nuevo producto en catálogo"} maxW="580px" onClose={onClose} onSubmit={onSubmit}>
 
         <VStack align="stretch" gap="3.5">
           <SimpleGrid columns={2} gap="3">
@@ -223,26 +189,26 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
             <Box
               p="3"
               borderRadius="xl"
-              bg={statusMessage.type === "success" ? "var(--chakra-colors-status-success-soft)" : "var(--chakra-colors-status-danger-soft)"}
-              color={statusMessage.type === "success" ? "var(--chakra-colors-status-success)" : "var(--chakra-colors-status-danger)"}
-              border={`1px solid ${statusMessage.type === "success" ? "rgba(52, 211, 153, 0.25)" : "rgba(239, 68, 68, 0.25)"}`}
+              bg={statusMessage.type === "success" ? "status.successSoft" : "status.dangerSoft"}
+              color={statusMessage.type === "success" ? "status.successText" : "status.dangerText"}
+              border="1px solid"
+            borderColor={statusMessage.type === "success" ? "status.successBorder" : "status.dangerBorder"}
               fontSize="xs"
             >
               {statusMessage.text}
             </Box>
           )}
 
-          <HStack justify="end" gap="2" pt="3">
-            <Button variant="outline" size="sm" borderRadius="xl" type="button" onClick={() => onClose()}>
+          <HStack justify="end" gap="2" pt="3" wrap="wrap">
+            <Button variant="outline" size="sm" borderRadius="xl" flex={{ base: "1 1 100%", sm: "0 0 auto" }} type="button" onClick={() => onClose()}>
               Cancelar
             </Button>
-            <Button size="sm" borderRadius="xl" type="submit" loading={actionLoading}>
+            <Button size="sm" borderRadius="xl" flex={{ base: "1 1 100%", sm: "0 0 auto" }} type="submit" loading={actionLoading}>
               <CheckCircle2 size={16} style={{ flexShrink: 0, marginRight: 6 }} />
               {isEditing ? "Guardar Cambios" : "Crear Producto"}
             </Button>
           </HStack>
         </VStack>
-      </Box>
-    </Box>
+    </AdminDialog>
   );
 };

@@ -4,6 +4,7 @@ import React from "react";
 import { Box, VStack, HStack, Heading, Text, Button, Badge, SimpleGrid } from "@chakra-ui/react";
 import { Printer } from "lucide-react";
 import type { Order } from "@/shared/schemas/ecommerce-schemas";
+import { AdminDialog } from "@/features/admin/components/form/AdminDialog";
 import { companyData } from "@/shared/config/company-data";
 
 interface PrintOrderModalProps {
@@ -14,31 +15,8 @@ interface PrintOrderModalProps {
 
 export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint, onClose }) => {
   return (
-    <Box
-      position="fixed"
-      top="0"
-      left="0"
-      w="100vw"
-      h="dvh"
-      bg="rgba(0, 0, 0, 0.8)"
-      backdropFilter="blur(16px)"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      zIndex="1000"
-      p="4"
-      overflowY="auto"
-    >
-      <Box
-        bg="white"
-        color="#0f172a"
-        p="8"
-        borderRadius="2xl"
-        maxW="720px"
-        w="full"
-        boxShadow="0 25px 50px rgba(0,0,0,0.5)"
-        id="printable-order-guide"
-      >
+    <AdminDialog title="Guía de salida del pedido" maxW="720px" onClose={onClose} hideHeader>
+      <Box bg="white" color="#0f172a" px={{ base: "4", md: "8" }} pb={{ base: "4", md: "8" }} pt="14" borderRadius="2xl" id="printable-order-guide">
         {/* Cabecera del Documento */}
         <HStack justify="space-between" align="start" borderBottom="2px solid #0f172a" pb="4" mb="4">
           <VStack align="start" gap="0">
@@ -149,6 +127,6 @@ export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint
           </Button>
         </HStack>
       </Box>
-    </Box>
+    </AdminDialog>
   );
 };

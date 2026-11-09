@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Box, VStack, HStack, Heading, Text, Button, Input, SimpleGrid } from "@chakra-ui/react";
-import { CheckCircle2, X } from "lucide-react";
+import { Box, VStack, HStack, Text, Button, Input, SimpleGrid } from "@chakra-ui/react";
+import { CheckCircle2 } from "lucide-react";
+import { AdminDialog } from "@/features/admin/components/form/AdminDialog";
 import type { NewClientForm } from "./newClientForm";
 
 interface NewClientModalProps {
@@ -23,40 +24,7 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
   statusMessage,
 }) => {
   return (
-    <Box
-      position="fixed"
-      top="0"
-      left="0"
-      w="100vw"
-      h="dvh"
-      bg="rgba(0, 0, 0, 0.75)"
-      backdropFilter="blur(12px)"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      zIndex="1000"
-      p="4"
-    >
-              <Box
-      as="form"
-      onSubmit={onSubmit}
-      bg="surface.card"
-      p={{ base: "4", md: "6" }}
-      borderRadius="2xl"
-      maxW="520px"
-      w="full"
-      border="1px solid"
-      borderColor="border.default"
-      boxShadow="0 25px 50px var(--chakra-colors-overlay-scrim)"
-    >
-      <HStack justify="space-between" mb="5">
-        <Heading size="md" color="text.heading">
-          Registrar Nuevo Cliente / Empresa
-        </Heading>
-        <Button size="xs" variant="ghost" onClick={() => onClose()}>
-          <X size={18} style={{ flexShrink: 0 }} />
-        </Button>
-      </HStack>
+    <AdminDialog title="Registrar nuevo cliente o empresa" maxW="520px" onClose={onClose} onSubmit={onSubmit}>
 
       <VStack align="stretch" gap="3.5">
         <VStack align="start" gap="1">
@@ -145,26 +113,26 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
           <Box
             p="3"
             borderRadius="xl"
-            bg={statusMessage.type === "success" ? "var(--chakra-colors-status-success-soft)" : "var(--chakra-colors-status-danger-soft)"}
-            color={statusMessage.type === "success" ? "var(--chakra-colors-status-success)" : "var(--chakra-colors-status-danger)"}
-            border={`1px solid ${statusMessage.type === "success" ? "rgba(52, 211, 153, 0.25)" : "rgba(239, 68, 68, 0.25)"}`}
+            bg={statusMessage.type === "success" ? "status.successSoft" : "status.dangerSoft"}
+            color={statusMessage.type === "success" ? "status.successText" : "status.dangerText"}
+            border="1px solid"
+            borderColor={statusMessage.type === "success" ? "status.successBorder" : "status.dangerBorder"}
             fontSize="xs"
           >
             {statusMessage.text}
           </Box>
         )}
 
-        <HStack justify="end" gap="2" pt="2">
-          <Button variant="outline" size="sm" borderRadius="xl" type="button" onClick={() => onClose()}>
+        <HStack justify="end" gap="2" pt="2" wrap="wrap">
+          <Button variant="outline" size="sm" borderRadius="xl" flex={{ base: "1 1 100%", sm: "0 0 auto" }} type="button" onClick={() => onClose()}>
             Cancelar
           </Button>
-          <Button size="sm" borderRadius="xl" type="submit" loading={actionLoading}>
+          <Button size="sm" borderRadius="xl" flex={{ base: "1 1 100%", sm: "0 0 auto" }} type="submit" loading={actionLoading}>
             <CheckCircle2 size={16} style={{ flexShrink: 0, marginRight: 6 }} />
             Guardar Cliente
           </Button>
         </HStack>
       </VStack>
-    </Box>
-    </Box>
+    </AdminDialog>
   );
 };

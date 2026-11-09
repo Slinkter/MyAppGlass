@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Box, VStack, HStack, Heading, Text, Button, Input } from "@chakra-ui/react";
-import { PlusCircle, X } from "lucide-react";
+import { Box, VStack, HStack, Text, Button, Input, chakra } from "@chakra-ui/react";
+import { PlusCircle } from "lucide-react";
 import type { Product } from "@/shared/schemas/ecommerce-schemas";
+import { AdminDialog } from "@/features/admin/components/form/AdminDialog";
 import type { InventoryStatusMessage } from "./productForm";
 
 interface ReplenishStockModalProps {
@@ -26,91 +27,58 @@ export const ReplenishStockModal: React.FC<ReplenishStockModalProps> = ({
   statusMessage,
 }) => {
   return (
-    <Box
-      position="fixed"
-      top="0"
-      left="0"
-      w="100vw"
-      h="dvh"
-      bg="rgba(0, 0, 0, 0.75)"
-      backdropFilter="blur(12px)"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      zIndex="1000"
-      p="4"
-    >
-      <Box
-        bg="surface.card"
-        p={{ base: "4", md: "6" }}
-        borderRadius="2xl"
-        maxW="440px"
-        w="full"
-        border="1px solid"
-        borderColor="border.default"
-        boxShadow="0 25px 50px -12px var(--chakra-colors-overlay-scrim)"
-      >
-        <HStack justify="space-between" mb="4">
-          <Heading size="md" color="text.heading">
-            Entrada Rápida de Stock
-          </Heading>
-          <Button size="xs" variant="ghost" onClick={() => onClose()}>
-            <X size={18} style={{ flexShrink: 0 }} />
+    <AdminDialog title="Entrada rápida de stock" maxW="440px" onClose={onClose}>
+      <VStack align="stretch" gap="4">
+        <Box p="3.5" borderRadius="xl" bg="bg.subtle" border="1px solid" borderColor="border.default">
+          <Text fontSize="sm" fontWeight="bold" color="text.heading">
+            {product.name}
+          </Text>
+          <Text fontSize="xs" color="text.muted" mt="0.5">
+            SKU: <Text as="span" fontFamily="mono">{product.sku}</Text> · Stock actual: <strong>{product.stock} {product.unit}</strong>
+          </Text>
+        </Box>
+
+        <VStack align="start" gap="1.5">
+          <chakra.label htmlFor="replenish-qty" fontSize="sm" fontWeight="semibold" color="text.heading">
+            Cantidad a ingresar ({product.unit})
+          </chakra.label>
+          <Input
+            id="replenish-qty"
+            type="number"
+            inputMode="numeric"
+            min="1"
+            minH="11"
+            borderRadius="xl"
+            value={replenishQty}
+            onChange={(e) => onQtyChange(Number(e.target.value))}
+          />
+        </VStack>
+
+        {statusMessage && (
+          <Box
+            role="status"
+            p="3"
+            borderRadius="xl"
+            bg={statusMessage.type === "success" ? "status.successSoft" : "status.dangerSoft"}
+            color={statusMessage.type === "success" ? "status.successText" : "status.dangerText"}
+            border="1px solid"
+            borderColor={statusMessage.type === "success" ? "status.successBorder" : "status.dangerBorder"}
+            fontSize="sm"
+          >
+            {statusMessage.text}
+          </Box>
+        )}
+
+        <HStack justify="end" gap="2" pt="2" wrap="wrap">
+          <Button variant="outline" borderRadius="xl" flex={{ base: "1 1 100%", sm: "0 0 auto" }} onClick={() => onClose()}>
+            Cancelar
+          </Button>
+          <Button borderRadius="xl" flex={{ base: "1 1 100%", sm: "0 0 auto" }} loading={actionLoading} onClick={onConfirm}>
+            <PlusCircle size={16} aria-hidden="true" style={{ flexShrink: 0, marginRight: 6 }} />
+            Confirmar ingreso
           </Button>
         </HStack>
-
-        <VStack align="stretch" gap="4">
-          <Box p="3.5" borderRadius="xl" bg="bg.subtle" border="1px solid" borderColor="border.default">
-            <Text fontSize="sm" fontWeight="bold" color="text.heading">
-              {product.name}
-            </Text>
-            <Text fontSize="xs" color="text.muted" mt="0.5">
-              SKU: <span style={{ fontFamily: "monospace" }}>{product.sku}</span> · Stock actual: <strong>{product.stock} {product.unit}</strong>
-            </Text>
-          </Box>
-
-          <VStack align="start" gap="1.5">
-            <Text fontSize="xs" fontWeight="bold" color="text.heading">
-              Cantidad a Ingresar ({product.unit}):
-            </Text>
-            <Input
-              type="number"
-              min="1"
-              borderRadius="xl"
-              value={replenishQty}
-              onChange={(e) => onQtyChange(Number(e.target.value))}
-            />
-          </VStack>
-
-          {statusMessage && (
-            <Box
-              p="3"
-              borderRadius="xl"
-              bg={statusMessage.type === "success" ? "var(--chakra-colors-status-success-soft)" : "var(--chakra-colors-status-danger-soft)"}
-              color={statusMessage.type === "success" ? "var(--chakra-colors-status-success)" : "var(--chakra-colors-status-danger)"}
-              border={`1px solid ${statusMessage.type === "success" ? "rgba(52, 211, 153, 0.25)" : "rgba(239, 68, 68, 0.25)"}`}
-              fontSize="xs"
-            >
-              {statusMessage.text}
-            </Box>
-          )}
-
-          <HStack justify="end" gap="2" pt="2">
-            <Button variant="outline" size="sm" borderRadius="xl" onClick={() => onClose()}>
-              Cancelar
-            </Button>
-            <Button
-              size="sm"
-              borderRadius="xl"
-              loading={actionLoading}
-              onClick={onConfirm}
-            >
-              <PlusCircle size={16} style={{ flexShrink: 0, marginRight: 6 }} />
-              Confirmar Ingreso
-            </Button>
-          </HStack>
-        </VStack>
-      </Box>
-    </Box>
+      </VStack>
+    </AdminDialog>
   );
 };
