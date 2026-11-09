@@ -88,7 +88,7 @@ packages/
 ## 4. Convenciones de Código
 
 - **Static Export:** El proyecto usa `output: 'export'`. Rutas dinámicas requieren `generateStaticParams`.
-- **UI y design system:** marca, tokens, botones, responsive, transiciones, tarjetas con foto y estados están en **`docs/DESIGN-SYSTEM.md`** (§3 reglas de UI). Resumen mínimo: componentes de `@/components/ui` con `variant` del tema (sin `colorPalette` ni `bg`/`_hover` a mano), tokens de Chakra v3 (sin hex, `rgba` ni `px` sueltos), targets táctiles ≥ 44 px, `dvh` en lugar de `100vh`, máximo 2 propiedades en `transition`.
+- **UI y design system:** marca, tokens, botones, responsive, transiciones, tarjetas con foto y estados están en **`apps/web/DESIGN.md`** (§3 reglas de UI). Resumen mínimo: componentes de `@/components/ui` con `variant` del tema (sin `colorPalette` ni `bg`/`_hover` a mano), tokens de Chakra v3 (sin hex, `rgba` ni `px` sueltos), targets táctiles ≥ 44 px, `dvh` en lugar de `100vh`, máximo 2 propiedades en `transition`.
 - **Logger:** Usar `@/shared/utils/logger.ts`. NO usar `console.log` en producción.
 
 ---

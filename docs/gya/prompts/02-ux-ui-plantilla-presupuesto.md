@@ -10,7 +10,7 @@ a) Cliente final (persona o constructora con RUC): recibe un PDF por WhatsApp, l
 b) Redactor interno: arma presupuestos a diario; necesita llenar datos y activar módulos sin romper nada.
 
 [BLOQUE 3 – TAREA]
-Lee docs/DESIGN-SYSTEM.md, docs/gya/data/presupuestos-reales.json y docs/gya/conceptos-presupuesto.md.
+Lee apps/web/DESIGN.md, docs/gya/data/presupuestos-reales.json y docs/gya/conceptos-presupuesto.md.
 1. Valida el patrón extraído y señala lo que falte.
 2. Diseña UNA plantilla modular (componentes fijos + módulos de la sección 5 del manual).
 3. Recomienda uno de los 6 conceptos (o una combinación) por tipo de caso, con su justificación.

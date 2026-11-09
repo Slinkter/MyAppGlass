@@ -589,7 +589,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
       {/* SECCIÓN B: Matriz Canónica de los 9 Estados de UI */}
       <ShowcaseCard
         title="Matriz Canónica de los 9 Estados de UI"
-        description="Comportamiento sistemático de componentes en todos los ciclos de interacción conforme a DESIGN-SYSTEM.md §3.6 y directrices WCAG AA."
+        description="Comportamiento sistemático de componentes en todos los ciclos de interacción conforme a apps/web/DESIGN.md §3.6 y directrices WCAG AA."
         badge="Estados §3.6"
       >
         <ShowcasePanel p={{ base: "3", md: "6" }} borderRadius="xl">

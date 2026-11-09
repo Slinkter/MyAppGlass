@@ -20,11 +20,11 @@
 
 ## Catálogo de servicios, sistemas y productos (antes del design system y de los precios)
 
-Modelo: la empresa compra a 4 proveedores (Corporación Corrales, HPD Glass, Eduhg, Favitem), ensambla en taller y vende e instala. Hoy no existe relación servicio ↔ sistema (`Service.systems` es texto libre en Firestore) y los nombres difieren entre sitio, cotizador y `AGENTS.md`. Oferta: 13 servicios, los 10 actuales + venta de espejos, frenos hidráulicos y mantenimiento. Decisiones D6, D7 y D8 en `docs/DESIGN-SYSTEM.md`.
+Modelo: la empresa compra a 4 proveedores (Corporación Corrales, HPD Glass, Eduhg, Favitem), ensambla en taller y vende e instala. Hoy no existe relación servicio ↔ sistema (`Service.systems` es texto libre en Firestore) y los nombres difieren entre sitio, cotizador y `AGENTS.md`. Oferta: 13 servicios, los 10 actuales + venta de espejos, frenos hidráulicos y mantenimiento. Decisiones D6, D7 y D8 en `apps/web/DESIGN.md`.
 
 | Fase | Contenido | Estado |
 |---|---|---|
-| C0 | Registrar el alcance real en `DESIGN-SYSTEM.md`, este archivo y el plan 21 | Hecha (2026-11-08) |
+| C0 | Registrar el alcance real en `apps/web/DESIGN.md`, este archivo y el plan 21 | Hecha (2026-11-08) |
 | C1 | Cierre de la extracción (`/home/user/github/proveedor_info`, guía en su `RESUMEN.md`): terminada, 46/46 catálogos con texto por OCR. La etiqueta `REVISAR` (`catalogos_ok = 0`) solo indica PDF sin capa de texto para comparar: las cifras no están verificadas automáticamente y los planos están en `imagenes/` | Hecha (2026-11-08) |
 | C2 | Leer Firestore (`services`, solo lectura) y el código de servicios. `projects` no se leyó | Hecha (2026-11-08) |
 | C3 | Análisis por proveedor → `docs/gya/catalogo/proveedores.md` | Hecha (2026-11-08) |
@@ -32,8 +32,8 @@ Modelo: la empresa compra a 4 proveedores (Corporación Corrales, HPD Glass, Edu
 
 Preguntas abiertas para el dueño: `docs/gya/catalogo/CATALOGO.md` §6. `AGENTS.md` (6 sistemas, "no inventar Serie 20") se actualiza solo tras aprobar el catálogo.
 
-## Design system → `docs/DESIGN-SYSTEM.md`
-Fases 1 a 6 pendientes, con dos puertas de aprobación del usuario (manual y `/design-system`). Incluye la migración de `colorPalette`/`Badge`, hex, `rgba`, modales manuales, tipografía Source Serif 4 + Inter y la reconstrucción de `/design-system`. Decisiones abiertas en su §5.3.
+## Design system → `apps/web/DESIGN.md`
+Migración al sistema único hecha en la rama `feat/migracion-diseno` (plan 25, fases 0 a 8). Pendiente del dueño: revisar los textos nuevos de la página principal y la sección para constructoras; confirmar capacidad de suministro, plazos y series (hoy marcador "se confirman por proyecto"); decidir si los precios base de `features/presupuesto/config/pricing.ts` ya incluyen IGV (hoy el calculador suma 18 %); añadir el horario a `companyData` (el footer lo escribe a mano); instalar los navegadores de Playwright (`npx playwright install`) para correr `scripts/audit-design-system.mjs`; revisar los `px` literales que quedan en prototipos de `DesignSystemUbicacion` y los `_hover` de varias propiedades.
 
 ## Presupuesto → plan 21
 Listado "Mis presupuestos", hoja A4 con la marca, precios reales (incluye `Acústica` y `PVC abatible`), IGV y precio manual por partida, e2e y fixtures de los 4 casos reales. Detalle en `docs/21_PLAN_FLUJO_PRESUPUESTO.md`.

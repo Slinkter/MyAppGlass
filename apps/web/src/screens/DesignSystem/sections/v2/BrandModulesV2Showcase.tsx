@@ -25,7 +25,7 @@ import {
 
 /**
  * Insignia Antirruido Oficial (AcousticRatingBadge)
- * Conforme a DESIGN-SYSTEM.md §2.7:
+ * Conforme a apps/web/DESIGN.md:
  * - Píldora con borde y fondo de tinta neutra.
  * - 5 segmentos discretos donde filledCount = Math.round(percentage / 20).
  * - Etiqueta en texto en negrita: -{percentage}% antirruido (doble 'r').
@@ -230,7 +230,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
       {/* SECCIÓN A: Insignia Antirruido Oficial */}
       <ShowcaseCard
         title="Insignia Antirruido Oficial (AcousticRatingBadge)"
-        description="Píldora normalizada con 5 segmentos discretos proporcionales a round(%/20) y cálculo de reducción certificada según DESIGN-SYSTEM.md §2.7."
+        description="Píldora normalizada con 5 segmentos discretos proporcionales a round(%/20) y cálculo de reducción certificada según apps/web/DESIGN.md."
         badge="Marca v2 §2.7"
       >
         <ShowcasePanel p={{ base: "3", md: "6" }} borderRadius="xl">

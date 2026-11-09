@@ -53,7 +53,7 @@
     "Boleta o factura electrónica",
     "Técnicos capacitados"
   ],
-  "services": "Ver docs/DESIGN-SYSTEM.md §2.1 (10 servicios oficiales del sitio, fuente de verdad en Firestore).",
+  "services": "Ver apps/web/DESIGN.md §2.1 (10 servicios oficiales del sitio, fuente de verdad en Firestore).",
   "noiseReduction": {
     "Serie 25": 50,
     "Serie 62": 70,
@@ -93,5 +93,5 @@
       "date": "2022-02"
     }
   ],
-  "brandNota": "Colores, tipografías y logos: ver docs/DESIGN-SYSTEM.md (única fuente de verdad)."
+  "brandNota": "Colores, tipografías y logos: ver apps/web/DESIGN.md (única fuente de verdad)."
 }

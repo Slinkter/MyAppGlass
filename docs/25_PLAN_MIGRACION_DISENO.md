@@ -21,12 +21,12 @@
 | 0 | Rama, plan y línea base | Hecha |
 | 1 | Tokens del tema | Hecha |
 | 2 | Botones, campos y recetas base | Hecha |
-| 3 | Tarjetas y galerías | Pendiente |
-| 4 | Navegación y elementos globales | Pendiente |
-| 5 | Desviaciones por área (hex, rgba, `colorPalette`, hover, degradados, emojis, px) | Pendiente |
-| 6 | Página principal para constructoras y datos del negocio | Pendiente |
-| 7 | `/design-system` | Pendiente |
-| 8 | Cierre: eliminar documentos viejos y verificar | Pendiente |
+| 3 | Tarjetas y galerías | Hecha |
+| 4 | Navegación y elementos globales | Hecha |
+| 5 | Desviaciones por área (hex, rgba, `colorPalette`, hover, degradados, emojis, px) | Hecha (con pendientes) |
+| 6 | Página principal para constructoras y datos del negocio | Hecha (con datos por confirmar) |
+| 7 | `/design-system` | Hecha |
+| 8 | Cierre: eliminar documentos viejos y verificar | Hecha |
 
 ---
 
@@ -86,81 +86,75 @@ Pendiente detectado: los items de la barra de escritorio miden 43 px (se corrige
 
 ## Fase 3 · Tarjetas y galerías
 
-- [ ] Una sola base `MediaCard`: `ServiceCard` y `ProjectCardContent` la reutilizan sin duplicar estilos.
-- [ ] `ClientCard`: quitar degradado, reutilizar `MediaCard` o la leyenda de vidrio; añadir foco y enlace.
-- [ ] `BlogCard`: quitar degradado y elevación de 12 px; añadir `prefers-reduced-motion`.
-- [ ] Tarjeta plana en reposo: sin sombra; elevación solo en hover y foco.
-- [ ] Galerías: unificar la composición `Gallery.Viewer` + `Gallery.Thumbnails` en un solo componente.
-- [ ] Validación y commit de la fase.
-
----
+- [x] `MediaCard` plana en reposo; elevación suave solo en hover y foco, con `prefers-reduced-motion`. `ServiceCard` y `ClientCard` la reutilizan.
+- [x] `ClientCard` sin degradado ni rgba. `BlogCard` sin degradado, glow ni elevación de 12 px.
+- [x] Una sola composición de galería (`GalleryWithThumbnails`) usada en `ServicePageLayout` y `VisualViewer`.
+- [x] Validación y commit de la fase.
+- Pendiente: `ClientCard` no tiene destino (no es enlace); quedan `_hover` de varias propiedades en las flechas de la galería.
 
 ## Fase 4 · Navegación y elementos globales
 
-- [ ] Barra de escritorio: tokens nuevos y pastilla activa negra; foco explícito.
-- [ ] Barra móvil y hoja del menú: tokens nuevos; vidrio solo en la barra.
-- [ ] "Mi cuenta": una sola ruta coherente entre escritorio, móvil y footer.
-- [ ] Entradas de navegación para constructoras (catálogo técnico, obras), según defina la Fase 6.
-- [ ] Footer: usar `MOBILE_NAV_ITEMS`/`NAV_ITEMS` coherentes y datos de `companyData`.
-- [ ] Botones flotantes: tokens y z-index definidos en el tema.
-- [ ] Validación y commit de la fase.
-
----
+- [x] Barra de escritorio: items de 44 px, pastilla activa negra, foco visible y `aria-current`.
+- [x] Barra móvil con vidrio y hoja del menú en blanco; z-index con tokens de Chakra.
+- [x] "Mi cuenta" apunta a `/mi-cuenta` en escritorio, móvil y footer.
+- [x] Footer sin teléfono secundario; botones flotantes con sombra suave. Se eliminaron `NavItemLarge` y `UtilityLink` (sin uso).
+- [ ] Entrada "Obras" para constructoras: no se añadió porque "Proyectos" ya apunta a `/#proyectos`; si el dueño la quiere, es cambiar el rótulo.
+- [x] Validación y commit de la fase.
+- Pendiente: el horario del footer está escrito a mano porque `companyData` no tiene ese campo.
 
 ## Fase 5 · Desviaciones por área
 
-Migración mecánica, repartida a agentes Haiku por carpeta (archivos disjuntos). Orquestador verifica con `grep` al final.
+Se hizo en dos tramos: reemplazos globales de alias y pesos (commit "parte 1") y limpieza por carpeta con cuatro agentes Haiku.
 
-- [ ] `screens/Admin/**`: hex, `rgba`, `colorPalette`, emojis, `_hover`.
-- [ ] `screens/Auth`, `screens/Legal`, `screens/Presupuesto`, `screens/Tienda`.
-- [ ] `features/**`: contacto, reclamation-book, services, home, admin.
-- [ ] `shared/components/**`: mapa, imágenes, layout.
-- [ ] `app/**`: `layout.tsx`, `manifest.ts`, `error.tsx`, páginas.
-- [ ] `vh` sueltos → `dvh`; `px` literales → tokens.
-- [ ] Peso 900 (`fontWeight="900"` y `"black"`, 27 usos) → 700.
-- [ ] Anchos de página (4xl, 6xl, 7xl, 1280px, 800px, 1440px) → `sizes.pageNarrow`/`pageDefault`/`pageWide`.
-- [ ] Eliminar los alias temporales de la Fase 1 (`brand.navy*`, `accent.navy*`, `bg.tintNavy`, `bg.warm`, `bg.paper`) cuando no queden usos.
-- [ ] Renombrar `border.warm`/`border.warmStrong` a `line`/`line-strong`.
-- [ ] Degradados → cero.
-- [ ] Meta: 0 hex y `rgba` fuera del tema (salvo SVG de ilustración), 0 `colorPalette`, 0 degradados, 0 emojis, 0 `navy`.
-- [ ] Validación y commit de la fase.
+- [x] `screens/Admin`, pantallas públicas, `features`, `shared` y `app` limpiados (hex y rgba a tokens, `colorPalette` a variantes, degradados y emojis fuera, `vh` a `dvh`).
+- [x] Peso 800/900/`black` a 700 en todo `src` (salvo comentarios).
+- [x] Anchos de página a `pageNarrow`/`pageDefault`/`pageWide`.
+- [x] Alias temporales eliminados del tema; `brand.navy`, `accent.navy`, `bg.tintNavy`, `bg.warm` y `bg.paper` ya no existen.
+- [ ] Renombrar `border.warm`/`border.warmStrong` a `line`/`line-strong`: pendiente (bajo valor, muchos usos).
+- [x] Validación y commit de la fase.
 
----
+Conteos (apps/web/src, fuera del tema):
+
+| Desviación | Antes (2026-11-09) | Después |
+|---|---:|---:|
+| hex | 74 | 26 (todos legítimos: Google Maps, logo, `manifest`, `themeColor`, comentarios) |
+| `rgba` | 54 | 0 |
+| `colorPalette` | 38 | 2 (infraestructura `color-mode.tsx`) |
+| `_hover={{` | ~69 | 51 (varios ya de una sola propiedad) |
+| degradados | 12 | 0 |
+| emojis en JSX | 3 | 0 |
+| `navy`/`#002060`/`#FBF8F3` | 107 | 0 |
+| `vh` sueltos | 3 | 0 |
+| peso 800/900 | 27+ | 0 |
+| `px` literales en props | 65 | ~191 con un criterio más amplio; sin cuantificar con el criterio anterior |
+
+Pendiente: `_hover` de varias propiedades en tarjetas del admin y de servicios; `px` literales en prototipos de `DesignSystemUbicacion`; colores crudos de paleta (`purple.400`, `blue.400`) en cinco archivos; `app/icon.svg` conserva sus hex (es un activo de marca).
 
 ## Fase 6 · Página principal para constructoras y datos del negocio
 
-Constructoras son la audiencia principal; hogares quedan con un camino directo de presupuesto.
-
-- [ ] Hero con dos acciones: pedir presupuesto (WhatsApp) y ver obras.
-- [ ] Corregir el texto del hero: dice "especialistas en la **fabricación**, diseño e instalación", pero la empresa compra los materiales, ensambla en taller e instala (no fabrica perfiles ni vidrio). Proponer redacción y confirmar con el dueño.
-- [ ] Sección para constructoras: capacidad de suministro, plazos, catálogo técnico (series) y obras. **Los datos que falten quedan como marcador y se preguntan al dueño.**
-- [ ] Reordenar secciones según la audiencia principal.
-- [ ] Mostrar los 13 servicios (los 3 nuevos aunque no tengan foto).
-- [ ] Garantía: 3 meses (corregir los 6 meses de la sección de beneficios y de los presupuestos).
-- [ ] Horario: lunes a sábado, 08:00 a 18:00 (corregir el mapa).
-- [ ] Precio mostrado con IGV incluido.
-- [ ] Teléfono público: solo WhatsApp 974 278 303.
-- [ ] Logo: usar el SVG vectorial.
-- [ ] Validación y commit de la fase.
-
----
+- [x] Hero con dos acciones (Pedir presupuesto por WhatsApp y Ver obras) y texto corregido: "Suministro, ensamblaje en taller e instalación…" (ya no dice que fabrican).
+- [x] Nueva sección "Para constructoras e inmobiliarias" con 5 bloques y marcador visible "Capacidad, plazos y series: se confirman por proyecto".
+- [x] Orden: hero, constructoras, proyectos, servicios, beneficios, clientes y ubicación (verificado en el navegador).
+- [x] Garantía de 3 meses, horario 8:00 a 18:00 (también en la etiqueta "abierto"), teléfono público solo WhatsApp.
+- [x] Logo vectorial: el hero ya usaba el SVG.
+- [ ] Mostrar los 13 servicios: la lista sale de Firestore (hoy 10). Hay que crear los 3 servicios nuevos desde el panel de administración; no se hace en código.
+- [ ] IGV: el calculador suma 18 % sobre precios base sin IGV; el total final incluye IGV, pero hay que confirmar con el dueño si los precios base ya lo incluyen.
+- [x] Validación y commit de la fase.
 
 ## Fase 7 · `/design-system`
 
-- [ ] Pestaña por defecto con el estilo nuevo (sin navy ni azul).
-- [ ] Montar `GalleryShowcase` e `ImageRevealShowcase`.
-- [ ] Añadir showcases que faltan: `MediaCard`, `AuraHeader`, `CopyButton`, `CloseButton`, `FileUpload`, `ScrollArea`.
-- [ ] Documentar tokens reales (sin la lista de tokens retirados).
-- [ ] Verificación en 360, 768 y 1280 px, claro y oscuro.
-- [ ] Validación y commit de la fase.
-
----
+- [x] Pestaña por defecto "Tokens y reglas" con los tokens reales en claro y oscuro; ninguna de las 11 pestañas menciona navy, `#002060`, papel cálido ni Source Serif (verificado en el navegador).
+- [x] Montados `GalleryShowcase` e `ImageRevealShowcase`; nuevo showcase de `MediaCard`, `AuraHeader`, `CopyButton`, `CloseButton`, `FileUpload` y `ScrollArea`.
+- [x] Matriz de botones: 4 variantes por 5 estados.
+- [x] Sin desborde horizontal en ninguna pestaña a 1280 px.
+- [x] Validación y commit de la fase.
 
 ## Fase 8 · Cierre
 
-- [ ] Auditoría final: `scripts/audit-design-system.mjs` y `scripts/audit-landing.mjs`.
-- [ ] Repetir los conteos de la Fase 0 y comparar.
-- [ ] Eliminar `DESIGN-SYSTEM.md`, `BRAND-KIT.md`, `PROMPT-REDISENO-DS.md` y `23_PLAN_DESIGN_SYSTEM_V2.md` (con confirmación del dueño).
-- [ ] Actualizar `CLAUDE.md`, `AGENTS.md`, `docs/README.md` y `docs/PENDIENTES.md` para que apunten a `apps/web/DESIGN.md`.
-- [ ] Registrar el cierre en `docs/05_CHANGELOG.md`.
-- [ ] Commit final y decisión del dueño sobre merge o PR.
+- [x] Verificación con el navegador del MCP de Playwright: página principal a 360 y 1280 px (sin desborde, sin objetivos menores de 44 px, Lora 700, fondo blanco), modo oscuro y las 11 pestañas de `/design-system`. Los únicos errores de consola son 404 de precarga de Next contra un servidor local simple, no de la app.
+- [ ] `scripts/audit-design-system.mjs` y `scripts/audit-landing.mjs`: no se pudieron correr; Playwright no tiene el navegador instalado para scripts (`npx playwright install`).
+- [x] Conteos repetidos y comparados (tabla de la fase 5).
+- [x] Eliminados `DESIGN-SYSTEM.md`, `BRAND-KIT.md`, `PROMPT-REDISENO-DS.md` y `23_PLAN_DESIGN_SYSTEM_V2.md`, por indicación del dueño ("referencia y, al terminar, eliminar").
+- [x] `claude.md`, `AGENTS.md`, `docs/README.md`, `docs/PENDIENTES.md`, `docs/01_ARCHITECTURE.md` y `docs/02_AI_HANDOFF.md` apuntan a `apps/web/DESIGN.md`.
+- [x] Registrado en `docs/05_CHANGELOG.md`.
+- [ ] Decisión del dueño: merge a `main` o PR. No se hizo push ni deploy.

@@ -80,7 +80,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
   - **Reglas de seguridad desplegadas en producción**: `firestore.rules` y `storage.rules` ya fueron aplicadas exitosamente (`firebase deploy --only firestore:rules,storage --project gya-app-4c8a9`).
   - **Unificación de CSS en Chakra UI v3**: Eliminada la librería `framer-motion` (ahorro ~35 KB en bundle), reemplazada por animaciones y transiciones nativas de Chakra. Eliminados bloques manuales de `@emotion/react` en `Providers.tsx`.
   - **Tokens semánticos oficiales en `theme/index.ts`**: Registrados formalmente `brand.primary`, `bg.surface`, `border.subtle` y `status.dangerBorder`.
-  - **Design System**: showcase en `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón aura/outline/ghost/whatsapp/brand. La revisión visual en navegador sigue pendiente (ver `DESIGN-SYSTEM.md`).
+  - **Design System**: única fuente de verdad en `apps/web/DESIGN.md` (migración en `docs/25_PLAN_MIGRACION_DISENO.md`). Showcase en `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón primary, outline, ghost y whatsapp.
   - **Nota de Coordinación**: Otro agente de IA está trabajando en paralelo en auditoría/remediación de vulnerabilidades y backend congelado; respetar áreas sin generar conflictos en archivos bloqueados.
 * **Hosting:** desplegado el 2026-11-02 con los últimos cambios. Desplegar de nuevo solo cuando el usuario lo pida (`pnpm run build && pnpm run deploy:hosting`).
 * **Hosting Live:** [https://gya-app-4c8a9.web.app](https://gya-app-4c8a9.web.app)

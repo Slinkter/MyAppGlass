@@ -1,6 +1,6 @@
 # docs/gya — Material de presupuestos (G&A)
 
-Material recibido de Claude Desktop e integrado el 2026-11-08. Alimenta la mejora de `/presupuesto` (plan en `docs/21_PLAN_FLUJO_PRESUPUESTO.md`). **La marca, los colores y la tipografía ya no viven aquí: están en `docs/DESIGN-SYSTEM.md`.**
+Material recibido de Claude Desktop e integrado el 2026-11-08. Alimenta la mejora de `/presupuesto` (plan en `docs/21_PLAN_FLUJO_PRESUPUESTO.md`). **La marca, los colores y la tipografía ya no viven aquí: están en `docs/apps/web/DESIGN.md`.**
 
 | Archivo | Uso |
 |---|---|

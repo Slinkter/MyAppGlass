@@ -42,7 +42,7 @@ Visita técnica sin costo y presupuesto rápido por WhatsApp, respaldados por un
 
 - Nombre: Glass & Aluminum Company S.A.C. Línea superior "VIDRIERÍA & ALUMINIO".
 - Frase de marca: "Confianza sólida en cada estructura".
-- Color de marca: negro `#111111` (decisión vigente del 2026-11-09). Coral del logo solo en el logo. Rojo solo en la palabra "PRESUPUESTO" o en títulos destacados (el dueño lo amplió; regla por confirmar en `DESIGN-SYSTEM.md`).
+- Color de marca: negro `#111111` (decisión vigente del 2026-11-09). Coral del logo solo en el logo. Rojo solo en la palabra "PRESUPUESTO" o en títulos destacados (el dueño lo amplió; regla por confirmar en `apps/web/DESIGN.md`).
 - Fondo: blanco puro (respuesta del dueño; reemplaza el papel `#F7F6F3` del plan anterior).
 - Tipografía: Lora 700 para títulos, Inter para texto.
 - Modo oscuro: se conserva.
@@ -61,7 +61,7 @@ Visita técnica sin costo y presupuesto rápido por WhatsApp, respaldados por un
 
 ## Product Principles
 
-- Un solo sistema de diseño: `docs/DESIGN-SYSTEM.md` es la fuente de verdad; el código lo implementa.
+- Un solo sistema de diseño: `apps/web/DESIGN.md` es la fuente de verdad; el código lo implementa.
 - Datos de proveedores pesan más que las suposiciones locales cuando se contradicen.
 - Ningún dato faltante se inventa: se deja marcador visible y se pregunta.
 - Constructoras y hogares se atienden con el mismo rigor; la página no debe sacrificar a una por la otra.
