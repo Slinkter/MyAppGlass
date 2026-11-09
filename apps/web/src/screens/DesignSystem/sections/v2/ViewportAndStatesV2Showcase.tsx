@@ -146,7 +146,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                             isSelected ? "accent.navy" : "border.warmStrong"
                           }
                           bg={isSelected ? "accent.navy" : "bg.surface"}
-                          color={isSelected ? "white" : "text.heading"}
+                          color={isSelected ? "accent.navyContrast" : "text.heading"}
                           fontSize="sm"
                           fontWeight={isSelected ? "bold" : "medium"}
                           display="inline-flex"
@@ -203,7 +203,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                             isSelected ? "accent.navy" : "border.warmStrong"
                           }
                           bg={isSelected ? "accent.navy" : "bg.surface"}
-                          color={isSelected ? "white" : "text.heading"}
+                          color={isSelected ? "accent.navyContrast" : "text.heading"}
                           fontSize="sm"
                           fontWeight={isSelected ? "bold" : "medium"}
                           display="inline-flex"
@@ -1005,12 +1005,12 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     py="0.5"
                     borderRadius="full"
                     bg="status.dangerSoft"
-                    color="status.danger"
+                    color="status.dangerText"
                     fontSize="xs"
                   >
                     Estado 7/9
                   </Badge>
-                  <Text fontSize="xs" color="status.danger">
+                  <Text fontSize="xs" color="status.dangerText">
                     Error
                   </Text>
                 </HStack>
@@ -1036,18 +1036,22 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 p="3"
               >
                 <HStack gap="2" align="start">
-                  <AlertCircle
-                    size={16}
-                    color="var(--chakra-colors-status-danger)"
-                    style={{ flexShrink: 0, marginTop: "2px" }}
-                  />
+                  <Box
+                    as="span"
+                    color="status.dangerText"
+                    display="inline-flex"
+                    flexShrink={0}
+                    mt="0.5"
+                  >
+                    <AlertCircle size={16} />
+                  </Box>
                   <Box flex="1">
-                    <Text fontSize="xs" fontWeight="bold" color="status.danger">
+                    <Text fontSize="xs" fontWeight="bold" color="status.dangerText">
                       Medida fuera de norma técnica
                     </Text>
                     <Text
                       fontSize="xs"
-                      color="status.danger"
+                      color="status.dangerText"
                       role="alert"
                       mt="0.5"
                     >
@@ -1151,12 +1155,12 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     py="0.5"
                     borderRadius="full"
                     bg="status.successSoft"
-                    color="status.success"
+                    color="status.successText"
                     fontSize="xs"
                   >
                     Estado 9/9
                   </Badge>
-                  <Text fontSize="xs" color="status.success">
+                  <Text fontSize="xs" color="status.successText">
                     Confirmado
                   </Text>
                 </HStack>
@@ -1182,13 +1186,17 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 p="3"
               >
                 <HStack gap="2" align="start">
-                  <CheckCircle2
-                    size={16}
-                    color="var(--chakra-colors-status-success)"
-                    style={{ flexShrink: 0, marginTop: "2px" }}
-                  />
+                  <Box
+                    as="span"
+                    color="status.successText"
+                    display="inline-flex"
+                    flexShrink={0}
+                    mt="0.5"
+                  >
+                    <CheckCircle2 size={16} />
+                  </Box>
                   <Box flex="1">
-                    <Text fontSize="xs" fontWeight="bold" color="status.success">
+                    <Text fontSize="xs" fontWeight="bold" color="status.successText">
                       Presupuesto Generado con Éxito
                     </Text>
                     <Text fontSize="xs" color="text.body" mt="0.5">

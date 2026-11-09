@@ -272,7 +272,7 @@ export const CardVariantsShowcase: React.FC = () => {
                   </Text>
                 </Box>
                 <Flex direction="column" gap="2" p={{ base: "4", md: "6" }} flex="1">
-                  <Heading as="h4" size="sm" lineClamp={2}>
+                  <Heading as="h3" size="sm" lineClamp={2}>
                     {it.title}
                   </Heading>
                   <Text fontSize="sm" color="text.body" lineClamp={3}>

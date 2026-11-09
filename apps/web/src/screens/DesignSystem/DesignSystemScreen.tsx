@@ -27,6 +27,7 @@ import { ResponsiveScaleShowcase } from "./sections/v2/ResponsiveScaleShowcase";
 import { CardVariantsShowcase } from "./sections/v2/CardVariantsShowcase";
 import { BrandModulesV2Showcase } from "./sections/v2/BrandModulesV2Showcase";
 import { ViewportAndStatesV2Showcase } from "./sections/v2/ViewportAndStatesV2Showcase";
+import { ServiceCardV2Showcase } from "./sections/v2/ServiceCardV2Showcase";
 
 export const DesignSystemScreen: React.FC = () => {
   return (
@@ -125,6 +126,7 @@ export const DesignSystemScreen: React.FC = () => {
               <ViewportAndStatesV2Showcase />
               <ResponsiveScaleShowcase />
               <CardVariantsShowcase />
+              <ServiceCardV2Showcase />
             </VStack>
           </Tabs.Content>
         </Tabs.Root>

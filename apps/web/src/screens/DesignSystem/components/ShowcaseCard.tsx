@@ -25,7 +25,9 @@ export const ShowcaseCard: React.FC<ShowcaseCardProps> = ({
     <Card.Header p="0" pb={{ base: "3", md: "4" }}>
       <HStack justify="space-between" align="start" wrap="wrap" gap="2">
         <Box flex={{ base: "1 1 100%", sm: "1" }} minW="0">
-          <Card.Title fontSize={{ base: "lg", md: "xl" }}>{title}</Card.Title>
+          <Card.Title as="h2" fontSize={{ base: "lg", md: "xl" }}>
+            {title}
+          </Card.Title>
           {description && <Card.Description>{description}</Card.Description>}
         </Box>
         {badge && (

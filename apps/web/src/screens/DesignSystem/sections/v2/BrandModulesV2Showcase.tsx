@@ -347,7 +347,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                           isSelected ? "accent.navy" : "border.warmStrong"
                         }
                         bg={isSelected ? "accent.navy" : "bg.surface"}
-                        color={isSelected ? "white" : "text.heading"}
+                        color={isSelected ? "accent.navyContrast" : "text.heading"}
                         fontSize="sm"
                         fontWeight={isSelected ? "bold" : "medium"}
                         display="inline-flex"
@@ -474,7 +474,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                                 isSelected ? "accent.navy" : "border.warmStrong"
                               }
                               bg={isSelected ? "accent.navy" : "bg.surface"}
-                              color={isSelected ? "white" : "text.heading"}
+                              color={isSelected ? "accent.navyContrast" : "text.heading"}
                               fontSize="sm"
                               fontWeight={isSelected ? "bold" : "medium"}
                               display="inline-flex"
@@ -526,7 +526,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                                 isSelected ? "accent.navy" : "border.warmStrong"
                               }
                               bg={isSelected ? "accent.navy" : "bg.surface"}
-                              color={isSelected ? "white" : "text.heading"}
+                              color={isSelected ? "accent.navyContrast" : "text.heading"}
                               fontSize="sm"
                               fontWeight={isSelected ? "bold" : "medium"}
                               display="inline-flex"

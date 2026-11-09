@@ -19,9 +19,12 @@ const buttonRecipe = defineRecipe({
     letterSpacing: "wider",
     borderRadius: "full",
     transition: "background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+    // La variable real del token es `--chakra-colors-ring.primary` (con punto), no `-ring-primary`:
+    // se usa la referencia de token para que el foco sea visible (WCAG 2.4.7).
     _focusVisible: {
-      outline: "none",
-      boxShadow: "0 0 0 2px var(--chakra-colors-ring-primary)",
+      outline: "2px solid",
+      outlineColor: "ring.primary",
+      outlineOffset: "2px",
     },
     _disabled: {
       opacity: 0.5,
@@ -198,6 +201,10 @@ const cardRecipe = defineSlotRecipe({
 
 // ─── System Configuration ──────────────────────────────────────────────────
 
+const focusVisibleSelectors = ["a", "button", '[role="button"]', "input", "select", "textarea", "summary", "[tabindex]"]
+  .map((selector) => `${selector}:focus-visible`)
+  .join(", ");
+
 const config = defineConfig({
   cssVarsRoot: ":where(:root, :host)",
   globalCss: {
@@ -210,6 +217,14 @@ const config = defineConfig({
       transitionDuration: "normal",
       textRendering: "optimizeLegibility",
       touchAction: "manipulation",
+    },
+    // Respaldo global de foco de teclado (WCAG 2.4.7). Los componentes con foco propio y `a` (arriba/abajo) mantienen sus reglas.
+    [focusVisibleSelectors]: {
+      _focusVisible: {
+        outline: "2px solid",
+        outlineColor: "ring.primary",
+        outlineOffset: "2px",
+      },
     },
     a: {
       _focusVisible: {
@@ -317,6 +332,8 @@ const config = defineConfig({
         // Brand
         "brand.primary": { value: { _light: "{colors.primary.900}", _dark: "white" } },
         "accent.navy": { value: { _light: "#002060", _dark: "#93C5FD" } },
+        // Texto/icono sobre fondo accent.navy (chips seleccionados): en oscuro accent.navy es claro
+        "accent.navyContrast": { value: { _light: "white", _dark: "#0f172a" } },
 
         "surface.card": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "surface.nav": { value: { _light: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" } },
@@ -335,6 +352,10 @@ const config = defineConfig({
 
         // Status Borders
         "status.dangerBorder": { value: "rgba(248, 113, 113, 0.25)" },
+
+        // Status Text (contraste de texto >=4.5:1 sobre blanco en claro, WCAG 1.4.3)
+        "status.dangerText": { value: { _light: "#b91c1c", _dark: "#f87171" } },
+        "status.successText": { value: { _light: "#047857", _dark: "#34d399" } },
 
         // Focus (≥3:1 sobre el fondo en ambos temas, WCAG 1.4.11)
         "ring.primary": { value: { _light: "{colors.primary.700}", _dark: "{colors.primary.300}" } },

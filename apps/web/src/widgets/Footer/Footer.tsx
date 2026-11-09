@@ -94,6 +94,7 @@ const FooterRow = ({
                             src={icon}
                             alt=""
                             aria-hidden="true"
+                            unoptimized
                             fill
                             sizes="20px"
                             style={{ objectFit: "contain" }}
@@ -299,6 +300,7 @@ const Footer = () => {
                             <Image
                                 src={logoGYA}
                                 alt="Logo GYA Glass & Aluminum"
+                                unoptimized
                                 fill
                                 sizes="180px"
                                 style={{ objectFit: "contain" }}
