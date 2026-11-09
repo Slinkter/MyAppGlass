@@ -29,6 +29,8 @@ import { BrandModulesV2Showcase } from "./sections/v2/BrandModulesV2Showcase";
 import { ViewportAndStatesV2Showcase } from "./sections/v2/ViewportAndStatesV2Showcase";
 import { ServiceCardV2Showcase } from "./sections/v2/ServiceCardV2Showcase";
 import { MobileNavV2Showcase } from "./sections/v2/MobileNavV2Showcase";
+import { TransitionsV2Showcase } from "./sections/v2/TransitionsV2Showcase";
+import { PaperToneShowcase } from "./sections/v2/PaperToneShowcase";
 
 export const DesignSystemScreen: React.FC = () => {
   return (
@@ -129,6 +131,8 @@ export const DesignSystemScreen: React.FC = () => {
               <ResponsiveScaleShowcase />
               <CardVariantsShowcase />
               <ServiceCardV2Showcase />
+              <PaperToneShowcase />
+              <TransitionsV2Showcase />
             </VStack>
           </Tabs.Content>
         </Tabs.Root>

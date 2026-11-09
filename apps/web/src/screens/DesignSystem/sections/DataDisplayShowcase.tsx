@@ -15,6 +15,31 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { DataListRoot, DataListItem } from "@/components/ui/data-list";
 import { companyData } from "@/shared/config/company-data";
 import { Layers } from "lucide-react";
+import { QuoteSheet } from "@/screens/Presupuesto/presupuesto/QuoteSheet";
+import { summarizeQuote } from "@/features/presupuesto/utils/quoteSummary";
+
+/** Datos de EJEMPLO (no son de un cliente real) para mostrar la hoja de presupuesto. */
+const SAMPLE_QUOTE = summarizeQuote([
+  {
+    id: "demo-1",
+    ambiente: "Dormitorio",
+    systemType: "ventana_nova",
+    width: 1.2,
+    height: 1.5,
+    glassType: "8mm_laminado",
+    aluminumColor: "negro_mate",
+    difficulty: "primer_piso",
+    includeInstallation: true,
+  },
+]);
+const SAMPLE_CUSTOMER = {
+  fullName: "Cliente de ejemplo",
+  dniRuc: "00000000",
+  email: "ejemplo@correo.com",
+  phone: "999 999 999",
+  address: "La Molina, Lima",
+  district: "La Molina",
+};
 
 type BadgeVariant =
   | "solid"
@@ -209,6 +234,14 @@ export const DataDisplayShowcase: React.FC = () => {
             </VStack>
           </Box>
         </ShowcaseStack>
+      </ShowcaseCard>
+      {/* Hoja de presupuesto */}
+      <ShowcaseCard
+        title="Hoja de presupuesto (concepto C1 renovado)"
+        description="Documento en papel claro: membrete con «PRESUPUESTO» en rojo serif, grupos con tinte, cifras tabulares y totales que se apilan en celular. Datos de ejemplo."
+        badge="v2"
+      >
+        <QuoteSheet customer={SAMPLE_CUSTOMER} quote={SAMPLE_QUOTE} formattedDate="09/11/2026" quoteNumber="GYA-2026-EJEMPLO" />
       </ShowcaseCard>
     </ShowcaseStack>
   );
