@@ -63,6 +63,8 @@ pnpm run deploy:hosting
 ```
 > **Nota de optimización de tokens:** No ejecutar `pnpm run test:run` salvo requerimiento explícito del usuario. La validación estándar del proyecto se realiza con `pnpm run typecheck` y `pnpm run build`.
 
+> **⚠️ No ejecutar `pnpm run build` ni `pnpm run deploy:hosting` con `pnpm run dev` activo.** Ambos comparten `apps/web/.next`; el build deja al dev con módulos de servidor antiguos y chunks de cliente nuevos. Síntoma típico: error de hidratación de React por clases de Chakra distintas (`css-k2gp1s` vs `css-1n6kw6f`). Solución: detener el dev, borrar `apps/web/.next` y volver a arrancar `pnpm run dev`.
+
 ## 💎 Chakra UI v3 Spacing Scale (4px base)
 Use **exclusivamente** los tokens nativos de spacing de Chakra UI. No definir tokens custom.
 
