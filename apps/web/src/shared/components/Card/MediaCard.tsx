@@ -11,7 +11,7 @@ import React from "react";
 import { Box, Heading, Text, VStack, HStack, type BoxProps } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
-import { GLASS_FALLBACK_CSS } from "@/shared/constants/layout";
+import { glassControl, glassOnPhoto } from "@/shared/constants/glass";
 
 /** Curva de desaceleración suave del sistema de movimiento de las cards. */
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
@@ -34,8 +34,9 @@ export interface MediaCardProps {
 
 /** Cambios de movimiento compartidos: un solo gesto en hover, sin rebotes. */
 const cardMotion = {
-  transition: `transform 0.6s ${EASE}, box-shadow 0.6s ${EASE}`,
+  transition: `transform 0.35s ${EASE}, box-shadow 0.35s ${EASE}`,
   _hover: { transform: "translateY(-4px) translateZ(0)", boxShadow: "cardLift" },
+  _active: { transform: "scale(0.98) translateZ(0)" },
   _motionReduce: { transition: "none", transform: "none" },
 } as const;
 
@@ -58,7 +59,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
         isolation="isolate"
         transform="translateZ(0)"
         boxShadow="sm"
-        bg="#182238"
+        bg="brand.navy"
         {...cardMotion}
         {...rootProps}
       >
@@ -80,15 +81,6 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
           />
         </Box>
 
-        {/* Degradado inferior: legibilidad del texto sobre cualquier foto */}
-        <Box
-          position="absolute"
-          inset={0}
-          zIndex={1}
-          borderRadius="inherit"
-          background="linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 60%)"
-        />
-
         {/* Anillo de borde: define el contorno y oculta cualquier fleco en las esquinas */}
         <Box
           position="absolute"
@@ -109,30 +101,30 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
             left={{ base: "3", md: "4" }}
             maxW="calc(100% - 24px)"
             zIndex={2}
-            bg="blackAlpha.500"
-            backdropFilter="blur(12px)"
             px="3"
             py="1"
             borderRadius="full"
-            css={GLASS_FALLBACK_CSS}
+            {...glassOnPhoto}
           >
             {badge}
           </Box>
         )}
 
-        {/* Título y acción */}
+        {/* Leyenda de vidrio flotante: texto blanco ≥ 5,7:1 incluso sobre una foto blanca */}
         <HStack
           position="absolute"
-          bottom="0"
-          left="0"
-          right="0"
+          bottom={{ base: "2", md: "3" }}
+          left={{ base: "2", md: "3" }}
+          right={{ base: "2", md: "3" }}
           zIndex={2}
-          p={{ base: "4", md: "6" }}
+          borderRadius={{ base: "xl", md: "2xl" }}
+          {...glassOnPhoto}
+          p={{ base: "3", md: "4" }}
           justify="space-between"
           align="flex-end"
           minW={0}
         >
-          <VStack align="flex-start" gap="1" minW={0} maxW="calc(100% - 52px)">
+          <VStack align="flex-start" gap="1" minW={0} maxW="calc(100% - 56px)">
             <Heading
               as="h3"
               fontSize={{ base: "xl", md: "2xl" }}
@@ -145,7 +137,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
               {title}
             </Heading>
             {description && (
-              <Text fontSize="sm" color="whiteAlpha.900" lineClamp={1} fontWeight="normal">
+              <Text fontSize="sm" color="whiteAlpha.900" lineClamp={2} fontWeight="normal">
                 {description}
               </Text>
             )}
@@ -153,19 +145,17 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
 
           {/* Acción: solo cambia el relleno en hover, sin giros */}
           <Box
-            w="40px"
-            h="40px"
+            w="11"
+            h="11"
             display="flex"
             alignItems="center"
             justifyContent="center"
             borderRadius="full"
-            bg="whiteAlpha.200"
-            backdropFilter="blur(8px)"
             color="white"
             flexShrink={0}
-            css={GLASS_FALLBACK_CSS}
+            {...glassControl}
             transition={`background-color 0.4s ${EASE}`}
-            _groupHover={{ bg: "whiteAlpha.400" }}
+            _groupHover={{ bg: "whiteAlpha.500" }}
             _motionReduce={{ transition: "none" }}
           >
             <Box as={actionIcon} boxSize={5} style={{ flexShrink: 0 }} />
