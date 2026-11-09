@@ -151,8 +151,8 @@ const LandingPageSection: React.FC = React.memo(() => {
         animation="fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1s both"
       >
         <RouterLink
-          href="/#constructoras"
-          aria-label="Ir a constructoras e inmobiliarias"
+          href="/#proyectos"
+          aria-label="Ir a proyectos"
           style={{
             display: "flex",
             alignItems: "center",

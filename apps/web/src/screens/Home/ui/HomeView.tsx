@@ -6,7 +6,6 @@ import FeaturesSection from "@features/home/components/features/FeaturesSection"
 import ServiceList from "@/features/services/components/ServiceList";
 import ClientsSection from "@features/home/components/clients/ClientsSection";
 import { ProjectsList } from "@features/projects";
-import BuildersSection from "@features/home/components/builders/BuildersSection";
 import StoreSection from "@features/home/components/store/StoreSection";
 
 export interface HomeViewProps {
@@ -20,32 +19,27 @@ const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initial
             {/* 1. Hero */}
             <LandingPageSection />
 
-            {/* 2. Constructoras e inmobiliarias (audiencia principal) */}
-            <Box id="constructoras" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
-                <BuildersSection />
-            </Box>
-
-            {/* 3. Proyectos (obras) */}
+            {/* 2. Proyectos (portafolio de obras) */}
             <Box id="proyectos" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <ProjectsList initialData={initialProjects} headingAs="h2" />
             </Box>
 
-            {/* 4. Servicios */}
+            {/* 3. Servicios */}
             <Box id="servicios" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <ServiceList initialData={initialServices} headingAs="h2" />
             </Box>
 
-            {/* 5. Beneficios */}
+            {/* 4. Beneficios */}
             <Box id="beneficios" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <FeaturesSection />
             </Box>
 
-            {/* 6. Clientes */}
+            {/* 5. Clientes */}
             <Box id="clientes" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <ClientsSection />
             </Box>
 
-            {/* 7. Ubicación */}
+            {/* 6. Ubicación */}
             <Box id="ubicacion" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <StoreSection initialProjects={initialProjects} />
             </Box>

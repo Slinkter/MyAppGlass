@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - **`apps/web/DESIGN.md`** y **`apps/web/PRODUCT.md`**: sistema de diseño único ("El Plano de Obra") y contexto de producto. Datos auxiliares en `apps/web/.impeccable/design.json`.
 - **`docs/CUESTIONARIO-DISENO.md`** con las decisiones del dueño y **`docs/25_PLAN_MIGRACION_DISENO.md`** (8 fases con checklist).
-- **Sección "Para constructoras e inmobiliarias"** en la página principal, con marcador visible para capacidad, plazos y series. Hero con dos acciones.
+- Hero con dos acciones (Pedir presupuesto por WhatsApp, Ver obras). La sección "Para constructoras e inmobiliarias" se creó y se retiró el mismo día por decisión del dueño: la página muestra portafolio y servicios.
 - **`components/ui/badge.tsx`** y variantes de `Alert` por estado (success, warning, danger, info).
 
 ### Changed

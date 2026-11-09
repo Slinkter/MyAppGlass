@@ -24,7 +24,7 @@
 | 3 | Tarjetas y galerías | Hecha |
 | 4 | Navegación y elementos globales | Hecha |
 | 5 | Desviaciones por área (hex, rgba, `colorPalette`, hover, degradados, emojis, px) | Hecha (con pendientes) |
-| 6 | Página principal para constructoras y datos del negocio | Hecha (con datos por confirmar) |
+| 6 | Página principal para constructoras y datos del negocio | Hecha |
 | 7 | `/design-system` | Hecha |
 | 8 | Cierre: eliminar documentos viejos y verificar | Hecha |
 
@@ -133,8 +133,8 @@ Pendiente: `_hover` de varias propiedades en tarjetas del admin y de servicios; 
 ## Fase 6 · Página principal para constructoras y datos del negocio
 
 - [x] Hero con dos acciones (Pedir presupuesto por WhatsApp y Ver obras) y texto corregido: "Suministro, ensamblaje en taller e instalación…" (ya no dice que fabrican).
-- [x] Nueva sección "Para constructoras e inmobiliarias" con 5 bloques y marcador visible "Capacidad, plazos y series: se confirman por proyecto".
-- [x] Orden: hero, constructoras, proyectos, servicios, beneficios, clientes y ubicación (verificado en el navegador).
+- [x] ~~Nueva sección "Para constructoras e inmobiliarias"~~: **retirada por decisión del dueño** (2026-11-09): la página muestra solo portafolio (proyectos) y servicios. El componente se eliminó.
+- [x] Orden: hero, proyectos, servicios, beneficios, clientes y ubicación (verificado en el navegador). La flecha del hero apunta a `/#proyectos`.
 - [x] Garantía de 3 meses, horario 8:00 a 18:00 (también en la etiqueta "abierto"), teléfono público solo WhatsApp.
 - [x] Logo vectorial: el hero ya usaba el SVG.
 - [ ] Mostrar los 13 servicios: la lista sale de Firestore (hoy 10). Hay que crear los 3 servicios nuevos desde el panel de administración; no se hace en código.
