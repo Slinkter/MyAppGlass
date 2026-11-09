@@ -2,156 +2,157 @@
 
 /**
  * @file LandingPageSection.tsx
- * @description Hero section of the application, featuring the company logo and core tagline.
- * Uses semantic color tokens for consistent theme adaptation.
+ * @description Hero de la home: fotografía a pantalla completa con un panel de vidrio esmerilado
+ * que contiene la marca, el título (H1), la descripción y las llamadas a la acción.
+ * Datos de contacto desde `companyData`. Animaciones solo con transform/opacity y respeto de
+ * `prefers-reduced-motion`.
  * @module home/components
  */
 
 import React from "react";
-import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react";
-import { ChevronDown } from "lucide-react";
+import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { ChevronDown, MessageCircle } from "lucide-react";
 import RouterLink from "next/link";
 import Image from "next/image";
 
 import logoGYA from "@/assets/branding/logosvg.svg";
+import { Button } from "@/components/ui/button";
+import { companyData } from "@/shared/config/company-data";
+import { glassControl, glassOnPhoto } from "@/shared/constants/glass";
+
+const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
+  companyData.whatsappMessage,
+)}`;
 
 /**
  * @component LandingPageSection
  * @description Sección de aterrizaje (Hero) de la página principal.
- * Muestra el logotipo animado, el nombre de la empresa y una breve descripción.
- *
- * @returns {JSX.Element} Sección Hero renderizada.
  */
 const LandingPageSection: React.FC = React.memo(() => {
-    // En Chakra v3, las animaciones se manejan preferiblemente vía motion directamente
-    // o consultando el estado de movimiento reducido si es necesario.
+  return (
+    <Flex
+      as="section"
+      w="full"
+      minH={{ base: "88dvh", md: "92dvh" }}
+      position="relative"
+      overflow="hidden"
+      borderRadius={{ base: "2xl", md: "3xl" }}
+      align={{ base: "flex-end", md: "center" }}
+      justify={{ base: "center", md: "flex-start" }}
+      px={{ base: "3", md: "12", lg: "16" }}
+      py={{ base: "3", md: "16" }}
+      bg="brand.navy"
+      css={{
+        "@media (prefers-reduced-motion: reduce)": {
+          "*": { animation: "none !important", transition: "none !important", transform: "none !important" },
+        },
+      }}
+    >
+      {/* Fotografía real de una instalación terminada */}
+      <Image
+        src="/images/services-general-init01.webp"
+        alt="Ventana de aluminio y vidrio instalada en un dormitorio"
+        fill
+        priority
+        sizes="100vw"
+        style={{ objectFit: "cover", objectPosition: "60% 50%" }}
+      />
 
-    return (
-            <Flex
-                w="full"
-                minH="92dvh"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-                px={{ base: 4, sm: 6, md: 8, lg: 12 }}
-                py={{ base: 12, md: 16 }}
-                position="relative"
-                overflow="hidden"
-                css={{
-                    '@media (prefers-reduced-motion: reduce)': {
-                        '*': { animation: 'none !important', transition: 'none !important', transform: 'none !important' }
-                    }
-                }}
-            >
-                <VStack
-                    gap={{ base: "6", md: "8" }}
-                    textAlign="center"
-                    maxW="5xl"
-                    position="relative"
-                    zIndex={1}
-                >
+      {/* Panel de vidrio con el mensaje principal */}
+      <VStack
+        align="flex-start"
+        gap={{ base: "4", md: "6" }}
+        position="relative"
+        zIndex={1}
+        w="full"
+        maxW={{ base: "full", md: "560px" }}
+        p={{ base: "5", md: "8" }}
+        borderRadius={{ base: "2xl", md: "3xl" }}
+        color="white"
+        animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both"
+        {...glassOnPhoto}
+      >
+        <HStack gap="3">
+          <Box position="relative" w="10" h="10" flexShrink={0}>
+            <Image
+              src={logoGYA}
+              alt="Logo de Glass & Aluminum Company"
+              fill
+              sizes="40px"
+              style={{ objectFit: "contain" }}
+            />
+          </Box>
+          <Text fontSize="xs" fontWeight="600" letterSpacing="0.18em" textTransform="uppercase" color="whiteAlpha.900">
+            VIDRIERÍA & ALUMINIO · LA MOLINA
+          </Text>
+        </HStack>
 
-                    {/* Logo con escala responsiva óptima */}
-                    <Box
-                        animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1)"
-                        transition="transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)"
-                        _hover={{ transform: "scale(1.03)" }}
-                        position="relative"
-                        w={{
-                            base: "210px",
-                            sm: "260px",
-                            md: "340px",
-                            lg: "420px",
-                        }}
-                        h={{
-                            base: "100px",
-                            sm: "130px",
-                            md: "170px",
-                            lg: "210px",
-                        }}
-                    >
-                        <Image
-                            src={logoGYA}
-                            alt="Glass & Aluminum Company Logo"
-                            fill
-                            priority
-                            sizes="210px"
-                            style={{ objectFit: "contain" }}
-                        />
-                    </Box>
+        <Heading
+          as="h1"
+          fontSize={{ base: "3xl", sm: "4xl", md: "5xl" }}
+          fontWeight="700"
+          lineHeight="1.08"
+          letterSpacing="tight"
+          color="white"
+        >
+          Glass & Aluminum
+          <Text as="span" display="block">
+            Company S.A.C.
+          </Text>
+        </Heading>
 
-                    <Box animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both">
-                        <Text
-                            fontSize="xs"
-                            fontWeight="600"
-                            letterSpacing="0.18em"
-                            textTransform="uppercase"
-                            color="#002060"
-                            _dark={{ color: "primary.300" }}
-                            mb="2"
-                        >
-                            VIDRIERÍA & ALUMINIO · LA MOLINA
-                        </Text>
+        <Text fontSize={{ base: "sm", md: "md" }} color="whiteAlpha.900" lineHeight="relaxed" fontWeight="normal">
+          Especialistas en la fabricación, diseño e instalación de ventanas antirruido, mamparas herméticas y
+          carpintería de aluminio de alta resistencia.
+        </Text>
 
-                        <Heading
-                            as="h1"
-                            fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
-                            fontWeight="700"
-                            lineHeight="1.08"
-                            letterSpacing="tight"
-                            color="text.body"
-                            mb="3"
-                        >
-                            GLASS & ALUMINUM
-                            <Text as="span" display="block" color="#002060" _dark={{ color: "primary.200" }}>
-                                COMPANY S.A.C.
-                            </Text>
-                        </Heading>
+        <Flex gap="3" wrap="wrap" w="full">
+          <Button asChild variant="whatsapp" px="5" flex={{ base: "1 1 100%", sm: "0 1 auto" }}>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <MessageCircle size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
+              Cotizar por WhatsApp
+            </a>
+          </Button>
+          <Button
+            asChild
+            variant="ghost"
+            px="5"
+            color="white"
+            flex={{ base: "1 1 100%", sm: "0 1 auto" }}
+            _hover={{ bg: "whiteAlpha.400" }}
+            {...glassControl}
+          >
+            <RouterLink href="/#proyectos">Ver proyectos</RouterLink>
+          </Button>
+        </Flex>
+      </VStack>
 
-                        <Text
-                            fontSize={{ base: "sm", sm: "md", md: "lg", lg: "xl" }}
-                            mt="4"
-                            color="text.muted"
-                            fontWeight="500"
-                            maxW="2xl"
-                            mx="auto"
-                            lineHeight="relaxed"
-                        >
-                            Especialistas en la fabricación, diseño e instalación de ventanas antirruido, mamparas herméticas y carpintería de aluminio de alta resistencia.
-                        </Text>
-
-                    </Box>
-                </VStack>
-
-                {/* Indicador de scroll: chevron flotante que invita a seguir bajando */}
-                <Box
-                    position="absolute"
-                    bottom={{ base: "4", md: "6" }}
-                    left="0"
-                    right="0"
-                    display="flex"
-                    justifyContent="center"
-                    zIndex={1}
-                    animation="fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1s both"
-                >
-                    <RouterLink
-                        href="/#servicios"
-                        aria-label="Ver servicios"
-                        style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "44px", height: "44px" }}
-                    >
-                        <Box
-                            as={ChevronDown}
-                            boxSize={{ base: 7, md: 8 }}
-                            color="text.muted"
-                            style={{ flexShrink: 0 }}
-                            animation="floatDown 2s ease-in-out infinite"
-                            transition="color 0.2s cubic-bezier(0.22, 1, 0.36, 1)"
-                            _hover={{ color: "text.heading" }}
-                        />
-                    </RouterLink>
-                </Box>
-            </Flex>
-    );
+      {/* Indicador de scroll */}
+      <Box
+        display={{ base: "none", md: "block" }}
+        position="absolute"
+        bottom="6"
+        left="50%"
+        transform="translateX(-50%)"
+        zIndex={1}
+        animation="fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1s both"
+      >
+        <RouterLink
+          href="/#servicios"
+          aria-label="Ver servicios"
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "44px", height: "44px" }}
+        >
+          <Box
+            as={ChevronDown}
+            boxSize={{ base: 7, md: 8 }}
+            color="white"
+            style={{ flexShrink: 0 }}
+            animation="floatDown 2s ease-in-out infinite"
+          />
+        </RouterLink>
+      </Box>
+    </Flex>
+  );
 });
 
 LandingPageSection.displayName = "LandingPageSection";
