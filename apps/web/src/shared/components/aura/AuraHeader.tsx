@@ -74,7 +74,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
           letterSpacing="tight"
           color="text.heading"
           fontFamily="heading"
-          maxW={centered ? "800px" : "full"}
+          maxW={centered ? "50rem" : "full"}
         >
           {title}
         </Heading>
@@ -82,7 +82,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
           <Text 
             fontSize={{ base: "sm", md: "md" }} 
             color="text.muted" 
-            maxW="800px"
+            maxW="50rem"
             lineHeight="tall"
           >
             {description}

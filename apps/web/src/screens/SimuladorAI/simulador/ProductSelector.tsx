@@ -44,7 +44,7 @@ export const ProductSelector: React.FC<ProductSelectorProps> = ({ selectedProduc
                 onSelect(prod);
               }}
               transition="border-color 0.2s ease, transform 0.2s ease"
-              _hover={{ borderColor: "border.strong", transform: "translateY(-2px)" }}
+              _hover={{ borderColor: "border.strong" }}
               _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
             >
               <Text fontWeight="bold" fontSize="sm" color="text.heading">

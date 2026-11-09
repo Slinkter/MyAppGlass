@@ -25,7 +25,7 @@ const ProjectDetailItem: React.FC<ProjectDetailItemProps> = ({ icon: IconComp, l
       border="1px solid"
       borderColor="border.default"
       transition="transform 0.2s ease, border-color 0.2s ease"
-      _hover={{ transform: "translateX(2px)", borderColor: "primary.500" }}
+      _hover={{ transform: "translateX(2px)", borderColor: "border.strong" }}
     >
       <Box color="text.accent">
         <IconComp size={20} strokeWidth={1.5} />

@@ -36,7 +36,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
       border="1px solid"
       borderColor="border.default"
       backdropFilter="blur(16px)"
-      boxShadow="0 4px 20px var(--chakra-colors-overlay-subtle)"
+      boxShadow="md"
     >
       <VStack align="stretch" gap="4" mb="4">
         <HStack justify="space-between" wrap="wrap" gap="2">
@@ -55,7 +55,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
             </Box>
             <Input
               placeholder="Filtrar catálogo..."
-              w={{ base: "140px", sm: "180px" }}
+              w={{ base: "36", sm: "44" }}
               size="xs"
               borderRadius="lg"
               value={productSearch}
@@ -91,7 +91,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
           </Text>
         </Box>
       ) : (
-        <VStack align="stretch" gap="2.5" maxH="400px" overflowY="auto" pr="1">
+        <VStack align="stretch" gap="2.5" maxH="96" overflowY="auto" pr="1">
           {products.map((prod) => {
             const isOutOfStock = prod.stock <= 0;
             const currentQty = getQty(prod.id);
@@ -106,7 +106,7 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
                 border="1px solid"
                 borderColor="border.default"
                 transition="border-color 0.2s ease, background-color 0.2s ease"
-                _hover={{ borderColor: "rgba(56, 189, 248, 0.4)", bg: "surface.card" }}
+                _hover={{ bg: "bg.subtle" }}
               >
                 <VStack align="start" gap="0.5" flex="1">
                   <Text fontSize="sm" fontWeight="600" color="text.heading">
@@ -137,21 +137,21 @@ export const ProductPickerCard: React.FC<ProductPickerCardProps> = ({
                         size="2xs"
                         variant="ghost"
                         p="1"
-                        h={{ base: "11", md: "24px" }}
-                        minW={{ base: "11", md: "24px" }}
+                        h={{ base: "11", md: "6" }}
+                        minW={{ base: "11", md: "6" }}
                         onClick={() => onQtyChange(prod.id!, -1, prod.stock)}
                       >
                         <Minus size={12} style={{ flexShrink: 0 }} />
                       </Button>
-                      <Text fontSize="xs" fontWeight="bold" px="1" minW="18px" textAlign="center">
+                      <Text fontSize="xs" fontWeight="bold" px="1" minW="5" textAlign="center">
                         {currentQty}
                       </Text>
                       <Button
                         size="2xs"
                         variant="ghost"
                         p="1"
-                        h={{ base: "11", md: "24px" }}
-                        minW={{ base: "11", md: "24px" }}
+                        h={{ base: "11", md: "6" }}
+                        minW={{ base: "11", md: "6" }}
                         onClick={() => onQtyChange(prod.id!, 1, prod.stock)}
                       >
                         <Plus size={12} style={{ flexShrink: 0 }} />

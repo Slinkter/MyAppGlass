@@ -35,7 +35,7 @@ export default function LocalLandingView({ distrito }: LocalLandingViewProps) {
 
         <AuraSurface p={{ base: "4", md: "6" }} variant="glass">
           <VStack align="stretch" gap={4}>
-            <Heading as="h2" size="md" color="text.heading" fontWeight="800">
+            <Heading as="h2" size="md" color="text.heading" fontWeight="700">
               Servicios en {distrito.nombre}
             </Heading>
             <SimpleGrid columns={{ base: 1, sm: 2 }} gap={3}>
@@ -55,7 +55,7 @@ export default function LocalLandingView({ distrito }: LocalLandingViewProps) {
 
         <AuraSurface p={{ base: "4", md: "6" }} variant="glass">
           <VStack align="stretch" gap={4}>
-            <Heading as="h2" size="md" color="text.heading" fontWeight="800">
+            <Heading as="h2" size="md" color="text.heading" fontWeight="700">
               Contacto
             </Heading>
             <VStack align="stretch" gap={2}>

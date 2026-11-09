@@ -20,7 +20,7 @@ export const ServiceCardSkeletons: React.FC<{ count?: number }> = ({ count = 6 }
 
 /** Esqueleto de la página de detalle de servicio. */
 export const ServiceDetailSkeleton: React.FC = () => (
-  <Container maxW="7xl" px={{ base: "3", sm: "4", lg: "0" }} pt={{ base: "3", md: "5" }} pb="12">
+  <Container maxW="pageWide"px={{ base: "3", sm: "4", lg: "0" }} pt={{ base: "3", md: "5" }} pb="12">
     <VStack gap={{ base: "4", lg: "8" }} align="stretch">
       <Skeleton h="10" w={{ base: "full", md: "50%" }} borderRadius="xl" />
       <Grid templateColumns={{ base: "1fr", lg: "repeat(12, 1fr)" }} gap={{ base: "4", lg: "6" }}>

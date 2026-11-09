@@ -21,7 +21,7 @@ export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
     style={{ width: "100%", height: "100%", textDecoration: "none" }}
   >
     <Box
-      bg="linear-gradient(135deg, #a80100 0%, #700000 100%)"
+      bg="brand.ink"
       color="white"
       w="full"
       h="full"
@@ -34,15 +34,15 @@ export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
       px={{ base: "4", md: "6" }}
       py={{ base: "4", md: "6" }}
       borderWidth="1px"
-      borderColor="rgba(255, 255, 255, 0.15)"
-      boxShadow="0 10px 30px rgba(168, 1, 0, 0.25)"
+      borderColor="border.default"
+      boxShadow="md"
       willChange="transform"
       transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
       cursor="pointer"
       role="group"
       _hover={{
         transform: "translateY(-3px)",
-        boxShadow: "0 15px 35px rgba(168, 1, 0, 0.4)",
+        boxShadow: "lg",
       }}
     >
       <Box
@@ -53,7 +53,7 @@ export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
         transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
         _groupHover={{ transform: "scale(1.12)" }}
       />
-      <Heading size="md" mb="1" letterSpacing="tight" color="white" fontWeight="800">
+      <Heading size="md" mb="1" letterSpacing="tight" color="white" fontWeight="700">
         Cotizar {systemName}
       </Heading>
       <Text opacity={0.9} mb="0" fontSize="xs" maxW="xs" mx="auto" color="whiteAlpha.900" fontWeight="500">

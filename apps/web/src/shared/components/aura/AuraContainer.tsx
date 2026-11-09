@@ -26,7 +26,7 @@ const AuraContainer: React.FC<AuraContainerProps> = ({ children, animate = true,
       animation={animate ? "fadeIn 0.5s ease-out" : undefined}
     >
       <Container 
-        maxW="7xl" 
+        maxW="pageWide"
         pt={{ base: "14", md: "20" }} 
         {...props}
       >

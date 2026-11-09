@@ -45,7 +45,7 @@ const ClaimDetailSection: React.FC = () => {
         <Heading
           as="h2"
           size="sm"
-          fontWeight="800"
+          fontWeight="700"
           color="text.heading"
           letterSpacing="tight"
         >

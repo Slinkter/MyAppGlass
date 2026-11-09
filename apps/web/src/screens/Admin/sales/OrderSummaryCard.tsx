@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Box, VStack, HStack, Heading, Text, Button, Input, Badge, NativeSelectRoot, NativeSelectField } from "@chakra-ui/react";
+import { Box, VStack, HStack, Heading, Text, Button, Input, NativeSelectRoot, NativeSelectField } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { ShoppingCart, Trash2, CheckCircle2, AlertCircle } from "lucide-react";
 import type { OrderItem } from "@/shared/schemas/ecommerce-schemas";
 import type { PaymentMethod } from "@/features/products/context/OrderDraftContext";
@@ -45,7 +46,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
       border="1px solid"
       borderColor="border.default"
       backdropFilter="blur(24px)"
-      boxShadow="0 10px 40px rgba(0, 0, 0, 0.06)"
+      boxShadow="lg"
     >
       <HStack justify="space-between" mb="4">
         <HStack gap="2.5">
@@ -56,7 +57,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
             Orden de Despacho
           </Heading>
         </HStack>
-        <Badge colorPalette="cyan" variant="solid" size="sm" borderRadius="full">
+        <Badge variant="info" size="sm" borderRadius="full">
           {totalUnits} unidades
         </Badge>
       </HStack>
@@ -69,7 +70,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
           </Text>
         </Box>
       ) : (
-        <VStack align="stretch" gap="2" mb="4" maxH="260px" overflowY="auto" pr="1">
+        <VStack align="stretch" gap="2" mb="4" maxH="64" overflowY="auto" pr="1">
           {items.map((item) => (
             <HStack
               key={item.productId}
@@ -172,7 +173,7 @@ export const OrderSummaryCard: React.FC<OrderSummaryCardProps> = ({
 
       {/* Alerta de Error */}
       {errorMessage && (
-        <Box p="3" mb="3" borderRadius="xl" bg="status.dangerSoft" color="var(--chakra-colors-status-danger)" border="1px solid rgba(239, 68, 68, 0.25)" fontSize="xs">
+        <Box p="3" mb="3" borderRadius="xl" bg="status.dangerSoft" color="status.dangerText" border="1px solid" borderColor="status.dangerBorder" fontSize="xs">
           <HStack gap="2">
             <AlertCircle size={14} style={{ flexShrink: 0 }} />
             <Text>{errorMessage}</Text>

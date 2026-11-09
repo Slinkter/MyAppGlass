@@ -18,7 +18,7 @@ const PAGE_SIZE = 6;
 
 const Stat: React.FC<{ value: string; label: string }> = ({ value, label }) => (
   <VStack gap="0" p={{ base: "3", md: "5" }} bg="bg.subtle" borderRadius="2xl" minW={0} textAlign="center">
-    <Text fontSize={{ base: "2xl", md: "4xl" }} fontWeight="800" color="text.accent" lineHeight="1.1">
+    <Text fontSize={{ base: "2xl", md: "4xl" }} fontWeight="700" color="text.accent" lineHeight="1.1">
       {value}
     </Text>
     <Text fontSize={{ base: "xs", md: "sm" }} color="text.muted">

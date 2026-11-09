@@ -77,7 +77,7 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({
             {isSvg ? (
               <Box 
                 as={iconContent as React.ElementType} 
-                boxSize="20px" 
+                boxSize="1.25rem"
                 color={iconColor}
                 transition="color 0.3s ease"
               />

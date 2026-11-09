@@ -161,7 +161,7 @@ export const InventoryDashboardScreen: React.FC = () => {
   };
 
   return (
-    <Box maxW="1350px" mx="auto" py={{ base: "5", md: "8" }} px={{ base: "4", md: "6" }}>
+    <Box maxW="84rem" mx="auto" py={{ base: "5", md: "8" }} px={{ base: "4", md: "6" }}>
       <AdminNav />
 
       {/* Encabezado Principal */}

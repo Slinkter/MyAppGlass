@@ -87,7 +87,7 @@ export const GlassCaption: React.FC<GlassCaptionProps> = ({ title, children, ...
     left={{ base: "3", md: "5" }}
     right={{ base: "3", md: "auto" }}
     bottom={{ base: "3", md: "5" }}
-    maxW={{ md: "380px" }}
+    maxW={{ md: "23.75rem" }}
     p={{ base: "4", md: "5" }}
     borderRadius="2xl"
     color="gray.900"
@@ -163,7 +163,7 @@ export const StepSplit: React.FC<StepSplitProps> = ({ step, title, text, image, 
         </Text>
       </Box>
     </Reveal>
-    <PhotoFrame src={image.src} alt={image.alt} effect={effect} flex="1" w="full" minW="0" maxW={{ md: "520px" }} />
+    <PhotoFrame src={image.src} alt={image.alt} effect={effect} flex="1" w="full" minW="0" maxW={{ md: "32.5rem" }} />
   </Flex>
 );
 
@@ -176,7 +176,7 @@ export interface MomentBandProps {
 }
 
 export const MomentBand: React.FC<MomentBandProps> = ({ image, caption, ratio = "4 / 5" }) => (
-  <PhotoFrame src={image.src} alt={image.alt} ratio={ratio} effect="rise" maxW="640px" mx="auto" w="full">
+  <PhotoFrame src={image.src} alt={image.alt} ratio={ratio} effect="rise" maxW="40rem" mx="auto" w="full">
     <GlassCaption left={{ base: "3", md: "5" }} right={{ base: "3", md: "5" }} maxW="none">
       <Text as="span" fontFamily="heading" fontSize={{ base: "lg", md: "xl" }} color="gray.900" lineHeight="1.25" display="block">
         {caption}

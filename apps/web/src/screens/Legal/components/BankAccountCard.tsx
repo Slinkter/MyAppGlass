@@ -30,8 +30,7 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
       p={{ base: "5", md: "6" }}
       transition="border-color 0.3s ease, box-shadow 0.3s ease"
       _hover={{
-        borderColor: "primary.500",
-        boxShadow: "sm",
+        borderColor: "border.strong",
       }}
     >
       <Flex
@@ -67,7 +66,7 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
             />
           </Box>
           <Box>
-            <Text fontSize="md" fontWeight="800" color="text.heading" lineHeight="tight">
+            <Text fontSize="md" fontWeight="700" color="text.heading" lineHeight="tight">
               {bankName}
             </Text>
             <Text fontSize="xs" fontWeight="500" color="text.muted">
@@ -92,7 +91,7 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
             borderColor="border.default"
           >
             <Box flex="1">
-              <Text fontSize="xs" fontWeight="800" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
+              <Text fontSize="xs" fontWeight="700" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
                 {acc.label}
               </Text>
               <Text fontSize="sm" fontWeight="700" color="text.heading" mt="0.5">

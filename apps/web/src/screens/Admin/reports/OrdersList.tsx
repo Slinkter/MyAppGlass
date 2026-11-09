@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Box, VStack, HStack, Heading, Text, Button, Badge, Spinner } from "@chakra-ui/react";
+import { Box, VStack, HStack, Heading, Text, Button, Spinner } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { Printer, ChevronDown, ChevronUp } from "lucide-react";
 import type { Order } from "@/shared/schemas/ecommerce-schemas";
 
@@ -68,7 +69,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
                           <Text fontWeight="700" color="text.heading" fontSize="sm" fontFamily="mono">
                             {ord.orderNumber}
                           </Text>
-                          <Badge colorPalette="green" variant="subtle" size="xs" borderRadius="md">
+                          <Badge variant="success" size="xs" borderRadius="md">
                             {ord.status}
                           </Badge>
                         </HStack>
@@ -119,7 +120,7 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
                             borderColor="border.default"
                           >
                             <Text fontWeight="500">
-                              {item.quantity} {item.unit} — {item.name} <span style={{ color: "gray", fontSize: "11px" }}>({item.sku})</span>
+                              {item.quantity} {item.unit} — {item.name} <Text as="span" color="text.muted" fontSize="xs">({item.sku})</Text>
                             </Text>
                             <Text fontWeight="bold">S/. {item.totalPrice.toFixed(2)}</Text>
                           </HStack>

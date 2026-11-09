@@ -24,7 +24,7 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
   statusMessage,
 }) => {
   return (
-    <AdminDialog eyebrow="Clientes" title="Registrar nuevo cliente o empresa" maxW="520px" onClose={onClose} onSubmit={onSubmit}>
+    <AdminDialog eyebrow="Clientes" title="Registrar nuevo cliente o empresa" maxW="lg" onClose={onClose} onSubmit={onSubmit}>
 
       <VStack align="stretch" gap="3.5">
         <VStack align="start" gap="1">

@@ -131,7 +131,7 @@ export const PrototypeSheet: React.FC = () => {
             <SheetStoreCard store={store} selected={selectedId === STORE_ID} onSelect={handleSelectStore} />
 
             <HStack justify="space-between" px="1">
-              <Text as="h3" fontSize="sm" fontWeight="800" color="text.heading">
+              <Text as="h3" fontSize="sm" fontWeight="700" color="text.heading">
                 Obras entregadas
               </Text>
               {!isLoading && (

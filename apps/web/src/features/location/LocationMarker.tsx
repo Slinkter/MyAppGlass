@@ -56,7 +56,7 @@ const LocationMarker: React.FC<LocationMarkerProps> = ({
         bg={isSelected || kind === "store" ? "primary.900" : "white"}
         color={isSelected || kind === "store" ? "white" : "primary.900"}
         borderColor={isSelected ? "white" : "primary.800"}
-        boxShadow={isSelected ? "0 0 0 6px rgba(24, 24, 27, 0.22), 0 8px 20px rgba(0,0,0,0.28)" : "md"}
+        boxShadow={isSelected ? "elevatedLg" : "md"}
         transform={isSelected ? "scale(1.12)" : "scale(1)"}
         transition="transform 0.2s ease, box-shadow 0.2s ease"
         _focusVisible={{ outline: "3px solid", outlineColor: "primary.500", outlineOffset: "2px" }}
@@ -64,7 +64,7 @@ const LocationMarker: React.FC<LocationMarkerProps> = ({
           bg: isSelected || kind === "store" ? "white" : "primary.900",
           color: isSelected || kind === "store" ? "primary.900" : "white",
           borderColor: isSelected ? "primary.900" : "whiteAlpha.400",
-          boxShadow: isSelected ? "0 0 0 6px rgba(255, 255, 255, 0.25), 0 8px 20px rgba(0,0,0,0.5)" : "md",
+          boxShadow: isSelected ? "elevatedLg" : "md",
         }}
       >
         <Box as={Icon} boxSize="4.5" aria-hidden="true" style={{ flexShrink: 0 }} />

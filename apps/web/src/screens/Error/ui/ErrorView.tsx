@@ -8,7 +8,7 @@ import { Home } from "lucide-react";
 const ErrorView: React.FC = () => {
   return (
     <Box 
-      minH="80vh" 
+      minH="80dvh"
       display="flex" 
       alignItems="center" 
       justifyContent="center"

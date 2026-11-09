@@ -36,7 +36,7 @@ const DeclarationSection: React.FC = () => {
         <Heading
           as="h2"
           size="sm"
-          fontWeight="800"
+          fontWeight="700"
           color="text.heading"
           letterSpacing="tight"
         >
@@ -117,7 +117,7 @@ const DeclarationSection: React.FC = () => {
         variant="primary"
         size={{ base: "lg", md: "xl" }}
         borderRadius="full"
-        fontWeight="800"
+        fontWeight="700"
         letterSpacing="wider"
         width="full"
         mt="2"

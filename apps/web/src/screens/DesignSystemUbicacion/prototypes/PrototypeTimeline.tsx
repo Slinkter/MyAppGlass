@@ -117,7 +117,7 @@ export const PrototypeTimeline: React.FC = () => {
 
       <VStack gridArea="panel" align="stretch" gap="3" minH={0} minW={0}>
         <HStack justify="space-between" px="1">
-          <Text as="h3" fontSize="sm" fontWeight="800" color="text.heading">
+          <Text as="h3" fontSize="sm" fontWeight="700" color="text.heading">
             Obras por año
           </Text>
           {!isLoading && (

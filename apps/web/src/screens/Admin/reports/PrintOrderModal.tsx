@@ -15,24 +15,24 @@ interface PrintOrderModalProps {
 
 export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint, onClose }) => {
   return (
-    <AdminDialog title="Guía de salida del pedido" maxW="720px" onClose={onClose} hideHeader>
-      <Box bg="white" color="#0f172a" px={{ base: "4", md: "8" }} pb={{ base: "4", md: "8" }} pt="14" borderRadius="2xl" id="printable-order-guide">
+    <AdminDialog title="Guía de salida del pedido" maxW="3xl" onClose={onClose} hideHeader>
+      <Box bg="white" color="brand.ink" px={{ base: "4", md: "8" }} pb={{ base: "4", md: "8" }} pt="14" borderRadius="2xl" id="printable-order-guide">
         {/* Cabecera del Documento */}
-        <HStack justify="space-between" align="start" borderBottom="2px solid #0f172a" pb="4" mb="4">
+        <HStack justify="space-between" align="start" borderBottom="2px solid" borderBottomColor="brand.ink" pb="4" mb="4">
           <VStack align="start" gap="0">
-            <Heading size="lg" color="#0f172a">
+            <Heading size="lg" color="brand.ink">
               {companyData.companyName}
             </Heading>
-            <Text fontSize="2xs" color="#475569">
+            <Text fontSize="2xs" color="text.muted">
               {companyData.razonSocial} · RUC {companyData.ruc}
             </Text>
-            <Text fontSize="2xs" color="#475569">
+            <Text fontSize="2xs" color="text.muted">
               {companyData.direccion} · Tel: {companyData.contactPhone}
             </Text>
           </VStack>
 
           <VStack align="end" gap="1">
-            <Badge bg="#0f172a" color="white" px="3" py="1" fontSize="xs">
+            <Badge bg="brand.ink" color="white" px="3" py="1" fontSize="xs">
               GUÍA DE SALIDA
             </Badge>
             <Text fontSize="sm" fontWeight="bold" fontFamily="mono">
@@ -42,7 +42,7 @@ export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint
         </HStack>
 
         {/* Datos del Cliente y Despacho */}
-        <SimpleGrid columns={2} gap="3" bg="#f8fafc" p="3.5" borderRadius="lg" mb="4" fontSize="xs">
+        <SimpleGrid columns={2} gap="3" bg="bg.subtle" p="3.5" borderRadius="lg" mb="4" fontSize="xs">
           <VStack align="start" gap="0.5">
             <Text><strong>Cliente / Razón Social:</strong> {order.clientName}</Text>
             <Text><strong>DNI / RUC:</strong> {order.clientDniRuc || "N/A"}</Text>
@@ -57,7 +57,7 @@ export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint
 
         {/* Tabla de Partidas */}
         <Box as="table" w="full" mb="4" fontSize="xs" style={{ borderCollapse: "collapse" }}>
-          <Box as="thead" bg="#0f172a" color="white">
+          <Box as="thead" bg="brand.ink" color="white">
             <Box as="tr">
               <Box as="th" p="2" textAlign="left">SKU</Box>
               <Box as="th" p="2" textAlign="left">Descripción del Material</Box>
@@ -68,7 +68,7 @@ export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint
           </Box>
           <Box as="tbody">
             {order.items.map((item, idx) => (
-              <Box as="tr" key={idx} borderBottom="1px solid #e2e8f0">
+              <Box as="tr" key={idx} borderBottom="1px solid" borderBottomColor="border.default">
                 <Box as="td" p="2" fontFamily="mono">{item.sku}</Box>
                 <Box as="td" p="2">{item.name}</Box>
                 <Box as="td" p="2" textAlign="center">{item.quantity} {item.unit}</Box>
@@ -81,7 +81,7 @@ export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint
 
         {/* Totales */}
         <HStack justify="end" mb="6">
-          <VStack align="end" gap="1" w="220px" fontSize="xs">
+          <VStack align="end" gap="1" w="56" fontSize="xs">
             <HStack justify="space-between" w="full">
               <Text>Subtotal:</Text>
               <Text>S/. {order.subtotal.toFixed(2)}</Text>
@@ -90,7 +90,7 @@ export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint
               <Text>IGV (18%):</Text>
               <Text>S/. {order.igv.toFixed(2)}</Text>
             </HStack>
-            <HStack justify="space-between" w="full" pt="1" borderTop="1px solid #0f172a">
+            <HStack justify="space-between" w="full" pt="1" borderTop="1px solid" borderTopColor="brand.ink">
               <Text fontWeight="bold">TOTAL:</Text>
               <Text fontWeight="bold" fontSize="sm">S/. {order.total.toFixed(2)}</Text>
             </HStack>
@@ -98,26 +98,26 @@ export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint
         </HStack>
 
         {/* Firmas de Conformidad */}
-        <SimpleGrid columns={2} gap="8" pt="6" borderTop="1px dashed #cbd5e1" textAlign="center" fontSize="2xs">
+        <SimpleGrid columns={2} gap="8" pt="6" borderTop="1px dashed" borderTopColor="border.default" textAlign="center" fontSize="2xs">
           <VStack gap="1">
-            <Box h="30px" />
-            <Box borderTop="1px solid #0f172a" w="80%" pt="1">
+            <Box h="8" />
+            <Box borderTop="1px solid" borderTopColor="brand.ink" w="80%" pt="1">
               <Text fontWeight="bold">Despachado por (Taller GYA)</Text>
-              <Text color="#64748b">Firma y Sello Almacén</Text>
+              <Text color="text.muted">Firma y Sello Almacén</Text>
             </Box>
           </VStack>
 
           <VStack gap="1">
-            <Box h="30px" />
-            <Box borderTop="1px solid #0f172a" w="80%" pt="1">
+            <Box h="8" />
+            <Box borderTop="1px solid" borderTopColor="brand.ink" w="80%" pt="1">
               <Text fontWeight="bold">Recibido Conforme (Cliente)</Text>
-              <Text color="#64748b">Nombre, DNI y Firma</Text>
+              <Text color="text.muted">Nombre, DNI y Firma</Text>
             </Box>
           </VStack>
         </SimpleGrid>
 
         {/* Botonera modal */}
-        <HStack justify="end" gap="2" mt="6" pt="4" borderTop="1px solid #e2e8f0" className="no-print">
+        <HStack justify="end" gap="2" mt="6" pt="4" borderTop="1px solid" borderTopColor="border.default" className="no-print">
           <Button variant="outline" size="sm" onClick={() => onClose()}>
             Cerrar
           </Button>

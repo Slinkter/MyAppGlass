@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-  HStack,
-  Input,
-  Badge,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, HStack, Input, SimpleGrid } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Search, CheckCircle2, Clock, FileSearch, CheckCheck } from "lucide-react";
 import AuraSurface from "@/shared/components/aura/AuraSurface";
@@ -46,9 +38,9 @@ export function TrackingSection({
   handleTrackingSubmit,
 }: TrackingSectionProps) {
   // Condiciones CSS (base/_dark) en lugar del hook de color mode: mismo HTML en servidor y cliente
-  const inputBg = { base: "rgba(240, 242, 245, 0.85)", _dark: "rgba(24, 24, 27, 0.75)" };
-  const inputBorderColor = { base: "rgba(0, 0, 0, 0.15)", _dark: "rgba(255, 255, 255, 0.18)" };
-  const inputHoverBorderColor = { base: "var(--chakra-colors-overlay-dim)", _dark: "rgba(255, 255, 255, 0.35)" };
+  const inputBg = { base: "bg.subtle", _dark: "bg.subtle" };
+  const inputBorderColor = { base: "border.default", _dark: "border.default" };
+  const inputHoverBorderColor = { base: "border.strong", _dark: "border.strong" };
   const inputFocusBg = { base: "white", _dark: "blackAlpha.800" };
 
   const currentStageIndex = trackingResult ? getStageIndex(trackingResult.status) : 0;
@@ -58,7 +50,7 @@ export function TrackingSection({
       <VStack align="flex-start" gap="4">
         <HStack gap="2" color="text.accent">
           <Search size={18} />
-          <Heading size="xs" textTransform="uppercase" letterSpacing="widest" fontWeight="800">
+          <Heading size="xs" textTransform="uppercase" letterSpacing="widest" fontWeight="700">
             Consultar Estado de Solicitud
           </Heading>
         </HStack>
@@ -105,9 +97,9 @@ export function TrackingSection({
                   <Text fontSize="xs" color="text.muted" textTransform="uppercase" fontWeight="700">
                     {trackingResult.type}
                   </Text>
-                  <Text fontWeight="800" fontSize="sm" color="text.heading">{trackingResult.name}</Text>
+                  <Text fontWeight="700" fontSize="sm" color="text.heading">{trackingResult.name}</Text>
                 </VStack>
-                <Badge colorPalette={trackingResult.status === "ATENDIDO" ? "green" : "blue"} variant="solid" fontSize="xs" px="2" py="0.5">
+                <Badge variant={trackingResult.status === "ATENDIDO" ? "success" : "info"} fontSize="xs" px="2" py="0.5">
                   {trackingResult.status}
                 </Badge>
               </HStack>

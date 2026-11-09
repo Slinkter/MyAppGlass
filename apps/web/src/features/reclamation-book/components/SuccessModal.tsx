@@ -80,7 +80,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, trackingId
               borderColor="primary.500"
               textAlign="center"
             >
-              <Text fontSize="xs" fontWeight="800" color="text.muted" letterSpacing="0.15em" textTransform="uppercase">
+              <Text fontSize="xs" fontWeight="700" color="text.muted" letterSpacing="0.15em" textTransform="uppercase">
                 CÓDIGO DE SEGUIMIENTO OFICIAL
               </Text>
               <Text fontSize="xl" fontWeight="700" color="text.accent" fontFamily="monospace" my="1">

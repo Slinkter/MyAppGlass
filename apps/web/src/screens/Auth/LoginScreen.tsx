@@ -1,17 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-  HStack,
-  Field,
-  Input,
-  Tabs,
-  Badge,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, HStack, Field, Input, Tabs } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { toaster } from "@/components/ui/toaster-instance";
@@ -126,7 +117,7 @@ export const LoginScreen: React.FC = () => {
     const isAdmin = role === "admin";
 
     return (
-      <Box py="12" maxW="580px" mx="auto" px="4">
+      <Box py="12" maxW="36.25rem" mx="auto" px="4">
         <Box
           bg="surface.card"
           borderRadius="2xl"
@@ -134,7 +125,7 @@ export const LoginScreen: React.FC = () => {
           border="1px solid"
           borderColor="border.default"
           backdropFilter="blur(16px)"
-          boxShadow="0 20px 40px rgba(0,0,0,0.2)"
+          boxShadow="lg"
         >
           <VStack gap="6" align="center" textAlign="center">
             <Box
@@ -155,7 +146,7 @@ export const LoginScreen: React.FC = () => {
               </Text>
             </VStack>
 
-            <Badge colorPalette={isAdmin ? "purple" : "blue"} px="3" py="1" borderRadius="full" fontSize="xs">
+            <Badge variant={isAdmin ? "neutral" : "info"} px="3" py="1" borderRadius="full" fontSize="xs">
               ROL: {role.toUpperCase()}
             </Badge>
 
@@ -204,7 +195,7 @@ export const LoginScreen: React.FC = () => {
   }
 
   return (
-    <Box py="12" maxW="540px" mx="auto">
+    <Box py="12" maxW="33.75rem" mx="auto">
       <Box
         bg="surface.card"
         borderRadius="2xl"
@@ -212,7 +203,7 @@ export const LoginScreen: React.FC = () => {
         border="1px solid"
         borderColor="border.default"
         backdropFilter="blur(16px)"
-        boxShadow="0 20px 40px rgba(0,0,0,0.2)"
+        boxShadow="lg"
       >
         <VStack gap="2" align="center" textAlign="center" mb="6">
           <Heading size="xl" color="brand.primary">

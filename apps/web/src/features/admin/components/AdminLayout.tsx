@@ -3,15 +3,8 @@
 import React, { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Box,
-  Container,
-  VStack,
-  HStack,
-  Heading,
-  Text,
-  Badge,
-} from "@chakra-ui/react";
+import { Box, Container, VStack, HStack, Heading, Text } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import {
   LayoutDashboard,
   Package,
@@ -57,7 +50,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   return (
     <AdminRouteGuard>
       <Box minH="dvh" bg="bg.page" py="8" px={{ base: "4", md: "8" }}>
-        <Container maxW="7xl">
+        <Container maxW="pageWide">
           {/* Barra de navegación administrativa */}
           <Box
             mb="8"
@@ -152,8 +145,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                   borderRadius="full"
                   fontSize="xs"
                   fontWeight="600"
-                  colorPalette="blue"
-                  variant="subtle"
+                  variant="info"
                 >
                   <ShieldCheck size={12} style={{ flexShrink: 0 }} />
                   ADMIN GYA
@@ -179,7 +171,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
                   {title}
                 </Heading>
                 {badge && (
-                  <Badge size="sm" colorPalette="blue" variant="subtle">
+                  <Badge size="sm" variant="info">
                     {badge}
                   </Badge>
                 )}

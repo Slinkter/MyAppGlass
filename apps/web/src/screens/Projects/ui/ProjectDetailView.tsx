@@ -105,7 +105,7 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
 
   return (
     <Box bg="bg.page" minH="dvh" pt={{ base: 4, md: 6 }} pb={{ base: 16, md: 24 }}>
-      <Container maxW="7xl" px={{ base: 4, sm: 6, md: 8 }}>
+      <Container maxW="pageWide" px={{ base: 4, sm: 6, md: 8 }}>
         <VStack gap={{ base: 6, md: 8 }} align="stretch" w="full">
           {/* Header Superior con Botón Regresar y Selector */}
           <Flex 
@@ -134,7 +134,7 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
           {/* Visor Principal Nivelado (Mapa / Galería) */}
           <Box
             w="full"
-            h={{ base: "320px", sm: "380px", md: "480px" }}
+            h={{ base: "20rem", sm: "23.75rem", md: "30rem" }}
             position="relative"
             borderRadius="3xl"
             overflow="hidden"
@@ -159,7 +159,7 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
           <VStack align="flex-start" gap={4} w="full" mt={2}>
             <Heading
               size="xs"
-              fontWeight="800"
+              fontWeight="700"
               color="text.accent"
               textTransform="uppercase"
               letterSpacing="0.25em"

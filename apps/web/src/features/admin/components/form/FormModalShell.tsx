@@ -25,7 +25,6 @@ interface FormModalShellProps {
   subtitle: string;
   formError: string | null;
   loading: boolean;
-  colorPalette: string;
   submitLabel: string;
   children: React.ReactNode;
 }
@@ -81,8 +80,8 @@ export const FormModalShell: React.FC<FormModalShellProps> = ({
                 borderRadius="lg"
                 bg="status.dangerSoft"
                 border="1px solid"
-                borderColor="red.500"
-                color="red.500"
+                borderColor="status.dangerBorder"
+                color="status.dangerText"
                 fontSize="sm"
               >
                 {formError}

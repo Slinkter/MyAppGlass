@@ -43,7 +43,7 @@ class ComponentErrorBoundary extends Component<Props, State> {
           p={{ base: "4", md: "6" }}
           m="6"
           bg="red.50"
-          _dark={{ bg: "rgba(255, 0, 0, 0.05)" }}
+          _dark={{ bg: "status.dangerSoft" }}
           border="1px solid"
           borderColor="red.200"
           borderRadius="lg"

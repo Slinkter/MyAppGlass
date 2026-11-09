@@ -73,7 +73,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
 
     return (
         <Container
-            maxW="7xl"
+            maxW="pageWide"
             px={{ base: 4, sm: 6, md: 8 }}
             pt={{ base: "6", md: "10" }}
             pb={{ base: "12", md: "16" }}

@@ -59,7 +59,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
           textAlign="center"
           position="relative"
           cursor="pointer"
-          _hover={{ borderColor: "blue.400", bg: "whiteAlpha.50" }}
+          _hover={{ borderColor: "border.strong" }}
         >
           <input
             type="file"
@@ -94,7 +94,7 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
             overflow="hidden"
             border="2px solid"
             borderColor={simulatedReady ? "purple.400" : "whiteAlpha.200"}
-            h="360px"
+            h="22.5rem"
             bg="brand.ink"
           >
             {/* 1. Fondo: Foto real del cliente */}
@@ -123,15 +123,15 @@ export const PhotoSimulationCard: React.FC<PhotoSimulationCardProps> = ({
                     width: "100%",
                     height: "auto",
                     borderRadius: "8px",
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.6)",
-                    border: "1px solid rgba(255,255,255,0.3)",
+                    boxShadow: "var(--chakra-shadows-lg)",
+                    border: "1px solid var(--chakra-colors-border-strong)",
                     filter: "drop-shadow(0px 10px 15px var(--chakra-colors-overlay-scrim))",
                   }}
                 />
                 <Badge
                   position="absolute"
-                  top="-10px"
-                  right="-10px"
+                  top="-0.625rem"
+                  right="-0.625rem"
                   size="xs"
                 >
                   {selectedProduct.name}

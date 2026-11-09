@@ -16,7 +16,7 @@ export const AdminRouteGuard: React.FC<AdminRouteGuardProps> = ({ children }) =>
 
   if (loading) {
     return (
-      <Box minH="60vh" display="flex" alignItems="center" justifyContent="center">
+      <Box minH="60dvh" display="flex" alignItems="center" justifyContent="center">
         <VStack gap="4">
           <Spinner size="xl" color="brand.primary" />
           <Text color="text.muted">Verificando credenciales de acceso administrativo...</Text>

@@ -36,7 +36,7 @@ const ServiceFaqSectionInner: React.FC<ServiceFaqSectionProps> = ({ faqs, servic
               Preguntas Frecuentes
             </Text>
           </HStack>
-          <Heading as="h2" size={{ base: "md", md: "lg" }} fontWeight="800" color="text.heading">
+          <Heading as="h2" size={{ base: "md", md: "lg" }} fontWeight="700" color="text.heading">
             Dudas comunes sobre {serviceTitle}
           </Heading>
         </VStack>
@@ -52,7 +52,7 @@ const ServiceFaqSectionInner: React.FC<ServiceFaqSectionProps> = ({ faqs, servic
                 cursor="pointer"
                 onClick={() => toggleFaq(idx)}
                 transition="border-color 0.2s ease"
-                _hover={{ borderColor: "primary.500" }}
+                _hover={{ borderColor: "border.strong" }}
               >
                 <VStack align="stretch" gap={2}>
                   <HStack justify="space-between" align="center">

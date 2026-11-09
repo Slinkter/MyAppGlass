@@ -17,13 +17,13 @@ export const OrderSuccessBanner: React.FC<OrderSuccessBannerProps> = ({ orderId,
       mb="8"
       borderRadius="2xl"
       bg="status.successSoft"
-      border="1px solid rgba(52, 211, 153, 0.3)"
+      border="1px solid" borderColor="status.successBorder"
       backdropFilter="blur(16px)"
-      boxShadow="0 10px 40px rgba(52, 211, 153, 0.12)"
+      boxShadow="md"
     >
       <HStack justify="space-between" wrap="wrap" gap="4">
         <HStack gap="4">
-          <Box p="3" bg="rgba(52, 211, 153, 0.2)" color="var(--chakra-colors-status-success)" borderRadius="full">
+          <Box p="3" bg="status.successSoft" color="var(--chakra-colors-status-success)" borderRadius="full">
             <CheckCircle2 size={36} style={{ flexShrink: 0 }} />
           </Box>
           <VStack align="start" gap="0.5">

@@ -32,7 +32,7 @@ export function ShopScreen() {
   );
 
   return (
-    <Box as="main" maxW="6xl" mx="auto" px={{ base: "4", md: "6" }} py={{ base: "8", md: "12" }}>
+    <Box as="main" maxW="pageDefault" mx="auto" px={{ base: "4", md: "6" }} py={{ base: "8", md: "12" }}>
       <HStack justify="space-between" mb="6" gap="3" flexWrap="wrap">
         <VStack align="flex-start" gap="1">
           <Heading as="h1" size="xl">

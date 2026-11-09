@@ -34,10 +34,7 @@ export const InfoItem: React.FC<InfoItemProps> = ({
       borderRadius="xl"
       bg="surface.container"
       transition="transform 0.2s ease, border-color 0.2s ease"
-      _hover={{
-        borderColor: "border.strong",
-        transform: "translateY(-2px)",
-      }}
+      _hover={{ borderColor: "border.strong" }}
     >
       <Card.Body p={0} display="flex" flexDirection="row" alignItems="center" gap={4} w="full">
         <Flex

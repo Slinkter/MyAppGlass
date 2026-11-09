@@ -43,7 +43,7 @@ export const SplitStorePanel: React.FC<SplitStorePanelProps> = React.memo(({ sto
       <Text fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="0.15em" color="text.accent">
         Nuestra sede
       </Text>
-      <Text fontSize="md" fontWeight="800" color="text.heading" lineClamp={1}>
+      <Text fontSize="md" fontWeight="700" color="text.heading" lineClamp={1}>
         {companyData.razonSocial}
       </Text>
       <VStack align="flex-start" gap="1" mt="1" color="text.muted" fontSize="sm">
