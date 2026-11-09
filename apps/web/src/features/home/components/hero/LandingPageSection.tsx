@@ -43,32 +43,6 @@ const LandingPageSection: React.FC = React.memo(() => {
                     }
                 }}
             >
-                {/* Asymmetric Background Accent Blurs */}
-                <Box
-                    position="absolute"
-                    top="-15%"
-                    left="-10%"
-                    w="45%"
-                    h="60%"
-                    bgGradient="radial(circle, primary.900, transparent)"
-                    opacity={0.08}
-                    filter="blur(140px)"
-                    pointerEvents="none"
-                    zIndex={0}
-                />
-                <Box
-                    position="absolute"
-                    bottom="-20%"
-                    right="-10%"
-                    w="50%"
-                    h="60%"
-                    bgGradient="radial(circle, text.accent, transparent)"
-                    opacity={0.05}
-                    filter="blur(160px)"
-                    pointerEvents="none"
-                    zIndex={0}
-                />
-
                 <VStack
                     gap={{ base: "6", md: "8" }}
                     textAlign="center"
@@ -79,8 +53,8 @@ const LandingPageSection: React.FC = React.memo(() => {
 
                     {/* Logo con escala responsiva óptima */}
                     <Box
-                        animation="slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
-                        transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+                        animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1)"
+                        transition="transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)"
                         _hover={{ transform: "scale(1.03)" }}
                         position="relative"
                         w={{
@@ -106,18 +80,30 @@ const LandingPageSection: React.FC = React.memo(() => {
                         />
                     </Box>
 
-                    <Box animation="slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both">
+                    <Box animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both">
+                        <Text
+                            fontSize="xs"
+                            fontWeight="600"
+                            letterSpacing="0.18em"
+                            textTransform="uppercase"
+                            color="#002060"
+                            _dark={{ color: "primary.300" }}
+                            mb="2"
+                        >
+                            VIDRIERÍA & ALUMINIO · LA MOLINA
+                        </Text>
+
                         <Heading
                             as="h1"
                             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
-                            fontWeight="900"
+                            fontWeight="700"
                             lineHeight="1.08"
                             letterSpacing="tight"
                             color="text.body"
                             mb="3"
                         >
                             GLASS & ALUMINUM
-                            <Text as="span" display="block" color="primary.500" _dark={{ color: "primary.300" }}>
+                            <Text as="span" display="block" color="#002060" _dark={{ color: "primary.200" }}>
                                 COMPANY S.A.C.
                             </Text>
                         </Heading>
@@ -146,7 +132,7 @@ const LandingPageSection: React.FC = React.memo(() => {
                     display="flex"
                     justifyContent="center"
                     zIndex={1}
-                    animation="fadeIn 0.8s ease 1s both"
+                    animation="fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1s both"
                 >
                     <RouterLink
                         href="/#servicios"
@@ -159,7 +145,7 @@ const LandingPageSection: React.FC = React.memo(() => {
                             color="text.muted"
                             style={{ flexShrink: 0 }}
                             animation="floatDown 2s ease-in-out infinite"
-                            transition="color 0.2s ease"
+                            transition="color 0.2s cubic-bezier(0.22, 1, 0.36, 1)"
                             _hover={{ color: "text.heading" }}
                         />
                     </RouterLink>

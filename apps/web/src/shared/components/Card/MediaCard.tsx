@@ -14,7 +14,7 @@ import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/Im
 import { GLASS_FALLBACK_CSS } from "@/shared/constants/layout";
 
 /** Curva de desaceleración suave del sistema de movimiento de las cards. */
-const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 export interface MediaCardProps {
   image: string;
@@ -58,6 +58,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
         isolation="isolate"
         transform="translateZ(0)"
         boxShadow="sm"
+        bg="#182238"
         {...cardMotion}
         {...rootProps}
       >
@@ -73,8 +74,8 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
             loading={loading}
             isLCP={isLCP}
             onLoad={handleLoad}
-            transition={`transform 1.2s ${EASE}`}
-            _groupHover={{ transform: "scale(1.03)" }}
+            transition={`transform 0.55s ${EASE}`}
+            _groupHover={{ transform: "scale(1.04)" }}
             _motionReduce={{ transition: "none", transform: "none" }}
           />
         </Box>
@@ -86,7 +87,6 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
           zIndex={1}
           borderRadius="inherit"
           background="linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 60%)"
-          {...reveal}
         />
 
         {/* Anillo de borde: define el contorno y oculta cualquier fleco en las esquinas */}
@@ -115,7 +115,6 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
             py="1"
             borderRadius="full"
             css={GLASS_FALLBACK_CSS}
-            {...reveal}
           >
             {badge}
           </Box>
@@ -132,7 +131,6 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
           justify="space-between"
           align="flex-end"
           minW={0}
-          {...reveal}
         >
           <VStack align="flex-start" gap="1" minW={0} maxW="calc(100% - 52px)">
             <Heading

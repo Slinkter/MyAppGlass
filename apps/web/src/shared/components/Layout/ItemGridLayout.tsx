@@ -10,24 +10,27 @@ import {
     Box,
     ContainerProps,
 } from "@chakra-ui/react";
+import { useScrollReveal } from "@/shared/hooks/ui/useScrollReveal";
 
 interface ItemGridItemProps {
     children: React.ReactNode;
+    index?: number;
     delay?: number;
 }
 
-const ItemGridItem: React.FC<ItemGridItemProps> = ({ children, delay }) => {
+const ItemGridItem: React.FC<ItemGridItemProps> = ({ children, index, delay }) => {
+    const { ref, isVisible, isArmed } = useScrollReveal<HTMLDivElement>();
+    const staggerMs = delay !== undefined ? Math.round(delay * 1000) : ((index ?? 0) % 3) * 70;
+
     return (
         <Box
+            ref={ref}
             w="full"
             h="full"
-            animation={delay !== undefined ? `slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s both` : "none"}
-            css={{
-                '@media (prefers-reduced-motion: reduce)': {
-                    animation: 'none !important',
-                    transition: 'none !important',
-                }
-            }}
+            opacity={isArmed && !isVisible ? 0 : 1}
+            transform={isArmed && !isVisible ? "translateY(20px)" : "translateY(0)"}
+            transition={`opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) ${staggerMs}ms, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) ${staggerMs}ms`}
+            _motionReduce={{ transition: "none", transform: "none", opacity: 1 }}
         >
             {children}
         </Box>
@@ -62,6 +65,8 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
     containerProps = {},
     headingAs = "h2",
 }) => {
+    const { ref: headerRef, isVisible: headerVisible, isArmed: headerArmed } = useScrollReveal<HTMLDivElement>();
+
     return (
         <Container
             maxW="7xl"
@@ -70,13 +75,24 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
             pb={{ base: "12", md: "16" }}
             {...containerProps}
         >
-            <VStack gap={{ base: "3", md: "5" }} textAlign="center" w="full" mb={{ base: "8", md: "12" }}>
+            <VStack
+                ref={headerRef}
+                gap={{ base: "3", md: "5" }}
+                textAlign="center"
+                w="full"
+                mb={{ base: "8", md: "12" }}
+                opacity={headerArmed && !headerVisible ? 0 : 1}
+                transform={headerArmed && !headerVisible ? "translateY(16px)" : "translateY(0)"}
+                transition="opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)"
+                _motionReduce={{ transition: "none", transform: "none", opacity: 1 }}
+            >
                 <Heading
                     as={headingAs}
+                    fontFamily="heading"
+                    fontWeight="700"
+                    letterSpacing="-0.02em"
+                    color="text.heading"
                     fontSize={{ base: "3xl", sm: "4xl", md: "5xl" }}
-                    fontWeight="900"
-                    letterSpacing="tight"
-                    color="text.body"
                     lineHeight="1.1"
                 >
                     {title}

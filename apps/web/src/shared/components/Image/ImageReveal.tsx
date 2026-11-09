@@ -52,7 +52,7 @@ export function useImageReveal(timeoutMs: number = IMAGE_REVEAL_TIMEOUT_MS): Use
   const reveal = useMemo<RevealStyleProps>(
     () => ({
       opacity: loaded ? 1 : 0,
-      transition: "opacity 0.5s ease",
+      transition: "opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1)",
       _motionReduce: { transition: "none" },
     }),
     [loaded],

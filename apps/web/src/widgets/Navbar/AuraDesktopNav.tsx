@@ -1,19 +1,23 @@
 "use client";
 
 import React from "react";
-import { HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { Button } from "@/components/ui/button";
 import NAV_ITEMS from "@/shared/config/nav-items";
 
 import { useNavbarActiveSection, type NavbarSection } from "./hooks/useNavbarActiveSection";
 
+export interface AuraDesktopNavProps {
+  isScrolled?: boolean;
+}
+
 /**
  * @component AuraDesktopNav
  * @description Barra de navegación de escritorio estilo píldora/chip ultra-fluida,
  * basada en el patrón de SystemSelector con soporte completo para SSR, scroll-spy y routing de Next.js.
  */
-const AuraDesktopNav: React.FC = () => {
+const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ isScrolled = false }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const { activeSection, selectSection } = useNavbarActiveSection();
 
@@ -38,13 +42,15 @@ const AuraDesktopNav: React.FC = () => {
       ref={containerRef}
       as="nav"
       aria-label="Navegación principal"
-      bg="bg.subtle"
+      bg={isScrolled ? "bg.surface/95" : "bg.surface/65"}
+      borderColor={isScrolled ? "border.default" : "border.subtle"}
+      boxShadow={isScrolled ? "navDesktop" : "none"}
+      transition="background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1)"
+      _motionReduce={{ transition: "none" }}
       p="2"
       borderRadius="full"
       display="inline-flex"
       borderWidth="1px"
-      borderColor="border.default"
-      boxShadow="navDesktop"
       maxW="full"
       overflowX="auto"
       gap="1.5"
@@ -69,6 +75,7 @@ const AuraDesktopNav: React.FC = () => {
           <Button
             key={item.label}
             asChild
+            className="group"
             data-active={isActive ? "true" : "false"}
             size={{ base: "sm", md: "md" }}
             variant={isActive ? "aura" : "ghost"}
@@ -81,6 +88,7 @@ const AuraDesktopNav: React.FC = () => {
             letterSpacing="0.05em"
             textAlign="center"
             justifyContent="center"
+            position="relative"
             transition="transform 0.2s ease, background-color 0.2s ease"
             _hover={{
               transform: isActive ? "none" : "translateY(-1px)",
@@ -92,7 +100,24 @@ const AuraDesktopNav: React.FC = () => {
               transitionTypes={['nav-forward']}
               onClick={handleClick}
             >
-              {item.label}
+              <Box as="span" position="relative" display="inline-flex" alignItems="center" justifyContent="center">
+                {item.label}
+                <Box
+                  as="span"
+                  position="absolute"
+                  bottom="-4px"
+                  left="0"
+                  right="0"
+                  h="1.5px"
+                  bg="#002060"
+                  _dark={{ bg: "white" }}
+                  transformOrigin="left"
+                  transform={isActive ? "scaleX(1)" : "scaleX(0)"}
+                  transition="transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)"
+                  _groupHover={{ transform: "scaleX(1)" }}
+                  _motionReduce={{ transition: "none" }}
+                />
+              </Box>
             </RouterLink>
           </Button>
         );
