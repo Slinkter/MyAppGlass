@@ -7,6 +7,7 @@ import ServiceList from "@/features/services/components/ServiceList";
 import ClientsSection from "@features/home/components/clients/ClientsSection";
 import { ProjectsList } from "@features/projects";
 import StoreSection from "@features/home/components/store/StoreSection";
+import { Reveal } from "@shared/components/motion/Reveal";
 
 export interface HomeViewProps {
     initialServices?: Service[];
@@ -21,17 +22,17 @@ const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initial
 
             {/* Sección 2: SERVICIO */}
             <Box id="servicios" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <ServiceList initialData={initialServices} headingAs="h2" />
+                <Reveal><ServiceList initialData={initialServices} headingAs="h2" /></Reveal>
             </Box>
 
             {/* Sección 3: Proyectos */}
             <Box id="proyectos" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <ProjectsList initialData={initialProjects} headingAs="h2" />
+                <Reveal><ProjectsList initialData={initialProjects} headingAs="h2" /></Reveal>
             </Box>
 
             {/* Sección 4: Nuestros Clientes */}
             <Box id="clientes" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <ClientsSection />
+                <Reveal><ClientsSection /></Reveal>
             </Box>
 
             {/* Sección 5: Ubicación / Mapa */}
@@ -41,7 +42,7 @@ const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initial
 
             {/* Sección 6: Calidad Superior (Iconos a 2 filas estilo Skills) */}
             <Box id="beneficios" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <FeaturesSection />
+                <Reveal><FeaturesSection /></Reveal>
             </Box>
         </VStack>
     );
