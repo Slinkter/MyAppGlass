@@ -31,7 +31,7 @@ Esta habilidad documenta la arquitectura real y vigente de gestión de contenido
 ## 📐 Reglas de Negocio Inmutables (`AGENTS.md`)
 
 - **Catálogo Oficial de Ventanas:**
-  - Solo existen **4 sistemas**: `Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`.
+  - Solo existen **6 sistemas**: `Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`, `Acústica` y `PVC abatible` (los dos últimos desde 2026-11-08).
   - Tipos de ventana: `Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`.
   - Tipos de vidrio (3): `Crudo`, `Laminado`, `Templado`.
   - Ortografía obligatoria: `"antirruido"` (doble `r`) y `"vidrio y aluminio"` (en singular).

@@ -96,7 +96,7 @@ Progreso Global: [████████████] 100% (6 / 6 Fases comple
    - **Razón Social:** `"GLASS & ALUMINUM COMPANY S.A.C."` (`companyData` en `packages/shared/src/company-data.ts`).
    - **NAP Vigente:** Dirección **`Av. Los Fresnos 1250 - La Molina`** (código postal `15024`), WhatsApp **`974 278 303`** (`+51974278303`), teléfono secundario **`996-537-435`**, correo público **`acueva@gyacompany.com`**. *(La Ficha RUC SUNAT de 2022 y la numeración antigua `1214-1274` están desactualizadas y no deben usarse).*
    - **Cuenta Propietaria del Ecosistema Google:** `luis.j.cueva@gmail.com` administra Google Business Profile, Google Search Console, Google Analytics 4 (`G-TY0NJP1S81`) y Firebase (`gya-app-4c8a9`).
-   - **Catálogo Oficial de Ventanas:** Solo existen **4 sistemas** (`Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`), **4 tipos de abertura** (`Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`) y **3 tipos de vidrio** (`Crudo`, `Laminado`, `Templado`). Ortografía obligatoria: `"antirruido"` (doble `r`) y `"vidrio y aluminio"` (singular).
+   - **Catálogo Oficial de Ventanas:** Solo existen **6 sistemas** (`Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`, `Acústica`, `PVC abatible`), **4 tipos de abertura** (`Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`) y **3 tipos de vidrio** (`Crudo`, `Laminado`, `Templado`). Ortografía obligatoria: `"antirruido"` (doble `r`) y `"vidrio y aluminio"` (singular).
    - **Backend Congelado:** `apps/functions/` (Firebase Functions v2 en Node.js 22) y `firestore.rules` están congelados y no deben modificarse salvo solicitud expresa.
 
 ---

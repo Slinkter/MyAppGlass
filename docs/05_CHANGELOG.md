@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-08] - Design system único (`docs/DESIGN-SYSTEM.md`)
+
+### Added
+- **`docs/DESIGN-SYSTEM.md`**: única fuente de verdad de marca, tokens, componentes y UX. Fusiona el manual de marca v2, las reglas del kit, las reglas de marca de `claude.md` y las convenciones de UI de `AGENTS.md`. Incluye la auditoría (P0/P1/P2), el equipo, el plan por fases con dos puertas de aprobación y el prompt en 6 bloques. Base visual: marca v2 (Source Serif 4 + Inter, navy `#002060`).
+
+### Changed
+- `claude.md` (raíz) reducido a un puntero; `AGENTS.md` §4 sustituye las convenciones de UI por un puntero y un resumen mínimo; los prompts de `docs/gya/prompts/` apuntan al documento único.
+- Índices (`README.md`, `docs/README.md`, `docs/gya/README.md`, `docs/PENDIENTES.md`) actualizados.
+
+### Removed
+- `docs/DESIGN-SYSTEM-PLAN.md` (recuperable con `git show 1537ee1:docs/DESIGN-SYSTEM-PLAN.md`), `docs/gya/manual-de-marca.md` y `docs/gya/reglas-rapidas-kit.md` (no estaban commiteados; su contenido está fusionado en el documento único).
+
+## [2026-11-08] - Purga de documentación
+
+### Added
+- **`docs/PENDIENTES.md`**: única lista viva de trabajo abierto (seguridad, calidad, presupuesto, producto, observabilidad y acciones externas).
+- **`docs/archivo/`**: planes con estado desactualizado (04, 12 y 13), con aviso de archivado.
+
+### Changed
+- **`docs/README.md`**: de 256 líneas con árbol y grafo a un índice corto en tablas.
+- **Referencias**: `02_AI_HANDOFF`, `03_AGENTS`, `07_BACKEND_IMPLEMENTATION` y `diplomado/README` apuntan a los documentos vigentes.
+
+### Removed
+- Planes cumplidos o sustituidos: 15, 16, 17, 18, 19 y `PLAN-DISENO`. Recuperables con `git show 1537ee1:docs/<archivo>.md`.
+
+## [2026-11-08] - Flujo de presupuesto del usuario, fases A–D (`docs/21_PLAN_FLUJO_PRESUPUESTO.md`)
+
+### Added
+- **Kit de marca (`docs/gya/`)**: manual de marca, 6 conceptos de hoja, 4 presupuestos reales como base de fixtures y logo en `apps/web/public/brand/`.
+- **`/presupuesto` con varias partidas**: ambiente, sistema, medidas, cristal, aluminio e instalación por partida; resumen estimado en vivo; validación por campo (Zod); pantalla de éxito con número `GYA-AAAA-XXXX` y enlace a WhatsApp; enviar solicitud separado de imprimir.
+- **Catálogo de 6 sistemas**: `Acústica` y `PVC abatible` (precio por definir; el total se marca como referencial).
+- **Simulador → presupuesto**: `QuotePrompt` pasa `?sistema=` y `/presupuesto` lo preselecciona.
+- Tests nuevos `quote-summary` y `quote-form-schema` (escritos, sin ejecutar).
+
+### Changed
+- `params` de `presupuestos_solicitados` pasa a `{ version: 2, items }` (sin cambios en `firestore.rules`).
+- `AGENTS.md`: catálogo de 4 a 6 sistemas.
+
+### Removed
+- QR de la hoja impresa (apuntaba a una ruta que no lo leía) y `QuoteConfigPanel.tsx` (reemplazado por `QuoteLinesPanel.tsx`).
+
 ## [2026-11-08] - Normalización de Documentación, Higiene y Fases 0 & 5 (`docs/20_PLAN_TRABAJO_ANALISIS_FASES.md`)
 
 ### Changed

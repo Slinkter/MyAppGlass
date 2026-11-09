@@ -2,7 +2,7 @@ import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { db } from "@/shared/lib/firebase";
 import { logger } from "@/shared/utils/logger";
 import { counterDocId, formatQuoteNumber, limaYear } from "../utils/quoteNumber";
-import type { QuoteCalculationInput } from "../utils/quoteCalculator";
+import type { QuoteRequestParams } from "../types";
 
 export interface QuoteRequestPayload {
   userId: string;
@@ -12,7 +12,7 @@ export interface QuoteRequestPayload {
   phone: string;
   address: string;
   district: string;
-  params: QuoteCalculationInput;
+  params: QuoteRequestParams;
   total: number;
 }
 

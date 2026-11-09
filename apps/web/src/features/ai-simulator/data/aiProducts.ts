@@ -1,3 +1,5 @@
+import type { SystemType } from "@/features/presupuesto/config/pricing";
+
 export interface AISimulatorProduct {
   id: string;
   name: string;
@@ -6,6 +8,8 @@ export interface AISimulatorProduct {
   previewImage: string;
   recommendedSpace: string;
   aiPromptSnippet: string;
+  /** Sistema del cotizador que corresponde a este producto (preselección en /presupuesto). */
+  quoteSystemType: SystemType;
 }
 
 export const AI_SIMULATOR_PRODUCTS: AISimulatorProduct[] = [
@@ -17,6 +21,7 @@ export const AI_SIMULATOR_PRODUCTS: AISimulatorProduct[] = [
     previewImage: "/images/services-products-02.Mampara-save-mampara01.webp",
     recommendedSpace: "Sala principal, terraza o jardín",
     aiPromptSnippet: "modern minimalist sliding glass partition Serie 25 with matte black aluminum frame and clear tempered glass",
+    quoteSystemType: "mampara_serie25",
   },
   {
     id: "ventana-antirruido-nova",
@@ -26,6 +31,7 @@ export const AI_SIMULATOR_PRODUCTS: AISimulatorProduct[] = [
     previewImage: "/images/services-products-01.Ventanas-nova-a10.webp",
     recommendedSpace: "Dormitorio, fachada a la calle o estudio",
     aiPromptSnippet: "high-end acoustic hermetic window Nova system with dark bronze framing and soundproof laminated glass",
+    quoteSystemType: "ventana_nova",
   },
   {
     id: "ducha-acero-inox",
@@ -35,6 +41,7 @@ export const AI_SIMULATOR_PRODUCTS: AISimulatorProduct[] = [
     previewImage: "/images/services-products-03.Ducha-ducha01.webp",
     recommendedSpace: "Cuarto de baño principal o suite",
     aiPromptSnippet: "luxury frameless glass walk-in shower door with 304 stainless steel hardware and ultra-clear tempered glass",
+    quoteSystemType: "ducha_cristal",
   },
   {
     id: "techo-policarbonato-aluminio",
@@ -44,5 +51,6 @@ export const AI_SIMULATOR_PRODUCTS: AISimulatorProduct[] = [
     previewImage: "/images/services-products-04.Techo-techopoli01.webp",
     recommendedSpace: "Patio interior, cochera o terraza abierta",
     aiPromptSnippet: "modern outdoor polycarbonate roof canopy with aluminum structural support beams and UV solar protection",
+    quoteSystemType: "techo_policarbonato",
   },
 ];

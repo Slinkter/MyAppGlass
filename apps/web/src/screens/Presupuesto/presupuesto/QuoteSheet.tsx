@@ -1,16 +1,16 @@
 "use client";
 
 import React from "react";
-import { Box, Heading, Text, HStack, SimpleGrid, QrCode } from "@chakra-ui/react";
+import { Box, Heading, Text, HStack, SimpleGrid } from "@chakra-ui/react";
 import { ShieldCheck } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
-import { SITE_URL } from "@gya/shared";
-import type { quoteCalculator } from "@/features/presupuesto/utils/quoteCalculator";
+import { QUOTE_PRICING } from "@/features/presupuesto/config/pricing";
+import type { QuoteSummary } from "@/features/presupuesto/utils/quoteSummary";
 import type { QuoteCustomer } from "./types";
 
 interface QuoteSheetProps {
   customer: QuoteCustomer;
-  quote: ReturnType<typeof quoteCalculator.calculateQuote>;
+  quote: QuoteSummary;
   formattedDate: string;
   quoteNumber?: string | null;
 }
@@ -47,7 +47,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
             PRESUPUESTO FORMAL
           </Text>
           <Text fontSize="xs" color="gray.500">
-            N° {quoteNumber ?? "Se asigna al imprimir"}
+            N° {quoteNumber ?? "Se asigna al enviar la solicitud"}
           </Text>
           <Text fontSize="xs" color="gray.500">
             Fecha: {formattedDate}
@@ -83,33 +83,36 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
             </tr>
           </thead>
           <tbody>
-            {quote.items.map((item, idx) => (
-              <tr key={idx} style={{ borderBottom: "1px solid #e2e8f0" }}>
-                <td style={{ padding: "8px" }}>0{idx + 1}</td>
-                <td style={{ padding: "8px" }}>{item.description}</td>
-                <td style={{ padding: "8px", textAlign: "center" }}>{item.quantity}</td>
-                <td style={{ padding: "8px", textAlign: "center" }}>{item.unit}</td>
-                <td style={{ padding: "8px", textAlign: "right" }}>S/ {item.unitPrice.toFixed(2)}</td>
-                <td style={{ padding: "8px", textAlign: "right", fontWeight: "bold" }}>
-                  S/ {item.totalPrice.toFixed(2)}
-                </td>
-              </tr>
-            ))}
+            {quote.lines.map((result, lineIdx) => {
+              const offset = quote.lines.slice(0, lineIdx).reduce((acc, r) => acc + r.items.length, 0);
+              const title = [result.line.ambiente.trim(), QUOTE_PRICING.systems[result.line.systemType].label]
+                .filter(Boolean)
+                .join(" — ");
+              return (
+                <React.Fragment key={result.line.id}>
+                  <tr style={{ backgroundColor: "#F3F5F9" }}>
+                    <td colSpan={6} style={{ padding: "8px", fontWeight: "bold", color: "#002060" }}>
+                      {lineIdx + 1}. {title} ({result.line.width} × {result.line.height} m)
+                    </td>
+                  </tr>
+                  {result.items.map((item, idx) => (
+                    <tr key={idx} style={{ borderBottom: "1px solid #e2e8f0" }}>
+                      <td style={{ padding: "8px" }}>{String(offset + idx + 1).padStart(2, "0")}</td>
+                      <td style={{ padding: "8px" }}>{item.description}</td>
+                      <td style={{ padding: "8px", textAlign: "center" }}>{item.quantity}</td>
+                      <td style={{ padding: "8px", textAlign: "center" }}>{item.unit}</td>
+                      <td style={{ padding: "8px", textAlign: "right" }}>S/ {item.unitPrice.toFixed(2)}</td>
+                      <td style={{ padding: "8px", textAlign: "right", fontWeight: "bold" }}>
+                        S/ {item.totalPrice.toFixed(2)}
+                      </td>
+                    </tr>
+                  ))}
+                </React.Fragment>
+              );
+            })}
           </tbody>
         </table>
       </Box>
-
-      {/* QR de verificación */}
-      {quoteNumber && (
-        <HStack gap="3" mb="4" fontSize="xs" color="gray.600">
-          <QrCode.Root value={`${SITE_URL}/presupuesto?n=${quoteNumber}`} size="sm">
-            <QrCode.Frame>
-              <QrCode.Pattern />
-            </QrCode.Frame>
-          </QrCode.Root>
-          <Text>Escanee para consultar este presupuesto ({quoteNumber}) en {SITE_URL.replace("https://", "")}.</Text>
-        </HStack>
-      )}
 
       {/* RESUMEN DE TOTALES */}
       <HStack justify="space-between" align="start" pt="4" borderTop="2px solid #0f172a">
@@ -142,6 +145,11 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
           </HStack>
         </Box>
       </HStack>
+      {quote.pricePending && (
+        <Text fontSize="xs" color="gray.600" mt="3">
+          * Incluye sistemas con precio por definir: el monto es referencial y será confirmado por nuestro equipo.
+        </Text>
+      )}
     </Box>
   );
 };

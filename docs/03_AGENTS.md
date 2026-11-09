@@ -102,7 +102,7 @@ Este documento define los roles y responsabilidades de referencia de los agentes
 - **Stack:** FSD Architecture, [`02_AI_HANDOFF.md`](./02_AI_HANDOFF.md), `AGENTS.md`.
 - **Responsabilidades:**
     - Determinar qué agente(s) invocar según la tarea solicitada.
-    - Mantener el plan de trabajo actualizado ([`04_PLAN_DE_TRABAJO.md`](./04_PLAN_DE_TRABAJO.md) y [`13_PLAN_TRABAJO_SCRUM_FASES.md`](./13_PLAN_TRABAJO_SCRUM_FASES.md)).
+    - Mantener el plan de trabajo actualizado ([`PENDIENTES.md`](./PENDIENTES.md), `20_PLAN_TRABAJO_ANALISIS_FASES.md` y `21_PLAN_FLUJO_PRESUPUESTO.md`).
     - Coordinar handoffs entre agentes Frontend y Backend.
     - Priorizar tareas críticas vs. mejoras continuas.
     - Documentar decisiones arquitectónicas y estado del proyecto.

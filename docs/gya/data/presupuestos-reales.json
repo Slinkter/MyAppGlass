@@ -1,0 +1,96 @@
+{
+  "nota": "4 presupuestos reales (oct–dic 2025). Nombres de clientes reemplazados. Montos y medidas tal cual el PDF original.",
+  "casos": [
+    {
+      "id": "lista-agrupada",
+      "fecha": "2025-12-02",
+      "cliente": { "tipo": "persona", "nombre": "[NOMBRE CLIENTE]", "direccion": "La Molina" },
+      "modulos": ["lista-agrupada", "dibujos", "fotos"],
+      "grupos": [
+        {
+          "sistema": "Serie 25", "antirruidoPct": 50,
+          "descripcion": "Aluminio negro, vidrio incoloro 6 mm, corredizo y paños fijos",
+          "items": [
+            { "ambiente": "Cocina", "apertura": "Fijo superior + corrediza", "precio": 660 },
+            { "ambiente": "Cocina", "apertura": "Corrediza, vidrio empavonado", "precio": 440 },
+            { "ambiente": "Sala", "apertura": "Fijo lateral + corrediza + fijo inferior", "precio": 1080 },
+            { "ambiente": "Sala comedor", "apertura": "Corrediza + fijo inferior", "precio": 980 },
+            { "ambiente": "Pasadizo", "apertura": "Mirador de paños fijos", "precio": 960 },
+            { "ambiente": "Dormitorio 1", "apertura": "Corrediza + fijo inferior", "precio": 970 },
+            { "ambiente": "Baño", "apertura": "Corrediza", "precio": 185 }
+          ]
+        },
+        {
+          "sistema": "PVC abatible", "antirruidoPct": 80,
+          "descripcion": "Vidrio laminado 8 mm, aluminio negro",
+          "items": [
+            { "ambiente": "Dormitorio 2", "apertura": "Mirador de paños fijos", "precio": 3950 },
+            { "ambiente": "Dormitorio 3", "apertura": "Dos hojas", "precio": 2250 }
+          ]
+        }
+      ],
+      "total": 11475, "igv": "VERIFICAR",
+      "plazoDiasHabiles": "10", "garantiaMeses": 6, "vigenciaHoras": 24
+    },
+    {
+      "id": "opciones-ab",
+      "fecha": "2025-11-05",
+      "cliente": { "tipo": "persona", "nombre": "[NOMBRE CLIENTE]", "direccion": "La Molina" },
+      "modulos": ["opciones-ab", "dibujos"],
+      "comun": "4 ventanas corredizas, aluminio blanco, vidrio laminado 8 mm. Medidas en mm.",
+      "opciones": [
+        { "nombre": "Serie 62", "antirruidoPct": 70, "items": [
+          { "ref": "V1", "medida": "1400 × 1200", "precio": 1176 },
+          { "ref": "V2", "medida": "1150 × 1500", "precio": 1260 },
+          { "ref": "V3", "medida": "1150 × 1500", "precio": 1260 },
+          { "ref": "V4", "medida": "1400 × 1200", "precio": 1176 }
+        ], "total": 4872 },
+        { "nombre": "Acústica", "antirruidoPct": 80, "items": [
+          { "ref": "V1", "medida": "1400 × 1200", "precio": 1512 },
+          { "ref": "V2", "medida": "1150 × 1500", "precio": 1916 },
+          { "ref": "V3", "medida": "1150 × 1500", "precio": 1916 },
+          { "ref": "V4", "medida": "1400 × 1200", "precio": 1512 }
+        ], "total": 6856 }
+      ],
+      "plazoDiasHabiles": "10", "garantiaMeses": 6, "vigenciaHoras": 24
+    },
+    {
+      "id": "empresa-descuento-igv",
+      "fecha": "2025-12-20",
+      "cliente": { "tipo": "empresa", "razonSocial": "[RAZÓN SOCIAL]", "ruc": "[RUC CLIENTE]", "direccion": "[DIRECCIÓN DE OBRA]" },
+      "modulos": ["cliente-empresa", "servicios", "dibujos", "totales-descuento-igv"],
+      "servicios": [
+        { "descripcion": "Desmontaje de mamparas de cristal incoloro de 8 mm", "cantidad": 2 },
+        { "descripcion": "Traslado e instalación de mamparas de cristal incoloro de 8 mm", "cantidad": 2 },
+        { "descripcion": "Vidrio templado incoloro de 8 mm – paño fijo", "cantidad": 1 }
+      ],
+      "dibujos": [
+        { "nombre": "Mampara 1", "unidad": "mm", "alto": 2210, "ancho": 3900, "panos": [["F",860],["F",860],["F",860],["→",920],["F",400]] },
+        { "nombre": "Mampara 2", "unidad": "mm", "alto": 1960, "tramoAngulo": 2620, "frente": 2650, "panos": [["F",1310],["F",1310],["F",920],["F",920],["F",850]], "VERIFICAR": "920+920+850 = 2690, no 2650" }
+      ],
+      "total": 2650, "descuento": 150, "nuevoTotal": 2500, "igv": "incluye",
+      "plazoDiasHabiles": "2-3", "garantiaMeses": "VERIFICAR", "vigenciaHoras": "VERIFICAR"
+    },
+    {
+      "id": "multiproducto-descuento",
+      "fecha": "2025-10-29",
+      "cliente": { "tipo": "persona", "nombre": "[NOMBRE CLIENTE]", "direccion": "[DIRECCIÓN DE OBRA]" },
+      "modulos": ["lista-agrupada", "totales-descuento-igv", "fotos", "condiciones-extendidas"],
+      "grupos": [
+        { "sistema": "Techo de policarbonato", "descripcion": "Estructura de aluminio color madera, 360 × 332 (VERIFICAR unidad)", "items": [ { "ref": "Techo 1", "precio": 5850 } ] },
+        { "sistema": "Nova", "descripcion": "Cristal incoloro laminado 6 mm, aluminio negro", "items": [
+          { "ref": "Ventana 1", "precio": 928, "VERIFICAR": "el dibujo dice 929" },
+          { "ref": "Ventana 2", "precio": 985 },
+          { "ref": "Ventana 3", "precio": 928 }
+        ] }
+      ],
+      "total": 8691, "descuento": 191, "nuevoTotal": 8500, "igv": "VERIFICAR",
+      "plazoDiasHabiles": "8-9", "garantiaMeses": 3,
+      "condicionesExtendidas": [
+        "La garantía cubre defectos de fabricación y/o instalación de nuestro personal; no cubre mal uso, accidentes, negligencia ni instalaciones de terceros.",
+        "Los reclamos deben presentarse con copia de la boleta o factura.",
+        "El plazo está sujeto a disponibilidad de materiales y condiciones externas."
+      ]
+    }
+  ]
+}

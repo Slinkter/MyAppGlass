@@ -1,13 +1,13 @@
-import { QUOTE_PRICING } from "../config/pricing";
+import { QUOTE_PRICING, type SystemType, type GlassType, type AluminumColor, type Difficulty } from "../config/pricing";
 import { BudgetItem } from "@/shared/schemas/ecommerce-schemas";
 
 export interface QuoteCalculationInput {
-  systemType: "ventana_nova" | "mampara_serie25" | "ducha_cristal" | "techo_policarbonato";
+  systemType: SystemType;
   width: number; // en metros (ej. 2.40)
   height: number; // en metros (ej. 2.10)
-  glassType: "8mm_incoloro" | "10mm_incoloro" | "6mm_incoloro" | "8mm_laminado";
-  aluminumColor: "negro_mate" | "aluminio_mate" | "blanco" | "champagne";
-  difficulty: "primer_piso" | "piso_alto_sin_andamio" | "piso_alto_con_andamio";
+  glassType: GlassType;
+  aluminumColor: AluminumColor;
+  difficulty: Difficulty;
   includeInstallation: boolean;
 }
 
@@ -18,6 +18,8 @@ export const quoteCalculator = {
     installationCost: number;
     igv: number;
     total: number;
+    /** true si el sistema elegido aún no tiene precio definido: el total es referencial. */
+    pricePending: boolean;
   } {
     const P = QUOTE_PRICING;
     const areaM2 = Math.max(P.minAreaM2, Number((input.width * input.height).toFixed(2)));
@@ -30,9 +32,8 @@ export const quoteCalculator = {
     const totalAlu = Number((perimeterM * unitPriceAlu).toFixed(2));
 
     const system = P.systems[input.systemType];
-    const accKit = system
-      ? { desc: system.kitDescription, cost: system.kitCost }
-      : { desc: "Kit de Accesorios Estándar", cost: 100 };
+    const accKit = { desc: system.kitDescription, cost: system.kitCost };
+    const pricePending = "pricePending" in system && system.pricePending === true;
 
     const items: BudgetItem[] = [
       {
@@ -70,9 +71,6 @@ export const quoteCalculator = {
     if (input.includeInstallation) {
       const baseLaborRate = areaM2 * P.installation.ratePerM2 + (P.installation.surcharge[input.difficulty]?.amount ?? 0);
       installationCost = Number(Math.max(P.installation.minCost, baseLaborRate).toFixed(2));
-
-
-
       items.push({
         description: `Servicio de Instalación y Montaje Profesional (${input.difficulty.replace(/_/g, " ")})`,
         category: "instalacion",
@@ -93,6 +91,7 @@ export const quoteCalculator = {
       installationCost,
       igv,
       total,
+      pricePending,
     };
   },
 };

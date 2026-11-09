@@ -1,5 +1,11 @@
 /** Tabla de precios parametrizable del cotizador (S/ sin IGV). Editar aquí, no en los componentes. */
-export type SystemType = "ventana_nova" | "mampara_serie25" | "ducha_cristal" | "techo_policarbonato";
+export type SystemType =
+  | "ventana_nova"
+  | "mampara_serie25"
+  | "ducha_cristal"
+  | "techo_policarbonato"
+  | "ventana_acustica"
+  | "ventana_pvc_abatible";
 export type GlassType = "8mm_incoloro" | "10mm_incoloro" | "6mm_incoloro" | "8mm_laminado";
 export type AluminumColor = "negro_mate" | "aluminio_mate" | "blanco" | "champagne";
 export type Difficulty = "primer_piso" | "piso_alto_sin_andamio" | "piso_alto_con_andamio";
@@ -25,6 +31,7 @@ export const QUOTE_PRICING = {
       label: "Mampara Corrediza Serie 25 (2 o 4 Hojas)",
       kitDescription: "Kit de Cerradura Pico Loro, Tirador y Rodajes Serie 25",
       kitCost: 160,
+      noiseReductionPct: 50,
     },
     ventana_nova: {
       label: "Ventana Corrediza Sistema Nova Hermética",
@@ -41,7 +48,34 @@ export const QUOTE_PRICING = {
       kitDescription: "Kit de Perfilería Unión H y Selladores Estructurales",
       kitCost: 140,
     },
-  } satisfies Record<SystemType, { label: string; kitDescription: string; kitCost: number }>,
+    // Incorporados al catálogo el 2026-11-08 (decisión del dueño). Precios y % antirruido por confirmar:
+    // hasta cargar los valores reales (fase de cálculos) el cotizador los marca como "Precio a definir".
+    ventana_acustica: {
+      label: "Ventana Acústica",
+      kitDescription: "Kit de Accesorios Ventana Acústica",
+      kitCost: 0,
+      pricePending: true,
+      noiseReductionPct: 80,
+    },
+    ventana_pvc_abatible: {
+      label: "Ventana PVC Abatible",
+      kitDescription: "Kit de Accesorios Ventana PVC Abatible",
+      kitCost: 0,
+      pricePending: true,
+      noiseReductionPct: 80,
+    },
+  } satisfies Record<
+    SystemType,
+    {
+      label: string;
+      kitDescription: string;
+      kitCost: number;
+      /** true = precio aún no definido por el negocio; la UI muestra "Precio a definir". */
+      pricePending?: boolean;
+      /** % de reducción de ruido (insignia antirruido de la hoja). Solo si está confirmado. */
+      noiseReductionPct?: number;
+    }
+  >,
   installation: {
     ratePerM2: 80,
     minCost: 150,

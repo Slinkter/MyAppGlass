@@ -54,7 +54,7 @@ packages/
 - `apps/web/src/app/sitemap.ts` y `apps/web/src/app/robots.ts` — Sitemap dinámico con Image Sitemap (escapando entidades XML en URLs de Firebase Storage) y reglas de rastreo (Googlebot + bots IA)
 - `apps/web/src/shared/lib/analytics.ts` y `apps/web/src/shared/components/Analytics/GoogleMetricsProvider.tsx` — Telemetría GA4 (`G-TY0NJP1S81`) y GTM opcional (`NEXT_PUBLIC_GTM_ID`)
 - `docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md` — Plan maestro SEO, arquitectura de Sitelinks y guía de contexto para auditoría cruzada entre modelos de IA
-> Nota: `VentanaConfigurador3DCard.tsx`, `ventanas-catalogo.json` y `three` eliminados en `2ca4f3e`; el simulador vigente es `/simulador-ai`. Reglas de negocio vigentes: 4 sistemas, tipos y colores (sección 3).
+> Nota: `VentanaConfigurador3DCard.tsx`, `ventanas-catalogo.json` y `three` eliminados en `2ca4f3e`; el simulador vigente es `/simulador-ai`. Reglas de negocio vigentes: 6 sistemas, tipos y colores (sección 3).
 
 ---
 
@@ -69,7 +69,7 @@ packages/
 - `"vidrio y aluminio"` (en singular)
 
 **Catálogo Oficial de Ventanas:**
-- Solo existen 4 sistemas: `Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`
+- Solo existen 6 sistemas: `Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`, `Acústica` y `PVC abatible` (los dos últimos se incorporaron el 2026-11-08 por decisión del dueño; sus precios y % antirruido están por confirmar)
 - NO inventar series inexistentes (Serie 31, Serie 20, etc.)
 - Tipos de ventana: `Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`
 - Tipos de vidrio (3): `Crudo`, `Laminado`, `Templado` (sin sufijo de grosor)
@@ -88,13 +88,8 @@ packages/
 ## 4. Convenciones de Código
 
 - **Static Export:** El proyecto usa `output: 'export'`. Rutas dinámicas requieren `generateStaticParams`.
-- **Chakra UI v3:** Usar tokens nativos (`space.1` a `space.16`, `borderRadius="xl"`, `fontSize="xs"`).
-- **Lucide icons en flexbox:** Usar `style={{ flexShrink: 0 }}` (la prop directa `flexShrink` da error de tipos TS en Lucide).
-- **Botones:** usar `Button` de `@/components/ui/button` con `variant` del tema: `aura` (primario, por defecto), `outline`, `ghost`, `whatsapp`, `brand`. No usar `colorPalette` (blue/cyan/etc.) ni armar `bg`/`_hover` a mano. Referencia visual en `/design-system`.
-- **Transiciones:** Máximo 2 propiedades CSS (`transition="all 0.2s ease"`, `transform="translateZ(0)"`).
-- **Responsive (mobile-first):** Card `p={{ base: "4", md: "6" }}`; sub-paneles `p={{ base: "3", md: "5" }}`; targets táctiles ≥44px (`minH`/`minW="11"`); grids `{ base: 1, sm: 2, lg: 3 }`; tablas con `minW` y `overflowX="auto"`; listas de chips con scroll horizontal (`flexShrink={0}`, `whiteSpace="nowrap"`); sin texto de `10px` ni `100vh` (usar `dvh`).
+- **UI y design system:** marca, tokens, botones, responsive, transiciones, tarjetas con foto y estados están en **`docs/DESIGN-SYSTEM.md`** (§3 reglas de UI). Resumen mínimo: componentes de `@/components/ui` con `variant` del tema (sin `colorPalette` ni `bg`/`_hover` a mano), tokens de Chakra v3 (sin hex, `rgba` ni `px` sueltos), targets táctiles ≥ 44 px, `dvh` en lugar de `100vh`, máximo 2 propiedades en `transition`.
 - **Logger:** Usar `@/shared/utils/logger.ts`. NO usar `console.log` en producción.
-- **Tarjetas con foto:** usar `useImageReveal` + `ImageRevealSkeleton` (`@/shared/components/Image/ImageReveal`) para skeleton y revelado sincronizado; precargar portadas con `useImagePrefetch`; sin `delay` de montaje en `ItemGridLayout.Item`. Referencia: `ServiceCard`/`/design-system`.
 
 ---
 

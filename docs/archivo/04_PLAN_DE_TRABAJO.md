@@ -1,3 +1,5 @@
+> **Archivado el 2026-11-08.** Estado desactualizado (anterior a la tienda y al correlativo reales). El trabajo vigente está en `docs/PENDIENTES.md`.
+
 # 📋 Plan de Trabajo y Mejoras Multidisciplinarias - GYA Company
 **Proyecto:** MyAppGlass (Portal Corporativo GYA - Next.js 16 & Firebase)  
 **Rol:** Arquitectura de Software & Comité Técnico Multidisciplinario  

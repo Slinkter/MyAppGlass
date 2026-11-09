@@ -46,7 +46,7 @@ El despliegue vigente es **manual**: `pnpm run deploy:hosting`. Los secretos de 
 |---|---|---|
 | 3.1 | `100vh` → `dvh` (8 sitios) | `AuraContainer.tsx:24`, `AdminLayout.tsx:59`, `ProjectSkeletons.tsx:23`, `ProjectDetailView.tsx:107`, 4 modales en `screens/Admin/*` |
 | 3.2 | `fontSize: "10px"` → token (`xs`) | `ProjectDetailItem.tsx:38` |
-| 3.3 | Auditar `colorPalette`: separar botones de otros componentes y migrar botones a `variant` del tema | `ProjectAdminTable`, `ServiceAdminTable`, `AlbumGalleryUploader`, `ReclamationForm`, `CompanyPoliciesView`, `BankAccountsView`, `BlogPostView`, `QuotePrompt` |
+| 3.3 | **Absorbida por `docs/DESIGN-SYSTEM.md` (fases 3 a 5).** Auditar `colorPalette`: separar botones de otros componentes y migrar botones a `variant` del tema | `ProjectAdminTable`, `ServiceAdminTable`, `AlbumGalleryUploader`, `ReclamationForm`, `CompanyPoliciesView`, `BankAccountsView`, `BlogPostView`, `QuotePrompt` |
 | 3.4 | Corregir ortografía "antiruido" → "antirruido" en el texto del test y en el contenido; el slug del blog requiere redirect | `blog-posts.ts:194`, `contact-schema.test.ts:9`. **El redirect toca `firebase.json`: confirmar** |
 
 ## Fase 4 — SEO e indexación
@@ -73,7 +73,7 @@ El despliegue vigente es **manual**: `pnpm run deploy:hosting`. Los secretos de 
 | 6.1 | Consolidar galerías (`common/Gallery.tsx` y `common/gallery/GalleryViewer.tsx`) |
 | 6.2 | Extraer un modal admin base (4 modales repiten estructura) |
 | 6.3 | Partir `seo-utils.ts` (450 líneas) y `FloatingPanel.tsx` (457) |
-| 6.4 | Higiene de raíz: mover/eliminar `firestore-debug.log`, decidir el destino de `claude.md` (duplica AGENTS.md); confirmar `.gitignore` del `.xlsx` de `apps/web/` |
+| 6.4 | Higiene de raíz: mover/eliminar `firestore-debug.log`, `claude.md` ya es un puntero a `docs/DESIGN-SYSTEM.md` (2026-11-08); confirmar `.gitignore` del `.xlsx` de `apps/web/` |
 | 6.5 | Evaluar migrar `apps/functions` a TypeScript (solo con pedido explícito) |
 
 ---

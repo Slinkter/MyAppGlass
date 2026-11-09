@@ -6,7 +6,7 @@ Guía de estudio para cursar el **Diploma Ingeniería de Software con IA** (DMC 
 
 - El diploma enseña a usar IA (Claude Code) en frontend, backend, soluciones con LLM embebido y sistemas multiagente. Contenido completo: [`./brochure-isia.md`](./brochure-isia.md) (PDF original: `docs/diplomado/brochure dip ISIA.pdf`).
 - MyAppGlass (Next.js 16 + Firebase, Feature-Sliced Design) es un proyecto real de vidrio y aluminio. Cada módulo se practica sobre una parte concreta del repo, sin inventar casos artificiales.
-- Alcance: aprendizaje y portafolio. No sustituye el plan de producto (`docs/04_PLAN_DE_TRABAJO.md`).
+- Alcance: aprendizaje y portafolio. No sustituye el plan de producto (`docs/PENDIENTES.md`).
 
 ## 2. Resumen del diploma
 

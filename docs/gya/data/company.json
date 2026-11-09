@@ -1,0 +1,97 @@
+{
+  "legalName": "Glass & Aluminum Company S.A.C.",
+  "tagline": "VIDRIERÍA & ALUMINIO",
+  "slogan": "Confianza sólida en cada estructura",
+  "ruc": "20606432870",
+  "web": "www.gyacompany.com",
+  "email": "acueva@gyacompany.com",
+  "whatsapp": "974 278 303",
+  "phones": {
+    "value": [
+      "974 278 303"
+    ],
+    "nota": "Resuelto 2026-11-08: WhatsApp vigente 974 278 303 (AGENTS.md). Se descarta 998 225 739."
+  },
+  "address": {
+    "value": "Av. Los Fresnos 1250 - La Molina",
+    "nota": "Resuelto 2026-11-08: dirección vigente (AGENTS.md). Se descarta Mz H Lt 16."
+  },
+  "hours": {
+    "value": null,
+    "VERIFICAR": "La web muestra lun–sáb 9:00–17:00 y 8:00–18:00"
+  },
+  "manager": {
+    "name": "Juan Carlos Cueva Carrasco",
+    "role": "Gerente General"
+  },
+  "bank": {
+    "name": "BBVA",
+    "currency": "Soles",
+    "account": "0011-0106-0100041622",
+    "cci": "011-106-000100041622-20",
+    "holder": "Glass & Aluminum Company S.A.C."
+  },
+  "payment": {
+    "advancePct": 50,
+    "balancePct": 50,
+    "cardSurchargePct": 5,
+    "transferFee": 0,
+    "businessDays": "lunes a viernes, sin feriados"
+  },
+  "defaults": {
+    "validityHours": 24,
+    "warrantyMonths": {
+      "ventanas": 6,
+      "techos": 3,
+      "VERIFICAR": "confirmar garantía por producto"
+    }
+  },
+  "valueProps": [
+    "Visita técnica sin costo",
+    "Presupuesto rápido por WhatsApp",
+    "Garantía en productos instalados",
+    "Boleta o factura electrónica",
+    "Técnicos capacitados"
+  ],
+  "services": "Ver docs/DESIGN-SYSTEM.md §2.1 (10 servicios oficiales del sitio, fuente de verdad en Firestore).",
+  "noiseReduction": {
+    "Serie 25": 50,
+    "Serie 62": 70,
+    "Acústica": 80,
+    "PVC abatible": 80,
+    "nota": "Acústica y PVC abatible se incorporan al catálogo el 2026-11-08 (decisión del dueño). Porcentajes por confirmar."
+  },
+  "projects": [
+    {
+      "name": "Palmer",
+      "district": "Breña",
+      "date": "2025-06"
+    },
+    {
+      "name": "Vittorie",
+      "district": "Surquillo",
+      "date": "2024-12"
+    },
+    {
+      "name": "Elenor",
+      "district": "Magdalena del Mar",
+      "date": "2023-06"
+    },
+    {
+      "name": "Vidamor",
+      "district": "Ate",
+      "date": "2022-12"
+    },
+    {
+      "name": "Maddy",
+      "district": "Magdalena del Mar",
+      "date": "2022-05"
+    },
+    {
+      "name": "Ventura",
+      "district": "San Miguel",
+      "date": "2022-02"
+    }
+  ],
+  "brandNota": "Colores, tipografías y logos: ver docs/DESIGN-SYSTEM.md (única fuente de verdad)."
+}

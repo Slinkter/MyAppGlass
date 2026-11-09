@@ -1,3 +1,5 @@
+> **Archivado el 2026-11-08.** Estado desactualizado (anterior a la tienda y al correlativo reales). El trabajo vigente está en `docs/PENDIENTES.md`.
+
 # 🏛️ Plan Maestro Multidisciplinario: E-Commerce, Inventario en Tiempo Real, Sistema de Presupuestos con PDF y Realidad Aumentada (AR)
 
 **Glass & Aluminum Company S.A.C. — Portal GYA**

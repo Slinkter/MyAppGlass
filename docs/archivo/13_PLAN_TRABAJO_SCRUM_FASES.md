@@ -1,3 +1,5 @@
+> **Archivado el 2026-11-08.** Estado desactualizado (anterior a la tienda y al correlativo reales). El trabajo vigente está en `docs/PENDIENTES.md`.
+
 # ROADMAP | Plan de Trabajo Ágil (Scrum) por Sprints y Fases
 
 **Portal Corporativo y Transaccional GYA — Glass & Aluminum Company S.A.C.**

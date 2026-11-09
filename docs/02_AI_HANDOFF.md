@@ -20,9 +20,8 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 ## 🆕 Cambios 2026-11-03
 
 * **Commit `a91a9ab`** (merge de `feat(perf)`): optimización de rutas SSG, mapa a 120 fps e inventario/listados con complejidad O(1) (`apps/web/src/shared/utils/algorithm-utils.ts`).
-* **Plan 16 (`docs/16_PLAN_OPTIMIZACION_PESO_REPO.md`)**: purga de imágenes sin uso en `apps/web/public/images` (≈ -23 MB).
-* **Plan 17 (`docs/17_PLAN_OPTIMIZACION_ALGORITMICA_COMPLEJIDAD.md`)**: auditoría de complejidad de los 311 archivos `.ts`/`.tsx` de `apps/web/src/`, con catálogo de operaciones lineales (`.find()`, `.filter()`, `.indexOf()`) y su ruta de optimización. Estado de las 25 filas sin registro en la sección 5: 20 descartadas y 5 pendientes.
-* **Plan de pendientes (`docs/19_CHECKLIST_EJECUCION_PENDIENTES.md`)**, rama `plan/pendientes-fases`, sin mergear a `main`. Commits de control: F0 `796c06d`, F1 `2368df0`, F2 `dd9b246`, F3 `a2a5913`, F4 `1340b11`, F5 `8d6013b`, F7.1–F7.3 `e3a42cd`, F8 `b7101cb`, F9 `32c7f75`, F10 `1f80cd9`.
+* **Planes cumplidos (borrados el 2026-11-08, recuperables con `git show 1537ee1:docs/<archivo>`):** 15 (auditoría cruzada), 16 (peso del repo, ≈ -23 MB de imágenes) y 17 (complejidad algorítmica; sus 5 filas pendientes están en `docs/PENDIENTES.md`).
+* **Trabajo abierto:** `docs/PENDIENTES.md` es la única lista viva. Planes en curso: `docs/20_PLAN_TRABAJO_ANALISIS_FASES.md` (calidad y deuda técnica) y `docs/21_PLAN_FLUJO_PRESUPUESTO.md` (flujo de presupuesto, rama `feat/presupuesto-flujo`).
   - **Auth:** el rol admin sale solo de `users/{uid}.role`. Ya no se asigna por correo desde el cliente. Registro de cliente valida DNI (8) o RUC (11).
   - **Tienda:** `/tienda` y `/tienda/checkout`. El checkout envía el pedido por WhatsApp; **no** se guarda en Firestore (decisión tomada).
   - **Presupuesto:** precios en `features/presupuesto/config/pricing.ts`, correlativo `GYA-AAAA-XXXX` transaccional (`contadores/presupuesto-AAAA`) y persistencia en `presupuestos_solicitados`.
@@ -74,7 +73,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
   - **Reglas de seguridad desplegadas en producción**: `firestore.rules` y `storage.rules` ya fueron aplicadas exitosamente (`firebase deploy --only firestore:rules,storage --project gya-app-4c8a9`).
   - **Unificación de CSS en Chakra UI v3**: Eliminada la librería `framer-motion` (ahorro ~35 KB en bundle), reemplazada por animaciones y transiciones nativas de Chakra. Eliminados bloques manuales de `@emotion/react` en `Providers.tsx`.
   - **Tokens semánticos oficiales en `theme/index.ts`**: Registrados formalmente `brand.primary`, `bg.surface`, `border.subtle` y `status.dangerBorder`.
-  - **Design System**: showcase en `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón aura/outline/ghost/whatsapp/brand. La revisión visual en navegador sigue pendiente (ver `DESIGN-SYSTEM-PLAN.md`).
+  - **Design System**: showcase en `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón aura/outline/ghost/whatsapp/brand. La revisión visual en navegador sigue pendiente (ver `DESIGN-SYSTEM.md`).
   - **Nota de Coordinación**: Otro agente de IA está trabajando en paralelo en auditoría/remediación de vulnerabilidades y backend congelado; respetar áreas sin generar conflictos en archivos bloqueados.
 * **Hosting:** desplegado el 2026-11-02 con los últimos cambios. Desplegar de nuevo solo cuando el usuario lo pida (`pnpm run build && pnpm run deploy:hosting`).
 * **Hosting Live:** [https://gya-app-4c8a9.web.app](https://gya-app-4c8a9.web.app)
