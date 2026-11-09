@@ -17,6 +17,13 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 
 ---
 
+## 🆕 Cambios 2026-11-09
+
+* **Navbar móvil v2 desplegada:** `AuraNavbar` usa `MobileNavbarV2`; barra siempre visible, hoja de menú en tres zonas, acordeón de servicios y pie sticky. Eliminados `MobileNav.tsx` y `useScrollDirection.ts`. Detalle en `docs/24_PLAN_NAVBAR_MOVIL.md`.
+* **Purga del monorepo:** raíz sin `.next/` ni `.tsbuildinfo`; material del diplomado en `docs/_material/diplomado/`; tests de reglas en `tests/rules/`; código muerto eliminado. Detalle en `docs/05_CHANGELOG.md` y catálogo en `scripts/README.md`.
+* **Deploy hosting (2026-11-09):** `pnpm run deploy:hosting` desde `main` (`cc80e8cb`). `typecheck`, `lint` y `build` en verde (66 rutas).
+* **⚠️ Dev y build:** no ejecutar `pnpm run build`/`deploy:hosting` con `pnpm run dev` activo. Comparten `apps/web/.next` y provocan hydration mismatch de Chakra; solución en `docs/06_DOCS_DEVELOPMENT.md`.
+
 ## 🆕 Cambios 2026-11-03
 
 * **Commit `a91a9ab`** (merge de `feat(perf)`): optimización de rutas SSG, mapa a 120 fps e inventario/listados con complejidad O(1) (`apps/web/src/shared/utils/algorithm-utils.ts`).

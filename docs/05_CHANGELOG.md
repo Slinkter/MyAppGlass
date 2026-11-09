@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-09] - Rediseño estructural de la navbar móvil
+
+### Added
+- **`docs/24_PLAN_NAVBAR_MOVIL.md`**: plan y decisiones del rediseño (barra siempre visible, hoja en tres zonas, `MOBILE_NAV_ITEMS`).
+- **Menú móvil en tres zonas**: cabecera propia con cierre dentro del focus trap, zona central scrolleable con acordeón de servicios y pie sticky con CTA de WhatsApp, teléfono, cuenta y tema.
+
+### Changed
+- **`AuraNavbar`**: la barra móvil usa `MobileNavbarV2` y deja de ocultarse según la dirección del scroll.
+- **`MenuOverlay`, `MenuLink`, `MenuToggle`, `MobileNavbarV2` y `ServicesAccordion`**: rediseño estructural, gutters de 24 px, `env(safe-area-inset-*)` y targets de 44 px.
+- **`docs/README.md`**: indexado el plan 24.
+
+### Removed
+- **`MobileNav.tsx`** (navbar móvil anterior) y **`mobile/hooks/useScrollDirection.ts`**.
+
+### Fixed
+- **Hydration mismatch en desarrollo** (`css-k2gp1s` vs `css-1n6kw6f`): causado por ejecutar `next build` con `next dev` activo sobre el mismo `apps/web/.next`. Documentado en `docs/06_DOCS_DEVELOPMENT.md`.
+
 ## [2026-11-09] - Purga y orden del monorepo
 
 ### Added

@@ -7,7 +7,7 @@
   1. **Barra siempre visible** (se elimina el auto-ocultado por dirección de scroll).
   2. **Rediseño estructural del menú** (no un simple ajuste de padding).
 
-> Documento de trabajo. Al salir de Plan mode, copiar a `docs/24_PLAN_NAVBAR_MOVIL.md` (mismo contenido).
+> Documento de trabajo. Implementado y desplegado el 2026-11-09. Cambios registrados en `docs/05_CHANGELOG.md`.
 
 ---
 
