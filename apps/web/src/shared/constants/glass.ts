@@ -22,12 +22,13 @@ const REDUCED = "@media (prefers-reduced-transparency: reduce), (prefers-contras
  * Se aplica como props de estilo de Chakra: `<Box {...glassSurface} />`.
  */
 export const glassSurface = {
-  bg: { base: "whiteAlpha.700", _dark: "blackAlpha.600" },
+  // Liquid Glass Regular del mapa inmersivo: superficie 88 %, borde fino, desenfoque 24 px.
+  bg: "bg.surface/88",
   borderWidth: "1px",
-  borderColor: { base: "whiteAlpha.800", _dark: "whiteAlpha.200" },
+  borderColor: "border.default",
   css: {
-    backdropFilter: GLASS_BLUR,
-    WebkitBackdropFilter: GLASS_BLUR,
+    backdropFilter: "blur(24px) saturate(1.4)",
+    WebkitBackdropFilter: "blur(24px) saturate(1.4)",
     boxShadow: GLASS_HIGHLIGHT,
     [REDUCED]: {
       backdropFilter: "none",

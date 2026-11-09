@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import { Box, VisuallyHidden } from "@chakra-ui/react";
+import { Box, Text, VisuallyHidden } from "@chakra-ui/react";
 import { glassSurface } from "@/shared/constants/glass";
 import {
   DialogRoot,
@@ -23,6 +23,8 @@ import {
 export interface AdminDialogProps {
   /** Título visible (o solo para lectores de pantalla si `hideHeader`). */
   title: string;
+  /** Etiqueta pequeña en mayúsculas sobre el título (lenguaje del mapa inmersivo). */
+  eyebrow?: string;
   onClose: () => void;
   /** Ancho máximo en escritorio. */
   maxW?: string;
@@ -37,6 +39,7 @@ export interface AdminDialogProps {
 
 export const AdminDialog: React.FC<AdminDialogProps> = ({
   title,
+  eyebrow,
   onClose,
   maxW = "520px",
   onSubmit,
@@ -69,7 +72,12 @@ export const AdminDialog: React.FC<AdminDialogProps> = ({
             <DialogTitle>{title}</DialogTitle>
           </VisuallyHidden>
         ) : (
-          <DialogHeader p={{ base: "4", md: "6" }} pb="0">
+          <DialogHeader p={{ base: "4", md: "6" }} pb="0" display="flex" flexDirection="column" alignItems="flex-start" gap="1">
+            {eyebrow && (
+              <Text fontSize="xs" fontWeight="700" letterSpacing="0.12em" textTransform="uppercase" color="text.muted">
+                {eyebrow}
+              </Text>
+            )}
             <DialogTitle as="h2" fontFamily="heading" fontSize={{ base: "lg", md: "xl" }} color="text.heading" pe="12">
               {title}
             </DialogTitle>

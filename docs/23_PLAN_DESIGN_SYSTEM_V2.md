@@ -297,3 +297,9 @@ Decisión del dueño: la marca usa **negro**, el azul se reduce al mínimo, y el
 - Lenguaje del mapa aplicado: `glassLightOnPhoto` (vidrio claro 90 %, `blur(24px) saturate(1.4)`, texto negro) en la leyenda e insignia de `MediaCard` (acción circular negra) y en el hero, que ahora es una place card (etiqueta pequeña, nombre en negrita, datos con íconos, botón negro relleno + botón con borde).
 - `QuoteSheet`: tintes grises en lugar de azules. Brand Kit y presentación actualizados a "negro".
 - Verificado: hero a 360/768/1280 px y modo oscuro (sin desborde, sin errores JS); capturas revisadas.
+
+### Lenguaje del mapa en modales y formularios (2026-11-09)
+- `glassSurface` ahora es el "Liquid Glass Regular" del mapa (`bg.surface/88`, `blur(24px) saturate(1.4)`, borde `border.default`); lo usan la píldora de navegación de escritorio y `AdminDialog`.
+- `AdminDialog` admite `eyebrow` (etiqueta pequeña en mayúsculas sobre el título); los 3 modales de formulario lo usan ("Clientes", "Inventario").
+- Campos del tema (`input`, `textarea`, `nativeSelect`): radio `xl` en lugar de `md`.
+- Verificado: 8 casos de modales (360/1280 px), menú móvil a 360 px; sin errores JS. Pendiente: decisión de papel (A/B), revisión humana del lienzo de Claude Design.

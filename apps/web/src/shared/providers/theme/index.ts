@@ -267,7 +267,7 @@ const fieldOutline = {
   bg: "surface.container",
   borderWidth: "1px",
   borderColor: "border.default",
-  borderRadius: "md",
+  borderRadius: "xl",
   transition: `border-color ${DUR_CSS.fast} ${EASE_SOFT}, background-color ${DUR_CSS.fast} ${EASE_SOFT}`,
   _placeholder: { color: "text.muted" },
   _hover: { borderColor: "border.strong" },
