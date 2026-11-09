@@ -157,4 +157,6 @@ Pendiente: `_hover` de varias propiedades en tarjetas del admin y de servicios; 
 - [x] Eliminados `DESIGN-SYSTEM.md`, `BRAND-KIT.md`, `PROMPT-REDISENO-DS.md` y `23_PLAN_DESIGN_SYSTEM_V2.md`, por indicación del dueño ("referencia y, al terminar, eliminar").
 - [x] `claude.md`, `AGENTS.md`, `docs/README.md`, `docs/PENDIENTES.md`, `docs/01_ARCHITECTURE.md` y `docs/02_AI_HANDOFF.md` apuntan a `apps/web/DESIGN.md`.
 - [x] Registrado en `docs/05_CHANGELOG.md`.
-- [ ] Decisión del dueño: merge a `main` o PR. No se hizo push ni deploy.
+- [x] Deploy de hosting (`pnpm run deploy:hosting`) en https://gya-app-4c8a9.web.app, merge a `main` (`1f6b2902`) y push a `origin/main`, a pedido del dueño. `functions` no se desplegó.
+- [x] Verificación en producción: fondo blanco, Lora, botones sin mayúsculas, orden proyectos, servicios, beneficios, clientes y ubicación, garantía de 3 meses, horario 8:00 a 18:00, sin desborde; 11 rutas responden 200.
+- [ ] Consola de producción: 10 errores 404 de precarga de Next (`/contacto/__next.contacto.__PAGE__.txt`; el archivo real está en `/contacto/__next.contacto/__PAGE__.txt`, que da 200). No afectan al visitante; no se verificó si ya existían antes de este deploy.

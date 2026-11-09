@@ -19,6 +19,10 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 
 ## 🆕 Cambios 2026-11-09
 
+* **Sistema de diseño único (plan 25):** `apps/web/DESIGN.md` y `apps/web/PRODUCT.md` son la fuente de verdad; los documentos viejos de diseño se eliminaron. Migración en 8 fases, mergeada a `main` (`1f6b2902`) y **desplegada en hosting** (https://gya-app-4c8a9.web.app). Detalle y pendientes en `docs/25_PLAN_MIGRACION_DISENO.md`. `functions` no se desplegó.
+* **Orden de lectura para agentes:** `claude.md` → `AGENTS.md` → `apps/web/PRODUCT.md` → `apps/web/DESIGN.md` → `docs/gya/catalogo/`. Regla: el proveedor pesa más que los datos locales; no inventar datos.
+* **Página principal:** hero, proyectos, servicios, beneficios, clientes y ubicación (la sección para constructoras se retiró por decisión del dueño). Garantía 3 meses; horario lunes a sábado 8:00 a 18:00.
+
 * **Navbar móvil v2 desplegada:** `AuraNavbar` usa `MobileNavbarV2`; barra siempre visible, hoja de menú en tres zonas, acordeón de servicios y pie sticky. Eliminados `MobileNav.tsx` y `useScrollDirection.ts`. Detalle en `docs/24_PLAN_NAVBAR_MOVIL.md`.
 * **Purga del monorepo:** raíz sin `.next/` ni `.tsbuildinfo`; material del diplomado en `docs/_material/diplomado/`; tests de reglas en `tests/rules/`; código muerto eliminado. Detalle en `docs/05_CHANGELOG.md` y catálogo en `scripts/README.md`.
 * **Deploy hosting (2026-11-09):** `pnpm run deploy:hosting` desde `main` (`cc80e8cb`). `typecheck`, `lint` y `build` en verde (66 rutas).

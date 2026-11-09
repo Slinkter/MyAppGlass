@@ -16,6 +16,9 @@ All notable changes to this project will be documented in this file.
 - `/design-system` con tokens reales y 11 pestañas; "Mi cuenta" apunta a `/mi-cuenta`.
 - `claude.md` es ahora el punto de entrada con orden de lectura y regla de precedencia (proveedor sobre datos locales).
 
+### Deployed
+- Hosting desplegado (https://gya-app-4c8a9.web.app), merge a `main` (`1f6b2902`) y push a `origin/main`. `functions` sin cambios.
+
 ### Removed
 - `docs/DESIGN-SYSTEM.md`, `docs/BRAND-KIT.md`, `docs/PROMPT-REDISENO-DS.md` y `docs/23_PLAN_DESIGN_SYSTEM_V2.md` (recuperables con `git show <commit>:docs/<archivo>`).
 - Tokens `navy`, papel cálido y `redQuote`; variantes de botón `aura`, `navy`, `studio*` y `brand`; `NavItemLarge`, `UtilityLink`, `PaperToneShowcase` y `ServiceCardV2Showcase`.
