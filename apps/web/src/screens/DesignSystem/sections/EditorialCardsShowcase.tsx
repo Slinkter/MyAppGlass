@@ -31,7 +31,7 @@ export const EditorialCardsShowcase: React.FC = () => {
         >
           <HStack justify="space-between" wrap="wrap" gap="4" mb="6">
             <Text {...GROUP_LABEL_PROPS}>Catálogo · 3 líneas destacadas</Text>
-            <Button variant={"studioOutline" as never} size="md" asChild>
+            <Button variant="outline" size="md" asChild>
               <a href="#servicios">Ver todos los servicios</a>
             </Button>
           </HStack>
@@ -70,7 +70,7 @@ export const EditorialCardsShowcase: React.FC = () => {
         >
           <HStack justify="space-between" wrap="wrap" gap="4" mb="6">
             <Text {...GROUP_LABEL_PROPS}>Obras recientes</Text>
-            <Button variant={"studioOutline" as never} size="md" asChild>
+            <Button variant="outline" size="md" asChild>
               <a href="#proyectos">Ver todas las obras</a>
             </Button>
           </HStack>
@@ -102,7 +102,7 @@ export const EditorialCardsShowcase: React.FC = () => {
         >
           <HStack justify="space-between" wrap="wrap" gap="4" mb="6">
             <Text {...GROUP_LABEL_PROPS}>Sectores atendidos</Text>
-            <Button variant={"studioGhost" as never} size="md" asChild>
+            <Button variant="ghost" size="md" asChild>
               <a href="#clientes">Ver clientes</a>
             </Button>
           </HStack>

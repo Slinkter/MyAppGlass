@@ -61,7 +61,7 @@ export const ResponsiveScaleShowcase: React.FC = () => {
       >
         <ShowcasePanel p={{ base: "3", md: "5" }} borderRadius="xl" minW="0">
           <Box maxW="100%" overflowX="auto">
-            <Box minW="520px">
+            <Box minW="32rem">
               <Grid
                 templateColumns="1.4fr 1fr 1fr 1fr 1fr"
                 gap="3"
@@ -125,7 +125,7 @@ export const ResponsiveScaleShowcase: React.FC = () => {
                 <Text
                   fontSize="xs"
                   color="text.muted"
-                  minW="72px"
+                  minW="18"
                   flexShrink={0}
                   fontFamily="mono"
                 >

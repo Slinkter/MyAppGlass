@@ -108,7 +108,7 @@ const CompositeGallery: React.FC = () => {
       borderRadius="3xl"
       borderWidth="1px"
       borderColor="border.default"
-      maxW="4xl"
+      maxW="pageNarrow"
       mx="auto"
       w="full"
       minW="0"
@@ -117,8 +117,8 @@ const CompositeGallery: React.FC = () => {
       <Flex justify="space-between" align="center" gap="3" mb={{ base: "3", md: "4" }}>
         <HStack gap="2">
           <SubsectionLabel>Galería compuesta</SubsectionLabel>
-          <Badge variant={"studio" as never} size="sm">
-            Aura Studio
+          <Badge variant={"neutral" as never} size="sm">
+            Referencia
           </Badge>
         </HStack>
         <Text
@@ -165,7 +165,7 @@ const CompositeGallery: React.FC = () => {
             </Heading>
           </Box>
           <HStack gap="2" flexShrink={0}>
-            <Badge variant={"neutral" as never} size="sm">
+            <Badge variant={"" as never} size="sm">
               Vidriería & Aluminio
             </Badge>
           </HStack>
@@ -228,7 +228,7 @@ const ProductGallery: React.FC = () => (
           </Flex>
         ))}
       </VStack>
-      <Button variant={"studio" as never} size="lg" minH={TOUCH_MIN} w="full">
+      <Button variant="primary" size="lg" minH={TOUCH_MIN} w="full">
         Cotizar este producto
       </Button>
     </VStack>
@@ -292,7 +292,7 @@ const MosaicCell: React.FC<MosaicCellProps> = ({ item, ratio, large }) => (
 );
 
 const MosaicGallery: React.FC = () => (
-  <ShowcasePanel bg="bg.surface" borderRadius="2xl" maxW="4xl" mx="auto" w="full" minW="0">
+  <ShowcasePanel bg="bg.surface" borderRadius="2xl" maxW="pageNarrow" mx="auto" w="full" minW="0">
     <SimpleGrid
       columns={{ base: 1, md: 3 }}
       gap={{ base: "4", md: "6" }}
@@ -307,7 +307,7 @@ const MosaicGallery: React.FC = () => (
 
 /* ---------- D. Grilla de catálogo ---------- */
 const CatalogGrid: React.FC = () => (
-  <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} gap={{ base: "4", md: "6" }} maxW="4xl" mx="auto" w="full">
+  <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} gap={{ base: "4", md: "6" }} maxW="pageNarrow" mx="auto" w="full">
     {sampleGallery.map((item, i) => {
       const spec = catalogSpecs[i];
       return (
@@ -339,7 +339,7 @@ const CatalogGrid: React.FC = () => (
             <Text fontSize="xs" color="text.muted" lineClamp={2}>
               {spec.sistema} · {spec.vidrio} · Aluminio {spec.aluminio}
             </Text>
-            <Button variant={"studioOutline" as never} minH={TOUCH_MIN} w="full" mt="auto">
+            <Button variant="outline" minH={TOUCH_MIN} w="full" mt="auto">
               Ver detalles
             </Button>
           </Flex>

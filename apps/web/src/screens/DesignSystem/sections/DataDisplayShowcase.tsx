@@ -33,13 +33,6 @@ const SAMPLE_CUSTOMER = {
   district: "La Molina",
 };
 
-/** Variantes `studio` del tema (no tipadas en Chakra). */
-const STUDIO = "studio" as never;
-const STUDIO_INK = "studioInk" as never;
-const STUDIO_SUCCESS = "studioSuccess" as never;
-const STUDIO_WARNING = "studioWarning" as never;
-const STUDIO_INFO = "studioInfo" as never;
-const STUDIO_DANGER = "studioDanger" as never;
 
 const ADMIN_ROWS = [
   { order: 1, name: "Ventanas antirruido", system: "Serie 62", photos: 12, published: true },
@@ -57,7 +50,7 @@ export const DataDisplayShowcase: React.FC = () => {
         description="Patrón de `/admin/servicios` y `/admin/proyectos` para gestionar colecciones. Cabecera discreta, filas con línea fina."
       >
         <Box overflowX="auto" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
-          <Table.Root variant={STUDIO} size={{ base: "sm", md: "md" }} minW="35rem">
+          <Table.Root size={{ base: "sm", md: "md" }} minW="35rem">
             <Table.Caption captionSide="bottom" srOnly>
               Servicios publicados y en borrador, con su sistema principal y número de fotos
             </Table.Caption>
@@ -90,7 +83,7 @@ export const DataDisplayShowcase: React.FC = () => {
                     {row.name}
                   </Table.Cell>
                   <Table.Cell whiteSpace="nowrap">
-                    <Badge variant={STUDIO} size="sm">
+                    <Badge variant={"neutral" as never} size="sm">
                       {row.system}
                     </Badge>
                   </Table.Cell>
@@ -99,11 +92,11 @@ export const DataDisplayShowcase: React.FC = () => {
                   </Table.Cell>
                   <Table.Cell whiteSpace="nowrap">
                     {row.published ? (
-                      <Badge variant={STUDIO_SUCCESS} size="sm">
+                      <Badge variant={"success" as never} size="sm">
                         Publicado
                       </Badge>
                     ) : (
-                      <Badge variant={STUDIO_WARNING} size="sm">
+                      <Badge variant={"warning" as never} size="sm">
                         Borrador
                       </Badge>
                     )}
@@ -126,8 +119,8 @@ export const DataDisplayShowcase: React.FC = () => {
               Neutras y de marca
             </Heading>
             <HStack gap="2" wrap="wrap">
-              <Badge variant={STUDIO}>Neutra</Badge>
-              <Badge variant={STUDIO_INK}>Tinta</Badge>
+              <Badge variant={"neutral" as never}>Neutra</Badge>
+              <Badge variant={"inkSolid" as never}>Tinta</Badge>
             </HStack>
           </ShowcasePanel>
           <ShowcasePanel>
@@ -135,10 +128,10 @@ export const DataDisplayShowcase: React.FC = () => {
               Estados
             </Heading>
             <HStack gap="2" wrap="wrap">
-              <Badge variant={STUDIO_SUCCESS}>Publicado</Badge>
-              <Badge variant={STUDIO_WARNING}>Borrador</Badge>
-              <Badge variant={STUDIO_DANGER}>Error</Badge>
-              <Badge variant={STUDIO_INFO}>Información</Badge>
+              <Badge variant={"success" as never}>Publicado</Badge>
+              <Badge variant={"warning" as never}>Borrador</Badge>
+              <Badge variant={"danger" as never}>Error</Badge>
+              <Badge variant={"info" as never}>Información</Badge>
             </HStack>
           </ShowcasePanel>
         </ShowcaseStack>

@@ -119,8 +119,7 @@ export const CardVariantsShowcase: React.FC = () => {
                 borderColor="border.default"
                 borderRadius="xl"
                 transition="border-color 0.2s ease, background-color 0.2s ease"
-                transform="translateZ(0)"
-                _hover={{ borderColor: "text.muted" }}
+                transform="translateZ(0)"
                 _focusVisible={interactiveFocus}
               >
                 <Flex
@@ -172,14 +171,13 @@ export const CardVariantsShowcase: React.FC = () => {
                 borderRadius="xl"
                 overflow="hidden"
                 transition="border-color 0.2s ease, box-shadow 0.2s ease"
-                transform="translateZ(0)"
-                _hover={{ borderColor: "text.muted" }}
+                transform="translateZ(0)"
                 minW="0"
               >
                 <Box
-                  w={{ base: "full", sm: "140px" }}
-                  h={{ base: "120px", sm: "auto" }}
-                  minH={{ sm: "132px" }}
+                  w={{ base: "full", sm: "36" }}
+                  h={{ base: "30", sm: "auto" }}
+                  minH={{ sm: "33" }}
                   flexShrink={0}
                   bg="bg.tint"
                   borderBottomWidth={{ base: "1px", sm: "0" }}
@@ -239,8 +237,7 @@ export const CardVariantsShowcase: React.FC = () => {
                 borderColor="border.default"
                 borderRadius="xl"
                 transition="border-color 0.2s ease, box-shadow 0.2s ease"
-                transform="translateZ(0)"
-                _hover={{ borderColor: "text.muted" }}
+                transform="translateZ(0)"
               >
                 <Box
                   position="relative"
@@ -259,7 +256,7 @@ export const CardVariantsShowcase: React.FC = () => {
                     position="absolute"
                     top="3"
                     left="3"
-                    colorPalette="gray"
+
                     variant="solid"
                     px="3"
                     py="1"

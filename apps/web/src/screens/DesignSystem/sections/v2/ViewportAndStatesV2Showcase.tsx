@@ -62,21 +62,21 @@ const SHELL_CONFIGS: Record<
   { label: string; maxW: string; token: string; desc: string }
 > = {
   narrow: {
-    label: "narrow (4xl)",
-    maxW: "896px",
-    token: "4xl",
+    label: "pageNarrow",
+    maxW: "pageNarrow",
+    token: "56rem",
     desc: "Artículos, formularios centrados y fichas legales",
   },
   default: {
-    label: "default (6xl)",
-    maxW: "1152px",
-    token: "6xl",
+    label: "pageDefault",
+    maxW: "pageDefault",
+    token: "72rem",
     desc: "Vistas de catálogo, dashboards y listados principales",
   },
   wide: {
-    label: "wide (7xl)",
-    maxW: "1280px",
-    token: "7xl",
+    label: "pageWide",
+    maxW: "pageWide",
+    token: "80rem",
     desc: "Hero banners, galerías de proyectos y presupuestos complejos",
   },
 };
@@ -155,9 +155,6 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           flexShrink={0}
                           cursor="pointer"
                           transition="background-color 0.2s ease, border-color 0.2s ease"
-                          _hover={{
-                            borderColor: "accent.ink",
-                          }}
                         >
                           <IconComp size={15} style={{ flexShrink: 0 }} />
                           {cfg.label}
@@ -212,9 +209,6 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           flexShrink={0}
                           cursor="pointer"
                           transition="background-color 0.2s ease, border-color 0.2s ease"
-                          _hover={{
-                            borderColor: "accent.ink",
-                          }}
                         >
                           <Maximize2 size={13} style={{ flexShrink: 0 }} />
                           {cfg.label}
@@ -818,7 +812,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   4. Active / Seleccionado
                 </Text>
                 <Text fontSize="xs" color="text.muted">
-                  Token brand.ink (#002060) para elementos activos, píldoras y tabs seleccionados.
+                  Token accent.ink (negro de marca) para elementos activos, píldoras y tabs seleccionados.
                 </Text>
               </Box>
 

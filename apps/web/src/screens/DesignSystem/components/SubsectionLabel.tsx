@@ -15,7 +15,7 @@ export const SubsectionLabel: React.FC<SubsectionLabelProps> = ({
     fontWeight="700"
     color="text.muted"
     textTransform="uppercase"
-    letterSpacing="0.12em"
+    letterSpacing="label"
     suppressHydrationWarning
     {...rest}
   >

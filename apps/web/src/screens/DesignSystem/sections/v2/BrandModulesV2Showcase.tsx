@@ -26,7 +26,7 @@ import {
 /**
  * Insignia Antirruido Oficial (AcousticRatingBadge)
  * Conforme a DESIGN-SYSTEM.md §2.7:
- * - Píldora con borde navy y fondo tintNavy.
+ * - Píldora con borde y fondo de tinta neutra.
  * - 5 segmentos discretos donde filledCount = Math.round(percentage / 20).
  * - Etiqueta en texto en negrita: -{percentage}% antirruido (doble 'r').
  */
@@ -198,11 +198,11 @@ const OFFICIAL_GLASS_TYPES = [
 
 /* Acabados de Aluminio Oficiales */
 const OFFICIAL_ALUMINUM_COLORS = [
-  { name: "Negro", modifier: 0, swatch: "#1A1A1A" },
-  { name: "Mate", modifier: 40, swatch: "#C0C0C0" },
-  { name: "Blanco", modifier: 20, swatch: "#F5F5F5" },
-  { name: "Madera", modifier: 120, swatch: "#8B5A2B" },
-  { name: "Champagne", modifier: 90, swatch: "#C5B396" },
+  { name: "Negro", modifier: 0, swatch: "gray.900" },
+  { name: "Mate", modifier: 40, swatch: "gray.400" },
+  { name: "Blanco", modifier: 20, swatch: "gray.100" },
+  { name: "Madera", modifier: 120, swatch: "orange.800" },
+  { name: "Champagne", modifier: 90, swatch: "orange.200" },
 ] as const;
 
 export const BrandModulesV2Showcase: React.FC = () => {
@@ -239,7 +239,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
               <SubsectionLabel mb="2">
                 Especificación del componente canónico
               </SubsectionLabel>
-              <Text fontSize="sm" color="text.body" maxW="3xl">
+              <Text fontSize="sm" color="text.body" maxW="pageNarrow">
                 La insignia antirruido se genera con 5 barras discretas de relleno. Cada barra equivale a un 20% de atenuación. El texto utiliza obligatoriamente la grafía correcta en español <strong>&quot;antirruido&quot;</strong> con doble &apos;r&apos;, token de color <code>accent.ink</code> y contenedor de fondo <code>bg.tint</code>.
               </Text>
             </Box>
@@ -356,9 +356,6 @@ export const BrandModulesV2Showcase: React.FC = () => {
                         flexShrink={0}
                         cursor="pointer"
                         transition="background-color 0.2s ease, border-color 0.2s ease"
-                        _hover={{
-                          borderColor: "accent.ink",
-                        }}
                       >
                         <Layers size={14} style={{ flexShrink: 0 }} />
                         {system.name}
@@ -482,9 +479,6 @@ export const BrandModulesV2Showcase: React.FC = () => {
                               flexShrink={0}
                               cursor="pointer"
                               transition="background-color 0.2s ease, border-color 0.2s ease"
-                              _hover={{
-                                borderColor: "accent.ink",
-                              }}
                             >
                               {glass.name}
                             </Box>
@@ -535,9 +529,6 @@ export const BrandModulesV2Showcase: React.FC = () => {
                               flexShrink={0}
                               cursor="pointer"
                               transition="background-color 0.2s ease, border-color 0.2s ease"
-                              _hover={{
-                                borderColor: "accent.ink",
-                              }}
                             >
                               <Box
                                 w="3"
@@ -627,7 +618,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                       PRESUPUESTO
                     </Text>
                     <Text fontSize="xs" color="text.muted" fontStyle="italic">
-                      Color brand.quoteRed (#D62828) reservado exclusivamente para la palabra &quot;PRESUPUESTO&quot;.
+                      Token brand.quoteRed reservado exclusivamente para la palabra &quot;PRESUPUESTO&quot;.
                     </Text>
                   </Box>
 

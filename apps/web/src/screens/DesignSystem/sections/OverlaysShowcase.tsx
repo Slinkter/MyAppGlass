@@ -72,7 +72,7 @@ export const OverlaysShowcase: React.FC = () => {
               bg="bg.surface"
               borderColor="border.default"
               borderRadius="modal"
-              maxH="90dvh"
+              
               aria-labelledby="dialog-aluminum-specs-title"
             >
               <DialogHeader>

@@ -2,9 +2,9 @@
 
 /**
  * @file MobileNavV2Showcase.tsx
- * @description Prototipo interactivo del Navbar Móvil Minimalista Studio v2 para /design-system.
+ * @description Prototipo interactivo del Navbar Móvil Minimalista v2 para /design-system.
  * Cumple R1–R12:
- * - Marco de simulación táctil de 390px (MOBILE_FRAME_WIDTH = "390px").
+ * - Marco de simulación táctil de 390px (MOBILE_FRAME_WIDTH = "24.375rem").
  * - Controles interactivos completos:
  *   1. Reinicio integral de estados y posición de scroll.
  *   2. Simulación de scroll programático (+180px) del contenido embebido.
@@ -40,8 +40,8 @@ import { MobileNavbarV2, OFFICIAL_SERVICE_SLUGS } from "@/widgets/Navbar/mobile"
 import { companyData } from "@/shared/config/company-data";
 
 /** Constantes explícitas del marco simulador móvil (Regla R1). */
-const MOBILE_FRAME_WIDTH = "390px";
-const MOBILE_FRAME_HEIGHT = "680px";
+const MOBILE_FRAME_WIDTH = "24.375rem";
+const MOBILE_FRAME_HEIGHT = "42.5rem";
 
 const V2_NAV_FEATURES = [
   {
@@ -94,7 +94,7 @@ export const MobileNavV2Showcase: React.FC = () => {
   return (
     <ShowcaseStack>
       <ShowcaseCard
-        title="Navbar Móvil Minimalista Studio v2"
+        title="Navbar Móvil Minimalista v2"
         description="Encabezado móvil siempre visible con fondo translúcido, hoja de menú editorial a pantalla completa con cabecera propia, CTA fijo en el pie y acordeón técnico con los 6 servicios principales."
         badge={
           <HStack gap="1.5">
@@ -177,7 +177,7 @@ export const MobileNavV2Showcase: React.FC = () => {
               w="full"
               maxW={MOBILE_FRAME_WIDTH}
               h={MOBILE_FRAME_HEIGHT}
-              borderRadius="40px"
+              borderRadius="3xl"
               borderWidth="3px"
               borderColor="border.strong"
               bg="bg.page"

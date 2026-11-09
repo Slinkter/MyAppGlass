@@ -31,7 +31,7 @@ const rules = [
   },
   {
     title: "Sin degradados prohibidos",
-    body: "Cumple DESIGN-SYSTEM.md usando fondo base sólido y velo protector uniforme sin recurrir a linear-gradient ni bgGradient.",
+    body: "Cumple DESIGN.md usando fondo base sólido y velo protector uniforme sin recurrir a linear-gradient ni bgGradient.",
   },
   {
     title: "Rendimiento y LCP",
@@ -120,7 +120,7 @@ const DemoRevealCard: React.FC = () => {
         p={{ base: "4", md: "6" }}
         minW="0"
       >
-        <Heading as="h3" fontSize={{ base: "xl", md: "2xl" }} color="white" fontWeight="800" lineClamp={2}>
+        <Heading as="h3" fontSize={{ base: "xl", md: "2xl" }} color="white" fontWeight="700" lineClamp={2}>
           Ventanas de Aluminio
         </Heading>
         <Text fontSize="xs" color="whiteAlpha.800" lineClamp={1}>
