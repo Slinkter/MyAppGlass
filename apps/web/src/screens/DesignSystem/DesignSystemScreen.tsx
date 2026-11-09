@@ -31,6 +31,7 @@ import { ServiceCardV2Showcase } from "./sections/v2/ServiceCardV2Showcase";
 import { MobileNavV2Showcase } from "./sections/v2/MobileNavV2Showcase";
 import { TransitionsV2Showcase } from "./sections/v2/TransitionsV2Showcase";
 import { PaperToneShowcase } from "./sections/v2/PaperToneShowcase";
+import { ScrollPatternsShowcase } from "./sections/v2/ScrollPatternsShowcase";
 
 export const DesignSystemScreen: React.FC = () => {
   return (
@@ -131,6 +132,7 @@ export const DesignSystemScreen: React.FC = () => {
               <ResponsiveScaleShowcase />
               <CardVariantsShowcase />
               <ServiceCardV2Showcase />
+              <ScrollPatternsShowcase />
               <PaperToneShowcase />
               <TransitionsV2Showcase />
             </VStack>
