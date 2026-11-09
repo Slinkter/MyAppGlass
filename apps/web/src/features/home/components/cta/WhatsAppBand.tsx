@@ -61,13 +61,13 @@ export const WhatsAppBand: React.FC = () => (
               Visita técnica sin costo.
             </Text>
             <Flex gap="3" wrap="wrap">
-              <Button asChild variant="aura" px={{ base: "4", sm: "5" }} fontSize={{ base: "xs", sm: "sm" }} whiteSpace="nowrap" flex={{ base: "1 1 100%", sm: "1 1 auto" }}>
+              <Button asChild variant="aura" _dark={{ bg: "gray.900", color: "white", _hover: { bg: "gray.800" } }} px={{ base: "4", sm: "5" }} fontSize={{ base: "xs", sm: "sm" }} whiteSpace="nowrap" flex={{ base: "1 1 100%", sm: "1 1 auto" }}>
                 <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                   <MessageCircle size={18} aria-hidden="true" style={{ flexShrink: 0 }} />
                   Cotizar por WhatsApp
                 </a>
               </Button>
-              <Button asChild variant="outline" px={{ base: "4", sm: "5" }} fontSize={{ base: "xs", sm: "sm" }} whiteSpace="nowrap" flex={{ base: "1 1 100%", sm: "1 1 auto" }}>
+              <Button asChild variant="outline" _dark={{ bg: "transparent", color: "gray.900", borderColor: "gray.900", _hover: { bg: "blackAlpha.100" } }} px={{ base: "4", sm: "5" }} fontSize={{ base: "xs", sm: "sm" }} whiteSpace="nowrap" flex={{ base: "1 1 100%", sm: "1 1 auto" }}>
                 <RouterLink href="/presupuesto">Armar presupuesto</RouterLink>
               </Button>
             </Flex>
