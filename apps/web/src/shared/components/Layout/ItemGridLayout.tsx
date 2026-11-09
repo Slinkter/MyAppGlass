@@ -9,6 +9,7 @@ import {
     VStack,
     Box,
     ContainerProps,
+    type BoxProps,
 } from "@chakra-ui/react";
 import { useScrollReveal } from "@/shared/hooks/ui/useScrollReveal";
 
@@ -40,6 +41,8 @@ const ItemGridItem: React.FC<ItemGridItemProps> = ({ children, index, delay }) =
 interface ItemGridLayoutProps {
     title: string;
     subtitle?: string;
+    /** Margen bajo la cabecera (por defecto 8 móvil / 12 escritorio). Opcional: otras secciones no cambian. */
+    headerMb?: BoxProps["mb"];
     children: React.ReactNode;
     seoTitle?: string;
     seoDescription?: string;
@@ -59,6 +62,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
 } = ({
     title,
     subtitle,
+    headerMb = { base: "8", md: "12" },
     children,
     columns = { base: 1, md: 2, lg: 3 },
     gap = { base: "6", md: "8" },
@@ -80,7 +84,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
                 gap={{ base: "3", md: "5" }}
                 textAlign="center"
                 w="full"
-                mb={{ base: "8", md: "12" }}
+                mb={headerMb}
                 opacity={headerArmed && !headerVisible ? 0 : 1}
                 transform={headerArmed && !headerVisible ? "translateY(16px)" : "translateY(0)"}
                 transition="opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)"

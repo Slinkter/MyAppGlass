@@ -1,9 +1,7 @@
 "use client";
 import { SITE_URL } from "@/shared/config/company-data";
 import React, { useMemo, useCallback } from "react";
-import { Box, HStack } from "@chakra-ui/react";
-import { FilterPill } from "@/shared/components/ui/FilterPill";
-import { createGroupMap } from "@/shared/utils/algorithm-utils";
+import { Box } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
 import { useServices, type ServiceListItem } from "@features/services/hooks/useServices";
@@ -12,8 +10,6 @@ import useFilterableList from "@shared/hooks/ui/useFilterableList";
 import { EmptyState } from "@/components/ui/empty-state";
 import { AlertTriangle, Search } from "lucide-react";
 import type { Service } from "@/shared/api/firebase/types";
-
-const CATEGORIES = ["Todos", "Vidrio", "Aluminio", "Cerramientos"];
 
 export type ServiceData = ServiceListItem;
 
@@ -33,19 +29,11 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
     const { data, isLoading, error } = useServices(initialData);
     const allServices = useMemo<ServiceData[]>(() => data ?? [], [data]);
 
-    const servicesByCategory = useMemo(() => {
-        return createGroupMap(allServices, (s) => s.category);
-    }, [allServices]);
-
-    const filterFn = useCallback((items: ServiceData[], category: string) => {
-        if (category === "Todos") return items;
-        return servicesByCategory.get(category) ?? [];
-    }, [servicesByCategory]);
+    // Sin filtros por categoría: se muestran todos los servicios (se conserva la paginación progresiva).
+    const filterFn = useCallback((items: ServiceData[]) => items, []);
 
     const {
         paginatedItems: preparedServices,
-        activeCategory,
-        handleFilterChange: handleCategoryChange,
         isPending,
         loaderRef,
         totalFilteredCount,
@@ -66,22 +54,10 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
             seoDescription="Descubre nuestros servicios de instalación y fabricación de productos de vidriería y aluminio de alta calidad en La Molina. Ventanas, mamparas y más."
             seoCanonicalUrl={`${SITE_URL}/#servicios`}
             columns={{ base: 1, md: 2, lg: 3 }}
+            gap={{ base: "4", md: "5" }}
+            headerMb={{ base: "5", md: "7" }}
+            containerProps={{ pt: { base: "4", md: "6" }, pb: { base: "6", md: "8" } }}
         >
-            <Box gridColumn="1 / -1" w="full">
-                <HStack gap="2" justify="center" flexWrap="wrap" pt="2" pb="5">
-                    {CATEGORIES.map((cat) => {
-                        return (
-                          <FilterPill
-                            key={cat}
-                            label={String(cat)}
-                            isActive={activeCategory === cat}
-                            onClick={() => handleCategoryChange(cat)}
-                          />
-                        );
-                    })}
-                </HStack>
-            </Box>
-
             {isLoading ? (
                 <ServiceCardSkeletons />
             ) : error && !data ? (
@@ -97,7 +73,7 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
                     <EmptyState
                         icon={<Search />}
                         title="No se encontraron servicios"
-                        description={`No hay resultados para la categoría "${activeCategory}" en este momento.`}
+                        description="No hay servicios disponibles en este momento."
                     />
                 </Box>
             ) : (
@@ -110,7 +86,7 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
                     {preparedServices.map((service, index) => (
                         // Sin animación de montaje: cada ServiceCard se revela sola cuando
                         // su imagen termina de cargar (ver ServiceCard).
-                        <ItemGridLayout.Item key={`${activeCategory}-${service.id}`}>
+                        <ItemGridLayout.Item key={service.id}>
                             <ServiceCard
                                 image={service.image}
                                 name={service.name}
