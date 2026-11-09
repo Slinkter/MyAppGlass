@@ -13,6 +13,8 @@ import { DUR_MS, EASE_TEXT } from "@/shared/constants/motion";
 
 /** Duración del revelado de sección (ms). */
 export const REVEAL_MS = 450;
+/** Cascada entre elementos: 40 ms (pauta UX: 30–50 ms). */
+export const REVEAL_STAGGER_MS = 40;
 /** Desplazamiento inicial vertical (px). */
 const REVEAL_OFFSET = 16;
 
@@ -58,7 +60,7 @@ export const Reveal: React.FC<RevealProps> = ({ index = 0, children, ...rest }) 
     return () => io.disconnect();
   }, []);
 
-  const delay = reduced ? 0 : index * DUR_MS.staggerMenu;
+  const delay = reduced ? 0 : index * REVEAL_STAGGER_MS;
   const dur = reduced ? DUR_MS.reducedFade : REVEAL_MS;
 
   return (

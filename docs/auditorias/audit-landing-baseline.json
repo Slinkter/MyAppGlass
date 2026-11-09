@@ -1,0 +1,237 @@
+{
+  "generatedAt": "2026-11-09T13:41:26.665Z",
+  "results": {
+    "360px": {
+      "pageHeight": 13160,
+      "pageScreens": 17.78,
+      "sections": [
+        {
+          "id": "section",
+          "top": 0,
+          "height": 651,
+          "screens": 0.88
+        },
+        {
+          "id": "servicios",
+          "top": 715,
+          "height": 3155,
+          "screens": 4.26
+        },
+        {
+          "id": "proyectos",
+          "top": 3934,
+          "height": 4386,
+          "screens": 5.93
+        },
+        {
+          "id": "clientes",
+          "top": 8384,
+          "height": 887,
+          "screens": 1.2
+        },
+        {
+          "id": "ubicacion",
+          "top": 9335,
+          "height": 791,
+          "screens": 1.07
+        },
+        {
+          "id": "Sede principal de GYA",
+          "top": 9543,
+          "height": 66,
+          "screens": 0.09
+        },
+        {
+          "id": "beneficios",
+          "top": 10190,
+          "height": 1046,
+          "screens": 1.41
+        }
+      ],
+      "sectionGapsPx": [
+        64,
+        64,
+        64,
+        64,
+        -583,
+        581
+      ],
+      "distinctGaps": 3,
+      "gridOrphans": [],
+      "primaryCtaCount": 5,
+      "maxScreensWithoutCta": 12.21,
+      "distinctFontSizes": [
+        12,
+        14,
+        16,
+        18,
+        20,
+        30
+      ],
+      "headingJumps": 0,
+      "h1Count": 1,
+      "overflowX": 0,
+      "jsErrors": 0
+    },
+    "768px": {
+      "pageHeight": 10070,
+      "pageScreens": 9.83,
+      "sections": [
+        {
+          "id": "section",
+          "top": 62,
+          "height": 942,
+          "screens": 0.92
+        },
+        {
+          "id": "servicios",
+          "top": 1100,
+          "height": 2034,
+          "screens": 1.99
+        },
+        {
+          "id": "proyectos",
+          "top": 3230,
+          "height": 2782,
+          "screens": 2.72
+        },
+        {
+          "id": "clientes",
+          "top": 6108,
+          "height": 884,
+          "screens": 0.86
+        },
+        {
+          "id": "ubicacion",
+          "top": 7087,
+          "height": 872,
+          "screens": 0.85
+        },
+        {
+          "id": "Sede principal de GYA",
+          "top": 7288,
+          "height": 229,
+          "screens": 0.22
+        },
+        {
+          "id": "beneficios",
+          "top": 8055,
+          "height": 665,
+          "screens": 0.65
+        }
+      ],
+      "sectionGapsPx": [
+        96,
+        96,
+        96,
+        95,
+        -671,
+        538
+      ],
+      "distinctGaps": 3,
+      "gridOrphans": [
+        {
+          "cols": 3,
+          "items": 4,
+          "lastRow": 1,
+          "section": ""
+        }
+      ],
+      "primaryCtaCount": 3,
+      "maxScreensWithoutCta": 6.65,
+      "distinctFontSizes": [
+        12,
+        14,
+        16,
+        18,
+        24,
+        36,
+        48
+      ],
+      "headingJumps": 0,
+      "h1Count": 1,
+      "overflowX": 0,
+      "jsErrors": 0
+    },
+    "1280px": {
+      "pageHeight": 7856,
+      "pageScreens": 9.82,
+      "sections": [
+        {
+          "id": "section",
+          "top": 62,
+          "height": 736,
+          "screens": 0.92
+        },
+        {
+          "id": "servicios",
+          "top": 894,
+          "height": 1692,
+          "screens": 2.11
+        },
+        {
+          "id": "proyectos",
+          "top": 2682,
+          "height": 2046,
+          "screens": 2.56
+        },
+        {
+          "id": "clientes",
+          "top": 4824,
+          "height": 532,
+          "screens": 0.66
+        },
+        {
+          "id": "ubicacion",
+          "top": 5451,
+          "height": 932,
+          "screens": 1.16
+        },
+        {
+          "id": "Sede principal de GYA",
+          "top": 5680,
+          "height": 229,
+          "screens": 0.29
+        },
+        {
+          "id": "beneficios",
+          "top": 6479,
+          "height": 429,
+          "screens": 0.54
+        }
+      ],
+      "sectionGapsPx": [
+        96,
+        96,
+        96,
+        95,
+        -703,
+        570
+      ],
+      "distinctGaps": 3,
+      "gridOrphans": [
+        {
+          "cols": 3,
+          "items": 4,
+          "lastRow": 1,
+          "section": ""
+        }
+      ],
+      "primaryCtaCount": 3,
+      "maxScreensWithoutCta": 6.63,
+      "distinctFontSizes": [
+        12,
+        14,
+        16,
+        18,
+        24,
+        36,
+        48
+      ],
+      "headingJumps": 0,
+      "h1Count": 1,
+      "overflowX": 0,
+      "jsErrors": 0
+    }
+  }
+}

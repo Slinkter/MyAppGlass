@@ -306,3 +306,18 @@ Decisión del dueño: la marca usa **negro**, el azul se reduce al mínimo, y el
 
 ### Papel decidido (2026-11-09)
 El dueño eligió **A · `#F7F6F3`**. `bg.paper` (claro) pasa de `#FBF8F3` a `#F7F6F3`; lo usan el menú móvil v2 y el fallback de vidrio. Pendientes que no dependen de diseño: horario, teléfono secundario, correo público, garantía/IGV por producto, logo vectorial y catálogo (BRAND-KIT §12); prueba de `/admin` con datos reales.
+
+### Rediseño de la landing con métricas (2026-11-09)
+Medido con `scripts/audit-landing.mjs` (Playwright; línea base `docs/auditorias/audit-landing-baseline.json`, resultado `audit-landing-v2.json`).
+
+| Métrica | Antes (360 / 1280) | Después (360 / 1280) | Meta |
+|---|---|---|---|
+| Alto de página en pantallas | 17,78 / 9,82 | **9,48 / 7,92** | ≤ 9 / ≤ 6 |
+| Pantallas seguidas sin llamada a la acción | 12,21 / 6,63 | **3,71 / 3,38** | ≤ 3 |
+| Espaciados distintos entre secciones | 3 / 3 | **1 / 1** | 1 |
+| Tarjetas visibles de servicios / proyectos | 10 / 13 | **6 / 6** (+ enlace a todos) | 6 / 6 |
+| Tamaños tipográficos distintos | 6 / 7 | 7 / 8 | ≤ 7 |
+| Desborde horizontal / errores JS | 0 / 0 | 0 / 0 | 0 |
+Metas no alcanzadas del todo: escritorio 7,9 pantallas (meta 6) y 3,4–3,7 pantallas entre llamadas (meta 3); tipografía 8 tamaños en escritorio.
+
+Cambios: narrativa hero → servicios → proceso → proyectos → llamada a la acción → clientes → ubicación → calidad; `SectionHeader` único (etiqueta + título serif a la izquierda); `CardRail` (tira con encaje en celular, rejilla 3×2/2×3 en tablet y escritorio, sin huérfanos); `ProcessSection` (Medimos·Fabricamos·Instalamos, solo datos del Brand Kit); `WhatsAppBand`; `ItemGridLayout` admite `eyebrow` (cabecera a la izquierda); cascada del revelado a 40 ms (pauta UX 30–50 ms). La home enlaza ahora a 6 servicios y 6 obras; el resto queda en `/servicios/ver` y `/proyectos/ver` (el pie sigue listando los servicios).
