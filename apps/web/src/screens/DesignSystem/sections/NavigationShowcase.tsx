@@ -25,12 +25,12 @@ export const NavigationShowcase: React.FC = () => {
       {/* 1. Navbar Público en Cápsula (AuraDesktopNav) */}
       <ShowcaseCard
         title="AuraDesktopNav — Barra pública en cápsula flotante"
-        description="Panel comparativo entre la barra de producción clásica y el rediseño minimalista: cápsula de cristal líquido flotante, pastilla negra activa, tipografía Inter en texto en oración y contraste WCAG AAA."
+        description="Panel comparativo entre la barra de producción clásica y el rediseño minimalista: píldora flotante de vidrio esmerilado, pastilla negra activa, tipografía Inter en texto en oración y contraste WCAG AAA."
         badge="Web Pública"
       >
         <ShowcasePanel
           p={{ base: "4", md: "8" }}
-          borderRadius="2xl"
+          borderRadius="card"
           minH="44"
           position="relative"
           maxW="100%"
@@ -40,7 +40,7 @@ export const NavigationShowcase: React.FC = () => {
           <Box
             position="absolute"
             inset="0"
-            borderRadius="2xl"
+            borderRadius="card"
             bg="bg.tint"
             border="1px solid"
             borderColor="border.warm"
@@ -122,7 +122,7 @@ export const NavigationShowcase: React.FC = () => {
         description="Componente real de administración (widgets/AdminNav/AdminNav.tsx) con selector de módulos e iconos Lucide nativos."
         badge="Backoffice Admin"
       >
-        <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="2xl" minW="0">
+        <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="card" minW="0">
           <Box
             maxW="100%"
             overflowX="auto"
@@ -148,7 +148,7 @@ export const NavigationShowcase: React.FC = () => {
         description="Pestañas accesibles con targets táctiles >= 44, foco visible (R7) y estado activo inequívoco (aria-selected)."
         badge="Navegación Interna"
       >
-        <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="2xl">
+        <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="card">
           <Tabs.Root defaultValue="sistemas" variant="line">
             <Tabs.List overflowX="auto" maxW="full">
               <Tabs.Trigger value="sistemas" minH="11" minW="11" px="4">
@@ -234,7 +234,7 @@ export const NavigationShowcase: React.FC = () => {
           description="Navegación contextual con aria-current=&quot;page&quot; en el elemento activo e iconos decorativos."
           badge="Jerarquía Web"
         >
-          <ShowcasePanel p={{ base: "4", md: "6" }} borderRadius="2xl">
+          <ShowcasePanel p={{ base: "4", md: "6" }} borderRadius="card">
             <VStack gap="4" align="stretch">
               <Box as="nav" aria-label="Miga de pan del servicio">
                 <Box
@@ -311,7 +311,7 @@ export const NavigationShowcase: React.FC = () => {
           description="Controles numéricos con target >= 44, foco accesible y aria-label descriptivos en español."
           badge="Listados de Obra"
         >
-          <ShowcasePanel p={{ base: "4", md: "6" }} borderRadius="2xl">
+          <ShowcasePanel p={{ base: "4", md: "6" }} borderRadius="card">
             <VStack gap="4" align="stretch">
               <Box as="nav" aria-label="Paginación de catálogo de presupuestos">
                 <HStack gap="2" wrap="wrap" justify="center">
@@ -399,7 +399,7 @@ export const NavigationShowcase: React.FC = () => {
         description="Componentes globales (widgets/FloatingActions/) con dimensiones simétricas (escala 14 en móvil y 16 en escritorio con icono homologado)."
         badge="Global Widgets"
       >
-        <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="2xl">
+        <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="card">
           <HStack justify="space-around" align="center" wrap="wrap" gap={{ base: "6", md: "8" }}>
             <VStack gap="3">
               <FloatingWhatsAppButton />

@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import ServiceCard from "@/features/services/components/ServiceCard";
 import ProjectCardContent from "@/features/projects/components/ProjectCardContent";
 import ClientCard from "@/features/home/components/clients/ClientCard";
-import { ImageRevealShowcase } from "./ImageRevealShowcase";
 
 const CARD_GRID = { base: 1, md: 2, lg: 3 } as const;
 
@@ -124,11 +123,6 @@ export const EditorialCardsShowcase: React.FC = () => {
             />
           </SimpleGrid>
         </ShowcaseCard>
-      </Box>
-
-      {/* 4. Patrón de revelado sincronizado */}
-      <Box minW="0" maxW="100%" overflowWrap="break-word">
-        <ImageRevealShowcase />
       </Box>
     </ShowcaseStack>
   );

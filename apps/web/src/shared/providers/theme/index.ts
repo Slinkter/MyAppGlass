@@ -79,6 +79,26 @@ const buttonRecipe = defineRecipe({
         _hover: { bg: "brand.whatsappAccessibleHover" },
         _active: { bg: "brand.whatsappAccessibleActive" },
       },
+      /*
+       * Píldora seleccionable de la barra inferior del patrón B (Lente de Cristal y Aluminio).
+       * El estado activo se marca con `aria-pressed` o `aria-current`: borde negro y superficie sólida,
+       * sin desenfoque propio para no apilar vidrio sobre vidrio.
+       */
+      pill: {
+        justifyContent: "flex-start",
+        gap: "2.5",
+        px: "1.5",
+        pr: "3",
+        borderRadius: "xl",
+        borderWidth: "1px",
+        borderColor: "transparent",
+        bg: "transparent",
+        color: "text.heading",
+        textAlign: "left",
+        _hover: { bg: "bg.surface/70" },
+        _pressed: { bg: "bg.surface", borderColor: "brand.ink", _dark: { borderColor: "white" } },
+        "&[aria-current='true']": { bg: "bg.surface", borderColor: "brand.ink", _dark: { borderColor: "white" } },
+      },
     },
     size: {
       xs: { h: "11", minH: "11", minW: "11", px: "3", fontSize: "sm" },
@@ -109,9 +129,28 @@ const studioBadgeBase = {
   borderWidth: "0",
 } as const;
 
+/** Chip único de DESIGN.md: píldora de 28 px, texto 12/600, solo informativo. */
+const chipBase = {
+  minH: "7",
+  px: "3",
+  borderRadius: "full",
+  fontSize: "xs",
+  fontWeight: "600",
+  letterSpacing: "normal",
+  textTransform: "none",
+  borderWidth: "1px",
+  borderColor: "border.warm",
+} as const;
+
 const badgeRecipe = defineRecipe({
   variants: {
     variant: {
+      chip: { ...chipBase, bg: "bg.subtle", color: "text.body" },
+      chipInk: { ...chipBase, bg: "brand.ink", color: "white", borderColor: "brand.ink", _dark: { bg: "white", color: "brand.ink", borderColor: "white" } },
+      chipSuccess: { ...chipBase, bg: "status.successSoft", color: "status.successText", borderColor: "status.successBorder" },
+      chipWarning: { ...chipBase, bg: "status.warningSoft", color: "status.warningText", borderColor: "status.warningBorder" },
+      chipDanger: { ...chipBase, bg: "status.dangerSoft", color: "status.dangerText", borderColor: "status.dangerBorder" },
+      chipInfo: { ...chipBase, bg: "status.infoSoft", color: "status.infoText", borderColor: "status.infoBorder" },
       neutral: {
         bg: "bg.subtle",
         color: "text.body",
@@ -203,12 +242,29 @@ const fieldStudio = {
   fontSize: "md",
 };
 
+/**
+ * Campo de DESIGN.md: 48 px, esquina de 12 px, borde de 1 px en Línea Cálida.
+ * Un solo anillo de foco (`ring.primary`) y el estado inválido también lleva anillo, no solo borde.
+ */
+const fieldClean = {
+  ...fieldOutline,
+  bg: "bg.surface",
+  borderColor: "border.warm",
+  _hover: { borderColor: "border.warmStrong" },
+  _invalid: {
+    borderColor: "status.dangerText",
+    outline: "2px solid",
+    outlineColor: "status.dangerText",
+    outlineOffset: "0px",
+  },
+};
+
 const inputRecipe = defineRecipe({
-  variants: { variant: { outline: fieldOutline, studio: fieldStudio } },
+  variants: { variant: { outline: fieldOutline, studio: fieldStudio, field: fieldClean } },
 });
 
 const textareaRecipe = defineRecipe({
-  variants: { variant: { outline: fieldOutline, studio: { ...fieldStudio, py: "3" } } },
+  variants: { variant: { outline: fieldOutline, studio: { ...fieldStudio, py: "3" }, field: { ...fieldClean, py: "3" } } },
 });
 
 const nativeSelectRecipe = defineSlotRecipe({
@@ -220,6 +276,9 @@ const nativeSelectRecipe = defineSlotRecipe({
       },
       studio: {
         field: fieldStudio,
+      },
+      field: {
+        field: fieldClean,
       },
     },
   },
@@ -243,6 +302,12 @@ const cardRecipe = defineSlotRecipe({
       },
       warm: {
         root: { bg: "bg.section", borderWidth: "1px", borderColor: "border.warm" },
+      },
+      /* DESIGN.md: tarjeta plana, 16 px, borde de Línea Cálida, sin sombra en reposo; título en Lora 700. */
+      flat: {
+        root: { bg: "bg.surface", borderWidth: "1px", borderColor: "border.warm", borderRadius: "card", boxShadow: "none" },
+        title: { fontFamily: "heading", fontWeight: "700", color: "text.heading" },
+        description: { color: "text.muted" },
       },
       /* Aura Studio: radio grande, borde fino, sin sombra; título en la fuente de títulos. */
       studio: {

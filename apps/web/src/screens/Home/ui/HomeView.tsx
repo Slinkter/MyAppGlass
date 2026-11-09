@@ -19,9 +19,9 @@ const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initial
             {/* 1. Hero */}
             <LandingPageSection />
 
-            {/* 2. Proyectos (portafolio de obras) */}
-            <Box id="proyectos" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
-                <ProjectsList initialData={initialProjects} headingAs="h2" />
+            {/* 2. Beneficios (8 tarjetas) */}
+            <Box id="beneficios" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
+                <FeaturesSection />
             </Box>
 
             {/* 3. Servicios */}
@@ -29,9 +29,9 @@ const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initial
                 <ServiceList initialData={initialServices} headingAs="h2" />
             </Box>
 
-            {/* 4. Beneficios */}
-            <Box id="beneficios" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
-                <FeaturesSection />
+            {/* 4. Proyectos (portafolio de obras) */}
+            <Box id="proyectos" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
+                <ProjectsList initialData={initialProjects} headingAs="h2" />
             </Box>
 
             {/* 5. Clientes */}

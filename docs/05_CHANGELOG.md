@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-09] - Componentes de `/design-system` con el manual v1.0 y ajuste del inicio
+
+### Added
+- **Variantes nuevas en el tema** (`theme/index.ts`), junto a las existentes: botón `pill` (píldora seleccionable), badge `chip*` (pastilla única de 28 px), campo `field` (anillo también en estado inválido) y tarjeta `flat`. Solo se usan en `/design-system`.
+- **Patrón B** (`screens/DesignSystem/components/PatternB.tsx`): escenario con foto, tarjeta de vidrio flotante y barra de píldoras, tomado del prototipo de ubicación inmersiva.
+- Secciones nuevas en `/design-system`: marca (logo, color, tipografía, voz), hero y landings, barra de 4 enlaces y footer con sitelinks, botones y formulario con estados.
+
+### Changed
+- **Inicio:** se quitan los botones «Pedir presupuesto» y «Ver obras» del hero; el orden pasa a hero, beneficios (8 tarjetas), servicios, proyectos, clientes y ubicación. La flecha del hero lleva a Servicios.
+- `/design-system`: abre en «Tokens y reglas»; corregidos textos desfasados («azul marino», «degradado», «cristal líquido», «rojo serif») y radios fuera de la escala (`2xl` a `card`, `3xl` a `modal`).
+- `DESIGN.md`: navegación con 4 enlaces, variantes nuevas, patrón B y deriva actualizada; se declara la fuente monoespaciada.
+
+### Removed
+- Pestaña «Propuesta UI»; `ResponsiveScaleShowcase`, `ViewportAndStatesV2Showcase`, `CardVariantsShowcase` y `FormControlsShowcase` (duplicados); `GalleryShowcase` e `ImageRevealShowcase` ya no se repiten dentro de otras pestañas.
+
 ## [2026-11-09] - Limpieza documental y unificación del paquete de marca
 
 ### Changed

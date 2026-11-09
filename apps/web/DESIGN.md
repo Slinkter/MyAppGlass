@@ -45,6 +45,10 @@ typography:
     fontSize: "0.75rem"
     fontWeight: 700
     letterSpacing: "0.14em"
+  code:
+    fontFamily: "ui-monospace, Menlo, Consolas, monospace"
+    fontSize: "0.875rem"
+    fontWeight: 400
 rounded:
   card: "16px"
   modal: "24px"
@@ -184,28 +188,35 @@ Lenguaje cálido y redondeado: tarjetas con esquinas amplias (16 px), modales de
 - **Outline:** borde de 1,5 px en Tinta de Plano, fondo transparente. Hover con un velo negro de 4 %.
 - **WhatsApp:** fondo verde accesible; es la acción principal en móvil.
 - **Ghost:** solo texto, para acciones terciarias.
+- **Pill (píldora seleccionable):** 44 px, esquina de 12 px, sin borde en reposo; seleccionada (`aria-pressed` o `aria-current`) lleva superficie sólida y borde negro. Es la de la barra inferior del patrón B. Sin desenfoque propio.
 - **Nota:** las únicas variantes son `primary`, `outline`, `ghost` y `whatsapp`. Las antiguas en mayúsculas (`aura`, `navy`, `studio`, `brand`) ya no existen en el tema.
 
 ### Chips and badges
 - **Style:** píldora de 28 px de alto, texto de 12 px en peso 600, fondo suave del color de estado.
 - **State:** solo informativos; no se usan como botones.
+- **Variantes del tema:** `chip`, `chipInk`, `chipSuccess`, `chipWarning`, `chipDanger` y `chipInfo`. Las variantes `studio*` y las anteriores (`neutral`, `ink`, `success`…) siguen en el tema hasta migrar el sitio.
 
 ### Cards / Containers
 - **Corner Style:** 16 px.
 - **Background:** blanco con borde Línea Cálida.
 - **Shadow Strategy:** ninguna en reposo (ver Elevación).
+- **Variante del tema:** `flat` (16 px, borde Línea Cálida, sin sombra, título en Lora 700).
 - **Internal Padding:** 16 px en móvil, 24 px desde `md`.
 - **Tarjeta con foto (servicio, proyecto):** la imagen llena la tarjeta; el título y la acción van en una leyenda de vidrio claro (90 % blanco, desenfoque 24 px) con texto negro. Alto 260, 280 y 310 px por ancho.
 
 ### Inputs / Fields
 - **Style:** fondo blanco, borde 1 px Línea Cálida, esquina 12 px, 48 px de alto.
 - **Focus:** borde en el color del anillo de foco y anillo de 2 px.
+- **Variante del tema:** `field`, con un solo anillo de foco y anillo también en estado inválido.
 - **Error / Disabled:** borde y mensaje en rojo de estado accesible (#B91C1C); el estado deshabilitado reduce la opacidad a 50 %.
 
 ### Navigation
 - **Escritorio:** píldora flotante de vidrio, items de 44 px, pastilla negra en el item activo y `aria-current="page"`.
 - **Móvil:** barra superior fija de 60 px con logo, botón de WhatsApp y menú; la hoja del menú cubre la pantalla en tres zonas (cabecera, lista con scroll y pie con acción de WhatsApp).
-- **Items principales:** Inicio, Servicios, Proyectos, Ubicación y Contacto.
+- **Items principales (decisión del dueño, 2026-11-09):** solo Inicio, Servicios, Proyectos y Ubicación. Contacto, Mi cuenta y las páginas legales se registran en los sitelinks del footer (Explorar, Servicios, Herramientas y Corporativo).
+
+### Patrón B: escenario, tarjeta de vidrio y barra de píldoras
+Referencia aprobada: el prototipo de ubicación inmersiva («Lente de Cristal y Aluminio»). Un escenario con foto a pantalla completa (esquina de 24 px), una tarjeta de vidrio flotante arriba a la izquierda (esquina de 16 px) con estado, título en Lora, una línea de texto y dos botones (uno principal negro y uno en contorno), y una barra inferior de vidrio con píldoras. Monocromo: el coral solo en una palabra del título. Un solo vidrio por zona. Se aplica al hero de inicio y a las landings de servicio, proyecto y distrito. Primitivas en `apps/web/src/screens/DesignSystem/components/PatternB.tsx`.
 
 ### Foto con leyenda de vidrio (componente propio)
 Marco de foto con proporción fija, cobertura total y leyenda flotante de vidrio con el nombre del proyecto o servicio. Es la marca visual del sitio: la materia prima del negocio sobre la obra terminada.
@@ -232,8 +243,9 @@ Marco de foto con proporción fija, cobertura total y leyenda flotante de vidrio
 
 ## Deriva conocida (código frente a este documento)
 
-Lo que el código todavía no cumple tras la migración del 2026-11-09.
+Lo que el código todavía no cumple. Las variantes `pill`, `chip*`, `field` y `flat` existen en el tema pero solo se usan en `/design-system`; pasan a los componentes reales cuando el dueño apruebe el lote.
 - **Nombres de token:** `border.warm` y `border.warmStrong` conservan ese nombre (56 usos); falta renombrarlos a `line` y `line-strong`.
+- **Variantes antiguas:** `Badge` conserva 12 variantes (solo `studio*` y `chip*` cumplen la pastilla de 28 px); `Card` `studio` usa radio `3xl`; `MediaCard` mezcla `boxShadow="sm"` en reposo con una elevación fuerte en hover; el botón `xs` mide 44 px igual que `sm`.
 - **Hover a mano:** quedan 51 `_hover={{`, parte de ellos con varias propiedades (tarjetas del admin y de servicios, flechas de la galería).
 - **`px` literales:** en los prototipos de `DesignSystemUbicacion`.
 - **Colores crudos de paleta:** `purple.400` y `blue.400` en cinco archivos.

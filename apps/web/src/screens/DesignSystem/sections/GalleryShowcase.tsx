@@ -105,7 +105,7 @@ const CompositeGallery: React.FC = () => {
   return (
     <ShowcasePanel
       bg="bg.surface"
-      borderRadius="3xl"
+      borderRadius="modal"
       borderWidth="1px"
       borderColor="border.default"
       maxW="pageNarrow"
@@ -292,7 +292,7 @@ const MosaicCell: React.FC<MosaicCellProps> = ({ item, ratio, large }) => (
 );
 
 const MosaicGallery: React.FC = () => (
-  <ShowcasePanel bg="bg.surface" borderRadius="2xl" maxW="pageNarrow" mx="auto" w="full" minW="0">
+  <ShowcasePanel bg="bg.surface" borderRadius="card" maxW="pageNarrow" mx="auto" w="full" minW="0">
     <SimpleGrid
       columns={{ base: 1, md: 3 }}
       gap={{ base: "4", md: "6" }}
@@ -369,7 +369,7 @@ export const GalleryShowcase: React.FC = () => (
 
     <ShowcaseCard
       title="Mosaico editorial"
-      description="Composición tipo bento de tres imágenes con leyenda sobre degradado. Solo presentación: sin modal ni navegación."
+      description="Composición tipo bento de tres imágenes con leyenda de vidrio sobre la foto. Solo presentación: sin modal ni navegación."
     >
       <MosaicGallery />
     </ShowcaseCard>

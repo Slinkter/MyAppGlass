@@ -2,25 +2,20 @@
 
 /**
  * @file LandingPageSection.tsx
- * @description Hero de la home: marca, título, descripción y dos acciones reales (pedir presupuesto
- * por WhatsApp y ver obras). Sin fotografía, para no cruzarse con la barra de navegación.
+ * @description Hero de la home: marca, título y descripción, sin botones de acción (decisión del dueño,
+ * 2026-11-09: rompían la interfaz). El indicador de scroll lleva a Servicios. Sin fotografía, para no
+ * cruzarse con la barra de navegación.
  * Todo con tokens del tema: se adapta a claro y oscuro.
  * @module home/components
  */
 
 import React from "react";
-import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
-import { ChevronDown, MessageCircle } from "lucide-react";
+import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import { ChevronDown } from "lucide-react";
 import RouterLink from "next/link";
 import Image from "next/image";
 
 import logoGYA from "@/assets/branding/logosvg.svg";
-import { Button } from "@/components/ui/button";
-import { companyData } from "@/shared/config/company-data";
-
-const QUOTE_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
-  "Hola, quisiera pedir un presupuesto.",
-)}`;
 
 /**
  * @component LandingPageSection
@@ -115,19 +110,6 @@ const LandingPageSection: React.FC = React.memo(() => {
           </Text>
         </Box>
 
-        {/* Acciones */}
-        <HStack gap="3" wrap="wrap" justify="center">
-          <Button asChild variant="whatsapp" size="lg" minH="11">
-            <a href={QUOTE_URL} target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={18} aria-hidden="true" style={{ flexShrink: 0 }} />
-              Pedir presupuesto
-            </a>
-          </Button>
-          <Button asChild variant="outline" size="lg" minH="11">
-            <RouterLink href="/#proyectos">Ver obras</RouterLink>
-          </Button>
-        </HStack>
-
         <Text
           fontSize="xs"
           fontWeight="700"
@@ -151,8 +133,8 @@ const LandingPageSection: React.FC = React.memo(() => {
         animation="fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1s both"
       >
         <RouterLink
-          href="/#proyectos"
-          aria-label="Ir a proyectos"
+          href="/#servicios"
+          aria-label="Ir a servicios"
           style={{
             display: "flex",
             alignItems: "center",

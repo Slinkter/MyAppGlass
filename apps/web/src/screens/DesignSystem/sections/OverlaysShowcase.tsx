@@ -36,7 +36,6 @@ import {
 import { Tooltip } from "@/components/ui/tooltip";
 import { toaster } from "@/components/ui/toaster-instance";
 import { TOUCH_MIN } from "@/shared/constants/layout";
-import { GalleryShowcase } from "./GalleryShowcase";
 import { ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel } from "../components";
 
 const specs = [
@@ -48,13 +47,10 @@ const specs = [
 export const OverlaysShowcase: React.FC = () => {
   return (
     <ShowcaseStack>
-      {/* 1. Galerías (compuesta, tira, mosaico y catálogo) */}
-      <GalleryShowcase />
-
-      {/* 2. Modales Interactivos (Dialog de Chakra UI v3) */}
+      {/* Modales interactivos (Dialog de Chakra UI v3) */}
       <ShowcaseCard
         title="Dialog Modal (Chakra UI v3 Snippet)"
-        description="Ventana modal accesible con backdrop-blur utilizada en formularios administrativos."
+        description="Ventana modal accesible, de esquina de 24 px, usada en formularios administrativos."
         badge="components/ui/dialog"
       >
         <VStack align="flex-start" gap="4">

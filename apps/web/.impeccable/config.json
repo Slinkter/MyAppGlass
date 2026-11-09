@@ -7,7 +7,13 @@
         "rule": "design-system-font",
         "value": "heading",
         "createdAt": "2026-11-09T19:07:00.170Z",
-        "reason": "falso positivo: fontFamily 'heading' es el token del tema que resuelve a Lora (DESIGN.md typography); no es una fuente nueva. Decidido por el orquestador, no por el usuario."
+        "reason": "falso positivo: fontFamily 'heading' es el token del tema que resuelve a Lora (DESIGN.md typography). Decidido por el agente, no por el usuario."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "mono",
+        "createdAt": "2026-11-09T23:34:24.865Z",
+        "reason": "excepción documentada: fontFamily 'mono' es el token de la fuente monoespaciada del sistema que DESIGN.md permite solo para códigos y nombres de token mostrados en /design-system. Decidido por el agente, no por el usuario."
       }
     ]
   }

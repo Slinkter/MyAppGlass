@@ -177,7 +177,7 @@ export const MobileNavV2Showcase: React.FC = () => {
               w="full"
               maxW={MOBILE_FRAME_WIDTH}
               h={MOBILE_FRAME_HEIGHT}
-              borderRadius="3xl"
+              borderRadius="modal"
               borderWidth="3px"
               borderColor="border.strong"
               bg="bg.page"

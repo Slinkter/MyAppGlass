@@ -2,7 +2,9 @@ import { Badge as ChakraBadge, BadgeProps as ChakraBadgeProps } from '@chakra-ui
 import * as React from 'react'
 
 /** Variantes propias del tema (ver `badgeRecipe` en shared/providers/theme/index.ts). */
-export type BadgeVariant = 'neutral' | 'ink' | 'inkSolid' | 'success' | 'warning' | 'danger' | 'info'
+export type BadgeVariant =
+  | 'neutral' | 'ink' | 'inkSolid' | 'success' | 'warning' | 'danger' | 'info'
+  | 'chip' | 'chipInk' | 'chipSuccess' | 'chipWarning' | 'chipDanger' | 'chipInfo'
 
 export interface BadgeProps extends Omit<ChakraBadgeProps, 'variant'> {
   variant?: ChakraBadgeProps['variant'] | BadgeVariant

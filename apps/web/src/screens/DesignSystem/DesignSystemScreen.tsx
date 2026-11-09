@@ -21,19 +21,20 @@ import { companyData } from "@/shared/config/company-data";
 import { TokensSection } from "./sections/TokensSection";
 import { NavigationShowcase } from "./sections/NavigationShowcase";
 import { EditorialCardsShowcase } from "./sections/EditorialCardsShowcase";
-import { FormControlsShowcase } from "./sections/FormControlsShowcase";
 import { OverlaysShowcase } from "./sections/OverlaysShowcase";
 import { DataDisplayShowcase } from "./sections/DataDisplayShowcase";
-import { ResponsiveScaleShowcase } from "./sections/v2/ResponsiveScaleShowcase";
-import { CardVariantsShowcase } from "./sections/v2/CardVariantsShowcase";
 import { BrandModulesV2Showcase } from "./sections/v2/BrandModulesV2Showcase";
-import { ViewportAndStatesV2Showcase } from "./sections/v2/ViewportAndStatesV2Showcase";
 import { MobileNavV2Showcase } from "./sections/v2/MobileNavV2Showcase";
 import { TransitionsV2Showcase } from "./sections/v2/TransitionsV2Showcase";
 import { GalleryShowcase } from "./sections/GalleryShowcase";
 import { ImageRevealShowcase } from "./sections/ImageRevealShowcase";
 import { ComponentsExtraShowcase } from "./sections/ComponentsExtraShowcase";
 import { ScrollPatternsShowcase } from "./sections/v2/ScrollPatternsShowcase";
+import { BrandSection } from "./sections/BrandSection";
+import { HeroSection } from "./sections/HeroSection";
+import { LandingsSection } from "./sections/LandingsSection";
+import { NavSection } from "./sections/NavSection";
+import { FormStatesSection } from "./sections/FormStatesSection";
 
 export const DesignSystemScreen: React.FC = () => {
   return (
@@ -93,42 +94,52 @@ export const DesignSystemScreen: React.FC = () => {
             <Tabs.Indicator />
           </Tabs.List>
 
-          {/* 1. Tarjetas editoriales */}
+          {/* Tarjetas editoriales */}
           <Tabs.Content value="cards">
-            <EditorialCardsShowcase />
+            <VStack align="stretch" gap={{ base: "8", md: "12" }}>
+              <HeroSection />
+              <LandingsSection />
+              <EditorialCardsShowcase />
+            </VStack>
           </Tabs.Content>
 
-          {/* 2. Navegación */}
+          {/* Navegación y barras */}
           <Tabs.Content value="nav">
-            <NavigationShowcase />
+            <VStack align="stretch" gap={{ base: "8", md: "12" }}>
+              <NavSection />
+              <NavigationShowcase />
+            </VStack>
           </Tabs.Content>
 
-          {/* 3. Formularios y botones */}
+          {/* Formularios y botones */}
           <Tabs.Content value="forms">
-            <FormControlsShowcase />
+            <FormStatesSection />
           </Tabs.Content>
 
-          {/* 4. Modales y diálogos */}
+          {/* Modales y diálogos */}
           <Tabs.Content value="overlays">
             <OverlaysShowcase />
           </Tabs.Content>
 
-          {/* 5. Tablas y fichas técnicas */}
+          {/* Tablas y fichas técnicas */}
           <Tabs.Content value="data">
             <DataDisplayShowcase />
           </Tabs.Content>
 
-          {/* 6. Tokens y reglas */}
+          {/* Tokens y reglas, con el bloque de marca del manual v1.0 */}
           <Tabs.Content value="tokens">
-            <TokensSection />
+            <VStack align="stretch" gap={{ base: "8", md: "12" }}>
+              <TokensSection />
+              <BrandSection />
+            </VStack>
           </Tabs.Content>
 
-          {/* 7. Estados, MediaCard y utilidades */}
+          {/* Estados, MediaCard y utilidades */}
           <Tabs.Content value="status">
             <ComponentsExtraShowcase />
           </Tabs.Content>
 
-          {/* 8. Galería e imágenes */}
+          {/* Galería e imágenes (una sola vez) */}
           <Tabs.Content value="media">
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
               <GalleryShowcase />
@@ -136,14 +147,11 @@ export const DesignSystemScreen: React.FC = () => {
             </VStack>
           </Tabs.Content>
 
-          {/* 7. Modelos v2 */}
+          {/* Modelos v2 */}
           <Tabs.Content value="v2">
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
               <MobileNavV2Showcase />
               <BrandModulesV2Showcase />
-              <ViewportAndStatesV2Showcase />
-              <ResponsiveScaleShowcase />
-              <CardVariantsShowcase />
               <ScrollPatternsShowcase />
               <TransitionsV2Showcase />
             </VStack>

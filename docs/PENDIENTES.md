@@ -9,7 +9,9 @@ Orden acordado con el dueño: **manual de marca → sistema de diseño y compone
 | Paso | Estado |
 |---|---|
 | Aprobación del dueño a misión, visión, valores y logo horizontal | **Pendiente** (propuestas en el manual) |
-| Aplicar a las páginas, por lotes | **Siguiente**, con aprobación del dueño en cada lote |
+| Componentes mejorados en `/design-system` (variantes `pill`, `chip*`, `field` y `flat`; patrón B; barra de 4 enlaces; footer con sitelinks; marca, landings, formulario) | **Hecho, para revisar.** Solo vive en `/design-system`: el sitio no usa las variantes nuevas |
+| Pasar las variantes aprobadas a las recetas reales y a las páginas | **Siguiente**, con aprobación del dueño. Cambiar `primary`, `outline` o `ghost` toca unos 83 archivos |
+| Barra de escritorio del sitio con 4 enlaces (Inicio, Servicios, Proyectos, Ubicación) y Contacto, Mi cuenta y legal en los sitelinks del footer | **Pendiente** en el widget real (`widgets/Navbar/AuraDesktopNav`); decidido, solo está en `/design-system` |
 
 El estado completo del paquete de marca y lo que falta está en `docs/marca/ENTREGABLES-MARCA.md`. La propuesta priorizada (0–30, 31–90 y 91–180 días, SEO y lotes) está en `docs/marca/PROPUESTA-MEJORAS.md`; el seguimiento se hace en esta lista.
 

@@ -18,8 +18,8 @@ const DEMO_IMAGE = "/images/services-products-01.Ventanas-nova-a10.webp";
 
 const rules = [
   {
-    title: "Arquitectura no bloqueante (Fase 5)",
-    body: "Los textos, badges y acciones son inmediatamente visibles sobre el fondo base azul marino de la marca. La interfaz nunca bloquea contenido aunque JS o la red sean lentos.",
+    title: "Arquitectura no bloqueante",
+    body: "Los textos, badges y acciones son inmediatamente visibles sobre el fondo base negro de la marca (brand.ink). La interfaz nunca bloquea contenido aunque JS o la red sean lentos.",
   },
   {
     title: "Transición suave de imagen",
@@ -43,7 +43,7 @@ const rules = [
   },
 ];
 
-const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de inmediato sobre fondo base brand.ink
+const codeExample = `// Arquitectura no bloqueante: texto visible de inmediato sobre fondo base brand.ink
 <Box position="relative" overflow="hidden" bg="brand.ink">
   <ImageRevealSkeleton loaded={loaded} />
   <Box
@@ -80,7 +80,7 @@ const DemoRevealCard: React.FC = () => {
       w="full"
       maxW={{ base: "full", md: "26.25rem" }}
       h={{ base: "16.25rem", sm: "17.5rem", md: "19.375rem" }}
-      borderRadius="3xl"
+      borderRadius="modal"
       overflow="hidden"
       position="relative"
       bg="brand.ink"
@@ -136,9 +136,9 @@ export const ImageRevealShowcase: React.FC = () => {
 
   return (
     <ShowcaseCard
-      title="Revelado no bloqueante de imagen (Fase 5)"
-      description="Patrón arquitectónico no bloqueante: MediaCard muestra los textos de inmediato sobre fondo base azul marino de marca y desvanece la imagen con cubic-bezier(0.22, 1, 0.36, 1) sin bloquear la interfaz si JS o la red son lentos."
-      badge="Fase 5 · MediaCard"
+      title="Revelado no bloqueante de imagen"
+      description="Patrón arquitectónico no bloqueante: MediaCard muestra los textos de inmediato sobre fondo base negro de marca (brand.ink) y desvanece la imagen con cubic-bezier(0.22, 1, 0.36, 1) sin bloquear la interfaz si JS o la red son lentos."
+      badge="MediaCard"
     >
       <ShowcaseStack>
         <ShowcasePanel>

@@ -39,7 +39,8 @@ const ItemGridItem: React.FC<ItemGridItemProps> = ({ children, index, delay }) =
 };
 
 interface ItemGridLayoutProps {
-    title: string;
+    /** Opcional: sin título no se muestra cabecera (solo la cuadrícula). */
+    title?: string;
     subtitle?: string;
     /** Margen bajo la cabecera (por defecto 8 móvil / 12 escritorio). Opcional: otras secciones no cambian. */
     headerMb?: BoxProps["mb"];
@@ -79,6 +80,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
             pb={{ base: "12", md: "16" }}
             {...containerProps}
         >
+            {title && (
             <VStack
                 ref={headerRef}
                 gap={{ base: "3", md: "5" }}
@@ -114,6 +116,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
                     </Text>
                 )}
             </VStack>
+            )}
 
             <SimpleGrid
                 columns={columns}

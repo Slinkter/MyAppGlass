@@ -189,9 +189,9 @@ export const DataDisplayShowcase: React.FC = () => {
 
       {/* Hoja de presupuesto (no editar) */}
       <ShowcaseCard
-        title="Hoja de presupuesto (concepto C1 renovado)"
-        description="Documento en papel claro: membrete con «PRESUPUESTO» en rojo serif, grupos con tinte, cifras tabulares y totales que se apilan en celular. Datos de ejemplo."
-        badge="v2"
+        title="Hoja de presupuesto (concepto C1)"
+        description="Documento en papel claro: membrete con «PRESUPUESTO» en coral (#FF5A5F, único acento, texto grande), grupos con tinte, cifras tabulares y totales que se apilan en celular. Datos de ejemplo."
+        badge="C1"
       >
         <QuoteSheet customer={SAMPLE_CUSTOMER} quote={SAMPLE_QUOTE} formattedDate="09/11/2026" quoteNumber="GYA-2026-EJEMPLO" />
       </ShowcaseCard>
