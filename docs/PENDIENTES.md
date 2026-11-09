@@ -20,7 +20,7 @@
 
 ## Catálogo de servicios, sistemas y productos (antes del design system y de los precios)
 
-Modelo: la empresa compra a 4 proveedores (Corporación Corrales, HPD Glass, Eduhg, Favitem), ensambla en taller y vende e instala. Hoy no existe relación servicio ↔ sistema (`Service.systems` es texto libre en Firestore) y los nombres difieren entre sitio, cotizador y `AGENTS.md`. Familias: A suministro e instalación (10 servicios), B servicios técnicos (mantenimiento, freno hidráulico Sevax), C productos de venta (espejos, repuestos). Decisiones D6 y D7 en `docs/DESIGN-SYSTEM.md`.
+Modelo: la empresa compra a 4 proveedores (Corporación Corrales, HPD Glass, Eduhg, Favitem), ensambla en taller y vende e instala. Hoy no existe relación servicio ↔ sistema (`Service.systems` es texto libre en Firestore) y los nombres difieren entre sitio, cotizador y `AGENTS.md`. Oferta: 13 servicios, los 10 actuales + venta de espejos, frenos hidráulicos y mantenimiento. Decisiones D6, D7 y D8 en `docs/DESIGN-SYSTEM.md`.
 
 | Fase | Contenido | Estado |
 |---|---|---|

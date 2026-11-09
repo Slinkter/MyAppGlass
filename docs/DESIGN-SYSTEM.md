@@ -14,6 +14,8 @@
 | D4 | Catálogo vigente de **6 sistemas**: Sistema Nova, Serie 25, Serie 35, Serie 62, Acústica, PVC abatible. **Provisional:** el catálogo canónico (D6) lo puede reemplazar | Usuario, 2026-11-08 |
 | D6 | Los sistemas usan los nombres y series de los proveedores (Serie 20, 25, 35, 42, 62…), no nombres propios. La lista final sale de lo que el proveedor fabrica y la empresa trabaja. `AGENTS.md` se actualiza solo tras aprobar el catálogo | Usuario, 2026-11-08 |
 | D7 | El catálogo (servicios, sistemas, productos) se aprueba **antes** de la puerta 1 de este design system y de los precios reales | Usuario, 2026-11-08 |
+| D8 | La oferta son **13 servicios**: los 10 actuales + venta de espejos, frenos hidráulicos y mantenimiento (`docs/gya/catalogo/CATALOGO.md` §1). El proveedor es un dato interno de cada serie, no un nivel visible del catálogo | Usuario, 2026-11-08 |
+| D9 | Del material de proveedores se usan solo textos (nombre, título, datos técnicos), **sin sus fotos ni imágenes** | Usuario, 2026-11-08 |
 | D5 | Datos de empresa vigentes: Av. Los Fresnos 1250 - La Molina, WhatsApp 974 278 303, acueva@gyacompany.com. Se descartan "Mz H Lt 16" y el 998 225 739 | Usuario, 2026-11-08 |
 
 ## 2. Marca
@@ -25,16 +27,8 @@
 - Mensajes de valor: visita técnica sin costo · presupuesto rápido por WhatsApp · garantía en productos instalados · boleta o factura electrónica · técnicos capacitados.
 - Ortografía: "antirruido" (doble r), "vidrio y aluminio" (singular), "laminado", "dormitorio", "abatible", "sala".
 - **Modelo de negocio.** La empresa **compra** vidrio, aluminio y accesorios a 4 proveedores (Corporación Corrales, HPD Glass, Eduhg, Favitem), **ensambla en su taller** y **vende e instala** en casa del cliente. Trabaja a veces con el sistema de un proveedor y a veces con el de otro, y sus series casi coinciden (Serie 20, 25, 35, 42, 62…). No fabrica perfiles ni vidrio.
-- **Tres familias de oferta** (se cotizan distinto; detalle en el plan de catálogo, ver `docs/PENDIENTES.md`):
-
-  | Familia | Contenido | Cotización |
-  |---|---|---|
-  | A. Suministro e instalación | los 10 servicios de la tabla siguiente | por medida + sistema + vidrio + aluminio + instalación |
-  | B. Servicios técnicos | mantenimiento de productos instalados; instalación de freno hidráulico de marca Sevax en puertas de fachada | tarifa por servicio o unidad, con visita técnica |
-  | C. Productos de venta | espejos (belga y otra calidad de 4 mm) y repuestos (garruchas, seguros, tornillos de aluminio, otros) | por unidad, m² o metro, con variantes de marca y medida |
-
-  Las familias B y C **aún no existen en el sitio**; el dueño indicó que hay más servicios particulares de vidriería por listar.
-- **Servicios de la familia A (10 oficiales en el sitio hoy).** La fuente de verdad es Firestore (`/servicios/[serviceSlug]`); los títulos SEO de respaldo están en `apps/web/src/features/services/hooks/serviceMappers.ts` (`SERVICE_SEO_FALLBACKS`). No se crean catálogos locales.
+- **13 servicios (D8):** los 10 de la tabla siguiente, que se cotizan por medida, más 3 que **aún no existen en el sitio**: venta de espejos (belga y otra calidad de 4 mm), frenos hidráulicos de marca Sevax con instalación, y mantenimiento de productos instalados. Detalle en `docs/gya/catalogo/CATALOGO.md`.
+- **Los 10 servicios actuales del sitio.** La fuente de verdad es Firestore (`/servicios/[serviceSlug]`); los títulos SEO de respaldo están en `apps/web/src/features/services/hooks/serviceMappers.ts` (`SERVICE_SEO_FALLBACKS`). No se crean catálogos locales.
 
   | Slug | Servicio |
   |---|---|
@@ -49,7 +43,7 @@
   | `pserie` | Puertas de aluminio Serie 25, 35 y 62 |
   | `celosias` | Celosías de vidrio y aluminio para ventilación |
 
-  **Confirmado por el dueño (2026-11-08):** *frenos hidráulicos* (marca Sevax), *mantenimiento*, *espejos* y *repuestos* se van a ofrecer (familias B y C). Siguen por confirmar *carpintería de aluminio* y otros servicios sin listar. Se crean en Firestore (no en código) tras aprobar el catálogo; el design system los incluye en las tarjetas de servicio, que deben funcionar igual con 10, 12 o más servicios.
+  Los 3 servicios nuevos se crean en Firestore (no en código) tras aprobar el catálogo; el design system los incluye en las tarjetas de servicio, que deben funcionar igual con 10 o 13. Siguen por confirmar *carpintería de aluminio*, que menciona el kit, y los *repuestos*.
 
 ### 2.2 Color (tokens de marca)
 Donde la v1 (`claude.md`) y la v2 diferían, **manda la v2** (D1).
@@ -156,7 +150,7 @@ Siete pestañas (nuevos modelos, cards, nav, forms, overlays, data, tokens). Doc
 | Grupo | Componentes | Acción |
 |---|---|---|
 | Primitivas (`components/ui`) | Button, Field, NativeSelect, Checkbox, Alert, Dialog, Drawer, Tooltip, Toaster, EmptyState, DataList, Skeleton, FileUpload, ScrollArea, CloseButton | Recetas propias para Badge, Dialog, Tabs, Table y Alert; botón con `minH` por tamaño; textos en español |
-| Compartidos | `AuraHeader`/`PageShell`, `ServiceCard` (debe funcionar igual con 10 o 12 servicios, grids `{ base: 1, sm: 2, lg: 3 }`), `MediaCard`, galería, `FilterPill`, `InfoItem`, `CopyButton`, `BackButton`, `SkipLink`, `ComponentErrorBoundary`, `MathCaptchaField` | Documentar todos; una sola API de imagen; un solo modal |
+| Compartidos | `AuraHeader`/`PageShell`, `ServiceCard` (debe funcionar igual con 10 o 13 servicios, grids `{ base: 1, sm: 2, lg: 3 }`), `MediaCard`, galería, `FilterPill`, `InfoItem`, `CopyButton`, `BackButton`, `SkipLink`, `ComponentErrorBoundary`, `MathCaptchaField` | Documentar todos; una sola API de imagen; un solo modal |
 | Globales | Navbar, Footer, FloatingActions, AdminNav, CartDrawer | Alinear a tokens y documentar |
 | Documentos | Hoja de presupuesto (`screens/Presupuesto/presupuesto/QuoteSheet.tsx`), `PrintOrderModal` | Pasar a tokens de marca (navy, serif, membrete) |
 
@@ -193,7 +187,7 @@ Agentes existentes en `.claude/agents` más la skill `apple-design`. No se lanza
 | 3 | Tema y tokens: `next/font` con Source Serif 4 e Inter, paleta navy, `status.*` claro/oscuro, `overlay.*`, recetas de Badge, Dialog, Tabs, Table, Alert; botón con `minH` por tamaño; quitar `border.slate` y el rojo `#FF5A5F`; evaluar dividir `theme/index.ts` (351 líneas) | Sí |
 | 4 | Componentes: una sola API de imagen, `PageShell`, un solo modal (los 4 manuales pasan a `Dialog` con `FormModalShell`), Badge del tema, estados de carga, vacío y error | Sí |
 | 5 | Migrar pantallas por lotes (público → formularios → admin y tienda); limpiar P0; hoja de presupuesto y `PrintOrderModal` a tokens | Sí |
-| 6 | Reconstruir `/design-system` (las tarjetas de servicio se muestran con los servicios reales del catálogo aprobado, hoy 10): principios, color (claro/oscuro), tipografía, espaciado, radios y sombras, iconografía, motion, componentes con matriz de estados, patrones de página, accesibilidad, marca. Enlazar `/design-system-ubicacion` | Sí |
+| 6 | Reconstruir `/design-system` (las tarjetas de servicio se muestran con los 13 servicios del catálogo aprobado): principios, color (claro/oscuro), tipografía, espaciado, radios y sombras, iconografía, motion, componentes con matriz de estados, patrones de página, accesibilidad, marca. Enlazar `/design-system-ubicacion` | Sí |
 | **Puerta 2** | **El usuario aprueba `/design-system` con `pnpm run dev` antes de cerrar.** | |
 
 ## 8. Prompt en 6 bloques (para cada agente del equipo)
