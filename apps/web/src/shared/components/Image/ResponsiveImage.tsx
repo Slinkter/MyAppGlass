@@ -22,6 +22,7 @@ interface ResponsiveImageProps extends Omit<BoxProps, 'onLoad'> {
   loading?: "eager" | "lazy";
   decoding?: "async" | "auto" | "sync";
   fetchPriority?: "auto" | "high" | "low";
+  quality?: number;
 }
 
 /**
@@ -32,13 +33,14 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
   ({
     src,
     alt = "",
-    sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+    sizes = "(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw",
     isLCP = false,
     onLoad,
     objectFit = "cover",
     loading,
     decoding,
     fetchPriority,
+    quality = 75,
     ...restProps
   }) => {
     const handleLoad = useCallback(
@@ -51,7 +53,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
     if (!src) return null;
 
     return (
-      <Box position="relative" overflow="hidden" {...restProps}>
+      <Box position="relative" overflow="hidden" bg="bg.subtle" {...restProps}>
         <Image
           src={getAssetUrl(src || "")}
           alt={alt}
@@ -60,9 +62,10 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = React.memo(
           sizes={sizes}
           style={{ objectFit }}
           onLoad={handleLoad}
-          loading={isLCP ? undefined : loading}
+          loading={isLCP ? undefined : (loading ?? "lazy")}
           decoding={decoding}
-          fetchPriority={fetchPriority}
+          fetchPriority={isLCP ? "high" : (fetchPriority ?? "auto")}
+          quality={quality}
         />
       </Box>
     );

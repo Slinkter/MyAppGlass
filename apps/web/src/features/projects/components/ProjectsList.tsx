@@ -23,7 +23,6 @@ import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import { EmptyState } from "@/components/ui/empty-state";
 import { AlertTriangle } from "lucide-react";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
-import { useImagePrefetch } from "@shared/hooks/ui/useImagePrefetch";
 
 /**
  * Normaliza nombres de años para extraer solo el año de 4 dígitos (ej. 2024, 2023).
@@ -51,10 +50,6 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
   // Ya viene más reciente primero.
   const { data, isLoading, error } = useProjects(initialData);
   const allProjects = useMemo<Project[]>(() => data ?? [], [data]);
-
-  // Calienta el caché con todas las portadas cuando el navegador está libre:
-  // al llegar a #proyectos las fotos ya están descargadas.
-  useImagePrefetch(useMemo(() => allProjects.map((p) => p.image), [allProjects]));
 
   // Get unique years
   const years = useMemo(() => {
@@ -141,9 +136,9 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
           <ItemGridLayout.Item key={`${activeYear}-${project.id}`}>
             <ProjectCard
               {...project}
-              isLCP={index < 3}
-              loading={index < 2 ? "eager" : "lazy"}
-              fetchPriority={index < 2 ? "high" : "auto"}
+              isLCP={headingAs === "h1" && index === 0}
+              loading={headingAs === "h1" && index < 2 ? "eager" : "lazy"}
+              fetchPriority={headingAs === "h1" && index === 0 ? "high" : "auto"}
             />
           </ItemGridLayout.Item>
         ))}

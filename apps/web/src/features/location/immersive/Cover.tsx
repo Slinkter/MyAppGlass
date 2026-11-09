@@ -27,7 +27,7 @@ export const Cover: React.FC<CoverProps> = ({ src, alt }) => {
     <>
       <ImageRevealSkeleton loaded={loaded} />
       <Box position="absolute" inset={0} {...reveal}>
-        <ResponsiveImage src={src} alt={alt} w="full" h="full" objectFit="cover" loading="lazy" onLoad={onLoad} />
+        <ResponsiveImage src={src} alt={alt} sizes="48px" w="full" h="full" objectFit="cover" loading="lazy" onLoad={onLoad} />
       </Box>
     </>
   );

@@ -7,10 +7,9 @@
  */
 
 import { SITE_URL } from "@/shared/config/company-data";
-import React, { useMemo } from "react";
+import React from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { getClients } from "@features/home/services/clientService";
-import { useImagePrefetch } from "@shared/hooks/ui/useImagePrefetch";
 import ClientCard from "./ClientCard";
 
 /**
@@ -21,9 +20,6 @@ import ClientCard from "./ClientCard";
  */
 const ClientsSection: React.FC = React.memo(() => {
     const clients = getClients();
-
-    // Calienta el caché con las fotos cuando el navegador está libre.
-    useImagePrefetch(useMemo(() => clients.map((c) => c.imgClient), [clients]));
 
     return (
         <ItemGridLayout

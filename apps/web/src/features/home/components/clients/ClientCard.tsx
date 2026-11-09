@@ -51,10 +51,11 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
           <ResponsiveImage
             src={image}
             alt={nameClient}
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             objectFit="cover"
             w="full"
             h="full"
-            loading="eager"
+            loading="lazy"
             decoding="async"
             onLoad={onLoad}
             transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
