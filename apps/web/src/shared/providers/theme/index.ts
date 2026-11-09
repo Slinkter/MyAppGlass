@@ -89,16 +89,17 @@ const buttonRecipe = defineRecipe({
         },
       },
       whatsapp: {
-        bg: "brand.whatsapp",
+        // Verde accesible: blanco sobre #15803d da >= 4,5:1 (el #25D366 daba 1,98:1).
+        bg: "brand.whatsappAccessible",
         color: "white",
         px: "8",
         _hover: {
-          bg: "brand.whatsappHover",
+          bg: "brand.whatsappAccessibleHover",
           transform: "translateY(-2px)",
-          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+          boxShadow: "md",
         },
         _active: {
-          bg: "brand.whatsappActive",
+          bg: "brand.whatsappAccessibleActive",
           transform: "translateY(0)",
         },
       },
@@ -511,6 +512,8 @@ const config = defineConfig({
           whatsappAccessibleActive: { value: "#14532d" },
           red: { value: "#FF5A5F" },
           redHover: { value: "#E0484D" },
+          /* Rojo de marca (#D62828): solo para la palabra PRESUPUESTO. Contraste 5,0:1 sobre blanco. */
+          quoteRed: { value: "#D62828" },
           redDark: { value: "#D9444A" },
           ink: { value: "#0f172a" },
           inkV2: { value: "#111111" },
