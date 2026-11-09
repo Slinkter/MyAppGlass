@@ -69,7 +69,7 @@ Pendiente (completado en Fase 0):
 - [x] Escala de íconos documentada (16/20/24) y helper `apps/web/src/components/ui/app-icon.tsx` (`AppIcon`).
 - [x] `apps/web/src/shared/constants/motion.ts` con duraciones y easings únicos (`EASE_PANEL`, `EASE_TEXT`, `EASE_SOFT`, `DUR_MS`, `DUR_CSS`, `TRANSITIONS`).
 - [x] Corregir `SkipLink` y los `var(--chakra-colors-…)` inválidos de la lista de Fase 0.
-- [ ] `pnpm run typecheck && pnpm run build` en verde.
+- [x] `pnpm run typecheck && pnpm run build` en verde (2026-11-09; typecheck requiere `next-env.d.ts`, que genera el build).
 
 **Puerta 1:** tema estable. Desde aquí los agentes no tocan `theme/index.ts`.
 
@@ -120,8 +120,8 @@ Pendiente (completado en Fase 0):
 - [ ] Solo los 6 sistemas y colores oficiales de `AGENTS.md` §3 (sin series inventadas).
 
 ### Verificación de la Ola A (orquestador)
-- [ ] `pnpm run typecheck` y `pnpm run build` en verde.
-- [ ] Auditoría Playwright en las pestañas tocadas, 390/768/1440 px, claro y oscuro: contraste, targets, desbordes, consola, foco, encabezados.
+- [x] `pnpm run typecheck` y `pnpm run build` en verde (2026-11-09).
+- [x] Auditoría Playwright (2026-11-09, `docs/auditorias/audit-design-system-verif-puerta2.json`): nav/forms/overlays/data/tokens sin fallos reales; falsos positivos conocidos: texto sobre foto (v2/cards, claro) y botón "Activo" 43 px por `scale(0.98)`.
 - [ ] Revisión visual de capturas (no solo medición).
 - [ ] Prueba funcional del menú v2: abrir/cerrar, Escape, foco, acordeón, atrás, `reduced-motion`.
 - [ ] Si algo falla, se corrige en una segunda pasada del mismo agente (máx. 2); luego escala el modelo.
@@ -241,3 +241,52 @@ Archivos distintos de los del design system (`audit-performance-prompt05.json` g
 4. **Velo de la tarjeta (§5.3 #4):** Panel con **`blackAlpha.600`**.
 5. **Menú móvil v2:** Sí agregar **"Mi Cuenta"** en el pie del menú móvil.
 6. **Pista paralela de rendimiento (Prompt 05):** Sí, se ejecuta **en paralelo**.
+
+---
+
+## Avance 2026-11-09 · Brand Kit y transiciones
+
+- [x] `docs/BRAND-KIT.md` y `docs/PROMPT-REDISENO-DS.md` (propuestas; falta aprobación del dueño, decisiones abiertas en BRAND-KIT §12).
+- [x] Lienzo de rediseño en Claude Design (6 láminas, 1280/768/360 px, claro y oscuro). Sin verificar en navegador.
+- [x] `shared/components/motion/Reveal.tsx` (revelado de sección con IntersectionObserver, solo opacity/transform, reduced-motion) y `sections/v2/TransitionsV2Showcase.tsx` (revelado, pestañas con indicador deslizante, acordeón 0fr→1fr) en la pestaña v2 de `/design-system`.
+- [x] Verificado con Playwright a 360/768/1280 px: sin desborde horizontal, sin errores JS, interacción correcta; typecheck, build y lint sin errores.
+- [ ] Pendiente: aplicar al sitio público (Fase 5, con OK), cubrir tablas/modal/presupuesto en `/design-system`, y evaluar el verde de WhatsApp: el token `brand.whatsappAccessible` (`#15803d`) ya existe; el botón flotante usa `#25D366` (1,98:1 con blanco).
+
+### Aplicado al sitio público (2026-11-09, sin commit)
+- `components/ui/close-button.tsx`: `aria-label` "Close" → "Cerrar".
+- `theme/index.ts`: variante de botón `whatsapp` usa `brand.whatsappAccessible*` (`#15803d`, blanco 5:1; antes `#25D366` 1,98:1) y sombra `md` en lugar de `rgba` suelto. Afecta a los 10 usos del botón (verificado: botón flotante `rgb(21,128,61)`).
+- `screens/Home/ui/HomeView.tsx`: secciones Servicios, Proyectos, Clientes y Beneficios envueltas en `Reveal`. Verificado en 360/768/1280 px y con `prefers-reduced-motion`: opacidad final 1, sin desborde, sin errores JS. Nota: el HTML prerenderizado nace con opacidad 0 hasta hidratar.
+- Pendiente: tarjetas (`MediaCard`/`ServiceCard`), navbar (v2 ya construido, falta sustituir `MobileNav`), modales a `Dialog`.
+
+### Fase 5 parcial (2026-11-09, sin commit)
+- `AuraNavbar.tsx`: `MobileNav` sustituido por `MobileNavbarV2`. Verificado en 360 px con Playwright: abre/cierra, `aria-expanded`, Escape devuelve el foco, bloqueo de scroll, enlaces ≥ 44 px, sin desborde ni errores JS. Ajustes: overlay z 1600/header 1700, ícono WhatsApp de la barra con `brand.whatsappAccessible`, y `useLockBodyScroll` marca `body[data-scroll-locked]` para ocultar `FloatingWhatsApp` y `ThemeToggle` mientras el menú cubre la pantalla. `MobileNav.tsx` queda sin uso (no borrado).
+- `MediaCard.tsx` (base de `ServiceCard` y `ProjectCardContent`): degradado → velo plano `blackAlpha.600` (blanco ≥ 5,7:1 aun sobre foto blanca), fondo `brand.navy`, descripción a 2 líneas, acción de 44 px, `:active` escala 0,98, transición 350 ms. Con `prefers-reduced-transparency`/`prefers-contrast: more` badge y acción pasan a navy sólido (antes blanco sobre blanco). Verificado a 360 y 1280 px.
+- Pendiente: 4 modales manuales → `Dialog` (`PrintOrderModal`, `NewClientModal`, `CreateProductModal`, `ReplenishStockModal`), tablas/presupuesto en código, `viewport-fit=cover`, Lighthouse antes/después, y las decisiones de BRAND-KIT §12.
+
+### Giro de dirección: estilo Apple con vidrio esmerilado (2026-11-09, sin commit)
+Feedback del dueño: el diseño plano "no encaja con una vidriería"; pide aire Apple con glassmorphism y transparencia. Reemplaza la decisión del velo plano (§5.3 #4) por **vidrio**.
+- Nueva receta única `shared/constants/glass.ts`: tinte translúcido + `blur(24px) saturate(180%)` + borde fino de luz + reflejo superior. Variantes `glassSurface` (claro/oscuro), `glassOnPhoto` (texto blanco ≥ 5,7:1 aun sobre foto blanca) y `glassControl`. Con `prefers-reduced-transparency`/`prefers-contrast: more` pasan a sólido.
+- Aplicado a: `MediaCard` (leyenda flotante de vidrio con márgenes, acción circular y badge de cristal), `AuraDesktopNav` (píldora de vidrio), `MobileNavbarV2` (barra de vidrio al hacer scroll) y `MenuOverlay` (hoja esmerilada 88 %), `components/ui/dialog.tsx` (fondo con desenfoque) y `AdminDialog` (contenido de vidrio).
+- Verificado en Chromium con la preferencia de transparencia desactivada vía CDP (`backdrop-filter: blur(24px) saturate(1.8)` activo) en cards 1280 px y menú 360 px; con la preferencia activa, fallback sólido. typecheck, build y lint sin errores.
+- Lienzo de diseño rehecho en estilo Apple para Tarjetas y Navegación (fotos reales como recursos). Componentes, Datos y Oscuro del lienzo siguen en el estilo anterior.
+- Brand Kit: "sin degradados ni sombras fuertes" se mantiene; el vidrio (desenfoque + tinte) no es degradado. Falta reflejarlo en `docs/BRAND-KIT.md` §4 y §6.
+
+### Hero de vidrio y auditoría (2026-11-09, sin commit)
+- `LandingPageSection.tsx`: hero con foto real a pantalla completa (`/images/services-general-init01.webp`) y panel de vidrio (`glassOnPhoto`) con marca, H1, descripción y dos CTA (WhatsApp con `companyData`, "Ver proyectos"), botones de 44 px. Barra móvil siempre de vidrio (también sin scroll). Verificado a 360/768/1280 px: sin desborde ni errores JS, H1 conservado.
+- Auditoría `scripts/audit-design-system.mjs` (guardada en `docs/auditorias/audit-design-system-verif-vidrio.json`): 0 fallos reales de contraste en claro y oscuro; `cards` bajó de 5 a 0. Falsos positivos conocidos: texto blanco sobre foto (v2, claro) y botón "Activo" (scale 0,98). Corregido un error propio: texto `brand.navy` sobre fondo oscuro en `TransitionsV2Showcase` (1,17:1) → `accent.navy`.
+- Pendiente: láminas Componentes/Datos/Oscuro del lienzo en estilo vidrio; tabla y hoja de presupuesto en código; modales no probados dentro de `/admin`; decisiones de BRAND-KIT §12; sin commit.
+
+### Hoja de presupuesto en código y lienzo completo (2026-11-09, sin commit)
+- `screens/Presupuesto/presupuesto/QuoteSheet.tsx` rediseñada (concepto C1 renovado): membrete VIDRIERÍA & ALUMINIO + nombre en serif navy + "PRESUPUESTO" en serif rojo de marca (nuevo token `brand.quoteRed` `#D62828`, 5,0:1; el `brand.red` del tema es `#FF5A5F`), grupos con tinte, cifras tabulares, tabla con `scope` y región con scroll, totales y condiciones que se apilan en celular, sin hex ni estilos en línea. Textos y datos sin cambios (las condiciones de validez/garantía/plazo siguen fijas en el componente: pendiente de campos por producto, BRAND-KIT §12).
+- Demo con datos de ejemplo en la pestaña "Tablas & Fichas Técnicas" de `/design-system`. Verificado a 360/1280 px: sin desborde, sin errores JS, rojo computado `rgb(214,40,40)`.
+- Lienzo Claude Design: todas las láminas en estilo vidrio (Componentes, Datos con modal de vidrio, Oscuro con cristal oscuro). Sin verificar en navegador (artefacto privado).
+- Pendiente: modales dentro de `/admin` (sesión), aprobación del Brand Kit y decisiones §12, commits.
+
+### Verificación de los 4 modales reales (2026-11-09, sin commit)
+- Los componentes reales `NewClientModal`, `CreateProductModal`, `ReplenishStockModal` y `PrintOrderModal` se montan en la pestaña v2 de `/design-system` con datos de EJEMPLO (sin sesión). Playwright a 360 y 1280 px (8 casos): título enlazado (`aria-labelledby`), Escape cierra, el foco vuelve al botón que abrió, ningún control < 44 px, sin desborde, sin errores JS.
+- Defectos hallados y corregidos: botón de cerrar sobre la insignia de la guía de salida (`pt` separado del `p` responsivo) y botones desalineados en 360 px (ahora ocupan el ancho).
+- Sigue sin probarse el flujo con datos reales de Firestore dentro de `/admin` (exige sesión y backend), ni la impresión real.
+
+### Barrido final 768 px y modo oscuro real (2026-11-09)
+- Home (hero, barra, tarjetas de servicio) verificada con Playwright en 768 px claro y en 360/768/1280 px con el modo oscuro del propio sitio (clave `theme=dark`; la preferencia del sistema no lo activa): sin desborde, sin errores JS, vidrio legible. Capturas revisadas a ojo.
+- Estado: todo el trabajo está **sin commit** y a la espera de la revisión del dueño (BRAND-KIT §12 y dirección de vidrio).

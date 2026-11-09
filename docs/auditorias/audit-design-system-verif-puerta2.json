@@ -1,0 +1,1268 @@
+{
+  "generatedAt": "2026-11-09T12:21:27.197Z",
+  "totalCombinations": 42,
+  "consoleErrorsCount": 13,
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "summaryByTab": {
+    "v2": {
+      "contrastFailuresMax": 12,
+      "contrastFailuresLight390": 12,
+      "contrastFailuresDark390": 0,
+      "smallTargetsMax": 0,
+      "overflow390Px": 0,
+      "headingJumpsMax": 0
+    },
+    "cards": {
+      "contrastFailuresMax": 5,
+      "contrastFailuresLight390": 5,
+      "contrastFailuresDark390": 0,
+      "smallTargetsMax": 0,
+      "overflow390Px": 0,
+      "headingJumpsMax": 0
+    },
+    "nav": {
+      "contrastFailuresMax": 0,
+      "contrastFailuresLight390": 0,
+      "contrastFailuresDark390": 0,
+      "smallTargetsMax": 0,
+      "overflow390Px": 0,
+      "headingJumpsMax": 0
+    },
+    "forms": {
+      "contrastFailuresMax": 0,
+      "contrastFailuresLight390": 0,
+      "contrastFailuresDark390": 0,
+      "smallTargetsMax": 1,
+      "overflow390Px": 0,
+      "headingJumpsMax": 0
+    },
+    "overlays": {
+      "contrastFailuresMax": 0,
+      "contrastFailuresLight390": 0,
+      "contrastFailuresDark390": 0,
+      "smallTargetsMax": 0,
+      "overflow390Px": 0,
+      "headingJumpsMax": 0
+    },
+    "data": {
+      "contrastFailuresMax": 0,
+      "contrastFailuresLight390": 0,
+      "contrastFailuresDark390": 0,
+      "smallTargetsMax": 0,
+      "overflow390Px": 0,
+      "headingJumpsMax": 0
+    },
+    "tokens": {
+      "contrastFailuresMax": 0,
+      "contrastFailuresLight390": 0,
+      "contrastFailuresDark390": 0,
+      "smallTargetsMax": 0,
+      "overflow390Px": 0,
+      "headingJumpsMax": 0
+    }
+  },
+  "staticInventory": {
+    "fileInventory": {
+      "apps/web/src/screens/DesignSystem/DesignSystemScreen.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 3,
+        "colorPalette": 2,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": [
+          12,
+          14,
+          14
+        ]
+      },
+      "apps/web/src/screens/DesignSystem/components/ShowcaseCard.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 1,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/TokensSection.tsx": {
+        "hex": 11,
+        "rgba": 0,
+        "pxNon1": 11,
+        "colorPalette": 4,
+        "vh": 0,
+        "manualHover": 2,
+        "nonStandardIconSizes": [
+          12,
+          12
+        ]
+      },
+      "apps/web/src/screens/DesignSystem/sections/NavigationShowcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/EditorialCardsShowcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/FormControlsShowcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/OverlaysShowcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/GalleryShowcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/ImageRevealShowcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/DataDisplayShowcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/v2/BrandModulesV2Showcase.tsx": {
+        "hex": 6,
+        "rgba": 0,
+        "pxNon1": 1,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 3,
+        "nonStandardIconSizes": [
+          14,
+          12,
+          14
+        ]
+      },
+      "apps/web/src/screens/DesignSystem/sections/v2/ViewportAndStatesV2Showcase.tsx": {
+        "hex": 1,
+        "rgba": 0,
+        "pxNon1": 32,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 2,
+        "nonStandardIconSizes": [
+          15,
+          13,
+          12
+        ]
+      },
+      "apps/web/src/screens/DesignSystem/sections/v2/ResponsiveScaleShowcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 13,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/v2/CardVariantsShowcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 5,
+        "colorPalette": 1,
+        "vh": 0,
+        "manualHover": 3,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/v2/ServiceCardV2Showcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 8,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 1,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/screens/DesignSystem/sections/v2/MobileNavV2Showcase.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 8,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/widgets/Navbar/mobile/MobileNavbarV2.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 1,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/widgets/Navbar/mobile/MenuOverlay.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 4,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/widgets/Navbar/mobile/MenuToggle.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 12,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 1,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/widgets/Navbar/mobile/MenuLink.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 1,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/widgets/Navbar/mobile/ServicesAccordion.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 0,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 2,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/shared/components/common/Gallery.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 12,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 1,
+        "nonStandardIconSizes": [
+          22
+        ]
+      },
+      "apps/web/src/widgets/Navbar/MobileNav.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 7,
+        "colorPalette": 0,
+        "vh": 1,
+        "manualHover": 2,
+        "nonStandardIconSizes": []
+      },
+      "apps/web/src/shared/components/navigation/SkipLink.tsx": {
+        "hex": 0,
+        "rgba": 0,
+        "pxNon1": 1,
+        "colorPalette": 0,
+        "vh": 0,
+        "manualHover": 0,
+        "nonStandardIconSizes": []
+      }
+    },
+    "invalidCssVars": [
+      {
+        "location": "apps/web/src/features/admin/components/form/ProjectServiceSelect.tsx:22",
+        "invalidVars": [
+          "--chakra-colors-border\\.default",
+          "--chakra-colors-border\\.slate"
+        ]
+      },
+      {
+        "location": "apps/web/src/features/admin/components/form/ProjectServiceSelect.tsx:23",
+        "invalidVars": [
+          "--chakra-colors-surface\\.card"
+        ]
+      },
+      {
+        "location": "apps/web/src/features/location/immersive/ProjectCarousel.tsx:185",
+        "invalidVars": [
+          "--chakra-colors-bg\\.surface"
+        ]
+      },
+      {
+        "location": "apps/web/src/features/location/ImmersiveLocationMap.tsx:129",
+        "invalidVars": [
+          "--chakra-colors-bg\\.surface"
+        ]
+      },
+      {
+        "location": "apps/web/src/features/location/LocationMap.tsx:188",
+        "invalidVars": [
+          "--chakra-colors-bg\\.surface"
+        ]
+      },
+      {
+        "location": "apps/web/src/shared/constants/layout.ts:24",
+        "invalidVars": [
+          "--chakra-colors-bg\\.surface"
+        ]
+      },
+      {
+        "location": "apps/web/src/shared/providers/theme/index.ts:262",
+        "invalidVars": [
+          "--chakra-colors-ring-primary"
+        ]
+      },
+      {
+        "location": "apps/web/src/shared/providers/theme/index.ts:437",
+        "invalidVars": [
+          "--chakra-colors-surface\\.card"
+        ]
+      },
+      {
+        "location": "apps/web/src/shared/providers/theme/index.ts:438",
+        "invalidVars": [
+          "--chakra-colors-border\\.default"
+        ]
+      }
+    ]
+  },
+  "details": [
+    {
+      "tab": "v2",
+      "tabLabel": "Nuevos modelos v2",
+      "viewport": "390px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 12,
+      "contrastFailuresSample": [
+        {
+          "tag": "p",
+          "text": "Serie 62",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Serie 62",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "h3",
+          "text": "Ventanas de Aluminio",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Aislamiento antirruido y térmico con perfiles",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgba(255, 255, 255, 0.92)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "h3",
+          "text": "Mamparas de Cristal",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        }
+      ]
+    },
+    {
+      "tab": "v2",
+      "tabLabel": "Nuevos modelos v2",
+      "viewport": "390px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "v2",
+      "tabLabel": "Nuevos modelos v2",
+      "viewport": "768px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 12,
+      "contrastFailuresSample": [
+        {
+          "tag": "p",
+          "text": "Serie 62",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Serie 62",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "h3",
+          "text": "Ventanas de Aluminio",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Aislamiento antirruido y térmico con perfiles",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgba(255, 255, 255, 0.92)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "h3",
+          "text": "Mamparas de Cristal",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        }
+      ]
+    },
+    {
+      "tab": "v2",
+      "tabLabel": "Nuevos modelos v2",
+      "viewport": "768px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "v2",
+      "tabLabel": "Nuevos modelos v2",
+      "viewport": "1440px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 12,
+      "contrastFailuresSample": [
+        {
+          "tag": "p",
+          "text": "Serie 62",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Serie 62",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "h3",
+          "text": "Ventanas de Aluminio",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Aislamiento antirruido y térmico con perfiles",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgba(255, 255, 255, 0.92)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "h3",
+          "text": "Mamparas de Cristal",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        }
+      ]
+    },
+    {
+      "tab": "v2",
+      "tabLabel": "Nuevos modelos v2",
+      "viewport": "1440px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "cards",
+      "tabLabel": "Cards Editoriales Reales",
+      "viewport": "390px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 5,
+      "contrastFailuresSample": [
+        {
+          "tag": "p",
+          "text": "Serie 62",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "La Molina, Lima",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Surco, Lima",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        }
+      ]
+    },
+    {
+      "tab": "cards",
+      "tabLabel": "Cards Editoriales Reales",
+      "viewport": "390px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "cards",
+      "tabLabel": "Cards Editoriales Reales",
+      "viewport": "768px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 5,
+      "contrastFailuresSample": [
+        {
+          "tag": "p",
+          "text": "Serie 62",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "La Molina, Lima",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Surco, Lima",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        }
+      ]
+    },
+    {
+      "tab": "cards",
+      "tabLabel": "Cards Editoriales Reales",
+      "viewport": "768px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "cards",
+      "tabLabel": "Cards Editoriales Reales",
+      "viewport": "1440px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 5,
+      "contrastFailuresSample": [
+        {
+          "tag": "p",
+          "text": "Serie 62",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Templado",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "La Molina, Lima",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "tag": "p",
+          "text": "Surco, Lima",
+          "ratio": 1,
+          "minRatio": 4.5,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(255, 255, 255)"
+        }
+      ]
+    },
+    {
+      "tab": "cards",
+      "tabLabel": "Cards Editoriales Reales",
+      "viewport": "1440px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "nav",
+      "tabLabel": "Navegación & Barras",
+      "viewport": "390px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "nav",
+      "tabLabel": "Navegación & Barras",
+      "viewport": "390px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "nav",
+      "tabLabel": "Navegación & Barras",
+      "viewport": "768px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "nav",
+      "tabLabel": "Navegación & Barras",
+      "viewport": "768px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "nav",
+      "tabLabel": "Navegación & Barras",
+      "viewport": "1440px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "nav",
+      "tabLabel": "Navegación & Barras",
+      "viewport": "1440px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "forms",
+      "tabLabel": "Formularios & Botones",
+      "viewport": "390px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 1,
+      "smallTargetsSample": [
+        {
+          "tag": "button",
+          "text": "ACTIVO",
+          "w": 121,
+          "h": 43
+        }
+      ],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "forms",
+      "tabLabel": "Formularios & Botones",
+      "viewport": "390px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 1,
+      "smallTargetsSample": [
+        {
+          "tag": "button",
+          "text": "ACTIVO",
+          "w": 121,
+          "h": 43
+        }
+      ],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "forms",
+      "tabLabel": "Formularios & Botones",
+      "viewport": "768px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 1,
+      "smallTargetsSample": [
+        {
+          "tag": "button",
+          "text": "ACTIVO",
+          "w": 121,
+          "h": 43
+        }
+      ],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "forms",
+      "tabLabel": "Formularios & Botones",
+      "viewport": "768px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 1,
+      "smallTargetsSample": [
+        {
+          "tag": "button",
+          "text": "ACTIVO",
+          "w": 121,
+          "h": 43
+        }
+      ],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "forms",
+      "tabLabel": "Formularios & Botones",
+      "viewport": "1440px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 1,
+      "smallTargetsSample": [
+        {
+          "tag": "button",
+          "text": "ACTIVO",
+          "w": 121,
+          "h": 43
+        }
+      ],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "forms",
+      "tabLabel": "Formularios & Botones",
+      "viewport": "1440px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 1,
+      "smallTargetsSample": [
+        {
+          "tag": "button",
+          "text": "ACTIVO",
+          "w": 121,
+          "h": 43
+        }
+      ],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "overlays",
+      "tabLabel": "Galería & Modales",
+      "viewport": "390px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "overlays",
+      "tabLabel": "Galería & Modales",
+      "viewport": "390px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "overlays",
+      "tabLabel": "Galería & Modales",
+      "viewport": "768px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "overlays",
+      "tabLabel": "Galería & Modales",
+      "viewport": "768px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "overlays",
+      "tabLabel": "Galería & Modales",
+      "viewport": "1440px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "overlays",
+      "tabLabel": "Galería & Modales",
+      "viewport": "1440px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "data",
+      "tabLabel": "Tablas & Fichas Técnicas",
+      "viewport": "390px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "data",
+      "tabLabel": "Tablas & Fichas Técnicas",
+      "viewport": "390px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "data",
+      "tabLabel": "Tablas & Fichas Técnicas",
+      "viewport": "768px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "data",
+      "tabLabel": "Tablas & Fichas Técnicas",
+      "viewport": "768px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "data",
+      "tabLabel": "Tablas & Fichas Técnicas",
+      "viewport": "1440px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "data",
+      "tabLabel": "Tablas & Fichas Técnicas",
+      "viewport": "1440px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "tokens",
+      "tabLabel": "Tokens & Reglas Oficiales",
+      "viewport": "390px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "tokens",
+      "tabLabel": "Tokens & Reglas Oficiales",
+      "viewport": "390px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "tokens",
+      "tabLabel": "Tokens & Reglas Oficiales",
+      "viewport": "768px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "tokens",
+      "tabLabel": "Tokens & Reglas Oficiales",
+      "viewport": "768px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "tokens",
+      "tabLabel": "Tokens & Reglas Oficiales",
+      "viewport": "1440px",
+      "theme": "light",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    },
+    {
+      "tab": "tokens",
+      "tabLabel": "Tokens & Reglas Oficiales",
+      "viewport": "1440px",
+      "theme": "dark",
+      "horizontalOverflowPx": 0,
+      "smallTargetsCount": 0,
+      "smallTargetsSample": [],
+      "headingJumpsCount": 0,
+      "headingJumps": [],
+      "contrastFailuresCount": 0,
+      "contrastFailuresSample": []
+    }
+  ]
+}
