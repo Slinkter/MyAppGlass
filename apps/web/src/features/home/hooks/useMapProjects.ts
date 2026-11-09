@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import { useProjects } from "@/features/projects/hooks/useProjects";
+import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import type { Project } from "@/shared/types/project";
 import type { MapProject } from "@/shared/types/map";
 
 export type { MapProject } from "@/shared/types/map";
 
 /** Proyectos de Firestore con coordenadas, listos para el mapa interactivo del home. */
-export const useMapProjects = (): MapProject[] => {
-  const { data } = useProjects();
+export const useMapProjects = (initialProjects?: FirestoreProject[]): MapProject[] => {
+  const { data } = useProjects(initialProjects);
 
   return useMemo(
     () =>

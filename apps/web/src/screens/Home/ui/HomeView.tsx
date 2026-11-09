@@ -36,7 +36,7 @@ const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initial
 
             {/* Sección 5: Ubicación / Mapa */}
             <Box id="ubicacion" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <StoreSection />
+                <StoreSection initialProjects={initialProjects} />
             </Box>
 
             {/* Sección 6: Calidad Superior (Iconos a 2 filas estilo Skills) */}

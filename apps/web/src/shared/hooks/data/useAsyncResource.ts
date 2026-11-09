@@ -57,7 +57,7 @@ const withTimeout = <T,>(promise: Promise<T>, ms: number): Promise<T> =>
  * @param key - Identifica la consulta; al cambiar se vuelve a consultar.
  * @param fetcher - Lectura remota.
  * @param initialData - Datos con los que se renderiza primero (opcional).
- * @param enabled - Si es `false` no consulta y queda en carga.
+ * @param enabled - Si es `false` no consulta en cliente.
  */
 export function useAsyncResource<T>(
   key: string,
@@ -101,11 +101,11 @@ export function useAsyncResource<T>(
   }, [key, enabled]);
 
   if (!enabled || !state || state.key !== key) {
-    const initial = enabled ? (initialData ?? null) : null;
+    const initial = initialData ?? null;
     if (initial !== null) {
       return { data: initial, isLoading: false, error: null, source: "initial" };
     }
-    return { data: null, isLoading: true, error: null, source: null };
+    return { data: null, isLoading: enabled, error: null, source: null };
   }
   return { data: state.data, isLoading: false, error: state.error, source: state.source };
 }

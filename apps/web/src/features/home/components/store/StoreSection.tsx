@@ -1,16 +1,21 @@
 "use client";
 
 import React from "react";
+import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import { SITE_URL } from "@/shared/config/company-data";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { ImmersiveLocationMap } from "@/features/location/ImmersiveLocationMap";
+
+export interface StoreSectionProps {
+    initialProjects?: FirestoreProject[];
+}
 
 /**
  * Sección de ubicación del home: mapa inmersivo minimalista (antes prototipo B del design system).
  * El mapa ocupa el escenario; la sede, las obras entregadas y el dock inferior flotan encima.
  * @component
  */
-const StoreSection: React.FC = React.memo(() => (
+const StoreSection: React.FC<StoreSectionProps> = React.memo(({ initialProjects }) => (
     <ItemGridLayout
         title="UBICACIÓN"
         subtitle="SEDE PRINCIPAL | PROYECTOS ENTREGADOS"
@@ -25,7 +30,7 @@ const StoreSection: React.FC = React.memo(() => (
         }}
     >
         <ItemGridLayout.Item>
-            <ImmersiveLocationMap />
+            <ImmersiveLocationMap initialProjects={initialProjects} />
         </ItemGridLayout.Item>
     </ItemGridLayout>
 ));

@@ -7,6 +7,7 @@
  */
 
 import { useMemo } from "react";
+import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import { useProjects } from "@/features/projects/hooks/useProjects";
 import { useMapProjects } from "@features/home/hooks/useMapProjects";
 import { mainStore } from "@shared/components/map/mapConfig";
@@ -57,9 +58,9 @@ export interface LocationData {
   isLoading: boolean;
 }
 
-export function useLocationData(): LocationData {
-  const raw = useMapProjects();
-  const { isLoading } = useProjects();
+export function useLocationData(initialProjects?: FirestoreProject[]): LocationData {
+  const raw = useMapProjects(initialProjects);
+  const { isLoading } = useProjects(initialProjects);
 
   return useMemo(() => {
     const projects: LocationProject[] = raw

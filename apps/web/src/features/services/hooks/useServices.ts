@@ -47,7 +47,8 @@ export function useServices(initialData?: Service[]): AsyncResource<ServiceListI
       const all = await getServices();
       return all.filter((s) => s.published).map((s) => toServiceListItem(s, prerenderedSlugs));
     },
-    initialItems
+    initialItems,
+    !initialItems
   );
 }
 

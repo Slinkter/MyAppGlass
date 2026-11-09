@@ -7,14 +7,19 @@
 
 import React, { useCallback, useMemo, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
+import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import LocationMapLazy from "./LocationMapLazy";
 import { createLookupMap } from "@/shared/utils/algorithm-utils";
 import { STORE_ID, useLocationData } from "./useLocationData";
 import { StorePanel, ProjectDetail } from "./immersive/FloatingPanel";
 import { ProjectCarousel } from "./immersive/ProjectCarousel";
 
-export const ImmersiveLocationMap: React.FC = () => {
-  const { store, projects } = useLocationData();
+export interface ImmersiveLocationMapProps {
+  initialProjects?: FirestoreProject[];
+}
+
+export const ImmersiveLocationMap: React.FC<ImmersiveLocationMapProps> = ({ initialProjects }) => {
+  const { store, projects } = useLocationData(initialProjects);
   const [selectedId, setSelectedId] = useState<string | number | null>(null);
 
   const handleSelect = useCallback((id: string | number | null) => setSelectedId(id), []);

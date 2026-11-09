@@ -42,7 +42,8 @@ export function useProjects(initialData?: FirestoreProject[]): AsyncResource<Pro
       const all = await getProjects();
       return toProjectList(all, prerenderedIds);
     },
-    initialItems
+    initialItems,
+    !initialItems
   );
 }
 
