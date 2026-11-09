@@ -1,32 +1,41 @@
-# Prompt de 6 bloques · Rediseño de componentes y transiciones
+# Prompt de 6 bloques · Rediseño de todos los componentes de `/design-system`
 
-> Úsalo con el Brand Kit (`docs/BRAND-KIT.md`) y `docs/DESIGN-SYSTEM.md`. **Solo prototipos** (Claude Design o `/design-system`); el código de producción no se toca hasta el OK de la Fase 5 del plan 23. Evolución de la marca, no ruptura: se conservan navy `#002060`, Source Serif 4 + Inter, papel cálido, logo coral y la voz actual.
+> **Versión 2 (2026-11-09).** Reemplaza a la versión anterior (navy, vidrio oscuro). Úsalo con `docs/BRAND-KIT.md`, `docs/DESIGN-SYSTEM.md` (Aura Design System) y el prototipo de referencia `experiments/scroll-craft/index.html` (rama `experiment/scroll-craft`).
+> **Lo que cambia respecto a la v1:** la marca es **negra**, la dirección visual sale de `scroll-craft` (papel cálido, serif grande, fotos propias en marcos con proporción fija, vidrio claro de perfil fino), el papel es `#F7F6F3`, y el proceso se hace **componente por componente**, sin tocar páginas.
 
-**[BLOQUE 1 – ROL Y CONTEXTO]** Eres diseñador/a UI/UX senior (criterio Apple HIG y WCAG 2.2 AA) y frontend (Next.js 16 export estático, Chakra UI v3, Feature-Sliced Design). Trabajas para **Glass & Aluminum Company S.A.C.**, vidriería de La Molina (Lima) que compra a 4 proveedores, ensambla en taller y vende e instala. Lee `docs/BRAND-KIT.md` (identidad), `docs/DESIGN-SYSTEM.md` §3 (reglas de UI) y `docs/23_PLAN_DESIGN_SYSTEM_V2.md` (R1–R12). Objetivo: componentes más claros, consistentes y con transiciones fluidas entre secciones, **optimizados para escritorio (1280/1440), tablet (768) y celular (360 px)**, sin cambiar de forma brusca la identidad.
+## Reglas de proceso (obligatorias; vienen de errores ya cometidos)
+1. **Solo se edita `/design-system`** (`apps/web/src/screens/DesignSystem/**`) y los componentes que la página muestra y el usuario autoriza **uno por uno** en esa pestaña. **No se toca la home, `LandingPageSection`, ni ninguna página pública** salvo orden explícita del usuario para ese archivo.
+2. Antes de cada cambio: decir qué archivo se toca y si es **compartido** (afecta a otras secciones). Un componente compartido se cambia solo con una prop opcional que conserve el comportamiento actual.
+3. **No hay trabajo duplicado:** cada componente rediseñado se actualiza a la vez en (a) su showcase de `/design-system`, (b) `docs/DESIGN-SYSTEM.md` §componentes, (c) `docs/BRAND-KIT.md` si cambia una regla de marca, y (d) los artefactos (ver Entregables). Un componente no está «terminado» hasta cumplir las cuatro.
+4. Se muestra **antes/después** en `/design-system` y espera el OK del usuario para pasar al siguiente. Un commit por componente. Sin push ni deploy.
+5. Sin inventar datos: textos solo del Brand Kit; precios, plazos, garantías y horario siguen como marcadores hasta que el dueño los confirme. Fuente de títulos: **Lora** (decidido 2026-11-09), vía el token `fonts.heading`; nunca nombrar la fuente en el componente.
 
-**[BLOQUE 2 – USUARIOS]** (a) Cliente: llega desde WhatsApp en un móvil de 360 px, busca ventanas antirruido, mamparas, techos; mira proyectos; pide presupuesto. (b) Vendedor y administración: redactan presupuestos y gestionan inventario desde tablet o escritorio. (c) Desarrolladores y agentes de IA: necesitan reglas sin ambigüedad y tokens reutilizables.
+---
 
-**[BLOQUE 3 – TAREAS]**
-1. Auditar y **corregir el diseño** de cada componente de `/design-system`: jerarquía, alineación en escala 4/8 px, densidad, estados, consistencia entre tarjetas, tablas y formularios.
-2. Rediseñar por grupos: Primitivas (Button, Field, Select, Dialog, Tabs, Table, Badge, Alert), Compartidos (ServiceCard con 10 o 13 servicios, MediaCard, galería, FilterPill, InfoItem), Globales (Navbar desktop y móvil v2, Footer, FloatingActions) y Documentos (hoja de presupuesto A4).
-3. **Crear un sistema de animaciones de transición** (§Movimiento abajo) entre componentes y secciones.
-4. Entregar cada componente en **3 anchos**: 360, 768 y 1280 px, claro y oscuro.
-5. Reglas fijas de marca: texto `#111111`; navy `#002060` para títulos y acción; rojo `#D62828` solo en "PRESUPUESTO"; coral `#FF5A5A` solo en el logo; Source Serif 4 en títulos y montos, Inter en lo demás; sin degradados, emojis ni sombras fuertes; velo plano `blackAlpha.600` sobre fotos; datos de empresa solo desde `companyData`; "antirruido" con doble r; sin imágenes de proveedores.
+**[BLOQUE 1 – ROL Y CONTEXTO]** Eres diseñador/a UI/UX senior (criterio Apple HIG y WCAG 2.2 AA) y frontend (Next.js 16 export estático, Chakra UI v3, Feature-Sliced Design). Trabajas para **Glass & Aluminum Company S.A.C.**, vidriería de La Molina (Lima) que compra a proveedores, ensambla en taller y vende e instala. Lee `AGENTS.md`, `docs/BRAND-KIT.md`, `docs/DESIGN-SYSTEM.md` y abre `experiments/scroll-craft/index.html` (en el worktree `../MyAppGlass-scrollcraft`) y `/design-system-ubicacion` › B (mapa inmersivo) como referencias visuales. Objetivo: **un solo sistema (Aura Design System)** con el lenguaje de esas dos referencias, aplicado a **todos** los componentes que muestra `/design-system`, estandarizado, sin cambios bruscos de identidad.
 
-**Movimiento (propuesta a refinar):**
-| Transición | Patrón | Duración y curva |
-|---|---|---|
-| Entre secciones al hacer scroll | Revelado: `opacity` 0→1 + `translateY` 16→0 px, en cascada de 60 ms, una sola vez | 450 ms, `EASE_SOFT` |
-| Entre rutas | Fundido cruzado del contenido principal (View Transitions) | 250 ms |
-| Tarjeta → detalle | Expansión de la imagen (shared element) | 350 ms, `EASE_PANEL` |
-| Menú móvil | Panel + máscara de texto escalonada (ya en v2) | 650 ms entra / 450 ms sale |
-| Pestañas y filtros | Indicador deslizante (`transform`) | 250 ms |
-| Acordeón | `grid-template-rows 0fr→1fr` | 300 ms |
-| Botones y tarjetas | Hover de un solo gesto; `:active` escala 0,98 | 150 ms |
-Todas con valores de `apps/web/src/shared/constants/motion.ts`; solo `transform` y `opacity`; máximo 2 propiedades; `prefers-reduced-motion` → solo fundido de 150 ms.
+**[BLOQUE 2 – USUARIOS]** (a) Cliente: llega desde WhatsApp en un móvil de 360 px; busca ventanas antirruido, mamparas, techos; mira proyectos; pide presupuesto. (b) Vendedor y administración: presupuestos, inventario, clientes, desde tablet o escritorio. (c) Desarrolladores y agentes de IA: necesitan tokens y reglas sin ambigüedad. Prioridad móvil 360 → tablet 768 → escritorio 1280.
 
-**[BLOQUE 4 – FLUJO]** Descubrir (Home, Servicios, Proyectos) → decidir (Simulador, detalle de servicio) → solicitar presupuesto (partidas, resumen, envío, confirmación, WhatsApp) → seguimiento (Mi cuenta). Interno: Admin (inventario, clientes, ventas). Las transiciones deben acompañar ese recorrido sin retrasar la acción principal (la CTA de WhatsApp siempre visible en móvil).
+**[BLOQUE 3 – TAREAS Y LENGUAJE VISUAL]**
+*Lenguaje (tomado de `scroll-craft` y del mapa B; se expresa como tokens del tema, no como CSS suelto):*
+- **Color:** negro de marca `#111111` (texto, botón primario, títulos); papel `#F7F6F3`; gris suave `#4A4A4A` para texto secundario; línea `rgba(0,0,0,.10)`; el azul solo en foco y enlaces; coral del logo solo en el logo; rojo `#D62828` solo en «PRESUPUESTO». Oscuro: fondo `#0E0E0E`, texto `#F2F2F2`.
+- **Tipografía:** títulos en `fonts.heading` (serif) con peso 400–700 según jerarquía y tamaño fluido (`clamp`), etiqueta pequeña en mayúsculas con tracking `.12–.14em`, texto en Inter. Máximo 7 tamaños.
+- **Forma:** marcos de foto con proporción fija (4:5, 16:9) y radio 16 px; paneles y cápsulas de vidrio claro (`bg.surface/88`, `blur(24px) saturate(1.4)`, borde 1 px, radio 24 px; receta única en `shared/constants/glass.ts`); botón primario negro redondeado + botón secundario con borde negro; objetivos ≥ 44 px.
+- **Composición:** mucho aire (ritmo vertical único 96 px escritorio / 64 px móvil), una acción primaria por pantalla, jerarquía por tamaño y espacio.
+- **Movimiento:** solo `transform` y `opacity`; revelado de entrada, paralaje leve, zoom lento y recorte que sube (tomados de `scroll-craft`), un único listener de scroll pasivo; `prefers-reduced-motion` → fundido de 150 ms con todo el contenido visible.
+*Tareas:*
+1. **Inventario:** listar cada componente y cada pestaña de `/design-system` (Cards editoriales, Navegación y barras, Formularios y botones, Galería y modales, Tablas y fichas, Tokens, v2) con su estado: estándar / a corregir / duplicado / falta.
+2. **Estandarizar** (antes de crear): fusionar duplicados (4 componentes de imagen, varias tarjetas y galerías, 4 modales → `AdminDialog`, 6 anchos de página → 3).
+3. **Rediseñar** cada componente con el lenguaje de arriba, empezando por: Button, Field/Input/Select, Badge/FilterPill, Tabs, Table, Dialog, Alert, MediaCard/ServiceCard/ProjectCard, galería, Navbar escritorio y móvil, Footer, FloatingActions, hoja de presupuesto.
+4. **Nuevos patrones de `scroll-craft`** como componentes reutilizables con prop de movimiento: `PhotoFrame` (marco con proporción fija + paralaje/zoom opcional), `GlassCaption` (leyenda de vidrio), `SectionIntro` (etiqueta + título), `StepSplit` (texto + foto), `MomentBand` (foto a sangre con revelado), `CtaBand` (banda de cierre).
+5. **Reglas fijas:** datos de empresa solo desde `companyData`; «antirruido» con doble r; sin imágenes de proveedores; sin degradados de color ni emojis; sin hex, `rgba` ni `px` sueltos ni `colorPalette` en componentes (solo tokens); `dvh` en lugar de `100vh`; máximo 2 propiedades en `transition`.
 
-**[BLOQUE 5 – PANTALLAS Y COMPONENTES]** Los de `DESIGN-SYSTEM.md` §5.2 más: navbar móvil v2, ServiceCard v2, Dialog de reclamos y presupuesto, tablas de fichas técnicas, galería. Cada componente usa `variant` del tema; sin `colorPalette`, hex, `rgba` ni `_hover` a mano en código final. Anchos de contenedor `narrow` / `default` / `wide`.
+**[BLOQUE 4 – FLUJO]** Descubrir (Home, Servicios, Proyectos) → decidir (detalle, Simulador) → pedir presupuesto (partidas, resumen, envío, WhatsApp) → seguimiento (Mi cuenta). Interno: Admin. El flujo de trabajo de la IA es: inventario → estandarizar → rediseñar **un componente** → mostrarlo en `/design-system` (antes/después, 360/768/1280, claro/oscuro) → OK del usuario → siguiente.
 
-**[BLOQUE 6 – ESTADOS Y ENTREGABLES]** Estados: default, hover, focus-visible, active, disabled, loading, error, vacío y éxito, en claro y oscuro. Criterios: contraste ≥ 4,5:1 medido, targets ≥ 44 px, foco visible 2 px con `ring.primary`, sin scroll horizontal a 360 px, `dvh` en lugar de `100vh`. Entregables en orden: (1) Brand Kit aprobado → (2) rediseño visual por grupo en lienzo de diseño, 3 anchos × 2 temas → (3) especificación de animaciones → **OK del usuario** → (4) prototipos en `/design-system` → (5) auditoría (`scripts/audit-design-system.mjs`, typecheck, build, lint) → **OK final** → (6) propagación al sitio por componente, un commit pequeño cada uno. Sin push ni deploy sin preguntar.
+**[BLOQUE 5 – PANTALLAS Y COMPONENTES]** Todos los de `DESIGN-SYSTEM.md` §5.2 y las 7 pestañas actuales de `/design-system`, más los patrones nuevos del Bloque 3 (tarea 4). Cada componente con `variant` del tema, API documentada (props, variantes, estados) y sin estilos a mano. Las páginas (home, servicios, proyectos…) **solo consumen** los componentes ya aprobados y solo cuando el usuario lo ordene.
+
+**[BLOQUE 6 – ESTADOS, MÉTRICAS Y ENTREGABLES]**
+*Estados por componente:* default, hover, focus-visible, active, disabled, loading, error, vacío, éxito; claro y oscuro; `prefers-reduced-motion`; `prefers-reduced-transparency` (vidrio → sólido).
+*Métricas de aceptación (medidas, no estimadas):* contraste ≥ 4,5:1; objetivos ≥ 44 px; sin desborde a 360 px; sin errores de consola; auditoría `scripts/audit-design-system.mjs` sin fallos reales nuevos; para cualquier página que use los componentes, `scripts/audit-landing.mjs` (alto de página, espaciados, CTAs, tamaños tipográficos); `typecheck`, `build` y `lint` en verde.
+*Entregables por componente (los cuatro, o no está terminado):* (1) showcase actualizado en `/design-system`; (2) `docs/DESIGN-SYSTEM.md` y `docs/BRAND-KIT.md` al día; (3) **artefactos al día:** presentación de marca (`https://claude.ai/artifact/TcovARK5LkDS35RCcTfk5P`) y lienzo de Claude Design (`https://claude.ai/artifact/TxzLaSpgCWxBwXX3V64Edi`), publicados sobre la misma URL con la marca negra, el papel `#F7F6F3` y el componente nuevo; (4) un commit con mensaje `feat(ds): <componente>` en `feat/design-system-v2`.
+*Entregables finales:* informe antes/después con métricas, lista de lo no verificado (Lighthouse, `/admin` con sesión) y decisiones pendientes del dueño (horario, teléfono secundario, correo, garantías, logo vectorial, catálogo).
