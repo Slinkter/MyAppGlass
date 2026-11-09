@@ -11,10 +11,11 @@ import {
   Badge,
   Tabs,
 } from "@chakra-ui/react";
-import { Sparkles, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import RouterLink from "next/link";
 import { ColorModeButton } from "@/components/ui/color-mode";
 import { Button } from "@/components/ui/button";
+import { companyData } from "@/shared/config/company-data";
 
 // Secciones del Sistema de Diseño
 import { TokensSection } from "./sections/TokensSection";
@@ -27,38 +28,36 @@ import { ResponsiveScaleShowcase } from "./sections/v2/ResponsiveScaleShowcase";
 import { CardVariantsShowcase } from "./sections/v2/CardVariantsShowcase";
 import { BrandModulesV2Showcase } from "./sections/v2/BrandModulesV2Showcase";
 import { ViewportAndStatesV2Showcase } from "./sections/v2/ViewportAndStatesV2Showcase";
-import { ServiceCardV2Showcase } from "./sections/v2/ServiceCardV2Showcase";
 import { MobileNavV2Showcase } from "./sections/v2/MobileNavV2Showcase";
 import { TransitionsV2Showcase } from "./sections/v2/TransitionsV2Showcase";
-import { PaperToneShowcase } from "./sections/v2/PaperToneShowcase";
+import { GalleryShowcase } from "./sections/GalleryShowcase";
+import { ImageRevealShowcase } from "./sections/ImageRevealShowcase";
+import { ComponentsExtraShowcase } from "./sections/ComponentsExtraShowcase";
 import { ScrollPatternsShowcase } from "./sections/v2/ScrollPatternsShowcase";
 
 export const DesignSystemScreen: React.FC = () => {
   return (
-    <Box minH="100dvh" bg="bg.page" py={{ base: "4", md: "14" }}>
-      <Container maxW="7xl" px={{ base: "0", sm: "2", md: "6" }}>
+    <Box minH="dvh" bg="bg.page" py={{ base: "4", md: "14" }}>
+      <Container maxW="pageWide" px={{ base: "4", md: "6" }}>
         {/* Header con alternador de tema */}
         <HStack justify="space-between" align="flex-start" wrap="wrap" gap={{ base: "4", md: "6" }} mb={{ base: "6", md: "10" }}>
           <VStack gap={{ base: "3", md: "4" }} align="flex-start" maxW="3xl">
             <HStack wrap="wrap" gap="2">
-              <Badge variant={"studioInk" as never}>
-                <Sparkles size={12} aria-hidden="true" style={{ flexShrink: 0 }} />
-                Aura Studio
-              </Badge>
-              <Badge variant={"studio" as never}>
+              <Badge variant={"inkSolid" as never}>Sistema de diseño</Badge>
+              <Badge variant={"neutral" as never}>
                 Chakra UI v3 · 360 / 768 / 1280
               </Badge>
             </HStack>
-            <Heading as="h1" fontSize={{ base: "4xl", md: "6xl" }} fontWeight="500" lineHeight="1.05" letterSpacing="-0.02em" color="text.heading">
-              Aura Design System — Catálogo Canónico de Componentes
+            <Heading as="h1" fontFamily="heading" fontWeight="700" fontSize={{ base: "4xl", md: "6xl" }} lineHeight="display" letterSpacing="display" color="text.heading">
+              Sistema de diseño: catálogo de componentes
             </Heading>
             <Text color="text.muted" fontSize={{ base: "sm", md: "lg" }}>
-              Showcase oficial con los componentes, modelos v2 y tokens reales de producción de <strong>Glass & Aluminum Company S.A.C.</strong> Optimizado para Móvil (360px), Tablet (768px) y Desktop (1280px) con áreas táctiles mínimas de 44×44 px.
+              Componentes y tokens reales del sitio de <strong>{companyData.razonSocial}</strong>: fondo blanco, negro de marca y Lora 700 para títulos. Se revisa en 360, 768 y 1280 px, con áreas táctiles mínimas de 44 px.
             </Text>
           </VStack>
 
           <HStack gap="2" w={{ base: "full", md: "auto" }} justify={{ base: "space-between", sm: "flex-start", md: "flex-end" }}>
-            <Button asChild variant="studioOutline" size="sm" minH="11" flex={{ base: "1", sm: "initial" }}>
+            <Button asChild variant="outline" size="sm" minH="11" flex={{ base: "1", sm: "initial" }}>
               <RouterLink href="/design-system-ubicacion">
                 <MapPin size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
                 Prototipos de ubicación
@@ -72,7 +71,7 @@ export const DesignSystemScreen: React.FC = () => {
         </HStack>
 
         {/* Pestañas del Sistema */}
-        <Tabs.Root defaultValue="v2" variant={"studio" as never} size={{ base: "sm", md: "lg" }} lazyMount unmountOnExit w="full" minW="0">
+        <Tabs.Root defaultValue="tokens" variant="line" size={{ base: "sm", md: "lg" }} lazyMount unmountOnExit w="full" minW="0">
           <Tabs.List
             mb={{ base: "5", md: "8" }}
             w="full"
@@ -81,50 +80,62 @@ export const DesignSystemScreen: React.FC = () => {
             flexWrap="nowrap"
             css={{ "&::-webkit-scrollbar": { display: "none" }, scrollbarWidth: "none" }}
           >
-            <Tabs.Trigger value="v2" flexShrink={0} whiteSpace="nowrap" minH="11" gap="1.5">
-              <Sparkles size={14} style={{ flexShrink: 0 }} />
-              Nuevos modelos v2
-            </Tabs.Trigger>
-            <Tabs.Trigger value="cards" flexShrink={0} whiteSpace="nowrap" minH="11">Cards Editoriales Reales</Tabs.Trigger>
-            <Tabs.Trigger value="nav" flexShrink={0} whiteSpace="nowrap" minH="11">Navegación & Barras</Tabs.Trigger>
-            <Tabs.Trigger value="forms" flexShrink={0} whiteSpace="nowrap" minH="11">Formularios & Botones</Tabs.Trigger>
-            <Tabs.Trigger value="overlays" flexShrink={0} whiteSpace="nowrap" minH="11">Galería & Modales</Tabs.Trigger>
-            <Tabs.Trigger value="data" flexShrink={0} whiteSpace="nowrap" minH="11">Tablas & Fichas Técnicas</Tabs.Trigger>
-            <Tabs.Trigger value="tokens" flexShrink={0} whiteSpace="nowrap" minH="11">Tokens & Reglas Oficiales</Tabs.Trigger>
+            <Tabs.Trigger value="tokens" flexShrink={0} whiteSpace="nowrap" minH="11">Tokens y reglas</Tabs.Trigger>
+            <Tabs.Trigger value="cards" flexShrink={0} whiteSpace="nowrap" minH="11">Tarjetas editoriales</Tabs.Trigger>
+            <Tabs.Trigger value="nav" flexShrink={0} whiteSpace="nowrap" minH="11">Navegación y barras</Tabs.Trigger>
+            <Tabs.Trigger value="forms" flexShrink={0} whiteSpace="nowrap" minH="11">Formularios y botones</Tabs.Trigger>
+            <Tabs.Trigger value="overlays" flexShrink={0} whiteSpace="nowrap" minH="11">Modales y diálogos</Tabs.Trigger>
+            <Tabs.Trigger value="data" flexShrink={0} whiteSpace="nowrap" minH="11">Tablas y fichas técnicas</Tabs.Trigger>
+            <Tabs.Trigger value="status" flexShrink={0} whiteSpace="nowrap" minH="11">Estados y utilidades</Tabs.Trigger>
+            <Tabs.Trigger value="media" flexShrink={0} whiteSpace="nowrap" minH="11">Galería e imágenes</Tabs.Trigger>
+            <Tabs.Trigger value="v2" flexShrink={0} whiteSpace="nowrap" minH="11">Modelos v2</Tabs.Trigger>
             <Tabs.Indicator />
           </Tabs.List>
 
-          {/* 1. Cards Editoriales */}
+          {/* 1. Tarjetas editoriales */}
           <Tabs.Content value="cards">
             <EditorialCardsShowcase />
           </Tabs.Content>
 
-          {/* 2. Barras de Navegación */}
+          {/* 2. Navegación */}
           <Tabs.Content value="nav">
             <NavigationShowcase />
           </Tabs.Content>
 
-          {/* 3. Formularios & Botones */}
+          {/* 3. Formularios y botones */}
           <Tabs.Content value="forms">
             <FormControlsShowcase />
           </Tabs.Content>
 
-          {/* 4. Overlays & Multimedia */}
+          {/* 4. Modales y diálogos */}
           <Tabs.Content value="overlays">
             <OverlaysShowcase />
           </Tabs.Content>
 
-          {/* 5. Tablas & Fichas Técnicas */}
+          {/* 5. Tablas y fichas técnicas */}
           <Tabs.Content value="data">
             <DataDisplayShowcase />
           </Tabs.Content>
 
-          {/* 6. Tokens & Reglas Inmutables */}
+          {/* 6. Tokens y reglas */}
           <Tabs.Content value="tokens">
             <TokensSection />
           </Tabs.Content>
 
-          {/* 7. Nuevos modelos v2 (comparar con las pestañas anteriores) */}
+          {/* 7. Estados, MediaCard y utilidades */}
+          <Tabs.Content value="status">
+            <ComponentsExtraShowcase />
+          </Tabs.Content>
+
+          {/* 8. Galería e imágenes */}
+          <Tabs.Content value="media">
+            <VStack align="stretch" gap={{ base: "8", md: "12" }}>
+              <GalleryShowcase />
+              <ImageRevealShowcase />
+            </VStack>
+          </Tabs.Content>
+
+          {/* 7. Modelos v2 */}
           <Tabs.Content value="v2">
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
               <MobileNavV2Showcase />
@@ -132,9 +143,7 @@ export const DesignSystemScreen: React.FC = () => {
               <ViewportAndStatesV2Showcase />
               <ResponsiveScaleShowcase />
               <CardVariantsShowcase />
-              <ServiceCardV2Showcase />
               <ScrollPatternsShowcase />
-              <PaperToneShowcase />
               <TransitionsV2Showcase />
             </VStack>
           </Tabs.Content>

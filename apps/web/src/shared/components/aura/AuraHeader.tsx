@@ -39,7 +39,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
             {overline && (
               <Text 
                 fontSize={{ base: "xs", md: "xs" }} 
-                fontWeight="900" 
+                fontWeight="700" 
                 color="text.accent" 
                 letterSpacing="0.4em" 
                 textTransform="uppercase"
@@ -59,7 +59,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
         {!backTo && overline && (
           <Text 
             fontSize={{ base: "xs", md: "xs" }} 
-            fontWeight="900" 
+            fontWeight="700" 
             color="text.accent" 
             letterSpacing="0.4em" 
             textTransform="uppercase"
@@ -70,11 +70,11 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
         <Heading
           as={headingAs}
           size={{ base: "3xl", md: "4xl" }}
-          fontWeight="black"
+          fontWeight="700"
           letterSpacing="tight"
           color="text.heading"
           fontFamily="heading"
-          maxW={centered ? "800px" : "full"}
+          maxW={centered ? "50rem" : "full"}
         >
           {title}
         </Heading>
@@ -82,7 +82,7 @@ const AuraHeader: React.FC<AuraHeaderProps> = ({ title, overline, description, b
           <Text 
             fontSize={{ base: "sm", md: "md" }} 
             color="text.muted" 
-            maxW="800px"
+            maxW="50rem"
             lineHeight="tall"
           >
             {description}

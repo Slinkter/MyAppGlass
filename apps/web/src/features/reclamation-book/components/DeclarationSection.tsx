@@ -26,7 +26,7 @@ const DeclarationSection: React.FC = () => {
           bg="primary.500" 
           color="white" 
           fontSize="xs" 
-          fontWeight="900"
+          fontWeight="700"
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -36,7 +36,7 @@ const DeclarationSection: React.FC = () => {
         <Heading
           as="h2"
           size="sm"
-          fontWeight="800"
+          fontWeight="700"
           color="text.heading"
           letterSpacing="tight"
         >
@@ -114,10 +114,10 @@ const DeclarationSection: React.FC = () => {
 
       <Button
         type="submit"
-        variant="aura"
+        variant="primary"
         size={{ base: "lg", md: "xl" }}
         borderRadius="full"
-        fontWeight="800"
+        fontWeight="700"
         letterSpacing="wider"
         width="full"
         mt="2"

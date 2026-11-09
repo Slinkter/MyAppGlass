@@ -114,9 +114,9 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                         py="0.5"
                         borderRadius="md"
                         textTransform="capitalize"
-                        bg="rgba(56, 189, 248, 0.08)"
+                        bg="status.infoSoft"
                         color="var(--chakra-colors-status-info)"
-                        border="1px solid rgba(56, 189, 248, 0.2)"
+                        border="1px solid" borderColor="status.infoBorder"
                       >
                         {p.category}
                       </Badge>
@@ -131,8 +131,8 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                     <Box as="td" p="4">
                       <HStack gap="2">
                         <Box
-                          w="8px"
-                          h="8px"
+                          w="2"
+                          h="2"
                           borderRadius="full"
                           bg={isCritical ? "var(--chakra-colors-status-danger)" : isLow ? "var(--chakra-colors-status-warning)" : "var(--chakra-colors-status-success)"}
                           boxShadow={`0 0 8px ${isCritical ? "var(--chakra-colors-status-danger)" : isLow ? "var(--chakra-colors-status-warning)" : "var(--chakra-colors-status-success)"}`}
@@ -141,11 +141,11 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                           {p.stock}
                         </Text>
                         {isCritical ? (
-                          <Badge bg="rgba(239, 68, 68, 0.15)" color="var(--chakra-colors-status-danger)" fontSize="xs" px="1.5" borderRadius="sm">
+                          <Badge bg="status.dangerSoft" color="var(--chakra-colors-status-danger)" fontSize="xs" px="1.5" borderRadius="sm">
                             Agotado
                           </Badge>
                         ) : isLow ? (
-                          <Badge bg="rgba(245, 158, 11, 0.15)" color="var(--chakra-colors-status-warning)" fontSize="xs" px="1.5" borderRadius="sm">
+                          <Badge bg="status.warningSoft" color="var(--chakra-colors-status-warning)" fontSize="xs" px="1.5" borderRadius="sm">
                             Mínimo ({p.minStockAlert})
                           </Badge>
                         ) : null}

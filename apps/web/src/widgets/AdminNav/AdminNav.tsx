@@ -37,11 +37,10 @@ export const AdminNav: React.FC = () => {
     <Box
       mb="8"
       p="2.5"
-      borderRadius="2xl"
+      borderRadius="card"
       bg="surface.card"
       border="1px solid"
       borderColor="border.default"
-      backdropFilter="blur(20px)"
       boxShadow="adminNav"
     >
       <HStack justify="space-between" wrap="wrap" gap="3">
@@ -76,6 +75,7 @@ export const AdminNav: React.FC = () => {
             borderColor="border.default"
             bg="bg.subtle"
             transition="transform 0.2s ease, background-color 0.2s ease"
+                _motionReduce={{ transition: "none" }}
             _hover={{
               color: "text.heading",
               bg: "surface.card",
@@ -113,6 +113,7 @@ export const AdminNav: React.FC = () => {
                 border="1px solid"
                 borderColor={isActive ? "text.heading" : "transparent"}
                 transition="transform 0.2s ease, background-color 0.2s ease"
+                _motionReduce={{ transition: "none" }}
                 _hover={{
                   color: isActive ? "bg.page" : "text.heading",
                   bg: isActive ? "text.heading" : "bg.subtle",

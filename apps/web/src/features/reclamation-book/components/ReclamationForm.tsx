@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Box, Heading, Stack, Text, VStack, HStack, SimpleGrid, Badge } from "@chakra-ui/react";
+import { Box, Heading, Stack, Text, VStack, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { companyData } from "@/shared/config/company-data";
 import { ReclamationFormProvider, useReclamationFormContext } from "./ReclamationFormContext";
 import PersonalInfoSection from "./PersonalInfoSection";
@@ -21,7 +22,7 @@ const ReclamationFormInner: React.FC = () => {
     <Box
       mt={{ base: "2", md: "6" }}
       mb={{ base: "8", md: "16" }}
-      maxW="4xl"
+      maxW="pageNarrow"
       mx="auto"
       w="full"
     >
@@ -30,20 +31,18 @@ const ReclamationFormInner: React.FC = () => {
         <Image src="/logovcr.png" alt="GYA Glass & Aluminum" width={56} height={56} priority style={{ flexShrink: 0 }} />
         <HStack gap="2" flexWrap="wrap" justify="center">
           <Badge
-            colorPalette="primary"
             size="sm"
-            variant="solid"
+            variant="neutral"
             px="3"
             py="1"
             borderRadius="full"
-            fontWeight="800"
+            fontWeight="700"
             letterSpacing="wider"
           >
             INDECOPI COMPLIANT
           </Badge>
           <Badge
-            variant="outline"
-            colorPalette="gray"
+            variant="neutral"
             size="sm"
             px="3"
             py="1"
@@ -57,7 +56,7 @@ const ReclamationFormInner: React.FC = () => {
         <Heading
           as="h1"
           fontSize={{ base: "xl", sm: "3xl", md: "4xl" }}
-          fontWeight="900"
+          fontWeight="700"
           letterSpacing="tight"
           color="text.heading"
           lineHeight="1.2"
@@ -81,7 +80,7 @@ const ReclamationFormInner: React.FC = () => {
       >
         <SimpleGrid columns={{ base: 1, sm: 3 }} gap={{ base: "3", sm: "4" }}>
           <Box>
-            <Text fontSize="xs" fontWeight="900" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
+            <Text fontSize="xs" fontWeight="700" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
               Razón Social
             </Text>
             <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5" wordBreak="break-word">
@@ -89,7 +88,7 @@ const ReclamationFormInner: React.FC = () => {
             </Text>
           </Box>
           <Box>
-            <Text fontSize="xs" fontWeight="900" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
+            <Text fontSize="xs" fontWeight="700" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
               R.U.C.
             </Text>
             <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5">
@@ -97,7 +96,7 @@ const ReclamationFormInner: React.FC = () => {
             </Text>
           </Box>
           <Box>
-            <Text fontSize="xs" fontWeight="900" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
+            <Text fontSize="xs" fontWeight="700" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
               Dirección Fiscal
             </Text>
             <Text fontSize="xs" fontWeight="700" color="text.heading" mt="0.5">

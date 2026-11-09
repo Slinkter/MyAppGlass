@@ -141,10 +141,10 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
                     py="1.5"
                     borderRadius="md"
                     align="center"
-                    color={isCurrent ? "accent.navy" : "text.body"}
+                    color={isCurrent ? "accent.ink" : "text.body"}
                     bg={isCurrent ? "bg.subtle" : "transparent"}
                     transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, color ${DUR_CSS.fast} ${EASE_SOFT}`}
-                    _hover={{ bg: "bg.subtle", color: "accent.navy" }}
+                    _hover={{ bg: "bg.subtle", color: "accent.ink" }}
                     _active={{ bg: "bg.subtle" }}
                   >
                     <Text

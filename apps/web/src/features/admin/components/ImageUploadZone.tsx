@@ -1,15 +1,8 @@
 "use client";
 
 import React, { useState, useRef, DragEvent, ChangeEvent } from "react";
-import {
-  Box,
-  VStack,
-  HStack,
-  Text,
-  Button,
-  Spinner,
-  Badge,
-} from "@chakra-ui/react";
+import { Box, VStack, HStack, Text, Button, Spinner } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import {
   UploadCloud,
   Image as ImageIcon,
@@ -138,7 +131,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
             {label}
           </Text>
           {value && (
-            <Badge size="sm" colorPalette="green" variant="subtle">
+            <Badge size="sm" variant="success">
               <CheckCircle2 size={12} style={{ flexShrink: 0, marginRight: 4 }} />
               Imagen cargada
             </Badge>
@@ -162,7 +155,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
         border="2px dashed"
         borderColor={
           errorMessage
-            ? "red.500"
+            ? "status.dangerBorder"
             : isDragging
             ? "brand.primary"
             : value
@@ -171,7 +164,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
         }
         bg={
           isDragging
-            ? "rgba(56, 189, 248, 0.08)"
+            ? "bg.tint"
             : value
             ? "bg.subtle"
             : "surface.card"

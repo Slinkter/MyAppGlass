@@ -45,7 +45,7 @@ body.light-mode {
 }
 @keyframes pulse-shadow {
   0%, 100% { box-shadow: 0 4px 20px var(--chakra-colors-overlay-faint); }
-  50% { box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18); }
+  50% { box-shadow: var(--chakra-shadows-elevated-lg); }
 }
 
 /* View Transitions API */

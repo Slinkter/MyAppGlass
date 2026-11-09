@@ -13,8 +13,8 @@ export const ThemeToggleButton: React.FC = () => {
     <ClientOnly
       fallback={
         <Skeleton
-          w={{ base: 14, md: 16 }}
-          h={{ base: 14, md: 16 }}
+          w={{ base: "14", md: "16" }}
+          h={{ base: "14", md: "16" }}
           borderRadius="full"
         />
       }
@@ -27,15 +27,15 @@ export const ThemeToggleButton: React.FC = () => {
         borderRadius="full"
         borderWidth="1px"
         borderColor="border.default"
-        w={{ base: 14, md: 16 }}
-        h={{ base: 14, md: 16 }}
+        w={{ base: "14", md: "16" }}
+        h={{ base: "14", md: "16" }}
         minW="0"
         p="0"
-        boxShadow="lg"
-        _hover={{ bg: "bg.subtle", transform: "scale(1.08)" }}
-        _active={{ transform: "scale(0.95)" }}
+        boxShadow="md"
+        _hover={{ bg: "bg.subtle" }}
         aria-label="Cambiar tema de color"
-        transition="background-color 0.2s ease, transform 0.2s ease"
+        transition="background-color 0.2s ease, box-shadow 0.2s ease"
+        _motionReduce={{ transition: "none" }}
       >
         <ColorModeIcon size={32} />
       </Button>
@@ -52,9 +52,8 @@ export const ThemeToggle: React.FC = () => {
   return (
     <Box
       position="fixed"
-      bottom={{ base: 6, md: 4 }}
-      right={4}
-      zIndex="popover"
+      right="4"
+      zIndex="sticky"
       display={{ base: "none", md: "flex" }}
       css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))", "body[data-scroll-locked] &": { display: "none" } }}
     >

@@ -2,16 +2,8 @@
 
 import React from "react";
 import AdminRowActions from "./AdminRowActions";
-import {
-  Box,
-  VStack,
-  HStack,
-  Text,
-  Badge,
-  Button,
-  Spinner,
-  IconButton,
-} from "@chakra-ui/react";
+import { Box, VStack, HStack, Text, Button, Spinner, IconButton } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import {
   ExternalLink,
   Layers,
@@ -66,7 +58,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
             <Text fontSize="md" fontWeight="bold" color="text.heading">
               Catálogo de Servicios
             </Text>
-            <Badge size="sm" variant="subtle" colorPalette="blue">
+            <Badge size="sm" variant="info">
               {services.length} registros
             </Badge>
           </HStack>
@@ -223,7 +215,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
                   {/* Slug */}
                   <Box as="td" p="4">
                     <HStack gap="1.5">
-                      <Badge size="sm" variant="surface" colorPalette="gray" fontFamily="mono">
+                      <Badge size="sm" variant="neutral" fontFamily="mono">
                         /servicios/{item.slug}
                       </Badge>
                       <IconButton
@@ -247,7 +239,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
 
                   {/* Galería count */}
                   <Box as="td" p="4">
-                    <Badge size="sm" variant="subtle" colorPalette="cyan">
+                    <Badge size="sm" variant="info">
                       <ImageIcon size={12} style={{ flexShrink: 0, marginRight: 4 }} />
                       {item.gallery?.length || 0} fotos
                     </Badge>
@@ -258,8 +250,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
                     {item.published ? (
                       <Badge
                         size="sm"
-                        colorPalette="green"
-                        variant="subtle"
+                        variant="success"
                         cursor={onTogglePublish ? "pointer" : "default"}
                         onClick={() => onTogglePublish?.(item)}
                       >
@@ -269,8 +260,7 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
                     ) : (
                       <Badge
                         size="sm"
-                        colorPalette="gray"
-                        variant="subtle"
+                        variant="neutral"
                         cursor={onTogglePublish ? "pointer" : "default"}
                         onClick={() => onTogglePublish?.(item)}
                       >

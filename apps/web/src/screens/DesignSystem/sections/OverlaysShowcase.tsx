@@ -64,7 +64,7 @@ export const OverlaysShowcase: React.FC = () => {
 
           <DialogRoot lazyMount size="md" placement="center" motionPreset="slide-in-bottom">
             <DialogTrigger asChild>
-              <Button variant="aura" minH={TOUCH_MIN} whiteSpace="normal">
+              <Button variant="primary" minH={TOUCH_MIN} whiteSpace="normal">
                 Abrir Modal de Demostración
               </Button>
             </DialogTrigger>
@@ -72,7 +72,7 @@ export const OverlaysShowcase: React.FC = () => {
               bg="bg.surface"
               borderColor="border.default"
               borderRadius="modal"
-              maxH="90dvh"
+              
               aria-labelledby="dialog-aluminum-specs-title"
             >
               <DialogHeader>
@@ -103,7 +103,7 @@ export const OverlaysShowcase: React.FC = () => {
                   </Button>
                 </DialogActionTrigger>
                 <DialogActionTrigger asChild>
-                  <Button variant="aura" minH={TOUCH_MIN}>
+                  <Button variant="primary" minH={TOUCH_MIN}>
                     Entendido
                   </Button>
                 </DialogActionTrigger>
@@ -174,7 +174,7 @@ export const OverlaysShowcase: React.FC = () => {
                   </DrawerBody>
                   <DrawerFooter>
                     <DrawerActionTrigger asChild>
-                      <Button variant="aura" minH={TOUCH_MIN}>
+                      <Button variant="primary" minH={TOUCH_MIN}>
                         Entendido
                       </Button>
                     </DrawerActionTrigger>
@@ -191,7 +191,7 @@ export const OverlaysShowcase: React.FC = () => {
                 Notificaciones efímeras con toaster.create.
               </Text>
               <Button
-                variant="aura"
+                variant="primary"
                 minH={TOUCH_MIN}
                 onClick={() =>
                   toaster.create({

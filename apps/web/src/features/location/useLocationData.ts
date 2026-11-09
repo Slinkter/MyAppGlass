@@ -14,7 +14,7 @@ import { mainStore } from "@shared/components/map/mapConfig";
 import type { MapProject, StoreLocation } from "@/shared/types/map";
 
 export const STORE_ID = mainStore.id;
-export const STORE_SCHEDULE = { days: "Lunes a Sábado", hours: "9:00 am – 5:00 pm" } as const;
+export const STORE_SCHEDULE = { days: "Lunes a Sábado", hours: "8:00 am – 6:00 pm" } as const;
 export const STORE_DIRECTIONS_URL = "https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36";
 
 export interface LocationProject extends MapProject {

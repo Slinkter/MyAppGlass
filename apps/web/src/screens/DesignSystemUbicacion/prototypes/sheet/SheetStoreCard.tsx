@@ -55,7 +55,7 @@ export const SheetStoreCard: React.FC<SheetStoreCardProps> = React.memo(({ store
               {status}
             </Text>
           </HStack>
-          <Heading as="h3" fontSize="md" fontWeight="800" color="text.heading" mt="1" lineClamp={2}>
+          <Heading as="h3" fontSize="md" fontWeight="700" color="text.heading" mt="1" lineClamp={2}>
             {companyData.razonSocial}
           </Heading>
           <HStack gap="1.5" mt="1.5" color="text.muted" fontSize="xs" align="start">
@@ -71,7 +71,7 @@ export const SheetStoreCard: React.FC<SheetStoreCardProps> = React.memo(({ store
             </Text>
           </HStack>
         </Box>
-        <Button asChild variant="aura" minH={TOUCH_MIN} w="full">
+        <Button asChild variant="primary" minH={TOUCH_MIN} w="full">
           <a
             href={STORE_DIRECTIONS_URL}
             target="_blank"

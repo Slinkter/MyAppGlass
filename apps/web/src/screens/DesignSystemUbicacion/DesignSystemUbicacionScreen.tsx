@@ -2,7 +2,8 @@
 
 import React from "react";
 import NextLink from "next/link";
-import { Badge, Box, Container, Heading, HStack, List, Tabs, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Heading, HStack, List, Tabs, Text, VStack } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPinned } from "lucide-react";
 import { ColorModeButton } from "@/components/ui/color-mode";
 import { PrototypeSplit } from "./prototypes/PrototypeSplit";
@@ -160,7 +161,7 @@ const PrototypeTabs: React.FC = () => {
 
 export const DesignSystemUbicacionScreen: React.FC = () => (
   <Box minH="100dvh" bg="bg.page" py={{ base: "8", md: "16" }}>
-    <Container maxW="7xl" px={{ base: "4", md: "6" }}>
+    <Container maxW="pageWide" px={{ base: "4", md: "6" }}>
       <HStack
         justify="space-between"
         align="flex-start"
@@ -170,11 +171,11 @@ export const DesignSystemUbicacionScreen: React.FC = () => (
       >
         <VStack gap={{ base: "3", md: "4" }} align="flex-start" maxW="3xl">
           <HStack wrap="wrap" gap="2">
-            <Badge colorPalette="gray" px="3" py="1" borderRadius="full">
+            <Badge variant="neutral" px="3" py="1" borderRadius="full">
               <MapPinned size={12} style={{ flexShrink: 0 }} />
               Aura Design System
             </Badge>
-            <Badge variant="outline" colorPalette="gray" px="3" py="1" borderRadius="full">
+            <Badge variant="neutral" px="3" py="1" borderRadius="full">
               Prototipos · Sección Ubicación
             </Badge>
           </HStack>
@@ -193,7 +194,7 @@ export const DesignSystemUbicacionScreen: React.FC = () => (
           </NextLink>
         </VStack>
 
-        <HStack p="2" bg="surface.container" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
+        <HStack p="2" bg="bg.surface" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
           <Text display={{ base: "none", sm: "block" }} fontSize="xs" fontWeight="medium" color="text.muted" px="2">
             Modo Claro / Oscuro:
           </Text>

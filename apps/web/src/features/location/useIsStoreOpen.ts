@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-/** Lunes a Sábado, 9:00 – 17:00 (hora de Lima). */
-const OPEN_MINUTE = 9 * 60;
-const CLOSE_MINUTE = 17 * 60;
+/** Lunes a Sábado, 8:00 – 18:00 (hora de Lima). */
+const OPEN_MINUTE = 8 * 60;
+const CLOSE_MINUTE = 18 * 60;
 const REFRESH_MS = 60_000;
 
 const computeIsOpen = (): boolean => {

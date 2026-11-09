@@ -38,7 +38,7 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
   statusMessage,
 }) => {
   return (
-    <AdminDialog eyebrow="Inventario" title={isEditing ? "Editar producto" : "Nuevo producto en catálogo"} maxW="580px" onClose={onClose} onSubmit={onSubmit}>
+    <AdminDialog eyebrow="Inventario" title={isEditing ? "Editar producto" : "Nuevo producto en catálogo"} maxW="xl" onClose={onClose} onSubmit={onSubmit}>
 
         <VStack align="stretch" gap="3.5">
           <SimpleGrid columns={2} gap="3">

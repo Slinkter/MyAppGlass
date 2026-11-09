@@ -61,7 +61,7 @@ export const ResponsiveScaleShowcase: React.FC = () => {
       >
         <ShowcasePanel p={{ base: "3", md: "5" }} borderRadius="xl" minW="0">
           <Box maxW="100%" overflowX="auto">
-            <Box minW="520px">
+            <Box minW="32rem">
               <Grid
                 templateColumns="1.4fr 1fr 1fr 1fr 1fr"
                 gap="3"
@@ -125,7 +125,7 @@ export const ResponsiveScaleShowcase: React.FC = () => {
                 <Text
                   fontSize="xs"
                   color="text.muted"
-                  minW="72px"
+                  minW="18"
                   flexShrink={0}
                   fontFamily="mono"
                 >
@@ -201,7 +201,7 @@ export const ResponsiveScaleShowcase: React.FC = () => {
             </VStack>
             <VStack align="stretch" gap="2">
               <SubsectionLabel>CTA Principal · 48px (minH=&quot;12&quot;)</SubsectionLabel>
-              <Button variant="aura" size="lg" minH="12" minW="12" w="full">
+              <Button variant="primary" size="lg" minH="12" minW="12" w="full">
                 Solicitar presupuesto
               </Button>
               <Text fontSize="xs" color="text.muted">

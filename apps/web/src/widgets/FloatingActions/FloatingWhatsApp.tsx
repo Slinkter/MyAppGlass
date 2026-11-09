@@ -22,16 +22,16 @@ interface FloatingWhatsAppButtonProps {
 export const FloatingWhatsAppButton: React.FC<FloatingWhatsAppButtonProps> = ({ onClick }) => (
   <Button
     variant="whatsapp"
-    _hover={{ transform: "scale(1.08)" }}
     borderRadius="full"
-    w={{ base: 14, md: 16 }}
-    h={{ base: 14, md: 16 }}
+    w={{ base: "14", md: "16" }}
+    h={{ base: "14", md: "16" }}
     minW="0"
     p="0"
-    boxShadow="lg"
+    boxShadow="md"
     onClick={onClick}
     aria-label="Abrir chat de WhatsApp"
-    transition="background-color 0.2s ease, transform 0.2s ease"
+    transition="background-color 0.2s ease, box-shadow 0.2s ease"
+    _motionReduce={{ transition: "none" }}
   >
     {/* WhatsApp Brand Icon */}
     <WhatsAppIcon size={32} />
@@ -46,17 +46,14 @@ export const FloatingWhatsAppButton: React.FC<FloatingWhatsAppButtonProps> = ({ 
 const FloatingWhatsApp = () => {
   const [isOpen, setIsOpen] = useState(false);
   const whatsappLink = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;
-  const modalBg = { base: "white", _dark: "gray.700" };
-  const modalColor = { base: "gray.800", _dark: "white" };
 
   return (
     <>
       <Box
         position="fixed"
-        bottom={{ base: 6, md: 4 }}
-        left={4}
+        left="4"
         right="auto"
-        zIndex="popover"
+        zIndex="sticky"
         display="flex"
         css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))", "body[data-scroll-locked] &": { display: "none" } }}
       >
@@ -71,18 +68,17 @@ const FloatingWhatsApp = () => {
       >
         <DialogContent
           maxW="xs"
-          bg={modalBg}
-          color={modalColor}
-          borderRadius="xl"
-          boxShadow="xl"
+          bg="bg.surface"
+          color="text.body"
+          borderRadius="modal"
+          boxShadow="modalLg"
           position="fixed"
-          bottom={{ base: "100px", md: "90px" }}
-          left={{ base: 4, md: "20px" }}
-          right={{ base: 4, md: "auto" }}
-          css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 90px)" }}
+          left={{ base: "4", md: "5" }}
+          right={{ base: "4", md: "auto" }}
+          css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 6rem)" }}
         >
           <DialogHeader>
-            <DialogTitle fontWeight="bold">¿Necesitas Ayuda?</DialogTitle>
+            <DialogTitle fontFamily="heading" fontWeight="bold">¿Necesitas Ayuda?</DialogTitle>
           </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>

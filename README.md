@@ -80,7 +80,7 @@ NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev
 Para consultar los manuales técnicos, guías de desarrollo y auditorías:
 
 - 📚 **[Centro de Documentación (docs/README.md)](docs/README.md)**
-- 🎨 **[Design System (docs/DESIGN-SYSTEM.md)](docs/DESIGN-SYSTEM.md)**
+- 🎨 **[Design System (apps/web/DESIGN.md)](apps/web/DESIGN.md)**
 - 🤖 **[Guía para Agentes LLM (AGENTS.md)](AGENTS.md)**
 - 🏛️ **[Manual de Arquitectura (docs/01_ARCHITECTURE.md)](docs/01_ARCHITECTURE.md)**
 - 📋 **[Historial de Versiones (docs/05_CHANGELOG.md)](docs/05_CHANGELOG.md)**

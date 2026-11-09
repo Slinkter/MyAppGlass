@@ -30,7 +30,7 @@ export const QuoteLinesPanel: React.FC<QuoteLinesPanelProps> = ({ lines, setLine
       borderRadius="2xl"
       border="1px solid"
       borderColor="border.default"
-      backdropFilter="blur(12px)"
+     
     >
       <Heading size="md" mb="2" display="flex" alignItems="center" gap="2">
         <Calculator size={20} style={{ flexShrink: 0 }} /> 1. ¿Qué necesitas cotizar?
@@ -165,7 +165,7 @@ export const QuoteLinesPanel: React.FC<QuoteLinesPanelProps> = ({ lines, setLine
                       {Object.entries(QUOTE_PRICING.installation.surcharge).map(([k, v]) => (
                         <option key={k} value={k}>{v.label}</option>
                       ))}
-                      <option value="sin_instalacion">Solo fabricación (sin instalación)</option>
+                      <option value="sin_instalacion">Solo ensamblaje en taller (sin instalación)</option>
                     </NativeSelect.Field>
                   </NativeSelect.Root>
                 </Field.Root>

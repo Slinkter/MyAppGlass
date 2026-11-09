@@ -2,15 +2,8 @@
 
 import React from "react";
 import AdminRowActions from "./AdminRowActions";
-import {
-  Box,
-  VStack,
-  HStack,
-  Text,
-  Badge,
-  Button,
-  Spinner,
-} from "@chakra-ui/react";
+import { Box, VStack, HStack, Text, Button, Spinner } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import {
   Building2,
   MapPin,
@@ -66,7 +59,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
             <Text fontSize="md" fontWeight="bold" color="text.heading">
               Portafolio de Proyectos y Obras
             </Text>
-            <Badge size="sm" variant="subtle" colorPalette="purple">
+            <Badge size="sm" variant="neutral">
               {projects.length} obras
             </Badge>
           </HStack>
@@ -199,7 +192,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
                         <Text fontSize="sm" fontWeight="semibold" color="text.heading">
                           {proj.title}
                         </Text>
-                        <Badge size="xs" variant="surface" colorPalette="gray" fontFamily="mono">
+                        <Badge size="xs" variant="neutral" fontFamily="mono">
                           {proj.slug}
                         </Badge>
                       </VStack>
@@ -222,14 +215,14 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
 
                   {/* Servicio Vinculado */}
                   <Box as="td" p="4">
-                    <Badge size="sm" variant="subtle" colorPalette="blue">
+                    <Badge size="sm" variant="info">
                       {proj.serviceId || "General"}
                     </Badge>
                   </Box>
 
                   {/* Álbum Galería count */}
                   <Box as="td" p="4">
-                    <Badge size="sm" variant="subtle" colorPalette="purple">
+                    <Badge size="sm" variant="neutral">
                       <ImageIcon size={12} style={{ flexShrink: 0, marginRight: 4 }} />
                       {proj.gallery?.length || 0} fotos
                     </Badge>
@@ -248,8 +241,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
                     {proj.published ? (
                       <Badge
                         size="sm"
-                        colorPalette="green"
-                        variant="subtle"
+                        variant="success"
                         cursor={onTogglePublish ? "pointer" : "default"}
                         onClick={() => onTogglePublish?.(proj)}
                       >
@@ -259,8 +251,7 @@ export const ProjectAdminTable: React.FC<ProjectAdminTableProps> = ({
                     ) : (
                       <Badge
                         size="sm"
-                        colorPalette="gray"
-                        variant="subtle"
+                        variant="neutral"
                         cursor={onTogglePublish ? "pointer" : "default"}
                         onClick={() => onTogglePublish?.(proj)}
                       >

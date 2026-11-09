@@ -11,37 +11,50 @@ import { EASE_SOFT, DUR_CSS } from "@/shared/constants/motion";
 // ─── Component Recipes (v3 Architecture) ───────────────────────────────────
 
 /**
- * Receta de botones del Design System v2:
- * - Variante primaria `aura`: negro de marca en claro, blanco con texto oscuro en modo oscuro (el acento navy se retiró: la marca es negra).
- * - `uppercase` por defecto (Decisión #3 aprobada por el usuario).
- * - Todos los tamaños garantizan área táctil >= 44px (`minH: "11"`, `minW: "11"`, Regla R3).
- * - `transition` restringida a 2 propiedades (Regla R5).
+ * Receta de botones (apps/web/DESIGN.md): píldora, texto en oración, negro de marca.
+ * - Variantes: `primary` (negro; blanco en modo oscuro), `outline`, `ghost` y `whatsapp` (verde accesible).
+ * - Todos los tamaños garantizan área táctil >= 44px (`minH: "11"`, `minW: "11"`).
+ * - `transition` restringida a 2 propiedades; `:active` escala 0,98 (sin sombras ni elevación).
  */
-/** Base común de las variantes Studio del botón (sin MAYÚSCULAS ni tracking). */
-const studioButtonBase = {
-  textTransform: "none",
-  letterSpacing: "normal",
-  fontWeight: "600",
-  _active: { transform: "scale(0.98)" },
+const primaryButton = {
+  bg: "brand.ink",
+  color: "white",
+  _hover: { bg: "brand.inkHover" },
+  _active: { bg: "brand.inkActive" },
+  _dark: {
+    bg: "white",
+    color: "brand.ink",
+    _hover: { bg: "gray.200" },
+    _active: { bg: "gray.300" },
+  },
 } as const;
 
-/** El tamaño del botón pisa al de la variante: se fija el cuerpo de texto por tamaño para Studio. */
-const studioButtonCompounds = (["studio", "studioOutline", "studioGhost"] as const).flatMap((variant) => [
-  { variant, size: "sm" as const, css: { fontSize: "sm", px: "5" } },
-  { variant, size: "md" as const, css: { fontSize: "md", px: "6" } },
-  { variant, size: "lg" as const, css: { fontSize: "lg", px: "8" } },
-  { variant, size: "xl" as const, css: { fontSize: "xl", px: "10" } },
-]);
+const outlineButton = {
+  bg: "transparent",
+  borderWidth: "1.5px",
+  borderColor: "brand.ink",
+  color: "brand.ink",
+  _hover: { bg: "blackAlpha.50" },
+  _dark: { borderColor: "white", color: "white", _hover: { bg: "whiteAlpha.100" } },
+} as const;
+
+const ghostButton = {
+  bg: "transparent",
+  color: "text.body",
+  _hover: { bg: "blackAlpha.50" },
+  _dark: { color: "gray.300", _hover: { bg: "whiteAlpha.100", color: "white" } },
+} as const;
 
 const buttonRecipe = defineRecipe({
   base: {
     fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: "wider",
+    textTransform: "none",
+    letterSpacing: "normal",
     borderRadius: "full",
     minH: "11",
     minW: "11",
     transition: `background-color ${DUR_CSS.fast} ${EASE_SOFT}, transform ${DUR_CSS.fast} ${EASE_SOFT}`,
+    _active: { transform: "scale(0.98)" },
     _focusVisible: {
       outline: "2px solid",
       outlineColor: "ring.primary",
@@ -56,200 +69,33 @@ const buttonRecipe = defineRecipe({
   },
   variants: {
     variant: {
-      aura: {
-        bg: "primary.900",
-        color: "white",
-        px: "8",
-        _hover: {
-          bg: "primary.700",
-          transform: "translateY(-2px)",
-          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
-        },
-        _active: {
-          bg: "primary.800",
-          transform: "translateY(0)",
-        },
-        _dark: {
-          bg: "white",
-          color: "#18181b",
-          _hover: {
-            bg: "gray.100",
-            boxShadow: "0 0 20px rgba(255, 255, 255, 0.25)",
-          },
-          _active: {
-            bg: "gray.200",
-          },
-        },
-      },
-      navy: {
-        bg: "brand.navy",
-        color: "white",
-        px: "8",
-        _hover: {
-          bg: "brand.navyHover",
-          transform: "translateY(-2px)",
-        },
-        _active: {
-          bg: "brand.navyActive",
-          transform: "translateY(0)",
-        },
-        _dark: {
-          bg: "accent.navy",
-          color: "accent.navyContrast",
-          _hover: {
-            bg: "blue.200",
-          },
-          _active: {
-            bg: "blue.300",
-          },
-        },
-      },
+      primary: primaryButton,
+      outline: outlineButton,
+      ghost: ghostButton,
       whatsapp: {
         // Verde accesible: blanco sobre #15803d da >= 4,5:1 (el #25D366 daba 1,98:1).
         bg: "brand.whatsappAccessible",
         color: "white",
-        px: "8",
-        _hover: {
-          bg: "brand.whatsappAccessibleHover",
-          transform: "translateY(-2px)",
-          boxShadow: "md",
-        },
-        _active: {
-          bg: "brand.whatsappAccessibleActive",
-          transform: "translateY(0)",
-        },
-      },
-      brand: {
-        bg: "brand.red",
-        color: "white",
-        px: "8",
-        _hover: {
-          bg: "brand.redHover",
-          transform: "translateY(-2px)",
-          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
-        },
-        _active: {
-          bg: "brand.redDark",
-          transform: "translateY(0)",
-        },
-      },
-      outline: {
-        borderWidth: "2px",
-        borderColor: "primary.900",
-        color: "primary.900",
-        px: "8",
-        _hover: {
-          bg: "blackAlpha.50",
-        },
-        _dark: {
-          borderColor: "white",
-          color: "white",
-          _hover: {
-            bg: "whiteAlpha.100",
-          },
-        },
-      },
-      outlineNavy: {
-        borderWidth: "2px",
-        borderColor: "accent.navy",
-        color: "accent.navy",
-        px: "8",
-        _hover: {
-          bg: "bg.tintNavy",
-        },
-        _dark: {
-          borderColor: "accent.navy",
-          color: "accent.navy",
-          _hover: {
-            bg: "whiteAlpha.100",
-          },
-        },
-      },
-      ghost: {
-        color: "text.body",
-        _hover: {
-          bg: "blackAlpha.50",
-        },
-        _dark: {
-          color: "gray.300",
-          _hover: {
-            bg: "whiteAlpha.100",
-            color: "white",
-          },
-        },
-      },
-      /* Aura Studio (dirección 2026-11-09, de scroll-craft): pastilla en minúscula/oración, negro de marca. */
-      studio: {
-        ...studioButtonBase,
-        bg: "gray.900",
-        color: "white",
-        _hover: { bg: "gray.700" },
-        _dark: { bg: "white", color: "gray.900", _hover: { bg: "gray.200" } },
-      },
-      studioOutline: {
-        ...studioButtonBase,
-        bg: "transparent",
-        borderWidth: "1.5px",
-        borderColor: "gray.900",
-        color: "gray.900",
-        _hover: { bg: "blackAlpha.50" },
-        _dark: { borderColor: "white", color: "white", _hover: { bg: "whiteAlpha.100" } },
-      },
-      studioGhost: {
-        ...studioButtonBase,
-        bg: "transparent",
-        color: "text.body",
-        _hover: { bg: "blackAlpha.50" },
-        _dark: { color: "gray.300", _hover: { bg: "whiteAlpha.100", color: "white" } },
+        _hover: { bg: "brand.whatsappAccessibleHover" },
+        _active: { bg: "brand.whatsappAccessibleActive" },
       },
     },
     size: {
-      xs: {
-        h: "11",
-        minH: "11",
-        minW: "11",
-        px: "3",
-        fontSize: "xs",
-      },
-      sm: {
-        h: "11",
-        minH: "11",
-        minW: "11",
-        px: "4",
-        fontSize: "xs",
-      },
-      md: {
-        h: "11",
-        minH: "11",
-        minW: "11",
-        px: "6",
-        fontSize: "sm",
-      },
-      lg: {
-        h: "12",
-        minH: "12",
-        minW: "12",
-        px: "8",
-        fontSize: "md",
-      },
-      xl: {
-        h: "14",
-        minH: "14",
-        minW: "14",
-        fontSize: "lg",
-        px: "14",
-      },
+      xs: { h: "11", minH: "11", minW: "11", px: "3", fontSize: "sm" },
+      sm: { h: "11", minH: "11", minW: "11", px: "4", fontSize: "sm" },
+      md: { h: "11", minH: "11", minW: "11", px: "6", fontSize: "sm" },
+      lg: { h: "12", minH: "12", minW: "12", px: "8", fontSize: "md" },
+      xl: { h: "14", minH: "14", minW: "14", px: "10", fontSize: "lg" },
     },
   },
-  compoundVariants: studioButtonCompounds,
   defaultVariants: {
-    variant: "aura",
+    variant: "primary",
     size: "md",
   },
 });
 
 /**
- * Receta propia para Badge: añade variantes semánticas v2 (`neutral`, `navy`, `success`, `warning`, `danger`, `info`)
+ * Receta propia para Badge: añade variantes semánticas v2 (`neutral`, `ink`, `success`, `warning`, `danger`, `info`)
  * sin alterar las variantes por defecto de Chakra (`subtle`, `outline`, `solid`) que usan el Home y Servicios actuales.
  */
 const studioBadgeBase = {
@@ -272,15 +118,15 @@ const badgeRecipe = defineRecipe({
         borderWidth: "1px",
         borderColor: "border.default",
       },
-      navy: {
-        bg: "bg.tintNavy",
-        color: "accent.navy",
+      ink: {
+        bg: "bg.tint",
+        color: "accent.ink",
         borderWidth: "1px",
         borderColor: "border.default",
       },
-      navySolid: {
-        bg: "accent.navy",
-        color: "accent.navyContrast",
+      inkSolid: {
+        bg: "accent.ink",
+        color: "accent.inkContrast",
       },
       success: {
         bg: "status.successSoft",
@@ -318,11 +164,13 @@ const badgeRecipe = defineRecipe({
 });
 
 /**
- * Campos de formulario (`input`, `textarea`, `nativeSelect`) con altura mínima táctil de 44px (`minH: "11"`).
+ * Campos de formulario (`input`, `textarea`, `nativeSelect`): 48 px de alto (`minH: "12"`), esquina de 12 px y texto de 16 px (evita el zoom de iOS).
  * Usa el token `ring.primary` directamente en lugar de `var(--chakra-colors-ring-primary)` (Regla R8).
  */
 const fieldOutline = {
-  minH: "11",
+  minH: "12",
+  px: "4",
+  fontSize: "md",
   bg: "surface.container",
   borderWidth: "1px",
   borderColor: "border.default",
@@ -338,6 +186,10 @@ const fieldOutline = {
   },
   _invalid: {
     borderColor: "status.dangerText",
+  },
+  _disabled: {
+    opacity: 0.5,
+    cursor: "not-allowed",
   },
 };
 
@@ -390,12 +242,12 @@ const cardRecipe = defineSlotRecipe({
         root: { bg: "bg.section", borderWidth: "0" },
       },
       warm: {
-        root: { bg: "bg.warm", borderWidth: "1px", borderColor: "border.warm" },
+        root: { bg: "bg.section", borderWidth: "1px", borderColor: "border.warm" },
       },
       /* Aura Studio: radio grande, borde fino, sin sombra; título en la fuente de títulos. */
       studio: {
         root: { bg: "bg.surface", borderWidth: "1px", borderColor: "border.default", borderRadius: "3xl", boxShadow: "none" },
-        title: { fontFamily: "heading", fontWeight: "500", color: "text.heading" },
+        title: { fontFamily: "heading", fontWeight: "700", color: "text.heading" },
         description: { color: "text.muted" },
       },
     },
@@ -403,7 +255,7 @@ const cardRecipe = defineSlotRecipe({
 });
 
 /**
- * Tabs slot recipe: añade variante `navyLine` para v2 sin cambiar el color de las pestañas existentes del sitio.
+ * Tabs slot recipe: añade variantes para v2 sin cambiar el color de las pestañas existentes del sitio.
  */
 const tabsRecipe = defineSlotRecipe({
   slots: ["root", "trigger", "list", "content", "contentGroup", "indicator"],
@@ -449,7 +301,7 @@ const tableRecipe = defineSlotRecipe({
       color: "text.heading",
       fontWeight: "700",
       borderColor: "border.default",
-      bg: "bg.warm",
+      bg: "bg.section",
     },
     cell: {
       borderColor: "border.subtle",
@@ -477,8 +329,19 @@ const tableRecipe = defineSlotRecipe({
   },
 });
 
+/** Variante de Alert por estado: fondo suave, borde del estado y texto con contraste verificado (>= 4,5:1). */
+const alertStatusVariant = (name: "success" | "warning" | "danger" | "info") => ({
+  root: {
+    bg: `status.${name}Soft`,
+    borderColor: `status.${name}Border`,
+    borderRadius: "card",
+  },
+  title: { color: `status.${name}Text` },
+  indicator: { color: `status.${name}Text` },
+});
+
 /**
- * Alert slot recipe: estados semánticos con contraste verificado.
+ * Alert slot recipe: variantes de estado (`success`, `warning`, `danger`, `info`) con contraste verificado.
  */
 const alertRecipe = defineSlotRecipe({
   slots: ["title", "description", "root", "indicator", "content"],
@@ -502,8 +365,12 @@ const alertRecipe = defineSlotRecipe({
       /* Aura Studio: radio grande, título en la fuente de títulos. */
       studio: {
         root: { bg: "bg.surface", borderRadius: "2xl", borderWidth: "1px", borderColor: "border.default" },
-        title: { fontFamily: "heading", fontWeight: "500", fontSize: "lg" },
+        title: { fontFamily: "heading", fontWeight: "700", fontSize: "lg" },
       },
+      success: alertStatusVariant("success"),
+      warning: alertStatusVariant("warning"),
+      danger: alertStatusVariant("danger"),
+      info: alertStatusVariant("info"),
     },
   },
 });
@@ -621,6 +488,24 @@ const config = defineConfig({
         "5xl": { value: "3rem" },
         "6xl": { value: "3.75rem" },
       },
+      /* Jerarquía tipográfica de apps/web/DESIGN.md. */
+      lineHeights: {
+        display: { value: "1.08" },
+        headline: { value: "1.1" },
+        title: { value: "1.2" },
+        body: { value: "1.625" },
+      },
+      letterSpacings: {
+        display: { value: "-0.025em" },
+        headline: { value: "-0.02em" },
+        label: { value: "0.14em" },
+      },
+      /* Tres anchos de página únicos (estrecho 896 px, estándar 1152 px, amplio 1280 px). */
+      sizes: {
+        pageNarrow: { value: "56rem" },
+        pageDefault: { value: "72rem" },
+        pageWide: { value: "80rem" },
+      },
       colors: {
         primary: {
           50: { value: "#fafafa" },
@@ -642,22 +527,19 @@ const config = defineConfig({
           whatsappAccessible: { value: "#15803d" },
           whatsappAccessibleHover: { value: "#166534" },
           whatsappAccessibleActive: { value: "#14532d" },
+          /* @deprecated: rojo antiguo; se retira con la variante de botón `brand` (plan 25, fase 2). */
           red: { value: "#FF5A5F" },
           redHover: { value: "#E0484D" },
-          /* Rojo de marca (#D62828): solo para la palabra PRESUPUESTO. Contraste 5,0:1 sobre blanco. */
-          quoteRed: { value: "#D62828" },
           redDark: { value: "#D9444A" },
-          ink: { value: "#0f172a" },
-          inkV2: { value: "#111111" },
+          /* Rojo de título destacado (#D62828): una vez por pantalla. Contraste 5,0:1 sobre blanco. */
+          quoteRed: { value: "#D62828" },
+          /* Negro de marca (apps/web/DESIGN.md). */
+          ink: { value: "#111111" },
+          inkHover: { value: "#2A2A2A" },
+          inkActive: { value: "#000000" },
           inkSoft: { value: "#4A4A4A" },
-          /* Dirección 2026-11-09: la marca es NEGRA. Los tokens "navy" se mantienen por compatibilidad pero resuelven a negro de marca (#111111); el azul queda solo en foco y enlaces. */
-          navy: { value: "#111111" },
-          navyHover: { value: "#2A2A2A" },
-          navyActive: { value: "#000000" },
-          redQuote: { value: "#D62828" },
+          /* Coral del logo: exclusivo del logo, nunca en texto ni botones. */
           logoCoral: { value: "#FF5A5A" },
-          paperWarm: { value: "#F7F6F3" },
-          paperCream: { value: "#FBF8F3" },
         },
         status: {
           info: { value: "#38bdf8" },
@@ -692,7 +574,6 @@ const config = defineConfig({
         navDesktop: { value: "0 8px 32px 0 rgba(0, 0, 0, 0.08)" },
         adminNav: { value: "0 10px 30px rgba(0, 0, 0, 0.06)" },
         adminCard: { value: "0 4px 20px rgba(0, 0, 0, 0.04)" },
-        adminTable: { value: "0 8px 30px rgba(0, 0, 0, 0.04)" },
         cardLift: { value: "0 20px 40px rgba(0, 0, 0, 0.3)" },
         elevatedLg: { value: "0 8px 32px rgba(0, 0, 0, 0.12)" },
         modalLg: { value: "0 20px 50px rgba(0,0,0,0.3)" },
@@ -700,22 +581,20 @@ const config = defineConfig({
     },
     semanticTokens: {
       colors: {
-        "bg.page": { value: { _light: "{colors.gray.50}", _dark: "#09090b" } },
+        /* Fondo blanco decidido por el dueño (2026-11-09); el papel cálido #F7F6F3 se retiró. */
+        "bg.page": { value: { _light: "white", _dark: "#09090b" } },
         "bg.section": { value: { _light: "white", _dark: "#121215" } },
         "bg.surface": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
-        "bg.warm": { value: { _light: "#F7F6F3", _dark: "#161614" } },
-        /* Papel decidido por el dueño (2026-11-09): A · #F7F6F3 */
-        "bg.paper": { value: { _light: "#F7F6F3", _dark: "#161614" } },
-        "bg.tintNavy": { value: { _light: "#F3F5F9", _dark: "rgba(0, 32, 96, 0.24)" } },
+        /* Bloque destacado neutro (sin azul). */
+        "bg.tint": { value: { _light: "{colors.primary.100}", _dark: "rgba(255,255,255,0.06)" } },
 
         // Brand
         "brand.primary": { value: { _light: "{colors.primary.900}", _dark: "white" } },
-        "accent.navy": { value: { _light: "#111111", _dark: "#FFFFFF" } },
-        "accent.navyContrast": { value: { _light: "white", _dark: "#111111" } },
+        "accent.ink": { value: { _light: "{colors.brand.ink}", _dark: "white" } },
+        "accent.inkContrast": { value: { _light: "white", _dark: "{colors.brand.ink}" } },
 
-        "surface.card": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
-        "surface.nav": { value: { _light: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" } },
+        "surface.card": { value: "{colors.bg.surface}" },
         "surface.container": { value: { _light: "white", _dark: "rgba(255,255,255,0.04)" } },
         "surface.icon": { value: { _light: "{colors.primary.50}", _dark: "rgba(255,255,255,0.04)" } },
         "surface.iconHover": { value: { _light: "{colors.primary.100}", _dark: "rgba(255,255,255,0.08)" } },
@@ -726,8 +605,6 @@ const config = defineConfig({
         "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
         "border.warm": { value: { _light: "#E6E3DE", _dark: "rgba(255,255,255,0.08)" } },
         "border.warmStrong": { value: { _light: "#D9D6D0", _dark: "rgba(255,255,255,0.14)" } },
-        // @deprecated: solo fallback en ProjectServiceSelect.tsx
-        "border.slate": { value: "#e2e8f0" },
 
         // Status Borders
         "status.dangerBorder": { value: "rgba(248, 113, 113, 0.25)" },
@@ -749,7 +626,6 @@ const config = defineConfig({
         "text.body": { value: { _light: "{colors.gray.800}", _dark: "{colors.gray.300}" } },
         "text.heading": { value: { _light: "{colors.gray.900}", _dark: "white" } },
         "text.muted": { value: { _light: "{colors.gray.600}", _dark: "{colors.gray.400}" } },
-        "text.subtle": { value: { _light: "{colors.gray.500}", _dark: "{colors.gray.400}" } },
         "text.accent": { value: { _light: "{colors.primary.600}", _dark: "{colors.primary.300}" } },
       },
     },

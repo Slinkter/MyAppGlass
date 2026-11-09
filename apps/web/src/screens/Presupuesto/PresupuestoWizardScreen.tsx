@@ -117,11 +117,11 @@ export const PresupuestoWizardScreen: React.FC = () => {
   };
 
   return (
-    <Box py="8" maxW="1200px" mx="auto" px={{ base: "4", md: "0" }}>
+    <Box py="8" maxW="pageWide" mx="auto" px={{ base: "4", md: "0" }}>
       {/* SECCIÓN INTERACTIVA (Oculta al imprimir) */}
       <Box className="no-print">
         <VStack gap="2" align="start" mb="8">
-          <Heading as="h1" size="2xl" color="brand.primary">
+          <Heading as="h1" size="2xl" color="text.heading">
             Solicita tu presupuesto
           </Heading>
           <Text color="text.muted">

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { VStack, HStack, Text, Input, Button, Badge, IconButton } from "@chakra-ui/react";
+import { VStack, HStack, Text, Input, Button, IconButton } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { Field } from "@/components/ui/field";
 import { Plus, Trash2 } from "lucide-react";
 
@@ -60,8 +61,7 @@ export const FeaturesEditor: React.FC<FeaturesEditorProps> = ({ features, onChan
             <Badge
               key={idx}
               size="md"
-              variant="subtle"
-              colorPalette="blue"
+              variant="info"
               px="2.5"
               py="1"
               borderRadius="md"
@@ -74,7 +74,7 @@ export const FeaturesEditor: React.FC<FeaturesEditorProps> = ({ features, onChan
                 size="2xs"
                 variant="ghost"
                 color="text.muted"
-                _hover={{ color: "red.500" }}
+                _hover={{ color: "status.dangerText" }}
                 onClick={() => handleRemoveFeature(idx)}
               >
                 <Trash2 size={12} style={{ flexShrink: 0 }} />

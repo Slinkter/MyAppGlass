@@ -25,7 +25,7 @@ export const CustomerPanel: React.FC<CustomerPanelProps> = ({ customer, setCusto
       borderRadius="2xl"
       border="1px solid"
       borderColor="border.default"
-      backdropFilter="blur(12px)"
+     
     >
       <Heading size="md" mb="6" display="flex" alignItems="center" gap="2">
         <FileCheck size={20} style={{ flexShrink: 0 }} /> 2. Tus datos de contacto
@@ -97,7 +97,7 @@ export const CustomerPanel: React.FC<CustomerPanelProps> = ({ customer, setCusto
           {errors.address && <Field.ErrorText>{errors.address}</Field.ErrorText>}
         </Field.Root>
 
-        <Button variant="aura" size="lg" w="full" minH="11" mt="2" loading={saving} onClick={onSubmit}>
+        <Button variant="primary" size="lg" w="full" minH="11" mt="2" loading={saving} onClick={onSubmit}>
           <Send size={20} style={{ flexShrink: 0 }} /> Enviar solicitud de presupuesto
         </Button>
       </VStack>

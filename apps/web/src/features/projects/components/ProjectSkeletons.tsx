@@ -21,7 +21,7 @@ export const ProjectCardSkeletons: React.FC<{ count?: number }> = ({ count = 6 }
 /** Esqueleto de la página de detalle de proyecto. */
 export const ProjectDetailSkeleton: React.FC = () => (
   <Box bg="bg.page" minH="dvh" pt={{ base: 4, md: 6 }} pb={{ base: 16, md: 24 }}>
-    <Container maxW="7xl" px={{ base: 4, sm: 6, md: 8 }}>
+    <Container maxW="pageWide"px={{ base: 4, sm: 6, md: 8 }}>
       <VStack gap={{ base: 6, md: 8 }} align="stretch">
         <Skeleton h="12" w={{ base: "full", md: "50%" }} borderRadius="xl" />
         <Skeleton h={{ base: "320px", sm: "380px", md: "480px" }} w="full" borderRadius="3xl" />

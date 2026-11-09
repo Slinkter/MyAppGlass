@@ -100,7 +100,7 @@ export const SimuladorAIScreen: React.FC = () => {
   };
 
   return (
-    <Box py="10" maxW="1280px" mx="auto" px={{ base: "4", md: "6" }}>
+    <Box py="10" maxW="pageWide" mx="auto" px={{ base: "4", md: "6" }}>
       {/* CABECERA */}
       <VStack gap="2" align="start" mb="8">
         <HStack gap="2" flexWrap="wrap">

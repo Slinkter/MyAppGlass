@@ -35,7 +35,7 @@ export function CheckoutScreen() {
       {cart.lines.length === 0 ? (
         <VStack align="flex-start" gap="3">
           <Text color="text.muted">Tu carrito está vacío.</Text>
-          <Button as={NextLink} href="/tienda" variant="aura" minH={TOUCH_MIN}>
+          <Button as={NextLink} href="/tienda" variant="primary" minH={TOUCH_MIN}>
             Volver a la tienda
           </Button>
         </VStack>

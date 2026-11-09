@@ -31,7 +31,7 @@ const rules = [
   },
   {
     title: "Sin degradados prohibidos",
-    body: "Cumple DESIGN-SYSTEM.md usando fondo base sólido y velo protector uniforme sin recurrir a linear-gradient ni bgGradient.",
+    body: "Cumple DESIGN.md usando fondo base sólido y velo protector uniforme sin recurrir a linear-gradient ni bgGradient.",
   },
   {
     title: "Rendimiento y LCP",
@@ -43,8 +43,8 @@ const rules = [
   },
 ];
 
-const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de inmediato sobre fondo base brand.navy
-<Box position="relative" overflow="hidden" bg="brand.navy">
+const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de inmediato sobre fondo base brand.ink
+<Box position="relative" overflow="hidden" bg="brand.ink">
   <ImageRevealSkeleton loaded={loaded} />
   <Box
     position="absolute"
@@ -83,7 +83,7 @@ const DemoRevealCard: React.FC = () => {
       borderRadius="3xl"
       overflow="hidden"
       position="relative"
-      bg="brand.navy"
+      bg="brand.ink"
       boxShadow="sm"
     >
       <ImageRevealSkeleton loaded={loaded} />
@@ -120,7 +120,7 @@ const DemoRevealCard: React.FC = () => {
         p={{ base: "4", md: "6" }}
         minW="0"
       >
-        <Heading as="h3" fontSize={{ base: "xl", md: "2xl" }} color="white" fontWeight="800" lineClamp={2}>
+        <Heading as="h3" fontSize={{ base: "xl", md: "2xl" }} color="white" fontWeight="700" lineClamp={2}>
           Ventanas de Aluminio
         </Heading>
         <Text fontSize="xs" color="whiteAlpha.800" lineClamp={1}>

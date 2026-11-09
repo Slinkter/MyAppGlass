@@ -5,18 +5,8 @@
  */
 
 import React from "react";
-import {
-    Box,
-    Heading,
-    Text,
-    VStack,
-    Stack,
-    SimpleGrid,
-    HStack,
-    Badge,
-    Image,
-    Flex,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Stack, SimpleGrid, HStack, Image, Flex } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { Toaster } from "@/components/ui/toaster";
 import {
     Building,
@@ -86,7 +76,7 @@ const BankAccountsView: React.FC = () => {
                             size="lg"
                             mb="4"
                             color="text.heading"
-                            fontWeight="800"
+                            fontWeight="700"
                         >
                             Identificación Fiscal
                         </Heading>
@@ -104,7 +94,7 @@ const BankAccountsView: React.FC = () => {
                             size="lg"
                             mb="4"
                             color="text.heading"
-                            fontWeight="800"
+                            fontWeight="700"
                         >
                             Billeteras Digitales
                         </Heading>
@@ -144,18 +134,16 @@ const BankAccountsView: React.FC = () => {
                                 <VStack align="flex-start" flex="1" gap="4">
                                     <HStack gap="3">
                                         <Badge
-                                            colorPalette="purple"
                                             size="md"
-                                            variant="solid"
+                                            variant="neutral"
                                             px={3}
                                             borderRadius="full"
                                         >
                                             YAPE
                                         </Badge>
                                         <Badge
-                                            colorPalette="blue"
                                             size="md"
-                                            variant="solid"
+                                            variant="info"
                                             px={3}
                                             borderRadius="full"
                                         >
@@ -167,7 +155,7 @@ const BankAccountsView: React.FC = () => {
                                         <Heading
                                             size="md"
                                             color="text.heading"
-                                            fontWeight="800"
+                                            fontWeight="700"
                                         >
                                             Pago con Billetera Digital
                                         </Heading>
@@ -192,7 +180,7 @@ const BankAccountsView: React.FC = () => {
                                     >
                                         <VStack align="flex-start" gap={0}>
                                             <Text
-                                                fontWeight="800"
+                                                fontWeight="700"
                                                 fontSize="sm"
                                                 color="text.heading"
                                             >
@@ -222,7 +210,7 @@ const BankAccountsView: React.FC = () => {
                             size="lg"
                             mb="4"
                             color="text.heading"
-                            fontWeight="800"
+                            fontWeight="700"
                         >
                             Cuentas Bancarias
                         </Heading>
@@ -246,7 +234,7 @@ const BankAccountsView: React.FC = () => {
                             ¿Necesita confirmar un pago o requiere asistencia adicional?{" "}
                             <Text
                                 as="span"
-                                fontWeight="800"
+                                fontWeight="700"
                                 color="text.accent"
                             >
                                 Contacte a: {companyData.contactEmail}

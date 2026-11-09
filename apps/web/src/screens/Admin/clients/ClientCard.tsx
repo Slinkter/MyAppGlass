@@ -22,12 +22,12 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
       border="1px solid"
       borderColor="border.default"
       backdropFilter="blur(16px)"
-      boxShadow="0 6px 24px var(--chakra-colors-overlay-subtle)"
+      boxShadow="md"
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
       transition="transform 0.2s ease, border-color 0.2s ease"
-      _hover={{ borderColor: "rgba(56, 189, 248, 0.4)", transform: "translateY(-2px)" }}
+      _hover={{ borderColor: "border.strong" }}
     >
       <VStack align="start" gap="3">
         <HStack justify="space-between" w="full">
@@ -35,7 +35,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
             variant="subtle"
             size="sm"
             borderRadius="md"
-            bg={isCompany ? "rgba(167, 139, 250, 0.1)" : "var(--chakra-colors-status-info-soft)"}
+            bg={isCompany ? "bg.tint" : "var(--chakra-colors-status-info-soft)"}
             color={isCompany ? "var(--chakra-colors-accent-violet-soft)" : "var(--chakra-colors-status-info)"}
           >
             {isCompany ? "Empresa / RUC" : "Persona Natural"}
@@ -75,12 +75,12 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client: c, onCreateSale 
           </HStack>
 
           <HStack gap="2">
-            <Mail size={14} style={{ flexShrink: 0 }} color="#818cf8" />
-            <Text truncate maxW="200px">{c.email}</Text>
+            <Mail size={14} style={{ flexShrink: 0 }} color="text.muted" />
+            <Text truncate maxW="12.5rem">{c.email}</Text>
           </HStack>
           <HStack gap="2">
             <MapPin size={14} style={{ flexShrink: 0 }} color="var(--chakra-colors-status-success)" />
-            <Text truncate maxW="220px">{c.address}</Text>
+            <Text truncate maxW="13.75rem">{c.address}</Text>
           </HStack>
         </VStack>
       </VStack>

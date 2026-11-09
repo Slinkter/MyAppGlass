@@ -119,8 +119,7 @@ export const CardVariantsShowcase: React.FC = () => {
                 borderColor="border.default"
                 borderRadius="xl"
                 transition="border-color 0.2s ease, background-color 0.2s ease"
-                transform="translateZ(0)"
-                _hover={{ borderColor: "text.muted" }}
+                transform="translateZ(0)"
                 _focusVisible={interactiveFocus}
               >
                 <Flex
@@ -172,16 +171,15 @@ export const CardVariantsShowcase: React.FC = () => {
                 borderRadius="xl"
                 overflow="hidden"
                 transition="border-color 0.2s ease, box-shadow 0.2s ease"
-                transform="translateZ(0)"
-                _hover={{ borderColor: "text.muted" }}
+                transform="translateZ(0)"
                 minW="0"
               >
                 <Box
-                  w={{ base: "full", sm: "140px" }}
-                  h={{ base: "120px", sm: "auto" }}
-                  minH={{ sm: "132px" }}
+                  w={{ base: "full", sm: "36" }}
+                  h={{ base: "30", sm: "auto" }}
+                  minH={{ sm: "33" }}
                   flexShrink={0}
-                  bg="bg.tintNavy"
+                  bg="bg.tint"
                   borderBottomWidth={{ base: "1px", sm: "0" }}
                   borderRightWidth={{ base: "0", sm: "1px" }}
                   borderColor="border.subtle"
@@ -191,7 +189,7 @@ export const CardVariantsShowcase: React.FC = () => {
                   p="3"
                   textAlign="center"
                 >
-                  <Text fontSize="xs" fontWeight="semibold" color="accent.navy">
+                  <Text fontSize="xs" fontWeight="semibold" color="accent.ink">
                     Vista técnica · {it.badge}
                   </Text>
                 </Box>
@@ -205,7 +203,7 @@ export const CardVariantsShowcase: React.FC = () => {
                     </Text>
                   </Box>
                   <Box>
-                    <Button variant="aura" size="sm" minH="11" px="4">
+                    <Button variant="primary" size="sm" minH="11" px="4">
                       Cotizar
                     </Button>
                   </Box>
@@ -239,14 +237,13 @@ export const CardVariantsShowcase: React.FC = () => {
                 borderColor="border.default"
                 borderRadius="xl"
                 transition="border-color 0.2s ease, box-shadow 0.2s ease"
-                transform="translateZ(0)"
-                _hover={{ borderColor: "text.muted" }}
+                transform="translateZ(0)"
               >
                 <Box
                   position="relative"
                   w="100%"
                   aspectRatio="16 / 9"
-                  bg="bg.tintNavy"
+                  bg="bg.tint"
                   borderBottomWidth="1px"
                   borderColor="border.warm"
                   display="flex"
@@ -259,7 +256,7 @@ export const CardVariantsShowcase: React.FC = () => {
                     position="absolute"
                     top="3"
                     left="3"
-                    colorPalette="gray"
+
                     variant="solid"
                     px="3"
                     py="1"
@@ -267,7 +264,7 @@ export const CardVariantsShowcase: React.FC = () => {
                   >
                     {it.system}
                   </Badge>
-                  <Text fontSize="xs" fontWeight="semibold" color="accent.navy">
+                  <Text fontSize="xs" fontWeight="semibold" color="accent.ink">
                     Vista técnica · {it.badge}
                   </Text>
                 </Box>

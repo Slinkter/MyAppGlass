@@ -65,9 +65,9 @@ export function ContactFormSection({
   handleSubmit,
 }: ContactFormSectionProps) {
   // Condiciones CSS (base/_dark) en lugar del hook de color mode: mismo HTML en servidor y cliente
-  const inputBg = { base: "rgba(240, 242, 245, 0.85)", _dark: "rgba(24, 24, 27, 0.75)" };
-  const inputBorderColor = { base: "rgba(0, 0, 0, 0.15)", _dark: "rgba(255, 255, 255, 0.18)" };
-  const inputHoverBorderColor = { base: "var(--chakra-colors-overlay-dim)", _dark: "rgba(255, 255, 255, 0.35)" };
+  const inputBg = { base: "bg.subtle", _dark: "bg.subtle" };
+  const inputBorderColor = { base: "border.default", _dark: "border.default" };
+  const inputHoverBorderColor = { base: "border.strong", _dark: "border.strong" };
   const inputFocusBg = { base: "white", _dark: "blackAlpha.800" };
   return (
     <Box w="full">
@@ -75,11 +75,11 @@ export function ContactFormSection({
         <VStack align="flex-start" gap="1">
           <HStack gap="2">
             <Box w="2" h="2" borderRadius="full" bg="text.accent" />
-            <Text fontSize="xs" fontWeight="900" color="text.accent" letterSpacing="0.2em" textTransform="uppercase">
+            <Text fontSize="xs" fontWeight="700" color="text.accent" letterSpacing="0.2em" textTransform="uppercase">
               Solicitud Directa
             </Text>
           </HStack>
-          <Heading size="lg" color="text.heading" fontWeight="900" letterSpacing="tight">
+          <Heading size="lg" color="text.heading" fontWeight="700" letterSpacing="tight">
             Formulario de Cotización
           </Heading>
           <Text fontSize="sm" color="text.muted">
@@ -121,7 +121,7 @@ export function ContactFormSection({
               bg={inputBg}
               borderWidth="1px"
               borderColor={errors?.name ? "red.500" : inputBorderColor}
-              _hover={{ borderColor: errors?.name ? "red.500" : inputHoverBorderColor }}
+              _hover={{ borderColor: errors?.name ? "status.dangerBorder" : inputHoverBorderColor }}
               _focus={{ 
                 bg: inputFocusBg,
                 borderColor: errors?.name ? "red.500" : "primary.500",
@@ -153,7 +153,7 @@ export function ContactFormSection({
               bg={inputBg}
               borderWidth="1px"
               borderColor={errors?.email ? "red.500" : inputBorderColor}
-              _hover={{ borderColor: errors?.email ? "red.500" : inputHoverBorderColor }}
+              _hover={{ borderColor: errors?.email ? "status.dangerBorder" : inputHoverBorderColor }}
               _focus={{ 
                 bg: inputFocusBg,
                 borderColor: errors?.email ? "red.500" : "primary.500",
@@ -184,7 +184,7 @@ export function ContactFormSection({
               bg={inputBg}
               borderWidth="1px"
               borderColor={errors?.phone ? "red.500" : inputBorderColor}
-              _hover={{ borderColor: errors?.phone ? "red.500" : inputHoverBorderColor }}
+              _hover={{ borderColor: errors?.phone ? "status.dangerBorder" : inputHoverBorderColor }}
               _focus={{ 
                 bg: inputFocusBg,
                 borderColor: errors?.phone ? "red.500" : "primary.500",
@@ -214,7 +214,7 @@ export function ContactFormSection({
               bg={inputBg}
               borderWidth="1px"
               borderColor={errors?.message ? "red.500" : inputBorderColor}
-              _hover={{ borderColor: errors?.message ? "red.500" : inputHoverBorderColor }}
+              _hover={{ borderColor: errors?.message ? "status.dangerBorder" : inputHoverBorderColor }}
               _focus={{ 
                 bg: inputFocusBg,
                 borderColor: errors?.message ? "red.500" : "primary.500",
@@ -259,11 +259,11 @@ export function ContactFormSection({
         <VStack w="full" gap="3" pt={2}>
           <Button 
             type="submit"
-            variant="aura" 
+            variant="primary" 
             size="xl" 
             w="full" 
             borderRadius="full"
-            fontWeight="900"
+            fontWeight="700"
             letterSpacing="widest"
             loading={isSubmitting}
             loadingText="ENVIANDO SOLICITUD..."

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T00:00:00.000Z",
+  "title": "Design System: Glass & Aluminum Company S.A.C.",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "primary", "displayName": "Tinta de Plano", "canonical": "#111111", "tonalRamp": ["#0A0A0A", "#111111", "#2A2A2A", "#4A4A4A", "#7A7A7A", "#A8A8A8", "#D4D4D4", "#F2F2F2"] },
+      "quote-red": { "role": "secondary", "displayName": "Rojo de Presupuesto", "canonical": "#D62828", "tonalRamp": ["#4A0F0F", "#7A1A1A", "#A82020", "#D62828", "#E05A5A", "#EA8A8A", "#F4BABA", "#FBE3E3"] },
+      "whatsapp": { "role": "secondary", "displayName": "Verde WhatsApp accesible", "canonical": "#15803D", "tonalRamp": ["#052E16", "#14532D", "#166534", "#15803D", "#16A34A", "#4ADE80", "#BBF7D0", "#F0FDF4"] },
+      "page": { "role": "neutral", "displayName": "Blanco de Página", "canonical": "#FFFFFF", "tonalRamp": ["#111111", "#4A4A4A", "#7A7A7A", "#A8A8A8", "#D9D6D0", "#E6E3DE", "#F2F2F2", "#FFFFFF"] },
+      "line": { "role": "neutral", "displayName": "Línea Cálida", "canonical": "#E6E3DE", "tonalRamp": ["#4A4743", "#6E6A64", "#948F88", "#B8B3AB", "#D9D6D0", "#E6E3DE", "#F0EEEA", "#F8F7F5"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Título principal de la página de inicio." },
+      "headline": { "displayName": "Headline", "purpose": "Título de cada sección." },
+      "title": { "displayName": "Title", "purpose": "Título de tarjeta o bloque." },
+      "body": { "displayName": "Body", "purpose": "Párrafos y texto de interfaz." },
+      "label": { "displayName": "Label", "purpose": "Etiqueta pequeña en mayúsculas sobre un título." }
+    },
+    "shadows": [
+      { "name": "nav", "value": "0 8px 32px 0 rgba(0,0,0,0.08)", "purpose": "Barra de navegación de escritorio flotante." },
+      { "name": "elevated", "value": "0 8px 32px rgba(0,0,0,0.12)", "purpose": "Menús y paneles abiertos." },
+      { "name": "modal", "value": "0 20px 50px rgba(0,0,0,0.3)", "purpose": "Solo diálogos." }
+    ],
+    "motion": [
+      { "name": "ease-soft", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Transiciones de estado de botones y campos (200 ms)." },
+      { "name": "ease-text", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Revelado de contenido al hacer scroll (450 ms)." },
+      { "name": "ease-panel", "value": "cubic-bezier(0.76, 0, 0.24, 1)", "purpose": "Apertura y cierre de la hoja del menú móvil." }
+    ],
+    "breakpoints": [
+      { "name": "base", "value": "0px" },
+      { "name": "sm", "value": "480px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal. Píldora negra sin mayúsculas.",
+      "html": "<button class=\"ds-btn-primary\">Pedir presupuesto</button>",
+      "css": ".ds-btn-primary { background: #111111; color: #FFFFFF; min-height: 44px; padding: 0 24px; border: 0; border-radius: 9999px; font-family: Inter, system-ui, sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; transition: background-color 200ms cubic-bezier(0.4,0,0.2,1), transform 200ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-primary:hover { background: #2A2A2A; } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid #3F3F46; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Acción secundaria con borde negro.",
+      "html": "<button class=\"ds-btn-outline\">Ver proyectos</button>",
+      "css": ".ds-btn-outline { background: transparent; color: #111111; min-height: 44px; padding: 0 24px; border: 1.5px solid #111111; border-radius: 9999px; font-family: Inter, system-ui, sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; transition: background-color 200ms cubic-bezier(0.4,0,0.2,1), transform 200ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-outline:hover { background: rgba(0,0,0,0.04); } .ds-btn-outline:active { transform: scale(0.98); } .ds-btn-outline:focus-visible { outline: 2px solid #3F3F46; outline-offset: 2px; }"
+    },
+    {
+      "name": "WhatsApp Button",
+      "kind": "button",
+      "refersTo": "button-whatsapp",
+      "description": "Acceso a WhatsApp con verde accesible.",
+      "html": "<button class=\"ds-btn-whatsapp\">Cotizar por WhatsApp</button>",
+      "css": ".ds-btn-whatsapp { background: #15803D; color: #FFFFFF; min-height: 44px; padding: 0 24px; border: 0; border-radius: 9999px; font-family: Inter, system-ui, sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; transition: background-color 200ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-whatsapp:hover { background: #166534; } .ds-btn-whatsapp:active { background: #14532D; } .ds-btn-whatsapp:focus-visible { outline: 2px solid #3F3F46; outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo de texto de 48 px con esquina de 12 px.",
+      "html": "<input class=\"ds-input\" placeholder=\"Tu nombre\" />",
+      "css": ".ds-input { min-height: 48px; width: 100%; padding: 0 16px; background: #FFFFFF; color: #111111; border: 1px solid #E6E3DE; border-radius: 12px; font-family: Inter, system-ui, sans-serif; font-size: 16px; transition: border-color 200ms cubic-bezier(0.4,0,0.2,1), background-color 200ms cubic-bezier(0.4,0,0.2,1); } .ds-input::placeholder { color: #4A4A4A; } .ds-input:hover { border-color: #D9D6D0; } .ds-input:focus-visible { border-color: #3F3F46; outline: 2px solid #3F3F46; outline-offset: 0; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Tarjeta plana de 16 px con borde cálido.",
+      "html": "<article class=\"ds-card\"><h3 class=\"ds-card-title\">Ventanas antirruido</h3><p class=\"ds-card-text\">Instalación con visita técnica sin costo.</p></article>",
+      "css": ".ds-card { background: #FFFFFF; color: #111111; padding: 24px; border: 1px solid #E6E3DE; border-radius: 16px; } .ds-card-title { margin: 0 0 8px; font-family: Lora, Georgia, serif; font-weight: 700; font-size: 24px; line-height: 1.2; } .ds-card-text { margin: 0; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.625; color: #4A4A4A; }"
+    },
+    {
+      "name": "Navigation Pill",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Barra flotante de vidrio con item activo en negro.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item\" aria-current=\"page\" href=\"#\">Inicio</a><a class=\"ds-nav-item\" href=\"#\">Servicios</a><a class=\"ds-nav-item\" href=\"#\">Proyectos</a></nav>",
+      "css": ".ds-nav { display: inline-flex; gap: 4px; padding: 6px; background: rgba(255,255,255,0.88); border: 1px solid #E6E3DE; border-radius: 9999px; backdrop-filter: blur(24px) saturate(1.4); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.08); } .ds-nav-item { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 9999px; color: #111111; font-family: Inter, system-ui, sans-serif; font-weight: 600; font-size: 14px; text-decoration: none; transition: background-color 200ms cubic-bezier(0.4,0,0.2,1), transform 200ms cubic-bezier(0.4,0,0.2,1); } .ds-nav-item:hover { background: rgba(0,0,0,0.04); } .ds-nav-item[aria-current=\"page\"] { background: #111111; color: #FFFFFF; } .ds-nav-item:focus-visible { outline: 2px solid #3F3F46; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "El Plano de Obra",
+    "overview": "El sitio se lee como un plano de carpintería bien dibujado: fondo blanco, trazo negro, títulos serif y medidas claras. Una constructora que revisa capacidad, series y obras encuentra orden y precisión; una familia que pide un presupuesto desde el móvil encuentra el mismo orden con un tono amable. El vidrio, la materia del negocio, aparece donde tiene sentido: como una leyenda esmerilada sobre una foto de obra o como la barra de navegación.",
+    "keyCharacteristics": [
+      "Fondo blanco, texto y botones en negro de marca; sin azul de marca.",
+      "Lora 700 para títulos, Inter para todo lo demás.",
+      "Superficies planas con borde fino; vidrio esmerilado solo sobre fotos y en la barra de navegación.",
+      "Esquinas amplias (16 px en tarjetas, píldora en botones) y objetivos táctiles de 44 px.",
+      "Modo claro y oscuro con la misma jerarquía."
+    ],
+    "rules": [
+      { "name": "The One Red Rule", "body": "El rojo aparece una sola vez por pantalla y solo en un título destacado. Si hay dos rojos, uno sobra.", "section": "colors" },
+      { "name": "The Logo Coral Rule", "body": "El coral vive en el logo. No se usa como acento, ni siquiera como borde.", "section": "colors" },
+      { "name": "The No Blue Rule", "body": "El azul no es de marca. Solo existe como anillo de foco del teclado y en enlaces de texto.", "section": "colors" },
+      { "name": "The Seven-Hundred Rule", "body": "Lora se usa solo en 700 e Inter en 400 a 700. El peso 900 no está cargado y no se usa.", "section": "typography" },
+      { "name": "The Tabular Money Rule", "body": "Montos y medidas con cifras tabulares y la unidad siempre visible (mm, m², S/).", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Una tarjeta en reposo no tiene sombra. La elevación aparece como respuesta al cursor o al foco, nunca como decoración.", "section": "elevation" },
+      { "name": "The Glass-On-Photo Rule", "body": "El vidrio nunca cubre texto sobre fondo blanco; solo aparece sobre una foto o en la barra que flota.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do usar fondo blanco, texto negro y Lora 700 para los títulos.",
+      "Do reservar el rojo #D62828 para una palabra destacada por pantalla.",
+      "Do mantener objetivos táctiles de 44 px y foco visible en todo elemento interactivo.",
+      "Do mostrar unidades (mm, m², S/) junto a cada medida y monto.",
+      "Do respetar prefers-reduced-motion y prefers-reduced-transparency.",
+      "Do tomar los datos de la empresa de companyData."
+    ],
+    "donts": [
+      "Don't usar navy, azul de marca ni papel cálido #F7F6F3 como fondo.",
+      "Don't usar el coral del logo (#FF5A5A) en texto, botones o íconos.",
+      "Don't usar degradados, emojis ni sombras fuertes.",
+      "Don't poner vidrio sobre fondo blanco ni apilar capas de vidrio.",
+      "Don't usar Lora en 900 ni tamaños de texto de 10 px.",
+      "Don't mostrar proveedores ni usar fotos o planos de proveedores.",
+      "Don't escribir valores de color, píxeles o sombras sueltos en componentes: se usan los tokens del tema."
+    ]
+  }
+}

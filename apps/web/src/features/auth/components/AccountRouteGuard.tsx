@@ -22,7 +22,7 @@ export const AccountRouteGuard: React.FC<{ children: React.ReactNode }> = ({ chi
     return (
       <VStack gap="4" py="16" px="4">
         <Text color="text.muted">Inicia sesión para ver tu cuenta.</Text>
-        <Button asChild variant="aura">
+        <Button asChild variant="primary">
           <Link href="/auth">Iniciar sesión</Link>
         </Button>
       </VStack>

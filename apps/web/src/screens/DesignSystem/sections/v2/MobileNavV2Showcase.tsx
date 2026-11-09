@@ -2,9 +2,9 @@
 
 /**
  * @file MobileNavV2Showcase.tsx
- * @description Prototipo interactivo del Navbar Móvil Minimalista Studio v2 para /design-system.
+ * @description Prototipo interactivo del Navbar Móvil Minimalista v2 para /design-system.
  * Cumple R1–R12:
- * - Marco de simulación táctil de 390px (MOBILE_FRAME_WIDTH = "390px").
+ * - Marco de simulación táctil de 390px (MOBILE_FRAME_WIDTH = "24.375rem").
  * - Controles interactivos completos:
  *   1. Reinicio integral de estados y posición de scroll.
  *   2. Simulación de scroll programático (+180px) del contenido embebido.
@@ -40,8 +40,8 @@ import { MobileNavbarV2, OFFICIAL_SERVICE_SLUGS } from "@/widgets/Navbar/mobile"
 import { companyData } from "@/shared/config/company-data";
 
 /** Constantes explícitas del marco simulador móvil (Regla R1). */
-const MOBILE_FRAME_WIDTH = "390px";
-const MOBILE_FRAME_HEIGHT = "680px";
+const MOBILE_FRAME_WIDTH = "24.375rem";
+const MOBILE_FRAME_HEIGHT = "42.5rem";
 
 const V2_NAV_FEATURES = [
   {
@@ -54,7 +54,7 @@ const V2_NAV_FEATURES = [
   },
   {
     title: "Hoja de Menú Editorial",
-    desc: "Hoja fija a pantalla completa con fondo bg='bg.paper', cabecera propia con cierre y pie sticky con el CTA siempre visible.",
+    desc: "Hoja fija a pantalla completa con fondo bg='bg.section', cabecera propia con cierre y pie sticky con el CTA siempre visible.",
   },
   {
     title: "Máscara de Texto 01–05",
@@ -94,7 +94,7 @@ export const MobileNavV2Showcase: React.FC = () => {
   return (
     <ShowcaseStack>
       <ShowcaseCard
-        title="Navbar Móvil Minimalista Studio v2"
+        title="Navbar Móvil Minimalista v2"
         description="Encabezado móvil siempre visible con fondo translúcido, hoja de menú editorial a pantalla completa con cabecera propia, CTA fijo en el pie y acordeón técnico con los 6 servicios principales."
         badge={
           <HStack gap="1.5">
@@ -110,7 +110,7 @@ export const MobileNavV2Showcase: React.FC = () => {
             borderRadius="card"
             borderWidth="1px"
             borderColor="border.warm"
-            bg="bg.warm"
+            bg="bg.section"
           >
             <VStack align="stretch" gap="3">
               <HStack justify="space-between" wrap="wrap" gap="2">
@@ -134,7 +134,7 @@ export const MobileNavV2Showcase: React.FC = () => {
 
               <HStack wrap="wrap" gap="3">
                 <Button
-                  variant={isMenuOpen ? "studio" : "studioOutline"}
+                  variant={isMenuOpen ? "primary" : "outline"}
                   size="sm"
                   minH="11"
                   onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -152,7 +152,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                 </Button>
 
                 <Button
-                  variant={isReducedMotionSimulated ? "studio" : "outline"}
+                  variant={isReducedMotionSimulated ? "primary" : "outline"}
                   size="sm"
                   minH="11"
                   onClick={() => setIsReducedMotionSimulated((prev) => !prev)}
@@ -177,7 +177,7 @@ export const MobileNavV2Showcase: React.FC = () => {
               w="full"
               maxW={MOBILE_FRAME_WIDTH}
               h={MOBILE_FRAME_HEIGHT}
-              borderRadius="40px"
+              borderRadius="3xl"
               borderWidth="3px"
               borderColor="border.strong"
               bg="bg.page"
@@ -275,13 +275,13 @@ export const MobileNavV2Showcase: React.FC = () => {
                   pt="24"
                   pb="12"
                   px="5"
-                  bg="bg.warm"
+                  bg="bg.section"
                   borderBottomWidth="1px"
                   borderColor="border.warm"
                 >
                   <VStack align="stretch" gap="3">
                     <Badge
-                      variant={"navy" as unknown as BadgeProps["variant"]}
+                      variant={"ink" as unknown as BadgeProps["variant"]}
                       alignSelf="flex-start"
                       px="2.5"
                       py="1"
@@ -305,7 +305,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                     </Text>
                     <HStack pt="2" gap="3">
                       <Button
-                        variant="studio"
+                        variant="primary"
                         size="sm"
                         minH="11"
                       >
@@ -338,7 +338,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                     borderColor="border.default"
                     bg="bg.surface"
                   >
-                    <Text fontSize="xs" fontWeight="700" color="accent.navy" textTransform="uppercase">
+                    <Text fontSize="xs" fontWeight="700" color="accent.ink" textTransform="uppercase">
                       Sistema Nova · Serie 25 / 35 / 62
                     </Text>
                     <Text fontSize="md" fontWeight="600" color="text.heading" mt="1">
@@ -356,7 +356,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                     borderColor="border.default"
                     bg="bg.surface"
                   >
-                    <Text fontSize="xs" fontWeight="700" color="accent.navy" textTransform="uppercase">
+                    <Text fontSize="xs" fontWeight="700" color="accent.ink" textTransform="uppercase">
                       Vidrio Templado 8 y 10 mm
                     </Text>
                     <Text fontSize="md" fontWeight="600" color="text.heading" mt="1">
@@ -374,7 +374,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                     borderColor="border.default"
                     bg="bg.surface"
                   >
-                    <Text fontSize="xs" fontWeight="700" color="accent.navy" textTransform="uppercase">
+                    <Text fontSize="xs" fontWeight="700" color="accent.ink" textTransform="uppercase">
                       Acero Inoxidable & Cristal
                     </Text>
                     <Text fontSize="md" fontWeight="600" color="text.heading" mt="1">
@@ -413,7 +413,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                   borderRadius="card"
                   borderWidth="1px"
                   borderColor="border.subtle"
-                  bg="bg.warm"
+                  bg="bg.section"
                 >
                   <HStack gap="2" align="center" mb="1">
                     <Check size={16} aria-hidden="true" style={{ flexShrink: 0 }} />

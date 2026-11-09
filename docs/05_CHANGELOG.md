@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-09] - Migración al sistema de diseño único (plan 25)
+
+### Added
+- **`apps/web/DESIGN.md`** y **`apps/web/PRODUCT.md`**: sistema de diseño único ("El Plano de Obra") y contexto de producto. Datos auxiliares en `apps/web/.impeccable/design.json`.
+- **`docs/CUESTIONARIO-DISENO.md`** con las decisiones del dueño y **`docs/25_PLAN_MIGRACION_DISENO.md`** (8 fases con checklist).
+- Hero con dos acciones (Pedir presupuesto por WhatsApp, Ver obras). La sección "Para constructoras e inmobiliarias" se creó y se retiró el mismo día por decisión del dueño: la página muestra portafolio y servicios.
+- **`components/ui/badge.tsx`** y variantes de `Alert` por estado (success, warning, danger, info).
+
+### Changed
+- Fondo blanco; negro de marca como `brand.ink`; un solo rojo de título (`quoteRed`); botones en oración (primary, outline, ghost, whatsapp); campos de 48 px.
+- Garantía de 3 meses y horario lunes a sábado 8:00 a 18:00 en beneficios, presupuesto, mapa y etiqueta "abierto".
+- `/design-system` con tokens reales y 11 pestañas; "Mi cuenta" apunta a `/mi-cuenta`.
+- `claude.md` es ahora el punto de entrada con orden de lectura y regla de precedencia (proveedor sobre datos locales).
+
+### Removed
+- `docs/DESIGN-SYSTEM.md`, `docs/BRAND-KIT.md`, `docs/PROMPT-REDISENO-DS.md` y `docs/23_PLAN_DESIGN_SYSTEM_V2.md` (recuperables con `git show <commit>:docs/<archivo>`).
+- Tokens `navy`, papel cálido y `redQuote`; variantes de botón `aura`, `navy`, `studio*` y `brand`; `NavItemLarge`, `UtilityLink`, `PaperToneShowcase` y `ServiceCardV2Showcase`.
+
 ## [2026-11-09] - Rediseño estructural de la navbar móvil
 
 ### Added

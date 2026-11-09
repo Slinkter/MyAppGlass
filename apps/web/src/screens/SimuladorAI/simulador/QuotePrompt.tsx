@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Box, Heading, Text, HStack, Badge } from "@chakra-ui/react";
+import { Box, Heading, Text, HStack } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Eye } from "lucide-react";
 import Link from "next/link";
@@ -19,18 +20,18 @@ export const QuotePrompt: React.FC<QuotePromptProps> = ({ selectedProduct }) => 
           borderRadius="2xl"
           border="2px solid"
           borderColor="purple.400"
-          boxShadow="0 10px 30px rgba(168, 85, 247, 0.2)"
+          boxShadow="md"
         >
           <HStack justify="space-between" mb="3">
             <Heading size="md" color="purple.300" display="flex" alignItems="center" gap="2">
               <Eye size={20} style={{ flexShrink: 0 }} /> Simulación Compuesta Lista
             </Heading>
-            <Badge colorPalette="green">Listo para Cotizar</Badge>
+            <Badge variant="success">Listo para Cotizar</Badge>
           </HStack>
           <Text fontSize="sm" color="text.muted" mb="4">
             ¿Te gusta cómo encaja {selectedProduct.name} en tu habitación? Puedes generar la cotización oficial ahora mismo.
           </Text>
-          <Button asChild variant="aura" w="full" size="lg">
+          <Button asChild variant="primary" w="full" size="lg">
             <Link href={`/presupuesto?sistema=${selectedProduct.quoteSystemType}`}>
               Cotizar este sistema <ArrowRight size={18} style={{ flexShrink: 0 }} />
             </Link>

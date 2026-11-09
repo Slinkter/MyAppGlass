@@ -32,7 +32,7 @@ export function ShopScreen() {
   );
 
   return (
-    <Box as="main" maxW="6xl" mx="auto" px={{ base: "4", md: "6" }} py={{ base: "8", md: "12" }}>
+    <Box as="main" maxW="pageDefault" mx="auto" px={{ base: "4", md: "6" }} py={{ base: "8", md: "12" }}>
       <HStack justify="space-between" mb="6" gap="3" flexWrap="wrap">
         <VStack align="flex-start" gap="1">
           <Heading as="h1" size="xl">
@@ -42,7 +42,7 @@ export function ShopScreen() {
             Vidrios, perfiles y accesorios. Pedido por WhatsApp o transferencia.
           </Text>
         </VStack>
-        <Button variant="aura" minH={TOUCH_MIN} onClick={() => cart.open()}>
+        <Button variant="primary" minH={TOUCH_MIN} onClick={() => cart.open()}>
           <ShoppingCart size={18} style={{ flexShrink: 0 }} />
           Carrito ({cart.totals.units})
         </Button>
@@ -52,7 +52,7 @@ export function ShopScreen() {
         {CATEGORIES.map((c) => (
           <Button
             key={c.id}
-            variant={category === c.id ? "aura" : "outline"}
+            variant={category === c.id ? "primary" : "outline"}
             minH={TOUCH_MIN}
             flexShrink={0}
             whiteSpace="nowrap"
@@ -84,7 +84,7 @@ export function ShopScreen() {
                   {soldOut ? "Agotado" : `Stock: ${p.stock}`}
                 </Text>
                 <Button
-                  variant="aura"
+                  variant="primary"
                   minH={TOUCH_MIN}
                   disabled={soldOut || inCart >= p.stock}
                   onClick={() => {

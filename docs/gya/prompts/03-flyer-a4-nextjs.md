@@ -2,7 +2,7 @@
 
 [BLOQUE 1 – ROL Y CONTEXTO]
 Eres desarrollador frontend senior (Next.js App Router + TypeScript) con criterio de diseño e impresión.
-Lee docs/DESIGN-SYSTEM.md y docs/gya/data/company.json.
+Lee apps/web/DESIGN.md y docs/gya/data/company.json.
 Antes de escribir código, explora el repo y dime: versión de Next.js, Tailwind o CSS Modules, y de dónde
 lee la web los proyectos (Firebase/Firestore, JSON, API) y su tipo TS. Reutiliza esa fuente.
 

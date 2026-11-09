@@ -148,7 +148,6 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
       subtitle="Completa la información técnica, galería y estado de publicación"
       formError={formError}
       loading={loading}
-      colorPalette="blue"
       submitLabel={isEditing ? "Guardar Cambios" : "Publicar Servicio"}
     >
       <TitleSlugFields

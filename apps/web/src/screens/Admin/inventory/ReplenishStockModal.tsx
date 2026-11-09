@@ -27,7 +27,7 @@ export const ReplenishStockModal: React.FC<ReplenishStockModalProps> = ({
   statusMessage,
 }) => {
   return (
-    <AdminDialog eyebrow="Inventario" title="Entrada rápida de stock" maxW="440px" onClose={onClose}>
+    <AdminDialog eyebrow="Inventario" title="Entrada rápida de stock" maxW="md" onClose={onClose}>
       <VStack align="stretch" gap="4">
         <Box p="3.5" borderRadius="xl" bg="bg.subtle" border="1px solid" borderColor="border.default">
           <Text fontSize="sm" fontWeight="bold" color="text.heading">

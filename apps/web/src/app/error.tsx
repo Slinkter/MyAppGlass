@@ -19,14 +19,14 @@ export default function GlobalRouteError({
   }, [error]);
 
   return (
-    <Box minH="70vh" display="flex" alignItems="center" justifyContent="center" bg="bg.page" px={6}>
+    <Box minH="70dvh" display="flex" alignItems="center" justifyContent="center" bg="bg.page" px={6}>
       <VStack gap={6} textAlign="center" maxW="lg">
         <Heading size="3xl" color="red.500">Error Inesperado</Heading>
         <Text color="text.muted" fontSize="md">
           Ha ocurrido un inconveniente al cargar esta sección. Puedes reintentar la operación o volver al inicio.
         </Text>
         <VStack gap={3} w="full" sm={{ flexDirection: "row", justifyContent: "center" }}>
-          <Button variant="aura" size="md" onClick={() => reset()} gap={2}>
+          <Button variant="primary" size="md" onClick={() => reset()} gap={2}>
             <RotateCcw size={16} /> Reintentar
           </Button>
           <Button as={RouterLink} href="/" variant="outline" size="md" gap={2}>

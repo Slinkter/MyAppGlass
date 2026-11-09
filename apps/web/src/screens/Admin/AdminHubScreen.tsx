@@ -21,6 +21,9 @@ import {
   ArrowUpRight,
   Plus,
   Sparkles,
+  CircleAlert,
+  CircleCheck,
+  Circle,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { useRealtimeProducts } from "@/features/products/hooks/useRealtimeProducts";
@@ -82,7 +85,7 @@ export const AdminHubScreen: React.FC = () => {
       stat: `${orders.length} órdenes`,
       statDetail: `S/. ${totalRevenue.toLocaleString("es-PE", { minimumFractionDigits: 2 })} recaudados`,
       accentColor: "var(--chakra-colors-accent-violet-soft)",
-      accentBg: "rgba(167, 139, 250, 0.1)",
+      accentBg: "bg.tint",
     },
     {
       title: "Cotizador de Presupuestos",
@@ -103,13 +106,13 @@ export const AdminHubScreen: React.FC = () => {
       href: "/admin/clientes",
       stat: "Base de Clientes",
       statDetail: "Gestión comercial y obras",
-      accentColor: "#fb923c",
-      accentBg: "rgba(251, 146, 60, 0.1)",
+      accentColor: "var(--chakra-colors-status-warning)",
+      accentBg: "var(--chakra-colors-status-warning-soft)",
     },
   ];
 
   return (
-    <Box maxW="1350px" mx="auto" py={{ base: "5", md: "8" }} px={{ base: "4", md: "6" }}>
+    <Box maxW="84rem" mx="auto" py={{ base: "5", md: "8" }} px={{ base: "4", md: "6" }}>
       <AdminNav />
 
       {/* Hero Administrativo Ejecutivo */}
@@ -120,7 +123,7 @@ export const AdminHubScreen: React.FC = () => {
         border="1px solid"
         borderColor="border.default"
         backdropFilter="blur(24px)"
-        boxShadow="0 20px 50px var(--chakra-colors-overlay-faint)"
+        boxShadow="lg"
         position="relative"
         overflow="hidden"
         mb="8"
@@ -130,10 +133,10 @@ export const AdminHubScreen: React.FC = () => {
           position="absolute"
           top="-40%"
           right="-10%"
-          w="400px"
-          h="400px"
+          w="96"
+          h="96"
           borderRadius="full"
-          bg="radial-gradient(circle, var(--chakra-colors-status-info-subtle) 0%, rgba(0,0,0,0) 70%)"
+          bg="bg.tint"
           pointerEvents="none"
         />
 
@@ -163,11 +166,12 @@ export const AdminHubScreen: React.FC = () => {
                     borderRadius="full"
                     fontSize="xs"
                     fontWeight="bold"
-                    bg="rgba(239, 68, 68, 0.15)"
+                    bg="status.dangerSoft"
                     color="var(--chakra-colors-status-danger)"
-                    border="1px solid rgba(239, 68, 68, 0.3)"
+                    border="1px solid"
+                    borderColor="status.dangerBorder"
                   >
-                    🔴 {criticalStock} AGOTADOS
+                    <CircleAlert size={12} aria-hidden /> {criticalStock} AGOTADOS
                   </Badge>
                 ) : lowStock > 0 ? (
                   <Badge
@@ -176,11 +180,12 @@ export const AdminHubScreen: React.FC = () => {
                     borderRadius="full"
                     fontSize="xs"
                     fontWeight="bold"
-                    bg="rgba(245, 158, 11, 0.15)"
+                    bg="status.warningSoft"
                     color="var(--chakra-colors-status-warning)"
-                    border="1px solid rgba(245, 158, 11, 0.3)"
+                    border="1px solid"
+                    borderColor="status.warningBorder"
                   >
-                    🟡 {lowStock} EN ALERTA DE STOCK
+                    <Circle size={12} aria-hidden /> {lowStock} EN ALERTA DE STOCK
                   </Badge>
                 ) : (
                   <Badge
@@ -189,11 +194,12 @@ export const AdminHubScreen: React.FC = () => {
                     borderRadius="full"
                     fontSize="xs"
                     fontWeight="bold"
-                    bg="rgba(52, 211, 153, 0.15)"
+                    bg="status.successSoft"
                     color="var(--chakra-colors-status-success)"
-                    border="1px solid rgba(52, 211, 153, 0.3)"
+                    border="1px solid"
+                    borderColor="status.successBorder"
                   >
-                    🟢 INVENTARIO EN NIVEL ÓPTIMO
+                    <CircleCheck size={12} aria-hidden /> INVENTARIO EN NIVEL ÓPTIMO
                   </Badge>
                 )}
               </HStack>
@@ -202,7 +208,7 @@ export const AdminHubScreen: React.FC = () => {
                 Panel de Control y Gestión Operativa
               </Heading>
 
-              <Text color="text.muted" fontSize="sm" maxW="680px">
+              <Text color="text.muted" fontSize="sm" maxW="2xl">
                 Bienvenido, <strong>{user?.displayName || user?.email}</strong>. Administra existencias de cristales, perfiles de aluminio Serie 25 y Nova, órdenes de despacho en lote y cotizaciones de obra en tiempo real.
               </Text>
             </VStack>
@@ -279,11 +285,7 @@ export const AdminHubScreen: React.FC = () => {
               backdropFilter="blur(16px)"
               boxShadow="var(--chakra-shadows-admin-table)"
               transition="transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1)"
-              _hover={{
-                transform: "translateY(-4px)",
-                borderColor: mod.accentColor,
-                boxShadow: `0 16px 36px -10px ${mod.accentColor}25`,
-              }}
+              _hover={{ borderColor: "border.strong" }}
               display="flex"
               flexDirection="column"
               justifyContent="space-between"
@@ -330,11 +332,6 @@ export const AdminHubScreen: React.FC = () => {
                   size="sm"
                   w="full"
                   borderRadius="xl"
-                  _hover={{
-                    borderColor: mod.accentColor,
-                    color: mod.accentColor,
-                    bg: mod.accentBg,
-                  }}
                 >
                   <Link href={mod.href}>
                     <span>Ingresar al Módulo</span>

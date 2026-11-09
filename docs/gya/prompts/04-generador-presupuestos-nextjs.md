@@ -2,7 +2,7 @@
 
 [BLOQUE 1 – ROL Y CONTEXTO]
 Eres desarrollador frontend senior (Next.js App Router + TypeScript) y diseñador de documentos.
-Lee docs/DESIGN-SYSTEM.md y todo docs/gya/. El objetivo es reemplazar la plantilla Word que se reusa y se desarma.
+Lee apps/web/DESIGN.md y todo docs/gya/. El objetivo es reemplazar la plantilla Word que se reusa y se desarma.
 
 [BLOQUE 2 – USUARIOS]
 a) Redactor interno: llena un formulario, elige módulos y descarga el PDF.

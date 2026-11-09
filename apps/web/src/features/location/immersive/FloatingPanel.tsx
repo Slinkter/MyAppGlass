@@ -121,7 +121,7 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
           <HStack gap="2" flexShrink={0}>
             <Button
               asChild
-              variant="aura"
+              variant="primary"
               minW={TOUCH_MIN}
               h={TOUCH_MIN}
               p="0"
@@ -195,7 +195,7 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
             <Heading
               as="h3"
               fontSize="md"
-              fontWeight="800"
+              fontWeight="700"
               letterSpacing="tight"
               color="text.heading"
               lineClamp={1}
@@ -219,7 +219,7 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
           <HStack gap="2.5">
             <Button
               asChild
-              variant="aura"
+              variant="primary"
               size="sm"
               flex="1"
               minH={TOUCH_MIN}
@@ -268,7 +268,7 @@ export interface ProjectDetailProps {
 
 /**
  * Place Card de obra seleccionada (`maps.md › Place cards`, `liquid-glass.md › Review checklist`).
- * - Evita apilar vidrio sobre vidrio: los controles sobre la foto usan capa de atenuación del 35% (`rgba(0,0,0,0.45)`) sin `backdrop-filter` anidado.
+ * - Evita apilar vidrio sobre vidrio: los controles sobre la foto usan capa de atenuación `overlay.dim` sin `backdrop-filter` anidado.
  */
 export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project, onClose }) => {
   const href = project.href ?? `/proyectos/ver?id=${project.id}`;
@@ -303,7 +303,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
           <Cover key={activePhoto} src={activePhoto} alt={`Portada de ${project.name}`} />
         </Box>
         <Box minW={0} flex="1">
-          <Heading as="h3" fontSize="xs" color="text.heading" fontWeight="800" lineClamp={1}>
+          <Heading as="h3" fontSize="xs" color="text.heading" fontWeight="700" lineClamp={1}>
             {project.residencial || project.name}
           </Heading>
           <Text fontSize="xs" color="text.muted" truncate mt="0.5">
@@ -311,7 +311,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
           </Text>
         </Box>
         <HStack gap="2" flexShrink={0}>
-          <Button asChild variant="aura" minW={TOUCH_MIN} h={TOUCH_MIN} p="0" borderRadius="xl">
+          <Button asChild variant="primary" minW={TOUCH_MIN} h={TOUCH_MIN} p="0" borderRadius="xl">
             <RouterLink href={href} aria-label={`Ver la obra ${project.name}`}>
               <ArrowUpRight size={17} aria-hidden="true" style={{ flexShrink: 0 }} />
             </RouterLink>
@@ -339,7 +339,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
           <Box
             position="absolute"
             inset={0}
-            background="linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 50%, rgba(0,0,0,0.25) 100%)"
+            background="overlay.dim"
             pointerEvents="none"
             zIndex={1}
           />
@@ -429,7 +429,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
               as="h3"
               fontSize="lg"
               color="text.heading"
-              fontWeight="800"
+              fontWeight="700"
               letterSpacing="tight"
               mt="1"
               lineClamp={1}
@@ -443,7 +443,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
             )}
           </Box>
 
-          <Button asChild variant="aura" size="sm" minH={TOUCH_MIN} borderRadius="xl" w="full">
+          <Button asChild variant="primary" size="sm" minH={TOUCH_MIN} borderRadius="xl" w="full">
             <RouterLink href={href} aria-label={`Ver detalles de la obra ${project.name}`}>
               Ver obra completa
               <ArrowUpRight size={15} aria-hidden="true" style={{ flexShrink: 0 }} />

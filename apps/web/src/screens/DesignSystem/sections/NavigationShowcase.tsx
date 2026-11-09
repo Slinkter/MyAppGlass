@@ -25,7 +25,7 @@ export const NavigationShowcase: React.FC = () => {
       {/* 1. Navbar Público en Cápsula (AuraDesktopNav) */}
       <ShowcaseCard
         title="AuraDesktopNav — Barra pública en cápsula flotante"
-        description="Panel comparativo entre la barra de producción clásica y el nuevo rediseño minimalista Aura Studio: cápsula de cristal líquido flotante, pastilla negra activa (#111111 en claro / blanco en oscuro), tipografía Inter en texto en oración y contraste WCAG AAA."
+        description="Panel comparativo entre la barra de producción clásica y el rediseño minimalista: cápsula de cristal líquido flotante, pastilla negra activa, tipografía Inter en texto en oración y contraste WCAG AAA."
         badge="Web Pública"
       >
         <ShowcasePanel
@@ -41,7 +41,7 @@ export const NavigationShowcase: React.FC = () => {
             position="absolute"
             inset="0"
             borderRadius="2xl"
-            bg="bg.tintNavy"
+            bg="bg.tint"
             border="1px solid"
             borderColor="border.warm"
             pointerEvents="none"
@@ -56,7 +56,7 @@ export const NavigationShowcase: React.FC = () => {
             <VStack gap="3" align="stretch" w="full">
               <HStack justify="space-between" align="center" wrap="wrap" gap="2">
                 <HStack gap="2">
-                  <Badge variant={"studio" as never} size="sm">
+                  <Badge variant={"neutral" as never} size="sm">
                     Producción
                   </Badge>
                   <Text fontSize="xs" fontWeight="700" color="text.heading" textTransform="uppercase" letterSpacing="0.08em">
@@ -83,15 +83,15 @@ export const NavigationShowcase: React.FC = () => {
             {/* Separador sutil */}
             <Box h="1px" bg="border.warm" w="full" />
 
-            {/* 1.B. Aura Studio Minimalista */}
+            {/* 1.B. Rediseño minimalista */}
             <VStack gap="3" align="stretch" w="full">
               <HStack justify="space-between" align="center" wrap="wrap" gap="2">
                 <HStack gap="2">
-                  <Badge variant={"studioInk" as never} size="sm">
-                    Aura Studio
+                  <Badge variant={"inkSolid" as never} size="sm">
+                    Rediseño
                   </Badge>
                   <Text fontSize="xs" fontWeight="700" color="text.heading" textTransform="uppercase" letterSpacing="0.08em">
-                    Rediseño Minimalista (variant=&quot;studio&quot;)
+                    Barra minimalista (variant=&quot;studio&quot;)
                   </Text>
                 </HStack>
                 <HStack gap="3" wrap="wrap">
@@ -149,7 +149,7 @@ export const NavigationShowcase: React.FC = () => {
         badge="Navegación Interna"
       >
         <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="2xl">
-          <Tabs.Root defaultValue="sistemas" variant={"studio" as never}>
+          <Tabs.Root defaultValue="sistemas" variant="line">
             <Tabs.List overflowX="auto" maxW="full">
               <Tabs.Trigger value="sistemas" minH="11" minW="11" px="4">
                 <Layers size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
@@ -174,7 +174,7 @@ export const NavigationShowcase: React.FC = () => {
               value="sistemas"
               p="4"
               borderRadius="xl"
-              bg="bg.warm"
+              bg="bg.section"
               border="1px solid"
               borderColor="border.warm"
               mt="4"
@@ -187,7 +187,7 @@ export const NavigationShowcase: React.FC = () => {
               value="fichas"
               p="4"
               borderRadius="xl"
-              bg="bg.warm"
+              bg="bg.section"
               border="1px solid"
               borderColor="border.warm"
               mt="4"
@@ -200,7 +200,7 @@ export const NavigationShowcase: React.FC = () => {
               value="presupuesto"
               p="4"
               borderRadius="xl"
-              bg="bg.warm"
+              bg="bg.section"
               border="1px solid"
               borderColor="border.warm"
               mt="4"
@@ -213,7 +213,7 @@ export const NavigationShowcase: React.FC = () => {
               value="instalacion"
               p="4"
               borderRadius="xl"
-              bg="bg.warm"
+              bg="bg.section"
               border="1px solid"
               borderColor="border.warm"
               mt="4"
@@ -248,7 +248,7 @@ export const NavigationShowcase: React.FC = () => {
                   p="0"
                 >
                   <Box as="li" display="inline-flex" alignItems="center">
-                    <Button asChild variant={"studioGhost" as never} size="sm" minH="11" px="2">
+                    <Button asChild variant="ghost" size="sm" minH="11" px="2">
                       <a href="#inicio">
                         <Home size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
                         <span>Inicio</span>
@@ -261,7 +261,7 @@ export const NavigationShowcase: React.FC = () => {
                   </Box>
 
                   <Box as="li" display="inline-flex" alignItems="center">
-                    <Button asChild variant={"studioGhost" as never} size="sm" minH="11" px="2">
+                    <Button asChild variant="ghost" size="sm" minH="11" px="2">
                       <a href="#servicios">Servicios</a>
                     </Button>
                   </Box>
@@ -271,7 +271,7 @@ export const NavigationShowcase: React.FC = () => {
                   </Box>
 
                   <Box as="li" display="inline-flex" alignItems="center">
-                    <Button asChild variant={"studioGhost" as never} size="sm" minH="11" px="2">
+                    <Button asChild variant="ghost" size="sm" minH="11" px="2">
                       <a href="#ventanas">Ventanas Antirruido</a>
                     </Button>
                   </Box>
@@ -316,7 +316,7 @@ export const NavigationShowcase: React.FC = () => {
               <Box as="nav" aria-label="Paginación de catálogo de presupuestos">
                 <HStack gap="2" wrap="wrap" justify="center">
                   <Button
-                    variant={"studioOutline" as never}
+                    variant="outline"
                     aria-label="Página anterior"
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
@@ -332,7 +332,7 @@ export const NavigationShowcase: React.FC = () => {
                     return (
                       <Button
                         key={page}
-                        variant={(isCurrent ? "studio" : "studioOutline") as never}
+                        variant={isCurrent ? "primary" : "outline"}
                         aria-label={`Ir a página ${page}`}
                         aria-current={isCurrent ? "page" : undefined}
                         onClick={() => setCurrentPage(page)}
@@ -360,7 +360,7 @@ export const NavigationShowcase: React.FC = () => {
                   </Box>
 
                   <Button
-                    variant={(currentPage === 8 ? "studio" : "studioOutline") as never}
+                    variant={currentPage === 8 ? "primary" : "outline"}
                     aria-label="Ir a página 8"
                     aria-current={currentPage === 8 ? "page" : undefined}
                     onClick={() => setCurrentPage(8)}
@@ -372,7 +372,7 @@ export const NavigationShowcase: React.FC = () => {
                   </Button>
 
                   <Button
-                    variant={"studioOutline" as never}
+                    variant="outline"
                     aria-label="Página siguiente"
                     disabled={currentPage === 8}
                     onClick={() => setCurrentPage((p) => Math.min(8, p + 1))}

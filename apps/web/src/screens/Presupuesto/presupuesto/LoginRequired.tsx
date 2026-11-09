@@ -9,7 +9,7 @@ import { companyData } from "@/shared/config/company-data";
 
 export const LoginRequired: React.FC = () => {
   return (
-    <Box py="16" maxW="600px" mx="auto" px="4" textAlign="center">
+    <Box py="16" maxW="pageNarrow" mx="auto" px="4" textAlign="center">
       <Box
         bg="surface.card"
         p={{ base: "6", md: "8" }}

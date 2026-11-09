@@ -12,7 +12,7 @@ export interface AdminRowActionsProps {
 
 /**
  * Acciones de fila de las tablas de admin: Editar y Eliminar con las variantes del tema.
- * Eliminar solo usa el color de estado `red.500` sobre `outline` (sin `colorPalette`).
+ * Eliminar solo usa el color de estado `red.500` sobre `outline`.
  */
 const AdminRowActions: React.FC<AdminRowActionsProps> = ({ onEdit, onDelete }) => (
   <HStack justify="flex-end" gap="1.5">

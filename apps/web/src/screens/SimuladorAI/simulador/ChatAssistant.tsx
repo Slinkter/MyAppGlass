@@ -41,7 +41,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ chatMessages, chat
       </HStack>
 
       {/* MENSAJES */}
-      <VStack flex="1" gap="3" align="stretch" overflowY="auto" maxH="440px" pr="1" mb="4">
+      <VStack flex="1" gap="3" align="stretch" overflowY="auto" maxH="27.5rem" pr="1" mb="4">
         {chatMessages.map((msg, idx) => (
           <Box
             key={idx}
@@ -72,17 +72,17 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ chatMessages, chat
             onChange={(e) => setChatInput(e.target.value)}
             style={{
               flex: 1,
-              background: "rgba(255, 255, 255, 0.06)",
-              border: "1px solid rgba(255, 255, 255, 0.15)",
+              background: "var(--chakra-colors-overlay-faint)",
+              border: "1px solid var(--chakra-colors-border-strong)",
               borderRadius: "12px",
               padding: "10px 14px",
               color: "white",
-              fontSize: "13px",
+              fontSize: "0.8125rem",
               outline: "none",
               minHeight: 44,
             }}
           />
-          <Button type="submit" variant="aura" size="md" minW="11" minH="11" aria-label="Enviar mensaje">
+          <Button type="submit" variant="primary" size="md" minW="11" minH="11" aria-label="Enviar mensaje">
             <Send size={16} style={{ flexShrink: 0 }} />
           </Button>
         </HStack>

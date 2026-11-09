@@ -58,7 +58,7 @@ export const TimelineProjectItem: React.FC<TimelineProjectItemProps> = React.mem
         <Cover src={project.image} alt="" />
       </Box>
       <Box flex="1" minW={0}>
-        <Text fontSize="sm" fontWeight="800" color="text.heading" lineClamp={1}>
+        <Text fontSize="sm" fontWeight="700" color="text.heading" lineClamp={1}>
           {project.name}
         </Text>
         <Text fontSize="xs" color="text.muted" lineClamp={1}>

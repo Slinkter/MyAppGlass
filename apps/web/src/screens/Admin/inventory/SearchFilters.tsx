@@ -33,7 +33,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
       mb="6"
     >
       <HStack wrap="wrap" justify="space-between" gap="4">
-        <HStack flex="1" minW="260px" gap="2">
+        <HStack flex="1" minW="64" gap="2">
           <Box color="text.muted" pl="2">
             <Search size={18} style={{ flexShrink: 0 }} />
           </Box>

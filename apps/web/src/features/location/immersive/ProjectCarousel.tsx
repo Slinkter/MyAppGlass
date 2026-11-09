@@ -73,7 +73,7 @@ const StorePill = React.memo(({ active, onSelectStore }: StorePillProps) => (
       <Store size={17} aria-hidden="true" style={{ flexShrink: 0 }} />
     </Flex>
     <Box minW={0} flex="1">
-      <Text fontSize="xs" fontWeight="800" color="text.heading" truncate>
+      <Text fontSize="xs" fontWeight="700" color="text.heading" truncate>
         Sede Principal
       </Text>
       <Text fontSize="xs" color="text.muted" truncate>
@@ -114,7 +114,7 @@ const ProjectCard = React.memo(({ project, active, onSelect }: CardProps) => (
       <Cover src={project.image} alt="" />
     </Box>
     <Box minW={0} flex="1">
-      <Text fontSize="xs" fontWeight="800" color="text.heading" truncate>
+      <Text fontSize="xs" fontWeight="700" color="text.heading" truncate>
         {project.residencial || project.name}
       </Text>
       <Text fontSize="xs" color="text.muted" truncate>

@@ -68,7 +68,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
         border="1px solid"
         borderColor="border.default"
         backdropFilter="blur(16px)"
-        boxShadow="0 24px 48px rgba(0,0,0,0.15)"
+        boxShadow="lg"
         borderRadius="2xl"
         color="text.body"
         p={4}
@@ -87,7 +87,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
             >
               <Check size={24} strokeWidth={3} />
             </HStack>
-            <DialogTitle fontSize="xl" fontWeight="900" textAlign="center" letterSpacing="tight">
+            <DialogTitle fontSize="xl" fontWeight="700" textAlign="center" letterSpacing="tight">
               ¡Consulta Recibida!
             </DialogTitle>
           </VStack>
@@ -99,10 +99,10 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
               Hemos registrado tu solicitud de cotización correctamente.
             </Text>
             <VStack gap={1} bg="bg.subtle" p={3} borderRadius="xl" border="1px solid" borderColor="border.default" w="full">
-              <Text fontSize="xs" color="text.muted" fontWeight="800" letterSpacing="widest" textTransform="uppercase">
+              <Text fontSize="xs" color="text.muted" fontWeight="700" letterSpacing="widest" textTransform="uppercase">
                 Código de Seguimiento
               </Text>
-              <Text fontSize="lg" fontWeight="900" color="text.heading">
+              <Text fontSize="lg" fontWeight="700" color="text.heading">
                 {trackingId}
               </Text>
             </VStack>
@@ -120,7 +120,7 @@ export const ContactSuccessModal: React.FC<ContactSuccessModalProps> = ({
         </DialogBody>
 
         <DialogFooter>
-          <Button variant="aura" borderRadius="full" w="full" onClick={onClose} fontWeight="800">
+          <Button variant="primary" borderRadius="full" w="full" onClick={onClose} fontWeight="700">
             Volver al Inicio Ahora
           </Button>
         </DialogFooter>

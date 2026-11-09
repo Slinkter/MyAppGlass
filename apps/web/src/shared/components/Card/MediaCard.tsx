@@ -24,8 +24,8 @@ export interface MediaCardProps {
   title: string;
   /** Línea secundaria bajo el título. */
   description?: React.ReactNode;
-  /** Icono de la acción circular inferior. */
-  actionIcon: React.ElementType;
+  /** Icono de la acción circular inferior (se omite si la tarjeta no tiene destino). */
+  actionIcon?: React.ElementType;
   loading?: "lazy" | "eager";
   isLCP?: boolean;
   /** Props del elemento raíz (p. ej. `role`, `onClick`, `onKeyDown`, `tabIndex`). */
@@ -53,13 +53,13 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
         className="group"
         w="full"
         h={{ base: "260px", sm: "280px", md: "310px" }}
-        borderRadius={{ base: "2xl", lg: "3xl" }}
+        borderRadius="card"
         overflow="hidden"
         position="relative"
         isolation="isolate"
         transform="translateZ(0)"
         boxShadow="sm"
-        bg="brand.navy"
+        bg="brand.ink"
         {...cardMotion}
         {...rootProps}
       >
@@ -126,7 +126,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
           align="flex-end"
           minW={0}
         >
-          <VStack align="flex-start" gap="1" minW={0} maxW="calc(100% - 56px)">
+          <VStack align="flex-start" gap="1" minW={0} maxW={actionIcon ? "calc(100% - 56px)" : "full"}>
             <Heading
               as="h3"
               fontSize={{ base: "xl", md: "2xl" }}

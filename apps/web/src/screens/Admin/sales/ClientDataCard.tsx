@@ -19,7 +19,7 @@ export const ClientDataCard: React.FC<ClientDataCardProps> = ({ clientForm, onCh
       border="1px solid"
       borderColor="border.default"
       backdropFilter="blur(16px)"
-      boxShadow="0 4px 20px var(--chakra-colors-overlay-subtle)"
+      boxShadow="md"
     >
       <HStack mb="4" gap="2.5">
         <Box p="2" borderRadius="lg" bg="status.infoSoft" color="var(--chakra-colors-status-info)">

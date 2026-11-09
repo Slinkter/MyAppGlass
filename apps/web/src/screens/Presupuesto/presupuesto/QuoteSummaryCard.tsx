@@ -28,7 +28,7 @@ export const QuoteSummaryCard: React.FC<{ summary: QuoteSummary }> = ({ summary 
         </HStack>
       )}
       <HStack justify="space-between">
-        <Text>I.G.V. (18%)</Text>
+        <Text>I.G.V. (18%, incluido)</Text>
         <Text fontWeight="medium">{money(summary.igv)}</Text>
       </HStack>
       <HStack justify="space-between" pt="2" borderTop="1px solid" borderColor="border.default" fontSize="lg" fontWeight="bold">
@@ -39,7 +39,7 @@ export const QuoteSummaryCard: React.FC<{ summary: QuoteSummary }> = ({ summary 
     <Text fontSize="xs" color="text.muted" mt="3">
       {summary.pricePending
         ? "Incluye sistemas con precio por definir: el total es solo referencial y lo confirmamos contigo."
-        : "Precio estimado: se confirma tras la visita técnica sin costo."}
+        : "Precios incluyen IGV. El precio se confirma tras la visita técnica sin costo."}
     </Text>
   </Box>
 );

@@ -16,32 +16,32 @@ export interface HomeViewProps {
 const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initialProjects }) => {
     return (
         <VStack gap={{ base: "16", md: "24" }} w="full" align="stretch">
-            {/* Sección 1: Hero / Portada */}
+            {/* 1. Hero */}
             <LandingPageSection />
 
-            {/* Sección 2: SERVICIO */}
-            <Box id="servicios" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <ServiceList initialData={initialServices} headingAs="h2" />
-            </Box>
-
-            {/* Sección 3: Proyectos */}
-            <Box id="proyectos" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
+            {/* 2. Proyectos (portafolio de obras) */}
+            <Box id="proyectos" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <ProjectsList initialData={initialProjects} headingAs="h2" />
             </Box>
 
-            {/* Sección 4: Nuestros Clientes */}
-            <Box id="clientes" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
+            {/* 3. Servicios */}
+            <Box id="servicios" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
+                <ServiceList initialData={initialServices} headingAs="h2" />
+            </Box>
+
+            {/* 4. Beneficios */}
+            <Box id="beneficios" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
+                <FeaturesSection />
+            </Box>
+
+            {/* 5. Clientes */}
+            <Box id="clientes" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <ClientsSection />
             </Box>
 
-            {/* Sección 5: Ubicación / Mapa */}
-            <Box id="ubicacion" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
+            {/* 6. Ubicación */}
+            <Box id="ubicacion" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <StoreSection initialProjects={initialProjects} />
-            </Box>
-
-            {/* Sección 6: Calidad Superior (Iconos a 2 filas estilo Skills) */}
-            <Box id="beneficios" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <FeaturesSection />
             </Box>
         </VStack>
     );

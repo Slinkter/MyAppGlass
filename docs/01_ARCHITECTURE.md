@@ -107,7 +107,7 @@ El proyecto sigue una variante **parcial de Feature-Sliced Design (FSD)**: exist
 
 - Tema central: `apps/web/src/shared/providers/theme/index.ts` (Chakra v3, tokens semánticos y de estado).
 - Showcase en la ruta `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón `aura`, `outline`, `ghost`, `whatsapp` y `brand`.
-- Plan y cierre del pulido: `docs/DESIGN-SYSTEM.md`.
+- Plan y cierre del pulido: `apps/web/DESIGN.md`.
 
 ## ✅ Estado actual (2026-11-02)
 

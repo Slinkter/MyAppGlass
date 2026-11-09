@@ -4,7 +4,7 @@
  * @file QuoteSheet.tsx
  * @description Hoja de presupuesto (concepto C1 renovado, docs/gya/conceptos-presupuesto.md).
  * Es un documento: siempre papel claro (también en modo oscuro) y legible en blanco y negro.
- * Membrete: VIDRIERÍA & ALUMINIO · nombre en navy serif · «PRESUPUESTO» en rojo serif.
+ * Membrete: VIDRIERÍA & ALUMINIO · nombre en negro serif · «PRESUPUESTO» en rojo serif.
  * Montos con cifras tabulares; en celular el bloque de totales se apila y la tabla se desplaza
  * dentro de su caja.
  */
@@ -80,14 +80,14 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
           <Text fontSize="xs" fontWeight="semibold" letterSpacing="0.16em" color="gray.600">
             VIDRIERÍA & ALUMINIO
           </Text>
-          <Heading as="h2" fontSize={{ base: "xl", md: "2xl" }} color="brand.navy" lineHeight="1.15" mt="1">
+          <Heading as="h2" fontSize={{ base: "xl", md: "2xl" }} color="text.heading" lineHeight="1.15" mt="1">
             Glass & Aluminum Company S.A.C.
           </Heading>
           <Text fontSize="xs" color="gray.600" mt="2">
             RUC: {companyData.ruc}
           </Text>
           <Text fontSize="xs" color="gray.600">
-            {`${companyData.direccion} — Tel: (01) ${companyData.whatsappDisplay} / ${companyData.contactPhone.replace(/-/g, " ")}`}
+            {`${companyData.direccion} — WhatsApp: ${companyData.whatsappDisplay}`}
           </Text>
           <Text fontSize="xs" color="gray.600">
             {`Web: www.gyacompany.com | Email: ${companyData.salesEmail}`}
@@ -122,7 +122,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
 
       {/* TABLA DE PARTIDAS */}
       <Box overflowX="auto" mb="6" role="region" aria-label="Partidas del presupuesto" tabIndex={0}>
-        <chakra.table w="full" minW="560px" css={{ borderCollapse: "collapse" }}>
+        <chakra.table w="full" minW="35rem" css={{ borderCollapse: "collapse" }}>
           <thead>
             <tr>
               <Th scope="col">Ítem</Th>
@@ -142,7 +142,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
               return (
                 <React.Fragment key={result.line.id}>
                   <tr>
-                    <Td colSpan={6} bg="gray.50" fontWeight="semibold" color="brand.navy" borderColor="gray.200">
+                    <Td colSpan={6} bg="gray.50" fontWeight="semibold" color="text.heading" borderColor="gray.200">
                       {lineIdx + 1}. {title} ({result.line.width} × {result.line.height} m)
                     </Td>
                   </tr>
@@ -179,11 +179,11 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
           <Text fontWeight="semibold" mb="1" display="flex" alignItems="center" gap="1.5">
             <ShieldCheck size={16} aria-hidden="true" style={{ flexShrink: 0 }} /> Condiciones comerciales
           </Text>
-          <Text>• Validez del presupuesto: 15 días hábiles a partir de la fecha de emisión.</Text>
-          <Text>• Garantía estructural: 2 años en perfiles y 1 año en accesorios y hermeticidad.</Text>
-          <Text>• Tiempo de fabricación e instalación: 5 a 7 días hábiles tras confirmación.</Text>
+          <Text>• Garantía de 3 meses en todos los productos instalados.</Text>
+          <Text>• Precios incluyen IGV.</Text>
+          <Text>• Plazo de ensamblaje en taller e instalación y validez del presupuesto: se confirman en la visita técnica.</Text>
         </Box>
-        <Box minW={{ base: "full", md: "260px" }} fontSize="sm" css={{ fontVariantNumeric: "tabular-nums" }}>
+        <Box minW={{ base: "full", md: "16rem" }} fontSize="sm" css={{ fontVariantNumeric: "tabular-nums" }}>
           <Flex justify="space-between" mb="1.5">
             <Text color="gray.700">Subtotal</Text>
             <Text fontWeight="medium">{money(quote.subtotal)}</Text>
@@ -195,12 +195,12 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
             </Flex>
           )}
           <Flex justify="space-between" mb="1.5">
-            <Text color="gray.700">I.G.V. (18%)</Text>
+            <Text color="gray.700">I.G.V. (18%, incluido)</Text>
             <Text fontWeight="medium">{money(quote.igv)}</Text>
           </Flex>
           <Flex justify="space-between" align="baseline" pt="3" mt="2" borderTop="2px solid" borderColor="gray.900">
             <Text fontWeight="semibold">TOTAL</Text>
-            <Text fontFamily="heading" fontWeight="700" fontSize="2xl" color="brand.navy">
+            <Text fontFamily="heading" fontWeight="700" fontSize="2xl" color="text.heading">
               {money(quote.total)}
             </Text>
           </Flex>

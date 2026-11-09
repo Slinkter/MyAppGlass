@@ -6,7 +6,7 @@ const MapLoader: React.FC = () => {
     <Box
       w="full"
       h="full"
-      minH={{ base: "400px", lg: "700px" }}
+      minH={{ base: "25rem", lg: "43.75rem" }}
       display="flex"
       alignItems="center"
       justifyContent="center"

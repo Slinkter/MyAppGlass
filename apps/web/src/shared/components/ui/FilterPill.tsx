@@ -16,7 +16,7 @@ interface FilterPillProps {
 export const FilterPill: React.FC<FilterPillProps> = ({ label, isActive, onClick }) => (
   <Button
     size="sm"
-    variant={isActive ? "aura" : "outline"}
+    variant={isActive ? "primary" : "outline"}
     minH={{ base: "11", md: "8" }}
     px="5"
     borderRadius="full"

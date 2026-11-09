@@ -62,21 +62,21 @@ const SHELL_CONFIGS: Record<
   { label: string; maxW: string; token: string; desc: string }
 > = {
   narrow: {
-    label: "narrow (4xl)",
-    maxW: "896px",
-    token: "4xl",
+    label: "pageNarrow",
+    maxW: "pageNarrow",
+    token: "56rem",
     desc: "Artículos, formularios centrados y fichas legales",
   },
   default: {
-    label: "default (6xl)",
-    maxW: "1152px",
-    token: "6xl",
+    label: "pageDefault",
+    maxW: "pageDefault",
+    token: "72rem",
     desc: "Vistas de catálogo, dashboards y listados principales",
   },
   wide: {
-    label: "wide (7xl)",
-    maxW: "1280px",
-    token: "7xl",
+    label: "pageWide",
+    maxW: "pageWide",
+    token: "80rem",
     desc: "Hero banners, galerías de proyectos y presupuestos complejos",
   },
 };
@@ -143,10 +143,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           borderRadius="full"
                           borderWidth="1px"
                           borderColor={
-                            isSelected ? "accent.navy" : "border.warmStrong"
+                            isSelected ? "accent.ink" : "border.warmStrong"
                           }
-                          bg={isSelected ? "accent.navy" : "bg.surface"}
-                          color={isSelected ? "accent.navyContrast" : "text.heading"}
+                          bg={isSelected ? "accent.ink" : "bg.surface"}
+                          color={isSelected ? "accent.inkContrast" : "text.heading"}
                           fontSize="sm"
                           fontWeight={isSelected ? "bold" : "medium"}
                           display="inline-flex"
@@ -155,9 +155,6 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           flexShrink={0}
                           cursor="pointer"
                           transition="background-color 0.2s ease, border-color 0.2s ease"
-                          _hover={{
-                            borderColor: "accent.navy",
-                          }}
                         >
                           <IconComp size={15} style={{ flexShrink: 0 }} />
                           {cfg.label}
@@ -200,10 +197,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           borderRadius="full"
                           borderWidth="1px"
                           borderColor={
-                            isSelected ? "accent.navy" : "border.warmStrong"
+                            isSelected ? "accent.ink" : "border.warmStrong"
                           }
-                          bg={isSelected ? "accent.navy" : "bg.surface"}
-                          color={isSelected ? "accent.navyContrast" : "text.heading"}
+                          bg={isSelected ? "accent.ink" : "bg.surface"}
+                          color={isSelected ? "accent.inkContrast" : "text.heading"}
                           fontSize="sm"
                           fontWeight={isSelected ? "bold" : "medium"}
                           display="inline-flex"
@@ -212,9 +209,6 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           flexShrink={0}
                           cursor="pointer"
                           transition="background-color 0.2s ease, border-color 0.2s ease"
-                          _hover={{
-                            borderColor: "accent.navy",
-                          }}
                         >
                           <Maximize2 size={13} style={{ flexShrink: 0 }} />
                           {cfg.label}
@@ -244,10 +238,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 {DIAGNOSTIC_RULES.map((rule) => (
                   <Badge
                     key={rule.label}
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     borderWidth="1px"
-                    borderColor="accent.navy"
+                    borderColor="accent.ink"
                     px="3"
                     py="1.5"
                     borderRadius="full"
@@ -279,7 +273,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 mx="auto"
                 borderWidth="1px"
                 borderColor="border.warmStrong"
-                bg="bg.warm"
+                bg="bg.section"
                 borderRadius="xl"
                 p={{ base: "3", md: "5" }}
                 transition="max-width 0.35s cubic-bezier(0.22, 1, 0.36, 1)"
@@ -299,7 +293,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                       w="3"
                       h="3"
                       borderRadius="full"
-                      bg="accent.navy"
+                      bg="accent.ink"
                       style={{ flexShrink: 0 }}
                     />
                     <Text fontSize="xs" fontWeight="bold" color="text.heading">
@@ -308,8 +302,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   </HStack>
                   <Badge
                     fontSize="xs"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     borderRadius="full"
                     px="2"
                     py="0.5"
@@ -324,10 +318,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   <VStack align="stretch" gap="3">
                     <Box>
                       <Badge
-                        bg="bg.tintNavy"
-                        color="accent.navy"
+                        bg="bg.tint"
+                        color="accent.ink"
                         borderWidth="1px"
-                        borderColor="accent.navy"
+                        borderColor="accent.ink"
                         px="2.5"
                         py="1"
                         borderRadius="full"
@@ -383,7 +377,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
 
                     <Box pt="1">
                       <Button
-                        variant="aura"
+                        variant="primary"
                         w="full"
                         minH="11"
                         fontSize="xs"
@@ -401,10 +395,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   >
                     <VStack align="start" gap="2">
                       <Badge
-                        bg="bg.tintNavy"
-                        color="accent.navy"
+                        bg="bg.tint"
+                        color="accent.ink"
                         borderWidth="1px"
-                        borderColor="accent.navy"
+                        borderColor="accent.ink"
                         px="3"
                         py="1"
                         borderRadius="full"
@@ -460,7 +454,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                         </Text>
                       </Box>
                       <VStack align="stretch" gap="2">
-                        <Button variant="aura" minH="11" w="full" fontSize="xs">
+                        <Button variant="primary" minH="11" w="full" fontSize="xs">
                           Cotizar por WhatsApp
                         </Button>
                         <Button
@@ -484,10 +478,10 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     {/* Columna 1: Título y descripción de marca */}
                     <VStack align="start" gap="2">
                       <Badge
-                        bg="bg.tintNavy"
-                        color="accent.navy"
+                        bg="bg.tint"
+                        color="accent.ink"
                         borderWidth="1px"
-                        borderColor="accent.navy"
+                        borderColor="accent.ink"
                         px="3"
                         py="1"
                         borderRadius="full"
@@ -549,7 +543,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                       align="stretch"
                       gap="3"
                       p="4"
-                      bg="bg.tintNavy"
+                      bg="bg.tint"
                       borderRadius="lg"
                       borderWidth="1px"
                       borderColor="border.warmStrong"
@@ -572,7 +566,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                           Visita técnica sin costo
                         </Text>
                       </Box>
-                      <Button variant="aura" minH="11" w="full" fontSize="xs">
+                      <Button variant="primary" minH="11" w="full" fontSize="xs">
                         Solicitar Visita
                       </Button>
                       <Button
@@ -595,7 +589,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
       {/* SECCIÓN B: Matriz Canónica de los 9 Estados de UI */}
       <ShowcaseCard
         title="Matriz Canónica de los 9 Estados de UI"
-        description="Comportamiento sistemático de componentes en todos los ciclos de interacción conforme a DESIGN-SYSTEM.md §3.6 y directrices WCAG AA."
+        description="Comportamiento sistemático de componentes en todos los ciclos de interacción conforme a apps/web/DESIGN.md §3.6 y directrices WCAG AA."
         badge="Estados §3.6"
       >
         <ShowcasePanel p={{ base: "3", md: "6" }} borderRadius="xl">
@@ -618,8 +612,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 1/9
@@ -667,8 +661,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 2/9
@@ -694,9 +688,9 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
               <Box
                 p="3"
                 borderRadius="lg"
-                bg="bg.warm"
+                bg="bg.section"
                 borderWidth="1px"
-                borderColor="accent.navy"
+                borderColor="accent.ink"
                 transform="translateY(-2px)"
                 boxShadow="adminCard"
                 transition="transform 0.2s ease, border-color 0.2s ease"
@@ -705,7 +699,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   <Text fontSize="xs" fontWeight="bold" color="text.heading">
                     Tarjeta en Hover
                   </Text>
-                  <Text fontSize="xs" fontWeight="semibold" color="accent.navy">
+                  <Text fontSize="xs" fontWeight="semibold" color="accent.ink">
                     -2px
                   </Text>
                 </HStack>
@@ -733,8 +727,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 3/9
@@ -765,7 +759,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 borderRadius="full"
                 bg="bg.surface"
                 borderWidth="2px"
-                borderColor="accent.navy"
+                borderColor="accent.ink"
                 outline="2px solid"
                 outlineColor="ring.primary"
                 outlineOffset="2px"
@@ -780,7 +774,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
               </Box>
             </Box>
 
-            {/* 4. Active / Seleccionado (brand.navy) */}
+            {/* 4. Active / Seleccionado (brand.ink) */}
             <Box
               bg="bg.surface"
               p={{ base: "4", md: "5" }}
@@ -798,8 +792,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 4/9
@@ -818,7 +812,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   4. Active / Seleccionado
                 </Text>
                 <Text fontSize="xs" color="text.muted">
-                  Token brand.navy (#002060) para elementos activos, píldoras y tabs seleccionados.
+                  Token accent.ink (negro de marca) para elementos activos, píldoras y tabs seleccionados.
                 </Text>
               </Box>
 
@@ -829,7 +823,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   flex="1"
                   px="3"
                   borderRadius="full"
-                  bg="brand.navy"
+                  bg="brand.ink"
                   color="white"
                   fontWeight="bold"
                   fontSize="xs"
@@ -845,7 +839,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                   flex="1"
                   px="3"
                   borderRadius="full"
-                  bg="bg.warm"
+                  bg="bg.section"
                   color="text.body"
                   borderWidth="1px"
                   borderColor="border.warmStrong"
@@ -877,8 +871,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 5/9
@@ -902,7 +896,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
               </Box>
 
               <Button
-                variant="aura"
+                variant="primary"
                 minH="11"
                 w="full"
                 disabled
@@ -932,8 +926,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 6/9
@@ -958,7 +952,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
 
               <VStack align="stretch" gap="2">
                 <Button
-                  variant="aura"
+                  variant="primary"
                   minH="11"
                   w="full"
                   loading
@@ -968,7 +962,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 <HStack
                   gap="2"
                   p="2"
-                  bg="bg.warm"
+                  bg="bg.section"
                   borderRadius="md"
                   borderWidth="1px"
                   borderColor="border.warmStrong"
@@ -976,7 +970,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 >
                   <Spinner
                     size="sm"
-                    color="accent.navy"
+                    color="accent.ink"
                     style={{ flexShrink: 0 }}
                   />
                   <Box flex="1">
@@ -1081,8 +1075,8 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                     px="2.5"
                     py="0.5"
                     borderRadius="full"
-                    bg="bg.tintNavy"
-                    color="accent.navy"
+                    bg="bg.tint"
+                    color="accent.ink"
                     fontSize="xs"
                   >
                     Estado 8/9
@@ -1109,7 +1103,7 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 align="center"
                 textAlign="center"
                 p="3"
-                bg="bg.warm"
+                bg="bg.section"
                 borderRadius="lg"
                 borderWidth="1px"
                 borderColor="border.warmStrong"

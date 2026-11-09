@@ -51,7 +51,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
             data-index={index}
             onClick={() => onSelect(index)}
             size={{ base: "sm", md: "md" }}
-            variant={isActive ? "aura" : "ghost"}
+            variant={isActive ? "primary" : "ghost"}
             borderRadius="full"
             px="5"
             flexShrink={0}
@@ -80,7 +80,7 @@ const ServiceHeader: React.FC<ServiceHeaderProps> = ({ title, systems, activeInd
       <Flex direction={{ base: "column", md: "row" }} justify="space-between" align={{ base: "flex-start", md: "flex-end" }} gap="5">
         <VStack gap="2" align="flex-start">
           <BackButton to="/#servicios" />
-          <Heading as="h1" size={{ base: "xl", md: "2xl" }} fontWeight="800" letterSpacing="-0.03em" color="text.heading" lineHeight="1.15">
+          <Heading as="h1" size={{ base: "xl", md: "2xl" }} fontWeight="700" letterSpacing="-0.03em" color="text.heading" lineHeight="1.15">
             {title}
           </Heading>
         </VStack>

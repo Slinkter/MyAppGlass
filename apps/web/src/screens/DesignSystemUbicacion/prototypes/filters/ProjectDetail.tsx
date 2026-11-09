@@ -157,7 +157,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, store, hi
       </Box>
       <VStack align="stretch" gap="2">
         {project.href && (
-          <Button asChild variant="aura" minH={TOUCH_MIN}>
+          <Button asChild variant="primary" minH={TOUCH_MIN}>
             <RouterLink href={project.href} aria-label={`Ver la obra ${project.name}`}>
               Ver obra
             </RouterLink>

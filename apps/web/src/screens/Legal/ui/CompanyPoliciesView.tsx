@@ -7,15 +7,8 @@
  */
 
 import React from "react";
-import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-  HStack,
-  Badge,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { companyData } from "@/shared/config/company-data";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
@@ -62,7 +55,7 @@ const CompanyPoliciesView: React.FC = () => {
                 <UserCheck size={20} />
               </Box>
               <VStack align="flex-start" gap="0">
-                <Text fontSize="xs" fontWeight="800" color="text.heading">Servicios Residenciales</Text>
+                <Text fontSize="xs" fontWeight="700" color="text.heading">Servicios Residenciales</Text>
                 <Text fontSize="xs" color="text.muted">Presupuesto 5 días • Garantía 6 meses</Text>
               </VStack>
             </HStack>
@@ -74,7 +67,7 @@ const CompanyPoliciesView: React.FC = () => {
                 <Building2 size={20} />
               </Box>
               <VStack align="flex-start" gap="0">
-                <Text fontSize="xs" fontWeight="800" color="text.heading">Proyectos y Empresas</Text>
+                <Text fontSize="xs" fontWeight="700" color="text.heading">Proyectos y Empresas</Text>
                 <Text fontSize="xs" color="text.muted">Propuesta 30 días • Garantía 12 meses</Text>
               </VStack>
             </HStack>
@@ -86,7 +79,7 @@ const CompanyPoliciesView: React.FC = () => {
                 <FileCheck size={20} />
               </Box>
               <VStack align="flex-start" gap="0">
-                <Text fontSize="xs" fontWeight="800" color="text.heading">Ley N° 29733</Text>
+                <Text fontSize="xs" fontWeight="700" color="text.heading">Ley N° 29733</Text>
                 <Text fontSize="xs" color="text.muted">Protección de Datos Personales</Text>
               </VStack>
             </HStack>
@@ -97,11 +90,11 @@ const CompanyPoliciesView: React.FC = () => {
         <AuraSurface p={{ base: 6, md: 8 }} variant="glass">
           <VStack gap={5} align="start">
             <HStack gap={2} wrap="wrap">
-              <Badge colorPalette="red" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.12em">
+              <Badge variant="danger" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="0.12em">
                 Domicilios Particulares
               </Badge>
             </HStack>
-            <Heading as="h2" size="xl" color="text.heading" fontWeight="800" letterSpacing="tight">
+            <Heading as="h2" size="xl" color="text.heading" fontWeight="700" letterSpacing="tight">
               Términos y Condiciones: Servicios Residenciales
             </Heading>
             <Text fontSize="sm" color="text.muted">
@@ -158,11 +151,11 @@ const CompanyPoliciesView: React.FC = () => {
         <AuraSurface p={{ base: 6, md: 8 }} variant="glass">
           <VStack gap={5} align="start">
             <HStack gap={2} wrap="wrap">
-              <Badge colorPalette="blue" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.12em">
+              <Badge variant="info" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="0.12em">
                 Corporativo & Obras
               </Badge>
             </HStack>
-            <Heading as="h2" size="xl" color="text.heading" fontWeight="800" letterSpacing="tight">
+            <Heading as="h2" size="xl" color="text.heading" fontWeight="700" letterSpacing="tight">
               Términos y Condiciones: Proyectos y Empresas
             </Heading>
             <Text fontSize="sm" color="text.muted">
@@ -212,11 +205,11 @@ const CompanyPoliciesView: React.FC = () => {
         <AuraSurface p={{ base: 6, md: 8 }} variant="glass">
           <VStack gap={5} align="start">
             <HStack gap={2} wrap="wrap">
-              <Badge colorPalette="gray" variant="subtle" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="800" textTransform="uppercase" letterSpacing="0.12em">
+              <Badge variant="neutral" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="0.12em">
                 Privacidad & Datos
               </Badge>
             </HStack>
-            <Heading as="h2" size="xl" color="text.heading" fontWeight="800" letterSpacing="tight">
+            <Heading as="h2" size="xl" color="text.heading" fontWeight="700" letterSpacing="tight">
               Política de Privacidad y Protección de Datos Personales
             </Heading>
             <Text fontSize="sm" color="text.muted">

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { Box, Heading, Text, VStack, HStack, Badge, Flex } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, HStack, Flex } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideArrowRight } from "lucide-react";
@@ -15,156 +16,125 @@ interface BlogCardProps {
 
 /**
  * @component BlogCard
- * @description Premium blog card with smooth 120Hz hover effects.
+ * @description Tarjeta de artículo: plana en reposo, elevación suave solo en hover/foco.
  */
 const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
   // La tarjeta se revela (foto + textos) cuando la portada termina de cargar.
   const { loaded, onLoad, reveal } = useImageReveal();
   const formattedDate = useMemo(
-    () => new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' }),
+    () => new Date(post.date).toLocaleDateString("es-ES", { month: "long", day: "numeric", year: "numeric" }),
     [post.date],
   );
   return (
-    <Link href={`/blog/${post.slug}`} style={{ width: "100%", height: "100%" }}>
-      <Box
-        role="group"
-        w="full"
-        h="full"
-        bg="surface.card"
-        border="1px solid"
-        borderColor="border.default"
-        borderRadius="3xl"
-        overflow="hidden"
-        boxShadow="md"
-        animation={`slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s both`}
-        _hover={{ 
-          boxShadow: "lg",
-          transform: "translateY(-12px) scale(1.02)",
-        }}
-        transition="box-shadow 0.4s cubic-bezier(0.33, 1, 0.68, 1), transform 0.4s cubic-bezier(0.33, 1, 0.68, 1)"
-        display="flex"
-        flexDirection="column"
-        position="relative"
-      >
-        {/* Image Container */}
-        <Box position="relative" h="240px" overflow="hidden">
-          <ImageRevealSkeleton loaded={loaded} />
-          <Box position="absolute" inset={0} {...reveal}>
-            <ResponsiveImage
-              src={post.image}
-              alt={post.title}
-              w="full"
-              h="full"
-              objectFit="cover"
-              loading="lazy"
-              onLoad={onLoad}
-              transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
-              _groupHover={{ transform: "scale(1.1)" }}
-            />
-          </Box>
-          <Box 
-            position="absolute" 
-            inset={0} 
-            bgGradient="to-t"
-            gradientFrom="blackAlpha.600"
-            gradientTo="transparent"
-            {...reveal}
-          />
-          
-          {/* Tag Overlay */}
-          <HStack position="absolute" top={{ base: "4", md: "6" }} left={{ base: "4", md: "6" }} gap="2" {...reveal}>
-            {post.tags.slice(0, 2).map((tag) => (
-              <Badge 
-                key={tag} 
-                bg="blackAlpha.700"
-                color="white" 
-                border="1px solid"
-                borderColor="whiteAlpha.400"
-                px="4" 
-                py="0.5"
-                borderRadius="full"
-                fontSize="xs"
-                textTransform="none"
-              >
-                {tag}
-              </Badge>
-            ))}
-          </HStack>
-        </Box>
-
-        {/* Content Container */}
-        <VStack p={{ base: "4", md: "6" }} align="flex-start" gap={{ base: "4", md: "6" }} flex="1">
-          <VStack align="flex-start" gap="2" w="full">
-            <HStack color="text.muted" fontSize="xs" gap="6">
-              <HStack gap="2">
-                <LucideCalendar size={14} />
-                <Text>{formattedDate}</Text>
-              </HStack>
-              <HStack gap="2">
-                <LucideUser size={14} />
-                <Text>{post.author}</Text>
-              </HStack>
-            </HStack>
-            
-            <Heading 
-              as="h3" 
-              fontSize="xl" 
-              color="text.heading"
-              lineHeight="1.4"
-              transition="color 0.3s ease"
-              _groupHover={{ color: "text.accent" }}
-            >
-              {post.title}
-            </Heading>
-          </VStack>
-
-          <Text color="text.body" fontSize="sm" lineClamp={3} lineHeight="tall">
-            {post.excerpt}
-          </Text>
-
-          {/* Read More Link */}
-          <Flex 
-            mt="auto" 
-            w="full" 
-            justify="flex-end" 
-            align="center" 
-            color="text.accent"
-            fontWeight="bold"
-            fontSize="sm"
-            gap="2"
-            transition="color 0.3s ease"
-          >
-            <Text opacity={{ base: 1, md: 0 }} transform={{ base: "none", md: "translateX(10px)" }} _groupHover={{ opacity: 1, transform: "translateX(0)" }} transition="opacity 0.4s ease, transform 0.4s ease">
-              Leer más
-            </Text>
-            <Box 
-              p="2" 
-              borderRadius="full" 
-              bg="bg.subtle" 
-              _groupHover={{ bg: "text.accent", color: "white", transform: "rotate(-45deg)" }}
-              transition="background-color 0.4s ease, transform 0.4s ease"
-            >
-              <LucideArrowRight size={16} style={{ flexShrink: 0 }} />
+    <Box
+      asChild
+      display="block"
+      w="full"
+      h="full"
+      borderRadius="card"
+      _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
+    >
+      <Link href={`/blog/${post.slug}`}>
+        <Box
+          role="group"
+          w="full"
+          h="full"
+          bg="surface.card"
+          border="1px solid"
+          borderColor="border.default"
+          borderRadius="card"
+          overflow="hidden"
+          animation={`slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s both`}
+          transition="box-shadow 0.3s ease, transform 0.3s ease"
+          _hover={{ boxShadow: "elevatedLg", transform: "translateY(-4px)" }}
+          _motionReduce={{ animation: "none", transition: "none", _hover: { transform: "none" } }}
+          display="flex"
+          flexDirection="column"
+          position="relative"
+        >
+          <Box position="relative" h="240px" overflow="hidden">
+            <ImageRevealSkeleton loaded={loaded} />
+            <Box position="absolute" inset={0} {...reveal}>
+              <ResponsiveImage
+                src={post.image}
+                alt={post.title}
+                w="full"
+                h="full"
+                objectFit="cover"
+                loading="lazy"
+                onLoad={onLoad}
+                transition="transform 0.5s ease"
+                _groupHover={{ transform: "scale(1.04)" }}
+                _motionReduce={{ transition: "none", transform: "none" }}
+              />
             </Box>
-          </Flex>
-        </VStack>
 
-        {/* Aura Glow Effect */}
-        <Box 
-          position="absolute"
-          bottom="-20%"
-          right="-10%"
-          w="150px"
-          h="150px"
-          bg="text.accent"
-          filter="blur(60px)"
-          opacity={0}
-          _groupHover={{ opacity: 0.1 }}
-          transition="opacity 0.6s ease"
-          pointerEvents="none"
-        />
-      </Box>
-    </Link>
+            <HStack position="absolute" top={{ base: "4", md: "6" }} left={{ base: "4", md: "6" }} gap="2" {...reveal}>
+              {post.tags.slice(0, 2).map((tag) => (
+                <Badge key={tag} variant="inkSolid" borderRadius="full" px="3" textTransform="none">
+                  {tag}
+                </Badge>
+              ))}
+            </HStack>
+          </Box>
+
+          <VStack p={{ base: "4", md: "6" }} align="flex-start" gap={{ base: "4", md: "6" }} flex="1">
+            <VStack align="flex-start" gap="2" w="full">
+              <HStack color="text.muted" fontSize="xs" gap="6">
+                <HStack gap="2">
+                  <LucideCalendar size={14} />
+                  <Text>{formattedDate}</Text>
+                </HStack>
+                <HStack gap="2">
+                  <LucideUser size={14} />
+                  <Text>{post.author}</Text>
+                </HStack>
+              </HStack>
+
+              <Heading
+                as="h3"
+                fontSize="xl"
+                color="text.heading"
+                lineHeight="1.4"
+                transition="color 0.3s ease"
+                _groupHover={{ color: "text.accent" }}
+              >
+                {post.title}
+              </Heading>
+            </VStack>
+
+            <Text color="text.body" fontSize="sm" lineClamp={3} lineHeight="tall">
+              {post.excerpt}
+            </Text>
+
+            <Flex mt="auto" w="full" justify="flex-end" align="center" color="text.accent" fontWeight="bold" fontSize="sm" gap="2">
+              <Text
+                opacity={{ base: 1, md: 0 }}
+                _groupHover={{ opacity: 1 }}
+                transition="opacity 0.3s ease"
+                _motionReduce={{ transition: "none" }}
+              >
+                Leer más
+              </Text>
+              <Box
+                minW="11"
+                minH="11"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                borderRadius="full"
+                bg="bg.subtle"
+                _groupHover={{ bg: "text.accent", color: "white" }}
+                transition="background-color 0.3s ease"
+                _motionReduce={{ transition: "none" }}
+              >
+                <LucideArrowRight size={16} style={{ flexShrink: 0 }} />
+              </Box>
+            </Flex>
+          </VStack>
+        </Box>
+      </Link>
+    </Box>
   );
 };
 

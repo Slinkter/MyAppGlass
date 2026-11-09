@@ -22,7 +22,7 @@ export const QuoteSuccess: React.FC<QuoteSuccessProps> = ({ quoteNumber, total, 
     <Box bg="surface.card" p={{ base: "4", md: "8" }} borderRadius="2xl" border="1px solid" borderColor="border.default" mb="8">
       <VStack gap="4" align="start">
         <Heading size="lg" display="flex" alignItems="center" gap="2">
-          <CheckCircle2 size={24} style={{ flexShrink: 0 }} /> ¡Solicitud registrada!
+          <CheckCircle2 size={24} style={{ flexShrink: 0 }} /> Solicitud registrada
         </Heading>
         <Text>
           Tu presupuesto es el <strong>N° {quoteNumber}</strong> con un total estimado de <strong>S/ {total.toFixed(2)}</strong>.

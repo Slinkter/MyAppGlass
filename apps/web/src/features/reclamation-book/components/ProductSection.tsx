@@ -34,7 +34,7 @@ const ProductSection: React.FC = () => {
           bg="primary.500" 
           color="white" 
           fontSize="xs" 
-          fontWeight="900"
+          fontWeight="700"
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -44,7 +44,7 @@ const ProductSection: React.FC = () => {
         <Heading
           as="h2"
           size="sm"
-          fontWeight="800"
+          fontWeight="700"
           color="text.heading"
           letterSpacing="tight"
         >

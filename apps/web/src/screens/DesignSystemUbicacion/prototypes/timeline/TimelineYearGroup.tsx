@@ -30,7 +30,7 @@ export const TimelineYearGroup: React.FC<TimelineYearGroupProps> = ({ group, sel
       px="2"
       py="2"
     >
-      <Text as="h4" id={`timeline-year-${group.key}`} fontSize="sm" fontWeight="800" color="text.heading">
+      <Text as="h4" id={`timeline-year-${group.key}`} fontSize="sm" fontWeight="700" color="text.heading">
         {group.label}{" "}
         <chakra.span fontWeight="500" color="text.muted">
           · {group.projects.length} {group.projects.length === 1 ? "obra" : "obras"}

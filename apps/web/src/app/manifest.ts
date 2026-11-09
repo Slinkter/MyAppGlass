@@ -10,8 +10,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Especialistas en vidriería, ventanas antirruido, mamparas de vidrio templado y estructuras de aluminio en La Molina, Lima.",
     start_url: "/",
     display: "standalone",
-    background_color: "#09090b",
-    theme_color: "#09090b",
+    background_color: "#FFFFFF",
+    theme_color: "#111111",
     lang: "es-PE",
     icons: [
       {

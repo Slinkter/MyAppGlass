@@ -1,19 +1,8 @@
 "use client";
 
 import React, { useState, useRef, DragEvent, ChangeEvent } from "react";
-import {
-  Box,
-  VStack,
-  HStack,
-  Text,
-  Button,
-  SimpleGrid,
-  Spinner,
-  IconButton,
-  Input,
-  Badge,
-  Image,
-} from "@chakra-ui/react";
+import { Box, VStack, HStack, Text, Button, SimpleGrid, Spinner, IconButton, Input, Image } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import {
   UploadCloud,
   Trash2,
@@ -191,7 +180,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
           <Text fontSize="sm" fontWeight="semibold" color="text.heading">
             {label}
           </Text>
-          <Badge size="sm" variant="subtle" colorPalette="blue">
+          <Badge size="sm" variant="info">
             {items.length} / {maxFiles} fotos
           </Badge>
         </HStack>
@@ -224,7 +213,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
         borderRadius="xl"
         border="2px dashed"
         borderColor={isDragging ? "brand.primary" : "border.subtle"}
-        bg={isDragging ? "rgba(56, 189, 248, 0.08)" : "bg.subtle"}
+        bg={isDragging ? "bg.tint" : "bg.subtle"}
         cursor={disabled || uploading ? "not-allowed" : "pointer"}
         textAlign="center"
         transition="border-color 0.2s ease, background-color 0.2s ease"
@@ -263,7 +252,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
       </Box>
 
       {errorMessage && (
-        <HStack gap="1.5" color="red.500" fontSize="xs">
+        <HStack gap="1.5" color="status.dangerText" fontSize="xs">
           <AlertCircle size={14} style={{ flexShrink: 0 }} />
           <Text>{errorMessage}</Text>
         </HStack>
@@ -280,9 +269,9 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
               borderColor="border.default"
               bg="surface.card"
               overflow="hidden"
-              boxShadow="0 4px 12px var(--chakra-colors-overlay-subtle)"
+              boxShadow="sm"
               transition="border-color 0.2s ease, box-shadow 0.2s ease"
-              _hover={{ borderColor: "brand.primary", boxShadow: "0 6px 16px var(--chakra-colors-overlay-faint)" }}
+              _hover={{ borderColor: "brand.primary", boxShadow: "md" }}
             >
               {/* Thumbnail Container */}
               <Box position="relative" w="full" h="130px" bg="bg.subtle" overflow="hidden">
@@ -300,8 +289,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
                   top="2"
                   left="2"
                   size="sm"
-                  colorPalette="gray"
-                  variant="solid"
+                  variant="neutral"
                   borderRadius="full"
                   px="2"
                   fontSize="xs"

@@ -6,7 +6,7 @@
  * - Cabecera propia (60px + safe-area-top) con "Menú" y botón X de cierre DENTRO del diálogo y del focus trap.
  * - Zona central scrolleable (única con overflow): 5 enlaces primarios + acordeón de servicios.
  * - Pie sticky (nunca scrollea): CTA "Cotizar por WhatsApp" + teléfono, mi cuenta y tema.
- * - zIndex 1800: cubre la barra superior móvil (1700). `contained` respeta el marco del showcase.
+ * - zIndex `overlay` cubre la barra superior móvil (`banner`). `contained` respeta el marco del showcase.
  * - Entrada 650ms (DUR_CSS.panelIn) y salida 450ms (DUR_CSS.panelOut) con solo transform + opacity.
  * - prefers-reduced-motion: solo fade corto. useFocusTrap, useLockBodyScroll, Escape, popstate y cierre por ruta.
  * - Gutters de 24 px, tipografía mínima `xs`, iconos 16/20 y separadores por CSS (sin `<Text>·</Text>`).
@@ -141,8 +141,8 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
       w="full"
       h={contained ? "full" : "100dvh"}
       overflow="hidden"
-      zIndex={1800}
-      bg="bg.paper"
+      zIndex="overlay"
+      bg="bg.surface"
       pointerEvents={isOpen ? "auto" : "none"}
       visibility={isVisibleInDom ? "visible" : "hidden"}
       style={{
@@ -256,7 +256,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
         pb="calc(env(safe-area-inset-bottom, 0px) + 0.75rem)"
         borderTopWidth="1px"
         borderTopColor="border.warm"
-        bg="bg.paper"
+        bg="bg.surface"
       >
         <VStack align="stretch" gap="3" w="full">
           {/* CTA principal */}

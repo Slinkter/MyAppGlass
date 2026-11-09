@@ -16,7 +16,7 @@ export const AdminRouteGuard: React.FC<AdminRouteGuardProps> = ({ children }) =>
 
   if (loading) {
     return (
-      <Box minH="60vh" display="flex" alignItems="center" justifyContent="center">
+      <Box minH="60dvh" display="flex" alignItems="center" justifyContent="center">
         <VStack gap="4">
           <Spinner size="xl" color="brand.primary" />
           <Text color="text.muted">Verificando credenciales de acceso administrativo...</Text>
@@ -52,7 +52,7 @@ export const AdminRouteGuard: React.FC<AdminRouteGuardProps> = ({ children }) =>
           </Text>
           <VStack gap="3" w="full" pt="2">
             {!user ? (
-              <Button asChild variant="aura" w="full" size="lg">
+              <Button asChild variant="primary" w="full" size="lg">
                 <Link href="/auth">
                   <LogIn size={18} style={{ marginRight: 8 }} />
                   Iniciar Sesión como Administrador

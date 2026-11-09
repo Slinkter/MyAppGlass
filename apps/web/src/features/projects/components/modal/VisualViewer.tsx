@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
-import { Box, Flex } from "@chakra-ui/react";
-import Gallery from "@shared/components/common/Gallery";
+import { Box } from "@chakra-ui/react";
+import GalleryWithThumbnails from "@shared/components/common/GalleryWithThumbnails";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import MapLoader from "@/shared/components/map/MapLoader";
 import type { Project } from "@shared/types/project";
@@ -84,20 +84,7 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
             h="full"
           >
             {galleryImages.length > 0 ? (
-              <Gallery images={galleryImages}>
-                <Flex
-                  direction={{ base: "column", md: "row" }}
-                  gap={{ base: "3", md: "4" }}
-                  h="100%"
-                  w="100%"
-                  p={{ base: "1", md: "2" }}
-                  minW={0}
-                  overflow="hidden"
-                >
-                  <Gallery.Viewer />
-                  <Gallery.Thumbnails />
-                </Flex>
-              </Gallery>
+              <GalleryWithThumbnails images={galleryImages} />
             ) : (
               <ComingSoonDisplay />
             )}

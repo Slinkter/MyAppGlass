@@ -1,17 +1,8 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { 
-  Box, 
-  Container, 
-  Heading, 
-  Text, 
-  VStack, 
-  HStack, 
-  Separator,
-  Badge,
-  Flex
-} from "@chakra-ui/react";
+import { Box, Container, Heading, Text, VStack, HStack, Separator, Flex } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
 import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideChevronRight, LucideClock, LucideArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -41,7 +32,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
 
   return (
     <Box as="article" py={{ base: "8", md: "20" }}>
-      <Container maxW="4xl">
+      <Container maxW="pageNarrow">
         <VStack align="flex-start" gap="8" w="full">
           {/* Breadcrumbs */}
           <HStack gap="2" color="text.muted" fontSize="sm">
@@ -56,7 +47,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
           <VStack align="flex-start" gap="6" w="full">
             <HStack gap="4">
               {post.tags.map(tag => (
-                <Badge key={tag} variant="subtle" colorPalette="primary" px="4" borderRadius="full">
+                <Badge key={tag} variant="neutral" px="4" borderRadius="full">
                   {tag}
                 </Badge>
               ))}
@@ -67,7 +58,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
               fontSize={{ base: "3xl", md: "5xl" }} 
               color="text.heading" 
               lineHeight="1.2"
-              fontWeight="900"
+              fontWeight="700"
             >
               {post.title}
             </Heading>
@@ -91,7 +82,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
           {/* Featured Image */}
           <Box 
             w="full" 
-            h={{ base: "300px", md: "500px" }} 
+            h={{ base: "18.75rem", md: "31.25rem" }}
             borderRadius="3xl" 
             overflow="hidden" 
             boxShadow="md"
@@ -123,7 +114,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
             css={{
               "& h2": {
                 fontSize: "2xl",
-                fontWeight: "900",
+                fontWeight: "700",
                 color: "text.heading",
                 mt: "14",
                 mb: "6",
@@ -160,7 +151,7 @@ const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
             <HStack gap="4">
                <Text fontWeight="bold" color="text.heading">Compartir:</Text>
                {/* Simplified social sharing */}
-               <Box p="2" borderRadius="full" border="1px solid" borderColor="border.default" _hover={{ bg: "text.accent", color: "white" }} cursor="pointer" transition="background-color 0.3s ease, color 0.3s ease">
+               <Box p="2" borderRadius="full" border="1px solid" borderColor="border.default" _hover={{ bg: "bg.subtle" }} cursor="pointer" transition="background-color 0.3s ease, color 0.3s ease">
                  <LucideArrowRight size={18} />
                </Box>
             </HStack>

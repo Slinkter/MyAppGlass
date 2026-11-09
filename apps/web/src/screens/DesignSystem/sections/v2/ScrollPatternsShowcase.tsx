@@ -2,7 +2,7 @@
 
 /**
  * @file ScrollPatternsShowcase.tsx
- * @description Catálogo de los patrones de `scroll-craft` convertidos en componentes del Aura Design System
+ * @description Catálogo de los patrones de `scroll-craft` convertidos en componentes del sistema de diseño
  * (`shared/components/scroll/ScrollPatterns.tsx`). Fotos propias de `public/images`; textos del Brand Kit.
  */
 
@@ -37,7 +37,7 @@ export const ScrollPatternsShowcase: React.FC = () => (
       />
 
       <SubsectionLabel>PhotoFrame + GlassCaption (proporción fija 4:5)</SubsectionLabel>
-      <VStack align="stretch" maxW="420px">
+      <VStack align="stretch" maxW="sm">
         <PhotoFrame src="/images/services-general-init01.webp" alt="Ventana de piso a techo instalada" effect="parallax">
           <GlassCaption title="Ventana instalada">Aluminio y vidrio a la medida.</GlassCaption>
         </PhotoFrame>
