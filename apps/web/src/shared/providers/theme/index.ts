@@ -117,17 +117,20 @@ const buttonRecipe = defineRecipe({
       },
     size: {
       sm: {
-        h: "8",
-        px: "3",
+        h: "11",
+        minW: "11",
+        px: "4",
         fontSize: "xs",
       },
       md: {
-        h: "10",
+        h: "11",
+        minW: "11",
         px: "6",
         fontSize: "sm",
       },
       lg: {
         h: "12",
+        minW: "12",
         px: "8",
         fontSize: "md",
       },
@@ -261,6 +264,9 @@ const config = defineConfig({
           redHover: { value: "#E0484D" },
           redDark: { value: "#D9444A" },
           ink: { value: "#0f172a" },
+          navy: { value: "#002060" },
+          redQuote: { value: "#D62828" },
+          logoCoral: { value: "#FF5A5A" },
         },
         status: {
           info: { value: "#38bdf8" },
@@ -305,9 +311,12 @@ const config = defineConfig({
         "bg.section": { value: { _light: "white", _dark: "#121215" } },
         "bg.surface": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
+        "bg.warm": { value: { _light: "#F7F6F3", _dark: "#161614" } },
+        "bg.tintNavy": { value: { _light: "#F3F5F9", _dark: "rgba(0, 32, 96, 0.24)" } },
 
         // Brand
         "brand.primary": { value: { _light: "{colors.primary.900}", _dark: "white" } },
+        "accent.navy": { value: { _light: "#002060", _dark: "#93C5FD" } },
 
         "surface.card": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "surface.nav": { value: { _light: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" } },
@@ -319,6 +328,8 @@ const config = defineConfig({
         "border.default": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.08)" } },
         "border.subtle": { value: { _light: "rgba(0,0,0,0.06)", _dark: "rgba(255,255,255,0.08)" } },
         "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
+        "border.warm": { value: { _light: "#E6E3DE", _dark: "rgba(255,255,255,0.08)" } },
+        "border.warmStrong": { value: { _light: "#D9D6D0", _dark: "rgba(255,255,255,0.14)" } },
         // @deprecated: solo fallback en ProjectServiceSelect.tsx
         "border.slate": { value: "#e2e8f0" },
 

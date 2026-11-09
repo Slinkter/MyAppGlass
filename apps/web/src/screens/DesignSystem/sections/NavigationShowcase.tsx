@@ -24,19 +24,21 @@ export const NavigationShowcase: React.FC = () => {
           maxW="100%"
           minW="0"
         >
-          {/* Fondo simulando el hero de cristal */}
+          {/* Fondo simulando el hero con tokens cálidos de marca */}
           <Box
             position="absolute"
             inset="0"
             borderRadius="2xl"
-            bg="radial-gradient(ellipse at center, rgba(56, 189, 248, 0.08) 0%, transparent 70%)"
+            bg="bg.tintNavy"
+            border="1px solid"
+            borderColor="border.warm"
             pointerEvents="none"
           />
-          <Box position="relative" display="flex" flexDirection="column" alignItems="center" justifyContent="center" minH="140px">
+          <Box position="relative" display="flex" flexDirection="column" alignItems="center" justifyContent="center" minH="140px" maxW="full">
             <Text fontSize="xs" color="text.muted" mb="4" fontWeight="medium" textAlign="center">
               VISTA PREVIA INTERACTIVA (SCROLL SPY & ROUTING)
             </Text>
-            <Box maxW="100%" overflowX="auto" display="flex" justifyContent={{ base: "flex-start", md: "center" }} w="full">
+            <Box maxW="full" overflowX="auto" display="flex" justifyContent={{ base: "flex-start", md: "center" }} w="full">
               <AuraDesktopNav />
             </Box>
           </Box>

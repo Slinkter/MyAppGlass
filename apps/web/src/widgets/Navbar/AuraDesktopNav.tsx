@@ -45,7 +45,7 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ isScrolled = false }) =
       bg={isScrolled ? "bg.surface/95" : "bg.surface/65"}
       borderColor={isScrolled ? "border.default" : "border.subtle"}
       boxShadow={isScrolled ? "navDesktop" : "none"}
-      transition="background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1)"
+      transition="background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1)"
       _motionReduce={{ transition: "none" }}
       p="2"
       borderRadius="full"
@@ -80,9 +80,11 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ isScrolled = false }) =
             size={{ base: "sm", md: "md" }}
             variant={isActive ? "aura" : "ghost"}
             borderRadius="full"
-            w={{ base: "115px", xl: "130px" }}
-            h={{ base: "11", md: "10" }}
-            px="0"
+            w={{ base: "auto", sm: "110px", xl: "130px" }}
+            minW="20"
+            h="11"
+            minH="11"
+            px={{ base: "3", sm: "0" }}
             flexShrink={0}
             fontWeight={isActive ? "bold" : "medium"}
             letterSpacing="0.05em"
@@ -109,7 +111,7 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ isScrolled = false }) =
                   left="0"
                   right="0"
                   h="1.5px"
-                  bg="#002060"
+                  bg="brand.navy"
                   _dark={{ bg: "white" }}
                   transformOrigin="left"
                   transform={isActive ? "scaleX(1)" : "scaleX(0)"}

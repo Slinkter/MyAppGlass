@@ -80,7 +80,7 @@ const FooterRow = ({
             justify={{ base: "center", sm: "flex-start" }}
             w="full"
             py={1.5}
-            minH={{ base: "11", sm: "auto" }}
+            minH="11"
         >
             {icon && (
                 isStaticImage ? (

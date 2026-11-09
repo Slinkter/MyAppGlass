@@ -184,28 +184,28 @@ export const ResponsiveScaleShowcase: React.FC = () => {
 
       {/* 4. Objetivo táctil */}
       <ShowcaseCard
-        title="Objetivo táctil"
-        description="Compara un control de 44px con uno de 28px. Según accessibility.md de Apple, 44 pt es el tamaño por defecto recomendado en iOS/iPadOS y 28 pt el mínimo absoluto."
+        title="Objetivo táctil (Regla 44 × 44 px)"
+        description="Todo control interactivo (botón, chip, ícono clicable o enlace de barra) cumple un área táctil mínima de 44 × 44 px (minH='11' / minW='11' en tokens de Chakra UI v3)."
         badge="Accesibilidad"
       >
         <ShowcasePanel p={{ base: "3", md: "5" }} borderRadius="xl" minW="0">
           <Grid templateColumns={{ base: "1fr", sm: "1fr 1fr" }} gap="4">
             <VStack align="stretch" gap="2">
-              <SubsectionLabel>Mínimo recomendado · 44px</SubsectionLabel>
+              <SubsectionLabel>Mínimo canónico · 44px (minH=&quot;11&quot;)</SubsectionLabel>
               <Button variant="outline" minH="11" minW="11" w="full">
                 Ver proyectos
               </Button>
               <Text fontSize="xs" color="text.muted">
-                minH=&quot;11&quot; (44px). Ideal para acciones principales en móvil.
+                minH=&quot;11&quot; (2.75rem / 44px). Estándar obligatorio en móvil, tablet y desktop.
               </Text>
             </VStack>
             <VStack align="stretch" gap="2">
-              <SubsectionLabel>Mínimo absoluto · 28px</SubsectionLabel>
-              <Button variant="ghost" h="28px" minW="28px" px="2" w="full" fontSize="xs">
-                Ver más
+              <SubsectionLabel>CTA Principal · 48px (minH=&quot;12&quot;)</SubsectionLabel>
+              <Button variant="aura" size="lg" minH="12" minW="12" w="full">
+                Solicitar presupuesto
               </Button>
               <Text fontSize="xs" color="text.muted">
-                28px solo como último recurso; deja más separación alrededor.
+                minH=&quot;12&quot; (3rem / 48px) para llamados a la acción primarios en formularios y cabeceras.
               </Text>
             </VStack>
           </Grid>

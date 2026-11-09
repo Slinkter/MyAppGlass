@@ -65,7 +65,7 @@ export const AdminNav: React.FC = () => {
             gap="1.5"
             flexShrink={0}
             whiteSpace="nowrap"
-            minH={{ base: "11", md: "auto" }}
+            minH="11"
             px="3"
             py="2"
             borderRadius="xl"
@@ -101,7 +101,7 @@ export const AdminNav: React.FC = () => {
                 gap="2"
                 flexShrink={0}
                 whiteSpace="nowrap"
-                minH={{ base: "11", md: "auto" }}
+                minH="11"
                 px="3.5"
                 py="2"
                 borderRadius="xl"

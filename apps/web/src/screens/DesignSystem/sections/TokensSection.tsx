@@ -190,6 +190,13 @@ export const TokensSection: React.FC = () => {
 >
           <SimpleGrid columns={RESPONSIVE_GRIDS.tokens} gap={{ base: "3", md: "4" }}>
             {[
+              { token: "bg.warm", label: "Papel Cálido v2" },
+              { token: "bg.tintNavy", label: "Tinte Azul v2" },
+              { token: "accent.navy", label: "Azul Marca v2" },
+              { token: "brand.navy", label: "Navy Base (#002060)" },
+              { token: "brand.redQuote", label: "Rojo Presupuesto (#D62828)" },
+              { token: "border.warm", label: "Línea Cálida v2" },
+              { token: "border.warmStrong", label: "Borde Cálido Fuerte v2" },
               { token: "bg.page", label: "Fondo General" },
               { token: "bg.surface", label: "Fondo Tarjeta" },
               { token: "bg.section", label: "Fondo Sección" },
@@ -219,7 +226,7 @@ export const TokensSection: React.FC = () => {
                 borderColor="border.subtle"
                 cursor="pointer"
                 _hover={{ borderColor: "brand.primary", transform: "translateY(-2px)" }}
-                transition="all 0.2s ease"
+                transition="transform 0.2s ease, border-color 0.2s ease"
                 onClick={() => copyToClipboard(item.token)}
               >
                 <Box
@@ -253,8 +260,8 @@ export const TokensSection: React.FC = () => {
 >
           <Tabs.Root defaultValue="texto" variant="line" size="sm">
             <Tabs.List mb="4" borderBottomWidth="1px" borderColor="border.default">
-              <Tabs.Trigger value="texto">Texto</Tabs.Trigger>
-              <Tabs.Trigger value="superficie">Superficies</Tabs.Trigger>
+              <Tabs.Trigger value="texto" minH="11">Texto</Tabs.Trigger>
+              <Tabs.Trigger value="superficie" minH="11">Superficies</Tabs.Trigger>
             </Tabs.List>
             <Tabs.Content value="texto">
               <Text fontSize="sm" color="text.body">

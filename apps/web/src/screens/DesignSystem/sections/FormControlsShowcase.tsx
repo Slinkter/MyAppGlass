@@ -84,13 +84,13 @@ export const FormControlsShowcase: React.FC = () => {
                 BOTONES DE ICONO & ACCIONES FLOTANTES (WHATSAPP Y THEME HOMOLOGADOS)
               </SubsectionLabel>
               <HStack gap={{ base: "2", md: "4" }} wrap="wrap" align="center">
-                <IconButton aria-label="Ver" variant="subtle" size={{ base: "md", md: "sm" }}>
+                <IconButton aria-label="Ver" variant="subtle" size={{ base: "md", md: "sm" }} minW="11" minH="11">
                   <Eye size={16} style={{ flexShrink: 0 }} />
                 </IconButton>
-                <IconButton aria-label="Ajustes" variant="outline" borderColor="border.default" size="md">
+                <IconButton aria-label="Ajustes" variant="outline" borderColor="border.default" size="md" minW="11" minH="11">
                   <Sliders size={18} style={{ flexShrink: 0 }} />
                 </IconButton>
-                <Button aria-label="Copiar" variant="aura" size="lg" px="0" minW="12">
+                <Button aria-label="Copiar" variant="aura" size="lg" px="0" minW="12" minH="11">
                   <Copy size={20} style={{ flexShrink: 0 }} />
                 </Button>
                 <FloatingWhatsAppButton />

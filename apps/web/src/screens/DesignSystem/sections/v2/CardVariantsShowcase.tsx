@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Badge, Box, Flex, Grid, Heading, Text } from "@chakra-ui/react";
+import { Badge, Box, Flex, Grid, Heading, Stack, Text } from "@chakra-ui/react";
 import { Building2, Layers, Ruler, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,18 +35,21 @@ const COMPACT_ITEMS = [
 const HORIZONTAL_ITEMS = [
   {
     id: "h1",
+    badge: "Serie 25",
     title: "Ventana Serie 25 Batiente",
     description:
       "Aislamiento antirruido y térmico con perfiles de aluminio de alta hermeticidad.",
   },
   {
     id: "h2",
+    badge: "Sistema Nova",
     title: "Mampara de ducha Sistema Nova",
     description:
       "Apertura corrediza con vidrio templado y herrajes de acabado mate.",
   },
   {
     id: "h3",
+    badge: "Serie 62",
     title: "Puerta de vidrio Serie 62",
     description:
       "Perfilería de aluminio champagne con vidrio laminado para uso residencial y comercial.",
@@ -57,6 +60,7 @@ const FEATURED_ITEMS = [
   {
     id: "f1",
     system: "Serie 35",
+    badge: "Serie 35",
     title: "Fachada de vidrio laminado",
     description:
       "Muro cortina con vidrio laminado y aluminio anodizado para proyectos corporativos.",
@@ -64,6 +68,7 @@ const FEATURED_ITEMS = [
   {
     id: "f2",
     system: "Sistema Nova",
+    badge: "Sistema Nova",
     title: "Ventanas de vidrio y aluminio",
     description:
       "Solución integral de vidrio y aluminio con sellado de alta hermeticidad.",
@@ -71,6 +76,7 @@ const FEATURED_ITEMS = [
   {
     id: "f3",
     system: "Serie 62",
+    badge: "Serie 62",
     title: "Ventana corrediza de aluminio blanco",
     description:
       "Sistema de gran formato con vidrio templado y aislamiento acústico.",
@@ -104,7 +110,7 @@ export const CardVariantsShowcase: React.FC = () => {
                 alignItems="center"
                 gap="3"
                 w="100%"
-                minH="44px"
+                minH="11"
                 px="3"
                 py="2"
                 textAlign="left"
@@ -146,7 +152,7 @@ export const CardVariantsShowcase: React.FC = () => {
       <Box minW="0" maxW="100%">
         <ShowcaseCard
           title="Tarjeta horizontal"
-          description="Miniatura a la izquierda (72px móvil / 96px md), descripción de dos líneas y acción de cotización."
+          description="Miniatura adaptable (superior en móvil 360px / lateral en escritorio), descripción y botón de cotización."
           badge="v2 · horizontal"
         >
           <SubsectionLabel mb="2">Catálogo horizontal</SubsectionLabel>
@@ -154,37 +160,48 @@ export const CardVariantsShowcase: React.FC = () => {
             templateColumns={{ base: "1fr", md: "repeat(2, minmax(0, 1fr))", lg: "repeat(3, minmax(0, 1fr))" }}
             gap={{ base: "3", md: "4" }}
           >
-            {HORIZONTAL_ITEMS.map(({ id, title, description }) => (
-              <Flex
-                key={id}
-                gap={{ base: "3", md: "4" }}
-                p={{ base: "3", md: "4" }}
+            {HORIZONTAL_ITEMS.map((it) => (
+              <Stack
+                key={it.id}
+                direction={{ base: "column", sm: "row" }}
+                align="stretch"
+                gap="0"
                 bg="bg.subtle"
                 border="1px solid"
                 borderColor="border.default"
                 borderRadius="xl"
+                overflow="hidden"
                 transition="border-color 0.2s ease, box-shadow 0.2s ease"
                 transform="translateZ(0)"
                 _hover={{ borderColor: "text.muted" }}
                 minW="0"
               >
                 <Box
-                  w={{ base: "72px", md: "96px" }}
-                  h={{ base: "72px", md: "96px" }}
+                  w={{ base: "full", sm: "140px" }}
+                  h={{ base: "120px", sm: "auto" }}
+                  minH={{ sm: "132px" }}
                   flexShrink={0}
-                  borderRadius="lg"
-                  bgGradient="to-br"
-                  gradientFrom="bg.surface"
-                  gradientTo="border.default"
-                  aria-hidden="true"
-                />
-                <Flex direction="column" gap="2" flex="1" minW="0" justify="space-between">
+                  bg="bg.tintNavy"
+                  borderBottomWidth={{ base: "1px", sm: "0" }}
+                  borderRightWidth={{ base: "0", sm: "1px" }}
+                  borderColor="border.subtle"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  p="3"
+                  textAlign="center"
+                >
+                  <Text fontSize="xs" fontWeight="semibold" color="accent.navy">
+                    Vista técnica · {it.badge}
+                  </Text>
+                </Box>
+                <Flex direction="column" gap="2" p={{ base: "3", md: "4" }} flex="1" minW="0" justify="space-between">
                   <Box minW="0">
                     <Text fontSize="sm" fontWeight="semibold" lineClamp={1}>
-                      {title}
+                      {it.title}
                     </Text>
                     <Text fontSize="sm" color="text.body" lineClamp={2}>
-                      {description}
+                      {it.description}
                     </Text>
                   </Box>
                   <Box>
@@ -193,7 +210,7 @@ export const CardVariantsShowcase: React.FC = () => {
                     </Button>
                   </Box>
                 </Flex>
-              </Flex>
+              </Stack>
             ))}
           </Grid>
         </ShowcaseCard>
@@ -203,7 +220,7 @@ export const CardVariantsShowcase: React.FC = () => {
       <Box minW="0" maxW="100%">
         <ShowcaseCard
           title="Tarjeta destacada"
-          description="Imagen superior 16/9 con gradiente de tokens (placeholder sin imágenes externas), etiqueta de sistema y acción secundaria."
+          description="Imagen superior 16/9 con fondo arquitectónico plano, etiqueta de sistema y acción secundaria."
           badge="v2 · destacada"
         >
           <SubsectionLabel mb="2">Proyectos destacados</SubsectionLabel>
@@ -211,9 +228,9 @@ export const CardVariantsShowcase: React.FC = () => {
             templateColumns={{ base: "1fr", md: "repeat(2, minmax(0, 1fr))", lg: "repeat(3, minmax(0, 1fr))" }}
             gap={{ base: "4", md: "6" }}
           >
-            {FEATURED_ITEMS.map(({ id, system, title, description }) => (
+            {FEATURED_ITEMS.map((it) => (
               <Flex
-                key={id}
+                key={it.id}
                 direction="column"
                 minW="0"
                 overflow="hidden"
@@ -229,10 +246,14 @@ export const CardVariantsShowcase: React.FC = () => {
                   position="relative"
                   w="100%"
                   aspectRatio="16 / 9"
-                  bgGradient="to-br"
-                  gradientFrom="bg.subtle"
-                  gradientTo="border.default"
-                  aria-hidden="true"
+                  bg="bg.tintNavy"
+                  borderBottomWidth="1px"
+                  borderColor="border.warm"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  p="4"
+                  textAlign="center"
                 >
                   <Badge
                     position="absolute"
@@ -244,15 +265,18 @@ export const CardVariantsShowcase: React.FC = () => {
                     py="1"
                     borderRadius="full"
                   >
-                    {system}
+                    {it.system}
                   </Badge>
+                  <Text fontSize="xs" fontWeight="semibold" color="accent.navy">
+                    Vista técnica · {it.badge}
+                  </Text>
                 </Box>
                 <Flex direction="column" gap="2" p={{ base: "4", md: "6" }} flex="1">
                   <Heading as="h4" size="sm" lineClamp={2}>
-                    {title}
+                    {it.title}
                   </Heading>
                   <Text fontSize="sm" color="text.body" lineClamp={3}>
-                    {description}
+                    {it.description}
                   </Text>
                   <Box mt="auto" pt="2">
                     <Button

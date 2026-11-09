@@ -9,6 +9,7 @@ import * as React from "react";
 import { AuthProvider } from "@/features/auth/context/AuthContext";
 import { OrderDraftProvider } from "@/features/products/context/OrderDraftContext";
 
+// Providers root (Chakra UI v3 + Aura Design System v2)
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ColorModeProvider defaultTheme="light" enableSystem={false}>

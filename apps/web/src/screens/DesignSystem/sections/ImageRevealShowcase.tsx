@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { Box, Code, Heading, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TOUCH_MIN } from "@/shared/constants/layout";
 import {
   IMAGE_REVEAL_TIMEOUT_MS,
   ImageRevealSkeleton,
@@ -19,46 +18,56 @@ const DEMO_IMAGE = "/images/services-products-01.Ventanas-nova-a10.webp";
 
 const rules = [
   {
-    title: "Estados",
-    body: `Cargando: skeleton visible. Cargada: foto, degradado y textos aparecen a la vez. Timeout ${IMAGE_REVEAL_TIMEOUT_MS / 1000} s: se muestra la tarjeta aunque la foto no llegue.`,
+    title: "Arquitectura no bloqueante (Fase 5)",
+    body: "Los textos, badges y acciones son inmediatamente visibles sobre el fondo base #182238. La interfaz nunca bloquea contenido aunque JS o la red sean lentos.",
   },
   {
-    title: "Qué se revela junto",
-    body: "Foto, degradado, badge y textos comparten el mismo objeto `reveal`; nada aparece antes que la imagen.",
+    title: "Transición suave de imagen",
+    body: "La imagen se desvanece suavemente con curva cubic-bezier(0.22, 1, 0.36, 1) y una sola propiedad (opacity 0.5s) al completar su carga.",
   },
   {
-    title: "Animación",
-    body: "Solo `opacity` (1 propiedad, 0.5 s). Con `prefers-reduced-motion` no hay transición.",
+    title: "Tolerancia a fallos y accesibilidad",
+    body: `Si la foto tarda o falla tras el timeout (${IMAGE_REVEAL_TIMEOUT_MS / 1000}s), el contenido textual sigue disponible e interactivo sin saltos de layout (CLS = 0).`,
   },
   {
-    title: "Accesibilidad",
-    body: "El skeleton es `aria-hidden` y no captura eventos; la tarjeta mantiene su medida final.",
+    title: "Sin degradados prohibidos",
+    body: "Cumple DESIGN-SYSTEM.md usando fondo base sólido y velo protector uniforme sin recurrir a linear-gradient ni bgGradient.",
   },
   {
-    title: "Listas",
-    body: "Sin `delay` de montaje en `ItemGridLayout.Item`: cada tarjeta se revela cuando su foto llega.",
+    title: "Rendimiento y LCP",
+    body: "Sin retrasos de montaje en listas: el texto e información técnica pintan de inmediato, optimizando First Contentful Paint y Largest Contentful Paint.",
   },
   {
-    title: "Precarga",
-    body: "Las portadas se precargan con `useImagePrefetch` para que lleguen del caché.",
+    title: "Precarga inteligente",
+    body: "Las portadas principales se precargan en segundo plano con useImagePrefetch para cargarse instantáneamente desde la caché del navegador.",
   },
 ];
 
-const codeExample = `const { loaded, onLoad, reveal } = useImageReveal();
-<Box position="relative" overflow="hidden">
+const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de inmediato sobre fondo base #182238
+<Box position="relative" overflow="hidden" bg="#182238">
   <ImageRevealSkeleton loaded={loaded} />
-  <Box position="absolute" inset={0} {...reveal}>
+  <Box
+    position="absolute"
+    inset={0}
+    opacity={loaded ? 1 : 0}
+    transition="opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1)"
+  >
     <ResponsiveImage src={src} onLoad={onLoad} ... />
   </Box>
-  <Box position="absolute" bottom="0" {...reveal}>…textos…</Box>
+  <Box position="absolute" inset={0} bg="rgba(10, 15, 29, 0.65)" pointerEvents="none" />
+  {/* Contenido textual inmediato: nunca se bloquea por la imagen */}
+  <VStack position="absolute" bottom="0" p="6">
+    <Heading>Ventanas de Aluminio</Heading>
+    <Text>Aislamiento antirruido...</Text>
+  </VStack>
 </Box>`;
 
 /**
- * Tarjeta de demostración. Usa el hook real; solo la red se simula montando
- * la <img> tras un retardo, de modo que `onLoad` dispara el revelado.
+ * Tarjeta de demostración. Muestra el texto de inmediato sobre #182238
+ * y desvanece la imagen con cubic-bezier(0.22, 1, 0.36, 1).
  */
 const DemoRevealCard: React.FC = () => {
-  const { loaded, onLoad, reveal } = useImageReveal();
+  const { loaded, onLoad } = useImageReveal();
   const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
@@ -74,11 +83,16 @@ const DemoRevealCard: React.FC = () => {
       borderRadius="3xl"
       overflow="hidden"
       position="relative"
-      bg="black"
+      bg="#182238"
       boxShadow="sm"
     >
       <ImageRevealSkeleton loaded={loaded} />
-      <Box position="absolute" inset={0} {...reveal}>
+      <Box
+        position="absolute"
+        inset={0}
+        opacity={loaded ? 1 : 0}
+        transition="opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1)"
+      >
         {fetched && (
           <Image
             src={DEMO_IMAGE}
@@ -93,9 +107,8 @@ const DemoRevealCard: React.FC = () => {
       <Box
         position="absolute"
         inset={0}
-        background="linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.05) 100%)"
+        bg="rgba(10, 15, 29, 0.65)"
         pointerEvents="none"
-        {...reveal}
       />
       <VStack
         position="absolute"
@@ -106,7 +119,6 @@ const DemoRevealCard: React.FC = () => {
         gap="1"
         p={{ base: "4", md: "6" }}
         minW="0"
-        {...reveal}
       >
         <Heading as="h3" fontSize={{ base: "xl", md: "2xl" }} color="white" fontWeight="800" lineClamp={2}>
           Ventanas de Aluminio
@@ -124,9 +136,9 @@ export const ImageRevealShowcase: React.FC = () => {
 
   return (
     <ShowcaseCard
-      title="Revelado sincronizado de imagen"
-      description="Patrón para tarjetas con fotografía: skeleton de la misma medida y revelado simultáneo de foto, degradado y textos al cargar la imagen."
-      badge="shared/components/Image"
+      title="Revelado no bloqueante de imagen (Fase 5)"
+      description="Patrón arquitectónico no bloqueante: MediaCard muestra los textos de inmediato sobre fondo base #182238 y desvanece la imagen con cubic-bezier(0.22, 1, 0.36, 1) sin bloquear la interfaz si JS o la red son lentos."
+      badge="Fase 5 · MediaCard"
     >
       <ShowcaseStack>
         <ShowcasePanel>
@@ -135,7 +147,7 @@ export const ImageRevealShowcase: React.FC = () => {
             <DemoRevealCard key={run} />
             <Button
               variant="outline"
-              minH={TOUCH_MIN}
+              minH="11"
               alignSelf={{ base: "stretch", md: "flex-start" }}
               onClick={() => setRun((n) => n + 1)}
             >

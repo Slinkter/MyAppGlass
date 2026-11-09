@@ -25,40 +25,42 @@ import { OverlaysShowcase } from "./sections/OverlaysShowcase";
 import { DataDisplayShowcase } from "./sections/DataDisplayShowcase";
 import { ResponsiveScaleShowcase } from "./sections/v2/ResponsiveScaleShowcase";
 import { CardVariantsShowcase } from "./sections/v2/CardVariantsShowcase";
+import { BrandModulesV2Showcase } from "./sections/v2/BrandModulesV2Showcase";
+import { ViewportAndStatesV2Showcase } from "./sections/v2/ViewportAndStatesV2Showcase";
 
 export const DesignSystemScreen: React.FC = () => {
   return (
-    <Box minH="100dvh" bg="bg.page" py={{ base: "8", md: "16" }}>
-      <Container maxW="7xl" px={{ base: "4", md: "6" }}>
+    <Box minH="100dvh" bg="bg.page" py={{ base: "4", md: "14" }}>
+      <Container maxW="7xl" px={{ base: "0", sm: "2", md: "6" }}>
         {/* Header con alternador de tema */}
-        <HStack justify="space-between" align="flex-start" wrap="wrap" gap={{ base: "4", md: "6" }} mb={{ base: "8", md: "12" }}>
+        <HStack justify="space-between" align="flex-start" wrap="wrap" gap={{ base: "4", md: "6" }} mb={{ base: "6", md: "10" }}>
           <VStack gap={{ base: "3", md: "4" }} align="flex-start" maxW="3xl">
             <HStack wrap="wrap" gap="2">
               <Badge colorPalette="gray" px="3" py="1" borderRadius="full">
                 <Sparkles size={12} style={{ flexShrink: 0 }} />
-                Aura Design System
+                Aura Design System v2
               </Badge>
               <Badge variant="outline" colorPalette="gray" px="3" py="1" borderRadius="full">
-                Chakra UI v3 Oficial
+                Chakra UI v3 · 360 / 768 / 1280
               </Badge>
             </HStack>
             <Heading as="h1" size={{ base: "2xl", md: "4xl" }} fontWeight="bold" letterSpacing="tight" color="text.heading">
               Aura Design System — Catálogo Canónico de Componentes
             </Heading>
-            <Text color="text.muted" fontSize={{ base: "md", md: "lg" }}>
-              Showcase oficial con los componentes y tokens reales de producción de <strong>Glass & Aluminum Company S.A.C.</strong> Todos los elementos utilizan arquitectura de tokens de Chakra UI v3 sin estilos hardcodeados.
+            <Text color="text.muted" fontSize={{ base: "sm", md: "lg" }}>
+              Showcase oficial con los componentes, modelos v2 y tokens reales de producción de <strong>Glass & Aluminum Company S.A.C.</strong> Optimizado para Móvil (360px), Tablet (768px) y Desktop (1280px) con áreas táctiles mínimas de 44×44 px.
             </Text>
           </VStack>
 
-          <HStack gap="2" wrap="wrap">
-            <Button asChild variant="outline" size="sm">
+          <HStack gap="2" w={{ base: "full", md: "auto" }} justify={{ base: "space-between", sm: "flex-start", md: "flex-end" }}>
+            <Button asChild variant="outline" size="sm" minH="11" px={{ base: "4", sm: "6" }} flex={{ base: "1", sm: "initial" }}>
               <RouterLink href="/design-system-ubicacion">
                 <MapPin size={14} style={{ flexShrink: 0 }} />
                 Prototipos Ubicación
               </RouterLink>
             </Button>
-            <HStack p="2" bg="surface.container" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
-              <Text display={{ base: "none", sm: "block" }} fontSize="xs" fontWeight="medium" color="text.muted" px="2">Modo Claro / Oscuro:</Text>
+            <HStack px="1.5" py="0.5" bg="surface.container" borderWidth="1px" borderColor="border.subtle" borderRadius="xl" minH="11" flexShrink={0}>
+              <Text display={{ base: "none", sm: "block" }} fontSize="xs" fontWeight="medium" color="text.muted" pl="2" pr="1">Modo Claro / Oscuro:</Text>
               <ColorModeButton />
             </HStack>
           </HStack>
@@ -74,7 +76,10 @@ export const DesignSystemScreen: React.FC = () => {
             flexWrap="nowrap"
             css={{ "&::-webkit-scrollbar": { display: "none" }, scrollbarWidth: "none" }}
           >
-            <Tabs.Trigger value="v2" flexShrink={0} whiteSpace="nowrap" minH="11">Nuevos modelos ★</Tabs.Trigger>
+            <Tabs.Trigger value="v2" flexShrink={0} whiteSpace="nowrap" minH="11" gap="1.5">
+              <Sparkles size={14} style={{ flexShrink: 0 }} />
+              Nuevos modelos v2
+            </Tabs.Trigger>
             <Tabs.Trigger value="cards" flexShrink={0} whiteSpace="nowrap" minH="11">Cards Editoriales Reales</Tabs.Trigger>
             <Tabs.Trigger value="nav" flexShrink={0} whiteSpace="nowrap" minH="11">Navegación & Barras</Tabs.Trigger>
             <Tabs.Trigger value="forms" flexShrink={0} whiteSpace="nowrap" minH="11">Formularios & Botones</Tabs.Trigger>
@@ -113,9 +118,11 @@ export const DesignSystemScreen: React.FC = () => {
             <TokensSection />
           </Tabs.Content>
 
-          {/* 7. Nuevos modelos (comparar con las pestañas anteriores) */}
+          {/* 7. Nuevos modelos v2 (comparar con las pestañas anteriores) */}
           <Tabs.Content value="v2">
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
+              <BrandModulesV2Showcase />
+              <ViewportAndStatesV2Showcase />
               <ResponsiveScaleShowcase />
               <CardVariantsShowcase />
             </VStack>
