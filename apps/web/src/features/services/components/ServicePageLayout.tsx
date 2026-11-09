@@ -3,14 +3,13 @@ import React from "react";
 import { preconnect, preload } from "react-dom";
 import {
   Box,
-  Flex,
   VStack,
   Container,
   Grid,
   GridItem,
 } from "@chakra-ui/react";
 import { Skeleton } from "@/components/ui/skeleton";
-import Gallery from "@shared/components/common/Gallery";
+import GalleryWithThumbnails from "@shared/components/common/GalleryWithThumbnails";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import type { ServicePageData } from "@features/services/types";
 import ServiceHeader from "./ServiceHeader";
@@ -87,22 +86,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                     borderRadius={{ base: "2xl", lg: "3xl" }}
                   >
                     {activeImageList.length > 0 ? (
-                      <Gallery 
-                        images={activeImageList}
-                      >
-                        <Flex
-                          direction={{ base: "column", md: "row" }}
-                          gap={{ base: "2", md: "4" }}
-                          h="100%"
-                          w="100%"
-                          p={{ base: "0", md: "2" }}
-                          minW={0}
-                          overflow="hidden"
-                        >
-                          <Gallery.Viewer />
-                          <Gallery.Thumbnails />
-                        </Flex>
-                      </Gallery>
+                      <GalleryWithThumbnails images={activeImageList} gap={{ base: "2", md: "4" }} p={{ base: "0", md: "2" }} />
                     ) : (
                       <ComingSoonDisplay />
                     )}

@@ -3,6 +3,7 @@
 import React from "react";
 import RouterLink from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { Box } from "@chakra-ui/react";
 import { MediaCard } from "@shared/components/Card/MediaCard";
 
 export interface ServiceCardProps {

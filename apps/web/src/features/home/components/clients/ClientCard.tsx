@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Card, Text, VStack } from "@chakra-ui/react";
-import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
+import { MediaCard } from "@shared/components/Card/MediaCard";
 
 interface ClientCardProps {
   image: string;
@@ -13,98 +11,17 @@ interface ClientCardProps {
 
 /**
  * @component ClientCard
- * @description Premium client card with Aura 2.0 aesthetics.
+ * @description Tarjeta de cliente: envoltorio fino de `MediaCard` (sin destino, por eso sin acción).
  */
-const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, descClient }) => {
-  const bgOverlay =
-    "linear-gradient(to top, rgba(0,0,0,0.95) 0%, var(--chakra-colors-overlay-dim) 50%, transparent 100%)";
-
-  // Foto, degradado y textos se revelan a la vez cuando la imagen termina de cargar.
-  const { loaded, onLoad, reveal } = useImageReveal();
-
-  return (
-    <Card.Root
-      as="article"
-      role="group"
-      cursor="pointer"
-      position="relative"
-      w="full"
-      h={{ base: "220px", sm: "260px", md: "320px" }}
-      borderRadius="xl"
-      overflow="hidden"
-      boxShadow="sm"
-      transform="translateZ(0)"
-      transition="box-shadow 0.3s ease-out, transform 0.3s ease-out"
-      _hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
-      _active={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
-      borderWidth="0"
-      bg="brand.ink"
-      css={{
-        '@media (prefers-reduced-motion: reduce)': {
-          '*': { transition: 'none !important', animation: 'none !important', transform: 'none !important' }
-        }
-      }}
-    >
-      <Card.Body p="0" position="absolute" inset={0} overflow="hidden" borderRadius="xl">
-        <ImageRevealSkeleton loaded={loaded} />
-        <Box position="absolute" inset={0} overflow="hidden" {...reveal}>
-          <ResponsiveImage
-            src={image}
-            alt={nameClient}
-            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            objectFit="cover"
-            w="full"
-            h="full"
-            loading="lazy"
-            decoding="async"
-            onLoad={onLoad}
-            transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
-            _groupHover={{ transform: "scale(1.08)" }}
-            _active={{ transform: "scale(1.08)" }}
-          />
-        </Box>
-
-        <Box position="absolute" inset="0" css={{ background: bgOverlay }} {...reveal} />
-
-        <VStack
-          position="absolute"
-          bottom={0}
-          left={0}
-          right={0}
-          p={{ base: "4", md: "6" }}
-          gap="2"
-          minW={0}
-          align="center"
-          justify="flex-end"
-          textAlign="center"
-          {...reveal}
-        >
-          <Text
-            color="white"
-            fontSize={{ base: "lg", md: "2xl" }}
-            fontWeight="700"
-            textTransform="uppercase"
-            letterSpacing={{ base: "0.08em", md: "0.2em" }}
-            lineClamp={2}
-            position="relative"
-          >
-            {nameClient}
-          </Text>
-
-          <Text
-            color="whiteAlpha.800"
-            fontSize="sm"
-            fontWeight="500"
-            mt="2"
-            lineClamp={2}
-          >
-            {descClient}
-          </Text>
-        </VStack>
-      </Card.Body>
-    </Card.Root>
-  );
-});
+const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, descClient }) => (
+  <MediaCard
+    image={image}
+    imageAlt={nameClient}
+    title={nameClient}
+    description={descClient}
+    rootProps={{ as: "article" }}
+  />
+));
 
 ClientCard.displayName = "ClientCard";
 

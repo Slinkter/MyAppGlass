@@ -143,13 +143,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
 
       <Box
         position="absolute"
-        bottom={0}
-        left={0}
-        right={0}
-        h="40%"
-        bgGradient="to-t"
-        gradientFrom="blackAlpha.600"
-        gradientTo="transparent"
+        inset={0}
+        bg="overlay.faint"
         pointerEvents="none"
         opacity={0}
         _groupHover={{ opacity: 1 }}
