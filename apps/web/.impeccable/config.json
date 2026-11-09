@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "heading",
+        "createdAt": "2026-11-09T19:07:00.170Z",
+        "reason": "falso positivo: fontFamily 'heading' es el token del tema que resuelve a Lora (DESIGN.md typography); no es una fuente nueva. Decidido por el orquestador, no por el usuario."
+      }
+    ]
+  }
+}

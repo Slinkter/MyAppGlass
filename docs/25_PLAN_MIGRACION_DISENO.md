@@ -19,7 +19,7 @@
 | Fase | Contenido | Estado |
 |---|---|---|
 | 0 | Rama, plan y línea base | Hecha |
-| 1 | Tokens del tema | En curso |
+| 1 | Tokens del tema | Hecha |
 | 2 | Botones, campos y recetas base | Pendiente |
 | 3 | Tarjetas y galerías | Pendiente |
 | 4 | Navegación y elementos globales | Pendiente |
@@ -47,18 +47,22 @@ Objetivo: dejar el punto de partida medido para poder comparar al final.
 
 Archivo principal: `apps/web/src/shared/providers/theme/index.ts`. Solo el orquestador edita este archivo.
 
-- [ ] Fondo blanco: `bg.page`, `bg.section`, `bg.warm`, `bg.paper` y `surface.*` pasan a blanco en modo claro (modo oscuro sin cambio).
-- [ ] Definir nombres canónicos: `ink`, `ink-soft`, `line`, `line-strong`, `quote-red`, `logo-coral`, `whatsapp` (según `DESIGN.md`).
-- [ ] Renombrar la familia `navy` (`brand.navy`, `brand.navyHover`, `brand.navyActive`, `accent.navy`, `accent.navyContrast`, `bg.tintNavy`) a nombres que describan su valor, dejando alias temporal hasta la Fase 5.
-- [ ] Unificar el rojo de título en `quote-red` (#D62828): quitar `redQuote` duplicado.
-- [ ] Decidir el destino de `brand.red` (#FF5A5F) y de la variante de botón `brand`.
-- [ ] Quitar duplicados de valor: `bg.paper`/`bg.warm`, `bg.surface`/`surface.card`, `inkV2`/`navy`.
-- [ ] Eliminar tokens sin uso en todo el repo (verificar con `grep` antes de borrar).
-- [ ] Corregir `glass.ts`: `saturate` coherente y retirar variantes sin uso.
-- [ ] Tipografía: documentar `lineHeights` y `letterSpacings`; quitar el peso 900.
-- [ ] Anchos de página: tres valores únicos (estrecho, estándar, amplio) como tokens.
-- [ ] Validación: `typecheck`, `lint`, `build`.
-- [ ] Commit de la fase.
+- [x] Fondo blanco: `bg.page`, `bg.section`, `bg.warm` y `bg.paper` pasan a blanco en modo claro (modo oscuro sin cambio). Verificado en el navegador: el cuerpo es `rgb(255, 255, 255)`.
+- [x] Nombres canónicos de marca: `brand.ink`, `inkHover`, `inkActive`, `inkSoft`, `quoteRed`, `logoCoral` y `accent.ink`/`accent.inkContrast`. Pendiente (Fase 5): renombrar `border.warm`/`border.warmStrong` a `line`/`line-strong`.
+- [x] Familia `navy` convertida en alias de `ink` (`brand.navy*`, `accent.navy*`, `bg.tintNavy` → `bg.tint`, ahora neutro sin azul). Verificado en el navegador que los alias resuelven.
+- [x] Rojo unificado: se eliminó `redQuote`; `quoteRed` (#D62828) es el único rojo de título. Los 3 usos se migraron.
+- [x] Destino de `brand.red` (#FF5A5F): se retira junto con la variante de botón `brand` en la Fase 2 (marcado `@deprecated`).
+- [x] Duplicados de valor: `surface.card` pasa a alias de `bg.surface`; `brand.ink` ahora vale #111111 (antes slate) y se eliminó `inkV2`. `bg.warm`/`bg.paper` quedan como alias `@deprecated` hasta la Fase 5.
+- [x] Tokens sin uso eliminados (verificado con `rg`): `inkV2`, `paperWarm`, `paperCream`, `border.slate`, `surface.nav`, `text.subtle`, sombra `adminTable`, `GLASS_BLUR_SM`, `glassOnPhoto`, `glassControl`.
+- [x] `glass.ts`: un solo `GLASS_BLUR` con `saturate(1.4)` (antes la constante decía 180 % y el código 1,4); fallback sólido usa `bg.surface`.
+- [x] Tipografía: `lineHeights` y `letterSpacings` definidos según `DESIGN.md`; títulos de `Card` y `Alert` en Lora pasan de peso 500 a 700. **El peso 900 (27 usos) se migra en la Fase 5.**
+- [x] Anchos de página: tokens `sizes.pageNarrow` (56rem), `pageDefault` (72rem) y `pageWide` (80rem). **Migrar los 6 anchos actuales a estos tokens en la Fase 5.**
+- [x] Validación: `typecheck` limpio, `lint` 0 errores (2 advertencias previas), `build` en verde.
+- [x] Commit de la fase.
+
+Notas de la fase:
+- El hook de Impeccable marcó `fontFamily: "heading"` como fuente fuera de `DESIGN.md`. Es un falso positivo (el token resuelve a Lora): se registró un `ignore-value` en `.impeccable/config.json`.
+- Alias temporales a eliminar en la Fase 5: `brand.navy*`, `accent.navy*`, `bg.tintNavy`, `bg.warm`, `bg.paper`.
 
 ---
 
@@ -110,6 +114,10 @@ Migración mecánica, repartida a agentes Haiku por carpeta (archivos disjuntos)
 - [ ] `shared/components/**`: mapa, imágenes, layout.
 - [ ] `app/**`: `layout.tsx`, `manifest.ts`, `error.tsx`, páginas.
 - [ ] `vh` sueltos → `dvh`; `px` literales → tokens.
+- [ ] Peso 900 (`fontWeight="900"` y `"black"`, 27 usos) → 700.
+- [ ] Anchos de página (4xl, 6xl, 7xl, 1280px, 800px, 1440px) → `sizes.pageNarrow`/`pageDefault`/`pageWide`.
+- [ ] Eliminar los alias temporales de la Fase 1 (`brand.navy*`, `accent.navy*`, `bg.tintNavy`, `bg.warm`, `bg.paper`) cuando no queden usos.
+- [ ] Renombrar `border.warm`/`border.warmStrong` a `line`/`line-strong`.
 - [ ] Degradados → cero.
 - [ ] Meta: 0 hex y `rgba` fuera del tema (salvo SVG de ilustración), 0 `colorPalette`, 0 degradados, 0 emojis, 0 `navy`.
 - [ ] Validación y commit de la fase.
@@ -121,6 +129,7 @@ Migración mecánica, repartida a agentes Haiku por carpeta (archivos disjuntos)
 Constructoras son la audiencia principal; hogares quedan con un camino directo de presupuesto.
 
 - [ ] Hero con dos acciones: pedir presupuesto (WhatsApp) y ver obras.
+- [ ] Corregir el texto del hero: dice "especialistas en la **fabricación**, diseño e instalación", pero la empresa compra los materiales, ensambla en taller e instala (no fabrica perfiles ni vidrio). Proponer redacción y confirmar con el dueño.
 - [ ] Sección para constructoras: capacidad de suministro, plazos, catálogo técnico (series) y obras. **Los datos que falten quedan como marcador y se preguntan al dueño.**
 - [ ] Reordenar secciones según la audiencia principal.
 - [ ] Mostrar los 13 servicios (los 3 nuevos aunque no tengan foto).

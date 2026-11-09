@@ -615,19 +615,19 @@ export const BrandModulesV2Showcase: React.FC = () => {
                     >
                       {companyData.companyName}
                     </Text>
-                    {/* Palabra PRESUPUESTO reservada con brand.redQuote */}
+                    {/* Palabra PRESUPUESTO reservada con brand.quoteRed */}
                     <Text
                       fontFamily="heading"
                       fontSize={{ base: "2xl", md: "3xl" }}
                       fontWeight="bold"
-                      color="brand.redQuote"
+                      color="brand.quoteRed"
                       letterSpacing="wider"
                       my="1"
                     >
                       PRESUPUESTO
                     </Text>
                     <Text fontSize="xs" color="text.muted" fontStyle="italic">
-                      Color brand.redQuote (#D62828) reservado exclusivamente para la palabra &quot;PRESUPUESTO&quot;.
+                      Color brand.quoteRed (#D62828) reservado exclusivamente para la palabra &quot;PRESUPUESTO&quot;.
                     </Text>
                   </Box>
 

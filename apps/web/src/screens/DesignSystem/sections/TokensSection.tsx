@@ -37,7 +37,7 @@ const SEMANTIC_TOKENS = [
   { token: "bg.tintNavy", label: "Tinte frío v2" },
   { token: "accent.navy", label: "Azul de foco y enlaces" },
   { token: "brand.navy", label: "Acento histórico (retirado)" },
-  { token: "brand.redQuote", label: "Rojo presupuesto (#D62828)" },
+  { token: "brand.quoteRed", label: "Rojo presupuesto (#D62828)" },
   { token: "border.warm", label: "Línea cálida v2" },
   { token: "border.warmStrong", label: "Borde cálido fuerte v2" },
   { token: "bg.page", label: "Fondo general" },

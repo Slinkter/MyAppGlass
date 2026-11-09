@@ -395,7 +395,7 @@ const cardRecipe = defineSlotRecipe({
       /* Aura Studio: radio grande, borde fino, sin sombra; título en la fuente de títulos. */
       studio: {
         root: { bg: "bg.surface", borderWidth: "1px", borderColor: "border.default", borderRadius: "3xl", boxShadow: "none" },
-        title: { fontFamily: "heading", fontWeight: "500", color: "text.heading" },
+        title: { fontFamily: "heading", fontWeight: "700", color: "text.heading" },
         description: { color: "text.muted" },
       },
     },
@@ -502,7 +502,7 @@ const alertRecipe = defineSlotRecipe({
       /* Aura Studio: radio grande, título en la fuente de títulos. */
       studio: {
         root: { bg: "bg.surface", borderRadius: "2xl", borderWidth: "1px", borderColor: "border.default" },
-        title: { fontFamily: "heading", fontWeight: "500", fontSize: "lg" },
+        title: { fontFamily: "heading", fontWeight: "700", fontSize: "lg" },
       },
     },
   },
@@ -621,6 +621,24 @@ const config = defineConfig({
         "5xl": { value: "3rem" },
         "6xl": { value: "3.75rem" },
       },
+      /* Jerarquía tipográfica de apps/web/DESIGN.md. */
+      lineHeights: {
+        display: { value: "1.08" },
+        headline: { value: "1.1" },
+        title: { value: "1.2" },
+        body: { value: "1.625" },
+      },
+      letterSpacings: {
+        display: { value: "-0.025em" },
+        headline: { value: "-0.02em" },
+        label: { value: "0.14em" },
+      },
+      /* Tres anchos de página únicos (estrecho 896 px, estándar 1152 px, amplio 1280 px). */
+      sizes: {
+        pageNarrow: { value: "56rem" },
+        pageDefault: { value: "72rem" },
+        pageWide: { value: "80rem" },
+      },
       colors: {
         primary: {
           50: { value: "#fafafa" },
@@ -642,22 +660,23 @@ const config = defineConfig({
           whatsappAccessible: { value: "#15803d" },
           whatsappAccessibleHover: { value: "#166534" },
           whatsappAccessibleActive: { value: "#14532d" },
+          /* @deprecated: rojo antiguo; se retira con la variante de botón `brand` (plan 25, fase 2). */
           red: { value: "#FF5A5F" },
           redHover: { value: "#E0484D" },
-          /* Rojo de marca (#D62828): solo para la palabra PRESUPUESTO. Contraste 5,0:1 sobre blanco. */
-          quoteRed: { value: "#D62828" },
           redDark: { value: "#D9444A" },
-          ink: { value: "#0f172a" },
-          inkV2: { value: "#111111" },
+          /* Rojo de título destacado (#D62828): una vez por pantalla. Contraste 5,0:1 sobre blanco. */
+          quoteRed: { value: "#D62828" },
+          /* Negro de marca (apps/web/DESIGN.md). */
+          ink: { value: "#111111" },
+          inkHover: { value: "#2A2A2A" },
+          inkActive: { value: "#000000" },
           inkSoft: { value: "#4A4A4A" },
-          /* Dirección 2026-11-09: la marca es NEGRA. Los tokens "navy" se mantienen por compatibilidad pero resuelven a negro de marca (#111111); el azul queda solo en foco y enlaces. */
-          navy: { value: "#111111" },
-          navyHover: { value: "#2A2A2A" },
-          navyActive: { value: "#000000" },
-          redQuote: { value: "#D62828" },
+          /* Coral del logo: exclusivo del logo, nunca en texto ni botones. */
           logoCoral: { value: "#FF5A5A" },
-          paperWarm: { value: "#F7F6F3" },
-          paperCream: { value: "#FBF8F3" },
+          /* @deprecated: alias de `ink*` hasta migrar los usos (plan 25, fase 5). */
+          navy: { value: "{colors.brand.ink}" },
+          navyHover: { value: "{colors.brand.inkHover}" },
+          navyActive: { value: "{colors.brand.inkActive}" },
         },
         status: {
           info: { value: "#38bdf8" },
@@ -692,7 +711,6 @@ const config = defineConfig({
         navDesktop: { value: "0 8px 32px 0 rgba(0, 0, 0, 0.08)" },
         adminNav: { value: "0 10px 30px rgba(0, 0, 0, 0.06)" },
         adminCard: { value: "0 4px 20px rgba(0, 0, 0, 0.04)" },
-        adminTable: { value: "0 8px 30px rgba(0, 0, 0, 0.04)" },
         cardLift: { value: "0 20px 40px rgba(0, 0, 0, 0.3)" },
         elevatedLg: { value: "0 8px 32px rgba(0, 0, 0, 0.12)" },
         modalLg: { value: "0 20px 50px rgba(0,0,0,0.3)" },
@@ -700,22 +718,28 @@ const config = defineConfig({
     },
     semanticTokens: {
       colors: {
-        "bg.page": { value: { _light: "{colors.gray.50}", _dark: "#09090b" } },
+        /* Fondo blanco decidido por el dueño (2026-11-09); el papel cálido #F7F6F3 se retiró. */
+        "bg.page": { value: { _light: "white", _dark: "#09090b" } },
         "bg.section": { value: { _light: "white", _dark: "#121215" } },
         "bg.surface": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
-        "bg.warm": { value: { _light: "#F7F6F3", _dark: "#161614" } },
-        /* Papel decidido por el dueño (2026-11-09): A · #F7F6F3 */
-        "bg.paper": { value: { _light: "#F7F6F3", _dark: "#161614" } },
-        "bg.tintNavy": { value: { _light: "#F3F5F9", _dark: "rgba(0, 32, 96, 0.24)" } },
+        /* Bloque destacado neutro (sin azul). */
+        "bg.tint": { value: { _light: "{colors.primary.100}", _dark: "rgba(255,255,255,0.06)" } },
+        /* @deprecated: `bg.warm` y `bg.paper` valen blanco en claro; usar `bg.page` o `bg.section`. */
+        "bg.warm": { value: { _light: "white", _dark: "#161614" } },
+        "bg.paper": { value: { _light: "white", _dark: "#161614" } },
+        /* @deprecated: alias de `bg.tint` hasta migrar los usos (plan 25, fase 5). */
+        "bg.tintNavy": { value: "{colors.bg.tint}" },
 
         // Brand
         "brand.primary": { value: { _light: "{colors.primary.900}", _dark: "white" } },
-        "accent.navy": { value: { _light: "#111111", _dark: "#FFFFFF" } },
-        "accent.navyContrast": { value: { _light: "white", _dark: "#111111" } },
+        "accent.ink": { value: { _light: "{colors.brand.ink}", _dark: "white" } },
+        "accent.inkContrast": { value: { _light: "white", _dark: "{colors.brand.ink}" } },
+        /* @deprecated: alias de `accent.ink*` hasta migrar los usos (plan 25, fase 5). */
+        "accent.navy": { value: "{colors.accent.ink}" },
+        "accent.navyContrast": { value: "{colors.accent.inkContrast}" },
 
-        "surface.card": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
-        "surface.nav": { value: { _light: "rgba(255, 255, 255, 0.95)", _dark: "rgba(0, 0, 0, 0.9)" } },
+        "surface.card": { value: "{colors.bg.surface}" },
         "surface.container": { value: { _light: "white", _dark: "rgba(255,255,255,0.04)" } },
         "surface.icon": { value: { _light: "{colors.primary.50}", _dark: "rgba(255,255,255,0.04)" } },
         "surface.iconHover": { value: { _light: "{colors.primary.100}", _dark: "rgba(255,255,255,0.08)" } },
@@ -726,8 +750,6 @@ const config = defineConfig({
         "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
         "border.warm": { value: { _light: "#E6E3DE", _dark: "rgba(255,255,255,0.08)" } },
         "border.warmStrong": { value: { _light: "#D9D6D0", _dark: "rgba(255,255,255,0.14)" } },
-        // @deprecated: solo fallback en ProjectServiceSelect.tsx
-        "border.slate": { value: "#e2e8f0" },
 
         // Status Borders
         "status.dangerBorder": { value: "rgba(248, 113, 113, 0.25)" },
@@ -749,7 +771,6 @@ const config = defineConfig({
         "text.body": { value: { _light: "{colors.gray.800}", _dark: "{colors.gray.300}" } },
         "text.heading": { value: { _light: "{colors.gray.900}", _dark: "white" } },
         "text.muted": { value: { _light: "{colors.gray.600}", _dark: "{colors.gray.400}" } },
-        "text.subtle": { value: { _light: "{colors.gray.500}", _dark: "{colors.gray.400}" } },
         "text.accent": { value: { _light: "{colors.primary.600}", _dark: "{colors.primary.300}" } },
       },
     },
