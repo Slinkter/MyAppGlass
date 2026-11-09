@@ -11,8 +11,10 @@ import {
   Badge,
   Tabs,
 } from "@chakra-ui/react";
-import { Sparkles } from "lucide-react";
+import { Sparkles, MapPin } from "lucide-react";
+import RouterLink from "next/link";
 import { ColorModeButton } from "@/components/ui/color-mode";
+import { Button } from "@/components/ui/button";
 
 // Secciones del Sistema de Diseño
 import { TokensSection } from "./sections/TokensSection";
@@ -48,14 +50,22 @@ export const DesignSystemScreen: React.FC = () => {
             </Text>
           </VStack>
 
-          <HStack p="2" bg="surface.container" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
-            <Text display={{ base: "none", sm: "block" }} fontSize="xs" fontWeight="medium" color="text.muted" px="2">Modo Claro / Oscuro:</Text>
-            <ColorModeButton />
+          <HStack gap="2" wrap="wrap">
+            <Button asChild variant="outline" size="sm">
+              <RouterLink href="/design-system-ubicacion">
+                <MapPin size={14} style={{ flexShrink: 0 }} />
+                Prototipos Ubicación
+              </RouterLink>
+            </Button>
+            <HStack p="2" bg="surface.container" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
+              <Text display={{ base: "none", sm: "block" }} fontSize="xs" fontWeight="medium" color="text.muted" px="2">Modo Claro / Oscuro:</Text>
+              <ColorModeButton />
+            </HStack>
           </HStack>
         </HStack>
 
         {/* Pestañas del Sistema */}
-        <Tabs.Root defaultValue="v2" variant="line" size={{ base: "sm", md: "lg" }}>
+        <Tabs.Root defaultValue="v2" variant="line" size={{ base: "sm", md: "lg" }} lazyMount unmountOnExit>
           <Tabs.List
             mb={{ base: "5", md: "8" }}
             borderBottomWidth="1px"

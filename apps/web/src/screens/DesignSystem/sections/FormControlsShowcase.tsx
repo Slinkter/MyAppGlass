@@ -145,6 +145,8 @@ export const FormControlsShowcase: React.FC = () => {
                     <option value="s25">Serie 25</option>
                     <option value="s35">Serie 35</option>
                     <option value="s62">Serie 62</option>
+                    <option value="acustica">Acústica</option>
+                    <option value="pvc">PVC abatible</option>
                   </NativeSelectField>
                 </NativeSelectRoot>
               </Field>
@@ -172,8 +174,8 @@ export const FormControlsShowcase: React.FC = () => {
                 Se registró el presupuesto en Firestore y se envió copia al cliente.
               </Alert>
 
-              <Alert status="info" title="Sistema Antirruido">
-                La Serie 62 es nuestro sistema antirruido.
+              <Alert status="info" title="Aislamiento antirruido">
+                La Serie 62, Acústica y PVC abatible ofrecen aislamiento antirruido de alto rendimiento.
               </Alert>
 
               <Alert status="warning" title="Stock limitado de perfiles">

@@ -13,6 +13,7 @@ import {
 import { ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel } from "../components";
 import { EmptyState } from "@/components/ui/empty-state";
 import { DataListRoot, DataListItem } from "@/components/ui/data-list";
+import { companyData } from "@/shared/config/company-data";
 import { Layers } from "lucide-react";
 
 export const DataDisplayShowcase: React.FC = () => {
@@ -98,15 +99,19 @@ export const DataDisplayShowcase: React.FC = () => {
               <DataListRoot orientation={{ base: "vertical", md: "horizontal" }}>
                 <DataListItem
                   label="Razón Social:"
-                  value="GLASS & ALUMINUM COMPANY S.A.C."
+                  value={companyData.razonSocial}
                 />
                 <DataListItem
                   label="RUC:"
-                  value="20606432870"
+                  value={companyData.ruc}
+                />
+                <DataListItem
+                  label="Dirección:"
+                  value={companyData.direccion}
                 />
                 <DataListItem
                   label="Sistemas Certificados:"
-                  value="Sistema Nova, Serie 25, Serie 35, Serie 62"
+                  value="Sistema Nova, Serie 25, Serie 35, Serie 62, Acústica, PVC abatible"
                 />
                 <DataListItem
                   label="Norma de Seguridad:"

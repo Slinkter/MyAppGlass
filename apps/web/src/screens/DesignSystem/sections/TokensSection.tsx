@@ -41,67 +41,113 @@ export const TokensSection: React.FC = () => {
 
   return (
     <ShowcaseStack>
-      {/* 1. Jerarquía Tipográfica Lora */}
+      {/* 1. Jerarquía Tipográfica Source Serif 4 + Inter */}
       <ShowcaseCard
- title="Tipografía Oficial (Fuente Lora)"
- description="Jerarquía tipográfica editorial inspirada en diseño arquitectónico."
->
+        title="Tipografía Oficial (Source Serif 4 + Inter)"
+        description="Source Serif 4 (700/600) para títulos, nombre de empresa y montos; Inter (400–700) para cuerpo, tablas, etiquetas e interfaz."
+      >
           <VStack gap="5" align="stretch">
             <Box>
-              <Heading size="4xl" color="text.heading" wordBreak="break-word">Heading 4XL (2.25rem / 36px)</Heading>
-              <Text fontSize="xs" color="text.muted">Usado en Títulos Hero de la portada</Text>
+              <Heading size="4xl" color="text.heading" wordBreak="break-word">Heading 4XL · Source Serif 4 (2.25rem / 36px)</Heading>
+              <Text fontSize="xs" color="text.muted">Usado en Títulos Hero de la portada y cabeceras principales</Text>
             </Box>
             <Box>
-              <Heading size="3xl" color="text.heading" wordBreak="break-word">Heading 3XL (1.875rem / 30px)</Heading>
+              <Heading size="3xl" color="text.heading" wordBreak="break-word">Heading 3XL · Source Serif 4 (1.875rem / 30px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos de secciones principales</Text>
             </Box>
             <Box>
-              <Heading size="2xl" color="text.heading" wordBreak="break-word">Heading 2XL (1.5rem / 24px)</Heading>
+              <Heading size="2xl" color="text.heading" wordBreak="break-word">Heading 2XL · Source Serif 4 (1.5rem / 24px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Encabezados de módulos y catálogos</Text>
             </Box>
             <Box>
-              <Heading size="xl" color="text.heading" wordBreak="break-word">Heading XL (1.25rem / 20px)</Heading>
+              <Heading size="xl" color="text.heading" wordBreak="break-word">Heading XL · Source Serif 4 (1.25rem / 20px)</Heading>
               <Text fontSize="xs" color="text.muted">Usado en Títulos de tarjetas y modales</Text>
             </Box>
             <Box>
-              <Heading size="md" color="text.heading" wordBreak="break-word">Heading MD (1rem / 16px)</Heading>
+              <Heading size="md" color="text.heading" wordBreak="break-word">Heading MD · Source Serif 4 (1rem / 16px)</Heading>
               <Text fontSize="xs" color="text.muted">Subtítulos técnicos y encabezados de tablas</Text>
             </Box>
             <Separator borderColor="border.subtle" />
             <Box>
               <Text fontSize="md" color="text.body">
-                <strong>Texto de Cuerpo (md / 16px):</strong> Carpintería de aluminio de alta precisión y vidrio templado para residencias y proyectos comerciales en Lima.
+                <strong>Texto de Cuerpo Inter (md / 16px):</strong> Carpintería de vidrio y aluminio de alta precisión para residencias y proyectos comerciales en La Molina y Lima.
               </Text>
               <Text fontSize="sm" color="text.muted" mt="2">
-                <strong>Texto Secundario (sm / 14px):</strong> Fichas técnicas, leyendas de cotización y especificaciones de hermeticidad.
+                <strong>Texto Secundario Inter (sm / 14px):</strong> Fichas técnicas, leyendas de cotización y especificaciones de hermeticidad antirruido.
               </Text>
             </Box>
           </VStack>
         </ShowcaseCard>
 
+      {/* 1B. Paleta de Marca v2 (DESIGN-SYSTEM.md §2.2) */}
+      <ShowcaseCard
+        title="Paleta de Marca v2 (Tokens Base)"
+        description="Colores canónicos de marca compartidos entre la web y el presupuesto impreso. Haz clic para copiar el valor."
+      >
+        <SimpleGrid columns={RESPONSIVE_GRIDS.tokens} gap={{ base: "3", md: "4" }}>
+          {[
+            { token: "ink", hex: "#111111", label: "Todo el texto principal" },
+            { token: "ink-soft", hex: "#4A4A4A", label: "Etiquetas y secundario" },
+            { token: "brand-navy", hex: "#002060", label: "Empresa, títulos y acentos" },
+            { token: "brand-red", hex: "#D62828", label: "Solo palabra PRESUPUESTO" },
+            { token: "logo-coral", hex: "#FF5A5A", label: "Exclusivo del isotipo" },
+            { token: "tint-navy", hex: "#F3F5F9", label: "Bloques destacados y totales" },
+            { token: "paper-warm", hex: "#F7F6F3", label: "Fondos cálidos y fichas" },
+            { token: "line", hex: "#E6E3DE", label: "Separadores suaves" },
+            { token: "line-strong", hex: "#D9D6D0", label: "Bordes de tarjetas" },
+          ].map((item) => (
+            <Box
+              key={item.token}
+              minW={0}
+              p="3"
+              borderRadius="lg"
+              borderWidth="1px"
+              borderColor="border.subtle"
+              cursor="pointer"
+              _hover={{ borderColor: "text.heading", transform: "translateY(-2px)" }}
+              transition="transform 0.2s ease, border-color 0.2s ease"
+              onClick={() => copyToClipboard(item.hex)}
+            >
+              <Box
+                h="40px"
+                borderRadius="md"
+                style={{ backgroundColor: item.hex }}
+                mb="2"
+                borderWidth="1px"
+                borderColor="border.subtle"
+              />
+              <Text fontSize="xs" fontWeight="bold" color="text.heading">
+                {item.token} · {item.hex}
+              </Text>
+              <HStack justify="space-between" mt="1" gap="2" minW={0}>
+                <Text fontSize="xs" color="text.muted" truncate minW={0}>
+                  {item.label}
+                </Text>
+                <Box color="text.muted">
+                  <Copy size={12} style={{ flexShrink: 0 }} />
+                </Box>
+              </HStack>
+            </Box>
+          ))}
+        </SimpleGrid>
+      </ShowcaseCard>
+
       {/* 2. Reglas de Negocio Inmutables (AGENTS.md) */}
       <ShowcaseCard
- title="Catálogo Oficial de Sistemas & Vidrios (Inmutable)"
- description="Definiciones canónicas estrictas que no deben alterarse en ninguna pantalla."
->
+        title="Catálogo Oficial de Sistemas & Vidrios (Inmutable)"
+        description="Definiciones canónicas estrictas que no deben alterarse en ninguna pantalla."
+      >
           <VStack gap="6" align="stretch">
             <Box>
               <SubsectionLabel mb="3">
-                LOS 4 SISTEMAS OFICIALES DE VENTANAS
+                LOS 6 SISTEMAS OFICIALES DE VENTANAS
               </SubsectionLabel>
               <HStack gap="3" wrap="wrap">
-                <Badge colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
-                  Sistema Nova
-                </Badge>
-                <Badge colorPalette="cyan" px="3" py="1.5" borderRadius="full" fontSize="xs">
-                  Serie 25
-                </Badge>
-                <Badge colorPalette="teal" px="3" py="1.5" borderRadius="full" fontSize="xs">
-                  Serie 35
-                </Badge>
-                <Badge colorPalette="purple" px="3" py="1.5" borderRadius="full" fontSize="xs">
-                  Serie 62
-                </Badge>
+                {["Sistema Nova", "Serie 25", "Serie 35", "Serie 62", "Acústica", "PVC abatible"].map((sys) => (
+                  <Badge key={sys} colorPalette="gray" variant="subtle" px="3" py="1.5" borderRadius="full" fontSize="xs">
+                    {sys}
+                  </Badge>
+                ))}
               </HStack>
             </Box>
 
@@ -112,15 +158,11 @@ export const TokensSection: React.FC = () => {
                 LOS 3 TIPOS DE VIDRIO (SIN SUFIJO DE GROSOR)
               </SubsectionLabel>
               <HStack gap="3" wrap="wrap">
-                <Badge variant="outline" colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
-                  Crudo
-                </Badge>
-                <Badge variant="outline" colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
-                  Laminado
-                </Badge>
-                <Badge variant="outline" colorPalette="purple" px="3" py="1.5" borderRadius="full" fontSize="xs">
-                  Templado
-                </Badge>
+                {["Crudo", "Laminado", "Templado"].map((glass) => (
+                  <Badge key={glass} variant="outline" colorPalette="gray" px="3" py="1.5" borderRadius="full" fontSize="xs">
+                    {glass}
+                  </Badge>
+                ))}
               </HStack>
             </Box>
 
