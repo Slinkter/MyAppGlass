@@ -20,6 +20,7 @@
 | [`21_PLAN_FLUJO_PRESUPUESTO.md`](./21_PLAN_FLUJO_PRESUPUESTO.md) | Flujo de presupuesto del usuario en `/presupuesto` |
 | [`22_PLAN_RENDIMIENTO_WEB.md`](./22_PLAN_RENDIMIENTO_WEB.md) | Rendimiento web, imágenes y métricas |
 | [`23_PLAN_DESIGN_SYSTEM_V2.md`](./23_PLAN_DESIGN_SYSTEM_V2.md) | Rediseño del design system y auditorías por ola |
+| [`24_PLAN_NAVBAR_MOVIL.md`](./24_PLAN_NAVBAR_MOVIL.md) | Rediseño estructural de la navbar y el menú móvil |
 | [`PROMPT-REDISENO-DS.md`](./PROMPT-REDISENO-DS.md) | Prompt de trabajo para el rediseño del design system |
 | [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md) | **Design system único de la empresa**: marca, tokens, componentes, plan por fases y puertas de aprobación |
 
