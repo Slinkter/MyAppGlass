@@ -55,6 +55,7 @@ credentials*.json
 .idea/
 .playwright-mcp/
 .agents/mcp_config.local.json
+skills-lock.json
 .gemini/*
 !.gemini/settings.json
 !.gemini/skills/
