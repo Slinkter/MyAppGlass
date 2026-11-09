@@ -64,6 +64,15 @@ packages/
 - Razón Social: `"GLASS & ALUMINUM COMPANY S.A.C."` → usar `companyData` de `@/shared/config/company-data`
 - Datos vigentes: dirección **Av. Los Fresnos 1250 - La Molina**, WhatsApp **974 278 303**, correo **acueva@gyacompany.com**. La Ficha RUC de SUNAT (2022) está desactualizada: no usarla como fuente de dirección, teléfonos ni correo.
 
+**Negocio decidido por el dueño (2026-11-09, `docs/marca/PREGUNTAS-MARCA.md`):**
+- Nombre completo siempre: "Glass & Aluminum Company S.A.C."; sin nombre corto.
+- Trato de **usted** al cliente.
+- Empresa fundada en 2021. Equipo: 4 personas (1 vendedor, 2 técnicos, 1 contador).
+- Ofrece boleta o factura; tiene taller grande y un show room pequeño para ver productos.
+- Zona de atención con proyectos: **La Molina, Surco, San Borja, San Isidro y Miraflores**. Fuera de esa zona, los precios aplican solo a casos cercanos; no se aceptan proyectos en otros distritos.
+- Redes: Facebook e Instagram sin contenido desde 2023; TikTok creado, sin contenido. Tiene ficha de Google Maps.
+- Manual de marca en curso: `docs/marca/MANUAL-DE-MARCA.md` (v0.1). Pendiente de confirmar: el dueño eligió "un solo rojo" (coral del logo también en títulos), lo que contradice la regla de que el coral solo va en el logo.
+
 **Ortografía (siempre en español):**
 - `"antirruido"` (doble 'r', NO 'antiruido')
 - `"vidrio y aluminio"` (en singular)
