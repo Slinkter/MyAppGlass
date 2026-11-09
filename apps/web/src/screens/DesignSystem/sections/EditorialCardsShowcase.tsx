@@ -1,13 +1,23 @@
 "use client";
 
 import React from "react";
-import { Box, SimpleGrid } from "@chakra-ui/react";
-import { RESPONSIVE_GRIDS } from "@/shared/constants/layout";
+import { Box, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import { ShowcaseCard, ShowcaseStack } from "../components";
+import { Button } from "@/components/ui/button";
 import ServiceCard from "@/features/services/components/ServiceCard";
 import ProjectCardContent from "@/features/projects/components/ProjectCardContent";
 import ClientCard from "@/features/home/components/clients/ClientCard";
 import { ImageRevealShowcase } from "./ImageRevealShowcase";
+
+const CARD_GRID = { base: 1, md: 2, lg: 3 } as const;
+
+const GROUP_LABEL_PROPS = {
+  fontSize: "xs",
+  fontWeight: "medium",
+  textTransform: "uppercase",
+  letterSpacing: "0.14em",
+  color: "text.muted",
+} as const;
 
 export const EditorialCardsShowcase: React.FC = () => {
   return (
@@ -15,11 +25,17 @@ export const EditorialCardsShowcase: React.FC = () => {
       {/* 1. Tarjetas Reales del Catálogo de Servicios */}
       <Box minW="0" maxW="100%" overflowWrap="break-word">
         <ShowcaseCard
-          title="ServiceCard — Tarjeta Editorial de Servicios"
-          description="Componente real (`features/services/components/ServiceCard.tsx`) con fotografía a sangre, gradación de luz fina, píldora frosted glass y zoom cinemático al hover."
+          title="Servicios — Tarjetas editoriales del catálogo"
+          description="Tarjeta real de servicios con fotografía a sangre, luz suave y zoom lento al pasar el cursor. Cada tarjeta lleva a su ficha técnica."
           badge="features/services"
         >
-          <SimpleGrid columns={RESPONSIVE_GRIDS.cards} gap={{ base: "4", md: "6" }}>
+          <HStack justify="space-between" wrap="wrap" gap="4" mb="6">
+            <Text {...GROUP_LABEL_PROPS}>Catálogo · 3 líneas destacadas</Text>
+            <Button variant={"studioOutline" as never} size="md" asChild>
+              <a href="#servicios">Ver todos los servicios</a>
+            </Button>
+          </HStack>
+          <SimpleGrid columns={CARD_GRID} gap={{ base: "4", md: "6" }}>
             <ServiceCard
               name="Ventanas de Aluminio"
               category="Serie 62"
@@ -48,11 +64,17 @@ export const EditorialCardsShowcase: React.FC = () => {
       {/* 2. Tarjetas Reales de Proyectos */}
       <Box minW="0" maxW="100%" overflowWrap="break-word">
         <ShowcaseCard
-          title="ProjectCardContent — Tarjeta Arquitectónica de Obras"
-          description="Componente real (`features/projects/components/ProjectCardContent.tsx`) con ubicación geográfica, año de finalización y botón circular de navegación."
+          title="Proyectos — Tarjetas de obras terminadas"
+          description="Tarjeta real de proyectos con ubicación, año de finalización y botón circular para ver la obra."
           badge="features/projects"
         >
-          <SimpleGrid columns={RESPONSIVE_GRIDS.cards} gap={{ base: "4", md: "6" }}>
+          <HStack justify="space-between" wrap="wrap" gap="4" mb="6">
+            <Text {...GROUP_LABEL_PROPS}>Obras recientes</Text>
+            <Button variant={"studioOutline" as never} size="md" asChild>
+              <a href="#proyectos">Ver todas las obras</a>
+            </Button>
+          </HStack>
+          <SimpleGrid columns={CARD_GRID} gap={{ base: "4", md: "6" }}>
             <ProjectCardContent
               residencial="Residencial Los Fresnos"
               address="La Molina, Lima"
@@ -74,11 +96,17 @@ export const EditorialCardsShowcase: React.FC = () => {
       {/* 3. Tarjeta de Cliente Corporativo */}
       <Box minW="0" maxW="100%" overflowWrap="break-word">
         <ShowcaseCard
-          title="ClientCard — Testimonial & Sector Corporativo"
-          description="Componente real (`features/home/components/clients/ClientCard.tsx`) con microbordes y rating."
+          title="Clientes — Tarjetas de referencia por sector"
+          description="Tarjeta real de clientes con microbordes finos y valoración del proyecto."
           badge="features/home"
         >
-          <SimpleGrid columns={RESPONSIVE_GRIDS.cards} gap={{ base: "4", md: "6" }}>
+          <HStack justify="space-between" wrap="wrap" gap="4" mb="6">
+            <Text {...GROUP_LABEL_PROPS}>Sectores atendidos</Text>
+            <Button variant={"studioGhost" as never} size="md" asChild>
+              <a href="#clientes">Ver clientes</a>
+            </Button>
+          </HStack>
+          <SimpleGrid columns={CARD_GRID} gap={{ base: "4", md: "6" }}>
             <ClientCard
               nameClient="Constructora Palmer"
               descClient="Ventanas Serie 35 & Mamparas"

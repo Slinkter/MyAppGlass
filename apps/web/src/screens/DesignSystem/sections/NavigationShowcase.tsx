@@ -104,13 +104,8 @@ export const NavigationShowcase: React.FC = () => {
         badge="Navegación Interna"
       >
         <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="2xl">
-          <Tabs.Root defaultValue="sistemas" variant="line">
-            <Tabs.List
-              borderBottom="1px solid"
-              borderColor="border.default"
-              overflowX="auto"
-              maxW="full"
-            >
+          <Tabs.Root defaultValue="sistemas" variant={"studio" as never}>
+            <Tabs.List overflowX="auto" maxW="full">
               <Tabs.Trigger value="sistemas" minH="11" minW="11" px="4">
                 <Layers size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
                 <span>Sistemas Oficiales</span>
@@ -127,6 +122,7 @@ export const NavigationShowcase: React.FC = () => {
                 <Compass size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
                 <span>Instalación</span>
               </Tabs.Trigger>
+              <Tabs.Indicator />
             </Tabs.List>
 
             <Tabs.Content
@@ -207,13 +203,7 @@ export const NavigationShowcase: React.FC = () => {
                   p="0"
                 >
                   <Box as="li" display="inline-flex" alignItems="center">
-                    <Button
-                      asChild
-                      variant="ghost"
-                      size="sm"
-                      minH="11"
-                      px="2"
-                    >
+                    <Button asChild variant={"studioGhost" as never} size="sm" minH="11" px="2">
                       <a href="#inicio">
                         <Home size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
                         <span>Inicio</span>
@@ -226,13 +216,7 @@ export const NavigationShowcase: React.FC = () => {
                   </Box>
 
                   <Box as="li" display="inline-flex" alignItems="center">
-                    <Button
-                      asChild
-                      variant="ghost"
-                      size="sm"
-                      minH="11"
-                      px="2"
-                    >
+                    <Button asChild variant={"studioGhost" as never} size="sm" minH="11" px="2">
                       <a href="#servicios">Servicios</a>
                     </Button>
                   </Box>
@@ -242,13 +226,7 @@ export const NavigationShowcase: React.FC = () => {
                   </Box>
 
                   <Box as="li" display="inline-flex" alignItems="center">
-                    <Button
-                      asChild
-                      variant="ghost"
-                      size="sm"
-                      minH="11"
-                      px="2"
-                    >
+                    <Button asChild variant={"studioGhost" as never} size="sm" minH="11" px="2">
                       <a href="#ventanas">Ventanas Antirruido</a>
                     </Button>
                   </Box>
@@ -293,7 +271,7 @@ export const NavigationShowcase: React.FC = () => {
               <Box as="nav" aria-label="Paginación de catálogo de presupuestos">
                 <HStack gap="2" wrap="wrap" justify="center">
                   <Button
-                    variant={"outlineNavy" as any}
+                    variant={"studioOutline" as never}
                     aria-label="Página anterior"
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
@@ -309,7 +287,7 @@ export const NavigationShowcase: React.FC = () => {
                     return (
                       <Button
                         key={page}
-                        variant={(isCurrent ? "navy" : "outlineNavy") as any}
+                        variant={(isCurrent ? "studio" : "studioOutline") as never}
                         aria-label={`Ir a página ${page}`}
                         aria-current={isCurrent ? "page" : undefined}
                         onClick={() => setCurrentPage(page)}
@@ -337,7 +315,7 @@ export const NavigationShowcase: React.FC = () => {
                   </Box>
 
                   <Button
-                    variant={(currentPage === 8 ? "navy" : "outlineNavy") as any}
+                    variant={(currentPage === 8 ? "studio" : "studioOutline") as never}
                     aria-label="Ir a página 8"
                     aria-current={currentPage === 8 ? "page" : undefined}
                     onClick={() => setCurrentPage(8)}
@@ -349,7 +327,7 @@ export const NavigationShowcase: React.FC = () => {
                   </Button>
 
                   <Button
-                    variant={"outlineNavy" as any}
+                    variant={"studioOutline" as never}
                     aria-label="Página siguiente"
                     disabled={currentPage === 8}
                     onClick={() => setCurrentPage((p) => Math.min(8, p + 1))}

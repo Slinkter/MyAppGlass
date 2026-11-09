@@ -1,16 +1,8 @@
 "use client";
 
 import React from "react";
-import {
-  Box,
-  Heading,
-  VStack,
-  HStack,
-  Table,
-  Badge as ChakraBadge,
-  Skeleton,
-} from "@chakra-ui/react";
-import { ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel } from "../components";
+import { Box, Heading, VStack, HStack, Table, Badge, Skeleton, Text } from "@chakra-ui/react";
+import { ShowcaseCard, ShowcasePanel, ShowcaseStack } from "../components";
 import { EmptyState } from "@/components/ui/empty-state";
 import { DataListRoot, DataListItem } from "@/components/ui/data-list";
 import { companyData } from "@/shared/config/company-data";
@@ -41,73 +33,64 @@ const SAMPLE_CUSTOMER = {
   district: "La Molina",
 };
 
-type BadgeVariant =
-  | "solid"
-  | "subtle"
-  | "outline"
-  | "surface"
-  | "plain"
-  | "neutral"
-  | "navy"
-  | "navySolid"
-  | "success"
-  | "warning"
-  | "danger"
-  | "info";
+/** Variantes `studio` del tema (no tipadas en Chakra). */
+const STUDIO = "studio" as never;
+const STUDIO_INK = "studioInk" as never;
+const STUDIO_SUCCESS = "studioSuccess" as never;
+const STUDIO_WARNING = "studioWarning" as never;
+const STUDIO_INFO = "studioInfo" as never;
+const STUDIO_DANGER = "studioDanger" as never;
 
-interface BadgeProps extends Omit<React.ComponentProps<typeof ChakraBadge>, "variant"> {
-  variant?: BadgeVariant;
-}
-
-const Badge: React.FC<BadgeProps> = ({ variant, ...rest }) => (
-  <ChakraBadge {...rest} variant={variant as React.ComponentProps<typeof ChakraBadge>["variant"]} />
-);
+const ADMIN_ROWS = [
+  { order: 1, name: "Ventanas antirruido", system: "Serie 62", photos: 12, published: true },
+  { order: 2, name: "Mamparas de cristal", system: "Sistema Nova", photos: 8, published: true },
+  { order: 3, name: "Ventanas acústicas", system: "Acústica", photos: 6, published: false },
+  { order: 4, name: "Puertas corredizas", system: "Serie 25", photos: 4, published: true },
+];
 
 export const DataDisplayShowcase: React.FC = () => {
   return (
     <ShowcaseStack>
-      {/* 1. Tablas Administrativas de Servicios / Proyectos */}
+      {/* 1. Tabla administrativa de servicios / proyectos */}
       <ShowcaseCard
-        title="Estructura de Tabla Administrativa (Admin Table)"
-        description="Diseño utilizado en `/admin/servicios` y `/admin/proyectos` para gestionar colecciones de Firestore."
+        title="Tabla administrativa"
+        description="Patrón de `/admin/servicios` y `/admin/proyectos` para gestionar colecciones. Cabecera discreta, filas con línea fina."
       >
         <Box overflowX="auto" borderWidth="1px" borderColor="border.subtle" borderRadius="xl">
-          <Table.Root size={{ base: "sm", md: "md" }} variant="line" minW="35rem">
-            <Table.Header bg="surface.container">
+          <Table.Root variant={STUDIO} size={{ base: "sm", md: "md" }} minW="35rem">
+            <Table.Caption captionSide="bottom" srOnly>
+              Servicios publicados y en borrador, con su sistema principal y número de fotos
+            </Table.Caption>
+            <Table.Header>
               <Table.Row>
-                <Table.ColumnHeader scope="col" whiteSpace="nowrap" color="text.muted" aria-sort="ascending">
+                <Table.ColumnHeader scope="col" whiteSpace="nowrap" aria-sort="ascending">
                   Orden
                 </Table.ColumnHeader>
-                <Table.ColumnHeader scope="col" whiteSpace="nowrap" color="text.muted">
+                <Table.ColumnHeader scope="col" whiteSpace="nowrap">
                   Servicio
                 </Table.ColumnHeader>
-                <Table.ColumnHeader scope="col" whiteSpace="nowrap" color="text.muted">
-                  Sistema Principal
+                <Table.ColumnHeader scope="col" whiteSpace="nowrap">
+                  Sistema principal
                 </Table.ColumnHeader>
-                <Table.ColumnHeader scope="col" whiteSpace="nowrap" color="text.muted">
+                <Table.ColumnHeader scope="col" whiteSpace="nowrap">
                   Fotos
                 </Table.ColumnHeader>
-                <Table.ColumnHeader scope="col" whiteSpace="nowrap" color="text.muted">
+                <Table.ColumnHeader scope="col" whiteSpace="nowrap">
                   Estado
                 </Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {[
-                { order: 1, name: "Ventanas antirruido", system: "Serie 62", photos: 12, published: true },
-                { order: 2, name: "Mamparas de cristal", system: "Sistema Nova", photos: 8, published: true },
-                { order: 3, name: "Ventanas acústicas", system: "Acústica", photos: 6, published: false },
-                { order: 4, name: "Puertas corredizas", system: "Serie 25", photos: 4, published: true },
-              ].map((row) => (
+              {ADMIN_ROWS.map((row) => (
                 <Table.Row key={row.name}>
-                  <Table.Cell whiteSpace="nowrap" fontWeight="bold" fontVariantNumeric="tabular-nums">
+                  <Table.Cell whiteSpace="nowrap" fontVariantNumeric="tabular-nums">
                     {row.order}
                   </Table.Cell>
                   <Table.Cell whiteSpace="nowrap" fontWeight="medium">
                     {row.name}
                   </Table.Cell>
                   <Table.Cell whiteSpace="nowrap">
-                    <Badge variant="navy" size="sm">
+                    <Badge variant={STUDIO} size="sm">
                       {row.system}
                     </Badge>
                   </Table.Cell>
@@ -116,11 +99,11 @@ export const DataDisplayShowcase: React.FC = () => {
                   </Table.Cell>
                   <Table.Cell whiteSpace="nowrap">
                     {row.published ? (
-                      <Badge variant="success" size="sm">
+                      <Badge variant={STUDIO_SUCCESS} size="sm">
                         Publicado
                       </Badge>
                     ) : (
-                      <Badge variant="warning" size="sm">
+                      <Badge variant={STUDIO_WARNING} size="sm">
                         Borrador
                       </Badge>
                     )}
@@ -132,101 +115,76 @@ export const DataDisplayShowcase: React.FC = () => {
         </Box>
       </ShowcaseCard>
 
-      {/* Badges: catálogo de variantes y estados */}
+      {/* Badges: variantes y estados */}
       <ShowcaseCard
-        title="Badges"
-        description="Variantes neutras (gray) y estados semánticos para etiquetas de catálogo y tablas."
+        title="Etiquetas (Badges)"
+        description="Pastillas de 28 px con texto 12/600. Usa la variante neutra para catálogo y las semánticas para estado."
       >
         <ShowcaseStack gap="4">
-          <ShowcasePanel bg="surface.container">
+          <ShowcasePanel>
             <Heading as="h3" size="sm" mb="4" color="text.heading">
-              Variantes de Marca
+              Neutras y de marca
             </Heading>
             <HStack gap="2" wrap="wrap">
-              <Badge variant="navy">Navy</Badge>
-              <Badge variant="navySolid">Navy Solid</Badge>
-              <Badge variant="neutral">Neutral</Badge>
+              <Badge variant={STUDIO}>Neutra</Badge>
+              <Badge variant={STUDIO_INK}>Tinta</Badge>
             </HStack>
           </ShowcasePanel>
-          <ShowcasePanel bg="surface.container">
+          <ShowcasePanel>
             <Heading as="h3" size="sm" mb="4" color="text.heading">
-              Estados Semánticos
+              Estados
             </Heading>
             <HStack gap="2" wrap="wrap">
-              <Badge variant="success">Success</Badge>
-              <Badge variant="warning">Warning</Badge>
-              <Badge variant="danger">Danger</Badge>
-              <Badge variant="info">Info</Badge>
+              <Badge variant={STUDIO_SUCCESS}>Publicado</Badge>
+              <Badge variant={STUDIO_WARNING}>Borrador</Badge>
+              <Badge variant={STUDIO_DANGER}>Error</Badge>
+              <Badge variant={STUDIO_INFO}>Información</Badge>
             </HStack>
           </ShowcasePanel>
         </ShowcaseStack>
       </ShowcaseCard>
 
-      {/* 2. Ficha Técnica (DataList) & EmptyState */}
+      {/* 2. Ficha técnica (DataList), estado vacío y carga */}
       <ShowcaseCard
-        title="Fichas Técnicas (DataList) & Estados de Vacío (EmptyState)"
-        description="Componentes especializados para metadatos y pantallas sin registros."
+        title="Fichas técnicas, estados vacíos y carga"
+        description="Metadatos de empresa y de producto, pantalla sin registros y placeholders mientras cargan los datos."
       >
         <ShowcaseStack>
-          {/* DataList */}
-          <ShowcasePanel bg="surface.container">
-            <Heading as="h3" size="sm" mb="4" color="text.heading">
-              Ficha Técnica de Fabricación
+          <ShowcasePanel>
+            <Heading as="h3" size="sm" mb="4" color="text.heading" fontFamily="heading">
+              Ficha técnica de fabricación
             </Heading>
             <DataListRoot orientation={{ base: "vertical", md: "horizontal" }}>
+              <DataListItem label="Razón social" value={companyData.razonSocial} />
+              <DataListItem label="RUC" value={companyData.ruc} />
+              <DataListItem label="Dirección" value={companyData.direccion} />
               <DataListItem
-                label="Razón Social:"
-                value={companyData.razonSocial}
-              />
-              <DataListItem
-                label="RUC:"
-                value={companyData.ruc}
-              />
-              <DataListItem
-                label="Dirección:"
-                value={companyData.direccion}
-              />
-              <DataListItem
-                label="Contacto:"
+                label="Contacto"
                 value={`${companyData.contactPerson} (${companyData.contactTitle})`}
               />
+              <DataListItem label="WhatsApp" value={companyData.whatsappDisplay} />
               <DataListItem
-                label="WhatsApp:"
-                value={companyData.whatsappDisplay}
-              />
-              <DataListItem
-                label="Sistemas Certificados:"
+                label="Sistemas certificados"
                 value="Sistema Nova, Serie 25, Serie 35, Serie 62, Acústica, PVC abatible"
               />
-              <DataListItem
-                label="Vidrios Disponibles:"
-                value="Crudo, Laminado, Templado"
-              />
-              <DataListItem
-                label="Colores de Aluminio:"
-                value="Negro, Mate, Blanco, Madera, Champagne"
-              />
-              <DataListItem
-                label="Norma de Seguridad:"
-                value="RNE Norma E.040 Vidrio"
-              />
+              <DataListItem label="Vidrios disponibles" value="Crudo, laminado, templado" />
+              <DataListItem label="Colores de aluminio" value="Negro, mate, blanco, madera, champagne" />
+              <DataListItem label="Norma de seguridad" value="RNE Norma E.040 Vidrio" />
             </DataListRoot>
           </ShowcasePanel>
 
-          {/* EmptyState y Skeletons */}
           <ShowcasePanel>
             <EmptyState
               icon={<Layers size={20} style={{ flexShrink: 0 }} aria-hidden="true" />}
-              title="Sin presupuestos pendientes"
-              description="Todos los pedidos de carpintería y cotizaciones han sido atendidos."
+              title="No hay presupuestos pendientes"
+              description="Cuando llegue una nueva solicitud de carpintería o cotización, aparecerá aquí."
             />
           </ShowcasePanel>
 
-          {/* Skeletons de Carga */}
-          <Box>
-            <SubsectionLabel mb="2">
-              Placeholders de carga (Skeletons)
-            </SubsectionLabel>
+          <Box role="status" aria-label="Cargando datos de ejemplo">
+            <Text fontSize="sm" color="text.muted" mb="3">
+              Cargando los datos del catálogo…
+            </Text>
             <VStack gap="2" align="stretch">
               <Skeleton h="5" borderRadius="md" />
               <Skeleton h="5" width="80%" borderRadius="md" />
@@ -235,7 +193,8 @@ export const DataDisplayShowcase: React.FC = () => {
           </Box>
         </ShowcaseStack>
       </ShowcaseCard>
-      {/* Hoja de presupuesto */}
+
+      {/* Hoja de presupuesto (no editar) */}
       <ShowcaseCard
         title="Hoja de presupuesto (concepto C1 renovado)"
         description="Documento en papel claro: membrete con «PRESUPUESTO» en rojo serif, grupos con tinte, cifras tabulares y totales que se apilan en celular. Datos de ejemplo."

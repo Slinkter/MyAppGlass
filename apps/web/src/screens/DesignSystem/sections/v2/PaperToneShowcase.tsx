@@ -40,7 +40,7 @@ const Sample: React.FC<SampleProps> = ({ name, hex }) => (
         Ventanas antirruido, mamparas y techos con instalación y garantía. Visita técnica sin costo.
       </Text>
 
-      <HStack gap="2" wrap="wrap" {...glassSurface} borderRadius="full" p="2" w="fit-content" maxW="full">
+      <HStack gap="2" wrap="wrap" {...glassSurface} color="text.body" borderRadius="full" p="2" w="fit-content" maxW="full">
         <Box px="3" py="2" borderRadius="full" bg="brand.navy" color="white" fontSize="sm" fontWeight="semibold">
           Inicio
         </Box>

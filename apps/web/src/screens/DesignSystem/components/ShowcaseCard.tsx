@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * @file ShowcaseCard.tsx
+ * @description Tarjeta contenedora de cada bloque de `/design-system` (Aura Studio): etiqueta de grupo,
+ * título en la fuente de títulos (Lora), descripción en texto secundario y contenido con aire.
+ * Solo se usa dentro de `/design-system`.
+ */
+
 import React from "react";
 import { Badge, Box, Card, HStack } from "@chakra-ui/react";
 
@@ -16,25 +23,20 @@ export const ShowcaseCard: React.FC<ShowcaseCardProps> = ({
   badge,
   children,
 }) => (
-  <Card.Root
-    bg="bg.surface"
-    borderColor="border.default"
-    borderRadius="card"
-    p={{ base: "4", md: "6" }}
-  >
-    <Card.Header p="0" pb={{ base: "3", md: "4" }}>
-      <HStack justify="space-between" align="start" wrap="wrap" gap="2">
+  <Card.Root variant={"studio" as never} p={{ base: "5", md: "8" }}>
+    <Card.Header p="0" pb={{ base: "5", md: "6" }}>
+      <HStack justify="space-between" align="start" wrap="wrap" gap="3">
         <Box flex={{ base: "1 1 100%", sm: "1" }} minW="0">
-          <Card.Title as="h2" fontSize={{ base: "lg", md: "xl" }}>
+          <Card.Title as="h2" fontSize={{ base: "2xl", md: "3xl" }} lineHeight="1.15" letterSpacing="-0.01em">
             {title}
           </Card.Title>
-          {description && <Card.Description>{description}</Card.Description>}
+          {description && (
+            <Card.Description mt="2" fontSize={{ base: "sm", md: "md" }} lineHeight="relaxed" maxW="3xl">
+              {description}
+            </Card.Description>
+          )}
         </Box>
-        {badge && (
-          <Badge colorPalette="gray" px="3" py="1" borderRadius="full">
-            {badge}
-          </Badge>
-        )}
+        {badge && <Badge variant={"studio" as never}>{badge}</Badge>}
       </HStack>
     </Card.Header>
     <Card.Body p="0">{children}</Card.Body>

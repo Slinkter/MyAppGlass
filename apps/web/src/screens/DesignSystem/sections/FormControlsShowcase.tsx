@@ -1,26 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Box,
-  Text,
-  VStack,
-  HStack,
-  SimpleGrid,
-  Input,
-  Textarea,
-  IconButton,
-  Separator,
-} from "@chakra-ui/react";
-import {
-  ArrowRight,
-  Eye,
-  Sliders,
-  Copy,
-  Check,
-  AlertCircle,
-  MessageCircle,
-} from "lucide-react";
+import { Box, Text, VStack, HStack, SimpleGrid, Input, Textarea, Separator } from "@chakra-ui/react";
+import { ArrowRight, Eye, Sliders, Copy, Check, AlertCircle, MessageCircle } from "lucide-react";
 import { FloatingWhatsAppButton, ThemeToggleButton } from "@/widgets/FloatingActions";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
@@ -38,165 +20,134 @@ export const FormControlsShowcase: React.FC = () => {
 
   return (
     <ShowcaseStack>
-      {/* 1. Botones del Sistema Aura & Matriz de 9 Estados */}
+      {/* 1. Botones Aura Studio & matriz de 9 estados */}
       <ShowcaseCard
-        title="Botones & Acciones Oficiales — Matriz de 9 Estados (v2)"
-        description="Sistema de botones con tokens semánticos nativos de Chakra UI v3 y contraste WCAG >= 4.5:1 en claro y oscuro."
+        title="Botones y acciones"
+        description="Botones en pastilla con texto en oración, negro de marca y contraste AA en claro y oscuro. Los estados hover y activo se ven al interactuar con el botón."
       >
         <VStack gap="6" align="stretch">
-          {/* Matriz de los 9 Estados Reglamentarios */}
+          {/* Matriz de los 9 estados */}
           <Box>
-            <SubsectionLabel mb="3">
-              MATRIZ DE LOS 9 ESTADOS (WCAG CONTRASTE &gt;= 4.5:1 GARANTIZADO)
-            </SubsectionLabel>
+            <SubsectionLabel mb="3">Los 9 estados del botón</SubsectionLabel>
             <HStack gap={{ base: "2", md: "4" }} wrap="wrap">
               {/* 1. Default */}
-              <Button variant="navy">
+              <Button variant={"studio" as never}>
                 Default <ArrowRight size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
               </Button>
 
-              {/* 2. Hover */}
-              <Button variant="navy" bg={{ base: "brand.navyHover", _dark: "blue.200" }}>
-                Hover
-              </Button>
+              {/* 2. Hover (interactivo: pase el cursor sobre el botón) */}
+              <Button variant={"studio" as never}>Hover</Button>
 
-              {/* 3. Focus-visible */}
+              {/* 3. Foco visible */}
               <Button
-                variant="navy"
+                variant={"studio" as never}
                 outlineWidth="2"
                 outlineStyle="solid"
                 outlineColor="ring.primary"
                 outlineOffset="0"
               >
-                Foco Visible
+                Foco visible
               </Button>
 
-              {/* 4. Active */}
-              <Button variant="navy" bg={{ base: "brand.navyActive", _dark: "blue.300" }} transform="scale(0.98)">
-                Activo
-              </Button>
+              {/* 4. Activo (interactivo: mantenga pulsado el botón) */}
+              <Button variant={"studio" as never}>Activo</Button>
 
               {/* 5. Disabled */}
-              <Button variant="navy" disabled aria-disabled="true">
-                Disabled
+              <Button variant={"studio" as never} disabled aria-disabled="true">
+                Deshabilitado
               </Button>
 
               {/* 6. Loading */}
-              <Button variant="navy" loading loadingText="Cargando...">
+              <Button variant={"studio" as never} loading loadingText="Cargando…">
                 Cargar
               </Button>
 
-              {/* 7. Error / Peligro */}
+              {/* 7. Error / peligro */}
               <Button
-                bg="status.dangerSoft"
+                variant={"studioOutline" as never}
                 color="status.dangerText"
-                border="1px solid"
                 borderColor="status.dangerBorder"
-                minH="11"
-                minW="11"
-                px="6"
               >
                 <AlertCircle size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-                Alerta
+                Revisar
               </Button>
 
-              {/* 8. Vacío / Outline */}
-              <Button variant={"outlineNavy" as any}>
-                Vacío
-              </Button>
+              {/* 8. Vacío / outline */}
+              <Button variant={"studioOutline" as never}>Vacío</Button>
 
               {/* 9. Éxito */}
               <Button
-                bg="status.successSoft"
+                variant={"studioOutline" as never}
                 color="status.successText"
-                border="1px solid"
                 borderColor="status.successBorder"
-                minH="11"
-                minW="11"
-                px="6"
               >
                 <Check size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-                Éxito
+                Confirmado
               </Button>
             </HStack>
           </Box>
 
           <Separator borderColor="border.subtle" />
 
-          {/* Variantes Oficiales */}
+          {/* Variantes de marca */}
           <Box>
-            <SubsectionLabel mb="3">
-              VARIANTES OFICIALES DE MARCA (NAVY PRIMARIO / OUTLINE / GHOST / WHATSAPP ACCESIBLE)
-            </SubsectionLabel>
+            <SubsectionLabel mb="3">Variantes de marca</SubsectionLabel>
             <HStack gap={{ base: "2", md: "4" }} wrap="wrap">
-              <Button variant="navy">
-                Navy Primario <ArrowRight size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
+              <Button variant={"studio" as never}>
+                Primario <ArrowRight size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
               </Button>
-              <Button variant={"outlineNavy" as any}>Outline Navy</Button>
-              <Button variant="ghost">Ghost Sutil</Button>
-              {/* WhatsApp con token accesible v2 (ratio 5.02:1 con texto blanco) */}
-              <Button
-                bg="brand.whatsappAccessible"
-                color="white"
-                minH="11"
-                minW="11"
-                px="6"
-                borderRadius="full"
-                fontWeight="600"
-                textTransform="uppercase"
-                letterSpacing="wider"
-              >
+              <Button variant={"studioOutline" as never}>Contorno</Button>
+              <Button variant={"studioGhost" as never}>Sutil</Button>
+              {/* WhatsApp con token accesible (ratio 5.02:1 con texto blanco) */}
+              <Button variant="whatsapp">
                 <MessageCircle size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-                WhatsApp Cotización
+                Escribir por WhatsApp
               </Button>
             </HStack>
           </Box>
 
           <Separator borderColor="border.subtle" />
 
-          {/* Tamaños Estandarizados */}
+          {/* Tamaños */}
           <Box>
-            <SubsectionLabel mb="3">
-              TAMAÑOS ESTANDARIZADOS (SM / MD / LG / XL — TODOS CON MINH=&quot;11&quot; &gt;= 44)
-            </SubsectionLabel>
+            <SubsectionLabel mb="3">Tamaños (sm, md, lg, xl; todos con altura mínima de 44 px)</SubsectionLabel>
             <HStack gap={{ base: "2", md: "4" }} wrap="wrap" align="center">
-              <Button variant="navy" size="sm">Small</Button>
-              <Button variant="navy" size="md">Medium</Button>
-              <Button variant="navy" size="lg">Large</Button>
-              <Button variant="navy" size="xl">Extra Large</Button>
+              <Button variant={"studio" as never} size="sm">Pequeño</Button>
+              <Button variant={"studio" as never} size="md">Mediano</Button>
+              <Button variant={"studio" as never} size="lg">Grande</Button>
+              <Button variant={"studio" as never} size="xl">Extra grande</Button>
             </HStack>
           </Box>
 
           <Separator borderColor="border.subtle" />
 
-          {/* Botones de Icono */}
+          {/* Botones de ícono */}
           <Box>
-            <SubsectionLabel mb="3">
-              BOTONES DE ICONO &amp; ACCIONES FLOTANTES HOMOLOGADAS
-            </SubsectionLabel>
+            <SubsectionLabel mb="3">Botones de ícono y acciones flotantes</SubsectionLabel>
             <HStack gap={{ base: "2", md: "4" }} wrap="wrap" align="center">
-              <IconButton
+              <Button
                 aria-label="Ver ficha técnica"
-                variant="subtle"
+                variant={"studioGhost" as never}
                 size="md"
+                px="0"
                 minW="11"
                 minH="11"
               >
                 <Eye size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-              </IconButton>
-              <IconButton
+              </Button>
+              <Button
                 aria-label="Ajustar parámetros de ventana"
-                variant="outline"
-                borderColor="border.default"
+                variant={"studioOutline" as never}
                 size="md"
+                px="0"
                 minW="11"
                 minH="11"
               >
                 <Sliders size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
-              </IconButton>
+              </Button>
               <Button
                 aria-label="Copiar especificación de presupuesto"
-                variant="navy"
+                variant={"studio" as never}
                 size="md"
                 px="0"
                 minW="11"
@@ -208,28 +159,25 @@ export const FormControlsShowcase: React.FC = () => {
               <ThemeToggleButton />
             </HStack>
             <Text fontSize="xs" color="text.muted" mt="2" wordBreak="break-word" overflowWrap="anywhere">
-              Estándar de controles interactivos: área mínima táctil <code>minH=&quot;11&quot;</code> y <code>minW=&quot;11&quot;</code> (&gt;= 44) con escala de iconos 16, 20 o 24.
+              Los controles interactivos miden al menos 44 px (minH y minW en 11) y usan íconos de 16, 20 o 24 px.
             </Text>
           </Box>
         </VStack>
       </ShowcaseCard>
 
-      {/* 2. Snippets Oficiales: Field, Select, Checkbox */}
+      {/* 2. Campos, selectores y casilla */}
       <SimpleGrid columns={{ base: 1, md: 2 }} gap="6">
         <ShowcaseCard
-          title="Formularios Estructurados & Estados Accesibles"
-          description="Campos enriquecidos con labels visibles, autocomplete, inputmode y estados default, focus, error, disabled y readOnly."
+          title="Formularios"
+          description="Campos con etiqueta visible, autocompletado y estados: normal, error, foco, deshabilitado y solo lectura."
         >
           <VStack gap="5" align="stretch">
-            {/* Estado 1: Default */}
-            <Field
-              label="Correo Electrónico de Contacto"
-              helperText="Le enviaremos la cotización formal con membrete."
-            >
+            {/* Estado 1: normal */}
+            <Field label="Correo electrónico" helperText="Le enviaremos la cotización formal con membrete.">
               <Input
                 id="form-email-contact"
+                variant={"studio" as never}
                 w="full"
-                minH="11"
                 type="email"
                 autoComplete="email"
                 inputMode="email"
@@ -239,16 +187,16 @@ export const FormControlsShowcase: React.FC = () => {
               />
             </Field>
 
-            {/* Estado 2: Error / Validación */}
+            {/* Estado 2: error */}
             <Field
               invalid
-              label="Teléfono Celular de Obra (Validación Requerida)"
-              errorText="Verifique que el número contenga 9 dígitos (ej. 974 278 303)."
+              label="Teléfono celular de obra"
+              errorText="Revise que el número tenga 9 dígitos, por ejemplo 974 278 303."
             >
               <Input
                 id="form-phone-contact"
+                variant={"studio" as never}
                 w="full"
-                minH="11"
                 type="tel"
                 autoComplete="tel"
                 inputMode="tel"
@@ -259,71 +207,51 @@ export const FormControlsShowcase: React.FC = () => {
               />
             </Field>
 
-            {/* Estado 3: Focus-Visible Demostrado */}
-            <Field
-              label="Nombre o Razón Social (Foco Visible Demostrado)"
-              helperText="Demostración visual del anillo de foco accesible."
-            >
+            {/* Estado 3: foco visible (demostración) */}
+            <Field label="Razón social" helperText="Muestra el anillo de foco accesible.">
               <Input
                 id="form-company-name"
+                variant={"studio" as never}
                 w="full"
-                minH="11"
                 autoComplete="organization"
                 value="Glass & Aluminum Company S.A.C."
                 outlineWidth="2"
                 outlineStyle="solid"
                 outlineColor="ring.primary"
                 outlineOffset="0"
-                borderColor="ring.primary"
                 readOnly
               />
             </Field>
 
-            {/* Estado 4: Disabled */}
-            <Field
-              label="Código de Presupuesto (Deshabilitado)"
-              helperText="Identificador único generado por el sistema."
-            >
+            {/* Estado 4: deshabilitado */}
+            <Field label="Código de presupuesto" helperText="Identificador generado por el sistema.">
               <Input
                 id="form-quote-code"
+                variant={"studio" as never}
                 w="full"
-                minH="11"
                 value="COT-2026-EXP-482"
                 disabled
                 aria-disabled="true"
-                bg="bg.subtle"
-                opacity="0.6"
-                cursor="not-allowed"
               />
             </Field>
 
-            {/* Estado 5: ReadOnly */}
-            <Field
-              label="Dirección de Planta Principal (Solo Lectura)"
-              helperText="Sede central contractual de Glass & Aluminum Company S.A.C."
-            >
+            {/* Estado 5: solo lectura */}
+            <Field label="Dirección de planta principal" helperText="Sede central de Glass & Aluminum Company S.A.C.">
               <Input
                 id="form-hq-address"
+                variant={"studio" as never}
                 w="full"
-                minH="11"
                 value="Av. Los Fresnos 1250 - La Molina"
                 readOnly
                 aria-readonly="true"
-                bg="bg.subtle"
-                borderColor="border.subtle"
-                cursor="default"
               />
             </Field>
 
-            {/* Select 1: Sistemas Oficiales (Catálogo Vigente: 6 sistemas) */}
-            <Field
-              label="Seleccionar Sistema de Ventana Oficial (Catálogo Vigente)"
-              helperText="Sistemas de carpintería de aluminio y PVC certificados."
-            >
-              <NativeSelectRoot w="full" minH="11">
+            {/* Selector 1: sistemas (catálogo vigente: 6 sistemas) */}
+            <Field label="Sistema de ventana" helperText="Sistemas de carpintería de aluminio y PVC certificados.">
+              <NativeSelectRoot w="full" variant={"studio" as never}>
                 <NativeSelectField
                   id="form-window-system"
-                  minH="11"
                   value={systemChoice}
                   onChange={(e) => setSystemChoice(e.target.value)}
                 >
@@ -337,15 +265,11 @@ export const FormControlsShowcase: React.FC = () => {
               </NativeSelectRoot>
             </Field>
 
-            {/* Select 2: Vidrios Oficiales (Norma E.040: 3 vidrios) */}
-            <Field
-              label="Tipo de Vidrio Oficial (Norma Técnica E.040)"
-              helperText="Vidrios arquitectónicos homologados para seguridad estructural."
-            >
-              <NativeSelectRoot w="full" minH="11">
+            {/* Selector 2: vidrios (norma E.040) */}
+            <Field label="Tipo de vidrio" helperText="Vidrios arquitectónicos homologados según la norma E.040.">
+              <NativeSelectRoot w="full" variant={"studio" as never}>
                 <NativeSelectField
                   id="form-glass-type"
-                  minH="11"
                   value={glassChoice}
                   onChange={(e) => setGlassChoice(e.target.value)}
                 >
@@ -356,22 +280,18 @@ export const FormControlsShowcase: React.FC = () => {
               </NativeSelectRoot>
             </Field>
 
-            {/* Textarea de Observaciones */}
-            <Field
-              label="Observaciones de la Obra"
-              helperText="Indique medidas aproximadas, ubicación en La Molina o vanos requeridos."
-            >
+            {/* Área de texto */}
+            <Field label="Observaciones de la obra" helperText="Indique medidas aproximadas, ubicación en La Molina o vanos requeridos.">
               <Textarea
                 id="form-project-notes"
+                variant={"studio" as never}
                 w="full"
-                minH="24"
-                variant="outline"
-                placeholder="Ej. Ventanas corredizas Serie 62 con vidrio laminado acústico..."
+                placeholder="Por ejemplo: ventanas corredizas Serie 62 con vidrio laminado acústico…"
                 rows={4}
               />
             </Field>
 
-            {/* Checkbox de Seguridad */}
+            {/* Casilla */}
             <Box pt="1">
               <Checkbox
                 checked={isTempered}
@@ -379,33 +299,33 @@ export const FormControlsShowcase: React.FC = () => {
                 minH="11"
               >
                 <Text fontSize="sm" fontWeight="medium">
-                  Incluir proceso de templado de seguridad (Norma E.040)
+                  Incluir templado de seguridad (norma E.040)
                 </Text>
               </Checkbox>
             </Box>
           </VStack>
         </ShowcaseCard>
 
-        {/* 3. Alertas Oficiales (Chakra UI Snippet Alert) */}
+        {/* 3. Alertas */}
         <ShowcaseCard
-          title="Alertas Semánticas (Snippet Alert)"
-          description="Retroalimentación visual oficial (components/ui/alert.tsx) con textos de catálogo y ortografía oficial."
+          title="Alertas"
+          description="Mensajes de estado con el estilo Aura Studio (components/ui/alert.tsx) y textos en lenguaje claro."
         >
           <VStack gap="4" align="stretch">
-            <Alert status="success" title="Cotización registrada">
-              Se registró el presupuesto en Firestore y se envió copia formal con membrete al cliente.
+            <Alert variant={"studio" as never} status="success" title="Cotización registrada">
+              Guardamos el presupuesto y enviamos al cliente una copia formal con membrete.
             </Alert>
 
-            <Alert status="info" title="Aislamiento acústico antirruido">
-              La Serie 62, Acústica y PVC abatible ofrecen aislamiento antirruido de alto rendimiento para vanos residenciales.
+            <Alert variant={"studio" as never} status="info" title="Aislamiento acústico">
+              La Serie 62, Acústica y PVC abatible ofrecen aislamiento acústico alto para vanos residenciales.
             </Alert>
 
-            <Alert status="warning" title="Plazo de entrega de acabados">
-              Los perfiles en acabado Champagne y Madera tienen un plazo de entrega de 5 días hábiles.
+            <Alert variant={"studio" as never} status="warning" title="Plazo de entrega de acabados">
+              Los perfiles en acabado champagne y madera tardan 5 días hábiles en entregarse.
             </Alert>
 
-            <Alert status="error" title="Validación técnica de vano">
-              Verifique que las dimensiones de vano sean mayores a 0.50 m según la norma técnica peruana E.040.
+            <Alert variant={"studio" as never} status="error" title="Revise la medida del vano">
+              La medida debe ser mayor a 0.50 m según la norma técnica peruana E.040.
             </Alert>
           </VStack>
         </ShowcaseCard>

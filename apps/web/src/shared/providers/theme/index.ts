@@ -17,6 +17,22 @@ import { EASE_SOFT, DUR_CSS } from "@/shared/constants/motion";
  * - Todos los tamaños garantizan área táctil >= 44px (`minH: "11"`, `minW: "11"`, Regla R3).
  * - `transition` restringida a 2 propiedades (Regla R5).
  */
+/** Base común de las variantes Studio del botón (sin MAYÚSCULAS ni tracking). */
+const studioButtonBase = {
+  textTransform: "none",
+  letterSpacing: "normal",
+  fontWeight: "600",
+  _active: { transform: "scale(0.98)" },
+} as const;
+
+/** El tamaño del botón pisa al de la variante: se fija el cuerpo de texto por tamaño para Studio. */
+const studioButtonCompounds = (["studio", "studioOutline", "studioGhost"] as const).flatMap((variant) => [
+  { variant, size: "sm" as const, css: { fontSize: "sm", px: "5" } },
+  { variant, size: "md" as const, css: { fontSize: "md", px: "6" } },
+  { variant, size: "lg" as const, css: { fontSize: "lg", px: "8" } },
+  { variant, size: "xl" as const, css: { fontSize: "xl", px: "10" } },
+]);
+
 const buttonRecipe = defineRecipe({
   base: {
     fontWeight: "600",
@@ -162,6 +178,30 @@ const buttonRecipe = defineRecipe({
           },
         },
       },
+      /* Aura Studio (dirección 2026-11-09, de scroll-craft): pastilla en minúscula/oración, negro de marca. */
+      studio: {
+        ...studioButtonBase,
+        bg: "gray.900",
+        color: "white",
+        _hover: { bg: "gray.700" },
+        _dark: { bg: "white", color: "gray.900", _hover: { bg: "gray.200" } },
+      },
+      studioOutline: {
+        ...studioButtonBase,
+        bg: "transparent",
+        borderWidth: "1.5px",
+        borderColor: "gray.900",
+        color: "gray.900",
+        _hover: { bg: "blackAlpha.50" },
+        _dark: { borderColor: "white", color: "white", _hover: { bg: "whiteAlpha.100" } },
+      },
+      studioGhost: {
+        ...studioButtonBase,
+        bg: "transparent",
+        color: "text.body",
+        _hover: { bg: "blackAlpha.50" },
+        _dark: { color: "gray.300", _hover: { bg: "whiteAlpha.100", color: "white" } },
+      },
     },
     size: {
       xs: {
@@ -201,6 +241,7 @@ const buttonRecipe = defineRecipe({
       },
     },
   },
+  compoundVariants: studioButtonCompounds,
   defaultVariants: {
     variant: "aura",
     size: "md",
@@ -211,6 +252,17 @@ const buttonRecipe = defineRecipe({
  * Receta propia para Badge: añade variantes semánticas v2 (`neutral`, `navy`, `success`, `warning`, `danger`, `info`)
  * sin alterar las variantes por defecto de Chakra (`subtle`, `outline`, `solid`) que usan el Home y Servicios actuales.
  */
+const studioBadgeBase = {
+  minH: "7",
+  px: "3",
+  borderRadius: "full",
+  fontSize: "xs",
+  fontWeight: "600",
+  letterSpacing: "0.02em",
+  textTransform: "none",
+  borderWidth: "0",
+} as const;
+
 const badgeRecipe = defineRecipe({
   variants: {
     variant: {
@@ -254,6 +306,13 @@ const badgeRecipe = defineRecipe({
         borderWidth: "1px",
         borderColor: "status.infoBorder",
       },
+      /* Aura Studio: pastilla de 28 px, texto 12/600, sin borde cuadrado. */
+      studio: { ...studioBadgeBase, bg: "bg.subtle", color: "text.body" },
+      studioInk: { ...studioBadgeBase, bg: "gray.900", color: "white", _dark: { bg: "white", color: "gray.900" } },
+      studioSuccess: { ...studioBadgeBase, bg: "status.successSoft", color: "status.successText" },
+      studioWarning: { ...studioBadgeBase, bg: "status.warningSoft", color: "orange.800", _dark: { color: "status.warningText" } },
+      studioDanger: { ...studioBadgeBase, bg: "status.dangerSoft", color: "status.dangerText" },
+      studioInfo: { ...studioBadgeBase, bg: "status.infoSoft", color: "status.infoText" },
     },
   },
 });
@@ -282,12 +341,22 @@ const fieldOutline = {
   },
 };
 
+/** Aura Studio: 48 px de alto, radio suave, borde fino y foco con contorno. */
+const fieldStudio = {
+  ...fieldOutline,
+  minH: "12",
+  bg: "bg.surface",
+  borderRadius: "xl",
+  px: "4",
+  fontSize: "md",
+};
+
 const inputRecipe = defineRecipe({
-  variants: { variant: { outline: fieldOutline } },
+  variants: { variant: { outline: fieldOutline, studio: fieldStudio } },
 });
 
 const textareaRecipe = defineRecipe({
-  variants: { variant: { outline: fieldOutline } },
+  variants: { variant: { outline: fieldOutline, studio: { ...fieldStudio, py: "3" } } },
 });
 
 const nativeSelectRecipe = defineSlotRecipe({
@@ -296,6 +365,9 @@ const nativeSelectRecipe = defineSlotRecipe({
     variant: {
       outline: {
         field: fieldOutline,
+      },
+      studio: {
+        field: fieldStudio,
       },
     },
   },
@@ -320,6 +392,12 @@ const cardRecipe = defineSlotRecipe({
       warm: {
         root: { bg: "bg.warm", borderWidth: "1px", borderColor: "border.warm" },
       },
+      /* Aura Studio: radio grande, borde fino, sin sombra; título en la fuente de títulos. */
+      studio: {
+        root: { bg: "bg.surface", borderWidth: "1px", borderColor: "border.default", borderRadius: "3xl", boxShadow: "none" },
+        title: { fontFamily: "heading", fontWeight: "500", color: "text.heading" },
+        description: { color: "text.muted" },
+      },
     },
   },
 });
@@ -336,6 +414,23 @@ const tabsRecipe = defineSlotRecipe({
         outline: "2px solid",
         outlineColor: "ring.primary",
         outlineOffset: "-2px",
+      },
+    },
+  },
+  variants: {
+    variant: {
+      /* Aura Studio: subrayado de 2 px con indicador deslizante (usar Tabs.Indicator). */
+      studio: {
+        list: { borderBottomWidth: "1px", borderColor: "border.default", gap: "6", position: "relative" },
+        trigger: {
+          px: "1",
+          fontWeight: "600",
+          color: "text.muted",
+          transition: `color ${DUR_CSS.fast} ${EASE_SOFT}`,
+          _hover: { color: "text.heading" },
+          _selected: { color: "text.heading" },
+        },
+        indicator: { height: "2px", bottom: "-1px", bg: "text.heading", borderRadius: "full" },
       },
     },
   },
@@ -361,6 +456,25 @@ const tableRecipe = defineSlotRecipe({
       color: "text.body",
     },
   },
+  variants: {
+    variant: {
+      /* Aura Studio: cabecera en mayúscula pequeña, filas con línea fina, sin fondo en la cabecera. */
+      studio: {
+        columnHeader: {
+          bg: "transparent",
+          color: "text.muted",
+          fontSize: "xs",
+          fontWeight: "600",
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          borderBottomWidth: "1px",
+          py: "3",
+        },
+        cell: { py: "4", borderBottomWidth: "1px", borderColor: "border.subtle" },
+        row: { bg: "transparent", _hover: { bg: "bg.subtle" } },
+      },
+    },
+  },
 });
 
 /**
@@ -381,6 +495,15 @@ const alertRecipe = defineSlotRecipe({
     },
     description: {
       color: "text.body",
+    },
+  },
+  variants: {
+    variant: {
+      /* Aura Studio: radio grande, título en la fuente de títulos. */
+      studio: {
+        root: { bg: "bg.surface", borderRadius: "2xl", borderWidth: "1px", borderColor: "border.default" },
+        title: { fontFamily: "heading", fontWeight: "500", fontSize: "lg" },
+      },
     },
   },
 });
@@ -421,6 +544,15 @@ const dialogRecipe = defineSlotRecipe({
     closeTrigger: {
       minH: "11",
       minW: "11",
+    },
+  },
+  variants: {
+    variant: {
+      /* Aura Studio: radio 3xl y título con peso 500. */
+      studio: {
+        content: { borderRadius: "3xl", boxShadow: "xl" },
+        title: { fontWeight: "500" },
+      },
     },
   },
 });

@@ -41,15 +41,15 @@ export const DesignSystemScreen: React.FC = () => {
         <HStack justify="space-between" align="flex-start" wrap="wrap" gap={{ base: "4", md: "6" }} mb={{ base: "6", md: "10" }}>
           <VStack gap={{ base: "3", md: "4" }} align="flex-start" maxW="3xl">
             <HStack wrap="wrap" gap="2">
-              <Badge colorPalette="gray" px="3" py="1" borderRadius="full">
-                <Sparkles size={12} style={{ flexShrink: 0 }} />
-                Aura Design System v2
+              <Badge variant={"studioInk" as never}>
+                <Sparkles size={12} aria-hidden="true" style={{ flexShrink: 0 }} />
+                Aura Studio
               </Badge>
-              <Badge variant="outline" colorPalette="gray" px="3" py="1" borderRadius="full">
+              <Badge variant={"studio" as never}>
                 Chakra UI v3 · 360 / 768 / 1280
               </Badge>
             </HStack>
-            <Heading as="h1" size={{ base: "2xl", md: "4xl" }} fontWeight="bold" letterSpacing="tight" color="text.heading">
+            <Heading as="h1" fontSize={{ base: "4xl", md: "6xl" }} fontWeight="500" lineHeight="1.05" letterSpacing="-0.02em" color="text.heading">
               Aura Design System — Catálogo Canónico de Componentes
             </Heading>
             <Text color="text.muted" fontSize={{ base: "sm", md: "lg" }}>
@@ -58,10 +58,10 @@ export const DesignSystemScreen: React.FC = () => {
           </VStack>
 
           <HStack gap="2" w={{ base: "full", md: "auto" }} justify={{ base: "space-between", sm: "flex-start", md: "flex-end" }}>
-            <Button asChild variant="outline" size="sm" minH="11" px={{ base: "4", sm: "6" }} flex={{ base: "1", sm: "initial" }}>
+            <Button asChild variant="studioOutline" size="sm" minH="11" flex={{ base: "1", sm: "initial" }}>
               <RouterLink href="/design-system-ubicacion">
-                <MapPin size={14} style={{ flexShrink: 0 }} />
-                Prototipos Ubicación
+                <MapPin size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
+                Prototipos de ubicación
               </RouterLink>
             </Button>
             <HStack px="1.5" py="0.5" bg="surface.container" borderWidth="1px" borderColor="border.subtle" borderRadius="xl" minH="11" flexShrink={0}>
@@ -72,11 +72,11 @@ export const DesignSystemScreen: React.FC = () => {
         </HStack>
 
         {/* Pestañas del Sistema */}
-        <Tabs.Root defaultValue="v2" variant="line" size={{ base: "sm", md: "lg" }} lazyMount unmountOnExit>
+        <Tabs.Root defaultValue="v2" variant={"studio" as never} size={{ base: "sm", md: "lg" }} lazyMount unmountOnExit w="full" minW="0">
           <Tabs.List
             mb={{ base: "5", md: "8" }}
-            borderBottomWidth="1px"
-            borderColor="border.default"
+            w="full"
+            maxW="full"
             overflowX="auto"
             flexWrap="nowrap"
             css={{ "&::-webkit-scrollbar": { display: "none" }, scrollbarWidth: "none" }}
@@ -91,6 +91,7 @@ export const DesignSystemScreen: React.FC = () => {
             <Tabs.Trigger value="overlays" flexShrink={0} whiteSpace="nowrap" minH="11">Galería & Modales</Tabs.Trigger>
             <Tabs.Trigger value="data" flexShrink={0} whiteSpace="nowrap" minH="11">Tablas & Fichas Técnicas</Tabs.Trigger>
             <Tabs.Trigger value="tokens" flexShrink={0} whiteSpace="nowrap" minH="11">Tokens & Reglas Oficiales</Tabs.Trigger>
+            <Tabs.Indicator />
           </Tabs.List>
 
           {/* 1. Cards Editoriales */}

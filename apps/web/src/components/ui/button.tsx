@@ -10,7 +10,7 @@ import * as React from 'react'
 export interface ButtonProps extends Omit<ChakraButtonProps, 'variant'> {
   loading?: boolean
   loadingText?: React.ReactNode
-  variant?: ChakraButtonProps['variant'] | 'aura' | 'navy' | 'outlineNavy' | 'whatsapp' | 'brand'
+  variant?: ChakraButtonProps['variant'] | 'aura' | 'navy' | 'outlineNavy' | 'whatsapp' | 'brand' | 'studio' | 'studioOutline' | 'studioGhost'
   as?: React.ElementType
   href?: string
   target?: string

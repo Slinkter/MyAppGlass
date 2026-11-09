@@ -5,16 +5,17 @@ import { Text, type TextProps } from "@chakra-ui/react";
 
 export type SubsectionLabelProps = TextProps;
 
+/** Etiqueta pequeña en mayúsculas (lenguaje del mapa inmersivo y de scroll-craft). */
 export const SubsectionLabel: React.FC<SubsectionLabelProps> = ({
   children,
   ...rest
 }) => (
   <Text
     fontSize="xs"
-    fontWeight="semibold"
+    fontWeight="700"
     color="text.muted"
     textTransform="uppercase"
-    letterSpacing="wider"
+    letterSpacing="0.12em"
     {...rest}
   >
     {children}
