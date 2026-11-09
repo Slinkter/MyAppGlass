@@ -2,9 +2,9 @@
 
 /**
  * @file MenuToggle.tsx
- * @description Botón de alternancia de menú móvil con morfismo de 3 líneas a X en 300ms.
+ * @description Botón de alternancia de menú móvil con crossfade/rotación de iconos (Menu ⇄ X) en 300ms.
  * Cumple R1–R12:
- * - Target táctil >= 48px (`minH="12" minW="12"`).
+ * - Target táctil >= 44px (`minH="11" minW="11"`).
  * - Animación restringida a transform y opacity en 300ms (DUR_CSS.toggle).
  * - ARIA dinámico (aria-expanded, aria-controls, aria-label en español).
  * - Foco visible de 2px con ring.primary (R7).
@@ -13,6 +13,7 @@
 
 import React, { forwardRef } from "react";
 import { Box } from "@chakra-ui/react";
+import { Menu as MenuIcon, X } from "lucide-react";
 import { DUR_CSS, EASE_SOFT } from "@/shared/constants/motion";
 
 export interface MenuToggleProps {
@@ -45,11 +46,13 @@ export const MenuToggle = forwardRef<HTMLButtonElement, MenuToggleProps>(
     const accessibleLabel =
       ariaLabel ?? (isOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación");
 
+    const iconTransition = `transform ${DUR_CSS.toggle} ${EASE_SOFT}, opacity ${DUR_CSS.toggle} ${EASE_SOFT}`;
+
     return (
       <Box
         asChild
-        minH="12"
-        minW="12"
+        minH="11"
+        minW="11"
         display="inline-flex"
         alignItems="center"
         justifyContent="center"
@@ -80,64 +83,39 @@ export const MenuToggle = forwardRef<HTMLButtonElement, MenuToggleProps>(
           aria-controls={overlayId}
           aria-label={accessibleLabel}
         >
-          {/* Contenedor relativo para el trío de líneas de 2px */}
+          {/* Icono superpuesto Menu ⇄ X (20px) */}
           <Box
             position="relative"
-            w="22px"
-            h="16px"
+            boxSize="5"
             display="block"
             aria-hidden="true"
           >
-            {/* Línea superior */}
             <Box
-              as="span"
               position="absolute"
-              left="0"
-              top="0"
-              w="22px"
-              h="2px"
-              borderRadius="full"
-              bg="currentColor"
-              display="block"
-              transformOrigin="center"
-              transform={isOpen ? "translateY(7px) rotate(45deg)" : "translateY(0) rotate(0deg)"}
-              transition={`transform ${DUR_CSS.toggle} ${EASE_SOFT}, opacity ${DUR_CSS.toggle} ${EASE_SOFT}`}
-              _motionReduce={{ transition: "none" }}
-            />
-
-            {/* Línea intermedia */}
-            <Box
-              as="span"
-              position="absolute"
-              left="0"
-              top="7px"
-              w="22px"
-              h="2px"
-              borderRadius="full"
-              bg="currentColor"
-              display="block"
+              inset="0"
+              display="inline-flex"
+              alignItems="center"
+              justifyContent="center"
               opacity={isOpen ? 0 : 1}
-              transform={isOpen ? "scaleX(0)" : "scaleX(1)"}
-              transition={`transform ${DUR_CSS.toggle} ${EASE_SOFT}, opacity ${DUR_CSS.toggle} ${EASE_SOFT}`}
+              transform={isOpen ? "rotate(90deg)" : "rotate(0deg)"}
+              transition={iconTransition}
               _motionReduce={{ transition: "none" }}
-            />
-
-            {/* Línea inferior */}
+            >
+              <MenuIcon size={20} style={{ flexShrink: 0 }} />
+            </Box>
             <Box
-              as="span"
               position="absolute"
-              left="0"
-              top="14px"
-              w="22px"
-              h="2px"
-              borderRadius="full"
-              bg="currentColor"
-              display="block"
-              transformOrigin="center"
-              transform={isOpen ? "translateY(-7px) rotate(-45deg)" : "translateY(0) rotate(0deg)"}
-              transition={`transform ${DUR_CSS.toggle} ${EASE_SOFT}, opacity ${DUR_CSS.toggle} ${EASE_SOFT}`}
+              inset="0"
+              display="inline-flex"
+              alignItems="center"
+              justifyContent="center"
+              opacity={isOpen ? 1 : 0}
+              transform={isOpen ? "rotate(0deg)" : "rotate(-90deg)"}
+              transition={iconTransition}
               _motionReduce={{ transition: "none" }}
-            />
+            >
+              <X size={20} style={{ flexShrink: 0 }} />
+            </Box>
           </Box>
         </button>
       </Box>

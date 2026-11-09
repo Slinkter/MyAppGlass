@@ -3,18 +3,17 @@
 /**
  * @file ServicesAccordion.tsx
  * @description Acordeón desplegable de servicios para el menú móvil v2.
- * Cumple R1–R12:
- * - Transición con gridTemplateRows: 0fr -> 1fr en 450ms (DUR_CSS.panelOut) con EASE_TEXT.
- * - Slugs oficiales 100% verificados contra Firestore / serviceMappers.ts (10 servicios).
- * - Cada enlace tiene target táctil >= 44px (minH="11").
- * - Foco accesible con ring.primary (R7).
- * - Íconos Lucide de 16px con style={{ flexShrink: 0 }} y aria-hidden="true" (R4).
+ * - Renderiza los 6 servicios principales + "Ver todos los servicios" (el array de 10 se mantiene intacto).
+ * - Transición con gridTemplateRows: 0fr -> 1fr y respeto a reduced-motion.
+ * - Guía vertical en x=56 (`ml="8"`), texto alineado en x=72 (`pl="4"`), ambos sobre el gutter de 24.
+ * - Ítems `minH="11"` (44 px), `fontSize="sm"`, hover/pressed de fila con `mx="-2" px="2"`.
+ * - Foco accesible con ring.primary; íconos de 16 px con `aria-hidden="true"`.
  */
 
 import React from "react";
 import RouterLink from "next/link";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
-import { ChevronRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { DUR_CSS, EASE_TEXT, EASE_SOFT } from "@/shared/constants/motion";
 
 export interface ServiceItemDef {
@@ -42,6 +41,20 @@ export const OFFICIAL_SERVICE_SLUGS: readonly ServiceItemDef[] = [
   { slug: "pserie", name: "Puertas de aluminio serie", category: "Series 25, 35 y 62" },
   { slug: "celosias", name: "Celosías de ventilación", category: "Ventilación natural y lamas" },
 ] as const;
+
+/** Servicios destacados en el menú móvil (el resto vive en /servicios/ver). */
+const FEATURED_SERVICE_SLUGS = [
+  "ventana",
+  "mampara",
+  "ducha",
+  "parapeto",
+  "baranda",
+  "techo",
+] as const;
+
+const FEATURED_SERVICES = OFFICIAL_SERVICE_SLUGS.filter((svc) =>
+  FEATURED_SERVICE_SLUGS.some((slug) => slug === svc.slug)
+);
 
 export interface ServicesAccordionProps {
   /** Estado de apertura del acordeón. */
@@ -88,14 +101,14 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
           gap="0.5"
           pt="2"
           pb="3"
-          pl="5"
-          pr="1"
+          ml="8"
+          pl="4"
+          pr="2"
           borderLeftWidth="1px"
           borderLeftColor="border.subtle"
-          ml="4"
           my="1"
         >
-          {OFFICIAL_SERVICE_SLUGS.map((svc) => {
+          {FEATURED_SERVICES.map((svc) => {
             const isCurrent = activeSlug === svc.slug;
             return (
               <Box
@@ -103,7 +116,7 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
                 key={svc.slug}
                 display="block"
                 w="full"
-                borderRadius="lg"
+                borderRadius="md"
                 _focusVisible={{
                   outline: "2px solid",
                   outlineColor: "ring.primary",
@@ -123,40 +136,27 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
                 >
                   <HStack
                     minH="11"
-                    px="2.5"
+                    mx="-2"
+                    px="2"
                     py="1.5"
-                    borderRadius="lg"
-                    justify="space-between"
+                    borderRadius="md"
                     align="center"
                     color={isCurrent ? "accent.navy" : "text.body"}
                     bg={isCurrent ? "bg.subtle" : "transparent"}
                     transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, color ${DUR_CSS.fast} ${EASE_SOFT}`}
                     _hover={{ bg: "bg.subtle", color: "accent.navy" }}
+                    _active={{ bg: "bg.subtle" }}
                   >
-                    <Box minW="0" flex="1">
-                      <Text
-                        fontSize="xs"
-                        fontWeight={isCurrent ? "600" : "500"}
-                        color="inherit"
-                        lineHeight="1.2"
-                      >
-                        {svc.name}
-                      </Text>
-                      <Text
-                        fontSize="2xs"
-                        color="text.muted"
-                        letterSpacing="wide"
-                        lineHeight="1.2"
-                        mt="0.5"
-                      >
-                        {svc.category}
-                      </Text>
-                    </Box>
-                    <ChevronRight
-                      size={14}
-                      aria-hidden="true"
-                      style={{ flexShrink: 0, opacity: 0.5 }}
-                    />
+                    <Text
+                      flex="1"
+                      minW="0"
+                      fontSize="sm"
+                      fontWeight={isCurrent ? "600" : "500"}
+                      color="inherit"
+                      lineHeight="1.35"
+                    >
+                      {svc.name}
+                    </Text>
                   </HStack>
                 </RouterLink>
               </Box>
@@ -168,7 +168,6 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
             asChild
             display="block"
             w="full"
-            pt="1.5"
             borderRadius="md"
             _focusVisible={{
               outline: "2px solid",
@@ -188,17 +187,20 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
             >
               <HStack
                 minH="11"
-                px="2.5"
+                mx="-2"
+                px="2"
                 py="1.5"
-                borderRadius="lg"
+                borderRadius="md"
                 color="text.heading"
                 justify="space-between"
+                transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}`}
                 _hover={{ bg: "bg.subtle" }}
+                _active={{ bg: "bg.subtle" }}
               >
-                <Text fontSize="xs" fontWeight="600" letterSpacing="wide">
+                <Text fontSize="sm" fontWeight="600">
                   Ver todos los servicios
                 </Text>
-                <ArrowUpRight size={14} aria-hidden="true" style={{ flexShrink: 0 }} />
+                <ArrowUpRight size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
               </HStack>
             </RouterLink>
           </Box>

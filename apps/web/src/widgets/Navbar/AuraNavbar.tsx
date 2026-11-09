@@ -5,8 +5,9 @@
  * @description Punto de entrada del encabezado de navegación responsivo premium.
  * @module layout/navbar
  * @remarks
- * Orquesta la navegación flotante para escritorio y el disparador táctico para móviles.
- * La barra solo se revela al hacer desplazamientos superiores a 20px (scroll-reveal).
+ * Orquesta la navegación flotante para escritorio y la barra móvil siempre visible.
+ * En escritorio la isla flotante ajusta su estado según el desplazamiento; en móvil
+ * la barra permanece visible en todo momento (decisión de producto).
  */
 import React from "react";
 import { Box } from "@chakra-ui/react";
@@ -64,10 +65,10 @@ const AuraNavbar = React.memo(() => {
         </Box>
       )}
 
-      {/* MOBILE NAVBAR (Always visible — no scroll-reveal) */}
-      <Box display={{ base: "block", md: "none" }}>
-        <MobileNavbarV2 />
-      </Box>
+      {/* MOBILE NAVBAR (Always visible — no scroll-reveal).
+          Se renderiza directamente, sin wrapper: un contenedor de 60 px de alto
+          rompería `position: sticky` del propio header, que controla su display. */}
+      <MobileNavbarV2 />
     </>
   );
 });

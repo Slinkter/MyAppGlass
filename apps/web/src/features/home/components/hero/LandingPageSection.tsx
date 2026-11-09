@@ -26,7 +26,7 @@ const LandingPageSection: React.FC = React.memo(() => {
     <Flex
       as="section"
       w="full"
-      minH="92dvh"
+      minH={{ base: "calc(92dvh - 60px)", md: "92dvh" }}
       flexDirection="column"
       justifyContent="center"
       alignItems="center"

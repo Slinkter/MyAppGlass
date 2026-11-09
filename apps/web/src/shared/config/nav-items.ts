@@ -10,6 +10,8 @@
 export interface NavItem {
   label: string;
   href: string;
+  /** Si es true, el ítem abre el acordeón de servicios en la navbar móvil. */
+  isAccordion?: boolean;
 }
 
 /**
@@ -37,6 +39,18 @@ const NAV_ITEMS: NavItem[] = [
     label: "Mi Cuenta",
     href: "/auth",
   },
+];
+
+/**
+ * Arquitectura de información de la navbar móvil: 5 enlaces primarios,
+ * donde "Servicios" despliega el acordeón.
+ */
+export const MOBILE_NAV_ITEMS: NavItem[] = [
+  { label: "Inicio", href: "/" },
+  { label: "Servicios", href: "/#servicios", isAccordion: true },
+  { label: "Proyectos", href: "/#proyectos" },
+  { label: "Ubicación", href: "/#ubicacion" },
+  { label: "Contacto", href: "/contacto" },
 ];
 
 export default NAV_ITEMS;

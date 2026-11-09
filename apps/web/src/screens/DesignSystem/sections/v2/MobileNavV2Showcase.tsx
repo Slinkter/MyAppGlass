@@ -7,10 +7,10 @@
  * - Marco de simulación táctil de 390px (MOBILE_FRAME_WIDTH = "390px").
  * - Controles interactivos completos:
  *   1. Reinicio integral de estados y posición de scroll.
- *   2. Simulación de scroll programático (+180px) para activar transición sólido/vidrio.
+ *   2. Simulación de scroll programático (+180px) del contenido embebido.
  *   3. Simulación de prefers-reduced-motion: reduce.
- *   4. Apertura y cierre del panel editorial a pantalla completa en papel cálido (#F7F6F3).
- *   5. Acordeón fluido con los 10 servicios oficiales de Firestore.
+ *   4. Apertura y cierre de la hoja de menú a pantalla completa en papel cálido.
+ *   5. Acordeón fluido con los 6 servicios principales + "Ver todos los servicios".
  * - Sin hex ni rgba sueltos (todos los estilos referencian tokens semánticos).
  * - Jerarquía de encabezados h2 -> h3 sin saltos (R10).
  * - Touch targets >= 44px (R3).
@@ -45,16 +45,16 @@ const MOBILE_FRAME_HEIGHT = "680px";
 
 const V2_NAV_FEATURES = [
   {
-    title: "Barra Superior 64px",
-    desc: "Logo corporativo sin deformar, botón directo de WhatsApp táctil (minH='11') y disparador táctil de 48px.",
+    title: "Barra Superior 60px",
+    desc: "Barra sticky siempre visible: logo corporativo sin deformar, botón directo de WhatsApp y toggle, ambos con target táctil de 44px.",
   },
   {
-    title: "Morfismo 3 líneas → X",
-    desc: "Animación de 300ms (DUR_CSS.toggle) restringida estrictamente a transform y opacity (R5).",
+    title: "Toggle Menu ⇄ X",
+    desc: "Crossfade con rotación de 300ms (DUR_CSS.toggle) restringido a transform y opacity (R5), con target de 44 px.",
   },
   {
-    title: "Panel Editorial Papel Cálido",
-    desc: "Fondo cálido bg='bg.paper' (#F7F6F3), entrada 650ms y salida 450ms con EASE_PANEL sin sobrecarga de blur.",
+    title: "Hoja de Menú Editorial",
+    desc: "Hoja fija a pantalla completa con fondo bg='bg.paper', cabecera propia con cierre y pie sticky con el CTA siempre visible.",
   },
   {
     title: "Máscara de Texto 01–05",
@@ -62,7 +62,7 @@ const V2_NAV_FEATURES = [
   },
   {
     title: "Acordeón de Servicios",
-    desc: "gridTemplateRows 0fr → 1fr con los 10 servicios oficiales de Firestore. Sin slugs inventados.",
+    desc: "gridTemplateRows 0fr → 1fr con los 6 servicios principales y el acceso 'Ver todos los servicios'. Sin líneas de categoría.",
   },
   {
     title: "Accesibilidad ARIA & Android",
@@ -75,12 +75,10 @@ export const MobileNavV2Showcase: React.FC = () => {
 
   // Estados de control para la previsualización interactiva
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [forceScrolled, setForceScrolled] = useState(false);
   const [isReducedMotionSimulated, setIsReducedMotionSimulated] = useState(false);
 
   const handleReset = () => {
     setIsMenuOpen(false);
-    setForceScrolled(false);
     setIsReducedMotionSimulated(false);
     if (phoneScrollRef.current) {
       phoneScrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
@@ -97,7 +95,7 @@ export const MobileNavV2Showcase: React.FC = () => {
     <ShowcaseStack>
       <ShowcaseCard
         title="Navbar Móvil Minimalista Studio v2"
-        description="Encabezado móvil de alta gama con revelación inteligente por dirección de scroll, panel cálido editorial a pantalla completa, máscara tipográfica en Lora y acordeón técnico oficial."
+        description="Encabezado móvil siempre visible con fondo translúcido, hoja de menú editorial a pantalla completa con cabecera propia, CTA fijo en el pie y acordeón técnico con los 6 servicios principales."
         badge={
           <HStack gap="1.5">
             <Smartphone size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
@@ -142,15 +140,6 @@ export const MobileNavV2Showcase: React.FC = () => {
                   onClick={() => setIsMenuOpen((prev) => !prev)}
                 >
                   {isMenuOpen ? "Cerrar menú móvil" : "Abrir menú móvil"}
-                </Button>
-
-                <Button
-                  variant={forceScrolled ? "studio" : "outline"}
-                  size="sm"
-                  minH="11"
-                  onClick={() => setForceScrolled((prev) => !prev)}
-                >
-                  {forceScrolled ? "Modo scrolled activo (>24px)" : "Forzar modo sólido (>24px)"}
                 </Button>
 
                 <Button
@@ -234,7 +223,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                 pointerEvents="none"
                 userSelect="none"
               >
-                <Text fontSize="2xs" fontWeight="700" color="text.muted" pl="1">
+                <Text fontSize="xs" fontWeight="700" color="text.muted" pl="1">
                   9:41
                 </Text>
                 <HStack gap="1" pr="1">
@@ -246,8 +235,6 @@ export const MobileNavV2Showcase: React.FC = () => {
               {/* Componente Navbar Móvil v2 contenido en el marco */}
               <MobileNavbarV2
                 contained={true}
-                forceScrolled={forceScrolled}
-                scrollContainerRef={phoneScrollRef}
                 isOpen={isMenuOpen}
                 onOpenChange={setIsMenuOpen}
               />
@@ -331,14 +318,15 @@ export const MobileNavV2Showcase: React.FC = () => {
                   </VStack>
                 </Box>
 
-                {/* Contenido scrolleable para activar el cambio de estado */}
+                {/* Contenido scrolleable del simulador */}
                 <VStack align="stretch" gap="4" p="5">
                   <Box>
                     <SubsectionLabel mb="1">Instrucciones de prueba</SubsectionLabel>
                     <Text fontSize="sm" color="text.body">
-                      Haz scroll dentro de esta pantalla hacia abajo para ver cómo la barra
-                      superior pasa de vidrio esmerilado suave a sólida al superar los 24px, se oculta
-                      al seguir bajando y reaparece al subir.
+                      La barra superior es sticky y permanece siempre visible mientras haces scroll.
+                      Abre el menú con el botón hamburguesa para ver la hoja a pantalla completa: la
+                      cabecera y el CTA del pie quedan fijos, y solo la zona central hace scroll. El
+                      acordeón «Servicios» muestra 6 servicios y el acceso «Ver todos los servicios».
                     </Text>
                   </Box>
 
@@ -453,10 +441,11 @@ export const MobileNavV2Showcase: React.FC = () => {
                 <Info size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
                 <Box>
                   <Text fontSize="sm" fontWeight="700" color="status.infoText">
-                    Gobernanza de Catálogo (10 servicios oficiales activos)
+                    Gobernanza de Catálogo (6 destacados + «Ver todos»)
                   </Text>
                   <Text fontSize="xs" color="text.body" mt="1" lineHeight="relaxed">
-                    El acordeón de navegación incluye exclusivamente los 10 servicios con
+                    El acordeón de navegación destaca 6 servicios y cierra con «Ver todos los
+                    servicios». La página <code>/servicios/ver</code> reúne los 10 servicios con
                     página estática generada en <code>/servicios/[serviceSlug]</code>:{" "}
                     <strong>{OFFICIAL_SERVICE_SLUGS.map((s) => s.slug).join(", ")}</strong>.
                     Los 3 servicios nuevos aprobados por gerencia (Espejos decorativos, Frenos

@@ -3,13 +3,12 @@
 /**
  * @file MobileNavbarV2.tsx
  * @description Encabezado de navegación móvil v2 Minimalista Studio para Glass & Aluminum Company S.A.C.
- * Cumple R1–R12:
- * - Altura 16 (64px) + env(safe-area-inset-top, 0px).
- * - Logo oficial (/brand/logo.png) nítido sin distorsión + nombre corporativo.
- * - Botón de WhatsApp táctil accesible (target >= 44px, minH="11" minW="11", aria-label en español).
- * - MenuToggle táctil >= 48px (minH="12" minW="12") con morfismo de 3 líneas a X en 300ms.
- * - Vidrio esmerilado suave (GLASS_BLUR) con transición a papel sólido (bg="bg.paper" con border.warm) al scrollear > 24px.
- * - Revelación inteligente según dirección de scroll (useScrollDirection).
+ * Barra siempre visible (`sticky`), sin lógica de scroll:
+ * - Sangra a los bordes de la página (`mx="-6"`) y reserva su propio espacio.
+ * - Alto de 60 px + env(safe-area-inset-top, 0px).
+ * - Logo oficial (/brand/logo.png) nítido a 32×32 + lockup corporativo.
+ * - Fondo translúcido fijo (`bg.paper/85` + GLASS_BLUR) y borde inferior siempre visible.
+ * - WhatsApp y MenuToggle como targets táctiles de 44 px con estados homogéneos.
  * - Modo `contained={true}` para visualización embebida en el marco de 390px en /design-system.
  */
 
@@ -18,38 +17,28 @@ import React, { useCallback, useRef, useState } from "react";
 import RouterLink from "next/link";
 import Image from "next/image";
 import { Box, HStack, Text } from "@chakra-ui/react";
-import { MessageCircle } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
 import { DUR_CSS, EASE_SOFT } from "@/shared/constants/motion";
-import { useScrollDirection } from "./hooks/useScrollDirection";
+import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
 import { MenuToggle } from "./MenuToggle";
 import { MenuOverlay } from "./MenuOverlay";
 
 export interface MobileNavbarV2Props {
   /**
    * Si es true, la barra se confina a un marco embebido (ej. showcase de 390px)
-   * usando position="absolute" en vez de position="fixed" global.
+   * usando position="absolute" en vez de position="sticky" global y sin sangrado.
    */
   contained?: boolean;
-  /** Fuerza visualmente el estado con fondo sólido (para demostraciones). */
-  forceScrolled?: boolean;
-  /** Referencia opcional al contenedor scrolleable (para showcase en modo contained). */
-  scrollContainerRef?: React.RefObject<HTMLElement | null>;
   /** Estado de apertura controlado (opcional). */
   isOpen?: boolean;
   /** Callback al cambiar el estado de apertura. */
   onOpenChange?: (open: boolean) => void;
-  /** Variante forzada opcional: "transparent" | "solid". */
-  variant?: "transparent" | "solid";
 }
 
 export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
   contained = false,
-  forceScrolled = false,
-  scrollContainerRef,
   isOpen: controlledIsOpen,
   onOpenChange,
-  variant,
 }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
@@ -75,19 +64,6 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
     handleOpenChange(false);
   }, [handleOpenChange]);
 
-  // Detección de scroll: umbral de 8px, activación de solidez a los 24px
-  const { isScrolled, isVisible } = useScrollDirection({
-    threshold: 8,
-    scrolledOffset: 24,
-    containerRef: scrollContainerRef,
-    disabled: isMenuOpen, // No ocultar la barra si el menú está abierto
-    forceScrolled: variant === "solid" || forceScrolled,
-  });
-
-  const shouldBeSolid =
-    variant === "solid" || forceScrolled || isScrolled || isMenuOpen;
-  const isBarVisible = isMenuOpen || isVisible;
-
   const whatsappDirectUrl = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
     companyData.whatsappMessage
   )}`;
@@ -97,16 +73,18 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
       <Box
         as="header"
         role="banner"
-        position={contained ? "absolute" : "fixed"}
+        position={contained ? "absolute" : "sticky"}
         top="0"
-        left="0"
-        right="0"
-        w="full"
         zIndex={1700}
+        display={{
+          base: contained ? "block" : undefined,
+          md: contained ? undefined : "none",
+        }}
+        mx={contained ? undefined : { base: "-6" }}
+        px="6"
         pt="env(safe-area-inset-top, 0px)"
-        minH="16"
-        h="calc(var(--chakra-spacing-16) + env(safe-area-inset-top, 0px))"
-        bg={shouldBeSolid ? "bg.paper" : "bg.paper/75"}
+        h="calc(60px + env(safe-area-inset-top, 0px))"
+        bg="bg.paper/85"
         css={{
           backdropFilter: GLASS_BLUR,
           WebkitBackdropFilter: GLASS_BLUR,
@@ -116,25 +94,9 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
           },
         }}
         borderBottomWidth="1px"
-        borderBottomColor={shouldBeSolid ? "border.warm" : "transparent"}
-        style={{
-          transform: isBarVisible ? "translateY(0)" : "translateY(-100%)",
-          transition: `transform ${DUR_CSS.fast} ${EASE_SOFT}, background-color ${DUR_CSS.fast} ${EASE_SOFT}, border-color ${DUR_CSS.fast} ${EASE_SOFT}`,
-        }}
-        _motionReduce={{
-          transform: "none !important",
-          transition: `background-color ${DUR_CSS.reducedFade} ease !important`,
-        }}
+        borderBottomColor="border.warm"
       >
-        <HStack
-          h="16"
-          w="full"
-          maxW="md"
-          mx="auto"
-          px={{ base: "4", sm: "5" }}
-          justify="space-between"
-          align="center"
-        >
+        <HStack h="15" justify="space-between" align="center">
           {/* Logo Corporativo oficial con aspect ratio protegido */}
           <Box
             asChild
@@ -159,9 +121,8 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
               <HStack gap="2.5" align="center" minH="11">
                 <Box
                   position="relative"
-                  h="9"
-                  w="9"
-                  minW="9"
+                  boxSize="8"
+                  minW="8"
                   borderRadius="md"
                   overflow="hidden"
                 >
@@ -169,7 +130,7 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
                     src="/brand/logo.png"
                     alt={companyData.companyName}
                     fill
-                    sizes="36px"
+                    sizes="32px"
                     unoptimized
                     style={{ objectFit: "contain" }}
                     priority
@@ -190,7 +151,7 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
                     fontFamily="body"
                     fontWeight="600"
                     color="text.muted"
-                    letterSpacing="widest"
+                    letterSpacing="0.08em"
                     textTransform="uppercase"
                   >
                     Glass & Aluminum
@@ -201,7 +162,7 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
           </Box>
 
           {/* Acciones de la derecha: WhatsApp directo + Disparador de Menú */}
-          <HStack gap="1" align="center">
+          <HStack gap="2" align="center">
             {/* Botón de WhatsApp táctil (minH="11" minW="11" >= 44px) */}
             <Box
               asChild
@@ -211,7 +172,7 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
               alignItems="center"
               justifyContent="center"
               borderRadius="full"
-              color={shouldBeSolid ? "brand.whatsappAccessible" : "text.heading"}
+              color="brand.whatsappAccessible"
               _hover={{ bg: "bg.subtle", color: "brand.whatsappAccessibleHover" }}
               _active={{ transform: "scale(0.94)" }}
               _focusVisible={{
@@ -229,11 +190,11 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
                 rel="noopener noreferrer"
                 aria-label="Contactar por WhatsApp"
               >
-                <MessageCircle size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
+                <WhatsAppIcon size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
               </a>
             </Box>
 
-            {/* Disparador con 3 líneas transformables a X (minH="12" minW="12" = 48px) */}
+            {/* Disparador de menú (target 44×44, icono Menu/X a 20px) */}
             <MenuToggle
               ref={toggleButtonRef}
               isOpen={isMenuOpen}

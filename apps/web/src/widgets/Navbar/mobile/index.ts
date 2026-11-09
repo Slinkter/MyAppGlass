@@ -18,12 +18,5 @@ export type { MenuLinkProps } from "./MenuLink";
 export { ServicesAccordion, OFFICIAL_SERVICE_SLUGS } from "./ServicesAccordion";
 export type { ServicesAccordionProps, ServiceItemDef } from "./ServicesAccordion";
 
-export { useScrollDirection } from "./hooks/useScrollDirection";
-export type {
-  UseScrollDirectionOptions,
-  UseScrollDirectionResult,
-  ScrollDirection,
-} from "./hooks/useScrollDirection";
-
 export { useLockBodyScroll } from "./hooks/useLockBodyScroll";
 export { useFocusTrap } from "./hooks/useFocusTrap";
