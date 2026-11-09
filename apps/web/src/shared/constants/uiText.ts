@@ -40,7 +40,7 @@ export const FEATURE_TEXTS: FeatureTexts = {
     "Nuestro equipo de operarios está altamente capacitado y cuenta con amplia experiencia en instalaciones.",
   GARANTIAS_HEADING: "Garantías",
   GARANTIAS_DESCRIPTION:
-    "Disfruta de una garantía de 6 meses en todos nuestros productos instalados.",
+    "Disfruta de una garantía de 3 meses en todos nuestros productos instalados.",
   METODO_PAGO_HEADING: "Método de pago",
   METODO_PAGO_DESCRIPTION:
     "Disponemos de una cuenta corriente empresarial y aceptamos tarjetas de crédito y débito.",

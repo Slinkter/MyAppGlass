@@ -6,6 +6,7 @@ import FeaturesSection from "@features/home/components/features/FeaturesSection"
 import ServiceList from "@/features/services/components/ServiceList";
 import ClientsSection from "@features/home/components/clients/ClientsSection";
 import { ProjectsList } from "@features/projects";
+import BuildersSection from "@features/home/components/builders/BuildersSection";
 import StoreSection from "@features/home/components/store/StoreSection";
 
 export interface HomeViewProps {
@@ -16,32 +17,37 @@ export interface HomeViewProps {
 const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initialProjects }) => {
     return (
         <VStack gap={{ base: "16", md: "24" }} w="full" align="stretch">
-            {/* Sección 1: Hero / Portada */}
+            {/* 1. Hero */}
             <LandingPageSection />
 
-            {/* Sección 2: SERVICIO */}
-            <Box id="servicios" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <ServiceList initialData={initialServices} headingAs="h2" />
+            {/* 2. Constructoras e inmobiliarias (audiencia principal) */}
+            <Box id="constructoras" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
+                <BuildersSection />
             </Box>
 
-            {/* Sección 3: Proyectos */}
-            <Box id="proyectos" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
+            {/* 3. Proyectos (obras) */}
+            <Box id="proyectos" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <ProjectsList initialData={initialProjects} headingAs="h2" />
             </Box>
 
-            {/* Sección 4: Nuestros Clientes */}
-            <Box id="clientes" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
+            {/* 4. Servicios */}
+            <Box id="servicios" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
+                <ServiceList initialData={initialServices} headingAs="h2" />
+            </Box>
+
+            {/* 5. Beneficios */}
+            <Box id="beneficios" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
+                <FeaturesSection />
+            </Box>
+
+            {/* 6. Clientes */}
+            <Box id="clientes" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <ClientsSection />
             </Box>
 
-            {/* Sección 5: Ubicación / Mapa */}
-            <Box id="ubicacion" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
+            {/* 7. Ubicación */}
+            <Box id="ubicacion" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
                 <StoreSection initialProjects={initialProjects} />
-            </Box>
-
-            {/* Sección 6: Calidad Superior (Iconos a 2 filas estilo Skills) */}
-            <Box id="beneficios" as="section" scrollMarginTop={{ base: "100px", md: "120px" }}>
-                <FeaturesSection />
             </Box>
         </VStack>
     );
