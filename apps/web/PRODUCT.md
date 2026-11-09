@@ -8,12 +8,11 @@ web
 
 ## Users
 
-Dos audiencias principales, con el mismo peso según la última respuesta del dueño:
+Audiencia principal: **constructoras e inmobiliarias** que necesitan la partida de carpintería de aluminio y vidrio para sus obras. Son la mayor parte del ingreso (75 %) y los trabajos son de mayor valor. Su trabajo: revisar capacidad de suministro, plazos, catálogo técnico y obras terminadas.
 
-- **Hogares** que buscan ventanas antirruido, mamparas, duchas o techos para su casa. Llegan casi siempre desde el móvil y desde WhatsApp. Su trabajo: entender qué sistema les conviene y pedir un presupuesto.
-- **Constructoras e inmobiliarias** que necesitan la partida de carpintería de aluminio y vidrio para sus obras. Su trabajo: revisar capacidad de suministro, plazos, catálogo técnico y obras terminadas.
+Audiencia secundaria: **hogares** que buscan ventanas antirruido, mamparas, duchas o techos para su casa (20 %). Llegan casi siempre desde el móvil y desde WhatsApp. Son trabajos rápidos y de ganancia inmediata, así que la página debe permitirles pedir presupuesto sin desviar el recorrido principal.
 
-> Abierto: el cuestionario indica 75 % de ingreso de constructoras y 20 % de hogares, lo que no encaja con "igual peso". Hay que confirmar cuál audiencia encabeza la página principal.
+Decisión del dueño: la constructora encabeza la página principal.
 
 ## Product Purpose
 
