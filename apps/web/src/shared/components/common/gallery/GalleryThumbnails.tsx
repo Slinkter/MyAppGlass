@@ -30,19 +30,16 @@ const GalleryThumbnailItem = React.memo(
         borderRadius="xl"
         borderWidth="2px"
         borderStyle="solid"
-        borderColor={isSelected ? "primary.500" : "transparent"}
-        _dark={{
-          borderColor: isSelected ? "primary.300" : "transparent",
-        }}
-        boxShadow={isSelected ? "0 0 0 2px rgba(168, 1, 0, 0.3)" : "none"}
-        _focusVisible={{ outline: "2px solid", outlineColor: "primary.500", outlineOffset: "2px" }}
+        borderColor={isSelected ? "text.heading" : "border.subtle"}
+        boxShadow="none"
+        _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
         onClick={onClick}
         position="relative"
         overflow="hidden"
         className="group"
-        transition="border-color 0.2s ease-out, box-shadow 0.2s ease-out"
+        transition="border-color 0.2s ease-out, transform 0.2s ease-out"
         _hover={{
-          borderColor: isSelected ? "text.accent" : "border.strong",
+          borderColor: isSelected ? "text.heading" : "border.strong",
         }}
       >
         <ImageRevealSkeleton loaded={loaded} borderRadius="xl" />

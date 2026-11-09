@@ -52,6 +52,8 @@ export interface ServicesAccordionProps {
   id?: string;
   /** Slug del servicio activo si corresponde. */
   activeSlug?: string;
+  /** Si es true, previene la navegación global (para simulador). */
+  contained?: boolean;
 }
 
 export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
@@ -59,6 +61,7 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
   onItemClick,
   id = "mobile-services-accordion",
   activeSlug,
+  contained = false,
 }) => {
   return (
     <Box
@@ -67,18 +70,30 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
       aria-label="Submenú de servicios oficiales"
       display="grid"
       gridTemplateRows={isOpen ? "1fr" : "0fr"}
-      transition={`grid-template-rows ${DUR_CSS.panelOut} ${EASE_TEXT}`}
+      transition={`grid-template-rows 300ms ${EASE_TEXT}`}
       _motionReduce={{ transition: "none" }}
       w="full"
     >
-      <Box overflow="hidden">
+      <Box
+        overflow="hidden"
+        minH="0"
+        visibility={isOpen ? "visible" : "hidden"}
+        style={{
+          opacity: isOpen ? 1 : 0,
+          transition: `opacity 250ms ${EASE_SOFT}, visibility 250ms ${EASE_SOFT}`,
+        }}
+      >
         <VStack
           align="stretch"
-          gap="1"
-          pt="3"
-          pb="4"
-          pl={{ base: "8", sm: "10" }}
-          pr="2"
+          gap="0.5"
+          pt="2"
+          pb="3"
+          pl="5"
+          pr="1"
+          borderLeftWidth="1px"
+          borderLeftColor="border.subtle"
+          ml="4"
+          my="1"
         >
           {OFFICIAL_SERVICE_SLUGS.map((svc) => {
             const isCurrent = activeSlug === svc.slug;
@@ -88,7 +103,7 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
                 key={svc.slug}
                 display="block"
                 w="full"
-                borderRadius="md"
+                borderRadius="lg"
                 _focusVisible={{
                   outline: "2px solid",
                   outlineColor: "ring.primary",
@@ -97,43 +112,50 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
               >
                 <RouterLink
                   href={`/servicios/${svc.slug}`}
-                  onClick={onItemClick}
+                  onClick={(e) => {
+                    if (contained) {
+                      e.preventDefault();
+                    }
+                    onItemClick?.();
+                  }}
                   style={{ textDecoration: "none" }}
                   aria-current={isCurrent ? "page" : undefined}
                 >
                   <HStack
                     minH="11"
-                    px="3"
-                    py="2"
-                    borderRadius="md"
+                    px="2.5"
+                    py="1.5"
+                    borderRadius="lg"
                     justify="space-between"
+                    align="center"
                     color={isCurrent ? "accent.navy" : "text.body"}
-                    bg={isCurrent ? "bg.tintNavy" : "transparent"}
+                    bg={isCurrent ? "bg.subtle" : "transparent"}
                     transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, color ${DUR_CSS.fast} ${EASE_SOFT}`}
                     _hover={{ bg: "bg.subtle", color: "accent.navy" }}
                   >
                     <Box minW="0" flex="1">
                       <Text
-                        fontSize="sm"
-                        fontWeight="600"
+                        fontSize="xs"
+                        fontWeight={isCurrent ? "600" : "500"}
                         color="inherit"
-                        lineHeight="short"
+                        lineHeight="1.2"
                       >
                         {svc.name}
                       </Text>
                       <Text
-                        fontSize="xs"
+                        fontSize="2xs"
                         color="text.muted"
                         letterSpacing="wide"
-                        lineHeight="short"
+                        lineHeight="1.2"
+                        mt="0.5"
                       >
                         {svc.category}
                       </Text>
                     </Box>
                     <ChevronRight
-                      size={16}
+                      size={14}
                       aria-hidden="true"
-                      style={{ flexShrink: 0 }}
+                      style={{ flexShrink: 0, opacity: 0.5 }}
                     />
                   </HStack>
                 </RouterLink>
@@ -146,7 +168,7 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
             asChild
             display="block"
             w="full"
-            pt="2"
+            pt="1.5"
             borderRadius="md"
             _focusVisible={{
               outline: "2px solid",
@@ -155,28 +177,28 @@ export const ServicesAccordion: React.FC<ServicesAccordionProps> = ({
             }}
           >
             <RouterLink
-              href="/servicios"
-              onClick={onItemClick}
+              href="/servicios/ver"
+              onClick={(e) => {
+                if (contained) {
+                  e.preventDefault();
+                }
+                onItemClick?.();
+              }}
               style={{ textDecoration: "none" }}
             >
               <HStack
                 minH="11"
-                px="3"
-                py="2"
-                borderRadius="md"
-                color="accent.navy"
-                fontWeight="600"
-                fontSize="sm"
+                px="2.5"
+                py="1.5"
+                borderRadius="lg"
+                color="text.heading"
                 justify="space-between"
-                transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}`}
-                _hover={{ bg: "bg.tintNavy" }}
+                _hover={{ bg: "bg.subtle" }}
               >
-                <Text>Ver catálogo de servicios</Text>
-                <ArrowUpRight
-                  size={16}
-                  aria-hidden="true"
-                  style={{ flexShrink: 0 }}
-                />
+                <Text fontSize="xs" fontWeight="600" letterSpacing="wide">
+                  Ver todos los servicios
+                </Text>
+                <ArrowUpRight size={14} aria-hidden="true" style={{ flexShrink: 0 }} />
               </HStack>
             </RouterLink>
           </Box>

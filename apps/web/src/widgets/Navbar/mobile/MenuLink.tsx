@@ -2,12 +2,12 @@
 
 /**
  * @file MenuLink.tsx
- * @description Enlace principal numerado del menú móvil v2 con revelación por máscara de texto.
+ * @description Enlace principal numerado del menú móvil v2 con tipografía editorial y revelación por máscara.
  * Cumple R1–R12:
+ * - Tipografía editorial Studio: numeración discreta 01–05 en Inter/Mono xs y título principal en Lora (font de títulos).
  * - Máscara con overflow="hidden": translateY(105%) -> translateY(0) en 500ms con EASE_TEXT.
  * - Cascada de 60ms por ítem, comenzando +200ms tras la apertura del panel (DUR_MS.textDelayAfterPanel).
  * - Al cerrar sale primero en 200ms (DUR_CSS.fast).
- * - Tipografía: numeración en Inter xs uppercase; título en Lora 3xl–4xl.
  * - Área táctil >= 44px (minH="11").
  * - Foco visible de 2px con ring.primary (R7).
  * - Compatible con RouterLink o como botón disparador del acordeón de servicios.
@@ -42,6 +42,8 @@ export interface MenuLinkProps {
   accordionId?: string;
   /** Contenido adicional subordinado (ej. acordeón de servicios). */
   children?: React.ReactNode;
+  /** Si es true, previene la navegación global para el simulador de showcase. */
+  contained?: boolean;
 }
 
 export const MenuLink: React.FC<MenuLinkProps> = ({
@@ -56,6 +58,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   isAccordionOpen = false,
   accordionId,
   children,
+  contained = false,
 }) => {
   // Retardo en milisegundos para la entrada escalonada
   const delayMs = DUR_MS.textDelayAfterPanel + index * DUR_MS.staggerMenu;
@@ -64,35 +67,35 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
     <HStack
       minH="11"
       w="full"
-      align="baseline"
+      align="center"
       justify="space-between"
-      py="2"
-      gap="4"
+      py="1"
+      gap="3"
     >
-      <HStack align="baseline" gap="3.5" minW="0" flex="1">
-        {/* Numeración en Inter xs uppercase */}
+      <HStack align="center" gap="3" minW="0" flex="1">
+        {/* Numeración discreta 01–05 con estética editorial */}
         <Text
           as="span"
-          fontSize="xs"
-          fontFamily="body"
-          fontWeight="700"
+          fontSize="2xs"
+          fontFamily="mono"
+          fontWeight="600"
           letterSpacing="widest"
-          textTransform="uppercase"
           color={isActive ? "accent.navy" : "text.muted"}
           display="inline-block"
-          minW="6"
+          minW="5"
           userSelect="none"
         >
           {number}
         </Text>
 
-        {/* Título editorial en Lora */}
+        {/* Título editorial minimalista en Lora */}
         <Text
           as="span"
           fontFamily="heading"
-          fontSize={{ base: "3xl", sm: "4xl" }}
-          fontWeight="600"
-          lineHeight="1.1"
+          fontSize={{ base: "xl", sm: "2xl" }}
+          fontWeight="500"
+          letterSpacing="-0.01em"
+          lineHeight="1.2"
           color={isActive ? "accent.navy" : "text.heading"}
           transition={`color ${DUR_CSS.fast} ${EASE_SOFT}`}
           _hover={{ color: "accent.navy" }}
@@ -109,11 +112,12 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
           justifyContent="center"
           color="text.muted"
           transform={isAccordionOpen ? "rotate(180deg)" : "rotate(0deg)"}
-          transition={`transform ${DUR_CSS.fast} ${EASE_SOFT}`}
+          transition={`transform ${DUR_CSS.fast} ${EASE_SOFT}, color ${DUR_CSS.fast} ${EASE_SOFT}`}
+          _hover={{ color: "text.heading" }}
           _motionReduce={{ transition: "none" }}
           style={{ flexShrink: 0 }}
         >
-          <ChevronDown size={24} aria-hidden="true" style={{ flexShrink: 0 }} />
+          <ChevronDown size={18} aria-hidden="true" style={{ flexShrink: 0 }} />
         </Box>
       )}
     </HStack>
@@ -144,11 +148,13 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
               textAlign="left"
               cursor="pointer"
               bg="transparent"
+              p="0"
+              border="none"
               borderRadius="md"
               _focusVisible={{
                 outline: "2px solid",
                 outlineColor: "ring.primary",
-                outlineOffset: "2px",
+                outlineOffset: "4px",
               }}
             >
               <button
@@ -169,12 +175,17 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
               _focusVisible={{
                 outline: "2px solid",
                 outlineColor: "ring.primary",
-                outlineOffset: "2px",
+                outlineOffset: "4px",
               }}
             >
               <RouterLink
                 href={href}
-                onClick={onClick}
+                onClick={(e) => {
+                  if (contained) {
+                    e.preventDefault();
+                  }
+                  onClick?.();
+                }}
                 aria-current={isActive ? "page" : undefined}
                 style={{ textDecoration: "none", display: "block" }}
               >

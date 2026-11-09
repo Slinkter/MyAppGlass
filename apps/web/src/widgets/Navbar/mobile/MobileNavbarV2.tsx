@@ -2,14 +2,14 @@
 
 /**
  * @file MobileNavbarV2.tsx
- * @description Encabezado de navegación móvil v2 (Alternativa A) para Glass & Aluminum Company S.A.C.
+ * @description Encabezado de navegación móvil v2 Minimalista Studio para Glass & Aluminum Company S.A.C.
  * Cumple R1–R12:
  * - Altura 16 (64px) + env(safe-area-inset-top, 0px).
- * - Logo oficial (/brand/logo.png) sin distorsión + nombre corporativo.
- * - Botón de WhatsApp accesible (target >= 44px, minH="11" minW="11", aria-label en español).
+ * - Logo oficial (/brand/logo.png) nítido sin distorsión + nombre corporativo.
+ * - Botón de WhatsApp táctil accesible (target >= 44px, minH="11" minW="11", aria-label en español).
  * - MenuToggle táctil >= 48px (minH="12" minW="12") con morfismo de 3 líneas a X en 300ms.
- * - Transición de transparente a sólida (bg="bg.paper" con border.warm) al superar 24px de scroll.
- * - Se oculta al desplazarse hacia abajo y se revela al desplazarse hacia arriba (useScrollDirection).
+ * - Vidrio esmerilado suave (GLASS_BLUR) con transición a papel sólido (bg="bg.paper" con border.warm) al scrollear > 24px.
+ * - Revelación inteligente según dirección de scroll (useScrollDirection).
  * - Modo `contained={true}` para visualización embebida en el marco de 390px en /design-system.
  */
 
@@ -106,13 +106,20 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
         pt="env(safe-area-inset-top, 0px)"
         minH="16"
         h="calc(var(--chakra-spacing-16) + env(safe-area-inset-top, 0px))"
-        bg={shouldBeSolid ? { base: "whiteAlpha.800", _dark: "blackAlpha.700" } : { base: "whiteAlpha.600", _dark: "blackAlpha.500" }}
-        css={{ backdropFilter: GLASS_BLUR, WebkitBackdropFilter: GLASS_BLUR, "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": { backdropFilter: "none", background: "{colors.bg.paper}" } }}
+        bg={shouldBeSolid ? "bg.paper" : "bg.paper/75"}
+        css={{
+          backdropFilter: GLASS_BLUR,
+          WebkitBackdropFilter: GLASS_BLUR,
+          "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
+            backdropFilter: "none",
+            background: "{colors.bg.paper}",
+          },
+        }}
         borderBottomWidth="1px"
         borderBottomColor={shouldBeSolid ? "border.warm" : "transparent"}
         style={{
           transform: isBarVisible ? "translateY(0)" : "translateY(-100%)",
-          transition: `transform ${DUR_CSS.fast} ${EASE_SOFT}, background-color ${DUR_CSS.fast} ${EASE_SOFT}`,
+          transition: `transform ${DUR_CSS.fast} ${EASE_SOFT}, background-color ${DUR_CSS.fast} ${EASE_SOFT}, border-color ${DUR_CSS.fast} ${EASE_SOFT}`,
         }}
         _motionReduce={{
           transform: "none !important",
@@ -143,7 +150,10 @@ export const MobileNavbarV2: React.FC<MobileNavbarV2Props> = ({
             <RouterLink
               href="/"
               aria-label={`Ir a inicio · ${companyData.companyName}`}
-              onClick={handleClose}
+              onClick={(e) => {
+                if (contained) e.preventDefault();
+                handleClose();
+              }}
               style={{ textDecoration: "none" }}
             >
               <HStack gap="2.5" align="center" minH="11">

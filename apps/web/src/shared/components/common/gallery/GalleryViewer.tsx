@@ -53,7 +53,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
 
-  const dotActiveColor = { base: "primary.500", _dark: "primary.300" };
+  // Aura Studio: punto activo con contraste nítido sobre el overlay de la imagen
+  const dotActiveColor = { base: "accent.navyContrast", _dark: "white" };
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -109,7 +110,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      _focusVisible={{ outline: "2px solid", outlineColor: "primary.500", outlineOffset: "-2px" }}
+      _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "-2px" }}
       userSelect="none"
       touchAction="pan-y"
     >
@@ -180,7 +181,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             _active={{
               transform: "translateY(-50%) scale(0.95)",
             }}
-            aria-label="Anterior"
+            _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
+            aria-label="Imagen anterior"
             zIndex={10}
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
@@ -210,7 +212,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
             _active={{
               transform: "translateY(-50%) scale(0.95)",
             }}
-            aria-label="Siguiente"
+            _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
+            aria-label="Imagen siguiente"
             zIndex={10}
             opacity={isDragging ? 0 : 1}
             transition="opacity 0.2s ease, transform 0.2s ease"
@@ -233,8 +236,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 onClick={onOpenModal}
                 color="white"
                 bg="blackAlpha.700"
-                minW={{ base: "11", md: "10" }}
-                minH={{ base: "11", md: "10" }}
+                minW="11"
+                minH="11"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -248,7 +251,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 _active={{
                   transform: "scale(0.95)",
                 }}
-                aria-label="Ampliar imagen"
+                _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
+                aria-label="Ampliar imagen en pantalla completa"
                 transition="background-color 0.2s ease, transform 0.2s ease"
               >
                 <Maximize2 size={15} style={{ flexShrink: 0 }} />
@@ -257,6 +261,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
 
             <Box
               bg="blackAlpha.700"
+              backdropFilter="blur(8px)"
               px="5"
               py="2"
               borderRadius="full"
@@ -268,6 +273,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 color="white"
                 fontWeight="bold"
                 letterSpacing="widest"
+                fontVariantNumeric="tabular-nums"
               >
                 {selectedIndex + 1}{" "}
                 <Text as="span" opacity={0.5}>
@@ -291,8 +297,8 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
               <chakra.button
                 type="button"
                 key={index}
-                minW={{ base: "11", md: "8" }}
-                minH={{ base: "11", md: "8" }}
+                minW="11"
+                minH="11"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -300,6 +306,7 @@ const GalleryViewer: React.FC<GalleryViewerProps> = React.memo(({
                 onClick={() => setSelectedIndex(index)}
                 aria-label={`Ir a imagen ${index + 1}`}
                 aria-current={selectedIndex === index ? "true" : undefined}
+                _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
               >
                 <Box
                   as="span"

@@ -5,8 +5,7 @@
  */
 
 import React from "react";
-import { Box, HStack, Text } from "@chakra-ui/react";
-import { MapPin, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { MediaCard } from "@shared/components/Card/MediaCard";
 
 interface ProjectCardContentProps {
@@ -37,28 +36,14 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
       [onExplore],
     );
 
+    const projectLocationAndYear = [address, year].filter(Boolean).join(" · ");
+
     return (
       <MediaCard
         image={image}
         imageAlt={`Proyecto ${residencial} - GYA Glass & Aluminum`}
-        badge={
-          <HStack gap="1.5" minW={0}>
-            <Box as={MapPin} boxSize={3} color="gray.700" style={{ flexShrink: 0 }} />
-            <Text
-              fontSize="xs"
-              fontWeight="semibold"
-              color="gray.900"
-              letterSpacing="0.12em"
-              textTransform="uppercase"
-              truncate
-              minW={0}
-            >
-              {address} · {year}
-            </Text>
-          </HStack>
-        }
         title={residencial}
-        description="Obra Residencial / Comercial"
+        description={projectLocationAndYear}
         actionIcon={ArrowRight}
         loading={loading || (isLCP ? "eager" : "lazy")}
         isLCP={isLCP}
@@ -66,11 +51,15 @@ const ProjectCardContent: React.FC<ProjectCardContentProps> = React.memo(
           as: "div",
           role: "button",
           tabIndex: 0,
-          "aria-label": `Ver detalles del proyecto ${residencial}`,
+          "aria-label": `Ver detalles del proyecto ${residencial} en ${projectLocationAndYear}`,
           cursor: "pointer",
           onClick: onExplore,
           onKeyDown: handleKeyDown,
-          _focusVisible: { outline: "none", boxShadow: "0 0 0 3px var(--chakra-colors-primary-500)" },
+          _focusVisible: {
+            outline: "2px solid",
+            outlineColor: "ring.primary",
+            outlineOffset: "2px",
+          },
         }}
       />
     );

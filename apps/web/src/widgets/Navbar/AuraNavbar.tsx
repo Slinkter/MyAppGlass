@@ -59,7 +59,7 @@ const AuraNavbar = React.memo(() => {
           transition="box-shadow 0.3s ease"
         >
           <Box pointerEvents="auto">
-            <AuraDesktopNav isScrolled={isScrolled} />
+            <AuraDesktopNav isScrolled={isScrolled} variant="studio" />
           </Box>
         </Box>
       )}

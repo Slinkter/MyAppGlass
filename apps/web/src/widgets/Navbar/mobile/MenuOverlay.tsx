@@ -2,21 +2,18 @@
 
 /**
  * @file MenuOverlay.tsx
- * @description Panel de menú móvil a pantalla completa (Alternativa A) para el Design System v2.
+ * @description Panel de menú móvil a pantalla completa minimalista Studio para Glass & Aluminum Company S.A.C.
  * Cumple R1–R12:
- * - Pantalla completa (minH="100dvh" o 100% en contained), fondo papel cálido (bg="bg.paper").
- * - Sin backdrop-filter en el panel ni animación de box-shadow.
- * - Entrada 650ms (DUR_CSS.panelIn) y salida 450ms (DUR_CSS.panelOut) con EASE_PANEL.
+ * - Pantalla completa (minH="100dvh" o 100% en contained), fondo papel cálido (bg="bg.paper" #F7F6F3).
+ * - Tipografía editorial minimalista en Lora (font de títulos) con numeración discreta 01–05 (MenuLink).
+ * - Acordeón de servicios fluido (ServicesAccordion) con grid-template-rows: 0fr -> 1fr y los 10 servicios oficiales de Firestore.
+ * - Entrada 650ms (DUR_CSS.panelIn) y salida 450ms (DUR_CSS.panelOut) con EASE_PANEL sin efecto pesado de blur.
  * - Con prefers-reduced-motion: reduce, animación solo fade de 150ms.
- * - Enlaces numerados 01–05 con máscara de texto (MenuLink).
- * - Acordeón suave de servicios (ServicesAccordion) con los 10 slugs reales de Firestore.
- * - Pie del menú con botón píldora navy "Cotizar por WhatsApp", enlaces secundarios (Mi Cuenta,
- *   Libro de reclamaciones, Políticas) y alternador de modo oscuro, todos con área >= 44px.
- * - Ciclo de vida: useLockBodyScroll, useFocusTrap, botón Atrás de Android (popstate) y auto-cierre
- *   por cambio de ruta o viewport >= 1024px.
+ * - Pie del menú: Botón de WhatsApp a ancho completo en color accesible (variant="whatsapp" con brand.whatsappAccessible),
+ *   botones secundarios (Mi Cuenta, Reclamaciones, Políticas, Teléfono) y ColorModeButton, todos con minH="11" (>=44px).
+ * - Accesibilidad total: useFocusTrap, useLockBodyScroll, Escape para cerrar y captura de botón Atrás de Android (popstate).
  */
 
-import { GLASS_BLUR } from "@/shared/constants/glass";
 import React, { useEffect, useRef, useState } from "react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
@@ -34,7 +31,7 @@ import {
   ShieldCheck,
   Phone,
 } from "lucide-react";
-import { Button, type ButtonProps } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { ColorModeButton } from "@/components/ui/color-mode";
 import { companyData } from "@/shared/config/company-data";
 import {
@@ -86,8 +83,8 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
     }
   }, [isOpen]);
 
-  // R7 & Accesibilidad: Atrapamiento de foco accesible
-  useFocusTrap(overlayRef, isOpen, onClose, triggerRef);
+  // R7 & Accesibilidad: Atrapamiento de foco accesible con Escape y retorno de foco (solo fuera de simulador)
+  useFocusTrap(overlayRef, isOpen && !contained, onClose, triggerRef);
 
   // Bloqueo de scroll en document.body (solo cuando no es contained)
   useLockBodyScroll(isOpen && !contained);
@@ -166,8 +163,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
       h={contained ? "full" : undefined}
       minH={contained ? "100%" : "100dvh"}
       zIndex={1600}
-      bg="bg.paper/88"
-      css={{ backdropFilter: GLASS_BLUR, WebkitBackdropFilter: GLASS_BLUR, "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": { backdropFilter: "none", background: "{colors.bg.paper}" } }}
+      bg="bg.paper"
       overflowY="auto"
       overscrollBehavior="contain"
       pointerEvents={isOpen ? "auto" : "none"}
@@ -194,11 +190,11 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
         flexDirection="column"
         justifyContent="space-between"
         px={{ base: "5", sm: "6" }}
-        pt="24"
-        pb="8"
+        pt={{ base: "18", sm: "20" }}
+        pb="6"
       >
         {/* Navegación Principal numerada 01–05 */}
-        <VStack as="nav" aria-label="Enlaces de navegación" align="stretch" gap="1" w="full">
+        <VStack as="nav" aria-label="Enlaces de navegación" align="stretch" gap="0.5" w="full">
           {navItems.map((item, index) => {
             if (item.isAccordion) {
               return (
@@ -208,6 +204,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                   label={item.label}
                   isOpen={isOpen}
                   index={index}
+                  contained={contained}
                   isAccordionTrigger
                   isAccordionOpen={isServicesOpen}
                   accordionId="mobile-services-accordion"
@@ -217,6 +214,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                     isOpen={isServicesOpen}
                     onItemClick={onClose}
                     id="mobile-services-accordion"
+                    contained={contained}
                   />
                 </MenuLink>
               );
@@ -237,6 +235,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 href={item.href}
                 isOpen={isOpen}
                 index={index}
+                contained={contained}
                 isActive={isCurrent}
                 onClick={onClose}
               />
@@ -244,34 +243,42 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
           })}
         </VStack>
 
-        {/* Pie del Menú Móvil */}
-        <VStack align="stretch" gap="5" pt="8" w="full">
-          {/* CTA Principal de WhatsApp: píldora navy a ancho completo */}
+        {/* Pie del Menú Móvil Minimalista */}
+        <VStack align="stretch" gap="3.5" pt="5" w="full">
+          {/* CTA Principal de WhatsApp: píldora verde accesible */}
           <Button
             asChild
-            variant={"navy" as unknown as ButtonProps["variant"]}
+            variant="whatsapp"
             size="lg"
             w="full"
-            minH="12"
-            gap="3"
+            minH="11"
+            borderRadius="full"
+            gap="2.5"
             _active={{ transform: "scale(0.98)" }}
           >
             <a
               href={whatsappQuoteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={onClose}
+              onClick={(e) => {
+                if (contained) e.preventDefault();
+                onClose();
+              }}
             >
-              <MessageCircle size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
-              Cotizar por WhatsApp
+              <MessageCircle size={18} aria-hidden="true" style={{ flexShrink: 0 }} />
+              <Text as="span" fontWeight="600" fontSize="sm">
+                Cotizar por WhatsApp
+              </Text>
             </a>
           </Button>
 
-          {/* Enlaces secundarios (todos con target >= 44px / minH="11") */}
-          <SimpleGrid columns={2} gap="2" w="full">
+          {/* Fila de contacto directo */}
+          <HStack justify="space-between" align="center" px="1">
+            <Text fontSize="xs" color="text.muted" fontWeight="medium">
+              Atención inmediata:
+            </Text>
             <Box
               asChild
-              display="block"
               borderRadius="md"
               _focusVisible={{
                 outline: "2px solid",
@@ -279,143 +286,108 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 outlineOffset: "2px",
               }}
             >
-              <RouterLink
-                href="/mi-cuenta"
-                onClick={onClose}
+              <a
+                href={`tel:+51${companyData.whatsappNumber.replace(/^51/, "")}`}
+                onClick={(e) => {
+                  if (contained) e.preventDefault();
+                }}
                 style={{ textDecoration: "none" }}
               >
-                <HStack
-                  minH="11"
-                  px="3"
-                  py="2"
-                  borderRadius="md"
-                  color="text.body"
-                  transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, color ${DUR_CSS.fast} ${EASE_SOFT}`}
-                  _hover={{ bg: "bg.subtle", color: "accent.navy" }}
-                >
-                  <User size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-                  <Text fontSize="sm" fontWeight="500">
-                    Mi Cuenta
-                  </Text>
-                </HStack>
-              </RouterLink>
-            </Box>
-
-            <Box
-              asChild
-              display="block"
-              borderRadius="md"
-              _focusVisible={{
-                outline: "2px solid",
-                outlineColor: "ring.primary",
-                outlineOffset: "2px",
-              }}
-            >
-              <RouterLink
-                href="/libro-de-reclamacion"
-                onClick={onClose}
-                style={{ textDecoration: "none" }}
-              >
-                <HStack
-                  minH="11"
-                  px="3"
-                  py="2"
-                  borderRadius="md"
-                  color="text.body"
-                  transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, color ${DUR_CSS.fast} ${EASE_SOFT}`}
-                  _hover={{ bg: "bg.subtle", color: "accent.navy" }}
-                >
-                  <FileText size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-                  <Text fontSize="sm" fontWeight="500">
-                    Reclamaciones
-                  </Text>
-                </HStack>
-              </RouterLink>
-            </Box>
-
-            <Box
-              asChild
-              display="block"
-              borderRadius="md"
-              _focusVisible={{
-                outline: "2px solid",
-                outlineColor: "ring.primary",
-                outlineOffset: "2px",
-              }}
-            >
-              <RouterLink
-                href="/politicas-empresa"
-                onClick={onClose}
-                style={{ textDecoration: "none" }}
-              >
-                <HStack
-                  minH="11"
-                  px="3"
-                  py="2"
-                  borderRadius="md"
-                  color="text.body"
-                  transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, color ${DUR_CSS.fast} ${EASE_SOFT}`}
-                  _hover={{ bg: "bg.subtle", color: "accent.navy" }}
-                >
-                  <ShieldCheck size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-                  <Text fontSize="sm" fontWeight="500">
-                    Políticas
-                  </Text>
-                </HStack>
-              </RouterLink>
-            </Box>
-
-            <Box
-              asChild
-              minH="11"
-              px="3"
-              py="2"
-              borderRadius="md"
-              color="text.body"
-              display="inline-flex"
-              alignItems="center"
-              transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, color ${DUR_CSS.fast} ${EASE_SOFT}`}
-              _hover={{ bg: "bg.subtle", color: "accent.navy" }}
-              _focusVisible={{
-                outline: "2px solid",
-                outlineColor: "ring.primary",
-                outlineOffset: "2px",
-              }}
-            >
-              <a href={`tel:+51${companyData.whatsappNumber.replace(/^51/, "")}`}>
-                <HStack gap="2">
-                  <Phone size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-                  <Text fontSize="sm" fontWeight="500">
+                <HStack gap="1.5" align="center" minH="11" px="1">
+                  <Phone size={14} aria-hidden="true" style={{ flexShrink: 0 }} />
+                  <Text fontSize="xs" fontWeight="600" color="text.heading">
                     {companyData.whatsappDisplay}
                   </Text>
                 </HStack>
               </a>
             </Box>
-          </SimpleGrid>
+          </HStack>
 
-          {/* Fila final: Copyright y Alternador de Tema (ambos >= 44px) */}
+          {/* Enlaces secundarios sutiles y elegantes (sin cajas pesadas) */}
+          <HStack
+            wrap="wrap"
+            justify="center"
+            gap="1"
+            pt="1"
+            borderTopWidth="1px"
+            borderTopColor="border.subtle"
+          >
+            <Box asChild>
+              <RouterLink
+                href="/mi-cuenta"
+                onClick={(e) => {
+                  if (contained) e.preventDefault();
+                  onClose();
+                }}
+                style={{ textDecoration: "none" }}
+              >
+                <HStack minH="11" px="2.5" py="1" borderRadius="md" _hover={{ color: "text.heading" }}>
+                  <User size={13} aria-hidden="true" style={{ flexShrink: 0, opacity: 0.7 }} />
+                  <Text fontSize="xs" color="text.muted">Mi Cuenta</Text>
+                </HStack>
+              </RouterLink>
+            </Box>
+
+            <Text fontSize="xs" color="border.default" userSelect="none">·</Text>
+
+            <Box asChild>
+              <RouterLink
+                href="/libro-de-reclamacion"
+                onClick={(e) => {
+                  if (contained) e.preventDefault();
+                  onClose();
+                }}
+                style={{ textDecoration: "none" }}
+              >
+                <HStack minH="11" px="2.5" py="1" borderRadius="md" _hover={{ color: "text.heading" }}>
+                  <FileText size={13} aria-hidden="true" style={{ flexShrink: 0, opacity: 0.7 }} />
+                  <Text fontSize="xs" color="text.muted">Reclamaciones</Text>
+                </HStack>
+              </RouterLink>
+            </Box>
+
+            <Text fontSize="xs" color="border.default" userSelect="none">·</Text>
+
+            <Box asChild>
+              <RouterLink
+                href="/politicas-empresa"
+                onClick={(e) => {
+                  if (contained) e.preventDefault();
+                  onClose();
+                }}
+                style={{ textDecoration: "none" }}
+              >
+                <HStack minH="11" px="2.5" py="1" borderRadius="md" _hover={{ color: "text.heading" }}>
+                  <ShieldCheck size={13} aria-hidden="true" style={{ flexShrink: 0, opacity: 0.7 }} />
+                  <Text fontSize="xs" color="text.muted">Políticas</Text>
+                </HStack>
+              </RouterLink>
+            </Box>
+          </HStack>
+
+          {/* Fila final: Copyright y Alternador de Tema */}
           <HStack
             w="full"
             justify="space-between"
-            pt="4"
+            align="center"
+            pt="2"
             borderTopWidth="1px"
-            borderColor="border.warm"
+            borderTopColor="border.warm"
           >
             <Text
-              fontSize="xs"
+              fontSize="2xs"
               color="text.muted"
-              fontFamily="body"
+              fontFamily="mono"
               letterSpacing="wide"
-              textTransform="uppercase"
             >
               © {new Date().getFullYear()} GYA S.A.C.
             </Text>
 
             <HStack gap="2" align="center">
-              <Text fontSize="xs" color="text.muted" textTransform="uppercase" letterSpacing="wider">
+              <Text fontSize="2xs" color="text.muted" textTransform="uppercase" letterSpacing="wider">
                 Tema
               </Text>
-              <ColorModeButton aria-label="Cambiar modo claro u oscuro" />
+              <ColorModeButton aria-label="Cambiar modo claro u oscuro" minH="11" minW="11" />
             </HStack>
           </HStack>
         </VStack>

@@ -2,7 +2,6 @@
 
 import React from "react";
 import RouterLink from "next/link";
-import { Text } from "@chakra-ui/react";
 import { ArrowUpRight } from "lucide-react";
 import { MediaCard } from "@shared/components/Card/MediaCard";
 
@@ -25,7 +24,6 @@ export interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   image,
   name,
-  category,
   description,
   plink,
   loading = "lazy",
@@ -35,13 +33,6 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
     <MediaCard
       image={image}
       imageAlt={`Servicio de ${name} - GYA Glass & Aluminum`}
-      badge={
-        category ? (
-          <Text fontSize="xs" fontWeight="semibold" color="gray.900" letterSpacing="0.12em" textTransform="uppercase" truncate>
-            {category}
-          </Text>
-        ) : undefined
-      }
       title={name}
       description={description}
       actionIcon={ArrowUpRight}

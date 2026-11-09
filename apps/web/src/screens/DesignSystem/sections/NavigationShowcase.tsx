@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Text, VStack, HStack, SimpleGrid, Tabs } from "@chakra-ui/react";
+import { Badge, Box, Text, VStack, HStack, SimpleGrid, Tabs } from "@chakra-ui/react";
 import {
   ChevronRight,
   ChevronLeft,
@@ -24,8 +24,8 @@ export const NavigationShowcase: React.FC = () => {
     <ShowcaseStack>
       {/* 1. Navbar Público en Cápsula (AuraDesktopNav) */}
       <ShowcaseCard
-        title="AuraDesktopNav — Barra Pública en Cápsula Flotante"
-        description="Componente real de producción (widgets/Navbar/AuraDesktopNav.tsx) con desenfoque de cristal (backdrop-blur) y sombra navDesktop."
+        title="AuraDesktopNav — Barra pública en cápsula flotante"
+        description="Panel comparativo entre la barra de producción clásica y el nuevo rediseño minimalista Aura Studio: cápsula de cristal líquido flotante, pastilla negra activa (#111111 en claro / blanco en oscuro), tipografía Inter en texto en oración y contraste WCAG AAA."
         badge="Web Pública"
       >
         <ShowcasePanel
@@ -46,28 +46,73 @@ export const NavigationShowcase: React.FC = () => {
             borderColor="border.warm"
             pointerEvents="none"
           />
-          <Box
+          <VStack
+            gap="8"
+            align="stretch"
             position="relative"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            minH="36"
-            maxW="full"
+            w="full"
           >
-            <Text fontSize="xs" color="text.muted" mb="4" fontWeight="medium" textAlign="center">
-              VISTA PREVIA INTERACTIVA (SCROLL SPY & ROUTING)
-            </Text>
-            <Box
-              maxW="full"
-              overflowX="auto"
-              display="flex"
-              justifyContent={{ base: "flex-start", md: "center" }}
-              w="full"
-            >
-              <AuraDesktopNav />
-            </Box>
-          </Box>
+            {/* 1.A. Producción Clásica */}
+            <VStack gap="3" align="stretch" w="full">
+              <HStack justify="space-between" align="center" wrap="wrap" gap="2">
+                <HStack gap="2">
+                  <Badge variant={"studio" as never} size="sm">
+                    Producción
+                  </Badge>
+                  <Text fontSize="xs" fontWeight="700" color="text.heading" textTransform="uppercase" letterSpacing="0.08em">
+                    Barra Clásica (variant=&quot;default&quot;)
+                  </Text>
+                </HStack>
+                <Text fontSize="xs" color="text.muted">
+                  Botones en MAYÚSCULAS · Tracking 0.05em · Subrayado animado inferior
+                </Text>
+              </HStack>
+
+              <Box
+                maxW="full"
+                overflowX="auto"
+                display="flex"
+                justifyContent={{ base: "flex-start", md: "center" }}
+                w="full"
+                py="2"
+              >
+                <AuraDesktopNav variant="default" />
+              </Box>
+            </VStack>
+
+            {/* Separador sutil */}
+            <Box h="1px" bg="border.warm" w="full" />
+
+            {/* 1.B. Aura Studio Minimalista */}
+            <VStack gap="3" align="stretch" w="full">
+              <HStack justify="space-between" align="center" wrap="wrap" gap="2">
+                <HStack gap="2">
+                  <Badge variant={"studioInk" as never} size="sm">
+                    Aura Studio
+                  </Badge>
+                  <Text fontSize="xs" fontWeight="700" color="text.heading" textTransform="uppercase" letterSpacing="0.08em">
+                    Rediseño Minimalista (variant=&quot;studio&quot;)
+                  </Text>
+                </HStack>
+                <HStack gap="3" wrap="wrap">
+                  <Text fontSize="xs" color="text.muted">
+                    Pastilla negra activa · Texto en oración · Cristal líquido flotante · WCAG AAA
+                  </Text>
+                </HStack>
+              </HStack>
+
+              <Box
+                maxW="full"
+                overflowX="auto"
+                display="flex"
+                justifyContent={{ base: "flex-start", md: "center" }}
+                w="full"
+                py="2"
+              >
+                <AuraDesktopNav variant="studio" previewActive="inicio" />
+              </Box>
+            </VStack>
+          </VStack>
         </ShowcasePanel>
       </ShowcaseCard>
 

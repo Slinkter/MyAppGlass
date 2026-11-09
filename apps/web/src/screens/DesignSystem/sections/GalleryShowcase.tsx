@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
-import { Box, Flex, Heading, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Badge, Box, Flex, Heading, HStack, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import Gallery from "@/shared/components/common/Gallery";
 import { TOUCH_MIN } from "@/shared/constants/layout";
@@ -54,10 +54,12 @@ const GalleryStage: React.FC<GalleryStageProps> = ({ images, onActiveImageChange
     minW="0"
     overflow="hidden"
     borderRadius={{ base: "2xl", lg: "3xl" }}
+    borderWidth="1px"
+    borderColor="border.default"
     role="region"
     aria-label="Galería de imágenes de ejemplo"
     css={{
-      "& button[aria-label='Ampliar imagen']": {
+      "& button[aria-label^='Ampliar imagen']": {
         minWidth: "var(--chakra-spacing-11) !important",
         minHeight: "var(--chakra-spacing-11) !important",
         width: "var(--chakra-spacing-11) !important",
@@ -101,10 +103,32 @@ const CompositeGallery: React.FC = () => {
   }, []);
 
   return (
-    <ShowcasePanel bg="bg.surface" borderRadius="2xl" maxW="4xl" mx="auto" w="full" minW="0">
+    <ShowcasePanel
+      bg="bg.surface"
+      borderRadius="3xl"
+      borderWidth="1px"
+      borderColor="border.default"
+      maxW="4xl"
+      mx="auto"
+      w="full"
+      minW="0"
+      p={{ base: "4", sm: "5", md: "6" }}
+    >
       <Flex justify="space-between" align="center" gap="3" mb={{ base: "3", md: "4" }}>
-        <SubsectionLabel>Galería de producto</SubsectionLabel>
-        <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="text.heading" flexShrink={0}>
+        <HStack gap="2">
+          <SubsectionLabel>Galería compuesta</SubsectionLabel>
+          <Badge variant={"studio" as never} size="sm">
+            Aura Studio
+          </Badge>
+        </HStack>
+        <Text
+          fontSize="xs"
+          fontWeight="bold"
+          letterSpacing="widest"
+          fontVariantNumeric="tabular-nums"
+          color="text.heading"
+          flexShrink={0}
+        >
           {pad(active.index + 1)}{" "}
           <Text as="span" color="text.muted">
             / {pad(sampleGallery.length)}
@@ -114,11 +138,38 @@ const CompositeGallery: React.FC = () => {
 
       <GalleryStage images={sampleGallery} onActiveImageChange={handleChange} />
 
-      <Box mt={{ base: "3", md: "4" }} pt={{ base: "3", md: "4" }} borderTopWidth="1px" borderColor="border.default">
-        <SubsectionLabel>Imagen activa</SubsectionLabel>
-        <Text fontSize="sm" fontWeight="semibold" color="text.heading" lineClamp={2} mt="1">
-          {active.title}
-        </Text>
+      <Box
+        mt={{ base: "4", md: "5" }}
+        pt={{ base: "4", md: "5" }}
+        borderTopWidth="1px"
+        borderColor="border.default"
+      >
+        <Flex
+          direction={{ base: "column", sm: "row" }}
+          justify="space-between"
+          align={{ base: "start", sm: "center" }}
+          gap="3"
+        >
+          <Box minW="0" flex="1">
+            <SubsectionLabel>Pieza en exhibición</SubsectionLabel>
+            <Heading
+              as="h3"
+              fontFamily="heading"
+              fontSize={{ base: "md", md: "lg" }}
+              fontWeight="500"
+              color="text.heading"
+              lineClamp={2}
+              mt="1"
+            >
+              {active.title}
+            </Heading>
+          </Box>
+          <HStack gap="2" flexShrink={0}>
+            <Badge variant={"neutral" as never} size="sm">
+              Vidriería & Aluminio
+            </Badge>
+          </HStack>
+        </Flex>
       </Box>
     </ShowcasePanel>
   );
@@ -148,7 +199,14 @@ const ProductGallery: React.FC = () => (
       borderRadius={{ base: "2xl", lg: "3xl" }}
     >
       <SubsectionLabel>Ficha técnica</SubsectionLabel>
-      <Heading as="h3" fontSize={{ base: "lg", md: "xl" }} color="text.heading" lineClamp={2}>
+      <Heading
+        as="h3"
+        fontFamily="heading"
+        fontSize={{ base: "xl", md: "2xl" }}
+        fontWeight="500"
+        color="text.heading"
+        lineClamp={2}
+      >
         Mampara de Cristal Templado
       </Heading>
       <VStack align="stretch" gap="0" separator={<Box borderTopWidth="1px" borderColor="border.default" />}>
@@ -157,13 +215,20 @@ const ProductGallery: React.FC = () => (
             <Text fontSize="sm" color="text.muted" flexShrink={0}>
               {row.label}
             </Text>
-            <Text fontSize="sm" fontWeight="semibold" color="text.heading" textAlign="end" minW="0">
+            <Text
+              fontSize="sm"
+              fontWeight="semibold"
+              color="text.heading"
+              textAlign="end"
+              minW="0"
+              fontVariantNumeric="tabular-nums"
+            >
               {row.value}
             </Text>
           </Flex>
         ))}
       </VStack>
-      <Button variant="aura" minH={TOUCH_MIN} w="full">
+      <Button variant={"studio" as never} size="lg" minH={TOUCH_MIN} w="full">
         Cotizar este producto
       </Button>
     </VStack>
@@ -274,7 +339,7 @@ const CatalogGrid: React.FC = () => (
             <Text fontSize="xs" color="text.muted" lineClamp={2}>
               {spec.sistema} · {spec.vidrio} · Aluminio {spec.aluminio}
             </Text>
-            <Button variant="outline" minH={TOUCH_MIN} w="full" mt="auto">
+            <Button variant={"studioOutline" as never} minH={TOUCH_MIN} w="full" mt="auto">
               Ver detalles
             </Button>
           </Flex>

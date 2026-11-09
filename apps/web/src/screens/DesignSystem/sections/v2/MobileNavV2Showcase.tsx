@@ -2,17 +2,16 @@
 
 /**
  * @file MobileNavV2Showcase.tsx
- * @description Prototipo interactivo del Navbar Móvil v2 (Alternativa A) para /design-system.
+ * @description Prototipo interactivo del Navbar Móvil Minimalista Studio v2 para /design-system.
  * Cumple R1–R12:
  * - Marco de simulación táctil de 390px (MOBILE_FRAME_WIDTH = "390px").
- * - Contenido simulado scrolleable para probar:
- *   1. Barra transparente sobre hero (scroll = 0).
- *   2. Barra sólida con borde cálido al descender > 24px.
- *   3. Ocultamiento al scrollear hacia abajo y revelación al scrollear hacia arriba.
- *   4. Apertura y cierre del panel editorial a pantalla completa con máscara de texto y cascada.
- *   5. Acordeón suave de los 10 servicios oficiales vigentes en Firestore.
- *   6. Respeto de prefers-reduced-motion: reduce.
- * - Sin hex, rgba() ni px sueltos (salvo 1px en bordes y constantes del simulador).
+ * - Controles interactivos completos:
+ *   1. Reinicio integral de estados y posición de scroll.
+ *   2. Simulación de scroll programático (+180px) para activar transición sólido/vidrio.
+ *   3. Simulación de prefers-reduced-motion: reduce.
+ *   4. Apertura y cierre del panel editorial a pantalla completa en papel cálido (#F7F6F3).
+ *   5. Acordeón fluido con los 10 servicios oficiales de Firestore.
+ * - Sin hex ni rgba sueltos (todos los estilos referencian tokens semánticos).
  * - Jerarquía de encabezados h2 -> h3 sin saltos (R10).
  * - Touch targets >= 44px (R3).
  */
@@ -35,7 +34,7 @@ import {
   RotateCcw,
   Sliders,
 } from "lucide-react";
-import { Button, type ButtonProps } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { ShowcaseCard, ShowcaseStack, SubsectionLabel } from "../../components";
 import { MobileNavbarV2, OFFICIAL_SERVICE_SLUGS } from "@/widgets/Navbar/mobile";
 import { companyData } from "@/shared/config/company-data";
@@ -55,7 +54,7 @@ const V2_NAV_FEATURES = [
   },
   {
     title: "Panel Editorial Papel Cálido",
-    desc: "Fondo cálido bg='bg.paper', entrada 650ms y salida 450ms con EASE_PANEL sin backdrop-filter pesado.",
+    desc: "Fondo cálido bg='bg.paper' (#F7F6F3), entrada 650ms y salida 450ms con EASE_PANEL sin sobrecarga de blur.",
   },
   {
     title: "Máscara de Texto 01–05",
@@ -97,8 +96,8 @@ export const MobileNavV2Showcase: React.FC = () => {
   return (
     <ShowcaseStack>
       <ShowcaseCard
-        title="Navbar Móvil v2 (Alternativa A)"
-        description="Encabezado móvil de alta gama con revelación por dirección de scroll, panel cálido a pantalla completa, máscara tipográfica escalonada y acordeón técnico oficial."
+        title="Navbar Móvil Minimalista Studio v2"
+        description="Encabezado móvil de alta gama con revelación inteligente por dirección de scroll, panel cálido editorial a pantalla completa, máscara tipográfica en Lora y acordeón técnico oficial."
         badge={
           <HStack gap="1.5">
             <Smartphone size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
@@ -137,7 +136,7 @@ export const MobileNavV2Showcase: React.FC = () => {
 
               <HStack wrap="wrap" gap="3">
                 <Button
-                  variant={(isMenuOpen ? "navy" : "outlineNavy") as unknown as ButtonProps["variant"]}
+                  variant={isMenuOpen ? "studio" : "studioOutline"}
                   size="sm"
                   minH="11"
                   onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -146,7 +145,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                 </Button>
 
                 <Button
-                  variant={(forceScrolled ? "navy" : "outline") as unknown as ButtonProps["variant"]}
+                  variant={forceScrolled ? "studio" : "outline"}
                   size="sm"
                   minH="11"
                   onClick={() => setForceScrolled((prev) => !prev)}
@@ -164,7 +163,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                 </Button>
 
                 <Button
-                  variant={(isReducedMotionSimulated ? "navy" : "outline") as unknown as ButtonProps["variant"]}
+                  variant={isReducedMotionSimulated ? "studio" : "outline"}
                   size="sm"
                   minH="11"
                   onClick={() => setIsReducedMotionSimulated((prev) => !prev)}
@@ -183,18 +182,18 @@ export const MobileNavV2Showcase: React.FC = () => {
               Vista previa embebida · Dispositivo 390 × 680 px (iPhone 14 / estándar mobile)
             </SubsectionLabel>
 
-            {/* Marco de teléfono físico */}
+            {/* Marco de teléfono físico de alta gama */}
             <Box
               position="relative"
               w="full"
               maxW={MOBILE_FRAME_WIDTH}
               h={MOBILE_FRAME_HEIGHT}
-              borderRadius="3xl"
-              borderWidth="1px"
-              borderColor="border.warmStrong"
+              borderRadius="40px"
+              borderWidth="3px"
+              borderColor="border.strong"
               bg="bg.page"
               overflow="hidden"
-              boxShadow="elevatedLg"
+              boxShadow="2xl"
               css={
                 isReducedMotionSimulated
                   ? {
@@ -207,26 +206,40 @@ export const MobileNavV2Showcase: React.FC = () => {
                   : undefined
               }
             >
-              {/* Barra superior de estado simulada del smartphone (notch / reloj / batería) */}
+              {/* Dynamic Island / Notch del smartphone */}
+              <Box
+                position="absolute"
+                top="2.5"
+                left="50%"
+                transform="translateX(-50%)"
+                w="24"
+                h="4.5"
+                borderRadius="full"
+                bg="blackAlpha.900"
+                zIndex={1800}
+                pointerEvents="none"
+              />
+
+              {/* Barra de estado (reloj / batería) */}
               <HStack
                 position="absolute"
-                top="0"
+                top="1.5"
                 left="0"
                 right="0"
                 h="6"
                 px="6"
                 justify="space-between"
                 align="center"
-                zIndex={1400}
+                zIndex={1750}
                 pointerEvents="none"
                 userSelect="none"
               >
-                <Text fontSize="xs" fontWeight="700" color="text.muted">
+                <Text fontSize="2xs" fontWeight="700" color="text.muted" pl="1">
                   9:41
                 </Text>
-                <HStack gap="1.5">
-                  <Box w="3" h="2" borderRadius="xs" bg="text.muted" />
-                  <Box w="2" h="2" borderRadius="full" bg="text.muted" />
+                <HStack gap="1" pr="1">
+                  <Box w="3" h="1.5" borderRadius="xs" bg="text.muted" />
+                  <Box w="1.5" h="1.5" borderRadius="full" bg="text.muted" />
                 </HStack>
               </HStack>
 
@@ -237,6 +250,21 @@ export const MobileNavV2Showcase: React.FC = () => {
                 scrollContainerRef={phoneScrollRef}
                 isOpen={isMenuOpen}
                 onOpenChange={setIsMenuOpen}
+              />
+
+              {/* Barra inferior de inicio (Home indicator de iOS) */}
+              <Box
+                position="absolute"
+                bottom="2"
+                left="50%"
+                transform="translateX(-50%)"
+                w="32"
+                h="1"
+                borderRadius="full"
+                bg="blackAlpha.400"
+                _dark={{ bg: "whiteAlpha.400" }}
+                zIndex={1800}
+                pointerEvents="none"
               />
 
               {/* Contenedor scrolleable simulado de la página web */}
@@ -290,7 +318,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                     </Text>
                     <HStack pt="2" gap="3">
                       <Button
-                        variant={"navy" as unknown as ButtonProps["variant"]}
+                        variant="studio"
                         size="sm"
                         minH="11"
                       >
@@ -309,7 +337,7 @@ export const MobileNavV2Showcase: React.FC = () => {
                     <SubsectionLabel mb="1">Instrucciones de prueba</SubsectionLabel>
                     <Text fontSize="sm" color="text.body">
                       Haz scroll dentro de esta pantalla hacia abajo para ver cómo la barra
-                      superior pasa de transparente a sólida al superar los 24px, se oculta
+                      superior pasa de vidrio esmerilado suave a sólida al superar los 24px, se oculta
                       al seguir bajando y reaparece al subir.
                     </Text>
                   </Box>
@@ -383,7 +411,7 @@ export const MobileNavV2Showcase: React.FC = () => {
             </Box>
           </VStack>
 
-          {/* Especificaciones y reglas de negocio */}
+          {/* Criterios y gobernanza */}
           <Box pt="4" borderTopWidth="1px" borderColor="border.warm">
             <Heading as="h3" fontSize="md" fontWeight="700" color="text.heading" mb="3">
               Criterios de Aceptación y Reglas de Diseño Implementadas
@@ -412,7 +440,7 @@ export const MobileNavV2Showcase: React.FC = () => {
               ))}
             </SimpleGrid>
 
-            {/* Nota oficial sobre los 10 servicios vs los 3 pendientes en Firestore */}
+            {/* Gobernanza del catálogo de servicios */}
             <Box
               mt="5"
               p="4"
