@@ -89,6 +89,8 @@ components:
 
 # Design System: Glass & Aluminum Company S.A.C.
 
+> **En revisión.** Este documento se deriva del manual de marca (`docs/marca/MANUAL-DE-MARCA.md`), que está en la versión 0.1. Cuando el manual llegue a la 1.0, el sistema se redefine aquí y en `/design-system`, y solo después se lleva a las páginas con la aprobación del dueño. Mientras tanto describe lo que hay en producción.
+
 ## Overview
 
 **Creative North Star: "El Plano de Obra"**
@@ -184,7 +186,7 @@ Lenguaje cálido y redondeado: tarjetas con esquinas amplias (16 px), modales de
 - **Outline:** borde de 1,5 px en Tinta de Plano, fondo transparente. Hover con un velo negro de 4 %.
 - **WhatsApp:** fondo verde accesible; es la acción principal en móvil.
 - **Ghost:** solo texto, para acciones terciarias.
-- **Nota:** las variantes antiguas en mayúsculas (`aura`, `navy`, `outline`) se retiran gradualmente a favor de las variantes sin mayúsculas.
+- **Nota:** las únicas variantes son `primary`, `outline`, `ghost` y `whatsapp`. Las antiguas en mayúsculas (`aura`, `navy`, `studio`, `brand`) ya no existen en el tema.
 
 ### Chips and badges
 - **Style:** píldora de 28 px de alto, texto de 12 px en peso 600, fondo suave del color de estado.
@@ -231,14 +233,11 @@ Marco de foto con proporción fija, cobertura total y leyenda flotante de vidrio
 
 ## Deriva conocida (código frente a este documento)
 
-Lo que el código actual todavía no cumple, medido el 2026-11-09:
-- **Fondo:** `bg.page` es gris (`gray.50`) y `bg.paper`/`bg.warm` son `#F7F6F3`. Deben pasar a blanco.
-- **Nombres engañosos:** la familia `navy` resuelve a negro (y a blanco en modo oscuro); 107 usos fuera del tema.
-- **Rojo:** el botón `brand` usa `#FF5A5F`, distinto del rojo de títulos; `quoteRed` y `redQuote` duplican `#D62828`.
-- **Desviaciones:** 74 hex y 54 `rgba` fuera del tema, 38 `colorPalette`, ~69 `_hover` a mano, 12 degradados, 3 emojis y 65 `px` literales.
-- **Tarjetas:** `ClientCard` usa degradado oscuro y `BlogCard` se eleva 12 px; `ServiceCard` y `ProjectCardContent` envuelven el mismo `MediaCard`.
-- **Vidrio:** `glassSurface` y `glassLightOnPhoto` usan `saturate(1.4)` aunque el comentario dice 180 %; `glassOnPhoto` y `glassControl` no se usan.
-- **Tipografía:** `AuraHeader` pide peso 900, que no está cargado; no hay `lineHeights` ni `textStyles` propios.
-- **Layout:** seis anchos de página distintos; `CardRail` y `SectionHeader` no existen aunque el plan 23 los menciona.
-- **Home:** sin contenido para constructoras (catálogo técnico, capacidad, plazos); el hero no tiene acciones; garantía de 6 meses y horario 9:00 a 17:00 contradicen las decisiones (3 meses y 08:00 a 18:00).
-- **`/design-system`:** la pestaña por defecto conserva navy; `GalleryShowcase` e `ImageRevealShowcase` no están montados.
+Lo que el código todavía no cumple tras la migración del 2026-11-09.
+- **Nombres de token:** `border.warm` y `border.warmStrong` conservan ese nombre (56 usos); falta renombrarlos a `line` y `line-strong`.
+- **Hover a mano:** quedan 51 `_hover={{`, parte de ellos con varias propiedades (tarjetas del admin y de servicios, flechas de la galería).
+- **`px` literales:** en los prototipos de `DesignSystemUbicacion`.
+- **Colores crudos de paleta:** `purple.400` y `blue.400` en cinco archivos.
+- **Tarjetas:** `ClientCard` no tiene destino (no es enlace).
+- **Datos:** el horario del footer está escrito a mano porque `companyData` no tiene ese campo.
+- **Auditoría automática:** `scripts/audit-design-system.mjs` y `scripts/audit-landing.mjs` no se han corrido (falta `npx playwright install`).

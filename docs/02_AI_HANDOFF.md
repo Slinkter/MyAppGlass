@@ -19,11 +19,12 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 
 ## 🆕 Cambios 2026-11-09
 
-* **Sistema de diseño único (plan 25):** `apps/web/DESIGN.md` y `apps/web/PRODUCT.md` son la fuente de verdad; los documentos viejos de diseño se eliminaron. Migración en 8 fases, mergeada a `main` (`1f6b2902`) y **desplegada en hosting** (https://gya-app-4c8a9.web.app). Detalle y pendientes en `docs/25_PLAN_MIGRACION_DISENO.md`. `functions` no se desplegó.
-* **Orden de lectura para agentes:** `claude.md` → `AGENTS.md` → `apps/web/PRODUCT.md` → `apps/web/DESIGN.md` → `docs/gya/catalogo/`. Regla: el proveedor pesa más que los datos locales; no inventar datos.
+* **⚠️ Orden de trabajo de diseño (decisión del dueño):** manual de marca (`docs/marca/MANUAL-DE-MARCA.md`) → componentes solo en `/design-system` → páginas por lotes con aprobación. La migración del 2026-11-09 aplicó el diseño a todo el sitio y lo desplegó sin pasar por ese orden; las páginas quedan congeladas hasta cerrar el manual.
+* **Migración de diseño:** mergeada a `main` (`1f6b2902`) y **desplegada en hosting** (https://gya-app-4c8a9.web.app). `functions` no se desplegó. Lo que quedó abierto está en `docs/PENDIENTES.md`.
+* **Orden de lectura para agentes:** `claude.md` → `AGENTS.md` → `docs/marca/MANUAL-DE-MARCA.md` → `apps/web/PRODUCT.md` → `apps/web/DESIGN.md` → `docs/gya/catalogo/`. Regla: el proveedor pesa más que los datos locales; no inventar datos.
 * **Página principal:** hero, proyectos, servicios, beneficios, clientes y ubicación (la sección para constructoras se retiró por decisión del dueño). Garantía 3 meses; horario lunes a sábado 8:00 a 18:00.
 
-* **Navbar móvil v2 desplegada:** `AuraNavbar` usa `MobileNavbarV2`; barra siempre visible, hoja de menú en tres zonas, acordeón de servicios y pie sticky. Eliminados `MobileNav.tsx` y `useScrollDirection.ts`. Detalle en `docs/24_PLAN_NAVBAR_MOVIL.md`.
+* **Navbar móvil v2 desplegada:** `AuraNavbar` usa `MobileNavbarV2`; barra siempre visible, hoja de menú en tres zonas, acordeón de servicios y pie sticky. Eliminados `MobileNav.tsx` y `useScrollDirection.ts`. Detalle en `docs/05_CHANGELOG.md`.
 * **Purga del monorepo:** raíz sin `.next/` ni `.tsbuildinfo`; material del diplomado en `docs/_material/diplomado/`; tests de reglas en `tests/rules/`; código muerto eliminado. Detalle en `docs/05_CHANGELOG.md` y catálogo en `scripts/README.md`.
 * **Deploy hosting (2026-11-09):** `pnpm run deploy:hosting` desde `main` (`cc80e8cb`). `typecheck`, `lint` y `build` en verde (66 rutas).
 * **⚠️ Dev y build:** no ejecutar `pnpm run build`/`deploy:hosting` con `pnpm run dev` activo. Comparten `apps/web/.next` y provocan hydration mismatch de Chakra; solución en `docs/06_DOCS_DEVELOPMENT.md`.
@@ -32,7 +33,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 
 * **Commit `a91a9ab`** (merge de `feat(perf)`): optimización de rutas SSG, mapa a 120 fps e inventario/listados con complejidad O(1) (`apps/web/src/shared/utils/algorithm-utils.ts`).
 * **Planes cumplidos (borrados el 2026-11-08, recuperables con `git show 1537ee1:docs/<archivo>`):** 15 (auditoría cruzada), 16 (peso del repo, ≈ -23 MB de imágenes) y 17 (complejidad algorítmica; sus 5 filas pendientes están en `docs/PENDIENTES.md`).
-* **Trabajo abierto:** `docs/PENDIENTES.md` es la única lista viva. Planes en curso: `docs/20_PLAN_TRABAJO_ANALISIS_FASES.md` (calidad y deuda técnica) y `docs/21_PLAN_FLUJO_PRESUPUESTO.md` (flujo de presupuesto, rama `feat/presupuesto-flujo`).
+* **Trabajo abierto:** `docs/PENDIENTES.md` es la única lista viva; ya no hay planes aparte.
   - **Auth:** el rol admin sale solo de `users/{uid}.role`. Ya no se asigna por correo desde el cliente. Registro de cliente valida DNI (8) o RUC (11).
   - **Tienda:** `/tienda` y `/tienda/checkout`. El checkout envía el pedido por WhatsApp; **no** se guarda en Firestore (decisión tomada).
   - **Presupuesto:** precios en `features/presupuesto/config/pricing.ts`, correlativo `GYA-AAAA-XXXX` transaccional (`contadores/presupuesto-AAAA`) y persistencia en `presupuestos_solicitados`.
@@ -43,7 +44,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
   - **Pendiente:** `isAdmin()` en `firestore.rules` da admin a correos `@gyacompany.com` verificados (decisión abierta). Sentry (F7.4, F7.5) y auditoría de reclamos (F7.9) dependen de DSN y de autorizar `apps/functions`. F6 (AR) espera los modelos `.glb`/`.usdz`. F8.4 (Google Maps/NAP) y F9.7 (prueba en navegador) son del usuario. Rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (F1.9).
   - **Deploy hosting (2026-11-03):** hecho manualmente con `pnpm run deploy:hosting` desde `main` (`406fd4b`). Rutas verificadas en `https://gya-app-4c8a9.web.app`.
   - **CI:** corregido en `09b5323` (typecheck después del build). Pasa en `main`.
-  - **Deploy automático:** `Deploy Production` falla hasta que exista el secreto `FIREBASE_SERVICE_ACCOUNT_GYA_APP_4C8A9` en GitHub Actions. Ver `docs/PENDIENTES.md`, sección "Acciones externas del usuario".
+  - **Deploy automático:** desactivado. `Deploy Production` es `workflow_dispatch` manual hasta que exista el secreto `FIREBASE_SERVICE_ACCOUNT_GYA_APP_4C8A9` en GitHub Actions; el despliegue vigente es `pnpm run deploy:hosting`. Ver `docs/PENDIENTES.md`, sección "Acciones externas del usuario".
   - **Functions:** no desplegadas. Solo con petición explícita.
 
 ## 🆕 Actualización 2026-11-02 (rama `feat/ux-ui-2026-11-02`, desplegada)
@@ -84,9 +85,8 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
   - **Reglas de seguridad desplegadas en producción**: `firestore.rules` y `storage.rules` ya fueron aplicadas exitosamente (`firebase deploy --only firestore:rules,storage --project gya-app-4c8a9`).
   - **Unificación de CSS en Chakra UI v3**: Eliminada la librería `framer-motion` (ahorro ~35 KB en bundle), reemplazada por animaciones y transiciones nativas de Chakra. Eliminados bloques manuales de `@emotion/react` en `Providers.tsx`.
   - **Tokens semánticos oficiales en `theme/index.ts`**: Registrados formalmente `brand.primary`, `bg.surface`, `border.subtle` y `status.dangerBorder`.
-  - **Design System**: única fuente de verdad en `apps/web/DESIGN.md` (migración en `docs/25_PLAN_MIGRACION_DISENO.md`). Showcase en `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón primary, outline, ghost y whatsapp.
-  - **Nota de Coordinación**: Otro agente de IA está trabajando en paralelo en auditoría/remediación de vulnerabilidades y backend congelado; respetar áreas sin generar conflictos en archivos bloqueados.
-* **Hosting:** desplegado el 2026-11-02 con los últimos cambios. Desplegar de nuevo solo cuando el usuario lo pida (`pnpm run build && pnpm run deploy:hosting`).
+  - **Design System**: `apps/web/DESIGN.md`, en revisión hasta cerrar el manual de marca. Showcase en `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón primary, outline, ghost y whatsapp.
+* **Hosting:** último despliegue el 2026-11-09. Desplegar de nuevo solo cuando el usuario lo pida (`pnpm run build && pnpm run deploy:hosting`).
 * **Hosting Live:** [https://gya-app-4c8a9.web.app](https://gya-app-4c8a9.web.app)
 * **Despliegue Hosting:** `pnpm run deploy:hosting`
 

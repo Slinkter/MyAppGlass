@@ -109,7 +109,7 @@ Eduhg y Corrales usan la misma numeración básica: **21 de los 34 códigos de a
 | "Nova Hermética" | `pricing.ts` | Sistema Nova | Quitar "Hermética" si no hay respaldo |
 | "Ventana Acústica" | `pricing.ts` | No hay serie con ese nombre. Existen laminado acústico (Eduhg) y VT-62 termoacústica | Tratarla como combinación de serie + vidrio |
 | "Ventana PVC Abatible" | `pricing.ts` | **Ninguno de los 4 ofrece ventanas de PVC en lo extraído**; solo guías de PVC | Necesita otro proveedor o se retira |
-| "Antirruido 50/70/80 %" | `pricing.ts`, `company.json` | **Sin cifras de ruido en lo revisado** (HPD: solo frases cualitativas, sin dB) | Decidir si se mantiene sin respaldo |
+| "Antirruido 50/70/80 %" | `pricing.ts`, `company.json` | **Sin cifras de ruido en lo revisado** (HPD: solo frases cualitativas, sin dB) | Se mantienen con la nota "referencial" (decisión del dueño, 2026-11-09) |
 
 ### Vidrio y acabados
 | Hoy | Proveedor | Propuesta |
@@ -146,12 +146,14 @@ Eduhg y Corrales usan la misma numeración básica: **21 de los 34 códigos de a
 
 ## 6. Decisiones del dueño (puerta de catálogo)
 
-1. ¿Qué series de la §3 vende de verdad? ¿Con cuáles trabaja también HPD?
+> Respuestas ya dadas por el dueño el 2026-11-09 (recogidas en `docs/marca/MANUAL-DE-MARCA.md` y `apps/web/PRODUCT.md`): los 6 sistemas de `AGENTS.md` siguen como lista provisional hasta que funcione el CRUD de administración; no se menciona el origen del aluminio; garantía de 3 meses y precio con IGV.
+
+1. ¿Qué series de la §3 vende de verdad? ¿Con cuáles trabaja también HPD? Respuesta parcial: Sistema Nova, Serie 20 y Serie 25, de Corrales y Eduhg; el cliente elige entre los modelos del taller. Falta la lista completa y HPD.
 2. Serie 35 en Ventanas, y Serie 25 y 62 en Puertas: ¿error o lo trabaja así?
 3. ¿Cuáles son los modelos de freno Sevax que instala: TSA, Minos o ambos?
 4. PVC abatible: ¿qué proveedor? ¿Se mantiene?
 5. Acústica: ¿qué serie y vidrio lleva?
-6. ¿Se mantienen los % antirruido sin respaldo del proveedor?
+6. ~~¿Se mantienen los % antirruido sin respaldo del proveedor?~~ **Respondida:** se mantienen con la nota "referencial". Se había dicho que Serie 25 y 62 tienen respaldo del proveedor; en lo extraído (`proveedores.md`) ningún proveedor da cifras de ruido, así que los cuatro porcentajes son referenciales.
 7. Espejo de 4 mm no belga: ¿quién lo vende?
 8. ¿Qué nombre comercial reciben los sistemas de la fila "Sistema Panorámico" y siguientes?
 9. Repuestos (garruchas, seguros, tornillos): no están entre los 13. ¿Se venden aparte o quedan solo como parte del mantenimiento?

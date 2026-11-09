@@ -93,7 +93,7 @@ Apunte `NEXT_PUBLIC_API_URL`, `NEXT_PUBLIC_CONTACT_API_URL` y `NEXT_PUBLIC_STATU
 
 ## 📜 Cumplimiento Legal (INDECOPI)
 - Los reclamos se guardan **antes** de enviar cualquier correo, con `createdAt: serverTimestamp()` (más `createdAtIso`) para auditoría. Así, un fallo de correo no pierde el registro legal.
-- Cada reclamo incluye `legalRetentionUntil` (fecha de creación + 2 años, en formato ISO), coherente con la política de retención de [04_PLAN_DE_TRABAJO.md](./archivo/04_PLAN_DE_TRABAJO.md).
+- Cada reclamo incluye `legalRetentionUntil` (fecha de creación + 2 años, en formato ISO) (retención legal).
 - El código de seguimiento es propio del backend (`GYA-REC-AAAA-XXXXXX`) y se usa como ID del documento en `libro_de_reclamaciones`.
 - El plazo de respuesta indicado en las plantillas de correo es de **15 días hábiles** improrrogables (cuyo texto cita la Ley N° 29571 y el D.S. N° 011-2011-PCM, modificado por la Ley N° 31435).
 

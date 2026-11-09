@@ -36,19 +36,19 @@ Visita técnica sin costo y presupuesto rápido por WhatsApp, respaldados por un
 - Precio mostrado incluye IGV.
 - Teléfono público: WhatsApp 974 278 303.
 - Ortografía obligatoria: "antirruido" (doble r) y "vidrio y aluminio" (singular).
-- Horario: lunes a sábado, 08:00 a 18:00 (fuente SEO; `company.json` decía 09:00 a 17:00, por confirmar).
+- Horario: lunes a sábado, 08:00 a 18:00 (confirmado por el dueño el 2026-11-09).
 
 ## Brand Commitments
 
 - Nombre: Glass & Aluminum Company S.A.C. Línea superior "VIDRIERÍA & ALUMINIO".
 - Frase de marca: "Confianza sólida en cada estructura".
-- Color de marca: negro `#111111` (decisión vigente del 2026-11-09). Coral del logo solo en el logo. Rojo solo en la palabra "PRESUPUESTO" o en títulos destacados (el dueño lo amplió; regla por confirmar en `apps/web/DESIGN.md`).
+- Color de marca: negro `#111111` (decisión vigente del 2026-11-09). Coral del logo solo en el logo. Rojo solo en la palabra "PRESUPUESTO" del documento impreso y en una palabra destacada de un título por pantalla (regla en `apps/web/DESIGN.md`, "The One Red Rule").
 - Fondo: blanco puro (respuesta del dueño; reemplaza el papel `#F7F6F3` del plan anterior).
 - Tipografía: Lora 700 para títulos, Inter para texto.
 - Modo oscuro: se conserva.
 - Voz: técnica, cercana, profesional. Sin exclamaciones en cadena ni emojis.
 - Logo: `apps/web/src/assets/branding/logosvg.svg` (SVG) y `apps/web/public/brand/logo.png`.
-- Proveedores: nunca visibles al cliente. Sin fotos ni planos de proveedores (decisión D9).
+- Proveedores: nunca visibles al cliente. Sin fotos ni planos de proveedores (decisión del dueño, 2026-11-08; `docs/gya/catalogo/CATALOGO.md` §1.2).
 - Datos de empresa: solo desde `companyData`, nunca escritos a mano.
 
 ## Evidence on Hand

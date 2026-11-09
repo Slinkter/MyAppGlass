@@ -1,17 +1,13 @@
-# docs/gya — Material de presupuestos (G&A)
+# docs/gya — Material de negocio y presupuestos
 
-Material recibido de Claude Desktop e integrado el 2026-11-08. Alimenta la mejora de `/presupuesto` (plan en `docs/21_PLAN_FLUJO_PRESUPUESTO.md`). **La marca, los colores y la tipografía ya no viven aquí: están en `docs/apps/web/DESIGN.md`.**
+Material de la empresa que alimenta el manual de marca (`docs/marca/`), el catálogo y la hoja de presupuesto.
 
-| Archivo | Uso |
+| Ruta | Uso |
 |---|---|
-| `conceptos-presupuesto.md` | 6 conceptos de hoja (C1–C6); se parte de C1 |
-| `data/company.json` | Datos fijos de referencia; en código se usa `companyData` de `@gya/shared` |
-| `data/presupuestos-reales.json` | 4 casos reales anonimizados, base de los fixtures |
-| `prompts/` | Prompts originales (el 04 propone un generador interno; aquí no se aplica tal cual) |
+| `catalogo/` | Catálogo propuesto (`CATALOGO.md`), análisis de proveedores, fichas de servicio y el rol de vendedor para documentar productos |
+| `conceptos-presupuesto.md` | 6 conceptos de hoja de presupuesto (C1 a C6); se parte de C1. Los colores que menciona son anteriores al manual de marca |
+| `data/company.json` | Datos de referencia; en código se usa `companyData` de `@gya/shared` |
+| `data/presupuestos-reales.json` | 4 presupuestos reales anonimizados |
 | `fotos-referencia/` | Fotos de baja resolución, solo referencia (no se sirven en la web) |
 
-## Decisiones que prevalecen sobre el kit
-- Datos vigentes: Av. Los Fresnos 1250 - La Molina, WhatsApp 974 278 303, acueva@gyacompany.com.
-- Catálogo ampliado: además de Nova, Serie 25, 35 y 62, se aceptan `PVC abatible` y `Acústica`.
-- Estructura, rutas y persistencia siguen `AGENTS.md` (FSD, `/presupuesto`, Firestore `presupuestos_solicitados`).
-- Valores `VERIFICAR` no se publican sin confirmación del dueño.
+Los valores marcados `VERIFICAR` no se publican sin confirmación del dueño.
