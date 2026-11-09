@@ -72,9 +72,13 @@ export const OverlaysShowcase: React.FC = () => {
               bg="bg.surface"
               borderColor="border.default"
               borderRadius="modal"
+              maxH="90dvh"
+              aria-labelledby="dialog-aluminum-specs-title"
             >
               <DialogHeader>
-                <DialogTitle>Especificaciones de Carpintería de Aluminio</DialogTitle>
+                <DialogTitle id="dialog-aluminum-specs-title">
+                  Especificaciones de Carpintería de Aluminio
+                </DialogTitle>
               </DialogHeader>
               <DialogBody>
                 <VStack align="flex-start" gap="3">
@@ -104,7 +108,7 @@ export const OverlaysShowcase: React.FC = () => {
                   </Button>
                 </DialogActionTrigger>
               </DialogFooter>
-              <DialogCloseTrigger />
+              <DialogCloseTrigger aria-label="Cerrar ventana modal" />
             </DialogContent>
           </DialogRoot>
         </VStack>
@@ -135,7 +139,7 @@ export const OverlaysShowcase: React.FC = () => {
                   minW={TOUCH_MIN}
                   minH={TOUCH_MIN}
                 >
-                  <Info size={16} style={{ flexShrink: 0 }} />
+                  <Info size={16} style={{ flexShrink: 0 }} aria-hidden="true" />
                 </IconButton>
               </Tooltip>
             </VStack>
@@ -158,10 +162,10 @@ export const OverlaysShowcase: React.FC = () => {
                     Abrir Drawer
                   </Button>
                 </DrawerTrigger>
-                <DrawerContent>
-                  <DrawerCloseTrigger />
+                <DrawerContent aria-labelledby="drawer-system-detail-title">
+                  <DrawerCloseTrigger aria-label="Cerrar panel lateral" />
                   <DrawerHeader>
-                    <DrawerTitle>Detalle del sistema</DrawerTitle>
+                    <DrawerTitle id="drawer-system-detail-title">Detalle del sistema</DrawerTitle>
                   </DrawerHeader>
                   <DrawerBody>
                     <Text fontSize="sm" color="text.body">

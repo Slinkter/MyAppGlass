@@ -19,7 +19,7 @@ const DEMO_IMAGE = "/images/services-products-01.Ventanas-nova-a10.webp";
 const rules = [
   {
     title: "Arquitectura no bloqueante (Fase 5)",
-    body: "Los textos, badges y acciones son inmediatamente visibles sobre el fondo base #182238. La interfaz nunca bloquea contenido aunque JS o la red sean lentos.",
+    body: "Los textos, badges y acciones son inmediatamente visibles sobre el fondo base azul marino de la marca. La interfaz nunca bloquea contenido aunque JS o la red sean lentos.",
   },
   {
     title: "Transición suave de imagen",
@@ -43,8 +43,8 @@ const rules = [
   },
 ];
 
-const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de inmediato sobre fondo base #182238
-<Box position="relative" overflow="hidden" bg="#182238">
+const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de inmediato sobre fondo base brand.navy
+<Box position="relative" overflow="hidden" bg="brand.navy">
   <ImageRevealSkeleton loaded={loaded} />
   <Box
     position="absolute"
@@ -54,7 +54,7 @@ const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de in
   >
     <ResponsiveImage src={src} onLoad={onLoad} ... />
   </Box>
-  <Box position="absolute" inset={0} bg="rgba(10, 15, 29, 0.65)" pointerEvents="none" />
+  <Box position="absolute" inset={0} bg="overlay.glass" pointerEvents="none" />
   {/* Contenido textual inmediato: nunca se bloquea por la imagen */}
   <VStack position="absolute" bottom="0" p="6">
     <Heading>Ventanas de Aluminio</Heading>
@@ -63,7 +63,7 @@ const codeExample = `// Arquitectura no bloqueante (Fase 5): texto visible de in
 </Box>`;
 
 /**
- * Tarjeta de demostración. Muestra el texto de inmediato sobre #182238
+ * Tarjeta de demostración. Muestra el texto de inmediato sobre el fondo de marca
  * y desvanece la imagen con cubic-bezier(0.22, 1, 0.36, 1).
  */
 const DemoRevealCard: React.FC = () => {
@@ -78,12 +78,12 @@ const DemoRevealCard: React.FC = () => {
   return (
     <Box
       w="full"
-      maxW={{ base: "full", md: "420px" }}
-      h={{ base: "260px", sm: "280px", md: "310px" }}
+      maxW={{ base: "full", md: "26.25rem" }}
+      h={{ base: "16.25rem", sm: "17.5rem", md: "19.375rem" }}
       borderRadius="3xl"
       overflow="hidden"
       position="relative"
-      bg="#182238"
+      bg="brand.navy"
       boxShadow="sm"
     >
       <ImageRevealSkeleton loaded={loaded} />
@@ -107,7 +107,7 @@ const DemoRevealCard: React.FC = () => {
       <Box
         position="absolute"
         inset={0}
-        bg="rgba(10, 15, 29, 0.65)"
+        bg="overlay.glass"
         pointerEvents="none"
       />
       <VStack
@@ -137,7 +137,7 @@ export const ImageRevealShowcase: React.FC = () => {
   return (
     <ShowcaseCard
       title="Revelado no bloqueante de imagen (Fase 5)"
-      description="Patrón arquitectónico no bloqueante: MediaCard muestra los textos de inmediato sobre fondo base #182238 y desvanece la imagen con cubic-bezier(0.22, 1, 0.36, 1) sin bloquear la interfaz si JS o la red son lentos."
+      description="Patrón arquitectónico no bloqueante: MediaCard muestra los textos de inmediato sobre fondo base azul marino de marca y desvanece la imagen con cubic-bezier(0.22, 1, 0.36, 1) sin bloquear la interfaz si JS o la red son lentos."
       badge="Fase 5 · MediaCard"
     >
       <ShowcaseStack>
@@ -151,7 +151,7 @@ export const ImageRevealShowcase: React.FC = () => {
               alignSelf={{ base: "stretch", md: "flex-start" }}
               onClick={() => setRun((n) => n + 1)}
             >
-              <RotateCcw size={16} style={{ flexShrink: 0 }} aria-hidden />
+              <RotateCcw size={16} style={{ flexShrink: 0 }} aria-hidden="true" />
               Repetir animación
             </Button>
           </VStack>

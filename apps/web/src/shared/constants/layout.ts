@@ -21,6 +21,6 @@ export const GLASS_FALLBACK_CSS = {
   "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
     backdropFilter: "none",
     WebkitBackdropFilter: "none",
-    background: "var(--chakra-colors-bg-surface)",
+    background: "var(--chakra-colors-bg\\.surface)",
   },
 } as const;

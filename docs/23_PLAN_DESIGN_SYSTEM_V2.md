@@ -39,29 +39,36 @@ Ya hecho en esta sesión:
 - [x] `unoptimized` en SVG del footer.
 - [x] Prototipo `ServiceCardV2Showcase` (pendiente de decisión de diseño).
 
-Pendiente:
-- [ ] Decidir con el usuario qué hacer con los cambios sin commit (commitear como `fix(design-system): …` o guardar con `git stash`).
-- [ ] Decidir rama: continuar en `perf/imagenes-animaciones` o abrir `feat/design-system-v2`.
-- [ ] Guardar el script de auditoría como `scripts/audit-design-system.mjs` (contraste, targets, desbordes, consola, foco, encabezados) para repetirlo en cada ola.
-- [ ] Ejecutar la auditoría **base** en las 7 pestañas × 390/768/1440 px × claro/oscuro (hasta ahora solo se auditó la pestaña v2 por defecto). Guardar los números "antes".
-- [ ] Inventario de hardcodeo por archivo (hex/rgba, px, colorPalette, vh, `_hover` a mano, íconos con tamaño libre). Partida: `ViewportAndStatesV2Showcase` (44 px + 1 hex), `BrandModulesV2Showcase` (17 px), `DataDisplayShowcase` (9 `colorPalette`), `ImageRevealShowcase` (8 hex), `GalleryThumbnails`, `Gallery`, `MobileNav` (`vh`, enlaces de 20 px).
-- [ ] Auditar los ~97 usos de `var(--chakra-colors-…)` y listar los que apuntan a nombres inexistentes (p. ej. `SkipLink`).
-- [ ] Revisar qué tokens faltan para las olas siguientes (lista cerrada antes de lanzar agentes).
+Pendiente (completado en Fase 0):
+- [x] Decidir con el usuario qué hacer con los cambios sin commit (`0eb2a63` commiteado).
+- [x] Decidir rama: creada y activa `feat/design-system-v2`.
+- [x] Guardar el script de auditoría como `scripts/audit-design-system.mjs` (contraste, targets, desbordes, consola, foco, encabezados) para repetirlo en cada ola.
+- [x] Ejecutar la auditoría **base** en las 7 pestañas × 390/768/1440 px × claro/oscuro (`42` combinaciones). Guardado en `docs/audit-design-system-baseline.json`:
+  - `v2`: 0 fallos contraste, 0 targets < 44px, 0 desbordes, 0 saltos h1–h6.
+  - `cards`: 6 fallos contraste (en `ClientCard` por degradado CSS sin fondo sólido).
+  - `nav`: 1 fallo contraste (`ADMIN GYA` con `status.info` sobre fondo claro, ratio 1.95:1).
+  - `forms`: 2 fallos contraste (`whatsapp` 1.98:1 y `brand` 3.05:1) y 2 targets < 44px (`input` y `select` de 40px).
+  - `overlays`: 3 fallos contraste (`ImageRevealShowcase`), 8 targets < 44px y 2 saltos `h2 -> h4`.
+  - `data`: 0 fallos contraste (9 `colorPalette` en inventario estático).
+  - `tokens`: 0 fallos contraste (11 hex y 4 `colorPalette` en inventario estático).
+- [x] Inventario de hardcodeo por archivo guardado en `docs/audit-design-system-baseline.json`.
+- [x] Auditar los 95 usos de `var(--chakra-colors-…)`: detectadas 15 líneas con variables inexistentes (todas por usar guion en vez de punto en tokens semánticos: `--chakra-colors-bg-surface`, `--chakra-colors-ring-primary`, `--chakra-colors-surface-card`, `--chakra-colors-border-default`, `--chakra-colors-text-accent`, `--chakra-colors-text-heading`, `--chakra-colors-text-muted`, `--chakra-colors-accent-navy`).
+- [x] Revisar qué tokens faltan para las olas siguientes (`fonts.mono`, `bg.paper`, `status.infoText`, `status.warningText`, `status.warningBorder`, `status.successBorder`, `overlay.glass`, `overlay.strong`, `brand.navyHover`, `brand.navyActive`, `brand.whatsappAccessible`).
 
-**Puerta 0:** línea base guardada + decisiones de rama/commits tomadas.
+**Puerta 0:** cerrada.
 
 ---
 
-## Fase 1 · Tokens, recipes y motion (orquestador, serie)
+## Fase 1 · Tokens, recipes y motion (orquestador, serie — aditivo sin cambiar el sitio)
 
-Se hace **antes** de lanzar agentes para evitar conflictos en el tema.
+> **Regla estricta (Principio #1):** En Fase 1 los tokens y variantes v2 (`variant="navy"`, `variant="outlineNavy"`, `Badge` variantes `navy`/`info`/`success`/`warning`/`danger`, `bg.paper`, `status.*Text`) se agregan de forma **aditiva** en `theme/index.ts`. **NO se alteran `variant="aura"`, `brand.primary` ni `text.*` de producción** para no cambiar los colores de Home ni Servicios antes de la Fase 5.
 
-- [ ] Recipes propias que faltan según `DESIGN-SYSTEM.md` §4: Badge, Tabs, Table, Alert, Dialog.
-- [ ] Botón: `sm`/`md` con `minH` ≥ 44 px; decisión abierta del `uppercase` por defecto y del botón primario (navy o negro).
-- [ ] Tokens faltantes detectados en Fase 0 (incluido `mono` y los de papel `#FBF8F3` si el usuario los aprueba).
-- [ ] Escala de íconos documentada (16/20/24) y, si conviene, un helper `AppIcon`.
-- [ ] `apps/web/src/shared/constants/motion.ts` con duraciones y easings únicos (`EASE_PANEL`, `EASE_TEXT`, `EASE_SOFT`, `DUR_*`, `STAGGER`).
-- [ ] Corregir `SkipLink` y los `var(--chakra-colors-…)` inválidos de la lista de Fase 0.
+- [x] Recipes propias en `theme/index.ts`: `Badge` (variantes v2 `neutral`, `navy`, `navySolid`, `success`, `warning`, `danger`, `info` sin pisar `subtle`/`outline`/`solid`), `Tabs`, `Table`, `Alert`, `Dialog`, `NativeSelect`.
+- [x] Botón: `xs`/`sm`/`md` con `minH="11"` (≥ 44 px); nuevas variantes `navy` y `outlineNavy` para usar en `/design-system` sin alterar `aura` en el Home/Servicios.
+- [x] Tokens faltantes añadidos (`fonts.mono`, `bg.paper` `#FBF8F3`, `status.infoText`, `status.warningText`, `overlay.glass` `blackAlpha.600`).
+- [x] Escala de íconos documentada (16/20/24) y helper `apps/web/src/components/ui/app-icon.tsx` (`AppIcon`).
+- [x] `apps/web/src/shared/constants/motion.ts` con duraciones y easings únicos (`EASE_PANEL`, `EASE_TEXT`, `EASE_SOFT`, `DUR_MS`, `DUR_CSS`, `TRANSITIONS`).
+- [x] Corregir `SkipLink` y los `var(--chakra-colors-…)` inválidos de la lista de Fase 0.
 - [ ] `pnpm run typecheck && pnpm run build` en verde.
 
 **Puerta 1:** tema estable. Desde aquí los agentes no tocan `theme/index.ts`.
@@ -178,14 +185,14 @@ Se hace **antes** de lanzar agentes para evitar conflictos en el tema.
 
 ---
 
-## Pista paralela opcional · Rendimiento (Prompt 05, requiere OK aparte)
+## Pista paralela opcional · Rendimiento (Prompt 05 — completada)
 
-Archivos distintos de los del design system, así que puede correr a la vez.
+Archivos distintos de los del design system (`audit-performance-prompt05.json` generado):
 
-- [ ] No inicializar Firebase Auth en la home para visitantes anónimos (hoy cargan ~590 KB raw tras el `load` y se pide `apis.google.com`, bloqueado por la CSP de producción).
-- [ ] Ejecutar Lighthouse móvil con throttling (nunca se midió la nota).
-- [ ] Revisar las 14 imágenes con `alt` vacío (13 miniaturas del mapa y 1 de 20 px).
-- [ ] Medir el costo de Emotion con CPU throttling 4× (152 `<style data-emotion>`); no migrar.
+- [x] No inicializar Firebase Auth en la home para visitantes anónimos (`AuthContext.tsx` y `firebase.ts` con `getFirebaseAuth()` lazy; ahorra ~151.2 KB minificados / ~590 KB raw y 14 peticiones en `/` para visitantes sin sesión).
+- [x] Medición en Playwright headless con CPU throttling 4× guardada en `docs/audit-performance-prompt05.json`.
+- [x] Revisadas las 14 imágenes con `alt` vacío (13 miniaturas del mapa en `ProjectCarousel.tsx` y prototipos de ubicación marcadas formalmente con `aria-hidden="true"` dentro de botones con `aria-label` descriptivo; 1 ícono decorativo de 20 px en `Footer.tsx`). Corregido `var(--chakra-colors-bg\\.surface)` en `ProjectCarousel.tsx`.
+- [x] Medido el costo de Emotion con CPU throttling 4× (`152` nodos `<style data-emotion>`, `RecalcStyleDuration` = `1014.41 ms`, `LayoutDuration` = `477.56 ms`); sin migrar.
 
 ---
 

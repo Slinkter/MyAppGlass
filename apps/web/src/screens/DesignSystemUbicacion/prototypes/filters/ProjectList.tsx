@@ -64,7 +64,7 @@ const Row: React.FC<{ project: LocationProject; selected: boolean; onSelect: (id
         borderColor={selected ? "primary.500" : "transparent"}
         onClick={() => onSelect(project.id)}
       >
-        <Box position="relative" w="56px" h="56px" flexShrink={0} borderRadius="md" overflow="hidden" bg="bg.subtle">
+        <Box position="relative" w="56px" h="56px" flexShrink={0} borderRadius="md" overflow="hidden" bg="bg.subtle" aria-hidden="true">
           <ImageRevealSkeleton loaded={loaded} />
           <Box position="absolute" inset="0" {...reveal}>
             {project.image && (

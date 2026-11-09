@@ -568,14 +568,9 @@ export const BrandModulesV2Showcase: React.FC = () => {
                     <VStack align="stretch" gap="1.5">
                       {activeSystem.features.map((feat, idx) => (
                         <HStack key={idx} align="start" gap="2">
-                          <Check
-                            size={14}
-                            style={{
-                              flexShrink: 0,
-                              marginTop: 3,
-                              color: "var(--chakra-colors-accent-navy)",
-                            }}
-                          />
+                          <Box as="span" color="accent.navy" display="inline-flex" mt="0.5">
+                            <Check size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
+                          </Box>
                           <Text fontSize="xs" color="text.body">
                             {feat}
                           </Text>

@@ -39,7 +39,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
  * altura responsive fija y `Gallery.Viewer` + `Gallery.Thumbnails` como hijos
  * directos de un Flex. El Viewer no tiene alto propio: ocupa el espacio restante.
  */
-const GALLERY_HEIGHT = { base: "380px", sm: "440px", md: "420px", lg: "460px" };
+const GALLERY_HEIGHT = { base: "23.75rem", sm: "27.5rem", md: "26.25rem", lg: "28.75rem" };
 
 interface GalleryStageProps {
   images: GalleryItem[];
@@ -56,6 +56,20 @@ const GalleryStage: React.FC<GalleryStageProps> = ({ images, onActiveImageChange
     borderRadius={{ base: "2xl", lg: "3xl" }}
     role="region"
     aria-label="Galería de imágenes de ejemplo"
+    css={{
+      "& button[aria-label='Ampliar imagen']": {
+        minWidth: "var(--chakra-spacing-11) !important",
+        minHeight: "var(--chakra-spacing-11) !important",
+        width: "var(--chakra-spacing-11) !important",
+        height: "var(--chakra-spacing-11) !important",
+      },
+      "& button[aria-label^='Ir a imagen']": {
+        minWidth: "var(--chakra-spacing-11) !important",
+        minHeight: "var(--chakra-spacing-11) !important",
+        width: "var(--chakra-spacing-11) !important",
+        height: "var(--chakra-spacing-11) !important",
+      },
+    }}
   >
     <Gallery images={images} onActiveImageChange={onActiveImageChange}>
       <Flex
@@ -134,7 +148,7 @@ const ProductGallery: React.FC = () => (
       borderRadius={{ base: "2xl", lg: "3xl" }}
     >
       <SubsectionLabel>Ficha técnica</SubsectionLabel>
-      <Heading as="h4" fontSize={{ base: "lg", md: "xl" }} color="text.heading" lineClamp={2}>
+      <Heading as="h3" fontSize={{ base: "lg", md: "xl" }} color="text.heading" lineClamp={2}>
         Mampara de Cristal Templado
       </Heading>
       <VStack align="stretch" gap="0" separator={<Box borderTopWidth="1px" borderColor="border.default" />}>
@@ -176,8 +190,6 @@ const MosaicCell: React.FC<MosaicCellProps> = ({ item, ratio, large }) => (
     gridColumn={large ? { md: "span 2" } : undefined}
     gridRow={large ? { md: "span 2" } : undefined}
     role="group"
-    transition="transform 0.2s ease, box-shadow 0.2s ease"
-    _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
   >
     <Image
       src={item.src}
@@ -193,15 +205,13 @@ const MosaicCell: React.FC<MosaicCellProps> = ({ item, ratio, large }) => (
     <Box
       as="figcaption"
       position="absolute"
-      left="0"
-      right="0"
-      bottom="0"
-      px={{ base: "3", md: "4" }}
-      pb={{ base: "3", md: "4" }}
-      pt="10"
-      bgGradient="to-t"
-      gradientFrom="blackAlpha.700"
-      gradientTo="transparent"
+      left={{ base: "2", md: "3" }}
+      right={{ base: "2", md: "3" }}
+      bottom={{ base: "2", md: "3" }}
+      p={{ base: "2.5", md: "3" }}
+      borderRadius="lg"
+      bg="overlay.glass"
+      backdropFilter="blur(0.5rem)"
       pointerEvents="none"
     >
       <Text
@@ -258,7 +268,7 @@ const CatalogGrid: React.FC = () => (
             />
           </Box>
           <Flex direction="column" gap="2" p={{ base: "3", md: "5" }} flex="1">
-            <Heading as="h4" fontSize="md" color="text.heading" lineClamp={2}>
+            <Heading as="h3" fontSize="md" color="text.heading" lineClamp={2}>
               {item.title}
             </Heading>
             <Text fontSize="xs" color="text.muted" lineClamp={2}>

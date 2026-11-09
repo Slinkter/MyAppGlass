@@ -109,6 +109,7 @@ const ProjectCard = React.memo(({ project, active, onSelect }: CardProps) => (
       w="40px"
       h="40px"
       borderRadius="lg"
+      aria-hidden="true"
     >
       <Cover src={project.image} alt="" />
     </Box>
@@ -181,7 +182,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects, sele
         "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
           backdropFilter: "none",
           WebkitBackdropFilter: "none",
-          background: "var(--chakra-colors-bg-surface)",
+          background: "var(--chakra-colors-bg\\.surface)",
         },
       }}
     >

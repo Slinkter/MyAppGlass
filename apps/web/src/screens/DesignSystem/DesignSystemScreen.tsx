@@ -28,6 +28,7 @@ import { CardVariantsShowcase } from "./sections/v2/CardVariantsShowcase";
 import { BrandModulesV2Showcase } from "./sections/v2/BrandModulesV2Showcase";
 import { ViewportAndStatesV2Showcase } from "./sections/v2/ViewportAndStatesV2Showcase";
 import { ServiceCardV2Showcase } from "./sections/v2/ServiceCardV2Showcase";
+import { MobileNavV2Showcase } from "./sections/v2/MobileNavV2Showcase";
 
 export const DesignSystemScreen: React.FC = () => {
   return (
@@ -122,6 +123,7 @@ export const DesignSystemScreen: React.FC = () => {
           {/* 7. Nuevos modelos v2 (comparar con las pestañas anteriores) */}
           <Tabs.Content value="v2">
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
+              <MobileNavV2Showcase />
               <BrandModulesV2Showcase />
               <ViewportAndStatesV2Showcase />
               <ResponsiveScaleShowcase />

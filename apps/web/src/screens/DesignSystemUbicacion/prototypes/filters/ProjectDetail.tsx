@@ -69,7 +69,7 @@ const Gallery: React.FC<{ project: LocationProject }> = ({ project }) => {
               transition="border-color 0.2s ease"
               _focusVisible={{ outline: "2px solid", outlineColor: "primary.500", outlineOffset: "2px" }}
             >
-              <ResponsiveImage src={src} alt="" w="full" h="full" objectFit="cover" />
+              <ResponsiveImage src={src} alt="" aria-hidden="true" w="full" h="full" objectFit="cover" />
             </chakra.button>
           ))}
         </HStack>

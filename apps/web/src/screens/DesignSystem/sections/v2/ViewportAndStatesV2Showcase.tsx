@@ -766,8 +766,9 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 bg="bg.surface"
                 borderWidth="2px"
                 borderColor="accent.navy"
-                outline="none"
-                boxShadow="0 0 0 3px var(--chakra-colors-ring-primary)"
+                outline="2px solid"
+                outlineColor="ring.primary"
+                outlineOffset="2px"
                 color="text.heading"
                 fontWeight="bold"
                 fontSize="xs"
@@ -1114,13 +1115,9 @@ export const ViewportAndStatesV2Showcase: React.FC = () => {
                 borderColor="border.warmStrong"
                 gap="2"
               >
-                <Inbox
-                  size={20}
-                  style={{
-                    flexShrink: 0,
-                    color: "var(--chakra-colors-text-muted)",
-                  }}
-                />
+                <Box as="span" color="text.muted" display="inline-flex">
+                  <Inbox size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
+                </Box>
                 <Text fontSize="xs" fontWeight="bold" color="text.heading">
                   Sin presupuestos guardados
                 </Text>

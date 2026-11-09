@@ -185,11 +185,11 @@ const LocationMap: React.FC<LocationMapProps> = ({
               "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
                 backdropFilter: "none",
                 WebkitBackdropFilter: "none",
-                background: "var(--chakra-colors-bg-surface)",
+                background: "var(--chakra-colors-bg\\.surface)",
               },
             }}
           >
-            <Compass size={17} style={{ flexShrink: 0 }} />
+            <Compass size={20} style={{ flexShrink: 0 }} />
           </Button>
         </Box>
       )}

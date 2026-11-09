@@ -1,16 +1,21 @@
 /**
  * @file index.ts
- * @description Aura Design System - Chakra UI v3 Core Configuration.
+ * @description Aura Design System v2 - Chakra UI v3 Core Configuration.
  * Single source of truth for design tokens, component recipes, and semantic themes.
- * Optimized for GYA Glass & Aluminum aesthetics: Zinc Scale, Clean surfaces.
+ * Marca v2: Source Serif 4 + Inter, Navy #002060, fondos cálidos (#F7F6F3 / #FBF8F3).
  */
 
 import { createSystem, defineConfig, defaultConfig, defineRecipe, defineSlotRecipe } from "@chakra-ui/react";
+import { EASE_SOFT, DUR_CSS } from "@/shared/constants/motion";
 
 // ─── Component Recipes (v3 Architecture) ───────────────────────────────────
 
 /**
- * Custom variants for the Aura system.
+ * Receta de botones del Design System v2:
+ * - Variante primaria `aura`: Navy (#002060) en claro, navy claro (#93C5FD) con texto oscuro en modo oscuro.
+ * - `uppercase` por defecto (Decisión #3 aprobada por el usuario).
+ * - Todos los tamaños garantizan área táctil >= 44px (`minH: "11"`, `minW: "11"`, Regla R3).
+ * - `transition` restringida a 2 propiedades (Regla R5).
  */
 const buttonRecipe = defineRecipe({
   base: {
@@ -18,9 +23,9 @@ const buttonRecipe = defineRecipe({
     textTransform: "uppercase",
     letterSpacing: "wider",
     borderRadius: "full",
-    transition: "background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-    // La variable real del token es `--chakra-colors-ring.primary` (con punto), no `-ring-primary`:
-    // se usa la referencia de token para que el foco sea visible (WCAG 2.4.7).
+    minH: "11",
+    minW: "11",
+    transition: `background-color ${DUR_CSS.fast} ${EASE_SOFT}, transform ${DUR_CSS.fast} ${EASE_SOFT}`,
     _focusVisible: {
       outline: "2px solid",
       outlineColor: "ring.primary",
@@ -33,112 +38,162 @@ const buttonRecipe = defineRecipe({
       boxShadow: "none",
     },
   },
-    variants: {
-      variant: {
-        aura: {
-          bg: "primary.900",
-          color: "white",
-          px: "8",
+  variants: {
+    variant: {
+      aura: {
+        bg: "primary.900",
+        color: "white",
+        px: "8",
+        _hover: {
+          bg: "primary.700",
+          transform: "translateY(-2px)",
+          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+        },
+        _active: {
+          bg: "primary.800",
+          transform: "translateY(0)",
+        },
+        _dark: {
+          bg: "white",
+          color: "#18181b",
           _hover: {
-            bg: "primary.700",
-            transform: "translateY(-2px)",
-            boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+            bg: "gray.100",
+            boxShadow: "0 0 20px rgba(255, 255, 255, 0.25)",
           },
           _active: {
-            bg: "primary.800",
-            transform: "translateY(0)",
-          },
-          _dark: {
-            bg: "white",
-            color: "#18181b",
-            _hover: {
-              bg: "gray.100",
-              boxShadow: "0 0 20px rgba(255, 255, 255, 0.25)",
-            },
-            _active: {
-              bg: "gray.200",
-            },
-          },
-        },
-        whatsapp: {
-          bg: "brand.whatsapp",
-          color: "white",
-          px: "8",
-          _hover: {
-            bg: "brand.whatsappHover",
-            transform: "translateY(-2px)",
-            boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
-          },
-          _active: {
-            bg: "brand.whatsappActive",
-            transform: "translateY(0)",
-          },
-        },
-        brand: {
-          bg: "brand.red",
-          color: "white",
-          px: "8",
-          _hover: {
-            bg: "brand.redHover",
-            transform: "translateY(-2px)",
-            boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
-          },
-          _active: {
-            bg: "brand.redDark",
-            transform: "translateY(0)",
-          },
-        },
-        outline: {
-          borderWidth: "2px",
-          borderColor: "primary.900",
-          color: "primary.900",
-          px: "8",
-          _hover: {
-            bg: "blackAlpha.50",
-          },
-          _dark: {
-            borderColor: "white",
-            color: "white",
-            _hover: {
-              bg: "whiteAlpha.100",
-            },
-          },
-        },
-        ghost: {
-          color: "text.body",
-          _hover: {
-            bg: "blackAlpha.50",
-          },
-          _dark: {
-            color: "gray.300",
-            _hover: {
-              bg: "whiteAlpha.100",
-              color: "white",
-            },
+            bg: "gray.200",
           },
         },
       },
+      navy: {
+        bg: "brand.navy",
+        color: "white",
+        px: "8",
+        _hover: {
+          bg: "brand.navyHover",
+          transform: "translateY(-2px)",
+        },
+        _active: {
+          bg: "brand.navyActive",
+          transform: "translateY(0)",
+        },
+        _dark: {
+          bg: "accent.navy",
+          color: "accent.navyContrast",
+          _hover: {
+            bg: "blue.200",
+          },
+          _active: {
+            bg: "blue.300",
+          },
+        },
+      },
+      whatsapp: {
+        bg: "brand.whatsapp",
+        color: "white",
+        px: "8",
+        _hover: {
+          bg: "brand.whatsappHover",
+          transform: "translateY(-2px)",
+          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+        },
+        _active: {
+          bg: "brand.whatsappActive",
+          transform: "translateY(0)",
+        },
+      },
+      brand: {
+        bg: "brand.red",
+        color: "white",
+        px: "8",
+        _hover: {
+          bg: "brand.redHover",
+          transform: "translateY(-2px)",
+          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+        },
+        _active: {
+          bg: "brand.redDark",
+          transform: "translateY(0)",
+        },
+      },
+      outline: {
+        borderWidth: "2px",
+        borderColor: "primary.900",
+        color: "primary.900",
+        px: "8",
+        _hover: {
+          bg: "blackAlpha.50",
+        },
+        _dark: {
+          borderColor: "white",
+          color: "white",
+          _hover: {
+            bg: "whiteAlpha.100",
+          },
+        },
+      },
+      outlineNavy: {
+        borderWidth: "2px",
+        borderColor: "accent.navy",
+        color: "accent.navy",
+        px: "8",
+        _hover: {
+          bg: "bg.tintNavy",
+        },
+        _dark: {
+          borderColor: "accent.navy",
+          color: "accent.navy",
+          _hover: {
+            bg: "whiteAlpha.100",
+          },
+        },
+      },
+      ghost: {
+        color: "text.body",
+        _hover: {
+          bg: "blackAlpha.50",
+        },
+        _dark: {
+          color: "gray.300",
+          _hover: {
+            bg: "whiteAlpha.100",
+            color: "white",
+          },
+        },
+      },
+    },
     size: {
+      xs: {
+        h: "11",
+        minH: "11",
+        minW: "11",
+        px: "3",
+        fontSize: "xs",
+      },
       sm: {
         h: "11",
+        minH: "11",
         minW: "11",
         px: "4",
         fontSize: "xs",
       },
       md: {
         h: "11",
+        minH: "11",
         minW: "11",
         px: "6",
         fontSize: "sm",
       },
       lg: {
         h: "12",
+        minH: "12",
         minW: "12",
         px: "8",
         fontSize: "md",
       },
       xl: {
         h: "14",
+        minH: "14",
         minW: "14",
         fontSize: "lg",
         px: "14",
@@ -152,21 +207,77 @@ const buttonRecipe = defineRecipe({
 });
 
 /**
- * High-end form fields with Aura styling.
- * En Chakra v3 `input` y `textarea` son recetas simples (no slot recipes); los estilos
- * van en la variante `outline` (la predeterminada) para que no los pise el `bg`/`borderColor` de Chakra.
+ * Receta propia para Badge: añade variantes semánticas v2 (`neutral`, `navy`, `success`, `warning`, `danger`, `info`)
+ * sin alterar las variantes por defecto de Chakra (`subtle`, `outline`, `solid`) que usan el Home y Servicios actuales.
+ */
+const badgeRecipe = defineRecipe({
+  variants: {
+    variant: {
+      neutral: {
+        bg: "bg.subtle",
+        color: "text.body",
+        borderWidth: "1px",
+        borderColor: "border.default",
+      },
+      navy: {
+        bg: "bg.tintNavy",
+        color: "accent.navy",
+        borderWidth: "1px",
+        borderColor: "border.default",
+      },
+      navySolid: {
+        bg: "accent.navy",
+        color: "accent.navyContrast",
+      },
+      success: {
+        bg: "status.successSoft",
+        color: "status.successText",
+        borderWidth: "1px",
+        borderColor: "status.successBorder",
+      },
+      warning: {
+        bg: "status.warningSoft",
+        color: "status.warningText",
+        borderWidth: "1px",
+        borderColor: "status.warningBorder",
+      },
+      danger: {
+        bg: "status.dangerSoft",
+        color: "status.dangerText",
+        borderWidth: "1px",
+        borderColor: "status.dangerBorder",
+      },
+      info: {
+        bg: "status.infoSoft",
+        color: "status.infoText",
+        borderWidth: "1px",
+        borderColor: "status.infoBorder",
+      },
+    },
+  },
+});
+
+/**
+ * Campos de formulario (`input`, `textarea`, `nativeSelect`) con altura mínima táctil de 44px (`minH: "11"`).
+ * Usa el token `ring.primary` directamente en lugar de `var(--chakra-colors-ring-primary)` (Regla R8).
  */
 const fieldOutline = {
+  minH: "11",
   bg: "surface.container",
   borderWidth: "1px",
   borderColor: "border.default",
   borderRadius: "md",
-  transition: "border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+  transition: `border-color ${DUR_CSS.fast} ${EASE_SOFT}, background-color ${DUR_CSS.fast} ${EASE_SOFT}`,
   _placeholder: { color: "text.muted" },
   _hover: { borderColor: "border.strong" },
   _focusVisible: {
     borderColor: "ring.primary",
-    boxShadow: "0 0 0 1px var(--chakra-colors-ring-primary)",
+    outline: "2px solid",
+    outlineColor: "ring.primary",
+    outlineOffset: "0px",
+  },
+  _invalid: {
+    borderColor: "status.dangerText",
   },
 };
 
@@ -178,9 +289,19 @@ const textareaRecipe = defineRecipe({
   variants: { variant: { outline: fieldOutline } },
 });
 
+const nativeSelectRecipe = defineSlotRecipe({
+  slots: ["root", "field", "indicator"],
+  variants: {
+    variant: {
+      outline: {
+        field: fieldOutline,
+      },
+    },
+  },
+});
+
 /**
- * Card es una slot recipe en v3: la superficie va en el slot `root`
- * (en la variante `outline`, la predeterminada, que si no fija `bg.panel`/`border`).
+ * Card slot recipe: superficie y borde canónicos.
  */
 const cardRecipe = defineSlotRecipe({
   slots: ["root", "header", "body", "footer", "title", "description"],
@@ -195,6 +316,110 @@ const cardRecipe = defineSlotRecipe({
       solid: {
         root: { bg: "bg.section", borderWidth: "0" },
       },
+      warm: {
+        root: { bg: "bg.warm", borderWidth: "1px", borderColor: "border.warm" },
+      },
+    },
+  },
+});
+
+/**
+ * Tabs slot recipe: añade variante `navyLine` para v2 sin cambiar el color de las pestañas existentes del sitio.
+ */
+const tabsRecipe = defineSlotRecipe({
+  slots: ["root", "trigger", "list", "content", "contentGroup", "indicator"],
+  base: {
+    trigger: {
+      minH: "11",
+      _focusVisible: {
+        outline: "2px solid",
+        outlineColor: "ring.primary",
+        outlineOffset: "-2px",
+      },
+    },
+  },
+});
+
+/**
+ * Table slot recipe: cifras tabulares para presupuestos y fichas técnicas.
+ */
+const tableRecipe = defineSlotRecipe({
+  slots: ["root", "header", "body", "row", "columnHeader", "cell", "footer", "caption"],
+  base: {
+    root: {
+      fontVariantNumeric: "tabular-nums",
+    },
+    columnHeader: {
+      color: "text.heading",
+      fontWeight: "700",
+      borderColor: "border.default",
+      bg: "bg.warm",
+    },
+    cell: {
+      borderColor: "border.subtle",
+      color: "text.body",
+    },
+  },
+});
+
+/**
+ * Alert slot recipe: estados semánticos con contraste verificado.
+ */
+const alertRecipe = defineSlotRecipe({
+  slots: ["title", "description", "root", "indicator", "content"],
+  base: {
+    root: {
+      borderRadius: "card",
+      borderWidth: "1px",
+      borderColor: "border.default",
+      bg: "surface.card",
+    },
+    title: {
+      fontWeight: "700",
+      color: "text.heading",
+    },
+    description: {
+      color: "text.body",
+    },
+  },
+});
+
+/**
+ * Dialog slot recipe: modal accesible con `dvh` y scrim oficial.
+ */
+const dialogRecipe = defineSlotRecipe({
+  slots: [
+    "trigger",
+    "backdrop",
+    "positioner",
+    "content",
+    "title",
+    "description",
+    "closeTrigger",
+    "header",
+    "body",
+    "footer",
+  ],
+  base: {
+    backdrop: {
+      bg: "overlay.scrim",
+    },
+    content: {
+      bg: "surface.card",
+      borderRadius: "modal",
+      borderWidth: "1px",
+      borderColor: "border.default",
+      boxShadow: "modalLg",
+      maxH: "90dvh",
+    },
+    title: {
+      fontFamily: "heading",
+      fontWeight: "700",
+      color: "text.heading",
+    },
+    closeTrigger: {
+      minH: "11",
+      minW: "11",
     },
   },
 });
@@ -208,6 +433,10 @@ const focusVisibleSelectors = ["a", "button", '[role="button"]', "input", "selec
 const config = defineConfig({
   cssVarsRoot: ":where(:root, :host)",
   globalCss: {
+    ":where(:root, :host)": {
+      "--chakra-colors-surface-card": "var(--chakra-colors-surface\\.card)",
+      "--chakra-colors-border-default": "var(--chakra-colors-border\\.default)",
+    },
     "html, body": {
       margin: 0,
       padding: 0,
@@ -218,7 +447,6 @@ const config = defineConfig({
       textRendering: "optimizeLegibility",
       touchAction: "manipulation",
     },
-    // Respaldo global de foco de teclado (WCAG 2.4.7). Los componentes con foco propio y `a` (arriba/abajo) mantienen sus reglas.
     [focusVisibleSelectors]: {
       _focusVisible: {
         outline: "2px solid",
@@ -228,10 +456,9 @@ const config = defineConfig({
     },
     a: {
       _focusVisible: {
-        outline: "none",
-        ring: "2px",
-        ringColor: "ring.primary",
-        ringOffset: "2px",
+        outline: "2px solid",
+        outlineColor: "ring.primary",
+        outlineOffset: "2px",
         borderRadius: "sm",
       },
     },
@@ -245,6 +472,9 @@ const config = defineConfig({
       fonts: {
         heading: { value: `var(--font-source-serif), Georgia, serif` },
         body: { value: `var(--font-inter), system-ui, -apple-system, sans-serif` },
+        mono: {
+          value: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`,
+        },
       },
       fontSizes: {
         xs: { value: "0.75rem" },
@@ -275,13 +505,23 @@ const config = defineConfig({
           whatsapp: { value: "#25D366" },
           whatsappHover: { value: "#1DAE54" },
           whatsappActive: { value: "#178B43" },
+          // Tokens accesibles v2 (>= 4.5:1 con texto blanco) para prototipos en /design-system
+          whatsappAccessible: { value: "#15803d" },
+          whatsappAccessibleHover: { value: "#166534" },
+          whatsappAccessibleActive: { value: "#14532d" },
           red: { value: "#FF5A5F" },
           redHover: { value: "#E0484D" },
           redDark: { value: "#D9444A" },
           ink: { value: "#0f172a" },
+          inkV2: { value: "#111111" },
+          inkSoft: { value: "#4A4A4A" },
           navy: { value: "#002060" },
+          navyHover: { value: "#001848" },
+          navyActive: { value: "#001030" },
           redQuote: { value: "#D62828" },
           logoCoral: { value: "#FF5A5A" },
+          paperWarm: { value: "#F7F6F3" },
+          paperCream: { value: "#FBF8F3" },
         },
         status: {
           info: { value: "#38bdf8" },
@@ -304,6 +544,8 @@ const config = defineConfig({
           faint: { value: "rgba(0, 0, 0, 0.08)" },
           dim: { value: "rgba(0, 0, 0, 0.3)" },
           scrim: { value: "rgba(0, 0, 0, 0.5)" },
+          glass: { value: "rgba(0, 0, 0, 0.6)" },
+          strong: { value: "rgba(0, 0, 0, 0.78)" },
         },
       },
       radii: {
@@ -327,12 +569,12 @@ const config = defineConfig({
         "bg.surface": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
         "bg.subtle": { value: { _light: "rgba(0,0,0,0.04)", _dark: "rgba(255,255,255,0.04)" } },
         "bg.warm": { value: { _light: "#F7F6F3", _dark: "#161614" } },
+        "bg.paper": { value: { _light: "#FBF8F3", _dark: "#161614" } },
         "bg.tintNavy": { value: { _light: "#F3F5F9", _dark: "rgba(0, 32, 96, 0.24)" } },
 
         // Brand
         "brand.primary": { value: { _light: "{colors.primary.900}", _dark: "white" } },
         "accent.navy": { value: { _light: "#002060", _dark: "#93C5FD" } },
-        // Texto/icono sobre fondo accent.navy (chips seleccionados): en oscuro accent.navy es claro
         "accent.navyContrast": { value: { _light: "white", _dark: "#0f172a" } },
 
         "surface.card": { value: { _light: "white", _dark: "rgba(24, 24, 27, 0.8)" } },
@@ -352,12 +594,18 @@ const config = defineConfig({
 
         // Status Borders
         "status.dangerBorder": { value: "rgba(248, 113, 113, 0.25)" },
+        "status.warningBorder": { value: "rgba(245, 158, 11, 0.3)" },
+        "status.successBorder": { value: "rgba(52, 211, 153, 0.3)" },
 
-        // Status Text (contraste de texto >=4.5:1 sobre blanco en claro, WCAG 1.4.3)
+        // Status Text (contraste >= 4.5:1 sobre blanco y fondos Soft en claro y oscuro, WCAG 1.4.3)
         "status.dangerText": { value: { _light: "#b91c1c", _dark: "#f87171" } },
         "status.successText": { value: { _light: "#047857", _dark: "#34d399" } },
+        "status.warningText": { value: { _light: "#b45309", _dark: "#fbbf24" } },
+        "status.infoText": { value: { _light: "#0369a1", _dark: "#38bdf8" } },
+        // Texto de error de Field/Input: el rojo por defecto de Chakra (red.500) da 3,76:1 sobre blanco
+        fg: { error: { value: "{colors.status.dangerText}" } },
 
-        // Focus (≥3:1 sobre el fondo en ambos temas, WCAG 1.4.11)
+        // Focus (>= 3:1 sobre el fondo en ambos temas, WCAG 1.4.11)
         "ring.primary": { value: { _light: "{colors.primary.700}", _dark: "{colors.primary.300}" } },
 
         // Text
@@ -365,17 +613,22 @@ const config = defineConfig({
         "text.heading": { value: { _light: "{colors.gray.900}", _dark: "white" } },
         "text.muted": { value: { _light: "{colors.gray.600}", _dark: "{colors.gray.400}" } },
         "text.subtle": { value: { _light: "{colors.gray.500}", _dark: "{colors.gray.400}" } },
-
         "text.accent": { value: { _light: "{colors.primary.600}", _dark: "{colors.primary.300}" } },
       },
     },
     recipes: {
       button: buttonRecipe,
+      badge: badgeRecipe,
       input: inputRecipe,
       textarea: textareaRecipe,
     },
     slotRecipes: {
       card: cardRecipe,
+      nativeSelect: nativeSelectRecipe,
+      tabs: tabsRecipe,
+      table: tableRecipe,
+      alert: alertRecipe,
+      dialog: dialogRecipe,
     },
   },
 });

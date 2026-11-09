@@ -60,6 +60,7 @@ export const SplitProjectRow: React.FC<SplitProjectRowProps> = React.memo(({ pro
           h={{ base: "64px", lg: "72px" }}
           borderRadius="lg"
           bg="bg.subtle"
+          aria-hidden="true"
         >
           <ImageRevealSkeleton loaded={loaded} />
           <Box position="absolute" inset="0" {...reveal}>

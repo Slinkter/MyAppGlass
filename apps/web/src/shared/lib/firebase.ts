@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth, connectAuthEmulator } from "firebase/auth";
+import type { Auth } from "firebase/auth";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { getStorage, connectStorageEmulator } from "firebase/storage";
 
@@ -17,15 +17,54 @@ const firebaseConfig = {
 };
 
 const isNewApp = getApps().length === 0;
-const app = isNewApp ? initializeApp(firebaseConfig) : getApp();
+export const app = isNewApp ? initializeApp(firebaseConfig) : getApp();
 
-export const auth = getAuth(app);
+let _authInstance: Auth | null = null;
+let _authPromise: Promise<Auth> | null = null;
+
+/**
+ * Obtiene la instancia de Firebase Auth de forma diferida (lazy).
+ * Evita importar y evaluar `firebase/auth` (~590 KB raw) en rutas públicas
+ * o para visitantes anónimos que nunca iniciaron sesión.
+ */
+export async function getFirebaseAuth(): Promise<Auth> {
+  if (_authInstance) {
+    return _authInstance;
+  }
+  if (!_authPromise) {
+    _authPromise = (async () => {
+      const { getAuth, connectAuthEmulator } = await import("firebase/auth");
+      const auth = getAuth(app);
+      if (env.NEXT_PUBLIC_USE_EMULATORS === "true") {
+        connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
+      }
+      _authInstance = auth;
+      return auth;
+    })();
+  }
+  return _authPromise;
+}
+
+/**
+ * Proxy retrocompatible para `auth`.
+ * @deprecated Preferir `await getFirebaseAuth()` para diferir la carga de Firebase Auth.
+ */
+export const auth: Auth = new Proxy({} as Auth, {
+  get(_target, prop) {
+    if (!_authInstance) {
+      throw new Error(
+        "Firebase Auth no está inicializado. Llama a `await getFirebaseAuth()` antes de acceder sincrónicamente a `auth`."
+      );
+    }
+    return Reflect.get(_authInstance, prop);
+  },
+});
+
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
 // Solo en desarrollo local con `NEXT_PUBLIC_USE_EMULATORS=true`.
 if (isNewApp && env.NEXT_PUBLIC_USE_EMULATORS === "true") {
-  connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
   connectFirestoreEmulator(db, "127.0.0.1", 8081);
   connectStorageEmulator(storage, "127.0.0.1", 9199);
 }

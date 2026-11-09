@@ -15,14 +15,14 @@ export const ProjectServiceSelect: React.FC<ProjectServiceSelectProps> = ({ valu
     <select
       style={{
         width: "100%",
-        height: "40px",
-        paddingLeft: "12px",
-        paddingRight: "12px",
-        borderRadius: "6px",
-        border: "1px solid var(--chakra-colors-border-default, var(--chakra-colors-border-slate))",
-        backgroundColor: "var(--chakra-colors-surface-card, transparent)",
+        minHeight: "44px",
+        paddingLeft: "0.75rem",
+        paddingRight: "0.75rem",
+        borderRadius: "0.375rem",
+        border: "1px solid var(--chakra-colors-border\\.default, var(--chakra-colors-border\\.slate))",
+        backgroundColor: "var(--chakra-colors-surface\\.card, transparent)",
         color: "inherit",
-        fontSize: "14px",
+        fontSize: "0.875rem",
       }}
       value={value}
       onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}

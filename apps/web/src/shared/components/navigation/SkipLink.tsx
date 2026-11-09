@@ -1,38 +1,42 @@
-const skipStyles = `
-  .skip-link {
-    position: absolute;
-    top: -1000px;
-    left: -1000px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
-  .skip-link:focus,
-  .skip-link:focus-visible {
-    position: fixed;
-    top: 6px;
-    left: 6px;
-    width: auto;
-    height: auto;
-    display: inline-block;
-    padding: var(--chakra-spacing-4);
-    margin: var(--chakra-spacing-4);
-    border: 2px solid var(--chakra-colors-text-accent);
-    border-radius: var(--chakra-radii-md);
-    background-color: var(--chakra-colors-surface-card);
-    color: var(--chakra-colors-text-heading);
-    z-index: 9999;
-    outline: none;
-  }
-`;
+import { Box } from "@chakra-ui/react";
 
 const SkipLink = () => (
-  <>
-    <style>{skipStyles}</style>
+  <Box
+    asChild
+    position="absolute"
+    top="-96"
+    left="-96"
+    w="1px"
+    h="1px"
+    overflow="hidden"
+    _focusVisible={{
+      position: "fixed",
+      top: "2",
+      left: "2",
+      w: "auto",
+      h: "auto",
+      minH: "11",
+      display: "inline-flex",
+      alignItems: "center",
+      px: "4",
+      py: "2",
+      borderWidth: "2px",
+      borderStyle: "solid",
+      borderColor: "ring.primary",
+      borderRadius: "md",
+      bg: "surface.card",
+      color: "text.heading",
+      fontWeight: "600",
+      zIndex: "max",
+      outline: "2px solid",
+      outlineColor: "ring.primary",
+      outlineOffset: "2px",
+    }}
+  >
     <a href="#main-content" className="skip-link" data-nosnippet>
       Saltar al contenido principal
     </a>
-  </>
+  </Box>
 );
 
 export default SkipLink;

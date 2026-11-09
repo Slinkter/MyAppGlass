@@ -38,7 +38,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
       _hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
       _active={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
       borderWidth="0"
-      bg="transparent"
+      bg="brand.ink"
       css={{
         '@media (prefers-reduced-motion: reduce)': {
           '*': { transition: 'none !important', animation: 'none !important', transform: 'none !important' }

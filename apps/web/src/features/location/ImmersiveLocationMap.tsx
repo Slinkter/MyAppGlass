@@ -126,7 +126,7 @@ export const ImmersiveLocationMap: React.FC<ImmersiveLocationMapProps> = ({ init
             "@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)": {
               backdropFilter: "none",
               WebkitBackdropFilter: "none",
-              background: "var(--chakra-colors-bg-surface)",
+              background: "var(--chakra-colors-bg\\.surface)",
             },
           }}
         >

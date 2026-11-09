@@ -1,0 +1,73 @@
+{
+  "timestamp": "2026-11-09T04:41:15.277Z",
+  "audit": "Pista paralela · Rendimiento (Prompt 05) - docs/23_PLAN_DESIGN_SYSTEM_V2.md",
+  "environment": {
+    "cpuThrottlingRate": 4,
+    "cdpMethod": "Emulation.setCPUThrottlingRate",
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "browser": "Chromium headless via Playwright 1.64.1",
+    "target": "apps/web/out/index.html (Static Export)"
+  },
+  "styles": {
+    "dataEmotionCount": 152,
+    "totalStyleTags": 153,
+    "recalcStyleDurationMs": 1014.41,
+    "recalcStyleCount": 246,
+    "layoutDurationMs": 477.56,
+    "layoutCount": 19,
+    "notes": "Los 152 nodos <style data-emotion> provienen del SSR/generación estática de Chakra UI v3. Con CPU throttling 4×, el costo total de recalcular estilos tras la hidratación es de 1014.41 ms. La corrección de variables CSS como var(--chakra-colors-bg\\.surface) y el uso de tokens limpios evita fallbacks y reprocesamientos de layout."
+  },
+  "performanceMetrics": {
+    "scriptDurationMs": 1240.85,
+    "taskDurationMs": 4844.13,
+    "jsHeapUsedSizeMB": 18.66,
+    "jsHeapTotalSizeMB": 35.75,
+    "navigationDurationMs": 4619
+  },
+  "images": {
+    "total": 31,
+    "emptyAlt": 14,
+    "withAlt": 17,
+    "missingAlt": 0,
+    "auditDetails": {
+      "decorativeThumbnails": {
+        "projectCarousel": 13,
+        "footerIcon": 1,
+        "wcagRule": "WCAG 2.1 Success Criterion 1.1.1 (Non-text Content)",
+        "justification": "Las 13 miniaturas de ProjectCarousel se renderizan dentro de botones (<Box as='button'>) que poseen nombres accesibles completos mediante aria-label (ej. 'Nombre Obra, Dirección, Año, X km'). Asignar texto no vacío a la imagen redundaría o colisionaría con el aria-label. Se estableció alt='' y aria-hidden='true' en los contenedores. El ícono de 20px en Footer tiene texto adyacente visible y está marcado con alt='' y aria-hidden='true'."
+      }
+    }
+  },
+  "firebaseAuthDeferredAudit": {
+    "initializedOnHomeForAnonymous": false,
+    "previousBehavior": "setTimeout(300ms) importaba estáticamente firebase/auth y disparaba 14 peticiones de red hacia chunks y apis.google.com en la Home para visitantes anónimos.",
+    "newBehavior": "Inicialización estrictamente diferida (lazy). Solo se invoca si la ruta es protegida/requiere auth (/admin, /mi-cuenta, /auth, /tienda/checkout), si existe indicio de sesión en localStorage ('gya_has_auth_session' === '1' o clave 'firebase:authUser:'), o ante una acción explícita del usuario (login/registro).",
+    "bytesSavedRawDecompressedApprox": 590000,
+    "bytesSavedMinifiedGzippedApprox": 151200,
+    "chunksSavedOnHome": [
+      {
+        "chunk": "ec7c85df-62e6b4a30c605e92.js",
+        "sizeBytes": 126144,
+        "description": "Firebase Auth core SDK (decompressed ~480 KB)"
+      },
+      {
+        "chunk": "9910-89cecb571ceb3507.js",
+        "sizeBytes": 22647,
+        "description": "Firebase Auth internal handlers y persistencia"
+      },
+      {
+        "chunk": "4762.ecc09c4613de291c.js",
+        "sizeBytes": 2465,
+        "description": "Firebase Auth runtime wrapper"
+      }
+    ],
+    "authTriggerConditions": [
+      "isAuthRequiredRoute(pathname) -> /admin, /mi-cuenta, /auth, /tienda/checkout",
+      "hasLikelyAuthSession() -> localStorage.getItem('gya_has_auth_session') === '1' or firebase:authUser: prefix",
+      "On-demand login/register action"
+    ]
+  }
+}

@@ -54,7 +54,7 @@ export const TimelineProjectItem: React.FC<TimelineProjectItemProps> = React.mem
       aria-label={`Ver ${project.name} en el mapa`}
       _focusVisible={{ outline: "2px solid", outlineColor: "primary.500", outlineOffset: "2px" }}
     >
-      <Box position="relative" overflow="hidden" flexShrink={0} w="56px" h="56px" borderRadius="lg" bg="bg.subtle">
+      <Box position="relative" overflow="hidden" flexShrink={0} w="56px" h="56px" borderRadius="lg" bg="bg.subtle" aria-hidden="true">
         <Cover src={project.image} alt="" />
       </Box>
       <Box flex="1" minW={0}>
