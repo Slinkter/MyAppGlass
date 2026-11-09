@@ -1,4 +1,6 @@
-# 6 conceptos de presupuesto (v2)
+# 6 conceptos de presupuesto (v2, histórico)
+
+> **Nota:** documento de exploración. Los colores, tipografías e insignias vigentes están en `docs/marca/MANUAL-DE-MARCA.md` y `apps/web/DESIGN.md`; no se usan los valores históricos de este archivo.
 
 Ver en el lienzo: https://claude.ai/artifact/PMC77CHvnhCfzQqMuX1KMo (página "v2 · 6 conceptos").
 Todos usan: Membrete v2, Pie bancario v2, Insignia antirruido, A4 794×1123 px, márgenes 44–48 px.

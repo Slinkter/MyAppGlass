@@ -1,8 +1,8 @@
 # 🚀 GUÍA Y MANUAL DE SEO LOCAL, SEARCH CONSOLE, GOOGLE BUSINESS PROFILE Y GA4
 > **Proyecto:** Glass & Aluminum Company S.A.C. (`https://www.gyacompany.com`)  
-> **Objetivo:** Posicionar la web en el **Top 3 de Google** y activar **Sitelinks** para: *"vidriería en la molina"*, *"ventanas antirruido lima"*, *"mamparas de vidrio la molina"*, *"glass & aluminum company"*.  
+> **Objetivo:** mejorar la visibilidad local y activar **Sitelinks** para: *"vidriería en la molina"*, *"ventanas antirruido lima"*, *"mamparas de vidrio la molina"*, *"glass & aluminum company"*. No se garantizan posiciones: se mide con Search Console y GA4.  
 > **Cuenta Administradora del Ecosistema Google:** `luis.j.cueva@gmail.com` (Google Business Profile, Google Search Console, Google Analytics 4 `G-TY0NJP1S81`, Firebase `gya-app-4c8a9`)  
-> **Datos Oficiales NAP (`companyData`):** Dirección **`Av. Los Fresnos 1250 - La Molina`** | WhatsApp **`974 278 303`** | Teléfono **`996-537-435`** | Correo Corporativo Público **`acueva@gyacompany.com`**  
+> **Datos Oficiales NAP (`companyData`):** Dirección **`Av. Los Fresnos 1250 - La Molina`** | WhatsApp **`974 278 303`** | Correo Corporativo Público **`acueva@gyacompany.com`**  
 > **Última actualización:** Noviembre 2026
 
 > **Qué está implementado en el código (verificado noviembre 2026):**
@@ -37,7 +37,6 @@
    - **Coordenadas de referencia:** `-12.0867, -76.9315`
 5. **Teléfonos y Contacto:**
    - **Teléfono principal / WhatsApp:** `+51 974 278 303`
-   - **Teléfono secundario:** `996-537-435`
    - **Sitio web:** `https://www.gyacompany.com`
    - *(Nota sobre correo público en la web: se mantiene `acueva@gyacompany.com` en el sitio y JSON-LD mientras la migración de Resend + DNS sigue en evaluación).*
 6. **Horario de atención (sincronizado con `OpeningHoursSpecification`):**

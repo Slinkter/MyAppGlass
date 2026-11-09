@@ -4,15 +4,14 @@
 
 ## 1. Marca (lo primero)
 
-Orden acordado con el dueño: **manual de marca → sistema de diseño y componentes en `/design-system` → páginas, por lotes y con aprobación en cada lote.** Las páginas del sitio están congeladas hasta entonces.
+Orden acordado con el dueño: **manual de marca → sistema de diseño y componentes en `/design-system` → páginas, por lotes y con aprobación en cada lote.** Manual v1.0 cerrado, brand kit y UI kit documentados, sistema alineado; las páginas siguen congeladas hasta que el dueño apruebe cada lote.
 
 | Paso | Estado |
 |---|---|
-| Manual de marca v0.1 (`docs/marca/MANUAL-DE-MARCA.md`) | Borrador listo |
-| El dueño responde `docs/marca/PREGUNTAS-MARCA.md` (12 preguntas) | **Pendiente del dueño** |
-| Manual de marca v1.0 | Depende de las respuestas |
-| Redefinir `apps/web/DESIGN.md` y los componentes en `/design-system` | Después del manual v1.0 |
-| Aplicar a las páginas, por lotes | Después de aprobar los componentes |
+| Aprobación del dueño a misión, visión, valores y logo horizontal | **Pendiente** (propuestas en el manual) |
+| Aplicar a las páginas, por lotes | **Siguiente**, con aprobación del dueño en cada lote |
+
+El estado completo del paquete de marca y lo que falta está en `docs/marca/ENTREGABLES-MARCA.md`. La propuesta priorizada (0–30, 31–90 y 91–180 días, SEO y lotes) está en `docs/marca/PROPUESTA-MEJORAS.md`; el seguimiento se hace en esta lista.
 
 ## 2. Catálogo de servicios y sistemas
 
@@ -27,7 +26,7 @@ Hecho: varias partidas, validación, resumen en vivo, envío separado de la impr
 | Pendiente | Detalle |
 |---|---|
 | "Mis presupuestos" en `/mi-cuenta` | Debe leer los dos formatos guardados: `params` plano (antiguo) y `{ version: 2, items: [...] }` |
-| Hoja A4 con la marca | Membrete, pie con datos bancarios, plazo y validez como campos. Parte del concepto C1 de `docs/gya/conceptos-presupuesto.md`. **Espera al manual de marca** |
+| Hoja A4 con la marca | Membrete, pie con datos bancarios, plazo y validez como campos. Parte del concepto C1 de `docs/gya/conceptos-presupuesto.md`. **Espera el lote de páginas aprobado por el dueño** |
 | Precios reales | Dependen del catálogo. La partida debe admitir cobro por medida, por unidad y por servicio |
 | IGV | El dueño decidió que el precio mostrado incluye IGV. Falta confirmar si los precios base de `features/presupuesto/config/pricing.ts` ya lo incluyen (hoy el calculador suma 18 %) |
 | Pruebas | Tests de `quote-summary` y `quote-form-schema` escritos sin ejecutar; faltan e2e y fixtures de los 4 casos de `docs/gya/data/presupuestos-reales.json` |
@@ -58,7 +57,7 @@ Hecho: varias partidas, validación, resumen en vivo, envío separado de la impr
 | Galerías | Comprobar si `common/Gallery.tsx` y `common/gallery/GalleryViewer.tsx` aún se usan; si no, retirarlos |
 | Modal base del admin | 4 modales repiten estructura (sin verificar) |
 | Partir `FloatingPanel.tsx` | 457 líneas |
-| Deriva de diseño en el código | Lista en `apps/web/DESIGN.md`, sección "Deriva conocida". No se corrige hasta redefinir el sistema de diseño |
+| Deriva de diseño en el código | Lista en `apps/web/DESIGN.md`, sección "Deriva conocida". Se corrige antes de aplicar los lotes de páginas |
 | Auditorías automáticas de diseño | Falta `npx playwright install` para correr `scripts/audit-design-system.mjs` y `scripts/audit-landing.mjs` |
 | 404 de precarga en producción | 10 errores de consola (`/<ruta>/__next.<ruta>.__PAGE__.txt`). Inofensivos; falta saber si ya existían |
 | Horario en `companyData` | El footer lo escribe a mano |

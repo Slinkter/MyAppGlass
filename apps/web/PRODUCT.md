@@ -12,7 +12,7 @@ Audiencia principal: **constructoras e inmobiliarias** que necesitan la partida 
 
 Audiencia secundaria: **hogares** que buscan ventanas antirruido, mamparas, duchas o techos para su casa (20 %). Llegan casi siempre desde el móvil y desde WhatsApp. Son trabajos rápidos y de ganancia inmediata, así que la página debe permitirles pedir presupuesto sin desviar el recorrido principal.
 
-Decisión del dueño: la constructora encabeza la página principal.
+Decisión del dueño (2026-11-09): la web sigue captando hogares; las constructoras llegan por recomendación y trabajos pasados, y la web respalda esa recomendación. No es una página que encabece con un mensaje para constructoras.
 
 ## Product Purpose
 
@@ -42,7 +42,7 @@ Visita técnica sin costo y presupuesto rápido por WhatsApp, respaldados por un
 
 - Nombre: Glass & Aluminum Company S.A.C. Línea superior "VIDRIERÍA & ALUMINIO".
 - Frase de marca: "Confianza sólida en cada estructura".
-- Color de marca: negro `#111111` (decisión vigente del 2026-11-09). Coral del logo solo en el logo. Rojo solo en la palabra "PRESUPUESTO" del documento impreso y en una palabra destacada de un título por pantalla (regla en `apps/web/DESIGN.md`, "The One Red Rule").
+- Color de marca: negro `#111111` (decisión vigente del 2026-11-09). Coral `#FF5A5F` como único acento: logo, una palabra destacada en un título grande y la palabra "PRESUPUESTO" del documento impreso. Solo en texto grande por contraste; nunca en texto pequeño, botones ni íconos (regla en `apps/web/DESIGN.md`, "The One Coral Rule").
 - Fondo: blanco puro (respuesta del dueño; reemplaza el papel `#F7F6F3` del plan anterior).
 - Tipografía: Lora 700 para títulos, Inter para texto.
 - Modo oscuro: se conserva.

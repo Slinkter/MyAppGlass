@@ -4,7 +4,7 @@ Este documento detalla la estructura técnica, flujos de datos y patrones de dis
 
 ## 📐 Principios Fundamentales
 - **Feature-Based Architecture (FBA):** Organización por dominios de negocio.
-- **Chakra UI v3 + Aura Components:** Sistema de diseño basado en tokens nativos de Chakra UI (spacing 4px base, color, typography).
+- **Chakra UI v3 + componentes propios:** Sistema de diseño basado en tokens nativos de Chakra UI (spacing 4px base, color, typography); los componentes base viven en `shared/components/aura/`.
 - **Clean Architecture:** Desacoplamiento total entre servicios de datos y UI.
 
 ## 🔄 Flujo de Datos (Filtrado e Infinite Scroll)
@@ -103,18 +103,19 @@ El proyecto sigue una variante **parcial de Feature-Sliced Design (FSD)**: exist
 - Los hooks públicos (`useServices`/`useService`, `useProjects`/`useProject`) leen de Firestore en cliente con skeletons.
 - El panel `/admin` usa `AdminRouteGuard` y escribe en Firestore/Storage; las reglas permiten escritura solo a administradores.
 
-## 🎨 Aura Design System
+## 🎨 Sistema de diseño
 
 - Tema central: `apps/web/src/shared/providers/theme/index.ts` (Chakra v3, tokens semánticos y de estado).
-- Showcase en la ruta `/design-system` (`apps/web/src/screens/DesignSystem/`), con variantes de botón `aura`, `outline`, `ghost`, `whatsapp` y `brand`.
-- Plan y cierre del pulido: `apps/web/DESIGN.md`.
+- Showcase en la ruta `/design-system` (`apps/web/src/screens/DesignSystem/`), con las variantes de botón `primary`, `outline`, `ghost` y `whatsapp`.
+- Reglas y justificación: `apps/web/DESIGN.md`; tokens reales: `apps/web/src/shared/providers/theme/index.ts`.
 
-## ✅ Estado actual (2026-11-02)
+## ✅ Estado actual
 
-- El build prerenderiza **60 rutas estáticas** (`56` archivos `.html` en `apps/web/out/` + `sitemap.xml`, `robots.txt`, `manifest.webmanifest`, `icon.svg`); hay **19 archivos de test unitarios** en `apps/web/tests/unit/`.
-- Stack: Next.js 16, React 19, TypeScript 6.0.3; `framer-motion` fue retirado.
-- Las reglas de Firestore/Storage ya están desplegadas (ver `docs/05_CHANGELOG.md`, 2026-10-30).
-- **Pendiente:** revisión visual de `/design-system` en navegador; probar admin y páginas públicas con emuladores; esquemas Zod y ESLint compartido aún no extraídos a `packages/shared`; alinear la versión de pnpm de CI con el lockfile.
+- El build genera el export estático en `apps/web/out/`; el número de rutas depende de los servicios y proyectos publicados en Firestore.
+- Stack: Next.js 16, React 19, TypeScript; `framer-motion` fue retirado.
+- El sistema de diseño está alineado con el manual de marca v1.0 y se valida en `/design-system`.
+- Las reglas de Firestore/Storage del repo no están desplegadas; ver `docs/PENDIENTES.md` §4.
+- **Pendiente:** pruebas e2e y fixtures de presupuesto; job de Playwright en CI; revisar el redirect del slug antiguo del blog (requiere `firebase.json`, congelado).
 
 ---
 *Documentación generada con ascii-diagram-boxflow.*

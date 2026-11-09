@@ -94,7 +94,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
           </Text>
         </Box>
         <Box textAlign={{ base: "left", sm: "right" }} flexShrink={0}>
-          <Text fontFamily="heading" fontWeight="700" fontSize={{ base: "xl", md: "2xl" }} letterSpacing="0.04em" color="brand.quoteRed" lineHeight="1.1">
+          <Text fontFamily="heading" fontWeight="700" fontSize={{ base: "xl", md: "2xl" }} letterSpacing="0.04em" color="brand.coral" lineHeight="1.1">
             PRESUPUESTO
           </Text>
           <Text fontSize="xs" color="gray.600" mt="1">

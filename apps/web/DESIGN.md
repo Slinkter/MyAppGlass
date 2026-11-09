@@ -7,8 +7,7 @@ colors:
   page: "#FFFFFF"
   line: "#E6E3DE"
   line-strong: "#D9D6D0"
-  quote-red: "#D62828"
-  logo-coral: "#FF5A5A"
+  coral: "#FF5A5F"
   whatsapp: "#15803D"
   whatsapp-hover: "#166534"
   whatsapp-active: "#14532D"
@@ -89,7 +88,7 @@ components:
 
 # Design System: Glass & Aluminum Company S.A.C.
 
-> **En revisión.** Este documento se deriva del manual de marca (`docs/marca/MANUAL-DE-MARCA.md`), que está en la versión 0.1. Cuando el manual llegue a la 1.0, el sistema se redefine aquí y en `/design-system`, y solo después se lleva a las páginas con la aprobación del dueño. Mientras tanto describe lo que hay en producción.
+> **Redefinido con el manual v1.0.** Este documento aplica el manual de marca (`docs/marca/MANUAL-DE-MARCA.md`) y se valida en `/design-system`: coral `#FF5A5F` como único acento, retiro de `#D62828` y `#FF5A5A`, y uso del coral limitado a texto grande. Las páginas públicas siguen congeladas hasta que el dueño apruebe el sistema y cada lote.
 
 ## Overview
 
@@ -113,8 +112,8 @@ Paleta mínima: blanco, negro y gris cálido para líneas. Los colores de estado
 ### Primary
 - **Tinta de Plano** (#111111): texto principal, botón primario, títulos, íconos de acción. En modo oscuro se invierte a blanco.
 
-### Secondary
-- **Rojo de Presupuesto** (#D62828): una palabra destacada en un título, por pantalla, y la palabra "PRESUPUESTO" en el documento impreso. Contraste 5,0:1 sobre blanco.
+### Acento
+- **Coral de Marca** (#FF5A5F): el único acento. Se usa en el logo, en una palabra de un título grande y en la palabra "PRESUPUESTO" del documento impreso. Sobre blanco alcanza 3,0:1: solo para texto grande.
 - **Verde WhatsApp accesible** (#15803D): únicamente el botón y los accesos a WhatsApp (blanco sobre este verde, 5:1). El verde de marca de WhatsApp (#25D366) no se usa porque no pasa contraste.
 
 ### Neutral
@@ -123,11 +122,10 @@ Paleta mínima: blanco, negro y gris cálido para líneas. Los colores de estado
 - **Línea Cálida** (#E6E3DE): separadores y bordes de tarjeta.
 - **Línea Firme** (#D9D6D0): bordes con más presencia (campos en hover).
 - **Fondo Oscuro** (#09090B) y **Sección Oscura** (#121215): equivalentes en modo oscuro.
-- **Coral del Logo** (#FF5A5A): exclusivo del logo; nunca en texto, botones ni íconos.
 
 ### Named Rules
-**The One Red Rule.** El rojo aparece una sola vez por pantalla y solo en un título destacado. Si hay dos rojos, uno sobra.
-**The Logo Coral Rule.** El coral vive en el logo. No se usa como acento, ni siquiera como borde.
+**The One Coral Rule.** El coral `#FF5A5F` es el único acento. Aparece como máximo una vez por bloque: el logo, una palabra de un título grande o la palabra "PRESUPUESTO". Si aparece dos veces, una sobra.
+**The Large-Text Coral Rule.** El coral solo va en texto grande: 24 px o más en peso 700, o 19 px o más en peso 700. Nunca en texto corrido, etiquetas, botones ni íconos. Sobre blanco alcanza 3,0:1; sobre negro, 6,1:1.
 **The No Blue Rule.** El azul no es de marca. Solo existe como anillo de foco del teclado y en enlaces de texto.
 
 ## Typography
@@ -216,7 +214,7 @@ Marco de foto con proporción fija, cobertura total y leyenda flotante de vidrio
 
 ### Do:
 - **Do** usar fondo blanco, texto negro y Lora 700 para los títulos.
-- **Do** reservar el rojo #D62828 para una palabra destacada por pantalla.
+- **Do** reservar el coral #FF5A5F para una palabra destacada en un título grande, una vez por bloque.
 - **Do** mantener objetivos táctiles de 44 px y foco visible en todo elemento interactivo.
 - **Do** mostrar unidades (mm, m², S/) junto a cada medida y monto.
 - **Do** respetar `prefers-reduced-motion` y `prefers-reduced-transparency`.
@@ -224,7 +222,8 @@ Marco de foto con proporción fija, cobertura total y leyenda flotante de vidrio
 
 ### Don't:
 - **Don't** usar navy, azul de marca ni papel cálido #F7F6F3 como fondo.
-- **Don't** usar el coral del logo (#FF5A5A) en texto, botones o íconos.
+- **Don't** usar #D62828 ni #FF5A5A: el único coral es #FF5A5F.
+- **Don't** usar el coral en texto pequeño, etiquetas, botones o íconos.
 - **Don't** usar degradados, emojis ni sombras fuertes.
 - **Don't** poner vidrio sobre fondo blanco ni apilar capas de vidrio.
 - **Don't** usar Lora en 900 ni tamaños de texto de 10 px.

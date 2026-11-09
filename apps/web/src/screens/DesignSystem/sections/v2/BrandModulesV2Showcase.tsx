@@ -606,19 +606,19 @@ export const BrandModulesV2Showcase: React.FC = () => {
                     >
                       {companyData.companyName}
                     </Text>
-                    {/* Palabra PRESUPUESTO reservada con brand.quoteRed */}
+                    {/* Palabra PRESUPUESTO con el único acento coral de la marca */}
                     <Text
                       fontFamily="heading"
                       fontSize={{ base: "2xl", md: "3xl" }}
                       fontWeight="bold"
-                      color="brand.quoteRed"
+                      color="brand.coral"
                       letterSpacing="wider"
                       my="1"
                     >
                       PRESUPUESTO
                     </Text>
                     <Text fontSize="xs" color="text.muted" fontStyle="italic">
-                      Token brand.quoteRed reservado exclusivamente para la palabra &quot;PRESUPUESTO&quot;.
+                      Coral de marca reservado para la palabra &quot;PRESUPUESTO&quot; en tamaño grande.
                     </Text>
                   </Box>
 

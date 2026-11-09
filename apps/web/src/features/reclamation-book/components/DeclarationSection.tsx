@@ -60,7 +60,7 @@ const DeclarationSection: React.FC = () => {
         bg="bg.subtle"
         borderRadius="md"
         borderLeftWidth="4px"
-        borderLeftColor="brand.red"
+        borderLeftColor="brand.coral"
       >
         <Text fontSize="xs" color="text.muted" lineHeight="relaxed">
           * Conforme a lo establecido en el <strong>Código de Protección y Defensa del Consumidor (Ley N° 29571)</strong> y su modificatoria por <strong>Ley N° 31435</strong>, la respuesta a la presente solicitud será remitida a la dirección de correo electrónico consignada en un plazo máximo e improrrogable de <strong>quince (15) días hábiles</strong>.

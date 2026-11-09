@@ -5,7 +5,7 @@
   "extensions": {
     "colorMeta": {
       "ink": { "role": "primary", "displayName": "Tinta de Plano", "canonical": "#111111", "tonalRamp": ["#0A0A0A", "#111111", "#2A2A2A", "#4A4A4A", "#7A7A7A", "#A8A8A8", "#D4D4D4", "#F2F2F2"] },
-      "quote-red": { "role": "secondary", "displayName": "Rojo de Presupuesto", "canonical": "#D62828", "tonalRamp": ["#4A0F0F", "#7A1A1A", "#A82020", "#D62828", "#E05A5A", "#EA8A8A", "#F4BABA", "#FBE3E3"] },
+      "coral": { "role": "secondary", "displayName": "Coral de Marca", "canonical": "#FF5A5F", "tonalRamp": ["#4A0F11", "#7A1A1E", "#A8272C", "#FF5A5F", "#FF7A7E", "#FF9B9E", "#FFC2C4", "#FFE8E9"] },
       "whatsapp": { "role": "secondary", "displayName": "Verde WhatsApp accesible", "canonical": "#15803D", "tonalRamp": ["#052E16", "#14532D", "#166534", "#15803D", "#16A34A", "#4ADE80", "#BBF7D0", "#F0FDF4"] },
       "page": { "role": "neutral", "displayName": "Blanco de Página", "canonical": "#FFFFFF", "tonalRamp": ["#111111", "#4A4A4A", "#7A7A7A", "#A8A8A8", "#D9D6D0", "#E6E3DE", "#F2F2F2", "#FFFFFF"] },
       "line": { "role": "neutral", "displayName": "Línea Cálida", "canonical": "#E6E3DE", "tonalRamp": ["#4A4743", "#6E6A64", "#948F88", "#B8B3AB", "#D9D6D0", "#E6E3DE", "#F0EEEA", "#F8F7F5"] }
@@ -96,8 +96,8 @@
       "Modo claro y oscuro con la misma jerarquía."
     ],
     "rules": [
-      { "name": "The One Red Rule", "body": "El rojo aparece una sola vez por pantalla y solo en un título destacado. Si hay dos rojos, uno sobra.", "section": "colors" },
-      { "name": "The Logo Coral Rule", "body": "El coral vive en el logo. No se usa como acento, ni siquiera como borde.", "section": "colors" },
+      { "name": "The One Coral Rule", "body": "El coral #FF5A5F es el único acento. Aparece como máximo una vez por bloque: el logo, una palabra de un título grande o la palabra PRESUPUESTO. Si aparece dos veces, una sobra.", "section": "colors" },
+      { "name": "The Large-Text Coral Rule", "body": "El coral solo va en texto grande: 24 px o más en peso 700, o 19 px o más en peso 700. Nunca en texto corrido, etiquetas, botones ni íconos. Sobre blanco alcanza 3,0:1; sobre negro, 6,1:1.", "section": "colors" },
       { "name": "The No Blue Rule", "body": "El azul no es de marca. Solo existe como anillo de foco del teclado y en enlaces de texto.", "section": "colors" },
       { "name": "The Seven-Hundred Rule", "body": "Lora se usa solo en 700 e Inter en 400 a 700. El peso 900 no está cargado y no se usa.", "section": "typography" },
       { "name": "The Tabular Money Rule", "body": "Montos y medidas con cifras tabulares y la unidad siempre visible (mm, m², S/).", "section": "typography" },
@@ -106,7 +106,7 @@
     ],
     "dos": [
       "Do usar fondo blanco, texto negro y Lora 700 para los títulos.",
-      "Do reservar el rojo #D62828 para una palabra destacada por pantalla.",
+      "Do reservar el coral #FF5A5F para una palabra destacada en un título grande, una vez por bloque.",
       "Do mantener objetivos táctiles de 44 px y foco visible en todo elemento interactivo.",
       "Do mostrar unidades (mm, m², S/) junto a cada medida y monto.",
       "Do respetar prefers-reduced-motion y prefers-reduced-transparency.",
@@ -114,7 +114,8 @@
     ],
     "donts": [
       "Don't usar navy, azul de marca ni papel cálido #F7F6F3 como fondo.",
-      "Don't usar el coral del logo (#FF5A5A) en texto, botones o íconos.",
+      "Don't usar #D62828 ni #FF5A5A: el único coral es #FF5A5F.",
+      "Don't usar el coral en texto pequeño, etiquetas, botones o íconos.",
       "Don't usar degradados, emojis ni sombras fuertes.",
       "Don't poner vidrio sobre fondo blanco ni apilar capas de vidrio.",
       "Don't usar Lora en 900 ni tamaños de texto de 10 px.",

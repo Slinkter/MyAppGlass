@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI Kit web · Glass &amp; Aluminum Company S.A.C.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111; --ink-soft:#4A4A4A; --page:#FFFFFF;
+    --line:#E6E3DE; --line-strong:#D9D6D0;
+    --coral:#FF5A5F; --wa:#15803D; --wa-hover:#166534;
+    --dark:#09090B; --dark-2:#121215;
+    --danger:#B91C1C; --success:#047857; --warning:#B45309; --info:#0369A1;
+    --serif:"Lora",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+    --radius:16px; --field:12px; --pill:9999px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.625;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin:0}
+  p{margin:0 0 16px}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:#F5F4F2;padding:2px 6px;border-radius:6px}
+  .muted{color:var(--ink-soft)} .small{font-size:14px}
+  .label{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+  .coral{color:var(--coral)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  @media(min-width:768px){.wrap{padding:0 48px}}
+
+  .toolbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:10px 0}
+  .toolbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .brandmini{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  .brandmini svg{width:26px;height:26px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:var(--pill);font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;font-family:var(--sans)}
+  .btn-sm{height:36px;padding:0 16px;font-size:13px}
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-outline{background:transparent;color:var(--ink);border-color:var(--ink)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:transparent}
+  .btn-wa{background:var(--wa);color:#fff}
+
+  .cover{border-bottom:1px solid var(--line);padding:72px 0 56px}
+  .eyebrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:28px}
+  .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:var(--pill);padding:6px 14px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);background:#fff}
+  .cover h1{font-size:clamp(40px,7vw,74px);letter-spacing:-.03em}
+  .cover .lead{font-size:clamp(17px,2.2vw,21px);max-width:50ch;margin-top:24px;color:var(--ink-soft)}
+  .cover-facts{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+  .cover-facts dt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+  .cover-facts dd{margin:4px 0 0;font-weight:600}
+
+  .toc{border-bottom:1px solid var(--line);padding:26px 0}
+  .toc ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;counter-reset:t}
+  .toc li{counter-increment:t;font-size:14px}
+  .toc li::before{content:counter(t,decimal-leading-zero);font-size:11px;color:var(--coral);font-weight:700;margin-right:8px}
+  .toc a{text-decoration:none;color:var(--ink-soft)} .toc a:hover{color:var(--ink)}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .section-head{display:flex;gap:18px;align-items:baseline;margin-bottom:8px}
+  .num{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--coral)}
+  h2{font-size:clamp(28px,4vw,40px)}
+  .section-intro{max-width:72ch;color:var(--ink-soft);margin:12px 0 30px}
+  h3{font-size:22px;margin:34px 0 12px}
+  h4{font-size:17px;margin:0 0 8px}
+
+  .demo{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff}
+  .demo-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:#FAF9F7;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .demo-body{padding:24px}
+  .demo-body.tight{padding:16px}
+  .note{border-left:3px solid var(--coral);background:#FFF7F7;padding:14px 16px;border-radius:0 12px 12px 0;font-size:14px}
+
+  /* navbar */
+  .navbar{display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:var(--pill);padding:8px 10px 8px 18px;box-shadow:0 8px 32px rgba(0,0,0,.06)}
+  .navbar .logo{display:flex;align-items:center;gap:10px}
+  .navbar .logo svg{width:32px;height:32px}
+  .navbar .logo span{font-family:var(--serif);font-weight:700;font-size:15px;line-height:1.1}
+  .navbar nav{display:flex;gap:4px}
+  .navbar nav a{text-decoration:none;color:var(--ink-soft);font-size:14px;padding:10px 12px;border-radius:var(--pill)}
+  .navbar nav a.active{background:var(--ink);color:#fff}
+  .mobilebar{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:var(--radius);padding:10px 14px}
+  .mobilebar .logo{display:flex;align-items:center;gap:8px}
+  .mobilebar .logo svg{width:28px;height:28px}
+  .hamb{width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px}
+  @media(max-width:900px){.demo-body{overflow-x:auto}}
+  .sheet{border:1px solid var(--line);border-radius:var(--radius);padding:16px;max-width:360px;margin-top:14px}
+  .sheet .head{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .sheet ul{list-style:none;margin:10px 0 0;padding:0}
+  .sheet li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .sheet .foot{margin-top:14px}
+
+  /* hero */
+  .hero{background:#FAF9F7;border:1px solid var(--line);border-radius:24px;padding:40px 32px}
+  .hero .label{margin-bottom:14px;display:block}
+  .hero h1{font-size:clamp(34px,5vw,58px);letter-spacing:-.03em;max-width:18ch}
+  .hero p{max-width:52ch;color:var(--ink-soft);margin-top:18px;font-size:17px}
+  .hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:28px}
+  .proof div{background:#fff;padding:16px 18px}
+  .proof strong{display:block;font-size:14px}
+  .proof span{font-size:12px;color:var(--ink-soft)}
+
+  /* cards */
+  .grid{display:grid;gap:20px}
+  @media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+  .card{border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:22px}
+  .photo{position:relative;height:200px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#C3CDD2 0%,#94A5AC 40%,#5D6E76 100%)}
+  .photo.alt{background:linear-gradient(135deg,#D9D2C7 0%,#B9AEA0 45%,#7C6F60 100%)}
+  .photo.alt2{background:linear-gradient(135deg,#B9C6CE 0%,#7F949E 50%,#3F515A 100%)}
+  .glass{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(255,255,255,.9);backdrop-filter:blur(24px);border-radius:10px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .glass strong{font-size:13px}
+  .glass span{font-size:11px;color:var(--ink-soft)}
+  .service-card .photo{height:180px;margin-bottom:16px}
+  .service-card h4{font-size:19px}
+  .service-card p{font-size:14px;color:var(--ink-soft);margin-bottom:12px}
+  .link-arrow{font-size:13px;font-weight:600;text-decoration:none;color:var(--ink)}
+  .project-card{padding:0;overflow:hidden}
+  .project-card .photo{height:240px;border-radius:0}
+  .project-card .body{padding:18px 20px}
+  .project-card .body h4{font-size:20px}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--ink-soft);margin-top:6px}
+  .blog-card{padding:0;overflow:hidden}
+  .blog-card .photo{height:160px;border-radius:0}
+  .blog-card .body{padding:16px 18px}
+  .blog-card h4{font-size:17px}
+  .blog-card p{font-size:13px;color:var(--ink-soft);margin:8px 0 0}
+  .testimonial{font-size:17px;font-family:var(--serif);font-weight:500;line-height:1.5}
+  .testimonial footer{margin-top:14px;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+  .stat{text-align:center}
+  .stat strong{display:block;font-family:var(--serif);font-size:38px;line-height:1;letter-spacing:-.02em}
+  .stat span{font-size:13px;color:var(--ink-soft)}
+  .district{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius);text-decoration:none;color:var(--ink);background:#fff}
+  .district strong{font-size:15px}
+
+  /* landing */
+  .crumbs{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--ink-soft);margin-bottom:18px}
+  .crumbs a{color:var(--ink-soft);text-decoration:none}
+  .hero-landing{display:grid;gap:28px;align-items:center}
+  @media(min-width:820px){.hero-landing{grid-template-columns:1.1fr .9fr}}
+  .hero-landing .photo{height:340px}
+  .hero-landing h1{font-size:clamp(30px,4.4vw,46px);max-width:16ch}
+  .hero-landing p{color:var(--ink-soft);max-width:50ch;margin-top:14px}
+  .specs{width:100%;border-collapse:collapse;font-size:14px}
+  .specs th,.specs td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  .specs th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);width:38%}
+  .faq details{border-bottom:1px solid var(--line);padding:14px 0}
+  .faq summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+  .faq summary::after{content:"+";font-weight:400;color:var(--ink-soft)}
+  .faq details[open] summary::after{content:"–"}
+  .faq details p{font-size:14px;color:var(--ink-soft);margin:10px 0 0;max-width:70ch}
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .gallery .photo{height:130px;border-radius:10px}
+  .cta-band{background:var(--ink);color:#fff;border-radius:20px;padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .cta-band h3{color:#fff;margin:0;font-size:26px}
+  .cta-band p{color:#CFCFCF;margin:6px 0 0;font-size:14px}
+  .cta-band .btn-primary{background:#fff;color:var(--ink)}
+  .cta-band .btn-outline{border-color:#fff;color:#fff}
+
+  /* forms */
+  .form-grid{display:grid;gap:16px}
+  @media(min-width:720px){.form-grid{grid-template-columns:1fr 1fr}.span2{grid-column:1/-1}}
+  .field{height:48px;border:1px solid var(--line);border-radius:var(--field);padding:0 14px;font-family:var(--sans);font-size:15px;width:100%;background:#fff;color:var(--ink)}
+  .field:focus{outline:2px solid #2563EB;outline-offset:2px;border-color:#2563EB}
+  .field.error{border-color:var(--danger)}
+  .field:disabled{opacity:.5;background:#FAF9F7}
+  textarea.field{height:auto;min-height:110px;padding:12px 14px;resize:vertical}
+  select.field{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#4A4A4A 50%),linear-gradient(135deg,#4A4A4A 50%,transparent 50%);background-position:calc(100% - 18px) 21px,calc(100% - 13px) 21px;background-size:5px 5px;background-repeat:no-repeat}
+  .field-label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  .field-help{font-size:12px;color:var(--ink-soft);margin-top:5px}
+  .field-error{font-size:12px;color:var(--danger);margin-top:5px;font-weight:600}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-soft)}
+  .check input{margin-top:3px;width:18px;height:18px;accent-color:var(--ink)}
+  .radios{display:flex;gap:10px;flex-wrap:wrap}
+  .radio{border:1px solid var(--line);border-radius:var(--pill);padding:8px 14px;font-size:13px;display:flex;gap:8px;align-items:center}
+  .upload{border:1px dashed var(--line-strong);border-radius:var(--field);padding:18px;text-align:center;font-size:13px;color:var(--ink-soft)}
+  .steps{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .step{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);padding:6px 12px;border-radius:var(--pill);background:#F5F4F2}
+  .step.active{background:var(--ink);color:#fff}
+
+  /* overlays */
+  .modal{border:1px solid var(--line);border-radius:24px;padding:24px;max-width:420px;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+  .toast{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px;max-width:380px}
+  .toast .dot{width:10px;height:10px;border-radius:50%;margin-top:5px;flex-shrink:0;background:var(--success)}
+  .toast.err .dot{background:var(--danger)}
+  .toast.warn .dot{background:var(--warning)}
+  .pagination{display:flex;gap:6px}
+  .pagination a{width:36px;height:36px;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;text-decoration:none;color:var(--ink)}
+  .pagination a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .empty{border:1px dashed var(--line-strong);border-radius:var(--radius);padding:36px;text-align:center;color:var(--ink-soft)}
+  .skeleton{background:linear-gradient(90deg,#F2F1EF 25%,#E8E6E2 37%,#F2F1EF 63%);background-size:400% 100%;animation:sh 1.4s ease infinite;border-radius:8px;height:14px;margin-bottom:10px}
+  @keyframes sh{0%{background-position:100% 50%}100%{background-position:0 50%}}
+  .chip{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:var(--pill);font-size:12px;font-weight:600;background:#F5F4F2;color:var(--ink)}
+  .chip.ok{background:#E7F5EC;color:var(--success)}
+  .chip.warn{background:#FDF0E3;color:var(--warning)}
+  .chip.err{background:#FDE8E8;color:var(--danger)}
+
+  .table{width:100%;border-collapse:collapse;font-size:14px}
+  .table th,.table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .table th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+  .status{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:var(--pill);white-space:nowrap}
+  .s-exists{background:#E7F5EC;color:var(--success)}
+  .s-pending{background:#FDF0E3;color:var(--warning)}
+  .s-missing{background:#FDE8E8;color:var(--danger)}
+
+  .footer-demo{background:var(--dark);color:#fff;border-radius:20px;padding:32px}
+  .footer-demo .cols{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+  .footer-demo h4{color:#fff;font-size:14px}
+  .footer-demo a,.footer-demo p{color:#B9B9B9;font-size:13px;text-decoration:none;display:block;margin:0 0 6px}
+  .footer-demo .bottom{border-top:1px solid #2A2A2E;margin-top:24px;padding-top:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11px;color:#8A8A8A}
+
+  @media(max-width:700px){
+    .table,.specs{display:block;overflow-x:auto}
+    .cover-facts{gap:20px 28px}
+    .demo-bar span:last-child{display:none}
+  }
+  @media print{
+    .toolbar,.toc{display:none}
+    section{break-inside:avoid;padding:24px 0}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <div class="brandmini">
+      <svg viewBox="0 0 500 500" aria-hidden="true"><path d="M 20 460 L 250 40 L 480 460 Z" fill="#FF5A5F"/><circle cx="250" cy="315" r="115" stroke="#FFFFFF" stroke-width="8" fill="none"/><g transform="translate(250,315) rotate(45)" fill="#FFFFFF"><rect x="-71" y="-71" width="68" height="68"/><rect x="3" y="-71" width="68" height="68"/><rect x="-71" y="3" width="68" height="68"/><rect x="3" y="3" width="68" height="68"/></g></svg>
+      UI kit web · v1.0
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="window.print()">Imprimir / PDF</button>
+  </div>
+</div>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="eyebrow">
+      <span class="badge">Documento de revisión</span>
+      <span class="badge">Manual de marca v1.0</span>
+      <span class="badge">9 nov 2026</span>
+    </div>
+    <h1>UI kit <span class="coral">web</span></h1>
+    <p class="lead">Las plantillas y componentes del sitio: inicio, landing de servicio, de proyecto y de distrito, tarjetas, formularios, navegación, estados y reglas responsive. Todo con los tokens de la marca.</p>
+    <dl class="cover-facts">
+      <div><dt>Base</dt><dd>Blanco, negro y coral</dd></div>
+      <div><dt>Tipografía</dt><dd>Lora 700 + Inter</dd></div>
+      <div><dt>Responsive</dt><dd>360 / 768 / 1280 px</dd></div>
+      <div><dt>Objetivo táctil</dt><dd>44 px mínimo</dd></div>
+    </dl>
+    <div class="note" style="margin-top:26px;max-width:820px">
+      <strong>Fotos simuladas:</strong> los bloques con degradado representan fotos de obra. No son imágenes reales ni de terceros. Cuando lleguen las fotos, se reemplazan sin cambiar la retícula.
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Contenido">
+  <div class="wrap">
+    <ol>
+      <li><a href="#nav">Navegación y footer</a></li>
+      <li><a href="#home">Landing de inicio</a></li>
+      <li><a href="#servicio">Landing de servicio</a></li>
+      <li><a href="#proyecto">Landing de proyecto</a></li>
+      <li><a href="#distrito">Landing de distrito</a></li>
+      <li><a href="#cards">Tarjetas</a></li>
+      <li><a href="#formularios">Formularios</a></li>
+      <li><a href="#estados">Estados y overlays</a></li>
+      <li><a href="#responsive">Responsive y accesibilidad</a></li>
+      <li><a href="#inventario">Inventario</a></li>
+    </ol>
+  </div>
+</nav>
+
+<!-- 1 NAV -->
+<section id="nav">
+  <div class="wrap">
+    <div class="section-head"><span class="num">01</span><h2>Navegación y footer</h2></div>
+    <p class="section-intro">Barra flotante de vidrio en escritorio; barra fija y hoja de menú en móvil. El footer concentra cobertura, contacto y confianza.</p>
+
+    <div class="demo">
+      <div class="demo-bar"><span>Navbar · escritorio</span><span>1280 px</span></div>
+      <div class="demo-body" style="background:#FAF9F7">
+        <div class="navbar">
+          <div class="logo">
+            <svg viewBox="0 0 500 500" aria-hidden="true"><path d="M 20 460 L 250 40 L 480 460 Z" fill="#FF5A5F"/><circle cx="250" cy="315" r="115" stroke="#FFFFFF" stroke-width="8" fill="none"/><g transform="translate(250,315) rotate(45)" fill="#FFFFFF"><rect x="-71" y="-71" width="68" height="68"/><rect x="3" y="-71" width="68" height="68"/><rect x="-71" y="3" width="68" height="68"/><rect x="3" y="3" width="68" height="68"/></g></svg>
+            <span>Glass &amp; Aluminum<br>Company S.A.C.</span>
+          </div>
+          <nav>
+            <a class="active" href="#" onclick="return false">Inicio</a>
+            <a href="#" onclick="return false">Servicios</a>
+            <a href="#" onclick="return false">Proyectos</a>
+            <a href="#" onclick="return false">Ubicación</a>
+            <a href="#" onclick="return false">Contacto</a>
+          </nav>
+          <a class="btn btn-wa btn-sm" href="#" onclick="return false">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo" style="margin-top:20px">
+      <div class="demo-bar"><span>Navbar · móvil y hoja de menú</span><span>360 px</span></div>
+      <div class="demo-body" style="background:#FAF9F7">
+        <div class="mobilebar">
+          <div class="logo">
+            <svg viewBox="0 0 500 500" aria-hidden="true"><path d="M 20 460 L 250 40 L 480 460 Z" fill="#FF5A5F"/><circle cx="250" cy="315" r="115" stroke="#FFFFFF" stroke-width="8" fill="none"/><g transform="translate(250,315) rotate(45)" fill="#FFFFFF"><rect x="-71" y="-71" width="68" height="68"/><rect x="3" y="-71" width="68" height="68"/><rect x="-71" y="3" width="68" height="68"/><rect x="3" y="3" width="68" height="68"/></g></svg>
+            <span style="font-family:var(--serif);font-weight:700;font-size:13px">Glass &amp; Aluminum</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <a class="btn btn-wa btn-sm" href="#" onclick="return false" style="padding:0 12px">WhatsApp</a>
+            <button class="hamb" aria-label="Abrir menú">☰</button>
+          </div>
+        </div>
+        <div class="sheet">
+          <div class="head"><strong style="font-family:var(--serif)">Menú</strong><span class="muted small">Cerrar ✕</span></div>
+          <ul>
+            <li>Inicio</li>
+            <li>Servicios</li>
+            <li>Proyectos</li>
+            <li>Ubicación</li>
+            <li>Contacto</li>
+          </ul>
+          <div class="foot"><a class="btn btn-primary" style="width:100%" href="#" onclick="return false">Solicitar presupuesto</a></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Footer</h3>
+    <div class="footer-demo">
+      <div class="cols">
+        <div>
+          <h4>Glass &amp; Aluminum Company S.A.C.</h4>
+          <p>Vidriería y carpintería de aluminio. Taller propio en La Molina.</p>
+          <p>RUC 20606432870</p>
+        </div>
+        <div>
+          <h4>Servicios</h4>
+          <a href="#" onclick="return false">Ventanas</a>
+          <a href="#" onclick="return false">Mamparas</a>
+          <a href="#" onclick="return false">Barandas y techos</a>
+          <a href="#" onclick="return false">Mantenimiento</a>
+        </div>
+        <div>
+          <h4>Cobertura</h4>
+          <a href="#" onclick="return false">La Molina</a>
+          <a href="#" onclick="return false">Surco</a>
+          <a href="#" onclick="return false">San Borja</a>
+          <a href="#" onclick="return false">San Isidro</a>
+          <a href="#" onclick="return false">Miraflores</a>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <p>974 278 303</p>
+          <p>acueva@gyacompany.com</p>
+          <p>Av. Los Fresnos 1250, La Molina</p>
+          <p>Lun–Sáb · 08:00–18:00</p>
+        </div>
+      </div>
+      <div class="bottom">
+        <span>© 2026 Glass &amp; Aluminum Company S.A.C.</span>
+        <span>Libro de reclamaciones · Política de privacidad</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 HOME -->
+<section id="home">
+  <div class="wrap">
+    <div class="section-head"><span class="num">02</span><h2>Landing de inicio</h2></div>
+    <p class="section-intro">Una sola promesa, una prueba visible y una acción principal. El coral aparece una vez, en una palabra del título.</p>
+
+    <div class="demo">
+      <div class="demo-bar"><span>Home · hero</span><span>Desktop</span></div>
+      <div class="demo-body" style="background:#fff">
+        <div class="hero">
+          <span class="label">Vidriería y aluminio en Lima</span>
+          <h1>Vidrio y aluminio que <span class="coral">duran</span>.</h1>
+          <p>Medimos, ensamblamos en nuestro taller e instalamos con equipo propio en La Molina, Surco, San Borja, San Isidro y Miraflores.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#" onclick="return false">Solicitar presupuesto</a>
+            <a class="btn btn-outline" href="#" onclick="return false">Ver proyectos</a>
+          </div>
+          <div class="proof">
+            <div><strong>Taller propio</strong><span>Fabricación e instalación</span></div>
+            <div><strong>Boleta o factura</strong><span>Empresa formal con RUC</span></div>
+            <div><strong>Garantía 3 meses</strong><span>En todo lo instalado</span></div>
+            <div><strong>Show room</strong><span>Vea el producto antes</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Sección de servicios</h3>
+    <div class="grid g3">
+      <article class="card service-card">
+        <div class="photo"><div class="glass"><strong>Ventanas</strong><span>6 sistemas</span></div></div>
+        <h4>Ventanas a medida</h4>
+        <p>Corredizas, proyectantes, batientes y luz fija en aluminio y vidrio templado o laminado.</p>
+        <a class="link-arrow" href="#" onclick="return false">Ver sistemas →</a>
+      </article>
+      <article class="card service-card">
+        <div class="photo alt"><div class="glass"><strong>Mamparas</strong><span>Baño y ducha</span></div></div>
+        <h4>Mamparas de ducha</h4>
+        <p>Vidrio templado de 8 mm con herrajes de acero y sellado incluido.</p>
+        <a class="link-arrow" href="#" onclick="return false">Ver opciones →</a>
+      </article>
+      <article class="card service-card">
+        <div class="photo alt2"><div class="glass"><strong>Barandas</strong><span>Seguridad y diseño</span></div></div>
+        <h4>Barandas y techos</h4>
+        <p>Barandas de vidrio, parapetos y techos con estructura de aluminio.</p>
+        <a class="link-arrow" href="#" onclick="return false">Ver proyectos →</a>
+      </article>
+    </div>
+
+    <h3>Sección de proyectos</h3>
+    <div class="grid g2">
+      <article class="card project-card">
+        <div class="photo"><div class="glass"><strong>Edificio Ventura</strong><span>San Miguel · 2022</span></div></div>
+        <div class="body">
+          <h4>Fachada y ventanas</h4>
+          <div class="meta"><span>104 departamentos</span><span>Aluminio negro</span></div>
+          <p class="small muted" style="margin:8px 0 0">Ventanas y mamparas para edificio completo, con fabricación en taller propio.</p>
+        </div>
+      </article>
+      <article class="card project-card">
+        <div class="photo alt"><div class="glass"><strong>Residencia Palmer</strong><span>Breña · 2025</span></div></div>
+        <div class="body">
+          <h4>Mamparas y barandas</h4>
+          <div class="meta"><span>Casa completa</span><span>Vidrio templado</span></div>
+          <p class="small muted" style="margin:8px 0 0">Mamparas de ducha, barandas de vidrio y ventanas con acabado mate.</p>
+        </div>
+      </article>
+    </div>
+
+    <h3>Cobertura y cierre</h3>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr))">
+      <a class="district" href="#" onclick="return false"><strong>La Molina</strong><span class="small muted">Ver →</span></a>
+      <a class="district" href="#" onclick="return false"><strong>Surco</strong><span class="small muted">Ver →</span></a>
+      <a class="district" href="#" onclick="return false"><strong>San Borja</strong><span class="small muted">Ver →</span></a>
+      <a class="district" href="#" onclick="return false"><strong>San Isidro</strong><span class="small muted">Ver →</span></a>
+      <a class="district" href="#" onclick="return false"><strong>Miraflores</strong><span class="small muted">Ver →</span></a>
+    </div>
+    <div class="cta-band" style="margin-top:20px">
+      <div><h3>¿Tiene medidas o un plano?</h3><p>Le devolvemos un presupuesto claro, con IGV incluido y garantía de 3 meses.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="#" onclick="return false">Solicitar presupuesto</a>
+        <a class="btn btn-outline" href="#" onclick="return false">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 SERVICIO -->
+<section id="servicio">
+  <div class="wrap">
+    <div class="section-head"><span class="num">03</span><h2>Landing de servicio</h2></div>
+    <p class="section-intro">Plantilla para las 13 fichas: breadcrumb, hero con foto, especificaciones, beneficios, galería, FAQ y cierre. El nombre del servicio va en el título; el coral no se usa en la ficha.</p>
+
+    <div class="demo">
+      <div class="demo-bar"><span>Servicio · Mamparas de ducha</span><span>Desktop</span></div>
+      <div class="demo-body">
+        <div class="crumbs"><a href="#" onclick="return false">Inicio</a><span>/</span><a href="#" onclick="return false">Servicios</a><span>/</span><span>Mamparas de ducha</span></div>
+        <div class="hero-landing">
+          <div>
+            <span class="label">Baño y ducha</span>
+            <h1>Mamparas de ducha a medida</h1>
+            <p>Vidrio templado de 8 mm, herrajes de acero inoxidable y sellado incluido. Medimos, fabricamos e instalamos con equipo propio.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+              <a class="btn btn-primary" href="#" onclick="return false">Solicitar presupuesto</a>
+              <a class="btn btn-outline" href="#" onclick="return false">Ver proyectos</a>
+            </div>
+            <p class="small muted" style="margin-top:14px">Desde S/ 1 290 · Garantía de 3 meses · Boleta o factura</p>
+          </div>
+          <div class="photo"><div class="glass"><strong>Mampara corrediza</strong><span>Serie 25 · Vidrio 8 mm</span></div></div>
+        </div>
+
+        <h3>Especificaciones</h3>
+        <table class="specs">
+          <tr><th>Sistema</th><td>Serie 25, Serie 35 o Serie 62</td></tr>
+          <tr><th>Tipo</th><td>Corrediza, abatible o fija</td></tr>
+          <tr><th>Vidrio</th><td>Templado de 8 mm, incoloro o bronce</td></tr>
+          <tr><th>Aluminio</th><td>Negro, mate, blanco, madera o champagne</td></tr>
+          <tr><th>Medida</th><td>Según vano; se confirma en visita técnica</td></tr>
+          <tr><th>Incluye</th><td>Herrajes, rodajes, sellado e instalación</td></tr>
+        </table>
+
+        <h3>Galería</h3>
+        <div class="gallery">
+          <div class="photo"></div><div class="photo alt"></div><div class="photo alt2"></div>
+        </div>
+
+        <h3>Preguntas frecuentes</h3>
+        <div class="faq">
+          <details open><summary>¿Cuánto demora la instalación?</summary><p>Una mampara para un hogar suele instalarse en 2 a 3 horas, después de la fabricación en taller.</p></details>
+          <details><summary>¿El precio incluye IGV?</summary><p>Sí. Todos los precios mostrados incluyen IGV y se entrega boleta o factura electrónica.</p></details>
+          <details><summary>¿Atienden mi distrito?</summary><p>Atendemos La Molina, Surco, San Borja, San Isidro y Miraflores.</p></details>
+        </div>
+
+        <div class="cta-band" style="margin-top:24px">
+          <div><h3>Pida su presupuesto</h3><p>Con medidas o foto del vano, le respondemos por WhatsApp.</p></div>
+          <a class="btn btn-primary" href="#" onclick="return false">Solicitar presupuesto</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 PROYECTO -->
+<section id="proyecto">
+  <div class="wrap">
+    <div class="section-head"><span class="num">04</span><h2>Landing de proyecto</h2></div>
+    <p class="section-intro">Caso de obra con ficha verificable: distrito, año, alcance, sistemas y galería. Es la prueba que respalda la recomendación de una constructora.</p>
+
+    <div class="demo">
+      <div class="demo-bar"><span>Proyecto · Edificio Ventura</span><span>Desktop</span></div>
+      <div class="demo-body">
+        <div class="crumbs"><a href="#" onclick="return false">Inicio</a><span>/</span><a href="#" onclick="return false">Proyectos</a><span>/</span><span>Edificio Ventura</span></div>
+        <div class="photo" style="height:320px;margin-bottom:24px"><div class="glass"><strong>Edificio Ventura</strong><span>San Miguel · 2022</span></div></div>
+
+        <div class="grid g2">
+          <div>
+            <h1 style="font-size:32px">Ventanas y mamparas para 104 departamentos</h1>
+            <p class="muted" style="margin-top:14px">Partida completa de ventanas y mamparas para edificio multifamiliar. Fabricación en taller propio e instalación por etapas, sin interrumpir la obra.</p>
+          </div>
+          <div class="card">
+            <table class="specs">
+              <tr><th>Distrito</th><td>San Miguel</td></tr>
+              <tr><th>Año</th><td>2022</td></tr>
+              <tr><th>Alcance</th><td>104 departamentos</td></tr>
+              <tr><th>Sistemas</th><td>Serie 25 y Serie 35</td></tr>
+              <tr><th>Acabado</th><td>Aluminio negro</td></tr>
+              <tr><th>Servicio</th><td>Fabricación e instalación</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <h3>Galería de obra</h3>
+        <div class="gallery">
+          <div class="photo"></div><div class="photo alt"></div><div class="photo alt2"></div>
+          <div class="photo alt2"></div><div class="photo"></div><div class="photo alt"></div>
+        </div>
+
+        <h3>Testimonio</h3>
+        <div class="card">
+          <p class="testimonial">«Cumplieron el plazo por etapas y la instalación quedó limpia. Nos sirvió para entregar los departamentos a tiempo.»</p>
+          <footer>Jefe de obra · constructora [nombre pendiente de autorización]</footer>
+        </div>
+
+        <div class="cta-band" style="margin-top:24px">
+          <div><h3>¿Tiene una obra similar?</h3><p>Coordinamos una visita técnica y le entregamos el presupuesto por partidas.</p></div>
+          <a class="btn btn-primary" href="#" onclick="return false">Coordinar visita</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 DISTRITO -->
+<section id="distrito">
+  <div class="wrap">
+    <div class="section-head"><span class="num">05</span><h2>Landing de distrito</h2></div>
+    <p class="section-intro">Cinco páginas locales con contenido propio. No se duplica la misma plantilla con el nombre cambiado: cada distrito tiene servicios, prueba y contexto.</p>
+
+    <div class="demo">
+      <div class="demo-bar"><span>Distrito · Surco</span><span>Desktop</span></div>
+      <div class="demo-body">
+        <div class="crumbs"><a href="#" onclick="return false">Inicio</a><span>/</span><a href="#" onclick="return false">Cobertura</a><span>/</span><span>Surco</span></div>
+        <span class="label">Atención por distrito</span>
+        <h1 style="font-size:38px;margin-top:8px">Vidriería y aluminio en Surco</h1>
+        <p class="muted" style="max-width:60ch;margin-top:12px">Fabricamos e instalamos vidriería y carpintería de aluminio para viviendas y oficinas de Santiago de Surco, desde nuestra sede en La Molina.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+          <a class="btn btn-primary" href="#" onclick="return false">Solicitar presupuesto</a>
+          <a class="btn btn-wa" href="#" onclick="return false">WhatsApp</a>
+        </div>
+
+        <div class="grid g2" style="margin-top:26px">
+          <div class="card">
+            <h4>Servicios en Surco</h4>
+            <ul class="muted small" style="margin:10px 0 0;padding-left:18px;line-height:2">
+              <li>Ventanas corredizas y proyectantes</li>
+              <li>Mamparas de baño</li>
+              <li>Barandas y cerramientos</li>
+              <li>Vidrio laminado y templado</li>
+            </ul>
+          </div>
+          <div class="photo"><div class="glass"><strong>Obra en Surco</strong><span>Proyecto · 2025</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 CARDS -->
+<section id="cards">
+  <div class="wrap">
+    <div class="section-head"><span class="num">06</span><h2>Tarjetas</h2></div>
+    <p class="section-intro">Cada tarjeta tiene una sola jerarquía: foto, título, dato y acción. Sin sombras en reposo. La leyenda de vidrio solo va sobre foto.</p>
+
+    <div class="grid g3">
+      <article class="card service-card">
+        <div class="photo"><div class="glass"><strong>Ventanas</strong><span>Servicio</span></div></div>
+        <h4>Ventana corrediza</h4>
+        <p>Serie 25 · Vidrio templado 6 mm</p>
+        <a class="link-arrow" href="#" onclick="return false">Ver ficha →</a>
+      </article>
+      <article class="card project-card">
+        <div class="photo alt"><div class="glass"><strong>Residencia Palmer</strong><span>Breña · 2025</span></div></div>
+        <div class="body"><h4>Proyecto</h4><div class="meta"><span>Casa completa</span></div></div>
+      </article>
+      <article class="card blog-card">
+        <div class="photo alt2"></div>
+        <div class="body">
+          <span class="label" style="font-size:10px">Guía</span>
+          <h4 style="margin-top:6px">Cómo elegir el vidrio de una ventana</h4>
+          <p>Templado, laminado o crudo: qué conviene según el uso.</p>
+        </div>
+      </article>
+      <article class="card testimonial-card">
+        <p class="testimonial" style="margin:0">«La instalación quedó limpia y cumplieron el plazo.»</p>
+        <footer>Cliente particular · La Molina</footer>
+      </article>
+      <div class="card stat"><strong>+100</strong><span>departamentos equipados</span></div>
+      <div class="card">
+        <h4>Resumen de presupuesto</h4>
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-top:10px"><span class="muted">Subtotal</span><span>S/ 2 940,00</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px"><span class="muted">Instalación</span><span>S/ 380,00</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px"><span class="muted">IGV incluido</span><span>S/ 506,44</span></div>
+        <div style="display:flex;justify-content:space-between;border-top:2px solid var(--ink);margin-top:10px;padding-top:10px;font-weight:700"><span>TOTAL</span><span style="font-family:var(--serif);font-size:20px">S/ 3 320,00</span></div>
+        <a class="btn btn-primary" style="width:100%;margin-top:14px" href="#" onclick="return false">Enviar por WhatsApp</a>
+      </div>
+    </div>
+
+    <h3>Tarjeta con foto · reglas</h3>
+    <table class="table">
+      <tr><th>Elemento</th><th>Regla</th></tr>
+      <tr><td>Foto</td><td>Obra propia, horizontal, de día, sin personas ni desorden</td></tr>
+      <tr><td>Leyenda</td><td>Blanco al 90 % con desenfoque de 24 px; texto negro</td></tr>
+      <tr><td>Altura</td><td>260 px móvil, 280 px tablet, 310 px escritorio</td></tr>
+      <tr><td>Acción</td><td>Una sola: ver ficha, ver caso o pedir presupuesto</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 7 FORMULARIOS -->
+<section id="formularios">
+  <div class="wrap">
+    <div class="section-head"><span class="num">07</span><h2>Formularios</h2></div>
+    <p class="section-intro">Campos de 48 px, etiqueta visible, ayuda y error en el lugar correcto. El formulario de presupuesto es el más importante: se puede completar desde el móvil en menos de un minuto.</p>
+
+    <div class="demo">
+      <div class="demo-bar"><span>Presupuesto · paso 1 de 3</span><span>Mobile-first</span></div>
+      <div class="demo-body">
+        <div class="steps"><span class="step active">1 · Contacto</span><span class="step">2 · Medidas</span><span class="step">3 · Confirmar</span></div>
+        <div class="form-grid">
+          <div><label class="field-label" for="fn">Nombre completo</label><input class="field" id="fn" placeholder="María Fernanda Ríos"></div>
+          <div><label class="field-label" for="fw">WhatsApp</label><input class="field" id="fw" placeholder="987 654 321"></div>
+          <div><label class="field-label" for="fd">Distrito</label><select class="field" id="fd"><option>La Molina</option><option>Surco</option><option>San Borja</option><option>San Isidro</option><option>Miraflores</option></select></div>
+          <div><label class="field-label" for="fs">Servicio</label><select class="field" id="fs"><option>Ventanas</option><option>Mamparas</option><option>Barandas</option><option>Techos</option><option>Mantenimiento</option></select></div>
+          <div><label class="field-label" for="fa">Ancho</label><input class="field" id="fa" placeholder="1,80 m"></div>
+          <div><label class="field-label" for="fh">Alto</label><input class="field error" id="fh" placeholder="2,10 m" aria-describedby="fh-err"><div class="field-error" id="fh-err">Ingrese el alto en metros.</div></div>
+          <div class="span2"><label class="field-label" for="fc">Comentario</label><textarea class="field" id="fc" placeholder="Cuéntenos del vano, el acabado o el plano."></textarea></div>
+          <div class="span2"><label class="check"><input type="checkbox"> Acepto que me contacten por WhatsApp y el tratamiento de mis datos según la política de privacidad.</label></div>
+          <div class="span2"><button class="btn btn-primary" type="button">Continuar</button></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Estados de campo</h3>
+    <div class="grid g3">
+      <div><label class="field-label">Normal</label><input class="field" placeholder="Texto de ejemplo"></div>
+      <div><label class="field-label">Foco</label><input class="field" style="outline:2px solid #2563EB;outline-offset:2px;border-color:#2563EB" value="Escribiendo…"></div>
+      <div><label class="field-label">Error</label><input class="field error" value="2,10"><div class="field-error">Use coma decimal, no punto.</div></div>
+      <div><label class="field-label">Deshabilitado</label><input class="field" disabled value="No editable"></div>
+      <div><label class="field-label">Selección</label><select class="field"><option>Vidrio templado</option></select></div>
+      <div><label class="field-label">Archivo</label><div class="upload">Arrastre una foto o plano<br><span style="text-decoration:underline">o seleccione un archivo</span></div></div>
+    </div>
+
+    <h3>Contacto y reclamo</h3>
+    <div class="grid g2">
+      <div class="card">
+        <h4>Contacto</h4>
+        <div class="form-grid" style="grid-template-columns:1fr">
+          <div><label class="field-label">Nombre</label><input class="field" placeholder="Su nombre"></div>
+          <div><label class="field-label">Correo</label><input class="field" placeholder="correo@ejemplo.com"></div>
+          <div><label class="field-label">Mensaje</label><textarea class="field" placeholder="¿En qué le ayudamos?"></textarea></div>
+          <div><button class="btn btn-primary" type="button">Enviar mensaje</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Libro de reclamaciones</h4>
+        <p class="small muted">Formulario largo con validación. Campos obligatorios y aviso legal de 15 días hábiles.</p>
+        <div class="form-grid" style="grid-template-columns:1fr">
+          <div><label class="field-label">Tipo</label><div class="radios"><label class="radio"><input type="radio" name="t"> Reclamo</label><label class="radio"><input type="radio" name="t"> Queja</label></div></div>
+          <div><label class="field-label">Detalle</label><textarea class="field" placeholder="Describa lo ocurrido"></textarea></div>
+          <div><button class="btn btn-outline" type="button">Enviar reclamo</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 ESTADOS -->
+<section id="estados">
+  <div class="wrap">
+    <div class="section-head"><span class="num">08</span><h2>Estados y overlays</h2></div>
+    <p class="section-intro">Todo estado tiene texto, no solo color. El color de estado nunca reemplaza el mensaje.</p>
+
+    <div class="grid g3">
+      <div class="toast"><span class="dot"></span><div><strong>Presupuesto enviado</strong><br><span class="muted">Le responderemos por WhatsApp en horario de atención.</span></div></div>
+      <div class="toast err"><span class="dot"></span><div><strong>No se pudo enviar</strong><br><span class="muted">Revise su conexión e intente de nuevo.</span></div></div>
+      <div class="toast warn"><span class="dot"></span><div><strong>Falta un dato</strong><br><span class="muted">Ingrese el alto para calcular.</span></div></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:20px">
+      <div class="modal">
+        <h4>¿Enviar presupuesto?</h4>
+        <p class="small muted">Se enviará a WhatsApp con el resumen y el número correlativo.</p>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px">
+          <button class="btn btn-ghost" type="button">Cancelar</button>
+          <button class="btn btn-primary" type="button">Enviar</button>
+        </div>
+      </div>
+      <div>
+        <div class="empty"><strong>Sin proyectos en este filtro</strong><br><span class="small">Pruebe con otro distrito o servicio.</span></div>
+        <div class="card" style="margin-top:14px">
+          <div class="skeleton" style="width:40%"></div>
+          <div class="skeleton" style="width:90%"></div>
+          <div class="skeleton" style="width:70%"></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Navegación secundaria</h3>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+      <div class="crumbs" style="margin:0"><a href="#" onclick="return false">Inicio</a><span>/</span><a href="#" onclick="return false">Servicios</a><span>/</span><span>Mamparas</span></div>
+      <div class="pagination"><a href="#" onclick="return false">‹</a><a class="on" href="#" onclick="return false">1</a><a href="#" onclick="return false">2</a><a href="#" onclick="return false">3</a><a href="#" onclick="return false">›</a></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip">Todos</span><span class="chip ok">Disponible</span><span class="chip warn">A cotizar</span><span class="chip err">Cerrado</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 RESPONSIVE -->
+<section id="responsive">
+  <div class="wrap">
+    <div class="section-head"><span class="num">09</span><h2>Responsive y accesibilidad</h2></div>
+    <p class="section-intro">Se diseña primero en 360 px porque la mayoría del tráfico llega desde WhatsApp en el móvil. Luego 768 y 1280.</p>
+
+    <table class="table">
+      <tr><th>Elemento</th><th>360 px</th><th>768 px</th><th>1280 px</th></tr>
+      <tr><td>Contenedor</td><td>100 % con 24 px de margen</td><td>896 px</td><td>1152 o 1280 px</td></tr>
+      <tr><td>Hero</td><td>1 columna; título 34 px</td><td>1 columna; título 44 px</td><td>2 columnas; título 58 px</td></tr>
+      <tr><td>Servicios</td><td>1 columna</td><td>2 columnas</td><td>3 columnas</td></tr>
+      <tr><td>Proyectos</td><td>1 columna</td><td>2 columnas</td><td>2 columnas</td></tr>
+      <tr><td>Navegación</td><td>Barra fija + hoja</td><td>Barra fija</td><td>Barra flotante</td></tr>
+      <tr><td>Formulario</td><td>1 columna</td><td>2 columnas</td><td>2 columnas</td></tr>
+      <tr><td>Botones</td><td>Ancho completo en el CTA principal</td><td>Automático</td><td>Automático</td></tr>
+    </table>
+
+    <h3>Checklist de accesibilidad</h3>
+    <div class="grid g2">
+      <div class="card">
+        <h4>Obligatorio</h4>
+        <ul class="small muted" style="margin:0;padding-left:18px;line-height:1.9">
+          <li>Objetivos táctiles de 44 × 44 px como mínimo.</li>
+          <li>Foco visible en todo elemento interactivo.</li>
+          <li>Contraste de texto ≥ 4,5:1; coral solo en texto grande.</li>
+          <li>Un solo H1 por página y jerarquía de encabezados correcta.</li>
+          <li>Alt descriptivo en fotos de obra; alt vacío en decorativas.</li>
+          <li>Errores con texto, no solo color.</li>
+          <li>Respetar `prefers-reduced-motion` y `prefers-reduced-transparency`.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Prohibido</h4>
+        <ul class="small muted" style="margin:0;padding-left:18px;line-height:1.9">
+          <li>Texto de 10 px o menos.</li>
+          <li>Coral en botones, íconos o texto pequeño.</li>
+          <li>Placeholder como única etiqueta.</li>
+          <li>Mensajes de error genéricos sin indicar el campo.</li>
+          <li>Vidrio sobre fondo blanco.</li>
+          <li>Sombras fuertes o degradados decorativos.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 INVENTARIO -->
+<section id="inventario" style="border-bottom:none">
+  <div class="wrap">
+    <div class="section-head"><span class="num">10</span><h2>Inventario de componentes</h2></div>
+    <p class="section-intro">Lo que el sitio necesita y su estado. «Existe» = ya está en el proyecto; «parcial» = hay algo pero no cumple la marca; «falta» = hay que construirlo.</p>
+
+    <table class="table">
+      <tr><th>Componente</th><th>Dónde se usa</th><th>Estado</th></tr>
+      <tr><td>Navbar escritorio</td><td>Todas las páginas</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Navbar móvil + hoja</td><td>Todas las páginas</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Footer</td><td>Todas las páginas</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Hero de inicio</td><td>Home</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Hero de servicio</td><td>13 fichas</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Hero de proyecto</td><td>Casos de obra</td><td><span class="status s-parcial">Parcial</span></td></tr>
+      <tr><td>Hero de distrito</td><td>5 landings</td><td><span class="status s-parcial">Parcial</span></td></tr>
+      <tr><td>Tarjeta de servicio</td><td>Home, servicios</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Tarjeta de proyecto</td><td>Home, proyectos</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Tarjeta de blog</td><td>Blog</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Tarjeta de testimonio</td><td>Home, proyectos</td><td><span class="status s-falta">Falta</span></td></tr>
+      <tr><td>Tarjeta de estadística</td><td>Home</td><td><span class="status s-falta">Falta</span></td></tr>
+      <tr><td>Resumen de presupuesto</td><td>Presupuesto</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Formulario de presupuesto</td><td>Presupuesto</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Formulario de contacto</td><td>Contacto</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Libro de reclamaciones</td><td>Reclamo</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Galería de obra</td><td>Proyectos</td><td><span class="status s-parcial">Parcial</span></td></tr>
+      <tr><td>Visor de galería</td><td>Proyectos</td><td><span class="status s-parcial">Parcial</span></td></tr>
+      <tr><td>Acordeón de FAQ</td><td>Servicios</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Tabs</td><td>Servicios, presupuesto</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Breadcrumbs</td><td>Servicio y proyecto</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Paginación</td><td>Blog, proyectos</td><td><span class="status s-parcial">Parcial</span></td></tr>
+      <tr><td>Modal</td><td>Acciones y confirmaciones</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Toast</td><td>Formularios</td><td><span class="status s-parcial">Parcial</span></td></tr>
+      <tr><td>Estado vacío</td><td>Filtros y listas</td><td><span class="status s-falta">Falta</span></td></tr>
+      <tr><td>Esqueleto de carga</td><td>Listas y galerías</td><td><span class="status s-falta">Falta</span></td></tr>
+      <tr><td>Botón WhatsApp flotante</td><td>Móvil</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Selector de distrito</td><td>Presupuesto y cobertura</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Simulador de ventana</td><td>`/simulador-ai`</td><td><span class="status s-exists">Existe</span></td></tr>
+      <tr><td>Tienda y checkout</td><td>`/tienda`</td><td><span class="status s-parcial">Parcial</span></td></tr>
+    </table>
+
+    <div class="note" style="margin-top:22px">
+      <strong>Nota:</strong> este inventario describe el estado del sitio, no una aprobación de diseño. Las páginas siguen congeladas hasta que el dueño apruebe cada lote. Los componentes marcados «falta» se construyen en los lotes 1 a 4 del plan de aplicación.
+    </div>
+  </div>
+</section>
+
+<footer style="padding:36px 0;background:#fff">
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-soft)">
+    <span><strong style="color:var(--ink)">Glass &amp; Aluminum Company S.A.C.</strong> · UI kit web v1.0</span>
+    <span>9 de noviembre de 2026 · Documento de revisión</span>
+  </div>
+</footer>
+
+</body>
+</html>

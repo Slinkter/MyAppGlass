@@ -47,12 +47,13 @@ export const DesignSystemScreen: React.FC = () => {
               <Badge variant={"neutral" as never}>
                 Chakra UI v3 · 360 / 768 / 1280
               </Badge>
+              <Badge variant={"neutral" as never}>Manual de marca v1.0</Badge>
             </HStack>
             <Heading as="h1" fontFamily="heading" fontWeight="700" fontSize={{ base: "4xl", md: "6xl" }} lineHeight="display" letterSpacing="display" color="text.heading">
               Sistema de diseño: catálogo de componentes
             </Heading>
             <Text color="text.muted" fontSize={{ base: "sm", md: "lg" }}>
-              Componentes y tokens reales del sitio de <strong>{companyData.razonSocial}</strong>: fondo blanco, negro de marca y Lora 700 para títulos. Se revisa en 360, 768 y 1280 px, con áreas táctiles mínimas de 44 px.
+              Componentes y tokens reales del sitio de <strong>{companyData.razonSocial}</strong>: fondo blanco, negro de marca, Lora 700 para títulos y coral #FF5A5F como único acento. Se revisa en 360, 768 y 1280 px, con áreas táctiles mínimas de 44 px.
             </Text>
           </VStack>
 

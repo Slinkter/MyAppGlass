@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-09] - Limpieza documental y unificación del paquete de marca
+
+### Changed
+- **`docs/02_AI_HANDOFF.md`** se reduce al estado vigente y a las trampas conocidas; el historial queda solo en este changelog.
+- **`docs/01_ARCHITECTURE.md`** corrige variantes de botón y retira el conteo de rutas y el estado de 2026-11-02.
+- **`docs/10_SEO_JERARQUIA.md`** se reescribe con las rutas y títulos vigentes; se elimina la ruta `/servicios` y el copy obsoleto.
+- **`docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md`** pasa de plan por fases a documento de arquitectura SEO implementada, con invariantes, correcciones y auditoría.
+- **`docs/11_MANUAL_SEO_LOCAL.md`** retira el teléfono secundario y suaviza la promesa de posiciones.
+- **`docs/marca/ENTREGABLES-MARCA.md`** deja de repetir el checklist del design system y la lista de pendientes; enlaza a `DESIGN.md` y `PENDIENTES.md`.
+- **`docs/marca/PROPUESTA-MEJORAS.md`** delega estrategia y estado de entregables al manual y a `ENTREGABLES-MARCA.md`.
+- **`docs/marca/MANUAL-DE-MARCA.md`** y su versión `.html` retiran la contradicción ya resuelta con `PRODUCT.md`, agregan el UI kit y alinean los pendientes.
+- **`docs/gya/data/company.json`** corrige horario (L–S 08:00–18:00), garantía (3 meses) y número de servicios (13).
+- **`docs/api/README.md`** cambia la variante de botón `aura` por `primary`.
+
+### Removed
+- **`docs/marca/PREGUNTAS-MARCA.md`**: las respuestas ya están integradas en el manual v1.0. Recuperable con `git show d00687c:docs/marca/PREGUNTAS-MARCA.md`.
+- **`docs/api/D1-ficha ruc V1.pdf`**: documento de SUNAT (2022) desactualizado.
+- **`docs/diplomado/`**: resto suelto del material del diplomado; la copia vigente está en `docs/_material/diplomado/`.
+
+### Notes
+- `pnpm run typecheck` pasa. No hay cambios en páginas públicas ni despliegue.
+
+## [2026-11-09] - Manual de marca v1.0 y sistema de diseño alineado
+
+### Added
+- **`docs/marca/MANUAL-DE-MARCA.md` v1.0**: cierra el borrador con las respuestas del dueño (2021, equipo de 4, usted, nombre completo, cobertura de 5 distritos, plazos y presencia de marca) y agrega misión, visión y valores propuestos.
+- **`docs/marca/MANUAL-DE-MARCA.html`**: versión legible e imprimible del manual, con Lora + Inter, negro, blanco y coral.
+- **`docs/marca/PROPUESTA-MEJORAS.md`**: solución propuesta por la consultoría con diagnóstico, plan por horizontes (0–30, 31–90, 91–180 días), estrategia SEO priorizada, entregables y KPI.
+- **`docs/marca/PROMPT-CONSULTOR-MARCA.md`**: prompt maestro reutilizable (consultor senior del sector construcción) para producir manual de marca, estrategia SEO, planificación y lista de entregables sin inventar datos.
+- **`docs/marca/BRAND-KIT.html`**: brand kit revisable con logo e isotipo, variaciones, paleta con contraste, tipografía, estilos, plantilla de presupuesto A4, aplicaciones y lista de archivos. Incluye botón de impresión.
+- **`docs/marca/PROMPT-BRANDING.md`**: prompt de branding con criterio de estudio de diseño, listo para copiar.
+- **`docs/marca/UI-KIT.html`**: UI kit web revisable con navegación y footer, landing de inicio, plantillas de servicio, proyecto y distrito, tarjetas, formularios, estados, reglas responsive, accesibilidad e inventario de 30 componentes con su estado real.
+- **`docs/marca/ENTREGABLES-MARCA.md`**: mapa de las 8 fases del proceso de marca, estado real (entregado, parcial, pendiente), regla de fuente única en `docs/` y checklist de unificación del design system.
+- **`/design-system`**: tarjeta "Acento coral" con el uso permitido (una palabra en un título grande) y el límite de contraste; badge "Manual de marca v1.0".
+
+### Changed
+- **Un solo rojo**: `brand.coral #FF5A5F` como único acento (logo, una palabra de un título y "PRESUPUESTO" impreso), con uso limitado a texto grande por contraste. Se retiran `#D62828`, `#FF5A5A`, `brand.quoteRed`, `brand.logoCoral` y `brand.red`.
+- `apps/web/DESIGN.md`, `apps/web/.impeccable/design.json`, `apps/web/PRODUCT.md` y `TokensSection.tsx` aplican la regla "The One Coral Rule" y el límite de texto grande.
+- `AGENTS.md`, `claude.md`, `docs/README.md`, `docs/PENDIENTES.md`, `docs/02_AI_HANDOFF.md` y `apps/web/DESIGN.md` dejan de referirse al manual v0.1 y al cuestionario pendiente.
+- **Refactor de la documentación de marca**: se retiran del manual (§9 y §10.2) y de la versión `.html` los pendientes ya resueltos (sistema de diseño, `PRODUCT.md` y `PENDIENTES.md`); la audiencia en `claude.md` vuelve a reflejar la decisión del dueño (la web capta hogares y respalda a constructoras).
+
+### Notes
+- `pnpm run typecheck` y `pnpm run build` pasan. No hay despliegue. Las páginas públicas siguen congeladas hasta que el dueño apruebe cada lote.
+
 ## [2026-11-09] - Migración al sistema de diseño único (plan 25)
 
 ### Added

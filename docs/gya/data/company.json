@@ -17,8 +17,8 @@
     "nota": "Resuelto 2026-11-08: dirección vigente (AGENTS.md). Se descarta Mz H Lt 16."
   },
   "hours": {
-    "value": null,
-    "VERIFICAR": "La web muestra lun–sáb 9:00–17:00 y 8:00–18:00"
+    "value": "Lunes a sábado, 08:00 a 18:00",
+    "nota": "Dato vigente del manual de marca v1.0. La web y el footer deben leer de companyData."
   },
   "manager": {
     "name": "Juan Carlos Cueva Carrasco",
@@ -41,9 +41,9 @@
   "defaults": {
     "validityHours": 24,
     "warrantyMonths": {
-      "ventanas": 6,
+      "ventanas": 3,
       "techos": 3,
-      "VERIFICAR": "confirmar garantía por producto"
+      "nota": "3 meses en todo lo instalado (manual de marca v1.0)."
     }
   },
   "valueProps": [
@@ -53,7 +53,7 @@
     "Boleta o factura electrónica",
     "Técnicos capacitados"
   ],
-  "services": "Ver apps/web/DESIGN.md §2.1 (10 servicios oficiales del sitio, fuente de verdad en Firestore).",
+  "services": "13 servicios oficiales (manual de marca v1.0 §1); el sitio publica 10 y los 3 nuevos se crean al aprobar el catálogo.",
   "noiseReduction": {
     "Serie 25": 50,
     "Serie 62": 70,

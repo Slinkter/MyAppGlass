@@ -527,19 +527,13 @@ const config = defineConfig({
           whatsappAccessible: { value: "#15803d" },
           whatsappAccessibleHover: { value: "#166534" },
           whatsappAccessibleActive: { value: "#14532d" },
-          /* @deprecated: rojo antiguo; se retira con la variante de botón `brand` (plan 25, fase 2). */
-          red: { value: "#FF5A5F" },
-          redHover: { value: "#E0484D" },
-          redDark: { value: "#D9444A" },
-          /* Rojo de título destacado (#D62828): una vez por pantalla. Contraste 5,0:1 sobre blanco. */
-          quoteRed: { value: "#D62828" },
+          /* Único acento de marca (manual v1.0): coral del logo, solo en texto grande. */
+          coral: { value: "#FF5A5F" },
           /* Negro de marca (apps/web/DESIGN.md). */
           ink: { value: "#111111" },
           inkHover: { value: "#2A2A2A" },
           inkActive: { value: "#000000" },
           inkSoft: { value: "#4A4A4A" },
-          /* Coral del logo: exclusivo del logo, nunca en texto ni botones. */
-          logoCoral: { value: "#FF5A5A" },
         },
         status: {
           info: { value: "#38bdf8" },

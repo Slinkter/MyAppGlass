@@ -1,15 +1,15 @@
 # Glass & Aluminum Company S.A.C. - Portal Corporativo (Next.js 16)
 
-Plataforma corporativa premium de alta gama optimizada para el rendimiento y SEO de autoridad. Diseñada para **Glass & Aluminum Company S.A.C.**, líderes en soluciones arquitectónicas de cristalería, ventanas antirruido, mamparas y estructuras de aluminio en Lima, Perú.
+Sitio corporativo de **Glass & Aluminum Company S.A.C.**, vidriería y carpintería de aluminio en La Molina, Lima. Compra vidrio, aluminio y accesorios, ensambla en su taller e instala con equipo propio en cinco distritos.
 
 ---
 
 ## 🚀 Innovación Técnica & Arquitectura
 
 - **Framework:** [Next.js 16](https://nextjs.org/) (App Router) con exportación estática total (`output: 'export'`).
-- **UI Engine:** [Chakra UI v3](https://chakra-ui.com/) - Sistema de diseño Aura con tokens nativos (`space.1` a `space.16`).
+- **UI Engine:** [Chakra UI v3](https://chakra-ui.com/) con el sistema de diseño del proyecto y sus tokens nativos (`space.1` a `space.16`); reglas en `apps/web/DESIGN.md`.
 - **Simulador visual (`/simulador-ai`):** simulador 100% local que superpone la imagen de un producto sobre la foto subida por el usuario (queda en el navegador) y un chat con respuestas predefinidas; no usa IA generativa ni APIs externas.
-- **Módulos de gestión (cliente + Firestore):** panel de administración en `/admin` con CRUD de servicios y proyectos (`/admin/servicios`, `/admin/proyectos`), protegido con `AdminRouteGuard`; páginas públicas de servicios y proyectos leídas desde Firestore (única fuente de datos); cotizador de presupuesto en `/presupuesto`. Catálogo comercial y tienda online en `/tienda` con carrito de compras en `/tienda/checkout` (`features/tienda`, checkout vía WhatsApp con límite de stock e IGV).
+- **Módulos de gestión (cliente + Firestore):** panel de administración en `/admin` con CRUD de servicios y proyectos (`/admin/servicios`, `/admin/proyectos`), protegido con `AdminRouteGuard`; páginas públicas de servicios y proyectos leídas desde Firestore (única fuente de datos); cotizador de presupuesto en `/presupuesto`. Catálogo comercial y tienda online en `/tienda` con carrito en `/tienda/checkout` (`features/tienda`, checkout por WhatsApp con límite de stock e IGV).
 - **Rendimiento 120Hz:** Optimización por GPU (`translateZ(0)`, `will-change`) y prevención de CLS mediante sincronización de esqueletos de carga.
 - **Catálogo Oficial:** 6 Sistemas oficiales (`Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`, `Acústica` y `PVC abatible`) como regla de negocio (ver `AGENTS.md`).
 - **Backend Serverless:** Firebase Functions v2 (Node.js 22, `apps/functions/`), Firestore y Resend para gestión legal de Libro de Reclamaciones.
@@ -20,7 +20,7 @@ Plataforma corporativa premium de alta gama optimizada para el rendimiento y SEO
 
 - **SEO Local:** Posicionamiento estructurado para términos de alta conversión (_"Vidriería en La Molina"_, _"Ventanas Antirruido Lima"_).
 - **Rich Snippets & Sitelinks:** Marcado Schema.org JSON-LD para indexación jerárquica en Google.
-- **SSG:** 60 rutas estáticas (`56` páginas `.html` en `apps/web/out/` + `sitemap.xml`, `robots.txt`, `manifest.webmanifest`, `icon.svg`) pre-renderizadas en build time.
+- **SSG:** export estático en `apps/web/out/` con `sitemap.xml`, `robots.txt` y `manifest.webmanifest` generados en build. El número de rutas depende de los servicios y proyectos publicados en Firestore.
 
 ---
 
@@ -70,7 +70,7 @@ NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev
 
 ### Rutas principales
 
-- Públicas: `/`, `/servicios/[serviceSlug]`, `/servicios/ver?slug=…`, `/proyectos/[projectId]`, `/proyectos/ver?id=…`, `/tienda`, `/tienda/checkout`, `/mi-cuenta`, `/presupuesto`, `/simulador-ai`, `/contacto`, `/blog`, `/blog/[slug]`, `/libro-de-reclamacion`, `/cuentas-bancarias`, `/politicas-empresa`, `/auth`, `/design-system` (showcase del Aura Design System).
+- Públicas: `/`, `/servicios/[serviceSlug]`, `/servicios/ver?slug=…`, `/proyectos/[projectId]`, `/proyectos/ver?id=…`, `/vidrieria/[distrito]`, `/tienda`, `/tienda/checkout`, `/mi-cuenta`, `/presupuesto`, `/simulador-ai`, `/contacto`, `/blog`, `/blog/[slug]`, `/libro-de-reclamacion`, `/cuentas-bancarias`, `/politicas-empresa`, `/auth`, `/design-system` (showcase del sistema de diseño) y `/design-system-ubicacion` (prototipos).
 - Admin (requiere sesión de administrador, `AdminRouteGuard`): `/admin`, `/admin/servicios`, `/admin/proyectos`, `/admin/inventario`, `/admin/ventas`, `/admin/clientes`, `/admin/reportes`.
 
 ---

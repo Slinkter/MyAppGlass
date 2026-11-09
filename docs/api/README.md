@@ -40,7 +40,7 @@ Pasos aplicados en `/libro-de-reclamacion` que deben replicarse al actualizar ot
 3. **Alinear el schema compartido del Frontend (`packages/shared/`):**
    - Sincronizar el schema en `packages/shared/src/schemas/` (reexportado en `apps/web/src/shared/schemas/`) con los mismos límites de `openapi.json` y protegerlo en `apps/web/tests/unit/api-contract.test.ts`.
 4. **UI del formulario y plantilla de correo:**
-   - Aplicar el Aura Design System (`FormCard`, inputs/selects con `variant="outline"`, botón `variant="aura"`, reto matemático `MathCaptchaField` y `executeRecaptcha`).
+   - Aplicar el sistema de diseño (`FormCard`, inputs/selects con `variant="outline"`, botón `variant="primary"`, reto matemático `MathCaptchaField` y `executeRecaptcha`).
    - Usar el layout compartido `apps/functions/src/templates/emailLayout.js` en los correos de empresa y cliente.
 5. **Reglas de Firestore (`firestore.rules`):**
    - Mantener `allow create, delete: if false;` desde cliente en colecciones escritas por Cloud Functions (Admin SDK).

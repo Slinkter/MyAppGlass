@@ -29,8 +29,7 @@ const BRAND_TOKENS: readonly ColorToken[] = [
   { token: "brand.inkHover", value: "#2A2A2A", label: "Hover del botón primario" },
   { token: "brand.inkActive", value: "#000000", label: "Presionado del botón primario" },
   { token: "brand.inkSoft", value: "#4A4A4A", label: "Etiquetas y texto secundario" },
-  { token: "brand.quoteRed", value: "#D62828", label: "Una palabra destacada por pantalla" },
-  { token: "brand.logoCoral", value: "#FF5A5A", label: "Exclusivo del logo" },
+  { token: "brand.coral", value: "#FF5A5F", label: "Único acento: logo y texto grande" },
   { token: "brand.whatsappAccessible", value: "#15803D", label: "Botón y accesos a WhatsApp" },
   { token: "brand.whatsappAccessibleHover", value: "#166534", label: "Hover de WhatsApp" },
   { token: "brand.whatsappAccessibleActive", value: "#14532D", label: "Presionado de WhatsApp" },
@@ -258,9 +257,52 @@ export const TokensSection: React.FC = () => {
       {/* 2. Paleta de marca */}
       <ShowcaseCard
         title="Marca"
-        description="El negro de marca es el único color protagonista. El rojo aparece una vez por pantalla y el coral vive solo en el logo. Haga clic en una muestra para copiar el token."
+        description="El negro de marca es el único color protagonista. El coral #FF5A5F es el único acento: logo, una palabra de un título grande y PRESUPUESTO. Haga clic en una muestra para copiar el token."
       >
         <SwatchGrid items={BRAND_TOKENS} copiedToken={copiedToken} onCopy={copyToClipboard} />
+      </ShowcaseCard>
+
+      <ShowcaseCard
+        title="Acento coral"
+        description="El coral es el único acento de la marca. Se permite en el logo, en una palabra de un título grande y en la palabra PRESUPUESTO. No se usa en texto corrido, etiquetas, botones ni íconos."
+      >
+        <VStack gap="5" align="stretch">
+          <Box
+            p={{ base: "4", md: "6" }}
+            borderWidth="1px"
+            borderColor="border.subtle"
+            borderRadius="card"
+            bg="bg.section"
+          >
+            <Text fontSize="xs" fontWeight="700" letterSpacing="label" textTransform="uppercase" color="text.muted" mb="3">
+              Uso permitido · título grande
+            </Text>
+            <Heading
+              as="p"
+              fontFamily="heading"
+              fontWeight="700"
+              fontSize={{ base: "2xl", md: "4xl" }}
+              lineHeight="headline"
+              letterSpacing="headline"
+              color="text.heading"
+            >
+              Confianza <Box as="span" color="brand.coral">sólida</Box> en cada estructura
+            </Heading>
+            <Text fontSize="sm" color="text.muted" mt="3">
+              Lora 700, 24 px o más. El coral alcanza 3,0:1 sobre blanco: suficiente para texto grande, no para texto pequeño.
+            </Text>
+          </Box>
+
+          <HStack gap="3" align="start" p="4" borderWidth="1px" borderColor="border.subtle" borderRadius="card">
+            <Box w="2" h="10" bg="brand.coral" borderRadius="full" flexShrink={0} aria-hidden="true" />
+            <VStack align="start" gap="1">
+              <Text fontWeight="700" color="text.heading">Una sola palabra por pantalla</Text>
+              <Text fontSize="sm" color="text.muted">
+                Si el coral aparece dos veces en el mismo bloque, una sobra. El resto del texto va en negro.
+              </Text>
+            </VStack>
+          </HStack>
+        </VStack>
       </ShowcaseCard>
 
       {/* 3. Superficies */}

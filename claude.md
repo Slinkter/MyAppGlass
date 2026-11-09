@@ -1,13 +1,13 @@
 # Glass & Aluminum Company S.A.C. – Web
 
-Vidriería de La Molina (Lima) que compra vidrio, aluminio y accesorios a proveedores, ensambla en su taller e instala. Audiencia principal: constructoras e inmobiliarias; secundaria: hogares.
+Vidriería de La Molina (Lima) que compra vidrio, aluminio y accesorios a proveedores, ensambla en su taller e instala. La web capta hogares; las constructoras llegan por recomendación y trabajos pasados, y la web respalda esa recomendación.
 
 ## Lee antes de trabajar (en este orden)
 
 1. `AGENTS.md`: comandos, arquitectura, reglas de negocio y código congelado.
 2. `docs/marca/MANUAL-DE-MARCA.md`: **manual de marca**. Es el origen de todo el diseño.
 3. `apps/web/PRODUCT.md`: usuarios, restricciones y datos decididos por el dueño.
-4. `apps/web/DESIGN.md` (con `apps/web/.impeccable/design.json`): sistema de diseño (tokens y componentes). Se deriva del manual de marca y está en revisión hasta que el manual llegue a la versión 1.0.
+4. `apps/web/DESIGN.md` (con `apps/web/.impeccable/design.json`): sistema de diseño (tokens y componentes), ya alineado con el manual de marca v1.0 y validado en `/design-system`.
 5. `docs/gya/catalogo/` (catálogo y proveedores) y `docs/gya/data/`: datos de producto y presupuestos reales.
 6. `docs/PENDIENTES.md`: única lista de trabajo abierto.
 

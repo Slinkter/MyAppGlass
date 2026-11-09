@@ -5,7 +5,7 @@ Material de la empresa que alimenta el manual de marca (`docs/marca/`), el catá
 | Ruta | Uso |
 |---|---|
 | `catalogo/` | Catálogo propuesto (`CATALOGO.md`), análisis de proveedores, fichas de servicio y el rol de vendedor para documentar productos |
-| `conceptos-presupuesto.md` | 6 conceptos de hoja de presupuesto (C1 a C6); se parte de C1. Los colores que menciona son anteriores al manual de marca |
+| `conceptos-presupuesto.md` | 6 conceptos de hoja de presupuesto (C1 a C6); se parte de C1. Documento histórico: el color y la tipografía vigentes están en el manual v1.0 |
 | `data/company.json` | Datos de referencia; en código se usa `companyData` de `@gya/shared` |
 | `data/presupuestos-reales.json` | 4 presupuestos reales anonimizados |
 | `fotos-referencia/` | Fotos de baja resolución, solo referencia (no se sirven en la web) |
