@@ -2,43 +2,46 @@
 
 /**
  * @file ClientsSection.tsx
- * @description Sección «Clientes» de la home: tira en celular y rejilla de 3 columnas en tablet y
- * escritorio (3 clientes = sin huérfanos). Cabecera con etiqueta, igual que el resto de secciones.
+ * @description Orchestrator component for the "Our Clients" section.
  * @module home/components
  */
 
+import { SITE_URL } from "@/shared/config/company-data";
 import React from "react";
-import { Container } from "@chakra-ui/react";
+import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { getClients } from "@features/home/services/clientService";
 import ClientCard from "./ClientCard";
-import { SectionHeader } from "../shared/SectionHeader";
-import { CardRail } from "../featured/CardRail";
 
 /**
  * @component ClientsSection
+ * @description Sección de "Clientes" en la página principal.
+ *
  * @returns {JSX.Element} Sección completa de clientes.
  */
 const ClientsSection: React.FC = React.memo(() => {
     const clients = getClients();
 
     return (
-        <Container maxW="7xl" px={{ base: 4, sm: 6, md: 8 }}>
-            <SectionHeader
-                eyebrow="Clientes"
-                title="Quiénes confían en nosotros"
-                description="Confianza sólida en cada estructura"
-            />
-            <CardRail label="Clientes" tabletColumns={3}>
-                {clients.map((client) => (
+        <ItemGridLayout
+            title="NUESTROS CLIENTES"
+            subtitle="Confianza sólida en cada estructura"
+            seoTitle="Nuestros Clientes - GYA Company"
+            seoDescription="Descubre por qué somos los líderes en vidriería y aluminio."
+            seoCanonicalUrl={`${SITE_URL}/clientes`}
+            containerProps={{ mt: 0, pt: 0 }}
+        >
+            {clients.map((client) => (
+                // Sin `delay` escalonado: cada ClientCard se revela sola al cargar su
+                // imagen (ver ClientCard); un retardo fijo la mostraría vacía.
+                <ItemGridLayout.Item key={client.id}>
                     <ClientCard
-                        key={client.id}
                         image={client.imgClient}
                         nameClient={client.nameClient}
                         descClient={client.descClient}
                     />
-                ))}
-            </CardRail>
-        </Container>
+                </ItemGridLayout.Item>
+            ))}
+        </ItemGridLayout>
     );
 });
 

@@ -17,8 +17,7 @@ export interface StoreSectionProps {
  */
 const StoreSection: React.FC<StoreSectionProps> = React.memo(({ initialProjects }) => (
     <ItemGridLayout
-        eyebrow="Ubicación"
-        title="Visítanos en La Molina"
+        title="UBICACIÓN"
         subtitle="SEDE PRINCIPAL | PROYECTOS ENTREGADOS"
         seoTitle="Ubicaciones - GYA Company"
         seoDescription="Encuentra nuestra tienda principal en Lima y explora la ubicación de nuestros proyectos de vidriería y aluminio."
@@ -27,8 +26,7 @@ const StoreSection: React.FC<StoreSectionProps> = React.memo(({ initialProjects 
         gap="6"
         containerProps={{
             mt: 0,
-            pt: 0,
-            pb: 0,
+            py: "14",
         }}
     >
         <ItemGridLayout.Item>

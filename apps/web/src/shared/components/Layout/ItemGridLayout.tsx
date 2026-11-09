@@ -40,8 +40,6 @@ const ItemGridItem: React.FC<ItemGridItemProps> = ({ children, index, delay }) =
 interface ItemGridLayoutProps {
     title: string;
     subtitle?: string;
-    /** Etiqueta pequeña sobre el título; con ella la cabecera se alinea a la izquierda (lenguaje del mapa). */
-    eyebrow?: string;
     children: React.ReactNode;
     seoTitle?: string;
     seoDescription?: string;
@@ -61,7 +59,6 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
 } = ({
     title,
     subtitle,
-    eyebrow,
     children,
     columns = { base: 1, md: 2, lg: 3 },
     gap = { base: "6", md: "8" },
@@ -81,8 +78,7 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
             <VStack
                 ref={headerRef}
                 gap={{ base: "3", md: "5" }}
-                textAlign={eyebrow ? "left" : "center"}
-                align={eyebrow ? "flex-start" : "center"}
+                textAlign="center"
                 w="full"
                 mb={{ base: "8", md: "12" }}
                 opacity={headerArmed && !headerVisible ? 0 : 1}
@@ -90,18 +86,13 @@ const ItemGridLayout: React.FC<ItemGridLayoutProps> & {
                 transition="opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)"
                 _motionReduce={{ transition: "none", transform: "none", opacity: 1 }}
             >
-                {eyebrow && (
-                    <Text fontSize="xs" fontWeight="700" letterSpacing="0.12em" textTransform="uppercase" color="text.muted">
-                        {eyebrow}
-                    </Text>
-                )}
                 <Heading
                     as={headingAs}
                     fontFamily="heading"
                     fontWeight="700"
                     letterSpacing="-0.02em"
                     color="text.heading"
-                    fontSize={eyebrow ? { base: "3xl", md: "4xl" } : { base: "3xl", sm: "4xl", md: "5xl" }}
+                    fontSize={{ base: "3xl", sm: "4xl", md: "5xl" }}
                     lineHeight="1.1"
                 >
                     {title}

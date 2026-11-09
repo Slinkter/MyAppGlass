@@ -2,167 +2,156 @@
 
 /**
  * @file LandingPageSection.tsx
- * @description Hero de la home en el lenguaje del mapa inmersivo (`/design-system-ubicacion` › B):
- * la fotografía es la protagonista y sobre ella flota una «place card» de vidrio claro con
- * etiqueta pequeña, nombre en negrita, datos con íconos y dos acciones (negro relleno + borde negro).
- * Marca negra: sin azul. Datos de contacto desde `companyData`. Solo transform/opacity y respeto de
- * `prefers-reduced-motion`.
+ * @description Hero section of the application, featuring the company logo and core tagline.
+ * Uses semantic color tokens for consistent theme adaptation.
  * @module home/components
  */
 
 import React from "react";
-import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
-import { ChevronDown, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
+import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import { ChevronDown } from "lucide-react";
 import RouterLink from "next/link";
 import Image from "next/image";
 
 import logoGYA from "@/assets/branding/logosvg.svg";
-import { Button } from "@/components/ui/button";
-import { companyData } from "@/shared/config/company-data";
-import { glassLightOnPhoto } from "@/shared/constants/glass";
-
-const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
-  companyData.whatsappMessage,
-)}`;
 
 /**
  * @component LandingPageSection
  * @description Sección de aterrizaje (Hero) de la página principal.
+ * Muestra el logotipo animado, el nombre de la empresa y una breve descripción.
+ *
+ * @returns {JSX.Element} Sección Hero renderizada.
  */
 const LandingPageSection: React.FC = React.memo(() => {
-  return (
-    <Flex
-      as="section"
-      w="full"
-      minH={{ base: "88dvh", md: "92dvh" }}
-      position="relative"
-      overflow="hidden"
-      borderRadius={{ base: "2xl", md: "3xl" }}
-      align={{ base: "flex-end", md: "center" }}
-      justify={{ base: "center", md: "flex-start" }}
-      px={{ base: "3", md: "12", lg: "16" }}
-      py={{ base: "3", md: "16" }}
-      bg="gray.900"
-      css={{
-        "@media (prefers-reduced-motion: reduce)": {
-          "*": { animation: "none !important", transition: "none !important", transform: "none !important" },
-        },
-      }}
-    >
-      {/* Fotografía real de una instalación terminada */}
-      <Image
-        src="/images/services-general-init01.webp"
-        alt="Ventana de aluminio y vidrio instalada en un dormitorio"
-        fill
-        priority
-        sizes="100vw"
-        style={{ objectFit: "cover", objectPosition: "60% 50%" }}
-      />
+    // En Chakra v3, las animaciones se manejan preferiblemente vía motion directamente
+    // o consultando el estado de movimiento reducido si es necesario.
 
-      {/* Place card de vidrio claro */}
-      <VStack
-        align="stretch"
-        gap={{ base: "4", md: "5" }}
-        position="relative"
-        zIndex={1}
-        w="full"
-        maxW={{ base: "full", md: "440px" }}
-        p={{ base: "5", md: "6" }}
-        borderRadius="2xl"
-        color="gray.900"
-        boxShadow="xl"
-        animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both"
-        {...glassLightOnPhoto}
-      >
-        <HStack justify="space-between" align="center" gap="3">
-          <HStack gap="2.5" minW={0}>
-            <Box position="relative" w="8" h="8" flexShrink={0}>
-              <Image
-                src={logoGYA}
-                alt="Logo de Glass & Aluminum Company"
-                fill
-                sizes="32px"
-                style={{ objectFit: "contain" }}
-              />
-            </Box>
-            <Text fontSize="xs" fontWeight="700" letterSpacing="0.12em" textTransform="uppercase" color="gray.700" truncate>
-              Vidriería & Aluminio
-            </Text>
-          </HStack>
-          <Text display={{ base: "none", sm: "block" }} fontSize="xs" fontWeight="600" color="gray.700" flexShrink={0}>
-            La Molina
-          </Text>
-        </HStack>
+    return (
+            <Flex
+                w="full"
+                minH="92dvh"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                px={{ base: 4, sm: 6, md: 8, lg: 12 }}
+                py={{ base: 12, md: 16 }}
+                position="relative"
+                overflow="hidden"
+                css={{
+                    '@media (prefers-reduced-motion: reduce)': {
+                        '*': { animation: 'none !important', transition: 'none !important', transform: 'none !important' }
+                    }
+                }}
+            >
+                <VStack
+                    gap={{ base: "6", md: "8" }}
+                    textAlign="center"
+                    maxW="5xl"
+                    position="relative"
+                    zIndex={1}
+                >
 
-        <Heading
-          as="h1"
-          fontSize={{ base: "3xl", md: "4xl" }}
-          fontWeight="800"
-          lineHeight="1.08"
-          letterSpacing="tight"
-          color="gray.900"
-        >
-          Glass & Aluminum
-          <Text as="span" display="block">
-            Company S.A.C.
-          </Text>
-        </Heading>
+                    {/* Logo con escala responsiva óptima */}
+                    <Box
+                        animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1)"
+                        transition="transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)"
+                        _hover={{ transform: "scale(1.03)" }}
+                        position="relative"
+                        w={{
+                            base: "210px",
+                            sm: "260px",
+                            md: "340px",
+                            lg: "420px",
+                        }}
+                        h={{
+                            base: "100px",
+                            sm: "130px",
+                            md: "170px",
+                            lg: "210px",
+                        }}
+                    >
+                        <Image
+                            src={logoGYA}
+                            alt="Glass & Aluminum Company Logo"
+                            fill
+                            priority
+                            sizes="210px"
+                            style={{ objectFit: "contain" }}
+                        />
+                    </Box>
 
-        <Text fontSize={{ base: "sm", md: "md" }} color="gray.700" lineHeight="relaxed">
-          Especialistas en la fabricación, diseño e instalación de ventanas antirruido, mamparas herméticas y
-          carpintería de aluminio de alta resistencia.
-        </Text>
+                    <Box animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both">
+                        <Text
+                            fontSize="xs"
+                            fontWeight="600"
+                            letterSpacing="0.18em"
+                            textTransform="uppercase"
+                            color="#002060"
+                            _dark={{ color: "primary.300" }}
+                            mb="2"
+                        >
+                            VIDRIERÍA & ALUMINIO · LA MOLINA
+                        </Text>
 
-        <VStack align="stretch" gap="2" pt="4" borderTopWidth="1px" borderColor="blackAlpha.200">
-          <HStack gap="2" color="gray.700" fontSize="sm">
-            <MapPin size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-            <Text>{companyData.direccion}</Text>
-          </HStack>
-          <HStack gap="2" color="gray.700" fontSize="sm">
-            <ShieldCheck size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-            <Text>Visita técnica sin costo</Text>
-          </HStack>
-        </VStack>
+                        <Heading
+                            as="h1"
+                            fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
+                            fontWeight="700"
+                            lineHeight="1.08"
+                            letterSpacing="tight"
+                            color="text.body"
+                            mb="3"
+                        >
+                            GLASS & ALUMINUM
+                            <Text as="span" display="block" color="#002060" _dark={{ color: "primary.200" }}>
+                                COMPANY S.A.C.
+                            </Text>
+                        </Heading>
 
-        <Flex gap="3" wrap="wrap">
-          <Button asChild variant="aura" _dark={{ bg: "gray.900", color: "white", _hover: { bg: "gray.800" } }} px="5" whiteSpace="nowrap" flex={{ base: "1 1 100%", sm: "1 1 auto" }}>
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={18} aria-hidden="true" style={{ flexShrink: 0 }} />
-              Cotizar por WhatsApp
-            </a>
-          </Button>
-          <Button asChild variant="outline" _dark={{ bg: "transparent", color: "gray.900", borderColor: "gray.900", _hover: { bg: "blackAlpha.100" } }} px="5" whiteSpace="nowrap" flex={{ base: "1 1 100%", sm: "1 1 auto" }}>
-            <RouterLink href="/#proyectos">Ver proyectos</RouterLink>
-          </Button>
-        </Flex>
-      </VStack>
+                        <Text
+                            fontSize={{ base: "sm", sm: "md", md: "lg", lg: "xl" }}
+                            mt="4"
+                            color="text.muted"
+                            fontWeight="500"
+                            maxW="2xl"
+                            mx="auto"
+                            lineHeight="relaxed"
+                        >
+                            Especialistas en la fabricación, diseño e instalación de ventanas antirruido, mamparas herméticas y carpintería de aluminio de alta resistencia.
+                        </Text>
 
-      {/* Indicador de scroll */}
-      <Box
-        display={{ base: "none", md: "block" }}
-        position="absolute"
-        bottom="6"
-        left="50%"
-        transform="translateX(-50%)"
-        zIndex={1}
-        animation="fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1s both"
-      >
-        <RouterLink
-          href="/#servicios"
-          aria-label="Ver servicios"
-          style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "44px", height: "44px" }}
-        >
-          <Box
-            as={ChevronDown}
-            boxSize={{ base: 7, md: 8 }}
-            color="white"
-            style={{ flexShrink: 0 }}
-            animation="floatDown 2s ease-in-out infinite"
-          />
-        </RouterLink>
-      </Box>
-    </Flex>
-  );
+                    </Box>
+                </VStack>
+
+                {/* Indicador de scroll: chevron flotante que invita a seguir bajando */}
+                <Box
+                    position="absolute"
+                    bottom={{ base: "4", md: "6" }}
+                    left="0"
+                    right="0"
+                    display="flex"
+                    justifyContent="center"
+                    zIndex={1}
+                    animation="fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1s both"
+                >
+                    <RouterLink
+                        href="/#servicios"
+                        aria-label="Ver servicios"
+                        style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "44px", height: "44px" }}
+                    >
+                        <Box
+                            as={ChevronDown}
+                            boxSize={{ base: 7, md: 8 }}
+                            color="text.muted"
+                            style={{ flexShrink: 0 }}
+                            animation="floatDown 2s ease-in-out infinite"
+                            transition="color 0.2s cubic-bezier(0.22, 1, 0.36, 1)"
+                            _hover={{ color: "text.heading" }}
+                        />
+                    </RouterLink>
+                </Box>
+            </Flex>
+    );
 });
 
 LandingPageSection.displayName = "LandingPageSection";
