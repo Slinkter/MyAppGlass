@@ -8,7 +8,6 @@
 
 import { useMemo } from "react";
 import type { Service } from "@/shared/api/firebase/types";
-import { getServices, getServiceBySlug } from "@/shared/api/firebase/servicesRepository";
 import {
   useAsyncResource,
   type AsyncResource,
@@ -43,6 +42,7 @@ export function useServices(initialData?: Service[]): AsyncResource<ServiceListI
   return useAsyncResource<ServiceListItem[]>(
     "services",
     async () => {
+      const { getServices } = await import("@/shared/api/firebase/servicesRepository");
       // Se filtra `published` en cliente para no requerir índice compuesto.
       const all = await getServices();
       return all.filter((s) => s.published).map((s) => toServiceListItem(s, prerenderedSlugs));
@@ -72,12 +72,13 @@ export function useService(
   const resource = useAsyncResource<{ pageData: ServicePageData | null }>(
     `service:${slug ?? ""}`,
     async () => {
+      const { getServiceBySlug } = await import("@/shared/api/firebase/servicesRepository");
       const service = await getServiceBySlug(slug ?? "");
       // Sin documento o documento oculto desde el admin: no encontrado.
       return { pageData: service && service.published ? toServicePageData(service) : null };
     },
     initialPage,
-    Boolean(slug)
+    Boolean(slug) && !initialPage
   );
   return { ...resource, data: resource.data?.pageData ?? null };
 }

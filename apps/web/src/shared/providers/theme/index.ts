@@ -225,8 +225,8 @@ const config = defineConfig({
   theme: {
     tokens: {
       fonts: {
-        heading: { value: `'Lora', serif` },
-        body: { value: `'Lora', serif` },
+        heading: { value: `var(--font-source-serif), Georgia, serif` },
+        body: { value: `var(--font-inter), system-ui, -apple-system, sans-serif` },
       },
       fontSizes: {
         xs: { value: "0.75rem" },

@@ -1,8 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useMemo, useCallback } from "react";
-import { OrderItem, Product } from "@/shared/schemas/ecommerce-schemas";
-import { orderService } from "@/features/products/services/orderService";
+import type { OrderItem, Product } from "@/shared/schemas/ecommerce-schemas";
 
 export interface OrderClientData {
   id: string;
@@ -166,6 +165,7 @@ export const OrderDraftProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
       setIsSubmitting(true);
       try {
+        const { orderService } = await import("@/features/products/services/orderService");
         const orderId = await orderService.saveOrderAndDecreaseStock({
           adminUid,
           adminName,

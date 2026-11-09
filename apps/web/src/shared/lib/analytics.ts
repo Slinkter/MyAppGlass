@@ -1,6 +1,5 @@
 import type { Analytics } from "firebase/analytics";
 import { env } from "@/shared/config/env";
-import app from "@/shared/lib/firebase";
 
 let analyticsPromise: Promise<Analytics | null> | null = null;
 
@@ -28,8 +27,11 @@ export function initGoogleAnalytics(): Promise<Analytics | null> {
   }
 
   if (!analyticsPromise) {
-    analyticsPromise = import("firebase/analytics")
-      .then(async ({ isSupported, initializeAnalytics }) => {
+    analyticsPromise = Promise.all([
+      import("firebase/analytics"),
+      import("@/shared/lib/firebase"),
+    ])
+      .then(async ([{ isSupported, initializeAnalytics }, { default: app }]) => {
         const supported = await isSupported();
         if (!supported) return null;
         return initializeAnalytics(app, {

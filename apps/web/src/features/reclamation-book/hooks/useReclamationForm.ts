@@ -8,7 +8,7 @@ import {
   sanitizeReclamationData,
 } from "@features/reclamation-book/utils/sanitizer";
 import { reclamationFormSchema } from "@/shared/schemas/reclamation-schema";
-import { executeRecaptcha } from "@/shared/utils/recaptcha";
+import { executeRecaptcha, preloadRecaptcha } from "@/shared/utils/recaptcha";
 import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
 import { logger } from "@/shared/utils/logger";
 
@@ -71,6 +71,7 @@ export const useReclamationForm = (): ReclamationFormContextValue => {
   const router = useRouter();
 
   const handleInputsChange = (e: InputChangeEvent) => {
+    void preloadRecaptcha();
     let name: string;
     let value: string | undefined;
     let type: string | undefined;

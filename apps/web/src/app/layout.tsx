@@ -1,6 +1,6 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import type { Metadata, Viewport } from "next";
-import { Lora } from "next/font/google";
+import { Source_Serif_4, Inter } from "next/font/google";
 import "../styles/global.css";
 import { Providers } from "./Providers";
 import { Box } from "@chakra-ui/react";
@@ -14,9 +14,17 @@ import { getCompanyJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
 
 import { env } from "@/shared/config/env";
 
-const lora = Lora({
+const sourceSerif = Source_Serif_4({
     subsets: ["latin"],
-    variable: "--font-lora",
+    weight: ["400", "600", "700"],
+    variable: "--font-source-serif",
+    display: "swap",
+});
+
+const inter = Inter({
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
+    variable: "--font-inter",
     display: "swap",
 });
 
@@ -98,19 +106,12 @@ export default function RootLayout({
     const jsonLd = getCompanyJsonLd();
 
     return (
-        <html lang="es" suppressHydrationWarning className={lora.variable} data-scroll-behavior="smooth">
+        <html lang="es" suppressHydrationWarning className={`${sourceSerif.variable} ${inter.variable}`} data-scroll-behavior="smooth">
             <head>
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
                 />
-                {env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
-                    <script
-                        src={`https://www.google.com/recaptcha/api.js?render=${env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-                        async
-                        defer
-                    />
-                )}
             </head>
             <body>
                 <Providers>

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { toaster } from "@/components/ui/toaster-instance";
 import { submitContactAction, checkStatusAction } from "@features/contacto/actions";
 import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
-import { executeRecaptcha } from "@/shared/utils/recaptcha";
+import { executeRecaptcha, preloadRecaptcha } from "@/shared/utils/recaptcha";
 import { contactFormSchema } from "@/shared/schemas/contact-schema";
 
 interface ContactFormState {
@@ -79,6 +79,7 @@ export const useContactForm = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    void preloadRecaptcha();
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormErrors]) {
@@ -87,6 +88,7 @@ export const useContactForm = () => {
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    void preloadRecaptcha();
     const { name, value } = e.target;
     const error = validateField(name as keyof FormErrors, value);
     setErrors((prev) => ({ ...prev, [name]: error }));

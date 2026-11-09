@@ -5,8 +5,9 @@
  * Un único `selectedId` (obra, `STORE_ID` o null) sincroniza mapa, ficha y carrusel.
  */
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import LocationMapLazy from "./LocationMapLazy";
 import { createLookupMap } from "@/shared/utils/algorithm-utils";
@@ -21,9 +22,46 @@ export interface ImmersiveLocationMapProps {
 export const ImmersiveLocationMap: React.FC<ImmersiveLocationMapProps> = ({ initialProjects }) => {
   const { store, projects } = useLocationData(initialProjects);
   const [selectedId, setSelectedId] = useState<string | number | null>(null);
+  const [shouldLoadMap, setShouldLoadMap] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSelect = useCallback((id: string | number | null) => setSelectedId(id), []);
-  const handleSelectStore = useCallback(() => setSelectedId(STORE_ID), []);
+  useEffect(() => {
+    if (shouldLoadMap) return;
+    const el = containerRef.current;
+    if (!el) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setShouldLoadMap(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setShouldLoadMap(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "250px" },
+    );
+
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [shouldLoadMap]);
+
+  const handleSelect = useCallback((id: string | number | null) => {
+    setShouldLoadMap(true);
+    setSelectedId(id);
+  }, []);
+
+  const handleSelectStore = useCallback(() => {
+    setShouldLoadMap(true);
+    setSelectedId(STORE_ID);
+  }, []);
+
   const handleClose = useCallback(() => setSelectedId(null), []);
 
   const projectMap = useMemo(() => createLookupMap(projects, (p) => p.id), [projects]);
@@ -35,6 +73,7 @@ export const ImmersiveLocationMap: React.FC<ImmersiveLocationMapProps> = ({ init
 
   return (
     <Box
+      ref={containerRef}
       position="relative"
       overflow="hidden"
       h={{ base: "560px", md: "620px", lg: "680px" }}
@@ -45,7 +84,15 @@ export const ImmersiveLocationMap: React.FC<ImmersiveLocationMapProps> = ({ init
       boxShadow="sm"
     >
       <Box position="absolute" inset={0}>
-        <LocationMapLazy projects={projects} selectedId={selectedId} onSelect={handleSelect} showStore showRecenter />
+        {shouldLoadMap ? (
+          <LocationMapLazy projects={projects} selectedId={selectedId} onSelect={handleSelect} showStore showRecenter />
+        ) : (
+          <Box w="full" h="full" bg="bg.subtle" display="flex" alignItems="center" justifyContent="center">
+            <Button variant="outline" size="sm" onClick={() => setShouldLoadMap(true)}>
+              Ver mapa interactivo
+            </Button>
+          </Box>
+        )}
       </Box>
 
       {selectedProject ? (

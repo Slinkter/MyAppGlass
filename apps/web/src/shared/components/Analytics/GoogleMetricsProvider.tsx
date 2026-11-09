@@ -26,21 +26,44 @@ export default function GoogleMetricsProvider() {
       return;
     }
 
-    if (document.getElementById(GTM_SCRIPT_ID)) {
-      return;
+    const loadGtm = () => {
+      if (document.getElementById(GTM_SCRIPT_ID)) {
+        return;
+      }
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        "gtm.start": Date.now(),
+        event: "gtm.js",
+      });
+
+      const script = document.createElement("script");
+      script.id = GTM_SCRIPT_ID;
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(gtmId)}`;
+      document.head.appendChild(script);
+    };
+
+    let idleId: number | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      idleId = (window as unknown as { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(
+        loadGtm,
+        { timeout: 3000 },
+      );
+    } else {
+      timeoutId = setTimeout(loadGtm, 1500);
     }
 
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      "gtm.start": Date.now(),
-      event: "gtm.js",
-    });
-
-    const script = document.createElement("script");
-    script.id = GTM_SCRIPT_ID;
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(gtmId)}`;
-    document.head.appendChild(script);
+    return () => {
+      if (idleId !== null && typeof window !== "undefined" && "cancelIdleCallback" in window) {
+        (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, []);
 
   useEffect(() => {
