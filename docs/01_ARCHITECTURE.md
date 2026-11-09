@@ -68,7 +68,12 @@ MyAppGlass/
 │   ├── web/          @gya/web        Next.js 16, export estático → apps/web/out/
 │   └── functions/    @gya/functions  Firebase Functions v2 (Node.js 22)
 ├── packages/
-│   └── shared/       @gya/shared     companyData, SITE_URL, CompanyInfo
+│   ├── shared/       @gya/shared     companyData, SITE_URL, CompanyInfo
+│   └── eslint-config/@gya/eslint-config  Reglas ESLint compartidas
+├── docs/             Documentación, planes, auditorías y material no-producto
+├── scripts/          Mantenimiento (contrato OpenAPI, auditorías, migración)
+├── tests/            Pruebas transversales (reglas de Firestore)
+├── gcp/              Configuración de observabilidad, presupuesto y BigQuery
 ├── firebase.json     hosting.public = apps/web/out; functions.source = apps/functions
 ├── firestore.rules   escritura solo administradores
 └── storage.rules     lectura pública; subida y borrado solo administradores

@@ -66,7 +66,7 @@ Pendiente (completado en Fase 0):
 - [x] Recipes propias en `theme/index.ts`: `Badge` (variantes v2 `neutral`, `navy`, `navySolid`, `success`, `warning`, `danger`, `info` sin pisar `subtle`/`outline`/`solid`), `Tabs`, `Table`, `Alert`, `Dialog`, `NativeSelect`.
 - [x] Botón: `xs`/`sm`/`md` con `minH="11"` (≥ 44 px); nuevas variantes `navy` y `outlineNavy` para usar en `/design-system` sin alterar `aura` en el Home/Servicios.
 - [x] Tokens faltantes añadidos (`fonts.mono`, `bg.paper` `#FBF8F3`, `status.infoText`, `status.warningText`, `overlay.glass` `blackAlpha.600`).
-- [x] Escala de íconos documentada (16/20/24) y helper `apps/web/src/components/ui/app-icon.tsx` (`AppIcon`).
+- [x] Escala de íconos documentada (16/20/24). El helper `AppIcon` se retiró el 2026-11-09 por no tener uso; la regla sigue en `docs/DESIGN-SYSTEM.md`.
 - [x] `apps/web/src/shared/constants/motion.ts` con duraciones y easings únicos (`EASE_PANEL`, `EASE_TEXT`, `EASE_SOFT`, `DUR_MS`, `DUR_CSS`, `TRANSITIONS`).
 - [x] Corregir `SkipLink` y los `var(--chakra-colors-…)` inválidos de la lista de Fase 0.
 - [x] `pnpm run typecheck && pnpm run build` en verde (2026-11-09; typecheck requiere `next-env.d.ts`, que genera el build).

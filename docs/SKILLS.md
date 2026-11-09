@@ -8,9 +8,9 @@ Generado el 2026-11-02 a partir de `skills-lock.json`, `.agents/skills/` y `~/.c
 
 ## 1. Skills del proyecto (versionadas en git)
 
-Están en `.agents/skills/` y el lock en `skills-lock.json`. **Al clonar el repo ya vienen incluidas**; no hace falta instalarlas de nuevo.
+Están en `.agents/skills/` y el lock en `docs/skills-lock.json`. **Al clonar el repo ya vienen incluidas**; no hace falta instalarlas de nuevo.
 
-Total: **33 skills** (32 en `.agents/skills/` + `apple-design`, añadida el 2026-11-02). Último cambio del lock: 2026-11-02.
+Total: **32 skills** en `.agents/skills/`. `apple-design` es una skill de usuario (`.claude/skills/`, ignorada por git) y se restaura aparte. Último cambio del lock: 2026-11-02.
 
 | Skill | Origen (GitHub) | Ruta en el origen |
 |---|---|---|
@@ -84,7 +84,7 @@ Skill de figuras isométricas SVG interactivas. Origen: repositorio público de 
 
 ## 3. Cómo restaurar en otra PC
 
-1. **Skills del proyecto:** `git clone` y `git pull` del repo. `.agents/skills/` y `skills-lock.json` ya están versionados.
+1. **Skills del proyecto:** `git clone` y `git pull` del repo. `.agents/skills/` y `docs/skills-lock.json` ya están versionados.
 2. **Skills de la cuenta (`synced`):** iniciar sesión en Claude Code con la misma cuenta; se sincronizan solas.
 3. **Skill `anatomy`:** copiar `~/.claude/skills/anatomy` desde la PC actual o clonar su repositorio de origen.
 4. **Verificar:** en Claude Code, listar las skills y confirmar que aparecen las 32 del proyecto, las 13 de `synced` y `anatomy` (14 en total de usuario).

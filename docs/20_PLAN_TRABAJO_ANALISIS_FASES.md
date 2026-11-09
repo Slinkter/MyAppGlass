@@ -26,10 +26,10 @@ El despliegue vigente es **manual**: `pnpm run deploy:hosting`. Los secretos de 
 | # | Actividad | Notas |
 |---|---|---|
 | 1.1 | Rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` | Acción manual del dueño en Secret Manager; actualizar `docs/18` |
-| 1.2 | Reemplazar `xlsx ^0.18.5` (usos: `shared/utils/excel-export.ts`, `AdminHubScreen`) por alternativa mantenida (p. ej. `exceljs`) | Probar exportación en admin |
-| 1.3 | Subir el umbral de `pnpm audit` en `ci.yml` de `critical` a `high` tras 1.2 | |
+| 1.2 | Reemplazar `xlsx ^0.18.5` por alternativa mantenida | **Hecho:** `apps/web` usa `exceljs`; ya no hay `xlsx` |
+| 1.3 | Subir el umbral de `pnpm audit` en `ci.yml` de `critical` a `high` | **Hecho:** `ci.yml` usa `--audit-level=high` |
 | 1.4 | Endurecer `contadores` y `presupuestos_solicitados` (App Check o correlativo generado en Function) | **Toca `firestore.rules` y `apps/functions/`: requiere confirmación explícita** |
-| 1.5 | Alinear versión de `firebase` JS entre raíz (`^13.2`) y web (`^12.19`) | Verificar con `pnpm why firebase` y build |
+| 1.5 | Alinear versión de `firebase` JS entre raíz y web | **Hecho:** raíz y web usan `firebase ^12.19.0` |
 
 ## Fase 2 — CI y pruebas
 

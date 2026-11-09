@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-09] - Purga y orden del monorepo
+
+### Added
+- **`scripts/README.md`**: catálogo de scripts vivos, de mantenimiento e históricos.
+- **`docs/_material/diplomado/`**: el material del diplomado sale de `docs/` para no mezclarse con planes de producto.
+
+### Changed
+- **Tests de reglas**: `rules-smoke.sh` se consolidó en `tests/rules/` junto a `firestore.rules.test.mjs`.
+- **Tests unitarios**: `auth-service.test.ts` se movió a `apps/web/tests/unit/`.
+- **Documentación**: README con 6 sistemas, `PENDIENTES` sin deudas resueltas, índice de `docs/` con los planes 22/23, `SKILLS` con la ruta real del lock y `02_AI_HANDOFF` sin referencias a documentos borrados.
+- **Configuración**: se retiró el bloque obsoleto `minimumReleaseAgeExclude` de Next 16.3.2 en `pnpm-workspace.yaml` y la regla ESLint de `functions/**` en `apps/web`.
+
+### Removed
+- Artefactos huérfanos de la raíz: `.next/` (219,5 MB) y los dos `.tsbuildinfo` (1,9 MB).
+- Código sin uso: `components/ui/app-icon.tsx`, `features/auth/hooks/useUserProfile.ts` y `shared/constants/errorMessages.ts`.
+- `GYA_Inventario_2026-08-24.xlsx` se movió fuera del repo (backup local).
+
 ## [2026-11-08] - Design system único (`docs/DESIGN-SYSTEM.md`)
 
 ### Added

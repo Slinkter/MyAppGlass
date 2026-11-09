@@ -18,6 +18,9 @@
 |---|---|
 | [`20_PLAN_TRABAJO_ANALISIS_FASES.md`](./20_PLAN_TRABAJO_ANALISIS_FASES.md) | Calidad, seguridad, CI, SEO y deuda técnica (fases 0 a 6) |
 | [`21_PLAN_FLUJO_PRESUPUESTO.md`](./21_PLAN_FLUJO_PRESUPUESTO.md) | Flujo de presupuesto del usuario en `/presupuesto` |
+| [`22_PLAN_RENDIMIENTO_WEB.md`](./22_PLAN_RENDIMIENTO_WEB.md) | Rendimiento web, imágenes y métricas |
+| [`23_PLAN_DESIGN_SYSTEM_V2.md`](./23_PLAN_DESIGN_SYSTEM_V2.md) | Rediseño del design system y auditorías por ola |
+| [`PROMPT-REDISENO-DS.md`](./PROMPT-REDISENO-DS.md) | Prompt de trabajo para el rediseño del design system |
 | [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md) | **Design system único de la empresa**: marca, tokens, componentes, plan por fases y puertas de aprobación |
 
 ## Backend y seguridad
@@ -49,12 +52,13 @@
 |---|---|
 | [`03_AGENTS.md`](./03_AGENTS.md) | Roles de agentes de IA del equipo |
 | [`SKILLS.md`](./SKILLS.md) | Skills instaladas |
+| [`BRAND-KIT.md`](./BRAND-KIT.md) | Kit de marca y recursos visuales |
 | [`archivo/`](./archivo/) | Planes archivados con estado desactualizado (04, 12 y 13) |
-| [`diplomado/`](./diplomado/README.md) | Material del diplomado (aprendizaje y portafolio; no es plan de producto) |
+| [`_material/diplomado/`](./_material/diplomado/README.md) | Material del diplomado (aprendizaje y portafolio; no es plan de producto) |
 
 ## Recuperar un documento borrado
 
-Los planes cumplidos (15, 16, 17, 18, 19 y `PLAN-DISENO`) se borraron el 2026-11-08. Siguen en git:
+Los planes cumplidos (15, 16, 17, 18, 19 y `PLAN-DISENO`) se borraron el 2026-11-08. El material del diplomado vive ahora en `_material/diplomado/`. Siguen en git:
 
 ```bash
 git show 1537ee1:docs/<archivo>.md

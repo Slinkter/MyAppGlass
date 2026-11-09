@@ -32,7 +32,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
   - **Pendiente:** `isAdmin()` en `firestore.rules` da admin a correos `@gyacompany.com` verificados (decisión abierta). Sentry (F7.4, F7.5) y auditoría de reclamos (F7.9) dependen de DSN y de autorizar `apps/functions`. F6 (AR) espera los modelos `.glb`/`.usdz`. F8.4 (Google Maps/NAP) y F9.7 (prueba en navegador) son del usuario. Rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (F1.9).
   - **Deploy hosting (2026-11-03):** hecho manualmente con `pnpm run deploy:hosting` desde `main` (`406fd4b`). Rutas verificadas en `https://gya-app-4c8a9.web.app`.
   - **CI:** corregido en `09b5323` (typecheck después del build). Pasa en `main`.
-  - **Deploy automático:** `Deploy Production` falla hasta que exista el secreto `FIREBASE_SERVICE_ACCOUNT_GYA_APP_4C8A9` en GitHub Actions. Ver checklist `docs/19`, sección "Estado al cierre".
+  - **Deploy automático:** `Deploy Production` falla hasta que exista el secreto `FIREBASE_SERVICE_ACCOUNT_GYA_APP_4C8A9` en GitHub Actions. Ver `docs/PENDIENTES.md`, sección "Acciones externas del usuario".
   - **Functions:** no desplegadas. Solo con petición explícita.
 
 ## 🆕 Actualización 2026-11-02 (rama `feat/ux-ui-2026-11-02`, desplegada)
@@ -45,7 +45,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 * **Pruebas locales de correos:** con emuladores (`firebase emulators:start --only firestore`) se puede ejecutar `sendEmailLogic` real con Resend simulado; un envío real a Resend exige autorización explícita del usuario y **debe apuntar al Firestore de producción** (si se usa Resend real con emulador local, llegan los correos pero no queda registro en producción).
 * **Prueba E2E en producción verificada (2026-11-02):** registrada la queja `GYA-REC-2026-LK3SG3` en `libro_de_reclamaciones` de producción con ambos correos `SENT` y verificada en `checkStatus` (`200 OK`). El protocolo paso a paso para replicar en otros formularios está en `docs/api/README.md`.
 * **Reglas `firestore.rules` optimizadas y desplegadas (2026-11-02):** `isAdmin()` evalúa primero claims/correo JWT por cortocircuito antes de `exists`/`get`, y habilita `read` + `update` de estado para admin en `libro_de_reclamaciones` y `contact_submissions`.
-* **Pendiente:** aplicar el mismo protocolo de actualización a los formularios restantes (`/contacto`, `/presupuesto`), rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (quedaron expuestas en una conversación), y evaluar con el responsable la limpieza de documentos históricos (`docs/diplomado/`, planes antiguos). **Nota importante:** `scripts/generate-openapi.cjs` NO debe eliminarse porque es requerido por `pnpm run contract:generate`.
+* **Pendiente:** aplicar el mismo protocolo de actualización a los formularios restantes (`/contacto`, `/presupuesto`), rotar `RESEND_API_KEY` y `RECAPTCHA_SECRET_KEY` (quedaron expuestas en una conversación), y evaluar con el responsable la limpieza de documentos históricos (`docs/_material/diplomado/`, planes antiguos). **Nota importante:** `scripts/generate-openapi.cjs` NO debe eliminarse porque es requerido por `pnpm run contract:generate`.
 
 ---
 
@@ -64,7 +64,7 @@ Bienvenido, próximo Agente de IA. Este documento contiene el estado canónico d
 * **Calidad y Verificación:**
   - Suite unitaria: 147 tests con `node:test` (`pnpm run test:functions`), 100% pass (actualizado el 2026-11-02).
   - Linter: ESLint con 0 errores y 0 warnings (`cd apps/functions && npm run lint`).
-  - Colección Postman: `tests/postman/GYA_Company_API.postman_collection.json` verificada en producción vía Newman (23 aserciones en verde).
+  - Colección Postman: `apps/web/tests/postman/GYA_Company_API.postman_collection.json` verificada en producción vía Newman (23 aserciones en verde).
 
 ## 🚀 Estado Técnico y Despliegue
 

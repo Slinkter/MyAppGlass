@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { normalizeRole, isValidDniRuc, validateClientRegistration } from "./auth-service";
+import { normalizeRole, isValidDniRuc, validateClientRegistration } from "@/features/auth/services/auth-service";
 
 const base = {
   userId: "u1",

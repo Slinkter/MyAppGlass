@@ -16,7 +16,7 @@
 | Endurecer `contadores` y `presupuestos_solicitados` | Escritura pública sin App Check; el contador admite huecos. Toca `firestore.rules` y `apps/functions/` | plan 20 (1.4) |
 
 ## Calidad y deuda técnica → plan 20
-`xlsx` vulnerable, umbral de `pnpm audit`, `test:functions` y reglas en el CI, `100vh`/`10px`, `colorPalette` en componentes de admin y legal, slug "antiruido", `noindex` en rutas sin valor SEO, alinear la versión de `firebase`, galerías y modales duplicados. Detalle y estado en `docs/20_PLAN_TRABAJO_ANALISIS_FASES.md`.
+`colorPalette` en componentes de admin y legal, slug "antiruido", `noindex` en rutas sin valor SEO, galerías y modales duplicados. Resueltos: `xlsx` → `exceljs`, `firebase` alineado en `^12.19.0`, `test:functions` y umbral `high` en el CI, `100vh` eliminado. Detalle y estado en `docs/20_PLAN_TRABAJO_ANALISIS_FASES.md`.
 
 ## Catálogo de servicios, sistemas y productos (antes del design system y de los precios)
 

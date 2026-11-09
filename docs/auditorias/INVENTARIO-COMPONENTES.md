@@ -2,12 +2,12 @@
 
 > Generado por `scripts/inventory-components.mjs` (solo lectura). Estilo suelto = hex + rgba + colorPalette + `_hover` a mano + `100vh`. «Showcase» = el nombre aparece en `/design-system` o `/design-system-ubicacion`.
 
-**Resumen:** 110 componentes · 68 sin estilo suelto · 42 a corregir · 82 sin showcase en `/design-system`.
+**Resumen:** 110 componentes · 68 sin estilo suelto · 42 a corregir · 81 sin showcase en `/design-system`.
 
 | Grupo | Componentes | Sin estilo suelto | A corregir | Sin showcase |
 |---|---|---|---|---|
-| Primitivas (components/ui) | 17 | 16 | 1 | 4 |
-| Compartidos (shared/components) | 27 | 18 | 9 | 21 |
+| Primitivas (components/ui) | 16 | 15 | 1 | 3 |
+| Compartidos (shared/components) | 28 | 19 | 9 | 21 |
 | Globales (widgets) | 15 | 4 | 11 | 10 |
 | Feature · admin | 15 | 5 | 10 | 15 |
 | Feature · auth | 2 | 2 | 0 | 2 |
@@ -25,7 +25,6 @@
 |---|---|---|---|---|---|---|---|---|---|
 | color-mode | `components/ui/color-mode.tsx` | 95 | 0 | 0 | 2 | 0 | 0 | sí | a corregir |
 | alert | `components/ui/alert.tsx` | 41 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
-| app-icon | `components/ui/app-icon.tsx` | 40 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
 | button | `components/ui/button.tsx` | 43 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
 | checkbox | `components/ui/checkbox.tsx` | 24 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
 | close-button | `components/ui/close-button.tsx` | 14 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
@@ -47,11 +46,11 @@
 |---|---|---|---|---|---|---|---|---|---|
 | ImageWithFallback | `shared/components/Image/ImageWithFallback.tsx` | 175 | 0 | 6 | 0 | 0 | 0 | no | a corregir · sin showcase |
 | AuraSurface | `shared/components/aura/AuraSurface.tsx` | 53 | 0 | 5 | 0 | 0 | 0 | no | a corregir · sin showcase |
-| GalleryViewer | `shared/components/common/gallery/GalleryViewer.tsx` | 359 | 0 | 0 | 0 | 4 | 0 | no | a corregir · sin showcase |
-| GalleryThumbnails | `shared/components/common/gallery/GalleryThumbnails.tsx` | 139 | 0 | 1 | 0 | 1 | 0 | no | a corregir · sin showcase |
+| GalleryViewer | `shared/components/common/gallery/GalleryViewer.tsx` | 366 | 0 | 0 | 0 | 4 | 0 | no | a corregir · sin showcase |
 | BackButton | `shared/components/navigation/BackButton.tsx` | 45 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
 | ComponentErrorBoundary | `shared/components/ComponentErrorBoundary.tsx` | 93 | 0 | 1 | 0 | 0 | 0 | no | a corregir · sin showcase |
 | Gallery | `shared/components/common/Gallery.tsx` | 313 | 0 | 0 | 0 | 1 | 0 | sí | a corregir |
+| GalleryThumbnails | `shared/components/common/gallery/GalleryThumbnails.tsx` | 136 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
 | InfoItem | `shared/components/ui/InfoItem.tsx` | 84 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
 | MapControls | `shared/components/map/MapControls.tsx` | 39 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
 | AuraContainer | `shared/components/aura/AuraContainer.tsx` | 39 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
@@ -70,6 +69,7 @@
 | MediaCard | `shared/components/Card/MediaCard.tsx` | 173 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
 | ResponsiveImage | `shared/components/Image/ResponsiveImage.tsx` | 78 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
 | Reveal | `shared/components/motion/Reveal.tsx` | 82 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
+| ScrollPatterns | `shared/components/scroll/ScrollPatterns.tsx` | 237 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
 | SkipLink | `shared/components/navigation/SkipLink.tsx` | 43 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
 | WhatsAppIcon | `shared/components/icons/WhatsAppIcon.tsx` | 28 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
 
@@ -77,15 +77,15 @@
 
 | Componente | Archivo | Líneas | hex | rgba | colorPalette | _hover | vh | Showcase | Estado |
 |---|---|---|---|---|---|---|---|---|---|
-| MenuOverlay | `widgets/Navbar/mobile/MenuOverlay.tsx` | 426 | 0 | 0 | 0 | 4 | 0 | no | a corregir · sin showcase |
+| MenuOverlay | `widgets/Navbar/mobile/MenuOverlay.tsx` | 398 | 1 | 0 | 0 | 3 | 0 | no | a corregir · sin showcase |
 | AdminNav | `widgets/AdminNav/AdminNav.tsx` | 163 | 0 | 0 | 0 | 2 | 0 | sí | a corregir |
+| MenuLink | `widgets/Navbar/mobile/MenuLink.tsx` | 204 | 0 | 0 | 0 | 2 | 0 | no | a corregir · sin showcase |
 | MobileNav | `widgets/Navbar/MobileNav.tsx` | 262 | 0 | 0 | 0 | 2 | 0 | no | a corregir · sin showcase |
-| ServicesAccordion | `widgets/Navbar/mobile/ServicesAccordion.tsx` | 188 | 0 | 0 | 0 | 2 | 0 | no | a corregir · sin showcase |
-| AuraDesktopNav | `widgets/Navbar/AuraDesktopNav.tsx` | 131 | 0 | 0 | 0 | 1 | 0 | sí | a corregir |
+| ServicesAccordion | `widgets/Navbar/mobile/ServicesAccordion.tsx` | 210 | 0 | 0 | 0 | 2 | 0 | no | a corregir · sin showcase |
+| AuraDesktopNav | `widgets/Navbar/AuraDesktopNav.tsx` | 194 | 0 | 0 | 0 | 1 | 0 | sí | a corregir |
 | FloatingWhatsApp | `widgets/FloatingActions/FloatingWhatsApp.tsx` | 115 | 0 | 0 | 0 | 1 | 0 | sí | a corregir |
-| MenuLink | `widgets/Navbar/mobile/MenuLink.tsx` | 193 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
-| MenuToggle | `widgets/Navbar/mobile/MenuToggle.tsx` | 147 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
-| MobileNavbarV2 | `widgets/Navbar/mobile/MobileNavbarV2.tsx` | 249 | 0 | 0 | 0 | 1 | 0 | sí | a corregir |
+| MenuToggle | `widgets/Navbar/mobile/MenuToggle.tsx` | 149 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
+| MobileNavbarV2 | `widgets/Navbar/mobile/MobileNavbarV2.tsx` | 259 | 0 | 0 | 0 | 1 | 0 | sí | a corregir |
 | ThemeToggle | `widgets/FloatingActions/ThemeToggle.tsx` | 65 | 0 | 0 | 0 | 1 | 0 | sí | a corregir |
 | UtilityLink | `widgets/Navbar/components/UtilityLink.tsx` | 66 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
 | AuraNavbar | `widgets/Navbar/AuraNavbar.tsx` | 78 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
@@ -159,9 +159,9 @@
 | ProjectDetailItem | `features/projects/components/ProjectDetailItem.tsx` | 58 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
 | MapViewer | `features/projects/components/modal/MapViewer.tsx` | 101 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
 | ProjectCard | `features/projects/components/ProjectCard.tsx` | 55 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
-| ProjectCardContent | `features/projects/components/ProjectCardContent.tsx` | 83 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
+| ProjectCardContent | `features/projects/components/ProjectCardContent.tsx` | 72 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
 | ProjectSkeletons | `features/projects/components/ProjectSkeletons.tsx` | 33 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
-| ProjectsList | `features/projects/components/ProjectsList.tsx` | 157 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
+| ProjectsList | `features/projects/components/ProjectsList.tsx` | 111 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
 | VisualViewer | `features/projects/components/modal/VisualViewer.tsx` | 114 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
 
 ## Feature · reclamation-book
@@ -183,7 +183,7 @@
 |---|---|---|---|---|---|---|---|---|---|
 | ServiceBentoGrid | `features/services/components/ServiceBentoGrid.tsx` | 121 | 2 | 3 | 0 | 2 | 0 | no | a corregir · sin showcase |
 | ServiceFaqSection | `features/services/components/ServiceFaqSection.tsx` | 88 | 0 | 0 | 0 | 1 | 0 | no | a corregir · sin showcase |
-| ServiceCard | `features/services/components/ServiceCard.tsx` | 56 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
+| ServiceCard | `features/services/components/ServiceCard.tsx` | 47 | 0 | 0 | 0 | 0 | 0 | sí | estándar |
 | ServiceHeader | `features/services/components/ServiceHeader.tsx` | 98 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
 | ServiceList | `features/services/components/ServiceList.tsx` | 120 | 0 | 0 | 0 | 0 | 0 | no | estándar · sin showcase |
 | ServicePageLayout | `features/services/components/ServicePageLayout.tsx` | 135 | 0 | 0 | 0 | 0 | 0 | sí | estándar |

@@ -1,6 +1,6 @@
 # Diploma Ingeniería de Software con IA
 
-> Fuente: docs/diplomado/brochure dip ISIA.pdf · Convertido con markitdown · Versión en Markdown para consulta y búsqueda
+> Fuente: docs/_material/diplomado/brochure dip ISIA.pdf · Convertido con markitdown · Versión en Markdown para consulta y búsqueda
 
 Organiza: DMC INSTITUTE.
 

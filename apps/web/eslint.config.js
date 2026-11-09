@@ -17,20 +17,6 @@ export default tseslint.config(
     },
   },
   {
-    files: ["functions/**/*.js", "functions/**/*.ts"],
-    languageOptions: {
-      globals: {
-        ...globals.node,
-      },
-    },
-    rules: {
-      "no-undef": "off",
-      "@typescript-eslint/no-var-requires": "off",
-      "@typescript-eslint/no-require-imports": "off",
-      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^(req|res|next|Resend)$" }],
-    },
-  },
-  {
     files: ["**/*.cjs", "vite.config.ts"],
     languageOptions: {
       globals: {
