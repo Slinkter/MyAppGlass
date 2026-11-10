@@ -97,13 +97,17 @@ const COMPLEMENT_RULES: { when: RegExp; suggest: RegExp[] }[] = [
 export function getCrossSells(lines: CartLine[], catalog: Product[], max = 3): Product[] {
   const inCart = new Set(lines.map((l) => l.productId));
   const out: Product[] = [];
+  const outSet = new Set<Product>();
   for (const rule of COMPLEMENT_RULES) {
     if (!lines.some((l) => rule.when.test(l.name))) continue;
     for (const re of rule.suggest) {
       const hit = catalog.find(
-        (p) => p.isActive !== false && p.stock > 0 && re.test(p.name) && !inCart.has(p.id ?? p.sku) && !out.includes(p),
+        (p) => p.isActive !== false && p.stock > 0 && re.test(p.name) && !inCart.has(p.id ?? p.sku) && !outSet.has(p),
       );
-      if (hit) out.push(hit);
+      if (hit) {
+        out.push(hit);
+        outSet.add(hit);
+      }
     }
   }
   return out.slice(0, max);

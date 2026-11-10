@@ -14,6 +14,21 @@ interface BlogCardProps {
   index: number;
 }
 
+const BLOG_DATE_FORMATTER = new Intl.DateTimeFormat("es-ES", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+function formatBlogDate(dateStr: string): string {
+  try {
+    return BLOG_DATE_FORMATTER.format(new Date(dateStr));
+  } catch {
+    return dateStr;
+  }
+}
+
 /**
  * @component BlogCard
  * @description Tarjeta de artículo: plana en reposo, elevación suave solo en hover/foco.
@@ -21,10 +36,7 @@ interface BlogCardProps {
 const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
   // La tarjeta se revela (foto + textos) cuando la portada termina de cargar.
   const { loaded, onLoad, reveal } = useImageReveal();
-  const formattedDate = useMemo(
-    () => new Date(post.date).toLocaleDateString("es-ES", { month: "long", day: "numeric", year: "numeric" }),
-    [post.date],
-  );
+  const formattedDate = useMemo(() => formatBlogDate(post.date), [post.date]);
   return (
     <Box
       asChild

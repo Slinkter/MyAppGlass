@@ -25,9 +25,16 @@ import type { QuoteCustomer } from "./presupuesto/types";
 
 const EMPTY_CUSTOMER: QuoteCustomer = { fullName: "", dniRuc: "", email: "", phone: "", address: "", district: "La Molina" };
 
+const QUOTE_DATE_FORMATTER = new Intl.DateTimeFormat("es-PE", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  timeZone: "America/Lima",
+});
+
 export const PresupuestoWizardScreen: React.FC = () => {
   const { user, profile, loading } = useAuth();
-  const formattedDate = useMemo(() => new Date().toLocaleDateString("es-PE"), []);
+  const formattedDate = useMemo(() => QUOTE_DATE_FORMATTER.format(new Date()), []);
 
   const [lines, setLines] = useState<QuoteLineInput[]>(() => [createQuoteLine()]);
   const [customer, setCustomer] = useState<QuoteCustomer>(EMPTY_CUSTOMER);

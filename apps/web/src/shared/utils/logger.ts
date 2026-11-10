@@ -19,13 +19,21 @@ const pinoLogger = pino({
   },
 });
 
+function safeClone(value: unknown): unknown {
+  try {
+    return structuredClone(value);
+  } catch {
+    return typeof value === "object" && value !== null ? { ...(value as Record<string, unknown>) } : value;
+  }
+}
+
 export const logger = {
   error: (message: string, error?: unknown, context?: Record<string, unknown>) => {
     const errorDetails =
       error instanceof Error
         ? { message: error.message, stack: error.stack, name: error.name, ...(error as unknown as Record<string, unknown>) }
         : error && typeof error === "object"
-          ? JSON.parse(JSON.stringify(error, Object.getOwnPropertyNames(error)))
+          ? safeClone(error)
           : error;
 
     const errMsg = error instanceof Error ? error.message : typeof error === "string" ? error : "";

@@ -8,7 +8,7 @@ import { logger } from "@/shared/utils/logger";
 
 /** Catálogo público (lectura abierta en reglas): activos, con fallback al catálogo base. */
 export function useShopProducts() {
-  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS.filter((p) => p.isActive));
+  const [products, setProducts] = useState<Product[]>(() => INITIAL_PRODUCTS.filter((p) => p.isActive));
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

@@ -108,9 +108,9 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, expande
                         Partidas Despachadas ({ord.items.length} ítems):
                       </Text>
                       <VStack align="stretch" gap="1.5">
-                        {ord.items.map((item, idx) => (
+                        {ord.items.map((item) => (
                           <HStack
-                            key={idx}
+                            key={item.productId || item.sku || item.name}
                             p="2.5"
                             borderRadius="lg"
                             bg="bg.page"

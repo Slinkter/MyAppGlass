@@ -6,8 +6,22 @@ import { Button } from "@/components/ui/button";
 import { Bot, Send } from "lucide-react";
 
 export interface ChatMessage {
+  id?: string;
   sender: "ai" | "user";
   text: string;
+}
+
+const messageKeyMap = new WeakMap<ChatMessage, string>();
+let keyCounter = 0;
+function getMessageKey(msg: ChatMessage): string {
+  if (msg.id) return msg.id;
+  let key = messageKeyMap.get(msg);
+  if (!key) {
+    keyCounter += 1;
+    key = `${msg.sender}_${keyCounter}`;
+    messageKeyMap.set(msg, key);
+  }
+  return key;
 }
 
 interface ChatAssistantProps {
@@ -42,9 +56,9 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ chatMessages, chat
 
       {/* MENSAJES */}
       <VStack flex="1" gap="3" align="stretch" overflowY="auto" maxH="27.5rem" pr="1" mb="4">
-        {chatMessages.map((msg, idx) => (
+        {chatMessages.map((msg) => (
           <Box
-            key={idx}
+            key={getMessageKey(msg)}
             alignSelf={msg.sender === "user" ? "flex-end" : "flex-start"}
             bg={msg.sender === "user" ? "blue.600" : "whiteAlpha.100"}
             color="white"

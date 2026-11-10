@@ -7,14 +7,16 @@ const OPEN_MINUTE = 8 * 60;
 const CLOSE_MINUTE = 18 * 60;
 const REFRESH_MS = 60_000;
 
+const limaDateTimeFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Lima",
+  weekday: "short",
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+});
+
 const computeIsOpen = (): boolean => {
-  const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Lima",
-    weekday: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
-  }).formatToParts(new Date());
+  const parts = limaDateTimeFormatter.formatToParts(new Date());
   const partsMap = new Map<string, string>(parts.map((p) => [p.type, p.value]));
   const get = (type: string) => partsMap.get(type) ?? "";
   if (get("weekday") === "Sun") return false;

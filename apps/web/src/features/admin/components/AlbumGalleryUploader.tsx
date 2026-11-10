@@ -263,7 +263,7 @@ export const AlbumGalleryUploader: React.FC<AlbumGalleryUploaderProps> = ({
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap="3" mt="2">
           {items.map((item, index) => (
             <Box
-              key={item.id || index}
+              key={item.id || item.url}
               borderRadius="xl"
               border="1px solid"
               borderColor="border.default"

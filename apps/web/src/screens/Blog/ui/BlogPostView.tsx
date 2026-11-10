@@ -13,6 +13,21 @@ interface BlogPostViewProps {
   post: BlogPost;
 }
 
+const BLOG_DATE_FORMATTER = new Intl.DateTimeFormat("es-ES", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+function formatBlogDate(dateStr: string): string {
+  try {
+    return BLOG_DATE_FORMATTER.format(new Date(dateStr));
+  } catch {
+    return dateStr;
+  }
+}
+
 /**
  * @component BlogPostView
  * @description Premium reading experience for blog articles.
@@ -20,10 +35,7 @@ interface BlogPostViewProps {
 const BlogPostView: React.FC<BlogPostViewProps> = ({ post }) => {
   // La portada destacada se revela cuando termina de cargar.
   const { loaded, onLoad, reveal } = useImageReveal();
-  const formattedDate = useMemo(
-    () => new Date(post.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' }),
-    [post.date],
-  );
+  const formattedDate = useMemo(() => formatBlogDate(post.date), [post.date]);
 
   // Estimate reading time
   const wordsPerMinute = 200;

@@ -224,6 +224,8 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
             width={32}
             height={32}
             unoptimized
+            loading="eager"
+            priority
             style={{ flexShrink: 0 }}
           />
           <Text

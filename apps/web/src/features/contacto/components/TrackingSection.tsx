@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Box, Heading, Text, VStack, HStack, Input, SimpleGrid } from "@chakra-ui/react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,23 @@ function getStageIndex(status: string) {
   return STAGE_INDEX_MAP[status] ?? 0;
 }
 
+const TRACKING_DATE_FORMATTER = new Intl.DateTimeFormat("es-PE", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  timeZone: "America/Lima",
+});
+
+function formatTrackingDate(value: string | number | Date): string {
+  try {
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return TRACKING_DATE_FORMATTER.format(date);
+  } catch {
+    return "";
+  }
+}
+
 export function TrackingSection({
   trackingId,
   isTracking,
@@ -44,6 +62,10 @@ export function TrackingSection({
   const inputFocusBg = { base: "white", _dark: "blackAlpha.800" };
 
   const currentStageIndex = trackingResult ? getStageIndex(trackingResult.status) : 0;
+  const formattedDate = useMemo(
+    () => (trackingResult ? formatTrackingDate(trackingResult.createdAt) : ""),
+    [trackingResult],
+  );
 
   return (
     <AuraSurface p={{ base: "5", md: "6" }} variant="glass">
@@ -134,7 +156,7 @@ export function TrackingSection({
 
               <HStack justify="space-between" w="full" pt="1" fontSize="xs" color="text.muted">
                 <Text>ID: {trackingResult.id.substring(0, 20)}...</Text>
-                <Text>Fecha: {new Date(trackingResult.createdAt).toLocaleDateString()}</Text>
+                <Text>Fecha: {formattedDate}</Text>
               </HStack>
             </VStack>
           </Box>

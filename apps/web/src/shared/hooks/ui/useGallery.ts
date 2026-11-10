@@ -34,12 +34,11 @@ export const useGallery = (images: GalleryItem[]): UseGalleryReturn => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Efecto para resetear el índice si las imágenes cambian
-  useEffect(() => {
-    if (images && images.length > 0) {
-      setSelectedIndex(0);
-    }
-  }, [images]);
+  const [prevImages, setPrevImages] = useState(images);
+  if (images !== prevImages) {
+    setPrevImages(images);
+    setSelectedIndex(0);
+  }
 
   const onOpenModal = () => setIsModalOpen(true);
   const onCloseModal = () => setIsModalOpen(false);

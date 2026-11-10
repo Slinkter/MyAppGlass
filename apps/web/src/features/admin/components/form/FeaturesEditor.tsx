@@ -59,7 +59,7 @@ export const FeaturesEditor: React.FC<FeaturesEditorProps> = ({ features, onChan
         <HStack wrap="wrap" gap="2" pt="1">
           {features.map((feat, idx) => (
             <Badge
-              key={idx}
+              key={feat}
               size="md"
               variant="info"
               px="2.5"

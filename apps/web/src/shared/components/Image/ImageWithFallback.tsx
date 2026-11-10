@@ -62,33 +62,30 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
     ...restProps
   }) => {
     const [isLoaded, setIsLoaded] = useState(forceShow || false);
-    const [isLoading, setIsLoading] = useState(!forceShow);
     const [hasError, setHasError] = useState(false);
+    const [prevSrc, setPrevSrc] = useState(src);
+    const [prevForceShow, setPrevForceShow] = useState(forceShow);
     const imgRef = React.useRef<HTMLImageElement | null>(null);
+
+    const isLoading = !isLoaded;
+
+    if (src !== prevSrc || forceShow !== prevForceShow) {
+      setPrevSrc(src);
+      setPrevForceShow(forceShow);
+      setIsLoaded(forceShow || false);
+      setHasError(false);
+    }
 
     const imageSrc = useMemo(() => {
       if (hasError) return fallbackSrc || imgF;
       return getAssetUrl(src || fallbackSrc || imgF);
     }, [src, fallbackSrc, hasError]);
 
-    // Reset state when src changes, but check if the browser already has it cached
-    React.useEffect(() => {
-      if (imgRef.current && imgRef.current.complete) {
-        setIsLoaded(true);
-        setIsLoading(false);
-      } else {
-        setIsLoaded(forceShow || false);
-        setIsLoading(!forceShow);
-      }
-      setHasError(false);
-    }, [src, forceShow]);
-
     const placeholderBg = { base: "gray.100", _dark: "gray.800" };
     const shimmerBg = { base: "bg.subtle", _dark: "bg.subtle" };
 
     const handleImageError = useCallback(() => {
       setHasError(true);
-      setIsLoading(false);
       setIsLoaded(true);
       if (onError) onError();
     }, [onError]);
@@ -96,7 +93,6 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
     const handleLoad = useCallback(
       (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         setIsLoaded(true);
-        setIsLoading(false);
         if (onLoad) onLoad(e);
       },
       [onLoad]
@@ -150,7 +146,6 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = React.memo(
             imgRef.current = node;
             if (node && node.complete && !isLoaded) {
               setIsLoaded(true);
-              setIsLoading(false);
             }
           }}
           style={{

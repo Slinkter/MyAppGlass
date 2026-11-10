@@ -67,8 +67,8 @@ export const PrintOrderModal: React.FC<PrintOrderModalProps> = ({ order, onPrint
             </Box>
           </Box>
           <Box as="tbody">
-            {order.items.map((item, idx) => (
-              <Box as="tr" key={idx} borderBottom="1px solid" borderBottomColor="border.default">
+            {order.items.map((item) => (
+              <Box as="tr" key={item.productId || item.sku || item.name} borderBottom="1px solid" borderBottomColor="border.default">
                 <Box as="td" p="2" fontFamily="mono">{item.sku}</Box>
                 <Box as="td" p="2">{item.name}</Box>
                 <Box as="td" p="2" textAlign="center">{item.quantity} {item.unit}</Box>
