@@ -18,13 +18,15 @@ export interface ServiceListProps {
     initialData?: Service[];
     /** Nivel del título: `h1` en su página propia, `h2` cuando se incrusta (p. ej. en la home). */
     headingAs?: "h1" | "h2";
+    /** Movimiento de entrada del grid (`cine` en la home). */
+    motion?: "default" | "cine";
 }
 
 /**
  * @component ServiceList
  * @description Renderiza la lista de servicios con filtro por categoría e Infinite Scroll.
  */
-const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headingAs = "h1" }) => {
+const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headingAs = "h1", motion = "default" }) => {
     // Primer render con los datos de build; Firestore en cliente los refresca (ver useServices).
     const { data, isLoading, error } = useServices(initialData);
     const allServices = useMemo<ServiceData[]>(() => data ?? [], [data]);
@@ -47,6 +49,7 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
 
     return (
         <ItemGridLayout
+            motion={motion}
             title="SERVICIOS"
             subtitle="Descubre nuestros servicios de suministro, ensamblaje e instalación"
             headingAs={headingAs}

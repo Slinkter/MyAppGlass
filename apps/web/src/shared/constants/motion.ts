@@ -11,6 +11,9 @@ export const EASE_PANEL = "cubic-bezier(0.76, 0, 0.24, 1)" as const;
 /** Curva para revelación de texto con máscara (translateY 105% -> 0). */
 export const EASE_TEXT = "cubic-bezier(0.16, 1, 0.3, 1)" as const;
 
+/** Curva de salida larga y suave de los títulos cinematográficos (hero y secciones de la home). */
+export const EASE_CINE = "cubic-bezier(0.16, 1, 0.3, 1)" as const;
+
 /** Curva suave estándar para micro-interacciones (botones, tarjetas, controles). */
 export const EASE_SOFT = "cubic-bezier(0.4, 0, 0.2, 1)" as const;
 

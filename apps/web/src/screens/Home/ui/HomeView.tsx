@@ -26,12 +26,12 @@ const HomeView: React.FC<HomeViewProps> = React.memo(({ initialServices, initial
 
             {/* 3. Servicios */}
             <Box id="servicios" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
-                <ServiceList initialData={initialServices} headingAs="h2" />
+                <ServiceList initialData={initialServices} headingAs="h2" motion="cine" />
             </Box>
 
             {/* 4. Proyectos (portafolio de obras) */}
             <Box id="proyectos" as="section" scrollMarginTop={{ base: "6.5rem", md: "7.5rem" }}>
-                <ProjectsList initialData={initialProjects} headingAs="h2" />
+                <ProjectsList initialData={initialProjects} headingAs="h2" motion="cine" />
             </Box>
 
             {/* 5. Clientes */}

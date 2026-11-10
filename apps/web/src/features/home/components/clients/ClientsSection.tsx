@@ -23,6 +23,7 @@ const ClientsSection: React.FC = React.memo(() => {
 
     return (
         <ItemGridLayout
+            motion="cine"
             title="NUESTROS CLIENTES"
             subtitle="Confianza sólida en cada estructura"
             seoTitle="Nuestros Clientes - GYA Company"

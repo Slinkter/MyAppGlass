@@ -2,9 +2,13 @@
 
 /**
  * @file LandingPageSection.tsx
- * @description Hero de la home: marca, título y descripción, sin botones de acción (decisión del dueño,
- * 2026-11-09: rompían la interfaz). El indicador de scroll lleva a Servicios. Sin fotografía, para no
- * cruzarse con la barra de navegación.
+ * @description Hero de la home a pantalla completa (100dvh). Marca, título, una línea que se dibuja,
+ * descripción. Atención solo en La Molina. Sin botones de acción (decisión del dueño, 2026-11-09).
+ * Movimiento cinematográfico (~2,2 s, una sola vez, solo transform y opacity): el conjunto se asienta con un
+ * zoom lento, el logo entra con escala, el título se revela línea por línea con máscara y la línea fina se
+ * dibuja. Son animaciones CSS (keyframes `hero*` en global.css) con `fill-mode: both`: corren desde el primer
+ * pintado sin esperar a JavaScript, así el texto no queda invisible en teléfonos lentos.
+ * Con `prefers-reduced-motion`, o si `useMotionBudget` detecta un teléfono de gama baja, no hay animación.
  * Todo con tokens del tema: se adapta a claro y oscuro.
  * @module home/components
  */
@@ -16,32 +20,51 @@ import RouterLink from "next/link";
 import Image from "next/image";
 
 import logoGYA from "@/assets/branding/logosvg.svg";
+import { useMotionBudget } from "@/shared/hooks/ui/useMotionBudget";
+
+/** Curva de salida larga y suave, típica de títulos de cine. */
+const EASE_CINE = "cubic-bezier(0.16, 1, 0.3, 1)";
+
+/** Valor de la propiedad `animation` de un bloque, o undefined si no se anima. */
+function anim(on: boolean, name: string, durationMs: number, delayMs = 0): string | undefined {
+  return on ? `${name} ${durationMs}ms ${EASE_CINE} ${delayMs}ms both` : undefined;
+}
+
+/** Línea del título con máscara: el texto sube desde abajo del recorte (translateY 105% a 0). */
+function MaskLine({ animated, delayMs, children }: { animated: boolean; delayMs: number; children: React.ReactNode }) {
+  return (
+    <Box overflow="hidden" py="0.5">
+      <Box animation={anim(animated, "heroMask", 1100, delayMs)}>{children}</Box>
+    </Box>
+  );
+}
 
 /**
  * @component LandingPageSection
- * @description Sección de aterrizaje (Hero) de la página principal.
+ * @description Hero de aterrizaje: ocupa toda la pantalla y centra el contenido en vertical.
  */
 const LandingPageSection: React.FC = React.memo(() => {
+  // En SSR el nivel es "full": la animación arranca en el primer pintado. Si luego se detecta gama baja
+  // o reducción de movimiento, se retira y queda el estado final.
+  const animated = useMotionBudget() === "full";
+
   return (
     <Flex
       as="section"
+      aria-labelledby="hero-titulo"
       w="full"
-      minH={{ base: "calc(92dvh - 3.75rem)", md: "92dvh" }}
+      minH="100dvh"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      px={{ base: 4, sm: 6, md: 8, lg: 12 }}
-      pt={{ base: 12, md: 28 }}
-      pb={{ base: 16, md: 20 }}
+      px={{ base: 5, sm: 6, md: 10, lg: 14 }}
+      pt={{ base: 10, md: 16 }}
+      pb={{ base: 20, md: 24 }}
       position="relative"
       overflow="hidden"
       css={{
         "@media (prefers-reduced-motion: reduce)": {
-          "*": {
-            animation: "none !important",
-            transition: "none !important",
-            transform: "none !important",
-          },
+          "&, & *": { animation: "none !important", transition: "none !important" },
         },
       }}
     >
@@ -49,15 +72,17 @@ const LandingPageSection: React.FC = React.memo(() => {
         gap={{ base: "6", md: "8" }}
         textAlign="center"
         maxW="pageNarrow"
+        w="full"
         position="relative"
         zIndex={1}
+        animation={anim(animated, "heroSettle", 2200)}
       >
         {/* Marca */}
         <Box
-          animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1)"
           position="relative"
-          w={{ base: "28", sm: "40", md: "56" }}
-          h={{ base: "28", sm: "36", md: "52" }}
+          w={{ base: "36", sm: "48", md: "64" }}
+          h={{ base: "36", sm: "48", md: "64" }}
+          animation={anim(animated, "heroLogo", 1100)}
         >
           <Image
             src={logoGYA}
@@ -66,13 +91,13 @@ const LandingPageSection: React.FC = React.memo(() => {
             fill
             priority
             loading="eager"
-            sizes="(min-width: 768px) 224px, 160px"
+            sizes="(min-width: 768px) 256px, (min-width: 480px) 192px, 144px"
             style={{ objectFit: "contain" }}
           />
         </Box>
 
         {/* Título */}
-        <Box animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both">
+        <Box>
           <Text
             fontSize="xs"
             fontWeight="700"
@@ -80,59 +105,65 @@ const LandingPageSection: React.FC = React.memo(() => {
             textTransform="uppercase"
             color="text.muted"
             mb="3"
+            animation={anim(animated, "heroRise", 700, 200)}
           >
-            Vidriería & Aluminio
+            Vidriería &amp; Aluminio
           </Text>
 
           <Heading
+            id="hero-titulo"
             as="h1"
             fontFamily="heading"
-            fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
+            fontSize={{ base: "4xl", sm: "5xl", md: "6xl", lg: "7xl" }}
             fontWeight="700"
-            lineHeight="1.08"
-            letterSpacing="-0.025em"
+            lineHeight="1.04"
+            letterSpacing="-0.03em"
             color="text.heading"
           >
-            GLASS & ALUMINUM
-            <Text as="span" display="block">
+            <MaskLine animated={animated} delayMs={300}>
+              GLASS &amp; ALUMINUM
+            </MaskLine>
+            <MaskLine animated={animated} delayMs={450}>
               COMPANY S.A.C.
-            </Text>
+            </MaskLine>
           </Heading>
 
-          <Text
-            fontSize={{ base: "md", md: "lg" }}
-            mt="5"
-            color="text.muted"
-            maxW="2xl"
+          {/* Línea fina que se dibuja bajo el título */}
+          <Box
             mx="auto"
-            lineHeight="relaxed"
-          >
-            Suministro, ensamblaje en taller e instalación de ventanas antirruido, mamparas y
-            carpintería de aluminio en Lima.
-          </Text>
+            mt={{ base: "5", md: "6" }}
+            h="1px"
+            w={{ base: "16", md: "24" }}
+            bg="text.heading"
+            aria-hidden="true"
+            transformOrigin="center"
+            animation={anim(animated, "heroLine", 1000, 900)}
+          />
         </Box>
 
         <Text
-          fontSize="xs"
-          fontWeight="700"
-          letterSpacing="0.14em"
-          textTransform="uppercase"
+          fontSize={{ base: "md", md: "lg" }}
           color="text.muted"
+          maxW="2xl"
+          mx="auto"
+          lineHeight="relaxed"
+          animation={anim(animated, "heroRise", 800, 1100)}
         >
-          La Molina
+          Suministro, ensamblaje en taller e instalación de ventanas antirruido, mamparas y carpintería de
+          aluminio en Lima.
         </Text>
       </VStack>
 
-      {/* Indicador de scroll */}
+      {/* Indicador de scroll: aparece una vez y lleva a Servicios (sin rebote en bucle) */}
       <Box
         position="absolute"
-        bottom={{ base: "4", md: "6" }}
+        bottom={{ base: "5", md: "7" }}
         left="0"
         right="0"
-        display={{ base: "none", sm: "flex" }}
+        display="flex"
         justifyContent="center"
         zIndex={1}
-        animation="fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1s both"
+        animation={anim(animated, "heroFade", 800, 1700)}
       >
         <RouterLink
           href="/#servicios"
@@ -143,15 +174,10 @@ const LandingPageSection: React.FC = React.memo(() => {
             justifyContent: "center",
             width: "2.75rem",
             height: "2.75rem",
+            borderRadius: "9999px",
           }}
         >
-          <Box
-            as={ChevronDown}
-            boxSize={{ base: 7, md: 8 }}
-            color="text.muted"
-            style={{ flexShrink: 0 }}
-            animation="floatDown 2s ease-in-out infinite"
-          />
+          <Box as={ChevronDown} boxSize={{ base: 7, md: 8 }} color="text.muted" style={{ flexShrink: 0 }} />
         </RouterLink>
       </Box>
     </Flex>

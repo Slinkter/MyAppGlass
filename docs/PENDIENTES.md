@@ -63,6 +63,7 @@ Hecho: varias partidas, validación, resumen en vivo, envío separado de la impr
 | Auditorías automáticas de diseño | Falta `npx playwright install` para correr `scripts/audit-design-system.mjs` y `scripts/audit-landing.mjs` |
 | 404 de precarga en producción | 10 errores de consola (`/<ruta>/__next.<ruta>.__PAGE__.txt`). Inofensivos; falta saber si ya existían |
 | Horario en `companyData` | El footer lo escribe a mano |
+| Movimiento cinematográfico en las demás páginas | Hecho solo en la home (opción `motion="cine"` de `ItemGridLayout` y hero propio). Falta llevarlo a servicios, proyectos, blog, tienda y contacto, y medir el efecto en rendimiento (LCP, TBT, fluidez) contra la línea base |
 
 ## 6. Producto
 

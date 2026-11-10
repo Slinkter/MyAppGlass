@@ -17,6 +17,7 @@ export interface StoreSectionProps {
  */
 const StoreSection: React.FC<StoreSectionProps> = React.memo(({ initialProjects }) => (
     <ItemGridLayout
+        motion="cine"
         title="UBICACIÓN"
         subtitle="SEDE PRINCIPAL | PROYECTOS ENTREGADOS"
         seoTitle="Ubicaciones - GYA Company"

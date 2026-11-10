@@ -27,13 +27,15 @@ export interface ProjectsListProps {
   initialData?: FirestoreProject[];
   /** Nivel del título: `h1` en su página propia, `h2` cuando se incrusta (p. ej. en la home). */
   headingAs?: "h1" | "h2";
+  /** Movimiento de entrada del grid (`cine` en la home). */
+  motion?: "default" | "cine";
 }
 
 /**
  * @component ProjectsList
  * @description Orchestrator for the projects gallery, implementing Infinite Scroll (O1) for high performance.
  */
-const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, headingAs = "h1" }) => {
+const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, headingAs = "h1", motion = "default" }) => {
   // Primer render con los datos de build; Firestore en cliente los refresca (ver useProjects).
   // Ya viene más reciente primero.
   const { data, isLoading, error } = useProjects(initialData);
@@ -54,6 +56,7 @@ const ProjectsList: React.FC<ProjectsListProps> = React.memo(({ initialData, hea
 
   return (
     <ItemGridLayout
+      motion={motion}
       title="PROYECTOS"
       headingAs={headingAs}
       subtitle="Obras Entregadas"

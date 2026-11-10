@@ -25,6 +25,7 @@ const FeaturesSection: React.FC = React.memo(() => {
 
   return (
     <ItemGridLayout
+      motion="cine"
       seoTitle="Nuestros Beneficios - GYA Company"
       seoDescription="Descubre por qué somos los líderes en vidriería y aluminio. Calidad, garantía y puntualidad."
       seoCanonicalUrl={`${SITE_URL}/beneficios`}
