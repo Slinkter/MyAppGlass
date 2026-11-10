@@ -65,6 +65,7 @@ const LandingPageSection: React.FC = React.memo(() => {
             unoptimized
             fill
             priority
+            loading="eager"
             sizes="(min-width: 768px) 224px, 160px"
             style={{ objectFit: "contain" }}
           />

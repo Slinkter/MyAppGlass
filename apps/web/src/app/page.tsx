@@ -7,7 +7,7 @@ import { getBuildProjects, getBuildServices } from "@/shared/api/firebase/public
 export const metadata: Metadata = buildPageMetadata({
   title: "Vidriería en La Molina | Ventanas Antirruido y Mamparas",
   description:
-    "Especialistas en fabricación e instalación de ventanas antirruido (Sistema Nova, Serie 25, Serie 35, Serie 62), mamparas de vidrio templado, boxes de ducha y estructuras de aluminio en La Molina y Lima.",
+    "Especialistas en suministro, ensamblaje e instalación de ventanas antirruido (Sistema Nova, Serie 25, Serie 35, Serie 62), mamparas de vidrio templado, boxes de ducha y estructuras de aluminio en La Molina y Lima.",
   path: "/",
   useAbsoluteTitle: true,
   keywords: [

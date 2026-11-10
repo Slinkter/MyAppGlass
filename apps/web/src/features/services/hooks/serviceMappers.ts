@@ -115,7 +115,7 @@ export const getServiceSeo = (service: FirestoreService): ServicePageData["seo"]
       : fallback?.description ||
         (service.shortDescription?.trim().length >= 90
           ? service.shortDescription.trim()
-          : "Servicios especializados de vidriería y carpintería de aluminio en La Molina y Lima. Fabricación e instalación con la más alta calidad y garantía.");
+          : "Servicios especializados de vidriería y carpintería de aluminio en La Molina y Lima. Suministro, ensamblaje e instalación con la más alta calidad y garantía.");
 
   return {
     title,
