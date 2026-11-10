@@ -13,7 +13,7 @@
  * - Gutters de 24 px, tipografía mínima `xs`, iconos 16/20 y separadores por CSS (sin `<Text>·</Text>`).
  */
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
@@ -55,6 +55,20 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
   const overlayRef = useRef<HTMLDivElement>(null);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isVisibleInDom, setIsVisibleInDom] = useState(isOpen);
+  const closedByNavigationRef = useRef(false);
+
+  // Resetear la bandera cuando el menú se abre
+  useEffect(() => {
+    if (isOpen) {
+      closedByNavigationRef.current = false;
+    }
+  }, [isOpen]);
+
+  // Manejador para enlaces de navegación: no activar history.back()
+  const handleNavClick = useCallback(() => {
+    closedByNavigationRef.current = true;
+    onClose();
+  }, [onClose]);
 
   // Mantener en el DOM durante la transición de salida (450ms)
   useEffect(() => {
@@ -78,6 +92,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
   // Cierre automático al cambiar de ruta
   useEffect(() => {
     if (isOpen) {
+      closedByNavigationRef.current = true;
       onClose();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,7 +132,11 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
 
     return () => {
       window.removeEventListener("popstate", handlePopState);
-      if (!poppedByBackButton.current && window.history.state?.mobileMenuOpen) {
+      if (
+        !poppedByBackButton.current &&
+        !closedByNavigationRef.current &&
+        window.history.state?.mobileMenuOpen
+      ) {
         window.history.back();
       }
     };
@@ -261,7 +280,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 >
                   <ServicesAccordion
                     isOpen={isServicesOpen}
-                    onItemClick={onClose}
+                    onItemClick={handleNavClick}
                     id="mobile-services-accordion"
                     contained={contained}
                   />
@@ -286,7 +305,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 index={index}
                 contained={contained}
                 isActive={isCurrent}
-                onClick={onClose}
+                onClick={handleNavClick}
               />
             );
           })}
@@ -389,7 +408,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 href="/mi-cuenta"
                 onClick={(e) => {
                   if (contained) e.preventDefault();
-                  onClose();
+                  handleNavClick();
                 }}
                 style={{ textDecoration: "none" }}
               >

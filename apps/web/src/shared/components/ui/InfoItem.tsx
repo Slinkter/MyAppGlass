@@ -49,7 +49,7 @@ export const InfoItem: React.FC<InfoItemProps> = ({
         >
           <Box as={icon} boxSize={5} />
         </Flex>
-        <Box flex="1">
+        <Box flex="1" minW="0">
           <Text
             fontSize="xs"
             fontWeight="700"
@@ -65,12 +65,13 @@ export const InfoItem: React.FC<InfoItemProps> = ({
             color="text.heading"
             mt={0.5}
             lineHeight="shorter"
+            wordBreak="break-word"
           >
             {value}
           </Text>
         </Box>
         {copyable && (
-          <Flex align="center" h="full">
+          <Flex align="center" h="full" flexShrink={0}>
             <CopyButton value={value} label={label} />
           </Flex>
         )}

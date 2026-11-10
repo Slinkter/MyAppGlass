@@ -90,11 +90,11 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
             borderWidth="1px"
             borderColor="border.default"
           >
-            <Box flex="1">
+            <Box flex="1" minW="0">
               <Text fontSize="xs" fontWeight="700" color="text.accent" textTransform="uppercase" letterSpacing="0.15em">
                 {acc.label}
               </Text>
-              <Text fontSize="sm" fontWeight="700" color="text.heading" mt="0.5">
+              <Text fontSize="sm" fontWeight="700" color="text.heading" mt="0.5" wordBreak="break-word">
                 {acc.value}
               </Text>
               {acc.note && (
@@ -104,7 +104,9 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
               )}
             </Box>
 
-            <CopyButton value={acc.value} label={acc.label} />
+            <Box flexShrink={0}>
+              <CopyButton value={acc.value} label={acc.label} />
+            </Box>
           </Flex>
         ))}
       </Stack>

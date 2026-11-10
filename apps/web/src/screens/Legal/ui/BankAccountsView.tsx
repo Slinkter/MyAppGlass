@@ -178,11 +178,12 @@ const BankAccountsView: React.FC = () => {
                                         borderColor="border.default"
                                         justify="space-between"
                                     >
-                                        <VStack align="flex-start" gap={0}>
+                                        <VStack align="flex-start" gap={0} flex="1" minW="0">
                                             <Text
                                                 fontWeight="700"
                                                 fontSize="sm"
                                                 color="text.heading"
+                                                wordBreak="break-word"
                                             >
                                                 {companyData.razonSocial}
                                             </Text>
@@ -193,10 +194,12 @@ const BankAccountsView: React.FC = () => {
                                                 RUC: {companyData.ruc}
                                             </Text>
                                         </VStack>
-                                        <CopyButton
-                                            value={companyData.ruc}
-                                            label="RUC"
-                                        />
+                                        <Box flexShrink={0}>
+                                            <CopyButton
+                                                value={companyData.ruc}
+                                                label="RUC"
+                                            />
+                                        </Box>
                                     </HStack>
                                 </VStack>
                             </Flex>
