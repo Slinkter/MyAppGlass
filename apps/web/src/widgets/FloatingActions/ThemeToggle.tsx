@@ -54,6 +54,7 @@ export const ThemeToggle: React.FC = () => {
       position="fixed"
       right="4"
       zIndex="sticky"
+      // En móvil el tema vive dentro del menú; el botón flotante es solo de escritorio.
       display={{ base: "none", md: "flex" }}
       css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))", "body[data-scroll-locked] &": { display: "none" } }}
     >

@@ -2,11 +2,12 @@
 
 /**
  * @file MenuOverlay.tsx
- * @description Hoja de menú móvil en tres zonas para Glass & Aluminum Company S.A.C.
- * - Cabecera propia (60px + safe-area-top) con "Menú" y botón X de cierre DENTRO del diálogo y del focus trap.
+ * @description Hoja inferior de menú móvil para Glass & Aluminum Company S.A.C. (variante 1 elegida en /navbarmobil-1).
+ * - Sube desde abajo, en la zona del pulgar, con esquinas superiores redondeadas y asa.
+ * - Fondo atenuado (`overlay.scrim`) que empieza bajo la barra: el botón de la barra sigue siendo el cierre.
  * - Zona central scrolleable (única con overflow): 5 enlaces primarios + acordeón de servicios.
- * - Pie sticky (nunca scrollea): CTA "Cotizar por WhatsApp" + teléfono, mi cuenta y tema.
- * - zIndex `overlay` cubre la barra superior móvil (`banner`). `contained` respeta el marco del showcase.
+ * - Pie sticky (nunca scrollea): CTA "Cotizar por WhatsApp" + cambio de tema, teléfono y mi cuenta.
+ * - zIndex `overlay`; `contained` respeta el marco del showcase.
  * - Entrada 650ms (DUR_CSS.panelIn) y salida 450ms (DUR_CSS.panelOut) con solo transform + opacity.
  * - prefers-reduced-motion: solo fade corto. useFocusTrap, useLockBodyScroll, Escape, popstate y cierre por ruta.
  * - Gutters de 24 px, tipografía mínima `xs`, iconos 16/20 y separadores por CSS (sin `<Text>·</Text>`).
@@ -16,10 +17,12 @@ import React, { useEffect, useRef, useState } from "react";
 import RouterLink from "next/link";
 import { usePathname } from "next/navigation";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
+import Image from "next/image";
 import { Phone, User, X } from "lucide-react";
 import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { ColorModeButton } from "@/components/ui/color-mode";
+import logoGYA from "@/assets/branding/logosvg.svg";
 import { companyData } from "@/shared/config/company-data";
 import { MOBILE_NAV_ITEMS } from "@/shared/config/nav-items";
 import { DUR_CSS, DUR_MS, EASE_PANEL } from "@/shared/constants/motion";
@@ -127,6 +130,27 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
   const phoneHref = `tel:+51${companyData.whatsappNumber.replace(/^51/, "")}`;
 
   return (
+    <>
+      {/* Fondo atenuado: al tocarlo se cierra el menú */}
+      <Box
+        position={contained ? "absolute" : "fixed"}
+        top="0"
+        left="0"
+        right="0"
+        bottom="0"
+        zIndex="overlay"
+        bg="overlay.scrim"
+        aria-hidden="true"
+        onClick={onClose}
+        pointerEvents={isOpen ? "auto" : "none"}
+        visibility={isVisibleInDom ? "visible" : "hidden"}
+        style={{
+          opacity: isOpen ? 1 : 0,
+          transition: `opacity ${isOpen ? DUR_CSS.panelIn : DUR_CSS.panelOut} ${EASE_PANEL}`,
+        }}
+        _motionReduce={{ transition: `opacity ${DUR_CSS.reducedFade} ease !important` }}
+      />
+
     <Box
       ref={overlayRef}
       id={id}
@@ -135,43 +159,64 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
       aria-label="Menú principal de navegación"
       aria-hidden={!isOpen}
       position={contained ? "absolute" : "fixed"}
-      inset="0"
+      left="0"
+      right="0"
+      bottom="0"
       display="flex"
       flexDirection="column"
       w="full"
-      h={contained ? "full" : "100dvh"}
+      maxH={contained ? "calc(100% - 1rem)" : "calc(100% - env(safe-area-inset-top, 0px) - 1rem)"}
       overflow="hidden"
       zIndex="overlay"
       bg="bg.surface"
+      borderTopRadius="modal"
+      borderTopWidth="1px"
+      borderColor="border.warm"
       pointerEvents={isOpen ? "auto" : "none"}
       visibility={isVisibleInDom ? "visible" : "hidden"}
       style={{
-        transform: isOpen ? "translateY(0)" : "translateY(-100%)",
-        opacity: isOpen ? 1 : 0,
-        transition: isOpen
-          ? `transform ${DUR_CSS.panelIn} ${EASE_PANEL}, opacity ${DUR_CSS.panelIn} ${EASE_PANEL}`
-          : `transform ${DUR_CSS.panelOut} ${EASE_PANEL}, opacity ${DUR_CSS.panelOut} ${EASE_PANEL}`,
+        transform: isOpen ? "translateY(0)" : "translateY(100%)",
+        transition: `transform ${isOpen ? DUR_CSS.panelIn : DUR_CSS.panelOut} ${EASE_PANEL}`,
       }}
       _motionReduce={{
         transform: "none !important",
         transition: `opacity ${DUR_CSS.reducedFade} ease !important`,
+        opacity: isOpen ? 1 : 0,
       }}
     >
-      {/* Zona 1 · Cabecera interna: "Menú" + cierre (dentro del diálogo y del focus trap) */}
-      <HStack
+      {/* Asa visual de la hoja */}
+      <Box
         flexShrink={0}
-        justify="space-between"
-        align="center"
-        w="full"
-        h="calc(60px + env(safe-area-inset-top, 0px))"
-        pt="env(safe-area-inset-top, 0px)"
-        px="6"
-        borderBottomWidth="1px"
-        borderBottomColor="border.warm"
-      >
-        <Text fontSize="sm" fontWeight="600" color="text.heading">
-          Menú
-        </Text>
+        alignSelf="center"
+        mt="3"
+        w="10"
+        h="1"
+        borderRadius="full"
+        bg="border.warmStrong"
+        aria-hidden="true"
+      />
+
+      {/* Cabecera de la hoja: logo + cierre (dentro del diálogo y del focus trap) */}
+      <HStack flexShrink={0} justify="space-between" align="center" w="full" px="6" pt="1">
+        <HStack gap="2.5" align="center" minH="11">
+          <Image
+            src={logoGYA}
+            alt={companyData.companyName}
+            width={32}
+            height={32}
+            unoptimized
+            style={{ flexShrink: 0 }}
+          />
+          <Text
+            fontFamily="heading"
+            fontWeight="700"
+            fontSize="md"
+            color="text.heading"
+            letterSpacing="tight"
+          >
+            GYA
+          </Text>
+        </HStack>
 
         <Button
           variant="ghost"
@@ -186,7 +231,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
         </Button>
       </HStack>
 
-      {/* Zona 2 · Única zona con scroll */}
+      {/* Zona 1 · Única zona con scroll */}
       <Box
         flex="1"
         minH="0"
@@ -259,12 +304,13 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
         bg="bg.surface"
       >
         <VStack align="stretch" gap="3" w="full">
-          {/* CTA principal */}
+          {/* Fila 1: CTA principal + cambio de tema */}
+          <HStack align="center" gap="2" w="full">
           <Button
             asChild
             variant="whatsapp"
             size="lg"
-            w="full"
+            flex="1"
             minH="12"
             borderRadius="full"
             gap="2.5"
@@ -285,8 +331,16 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
               </Text>
             </a>
           </Button>
+          <ColorModeButton
+            aria-label="Cambiar modo claro u oscuro"
+            iconSize={20}
+            minH="11"
+            minW="11"
+            flexShrink={0}
+          />
+          </HStack>
 
-          {/* Acciones secundarias: 3 targets de 44 px */}
+          {/* Fila 2: teléfono y Mi cuenta, texto de 16 px */}
           <HStack justify="space-between" align="center" gap="2" w="full">
             <Box
               asChild
@@ -315,7 +369,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                   _active={{ bg: "bg.subtle" }}
                 >
                   <Phone size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-                  <Text fontSize="xs" fontWeight="600" color="text.heading">
+                  <Text fontSize="md" fontWeight="600" color="text.heading" whiteSpace="nowrap">
                     {companyData.whatsappDisplay}
                   </Text>
                 </HStack>
@@ -350,22 +404,17 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                   _active={{ bg: "bg.subtle" }}
                 >
                   <User size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-                  <Text fontSize="xs" fontWeight="600" color="text.heading">
+                  <Text fontSize="md" fontWeight="600" color="text.heading" whiteSpace="nowrap">
                     Mi cuenta
                   </Text>
                 </HStack>
               </RouterLink>
             </Box>
 
-            <ColorModeButton
-              aria-label="Cambiar modo claro u oscuro"
-              iconSize={20}
-              minH="11"
-              minW="11"
-            />
           </HStack>
         </VStack>
       </Box>
     </Box>
+    </>
   );
 };

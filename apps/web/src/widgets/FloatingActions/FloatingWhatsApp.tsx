@@ -54,7 +54,7 @@ const FloatingWhatsApp = () => {
         left="4"
         right="auto"
         zIndex="sticky"
-        display="flex"
+        display={{ base: "none", md: "flex" }}
         css={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + var(--chakra-spacing-4))", "body[data-scroll-locked] &": { display: "none" } }}
       >
         <FloatingWhatsAppButton onClick={() => setIsOpen(true)} />
@@ -85,6 +85,9 @@ const FloatingWhatsApp = () => {
             <VStack gap={3} align="start">
               <Text>
                 Chatea con nosotros en WhatsApp para una cotización o consulta.
+              </Text>
+              <Text fontSize="xl" fontWeight="700" color="text.heading" whiteSpace="nowrap">
+                {companyData.whatsappDisplay}
               </Text>
               <Button
                 as={Link}

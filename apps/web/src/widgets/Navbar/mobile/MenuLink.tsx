@@ -73,8 +73,21 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       mx="-2"
       px="2"
       borderRadius="md"
+      position="relative"
       _hover={{ bg: "bg.subtle" }}
       _active={{ bg: "bg.subtle" }}
+      _before={{
+        content: '""',
+        display: isActive ? "block" : "none",
+        position: "absolute",
+        left: "0",
+        top: "50%",
+        transform: "translateY(-50%)",
+        w: "0.5",
+        h: "6",
+        borderRadius: "full",
+        bg: "accent.ink",
+      }}
     >
       {/* Numeración discreta 01–05, alineada a una columna de 24 px */}
       <Text

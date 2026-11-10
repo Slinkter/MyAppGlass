@@ -9,6 +9,7 @@ const DISALLOW_PATHS = [
   "/auth",
   "/design-system",
   "/design-system-ubicacion",
+  "/navbarmobil",
   "/tienda",
   "/tienda/",
   "/mi-cuenta",

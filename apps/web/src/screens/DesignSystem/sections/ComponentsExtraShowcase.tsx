@@ -19,7 +19,6 @@ import {
   ScrollAreaContent,
   ScrollAreaScrollbar,
   ScrollAreaThumb,
-  ScrollAreaCorner,
 } from "@/components/ui/scroll-area";
 import { ShowcaseCard, ShowcaseStack, SubsectionLabel } from "../components";
 
@@ -181,25 +180,25 @@ export const ComponentsExtraShowcase: React.FC = () => (
 
       <ShowcaseCard
         title="ScrollArea"
-        description="Región con scroll y barra personalizada para listas largas dentro de un panel."
+        description="Carrusel horizontal con barra personalizada, solo para tarjetas en fila. Nunca se usa para scroll vertical dentro de la página."
       >
-        <ScrollAreaRoot h="48" borderWidth="1px" borderColor="border.default" borderRadius="card">
+        {/* Solo horizontal: carrusel de tarjetas; el scroll vertical es el de la página. */}
+        <ScrollAreaRoot borderWidth="1px" borderColor="border.default" borderRadius="card">
           <ScrollAreaViewport>
             <ScrollAreaContent p="4">
-              <VStack align="stretch" gap="3">
+              <HStack align="stretch" gap="3" w="max-content">
                 {SCROLL_ITEMS.map((item, i) => (
-                  <Text key={item} fontSize="sm" color="text.body">
-                    <Text as="span" fontWeight="700" color="text.heading">{i + 1}. </Text>
-                    {item}
-                  </Text>
+                  <Box key={item} w="44" flexShrink={0} p="3" borderWidth="1px" borderColor="border.subtle" borderRadius="lg" bg="bg.surface">
+                    <Text fontSize="xs" fontWeight="700" color="accent.ink">{String(i + 1).padStart(2, "0")}</Text>
+                    <Text fontSize="sm" color="text.body" mt="1">{item}</Text>
+                  </Box>
                 ))}
-              </VStack>
+              </HStack>
             </ScrollAreaContent>
           </ScrollAreaViewport>
-          <ScrollAreaScrollbar>
+          <ScrollAreaScrollbar orientation="horizontal">
             <ScrollAreaThumb />
           </ScrollAreaScrollbar>
-          <ScrollAreaCorner />
         </ScrollAreaRoot>
       </ShowcaseCard>
     </SimpleGrid>

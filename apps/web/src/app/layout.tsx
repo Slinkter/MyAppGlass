@@ -9,10 +9,14 @@ import { Footer } from "@/widgets/Footer";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { FloatingWhatsAppWrapper as FloatingWhatsApp, ThemeToggle } from "@/widgets/FloatingActions";
 import SkipLink from "@/shared/components/navigation/SkipLink";
+import { HideOnRoutes } from "@/shared/components/HideOnRoutes";
 import GoogleMetricsProvider from "@/shared/components/Analytics/GoogleMetricsProvider";
 import { getCompanyJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
 
 import { env } from "@/shared/config/env";
+
+/** Rutas de prueba de variantes de navbar móvil: sin navbar, footer ni botones flotantes globales. */
+const LAB_ROUTE_PREFIXES = ["/navbarmobil"] as const;
 
 const lora = Lora({
     subsets: ["latin"],
@@ -127,16 +131,22 @@ export default function RootLayout({
                             pb="6"
                             zIndex={1}
                         >
-                            <Navbar />
+                            <HideOnRoutes prefixes={LAB_ROUTE_PREFIXES}>
+                                <Navbar />
+                            </HideOnRoutes>
                             <Box as="main" id="main-content">
                                 <ComponentErrorBoundary>
                                     {children}
                                 </ComponentErrorBoundary>
                             </Box>
-                            <Footer />
+                            <HideOnRoutes prefixes={LAB_ROUTE_PREFIXES}>
+                                <Footer />
+                            </HideOnRoutes>
                         </Box>
-                        <FloatingWhatsApp />
-                        <ThemeToggle />
+                        <HideOnRoutes prefixes={LAB_ROUTE_PREFIXES}>
+                            <FloatingWhatsApp />
+                            <ThemeToggle />
+                        </HideOnRoutes>
                     </Box>
                 </Providers>
             </body>

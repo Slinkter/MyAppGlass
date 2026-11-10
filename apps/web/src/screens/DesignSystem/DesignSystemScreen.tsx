@@ -15,6 +15,7 @@ import { MapPin } from "lucide-react";
 import RouterLink from "next/link";
 import { ColorModeButton } from "@/components/ui/color-mode";
 import { Button } from "@/components/ui/button";
+import { TabFade } from "./components";
 import { companyData } from "@/shared/config/company-data";
 
 // Secciones del Sistema de Diseño
@@ -96,65 +97,83 @@ export const DesignSystemScreen: React.FC = () => {
 
           {/* Tarjetas editoriales */}
           <Tabs.Content value="cards">
+            <TabFade>
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
               <HeroSection />
               <LandingsSection />
               <EditorialCardsShowcase />
             </VStack>
+          </TabFade>
           </Tabs.Content>
 
           {/* Navegación y barras */}
           <Tabs.Content value="nav">
+            <TabFade>
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
               <NavSection />
               <NavigationShowcase />
             </VStack>
+          </TabFade>
           </Tabs.Content>
 
           {/* Formularios y botones */}
           <Tabs.Content value="forms">
+            <TabFade>
             <FormStatesSection />
+          </TabFade>
           </Tabs.Content>
 
           {/* Modales y diálogos */}
           <Tabs.Content value="overlays">
+            <TabFade>
             <OverlaysShowcase />
+          </TabFade>
           </Tabs.Content>
 
           {/* Tablas y fichas técnicas */}
           <Tabs.Content value="data">
+            <TabFade>
             <DataDisplayShowcase />
+          </TabFade>
           </Tabs.Content>
 
           {/* Tokens y reglas, con el bloque de marca del manual v1.0 */}
           <Tabs.Content value="tokens">
+            <TabFade>
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
               <TokensSection />
               <BrandSection />
             </VStack>
+          </TabFade>
           </Tabs.Content>
 
           {/* Estados, MediaCard y utilidades */}
           <Tabs.Content value="status">
+            <TabFade>
             <ComponentsExtraShowcase />
+          </TabFade>
           </Tabs.Content>
 
           {/* Galería e imágenes (una sola vez) */}
           <Tabs.Content value="media">
+            <TabFade>
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
               <GalleryShowcase />
               <ImageRevealShowcase />
             </VStack>
+          </TabFade>
           </Tabs.Content>
 
           {/* Modelos v2 */}
           <Tabs.Content value="v2">
+            <TabFade>
             <VStack align="stretch" gap={{ base: "8", md: "12" }}>
               <MobileNavV2Showcase />
               <BrandModulesV2Showcase />
               <ScrollPatternsShowcase />
               <TransitionsV2Showcase />
             </VStack>
+          </TabFade>
           </Tabs.Content>
         </Tabs.Root>
       </Container>

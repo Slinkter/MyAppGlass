@@ -12,6 +12,8 @@ Están en `.agents/skills/` y el lock en `docs/skills-lock.json`. **Al clonar el
 
 Total: **32 skills** en `.agents/skills/`. `apple-design` es una skill de usuario (`.claude/skills/`, ignorada por git) y se restaura aparte. Último cambio del lock: 2026-11-02.
 
+`ui-ux-pro-max` también está copiada en `.claude/skills/ui-ux-pro-max/` (ignorada por git) para que Claude Code la cargue. Para restaurarla: `npx skills add https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --skill ui-ux-pro-max -a claude-code`.
+
 | Skill | Origen (GitHub) | Ruta en el origen |
 |---|---|---|
 | apple-design | dickwu/apple-design-skill | SKILL.md (se instala en `.claude/skills/apple-design`, carpeta ignorada por git; restaurar con `npx skills add dickwu/apple-design-skill -a claude-code`) |

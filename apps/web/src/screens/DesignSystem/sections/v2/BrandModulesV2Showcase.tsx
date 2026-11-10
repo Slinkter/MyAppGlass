@@ -324,14 +324,13 @@ export const BrandModulesV2Showcase: React.FC = () => {
                 1. Selección de Sistema Oficial (6 homologados)
               </SubsectionLabel>
               <Box
-                overflowX="auto"
                 pb="2"
                 css={{
                   "&::-webkit-scrollbar": { display: "none" },
                   scrollbarWidth: "none",
                 }}
               >
-                <HStack gap="2" flexWrap={{ base: "nowrap", md: "wrap" }}>
+                <HStack gap="2" flexWrap="wrap">
                   {OFFICIAL_SYSTEMS.map((system) => {
                     const isSelected = system.name === selectedSystemName;
                     return (
@@ -448,14 +447,13 @@ export const BrandModulesV2Showcase: React.FC = () => {
                       2. Tipo de Vidrio Oficial (sin sufijo de grosor)
                     </SubsectionLabel>
                     <Box
-                      overflowX="auto"
                       pb="1"
                       css={{
                         "&::-webkit-scrollbar": { display: "none" },
                         scrollbarWidth: "none",
                       }}
                     >
-                      <HStack gap="2" flexWrap={{ base: "nowrap", md: "wrap" }}>
+                      <HStack gap="2" flexWrap="wrap">
                         {OFFICIAL_GLASS_TYPES.map((glass) => {
                           const isSelected = glass.name === selectedGlassName;
                           return (
@@ -497,14 +495,13 @@ export const BrandModulesV2Showcase: React.FC = () => {
                       3. Acabado de Perfilería de Aluminio (5 oficiales)
                     </SubsectionLabel>
                     <Box
-                      overflowX="auto"
                       pb="1"
                       css={{
                         "&::-webkit-scrollbar": { display: "none" },
                         scrollbarWidth: "none",
                       }}
                     >
-                      <HStack gap="2" flexWrap={{ base: "nowrap", md: "wrap" }}>
+                      <HStack gap="2" flexWrap="wrap">
                         {OFFICIAL_ALUMINUM_COLORS.map((finish) => {
                           const isSelected = finish.name === selectedFinishName;
                           return (

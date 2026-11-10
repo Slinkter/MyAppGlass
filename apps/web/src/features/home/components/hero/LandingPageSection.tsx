@@ -57,11 +57,12 @@ const LandingPageSection: React.FC = React.memo(() => {
           animation="slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1)"
           position="relative"
           w={{ base: "28", sm: "40", md: "56" }}
-          h={{ base: "26", sm: "36", md: "52" }}
+          h={{ base: "28", sm: "36", md: "52" }}
         >
           <Image
             src={logoGYA}
             alt="Glass & Aluminum Company Logo"
+            unoptimized
             fill
             priority
             sizes="(min-width: 768px) 224px, 160px"

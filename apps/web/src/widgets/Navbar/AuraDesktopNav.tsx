@@ -39,11 +39,18 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ previewActive }) => {
   const { activeSection: liveSection, selectSection } = useNavbarActiveSection();
   const activeSection = previewActive ?? liveSection;
 
-  // Centra el ítem activo si la pantalla es angosta
+  // Centra el ítem activo dentro de la barra si la pantalla es angosta.
+  // Se desplaza solo el contenedor en horizontal: `scrollIntoView` movía también la página en vertical.
   React.useEffect(() => {
-    if (!containerRef.current) return;
-    const activeBtn = containerRef.current.querySelector<HTMLElement>('[data-active="true"]');
-    activeBtn?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    const container = containerRef.current;
+    if (!container) return;
+    const activeBtn = container.querySelector<HTMLElement>('[data-active="true"]');
+    if (!activeBtn || container.scrollWidth <= container.clientWidth) return;
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+    const left =
+      container.scrollLeft + (btnRect.left - containerRect.left) - (container.clientWidth - btnRect.width) / 2;
+    container.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
   }, [activeSection]);
 
   return (

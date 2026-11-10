@@ -17,7 +17,7 @@ import { ReplenishStockModal } from "@/screens/Admin/inventory/ReplenishStockMod
 import { EMPTY_PRODUCT_FORM } from "@/screens/Admin/inventory/productForm";
 import { PrintOrderModal } from "@/screens/Admin/reports/PrintOrderModal";
 import { DUR_CSS, EASE_SOFT, EASE_TEXT } from "@/shared/constants/motion";
-import { ShowcaseCard, ShowcaseStack, SubsectionLabel } from "../../components";
+import { DrawLine, ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel, TabFade } from "../../components";
 
 const TABS = ["Ventanas", "Mamparas", "Techos"] as const;
 
@@ -116,8 +116,22 @@ export const TransitionsV2Showcase: React.FC = () => (
     badge="v2"
   >
     <ShowcaseStack>
-      <SubsectionLabel>Revelado de sección (se repite al pulsar «Reiniciar»)</SubsectionLabel>
+      <SubsectionLabel>Cascada de tarjetas (máximo 5, 40 ms entre cada una; se repite con «Reiniciar»)</SubsectionLabel>
       <RevealDemo />
+      <SubsectionLabel>Entrada de cada tarjeta del catálogo (Reveal) y línea que se dibuja bajo el título</SubsectionLabel>
+      <ShowcasePanel>
+        <Text fontWeight="700" color="text.heading" fontFamily="heading" fontSize="xl">Título de ejemplo</Text>
+        <LineDemo />
+        <RuleList
+          rules={[
+            "Cada ShowcaseCard entra con Reveal: sube 16 px y aparece una sola vez al entrar en pantalla (450 ms).",
+            "La línea bajo el título usa scaleX de 0 a 1 en 500 ms, con 200 ms de espera; una sola vez, sin bucle.",
+            "Máximo 1 o 2 elementos animándose a la vez; en dispositivos lite o con movimiento reducido no se anima.",
+          ]}
+        />
+      </ShowcasePanel>
+      <SubsectionLabel>Cambio de pestaña con fundido corto (TabFade)</SubsectionLabel>
+      <TabFadeDemo />
       <SubsectionLabel>Pestañas con indicador deslizante</SubsectionLabel>
       <SlidingTabs />
       <SubsectionLabel>Acordeón (0fr → 1fr)</SubsectionLabel>
@@ -127,6 +141,56 @@ export const TransitionsV2Showcase: React.FC = () => (
     </ShowcaseStack>
   </ShowcaseCard>
 );
+
+const RuleList: React.FC<{ rules: string[] }> = ({ rules }) => (
+  <VStack as="ul" align="start" gap="1" mt="4" pl="4" listStyleType="disc">
+    {rules.map((r) => (
+      <Text as="li" key={r} fontSize="sm" color="text.muted">
+        {r}
+      </Text>
+    ))}
+  </VStack>
+);
+
+const LineDemo: React.FC = () => {
+  const [run, setRun] = React.useState(0);
+  return (
+    <HStack mt="3" gap="4" align="center">
+      <Box flex="1" key={run}>
+        <DrawLine />
+      </Box>
+      <ChakraButton variant="outline" minH="11" onClick={() => setRun((n) => n + 1)}>
+        Repetir línea
+      </ChakraButton>
+    </HStack>
+  );
+};
+
+const TabFadeDemo: React.FC = () => {
+  const [tab, setTab] = React.useState(0);
+  return (
+    <VStack align="stretch" gap="3">
+      <HStack gap="2" wrap="wrap">
+        {["Tokens", "Tarjetas", "Navegación"].map((label, i) => (
+          <ChakraButton key={label} variant={tab === i ? "solid" : "outline"} minH="11" onClick={() => setTab(i)}>
+            {label}
+          </ChakraButton>
+        ))}
+      </HStack>
+      <ShowcasePanel minH="20">
+        <TabFade key={tab}>
+          <Text color="text.body">Contenido de la pestaña «{["Tokens", "Tarjetas", "Navegación"][tab]}».</Text>
+        </TabFade>
+      </ShowcasePanel>
+      <RuleList
+        rules={[
+          "Solo opacity, 150 ms, al montar el contenido (el catálogo desmonta la pestaña anterior).",
+          "No mueve nada: el cambio de pestaña no debe producir saltos de diseño.",
+        ]}
+      />
+    </VStack>
+  );
+};
 
 const RevealDemo: React.FC = () => {
   const [run, setRun] = React.useState(0);

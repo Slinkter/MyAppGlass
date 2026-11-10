@@ -6,6 +6,9 @@
 export { MobileNavbarV2 } from "./MobileNavbarV2";
 export type { MobileNavbarV2Props } from "./MobileNavbarV2";
 
+export { MenuFab } from "./MenuFab";
+export type { MenuFabProps } from "./MenuFab";
+
 export { MenuToggle } from "./MenuToggle";
 export type { MenuToggleProps } from "./MenuToggle";
 

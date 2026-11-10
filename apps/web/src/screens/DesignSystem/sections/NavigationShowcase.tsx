@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Badge, Box, Text, VStack, HStack, SimpleGrid, Tabs } from "@chakra-ui/react";
+import { Box, Text, VStack, HStack, SimpleGrid, Tabs } from "@chakra-ui/react";
 import {
   ChevronRight,
   ChevronLeft,
@@ -11,7 +11,7 @@ import {
   Calculator,
   Compass,
 } from "lucide-react";
-import { ShowcaseCard, ShowcasePanel, ShowcaseStack } from "../components";
+import { DemoLinks, ShowcaseCard, ShowcasePanel, ShowcaseStack } from "../components";
 import AuraDesktopNav from "@/widgets/Navbar/AuraDesktopNav";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
 import { FloatingWhatsAppButton, ThemeToggleButton } from "@/widgets/FloatingActions";
@@ -21,98 +21,18 @@ export const NavigationShowcase: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   return (
+    <DemoLinks>
     <ShowcaseStack>
-      {/* 1. Navbar Público en Cápsula (AuraDesktopNav) */}
+      {/* 1. Barra pública de escritorio (componente real, una sola variante) */}
       <ShowcaseCard
-        title="AuraDesktopNav — Barra pública en cápsula flotante"
-        description="Panel comparativo entre la barra de producción clásica y el rediseño minimalista: píldora flotante de vidrio esmerilado, pastilla negra activa, tipografía Inter en texto en oración y contraste WCAG AAA."
+        title="AuraDesktopNav — Barra pública en cápsula"
+        description="Componente real del sitio: píldora de vidrio con pastilla negra en el ítem activo y texto en oración. Solo existe una variante (la antigua barra clásica ya no existe). En 360 px la barra real no se muestra; aquí cabe porque el componente se ajusta al ancho."
         badge="Web Pública"
       >
-        <ShowcasePanel
-          p={{ base: "4", md: "8" }}
-          borderRadius="card"
-          minH="44"
-          position="relative"
-          maxW="100%"
-          minW="0"
-        >
-          {/* Fondo simulando el hero con tokens cálidos de marca */}
-          <Box
-            position="absolute"
-            inset="0"
-            borderRadius="card"
-            bg="bg.tint"
-            border="1px solid"
-            borderColor="border.warm"
-            pointerEvents="none"
-          />
-          <VStack
-            gap="8"
-            align="stretch"
-            position="relative"
-            w="full"
-          >
-            {/* 1.A. Producción Clásica */}
-            <VStack gap="3" align="stretch" w="full">
-              <HStack justify="space-between" align="center" wrap="wrap" gap="2">
-                <HStack gap="2">
-                  <Badge variant={"neutral" as never} size="sm">
-                    Producción
-                  </Badge>
-                  <Text fontSize="xs" fontWeight="700" color="text.heading" textTransform="uppercase" letterSpacing="0.08em">
-                    Barra Clásica (variant=&quot;default&quot;)
-                  </Text>
-                </HStack>
-                <Text fontSize="xs" color="text.muted">
-                  Botones en MAYÚSCULAS · Tracking 0.05em · Subrayado animado inferior
-                </Text>
-              </HStack>
-
-              <Box
-                maxW="full"
-                overflowX="auto"
-                display="flex"
-                justifyContent={{ base: "flex-start", md: "center" }}
-                w="full"
-                py="2"
-              >
-                <AuraDesktopNav variant="default" />
-              </Box>
-            </VStack>
-
-            {/* Separador sutil */}
-            <Box h="1px" bg="border.warm" w="full" />
-
-            {/* 1.B. Rediseño minimalista */}
-            <VStack gap="3" align="stretch" w="full">
-              <HStack justify="space-between" align="center" wrap="wrap" gap="2">
-                <HStack gap="2">
-                  <Badge variant={"inkSolid" as never} size="sm">
-                    Rediseño
-                  </Badge>
-                  <Text fontSize="xs" fontWeight="700" color="text.heading" textTransform="uppercase" letterSpacing="0.08em">
-                    Barra minimalista (variant=&quot;studio&quot;)
-                  </Text>
-                </HStack>
-                <HStack gap="3" wrap="wrap">
-                  <Text fontSize="xs" color="text.muted">
-                    Pastilla negra activa · Texto en oración · Cristal líquido flotante · WCAG AAA
-                  </Text>
-                </HStack>
-              </HStack>
-
-              <Box
-                maxW="full"
-                overflowX="auto"
-                display="flex"
-                justifyContent={{ base: "flex-start", md: "center" }}
-                w="full"
-                py="2"
-              >
-                <AuraDesktopNav variant="studio" previewActive="inicio" />
-              </Box>
-            </VStack>
-          </VStack>
+        <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="card" bg="bg.tint" borderColor="border.warm" minW="0">
+          <Box display="flex" justifyContent={{ base: "flex-start", md: "center" }} w="full" minW="0">
+            <AuraDesktopNav previewActive="inicio" />
+          </Box>
         </ShowcasePanel>
       </ShowcaseCard>
 
@@ -125,7 +45,6 @@ export const NavigationShowcase: React.FC = () => {
         <ShowcasePanel p={{ base: "4", md: "8" }} borderRadius="card" minW="0">
           <Box
             maxW="100%"
-            overflowX="auto"
             mb="-8"
             css={{
               // Garantizar contraste WCAG >= 4.5:1 en claro y oscuro para el badge ADMIN GYA
@@ -428,5 +347,6 @@ export const NavigationShowcase: React.FC = () => {
         </ShowcasePanel>
       </ShowcaseCard>
     </ShowcaseStack>
+    </DemoLinks>
   );
 };

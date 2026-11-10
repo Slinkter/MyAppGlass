@@ -52,3 +52,16 @@ export const TRANSITIONS = {
   fadeTransform: `opacity ${DUR_CSS.fast} ${EASE_SOFT}, transform ${DUR_CSS.fast} ${EASE_SOFT}`,
   reducedOnly: `opacity ${DUR_CSS.reducedFade} ease`,
 } as const;
+
+/**
+ * Presupuesto de movimiento (plan de animaciones ligeras). Todo movimiento de la web lo respeta:
+ * - solo `transform` y `opacity`; nunca `blur`, `backdrop-filter` ni sombras grandes animadas;
+ * - una sola vez por elemento; sin bucles infinitos en secciones de contenido;
+ * - máximo 1–2 elementos animándose por pantalla;
+ * - cascada máxima de 5 elementos, con paso de `staggerMs`.
+ */
+export const MOTION_BUDGET = {
+  maxStaggerItems: 5,
+  staggerMs: 40,
+  maxDurationMs: 500,
+} as const;

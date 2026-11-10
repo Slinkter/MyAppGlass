@@ -9,7 +9,8 @@
 
 import React from "react";
 import { Box, type BoxProps } from "@chakra-ui/react";
-import { DUR_MS, EASE_TEXT } from "@/shared/constants/motion";
+import { DUR_MS, EASE_TEXT, MOTION_BUDGET } from "@/shared/constants/motion";
+import { useMotionBudget } from "@/shared/hooks/ui/useMotionBudget";
 
 /** Duración del revelado de sección (ms). */
 export const REVEAL_MS = 450;
@@ -24,26 +25,17 @@ export interface RevealProps extends Omit<BoxProps, "transition"> {
   children: React.ReactNode;
 }
 
-function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = React.useState(false);
-  React.useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const onChange = () => setReduced(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-  return reduced;
-}
-
 export const Reveal: React.FC<RevealProps> = ({ index = 0, children, ...rest }) => {
   const ref = React.useRef<HTMLDivElement>(null);
-  const reduced = usePrefersReducedMotion();
+  const level = useMotionBudget();
+  const reduced = level === "none";
+  // En gama baja (level "lite") no hay revelado: el contenido aparece directo y no se gasta CPU.
+  const skip = level !== "full";
   const [shown, setShown] = React.useState(false);
 
   React.useEffect(() => {
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
+    if (skip || !el || typeof IntersectionObserver === "undefined") {
       setShown(true);
       return;
     }
@@ -58,9 +50,9 @@ export const Reveal: React.FC<RevealProps> = ({ index = 0, children, ...rest }) 
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [skip]);
 
-  const delay = reduced ? 0 : index * REVEAL_STAGGER_MS;
+  const delay = reduced ? 0 : Math.min(index, MOTION_BUDGET.maxStaggerItems) * REVEAL_STAGGER_MS;
   const dur = reduced ? DUR_MS.reducedFade : REVEAL_MS;
 
   return (
