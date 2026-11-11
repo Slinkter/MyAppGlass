@@ -238,21 +238,51 @@ export function ContactFormSection({
             w="full"
             pt={1}
           >
-            <Checkbox 
-              name="acceptedTerms"
-              checked={formData.acceptedTerms}
-              onCheckedChange={(details) => handleCheckedChange(!!details.checked)}
-            >
-              <Text fontSize="xs" color="text.muted" fontWeight="600">
-                He leído y acepto las{" "}
-                <Text as="span" color="text.accent" textDecoration="underline">
-                  <Link href="/politicas-empresa" target="_blank" rel="noopener noreferrer">
-                    Políticas de Privacidad (Ley N° 29733)
-                  </Link>
-                </Text>{" "}
-                y el tratamiento de mis datos para la cotización solicitada.
-              </Text>
-            </Checkbox>
+            <VStack align="flex-start" gap="1" w="full">
+              <Box
+                w="full"
+                minH="11"
+                display="flex"
+                alignItems="center"
+              >
+                <Checkbox 
+                  name="acceptedTerms"
+                  checked={formData.acceptedTerms}
+                  onCheckedChange={(details) => handleCheckedChange(!!details.checked)}
+                  minH="11"
+                  cursor="pointer"
+                  py="2"
+                  alignItems="flex-start"
+                >
+                  <Text fontSize="xs" color="text.muted" fontWeight="600" lineHeight="tall">
+                    He leído y acepto los términos y el tratamiento de mis datos para la cotización solicitada.
+                  </Text>
+                </Checkbox>
+              </Box>
+
+              <Box pl="7">
+                <Link
+                  href="/politicas-empresa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    minHeight: "44px",
+                    minWidth: "44px",
+                  }}
+                >
+                  <Text
+                    fontSize="xs"
+                    color="text.accent"
+                    fontWeight="600"
+                    textDecoration="underline"
+                  >
+                    Ver Políticas de Privacidad (Ley N° 29733) →
+                  </Text>
+                </Link>
+              </Box>
+            </VStack>
           </Field>
         </VStack>
 

@@ -19,7 +19,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(({ image, nameClient, d
     imageAlt={nameClient}
     title={nameClient}
     description={descClient}
-    rootProps={{ as: "article" }}
+    rootProps={{ as: "article", boxShadow: "none" }}
   />
 ));
 

@@ -88,7 +88,7 @@ export const ImmersiveLocationMap: React.FC<ImmersiveLocationMapProps> = ({ init
           <LocationMapLazy projects={projects} selectedId={selectedId} onSelect={handleSelect} showStore showRecenter />
         ) : (
           <Box w="full" h="full" bg="bg.subtle" display="flex" alignItems="center" justifyContent="center">
-            <Button variant="outline" size="sm" onClick={() => setShouldLoadMap(true)}>
+            <Button variant="outline" size="sm" minH="11" minW="11" px="4" onClick={() => setShouldLoadMap(true)}>
               Ver mapa interactivo
             </Button>
           </Box>

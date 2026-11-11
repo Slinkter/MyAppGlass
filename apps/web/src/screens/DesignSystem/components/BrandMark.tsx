@@ -58,7 +58,7 @@ export const BrandLockup: React.FC<BrandLockupProps> = ({ tone = "coral", onDark
     <BrandMark tone={tone} size={size} />
     <VStack align="flex-start" gap="0.5" lineHeight="1.1">
       <Text
-        fontSize="2xs"
+        fontSize="xs"
         fontWeight="600"
         letterSpacing="label"
         textTransform="uppercase"

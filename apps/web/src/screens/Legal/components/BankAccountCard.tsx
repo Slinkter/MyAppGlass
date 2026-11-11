@@ -23,7 +23,7 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
     <Box
       w="full"
       bg="bg.subtle"
-      borderRadius="3xl"
+      borderRadius="card"
       borderWidth="1px"
       borderColor="border.default"
       overflow="hidden"
@@ -86,7 +86,7 @@ export const BankAccountCard: React.FC<BankAccountCardProps> = ({
             gap="3"
             p="3.5"
             bg="surface.card"
-            borderRadius="2xl"
+            borderRadius="card"
             borderWidth="1px"
             borderColor="border.default"
           >

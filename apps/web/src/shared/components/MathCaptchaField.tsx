@@ -64,8 +64,10 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
           <IconButton
             size="xs"
             variant="ghost"
-            minW={{ base: "11", md: "auto" }}
-            minH={{ base: "11", md: "auto" }}
+            minW="11"
+            minH="11"
+            w="11"
+            h="11"
             aria-label="Generar nueva operación matemática"
             title="Cambiar operación"
             onClick={refreshChallenge}
@@ -80,12 +82,16 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
           <Box
             px="3.5"
             py="2"
+            minH="12"
+            display="inline-flex"
+            alignItems="center"
+            justifyContent="center"
             bg={{ base: "white", _dark: "whiteAlpha.100" }}
             borderRadius="lg"
             borderWidth="1px"
             borderColor={error ? "red.300" : { base: "gray.300", _dark: "whiteAlpha.300" }}
             fontWeight="700"
-            fontSize="sm"
+            fontSize={{ base: "16px", md: "md" }}
             color="text.heading"
             userSelect="none"
             whiteSpace="nowrap"
@@ -105,6 +111,7 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
             value={value}
             onChange={handleInputChange}
             size="md"
+            minH="12"
             borderRadius="lg"
             bg={{ base: "white", _dark: "blackAlpha.600" }}
             borderWidth="1px"
@@ -116,7 +123,7 @@ export const MathCaptchaField: React.FC<MathCaptchaFieldProps> = ({
                 : "0 0 0 1px var(--chakra-colors-primary-500)",
             }}
             fontWeight="700"
-            fontSize="sm"
+            fontSize={{ base: "16px", md: "md" }}
             textAlign="center"
             maxLength={4}
             autoComplete="off"

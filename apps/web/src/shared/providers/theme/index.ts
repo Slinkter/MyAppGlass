@@ -2,7 +2,7 @@
  * @file index.ts
  * @description Aura Design System v2 - Chakra UI v3 Core Configuration.
  * Single source of truth for design tokens, component recipes, and semantic themes.
- * Marca v2: Lora + Inter, negro de marca (#111111), papel cálido #F7F6F3.
+ * Marca v2: Lora + Inter, negro de marca (#111111), fondo blanco, línea cálida #E6E3DE.
  */
 
 import { createSystem, defineConfig, defaultConfig, defineRecipe, defineSlotRecipe } from "@chakra-ui/react";
@@ -599,6 +599,9 @@ const config = defineConfig({
           inkHover: { value: "#2A2A2A" },
           inkActive: { value: "#000000" },
           inkSoft: { value: "#4A4A4A" },
+          /* Escala cálida de líneas (apps/web/DESIGN.md: line / line-strong). */
+          line: { value: "#E6E3DE" },
+          lineStrong: { value: "#D9D6D0" },
         },
         status: {
           info: { value: "#38bdf8" },
@@ -658,12 +661,18 @@ const config = defineConfig({
         "surface.icon": { value: { _light: "{colors.primary.50}", _dark: "rgba(255,255,255,0.04)" } },
         "surface.iconHover": { value: { _light: "{colors.primary.100}", _dark: "rgba(255,255,255,0.08)" } },
 
-        // Borders
-        "border.default": { value: { _light: "{colors.gray.200}", _dark: "rgba(255,255,255,0.08)" } },
+        // Borders (escala cálida line / line-strong según apps/web/DESIGN.md)
+        "border.default": { value: { _light: "{colors.brand.line}", _dark: "rgba(255,255,255,0.08)" } },
         "border.subtle": { value: { _light: "rgba(0,0,0,0.06)", _dark: "rgba(255,255,255,0.08)" } },
-        "border.strong": { value: { _light: "{colors.gray.300}", _dark: "rgba(255,255,255,0.12)" } },
-        "border.warm": { value: { _light: "#E6E3DE", _dark: "rgba(255,255,255,0.08)" } },
-        "border.warmStrong": { value: { _light: "#D9D6D0", _dark: "rgba(255,255,255,0.14)" } },
+        "border.strong": { value: { _light: "{colors.brand.lineStrong}", _dark: "rgba(255,255,255,0.14)" } },
+        "border.warm": { value: { _light: "{colors.brand.line}", _dark: "rgba(255,255,255,0.08)" } },
+        "border.warmStrong": { value: { _light: "{colors.brand.lineStrong}", _dark: "rgba(255,255,255,0.14)" } },
+        "border.line": { value: { _light: "{colors.brand.line}", _dark: "rgba(255,255,255,0.08)" } },
+        "border.lineStrong": { value: { _light: "{colors.brand.lineStrong}", _dark: "rgba(255,255,255,0.14)" } },
+        "border.line-strong": { value: { _light: "{colors.brand.lineStrong}", _dark: "rgba(255,255,255,0.14)" } },
+        line: { value: { _light: "{colors.brand.line}", _dark: "rgba(255,255,255,0.08)" } },
+        "line-strong": { value: { _light: "{colors.brand.lineStrong}", _dark: "rgba(255,255,255,0.14)" } },
+        lineStrong: { value: { _light: "{colors.brand.lineStrong}", _dark: "rgba(255,255,255,0.14)" } },
 
         // Status Borders
         "status.dangerBorder": { value: "rgba(248, 113, 113, 0.25)" },
@@ -681,9 +690,9 @@ const config = defineConfig({
         // Focus (>= 3:1 sobre el fondo en ambos temas, WCAG 1.4.11)
         "ring.primary": { value: { _light: "{colors.primary.700}", _dark: "{colors.primary.300}" } },
 
-        // Text
-        "text.body": { value: { _light: "{colors.gray.800}", _dark: "{colors.gray.300}" } },
-        "text.heading": { value: { _light: "{colors.gray.900}", _dark: "white" } },
+        // Text (apps/web/DESIGN.md: ink #111111 y inkSoft #4A4A4A)
+        "text.body": { value: { _light: "{colors.brand.inkSoft}", _dark: "{colors.gray.300}" } },
+        "text.heading": { value: { _light: "{colors.brand.ink}", _dark: "white" } },
         "text.muted": { value: { _light: "{colors.gray.600}", _dark: "{colors.gray.400}" } },
         "text.accent": { value: { _light: "{colors.primary.600}", _dark: "{colors.primary.300}" } },
       },

@@ -87,6 +87,9 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ previewActive }) => {
             minW="11"
             minH="11"
             h="11"
+            display="inline-flex"
+            alignItems="center"
+            justifyContent="center"
             px="5"
             flexShrink={0}
             fontFamily="body"
@@ -95,7 +98,6 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ previewActive }) => {
             letterSpacing="normal"
             textTransform="none"
             whiteSpace="nowrap"
-            justifyContent="center"
             transition="background-color 0.2s ease, color 0.2s ease"
             _focusVisible={{
               outline: "2px solid",
@@ -108,6 +110,13 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ previewActive }) => {
               href={item.href}
               aria-current={isActive ? "page" : undefined}
               transitionTypes={["nav-forward"]}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: "44px",
+                height: "44px",
+              }}
               onClick={() => {
                 if (itemKey) selectSection(itemKey);
               }}

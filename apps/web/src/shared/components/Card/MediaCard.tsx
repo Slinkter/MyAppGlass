@@ -58,7 +58,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
         position="relative"
         isolation="isolate"
         transform="translateZ(0)"
-        boxShadow="sm"
+        boxShadow="none"
         bg="brand.ink"
         {...cardMotion}
         {...rootProps}
@@ -129,9 +129,10 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
           <VStack align="flex-start" gap="1" minW={0} maxW={actionIcon ? "calc(100% - 56px)" : "full"}>
             <Heading
               as="h3"
+              fontFamily="heading"
               fontSize={{ base: "xl", md: "2xl" }}
               color="gray.900"
-              fontWeight="semibold"
+              fontWeight="700"
               letterSpacing="-0.02em"
               lineHeight="tight"
               lineClamp={2}

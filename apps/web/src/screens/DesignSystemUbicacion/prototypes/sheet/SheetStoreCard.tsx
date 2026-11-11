@@ -71,12 +71,20 @@ export const SheetStoreCard: React.FC<SheetStoreCardProps> = React.memo(({ store
             </Text>
           </HStack>
         </Box>
-        <Button asChild variant="primary" minH={TOUCH_MIN} w="full">
+        <Button asChild variant="primary" minH={TOUCH_MIN} minW={TOUCH_MIN} h={TOUCH_MIN} w="full">
           <a
             href={STORE_DIRECTIONS_URL}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Cómo llegar a la sede en Google Maps"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+              minHeight: "44px",
+            }}
           >
             <Navigation size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
             Cómo llegar

@@ -69,6 +69,7 @@ export const SplitStorePanel: React.FC<SplitStorePanelProps> = React.memo(({ sto
         flex="1"
         minW="140px"
         minH={TOUCH_MIN}
+        h={TOUCH_MIN}
         aria-label="Cómo llegar a la sede en Google Maps"
       >
         <Box as={Navigation} boxSize={4} style={{ flexShrink: 0 }} />
@@ -83,6 +84,7 @@ export const SplitStorePanel: React.FC<SplitStorePanelProps> = React.memo(({ sto
         flex="1"
         minW="140px"
         minH={TOUCH_MIN}
+        h={TOUCH_MIN}
         aria-label="Escribir por WhatsApp a Glass & Aluminum Company"
       >
         <Box as={MessageCircle} boxSize={4} style={{ flexShrink: 0 }} />

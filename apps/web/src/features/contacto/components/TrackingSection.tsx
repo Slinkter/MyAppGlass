@@ -86,6 +86,8 @@ export function TrackingSection({
             placeholder="Ej. resend-id-... o código oficial" 
             aria-label="Código de seguimiento"
             size="md" 
+            minH="11"
+            fontSize={{ base: "16px", md: "sm" }}
             value={trackingId}
             onChange={handleTrackingChange}
             borderRadius="xl"
@@ -104,6 +106,9 @@ export function TrackingSection({
             variant="primary" 
             type="submit" 
             loading={isTracking}
+            minH="11"
+            minW="11"
+            h="11"
             px="6"
             borderRadius="xl"
           >

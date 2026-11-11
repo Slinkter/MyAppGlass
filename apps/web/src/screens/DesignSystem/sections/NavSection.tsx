@@ -31,7 +31,7 @@ const DesktopNav: React.FC = () => (
       <HStack gap="2.5" flex="1 1 0">
         <BrandMark size="9" />
         <VStack align="flex-start" gap="0" lineHeight="1.1" display={{ base: "none", sm: "flex" }}>
-          <Text fontSize="2xs" fontWeight="bold" letterSpacing="label" textTransform="uppercase" color="text.muted">
+          <Text fontSize="xs" fontWeight="bold" letterSpacing="label" textTransform="uppercase" color="text.muted">
             Vidriería &amp; Aluminio
           </Text>
           <Text fontFamily="heading" fontWeight="700" fontSize="sm" color="text.heading">
@@ -61,7 +61,7 @@ const DesktopNav: React.FC = () => (
         ))}
       </HStack>
       <HStack gap="2" flex="1 1 0" justify="flex-end">
-        <Button variant="whatsapp" size="sm">
+        <Button variant="whatsapp" size="sm" aria-label={`Escribir por WhatsApp al ${companyData.whatsappDisplay}`}>
           <Phone size={16} aria-hidden="true" />
           <Box as="span" display={{ base: "none", sm: "inline" }}>{companyData.whatsappDisplay}</Box>
         </Button>

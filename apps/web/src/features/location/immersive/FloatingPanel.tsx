@@ -123,7 +123,9 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
               asChild
               variant="primary"
               minW={TOUCH_MIN}
+              minH={TOUCH_MIN}
               h={TOUCH_MIN}
+              w={TOUCH_MIN}
               p="0"
               borderRadius="xl"
             >
@@ -132,6 +134,15 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Cómo llegar a la sede"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  height: "100%",
+                  minWidth: "44px",
+                  minHeight: "44px",
+                }}
               >
                 <Navigation size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
               </a>
@@ -140,7 +151,9 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
               asChild
               variant="outline"
               minW={TOUCH_MIN}
+              minH={TOUCH_MIN}
               h={TOUCH_MIN}
+              w={TOUCH_MIN}
               p="0"
               borderRadius="xl"
             >
@@ -149,6 +162,15 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Escribir por WhatsApp"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  height: "100%",
+                  minWidth: "44px",
+                  minHeight: "44px",
+                }}
               >
                 <MessageCircle size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
               </a>
@@ -223,6 +245,8 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
               size="sm"
               flex="1"
               minH={TOUCH_MIN}
+              minW={TOUCH_MIN}
+              h={TOUCH_MIN}
               borderRadius="xl"
             >
               <a
@@ -230,6 +254,14 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Cómo llegar a la sede en Google Maps"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  height: "100%",
+                  minHeight: "44px",
+                }}
               >
                 <Navigation size={15} aria-hidden="true" style={{ flexShrink: 0 }} />
                 Cómo llegar
@@ -241,6 +273,8 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
               size="sm"
               flex="1"
               minH={TOUCH_MIN}
+              minW={TOUCH_MIN}
+              h={TOUCH_MIN}
               borderRadius="xl"
             >
               <a
@@ -248,6 +282,14 @@ export const StorePanel: React.FC<StorePanelProps> = React.memo(
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Escribir por WhatsApp"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  height: "100%",
+                  minHeight: "44px",
+                }}
               >
                 <MessageCircle size={15} aria-hidden="true" style={{ flexShrink: 0 }} />
                 WhatsApp
@@ -311,8 +353,29 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
           </Text>
         </Box>
         <HStack gap="2" flexShrink={0}>
-          <Button asChild variant="primary" minW={TOUCH_MIN} h={TOUCH_MIN} p="0" borderRadius="xl">
-            <RouterLink href={href} aria-label={`Ver la obra ${project.name}`}>
+          <Button
+            asChild
+            variant="primary"
+            minW={TOUCH_MIN}
+            minH={TOUCH_MIN}
+            h={TOUCH_MIN}
+            w={TOUCH_MIN}
+            p="0"
+            borderRadius="xl"
+          >
+            <RouterLink
+              href={href}
+              aria-label={`Ver la obra ${project.name}`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                minWidth: "44px",
+                minHeight: "44px",
+              }}
+            >
               <ArrowUpRight size={17} aria-hidden="true" style={{ flexShrink: 0 }} />
             </RouterLink>
           </Button>
@@ -321,7 +384,9 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
             onClick={onClose}
             aria-label="Cerrar detalle de la obra"
             minW={TOUCH_MIN}
+            minH={TOUCH_MIN}
             h={TOUCH_MIN}
+            w={TOUCH_MIN}
             p="0"
             borderRadius="xl"
           >
@@ -358,7 +423,9 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
                 variant="outline"
                 size="xs"
                 minW={TOUCH_MIN}
+                minH={TOUCH_MIN}
                 h={TOUCH_MIN}
+                w={TOUCH_MIN}
                 p="0"
                 borderRadius="full"
                 bg="bg.surface"
@@ -376,7 +443,9 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
                 variant="outline"
                 size="xs"
                 minW={TOUCH_MIN}
+                minH={TOUCH_MIN}
                 h={TOUCH_MIN}
+                w={TOUCH_MIN}
                 p="0"
                 borderRadius="full"
                 bg="bg.surface"
@@ -394,7 +463,9 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
               onClick={onClose}
               aria-label="Cerrar detalle de la obra"
               minW={TOUCH_MIN}
+              minH={TOUCH_MIN}
               h={TOUCH_MIN}
+              w={TOUCH_MIN}
               p="0"
               borderRadius="full"
               bg="bg.surface"
@@ -443,8 +514,19 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = React.memo(({ project
             )}
           </Box>
 
-          <Button asChild variant="primary" size="sm" minH={TOUCH_MIN} borderRadius="xl" w="full">
-            <RouterLink href={href} aria-label={`Ver detalles de la obra ${project.name}`}>
+          <Button asChild variant="primary" size="sm" minH={TOUCH_MIN} minW={TOUCH_MIN} h={TOUCH_MIN} borderRadius="xl" w="full">
+            <RouterLink
+              href={href}
+              aria-label={`Ver detalles de la obra ${project.name}`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                minHeight: "44px",
+              }}
+            >
               Ver obra completa
               <ArrowUpRight size={15} aria-hidden="true" style={{ flexShrink: 0 }} />
             </RouterLink>

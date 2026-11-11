@@ -76,9 +76,23 @@ export const SedeCard: React.FC = React.memo(() => (
           asChild
           variant="primary"
           minH={TOUCH_MIN}
+          minW={TOUCH_MIN}
+          h={TOUCH_MIN}
           aria-label="Cómo llegar a la sede en Google Maps (se abre en una pestaña nueva)"
         >
-          <a href={STORE_DIRECTIONS_URL} target="_blank" rel="noopener noreferrer">
+          <a
+            href={STORE_DIRECTIONS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+              minHeight: "44px",
+            }}
+          >
             <Navigation size={18} style={{ flexShrink: 0 }} aria-hidden />
             Cómo llegar
           </a>
@@ -88,9 +102,23 @@ export const SedeCard: React.FC = React.memo(() => (
             asChild
             variant="whatsapp"
             minH={TOUCH_MIN}
+            minW={TOUCH_MIN}
+            h={TOUCH_MIN}
             aria-label="Escribir por WhatsApp (se abre en una pestaña nueva)"
           >
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                minHeight: "44px",
+              }}
+            >
               WhatsApp
             </a>
           </Button>
@@ -98,9 +126,21 @@ export const SedeCard: React.FC = React.memo(() => (
             asChild
             variant="outline"
             minH={TOUCH_MIN}
+            minW={TOUCH_MIN}
+            h={TOUCH_MIN}
             aria-label={`Llamar al ${companyData.whatsappDisplay}`}
           >
-            <a href={`tel:+${companyData.whatsappNumber}`}>
+            <a
+              href={`tel:+${companyData.whatsappNumber}`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                minHeight: "44px",
+              }}
+            >
               <Phone size={18} style={{ flexShrink: 0 }} aria-hidden />
               {companyData.whatsappDisplay}
             </a>

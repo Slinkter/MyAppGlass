@@ -36,6 +36,7 @@ import { HeroSection } from "./sections/HeroSection";
 import { LandingsSection } from "./sections/LandingsSection";
 import { NavSection } from "./sections/NavSection";
 import { FormStatesSection } from "./sections/FormStatesSection";
+import { MobileUxSection } from "./sections/MobileUxSection";
 
 export const DesignSystemScreen: React.FC = () => {
   return (
@@ -91,6 +92,7 @@ export const DesignSystemScreen: React.FC = () => {
             <Tabs.Trigger value="data" flexShrink={0} whiteSpace="nowrap" minH="11">Tablas y fichas técnicas</Tabs.Trigger>
             <Tabs.Trigger value="status" flexShrink={0} whiteSpace="nowrap" minH="11">Estados y utilidades</Tabs.Trigger>
             <Tabs.Trigger value="media" flexShrink={0} whiteSpace="nowrap" minH="11">Galería e imágenes</Tabs.Trigger>
+            <Tabs.Trigger value="mobile-ux" flexShrink={0} whiteSpace="nowrap" minH="11">UX móvil</Tabs.Trigger>
             <Tabs.Trigger value="v2" flexShrink={0} whiteSpace="nowrap" minH="11">Modelos v2</Tabs.Trigger>
             <Tabs.Indicator />
           </Tabs.List>
@@ -162,6 +164,13 @@ export const DesignSystemScreen: React.FC = () => {
               <ImageRevealShowcase />
             </VStack>
           </TabFade>
+          </Tabs.Content>
+
+          {/* UX móvil */}
+          <Tabs.Content value="mobile-ux">
+            <TabFade>
+              <MobileUxSection />
+            </TabFade>
           </Tabs.Content>
 
           {/* Modelos v2 */}

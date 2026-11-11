@@ -103,7 +103,7 @@ const BankAccountsView: React.FC = () => {
                             p={{ base: "5", md: "8" }}
                             borderColor="border.default"
                             bg="bg.subtle"
-                            borderRadius="3xl"
+                            borderRadius="card"
                             borderWidth="1px"
                         >
                             <Flex
@@ -231,7 +231,7 @@ const BankAccountsView: React.FC = () => {
                         borderColor="border.default"
                         borderWidth="1px"
                         bg="bg.subtle"
-                        borderRadius="3xl"
+                        borderRadius="card"
                     >
                         <Text fontSize="sm" color="text.muted">
                             ¿Necesita confirmar un pago o requiere asistencia adicional?{" "}

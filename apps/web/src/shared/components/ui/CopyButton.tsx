@@ -42,8 +42,10 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ value, label }) => {
     <Tooltip content={`Copiar ${label}`}>
       <IconButton
         size="sm"
-        minW={{ base: "11", md: "auto" }}
-        minH={{ base: "11", md: "auto" }}
+        minW="11"
+        minH="11"
+        w="11"
+        h="11"
         aria-label={`Copiar ${label}`}
         onClick={handleCopy}
         variant="ghost"

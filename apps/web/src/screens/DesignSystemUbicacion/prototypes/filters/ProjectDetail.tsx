@@ -114,13 +114,39 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, store, hi
           </Flex>
         </VStack>
         <VStack align="stretch" gap="2">
-          <Button asChild variant="whatsapp" minH={TOUCH_MIN}>
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Escribir por WhatsApp a GYA">
+          <Button asChild variant="whatsapp" minH={TOUCH_MIN} minW={TOUCH_MIN} h={TOUCH_MIN}>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Escribir por WhatsApp a GYA"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                minHeight: "44px",
+              }}
+            >
               Escribir por WhatsApp
             </a>
           </Button>
-          <Button asChild variant="outline" minH={TOUCH_MIN}>
-            <a href={STORE_DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" aria-label="Cómo llegar a la sede de GYA">
+          <Button asChild variant="outline" minH={TOUCH_MIN} minW={TOUCH_MIN} h={TOUCH_MIN}>
+            <a
+              href={STORE_DIRECTIONS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Cómo llegar a la sede de GYA"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                minHeight: "44px",
+              }}
+            >
               <Navigation size={16} style={{ flexShrink: 0 }} aria-hidden="true" />
               Cómo llegar a la sede
             </a>
@@ -157,18 +183,37 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, store, hi
       </Box>
       <VStack align="stretch" gap="2">
         {project.href && (
-          <Button asChild variant="primary" minH={TOUCH_MIN}>
-            <RouterLink href={project.href} aria-label={`Ver la obra ${project.name}`}>
+          <Button asChild variant="primary" minH={TOUCH_MIN} minW={TOUCH_MIN} h={TOUCH_MIN}>
+            <RouterLink
+              href={project.href}
+              aria-label={`Ver la obra ${project.name}`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                minHeight: "44px",
+              }}
+            >
               Ver obra
             </RouterLink>
           </Button>
         )}
-        <Button asChild variant="outline" minH={TOUCH_MIN}>
+        <Button asChild variant="outline" minH={TOUCH_MIN} minW={TOUCH_MIN} h={TOUCH_MIN}>
           <a
             href={mapsUrl(project.position)}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Cómo llegar a la obra ${project.name} en Google Maps`}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+              minHeight: "44px",
+            }}
           >
             <Navigation size={16} style={{ flexShrink: 0 }} aria-hidden="true" />
             Cómo llegar a esta obra
