@@ -5,7 +5,8 @@ import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import { Store } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
+import { ImageRevealSkeleton } from "@shared/components/Image/ImageReveal";
+import { useImageReveal } from "@shared/components/Image/useImageReveal";
 import type { StoreLocation } from "@/entities/store/model";
 import { STORE_ID, type LocationProject } from "@/features/location/useLocationData";
 

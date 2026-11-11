@@ -8,7 +8,8 @@ import { Button } from "@/shared/ui/button";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { companyData } from "@/shared/config/company-data";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
+import { ImageRevealSkeleton } from "@shared/components/Image/ImageReveal";
+import { useImageReveal } from "@shared/components/Image/useImageReveal";
 import type { StoreLocation } from "@/entities/store/model";
 import {
   STORE_DIRECTIONS_URL,

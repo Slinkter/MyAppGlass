@@ -10,7 +10,8 @@
 import React from "react";
 import { Box, Heading, Text, VStack, HStack, type BoxProps } from "@chakra-ui/react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
+import { ImageRevealSkeleton } from "@shared/components/Image/ImageReveal";
+import { useImageReveal } from "@shared/components/Image/useImageReveal";
 import { glassLightOnPhoto } from "@/shared/constants/glass";
 
 /** Curva de desaceleración suave del sistema de movimiento de las cards. */

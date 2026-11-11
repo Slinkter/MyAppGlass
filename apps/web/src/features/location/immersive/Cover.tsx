@@ -4,7 +4,8 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 import { Building2 } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
+import { ImageRevealSkeleton } from "@shared/components/Image/ImageReveal";
+import { useImageReveal } from "@shared/components/Image/useImageReveal";
 
 export interface CoverProps {
   src?: string;

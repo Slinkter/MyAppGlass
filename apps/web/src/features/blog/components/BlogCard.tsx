@@ -7,7 +7,8 @@ import Link from "next/link";
 import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideArrowRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
+import { ImageRevealSkeleton } from "@shared/components/Image/ImageReveal";
+import { useImageReveal } from "@shared/components/Image/useImageReveal";
 
 interface BlogCardProps {
   post: BlogPost;
