@@ -1,5 +1,6 @@
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import { readdirSync } from "node:fs";
 import baseConfig from "@gya/eslint-config";
 
 /**
@@ -32,12 +33,22 @@ const restrictUpwards = (blockedLayers) => [
 const FSD_LAYERS = {
   shared: ["entities", "features", "widgets", "screens", "app"],
   entities: ["features", "widgets", "screens", "app"],
-  features: ["widgets", "screens", "app"],
   widgets: ["screens", "app"],
   // Las pantallas se componen entre sí solo a través de `app`; una pantalla
   // no debe importar otra pantalla.
   screens: ["screens", "app"],
 };
+
+/**
+ * Una feature no puede importar otra feature. Se enumeran las carpetas para
+ * bloquear solo las ajenas: los imports internos de la propia feature siguen
+ * permitidos (`@/features/<misma>`).
+ */
+const FEATURES = readdirSync(new URL("./src/features", import.meta.url), {
+  withFileTypes: true,
+})
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name);
 
 export default tseslint.config(
   ...baseConfig,
@@ -63,6 +74,36 @@ export default tseslint.config(
     files: [`src/${layer}/**/*.{ts,tsx}`],
     rules: {
       "no-restricted-imports": restrictUpwards(blocked),
+    },
+  })),
+  ...FEATURES.map((feature) => ({
+    files: [`src/features/${feature}/**/*.{ts,tsx}`],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                ...FEATURES.filter((other) => other !== feature).flatMap((other) => [
+                  `@/features/${other}`,
+                  `@/features/${other}/**`,
+                  `@features/${other}`,
+                  `@features/${other}/**`,
+                ]),
+                ...["widgets", "screens", "app"].flatMap((layer) => [
+                  `@/${layer}`,
+                  `@/${layer}/**`,
+                  `@${layer}`,
+                  `@${layer}/**`,
+                ]),
+              ],
+              message:
+                "Violación FSD: una feature no puede importar otra feature ni una capa superior. Baja la dependencia a `entities` o `shared`.",
+            },
+          ],
+        },
+      ],
     },
   })),
   {

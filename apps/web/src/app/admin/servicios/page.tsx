@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { AdminLayout } from "@/features/admin/components/AdminLayout";
+import { AdminLayout } from "@/widgets/AdminLayout/AdminLayout";
 import { ServiceAdminTable } from "@/features/admin/components/ServiceAdminTable";
 import { ServiceFormModal } from "@/features/admin/components/ServiceFormModal";
 import {

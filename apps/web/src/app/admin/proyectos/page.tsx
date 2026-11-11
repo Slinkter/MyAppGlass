@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { AdminLayout } from "@/features/admin/components/AdminLayout";
+import { AdminLayout } from "@/widgets/AdminLayout/AdminLayout";
 import { ProjectAdminTable } from "@/features/admin/components/ProjectAdminTable";
 import { ProjectFormModal } from "@/features/admin/components/ProjectFormModal";
 import {
