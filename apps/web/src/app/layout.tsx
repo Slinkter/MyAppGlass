@@ -10,6 +10,7 @@ import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { FloatingWhatsAppWrapper as FloatingWhatsApp, ThemeToggle } from "@/widgets/FloatingActions";
 import SkipLink from "@/shared/components/navigation/SkipLink";
 import { HideOnRoutes } from "@/shared/components/HideOnRoutes";
+import { MotionCssVars } from "@/shared/components/motion/MotionCssVars";
 import GoogleMetricsProvider from "@/shared/components/Analytics/GoogleMetricsProvider";
 import { getCompanyJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
 
@@ -36,6 +37,8 @@ export const viewport: Viewport = {
     width: "device-width",
     initialScale: 1.0,
     maximumScale: 5.0,
+    // Necesario para que env(safe-area-inset-*) tenga valor en teléfonos con notch o barra de gestos.
+    viewportFit: "cover",
     themeColor: [
         { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
         { media: "(prefers-color-scheme: dark)", color: "#09090B" },
@@ -118,6 +121,7 @@ export default function RootLayout({
                 />
             </head>
             <body>
+                <MotionCssVars />
                 <Providers>
                     <GoogleMetricsProvider />
                     <Box minH="100dvh" position="relative">
@@ -127,8 +131,10 @@ export default function RootLayout({
                             position="relative"
                             maxW="1440px"
                             mx="auto"
-                            px={{ base: "6", md: "14" }}
-                            pb="6"
+                            pl={{ base: "max(var(--chakra-spacing-6), env(safe-area-inset-left, 0px))", md: "14" }}
+                            pr={{ base: "max(var(--chakra-spacing-6), env(safe-area-inset-right, 0px))", md: "14" }}
+                            pt="env(safe-area-inset-top, 0px)"
+                            pb="calc(var(--chakra-spacing-6) + env(safe-area-inset-bottom, 0px))"
                             zIndex={1}
                         >
                             <HideOnRoutes prefixes={LAB_ROUTE_PREFIXES}>

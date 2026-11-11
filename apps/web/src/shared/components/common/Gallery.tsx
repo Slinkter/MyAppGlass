@@ -300,13 +300,11 @@ const GalleryThumbnails: React.FC = () => {
  * </Gallery.Root>
  * ```
  */
-export const Gallery = Object.assign(GalleryRoot, {
-    /** Root container that initializes the gallery context */
-    Root: GalleryRoot,
-    /** Main image viewer with navigation controls */
-    Viewer: GalleryViewer,
-    /** Carousel of thumbnails for quick selection */
-    Thumbnails: GalleryThumbnails,
-});
+export function Gallery(props: React.ComponentProps<typeof GalleryRoot>) {
+    return <GalleryRoot {...props} />;
+}
+Gallery.Root = GalleryRoot;
+Gallery.Viewer = GalleryViewer;
+Gallery.Thumbnails = GalleryThumbnails;
 
 export default Gallery;

@@ -8,6 +8,7 @@ import {
   serializeJsonLd,
 } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 const SIMULADOR_TITLE = "Simulador Visual de Ventanas y Mamparas en Tu Espacio";
 const SIMULADOR_DESCRIPTION =
@@ -35,16 +36,18 @@ export default function SimuladorAIPage() {
   ]);
 
   return (
-    <ComponentErrorBoundary>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(webAppJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
-      />
-      <SimuladorAIScreen />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(webAppJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
+        />
+        <SimuladorAIScreen />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

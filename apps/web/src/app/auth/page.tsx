@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LoginScreen } from "@/screens/Auth/LoginScreen";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = {
   title: "Acceso de Clientes",
@@ -12,5 +13,9 @@ export const metadata: Metadata = {
 };
 
 export default function AuthPage() {
-  return <LoginScreen />;
+  return (
+    <PageTransition>
+      <LoginScreen />
+    </PageTransition>
+  );
 }

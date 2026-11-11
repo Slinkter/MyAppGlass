@@ -44,6 +44,7 @@ export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
         transform: "translateY(-3px)",
         boxShadow: "lg",
       }}
+      _motionReduce={{ transition: "none", transform: "none", _hover: { transform: "none" } }}
     >
       <Box
         as={MessageSquareText}
@@ -52,6 +53,7 @@ export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
         color="white"
         transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
         _groupHover={{ transform: "scale(1.12)" }}
+        _motionReduce={{ transition: "none", transform: "none" }}
       />
       <Heading size="md" mb="1" letterSpacing="tight" color="white" fontWeight="700">
         Cotizar {systemName}
@@ -82,6 +84,7 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
     _hover={{
       borderColor: "border.strong",
     }}
+    _motionReduce={{ transition: "none" }}
   >
     <Box>
       <Heading as="h2" size={{ base: "sm", md: "md" }} mb="2" letterSpacing="tight" color="text.heading" fontWeight="700">

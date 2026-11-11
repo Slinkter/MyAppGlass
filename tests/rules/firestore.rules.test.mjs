@@ -42,6 +42,37 @@ await t("clientes dni 8", true, () => setDoc(doc(c("c8"), "clientes", "c8"), cli
 await t("clientes ruc 11", true, () => setDoc(doc(c("c11"), "clientes", "c11"), cli("c11", "12345678901")));
 await t("clientes dni 9", false, () => setDoc(doc(c("c9"), "clientes", "c9"), cli("c9", "123456789")));
 
+// ---------------------------------------------------------------
+// Fase 2.1: Validación de roles y permisos admin vs @gyacompany.com sin rol
+// ---------------------------------------------------------------
+// 1. Usuario con @gyacompany.com pero sin rol/claim admin -> NO debe poder escribir en productos/services
+const gyaUserNoAdmin = env.authenticatedContext("gya1", { email: "empleado@gyacompany.com" }).firestore();
+await t("gya domain sin rol admin write productos", false, () => setDoc(doc(gyaUserNoAdmin, "productos", "p1"), { name: "Vidrio" }));
+await t("gya domain sin rol admin write services", false, () => setDoc(doc(gyaUserNoAdmin, "services", "s1"), { name: "Ventanas" }));
+
+// 2. Usuario con claim role=admin -> SÍ puede escribir en productos, services y ver pedidos
+const adminWithClaim = env.authenticatedContext("adminClaim", { email: "acueva@gyacompany.com", role: "admin" }).firestore();
+await t("admin with token claim write productos", true, () => setDoc(doc(adminWithClaim, "productos", "p1"), { name: "Vidrio Templado" }));
+await t("admin with token claim write services", true, () => setDoc(doc(adminWithClaim, "services", "s1"), { name: "Ventanas Acusticas" }));
+await t("admin with token claim write pedidos", true, () => setDoc(doc(adminWithClaim, "pedidos", "ped1"), { total: 500 }));
+
+// 3. Usuario admin mediante documento users/{uid}.role == 'admin' -> SÍ puede escribir
+await env.withSecurityRulesDisabled(async (context) => {
+  await setDoc(doc(context.firestore(), "users", "adminDocUser"), {
+    uid: "adminDocUser",
+    email: "luis.j.cueva@gmail.com",
+    role: "admin"
+  });
+});
+const adminWithDoc = env.authenticatedContext("adminDocUser", { email: "luis.j.cueva@gmail.com" }).firestore();
+await t("admin with users doc role=admin write productos", true, () => setDoc(doc(adminWithDoc, "productos", "p2"), { name: "Mampara" }));
+
+// 4. Cliente regular NO puede leer ni escribir colecciones exclusivas de admin (pedidos, libro_de_reclamaciones)
+const clienteUser = env.authenticatedContext("cli1", { email: "cliente@gmail.com" }).firestore();
+await t("cliente read pedidos", false, () => getDoc(doc(clienteUser, "pedidos", "ped1")));
+await t("cliente write pedidos", false, () => setDoc(doc(clienteUser, "pedidos", "ped2"), { total: 100 }));
+await t("cliente write services", false, () => setDoc(doc(clienteUser, "services", "s2"), { name: "Hack" }));
+
 await env.cleanup();
 console.log(`${results.filter(Boolean).length}/${results.length} OK`);
 process.exit(results.every(Boolean) ? 0 : 1);

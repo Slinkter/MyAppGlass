@@ -6,7 +6,8 @@ import RouterLink from "next/link";
 import { ArrowUpRight, Route } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
+import { ImageRevealSkeleton } from "@shared/components/Image/ImageReveal";
+import { useImageReveal } from "@shared/components/Image/useImageReveal";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import type { LocationProject } from "@/features/location/useLocationData";
 

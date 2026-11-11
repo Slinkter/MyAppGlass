@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Box, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { useShopProducts } from "@/features/tienda/useShopProducts";
 import { useCartStore } from "@/features/tienda/useCartStore";
+import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { CartDrawer } from "./CartDrawer";
 
 const CATEGORIES = [
@@ -63,42 +64,63 @@ export function ShopScreen() {
         ))}
       </HStack>
 
-      <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap="4">
-        {visible.map((p) => {
+      <ItemGridLayout
+        motion="cine"
+        columns={{ base: 1, sm: 2, lg: 3 }}
+        gap="4"
+        containerProps={{ px: 0, py: 0, maxW: "full" }}
+      >
+        {visible.map((p, index) => {
           const inCart = cart.lines.find((l) => l.productId === (p.id ?? p.sku))?.quantity ?? 0;
           const soldOut = p.stock <= 0;
           return (
-            <Box key={p.id ?? p.sku} p={{ base: "4", md: "6" }} borderWidth="1px" borderRadius="xl">
-              <VStack align="stretch" gap="2" h="full">
-                <Text fontWeight="bold">{p.name}</Text>
-                <Text fontSize="sm" color="text.muted" lineClamp={3}>
-                  {p.description}
-                </Text>
-                <Text fontSize="lg" fontWeight="bold">
-                  S/ {p.unitPrice.toFixed(2)}{" "}
-                  <Text as="span" fontSize="xs" fontWeight="normal" color="text.muted">
-                    / {p.unit} + IGV
-                  </Text>
-                </Text>
-                <Text fontSize="xs" color={soldOut ? "red.600" : "text.muted"}>
-                  {soldOut ? "Agotado" : `Stock: ${p.stock}`}
-                </Text>
-                <Button
-                  variant="primary"
-                  minH={TOUCH_MIN}
-                  disabled={soldOut || inCart >= p.stock}
-                  onClick={() => {
-                    cart.add(p, 1);
-                    cart.open();
-                  }}
-                >
-                  Agregar al carrito
-                </Button>
-              </VStack>
-            </Box>
+            <ItemGridLayout.Item key={p.id ?? p.sku} index={index}>
+              <Box
+                p={{ base: "4", md: "6" }}
+                borderWidth="1px"
+                borderRadius="xl"
+                bg="surface.card"
+                borderColor="border.default"
+                h="full"
+                transition="transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1)"
+                _hover={{ transform: "translateY(-4px)", boxShadow: "elevatedLg" }}
+                _motionReduce={{ transition: "none", transform: "none", _hover: { transform: "none" } }}
+              >
+                <VStack align="stretch" gap="2" h="full" justify="space-between">
+                  <VStack align="stretch" gap="2">
+                    <Text fontWeight="bold">{p.name}</Text>
+                    <Text fontSize="sm" color="text.muted" lineClamp={3}>
+                      {p.description}
+                    </Text>
+                  </VStack>
+                  <VStack align="stretch" gap="2" pt="2">
+                    <Text fontSize="lg" fontWeight="bold">
+                      S/ {p.unitPrice.toFixed(2)}{" "}
+                      <Text as="span" fontSize="xs" fontWeight="normal" color="text.muted">
+                        / {p.unit} + IGV
+                      </Text>
+                    </Text>
+                    <Text fontSize="xs" color={soldOut ? "red.600" : "text.muted"}>
+                      {soldOut ? "Agotado" : `Stock: ${p.stock}`}
+                    </Text>
+                    <Button
+                      variant="primary"
+                      minH={TOUCH_MIN}
+                      disabled={soldOut || inCart >= p.stock}
+                      onClick={() => {
+                        cart.add(p, 1);
+                        cart.open();
+                      }}
+                    >
+                      Agregar al carrito
+                    </Button>
+                  </VStack>
+                </VStack>
+              </Box>
+            </ItemGridLayout.Item>
           );
         })}
-      </SimpleGrid>
+      </ItemGridLayout>
 
       <CartDrawer catalog={products} />
     </Box>

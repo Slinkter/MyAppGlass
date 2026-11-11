@@ -6,7 +6,7 @@ import { ShowcaseCard, ShowcaseStack } from "../components";
 import { Button } from "@/shared/ui/button";
 import ServiceCard from "@/entities/service/ui/ServiceCard";
 import ProjectCardContent from "@/entities/project/ui/ProjectCardContent";
-import ClientCard from "@/features/home/components/clients/ClientCard";
+import { ClientTestimonialCard } from "@/features/home/components/clients/ClientTestimonialCard";
 
 const CARD_GRID = { base: 1, md: 2, lg: 3 } as const;
 
@@ -106,17 +106,17 @@ export const EditorialCardsShowcase: React.FC = () => {
             </Button>
           </HStack>
           <SimpleGrid columns={CARD_GRID} gap={{ base: "4", md: "6" }}>
-            <ClientCard
+            <ClientTestimonialCard
               nameClient="Constructora Palmer"
               descClient="Ventanas Serie 35 & Mamparas"
               image="/images/clients-building.webp"
             />
-            <ClientCard
+            <ClientTestimonialCard
               nameClient="Vittorie Arquitectura"
               descClient="Barandas de Vidrio Templado"
               image="/images/clients-sectoroffices.webp"
             />
-            <ClientCard
+            <ClientTestimonialCard
               nameClient="Residencial Los Fresnos"
               descClient="Fachada Integral & Techos"
               image="/images/clients-sectorhogar.webp"

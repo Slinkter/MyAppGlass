@@ -44,7 +44,10 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
   }, []);
 
   return (
-    <Box animation="fadeIn 0.4s ease-out">
+    <Box
+      animation="fadeIn 0.4s ease-out"
+      _motionReduce={{ animation: "none", transition: "none" }}
+    >
       <Container maxW="7xl" px={{ base: "3", sm: "4", lg: "0" }} pt={{ base: "3", md: "5" }} pb={{ base: "12", lg: "8" }}>
         <VStack gap={{ base: "4", sm: "5", lg: "8" }} align="stretch">
           <ServiceHeader 
@@ -82,6 +85,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                     w="full"
                     h="full"
                     animation="scaleIn 0.5s cubic-bezier(0, 0.55, 0.45, 1)"
+                    _motionReduce={{ animation: "none", transition: "none" }}
                     overflow="hidden"
                     borderRadius={{ base: "2xl", lg: "3xl" }}
                   >

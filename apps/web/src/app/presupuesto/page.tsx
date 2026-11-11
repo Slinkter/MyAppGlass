@@ -8,6 +8,7 @@ import {
   serializeJsonLd,
 } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 const PRESUPUESTO_TITLE = "Cotizador de Presupuestos de Vidrio y Aluminio Online";
 const PRESUPUESTO_DESCRIPTION =
@@ -34,16 +35,18 @@ export default function PresupuestoPage() {
   ]);
 
   return (
-    <ComponentErrorBoundary>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(webAppJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
-      />
-      <PresupuestoWizardScreen />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(webAppJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
+        />
+        <PresupuestoWizardScreen />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

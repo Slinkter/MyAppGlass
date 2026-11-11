@@ -7,7 +7,8 @@ import Link from "next/link";
 import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideArrowRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
-import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
+import { ImageRevealSkeleton } from "@shared/components/Image/ImageReveal";
+import { useImageReveal } from "@shared/components/Image/useImageReveal";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -33,7 +34,7 @@ function formatBlogDate(dateStr: string): string {
  * @component BlogCard
  * @description Tarjeta de artículo: plana en reposo, elevación suave solo en hover/foco.
  */
-const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
+const BlogCard: React.FC<BlogCardProps> = ({ post, index: _index }) => {
   // La tarjeta se revela (foto + textos) cuando la portada termina de cargar.
   const { loaded, onLoad, reveal } = useImageReveal();
   const formattedDate = useMemo(() => formatBlogDate(post.date), [post.date]);
@@ -56,10 +57,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
           borderColor="border.default"
           borderRadius="card"
           overflow="hidden"
-          animation={`slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s both`}
           transition="box-shadow 0.3s ease, transform 0.3s ease"
           _hover={{ boxShadow: "elevatedLg", transform: "translateY(-4px)" }}
-          _motionReduce={{ animation: "none", transition: "none", _hover: { transform: "none" } }}
+          _motionReduce={{ animation: "none", transition: "none", transform: "none", _hover: { transform: "none" } }}
           display="flex"
           flexDirection="column"
           position="relative"

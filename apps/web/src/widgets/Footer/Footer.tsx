@@ -31,7 +31,7 @@ import LibroReclamacionesIcon from "@/assets/libro.svg";
 import logoGYA from "@/assets/branding/logosvg.svg";
 import React from "react";
 import type { ElementType, ReactNode } from "react";
-import NAV_ITEMS, { ACCOUNT_NAV_ITEM } from "@/shared/config/nav-items";
+import { FOOTER_EXPLORE_ITEMS } from "@/shared/config/nav-items";
 import { companyData } from "@/shared/config/company-data";
 
 import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
@@ -216,7 +216,7 @@ const Footer = () => {
                             asNav
                             navAriaLabel="Navegación principal del sitio"
                         >
-                            {[...NAV_ITEMS, ACCOUNT_NAV_ITEM].map((item) => (
+                            {FOOTER_EXPLORE_ITEMS.map((item) => (
                                 <FooterRow key={item.label} to={item.href}>
                                     {item.label}
                                 </FooterRow>
@@ -240,10 +240,10 @@ const Footer = () => {
                                 {companyData.direccion}
                             </FooterRow>
                             <FooterRow icon={Calendar}>
-                                Lunes a Sábado
+                                {companyData.schedule.days}
                             </FooterRow>
                             <FooterRow icon={Clock}>
-                                8:00 am – 6:00 pm
+                                {companyData.schedule.hours}
                             </FooterRow>
                             <FooterRow
                                 to={`https://wa.me/${companyData.whatsappNumber}`}

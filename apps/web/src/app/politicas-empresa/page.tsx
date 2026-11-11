@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { CompanyPoliciesView } from "@/screens/Legal";
 import { buildPageMetadata } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Políticas de la Empresa y Garantías",
@@ -12,8 +13,10 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function Page() {
   return (
-    <ComponentErrorBoundary>
-      <CompanyPoliciesView />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        <CompanyPoliciesView />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

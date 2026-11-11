@@ -60,6 +60,7 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
           <Box
             key="map-view"
             animation="fadeIn 0.2s ease"
+            _motionReduce={{ animation: "none", transition: "none" }}
             w="full"
             h="full"
           >
@@ -80,6 +81,7 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
           <Box
             key="gallery-view"
             animation="scaleIn 0.2s ease"
+            _motionReduce={{ animation: "none", transition: "none" }}
             w="full"
             h="full"
           >

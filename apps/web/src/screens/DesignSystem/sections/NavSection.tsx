@@ -94,7 +94,7 @@ const SitelinksFooter: React.FC = () => (
     </SimpleGrid>
     <HStack mt="8" pt="4" borderTopWidth="1px" borderColor="whiteAlpha.300" justify="space-between" wrap="wrap" gap="2" fontSize="xs" color="whiteAlpha.700">
       <Text>{companyData.razonSocial} · RUC {companyData.ruc}</Text>
-      <Text>{companyData.direccion} · Lunes a sábado, 8:00 a 18:00</Text>
+      <Text>{companyData.direccion} · {companyData.horario}</Text>
     </HStack>
   </Box>
 );
@@ -110,7 +110,7 @@ export const NavSection: React.FC = () => (
         <DesktopNav />
       </VStack>
     </ShowcaseCard>
-    <ShowcaseCard title="Footer con sitelinks" description="Cuatro columnas con las rutas de la jerarquía SEO. Datos de empresa solo desde companyData; el horario se escribe aquí porque companyData todavía no lo tiene (pendiente).">
+    <ShowcaseCard title="Footer con sitelinks" description="Cuatro columnas con las rutas de la jerarquía SEO. Datos de empresa solo desde companyData incluyendo horario centralizado.">
       <SitelinksFooter />
     </ShowcaseCard>
   </VStack>

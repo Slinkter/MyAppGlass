@@ -3,6 +3,7 @@ import ReclamationForm from "@/features/reclamation-book/components/ReclamationF
 import AuraContainer from "@/shared/components/aura/AuraContainer";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { buildPageMetadata } from "@/shared/utils/seo-utils";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Libro de Reclamaciones Virtual",
@@ -13,10 +14,12 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function Page() {
   return (
-    <AuraContainer>
-      <ComponentErrorBoundary>
-        <ReclamationForm />
-      </ComponentErrorBoundary>
-    </AuraContainer>
+    <PageTransition>
+      <AuraContainer>
+        <ComponentErrorBoundary>
+          <ReclamationForm />
+        </ComponentErrorBoundary>
+      </AuraContainer>
+    </PageTransition>
   );
 }

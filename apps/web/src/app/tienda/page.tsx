@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ShopScreen } from "@/screens/Tienda/ShopScreen";
 import { buildPageMetadata } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = {
   ...buildPageMetadata({
@@ -16,8 +17,10 @@ export const metadata: Metadata = {
 
 export default function TiendaPage() {
   return (
-    <ComponentErrorBoundary>
-      <ShopScreen />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        <ShopScreen />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

@@ -40,7 +40,9 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0]?.isIntersecting) {
+        const e = entries[0];
+        // También se revela si el salto de scroll lo dejó por encima de la pantalla (si no, quedaba oculto).
+        if (e && (e.isIntersecting || e.boundingClientRect.bottom < 0)) {
           setIsVisible(true);
           observer.disconnect();
         }

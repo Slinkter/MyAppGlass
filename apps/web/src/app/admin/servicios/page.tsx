@@ -4,12 +4,14 @@ import { useState, useEffect, useCallback } from "react";
 import { AdminLayout } from "@/widgets/AdminLayout/AdminLayout";
 import { ServiceAdminTable } from "@/features/admin/components/ServiceAdminTable";
 import { ServiceFormModal } from "@/features/admin/components/ServiceFormModal";
+import { ConfirmDeleteDialog } from "@/features/admin/components/ConfirmDeleteDialog";
 import {
   getServices,
   createService,
   updateService,
   deleteService,
 } from "@/entities/service/api/servicesRepository";
+import { seedApprovedNewServices } from "@/entities/service/api/approvedNewServices";
 import type {
   Service,
   CreateServiceInput,
@@ -22,7 +24,10 @@ export default function AdminServiciosPage() {
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [serviceToDelete, setServiceToDelete] = useState<Service | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [syncingApproved, setSyncingApproved] = useState(false);
 
   const fetchServices = useCallback(async () => {
     try {
@@ -54,19 +59,21 @@ export default function AdminServiciosPage() {
     setModalOpen(true);
   };
 
-  const handleDelete = async (service: Service) => {
-    const confirmed = window.confirm(
-      `¿Confirmas la eliminación del servicio "${service.title}"? Esta acción no se puede deshacer.`
-    );
-    if (!confirmed) return;
+  const handleDelete = (service: Service) => {
+    setServiceToDelete(service);
+  };
 
+  const handleConfirmDelete = async () => {
+    if (!serviceToDelete) return;
+    setDeleting(true);
     try {
-      await deleteService(service.id);
+      await deleteService(serviceToDelete.id);
       toaster.create({
         title: "Servicio eliminado",
-        description: `Se eliminó "${service.title}" exitosamente.`,
+        description: `Se eliminó "${serviceToDelete.title}" exitosamente.`,
         type: "success",
       });
+      setServiceToDelete(null);
       await fetchServices();
     } catch {
       toaster.create({
@@ -74,6 +81,8 @@ export default function AdminServiciosPage() {
         description: "No se pudo eliminar el servicio seleccionado.",
         type: "error",
       });
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -94,6 +103,35 @@ export default function AdminServiciosPage() {
         description: "No se pudo actualizar el estado de publicación.",
         type: "error",
       });
+    }
+  };
+
+  const handleSyncApprovedServices = async () => {
+    setSyncingApproved(true);
+    try {
+      const res = await seedApprovedNewServices();
+      if (res.created.length > 0) {
+        toaster.create({
+          title: "Servicios dados de alta",
+          description: `Se crearon ${res.created.length} nuevos servicios aprobados (${res.created.join(", ")}).`,
+          type: "success",
+        });
+        await fetchServices();
+      } else {
+        toaster.create({
+          title: "Servicios ya sincronizados",
+          description: "Todos los servicios aprobados ya existen en Firestore.",
+          type: "info",
+        });
+      }
+    } catch {
+      toaster.create({
+        title: "Error al sincronizar",
+        description: "No se pudieron dar de alta los servicios aprobados.",
+        type: "error",
+      });
+    } finally {
+      setSyncingApproved(false);
     }
   };
 
@@ -144,6 +182,8 @@ export default function AdminServiciosPage() {
         onDelete={handleDelete}
         onCreateNew={handleCreate}
         onTogglePublish={handleTogglePublish}
+        onSyncApprovedServices={handleSyncApprovedServices}
+        syncingApproved={syncingApproved}
       />
 
       <ServiceFormModal
@@ -152,6 +192,15 @@ export default function AdminServiciosPage() {
         service={selectedService}
         onSubmit={handleSubmit}
         loading={submitting}
+      />
+
+      <ConfirmDeleteDialog
+        isOpen={Boolean(serviceToDelete)}
+        onClose={() => !deleting && setServiceToDelete(null)}
+        onConfirm={handleConfirmDelete}
+        title="Eliminar Servicio"
+        description={`¿Estás seguro de que deseas eliminar el servicio "${serviceToDelete?.title}"? Esta acción removerá el servicio y su galería del catálogo.`}
+        loading={deleting}
       />
     </AdminLayout>
   );

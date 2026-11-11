@@ -53,6 +53,7 @@ const ServiceFaqSectionInner: React.FC<ServiceFaqSectionProps> = ({ faqs, servic
                 onClick={() => toggleFaq(idx)}
                 transition="border-color 0.2s ease"
                 _hover={{ borderColor: "border.strong" }}
+                _motionReduce={{ transition: "none" }}
               >
                 <VStack align="stretch" gap={2}>
                   <HStack justify="space-between" align="center">
@@ -63,6 +64,7 @@ const ServiceFaqSectionInner: React.FC<ServiceFaqSectionProps> = ({ faqs, servic
                       color="text.accent"
                       transform={isOpen ? "rotate(180deg)" : "rotate(0deg)"}
                       transition="transform 0.2s ease"
+                      _motionReduce={{ transition: "none", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
                       flexShrink={0}
                     >
                       <ChevronDown size={18} />

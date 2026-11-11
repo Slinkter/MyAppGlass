@@ -11,6 +11,7 @@ import {
   LOCAL_LANDING_DISTRITOS,
   getLocalLandingDistrito,
 } from "@/features/local-landings/data/distritos";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const dynamicParams = false;
 
@@ -54,12 +55,14 @@ export default async function Page({ params }: Props) {
   );
 
   return (
-    <ComponentErrorBoundary>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
-      />
-      <LocalLandingView distrito={distrito} />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
+        />
+        <LocalLandingView distrito={distrito} />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

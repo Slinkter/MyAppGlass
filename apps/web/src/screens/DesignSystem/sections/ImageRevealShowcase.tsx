@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { Box, Code, Heading, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { RotateCcw } from "lucide-react";
 import { Button } from "@/shared/ui/button";
+import { ImageRevealSkeleton } from "@shared/components/Image/ImageReveal";
 import {
   IMAGE_REVEAL_TIMEOUT_MS,
-  ImageRevealSkeleton,
   useImageReveal,
-} from "@shared/components/Image/ImageReveal";
+} from "@shared/components/Image/useImageReveal";
 import { ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel } from "../components";
 
 /** Retardo simulado de red para que el skeleton sea visible en la demo. */

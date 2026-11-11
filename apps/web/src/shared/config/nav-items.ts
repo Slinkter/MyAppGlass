@@ -35,10 +35,6 @@ const NAV_ITEMS: NavItem[] = [
     label: "Ubicación",
     href: "/#ubicacion",
   },
-  {
-    label: "Contacto",
-    href: "/contacto",
-  },
 ];
 
 /**
@@ -49,6 +45,21 @@ export const ACCOUNT_NAV_ITEM: NavItem = {
   label: "Mi cuenta",
   href: "/mi-cuenta",
 };
+
+export const CONTACT_NAV_ITEM: NavItem = {
+  label: "Contacto",
+  href: "/contacto",
+};
+
+/**
+ * Enlaces para la columna principal del footer: incluye las 4 secciones principales,
+ * Contacto y Mi cuenta.
+ */
+export const FOOTER_EXPLORE_ITEMS: NavItem[] = [
+  ...NAV_ITEMS,
+  CONTACT_NAV_ITEM,
+  ACCOUNT_NAV_ITEM,
+];
 
 /**
  * Arquitectura de información de la navbar móvil: 5 enlaces primarios,

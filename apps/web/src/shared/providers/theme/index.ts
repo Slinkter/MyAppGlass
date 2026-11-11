@@ -629,6 +629,13 @@ const config = defineConfig({
         },
       },
       radii: {
+        // Material Design 3 Shape Tokens (esquinas formales)
+        xs: { value: "4px" },
+        sm: { value: "8px" },
+        md: { value: "12px" },
+        lg: { value: "16px" },
+        xl: { value: "28px" },
+        full: { value: "9999px" },
         card: { value: "16px" },
         modal: { value: "24px" },
       },
@@ -689,6 +696,12 @@ const config = defineConfig({
 
         // Focus (>= 3:1 sobre el fondo en ambos temas, WCAG 1.4.11)
         "ring.primary": { value: { _light: "{colors.primary.700}", _dark: "{colors.primary.300}" } },
+
+        // Material Design 3 State Layers (capas tonales sobre superficie: hover 8%, focus 10%, pressed 10%)
+        "state.hover": { value: { _light: "rgba(17, 17, 17, 0.08)", _dark: "rgba(255, 255, 255, 0.08)" } },
+        "state.focus": { value: { _light: "rgba(17, 17, 17, 0.10)", _dark: "rgba(255, 255, 255, 0.10)" } },
+        "state.pressed": { value: { _light: "rgba(17, 17, 17, 0.10)", _dark: "rgba(255, 255, 255, 0.10)" } },
+        "state.drag": { value: { _light: "rgba(17, 17, 17, 0.16)", _dark: "rgba(255, 255, 255, 0.16)" } },
 
         // Text (apps/web/DESIGN.md: ink #111111 y inkSoft #4A4A4A)
         "text.body": { value: { _light: "{colors.brand.inkSoft}", _dark: "{colors.gray.300}" } },

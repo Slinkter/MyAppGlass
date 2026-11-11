@@ -7,6 +7,17 @@
 /**
  * Interface representing the company's contact and legal information.
  */
+export interface CompanySchedule {
+  days: string;
+  hours: string;
+  display: string;
+  openHour: number;
+  closeHour: number;
+}
+
+/**
+ * Interface representing the company's contact and legal information.
+ */
 export interface CompanyInfo {
   razonSocial: string;
   ruc: string;
@@ -20,6 +31,8 @@ export interface CompanyInfo {
   contactEmail: string;
   salesEmail: string;
   whatsappDisplay: string;
+  horario: string;
+  schedule: CompanySchedule;
 }
 
 /**
@@ -43,4 +56,12 @@ export const companyData: CompanyInfo = {
   contactEmail: "acueva@gyacompany.com", // New contact email
   salesEmail: "ventas@gyacompany.com",
   whatsappDisplay: "974 278 303", // Formato visual para mostrar al usuario
+  horario: "Lunes a Sábado, 8:00 am – 6:00 pm",
+  schedule: {
+    days: "Lunes a Sábado",
+    hours: "8:00 am – 6:00 pm",
+    display: "Lunes a Sábado, 8:00 am – 6:00 pm",
+    openHour: 8,
+    closeHour: 18,
+  },
 };

@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-11] - Navegación y scroll móvil (lote 1)
+
+### Changed
+- `widgets/Navbar/mobile/MenuOverlay.tsx`: si el menú se cierra navegando a otra página, la entrada de historial que se añadió al abrirlo ya no obliga a pulsar "Atrás" dos veces; al volver a ella se salta sola.
+- `styles/global.css`: `scroll-behavior: smooth` solo con `prefers-reduced-motion: no-preference`.
+- `app/layout.tsx`: `viewportFit: "cover"` y márgenes con `env(safe-area-inset-*)` en el contenedor, para que las áreas seguras tengan valor en teléfonos con notch o barra de gestos.
+
+### Notes
+- El síntoma "vuelvo a Home y veo el footer" no se reprodujo en Playwright a 360 px; este lote no lo da por resuelto.
+
+## [2026-11-11] - Transiciones suaves entre páginas (lote 2)
+
+### Added
+- `shared/components/motion/PageTransition.tsx`: envuelve el contenido de cada `page.tsx` público en `<ViewTransition>`. Los enlaces con `transitionTypes` deslizan; el resto de navegaciones hace un fundido.
+- `shared/components/motion/MotionCssVars.tsx` y `VIEW_TRANSITION` / `MOTION_CSS_VARS` en `shared/constants/motion.ts`: las duraciones y la curva de la transición se definen una sola vez y llegan al CSS como variables `--vt-*`.
+- `shared/hooks/ui/useRevealState.ts`: estado de revelado compartido por `Reveal` e `ItemGridLayout`. `EASE_REVEAL` reemplaza tres copias de la misma curva.
+
+### Changed
+- `styles/global.css`: las view transitions pasan a `vtFade`/`vtSlide` solo con `opacity` y `translate` (se quitó el `blur` de 3 px, que iba contra el presupuesto de movimiento) y a variables en vez de números a mano. Los clics atraviesan la capa de transición.
+- `Reveal` ya no parte oculto en el HTML inicial: el contenido es visible hasta que el observador está listo. `ItemGridLayout` en gama baja deja de animar (antes sí), igual que `Reveal`.
+
+### Notes
+- Las view transitions no necesitan opción en `next.config` con Next 16.4 y React 19.3: faltaba el componente `<ViewTransition>`. Corrige el diagnóstico del informe de auditoría.
+- Límites conocidos: el botón "atrás" del navegador no anima y los deslizamientos solo existen en el navbar de escritorio.
+
+## [2026-11-11] - Auditoría UI/UX y Material Design 3
+
+### Added
+- `docs/auditorias/INFORME-UI-UX-MD3.md`: verificación del trabajo de OpenCode (build, tsc y eslint en verde), pruebas de UI en navegador y brechas frente a MD3.
+- `docs/auditorias/PROMPTS-AGENTES.md` y agentes `qa-gates`, `auditor-naming-dry`, `auditor-md3`, `ui-navegador-movil` en `.claude/agents/`.
+
+- MCP `motion` (documentación de Motion, gratuito) registrado con alcance local. Se auditó antes el paquete `motion-ai` (MIT, sin scripts de instalación, instalador interactivo que también registra el servidor de pago `motion-plus`); se descartó el instalador y se registró solo el servidor gratuito a mano.
+
+### Notes
+- Sin cambios de código en la web ni de dependencias. Los lotes de corrección quedan en `docs/PENDIENTES.md`.
+
 ## [2026-11-11] - Capa `entities` y fronteras FSD activas
 
 ### Added

@@ -26,6 +26,7 @@ import VisualViewer from "@/entities/project/ui/modal/VisualViewer";
 import ProjectDetailItem from "@/entities/project/ui/ProjectDetailItem";
 import BackButton from "@shared/components/navigation/BackButton";
 import ErrorPage from "@/shared/components/ErrorView";
+import { Reveal } from "@/shared/components/motion/Reveal";
 
 export interface ViewSelectorProps {
   activeMode: string;
@@ -108,75 +109,81 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
       <Container maxW="pageWide" px={{ base: 4, sm: 6, md: 8 }}>
         <VStack gap={{ base: 6, md: 8 }} align="stretch" w="full">
           {/* Header Superior con Botón Regresar y Selector */}
-          <Flex 
-            direction={{ base: "column", md: "row" }} 
-            justify="space-between" 
-            align={{ base: "flex-start", md: "flex-end" }} 
-            gap={4}
-          >
-            <VStack gap={2} align="flex-start">
-              <BackButton to="/#proyectos" />
-              <Heading
-                as="h1"
-                fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
-                fontWeight="700"
-                letterSpacing="tight"
-                color="text.heading"
-                lineHeight="1.1"
-              >
-                {project.residencial}
-              </Heading>
-            </VStack>
+          <Reveal motion="cine" index={0}>
+            <Flex 
+              direction={{ base: "column", md: "row" }} 
+              justify="space-between" 
+              align={{ base: "flex-start", md: "flex-end" }} 
+              gap={4}
+            >
+              <VStack gap={2} align="flex-start">
+                <BackButton to="/#proyectos" />
+                <Heading
+                  as="h1"
+                  fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
+                  fontWeight="700"
+                  letterSpacing="tight"
+                  color="text.heading"
+                  lineHeight="1.1"
+                >
+                  {project.residencial}
+                </Heading>
+              </VStack>
 
-            <ViewSelector activeMode={viewMode} onSelect={handleSelect} />
-          </Flex>
+              <ViewSelector activeMode={viewMode} onSelect={handleSelect} />
+            </Flex>
+          </Reveal>
 
           {/* Visor Principal Nivelado (Mapa / Galería) */}
-          <Box
-            w="full"
-            h={{ base: "20rem", sm: "23.75rem", md: "30rem" }}
-            position="relative"
-            borderRadius="3xl"
-            overflow="hidden"
-          >
-            <Skeleton
-              loading={isPending}
-              h="full"
+          <Reveal motion="cine" index={1}>
+            <Box
               w="full"
+              h={{ base: "20rem", sm: "23.75rem", md: "30rem" }}
+              position="relative"
               borderRadius="3xl"
+              overflow="hidden"
             >
-              <VisualViewer
-                viewMode={viewMode}
-                lat={project.lat}
-                lng={project.lng}
-                photos={project.photos ?? project.photosObra}
-                projectData={project}
-              />
-            </Skeleton>
-          </Box>
+              <Skeleton
+                loading={isPending}
+                h="full"
+                w="full"
+                borderRadius="3xl"
+              >
+                <VisualViewer
+                  viewMode={viewMode}
+                  lat={project.lat}
+                  lng={project.lng}
+                  photos={project.photos ?? project.photosObra}
+                  projectData={project}
+                />
+              </Skeleton>
+            </Box>
+          </Reveal>
 
           {/* Ficha Técnica y Especificaciones del Proyecto */}
-          <VStack align="flex-start" gap={4} w="full" mt={2}>
-            <Heading
-              size="xs"
-              fontWeight="700"
-              color="text.accent"
-              textTransform="uppercase"
-              letterSpacing="0.25em"
-              display="flex"
-              alignItems="center"
-              gap={2.5}
-            >
-              <Box w="16px" h="2px" bg="primary.500" /> Ficha Técnica de la Obra
-            </Heading>
+          <Reveal motion="cine" index={2}>
+            <VStack align="flex-start" gap={4} w="full" mt={2}>
+              <Heading
+                size="xs"
+                fontWeight="700"
+                color="text.accent"
+                textTransform="uppercase"
+                letterSpacing="0.25em"
+                display="flex"
+                alignItems="center"
+                gap={2.5}
+              >
+                <Box w="16px" h="2px" bg="primary.500" /> Ficha Técnica de la Obra
+              </Heading>
 
-            <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={4} w="full">
-              <ProjectDetailItem icon={Home} label="Residencial" value={project.residencial} />
-              <ProjectDetailItem icon={Building2} label="Cliente / Constructora" value={project.name} />
-              <ProjectDetailItem icon={MapPin} label="Ubicación" value={project.address} />
-              <ProjectDetailItem icon={Calendar} label="Año de Entrega" value={String(project.year)} />
-            </SimpleGrid>
-          </VStack>
+              <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={4} w="full">
+                <ProjectDetailItem icon={Home} label="Residencial" value={project.residencial} />
+                <ProjectDetailItem icon={Building2} label="Cliente / Constructora" value={project.name} />
+                <ProjectDetailItem icon={MapPin} label="Ubicación" value={project.address} />
+                <ProjectDetailItem icon={Calendar} label="Año de Entrega" value={String(project.year)} />
+              </SimpleGrid>
+            </VStack>
+          </Reveal>
         </VStack>
       </Container>
     </Box>
