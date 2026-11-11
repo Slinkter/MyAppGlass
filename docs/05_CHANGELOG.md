@@ -8,8 +8,10 @@ All notable changes to this project will be documented in this file.
 - `docs/auditorias/INFORME-UI-UX-MD3.md`: verificación del trabajo de OpenCode (build, tsc y eslint en verde), pruebas de UI en navegador y brechas frente a MD3.
 - `docs/auditorias/PROMPTS-AGENTES.md` y agentes `qa-gates`, `auditor-naming-dry`, `auditor-md3`, `ui-navegador-movil` en `.claude/agents/`.
 
+- MCP `motion` (documentación de Motion, gratuito) registrado con alcance local. Se auditó antes el paquete `motion-ai` (MIT, sin scripts de instalación, instalador interactivo que también registra el servidor de pago `motion-plus`); se descartó el instalador y se registró solo el servidor gratuito a mano.
+
 ### Notes
-- Sin cambios de código en la web. Los lotes de corrección quedan en `docs/PENDIENTES.md`.
+- Sin cambios de código en la web ni de dependencias. Los lotes de corrección quedan en `docs/PENDIENTES.md`.
 
 ## [2026-11-11] - Capa `entities` y fronteras FSD activas
 

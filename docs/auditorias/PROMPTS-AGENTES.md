@@ -11,6 +11,14 @@ Agentes en `.claude/agents/`. Modelo barato (haiku) para lo mecánico, sonnet pa
 | `espaciado-360` | sonnet | Tras cambios de espaciado | Existente: audita márgenes, padding y áreas táctiles. |
 | `rendimiento-movil` | sonnet | Tras añadir movimiento | Existente: mide lentitud y trabas en gama baja. |
 
+## Documentación de Motion (MCP gratuito)
+Servidor MCP `motion` (`https://mcp.motion.dev`, solo lectura de documentación), registrado a mano con alcance **local** (privado, en `~/.claude.json`; no añade archivos al repo):
+`claude mcp add --transport http --scope local motion https://mcp.motion.dev`
+
+- Consultarlo antes de tocar animaciones, sobre todo en el lote 2 (transiciones). Sus herramientas aparecen tras reiniciar la sesión de Claude Code.
+- No se instaló `motion-ai` por `npx`, ni el skill `/motion`, ni el servidor `motion-plus` (de pago, requiere OAuth). No hay dependencia `motion` en `package.json`: las animaciones siguen en CSS con los tokens de `shared/constants/motion.ts`.
+- Quitarlo: `claude mcp remove motion --scope local`.
+
 ## Servir el export para las pruebas de navegador
 1. Construir: `next build --webpack` en `apps/web` (con `NODE_PATH`, ver `docs/opencode/PLAN-FSD-Y-AGENTES.md` §7).
 2. Servir `apps/web/out` con un servidor estático local en el puerto 4173. Resolver la raíz con `path.resolve`: en Windows, comparar rutas con `/` contra rutas con `\` devuelve 403.

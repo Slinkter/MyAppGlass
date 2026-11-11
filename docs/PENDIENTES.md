@@ -76,7 +76,7 @@ Informe completo: `docs/auditorias/INFORME-UI-UX-MD3.md`. Prompts y agentes: `do
 | Lote | Contenido | Estado |
 |---|---|---|
 | 1 | Menú móvil sin entrada fantasma en el historial, `scroll-behavior` con reduced-motion, `viewport-fit=cover`, safe-area en footer | Pendiente. El bug "vuelvo a Home y veo el footer" **no se reprodujo** en Playwright; falta probar en teléfono real |
-| 2 | Transiciones entre páginas (`viewTransition`, `nav-back`, tokens de movimiento MD3) | Pendiente |
+| 2 | Transiciones entre páginas (`viewTransition`, `nav-back`, tokens de movimiento MD3). Incluye mover los valores sueltos de `styles/global.css` (21 `@keyframes`/view-transition) a `shared/constants/motion.ts` y unificar `Reveal.tsx` con `ItemGridLayout.tsx`. Se queda en CSS: no se añade la dependencia `motion`. Validar curvas con el MCP `motion` (docs) | Pendiente |
 | 3 | Renombrar 19 archivos kebab-case a camelCase y `DesignSystem/components/motion.tsx` | Pendiente |
 | 4 | `ClientCard` duplicado; partir `theme/index.ts`, `FloatingPanel`, `MenuOverlay`; fusionar recetas `field*`/`badge*` | Pendiente |
 | 5 | Tokens MD3 en el tema (roles, escala tipográfica, forma, capas de estado). Toca ~83 archivos | Pendiente, aprobación explícita |
