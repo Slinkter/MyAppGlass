@@ -17,6 +17,9 @@ export const EASE_CINE = "cubic-bezier(0.16, 1, 0.3, 1)" as const;
 /** Curva suave estándar para micro-interacciones (botones, tarjetas, controles). */
 export const EASE_SOFT = "cubic-bezier(0.4, 0, 0.2, 1)" as const;
 
+/** Curva de entrada de los elementos que se revelan al hacer scroll (Reveal e ItemGridLayout). */
+export const EASE_REVEAL = "cubic-bezier(0.22, 1, 0.36, 1)" as const;
+
 /** Duraciones en milisegundos (para lógica JS / timers). */
 export const DUR_MS = {
   reducedFade: 150,
@@ -59,3 +62,20 @@ export const MOTION_BUDGET = {
   staggerMs: 40,
   maxDurationMs: 500,
 } as const;
+
+/**
+ * Transición entre páginas (View Transitions API). Es la única fuente de estos valores:
+ * `MotionCssVars` los publica como variables CSS y `styles/global.css` las consume.
+ * Salida corta y entrada más pausada; el desplazamiento es leve y solo en la navegación
+ * "hacia adelante/atrás" marcada; el resto de navegaciones es un fundido sin movimiento.
+ */
+export const VIEW_TRANSITION = {
+  exitMs: DUR_MS.fast,
+  enterMs: DUR_MS.toggle,
+  moveMs: MOTION_BUDGET.maxDurationMs,
+  slidePx: 30,
+  easeMove: EASE_SOFT,
+} as const;
+
+/** Variables CSS globales generadas desde las constantes de este archivo. */
+export const MOTION_CSS_VARS = `:root{--vt-exit:${VIEW_TRANSITION.exitMs}ms;--vt-enter:${VIEW_TRANSITION.enterMs}ms;--vt-move:${VIEW_TRANSITION.moveMs}ms;--vt-slide:${VIEW_TRANSITION.slidePx}px;--vt-ease:${VIEW_TRANSITION.easeMove};}`;

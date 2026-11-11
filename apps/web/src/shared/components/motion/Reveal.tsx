@@ -4,13 +4,14 @@
  * @file Reveal.tsx
  * @description Revelado de sección al entrar en pantalla (transición entre secciones).
  * Solo `opacity` y `transform` (R5), una sola vez, con cascada configurable.
- * Con `prefers-reduced-motion` solo hace un fundido corto (R11).
+ * Con `prefers-reduced-motion` o en gama baja el contenido aparece directo (R11).
+ * El contenido es visible en el HTML inicial y solo se oculta cuando el observador está listo.
  */
 
 import React from "react";
 import { Box, type BoxProps } from "@chakra-ui/react";
-import { DUR_MS, EASE_TEXT, MOTION_BUDGET } from "@/shared/constants/motion";
-import { useMotionBudget } from "@/shared/hooks/ui/useMotionBudget";
+import { DUR_MS, EASE_REVEAL, MOTION_BUDGET } from "@/shared/constants/motion";
+import { useRevealState } from "@/shared/hooks/ui/useRevealState";
 
 /** Duración del revelado de sección (ms). */
 export const REVEAL_MS = 450;
@@ -20,37 +21,17 @@ export const REVEAL_STAGGER_MS = 40;
 const REVEAL_OFFSET = 16;
 
 export interface RevealProps extends Omit<BoxProps, "transition"> {
-  /** Orden en la cascada; cada paso suma `DUR_MS.staggerMenu` de retraso. */
+  /** Orden en la cascada; cada paso suma `REVEAL_STAGGER_MS` de retraso (máximo `MOTION_BUDGET.maxStaggerItems`). */
   index?: number;
   children: React.ReactNode;
 }
 
 export const Reveal: React.FC<RevealProps> = ({ index = 0, children, ...rest }) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const level = useMotionBudget();
+  const { ref, hidden, level } = useRevealState<HTMLDivElement>({
+    rootMargin: "0px 0px -10% 0px",
+    threshold: 0.05,
+  });
   const reduced = level === "none";
-  // En gama baja (level "lite") no hay revelado: el contenido aparece directo y no se gasta CPU.
-  const skip = level !== "full";
-  const [shown, setShown] = React.useState(false);
-
-  React.useEffect(() => {
-    const el = ref.current;
-    if (skip || !el || typeof IntersectionObserver === "undefined") {
-      setShown(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setShown(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.05 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [skip]);
 
   const delay = reduced ? 0 : Math.min(index, MOTION_BUDGET.maxStaggerItems) * REVEAL_STAGGER_MS;
   const dur = reduced ? DUR_MS.reducedFade : REVEAL_MS;
@@ -60,9 +41,9 @@ export const Reveal: React.FC<RevealProps> = ({ index = 0, children, ...rest }) 
       ref={ref}
       {...rest}
       style={{
-        opacity: shown ? 1 : 0,
-        transform: shown || reduced ? "none" : `translateY(${REVEAL_OFFSET}px)`,
-        transition: `opacity ${dur}ms ${EASE_TEXT} ${delay}ms, transform ${dur}ms ${EASE_TEXT} ${delay}ms`,
+        opacity: hidden ? 0 : 1,
+        transform: hidden ? `translateY(${REVEAL_OFFSET}px)` : "none",
+        transition: `opacity ${dur}ms ${EASE_REVEAL} ${delay}ms, transform ${dur}ms ${EASE_REVEAL} ${delay}ms`,
       }}
     >
       {children}

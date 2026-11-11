@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-11] - Transiciones suaves entre páginas (lote 2)
+
+### Added
+- `shared/components/motion/PageTransition.tsx`: envuelve el contenido de cada `page.tsx` público en `<ViewTransition>`. Los enlaces con `transitionTypes` deslizan; el resto de navegaciones hace un fundido.
+- `shared/components/motion/MotionCssVars.tsx` y `VIEW_TRANSITION` / `MOTION_CSS_VARS` en `shared/constants/motion.ts`: las duraciones y la curva de la transición se definen una sola vez y llegan al CSS como variables `--vt-*`.
+- `shared/hooks/ui/useRevealState.ts`: estado de revelado compartido por `Reveal` e `ItemGridLayout`. `EASE_REVEAL` reemplaza tres copias de la misma curva.
+
+### Changed
+- `styles/global.css`: las view transitions pasan a `vtFade`/`vtSlide` solo con `opacity` y `translate` (se quitó el `blur` de 3 px, que iba contra el presupuesto de movimiento) y a variables en vez de números a mano. Los clics atraviesan la capa de transición.
+- `Reveal` ya no parte oculto en el HTML inicial: el contenido es visible hasta que el observador está listo. `ItemGridLayout` en gama baja deja de animar (antes sí), igual que `Reveal`.
+
+### Notes
+- Las view transitions no necesitan opción en `next.config` con Next 16.4 y React 19.3: faltaba el componente `<ViewTransition>`. Corrige el diagnóstico del informe de auditoría.
+- Límites conocidos: el botón "atrás" del navegador no anima y los deslizamientos solo existen en el navbar de escritorio.
+
 ## [2026-11-11] - Auditoría UI/UX y Material Design 3
 
 ### Added

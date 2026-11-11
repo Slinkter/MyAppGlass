@@ -13,6 +13,7 @@ import {
   serializeJsonLd,
 } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 /**
  * Los slugs salen de Firestore (lectura REST en build). Si la lectura falla o no hay
@@ -66,9 +67,11 @@ export default async function Page({ params }: Props) {
   // Sin datos de build (centinela o slug desconocido): el detalle se resuelve en el cliente.
   if (!service) {
     return (
-      <ComponentErrorBoundary>
-        <ServiceDetailView serviceSlug={serviceSlug} />
-      </ComponentErrorBoundary>
+      <PageTransition>
+        <ComponentErrorBoundary>
+          <ServiceDetailView serviceSlug={serviceSlug} />
+        </ComponentErrorBoundary>
+      </PageTransition>
     );
   }
 
@@ -82,22 +85,24 @@ export default async function Page({ params }: Props) {
   );
 
   return (
-    <ComponentErrorBoundary>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(serviceJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
-      />
-      {service.faqs.length > 0 && (
+    <PageTransition>
+      <ComponentErrorBoundary>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: serializeJsonLd(getFaqJsonLd(service.faqs)) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(serviceJsonLd) }}
         />
-      )}
-      <ServiceDetailView serviceSlug={serviceSlug} initialData={service} />
-    </ComponentErrorBoundary>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
+        />
+        {service.faqs.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: serializeJsonLd(getFaqJsonLd(service.faqs)) }}
+          />
+        )}
+        <ServiceDetailView serviceSlug={serviceSlug} initialData={service} />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

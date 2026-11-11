@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { BankAccountsView } from "@/screens/Legal";
 import { buildPageMetadata } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Cuentas Bancarias Oficiales",
@@ -12,8 +13,10 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function Page() {
   return (
-    <ComponentErrorBoundary>
-      <BankAccountsView />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        <BankAccountsView />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

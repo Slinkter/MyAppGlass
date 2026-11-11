@@ -10,6 +10,7 @@ import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { FloatingWhatsAppWrapper as FloatingWhatsApp, ThemeToggle } from "@/widgets/FloatingActions";
 import SkipLink from "@/shared/components/navigation/SkipLink";
 import { HideOnRoutes } from "@/shared/components/HideOnRoutes";
+import { MotionCssVars } from "@/shared/components/motion/MotionCssVars";
 import GoogleMetricsProvider from "@/shared/components/Analytics/GoogleMetricsProvider";
 import { getCompanyJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
 
@@ -118,6 +119,7 @@ export default function RootLayout({
                 />
             </head>
             <body>
+                <MotionCssVars />
                 <Providers>
                     <GoogleMetricsProvider />
                     <Box minH="100dvh" position="relative">

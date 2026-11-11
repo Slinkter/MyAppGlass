@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import ContactPageClient from "./ContactPageClient";
 import { buildPageMetadata } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Cotizaciones y Contacto en La Molina, Lima",
@@ -20,8 +21,10 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function ContactPage() {
   return (
-    <ComponentErrorBoundary>
-      <ContactPageClient />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        <ContactPageClient />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

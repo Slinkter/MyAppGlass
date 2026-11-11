@@ -3,6 +3,7 @@ import { HomeView } from "@/screens/Home";
 import { buildPageMetadata } from "@/shared/utils/seo-utils";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { getBuildProjects, getBuildServices } from "@/shared/api/firebase/publicRest";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Vidriería en La Molina | Ventanas Antirruido y Mamparas",
@@ -26,8 +27,10 @@ export default async function Page() {
   const projects = rawProjects.map((project) => ({ ...project, gallery: [] }));
 
   return (
-    <ComponentErrorBoundary>
-      <HomeView initialServices={services} initialProjects={projects} />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        <HomeView initialServices={services} initialProjects={projects} />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

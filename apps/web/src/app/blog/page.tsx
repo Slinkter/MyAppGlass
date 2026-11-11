@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { BlogView } from "@/screens/Blog";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 import { buildPageMetadata, getBreadcrumbJsonLd, serializeJsonLd } from "@/shared/utils/seo-utils";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Blog Técnico de Vidriería, Aluminio y Aislamiento Acústico",
@@ -18,12 +19,14 @@ export default function BlogPage() {
   ]);
 
   return (
-    <ComponentErrorBoundary>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
-      />
-      <BlogView />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
+        />
+        <BlogView />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

@@ -48,47 +48,56 @@ body.light-mode {
   50% { box-shadow: var(--chakra-shadows-elevated-lg); }
 }
 
-/* View Transitions API */
-:root {
-  --duration-exit: 200ms;
-  --duration-enter: 300ms;
-  --duration-move: 500ms;
+/* View Transitions API. Valores en variables --vt-* (las publica MotionCssVars desde shared/constants/motion.ts).
+   Solo opacity y translate, sin blur (presupuesto de movimiento). */
+@keyframes vtFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@keyframes fade {
-  from { filter: blur(3px); opacity: 0; }
-  to { filter: blur(0); opacity: 1; }
-}
-
-@keyframes slide {
-  from { translate: var(--slide-offset); }
+@keyframes vtSlide {
+  from { translate: var(--vt-offset); }
   to { translate: 0; }
 }
 
+/* Navegación sin dirección (enlaces normales, botón "atrás" del navegador): fundido sin movimiento. */
+::view-transition-old(.page-fade) {
+  animation: var(--vt-exit) ease-in both vtFade reverse;
+}
+::view-transition-new(.page-fade) {
+  animation: var(--vt-enter) ease-out var(--vt-exit) both vtFade;
+}
+
+/* Navegación marcada con transitionTypes: deslizamiento leve en la dirección indicada. */
 ::view-transition-old(.nav-forward) {
-  --slide-offset: -60px;
+  --vt-offset: calc(var(--vt-slide) * -1);
   animation:
-    var(--duration-exit) ease-in both fade reverse,
-    var(--duration-move) cubic-bezier(0.4, 0, 0.2, 1) both slide reverse;
+    var(--vt-exit) ease-in both vtFade reverse,
+    var(--vt-move) var(--vt-ease) both vtSlide reverse;
 }
 ::view-transition-new(.nav-forward) {
-  --slide-offset: 60px;
+  --vt-offset: var(--vt-slide);
   animation:
-    var(--duration-enter) ease-out var(--duration-exit) both fade,
-    var(--duration-move) cubic-bezier(0.4, 0, 0.2, 1) both slide;
+    var(--vt-enter) ease-out var(--vt-exit) both vtFade,
+    var(--vt-move) var(--vt-ease) both vtSlide;
 }
 
 ::view-transition-old(.nav-back) {
-  --slide-offset: 60px;
+  --vt-offset: var(--vt-slide);
   animation:
-    var(--duration-exit) ease-in both fade reverse,
-    var(--duration-move) cubic-bezier(0.4, 0, 0.2, 1) both slide reverse;
+    var(--vt-exit) ease-in both vtFade reverse,
+    var(--vt-move) var(--vt-ease) both vtSlide reverse;
 }
 ::view-transition-new(.nav-back) {
-  --slide-offset: -60px;
+  --vt-offset: calc(var(--vt-slide) * -1);
   animation:
-    var(--duration-enter) ease-out var(--duration-exit) both fade,
-    var(--duration-move) cubic-bezier(0.4, 0, 0.2, 1) both slide;
+    var(--vt-enter) ease-out var(--vt-exit) both vtFade,
+    var(--vt-move) var(--vt-ease) both vtSlide;
+}
+
+/* Los clics pasan a la página viva mientras dura la transición. */
+::view-transition {
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

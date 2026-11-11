@@ -11,6 +11,7 @@ import {
   getSectionBreadcrumbJsonLd,
   serializeJsonLd,
 } from "@/shared/utils/seo-utils";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 /**
  * Los ids salen de Firestore (lectura REST en build). Si la lectura falla o no hay
@@ -69,31 +70,33 @@ export default async function ProjectDetailPage({ params }: Props) {
   const initialProject = project;
 
   return (
-    <ComponentErrorBoundary>
-      {initialProject && (
-        <>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: serializeJsonLd(
-                getSectionBreadcrumbJsonLd(
-                  { name: "Proyectos", path: "/#proyectos" },
-                  { name: initialProject.title, url: `${SITE_URL}/proyectos/${projectId}` }
-                )
-              ),
-            }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: serializeJsonLd(
-                getProjectJsonLd(initialProject, `${SITE_URL}/proyectos/${projectId}`)
-              ),
-            }}
-          />
-        </>
-      )}
-      <ProjectDetailView projectId={projectId} initialData={initialProject} />
-    </ComponentErrorBoundary>
+    <PageTransition>
+      <ComponentErrorBoundary>
+        {initialProject && (
+          <>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: serializeJsonLd(
+                  getSectionBreadcrumbJsonLd(
+                    { name: "Proyectos", path: "/#proyectos" },
+                    { name: initialProject.title, url: `${SITE_URL}/proyectos/${projectId}` }
+                  )
+                ),
+              }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: serializeJsonLd(
+                  getProjectJsonLd(initialProject, `${SITE_URL}/proyectos/${projectId}`)
+                ),
+              }}
+            />
+          </>
+        )}
+        <ProjectDetailView projectId={projectId} initialData={initialProject} />
+      </ComponentErrorBoundary>
+    </PageTransition>
   );
 }

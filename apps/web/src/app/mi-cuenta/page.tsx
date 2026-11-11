@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LoginScreen } from "@/screens/Auth/LoginScreen";
 import { AccountRouteGuard } from "@/features/auth/components/AccountRouteGuard";
+import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = {
   title: "Mi Cuenta",
@@ -9,8 +10,10 @@ export const metadata: Metadata = {
 
 export default function MiCuentaPage() {
   return (
-    <AccountRouteGuard>
-      <LoginScreen />
-    </AccountRouteGuard>
+    <PageTransition>
+      <AccountRouteGuard>
+        <LoginScreen />
+      </AccountRouteGuard>
+    </PageTransition>
   );
 }
