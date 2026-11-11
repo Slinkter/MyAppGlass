@@ -5,7 +5,7 @@ import { Box, VStack, HStack, Heading, Text, Button, Input, NativeSelectRoot, Na
 import { Badge } from "@/shared/ui/badge";
 import { ShoppingCart, Trash2, CheckCircle2, AlertCircle } from "lucide-react";
 import type { OrderItem } from "@/shared/schemas/ecommerce-schemas";
-import type { PaymentMethod } from "@/features/products/context/OrderDraftContext";
+import type { PaymentMethod } from "@/features/admin/context/OrderDraftContext";
 
 interface OrderSummaryCardProps {
   items: OrderItem[];

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Box, VStack, HStack, Heading, Text, Button, SimpleGrid } from "@chakra-ui/react";
 import { RefreshCw } from "lucide-react";
 import { useRealtimeProducts } from "@/entities/product/api/useRealtimeProducts";
-import { useOrderDraft } from "@/features/products/context/OrderDraftContext";
+import { useOrderDraft } from "@/features/admin/context/OrderDraftContext";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { Product } from "@/shared/schemas/ecommerce-schemas";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";

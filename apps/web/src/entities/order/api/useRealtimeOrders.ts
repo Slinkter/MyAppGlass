@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Order } from "@/shared/schemas/ecommerce-schemas";
-import { orderService } from "@/features/products/services/orderService";
+import { orderService } from "./orderService";
 
 export function useRealtimeOrders(limitCount: number = 50) {
   const [orders, setOrders] = useState<Order[]>([]);

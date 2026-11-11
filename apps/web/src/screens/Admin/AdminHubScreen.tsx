@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { useRealtimeProducts } from "@/entities/product/api/useRealtimeProducts";
-import { useRealtimeOrders } from "@/features/products/hooks/useRealtimeOrders";
+import { useRealtimeOrders } from "@/entities/order/api/useRealtimeOrders";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
 
 export const AdminHubScreen: React.FC = () => {

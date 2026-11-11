@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { Box, VStack, HStack, Heading, Text, Button, Input } from "@chakra-ui/react";
 import { FileSpreadsheet, Search } from "lucide-react";
-import { useRealtimeOrders } from "@/features/products/hooks/useRealtimeOrders";
+import { useRealtimeOrders } from "@/entities/order/api/useRealtimeOrders";
 import { Order } from "@/shared/schemas/ecommerce-schemas";
 import { exportOrdersToExcel } from "@/shared/utils/excel-export";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";

@@ -165,7 +165,7 @@ export const OrderDraftProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
       setIsSubmitting(true);
       try {
-        const { orderService } = await import("@/features/products/services/orderService");
+        const { orderService } = await import("@/entities/order/api/orderService");
         const orderId = await orderService.saveOrderAndDecreaseStock({
           adminUid,
           adminName,
