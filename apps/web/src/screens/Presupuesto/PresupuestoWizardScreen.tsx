@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { Box, Heading, Text, VStack, SimpleGrid } from "@chakra-ui/react";
-import { toaster } from "@/components/ui/toaster-instance";
+import { toaster } from "@/shared/ui/toaster-instance";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { submitQuoteRequest } from "@/features/presupuesto/services/quoteService";
 import {
@@ -20,7 +20,7 @@ import { QuoteLinesPanel } from "./presupuesto/QuoteLinesPanel";
 import { QuoteSummaryCard } from "./presupuesto/QuoteSummaryCard";
 import { CustomerPanel } from "./presupuesto/CustomerPanel";
 import { QuoteSuccess } from "./presupuesto/QuoteSuccess";
-import { QuoteSheet } from "./presupuesto/QuoteSheet";
+import { QuoteSheet } from "@/features/presupuesto/components/QuoteSheet";
 import type { QuoteCustomer } from "./presupuesto/types";
 
 const EMPTY_CUSTOMER: QuoteCustomer = { fullName: "", dniRuc: "", email: "", phone: "", address: "", district: "La Molina" };

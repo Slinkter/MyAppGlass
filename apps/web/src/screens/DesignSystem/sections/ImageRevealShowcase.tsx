@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Code, Heading, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import {
   IMAGE_REVEAL_TIMEOUT_MS,
   ImageRevealSkeleton,

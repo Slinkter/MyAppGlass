@@ -18,7 +18,7 @@ import { useProjects } from "@features/projects/hooks/useProjects";
 import { ProjectCardSkeletons } from "./ProjectSkeletons";
 import type { Project } from "@shared/types/project";
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
-import { EmptyState } from "@/components/ui/empty-state";
+import { EmptyState } from "@/shared/ui/empty-state";
 import { AlertTriangle } from "lucide-react";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
 

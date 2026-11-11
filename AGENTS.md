@@ -41,8 +41,7 @@ apps/
 │       ├── screens/          # Vistas compuestas por página (Home, Services, Projects, Admin, Tienda, Presupuesto, etc.)
 │       ├── widgets/          # Componentes globales: Navbar, Footer, FloatingActions, AdminNav
 │       ├── features/         # Dominios de negocio: services/, home/, projects/, blog/, admin/, tienda/, etc.
-│       ├── components/       # Primitivas UI base (components/ui: wrappers Chakra UI v3 como button, dialog, alert)
-│       └── shared/           # Utils transversales: logger.ts, api/firebase, hooks, constants, theme
+│       ├── shared/           # Capa base: ui/ (primitivas Chakra v3), api/firebase, components, hooks, constants, theme
 ├── functions/                # @gya/functions: Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde Node.js 20 el 2026-10-29 por retiro del runtime)
 packages/
 └── shared/                   # @gya/shared: companyData, SITE_URL, CompanyInfo (importar desde @gya/shared; en web, `@/shared/config/company-data` reexporta)
@@ -97,7 +96,8 @@ packages/
 ## 4. Convenciones de Código
 
 - **Static Export:** El proyecto usa `output: 'export'`. Rutas dinámicas requieren `generateStaticParams`.
-- **UI y design system:** marca, tokens, botones, responsive, transiciones, tarjetas con foto y estados están en **`apps/web/DESIGN.md`** (§3 reglas de UI). Resumen mínimo: componentes de `@/components/ui` con `variant` del tema (sin `colorPalette` ni `bg`/`_hover` a mano), tokens de Chakra v3 (sin hex, `rgba` ni `px` sueltos), targets táctiles ≥ 44 px, `dvh` en lugar de `100vh`, máximo 2 propiedades en `transition`.
+- **UI y design system:** marca, tokens, botones, responsive, transiciones, tarjetas con foto y estados están en **`apps/web/DESIGN.md`** (§3 reglas de UI). Resumen mínimo: componentes de `@/shared/ui` con `variant` del tema (sin `colorPalette` ni `bg`/`_hover` a mano), tokens de Chakra v3 (sin hex, `rgba` ni `px` sueltos), targets táctiles ≥ 44 px, `dvh` en lugar de `100vh`, máximo 2 propiedades en `transition`.
+- **Fronteras FSD:** las aplica ESLint (`apps/web/eslint.config.js`, regla `no-restricted-imports`) con el orden `app > screens > widgets > features > shared`. `shared` no puede importar capas superiores, `features` no puede importar `widgets/screens/app`, una pantalla no puede importar otra pantalla. `pnpm run lint` falla si se rompe.
 - **Logger:** Usar `@/shared/utils/logger.ts`. NO usar `console.log` en producción.
 
 ---

@@ -17,7 +17,7 @@ import type {
   UpdateProjectInput,
   Service,
 } from "@/shared/api/firebase/types";
-import { toaster } from "@/components/ui/toaster-instance";
+import { toaster } from "@/shared/ui/toaster-instance";
 
 export default function AdminProyectosPage() {
   const [projects, setProjects] = useState<Project[]>([]);

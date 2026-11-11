@@ -7,7 +7,7 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import LocationMapLazy from "./LocationMapLazy";
 import { createLookupMap } from "@/shared/utils/algorithm-utils";

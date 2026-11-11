@@ -2,8 +2,8 @@
 
 import React from "react";
 import { Box, Heading, Text, HStack } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
 import { ArrowRight, Eye } from "lucide-react";
 import Link from "next/link";
 import type { AISimulatorProduct } from "@/features/ai-simulator/data/aiProducts";

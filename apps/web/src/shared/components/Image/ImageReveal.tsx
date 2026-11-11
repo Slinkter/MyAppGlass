@@ -19,7 +19,7 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import type { BoxProps } from "@chakra-ui/react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 /** Tiempo máximo esperando la foto: pasado este plazo se muestra la tarjeta igualmente. */
 export const IMAGE_REVEAL_TIMEOUT_MS = 7000;

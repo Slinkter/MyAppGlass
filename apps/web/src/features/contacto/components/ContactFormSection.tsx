@@ -10,9 +10,9 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Field } from "@/components/ui/field";
+import { Button } from "@/shared/ui/button";
+import { Checkbox } from "@/shared/ui/checkbox";
+import { Field } from "@/shared/ui/field";
 import { Send, Lock } from "lucide-react";
 
 /**

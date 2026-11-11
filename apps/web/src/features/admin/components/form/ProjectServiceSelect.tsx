@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Field } from "@/components/ui/field";
+import { Field } from "@/shared/ui/field";
 import type { Service } from "@/shared/api/firebase/types";
 
 interface ProjectServiceSelectProps {

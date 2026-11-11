@@ -3,8 +3,8 @@
 import React from "react";
 import { Box, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { Clock, MapPin, Navigation, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/shared/ui/button";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { companyData } from "@/shared/config/company-data";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import LocationMapLazy from "@/features/location/LocationMapLazy";

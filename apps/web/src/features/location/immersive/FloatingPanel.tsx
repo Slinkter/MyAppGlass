@@ -14,7 +14,7 @@ import {
   Route,
   X,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { companyData } from "@/shared/config/company-data";
 import { GLASS_FALLBACK_CSS, TOUCH_MIN } from "@/shared/constants/layout";
 import {

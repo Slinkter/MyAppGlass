@@ -3,11 +3,11 @@
 import React from "react";
 import { Box, Heading, VStack, HStack, Table, Badge, Skeleton, Text } from "@chakra-ui/react";
 import { ShowcaseCard, ShowcasePanel, ShowcaseStack } from "../components";
-import { EmptyState } from "@/components/ui/empty-state";
-import { DataListRoot, DataListItem } from "@/components/ui/data-list";
+import { EmptyState } from "@/shared/ui/empty-state";
+import { DataListRoot, DataListItem } from "@/shared/ui/data-list";
 import { companyData } from "@/shared/config/company-data";
 import { Layers } from "lucide-react";
-import { QuoteSheet } from "@/screens/Presupuesto/presupuesto/QuoteSheet";
+import { QuoteSheet } from "@/features/presupuesto/components/QuoteSheet";
 import { summarizeQuote } from "@/features/presupuesto/utils/quoteSummary";
 
 /** Datos de EJEMPLO (no son de un cliente real) para mostrar la hoja de presupuesto. */

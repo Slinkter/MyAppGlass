@@ -9,7 +9,7 @@
 import React from "react";
 import { Box, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { Check, X } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import { ShowcaseCard, SubsectionLabel } from "../components";
 import { BrandLockup, BrandMark } from "../components/BrandMark";
 

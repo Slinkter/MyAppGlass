@@ -10,12 +10,12 @@ import React from "react";
 import { Box, Button as ChakraButton, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
 import { Reveal } from "@shared/components/motion/Reveal";
-import { NewClientModal } from "@/screens/Admin/clients/NewClientModal";
-import { EMPTY_NEW_CLIENT } from "@/screens/Admin/clients/newClientForm";
-import { CreateProductModal } from "@/screens/Admin/inventory/CreateProductModal";
-import { ReplenishStockModal } from "@/screens/Admin/inventory/ReplenishStockModal";
-import { EMPTY_PRODUCT_FORM } from "@/screens/Admin/inventory/productForm";
-import { PrintOrderModal } from "@/screens/Admin/reports/PrintOrderModal";
+import { NewClientModal } from "@/features/admin/components/clients/NewClientModal";
+import { EMPTY_NEW_CLIENT } from "@/features/admin/components/clients/newClientForm";
+import { CreateProductModal } from "@/features/admin/components/inventory/CreateProductModal";
+import { ReplenishStockModal } from "@/features/admin/components/inventory/ReplenishStockModal";
+import { EMPTY_PRODUCT_FORM } from "@/features/admin/components/inventory/productForm";
+import { PrintOrderModal } from "@/features/admin/components/reports/PrintOrderModal";
 import { DUR_CSS, EASE_SOFT, EASE_TEXT } from "@/shared/constants/motion";
 import { DrawLine, ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel, TabFade } from "../../components";
 

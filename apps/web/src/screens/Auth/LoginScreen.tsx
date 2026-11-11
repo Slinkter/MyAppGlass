@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import { Box, Heading, Text, VStack, HStack, Field, Input, Tabs } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { toaster } from "@/components/ui/toaster-instance";
+import { Button } from "@/shared/ui/button";
+import { toaster } from "@/shared/ui/toaster-instance";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { isValidDniRuc } from "@/features/auth/services/auth-service";
 import {

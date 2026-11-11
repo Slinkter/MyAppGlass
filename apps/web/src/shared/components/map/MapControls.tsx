@@ -3,7 +3,7 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
-import { Tooltip } from "@/components/ui/tooltip";
+import { Tooltip } from "@/shared/ui/tooltip";
 import { Compass } from "lucide-react";
 
 interface MapControlsProps {

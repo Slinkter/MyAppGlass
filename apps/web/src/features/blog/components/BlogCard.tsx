@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import { Box, Heading, Text, VStack, HStack, Flex } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import Link from "next/link";
 import { BlogPost } from "@/features/blog/data/blog-posts";
 import { LucideCalendar, LucideUser, LucideArrowRight } from "lucide-react";

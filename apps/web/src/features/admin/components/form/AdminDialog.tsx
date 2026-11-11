@@ -18,7 +18,7 @@ import {
   DialogBody,
   DialogTitle,
   DialogCloseTrigger,
-} from "@/components/ui/dialog";
+} from "@/shared/ui/dialog";
 
 export interface AdminDialogProps {
   /** Título visible (o solo para lectores de pantalla si `hideHeader`). */

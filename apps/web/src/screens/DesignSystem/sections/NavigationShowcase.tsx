@@ -15,7 +15,7 @@ import { DemoLinks, ShowcaseCard, ShowcasePanel, ShowcaseStack } from "../compon
 import AuraDesktopNav from "@/widgets/Navbar/AuraDesktopNav";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
 import { FloatingWhatsAppButton, ThemeToggleButton } from "@/widgets/FloatingActions";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 
 export const NavigationShowcase: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);

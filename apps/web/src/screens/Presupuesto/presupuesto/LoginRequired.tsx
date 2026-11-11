@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { Lock, LogIn, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { companyData } from "@/shared/config/company-data";

@@ -3,7 +3,7 @@
 import React from "react";
 import { Flex, Box, Image, Text, Stack, HStack } from "@chakra-ui/react";
 import { BankAccount } from "@/shared/data/bank-accounts";
-import { CopyButton } from "@/shared/components/ui/CopyButton";
+import { CopyButton } from "@/shared/components/CopyButton";
 
 interface BankAccountCardProps extends Omit<BankAccount, 'logoBg'> {
   logoBg?: string;

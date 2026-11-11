@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, VStack, HStack, Heading, Text, Button, Spinner } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import { Printer, ChevronDown, ChevronUp } from "lucide-react";
 import type { Order } from "@/shared/schemas/ecommerce-schemas";
 

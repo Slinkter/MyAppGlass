@@ -7,7 +7,7 @@
  */
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { Box, Code, Heading, Text, VStack } from '@chakra-ui/react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/ui/button';
 import { logger } from '@/shared/utils/logger';
 import { env } from '@/shared/config/env';
 

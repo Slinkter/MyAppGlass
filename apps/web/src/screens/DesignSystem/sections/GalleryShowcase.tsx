@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState } from "react";
 import { Badge, Box, Flex, Heading, HStack, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import Gallery from "@/shared/components/common/Gallery";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import type { GalleryItem } from "@/shared/types/gallery";

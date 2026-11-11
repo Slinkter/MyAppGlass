@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, DragEvent, ChangeEvent } from "react";
 import { Box, VStack, HStack, Text, Button, Spinner } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import {
   UploadCloud,
   Image as ImageIcon,

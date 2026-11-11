@@ -6,7 +6,7 @@ import { companyData } from "@/shared/config/company-data";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
 import AuraSurface from "@shared/components/aura/AuraSurface";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import type { LocalLandingDistrito } from "../data/distritos";
 
 const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(

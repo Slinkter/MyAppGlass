@@ -2,7 +2,7 @@
 
 import React from "react";
 import { HStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import type { YearGroup } from "./TimelineYearGroup";
 

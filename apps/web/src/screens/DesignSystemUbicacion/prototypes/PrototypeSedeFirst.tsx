@@ -3,11 +3,11 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, Flex, Heading, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ChevronDown, ChevronUp, MapPinOff } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/empty-state";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/shared/ui/button";
+import { EmptyState } from "@/shared/ui/empty-state";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { TOUCH_MIN } from "@/shared/constants/layout";
-import { FilterPill } from "@/shared/components/ui/FilterPill";
+import { FilterPill } from "@/shared/components/FilterPill";
 import { useImagePrefetch } from "@shared/hooks/ui/useImagePrefetch";
 import LocationMapLazy from "@/features/location/LocationMapLazy";
 import { useLocationData } from "@/features/location/useLocationData";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, VStack } from "@chakra-ui/react";
-import { Alert } from "@/components/ui/alert";
+import { Alert } from "@/shared/ui/alert";
 
 interface MapErrorProps {
   message?: string;

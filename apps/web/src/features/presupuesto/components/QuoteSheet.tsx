@@ -15,7 +15,7 @@ import { ShieldCheck } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
 import { QUOTE_PRICING } from "@/features/presupuesto/config/pricing";
 import type { QuoteSummary } from "@/features/presupuesto/utils/quoteSummary";
-import type { QuoteCustomer } from "./types";
+import type { QuoteCustomer } from "../types";
 
 interface QuoteSheetProps {
   customer: QuoteCustomer;

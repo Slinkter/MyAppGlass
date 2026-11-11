@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { VStack, HStack, Text, Input, Button, IconButton } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
-import { Field } from "@/components/ui/field";
+import { Badge } from "@/shared/ui/badge";
+import { Field } from "@/shared/ui/field";
 import { Plus, Trash2 } from "lucide-react";
 
 interface FeaturesEditorProps {

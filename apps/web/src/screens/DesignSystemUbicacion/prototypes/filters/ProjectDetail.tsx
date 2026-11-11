@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Box, chakra, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { Clock, MapPin, Navigation, Route } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { companyData } from "@/shared/config/company-data";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";

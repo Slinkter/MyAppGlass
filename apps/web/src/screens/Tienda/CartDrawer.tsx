@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import NextLink from "next/link";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import {
   DrawerBody,
   DrawerCloseTrigger,
@@ -13,7 +13,7 @@ import {
   DrawerHeader,
   DrawerRoot,
   DrawerTitle,
-} from "@/components/ui/drawer";
+} from "@/shared/ui/drawer";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import type { Product } from "@/shared/schemas/ecommerce-schemas";
 import { getCrossSells } from "@/features/tienda/cart-engine";

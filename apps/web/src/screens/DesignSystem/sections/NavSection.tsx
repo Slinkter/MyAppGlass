@@ -9,7 +9,7 @@
 import React from "react";
 import { Box, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { glassSurface } from "@/shared/constants/glass";
 import { companyData } from "@/shared/config/company-data";
 import { ShowcaseCard, SubsectionLabel } from "../components";

@@ -7,7 +7,7 @@ import ServiceCard from "./ServiceCard";
 import { useServices, type ServiceListItem } from "@features/services/hooks/useServices";
 import { ServiceCardSkeletons } from "./ServiceSkeletons";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
-import { EmptyState } from "@/components/ui/empty-state";
+import { EmptyState } from "@/shared/ui/empty-state";
 import { AlertTriangle, Search } from "lucide-react";
 import type { Service } from "@/shared/api/firebase/types";
 

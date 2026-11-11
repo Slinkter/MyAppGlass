@@ -19,8 +19,8 @@ import {
 } from "lucide-react";
 import { subscribeToClients, addClient } from "@/shared/api/firebase/clientsRepository";
 import { ClientCard } from "./clients/ClientCard";
-import { NewClientModal } from "./clients/NewClientModal";
-import { EMPTY_NEW_CLIENT, type NewClientForm } from "./clients/newClientForm";
+import { NewClientModal } from "@/features/admin/components/clients/NewClientModal";
+import { EMPTY_NEW_CLIENT, type NewClientForm } from "@/features/admin/components/clients/newClientForm";
 import { ClientProfile } from "@/shared/schemas/ecommerce-schemas";
 import { exportToExcel } from "@/shared/utils/excel-export";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";

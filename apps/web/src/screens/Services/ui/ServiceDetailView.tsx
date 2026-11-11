@@ -8,7 +8,7 @@ import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
 import ServicePageLayout from "@/features/services/components/ServicePageLayout";
 import { ServiceDetailSkeleton } from "@/features/services/components/ServiceSkeletons";
 import { useService } from "@/features/services/hooks/useServices";
-import { ErrorView as ErrorPage } from "@/screens/Error";
+import ErrorPage from "@/shared/components/ErrorView";
 
 interface ServiceDetailViewProps {
   serviceSlug?: string;

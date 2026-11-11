@@ -3,7 +3,7 @@
 import React from "react";
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { Clock, MapPin, Navigation } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { companyData } from "@/shared/config/company-data";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import type { StoreLocation } from "@/shared/types/map";

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Heading, VStack, SimpleGrid, Field, Input } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { FileCheck, Send } from "lucide-react";
 import type { FieldErrors } from "@/features/presupuesto/schemas/quote-form-schema";
 import type { QuoteCustomer } from "./types";

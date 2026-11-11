@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Heading, Text, VStack, HStack, SimpleGrid, Badge } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { Sparkles, UploadCloud, Image as ImageIcon, RefreshCw, Layers } from "lucide-react";
 import type { AISimulatorProduct } from "@/features/ai-simulator/data/aiProducts";
 

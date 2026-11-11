@@ -9,7 +9,7 @@
 import React from "react";
 import { Box, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ArrowRight, Check, MapPin, Ruler, ShieldCheck, Store } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { MediaCard } from "@/shared/components/Card/MediaCard";
 import { glassSurface } from "@/shared/constants/glass";
 import { ShowcaseCard, SubsectionLabel } from "../components";

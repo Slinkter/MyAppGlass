@@ -3,9 +3,9 @@
 import React from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { ListFilter, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
-import { FilterPill } from "@/shared/components/ui/FilterPill";
+import { Button } from "@/shared/ui/button";
+import { NativeSelectField, NativeSelectRoot } from "@/shared/ui/native-select";
+import { FilterPill } from "@/shared/components/FilterPill";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 
 export type SortMode = "recent" | "near";

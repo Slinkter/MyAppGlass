@@ -3,8 +3,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, Grid, HStack, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { ChevronDown, MapPinOff } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/empty-state";
+import { Button } from "@/shared/ui/button";
+import { EmptyState } from "@/shared/ui/empty-state";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import LocationMapLazy from "@/features/location/LocationMapLazy";
 import { useLocationData } from "@/features/location/useLocationData";

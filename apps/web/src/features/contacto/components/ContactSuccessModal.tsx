@@ -13,8 +13,8 @@ import {
   DialogBody,
   DialogFooter,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+} from "@/shared/ui/dialog";
+import { Button } from "@/shared/ui/button";
 import { Check } from "lucide-react";
 
 interface ContactSuccessModalProps {

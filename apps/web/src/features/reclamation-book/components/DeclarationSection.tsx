@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import { Text, Heading, VStack, HStack, Box } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
-import { Field } from "@/components/ui/field";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/shared/ui/button";
+import { Field } from "@/shared/ui/field";
+import { Checkbox } from "@/shared/ui/checkbox";
 import { MathCaptchaField } from "@/shared/components/MathCaptchaField";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 import FormCard from "./FormCard";

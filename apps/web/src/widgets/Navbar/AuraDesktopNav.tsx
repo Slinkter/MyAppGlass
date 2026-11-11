@@ -3,7 +3,7 @@
 import React from "react";
 import { HStack } from "@chakra-ui/react";
 import RouterLink from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import NAV_ITEMS, { ACCOUNT_NAV_ITEM, type NavItem } from "@/shared/config/nav-items";
 import { glassSurface } from "@/shared/constants/glass";
 

@@ -1,7 +1,7 @@
 "use client";
 import React, { useLayoutEffect } from "react";
 import { Flex, Image, chakra } from "@chakra-ui/react";
-import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar } from "@/components/ui/scroll-area";
+import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar } from "@/shared/ui/scroll-area";
 import { GalleryItem } from "@/shared/types/gallery";
 import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 

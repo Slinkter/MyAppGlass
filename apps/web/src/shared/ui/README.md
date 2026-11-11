@@ -1,4 +1,4 @@
-# src/components/ui
+# src/shared/ui
 
 Snippets de **Chakra UI v3** generados por el CLI (`npx @chakra-ui/cli snippet add ...`): `dialog`, `field`, `checkbox`, `provider`, etc.
 

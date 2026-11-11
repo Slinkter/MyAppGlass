@@ -14,7 +14,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import { Phone, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
 import { glassSurface } from "@/shared/constants/glass";
 import { DUR_CSS, DUR_MS, EASE_PANEL, EASE_TEXT } from "@/shared/constants/motion";

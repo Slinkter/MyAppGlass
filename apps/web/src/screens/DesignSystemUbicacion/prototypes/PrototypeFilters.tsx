@@ -3,8 +3,8 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { Box, Grid, Heading, Skeleton, Stack, useMediaQuery } from "@chakra-ui/react";
 import { SearchX } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/empty-state";
+import { Button } from "@/shared/ui/button";
+import { EmptyState } from "@/shared/ui/empty-state";
 import {
   DrawerBody,
   DrawerCloseTrigger,
@@ -12,7 +12,7 @@ import {
   DrawerHeader,
   DrawerRoot,
   DrawerTitle,
-} from "@/components/ui/drawer";
+} from "@/shared/ui/drawer";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { companyData } from "@/shared/config/company-data";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";

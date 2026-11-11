@@ -3,9 +3,9 @@
 import React from "react";
 import NextLink from "next/link";
 import { Box, Container, Heading, HStack, List, Tabs, Text, VStack } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import { ArrowLeft, MapPinned } from "lucide-react";
-import { ColorModeButton } from "@/components/ui/color-mode";
+import { ColorModeButton } from "@/shared/ui/color-mode";
 import { PrototypeSplit } from "./prototypes/PrototypeSplit";
 import { ImmersiveLocationMap as PrototypeImmersive } from "@/features/location/ImmersiveLocationMap";
 import { PrototypeSedeFirst } from "./prototypes/PrototypeSedeFirst";

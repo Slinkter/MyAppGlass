@@ -1,5 +1,5 @@
 "use client";
-import { useColorMode } from "@/components/ui/color-mode-hooks";
+import { useColorMode } from "@/shared/ui/color-mode-hooks";
 import React, { useMemo, useCallback, useState, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import { GoogleMap } from "@react-google-maps/api";

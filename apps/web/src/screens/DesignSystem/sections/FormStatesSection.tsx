@@ -10,13 +10,13 @@
 import React, { useState } from "react";
 import { HStack, Input, SimpleGrid, Text, Textarea, VStack } from "@chakra-ui/react";
 import { ArrowRight, Check, Inbox, Ruler, ShieldCheck, Store } from "lucide-react";
-import { Alert } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/empty-state";
-import { Field } from "@/components/ui/field";
-import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Alert } from "@/shared/ui/alert";
+import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
+import { EmptyState } from "@/shared/ui/empty-state";
+import { Field } from "@/shared/ui/field";
+import { NativeSelectField, NativeSelectRoot } from "@/shared/ui/native-select";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { ShowcaseCard, SubsectionLabel } from "../components";
 import { DockPill } from "../components/PatternB";
 

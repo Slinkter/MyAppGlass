@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Box, Heading, Text, VStack, Stack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import RouterLink from "next/link";
 import { Home } from "lucide-react";
 

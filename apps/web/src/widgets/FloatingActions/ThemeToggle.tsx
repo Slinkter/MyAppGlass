@@ -2,9 +2,9 @@
 
 import React from "react";
 import { Box, ClientOnly, Skeleton } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
-import { ColorModeIcon } from "@/components/ui/color-mode";
-import { useColorMode } from "@/components/ui/color-mode-hooks";
+import { Button } from "@/shared/ui/button";
+import { ColorModeIcon } from "@/shared/ui/color-mode";
+import { useColorMode } from "@/shared/ui/color-mode-hooks";
 
 export const ThemeToggleButton: React.FC = () => {
   const { toggleColorMode } = useColorMode();

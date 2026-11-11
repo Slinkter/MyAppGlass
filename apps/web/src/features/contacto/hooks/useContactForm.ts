@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toaster } from "@/components/ui/toaster-instance";
+import { toaster } from "@/shared/ui/toaster-instance";
 import { submitContactAction, checkStatusAction } from "@features/contacto/actions";
 import { validateMathChallengeLocally } from "@/shared/utils/mathCaptcha";
 import { executeRecaptcha, preloadRecaptcha } from "@/shared/utils/recaptcha";

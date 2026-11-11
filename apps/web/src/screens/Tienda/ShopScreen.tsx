@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Box, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ShoppingCart } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { useShopProducts } from "@/features/tienda/useShopProducts";
 import { useCartStore } from "@/features/tienda/useCartStore";

@@ -18,7 +18,7 @@ import React from "react";
 import Image from "next/image";
 import RouterLink from "next/link";
 import { Box, Flex, Heading, Text, type BoxProps } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { glassLightOnPhoto } from "@/shared/constants/glass";
 import { useScrollProgress } from "@/shared/hooks/ui/useScrollProgress";
 import { Reveal } from "@/shared/components/motion/Reveal";

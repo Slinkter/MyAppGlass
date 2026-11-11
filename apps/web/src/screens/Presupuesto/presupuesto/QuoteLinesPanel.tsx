@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Heading, HStack, Text, VStack, SimpleGrid, Field, NativeSelect, Input } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { Calculator, Plus, Trash2 } from "lucide-react";
 import { QUOTE_PRICING } from "@/features/presupuesto/config/pricing";
 import { QUOTE_LIMITS, type FieldErrors } from "@/features/presupuesto/schemas/quote-form-schema";

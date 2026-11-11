@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Container, Grid, GridItem, VStack } from "@chakra-ui/react";
-import { Skeleton, SkeletonText } from "@/components/ui/skeleton";
+import { Skeleton, SkeletonText } from "@/shared/ui/skeleton";
 
 /** Tarjetas fantasma de la lista de servicios (misma altura que ServiceCard). */
 export const ServiceCardSkeletons: React.FC<{ count?: number }> = ({ count = 6 }) => (

@@ -9,7 +9,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Info } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import {
   DialogActionTrigger,
   DialogBody,
@@ -21,7 +21,7 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/shared/ui/dialog";
 import {
   DrawerActionTrigger,
   DrawerBody,
@@ -32,9 +32,9 @@ import {
   DrawerRoot,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
-import { Tooltip } from "@/components/ui/tooltip";
-import { toaster } from "@/components/ui/toaster-instance";
+} from "@/shared/ui/drawer";
+import { Tooltip } from "@/shared/ui/tooltip";
+import { toaster } from "@/shared/ui/toaster-instance";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel } from "../components";
 
@@ -51,7 +51,7 @@ export const OverlaysShowcase: React.FC = () => {
       <ShowcaseCard
         title="Dialog Modal (Chakra UI v3 Snippet)"
         description="Ventana modal accesible, de esquina de 24 px, usada en formularios administrativos."
-        badge="components/ui/dialog"
+        badge="shared/ui/dialog"
       >
         <VStack align="flex-start" gap="4">
           <Text fontSize="sm" color="text.muted">

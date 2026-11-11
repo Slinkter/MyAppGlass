@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ErrorView } from "@/screens/Error";
+import ErrorView from "@/shared/components/ErrorView";
 
 export const metadata: Metadata = {
   title: "Página no encontrada",

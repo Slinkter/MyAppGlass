@@ -15,7 +15,7 @@ import type {
   CreateServiceInput,
   UpdateServiceInput,
 } from "@/shared/api/firebase/types";
-import { toaster } from "@/components/ui/toaster-instance";
+import { toaster } from "@/shared/ui/toaster-instance";
 
 export default function AdminServiciosPage() {
   const [services, setServices] = useState<Service[]>([]);

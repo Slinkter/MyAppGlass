@@ -14,7 +14,7 @@ import {
   FileText,
   Check,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { companyData } from "@/shared/config/company-data";
 import {
   ShowcaseCard,

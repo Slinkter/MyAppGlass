@@ -6,11 +6,11 @@ import {
   HStack,
   Box,
 } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import { Field } from "@/shared/ui/field";
 import {
   NativeSelectField,
   NativeSelectRoot,
-} from "@/components/ui/native-select";
+} from "@/shared/ui/native-select";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 import FormCard from "./FormCard";
 import { ReclamationFormState, InputChangeEvent } from "@features/reclamation-book/types";

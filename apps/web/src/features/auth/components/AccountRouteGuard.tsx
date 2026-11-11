@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Box, VStack, Text, Spinner } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { useAuth } from "@/features/auth/context/AuthContext";
 
 /** Guardia de /mi-cuenta: exige sesión iniciada (cualquier rol). */

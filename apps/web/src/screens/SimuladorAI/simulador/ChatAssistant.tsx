@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Heading, Text, VStack, HStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { Bot, Send } from "lucide-react";
 
 export interface ChatMessage {

@@ -3,7 +3,7 @@
 import React from "react";
 import { Box, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import { ShowcaseCard, ShowcaseStack } from "../components";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import ServiceCard from "@/features/services/components/ServiceCard";
 import ProjectCardContent from "@/features/projects/components/ProjectCardContent";
 import ClientCard from "@/features/home/components/clients/ClientCard";

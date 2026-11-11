@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Container, VStack, Heading, Text } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import { useContactForm } from "@/features/contacto/hooks/useContactForm";
 import { ContactFormSection } from "@/features/contacto/components/ContactFormSection";
 import { TrackingSection } from "@/features/contacto/components/TrackingSection";

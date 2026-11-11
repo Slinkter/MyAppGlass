@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Box, Heading, Text, VStack, HStack, SimpleGrid, Badge } from "@chakra-ui/react";
-import { toaster } from "@/components/ui/toaster-instance";
+import { toaster } from "@/shared/ui/toaster-instance";
 import { AI_SIMULATOR_PRODUCTS, AISimulatorProduct } from "@/features/ai-simulator/data/aiProducts";
 import { Sparkles } from "lucide-react";
 import { ProductSelector } from "./simulador/ProductSelector";

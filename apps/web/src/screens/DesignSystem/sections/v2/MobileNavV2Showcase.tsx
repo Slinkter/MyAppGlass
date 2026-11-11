@@ -12,7 +12,7 @@
 import React, { useState } from "react";
 import { Badge, type BadgeProps, Box, HStack, Heading, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { Smartphone, Info, Check, RotateCcw, Sliders } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel } from "../../components";
 import { MobileNavbarV2, OFFICIAL_SERVICE_SLUGS } from "@/widgets/Navbar/mobile";
 

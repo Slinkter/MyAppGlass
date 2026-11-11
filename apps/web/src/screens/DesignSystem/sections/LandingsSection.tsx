@@ -9,7 +9,7 @@
 import React from "react";
 import { Box, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ArrowRight, Building2, CalendarDays, Check, Layers, MapPin, Phone, Ruler, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { companyData } from "@/shared/config/company-data";
 import { ShowcaseCard } from "../components";
 import { Accent, Dock, DockFact, DockPill, PlaceActions, PlaceCard, PlaceTitle, Stage, StatusLine } from "../components/PatternB";

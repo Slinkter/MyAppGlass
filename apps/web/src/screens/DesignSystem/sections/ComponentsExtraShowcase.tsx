@@ -5,21 +5,21 @@ import { Badge, Box, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ArrowUpRight } from "lucide-react";
 import MediaCard from "@/shared/components/Card/MediaCard";
 import AuraHeader from "@/shared/components/aura/AuraHeader";
-import { CopyButton } from "@/shared/components/ui/CopyButton";
-import { CloseButton } from "@/components/ui/close-button";
-import { Alert } from "@/components/ui/alert";
+import { CopyButton } from "@/shared/components/CopyButton";
+import { CloseButton } from "@/shared/ui/close-button";
+import { Alert } from "@/shared/ui/alert";
 import {
   FileUploadRoot,
   FileUploadDropzone,
   FileUploadList,
-} from "@/components/ui/file-upload";
+} from "@/shared/ui/file-upload";
 import {
   ScrollAreaRoot,
   ScrollAreaViewport,
   ScrollAreaContent,
   ScrollAreaScrollbar,
   ScrollAreaThumb,
-} from "@/components/ui/scroll-area";
+} from "@/shared/ui/scroll-area";
 import { ShowcaseCard, ShowcaseStack, SubsectionLabel } from "../components";
 
 const BADGES = [

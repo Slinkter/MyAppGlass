@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { IconButton } from "@chakra-ui/react";
-import { Tooltip } from "@/components/ui/tooltip";
+import { Tooltip } from "@/shared/ui/tooltip";
 import { Copy, Check } from "lucide-react";
-import { toaster } from "@/components/ui/toaster-instance";
+import { toaster } from "@/shared/ui/toaster-instance";
 
 interface CopyButtonProps {
   value: string;

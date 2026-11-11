@@ -5,16 +5,16 @@ import {
   HStack,
   Box,
 } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import { Field } from "@/shared/ui/field";
 import {
   NativeSelectField,
   NativeSelectRoot,
-} from "@/components/ui/native-select";
+} from "@/shared/ui/native-select";
 import {
   FileUploadDropzone,
   FileUploadList,
   FileUploadRoot,
-} from "@/components/ui/file-upload";
+} from "@/shared/ui/file-upload";
 import { useReclamationFormContext } from "./ReclamationFormContext";
 import FormCard from "./FormCard";
 

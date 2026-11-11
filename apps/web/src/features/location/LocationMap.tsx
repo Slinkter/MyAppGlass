@@ -4,8 +4,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { GoogleMap } from "@react-google-maps/api";
 import { Box } from "@chakra-ui/react";
 import { Compass } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useColorMode } from "@/components/ui/color-mode-hooks";
+import { Button } from "@/shared/ui/button";
+import { useColorMode } from "@/shared/ui/color-mode-hooks";
 import { useIsMobile } from "@/shared/hooks/ui/useIsMobile";
 import { useGoogleMapsLoader } from "@shared/hooks/map/useGoogleMapsLoader";
 import { useMapState } from "@shared/hooks/map/useMapState";

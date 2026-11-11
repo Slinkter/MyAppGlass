@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, VStack } from "@chakra-ui/react";
-import { DataListItem, DataListRoot } from "@/components/ui/data-list";
+import { DataListItem, DataListRoot } from "@/shared/ui/data-list";
 import { LucideIcon } from "lucide-react";
 
 interface ProjectDetailItemProps {

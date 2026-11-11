@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Box, Text, Link, VStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import {
   DialogRoot,
   DialogContent,
@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogBody,
   DialogCloseTrigger,
-} from "@/components/ui/dialog";
+} from "@/shared/ui/dialog";
 import { companyData } from "@/shared/config/company-data";
 
 import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";

@@ -10,12 +10,12 @@
 import React, { useRef, useState } from "react";
 import { Box, HStack, Input, SimpleGrid, Text, VStack, type BoxProps } from "@chakra-ui/react";
 import { ArrowLeft, ArrowRight, ChevronDown, Menu, MessageCircle, Phone } from "lucide-react";
-import { Alert } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Field } from "@/components/ui/field";
-import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
+import { Alert } from "@/shared/ui/alert";
+import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
+import { Checkbox } from "@/shared/ui/checkbox";
+import { Field } from "@/shared/ui/field";
+import { NativeSelectField, NativeSelectRoot } from "@/shared/ui/native-select";
 import { companyData } from "@/shared/config/company-data";
 import { TRANSITIONS } from "@/shared/constants/motion";
 import { useMotionBudget } from "@/shared/hooks/ui/useMotionBudget";

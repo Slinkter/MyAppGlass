@@ -16,7 +16,7 @@ import {
   Container,
   Flex,
 } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { Map, Image as Photo, Home, Building2, MapPin, Calendar } from "lucide-react";
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
@@ -25,7 +25,7 @@ import { ProjectDetailSkeleton } from "@features/projects/components/ProjectSkel
 import VisualViewer from "@features/projects/components/modal/VisualViewer";
 import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
 import BackButton from "@shared/components/navigation/BackButton";
-import { ErrorView as ErrorPage } from "@/screens/Error";
+import ErrorPage from "@/shared/components/ErrorView";
 
 export interface ViewSelectorProps {
   activeMode: string;

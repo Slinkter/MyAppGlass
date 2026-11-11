@@ -2,8 +2,8 @@
 
 import { useMemo } from "react";
 import { Box, Heading, Text, VStack, HStack, Input, SimpleGrid } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
 import { Search, CheckCircle2, Clock, FileSearch, CheckCheck } from "lucide-react";
 import AuraSurface from "@/shared/components/aura/AuraSurface";
 import { TrackingResult } from "@/features/contacto/hooks/useContactForm";

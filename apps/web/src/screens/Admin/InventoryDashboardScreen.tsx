@@ -11,9 +11,9 @@ import { AdminNav } from "@/widgets/AdminNav/AdminNav";
 import { MetricsSummary } from "./inventory/MetricsSummary";
 import { SearchFilters } from "./inventory/SearchFilters";
 import { ProductTable } from "./inventory/ProductTable";
-import { ReplenishStockModal } from "./inventory/ReplenishStockModal";
-import { CreateProductModal } from "./inventory/CreateProductModal";
-import { EMPTY_PRODUCT_FORM, type InventoryStatusMessage, type ProductFormData } from "./inventory/productForm";
+import { ReplenishStockModal } from "@/features/admin/components/inventory/ReplenishStockModal";
+import { CreateProductModal } from "@/features/admin/components/inventory/CreateProductModal";
+import { EMPTY_PRODUCT_FORM, type InventoryStatusMessage, type ProductFormData } from "@/features/admin/components/inventory/productForm";
 
 export const InventoryDashboardScreen: React.FC = () => {
   const { products, loading } = useRealtimeProducts();

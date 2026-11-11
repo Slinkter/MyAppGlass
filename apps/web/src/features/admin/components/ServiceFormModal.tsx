@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Box, Input, Textarea, SimpleGrid } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import { Field } from "@/shared/ui/field";
 import { Layers } from "lucide-react";
 import { FeaturesEditor } from "./form/FeaturesEditor";
 import { type GalleryPhotoItem } from "./AlbumGalleryUploader";

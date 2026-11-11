@@ -6,8 +6,8 @@
 
 import React from "react";
 import { Box, Heading, Text, VStack, Stack, SimpleGrid, HStack, Image, Flex } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
-import { Toaster } from "@/components/ui/toaster";
+import { Badge } from "@/shared/ui/badge";
+import { Toaster } from "@/shared/ui/toaster";
 import {
     Building,
     Contact,
@@ -19,9 +19,9 @@ import { companyData } from "@/shared/config/company-data";
 import { bankAccountsData } from "@/shared/data/bank-accounts";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";
-import { InfoItem } from "@/shared/components/ui/InfoItem";
-import { CopyButton } from "@/shared/components/ui/CopyButton";
-import { BankAccountCard } from "@screens/Legal/components/BankAccountCard";
+import { InfoItem } from "@/shared/components/InfoItem";
+import { CopyButton } from "@/shared/components/CopyButton";
+import { BankAccountCard } from "../components/BankAccountCard";
 
 const fiscalData: Array<{
     icon: LucideIcon;

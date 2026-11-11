@@ -4,7 +4,7 @@ import React from "react";
 import { Box, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { ArrowUpRight, MapPinned, Route } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
 import { TOUCH_MIN } from "@/shared/constants/layout";

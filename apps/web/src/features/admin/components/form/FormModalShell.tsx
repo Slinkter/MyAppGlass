@@ -10,7 +10,7 @@ import {
   DialogFooter,
   DialogTitle,
   DialogCloseTrigger,
-} from "@/components/ui/dialog";
+} from "@/shared/ui/dialog";
 import { Sparkles } from "lucide-react";
 
 interface FormModalShellProps {

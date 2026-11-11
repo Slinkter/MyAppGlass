@@ -91,7 +91,7 @@ El proyecto sigue una variante **parcial de Feature-Sliced Design (FSD)**: exist
   - `features/auth/`: `AdminRouteGuard`, `AccountRouteGuard`.
   - `features/tienda/`: Motor de carrito (`cart-engine.ts`), store Zustand (`useCartStore.ts`) y hooks de inventario para la tienda.
   - `features/*/hooks/`: hooks públicos (`useServices`/`useService`, `useProjects`/`useProject`) que leen de Firestore.
-- `apps/web/src/components/ui/`: Primitivas y wrappers base de Chakra UI v3 (alert, button, dialog, drawer, popover, toaster, etc.), proveyendo la base atómica del sistema de componentes.
+- `apps/web/src/shared/ui/`: Primitivas y wrappers base de Chakra UI v3 (alert, button, dialog, drawer, tooltip, toaster, etc.), la base atómica del sistema de componentes. Vive en `shared` porque es la capa más baja; antes estaba en `src/components/ui` (movido el 2026-11-11).
 - `apps/web/src/shared/`: Código transversal: `api/firebase` (repositorios de servicios, proyectos, clientes y usuarios), `components`, `config`, `constants`, `data`, `hooks` (incluye `hooks/data/useAsyncResource.ts` y `hooks/ui/useFilterableList.ts`), `lib`, `providers`, `schemas`, `services`, `types` y `utils`.
 - `apps/web/public/images/`: Assets WebP optimizados.
 - `packages/shared/src/`: `company-data.ts` (fuente real de `companyData`, reexportada en `apps/web/src/shared/config/company-data.ts`) e `index.ts`.

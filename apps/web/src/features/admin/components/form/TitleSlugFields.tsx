@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Input, Text, SimpleGrid } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import { Field } from "@/shared/ui/field";
 
 interface TitleSlugFieldsProps {
   titleLabel: string;

@@ -12,13 +12,13 @@ import {
     DialogContent,
     DialogRoot,
     DialogTitle,
-} from "@/components/ui/dialog";
-import { CloseButton } from "@/components/ui/close-button";
+} from "@/shared/ui/dialog";
+import { CloseButton } from "@/shared/ui/close-button";
 import React, { createContext, useContext, useEffect, useMemo } from "react";
 
 import { useGallery, UseGalleryReturn } from "@shared/hooks/ui/useGallery";
 import dynamic from "next/dynamic";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 const InternalViewer = dynamic(() => import("./gallery/GalleryViewer"), {
     ssr: false, // Opcional, pero recomendado para galerías pesadas

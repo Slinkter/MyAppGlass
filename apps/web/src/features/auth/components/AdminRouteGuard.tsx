@@ -3,7 +3,7 @@
 import React from "react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { Box, VStack, Heading, Text, Spinner } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import Link from "next/link";
 import { ShieldAlert, LogIn, Home } from "lucide-react";
 

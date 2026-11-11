@@ -11,7 +11,7 @@
 
 import React from "react";
 import { Box, HStack, Text, VStack, type BoxProps } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import ResponsiveImage from "@/shared/components/Image/ResponsiveImage";
 import { glassSurface } from "@/shared/constants/glass";
 

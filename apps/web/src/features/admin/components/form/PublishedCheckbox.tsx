@@ -2,7 +2,7 @@
 
 import React from "react";
 import { VStack, Text } from "@chakra-ui/react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/shared/ui/checkbox";
 
 interface PublishedCheckboxProps {
   checked: boolean;

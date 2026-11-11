@@ -9,7 +9,7 @@ import { exportOrdersToExcel } from "@/shared/utils/excel-export";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
 import { ReportsMetrics } from "./reports/ReportsMetrics";
 import { OrdersList } from "./reports/OrdersList";
-import { PrintOrderModal } from "./reports/PrintOrderModal";
+import { PrintOrderModal } from "@/features/admin/components/reports/PrintOrderModal";
 
 export const ReportsScreen: React.FC = () => {
   const { orders, loading } = useRealtimeOrders();

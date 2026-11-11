@@ -13,8 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { MapPin } from "lucide-react";
 import RouterLink from "next/link";
-import { ColorModeButton } from "@/components/ui/color-mode";
-import { Button } from "@/components/ui/button";
+import { ColorModeButton } from "@/shared/ui/color-mode";
+import { Button } from "@/shared/ui/button";
 import { TabFade } from "./components";
 import { companyData } from "@/shared/config/company-data";
 

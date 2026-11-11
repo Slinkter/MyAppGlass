@@ -8,7 +8,7 @@
 
 import React from "react";
 import { Box, Heading, Text, VStack, HStack, SimpleGrid } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import { companyData } from "@/shared/config/company-data";
 import AuraContainer from "@shared/components/aura/AuraContainer";
 import AuraHeader from "@shared/components/aura/AuraHeader";

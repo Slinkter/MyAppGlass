@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import NextLink from "next/link";
 import { Box, Heading, HStack, Input, Text, Textarea, VStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { companyData } from "@/shared/config/company-data";
 import { buildWhatsAppOrderMessage } from "@/features/tienda/cart-engine";

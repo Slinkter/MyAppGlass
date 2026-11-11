@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { Box, Heading, Stack, Text, VStack, HStack, SimpleGrid } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import { companyData } from "@/shared/config/company-data";
 import { ReclamationFormProvider, useReclamationFormContext } from "./ReclamationFormContext";
 import PersonalInfoSection from "./PersonalInfoSection";

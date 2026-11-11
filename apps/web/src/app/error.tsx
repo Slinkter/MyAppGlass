@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { RotateCcw, Home } from "lucide-react";
 import RouterLink from "next/link";
 import { logger } from "@/shared/utils/logger";

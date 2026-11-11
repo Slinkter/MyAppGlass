@@ -13,8 +13,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import { Phone, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ColorModeButton } from "@/components/ui/color-mode";
+import { Button } from "@/shared/ui/button";
+import { ColorModeButton } from "@/shared/ui/color-mode";
 import { WhatsAppIcon } from "@/shared/components/icons/WhatsAppIcon";
 import { glassSurface } from "@/shared/constants/glass";
 import { DUR_CSS, EASE_PANEL } from "@/shared/constants/motion";

@@ -3,7 +3,7 @@
 import React from "react";
 import AdminRowActions from "./AdminRowActions";
 import { Box, VStack, HStack, Text, Button, Spinner } from "@chakra-ui/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 import {
   Building2,
   MapPin,

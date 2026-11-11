@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Container, VStack } from "@chakra-ui/react";
-import { Skeleton, SkeletonText } from "@/components/ui/skeleton";
+import { Skeleton, SkeletonText } from "@/shared/ui/skeleton";
 
 /** Tarjetas fantasma de la lista de proyectos. */
 export const ProjectCardSkeletons: React.FC<{ count?: number }> = ({ count = 6 }) => (

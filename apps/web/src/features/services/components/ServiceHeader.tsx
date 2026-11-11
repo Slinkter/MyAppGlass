@@ -6,7 +6,7 @@ import {
   Heading,
   Flex,
 } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import BackButton from "@shared/components/navigation/BackButton";
 import type { ServicePageSystem } from "@features/services/types";
 
