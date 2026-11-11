@@ -1,9 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  createLookupMap,
-  createGroupMap,
-  binarySearchBy,
-} from "@/shared/utils/algorithm-utils";
+import { createLookupMap, createGroupMap } from "@/shared/utils/algorithm-utils";
 
 describe("algorithm-utils", () => {
   const sampleItems = [
@@ -27,27 +23,6 @@ describe("algorithm-utils", () => {
       expect(yearMap.get(2024)?.length).toBe(2);
       expect(yearMap.get(2023)?.length).toBe(1);
       expect(yearMap.get(2022)).toBeUndefined();
-    });
-  });
-
-  describe("binarySearchBy - O(log n) search", () => {
-    const sortedProducts = [
-      { sku: "ALU-100", price: 10 },
-      { sku: "ALU-200", price: 20 },
-      { sku: "ALU-300", price: 30 },
-      { sku: "GLS-400", price: 40 },
-      { sku: "GLS-500", price: 50 },
-    ];
-
-    it("debe encontrar el elemento usando búsqueda binaria en O(log n)", () => {
-      const match = binarySearchBy(sortedProducts, "ALU-300", (p) => p.sku);
-      expect(match).not.toBeNull();
-      expect(match?.price).toBe(30);
-    });
-
-    it("debe retornar null cuando el elemento no existe en la colección", () => {
-      const match = binarySearchBy(sortedProducts, "ALU-999", (p) => p.sku);
-      expect(match).toBeNull();
     });
   });
 });

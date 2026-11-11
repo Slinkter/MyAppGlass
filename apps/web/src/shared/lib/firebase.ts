@@ -45,21 +45,6 @@ export async function getFirebaseAuth(): Promise<Auth> {
   return _authPromise;
 }
 
-/**
- * Proxy retrocompatible para `auth`.
- * @deprecated Preferir `await getFirebaseAuth()` para diferir la carga de Firebase Auth.
- */
-export const auth: Auth = new Proxy({} as Auth, {
-  get(_target, prop) {
-    if (!_authInstance) {
-      throw new Error(
-        "Firebase Auth no está inicializado. Llama a `await getFirebaseAuth()` antes de acceder sincrónicamente a `auth`."
-      );
-    }
-    return Reflect.get(_authInstance, prop);
-  },
-});
-
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 

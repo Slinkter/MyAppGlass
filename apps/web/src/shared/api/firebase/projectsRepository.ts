@@ -125,16 +125,6 @@ export const getProjectBySlug = async (slug: string): Promise<Project | null> =>
 };
 
 /**
- * Obtiene proyectos asociados a un servicio en particular
- */
-export const getProjectsByServiceId = async (
-  serviceId: string,
-  publishedOnly = true
-): Promise<Project[]> => {
-  return getProjects({ serviceId, publishedOnly });
-};
-
-/**
  * Crea un nuevo proyecto en Firestore
  */
 export const createProject = async (

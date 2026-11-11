@@ -79,25 +79,6 @@ export const getServices = async (
 };
 
 /**
- * Obtiene un servicio por su ID
- */
-export const getServiceById = async (id: string): Promise<Service | null> => {
-  try {
-    const docRef = doc(db, COLLECTION_NAME, id);
-    const snapshot = await getDocFromServer(docRef);
-
-    if (!snapshot.exists()) {
-      return null;
-    }
-
-    return mapDocToService(snapshot.id, snapshot.data());
-  } catch (error) {
-    logger.error("Error al obtener servicio por ID de Firestore", error, { id });
-    throw error;
-  }
-};
-
-/**
  * Obtiene un servicio por su slug
  */
 export const getServiceBySlug = async (slug: string): Promise<Service | null> => {

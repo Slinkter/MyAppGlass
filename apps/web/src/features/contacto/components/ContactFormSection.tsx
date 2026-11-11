@@ -255,7 +255,7 @@ export function ContactFormSection({
                   alignItems="flex-start"
                 >
                   <Text fontSize="xs" color="text.muted" fontWeight="600" lineHeight="tall">
-                    He leído y acepto los términos y el tratamiento de mis datos para la cotización solicitada.
+                    He leído y acepto las Políticas de Privacidad (Ley N° 29733) y el tratamiento de mis datos para la cotización solicitada.
                   </Text>
                 </Checkbox>
               </Box>

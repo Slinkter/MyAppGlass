@@ -43,19 +43,6 @@ export function useProjects(initialData?: FirestoreProject[]): AsyncResource<Pro
   );
 }
 
-/** Proyectos de un servicio (`serviceId` = id/slug del servicio). */
-export function useProjectsByService(serviceId: string | undefined): AsyncResource<Project[]> {
-  return useAsyncResource<Project[]>(
-    `projects:service:${serviceId ?? ""}`,
-    async () => {
-      const { getProjects } = await import("@/shared/api/firebase/projectsRepository");
-      return toProjectList(await getProjects({ serviceId }));
-    },
-    undefined,
-    Boolean(serviceId)
-  );
-}
-
 /**
  * Detalle de un proyecto por id de documento (o slug). `initialData` es el proyecto
  * leído en build para ese id.

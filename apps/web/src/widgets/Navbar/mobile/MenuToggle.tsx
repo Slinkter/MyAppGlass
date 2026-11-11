@@ -11,7 +11,7 @@
  * - Respeto a prefers-reduced-motion (R11).
  */
 
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import { Box } from "@chakra-ui/react";
 import { Menu as MenuIcon, X } from "lucide-react";
 import { DUR_CSS, EASE_SOFT } from "@/shared/constants/motion";

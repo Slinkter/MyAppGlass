@@ -39,32 +39,3 @@ export function createGroupMap<T, K extends string | number>(
   }
   return map;
 }
-
-/**
- * Búsqueda binaria O(log2 n) sobre un array ordenado por clave ascendente.
- * Retorna el elemento o null si no existe.
- */
-export function binarySearchBy<T, K extends string | number>(
-  sortedArray: readonly T[],
-  target: K,
-  keySelector: (item: T) => K
-): T | null {
-  let low = 0;
-  let high = sortedArray.length - 1;
-
-  while (low <= high) {
-    const mid = (low + high) >>> 1;
-    const midVal = keySelector(sortedArray[mid]);
-
-    if (midVal === target) {
-      return sortedArray[mid];
-    }
-    if (midVal < target) {
-      low = mid + 1;
-    } else {
-      high = mid - 1;
-    }
-  }
-
-  return null;
-}

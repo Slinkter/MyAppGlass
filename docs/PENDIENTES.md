@@ -63,6 +63,7 @@ Hecho: varias partidas, validación, resumen en vivo, envío separado de la impr
 | Auditorías automáticas de diseño | Falta `npx playwright install` para correr `scripts/audit-design-system.mjs` y `scripts/audit-landing.mjs` |
 | 404 de precarga en producción | 10 errores de consola (`/<ruta>/__next.<ruta>.__PAGE__.txt`). Inofensivos; falta saber si ya existían |
 | Horario en `companyData` | El footer lo escribe a mano |
+| Informe UI/UX (Gemini, `docs/gemini/`) sin commit | Revisado: typecheck y lint OK, build OK. Medido en 360 px: `/cuentas-bancarias` sin overflow (350/350). Encabezados 600 revisados: no hay h1–h3 Lora en 600 en esas 5 páginas (son textos Inter); sin cambios. Pendiente: cambio global de tokens `text.heading/body` y bordes sin aprobación de lote; umbral `pnpm audit` bajado a `critical` (decisión del dueño); enlaces del navbar de escritorio miden 43 px, no 44 |
 | Movimiento cinematográfico en las demás páginas | Hecho solo en la home (opción `motion="cine"` de `ItemGridLayout` y hero propio). Falta llevarlo a servicios, proyectos, blog, tienda y contacto, y medir el efecto en rendimiento (LCP, TBT, fluidez) contra la línea base |
 
 ## 6. Producto

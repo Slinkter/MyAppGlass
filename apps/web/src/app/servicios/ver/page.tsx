@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ServiceDetailView } from "@/screens/Services";
 import { ServiceDetailSkeleton } from "@/features/services/components/ServiceSkeletons";

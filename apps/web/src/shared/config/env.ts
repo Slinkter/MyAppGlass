@@ -51,5 +51,3 @@ if (!_env.success) {
 }
 
 export const env = _env.data;
-
-export type Env = z.infer<typeof envSchema>;

@@ -50,8 +50,6 @@ export const LAB_VARIANTS: readonly LabVariantMeta[] = [
 /** Enlaces del menú móvil real (sin el comportamiento de acordeón, que no aplica a la prueba). */
 export const LAB_ITEMS = MOBILE_NAV_ITEMS.map(({ label, href }) => ({ label, href }));
 
-export type LabItem = (typeof LAB_ITEMS)[number];
-
 /** Alto de la barra superior (incluye la zona segura en iPhone). */
 export const LAB_BAR_HEIGHT = "calc(60px + env(safe-area-inset-top, 0px))" as const;
 

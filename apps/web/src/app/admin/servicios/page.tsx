@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AdminLayout } from "@/features/admin/components/AdminLayout";
 import { ServiceAdminTable } from "@/features/admin/components/ServiceAdminTable";
 import { ServiceFormModal } from "@/features/admin/components/ServiceFormModal";

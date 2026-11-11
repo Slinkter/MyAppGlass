@@ -9,7 +9,7 @@
  * - Foco visible de 2 px, `aria-expanded`/`aria-controls`, solo transform y opacity, respeta reduced-motion.
  */
 
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import { Box } from "@chakra-ui/react";
 import { Menu as MenuIcon } from "lucide-react";
 import { DUR_CSS, EASE_SOFT } from "@/shared/constants/motion";

@@ -39,15 +39,6 @@ export const DUR_CSS = {
   panelIn: "650ms",
 } as const;
 
-/** Escalado estándar de íconos Lucide (Regla R4: solo 16, 20 o 24 px). */
-export const ICON_SIZES = {
-  sm: 16,
-  md: 20,
-  lg: 24,
-} as const;
-
-export type IconSizeToken = keyof typeof ICON_SIZES;
-
 /** Transiciones preconfiguradas de máximo 2 propiedades (Regla R5). */
 export const TRANSITIONS = {
   interactive: `background-color ${DUR_CSS.fast} ${EASE_SOFT}, transform ${DUR_CSS.fast} ${EASE_SOFT}`,

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-10] - Purga de código sin uso en `apps/web`
+
+### Removed
+- **Archivos:** `features/admin/components/index.ts` y `shared/api/firebase/index.ts` (barrels que nadie importaba).
+- **Funciones y helpers sin llamadas:** `normalizeRole`, `validateClientRegistration` (`auth-service.ts`); `useProjectsByService` (`useProjects.ts`); `getProjectsByServiceId` (`projectsRepository.ts`); `getServiceById` (`servicesRepository.ts`); `uploadServiceFile`, `uploadProjectFile`, `deleteFile`, `deleteEntityFolder`, `extractStoragePath` (`storageService.ts`); `binarySearchBy` (`algorithm-utils.ts`); `useColorModeValue` (`color-mode-hooks.ts`).
+- **Constantes y tipos sin uso:** `QUOTE_NUMBER_REGEX`, `LabItem`, `Env`, `IconSizeToken`, `ICON_SIZES`, `MarkerType`; el proxy deprecado `auth` en `shared/lib/firebase.ts`.
+- **Imports sin uso:** `React` y `Box` en 12 archivos (`tsc --noUnusedLocals`).
+- **Tests:** se quitan los casos de las funciones eliminadas en `auth-service`, `quote-number` y `algorithm-utils`.
+
+### Kept on purpose
+- `components/ui/*`: piezas de la librería Chakra (p. ej. `AlertTitle`, `DialogBackdrop`) se conservan como superficie completa de cada wrapper.
+- `imageLoader.ts`: lo carga `next.config.mjs` por ruta de archivo.
+- `export default` de componentes con `React.memo`: sí se importan (algunos vía barrels).
+
 ## [2026-11-09] - Componentes de `/design-system` con el manual v1.0 y ajuste del inicio
 
 ### Added

@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Box, Heading, Text, VStack, SimpleGrid, HStack } from "@chakra-ui/react";
 import { CheckCircle2, MapPin, MessageCircle, Phone, Mail } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";

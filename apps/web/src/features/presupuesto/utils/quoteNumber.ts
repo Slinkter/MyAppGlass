@@ -1,6 +1,3 @@
-/** Correlativo de presupuestos: GYA-AAAA-XXXX (año calendario de Lima, secuencia con ceros a la izquierda). */
-export const QUOTE_NUMBER_REGEX = /^GYA-\d{4}-\d{4,}$/;
-
 const limaYearFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "America/Lima",
   year: "numeric",

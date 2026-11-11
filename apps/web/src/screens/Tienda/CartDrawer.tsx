@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import NextLink from "next/link";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import { Minus, Plus, Trash2 } from "lucide-react";

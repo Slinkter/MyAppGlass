@@ -23,8 +23,6 @@ export interface StoreLocation {
   image: string;
 }
 
-export type MarkerType = StoreLocation | MapProject;
-
 export interface MapIconConfig {
   iconContent: React.ComponentType | string;
   isSvg: boolean;
