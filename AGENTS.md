@@ -8,21 +8,22 @@
 
 **Package Manager:** Usar exclusivamente `pnpm`. Monorepo pnpm workspace: ejecutar **siempre desde la raíz** del repo (`apps/*` y `packages/*`).
 
-| Comando | Acción |
-|---|---|
-| `pnpm run dev` | Inicia servidor Next.js (`@gya/web`, Port: 3000) |
-| `pnpm run typecheck` | Typecheck de todos los paquetes (`pnpm -r --if-present typecheck`; web: `tsc --noEmit -p tsconfig.build.json`) **(SIEMPRE ejecutar para validar tipos)** |
-| `pnpm run lint` | ESLint de `apps/web/src/` |
-| `pnpm run build` | Compila `@gya/web` para **exportación estática** (`next build` → `apps/web/out/`) |
-| `pnpm run deploy:hosting` | Ejecuta `build` + despliega `apps/web/out/` a Firebase Hosting |
-| `pnpm run deploy:functions` | Despliega Firebase Functions v2 (`apps/functions`) |
-| `pnpm run test` | Vitest (watch mode, `@gya/web`) |
-| `pnpm run test:run` | Vitest (single run, `@gya/web`) |
-| `pnpm run test:functions` | Pruebas de `@gya/functions` |
+| Comando                     | Acción                                                                                                                                                   |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm run dev`              | Inicia servidor Next.js (`@gya/web`, Port: 3000)                                                                                                         |
+| `pnpm run typecheck`        | Typecheck de todos los paquetes (`pnpm -r --if-present typecheck`; web: `tsc --noEmit -p tsconfig.build.json`) **(SIEMPRE ejecutar para validar tipos)** |
+| `pnpm run lint`             | ESLint de `apps/web/src/`                                                                                                                                |
+| `pnpm run build`            | Compila `@gya/web` para **exportación estática** (`next build` → `apps/web/out/`)                                                                        |
+| `pnpm run deploy:hosting`   | Ejecuta `build` + despliega `apps/web/out/` a Firebase Hosting                                                                                           |
+| `pnpm run deploy:functions` | Despliega Firebase Functions v2 (`apps/functions`)                                                                                                       |
+| `pnpm run test`             | Vitest (watch mode, `@gya/web`)                                                                                                                          |
+| `pnpm run test:run`         | Vitest (single run, `@gya/web`)                                                                                                                          |
+| `pnpm run test:functions`   | Pruebas de `@gya/functions`                                                                                                                              |
 
 **⚠️ Token-saving rule:** NO ejecutar `pnpm run test:run` a menos que el usuario lo pida. Siempre validar con `pnpm run typecheck` y `pnpm run build`.
 
 **Required commit order:**
+
 ```bash
 pnpm run typecheck && pnpm run build
 git commit -m "feat(modulo): descripción clara"
@@ -48,22 +49,25 @@ packages/
 ```
 
 **Archivos clave:**
+
 - `apps/web/src/features/services/components/ServicePageLayout.tsx` — Layout maestro página de servicio
 - `apps/web/src/shared/utils/seo-utils.ts` — Motor central de Metadata (`buildPageMetadata`, `cleanSeoTitle`, `resolveSeoImageUrl`) y generadores Schema.org JSON-LD (`getCompanyJsonLd` con `SiteNavigationElement` `#sitelinks`, `Service`, `CreativeWork`, `WebApplication`, `BreadcrumbList`, `FAQPage`, `serializeJsonLd`)
 - `apps/web/src/app/sitemap.ts` y `apps/web/src/app/robots.ts` — Sitemap dinámico con Image Sitemap (escapando entidades XML en URLs de Firebase Storage) y reglas de rastreo (Googlebot + bots IA)
 - `apps/web/src/shared/lib/analytics.ts` y `apps/web/src/shared/components/Analytics/GoogleMetricsProvider.tsx` — Telemetría GA4 (`G-TY0NJP1S81`) y GTM opcional (`NEXT_PUBLIC_GTM_ID`)
 - `docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md` — Plan maestro SEO, arquitectura de Sitelinks y guía de contexto para auditoría cruzada entre modelos de IA
-> Nota: `VentanaConfigurador3DCard.tsx`, `ventanas-catalogo.json` y `three` eliminados en `2ca4f3e`; el simulador vigente es `/simulador-ai`. Reglas de negocio vigentes: 6 sistemas, tipos y colores (sección 3).
+  > Nota: `VentanaConfigurador3DCard.tsx`, `ventanas-catalogo.json` y `three` eliminados en `2ca4f3e`; el simulador vigente es `/simulador-ai`. Reglas de negocio vigentes: 6 sistemas, tipos y colores (sección 3).
 
 ---
 
 ## 3. Reglas de Negocio Inmutables
 
 **Identidad:**
+
 - Razón Social: `"GLASS & ALUMINUM COMPANY S.A.C."` → usar `companyData` de `@/shared/config/company-data`
 - Datos vigentes: dirección **Av. Los Fresnos 1250 - La Molina**, WhatsApp **974 278 303**, correo **acueva@gyacompany.com**. La Ficha RUC de SUNAT (2022) está desactualizada: no usarla como fuente de dirección, teléfonos ni correo.
 
 **Negocio decidido por el dueño (2026-11-09, `docs/marca/MANUAL-DE-MARCA.md`):**
+
 - Nombre completo siempre: "Glass & Aluminum Company S.A.C."; sin nombre corto.
 - Trato de **usted** al cliente.
 - Empresa fundada en 2021. Equipo: 4 personas (1 vendedor, 2 técnicos, 1 contador).
@@ -73,10 +77,12 @@ packages/
 - Manual de marca **v1.0 cerrado**: `docs/marca/MANUAL-DE-MARCA.md` (versión legible: `docs/marca/MANUAL-DE-MARCA.html`). El dueño eligió un solo rojo: coral `#FF5A5F` como único acento (logo, una palabra de un título y "PRESUPUESTO" impreso), solo en texto grande por contraste. `apps/web/DESIGN.md` y `/design-system` ya usan `brand.coral`; `#D62828`, `#FF5A5A`, `brand.quoteRed`, `brand.logoCoral` y `brand.red` están retirados. Las páginas siguen congeladas hasta aprobar cada lote.
 
 **Ortografía (siempre en español):**
+
 - `"antirruido"` (doble 'r', NO 'antiruido')
 - `"vidrio y aluminio"` (en singular)
 
 **Catálogo Oficial de Ventanas:**
+
 - Solo existen 6 sistemas: `Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`, `Acústica` y `PVC abatible` (los dos últimos se incorporaron el 2026-11-08 por decisión del dueño; sus precios y % antirruido están por confirmar)
 - NO inventar series inexistentes (Serie 31, Serie 20, etc.)
 - Tipos de ventana: `Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`
@@ -86,6 +92,7 @@ packages/
 - Adicionales: `Arenado`, `Diseño según cliente`
 
 **Simulador 3D (histórico, pendiente de re-implementación):**
+
 - El simulador vigente es `/simulador-ai`; el visor 3D anterior fue eliminado (`2ca4f3e`) y no debe reactivarse sin pedido explícito
 - NO es cotizador individual de precios — es simulador visual de características técnicas
 - Proporción: **65%** Visor 3D (izq) / **35%** Panel de configuración (der)
@@ -104,7 +111,7 @@ packages/
 
 ## 5. Backend (Firebase Functions)
 
-**⚠️ CÓDIGO CONGELADO:** NO modificar `apps/functions/`, `firestore.rules` ni `firebase.json` a menos que sea explícitamente solicitado.
+<!-- **⚠️ CÓDIGO CONGELAD:O** NO modificar `apps/functions/`, `firestore.rules` ni `firebase.json` a menos que sea explícitamente solicitado. -->
 
 **⚠️ Despliegue de functions:** `apps/functions/.env` (local) repite los 3 secretos que las funciones leen de Secret Manager y hace fallar `firebase deploy` ("Secret environment variable overlaps non secret environment variable"). Apártalo durante el despliegue y restáuralo después (o renómbralo a `.env.local`). Detalle en `apps/functions/README.md` sección 9. Desplegar solo cuando el usuario lo pida: primero `functions`, luego `hosting`.
 
