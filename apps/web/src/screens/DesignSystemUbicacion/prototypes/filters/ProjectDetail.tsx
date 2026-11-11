@@ -9,7 +9,7 @@ import { TOUCH_MIN } from "@/shared/constants/layout";
 import { companyData } from "@/shared/config/company-data";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
-import type { StoreLocation } from "@/shared/types/map";
+import type { StoreLocation } from "@/entities/store/model";
 import {
   STORE_DIRECTIONS_URL,
   STORE_SCHEDULE,

@@ -6,7 +6,7 @@ import { Store } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ImageRevealSkeleton, useImageReveal } from "@shared/components/Image/ImageReveal";
-import type { StoreLocation } from "@/shared/types/map";
+import type { StoreLocation } from "@/entities/store/model";
 import { STORE_ID, type LocationProject } from "@/features/location/useLocationData";
 
 const rowProps = {

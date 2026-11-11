@@ -11,7 +11,7 @@ import { useGoogleMapsLoader } from "@shared/hooks/map/useGoogleMapsLoader";
 import { useMapState } from "@shared/hooks/map/useMapState";
 import MapLoader from "@shared/components/map/MapLoader";
 import MapError from "@shared/components/map/MapError";
-import { containerStyle, center, mainStore } from "@shared/components/map/mapConfig";
+import { containerStyle, center, mainStore } from "@/entities/store/data/mapConfig";
 import { mapStyles } from "@shared/components/map/mapStyles";
 import { createLookupMap } from "@/shared/utils/algorithm-utils";
 import LocationMarker from "./LocationMarker";

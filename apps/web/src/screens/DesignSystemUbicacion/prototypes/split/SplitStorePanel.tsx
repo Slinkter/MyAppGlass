@@ -6,7 +6,7 @@ import { Clock, MapPin, MessageCircle, Navigation } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { companyData } from "@/shared/config/company-data";
 import { TOUCH_MIN } from "@/shared/constants/layout";
-import type { StoreLocation } from "@/shared/types/map";
+import type { StoreLocation } from "@/entities/store/model";
 import { STORE_DIRECTIONS_URL, STORE_SCHEDULE } from "@/features/location/useLocationData";
 
 const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;

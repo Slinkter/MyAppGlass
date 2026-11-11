@@ -22,7 +22,7 @@ import {
   STORE_SCHEDULE,
   type LocationProject,
 } from "../useLocationData";
-import { useIsStoreOpen } from "@/features/location/useIsStoreOpen";
+import { useIsStoreOpen } from "@/entities/store/lib/useIsStoreOpen";
 import { Cover } from "./Cover";
 
 const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(companyData.whatsappMessage)}`;

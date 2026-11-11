@@ -9,7 +9,7 @@ import { companyData } from "@/shared/config/company-data";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import LocationMapLazy from "@/features/location/LocationMapLazy";
 import { STORE_DIRECTIONS_URL, STORE_ID, STORE_SCHEDULE } from "@/features/location/useLocationData";
-import { useIsStoreOpen } from "@/features/location/useIsStoreOpen";
+import { useIsStoreOpen } from "@/entities/store/lib/useIsStoreOpen";
 
 const WHATSAPP_URL = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
   companyData.whatsappMessage,

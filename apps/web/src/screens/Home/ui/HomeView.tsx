@@ -8,7 +8,7 @@ import ClientsSection from "@features/home/components/clients/ClientsSection";
 // Import directo al segmento `ui`: `HomeView` es Server Component y el barrel de la
 // entidad también expone hooks de cliente y modales con `dynamic(ssr: false)`.
 import ProjectsList from "@/entities/project/ui/ProjectsList";
-import StoreSection from "@features/home/components/store/StoreSection";
+import StoreSection from "@/widgets/StoreSection/StoreSection";
 
 export interface HomeViewProps {
     initialServices?: Service[];
