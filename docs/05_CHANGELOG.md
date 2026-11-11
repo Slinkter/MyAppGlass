@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-11] - Auditoría UI/UX y Material Design 3
+
+### Added
+- `docs/auditorias/INFORME-UI-UX-MD3.md`: verificación del trabajo de OpenCode (build, tsc y eslint en verde), pruebas de UI en navegador y brechas frente a MD3.
+- `docs/auditorias/PROMPTS-AGENTES.md` y agentes `qa-gates`, `auditor-naming-dry`, `auditor-md3`, `ui-navegador-movil` en `.claude/agents/`.
+
+### Notes
+- Sin cambios de código en la web. Los lotes de corrección quedan en `docs/PENDIENTES.md`.
+
 ## [2026-11-11] - Capa `entities` y fronteras FSD activas
 
 ### Added

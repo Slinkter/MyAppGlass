@@ -69,6 +69,20 @@ Hecho: varias partidas, validación, resumen en vivo, envío separado de la impr
 | Informe UI/UX (Gemini, `docs/gemini/`) sin commit | Revisado: typecheck y lint OK, build OK. Medido en 360 px: `/cuentas-bancarias` sin overflow (350/350). Encabezados 600 revisados: no hay h1–h3 Lora en 600 en esas 5 páginas (son textos Inter); sin cambios. Pendiente: cambio global de tokens `text.heading/body` y bordes sin aprobación de lote; umbral `pnpm audit` bajado a `critical` (decisión del dueño); enlaces del navbar de escritorio miden 43 px, no 44 |
 | Movimiento cinematográfico en las demás páginas | Hecho solo en la home (opción `motion="cine"` de `ItemGridLayout` y hero propio). Falta llevarlo a servicios, proyectos, blog, tienda y contacto, y medir el efecto en rendimiento (LCP, TBT, fluidez) contra la línea base |
 
+### Auditoría UI/UX y Material Design 3 (2026-11-11)
+
+Informe completo: `docs/auditorias/INFORME-UI-UX-MD3.md`. Prompts y agentes: `docs/auditorias/PROMPTS-AGENTES.md`. Todo lote espera la aprobación del dueño.
+
+| Lote | Contenido | Estado |
+|---|---|---|
+| 1 | Menú móvil sin entrada fantasma en el historial, `scroll-behavior` con reduced-motion, `viewport-fit=cover`, safe-area en footer | Pendiente. El bug "vuelvo a Home y veo el footer" **no se reprodujo** en Playwright; falta probar en teléfono real |
+| 2 | Transiciones entre páginas (`viewTransition`, `nav-back`, tokens de movimiento MD3) | Pendiente |
+| 3 | Renombrar 19 archivos kebab-case a camelCase y `DesignSystem/components/motion.tsx` | Pendiente |
+| 4 | `ClientCard` duplicado; partir `theme/index.ts`, `FloatingPanel`, `MenuOverlay`; fusionar recetas `field*`/`badge*` | Pendiente |
+| 5 | Tokens MD3 en el tema (roles, escala tipográfica, forma, capas de estado). Toca ~83 archivos | Pendiente, aprobación explícita |
+| 6 | Escala de h1 única, texto mínimo 14 px, contraste del chip de `/contacto` (2,77:1) | Pendiente |
+| — | Barra inferior de 3–5 destinos en móvil: ¿reemplaza o complementa el menú? | Decisión del dueño |
+
 ## 6. Producto
 
 | Pendiente | Detalle |
