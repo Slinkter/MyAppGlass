@@ -1,8 +1,8 @@
 # 03 — Capa `entities/` (decisión de arquitectura)
 
-- **Estado:** propuesta, pendiente de aprobación del dueño.
+- **Estado:** ✅ implementado (fase 2 cerrada el 2026-11-11). Se mantiene como documento de decisión; el seguimiento está en `docs/opencode/PLAN-FSD-Y-AGENTES.md`.
 - **Fecha:** 2026-11-11.
-- **Fase:** 1 del plan de trabajo (diseño). No se movió código todavía.
+- **Fase:** 1 del plan (diseño) + fase 2 (ejecución). Las 8 entidades y los 2 widgets ya existen en `apps/web/src`.
 - **Base:** inventario real de `apps/web/src` (376 archivos de features) con resolución de alias y rutas relativas.
 
 ---

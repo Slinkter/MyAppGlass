@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-11] - Capa `entities` y fronteras FSD activas
+
+### Added
+- **Entidades nuevas** en `apps/web/src/entities/`: `project`, `service`, `window`, `quote`, `client`, `store`, `product` y `order`, con segmentos `api/`, `model/`, `lib/`, `data/` y `ui/` según corresponda.
+- **Widgets nuevos:** `widgets/StoreSection` y `widgets/AdminLayout`.
+
+### Changed
+- **ESLint FSD:** `features → features` pasa a error. La regla enumera las carpetas para permitir imports dentro de la propia feature y bloquear solo las ajenas.
+- **Contratos compartidos:** `Product`, `Order`, `OrderItem`, `ClientProfile` y `UserRole` se reexportan desde `entities/*/model`; los schemas Zod de `packages/shared` no se movieron.
+- **`features/presupuesto`:** conserva el wizard, el schema de formulario y el envío; la tabla de precios, los cálculos y la hoja pasaron a `entities/quote`.
+- **`features/products`:** se retira; `OrderDraftContext` pasa a `features/admin/context/`.
+- **`getServiceHref`** baja a `entities/service/lib`; `useMapProjects` baja a `entities/project/api` y cierra el ciclo `home ↔ location`.
+
+### Fixed
+- Build del export estático: `HomeView` importa `ProjectsList` por segmento para no arrastrar hooks ni modales de cliente desde el barrel de la entidad.
+
+
 ## [2026-11-10] - Purga de código sin uso en `apps/web`
 
 ### Removed

@@ -60,6 +60,9 @@ Hecho: varias partidas, validación, resumen en vivo, envío separado de la impr
 | Modal base del admin | 4 modales repiten estructura (sin verificar) |
 | Partir `FloatingPanel.tsx` | 457 líneas |
 | Deriva de diseño en el código | Lista en `apps/web/DESIGN.md`, sección "Deriva conocida". Se corrige antes de aplicar los lotes de páginas |
+| Capa `entities` y fronteras FSD | **Hecho** (fase 2 cerrada): `entities/{project,service,client,store,product,order,quote,window}`, `AdminLayout`/`StoreSection` en `widgets` y regla `features → features` activa en ESLint. Detalle y commits en `docs/opencode/PLAN-FSD-Y-AGENTES.md` |
+| Catálogo `pricing.ts` vs 6 sistemas de `AGENTS.md` | **Decisión del dueño:** `entities/quote/config/pricing.ts` conserva 6 SKUs que no coinciden con el catálogo oficial (faltan Serie 35 y 62; sobran ducha y techo como sistemas). No se alteraron precios |
+| Permisos del agente principal de OpenCode | No existe `opencode.json`; todo comando cae en `ask`. Propuesta lista en `docs/opencode/PLAN-FSD-Y-AGENTES.md` §6, **pendiente de aprobación** |
 | Auditorías automáticas de diseño | Falta `npx playwright install` para correr `scripts/audit-design-system.mjs` y `scripts/audit-landing.mjs` |
 | 404 de precarga en producción | 10 errores de consola (`/<ruta>/__next.<ruta>.__PAGE__.txt`). Inofensivos; falta saber si ya existían |
 | Horario en `companyData` | El footer lo escribe a mano |

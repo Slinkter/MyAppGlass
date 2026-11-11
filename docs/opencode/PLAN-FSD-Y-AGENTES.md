@@ -1,6 +1,6 @@
 # Plan de trabajo — OpenCode, agentes y capa `entities/`
 
-- **Estado:** en curso.
+- **Estado:** fase 2 cerrada; pendientes de aprobación en §6 y §8.
 - **Última actualización:** 2026-11-11.
 - **Alcance:** aplicación real de Feature-Sliced Design en `apps/web/src`, perfiles de agente de OpenCode y arreglo de la experiencia de permisos.
 - **Excepción de carpeta:** `docs/README.md` pide que los planes vivan en `PENDIENTES.md`. Este archivo existe por pedido explícito del dueño; el seguimiento de trabajo abierto se refleja también en `PENDIENTES.md`.
@@ -14,9 +14,17 @@
 | P0 — primitivas UI a `shared/ui` y fronteras FSD en ESLint | ✅ terminado y commiteado | `486e1a29` (157 archivos) |
 | Agentes de OpenCode (`qa-verify`, `frontend-fsd`, `ux-reviewer`) | ✅ creados, probados y con permisos verificados | `486e1a29`, `f2413fcf` |
 | Fase 1 — diagnóstico y mapa de `entities/` | ✅ terminado y commiteado | `26227d08` · `docs/03_ENTITIES.md` |
-| Lote 2.1 — `entities/project` | 🟡 aplicado en el árbol, **sin verificar ni commitear** | `git status`: 21 entradas |
-| Lotes 2.2 – 2.7 | ⬜ pendientes | — |
-| Arreglo de prompts de permiso del agente principal | ⬜ pendiente de aprobación | no existe `opencode.json` |
+| Fase 2 — lotes 2.1 a 2.7 | ✅ siete lotes, un commit cada uno | `5fb6399b` · `e7e8ce55` · `2d5c2d4f` · `521aaebb` · `7dcd44b9` · `1f99f5c0` · `4c1286ee` |
+| Fase 3 — `features → features` como error | ✅ activo y probado con import ilegal | `8aae92f0` |
+| Arreglo de prompts de permiso del agente principal | ⬜ pendiente de aprobación | no existe `opencode.json` (ver §6) |
+
+**Verificación de cierre de la fase 2** (todos en verde, ejecutados desde la raíz):
+
+| Gate | Comando usado | Resultado |
+|---|---|---|
+| typecheck | `node apps/web/node_modules/typescript/bin/tsc --noEmit -p apps/web/tsconfig.build.json` | exit 0 |
+| lint | `node node_modules/eslint/bin/eslint.js src/` (cwd `apps/web`) | 0 errores · 2 warnings previos (`ImageReveal.tsx`, `Gallery.tsx`) |
+| build | `node node_modules/next/dist/bin/next build --webpack` (cwd `apps/web`, con `NODE_PATH`, ver §7) | 70 páginas generadas |
 
 ---
 
@@ -25,13 +33,12 @@
 ### P0.1 — Primitivas UI ✅
 - `src/components/ui/` → `src/shared/ui/` (20 archivos, 114 imports actualizados).
 - Colisión con `shared/components/ui` resuelta.
-- `ErrorView` → `shared/components`; `QuoteSheet` → `features/presupuesto/components`; modales de Admin → `features/admin/components`.
+- `ErrorView` → `shared/components`; `QuoteSheet` → `entities/quote/ui`; modales de Admin → `features/admin/components`.
 - Sin dependencias nuevas.
 
 ### P0.2 — Fronteras FSD en ESLint ✅
-- `apps/web/eslint.config.js`: `no-restricted-imports` con orden `app > screens > widgets > features > shared`.
+- `apps/web/eslint.config.js`: `no-restricted-imports` con orden `app > screens > widgets > features > entities > shared`.
 - Validado inyectando un import ilegal: el lint falla como debe.
-- Efecto actual: `shared` y `screens` ya no pueden importar hacia arriba; `features → features` **sigue permitido** hasta que exista `entities/`.
 
 ### P0.3 — Agentes de OpenCode ✅
 
@@ -66,18 +73,20 @@ Decisiones D1–D8 y orden de migración en 7 lotes están en `03_ENTITIES.md` �
 
 ---
 
-## 4. En curso: lote 2.1 — `entities/project`
+## 4. Hecho: fase 2 — ocho entidades y dos widgets
 
-### Aplicado en el árbol de trabajo (sin commit)
+Cada lote se verificó con los tres gates y se commiteó solo, sin mezclar entidades.
 
+### Lote 2.1 — `entities/project` ✅ `5fb6399b`
 ```
 apps/web/src/entities/project/
-├── index.ts                          (nuevo, barrel público)
+├── index.ts                          (barrel público)
 ├── README.md                         (movido desde features/projects)
-├── model/index.ts                    (nuevo, reexporta Project/ProjectPhoto/MapProject)
+├── model/index.ts                    (reexporta Project/ProjectPhoto/MapProject)
 ├── api/projectsRepository.ts         ← shared/api/firebase/
 ├── api/useProjects.ts                ← features/projects/hooks/
 ├── api/projectMappers.ts             ← features/projects/hooks/
+├── api/useMapProjects.ts             ← features/home/hooks/   (D3/D8)
 └── ui/
     ├── ProjectCard.tsx
     ├── ProjectCardContent.tsx
@@ -86,61 +95,77 @@ apps/web/src/entities/project/
     ├── ProjectsList.tsx
     └── modal/{MapViewer,VisualViewer}.tsx
 ```
+- `features/projects/` eliminado (incluido su `index.ts`); `features/home/hooks/` quedó vacío y se retiró.
+- `useMapProjects` bajó en este mismo lote: rompe el ciclo `home ↔ location` y deja a `location` dependiendo solo de `entities/project` (D3 + D8).
+- `eslint.config.js` actualizado a `src/entities/project/ui/modal/VisualViewer.*`; el badge de `/design-system` pasó a `entities/project`.
 
-- `apps/web/src/features/projects/` eliminado (incluido su `index.ts`).
-- 10 archivos con imports actualizados: `app/admin/proyectos`, `app/proyectos/ver`, `features/home/hooks/useMapProjects`, `features/location/useLocationData`, `screens/Home`, `screens/Projects`, `screens/DesignSystem`, entre otros.
-- `git status`: 21 entradas (13 `R`/`RM`, 6 ` M`, 2 `??`).
+**Aprendizaje:** el barrel de la entidad no puede importarse desde un Server Component si exporta hooks o modales con `dynamic(ssr: false)`. `HomeView` importa `@/entities/project/ui/ProjectsList` directo y así el build no arrastra `useProjects` ni `VisualViewer`.
 
-### Pendiente para cerrar 2.1
+### Lote 2.2 — `entities/service` ✅ `e7e8ce55`
+- `servicesRepository`, `useServices`, `serviceMappers` → `api/`.
+- `ServiceCard`, `ServiceList`, `ServiceSkeletons` → `ui/`; la feature conserva solo el detalle (`ServicePageLayout`, `ServiceHeader`, `ServiceBentoGrid`, `ServiceFaqSection`).
+- `getServiceHref` → `lib/getServiceHref.ts` (D5).
+- `features/services/types.ts` → `entities/service/model` (incluye `ServiceListItem` y `ServicePageData`); se actualizaron los 4 consumidores de la feature.
+- `publicRest.ts` no cambió: lee por REST y no importa el repositorio.
 
-- [ ] **`apps/web/eslint.config.js:50`** — sigue apuntando a `src/features/projects/components/modal/VisualViewer.*`; debe pasar a `src/entities/project/ui/modal/VisualViewer.*`.
-- [ ] **`screens/DesignSystem/sections/EditorialCardsShowcase.tsx:68`** — badge de ruta con texto `features/projects` → `entities/project`.
-- [ ] **`features/home/hooks/useMapProjects.ts`** — aún vive en `home`; según D3 debe bajar a `entities/project/api` para cerrar el ciclo `home ↔ location`. (Queda fuera de este lote si se prefiere aislar el riesgo; decidir antes de commitear.)
-- [ ] **Gates**: typecheck + lint + build (ver §7, `pnpm` está bloqueado).
-- [ ] **Commit propio**: `refactor(fsd): crea entities/project y retira features/projects`.
+### Lote 2.3 — `entities/window` + `entities/quote` ✅ `2d5c2d4f`
+- `entities/window/model`: `SystemType`, `GlassType`, `AluminumColor` (D6). `ai-simulator` ya no importa `presupuesto`.
+- `entities/quote`: `config/pricing.ts`, `lib/{quoteCalculator,quoteLines,quoteSummary,quoteNumber}`, `model` (`QuoteLineInput`, `QuoteCustomer`, `QuoteRequestParams`), `ui/QuoteSheet`.
+- La feature conserva el wizard, el schema de formulario y `quoteService` (acción de envío).
 
-### Criterio de aceptación de 2.1
-- `grep -r "features/projects"` sin resultados en `apps/web/src`.
-- Los tres gates en verde.
-- Ningún otro lote mezclado en el commit.
+### Lote 2.4 — `entities/client` ✅ `521aaebb`
+- `clientsRepository`, `usersRepository` → `api/`.
+- `ClientCard` (admin) → `ui/`.
+- **No se movió ningún schema Zod:** `ClientProfile` y `UserRole` son contrato de `@gya/shared`; `entities/client/model` solo los reexporta. Así no se toca el contrato frontend ↔ backend.
+
+### Lote 2.5 — `entities/store` + widget ✅ `7dcd44b9`
+- `mapConfig` (`mainStore`, `center`, `containerStyle`) → `data/`.
+- `useIsStoreOpen` → `lib/`.
+- `StoreSection` subió de `features/home/components/store/` a `widgets/StoreSection/` (D3).
+- `StoreLocation` se reexporta desde `entities/store/model`.
+
+### Lote 2.6 — `entities/product` ✅ `1f99f5c0`
+- `productService`, `useRealtimeProducts`, `initial-products` → `entities/product`.
+- `features/tienda` ahora importa la entidad (D1).
+- `Product` se reexporta desde el contrato compartido.
+
+### Lote 2.7 — `entities/order` ✅ `4c1286ee`
+- `orderService`, `useRealtimeOrders` → `entities/order`.
+- `features/products` quedó vacío: `OrderDraftContext` (estado del draft de venta, solo admin) se movió a `features/admin/context/` y la carpeta `features/products` se eliminó.
+- `Order`/`OrderItem` se reexportan desde el contrato compartido.
+
+### Cierres de decisiones
+
+| Decisión | Estado |
+|---|---|
+| D1 `products` baja a entidad | ✅ 2.6 |
+| D2 `store` entidad, `location` feature | ✅ 2.5 |
+| D3 `useMapProjects` a entidad + `StoreSection` a widget | ✅ 2.1 + 2.5 |
+| D4 `AdminLayout` sube a `widgets/` | ✅ `8aae92f0` |
+| D5 `getServiceHref`/`getProjectHref` a `entities/*/lib` | ✅ `getServiceHref` en 2.2 · `getProjectHref` sigue en `projectMappers` (re-exportado por la entidad) |
+| D6 catálogo baja a `entities/window` | ✅ 2.3 |
+| D7 `Budget`/`BudgetItem` | ✅ **en uso** por `quoteCalculator`/`quoteSummary`; no se borra |
+| D8 doble suscripción en `useLocationData` | ✅ una sola fuente vía `entities/project` |
 
 ---
 
-## 5. Pendiente: lotes 2.2 – 2.7
+## 5. Hecho: fase 3 — `features → features` como error
 
-Orden definido en `03_ENTITIES.md` §6, de menor a mayor riesgo.
-
-| Lote | Entidad | Contenido | Riesgo | Estado |
-|---|---|---|---|---|
-| 2.2 | `service` | `servicesRepository`, `useServices`, `serviceMappers`, `ServiceCard/List/Skeletons`, `getServiceHref` | Bajo | ⬜ |
-| 2.3 | `window` + `quote` | `SystemType`/`GlassType`/`AluminumColor`, `quoteCalculator`, `quoteLines/Summary/Number`, `pricing.ts`, `QuoteSheet` | Bajo | ⬜ |
-| 2.4 | `client` | `clientsRepository`, `usersRepository`, `ClientProfile`, `UserRole`, `ClientCard` | Medio (auth) | ⬜ |
-| 2.5 | `store` | `StoreLocation`, `mapConfig` (sede y centro), `useIsStoreOpen` | Bajo | ⬜ |
-| 2.6 | `product` | `productService`, `useRealtimeProducts`, `initial-products`, `Product` | **Alto** (inventario) | ⬜ |
-| 2.7 | `order` | `orderService`, `useRealtimeOrders`, `Order`/`OrderItem` | **Alto** (ventas) | ⬜ |
-
-Cierres que dependen de lotes ya hechos o por hacer:
-
-| Decisión | Qué cierra | Depende de |
-|---|---|---|
-| D1 `products` baja a entidad | `tienda → products` (2 imports) | 2.6 |
-| D2 `store` entidad, `location` feature | solape conceptual | 2.5 |
-| D3 `useMapProjects` a entidad + `StoreSection` a widget | ciclo `home ↔ location` | 2.1 + 2.5 |
-| D4 `AdminLayout` sube a `widgets/` | `admin → auth` (2 imports) | 2.2 |
-| D5 `getServiceHref`/`getProjectHref` a `entities/*/lib` | `admin → services` | 2.2 |
-| D6 catálogo baja a `entities/window` | `ai-simulator → presupuesto` | 2.3 |
-| D7 `Budget`/`BudgetItem` | duplicidad en `ecommerce-schemas` | verificar uso |
-| D8 doble suscripción en `useLocationData` | bug de rendimiento | 2.1 |
-
-### Fase 3 — activar la regla `features → features` como error
-Al cerrar 2.1–2.5, añadir a `eslint.config.js`:
+`apps/web/eslint.config.js` ahora:
 
 ```
+shared   → no importa entities / features / widgets / screens / app
 entities → no importa features / widgets / screens / app
-features → no importa features / widgets / screens / app
+features → no importa OTRA feature / widgets / screens / app
+widgets  → no importa screens / app
+screens  → no importa screens / app
 ```
 
-Probar con un import ilegal inyectado antes de dejarlo activo.
+Detalle de implementación:
+- `FEATURES` se enumera con `readdirSync` sobre `src/features` al cargar la config.
+- Por cada feature se genera una entrada de `no-restricted-imports` que bloquea **solo las demás** features (`@/features/<otra>` y `@features/<otra>`), más `widgets`, `screens` y `app`. Así los imports internos de la propia feature siguen permitidos.
+- Prueba de aceptación: se inyectó `import { useAuth } from "@/features/auth/context/AuthContext"` dentro de `features/admin` y el lint falló con el mensaje FSD; luego se retiró el archivo temporal.
+- El único cruce real que quedaba (`admin → auth`, D4) se resolvió subiendo `AdminLayout` a `widgets/AdminLayout`.
 
 ---
 
@@ -180,13 +205,15 @@ Crear `C:\Users\User\Github\MyAppGlass\opencode.json` con lista blanca. Como `pn
 
 `pnpm run ...` falla con **"An Application Control policy has blocked this file"** en `C:\Users\User\AppData\Roaming\npm\node_modules\pnpm\pnpm.exe`. También falla vía `node bin/pnpm.mjs` (spawnSync del binario nativo).
 
-Sustitutos confirmados o por confirmar:
+Sustitutos confirmados en esta máquina:
 
-| Gate | Comando |
+| Gate | Comando confirmado |
 |---|---|
-| typecheck | `node apps/web/node_modules/typescript/bin/tsc --noEmit -p apps/web/tsconfig.build.json` — **confirmado exit 0** |
-| lint | `node apps/web/node_modules/eslint/bin/eslint.js src/` — por confirmar |
-| build | `node apps/web/node_modules/next/dist/bin/next build --webpack` — por confirmar |
+| typecheck | `node apps/web/node_modules/typescript/bin/tsc --noEmit -p apps/web/tsconfig.build.json` — exit 0 |
+| lint | `node node_modules/eslint/bin/eslint.js src/` desde `apps/web` — 0 errores |
+| build | `cd apps/web; $env:NODE_PATH="<repo>/node_modules/.pnpm/@types+node@25.6.0/node_modules"; node node_modules/next/dist/bin/next build --webpack` |
+
+**Nota del build:** Next 16 exige `@types/node`, que no está enlazado en `apps/web/node_modules` (sí está en el store de pnpm). Sin `NODE_PATH`, Next intenta instalar dependencias con npm y falla por `workspace:*`. Con `NODE_PATH` apuntando a la copia del store, el build completa.
 
 Si el bloqueo es permanente, hay que actualizar `AGENTS.md` §1 y `docs/06_DOCS_DEVELOPMENT.md` para no seguir documentando comandos que ya no corren en esta máquina.
 
@@ -194,10 +221,10 @@ Si el bloqueo es permanente, hay que actualizar `AGENTS.md` §1 y `docs/06_DOCS_
 
 ## 8. Decisiones que necesitan respuesta del dueño
 
-1. **`entities/window` vs `shared/constants`:** ¿el catálogo de 6 sistemas es entidad de negocio (recomendación) o constante global?
-2. **Catálogo inconsistente:** `features/presupuesto/config/pricing.ts` define 6 SKUs (`ventana_nova`, `mampara_serie25`, `ducha_cristal`, `techo_policarbonato`, `ventana_acustica`, `ventana_pvc_abatible`) que no coinciden con los 6 sistemas de `AGENTS.md` §3 (falta Serie 35 y Serie 62; sobran ducha y techo como "sistemas"). ¿Se corrige el catálogo o el pricing se mantiene como SKUs comerciales?
-3. **`Budget`/`BudgetItem`:** ¿siguen en uso o son residuo? Se verifica antes de borrar.
-4. **`useMapProjects`:** ¿entra en el cierre de 2.1 o se difiere a 2.5 junto con `store`?
+1. **`entities/window` vs `shared/constants`:** resuelto operativamente — el catálogo/tipos viven en `entities/window` (recomendación aplicada en 2.3). Pendiente solo confirmar si futuras reglas de negocio (6 sistemas oficiales) se modelan como `data/` de esa entidad.
+2. **Catálogo inconsistente:** `entities/quote/config/pricing.ts` define 6 SKUs (`ventana_nova`, `mampara_serie25`, `ducha_cristal`, `techo_policarbonato`, `ventana_acustica`, `ventana_pvc_abatible`) que no coinciden con los 6 sistemas de `AGENTS.md` §3 (faltan Serie 35 y Serie 62; sobran ducha y techo como "sistemas"). **Sin cambios en este plan:** se movió la tabla tal cual para no alterar precios. ¿Se corrige el catálogo o el pricing se mantiene como SKUs comerciales?
+3. **`Budget`/`BudgetItem`:** **siguen en uso** por `quoteCalculator` y `quoteSummary`. No se borran.
+4. **`useMapProjects`:** resuelto — se movió a `entities/project/api` en el lote 2.1.
 
 ---
 
@@ -209,3 +236,12 @@ Si el bloqueo es permanente, hay que actualizar `AGENTS.md` §1 y `docs/06_DOCS_
 - No se despliega (`deploy:hosting`, `deploy:functions`) sin pedido explícito.
 - Criterio de aborto: si un lote obliga a cambiar un schema Zod que viaja al backend, se detiene y se consulta.
 - `pnpm run test:run` solo bajo pedido explícito (regla del repo).
+
+---
+
+## 10. Aprendizajes operativos
+
+1. **Barrels y Server Components:** un barrel de entidad que exporta hooks o `dynamic(ssr: false)` no se puede importar desde un Server Component; importar el segmento (`entities/x/ui/...`) evita arrastrar cliente al servidor.
+2. **`no-restricted-imports` y alias:** `restrictUpwards(["auth"])` genera `@/auth`, no `@/features/auth`. Para bloquear una feature hay que construir el grupo con el prefijo completo (`@/features/<nombre>` y `@features/<nombre>`).
+3. **Schemas compartidos:** los tipos cuyo Zod vive en `packages/shared` (contrato con Functions) se reexportan desde `entities/*/model`; no se mueven ni se duplican.
+4. **typecheck vs build en paralelo:** `next build` regenera `.next/types`; ejecutar `tsc` al mismo tiempo produce `TS6053` falsos. Correr siempre typecheck después del build.
