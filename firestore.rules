@@ -10,15 +10,14 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Administrador = (a) claim role=admin, (b) correo corporativo @gyacompany.com VERIFICADO,
-    // o (c) users/{uid}.role == 'admin' (evaluado al final por cortocircuito para ahorrar lecturas).
+    // Administrador = (a) claim role=admin, o (b) users/{uid}.role == 'admin' (evaluado al final
+    // por cortocircuito para ahorrar lecturas). Decisión del dueño (2026-11-11): ya no basta
+    // un correo @gyacompany.com; el rol se asigna a mano en Firestore.
     // Se eliminó el criterio "el correo contiene admin" (cualquiera podía
     // registrarse con ese correo y obtener privilegios).
     function isAdmin() {
       return isSignedIn() && (
         request.auth.token.get('role', '') == 'admin' ||
-        (request.auth.token.get('email_verified', false) == true &&
-         request.auth.token.get('email', '').matches('^[^@]+@gyacompany[.]com$')) ||
         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', '') == 'admin')
       );
