@@ -17,8 +17,8 @@ import {
   UserPlus,
   FileSpreadsheet,
 } from "lucide-react";
-import { subscribeToClients, addClient } from "@/shared/api/firebase/clientsRepository";
-import { ClientCard } from "./clients/ClientCard";
+import { subscribeToClients, addClient } from "@/entities/client/api/clientsRepository";
+import { ClientCard } from "@/entities/client/ui/ClientCard";
 import { NewClientModal } from "@/features/admin/components/clients/NewClientModal";
 import { EMPTY_NEW_CLIENT, type NewClientForm } from "@/features/admin/components/clients/newClientForm";
 import { ClientProfile } from "@/shared/schemas/ecommerce-schemas";

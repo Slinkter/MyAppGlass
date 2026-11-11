@@ -3,7 +3,7 @@
 import React from "react";
 import { Box, VStack, HStack, Heading, Text, Button, Badge } from "@chakra-ui/react";
 import { Phone, MapPin, Mail, ShoppingCart, MessageCircle } from "lucide-react";
-import { ClientProfile } from "@/shared/schemas/ecommerce-schemas";
+import { ClientProfile } from "@/entities/client/model";
 
 interface ClientCardProps {
   client: ClientProfile;

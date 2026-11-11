@@ -101,8 +101,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               { getUserRoleDoc, provisionUserDoc },
               { getClientProfile },
             ] = await Promise.all([
-              import("@/shared/api/firebase/usersRepository"),
-              import("@/shared/api/firebase/clientsRepository"),
+              import("@/entities/client/api/usersRepository"),
+              import("@/entities/client/api/clientsRepository"),
             ]);
 
             const [fetchedRoleRaw, clientProfile] = await Promise.all([
@@ -195,8 +195,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         import("firebase/auth"),
         import("@/shared/lib/firebase"),
         import("firebase/firestore"),
-        import("@/shared/api/firebase/usersRepository"),
-        import("@/shared/api/firebase/clientsRepository"),
+        import("@/entities/client/api/usersRepository"),
+        import("@/entities/client/api/clientsRepository"),
       ]);
       const auth = await getFirebaseAuth();
       void initAuth();
