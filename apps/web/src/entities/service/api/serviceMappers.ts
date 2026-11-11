@@ -72,6 +72,21 @@ export const SERVICE_SEO_FALLBACKS: Record<string, { title: string; description:
     description:
       "Celosías de vidrio y aluminio para ventilación natural, privacidad y protección solar en residencias y oficinas de La Molina y Lima. ¡Pide asesoría técnica!",
   },
+  espejos: {
+    title: "Espejos a Medida y Decorativos",
+    description:
+      "Venta e instalación de espejos a medida, biselados, con marco de aluminio o iluminación LED para baños, salas y dormitorios en La Molina y Lima. ¡Cotiza hoy!",
+  },
+  "frenos-hidraulicos": {
+    title: "Frenos Hidráulicos y Accesorios para Puertas de Vidrio",
+    description:
+      "Suministro, cambio y calibración de frenos hidráulicos de piso y accesorios para puertas de vidrio templado en La Molina y Lima. Garantía y ajuste técnico.",
+  },
+  mantenimiento: {
+    title: "Mantenimiento y Calibración de Vidrio y Aluminio",
+    description:
+      "Servicio técnico especializado en mantenimiento preventivo y correctivo de mamparas, ventanas, puertas y sistemas de vidrio y aluminio en Lima y La Molina.",
+  },
 };
 
 export const toServiceListItem = (

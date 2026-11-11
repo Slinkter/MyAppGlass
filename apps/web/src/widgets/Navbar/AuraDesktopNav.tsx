@@ -4,7 +4,7 @@ import React from "react";
 import { HStack } from "@chakra-ui/react";
 import RouterLink from "next/link";
 import { Button } from "@/shared/ui/button";
-import NAV_ITEMS, { ACCOUNT_NAV_ITEM, type NavItem } from "@/shared/config/nav-items";
+import NAV_ITEMS, { type NavItem } from "@/shared/config/nav-items";
 import { glassSurface } from "@/shared/constants/glass";
 
 import { useNavbarActiveSection, type NavbarSection } from "./hooks/useNavbarActiveSection";
@@ -17,7 +17,7 @@ export interface AuraDesktopNavProps {
   previewActive?: NavbarSection;
 }
 
-const DESKTOP_ITEMS: NavItem[] = [...NAV_ITEMS, ACCOUNT_NAV_ITEM];
+const DESKTOP_ITEMS: NavItem[] = NAV_ITEMS;
 
 const getItemSectionKey = (item: NavItem): NavbarSection => {
   if (item.href === "/") return "inicio";

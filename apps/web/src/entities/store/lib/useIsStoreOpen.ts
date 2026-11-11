@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { companyData } from "@/shared/config/company-data";
 
-/** Lunes a Sábado, 8:00 – 18:00 (hora de Lima). */
-const OPEN_MINUTE = 8 * 60;
-const CLOSE_MINUTE = 18 * 60;
+/** Horario centralizado desde companyData (hora de Lima). */
+const OPEN_MINUTE = companyData.schedule.openHour * 60;
+const CLOSE_MINUTE = companyData.schedule.closeHour * 60;
 const REFRESH_MS = 60_000;
 
 const limaDateTimeFormatter = new Intl.DateTimeFormat("en-US", {

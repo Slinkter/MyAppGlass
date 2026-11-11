@@ -46,7 +46,7 @@ export default function ContactPageClient() {
         {/* SECCIÓN 2: Consulta tu Cotización */}
         <VStack gap={6} align="flex-start" pt={8} borderTop="1px solid" borderColor="border.default">
           <Box>
-            <Badge variant="info" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="0.15em" mb="2">
+            <Badge variant="chipInk" px="3" py="1" borderRadius="full" fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="0.15em" mb="2">
               Seguimiento
             </Badge>
             <Heading as="h2" size={{ base: "xl", md: "2xl" }} fontWeight="700" letterSpacing="tight">

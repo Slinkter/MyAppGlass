@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { AdminLayout } from "@/widgets/AdminLayout/AdminLayout";
 import { ProjectAdminTable } from "@/features/admin/components/ProjectAdminTable";
 import { ProjectFormModal } from "@/features/admin/components/ProjectFormModal";
+import { ConfirmDeleteDialog } from "@/features/admin/components/ConfirmDeleteDialog";
 import {
   getProjects,
   createProject,
@@ -25,6 +26,8 @@ export default function AdminProyectosPage() {
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const fetchData = useCallback(async () => {
@@ -61,19 +64,21 @@ export default function AdminProyectosPage() {
     setModalOpen(true);
   };
 
-  const handleDelete = async (project: Project) => {
-    const confirmed = window.confirm(
-      `¿Confirmas la eliminación del proyecto "${project.title}"? Esta acción no se puede deshacer.`
-    );
-    if (!confirmed) return;
+  const handleDelete = (project: Project) => {
+    setProjectToDelete(project);
+  };
 
+  const handleConfirmDelete = async () => {
+    if (!projectToDelete) return;
+    setDeleting(true);
     try {
-      await deleteProject(project.id);
+      await deleteProject(projectToDelete.id);
       toaster.create({
         title: "Proyecto eliminado",
-        description: `Se eliminó "${project.title}" exitosamente.`,
+        description: `Se eliminó "${projectToDelete.title}" exitosamente.`,
         type: "success",
       });
+      setProjectToDelete(null);
       await fetchData();
     } catch {
       toaster.create({
@@ -81,6 +86,8 @@ export default function AdminProyectosPage() {
         description: "No se pudo eliminar el proyecto seleccionado.",
         type: "error",
       });
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -160,6 +167,15 @@ export default function AdminProyectosPage() {
         servicesList={servicesList}
         onSubmit={handleSubmit}
         loading={submitting}
+      />
+
+      <ConfirmDeleteDialog
+        isOpen={Boolean(projectToDelete)}
+        onClose={() => !deleting && setProjectToDelete(null)}
+        onConfirm={handleConfirmDelete}
+        title="Eliminar Proyecto"
+        description={`¿Estás seguro de que deseas eliminar el proyecto "${projectToDelete?.title}"? Esta acción removerá la obra y sus fotos asociadas del portafolio.`}
+        loading={deleting}
       />
     </AdminLayout>
   );

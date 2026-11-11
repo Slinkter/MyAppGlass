@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { AdminRouteGuard } from "@/features/auth/components/AdminRouteGuard";
 
 export const metadata: Metadata = {
   title: "Panel de Administración",
@@ -18,5 +19,5 @@ export default function AdminRootLayout({
 }: {
   children: ReactNode;
 }) {
-  return <>{children}</>;
+  return <AdminRouteGuard>{children}</AdminRouteGuard>;
 }

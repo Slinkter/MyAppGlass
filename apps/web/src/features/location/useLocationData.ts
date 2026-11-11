@@ -10,11 +10,12 @@ import { useMemo } from "react";
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import { useProjects } from "@/entities/project/api/useProjects";
 import { useMapProjects } from "@/entities/project/api/useMapProjects";
+import { companyData } from "@/shared/config/company-data";
 import { mainStore } from "@/entities/store/data/mapConfig";
 import type { MapProject, StoreLocation } from "@/shared/types/map";
 
 export const STORE_ID = mainStore.id;
-export const STORE_SCHEDULE = { days: "Lunes a Sábado", hours: "8:00 am – 6:00 pm" } as const;
+export const STORE_SCHEDULE = companyData.schedule;
 export const STORE_DIRECTIONS_URL = "https://maps.app.goo.gl/Nvr7jiQmJdUvQVd36";
 
 export interface LocationProject extends MapProject {

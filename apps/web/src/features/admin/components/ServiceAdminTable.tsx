@@ -22,6 +22,8 @@ export interface ServiceAdminTableProps {
   onDelete: (service: Service) => void;
   onCreateNew: () => void;
   onTogglePublish?: (service: Service) => void;
+  onSyncApprovedServices?: () => void;
+  syncingApproved?: boolean;
 }
 
 export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
@@ -31,6 +33,8 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
   onDelete,
   onCreateNew,
   onTogglePublish,
+  onSyncApprovedServices,
+  syncingApproved = false,
 }) => {
   return (
     <Box
@@ -67,14 +71,31 @@ export const ServiceAdminTable: React.FC<ServiceAdminTableProps> = ({
           </Text>
         </VStack>
 
-        <Button
-          size="sm"
-          onClick={onCreateNew}
-          style={{ cursor: "pointer" }}
-        >
-          <PlusCircle size={16} style={{ flexShrink: 0 }} />
-          Nuevo Servicio
-        </Button>
+        <HStack gap="2">
+          {onSyncApprovedServices && (
+            <Button
+              size="sm"
+              variant="outline"
+              borderColor="border.default"
+              onClick={onSyncApprovedServices}
+              disabled={syncingApproved}
+              style={{ cursor: "pointer" }}
+              title="Dar de alta los servicios aprobados (espejos, frenos hidráulicos, mantenimiento) si no existen"
+            >
+              {syncingApproved ? <Spinner size="xs" /> : <Layers size={16} style={{ flexShrink: 0 }} />}
+              Cargar Servicios Nuevos
+            </Button>
+          )}
+
+          <Button
+            size="sm"
+            onClick={onCreateNew}
+            style={{ cursor: "pointer" }}
+          >
+            <PlusCircle size={16} style={{ flexShrink: 0 }} />
+            Nuevo Servicio
+          </Button>
+        </HStack>
       </HStack>
 
       {/* Contenido / Tabla */}
