@@ -32,6 +32,7 @@
 |---|---|
 | [`01_ARCHITECTURE.md`](./01_ARCHITECTURE.md) | Capas FSD, rutas y flujo de datos |
 | [`03_ENTITIES.md`](./03_ENTITIES.md) | Mapa propuesto de la capa `entities/` y orden de migración |
+| [`opencode/PLAN-FSD-Y-AGENTES.md`](./opencode/PLAN-FSD-Y-AGENTES.md) | Plan vivo: agentes de OpenCode, permisos, lotes de `entities/` y lo que falta |
 | [`06_DOCS_DEVELOPMENT.md`](./06_DOCS_DEVELOPMENT.md) | Comandos, validación, commit y despliegue manual |
 | [`02_AI_HANDOFF.md`](./02_AI_HANDOFF.md) | Estado del backend y avisos para el siguiente agente |
 | [`05_CHANGELOG.md`](./05_CHANGELOG.md) | Historial de cambios |
