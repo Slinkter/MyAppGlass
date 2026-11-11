@@ -4,7 +4,7 @@ import React from "react";
 import { Box, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import { ShowcaseCard, ShowcaseStack } from "../components";
 import { Button } from "@/shared/ui/button";
-import ServiceCard from "@/features/services/components/ServiceCard";
+import ServiceCard from "@/entities/service/ui/ServiceCard";
 import ProjectCardContent from "@/entities/project/ui/ProjectCardContent";
 import ClientCard from "@/features/home/components/clients/ClientCard";
 
@@ -26,7 +26,7 @@ export const EditorialCardsShowcase: React.FC = () => {
         <ShowcaseCard
           title="Servicios — Tarjetas editoriales del catálogo"
           description="Tarjeta real de servicios con fotografía a sangre, luz suave y zoom lento al pasar el cursor. Cada tarjeta lleva a su ficha técnica."
-          badge="features/services"
+          badge="entities/service"
         >
           <HStack justify="space-between" wrap="wrap" gap="4" mb="6">
             <Text {...GROUP_LABEL_PROPS}>Catálogo · 3 líneas destacadas</Text>

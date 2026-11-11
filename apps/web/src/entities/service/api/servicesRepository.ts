@@ -24,7 +24,7 @@ import {
   type Service,
   type CreateServiceInput,
   type UpdateServiceInput,
-} from "./types";
+} from "@/shared/api/firebase/types";
 
 const COLLECTION_NAME = "services";
 

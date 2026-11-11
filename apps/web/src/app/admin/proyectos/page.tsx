@@ -10,7 +10,7 @@ import {
   updateProject,
   deleteProject,
 } from "@/entities/project/api/projectsRepository";
-import { getServices } from "@/shared/api/firebase/servicesRepository";
+import { getServices } from "@/entities/service/api/servicesRepository";
 import type {
   Project,
   CreateProjectInput,

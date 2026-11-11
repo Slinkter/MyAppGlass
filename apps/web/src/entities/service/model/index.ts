@@ -1,15 +1,15 @@
 /**
- * @file types.ts
- * @description Tipos de vista del dominio de servicios (modelo de la página pública).
- * El modelo de datos (Firestore) vive en `@/shared/api/firebase/types`.
- * @module services/types
+ * @file index.ts
+ * @description Modelo de la entidad `service`: documento de Firestore y modelos de vista
+ * (lista y página de detalle). El modelo de datos vive en `@/shared/api/firebase/types`.
+ * @module entities/service/model
  */
 
 import type { ElementType } from "react";
 import type { ServiceFaq } from "@/shared/api/firebase/types";
 import type { GalleryItem } from "@/shared/types/gallery";
 
-export type { ServiceFaq };
+export type { Service, ServiceFaq } from "@/shared/api/firebase/types";
 
 export interface ServicePageSEO {
   title: string;

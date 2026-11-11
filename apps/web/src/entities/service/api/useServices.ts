@@ -12,7 +12,7 @@ import {
   useAsyncResource,
   type AsyncResource,
 } from "@/shared/hooks/data/useAsyncResource";
-import type { ServicePageData } from "@/features/services/types";
+import type { ServicePageData } from "../model";
 import {
   toServiceListItem,
   toServicePageData,
@@ -42,7 +42,7 @@ export function useServices(initialData?: Service[]): AsyncResource<ServiceListI
   return useAsyncResource<ServiceListItem[]>(
     "services",
     async () => {
-      const { getServices } = await import("@/shared/api/firebase/servicesRepository");
+      const { getServices } = await import("./servicesRepository");
       // Se filtra `published` en cliente para no requerir índice compuesto.
       const all = await getServices();
       return all.filter((s) => s.published).map((s) => toServiceListItem(s, prerenderedSlugs));
@@ -72,7 +72,7 @@ export function useService(
   const resource = useAsyncResource<{ pageData: ServicePageData | null }>(
     `service:${slug ?? ""}`,
     async () => {
-      const { getServiceBySlug } = await import("@/shared/api/firebase/servicesRepository");
+      const { getServiceBySlug } = await import("./servicesRepository");
       const service = await getServiceBySlug(slug ?? "");
       // Sin documento o documento oculto desde el admin: no encontrado.
       return { pageData: service && service.published ? toServicePageData(service) : null };

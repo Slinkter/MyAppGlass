@@ -4,7 +4,7 @@ import React, { useMemo, useCallback } from "react";
 import { Box } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ServiceCard from "./ServiceCard";
-import { useServices, type ServiceListItem } from "@features/services/hooks/useServices";
+import { useServices, type ServiceListItem } from "@/entities/service/api/useServices";
 import { ServiceCardSkeletons } from "./ServiceSkeletons";
 import useFilterableList from "@shared/hooks/ui/useFilterableList";
 import { EmptyState } from "@/shared/ui/empty-state";

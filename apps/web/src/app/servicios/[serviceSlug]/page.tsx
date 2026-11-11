@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ServiceDetailView } from "@/screens/Services";
 import { getBuildServices } from "@/shared/api/firebase/publicRest";
 import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
-import { getServiceSeo } from "@/features/services/hooks/serviceMappers";
+import { getServiceSeo } from "@/entities/service/api/serviceMappers";
 import { createLookupMap } from "@/shared/utils/algorithm-utils";
 import {
   buildPageMetadata,

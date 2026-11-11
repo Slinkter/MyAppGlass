@@ -7,11 +7,13 @@
 import { Check, ChevronRight } from "lucide-react";
 import type { Service as FirestoreService } from "@/shared/api/firebase/types";
 import type { GalleryItem } from "@/shared/types/gallery";
-import type { ServiceListItem, ServicePageData } from "@/features/services/types";
+import type { ServiceListItem, ServicePageData } from "../model";
+import { getServiceHref } from "../lib/getServiceHref";
 import { cleanSeoTitle } from "@/shared/utils/seo-utils";
 import { createGroupMap } from "@/shared/utils/algorithm-utils";
 
 export type { ServiceListItem };
+export { getServiceHref };
 
 /**
  * Diccionario canónico de respaldo SEO para servicios oficiales.
@@ -71,20 +73,6 @@ export const SERVICE_SEO_FALLBACKS: Record<string, { title: string; description:
       "Celosías de vidrio y aluminio para ventilación natural, privacidad y protección solar en residencias y oficinas de La Molina y Lima. ¡Pide asesoría técnica!",
   },
 };
-
-/**
- * Con `output: 'export'` solo existe HTML para los slugs leídos en build
- * (`prerenderedSlugs`, que llegan desde page.tsx). El resto —servicios creados después
- * desde el admin o sin lista de build— se atiende en la ruta cliente
- * `/servicios/ver?slug=...`.
- */
-export const getServiceHref = (
-  slug: string,
-  prerenderedSlugs?: ReadonlySet<string>
-): string =>
-  prerenderedSlugs?.has(slug)
-    ? `/servicios/${slug}`
-    : `/servicios/ver?slug=${encodeURIComponent(slug)}`;
 
 export const toServiceListItem = (
   service: FirestoreService,

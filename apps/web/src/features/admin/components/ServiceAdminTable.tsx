@@ -13,7 +13,7 @@ import {
   PlusCircle,
 } from "lucide-react";
 import type { Service } from "@/shared/api/firebase/types";
-import { getServiceHref } from "@/features/services/hooks/serviceMappers";
+import { getServiceHref } from "@/entities/service/lib/getServiceHref";
 
 export interface ServiceAdminTableProps {
   services: Service[];

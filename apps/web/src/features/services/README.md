@@ -10,9 +10,9 @@ Módulo de negocio responsable de presentar el catálogo de servicios corporativ
 
 ## 🏛️ Componentes (`components/`)
 
+Esta feature conserva solo la **página de detalle**. La tarjeta, el listado y los esqueletos viven en la entidad (`@/entities/service`).
+
 - **`ServicePageLayout.tsx`**: Layout maestro del detalle de servicio; orquesta la galería fotográfica (`Gallery`), las secciones descriptivas y las FAQ.
-- **`ServiceList.tsx`**: Listado del catálogo (usa `useFilterableList` e `ItemGridLayout`).
-- **`ServiceCard.tsx`**: Tarjeta de cada servicio.
 - **`ServiceBentoGrid.tsx`**: Tarjetas de la ficha del servicio (`UnifiedTechnicalCard` y `BentoCTA`).
 - **`ServiceHeader.tsx`**: Cabecera de la página de detalle.
 - **`ServiceFaqSection.tsx`**: Acordeón de preguntas frecuentes.
@@ -21,9 +21,9 @@ Módulo de negocio responsable de presentar el catálogo de servicios corporativ
 
 ## 📦 Datos y Servicios
 
-Firebase (Firestore + Storage) es la única fuente de servicios; ya no hay datos locales.
+Firebase (Firestore + Storage) es la única fuente de servicios; ya no hay datos locales. El repositorio, los hooks y los modelos viven en `@/entities/service`.
 
 - **Build (SEO del export estático)**: `shared/api/firebase/publicRest.ts` lee `/services` por la API REST pública y alimenta `generateStaticParams`, metadatos, JSON-LD y `initialData`. Si falla, devuelve `[]` y la ruta usa el slug centinela `_`.
-- **Cliente**: `hooks/useServices.ts` renderiza primero con `initialData` y luego refresca desde Firestore (`shared/hooks/data/useAsyncResource.ts`).
-- **`hooks/serviceMappers.ts`**: Convierte `Service` de Firestore a `ServiceListItem` y `ServicePageData` (galería agrupada por `system`, FAQ desde `faqs`).
-- **`types.ts`**: Tipos de vista (`ServicePageData`, `ServiceListItem`, `ServicePageSystem`).
+- **Cliente**: `entities/service/api/useServices.ts` renderiza primero con `initialData` y luego refresca desde Firestore (`shared/hooks/data/useAsyncResource.ts`).
+- **`entities/service/api/serviceMappers.ts`**: Convierte `Service` de Firestore a `ServiceListItem` y `ServicePageData` (galería agrupada por `system`, FAQ desde `faqs`).
+- **`entities/service/model`**: Tipos de vista (`ServicePageData`, `ServiceListItem`, `ServicePageSystem`).

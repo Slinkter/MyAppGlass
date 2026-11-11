@@ -3,7 +3,7 @@ import { Box, VStack } from "@chakra-ui/react";
 import type { Project, Service } from "@/shared/api/firebase/types";
 import LandingPageSection from "@features/home/components/hero/LandingPageSection";
 import FeaturesSection from "@features/home/components/features/FeaturesSection";
-import ServiceList from "@/features/services/components/ServiceList";
+import ServiceList from "@/entities/service/ui/ServiceList";
 import ClientsSection from "@features/home/components/clients/ClientsSection";
 // Import directo al segmento `ui`: `HomeView` es Server Component y el barrel de la
 // entidad también expone hooks de cliente y modales con `dynamic(ssr: false)`.

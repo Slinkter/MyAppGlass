@@ -9,7 +9,7 @@ import {
   createService,
   updateService,
   deleteService,
-} from "@/shared/api/firebase/servicesRepository";
+} from "@/entities/service/api/servicesRepository";
 import type {
   Service,
   CreateServiceInput,

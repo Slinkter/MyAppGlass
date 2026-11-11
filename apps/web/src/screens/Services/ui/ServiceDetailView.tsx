@@ -6,8 +6,8 @@ import { Box } from "@chakra-ui/react";
 import type { Service } from "@/shared/api/firebase/types";
 import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
 import ServicePageLayout from "@/features/services/components/ServicePageLayout";
-import { ServiceDetailSkeleton } from "@/features/services/components/ServiceSkeletons";
-import { useService } from "@/features/services/hooks/useServices";
+import { ServiceDetailSkeleton } from "@/entities/service/ui/ServiceSkeletons";
+import { useService } from "@/entities/service/api/useServices";
 import ErrorPage from "@/shared/components/ErrorView";
 
 interface ServiceDetailViewProps {
