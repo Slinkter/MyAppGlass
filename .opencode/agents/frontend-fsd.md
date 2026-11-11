@@ -26,6 +26,39 @@ permissions:
     resource: "*"
     effect: ask
   - action: shell
+    resource: "Set-Content*"
+    effect: deny
+  - action: shell
+    resource: "Out-File*"
+    effect: deny
+  - action: shell
+    resource: "Add-Content*"
+    effect: deny
+  - action: shell
+    resource: "New-Item*"
+    effect: deny
+  - action: shell
+    resource: "Move-Item*"
+    effect: deny
+  - action: shell
+    resource: "Copy-Item*"
+    effect: deny
+  - action: shell
+    resource: "Remove-Item*"
+    effect: deny
+  - action: shell
+    resource: "git commit*"
+    effect: deny
+  - action: shell
+    resource: "git push*"
+    effect: deny
+  - action: shell
+    resource: "pnpm add*"
+    effect: deny
+  - action: shell
+    resource: "pnpm install*"
+    effect: deny
+  - action: shell
     resource: "pnpm run typecheck*"
     effect: allow
   - action: shell

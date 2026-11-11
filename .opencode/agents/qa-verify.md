@@ -13,7 +13,7 @@ permissions:
     effect: deny
   - action: shell
     resource: "*"
-    effect: ask
+    effect: deny
   - action: shell
     resource: "pnpm run typecheck*"
     effect: allow
@@ -50,6 +50,12 @@ permissions:
   - action: read
     resource: "*"
     effect: allow
+  - action: read
+    resource: "**/.env*"
+    effect: deny
+  - action: read
+    resource: "**/.env"
+    effect: deny
   - action: webfetch
     resource: "*"
     effect: deny
