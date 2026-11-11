@@ -166,8 +166,8 @@ const LandingPageSection: React.FC = React.memo(() => {
         animation={anim(animated, "heroFade", 800, 1700)}
       >
         <RouterLink
-          href="/#servicios"
-          aria-label="Ir a servicios"
+          href="/#beneficios"
+          aria-label="Ir a beneficios"
           style={{
             display: "flex",
             alignItems: "center",
