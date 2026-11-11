@@ -10,8 +10,14 @@ html, body {
 }
 
 * {
-    scroll-behavior: smooth;
     scrollbar-width: thin;
+}
+
+/* Desplazamiento suave solo para quien no pidió reducir el movimiento. */
+@media (prefers-reduced-motion: no-preference) {
+    * {
+        scroll-behavior: smooth;
+    }
 }
 
 /* Ocultar insignia flotante de reCAPTCHA v3 en pantalla (protegido por texto legal en formularios) */

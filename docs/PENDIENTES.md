@@ -75,7 +75,7 @@ Informe completo: `docs/auditorias/INFORME-UI-UX-MD3.md`. Prompts y agentes: `do
 
 | Lote | Contenido | Estado |
 |---|---|---|
-| 1 | Menú móvil sin entrada fantasma en el historial, `scroll-behavior` con reduced-motion, `viewport-fit=cover`, safe-area en footer | Pendiente. El bug "vuelvo a Home y veo el footer" **no se reprodujo** en Playwright; falta probar en teléfono real |
+| 1 | Menú móvil sin entrada fantasma en el historial, `scroll-behavior` con reduced-motion, `viewport-fit=cover`, safe-area en el contenedor | **Hecho en `fix/navegacion-scroll`, gates en verde; falta medir el historial en navegador y probar en teléfono real.** El bug "vuelvo a Home y veo el footer" sigue **sin reproducirse**: este lote corrige defectos reales relacionados, no una causa confirmada |
 | 2 | Transiciones entre páginas en CSS (sin dependencia `motion`) | **Hecho en `feat/transiciones-suaves`, para revisar en teléfono real.** Medido en 360 px: fundido de 200 ms (salida) y 300 ms (entrada) al hacer clic; con reduced-motion todo dura 0 ms. **Límites:** el botón "atrás" del navegador no anima; los deslizamientos `nav-forward`/`nav-back` solo los usa el navbar de escritorio (en móvil y el resto es fundido). Sigue pendiente validar curvas con el MCP `motion` y `nav-back` en un enlace de retorno |
 | 3 | Renombrar 19 archivos kebab-case a camelCase y `DesignSystem/components/motion.tsx` | Pendiente |
 | 4 | `ClientCard` duplicado; partir `theme/index.ts`, `FloatingPanel`, `MenuOverlay`; fusionar recetas `field*`/`badge*` | Pendiente |

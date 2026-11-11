@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-11] - Navegación y scroll móvil (lote 1)
+
+### Changed
+- `widgets/Navbar/mobile/MenuOverlay.tsx`: si el menú se cierra navegando a otra página, la entrada de historial que se añadió al abrirlo ya no obliga a pulsar "Atrás" dos veces; al volver a ella se salta sola.
+- `styles/global.css`: `scroll-behavior: smooth` solo con `prefers-reduced-motion: no-preference`.
+- `app/layout.tsx`: `viewportFit: "cover"` y márgenes con `env(safe-area-inset-*)` en el contenedor, para que las áreas seguras tengan valor en teléfonos con notch o barra de gestos.
+
+### Notes
+- El síntoma "vuelvo a Home y veo el footer" no se reprodujo en Playwright a 360 px; este lote no lo da por resuelto.
+
 ## [2026-11-11] - Transiciones suaves entre páginas (lote 2)
 
 ### Added

@@ -142,6 +142,27 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
     };
   }, [isOpen, contained, onClose]);
 
+  // Al abrir el menú se añadió una entrada al historial (arriba). Si el menú se cerró navegando a otra
+  // página, esa entrada queda atrás con `mobileMenuOpen`. Al volver a ella con "Atrás" la saltamos para
+  // no obligar a pulsar "Atrás" una segunda vez. Con el menú abierto no hace nada: lo gestiona el efecto de arriba.
+  const isOpenRef = useRef(isOpen);
+  useEffect(() => {
+    isOpenRef.current = isOpen;
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (contained || typeof window === "undefined") return;
+
+    const skipStaleMenuEntry = () => {
+      if (!isOpenRef.current && window.history.state?.mobileMenuOpen) {
+        window.history.back();
+      }
+    };
+
+    window.addEventListener("popstate", skipStaleMenuEntry);
+    return () => window.removeEventListener("popstate", skipStaleMenuEntry);
+  }, [contained]);
+
   const whatsappQuoteUrl = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
     companyData.whatsappMessage
   )}`;
