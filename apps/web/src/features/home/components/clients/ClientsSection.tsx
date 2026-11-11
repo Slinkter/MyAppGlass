@@ -10,7 +10,7 @@ import { SITE_URL } from "@/shared/config/company-data";
 import React from "react";
 import ItemGridLayout from "@/shared/components/Layout/ItemGridLayout";
 import { getClients } from "@features/home/services/clientService";
-import ClientCard from "./ClientCard";
+import { ClientTestimonialCard } from "./ClientTestimonialCard";
 
 /**
  * @component ClientsSection
@@ -32,10 +32,10 @@ const ClientsSection: React.FC = React.memo(() => {
             containerProps={{ mt: 0, pt: 0 }}
         >
             {clients.map((client) => (
-                // Sin `delay` escalonado: cada ClientCard se revela sola al cargar su
-                // imagen (ver ClientCard); un retardo fijo la mostraría vacía.
+                // Sin `delay` escalonado: cada ClientTestimonialCard se revela sola al cargar su
+                // imagen (ver ClientTestimonialCard); un retardo fijo la mostraría vacía.
                 <ItemGridLayout.Item key={client.id}>
-                    <ClientCard
+                    <ClientTestimonialCard
                         image={client.imgClient}
                         nameClient={client.nameClient}
                         descClient={client.descClient}

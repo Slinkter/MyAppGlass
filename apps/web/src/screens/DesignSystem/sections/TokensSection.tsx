@@ -74,6 +74,13 @@ const STATUS_TOKENS: readonly ColorToken[] = [
   { token: "status.dangerText", value: "#B91C1C / #F87171", label: "Texto de error" },
 ];
 
+const STATE_LAYER_TOKENS: readonly ColorToken[] = [
+  { token: "state.hover", value: "negro 8 % / blanco 8 %", label: "Capa de estado al posar el cursor (MD3)" },
+  { token: "state.focus", value: "negro 10 % / blanco 10 %", label: "Capa de estado al recibir foco (MD3)" },
+  { token: "state.pressed", value: "negro 10 % / blanco 10 %", label: "Capa de estado al presionar/clic (MD3)" },
+  { token: "state.drag", value: "negro 16 % / blanco 16 %", label: "Capa de estado en arrastre activo (MD3)" },
+];
+
 const SHADOWS = [
   { token: "navDesktop", value: "0 8px 32px, negro 8 %", label: "Barra de escritorio flotante" },
   { token: "elevatedLg", value: "0 8px 32px, negro 12 %", label: "Menús y paneles abiertos" },
@@ -81,10 +88,14 @@ const SHADOWS = [
 ] as const;
 
 const RADII = [
-  { token: "card", value: "16px", label: "Tarjetas" },
-  { token: "modal", value: "24px", label: "Diálogos" },
-  { token: "xl", value: "12px", label: "Campos" },
-  { token: "full", value: "9999px", label: "Botones y badges" },
+  { token: "xs", value: "4px", label: "Controles compactos, badges (MD3)" },
+  { token: "sm", value: "8px", label: "Chips, elementos pequeños (MD3)" },
+  { token: "md", value: "12px", label: "Campos de formulario, selector (MD3)" },
+  { token: "lg", value: "16px", label: "Tarjetas base, modales compactos (MD3)" },
+  { token: "card", value: "16px", label: "Tarjetas canónicas del sitio" },
+  { token: "modal", value: "24px", label: "Diálogos y hojas modales" },
+  { token: "xl", value: "28px", label: "Contenedores grandes, tarjetas hero (MD3)" },
+  { token: "full", value: "9999px", label: "Botones píldora y badges circulares" },
 ] as const;
 
 const PAGE_WIDTHS = [
@@ -323,12 +334,21 @@ export const TokensSection: React.FC = () => {
         <SwatchGrid items={TEXT_TOKENS} copiedToken={copiedToken} onCopy={copyToClipboard} />
       </ShowcaseCard>
 
-      {/* 6. Estados */}
+      {/* 6. Estados y Capas de Estado MD3 */}
       <ShowcaseCard
-        title="Estados"
-        description="Solo aparecen en mensajes (Alert y Badge). Los textos cumplen 4,5:1 sobre su fondo."
+        title="Estados y Capas de Estado (Material Design 3)"
+        description="Textos y fondos accesibles para mensajes (Alert/Badge) y capas tonales de interacción para hover (8%), focus (10%), pressed (10%) y drag (16%)."
       >
-        <SwatchGrid items={STATUS_TOKENS} copiedToken={copiedToken} onCopy={copyToClipboard} />
+        <VStack gap="6" align="stretch">
+          <Box>
+            <SubsectionLabel mb="3">Mensajes y badges de estado</SubsectionLabel>
+            <SwatchGrid items={STATUS_TOKENS} copiedToken={copiedToken} onCopy={copyToClipboard} />
+          </Box>
+          <Box>
+            <SubsectionLabel mb="3">Capas tonales de estado MD3 (State Layers)</SubsectionLabel>
+            <SwatchGrid items={STATE_LAYER_TOKENS} copiedToken={copiedToken} onCopy={copyToClipboard} />
+          </Box>
+        </VStack>
       </ShowcaseCard>
 
       {/* 7. Sombras, radios y anchos */}

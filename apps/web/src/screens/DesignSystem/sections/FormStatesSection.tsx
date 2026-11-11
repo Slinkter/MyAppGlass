@@ -8,7 +8,7 @@
  */
 
 import React, { useState } from "react";
-import { HStack, Input, SimpleGrid, Text, Textarea, VStack } from "@chakra-ui/react";
+import { Box, HStack, Input, SimpleGrid, Text, Textarea, VStack } from "@chakra-ui/react";
 import { ArrowRight, Check, Inbox, Ruler, ShieldCheck, Store } from "lucide-react";
 import { Alert } from "@/shared/ui/alert";
 import { Badge } from "@/shared/ui/badge";
@@ -62,6 +62,54 @@ const ButtonsBlock: React.FC = () => {
           <Badge variant={"chipDanger" as never}>Sin respuesta</Badge>
           <Badge variant={"chipInfo" as never}>Referencial</Badge>
         </HStack>
+      </VStack>
+      <VStack align="stretch" gap="3">
+        <SubsectionLabel>Capas de estado tonales MD3 (Hover 8%, Focus 10%, Pressed 10%) en componentes</SubsectionLabel>
+        <SimpleGrid columns={{ base: 1, sm: 3 }} gap="4">
+          <Box
+            p="4"
+            borderRadius="md"
+            borderWidth="1px"
+            borderColor="border.default"
+            bg="bg.surface"
+            cursor="pointer"
+            transition="background-color 0.15s ease"
+            _hover={{ bg: "state.hover" }}
+            aria-label="Ejemplo interactivo de hover"
+          >
+            <Text fontWeight="600" fontSize="sm" color="text.heading">Hover tonal</Text>
+            <Text fontSize="xs" color="text.muted" mt="1">Pase el cursor sobre esta tarjeta (capa 8%)</Text>
+          </Box>
+          <Box
+            as="button"
+            p="4"
+            borderRadius="md"
+            borderWidth="1px"
+            borderColor="border.default"
+            bg="bg.surface"
+            textAlign="left"
+            transition="background-color 0.15s ease, outline-color 0.15s ease"
+            _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", bg: "state.focus" }}
+            _active={{ bg: "state.pressed" }}
+          >
+            <Text fontWeight="600" fontSize="sm" color="text.heading">Foco accesible</Text>
+            <Text fontSize="xs" color="text.muted" mt="1">Presione Tab para ver anillo y capa 10%</Text>
+          </Box>
+          <Box
+            as="button"
+            p="4"
+            borderRadius="md"
+            borderWidth="1px"
+            borderColor="border.default"
+            bg="bg.surface"
+            textAlign="left"
+            transition="background-color 0.1s ease, transform 0.1s ease"
+            _active={{ bg: "state.pressed", transform: "scale(0.98)" }}
+          >
+            <Text fontWeight="600" fontSize="sm" color="text.heading">Presionado (Active)</Text>
+            <Text fontSize="xs" color="text.muted" mt="1">Haga clic sostenido para ver capa 10%</Text>
+          </Box>
+        </SimpleGrid>
       </VStack>
     </VStack>
   );

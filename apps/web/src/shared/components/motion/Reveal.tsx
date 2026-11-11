@@ -23,27 +23,33 @@ const REVEAL_OFFSET = 16;
 export interface RevealProps extends Omit<BoxProps, "transition"> {
   /** Orden en la cascada; cada paso suma `REVEAL_STAGGER_MS` de retraso (máximo `MOTION_BUDGET.maxStaggerItems`). */
   index?: number;
+  /** Estilo de movimiento: `default` (rápido de sección) o `cine` (cinematográfico suave de 1s con EASE_CINE). */
+  motion?: "default" | "cine";
   children: React.ReactNode;
 }
 
-export const Reveal: React.FC<RevealProps> = ({ index = 0, children, ...rest }) => {
+export const Reveal: React.FC<RevealProps> = ({ index = 0, motion = "default", children, ...rest }) => {
   const { ref, hidden, level } = useRevealState<HTMLDivElement>({
     rootMargin: "0px 0px -10% 0px",
     threshold: 0.05,
   });
   const reduced = level === "none";
+  const isCine = motion === "cine" && level === "full";
 
-  const delay = reduced ? 0 : Math.min(index, MOTION_BUDGET.maxStaggerItems) * REVEAL_STAGGER_MS;
-  const dur = reduced ? DUR_MS.reducedFade : REVEAL_MS;
+  const delay = reduced ? 0 : Math.min(index, MOTION_BUDGET.maxStaggerItems) * (isCine ? 70 : REVEAL_STAGGER_MS);
+  const dur = reduced ? DUR_MS.reducedFade : isCine ? 1000 : REVEAL_MS;
+  const ease = isCine ? "cubic-bezier(0.16, 1, 0.3, 1)" : EASE_REVEAL;
+  const offset = isCine ? 24 : REVEAL_OFFSET;
 
   return (
     <Box
       ref={ref}
+      _motionReduce={{ transition: "none", transform: "none", opacity: 1 }}
       {...rest}
       style={{
         opacity: hidden ? 0 : 1,
-        transform: hidden ? `translateY(${REVEAL_OFFSET}px)` : "none",
-        transition: `opacity ${dur}ms ${EASE_REVEAL} ${delay}ms, transform ${dur}ms ${EASE_REVEAL} ${delay}ms`,
+        transform: hidden ? `translateY(${offset}px)` : "none",
+        transition: `opacity ${dur}ms ${ease} ${delay}ms, transform ${dur}ms ${ease} ${delay}ms`,
       }}
     >
       {children}
