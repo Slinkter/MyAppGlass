@@ -24,7 +24,7 @@ import {
   type Project,
   type CreateProjectInput,
   type UpdateProjectInput,
-} from "./types";
+} from "@/shared/api/firebase/types";
 
 const COLLECTION_NAME = "projects";
 

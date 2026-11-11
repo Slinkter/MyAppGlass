@@ -5,7 +5,7 @@ import { Box, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import { ShowcaseCard, ShowcaseStack } from "../components";
 import { Button } from "@/shared/ui/button";
 import ServiceCard from "@/features/services/components/ServiceCard";
-import ProjectCardContent from "@/features/projects/components/ProjectCardContent";
+import ProjectCardContent from "@/entities/project/ui/ProjectCardContent";
 import ClientCard from "@/features/home/components/clients/ClientCard";
 
 const CARD_GRID = { base: 1, md: 2, lg: 3 } as const;
@@ -65,7 +65,7 @@ export const EditorialCardsShowcase: React.FC = () => {
         <ShowcaseCard
           title="Proyectos — Tarjetas de obras terminadas"
           description="Tarjeta real de proyectos con ubicación, año de finalización y botón circular para ver la obra."
-          badge="features/projects"
+          badge="entities/project"
         >
           <HStack justify="space-between" wrap="wrap" gap="4" mb="6">
             <Text {...GROUP_LABEL_PROPS}>Obras recientes</Text>

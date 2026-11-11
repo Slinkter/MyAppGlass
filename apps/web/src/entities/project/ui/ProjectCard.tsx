@@ -3,7 +3,7 @@ import React from "react";
 import ProjectCardContent from "./ProjectCardContent";
 import { useRouter } from "next/navigation";
 import logger from "@shared/utils/logger";
-import { getProjectHref } from "@features/projects/hooks/projectMappers";
+import { getProjectHref } from "@/entities/project/api/projectMappers";
 
 export interface ProjectCardProps {
   id: string | number;

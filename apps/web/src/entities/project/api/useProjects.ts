@@ -33,7 +33,7 @@ export function useProjects(initialData?: FirestoreProject[]): AsyncResource<Pro
   return useAsyncResource<Project[]>(
     "projects",
     async () => {
-      const { getProjects } = await import("@/shared/api/firebase/projectsRepository");
+      const { getProjects } = await import("@/entities/project/api/projectsRepository");
       // Se filtra `published` en cliente para no requerir índice compuesto.
       const all = await getProjects();
       return toProjectList(all, prerenderedIds);
@@ -64,7 +64,7 @@ export function useProject(
     `project:${id ?? ""}`,
     async () => {
       const { getProjectById, getProjectBySlug } = await import(
-        "@/shared/api/firebase/projectsRepository"
+        "@/entities/project/api/projectsRepository"
       );
       const key = id ?? "";
       const remote = (await getProjectById(key)) ?? (await getProjectBySlug(key));

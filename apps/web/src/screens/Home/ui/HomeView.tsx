@@ -5,7 +5,9 @@ import LandingPageSection from "@features/home/components/hero/LandingPageSectio
 import FeaturesSection from "@features/home/components/features/FeaturesSection";
 import ServiceList from "@/features/services/components/ServiceList";
 import ClientsSection from "@features/home/components/clients/ClientsSection";
-import { ProjectsList } from "@features/projects";
+// Import directo al segmento `ui`: `HomeView` es Server Component y el barrel de la
+// entidad también expone hooks de cliente y modales con `dynamic(ssr: false)`.
+import ProjectsList from "@/entities/project/ui/ProjectsList";
 import StoreSection from "@features/home/components/store/StoreSection";
 
 export interface HomeViewProps {

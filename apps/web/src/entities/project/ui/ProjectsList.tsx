@@ -14,7 +14,7 @@ import React, { useMemo, useCallback } from "react";
 import { Box } from "@chakra-ui/react";
 import ItemGridLayout from "@shared/components/Layout/ItemGridLayout";
 import ProjectCard from "./ProjectCard";
-import { useProjects } from "@features/projects/hooks/useProjects";
+import { useProjects } from "@/entities/project/api/useProjects";
 import { ProjectCardSkeletons } from "./ProjectSkeletons";
 import type { Project } from "@shared/types/project";
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";

@@ -3,7 +3,7 @@
 import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ProjectDetailView } from "@/screens/Projects";
-import { ProjectDetailSkeleton } from "@/features/projects/components/ProjectSkeletons";
+import { ProjectDetailSkeleton } from "@/entities/project/ui/ProjectSkeletons";
 import ComponentErrorBoundary from "@/shared/components/ComponentErrorBoundary";
 
 /**

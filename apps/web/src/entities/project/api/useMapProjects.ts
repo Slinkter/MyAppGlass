@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useProjects } from "@/features/projects/hooks/useProjects";
+import { useProjects } from "./useProjects";
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import type { Project } from "@/shared/types/project";
 import type { MapProject } from "@/shared/types/map";

@@ -9,7 +9,7 @@ import {
   createProject,
   updateProject,
   deleteProject,
-} from "@/shared/api/firebase/projectsRepository";
+} from "@/entities/project/api/projectsRepository";
 import { getServices } from "@/shared/api/firebase/servicesRepository";
 import type {
   Project,

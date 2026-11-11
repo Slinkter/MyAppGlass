@@ -30,7 +30,8 @@ const restrictUpwards = (blockedLayers) => [
 ];
 
 const FSD_LAYERS = {
-  shared: ["features", "widgets", "screens", "app"],
+  shared: ["entities", "features", "widgets", "screens", "app"],
+  entities: ["features", "widgets", "screens", "app"],
   features: ["widgets", "screens", "app"],
   widgets: ["screens", "app"],
   // Las pantallas se componen entre sí solo a través de `app`; una pantalla
@@ -47,7 +48,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ["src/features/projects/components/modal/VisualViewer.jsx", "src/features/projects/components/modal/VisualViewer.tsx"],
+    files: ["src/entities/project/ui/modal/VisualViewer.jsx", "src/entities/project/ui/modal/VisualViewer.tsx"],
     rules: {
       "react-refresh/only-export-components": "off",
     },

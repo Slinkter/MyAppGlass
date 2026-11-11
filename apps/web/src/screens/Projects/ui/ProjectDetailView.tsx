@@ -20,10 +20,10 @@ import { Button } from "@/shared/ui/button";
 import { Map, Image as Photo, Home, Building2, MapPin, Calendar } from "lucide-react";
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
 import { BUILD_SENTINEL } from "@/shared/config/build-sentinel";
-import { useProject } from "@features/projects/hooks/useProjects";
-import { ProjectDetailSkeleton } from "@features/projects/components/ProjectSkeletons";
-import VisualViewer from "@features/projects/components/modal/VisualViewer";
-import ProjectDetailItem from "@features/projects/components/ProjectDetailItem";
+import { useProject } from "@/entities/project/api/useProjects";
+import { ProjectDetailSkeleton } from "@/entities/project/ui/ProjectSkeletons";
+import VisualViewer from "@/entities/project/ui/modal/VisualViewer";
+import ProjectDetailItem from "@/entities/project/ui/ProjectDetailItem";
 import BackButton from "@shared/components/navigation/BackButton";
 import ErrorPage from "@/shared/components/ErrorView";
 

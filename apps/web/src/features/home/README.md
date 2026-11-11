@@ -6,7 +6,7 @@ This module contains all components and services related to the main landing pag
 
 ## Architecture
 
-- **Components** (`components/`): `hero/`, `features/`, `clients/`, `store/` and `contact/` sections, with their cards and skeletons. The services and projects sections are rendered from `features/services` (`ServiceList`) and `features/projects` (`ProjectsList`); their cards are built on `shared/components/Card/MediaCard`.
+- **Components** (`components/`): `hero/`, `features/`, `clients/`, `store/` and `contact/` sections, with their cards and skeletons. The services and projects sections are rendered from `features/services` (`ServiceList`) and `entities/project` (`ProjectsList`); their cards are built on `shared/components/Card/MediaCard`.
 - **Location**: the map lives in `features/location` (`ImmersiveLocationMap`, `LocationMap`, `useLocationData`), not in this module.
 - **Services**: `clientService.ts` and `featureService.ts` serve clients and technical features.
 - **Data**: `data/clients.ts` and `data/features.ts` (static content).

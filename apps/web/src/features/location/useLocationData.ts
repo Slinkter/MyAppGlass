@@ -8,8 +8,8 @@
 
 import { useMemo } from "react";
 import type { Project as FirestoreProject } from "@/shared/api/firebase/types";
-import { useProjects } from "@/features/projects/hooks/useProjects";
-import { useMapProjects } from "@features/home/hooks/useMapProjects";
+import { useProjects } from "@/entities/project/api/useProjects";
+import { useMapProjects } from "@/entities/project/api/useMapProjects";
 import { mainStore } from "@shared/components/map/mapConfig";
 import type { MapProject, StoreLocation } from "@/shared/types/map";
 
