@@ -1,4 +1,5 @@
-import { QUOTE_PRICING, type SystemType, type GlassType, type AluminumColor, type Difficulty } from "../config/pricing";
+import { QUOTE_PRICING, type Difficulty } from "../config/pricing";
+import type { AluminumColor, GlassType, SystemType } from "@/entities/window/model";
 import { BudgetItem } from "@/shared/schemas/ecommerce-schemas";
 
 export interface QuoteCalculationInput {

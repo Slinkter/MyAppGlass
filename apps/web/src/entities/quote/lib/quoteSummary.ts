@@ -1,5 +1,5 @@
 import type { BudgetItem } from "@/shared/schemas/ecommerce-schemas";
-import type { QuoteLineInput } from "../types";
+import type { QuoteLineInput } from "../model";
 import { quoteCalculator } from "./quoteCalculator";
 
 export interface QuoteLineResult {

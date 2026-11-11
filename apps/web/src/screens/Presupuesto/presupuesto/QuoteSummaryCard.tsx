@@ -3,7 +3,7 @@
 import React from "react";
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { Receipt } from "lucide-react";
-import type { QuoteSummary } from "@/features/presupuesto/utils/quoteSummary";
+import type { QuoteSummary } from "@/entities/quote/lib/quoteSummary";
 
 const money = (n: number) => `S/ ${n.toFixed(2)}`;
 

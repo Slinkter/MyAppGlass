@@ -1,4 +1,4 @@
-import type { QuoteCalculationInput } from "./utils/quoteCalculator";
+import type { QuoteCalculationInput } from "../lib/quoteCalculator";
 
 /** Una partida del presupuesto: un ambiente/abertura con sus medidas y acabados. */
 export interface QuoteLineInput extends QuoteCalculationInput {

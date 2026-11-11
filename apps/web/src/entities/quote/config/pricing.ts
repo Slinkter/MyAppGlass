@@ -1,13 +1,6 @@
 /** Tabla de precios parametrizable del cotizador (S/ sin IGV). Editar aquí, no en los componentes. */
-export type SystemType =
-  | "ventana_nova"
-  | "mampara_serie25"
-  | "ducha_cristal"
-  | "techo_policarbonato"
-  | "ventana_acustica"
-  | "ventana_pvc_abatible";
-export type GlassType = "8mm_incoloro" | "10mm_incoloro" | "6mm_incoloro" | "8mm_laminado";
-export type AluminumColor = "negro_mate" | "aluminio_mate" | "blanco" | "champagne";
+import type { AluminumColor, GlassType, SystemType } from "@/entities/window/model";
+
 export type Difficulty = "primer_piso" | "piso_alto_sin_andamio" | "piso_alto_con_andamio";
 
 export const QUOTE_PRICING = {

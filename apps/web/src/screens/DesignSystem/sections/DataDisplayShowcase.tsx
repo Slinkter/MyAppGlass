@@ -7,8 +7,8 @@ import { EmptyState } from "@/shared/ui/empty-state";
 import { DataListRoot, DataListItem } from "@/shared/ui/data-list";
 import { companyData } from "@/shared/config/company-data";
 import { Layers } from "lucide-react";
-import { QuoteSheet } from "@/features/presupuesto/components/QuoteSheet";
-import { summarizeQuote } from "@/features/presupuesto/utils/quoteSummary";
+import { QuoteSheet } from "@/entities/quote/ui/QuoteSheet";
+import { summarizeQuote } from "@/entities/quote/lib/quoteSummary";
 
 /** Datos de EJEMPLO (no son de un cliente real) para mostrar la hoja de presupuesto. */
 const SAMPLE_QUOTE = summarizeQuote([

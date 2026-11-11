@@ -1,1 +1,1 @@
-export type { QuoteCustomer } from "@/features/presupuesto/types";
+export type { QuoteCustomer } from "@/entities/quote/model";

@@ -11,16 +11,16 @@ import {
   validateLines,
   type FieldErrors,
 } from "@/features/presupuesto/schemas/quote-form-schema";
-import { createQuoteLine, parseSystemParam } from "@/features/presupuesto/utils/quoteLines";
-import { summarizeQuote } from "@/features/presupuesto/utils/quoteSummary";
-import type { QuoteLineInput } from "@/features/presupuesto/types";
+import { createQuoteLine, parseSystemParam } from "@/entities/quote/lib/quoteLines";
+import { summarizeQuote } from "@/entities/quote/lib/quoteSummary";
+import type { QuoteLineInput } from "@/entities/quote/model";
 import { logger } from "@/shared/utils/logger";
 import { LoginRequired } from "./presupuesto/LoginRequired";
 import { QuoteLinesPanel } from "./presupuesto/QuoteLinesPanel";
 import { QuoteSummaryCard } from "./presupuesto/QuoteSummaryCard";
 import { CustomerPanel } from "./presupuesto/CustomerPanel";
 import { QuoteSuccess } from "./presupuesto/QuoteSuccess";
-import { QuoteSheet } from "@/features/presupuesto/components/QuoteSheet";
+import { QuoteSheet } from "@/entities/quote/ui/QuoteSheet";
 import type { QuoteCustomer } from "./presupuesto/types";
 
 const EMPTY_CUSTOMER: QuoteCustomer = { fullName: "", dniRuc: "", email: "", phone: "", address: "", district: "La Molina" };

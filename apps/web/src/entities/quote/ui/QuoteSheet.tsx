@@ -13,9 +13,9 @@ import React from "react";
 import { Box, Flex, Heading, Text, SimpleGrid, chakra } from "@chakra-ui/react";
 import { ShieldCheck } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
-import { QUOTE_PRICING } from "@/features/presupuesto/config/pricing";
-import type { QuoteSummary } from "@/features/presupuesto/utils/quoteSummary";
-import type { QuoteCustomer } from "../types";
+import { QUOTE_PRICING } from "../config/pricing";
+import type { QuoteSummary } from "../lib/quoteSummary";
+import type { QuoteCustomer } from "../model";
 
 interface QuoteSheetProps {
   customer: QuoteCustomer;

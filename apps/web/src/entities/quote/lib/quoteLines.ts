@@ -1,5 +1,6 @@
-import { QUOTE_PRICING, type SystemType } from "../config/pricing";
-import type { QuoteLineInput } from "../types";
+import { QUOTE_PRICING } from "../config/pricing";
+import type { SystemType } from "@/entities/window/model";
+import type { QuoteLineInput } from "../model";
 
 let lineSeq = 0;
 

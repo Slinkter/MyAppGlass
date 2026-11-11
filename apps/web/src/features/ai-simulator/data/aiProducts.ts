@@ -1,4 +1,4 @@
-import type { SystemType } from "@/features/presupuesto/config/pricing";
+import type { SystemType } from "@/entities/window/model";
 
 export interface AISimulatorProduct {
   id: string;
