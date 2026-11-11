@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/shared/lib/firebase";
 import { Product, productSchema } from "@/shared/schemas/ecommerce-schemas";
-import { INITIAL_PRODUCTS } from "@/features/products/data/initial-products";
+import { INITIAL_PRODUCTS } from "../data/initial-products";
 import { logger } from "@/shared/utils/logger";
 import { createLookupMap } from "@/shared/utils/algorithm-utils";
 

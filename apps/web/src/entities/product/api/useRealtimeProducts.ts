@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Product } from "@/shared/schemas/ecommerce-schemas";
-import { productService } from "@/features/products/services/productService";
-import { INITIAL_PRODUCTS } from "@/features/products/data/initial-products";
+import { productService } from "./productService";
+import { INITIAL_PRODUCTS } from "../data/initial-products";
 
 export function useRealtimeProducts() {
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);

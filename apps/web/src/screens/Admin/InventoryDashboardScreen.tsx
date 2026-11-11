@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from "react";
 import { Box, VStack, HStack, Heading, Text, Button } from "@chakra-ui/react";
 import { Plus, FileSpreadsheet } from "lucide-react";
-import { useRealtimeProducts } from "@/features/products/hooks/useRealtimeProducts";
-import { productService } from "@/features/products/services/productService";
+import { useRealtimeProducts } from "@/entities/product/api/useRealtimeProducts";
+import { productService } from "@/entities/product/api/productService";
 import { Product } from "@/shared/schemas/ecommerce-schemas";
 import { exportInventoryToExcel } from "@/shared/utils/excel-export";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";

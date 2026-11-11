@@ -26,7 +26,7 @@ import {
   Circle,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";
-import { useRealtimeProducts } from "@/features/products/hooks/useRealtimeProducts";
+import { useRealtimeProducts } from "@/entities/product/api/useRealtimeProducts";
 import { useRealtimeOrders } from "@/features/products/hooks/useRealtimeOrders";
 import { AdminNav } from "@/widgets/AdminNav/AdminNav";
 
