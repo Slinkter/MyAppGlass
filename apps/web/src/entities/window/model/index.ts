@@ -6,10 +6,13 @@
  * @module entities/window/model
  */
 
-/** Sistemas comerciales del cotizador. */
+/** Sistemas comerciales del cotizador respaldados por catálogos de proveedores. */
 export type SystemType =
   | "ventana_nova"
+  | "ventana_serie20"
   | "mampara_serie25"
+  | "ventana_serie35"
+  | "mampara_serie62"
   | "ducha_cristal"
   | "techo_policarbonato"
   | "ventana_acustica"

@@ -20,16 +20,34 @@ export const QUOTE_PRICING = {
     champagne: { label: "Champagne Titanio", pricePerMeter: 48 },
   } satisfies Record<AluminumColor, { label: string; pricePerMeter: number }>,
   systems: {
-    mampara_serie25: {
-      label: "Mampara Corrediza Serie 25 (2 o 4 Hojas)",
-      kitDescription: "Kit de Cerradura Pico Loro, Tirador y Rodajes Serie 25",
-      kitCost: 160,
-      noiseReductionPct: 50,
-    },
     ventana_nova: {
       label: "Ventana Corrediza Sistema Nova Hermética",
       kitDescription: "Kit de Accesorios y Rodajes Sistema Nova",
       kitCost: 85,
+    },
+    ventana_serie20: {
+      label: "Ventana Corrediza Serie 20 (Económica)",
+      kitDescription: "Kit de Garruchas Armadas y Guías Superiores Serie 20",
+      kitCost: 65,
+      noiseReductionPct: 40,
+    },
+    mampara_serie25: {
+      label: "Mampara / Ventana Corrediza Serie 25 (2 o 4 Hojas)",
+      kitDescription: "Kit de Cerradura Pico Loro, Tirador y Rodajes Serie 25",
+      kitCost: 160,
+      noiseReductionPct: 50,
+    },
+    ventana_serie35: {
+      label: "Ventana Batiente Serie 35",
+      kitDescription: "Kit de Bisagras, Burlete Cuña y Manija Serie 35",
+      kitCost: 95,
+      noiseReductionPct: 55,
+    },
+    mampara_serie62: {
+      label: "Mampara Corrediza Reforzada Serie 62 (Alto Tráfico)",
+      kitDescription: "Kit de Garruchas de Nylon 50kg y Cierre Fermax con Llave Serie 62",
+      kitCost: 240,
+      noiseReductionPct: 65,
     },
     ducha_cristal: {
       label: "Puerta / Box de Ducha en Cristal Templado",
@@ -41,11 +59,10 @@ export const QUOTE_PRICING = {
       kitDescription: "Kit de Perfilería Unión H y Selladores Estructurales",
       kitCost: 140,
     },
-    // Incorporados al catálogo el 2026-11-08 (decisión del dueño). Precios y % antirruido por confirmar:
-    // hasta cargar los valores reales (fase de cálculos) el cotizador los marca como "Precio a definir".
+    // Incorporados al catálogo:
     ventana_acustica: {
       label: "Ventana Acústica",
-      kitDescription: "Kit de Accesorios Ventana Acústica",
+      kitDescription: "Kit de Accesorios Ventana Acústica (Serie 3831 / 42)",
       kitCost: 0,
       pricePending: true,
       noiseReductionPct: 80,
