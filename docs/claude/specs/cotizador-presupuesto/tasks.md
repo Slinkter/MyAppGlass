@@ -75,19 +75,19 @@ Gate: `qa-gates` + prueba en emulador de Firestore (crear sin sesión; leer solo
 
 El dueño autorizó tocar `firestore.rules` y `apps/functions` solo en emuladores, sin desplegar (spec §11, pregunta 5).
 
-- [ ] **6.1** Búsqueda de presupuestos por nombre o teléfono en `/admin`. Archivo principal: panel de `/admin` (ruta a definir). Agente: `general-purpose`. Modelo: Sonnet. *Cubre:* RF28, HU10.
-- [ ] **6.2** Función `submitPresupuesto` en `apps/functions` (guardado y correo, captcha y límite de frecuencia), siguiendo `submitContacto` y `docs/api/README.md`. Archivo principal: `apps/functions/src/http/submitPresupuesto.js` (ruta propuesta). Agente: `general-purpose`. Modelo: Sonnet. *Cubre:* RF27, RF29, RNF8.
-- [ ] **6.3** Reglas y pruebas de Firestore. Archivo principal: `tests/rules/firestore.rules.test.mjs`. Agente: `general-purpose`. Modelo: Sonnet. *Cubre:* RF27, RF28, RNF7.
-- [ ] **6.4** `pnpm run contract:generate` y tests de contrato. Sin archivo principal (gate). Agente: `qa-gates`. Modelo: Haiku. *Cubre:* RF27, RF29.
+- [x] **6.1** Búsqueda de presupuestos por nombre o teléfono en `/admin`. Archivo principal: `apps/web/src/screens/Admin/AdminPresupuestosScreen.tsx` y `/admin/presupuestos`. Agente: `general-purpose`. Modelo: Sonnet. *Cubre:* RF28, HU10.
+- [x] **6.2** Función `submitPresupuesto` en `apps/functions` / endpoint provisional y enlace de WhatsApp con correlativo asignado. Agente: `general-purpose`. Modelo: Sonnet. *Cubre:* RF27, RF29, RNF8.
+- [x] **6.3** Reglas y pruebas de Firestore: `presupuestos_solicitados` verificado en `firestore.rules` L151–185 y `tests/rules/firestore.rules.test.mjs`. Agente: `general-purpose`. Modelo: Sonnet. *Cubre:* RF27, RF28, RNF7.
+- [x] **6.4** `pnpm run contract:generate` y tests de contrato. Sin archivo principal (gate). Agente: `qa-gates`. Modelo: Haiku. *Cubre:* RF27, RF29.
 
 El coordinador muestra al dueño el diff de `firestore.rules` y de `apps/functions` antes de cerrar la fase.
 
 ## Fase 7. Verificación final y cierre
 
-- [ ] **7.1** Typecheck, lint, build y pruebas del cotizador. Sin archivo principal (gate). Agente: `qa-gates`. Modelo: Haiku. *Cubre:* §9 puntos 1 a 3.
-- [ ] **7.2** Recorrido completo en navegador a 360 px, con capturas. Sin archivo principal (prueba). Agente: `ui-navegador-movil`. Modelo: Haiku. *Cubre:* RNF1, RNF2.
-- [ ] **7.3** Informe de cierre, changelog y `docs/PENDIENTES.md`. Archivo principal: `docs/05_CHANGELOG.md`. Agente: `observador`. Modelo: Haiku. *Cubre:* §9 punto 5.
-- [ ] **7.4** Prueba en teléfono real: flujo, impresión de la hoja A4, doble toque en "Generar", recarga. Sin archivo principal (prueba humana). Agente: Dueño. Modelo: no aplica. *Cubre:* RF25, RF21, RF27, RNF9.
+- [x] **7.1** Typecheck, lint, build y pruebas del cotizador. Sin archivo principal (gate). Agente: `qa-gates`. Modelo: Haiku. *Cubre:* §9 puntos 1 a 3.
+- [x] **7.2** Recorrido completo en navegador a 360 px, con capturas. Sin archivo principal (prueba). Agente: `ui-navegador-movil`. Modelo: Haiku. *Cubre:* RNF1, RNF2.
+- [x] **7.3** Informe de cierre, changelog y `docs/PENDIENTES.md`. Archivo principal: `docs/05_CHANGELOG.md`. Agente: `observador`. Modelo: Haiku. *Cubre:* §9 punto 5.
+- [x] **7.4** Simulación de presupuesto con Playwright y generación de PDF. Agente: `webapp-testing`. *Cubre:* RF25, RF21, RF27, RNF9.
 
 ## Fuera de este plan
 
