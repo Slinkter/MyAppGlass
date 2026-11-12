@@ -1,9 +1,13 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Box, Flex, Heading, Text, SimpleGrid, chakra } from "@chakra-ui/react";
 import { ShieldCheck } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
+import yapeLogo from "@/assets/branding/B1-Yape.svg";
+import plinLogo from "@/assets/branding/B2-plin.svg";
+import bbvaLogo from "@/assets/bbva.svg";
 import { computeSashes, priceWindow, quoteTotals, splitBodies } from "../lib/windowRules";
 import { formatSoles } from "../lib/formatSoles";
 import type { WindowQuoteItem } from "../model";
@@ -201,14 +205,120 @@ export const NovaQuoteSheet: React.FC<NovaQuoteSheetProps> = ({
         borderTop="2px solid"
         borderColor="gray.900"
       >
-        <Box maxW={{ base: "full", md: "52%" }} fontSize="xs" color="gray.700" lineHeight="1.6">
+        <Box maxW={{ base: "full", md: "54%" }} fontSize="xs" color="gray.700" lineHeight="1.6">
           <Text fontWeight="semibold" mb="1" display="flex" alignItems="center" gap="1.5">
             <ShieldCheck size={16} aria-hidden="true" style={{ flexShrink: 0 }} /> Condiciones comerciales y garantía
           </Text>
           <Text>• Fabricación en taller propio e instalación con técnicos especialistas de la empresa.</Text>
           <Text>• Garantía de 3 meses en instalación y accesorios.</Text>
           <Text>• Los precios web son referenciales y se ratifican con la toma exacta de medidas en visita técnica.</Text>
-          <Text>• Pago en efectivo o QR (Yape/Plin) aplica descuento por pronto pago reflejado en el total.</Text>
+          <Text>• Pago en efectivo o transferencias digitales aplica descuento por pronto pago reflejado en el total.</Text>
+
+          {/* MEDIOS DE PAGO AUTORIZADOS CON LOGOS SVG */}
+          <Box mt="3" pt="2.5" borderTop="1px dashed" borderColor="gray.300">
+            <Text fontWeight="semibold" fontSize="2xs" color="gray.800" textTransform="uppercase" letterSpacing="0.06em" mb="2">
+              Medios de pago autorizados
+            </Text>
+            <Flex wrap="wrap" gap="2.5" align="center">
+              {/* Billeteras Digitales (Yape y Plin) */}
+              <Flex
+                align="center"
+                gap="2"
+                bg="gray.50"
+                px="2.5"
+                py="1.5"
+                borderRadius="md"
+                border="1px solid"
+                borderColor="gray.200"
+              >
+                <Box
+                  position="relative"
+                  w="36px"
+                  h="20px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  overflow="hidden"
+                  borderRadius="sm"
+                  bg="#9117A0"
+                >
+                  <Image
+                    src={yapeLogo}
+                    alt="Logo Yape"
+                    width={36}
+                    height={20}
+                    style={{ objectFit: "contain", height: "100%", width: "auto" }}
+                    unoptimized
+                  />
+                </Box>
+                <Box
+                  position="relative"
+                  w="20px"
+                  h="20px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  overflow="hidden"
+                  borderRadius="sm"
+                >
+                  <Image
+                    src={plinLogo}
+                    alt="Logo Plin"
+                    width={20}
+                    height={20}
+                    style={{ objectFit: "contain", height: "100%", width: "auto" }}
+                    unoptimized
+                  />
+                </Box>
+                <Box lineHeight="1.15">
+                  <Text fontSize="2xs" fontWeight="bold" color="gray.800">
+                    Yape / Plin
+                  </Text>
+                  <Text fontSize="2xs" color="gray.600">
+                    {companyData.whatsappDisplay}
+                  </Text>
+                </Box>
+              </Flex>
+
+              {/* Cuenta Corriente BBVA */}
+              <Flex
+                align="center"
+                gap="2.5"
+                bg="gray.50"
+                px="2.5"
+                py="1.5"
+                borderRadius="md"
+                border="1px solid"
+                borderColor="gray.200"
+              >
+                <Box
+                  position="relative"
+                  w="48px"
+                  h="16px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Image
+                    src={bbvaLogo}
+                    alt="Logo BBVA"
+                    width={48}
+                    height={16}
+                    style={{ objectFit: "contain", height: "100%", width: "auto" }}
+                    unoptimized
+                  />
+                </Box>
+                <Box lineHeight="1.15">
+                  <Text fontSize="2xs" fontWeight="bold" color="gray.800">
+                    BBVA Soles
+                  </Text>
+                  <Text fontSize="2xs" color="gray.600">
+                    Cta: 0011-0106-0100041622
+                  </Text>
+                </Box>
+              </Flex>
+            </Flex>
+          </Box>
         </Box>
         <Box minW={{ base: "full", md: "18rem" }} fontSize="sm" css={{ fontVariantNumeric: "tabular-nums" }}>
           <Flex justify="space-between" mb="1.5">
