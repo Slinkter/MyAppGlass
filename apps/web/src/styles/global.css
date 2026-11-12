@@ -122,3 +122,23 @@ body.light-mode {
 @keyframes heroRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes heroLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes heroFade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Reglas de impresión para el cotizador y hoja formal A4 */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print, header, footer, nav, .floating-actions, .chakra-portal {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}

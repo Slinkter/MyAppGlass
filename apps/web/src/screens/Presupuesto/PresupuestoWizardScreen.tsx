@@ -288,9 +288,13 @@ export const PresupuestoWizardScreen: React.FC = () => {
         confirmLabel="Vaciar presupuesto"
       />
 
-      {/* HOJA MEMBRETADA FORMAL (Visible en éxito o al imprimir) */}
-      {(step === "success" || step === "checkout") && (
-        <Box mt="10" display={step === "success" ? "block" : "none"} className="print-only">
+      {/* HOJA MEMBRETADA FORMAL (Visible en éxito y al imprimir; también visible al revisar en checkout) */}
+      {(step === "success" || step === "checkout" || step === "builder") && (
+        <Box
+          mt="10"
+          display={step === "success" || step === "checkout" ? "block" : "none"}
+          className="print-only"
+        >
           <NovaQuoteSheet
             customer={lastCustomer}
             items={items}
