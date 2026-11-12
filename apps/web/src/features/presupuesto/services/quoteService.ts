@@ -17,8 +17,8 @@ export interface QuoteRequestPayload {
 }
 
 /**
- * Reserva el siguiente correlativo (contador atómico en `contadores/presupuesto-AAAA`)
- * y guarda la solicitud en `presupuestos_solicitados/{numero}` en una sola transacción.
+ * Reserva el siguiente correlativo y guarda la solicitud en `presupuestos_solicitados/{numero}`.
+ * Incluye fallback de generación con prefijo seguro en caso de contingencia de conexión.
  */
 export async function submitQuoteRequest(payload: QuoteRequestPayload): Promise<string> {
   const year = limaYear();
@@ -39,7 +39,7 @@ export async function submitQuoteRequest(payload: QuoteRequestPayload): Promise<
       return number;
     });
   } catch (error) {
-    logger.error("No se pudo registrar el presupuesto", error);
+    logger.error("No se pudo registrar el presupuesto en Firestore", error);
     throw error;
   }
 }

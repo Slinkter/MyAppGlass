@@ -172,8 +172,8 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
-    // Contador atómico del correlativo (contadores/presupuesto-AAAA). Cualquiera puede
-    // crearlo en 1 o incrementarlo exactamente en 1; nunca leerlo ni borrarlo.
+    // Contador atómico del correlativo (contadores/presupuesto-AAAA).
+    // Permite inicializar en 1 o incrementar en 1 de forma atómica en la transacción del presupuesto.
     match /contadores/{counterId} {
       allow create: if counterId.matches('^presupuesto-[0-9]{4}$')
         && request.resource.data.keys().hasOnly(['seq'])
@@ -181,7 +181,8 @@ service cloud.firestore {
       allow update: if counterId.matches('^presupuesto-[0-9]{4}$')
         && request.resource.data.keys().hasOnly(['seq'])
         && request.resource.data.seq == resource.data.seq + 1;
-      allow read, delete: if isAdmin();
+      allow read: if counterId.matches('^presupuesto-[0-9]{4}$');
+      allow delete: if isAdmin();
     }
 
     // ---------------------------------------------------------------
