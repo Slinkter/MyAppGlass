@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { QUOTE_TEXTS } from "../components/quoteTexts";
 
 /** Límites razonables de medidas en metros (evita 0 o valores absurdos). */
 export const QUOTE_LIMITS = { minSide: 0.3, maxWidth: 8, maxHeight: 6, maxLines: 20 } as const;
@@ -64,3 +65,28 @@ export function validateLines(lines: { id: string; ambiente: string; width: numb
 
 /** Teléfono normalizado para guardar/enviar (sin espacios ni signos). */
 export const normalizePhone = phoneDigits;
+
+const MOBILE_RE = /^(51)?9\d{8}$/;
+
+/** Celular peruano de 9 dígitos, sin prefijo 51 (para guardar y buscar por teléfono). */
+export const normalizeMobile = (v: string): string => {
+  const digits = phoneDigits(v);
+  return MOBILE_RE.test(digits) && digits.length === 11 ? digits.slice(2) : digits;
+};
+
+/** Cierre del cotizador nuevo: solo nombre, celular y aceptación de datos personales. */
+export const quickCustomerSchema = z.object({
+  fullName: z.string().trim().min(3, QUOTE_TEXTS.closing.errors.name).max(200, "Máximo 200 caracteres"),
+  phone: z
+    .string()
+    .trim()
+    .refine((v) => MOBILE_RE.test(phoneDigits(v)), QUOTE_TEXTS.closing.errors.phone),
+  acceptsPrivacy: z.literal(true, { error: QUOTE_TEXTS.closing.errors.acceptance }),
+});
+
+export type QuickCustomer = z.infer<typeof quickCustomerSchema>;
+
+export function validateQuickCustomer(input: unknown): FieldErrors {
+  const result = quickCustomerSchema.safeParse(input);
+  return result.success ? {} : issuesToErrors(result.error.issues);
+}

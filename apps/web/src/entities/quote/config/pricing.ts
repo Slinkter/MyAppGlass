@@ -84,7 +84,7 @@ export const QUOTE_PRICING = {
  * Precios y reglas de la ventana corrediza Nova (flujo "por m²"), todo en S/ sin IGV.
  * Fuente: dueño, 2026-11-11 (spec `docs/claude/specs/cotizador-presupuesto/spec.md`).
  * El precio por m² es costo total: vidrio + perfiles + accesorios + instalación en La Molina.
- * Editar aquí, no en los componentes. Los valores marcados "por confirmar" son defaults de trabajo.
+ * Editar aquí, no en los componentes. El único valor por confirmar es el ancho mínimo.
  */
 export const WINDOW_PRICING = {
   igvRate: QUOTE_PRICING.igvRate,
@@ -103,10 +103,10 @@ export const WINDOW_PRICING = {
   /** Espesor fijo del vidrio de ventana (mm): los perfiles están diseñados para 6 mm. */
   glassMm: 6,
   limits: {
-    widthMinM: 0.4, // por confirmar
-    widthMaxM: 2.8,
-    heightMinM: 0.4,
-    heightMaxM: 3.0, // por confirmar (spec §11, pregunta 10)
+    widthMinM: 0.4, // por confirmar: el dueño fijó el alto mínimo (0,40 m), no el ancho mínimo
+    widthMaxM: 2.8, // dueño, spec §11, pregunta 1
+    heightMinM: 0.4, // dueño, spec §11, pregunta 1
+    heightMaxM: 2.4, // sobre 2,40 m va por visita técnica (dueño, spec §11, preguntas 1 y 10)
   },
   sash: {
     minCm: 60,
@@ -117,7 +117,10 @@ export const WINDOW_PRICING = {
     maxCount: 4,
   },
   bodies: {
-    /** Sobre este alto la ventana se divide en cuerpos (m). */
+    /**
+     * Sobre este alto la ventana se divide en cuerpos (m). Con el alto máximo en 2,40 m la web
+     * no llega a dividir en cuerpos; queda para presupuestos armados en tienda.
+     */
     splitAboveHeightM: 2.4,
     /** Paño fijo inferior de seguridad (m). */
     fixedBottomM: 1.1,

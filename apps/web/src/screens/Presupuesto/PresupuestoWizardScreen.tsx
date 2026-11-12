@@ -1,29 +1,25 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { Box, Heading, Text, VStack, SimpleGrid } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, HStack } from "@chakra-ui/react";
 import { toaster } from "@/shared/ui/toaster-instance";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { submitQuoteRequest } from "@/features/presupuesto/services/quoteService";
-import {
-  normalizePhone,
-  validateCustomer,
-  validateLines,
-  type FieldErrors,
-} from "@/features/presupuesto/schemas/quote-form-schema";
-import { createQuoteLine, parseSystemParam } from "@/entities/quote/lib/quoteLines";
-import { summarizeQuote } from "@/entities/quote/lib/quoteSummary";
-import type { QuoteLineInput } from "@/entities/quote/model";
-import { logger } from "@/shared/utils/logger";
-import { LoginRequired } from "./presupuesto/LoginRequired";
-import { QuoteLinesPanel } from "./presupuesto/QuoteLinesPanel";
-import { QuoteSummaryCard } from "./presupuesto/QuoteSummaryCard";
-import { CustomerPanel } from "./presupuesto/CustomerPanel";
-import { QuoteSuccess } from "./presupuesto/QuoteSuccess";
-import { QuoteSheet } from "@/entities/quote/ui/QuoteSheet";
-import type { QuoteCustomer } from "./presupuesto/types";
-
-const EMPTY_CUSTOMER: QuoteCustomer = { fullName: "", dniRuc: "", email: "", phone: "", address: "", district: "La Molina" };
+import { OptionChooser } from "@/features/presupuesto/components/OptionChooser";
+import { WindowForm } from "@/features/presupuesto/components/WindowForm";
+import { QuoteCart } from "@/features/presupuesto/components/QuoteCart";
+import { QuickCustomerForm } from "@/features/presupuesto/components/QuickCustomerForm";
+import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
+import { useQuoteCart } from "@/features/presupuesto/hooks/useQuoteCart";
+import { NovaQuoteSheet } from "@/entities/quote";
+import { parseQuoteEntry } from "@/entities/quote/lib/quoteEntry";
+import { normalizeMobile } from "@/features/presupuesto/schemas/quote-form-schema";
+import { QUOTE_TEXTS } from "@/features/presupuesto/components/quoteTexts";
+import { priceWindow, quoteTotals } from "@/entities/quote/lib/windowRules";
+import { Button } from "@/shared/ui/button";
+import { ArrowLeft, CheckCircle2, Printer, Phone } from "lucide-react";
+import type { WindowQuoteItem } from "@/entities/quote";
+import { companyData } from "@/shared/config/company-data";
 
 const QUOTE_DATE_FORMATTER = new Intl.DateTimeFormat("es-PE", {
   year: "numeric",
@@ -32,137 +28,278 @@ const QUOTE_DATE_FORMATTER = new Intl.DateTimeFormat("es-PE", {
   timeZone: "America/Lima",
 });
 
+type Step = "chooser" | "builder" | "checkout" | "success";
+
 export const PresupuestoWizardScreen: React.FC = () => {
-  const { user, profile, loading } = useAuth();
+  const { user, profile } = useAuth();
   const formattedDate = useMemo(() => QUOTE_DATE_FORMATTER.format(new Date()), []);
 
-  const [lines, setLines] = useState<QuoteLineInput[]>(() => [createQuoteLine()]);
-  const [customer, setCustomer] = useState<QuoteCustomer>(EMPTY_CUSTOMER);
-  const [customerErrors, setCustomerErrors] = useState<FieldErrors>({});
-  const [lineErrors, setLineErrors] = useState<Record<string, FieldErrors>>({});
-  const [quoteNumber, setQuoteNumber] = useState<string | null>(null);
+  const {
+    items,
+    outsideLaMolina,
+    addItem,
+    updateItem,
+    removeItem,
+    clearCart,
+    setOutsideLaMolina,
+  } = useQuoteCart();
+
+  const [step, setStep] = useState<Step>("chooser");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [isClearOpen, setIsClearOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [quoteNumber, setQuoteNumber] = useState<string | null>(null);
+  const [lastCustomer, setLastCustomer] = useState<{ fullName: string; phone: string }>({
+    fullName: "",
+    phone: "",
+  });
 
-  // Preselecciona el sistema que llega desde el simulador (/presupuesto?sistema=...).
-  useEffect(() => {
-    const system = parseSystemParam(new URLSearchParams(window.location.search).get("sistema"));
-    if (system) setLines((prev) => prev.map((l, i) => (i === 0 ? { ...l, systemType: system } : l)));
-  }, []);
-
-  // Si el usuario está autenticado, autocompletar sus datos del perfil.
-  useEffect(() => {
-    if (profile) {
-      setCustomer({
-        fullName: profile.fullName || "",
-        dniRuc: profile.dniRuc || "",
-        email: profile.email || user?.email || "",
-        phone: profile.phone || "",
-        address: profile.address || "",
-        district: profile.district || "La Molina",
-      });
-    } else if (user) {
-      setCustomer((prev) => ({ ...prev, email: user.email || "" }));
-    }
-  }, [profile, user]);
-
-  // Medidas vacías (NaN) no rompen el resumen en vivo; la validación las bloquea al enviar.
-  const summary = useMemo(
-    () =>
-      summarizeQuote(
-        lines.map((l) => ({
-          ...l,
-          width: Number.isFinite(l.width) ? l.width : 0,
-          height: Number.isFinite(l.height) ? l.height : 0,
-        })),
-      ),
-    [lines],
+  const editingItem = useMemo(
+    () => (editingId ? items.find((i) => i.id === editingId) : undefined),
+    [editingId, items],
   );
 
-  // Si no está autenticado, bloquear acceso y mostrar pantalla de Login Requerido.
-  if (!user && !loading) {
-    return <LoginRequired />;
-  }
-
-  const handleSubmit = async () => {
-    if (saving || quoteNumber) return;
-    const cErrors = validateCustomer(customer);
-    const lErrors = validateLines(lines);
-    setCustomerErrors(cErrors);
-    setLineErrors(lErrors);
-    if (Object.keys(cErrors).length > 0 || Object.keys(lErrors).length > 0) {
-      toaster.create({
-        title: "Revisa los datos marcados",
-        description: "Corrige los campos indicados para enviar tu solicitud.",
-        type: "warning",
-      });
-      return;
+  // Preselecciona el sistema que llega desde URL (/presupuesto?categoria=ventana&sistema=ventana_nova)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const entry = parseQuoteEntry(new URLSearchParams(window.location.search));
+      if (entry) {
+        setStep("builder");
+      }
     }
+  }, []);
 
+  // Autocompletar datos de perfil si existe sesión
+  useEffect(() => {
+    if (profile?.fullName || profile?.phone) {
+      setLastCustomer((prev) => ({
+        fullName: profile.fullName || prev.fullName,
+        phone: profile.phone || prev.phone,
+      }));
+    }
+  }, [profile]);
+
+  const handleEditItem = (id: string) => {
+    setEditingId(id);
+    setStep("builder");
+  };
+
+  const handleSaveWindow = (itemData: Omit<WindowQuoteItem, "id">) => {
+    if (editingId && editingItem) {
+      updateItem(editingId, { ...itemData, id: editingId });
+      setEditingId(null);
+    } else {
+      const newId = `w_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+      addItem({ ...itemData, id: newId });
+    }
+    setStep("builder");
+  };
+
+  const handleCancelWindow = () => {
+    setEditingId(null);
+    setStep("builder");
+  };
+
+  const handleRequestVisit = () => {
+    const text = encodeURIComponent(
+      "Hola Glass & Aluminum Company, tengo una ventana con medidas especiales y quisiera solicitar una visita técnica gratuita para tomar las medidas exactas."
+    );
+    window.location.href = `https://wa.me/${companyData.whatsappNumber}?text=${text}`;
+  };
+
+  const handleFinalSubmit = async (customerData: { fullName: string; phone: string; acceptsPrivacy: true }) => {
+    if (saving || items.length === 0) return;
     setSaving(true);
+    setLastCustomer({ fullName: customerData.fullName, phone: customerData.phone });
+
     try {
+      const subtotales = items.map((item) => {
+        const p = priceWindow({
+          widthM: item.widthM,
+          heightM: item.heightM,
+          glass: item.glass,
+          finish: item.finish,
+        });
+        return p.subtotal;
+      });
+
+      const totals = quoteTotals(subtotales, outsideLaMolina);
+
       const number = await submitQuoteRequest({
         userId: user?.uid ?? "",
-        ...customer,
-        phone: normalizePhone(customer.phone),
-        params: { version: 2, items: lines },
-        total: summary.total,
+        fullName: customerData.fullName,
+        phone: normalizeMobile(customerData.phone),
+        email: user?.email ?? "",
+        dniRuc: "",
+        address: outsideLaMolina ? "Fuera de La Molina" : "La Molina",
+        district: outsideLaMolina ? "Otro distrito" : "La Molina",
+        total: totals.total,
+        params: {
+          version: 3,
+          category: "ventana",
+          system: "ventana_nova",
+          outsideLaMolina,
+          items,
+        },
       });
+
       setQuoteNumber(number);
-    } catch (error) {
-      logger.error("Error al guardar el presupuesto", error);
-      toaster.create({ title: "No se pudo registrar el presupuesto", description: "Inténtalo nuevamente.", type: "error" });
+      setStep("success");
+      clearCart();
+    } catch {
+      toaster.create({
+        title: "No se pudo registrar el presupuesto",
+        description: "Inténtalo nuevamente. Tus productos se mantienen en el carrito.",
+        type: "error",
+      });
     } finally {
       setSaving(false);
     }
   };
 
-  const handleNew = () => {
-    setQuoteNumber(null);
-    setLines([createQuoteLine()]);
-    setLineErrors({});
-    setCustomerErrors({});
-  };
+  const whatsappMessageUrl = useMemo(() => {
+    if (!quoteNumber) return "";
+    const text = encodeURIComponent(
+      `Hola Glass & Aluminum Company, solicité el presupuesto web N° ${quoteNumber} para ventanas Nova. Deseo coordinar la visita técnica para confirmar las medidas.`
+    );
+    return `https://wa.me/${companyData.whatsappNumber}?text=${text}`;
+  }, [quoteNumber]);
 
   return (
     <Box py="8" maxW="pageWide" mx="auto" px={{ base: "4", md: "0" }}>
       {/* SECCIÓN INTERACTIVA (Oculta al imprimir) */}
       <Box className="no-print">
-        <VStack gap="2" align="start" mb="8">
-          <Heading as="h1" size="2xl" color="text.heading">
-            Solicita tu presupuesto
-          </Heading>
-          <Text color="text.muted">
-            Indica qué necesitas, las medidas y tus datos. Verás un precio estimado al instante y lo confirmamos tras una visita técnica sin costo.
-          </Text>
-        </VStack>
-
-        {quoteNumber ? (
-          <QuoteSuccess
-            quoteNumber={quoteNumber}
-            total={summary.total}
-            pricePending={summary.pricePending}
-            onPrint={() => window.print()}
-            onNew={handleNew}
+        {step === "chooser" && (
+          <OptionChooser
+            categoryLabel="Ventana"
+            systemLabel="Sistema Nova"
+            onChooseVisit={() => {
+              window.location.href = `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
+                "Hola Glass & Aluminum Company, deseo solicitar una visita técnica gratuita para tomar medidas de ventanas."
+              )}`;
+            }}
+            onChooseQuote={() => setStep("builder")}
           />
-        ) : (
-          <SimpleGrid columns={{ base: 1, lg: 2 }} gap="8" mb="12">
-            <VStack gap="8" align="stretch">
-              <QuoteLinesPanel lines={lines} setLines={setLines} errors={lineErrors} />
-              <QuoteSummaryCard summary={summary} />
-            </VStack>
-            <CustomerPanel
-              customer={customer}
-              setCustomer={setCustomer}
-              errors={customerErrors}
-              saving={saving}
-              onSubmit={handleSubmit}
+        )}
+
+        {step === "builder" && (
+          <VStack gap="8" align="stretch">
+            <HStack justify="space-between" align="center">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setStep("chooser")}
+              >
+                <ArrowLeft size={16} /> Volver a opciones
+              </Button>
+            </HStack>
+
+            <WindowForm
+              key={editingId || "new_window"}
+              systemLabel="Sistema Nova"
+              initial={editingItem}
+              onSubmit={handleSaveWindow}
+              onCancelEdit={editingId ? handleCancelWindow : undefined}
+              onRequestVisit={handleRequestVisit}
             />
-          </SimpleGrid>
+
+            {items.length > 0 && (
+              <QuoteCart
+                items={items}
+                outsideLaMolina={outsideLaMolina}
+                onOutsideLaMolinaChange={setOutsideLaMolina}
+                editingId={editingId}
+                onEdit={handleEditItem}
+                onRemove={removeItem}
+                onClear={() => setIsClearOpen(true)}
+                onGenerate={() => setStep("checkout")}
+              />
+            )}
+          </VStack>
+        )}
+
+        {step === "checkout" && (
+          <VStack gap="6" align="stretch">
+            <QuickCustomerForm
+              initialValues={lastCustomer}
+              onSubmit={handleFinalSubmit}
+              onCancel={() => setStep("builder")}
+              loading={saving}
+            />
+          </VStack>
+        )}
+
+        {step === "success" && (
+          <Box
+            bg="bg.panel"
+            p={{ base: "6", md: "8" }}
+            borderRadius="2xl"
+            border="1px solid"
+            borderColor="border.subtle"
+            textAlign="center"
+            maxW="600px"
+            mx="auto"
+          >
+            <VStack gap="4">
+              <Box color="status.success" p="3" borderRadius="full" bg="status.successSoft">
+                <CheckCircle2 size={48} />
+              </Box>
+              <Heading as="h1" size="2xl" color="text.heading">
+                {QUOTE_TEXTS.sheet.title}
+              </Heading>
+              <Text fontSize="lg" fontWeight="semibold" color="brand.coral">
+                N° {quoteNumber}
+              </Text>
+              <Text color="text.muted" fontSize="sm">
+                {QUOTE_TEXTS.status.successNext}
+              </Text>
+
+              <HStack gap="3" pt="4" flexWrap="wrap" justify="center">
+                <Button variant="outline" size="sm" onClick={() => window.print()}>
+                  <Printer size={16} /> Imprimir / Guardar PDF
+                </Button>
+                {whatsappMessageUrl && (
+                  <Button
+                    size="sm"
+                    variant="primary"
+                    asChild
+                  >
+                    <a href={whatsappMessageUrl} target="_blank" rel="noopener noreferrer">
+                      <Phone size={16} /> Avisar por WhatsApp
+                    </a>
+                  </Button>
+                )}
+              </HStack>
+            </VStack>
+          </Box>
         )}
       </Box>
 
-      {/* HOJA MEMBRETADA FORMAL (Visible en pantalla y al imprimir con @media print) */}
-      <QuoteSheet customer={customer} quote={summary} formattedDate={formattedDate} quoteNumber={quoteNumber} />
+      {/* CONFIRMACIÓN DE LIMPIEZA */}
+      <ConfirmDialog
+        isOpen={isClearOpen}
+        onClose={() => setIsClearOpen(false)}
+        onConfirm={() => {
+          clearCart();
+          setIsClearOpen(false);
+        }}
+        title="¿Vaciar el presupuesto?"
+        description="Se eliminarán todas las ventanas agregadas hasta el momento. Esta acción no se puede deshacer."
+        confirmLabel="Vaciar presupuesto"
+      />
+
+      {/* HOJA MEMBRETADA FORMAL (Visible en éxito o al imprimir) */}
+      {(step === "success" || step === "checkout") && (
+        <Box mt="10" display={step === "success" ? "block" : "none"} className="print-only">
+          <NovaQuoteSheet
+            customer={lastCustomer}
+            items={items}
+            outsideLaMolina={outsideLaMolina}
+            formattedDate={formattedDate}
+            quoteNumber={quoteNumber}
+          />
+        </Box>
+      )}
     </Box>
   );
 };

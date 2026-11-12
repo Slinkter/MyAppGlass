@@ -1,3 +1,5 @@
+claude --resume a54a72f2-c606-4954-bd27-1a8bbeef46e6
+
 # Glass & Aluminum Company S.A.C. - Portal Corporativo (Next.js 16)
 
 Sitio corporativo de **Glass & Aluminum Company S.A.C.**, vidriería y carpintería de aluminio en La Molina, Lima. Compra vidrio, aluminio y accesorios, ensambla en su taller e instala con equipo propio en cinco distritos.

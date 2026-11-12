@@ -11,7 +11,14 @@
 
 ## PARTE 1: Trabajo técnico (Claude)
 
-Última revisión: 2026-11-11, rama `fix/navegacion-scroll`.
+Última revisión: 2026-11-11, rama `feat/cotizador-pantalla`.
+
+### Bloque en curso: cotizador de presupuesto (Ventana · Nova)
+
+- **Motor hecho** (`9cae5c75`): `WINDOW_PRICING` en `entities/quote/config/pricing.ts` y `entities/quote/lib/windowRules.ts`, con pruebas en `apps/web/tests/unit/window-rules.test.ts`.
+- **Pantalla pendiente:** elegir opción, formulario de ventana, carrito y paso en `/presupuesto`.
+- **Plan por fases:** `docs/claude/specs/cotizador-presupuesto/tasks.md`. Fases 0 y 1 en curso (documentos, agentes y ajuste del motor).
+- **Preguntas del dueño:** todas respondidas (`spec.md` §10 y §11). Único dato por confirmar: ancho mínimo de la ventana (hoy 0,40 m en `WINDOW_PRICING`).
 
 ### Decisiones del dueño ya registradas (2026-11-11)
 
@@ -32,7 +39,7 @@ Pedido del dueño (P7 y P10): editar servicios y proyectos en línea, como un Wo
 - Entran con permisos completos los 3 correos admin: el del dueño, el de la empresa y el de pruebas (`admin@gyacompany.com`, usado para pruebas de UX y UI).
 - Pueden crear, editar y quitar servicios y proyectos, corregir nombres e imágenes y subir, editar o quitar fotos del álbum.
 - Los clientes **no** ven el dashboard: solo crean una cotización desde el celular o la web.
-- Agregar los 3 servicios nuevos desde el panel: espejos, frenos hidráulicos y mantenimiento.
+- Servicios nuevos (espejos, frenos hidráulicos y mantenimiento): hecho en `1d0687a8`. Están definidos en `entities/service/api/approvedNewServices.ts` y se cargan desde `/admin/servicios`. Falta: validar con el dueño los costos y el flete por m² de espejos (nota técnica en su texto) y revisar que se hayan cargado en Firestore.
 - Orden propuesto: (1) revisar el panel actual en `/admin` y qué falta de CRUD, (2) confirmar el control de acceso por rol en reglas y en el frontend, (3) completar el CRUD de servicios y proyectos con subida de imágenes, (4) probar todo en el emulador antes de cualquier deploy.
 - Dudas D1 a D4 resueltas y cerradas por el dueño: solo los 3 correos con `role = 'admin'` en Firestore son admin; AR en pausa; blog auditado sin publicar artículos nuevos.
 
@@ -43,11 +50,9 @@ Pedido del dueño (P7 y P10): editar servicios y proyectos en línea, como un Wo
 | Galerías `Gallery.tsx` y `GalleryViewer.tsx` | **No se retiran.** Están en uso por `GalleryWithThumbnails` (en `ServicePageLayout`, `VisualViewer` y `/design-system`).                                                             |
 | `robots.ts`                                  | **Revisado, sin cambios.** Excluye `/admin`, `/auth`, `/mi-cuenta`, `/tienda` y `/design-system`. Hay reglas para bots de IA.                                                        |
 | Redirect del slug "antiruido"                | **No existe** en `firebase.json`. Falta saber si la URL vieja fue pública (ver Parte 2, P8).                                                                                         |
-| Horario de atención                          | **Hardcodeado en 4 sitios**, no en `companyData`: `Footer.tsx:243`, `useLocationData.ts:17`, `useIsStoreOpen.ts:5` y `NavSection.tsx:97`. Pendiente mover a `companyData` (nivel 3). |
 | Modales del admin repetidos                  | **Parcial.** Hay 7 modales en `features/admin/components`; 3 usan `FormModalShell` y 5 usan `AdminDialog`. Pendiente unificar (nivel 4).                                             |
 | `generateStaticParams`                       | **Presente** en `blog/[slug]`, `proyectos/[projectId]` y `servicios/[serviceSlug]`. Falta comprobarlo con un `pnpm build` completo.                                                  |
 | 404 de precarga                              | Pendiente: comparar con `main` para saber si ya existían.                                                                                                                            |
-| Lint `react-refresh`                         | 2 avisos: `ImageReveal.tsx:42` y `Gallery.tsx:303`. Arreglarlos exige mover constantes o hooks a otro archivo (nivel 2).                                                             |
 | Historial del menú móvil (Lote 1)            | **Verificado en un flujo:** abrir menú → enlace `/#proyectos` → atrás vuelve a `/contacto` en un solo paso. Falta probarlo en teléfono real.                                         |
 
 ### Nivel 2. Corto
@@ -55,34 +60,36 @@ Pedido del dueño (P7 y P10): editar servicios y proyectos en línea, como un Wo
 | Ítem                                               | Estado                                                                                                                                                                                                                           |
 | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Navbar de escritorio: enlaces de 43 a 44 px        | **Pendiente de medir.** En código, `AuraDesktopNav.tsx:89` tiene `h="11"` (2.75 rem = 44 px). Hay que medir el enlace en el navegador.                                                                                           |
-| Tests de `quote-summary` y `quote-form-schema`     | **No existen en el repo.** No hay ningún archivo `*.test.*`. Pendiente escribirlos desde cero.                                                                                                                                   |
 | Auditorías de diseño                               | **Ejecutadas** con Playwright. Landing: 0 desbordes y 0 errores JS en 360, 768 y 1280 px. Design system: 1 fallo de contraste por contexto, 6 áreas táctiles pequeñas, 0 desbordes. El baseline se restauró tras sobrescribirse. |
-| Lote 6: contraste del chip de `/contacto` (2,77:1) | **Bloqueado por Parte 2 (P15):** cambiar el color requiere aprobación.                                                                                                                                                           |
 | Lote 6: escala de h1 y texto mínimo 14 px          | **Bloqueado por Parte 2 (P16).**                                                                                                                                                                                                 |
-| IGV en `pricing.ts`                                | **Bloqueado por Parte 2 (P9).** El archivo es `entities/quote/config/pricing.ts` (no `features/presupuesto/...`), con `igvRate: 0.18` y comentario "S/ sin IGV".                                                                 |
-| Arreglar los 2 avisos de lint                      | Pendiente (ver nivel 1).                                                                                                                                                                                                         |
+| IGV en `pricing.ts`                                | P9 respondida: mostrar subtotal, IGV y total. El motor nuevo (`quoteTotals`) ya lo calcula; falta mostrarlo en la pantalla (cotizador, Fase 3). |
 
 ### Nivel 3. Medio
 
 | Ítem                                                                                        | Estado                                                                                   |
 | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | Lote 3: renombrar 19 archivos kebab-case a camelCase y `DesignSystem/components/motion.tsx` | Pendiente. Cambio amplio de imports; conviene una rama aparte.                           |
-| Mover el horario a `companyData` y usarlo en los 4 sitios                                   | Pendiente (ver nivel 1).                                                                 |
-| Barra de escritorio con 4 enlaces en `AuraDesktopNav`                                       | **Bloqueado por Parte 2 (P14):** cambia el sitio visible, requiere aprobación por lote.  |
 | "Mis presupuestos" en `/mi-cuenta`                                                          | Pendiente. Debe leer el formato antiguo (`params`) y el nuevo (`{ version: 2, items }`). |
 
 ### Nivel 4. Grande
 
 | Ítem                                                                                                                              | Estado                                                     |
 | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| Lote 4: `ClientCard` duplicado; partir `theme/index.ts`, `FloatingPanel` (457 líneas) y `MenuOverlay`; fusionar `field*`/`badge*` | Pendiente.                                                 |
+| Lote 4: partir `theme/index.ts` (730 líneas); fusionar `field*`/`badge*`                                                          | Pendiente. Ya hecho en `78e1ed87`: `ClientCard` duplicado, `FloatingPanel` y `MenuOverlay`. |
 | Unificar modales del admin (ver nivel 1)                                                                                          | Pendiente.                                                 |
 | Optimización de 5 componentes: `FloatingPanel`, `ProjectCarousel`, `OrderDraftContext`, `PrototypeTimeline`, `ProjectDetail`      | Pendiente.                                                 |
 | Deriva de diseño en `apps/web/DESIGN.md` ("Deriva conocida")                                                                      | Pendiente, antes de los lotes de páginas.                  |
-| Movimiento cinematográfico en otras páginas                                                                                       | **Bloqueado por Parte 2 (P17).** Después, medir LCP y TBT. |
+| Movimiento cinematográfico en otras páginas                                                                                       | Aplicado en `78e1ed87` (P17). Pendiente: medir LCP y TBT.  |
 | Tests de reglas de Firestore y de `storage.rules` en CI                                                                           | Pendiente. Requiere Java y firebase-tools en el runner.    |
 | Job de Playwright en CI                                                                                                           | Pendiente, opcional (nightly o manual).                    |
 | Validar curvas con el MCP `motion` y `nav-back` (Lote 2)                                                                          | Pendiente.                                                 |
+| Pedido de compra desde el dashboard                                                                                               | Fase posterior. Documento con proveedor, producto, medidas, cantidad y fecha de pedido. Sin precio de compra (decisión del dueño, spec del cotizador §11 pregunta 9). |
+| Otros sistemas de ventana y categorías en el cotizador                                                                            | Fase posterior, después del cotizador de ventana Nova.     |
+| Un solo formateador de moneda y un solo `round2` | Pendiente. Hallazgo de la auditoría del cotizador: hay `money()` locales en `QuoteSheet`, `QuoteSummaryCard`, `CartDrawer` y `CheckoutScreen`, y tres `round2` distintos (`windowRules`, `quoteSummary`, `cart-engine`). El cotizador nuevo ya usa `formatSoles`. |
+| `entities/quote` depende de `entities/window` (`SystemType`) y ciclo de tipos `lib` ↔ `model` | Pendiente. Mover los tipos a `entities/quote/model` o a `shared/types`. ESLint no lo detecta. |
+| Tipos del tema de Chakra (`chakra typegen`) | Pendiente. Sin ellos, `variant="field"` exige el cast `as never` (3 archivos del catálogo y `WindowForm`). |
+| Tokens de ancho de borde en el tema y `surface.card` translúcido en modo oscuro | Pendiente, requiere aprobación: toca el tema de todo el sitio. Hallazgo de la auditoría MD3 del cotizador. |
+| Textos de los 3 servicios nuevos (`entities/service/api/approvedNewServices.ts`) | Pendiente de revisión del dueño y de `copy-vidrieria`: dicen "Fabricación", "retroiluminados", "marcas importadas certificadas" y "Garantía técnica", que chocan con las reglas del negocio. |
 
 ### Nivel 5. Complejo (requiere aprobación explícita)
 
@@ -93,18 +100,6 @@ Pedido del dueño (P7 y P10): editar servicios y proyectos en línea, como un Wo
 | Hoja A4 con la marca                                    | Bloqueado: espera el lote de páginas aprobado (P12).                        |
 | Endurecer `contadores` y `presupuestos_solicitados`     | **Bloqueado por Parte 2 (P7).** Toca `firestore.rules` y `apps/functions/`. |
 | Alinear `pricing.ts` con el catálogo (Serie 35 y 62)    | **Bloqueado por Parte 2 (P10 y P21).**                                      |
-
-### Hecho hoy (2026-11-11)
-
-- Commit `0f6cafc7` en `fix/navegacion-scroll`: chevron a beneficios, revelado robusto de tarjetas y alineación de anclas en móvil.
-- Typecheck pasa. Lint: 0 errores y 2 avisos.
-- Auditorías de landing y design system ejecutadas (Playwright instalado).
-- Historial del menú móvil verificado en un flujo.
-
-### Sin commitear
-
-- `apps/web/package.json` y `pnpm-lock.yaml`: cambios que no hice yo. Revisar antes de commitear.
-- `docs/auditorias/audit-landing.json`: reporte nuevo de la auditoría.
 
 ---
 

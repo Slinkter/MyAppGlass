@@ -5,6 +5,7 @@
  * @module entities/quote
  */
 import { WINDOW_PRICING as W } from "../config/pricing";
+import { formatMeasure } from "./formatMeasure";
 
 export type WindowGlass = "crudo" | "templado";
 export type WindowFinish = "ninguno" | "arenado" | "laminado";
@@ -33,7 +34,7 @@ export type WindowValidation =
       requiresVisit: boolean;
     };
 
-const fmt = (n: number): string => n.toFixed(2).replace(".", ",");
+const fmt = formatMeasure;
 
 /** Valida ancho y alto en metros. */
 export function validateWindow(widthM: number, heightM: number): WindowValidation {

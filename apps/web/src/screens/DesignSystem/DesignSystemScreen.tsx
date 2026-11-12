@@ -36,6 +36,7 @@ import { HeroSection } from "./sections/HeroSection";
 import { LandingsSection } from "./sections/LandingsSection";
 import { NavSection } from "./sections/NavSection";
 import { FormStatesSection } from "./sections/FormStatesSection";
+import { QuoteBuilderShowcase } from "./sections/QuoteBuilderShowcase";
 import { MobileUxSection } from "./sections/MobileUxSection";
 
 export const DesignSystemScreen: React.FC = () => {
@@ -121,7 +122,10 @@ export const DesignSystemScreen: React.FC = () => {
           {/* Formularios y botones */}
           <Tabs.Content value="forms">
             <TabFade>
-            <FormStatesSection />
+            <VStack align="stretch" gap={{ base: "8", md: "12" }}>
+              <FormStatesSection />
+              <QuoteBuilderShowcase />
+            </VStack>
           </TabFade>
           </Tabs.Content>
 

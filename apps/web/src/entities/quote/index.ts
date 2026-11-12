@@ -25,12 +25,24 @@ export {
   type WindowPrice,
   type WindowValidation,
 } from "./lib/windowRules";
+export { parseMeasure } from "./lib/parseMeasure";
+export { formatMeasure } from "./lib/formatMeasure";
+export { formatSoles } from "./lib/formatSoles";
 export { createQuoteLine, parseSystemParam } from "./lib/quoteLines";
+export { QUOTE_ENTRY_ROUTES, parseQuoteEntry, quoteEntryHref, type QuoteEntry } from "./lib/quoteEntry";
 export { summarizeQuote, type QuoteLineResult, type QuoteSummary } from "./lib/quoteSummary";
 export { counterDocId, formatQuoteNumber, limaYear } from "./lib/quoteNumber";
 
 // Model
-export type { QuoteCustomer, QuoteLineInput, QuoteRequestParams } from "./model";
+export type {
+  QuoteCustomer,
+  QuoteLineInput,
+  QuoteRequestParams,
+  WindowGlassColor,
+  WindowProfileColor,
+  WindowQuoteItem,
+} from "./model";
 
 // UI
 export { QuoteSheet } from "./ui/QuoteSheet";
+export { NovaQuoteSheet, type NovaQuoteSheetProps } from "./ui/NovaQuoteSheet";

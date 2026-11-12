@@ -45,6 +45,7 @@ describe("windowRules · precio", () => {
     expect([t.windowsSubtotal, t.igv, t.total]).toEqual([1656.96, 298.25, 1955.21]);
     expect(t.listPrice).toBe(2052.97);
     expect(t.cashSaving).toBe(97.76);
+    expect(t.cashSaving).toBe(Math.round((t.listPrice - t.total) * 100) / 100);
   });
 
   it("flete de S/ 120 sin IGV fuera de La Molina", () => {
@@ -81,6 +82,18 @@ describe("windowRules · hojas", () => {
     expect(r.count).toBe(1);
   });
 
+  it("ancho menor a 1,10 m recomienda fija; 1,10 m ya admite 2 hojas", () => {
+    expect(computeSashes(1.09).recommendFixed).toBe(true);
+    expect(computeSashes(1.0).recommendFixed).toBe(true);
+    expect(computeSashes(1.1).recommendFixed).toBe(false);
+    expect(computeSashes(1.1).count).toBe(2);
+  });
+
+  it("1,70 m → 2 hojas de 85 cm; 2,40 m → 3 hojas de 80 cm", () => {
+    expect(computeSashes(1.7).sashWidthCm).toBe(85);
+    expect(computeSashes(2.4).sashWidthCm).toBe(80);
+  });
+
   it("distribución según número de hojas", () => {
     expect(computeSashes(1.2).layout).toEqual(["fija", "corrediza"]);
     expect(computeSashes(1.8).layout).toEqual(["fija", "corrediza", "corrediza"]);
@@ -91,10 +104,13 @@ describe("windowRules · hojas", () => {
 describe("windowRules · cuerpos", () => {
   it("una sola ventana hasta 2,40 m de alto", () => {
     expect(splitBodies(1.8, 2.1)).toEqual([{ kind: "unico", widthM: 1.8, heightM: 2.1 }]);
-    expect(splitBodies(1.8, 2.4)).toHaveLength(1);
   });
 
-  it("piso a techo: 1,80 × 0,60, 1,80 × 1,20 y 1,80 × 1,10", () => {
+  it("alto de 2,40 m devuelve un solo cuerpo único", () => {
+    expect(splitBodies(1.8, 2.4)).toEqual([{ kind: "unico", widthM: 1.8, heightM: 2.4 }]);
+  });
+
+  it("uso en tienda; la web no pasa de 2,40 m: 1,80 × 2,90 → 1,80 × 0,60, 1,80 × 1,20 y 1,80 × 1,10", () => {
     const b = splitBodies(1.8, 2.9);
     expect(b.map((x) => x.heightM)).toEqual([0.6, 1.2, 1.1]);
     expect(b.every((x) => x.widthM === 1.8)).toBe(true);
@@ -103,9 +119,19 @@ describe("windowRules · cuerpos", () => {
 });
 
 describe("windowRules · validación", () => {
-  it.each([[0], [-1], [NaN], [Infinity]])("rechaza ancho inválido %s", (w) => {
+  it.each([[0], [-1], [NaN], [Infinity]])("rechaza ancho inválido %s sin visita", (w) => {
     const r = validateWindow(w, 1.5);
     expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.field).toBe("width");
+      expect(r.requiresVisit).toBe(false);
+    }
+  });
+
+  it.each([[0], [-1], [NaN], [Infinity]])("rechaza alto inválido %s", (h) => {
+    const r = validateWindow(1.5, h);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.field).toBe("height");
   });
 
   it("ancho de 10 000 m pide visita técnica", () => {
@@ -114,14 +140,37 @@ describe("windowRules · validación", () => {
     if (!r.ok) expect(r.requiresVisit).toBe(true);
   });
 
-  it("acepta medidas dentro del rango, incluidos los topes", () => {
+  it("acepta medidas dentro del rango, incluidos los topes (alto 2,40; ancho 2,80)", () => {
     expect(validateWindow(1.2, 1.6).ok).toBe(true);
-    expect(validateWindow(2.8, 3.0).ok).toBe(true);
+    expect(validateWindow(2.8, 2.4).ok).toBe(true);
+    expect(validateWindow(2.8, 1.5).ok).toBe(true);
+    expect(validateWindow(1.5, 2.4).ok).toBe(true);
   });
 
-  it("alto sobre el máximo pide visita técnica", () => {
-    const r = validateWindow(1.5, 3.2);
+  it.each([[2.41], [2.5], [2.9]])("alto %s m pide visita técnica", (h) => {
+    const r = validateWindow(1.5, h);
     expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.field).toBe("height");
+    if (!r.ok) {
+      expect(r.field).toBe("height");
+      expect(r.requiresVisit).toBe(true);
+    }
+  });
+
+  it("ancho 2,81 m pide visita técnica", () => {
+    const r = validateWindow(2.81, 1.5);
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.field).toBe("width");
+      expect(r.requiresVisit).toBe(true);
+    }
+  });
+
+  it("alto 0,39 m es inválido y no pide visita", () => {
+    const r = validateWindow(1.5, 0.39);
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.field).toBe("height");
+      expect(r.requiresVisit).toBe(false);
+    }
   });
 });

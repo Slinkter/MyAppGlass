@@ -11,6 +11,7 @@ import {
 import { Skeleton } from "@/shared/ui/skeleton";
 import GalleryWithThumbnails from "@shared/components/common/GalleryWithThumbnails";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
+import { quoteEntryHref } from "@/entities/quote";
 import type { ServicePageData } from "@/entities/service/model";
 import ServiceHeader from "./ServiceHeader";
 import { UnifiedTechnicalCard } from "./ServiceBentoGrid";
@@ -18,9 +19,11 @@ import { ServiceFaqSection } from "./ServiceFaqSection";
 
 export interface ServicePageLayoutProps {
   pageData: ServicePageData & { about?: { description: string } };
+  /** Slug del servicio; decide si el CTA va al cotizador o a WhatsApp. */
+  serviceSlug?: string;
 }
 
-const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
+const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData, serviceSlug }) => {
   const { seo, about, systems, imageLists, faqs } = pageData;
 
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -106,6 +109,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData }) => {
                   description={about.description} 
                   features={pageData.features} 
                   systemName={activeSystem?.label || seo.title}
+                  quoteHref={quoteEntryHref(serviceSlug, activeSystem?.label)}
                 />
               )}
             </GridItem>

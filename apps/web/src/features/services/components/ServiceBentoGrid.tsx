@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import {
   Box,
   Heading,
@@ -13,60 +14,72 @@ import {
 } from "lucide-react";
 import { companyData } from "@/shared/config/company-data";
 
-export const BentoCTA = React.memo(({ systemName }: { systemName: string }) => (
-  <a
-    href={`https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(`Hola, quisiera cotizar el servicio de ${systemName}.`)}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{ width: "100%", height: "100%", textDecoration: "none" }}
+const BentoCTAContent = ({ systemName }: { systemName: string }) => (
+  <Box
+    bg="brand.ink"
+    color="white"
+    w="full"
+    h="full"
+    display="flex"
+    flexDirection="column"
+    justifyContent="center"
+    alignItems="center"
+    textAlign="center"
+    borderRadius="3xl"
+    px={{ base: "4", md: "6" }}
+    py={{ base: "4", md: "6" }}
+    borderWidth="1px"
+    borderColor="border.default"
+    boxShadow="md"
+    willChange="transform"
+    transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+    cursor="pointer"
+    role="group"
+    _hover={{
+      transform: "translateY(-3px)",
+      boxShadow: "lg",
+    }}
+    _motionReduce={{ transition: "none", transform: "none", _hover: { transform: "none" } }}
   >
     <Box
-      bg="brand.ink"
+      as={MessageSquareText}
+      boxSize={8}
+      mb="2.5"
       color="white"
-      w="full"
-      h="full"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      textAlign="center"
-      borderRadius="3xl"
-      px={{ base: "4", md: "6" }}
-      py={{ base: "4", md: "6" }}
-      borderWidth="1px"
-      borderColor="border.default"
-      boxShadow="md"
-      willChange="transform"
-      transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-      cursor="pointer"
-      role="group"
-      _hover={{
-        transform: "translateY(-3px)",
-        boxShadow: "lg",
-      }}
-      _motionReduce={{ transition: "none", transform: "none", _hover: { transform: "none" } }}
+      transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+      _groupHover={{ transform: "scale(1.12)" }}
+      _motionReduce={{ transition: "none", transform: "none" }}
+    />
+    <Heading size="md" mb="1" letterSpacing="tight" color="white" fontWeight="700">
+      Cotizar {systemName}
+    </Heading>
+    <Text opacity={0.9} mb="0" fontSize="xs" maxW="xs" mx="auto" color="whiteAlpha.900" fontWeight="500">
+      Recibe asesoría técnica personalizada y presupuesto inmediato.
+    </Text>
+  </Box>
+);
+
+const CTA_LINK_STYLE = { width: "100%", height: "100%", textDecoration: "none" } as const;
+
+export const BentoCTA = React.memo(({ systemName, quoteHref }: { systemName: string; quoteHref?: string | null }) =>
+  quoteHref ? (
+    <Link href={quoteHref} style={CTA_LINK_STYLE}>
+      <BentoCTAContent systemName={systemName} />
+    </Link>
+  ) : (
+    <a
+      href={`https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(`Hola, quisiera cotizar el servicio de ${systemName}.`)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={CTA_LINK_STYLE}
     >
-      <Box
-        as={MessageSquareText}
-        boxSize={8}
-        mb="2.5"
-        color="white"
-        transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-        _groupHover={{ transform: "scale(1.12)" }}
-        _motionReduce={{ transition: "none", transform: "none" }}
-      />
-      <Heading size="md" mb="1" letterSpacing="tight" color="white" fontWeight="700">
-        Cotizar {systemName}
-      </Heading>
-      <Text opacity={0.9} mb="0" fontSize="xs" maxW="xs" mx="auto" color="whiteAlpha.900" fontWeight="500">
-        Recibe asesoría técnica personalizada y presupuesto inmediato.
-      </Text>
-    </Box>
-  </a>
-));
+      <BentoCTAContent systemName={systemName} />
+    </a>
+  ),
+);
 BentoCTA.displayName = "BentoCTA";
 
-export const UnifiedTechnicalCard = React.memo(({ description, features, systemName }: { description: string; features?: { label: string }[]; systemName: string }) => (
+export const UnifiedTechnicalCard = React.memo(({ description, features, systemName, quoteHref }: { description: string; features?: { label: string }[]; systemName: string; quoteHref?: string | null }) => (
   <Box
     bg="bg.subtle"
     borderRadius="3xl"
@@ -116,7 +129,7 @@ export const UnifiedTechnicalCard = React.memo(({ description, features, systemN
     </Box>
 
     <Box mt={{ base: "5", md: "4" }} w="full">
-      <BentoCTA systemName={systemName} />
+      <BentoCTA systemName={systemName} quoteHref={quoteHref} />
     </Box>
   </Box>
 ));

@@ -35,7 +35,7 @@ const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({ serviceSlug, init
 
   return (
     <Box as="section" py={1}>
-      <ServicePageLayout pageData={pageData} />
+      <ServicePageLayout pageData={pageData} serviceSlug={slug} />
     </Box>
   );
 };

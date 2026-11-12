@@ -2,6 +2,72 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-11] - Cotizador: motor de reglas de ventana Nova
+
+### Added
+- `entities/quote/config/pricing.ts`: constante `WINDOW_PRICING` con el precio crudo por m2 (240), el recargo del templado (+30 %), el precio de arenado y laminado (80), el flete, el IGV y el precio de lista.
+- `entities/quote/lib/windowRules.ts`: módulo puro con `validateWindow` (validación de medidas), `computeSashes` (cálculo de hojas), `splitBodies` (división en cuerpos), `priceWindow` (precio de la ventana) y `quoteTotals` (subtotal, flete, IGV, total y precio de lista).
+- `apps/web/tests/unit/window-rules.test.ts`: pruebas unitarias con los valores de referencia del dueño.
+
+### Changed
+- `entities/quote/index.ts`: el barrel exporta el motor nuevo.
+
+### Notes
+- La pantalla `/presupuesto` todavía no usa el motor. El calculador anterior no se tocó.
+- Especificación en `docs/claude/specs/cotizador-presupuesto/`.
+
+## [2026-11-11] - Movimiento cine, componentes modulares y tokens MD3
+
+### Added
+- `shared/providers/theme/index.ts`: tokens de forma MD3 (`xs` a `full`) y capas de estado (`state.hover`, `state.focus`, `state.pressed`, `state.drag`).
+- `features/location/immersive/StorePanel.tsx`, `ProjectDetail.tsx` y `floatingPanelStyles.ts`: partes que salen de `FloatingPanel.tsx`.
+- `widgets/Navbar/mobile/MenuHeader.tsx`, `MenuNavList.tsx` y `MenuFooter.tsx`: secciones del menú móvil.
+- `features/home/components/clients/ClientTestimonialCard.tsx`: tarjeta de testimonio.
+
+### Changed
+- `shared/components/motion/Reveal.tsx`: nueva prop `motion` (`default` o `cine`). El modo `cine` dura 1 s, usa la curva `cubic-bezier(0.16, 1, 0.3, 1)`, se desplaza 24 px y escalona 70 ms por elemento. Con movimiento reducido no anima.
+- `widgets/Navbar/mobile/MenuOverlay.tsx`: se divide en `MenuHeader`, `MenuNavList` y `MenuFooter`. La zona de enlaces hace scroll y el pie queda fijo.
+- `features/location/immersive/FloatingPanel.tsx`: se divide en `StorePanel`, `ProjectDetail` y `floatingPanelStyles.ts`.
+- `features/home/components/clients/ClientCard.tsx` y `ClientsSection.tsx`: el testimonio sale de la tarjeta de cliente.
+- Otros cambios menores en `app/contacto/ContactPageClient.tsx`, `screens/Projects/ui/ProjectDetailView.tsx`, `screens/Tienda/ShopScreen.tsx` y `screens/DesignSystem/sections/`.
+
+### Notes
+- 25 archivos: 1227 líneas añadidas y 1001 eliminadas. El detalle por archivo está en `git show 78e1ed87`.
+
+## [2026-11-11] - Barra de 4 enlaces, horario centralizado y CRM
+
+### Added
+- `entities/service/api/approvedNewServices.ts`: tres servicios aprobados (`espejos`, `frenos-hidraulicos` y `mantenimiento`) y `seedApprovedNewServices`, que crea solo los que aún no existen en Firestore. `seedServices.ts` lo reexporta.
+- `features/admin/components/ConfirmDeleteDialog.tsx`: diálogo de confirmación para borrar servicios.
+- Botón «Cargar Servicios Nuevos» en `app/admin/servicios/page.tsx` (`ServiceAdminTable.tsx`).
+
+### Changed
+- `shared/config/nav-items.ts`: «Contacto» sale de `NAV_ITEMS`. Nuevos `CONTACT_NAV_ITEM` y `FOOTER_EXPLORE_ITEMS` (pie: enlaces principales, Contacto y Mi cuenta).
+- `widgets/Navbar/AuraDesktopNav.tsx`: usa `NAV_ITEMS` sin «Mi cuenta».
+- `app/admin/layout.tsx`: envuelve las rutas de admin en `AdminRouteGuard`.
+- `packages/shared/src/company-data.ts`: nuevo bloque `schedule` (días, horas, apertura 8 y cierre 18) y campo `horario`.
+- `entities/store/lib/useIsStoreOpen.ts`, `features/location/useLocationData.ts` y `widgets/Footer/Footer.tsx`: el horario sale de `companyData`, no de valores escritos a mano.
+- `app/admin/servicios/page.tsx` y `ServiceAdminTable.tsx`: el borrado usa `ConfirmDeleteDialog` en lugar de `window.confirm`.
+- `app/admin/proyectos/page.tsx`: ajustes en la pantalla de proyectos del CRM.
+- `tests/rules/firestore.rules.test.mjs`: 31 líneas nuevas de pruebas de reglas.
+
+- `app/contacto/ContactPageClient.tsx`: el chip «Seguimiento» pasa de la variante `info` a `chipInk` para mejorar el contraste del texto.
+
+## [2026-11-11] - Lint: `useImageReveal` en su propio archivo
+
+### Changed
+- `shared/components/Image/useImageReveal.ts`: hook del revelado de imagen (`IMAGE_REVEAL_TIMEOUT_MS`, 7 s), separado de `ImageReveal.tsx` para resolver los avisos de react-refresh.
+- Once componentes que usaban el hook se ajustan a la nueva importación (blog, galerías, tarjetas de medios y prototipos de proyectos).
+
+## [2026-11-11] - Seguridad: admin solo por rol en `firestore.rules`
+
+### Changed
+- `firestore.rules`: `isAdmin()` deja de aceptar correos `@gyacompany.com` verificados. Quedan el claim `role=admin` y `users/{uid}.role == 'admin'`. Decisión del dueño.
+- `docs/PENDIENTES.md`: se cierran D1 a D4.
+
+### Notes
+- Este commit no incluye el despliegue de las reglas a Firebase.
+
 ## [2026-11-11] - Navegación y scroll móvil (lote 1)
 
 ### Changed
