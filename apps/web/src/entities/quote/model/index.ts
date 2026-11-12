@@ -1,5 +1,18 @@
-import type { QuoteCalculationInput } from "../lib/quoteCalculator";
-import type { WindowFinish, WindowGlass } from "../lib/windowRules";
+import type { AluminumColor, GlassType, SystemType } from "@/entities/window/model";
+import type { Difficulty } from "../config/pricing";
+
+export type WindowGlass = "crudo" | "templado";
+export type WindowFinish = "ninguno" | "arenado" | "laminado";
+
+export interface QuoteCalculationInput {
+  systemType: SystemType;
+  width: number; // en metros (ej. 2.40)
+  height: number; // en metros (ej. 2.10)
+  glassType: GlassType;
+  aluminumColor: AluminumColor;
+  difficulty: Difficulty;
+  includeInstallation: boolean;
+}
 
 export type WindowGlassColor = "incoloro" | "bronce" | "gris";
 export type WindowProfileColor = "negro" | "mate" | "blanco" | "madera" | "champagne";

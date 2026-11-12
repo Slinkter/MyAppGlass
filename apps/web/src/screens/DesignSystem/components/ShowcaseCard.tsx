@@ -10,7 +10,7 @@
 import React from "react";
 import { Badge, Box, Card, HStack } from "@chakra-ui/react";
 import { Reveal } from "@shared/components/motion/Reveal";
-import { DrawLine } from "./motion";
+import { DrawLine } from "./Motion";
 
 export interface ShowcaseCardProps {
   title: string;

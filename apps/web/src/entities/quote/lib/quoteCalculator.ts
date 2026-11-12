@@ -1,16 +1,8 @@
-import { QUOTE_PRICING, type Difficulty } from "../config/pricing";
-import type { AluminumColor, GlassType, SystemType } from "@/entities/window/model";
+import { QUOTE_PRICING } from "../config/pricing";
+import type { QuoteCalculationInput } from "../model";
 import { BudgetItem } from "@/shared/schemas/ecommerce-schemas";
 
-export interface QuoteCalculationInput {
-  systemType: SystemType;
-  width: number; // en metros (ej. 2.40)
-  height: number; // en metros (ej. 2.10)
-  glassType: GlassType;
-  aluminumColor: AluminumColor;
-  difficulty: Difficulty;
-  includeInstallation: boolean;
-}
+export type { QuoteCalculationInput };
 
 export const quoteCalculator = {
   calculateQuote(input: QuoteCalculationInput): {

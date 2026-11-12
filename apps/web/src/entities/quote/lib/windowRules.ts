@@ -7,8 +7,9 @@
 import { WINDOW_PRICING as W } from "../config/pricing";
 import { formatMeasure } from "./formatMeasure";
 
-export type WindowGlass = "crudo" | "templado";
-export type WindowFinish = "ninguno" | "arenado" | "laminado";
+import type { WindowFinish, WindowGlass } from "../model";
+
+export type { WindowFinish, WindowGlass };
 
 const EPS = 1e-6;
 

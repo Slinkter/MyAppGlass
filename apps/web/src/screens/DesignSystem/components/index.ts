@@ -6,5 +6,5 @@ export { SubsectionLabel } from "./SubsectionLabel";
 export type { SubsectionLabelProps } from "./SubsectionLabel";
 export { ShowcaseStack } from "./ShowcaseStack";
 export type { ShowcaseStackProps } from "./ShowcaseStack";
-export { TabFade, DrawLine } from "./motion";
+export { TabFade, DrawLine } from "./Motion";
 export { DemoLinks } from "./DemoLinks";

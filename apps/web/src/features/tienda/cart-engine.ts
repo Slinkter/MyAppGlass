@@ -1,4 +1,5 @@
 import type { Product } from "@/shared/schemas/ecommerce-schemas";
+import { round2 } from "@/entities/quote/lib/windowRules";
 
 export const IGV_RATE = 0.18;
 
@@ -20,8 +21,6 @@ export interface CartTotals {
   total: number;
   units: number;
 }
-
-const round2 = (n: number) => Math.round(n * 100) / 100;
 
 /** Ajusta una cantidad al rango [0, stock] y a entero. */
 export function clampQuantity(quantity: number, maxStock: number): number {

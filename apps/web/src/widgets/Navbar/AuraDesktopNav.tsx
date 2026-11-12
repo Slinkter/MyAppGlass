@@ -85,8 +85,8 @@ const AuraDesktopNav: React.FC<AuraDesktopNavProps> = ({ previewActive }) => {
             variant={isActive ? "primary" : "ghost"}
             borderRadius="full"
             minW="11"
-            minH="11"
-            h="11"
+            minH="12"
+            h="12"
             display="inline-flex"
             alignItems="center"
             justifyContent="center"

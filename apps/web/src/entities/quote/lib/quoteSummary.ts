@@ -1,6 +1,7 @@
 import type { BudgetItem } from "@/shared/schemas/ecommerce-schemas";
 import type { QuoteLineInput } from "../model";
 import { quoteCalculator } from "./quoteCalculator";
+import { round2 } from "./windowRules";
 
 export interface QuoteLineResult {
   line: QuoteLineInput;
@@ -23,8 +24,6 @@ export interface QuoteSummary {
   /** true si alguna línea usa un sistema sin precio definido: el total es referencial. */
   pricePending: boolean;
 }
-
-const round2 = (n: number) => Number(n.toFixed(2));
 
 /**
  * Suma las partidas de todas las líneas. Cada línea se calcula con `quoteCalculator`

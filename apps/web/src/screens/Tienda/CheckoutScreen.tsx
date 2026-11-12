@@ -7,9 +7,8 @@ import { Button } from "@/shared/ui/button";
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import { companyData } from "@/shared/config/company-data";
 import { buildWhatsAppOrderMessage } from "@/features/tienda/cart-engine";
+import { formatSoles as money } from "@/entities/quote/lib/formatSoles";
 import { useCartStore } from "@/features/tienda/useCartStore";
-
-const money = (n: number) => `S/ ${n.toFixed(2)}`;
 
 /**
  * Checkout sin escritura en Firestore: la colección `pedidos` solo admite

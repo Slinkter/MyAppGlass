@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Box, Input, Textarea, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, HStack, Input, SimpleGrid, Text, Textarea, VStack } from "@chakra-ui/react";
 import { Field } from "@/shared/ui/field";
-import { Layers } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { FeaturesEditor } from "./form/FeaturesEditor";
 import { type GalleryPhotoItem } from "./AlbumGalleryUploader";
-import { FormModalShell } from "./form/FormModalShell";
+import { AdminDialog } from "./form/AdminDialog";
 import { TitleSlugFields } from "./form/TitleSlugFields";
 import { MediaFields } from "./form/MediaFields";
 import { PublishedCheckbox } from "./form/PublishedCheckbox";
@@ -48,6 +48,8 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
 
   // Inicialización al abrir o cambiar de servicio
   useEffect(() => {
+    if (!isOpen) return;
+
     if (service) {
       setTitle(service.title || "");
       setShortDescription(service.shortDescription || "");
@@ -135,93 +137,135 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <FormModalShell
-      isOpen={isOpen}
+    <AdminDialog
+      eyebrow="Servicios"
+      title={isEditing ? `Editar Servicio: ${service?.title}` : "Crear Nuevo Servicio"}
+      maxW="780px"
       onClose={onClose}
       onSubmit={handleSubmit}
-      maxW="780px"
-      icon={<Layers size={20} style={{ flexShrink: 0 }} />}
-      iconBg="var(--chakra-colors-status-info-subtle)"
-      iconColor="var(--chakra-colors-status-info)"
-      title={isEditing ? `Editar Servicio: ${service?.title}` : "Crear Nuevo Servicio"}
-      subtitle="Completa la información técnica, galería y estado de publicación"
-      formError={formError}
-      loading={loading}
-      submitLabel={isEditing ? "Guardar Cambios" : "Publicar Servicio"}
     >
-      <TitleSlugFields
-        titleLabel="Título del Servicio"
-        titlePlaceholder="Ej. Ventanas de Aluminio Antirruido"
-        title={title}
-        onTitleChange={handleTitleChange}
-        slugLabel="Slug (URL amigable)"
-        slugPlaceholder="ej. ventanas-antirruido"
-        slug={slug}
-        onSlugChange={setManualSlug}
-        routePrefix="/servicios/"
-        slugFallback="slug-del-servicio"
-      />
+      <VStack gap="5" align="stretch">
+        <Text fontSize="xs" color="text.muted">
+          Completa la información técnica, galería y estado de publicación
+        </Text>
 
-      {/* Descripciones */}
-      <Field
-        label="Descripción Corta (Resumen para catálogo)"
-        required
-        helperText="Máximo 160 caracteres recomendado para previsualización"
-      >
-        <Input
-          placeholder="Sistemas herméticos en vidrio templado y aluminio para aislamiento acústico..."
-          value={shortDescription}
-          onChange={(e) => setShortDescription(e.target.value)}
-          maxLength={250}
-          required
+        {formError && (
+          <Box
+            role="alert"
+            p="3"
+            borderRadius="xl"
+            bg="status.dangerSoft"
+            border="1px solid"
+            borderColor="status.dangerBorder"
+            color="status.dangerText"
+            fontSize="sm"
+          >
+            {formError}
+          </Box>
+        )}
+
+        <TitleSlugFields
+          titleLabel="Título del Servicio"
+          titlePlaceholder="Ej. Ventanas de Aluminio Antirruido"
+          title={title}
+          onTitleChange={handleTitleChange}
+          slugLabel="Slug (URL amigable)"
+          slugPlaceholder="ej. ventanas-antirruido"
+          slug={slug}
+          onSlugChange={setManualSlug}
+          routePrefix="/servicios/"
+          slugFallback="slug-del-servicio"
         />
-      </Field>
 
-      <Field
-        label="Descripción Completa"
-        required
-        helperText="Detalles técnicos, sistemas disponibles (Nova, Serie 25, 35, 62), ventajas y usos"
-      >
-        <Textarea
-          placeholder="Describe exhaustivamente los acabados, especificaciones de perfilería y cristalería..."
-          value={fullDescription}
-          onChange={(e) => setFullDescription(e.target.value)}
-          rows={4}
+        {/* Descripciones */}
+        <Field
+          label="Descripción Corta (Resumen para catálogo)"
           required
-        />
-      </Field>
-
-      <FeaturesEditor key={`${service?.id ?? "new"}-${isOpen}`} features={features} onChange={setFeatures} />
-
-      <MediaFields
-        entity="services"
-        entityId={service?.id || slug || "nuevo-servicio"}
-        coverImage={coverImage}
-        onCoverChange={setCoverImage}
-        coverLabel="Imagen de Portada Principal"
-        galleryItems={galleryItems}
-        onGalleryChange={setGalleryItems}
-        albumLabel="Galería de Fotos del Servicio"
-        captionFieldLabel="Texto alternativo (Alt)"
-        maxFiles={15}
-      />
-
-      {/* Orden y Publicación */}
-      <SimpleGrid columns={{ base: 1, sm: 2 }} gap="4" pt="3" borderTop="1px solid" borderColor="border.subtle">
-        <Field label="Orden de visualización (prioridad)">
-          <Input type="number" value={order} onChange={(e) => setOrder(Number(e.target.value))} min={0} />
+          helperText="Máximo 160 caracteres recomendado para previsualización"
+        >
+          <Input
+            placeholder="Sistemas herméticos en vidrio templado y aluminio para aislamiento acústico..."
+            value={shortDescription}
+            onChange={(e) => setShortDescription(e.target.value)}
+            maxLength={250}
+            required
+          />
         </Field>
 
-        <Box display="flex" alignItems="center" pt={{ base: 0, sm: 6 }}>
-          <PublishedCheckbox
-            checked={published}
-            onChange={setPublished}
-            label="Publicado en el sitio web"
-            description="Si está desmarcado, se guardará como borrador interno"
+        <Field
+          label="Descripción Completa"
+          required
+          helperText="Detalles técnicos, sistemas disponibles (Nova, Serie 25, 35, 62), ventajas y usos"
+        >
+          <Textarea
+            placeholder="Describe exhaustivamente los acabados, especificaciones de perfilería y cristalería..."
+            value={fullDescription}
+            onChange={(e) => setFullDescription(e.target.value)}
+            rows={4}
+            required
           />
-        </Box>
-      </SimpleGrid>
-    </FormModalShell>
+        </Field>
+
+        <FeaturesEditor key={`${service?.id ?? "new"}-${isOpen}`} features={features} onChange={setFeatures} />
+
+        <MediaFields
+          entity="services"
+          entityId={service?.id || slug || "nuevo-servicio"}
+          coverImage={coverImage}
+          onCoverChange={setCoverImage}
+          coverLabel="Imagen de Portada Principal"
+          galleryItems={galleryItems}
+          onGalleryChange={setGalleryItems}
+          albumLabel="Galería de Fotos del Servicio"
+          captionFieldLabel="Texto alternativo (Alt)"
+          maxFiles={15}
+        />
+
+        {/* Orden y Publicación */}
+        <SimpleGrid columns={{ base: 1, sm: 2 }} gap="4" pt="3" borderTop="1px solid" borderColor="border.subtle">
+          <Field label="Orden de visualización (prioridad)">
+            <Input type="number" value={order} onChange={(e) => setOrder(Number(e.target.value))} min={0} />
+          </Field>
+
+          <Box display="flex" alignItems="center" pt={{ base: 0, sm: 6 }}>
+            <PublishedCheckbox
+              checked={published}
+              onChange={setPublished}
+              label="Publicado en el sitio web"
+              description="Si está desmarcado, se guardará como borrador interno"
+            />
+          </Box>
+        </SimpleGrid>
+
+        {/* Acciones */}
+        <HStack justify="flex-end" gap="3" pt="4" borderTop="1px solid" borderColor="border.subtle" wrap="wrap">
+          <Button
+            variant="outline"
+            size="sm"
+            borderRadius="xl"
+            flex={{ base: "1 1 100%", sm: "0 0 auto" }}
+            onClick={onClose}
+            disabled={loading}
+            type="button"
+          >
+            Cancelar
+          </Button>
+          <Button
+            size="sm"
+            borderRadius="xl"
+            flex={{ base: "1 1 100%", sm: "0 0 auto" }}
+            type="submit"
+            loading={loading}
+            disabled={loading}
+          >
+            <Sparkles size={16} style={{ flexShrink: 0, marginRight: 6 }} />
+            {isEditing ? "Guardar Cambios" : "Publicar Servicio"}
+          </Button>
+        </HStack>
+      </VStack>
+    </AdminDialog>
   );
 };

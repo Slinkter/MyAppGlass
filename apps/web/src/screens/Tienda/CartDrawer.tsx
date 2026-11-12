@@ -17,9 +17,8 @@ import {
 import { TOUCH_MIN } from "@/shared/constants/layout";
 import type { Product } from "@/shared/schemas/ecommerce-schemas";
 import { getCrossSells } from "@/features/tienda/cart-engine";
+import { formatSoles as money } from "@/entities/quote/lib/formatSoles";
 import { useCartStore } from "@/features/tienda/useCartStore";
-
-const money = (n: number) => `S/ ${n.toFixed(2)}`;
 
 export function CartDrawer({ catalog }: { catalog: Product[] }) {
   const cart = useCartStore();

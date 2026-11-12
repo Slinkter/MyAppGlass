@@ -240,7 +240,7 @@ export const NovaQuoteSheet: React.FC<NovaQuoteSheetProps> = ({
                   justifyContent="center"
                   overflow="hidden"
                   borderRadius="sm"
-                  bg="#9117A0"
+                  bg="payment.yape"
                 >
                   <Image
                     src={yapeLogo}

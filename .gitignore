@@ -33,11 +33,14 @@ firebase-export-*/
 # ==============================================================================
 .env
 .env.*
+apps/functions/.env
+apps/functions/.env.*
 *.local
 !.env.example
+!apps/functions/.env.example
 !*.example
-service-account*.json
-firebase-adminsdk*.json
+*service-account*.json
+*firebase-adminsdk*.json
 credentials*.json
 *.pem
 *.key
@@ -54,8 +57,9 @@ credentials*.json
 .windsurf/
 .idea/
 .playwright-mcp/
+playwright/.auth/
 .agents/mcp_config.local.json
-skills-lock.json
+/skills-lock.json
 .gemini/*
 !.gemini/settings.json
 !.gemini/skills/
@@ -107,3 +111,9 @@ otros/
 .audits/**
 !.audits/**/
 !.audits/**/*.md
+
+# ==============================================================================
+# 8. Activos Multimedia Pesados (Alojados en Firebase Storage, no en Git)
+# ==============================================================================
+docs/photos/
+docs/photos-optimized/

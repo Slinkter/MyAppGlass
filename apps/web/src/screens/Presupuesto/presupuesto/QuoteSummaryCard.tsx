@@ -3,9 +3,8 @@
 import React from "react";
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { Receipt } from "lucide-react";
+import { formatSoles as money } from "@/entities/quote/lib/formatSoles";
 import type { QuoteSummary } from "@/entities/quote/lib/quoteSummary";
-
-const money = (n: number) => `S/ ${n.toFixed(2)}`;
 
 export const QuoteSummaryCard: React.FC<{ summary: QuoteSummary }> = ({ summary }) => (
   <Box bg="surface.card" p={{ base: "4", md: "6" }} borderRadius="2xl" border="1px solid" borderColor="border.default">

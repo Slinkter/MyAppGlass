@@ -18,6 +18,7 @@ import yapeLogo from "@/assets/branding/B1-Yape.svg";
 import plinLogo from "@/assets/branding/B2-plin.svg";
 import bbvaLogo from "@/assets/bbva.svg";
 import { QUOTE_PRICING } from "../config/pricing";
+import { formatSoles as money } from "../lib/formatSoles";
 import type { QuoteSummary } from "../lib/quoteSummary";
 import type { QuoteCustomer } from "../model";
 
@@ -27,8 +28,6 @@ interface QuoteSheetProps {
   formattedDate: string;
   quoteNumber?: string | null;
 }
-
-const money = (n: number) => `S/ ${n.toFixed(2)}`;
 
 const Th = chakra("th", {
   base: {
@@ -213,7 +212,7 @@ export const QuoteSheet: React.FC<QuoteSheetProps> = ({ customer, quote, formatt
                   justifyContent="center"
                   overflow="hidden"
                   borderRadius="sm"
-                  bg="#9117A0"
+                  bg="payment.yape"
                 >
                   <Image
                     src={yapeLogo}

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
-import { Box } from "@chakra-ui/react";
+import { Box, useBreakpointValue } from "@chakra-ui/react";
 import GalleryWithThumbnails from "@shared/components/common/GalleryWithThumbnails";
 import ComingSoonDisplay from "@shared/components/common/ComingSoonDisplay";
 import MapLoader from "@/shared/components/map/MapLoader";
@@ -21,12 +21,18 @@ interface VisualViewerProps {
   projectData?: Partial<Project>;
 }
 
+const toResponsiveUrl = (url: string, isMobile: boolean): string => {
+  if (!isMobile || !url) return url;
+  return url.replace("%2Fweb%2F", "%2Fmobile%2F").replace("/web/", "/mobile/");
+};
+
 /**
  * @component VisualViewer
  * @description Performance-optimized visual panel for the project modal.
  */
 const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, lng, photos, projectData }) => {
   const hasValidCoords = typeof lat === "number" && typeof lng === "number";
+  const isMobile = useBreakpointValue({ base: true, md: false }) ?? false;
 
   const galleryImages = useMemo<GalleryItem[]>(() => {
     if (!photos) return [];
@@ -34,7 +40,7 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
       if (typeof photo === "string") {
         return {
           id: index,
-          src: photo,
+          src: toResponsiveUrl(photo, isMobile),
           title: projectData?.residencial || "Project Photo",
         };
       }
@@ -43,11 +49,11 @@ const VisualViewer: React.FC<VisualViewerProps> = React.memo(({ viewMode, lat, l
       const p = photo as { id?: string | number; src?: string; image?: string; title?: string; name?: string };
       return {
         id: p.id ?? index,
-        src: p.src ?? p.image ?? "",
+        src: toResponsiveUrl(p.src ?? p.image ?? "", isMobile),
         title: p.title ?? p.name ?? projectData?.residencial ?? "Project Photo",
       };
     });
-  }, [photos, projectData?.residencial]);
+  }, [photos, projectData?.residencial, isMobile]);
 
   return (
     <Box

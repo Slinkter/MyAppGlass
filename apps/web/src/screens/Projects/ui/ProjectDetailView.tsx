@@ -27,6 +27,7 @@ import ProjectDetailItem from "@/entities/project/ui/ProjectDetailItem";
 import BackButton from "@shared/components/navigation/BackButton";
 import ErrorPage from "@/shared/components/ErrorView";
 import { Reveal } from "@/shared/components/motion/Reveal";
+import { ProjectAlbumGrid } from "./ProjectAlbumGrid";
 
 export interface ViewSelectorProps {
   activeMode: string;
@@ -130,34 +131,46 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
                 </Heading>
               </VStack>
 
-              <ViewSelector activeMode={viewMode} onSelect={handleSelect} />
+              <Box display={{ base: "inline-flex", md: "none" }}>
+                <ViewSelector activeMode={viewMode} onSelect={handleSelect} />
+              </Box>
             </Flex>
           </Reveal>
 
-          {/* Visor Principal Nivelado (Mapa / Galería) */}
+          {/* Visor Principal: en móvil alterna Álbum/Mapa; en desktop muestra ambos */}
           <Reveal motion="cine" index={1}>
-            <Box
-              w="full"
-              h={{ base: "20rem", sm: "23.75rem", md: "30rem" }}
-              position="relative"
-              borderRadius="3xl"
-              overflow="hidden"
-            >
-              <Skeleton
-                loading={isPending}
-                h="full"
-                w="full"
-                borderRadius="3xl"
-              >
-                <VisualViewer
-                  viewMode={viewMode}
-                  lat={project.lat}
-                  lng={project.lng}
+            <VStack gap={6} align="stretch" w="full">
+              <Box display={{ base: viewMode === "gallery" ? "block" : "none", md: "block" }}>
+                <ProjectAlbumGrid
                   photos={project.photos ?? project.photosObra}
-                  projectData={project}
+                  projectTitle={project.residencial || project.name || "Proyecto"}
                 />
-              </Skeleton>
-            </Box>
+              </Box>
+
+              <Box
+                display={{ base: viewMode === "map" ? "block" : "none", md: "block" }}
+                w="full"
+                h={{ base: "20rem", sm: "23.75rem", md: "26rem" }}
+                position="relative"
+                borderRadius="3xl"
+                overflow="hidden"
+              >
+                <Skeleton
+                  loading={isPending}
+                  h="full"
+                  w="full"
+                  borderRadius="3xl"
+                >
+                  <VisualViewer
+                    viewMode="map"
+                    lat={project.lat}
+                    lng={project.lng}
+                    photos={project.photos ?? project.photosObra}
+                    projectData={project}
+                  />
+                </Skeleton>
+              </Box>
+            </VStack>
           </Reveal>
 
           {/* Ficha Técnica y Especificaciones del Proyecto */}
@@ -173,7 +186,7 @@ const ProjectDetailView: React.FC<ProjectDetailViewProps> = ({
                 alignItems="center"
                 gap={2.5}
               >
-                <Box w="16px" h="2px" bg="primary.500" /> Ficha Técnica de la Obra
+                <Box w="16px" h="2px" bg="brand.coral" /> Ficha Técnica de la Obra
               </Heading>
 
               <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={4} w="full">
