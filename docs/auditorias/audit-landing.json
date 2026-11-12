@@ -1,0 +1,202 @@
+{
+  "generatedAt": "2026-11-11T17:31:57.745Z",
+  "results": {
+    "360px": {
+      "pageHeight": 10761,
+      "pageScreens": 14.54,
+      "sections": [
+        {
+          "id": "section",
+          "top": 0,
+          "height": 740,
+          "screens": 1
+        },
+        {
+          "id": "beneficios",
+          "top": 804,
+          "height": 1174,
+          "screens": 1.59
+        },
+        {
+          "id": "servicios",
+          "top": 2042,
+          "height": 2908,
+          "screens": 3.93
+        },
+        {
+          "id": "proyectos",
+          "top": 5014,
+          "height": 1863,
+          "screens": 2.52
+        },
+        {
+          "id": "clientes",
+          "top": 6941,
+          "height": 1024,
+          "screens": 1.38
+        },
+        {
+          "id": "ubicacion",
+          "top": 8029,
+          "height": 808,
+          "screens": 1.09
+        }
+      ],
+      "sectionGapsPx": [
+        64,
+        64,
+        64,
+        64,
+        64
+      ],
+      "distinctGaps": 1,
+      "gridOrphans": [],
+      "primaryCtaCount": 3,
+      "maxScreensWithoutCta": 9.6,
+      "distinctFontSizes": [
+        12,
+        14,
+        16,
+        20,
+        30,
+        36
+      ],
+      "headingJumps": 1,
+      "h1Count": 1,
+      "overflowX": 0,
+      "jsErrors": 0
+    },
+    "768px": {
+      "pageHeight": 9646,
+      "pageScreens": 9.42,
+      "sections": [
+        {
+          "id": "section",
+          "top": 58,
+          "height": 1024,
+          "screens": 1
+        },
+        {
+          "id": "beneficios",
+          "top": 1178,
+          "height": 663,
+          "screens": 0.65
+        },
+        {
+          "id": "servicios",
+          "top": 1937,
+          "height": 1839,
+          "screens": 1.8
+        },
+        {
+          "id": "proyectos",
+          "top": 3872,
+          "height": 2499,
+          "screens": 2.44
+        },
+        {
+          "id": "clientes",
+          "top": 6467,
+          "height": 889,
+          "screens": 0.87
+        },
+        {
+          "id": "ubicacion",
+          "top": 7452,
+          "height": 897,
+          "screens": 0.88
+        }
+      ],
+      "sectionGapsPx": [
+        96,
+        96,
+        96,
+        96,
+        96
+      ],
+      "distinctGaps": 1,
+      "gridOrphans": [],
+      "primaryCtaCount": 3,
+      "maxScreensWithoutCta": 5.97,
+      "distinctFontSizes": [
+        12,
+        14,
+        16,
+        18,
+        24,
+        48,
+        60
+      ],
+      "headingJumps": 1,
+      "h1Count": 1,
+      "overflowX": 0,
+      "jsErrors": 0
+    },
+    "1280px": {
+      "pageHeight": 7491,
+      "pageScreens": 9.36,
+      "sections": [
+        {
+          "id": "section",
+          "top": 58,
+          "height": 800,
+          "screens": 1
+        },
+        {
+          "id": "beneficios",
+          "top": 954,
+          "height": 354,
+          "screens": 0.44
+        },
+        {
+          "id": "servicios",
+          "top": 1404,
+          "height": 1509,
+          "screens": 1.89
+        },
+        {
+          "id": "proyectos",
+          "top": 3008,
+          "height": 1839,
+          "screens": 2.3
+        },
+        {
+          "id": "clientes",
+          "top": 4943,
+          "height": 547,
+          "screens": 0.68
+        },
+        {
+          "id": "ubicacion",
+          "top": 5586,
+          "height": 957,
+          "screens": 1.2
+        }
+      ],
+      "sectionGapsPx": [
+        96,
+        96,
+        95,
+        96,
+        96
+      ],
+      "distinctGaps": 1,
+      "gridOrphans": [],
+      "primaryCtaCount": 3,
+      "maxScreensWithoutCta": 6.05,
+      "distinctFontSizes": [
+        12,
+        14,
+        16,
+        18,
+        24,
+        48,
+        72
+      ],
+      "headingJumps": 1,
+      "h1Count": 1,
+      "overflowX": 0,
+      "jsErrors": 0
+    }
+  }
+}
