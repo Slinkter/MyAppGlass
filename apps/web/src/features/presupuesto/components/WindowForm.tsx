@@ -185,7 +185,15 @@ export const WindowForm: React.FC<WindowFormProps> = ({ systemLabel, initial, on
         </Field>
 
         {whole.ok && (
-          <WindowResult widthM={widthM} heightM={heightM} glass={glass} finish={finish} onRequestVisit={onRequestVisit} />
+          <WindowResult
+            widthM={widthM}
+            heightM={heightM}
+            glass={glass}
+            finish={finish}
+            glassColor={glassColor}
+            profileColor={profileColor}
+            onRequestVisit={onRequestVisit}
+          />
         )}
 
         <VStack align="stretch" gap="2">

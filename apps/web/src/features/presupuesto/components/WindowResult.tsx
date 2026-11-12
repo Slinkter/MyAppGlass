@@ -16,9 +16,12 @@ import {
   priceWindow,
   type WindowFinish,
   type WindowGlass,
+  type WindowGlassColor,
+  type WindowProfileColor,
 } from "@/entities/quote";
 import { DefinitionRow } from "./DefinitionRow";
 import { QUOTE_TEXTS } from "./quoteTexts";
+import { Window2DPreview } from "./Window2DPreview";
 
 const formText = QUOTE_TEXTS.form;
 
@@ -27,10 +30,20 @@ interface WindowResultProps {
   heightM: number;
   glass: WindowGlass;
   finish: WindowFinish;
+  glassColor?: WindowGlassColor;
+  profileColor?: WindowProfileColor;
   onRequestVisit: () => void;
 }
 
-export const WindowResult: React.FC<WindowResultProps> = ({ widthM, heightM, glass, finish, onRequestVisit }) => {
+export const WindowResult: React.FC<WindowResultProps> = ({
+  widthM,
+  heightM,
+  glass,
+  finish,
+  glassColor,
+  profileColor,
+  onRequestVisit,
+}) => {
   const headingId = useId();
   const sashes = computeSashes(widthM);
   const price = priceWindow({ widthM, heightM, glass, finish });
@@ -58,6 +71,16 @@ export const WindowResult: React.FC<WindowResultProps> = ({ widthM, heightM, gla
               <Text as="span" fontWeight="semibold">{formText.sashesLabel}: </Text>
               {sashes.note}
             </Text>
+          )}
+
+          {!warn && (
+            <Window2DPreview
+              sashesCount={sashes.count}
+              glassColor={glassColor || "incoloro"}
+              profileColor={profileColor || "negro"}
+              widthM={widthM}
+              heightM={heightM}
+            />
           )}
 
           <VStack as="dl" align="stretch" gap="1" m="0">

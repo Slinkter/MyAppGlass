@@ -28,6 +28,10 @@ const NAV_ITEMS: NavItem[] = [
     href: "/#servicios",
   },
   {
+    label: "Presupuesto",
+    href: "/presupuesto",
+  },
+  {
     label: "Proyectos",
     href: "/#proyectos",
   },
@@ -68,6 +72,7 @@ export const FOOTER_EXPLORE_ITEMS: NavItem[] = [
 export const MOBILE_NAV_ITEMS: NavItem[] = [
   { label: "Inicio", href: "/" },
   { label: "Servicios", href: "/#servicios", isAccordion: true },
+  { label: "Presupuesto", href: "/presupuesto" },
   { label: "Proyectos", href: "/#proyectos" },
   { label: "Ubicación", href: "/#ubicacion" },
   { label: "Contacto", href: "/contacto" },

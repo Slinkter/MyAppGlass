@@ -8,6 +8,7 @@
 
 import React, { useId, useMemo } from "react";
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Checkbox } from "@chakra-ui/react";
 import { Button } from "@/shared/ui/button";
 import { EmptyState } from "@/shared/ui/empty-state";
 import { WINDOW_PRICING, formatSoles, priceWindow, quoteTotals, type WindowQuoteItem } from "@/entities/quote";
@@ -26,46 +27,8 @@ export interface QuoteCartProps {
   onRemove: (id: string) => void;
   onClear: () => void;
   onGenerate: () => void;
+  loading?: boolean;
 }
-
-const LocationChoice: React.FC<{
-  outside: boolean;
-  onChange: (outside: boolean) => void;
-  labelId: string;
-}> = ({ outside, onChange, labelId }) => {
-  const options = [
-    { value: false, label: cartText.location.yes },
-    { value: true, label: cartText.location.no },
-  ];
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(e.key)) {
-      e.preventDefault();
-      onChange(!outside);
-    }
-  };
-  return (
-    <HStack role="radiogroup" aria-labelledby={labelId} gap="2" onKeyDown={onKeyDown}>
-      {options.map((o) => {
-        const checked = outside === o.value;
-        return (
-          <Button
-            key={o.label}
-            type="button"
-            role="radio"
-            aria-checked={checked}
-            tabIndex={checked ? 0 : -1}
-            variant={checked ? "primary" : "outline"}
-            flex="1"
-            minH="11"
-            onClick={() => onChange(o.value)}
-          >
-            {o.label}
-          </Button>
-        );
-      })}
-    </HStack>
-  );
-};
 
 export const QuoteCart: React.FC<QuoteCartProps> = ({
   items,
@@ -76,9 +39,9 @@ export const QuoteCart: React.FC<QuoteCartProps> = ({
   onRemove,
   onClear,
   onGenerate,
+  loading = false,
 }) => {
   const headingId = useId();
-  const questionId = useId();
   const helpId = useId();
   const empty = items.length === 0;
 
@@ -111,15 +74,33 @@ export const QuoteCart: React.FC<QuoteCartProps> = ({
           </VStack>
         )}
 
-        <VStack align="stretch" gap="2">
-          <Text id={questionId} fontWeight="semibold">
-            {cartText.location.question}
-          </Text>
-          <LocationChoice outside={outsideLaMolina} onChange={onOutsideLaMolinaChange} labelId={questionId} />
-          <Text fontSize="md" color="text.muted">
-            {cartText.freightNotice(formatSoles(WINDOW_PRICING.freightOutsideLaMolina))}
-          </Text>
-        </VStack>
+        <Box
+          p="4"
+          borderRadius="xl"
+          bg="bg.subtle"
+          border="1px solid"
+          borderColor="border.subtle"
+        >
+          <HStack align="flex-start" gap="3">
+            <Checkbox.Root
+              checked={!outsideLaMolina}
+              onCheckedChange={(details) => onOutsideLaMolinaChange(!details.checked)}
+            >
+              <Checkbox.HiddenInput />
+              <Checkbox.Control />
+            </Checkbox.Root>
+            <VStack align="start" gap="0.5">
+              <Text fontWeight="semibold" fontSize="sm" color="text.heading">
+                La instalación se realizará dentro de La Molina
+              </Text>
+              <Text fontSize="xs" color="text.muted">
+                {outsideLaMolina
+                  ? `Se aplica costo adicional de flete (${formatSoles(WINDOW_PRICING.freightOutsideLaMolina)} sin IGV) para otros distritos.`
+                  : "¡Instalación gratuita en La Molina incluida en el precio base!"}
+              </Text>
+            </VStack>
+          </HStack>
+        </Box>
 
         {!empty && <QuoteTotalsPanel totals={totals} />}
 
@@ -131,6 +112,7 @@ export const QuoteCart: React.FC<QuoteCartProps> = ({
             w="full"
             minH="11"
             disabled={empty}
+            loading={loading}
             aria-describedby={empty ? helpId : undefined}
             onClick={onGenerate}
           >

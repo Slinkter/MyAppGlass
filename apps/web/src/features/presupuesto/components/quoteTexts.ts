@@ -128,7 +128,7 @@ const cart = {
     confirm: "Sí, limpiar todo",
     cancel: "No, conservar",
   },
-  generate: "Generar presupuesto",
+  generate: "PREVISUALIZAR PRESUPUESTO",
   generateDisabled: "Agregue al menos una ventana para generar su presupuesto.",
 } as const;
 

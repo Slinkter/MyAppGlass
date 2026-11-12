@@ -12,6 +12,7 @@ import { Button } from "@/shared/ui/button";
 import { computeSashes, formatMeasure, formatSoles, priceWindow, splitBodies, type WindowQuoteItem } from "@/entities/quote";
 import { DefinitionRow } from "./DefinitionRow";
 import { QUOTE_TEXTS } from "./quoteTexts";
+import { Window2DPreview } from "./Window2DPreview";
 
 const cartText = QUOTE_TEXTS.cart;
 const formText = QUOTE_TEXTS.form;
@@ -52,6 +53,16 @@ export const QuoteCartLine = React.memo<QuoteCartLineProps>(function QuoteCartLi
         <Heading as="h3" fontFamily="heading" fontWeight="700" color="text.heading" fontSize="xl" lineHeight="title">
           {cartText.line.title(n)}
         </Heading>
+
+        {/* Visualización Esquema 2D de la ventana en el carrito */}
+        <Window2DPreview
+          sashesCount={sashes.count}
+          bodiesCount={bodies.length}
+          glassColor={item.glassColor}
+          profileColor={item.profileColor}
+          widthM={item.widthM}
+          heightM={item.heightM}
+        />
 
         <VStack as="dl" align="stretch" gap="1" m="0">
           <DefinitionRow label={cartText.line.size}>{cartText.line.sizeValue(formatMeasure(item.widthM), formatMeasure(item.heightM))}</DefinitionRow>
