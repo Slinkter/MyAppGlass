@@ -79,3 +79,49 @@ export const QUOTE_PRICING = {
     } satisfies Record<Difficulty, { label: string; amount: number }>,
   },
 } as const;
+
+/**
+ * Precios y reglas de la ventana corrediza Nova (flujo "por m²"), todo en S/ sin IGV.
+ * Fuente: dueño, 2026-11-11 (spec `docs/claude/specs/cotizador-presupuesto/spec.md`).
+ * El precio por m² es costo total: vidrio + perfiles + accesorios + instalación en La Molina.
+ * Editar aquí, no en los componentes. Los valores marcados "por confirmar" son defaults de trabajo.
+ */
+export const WINDOW_PRICING = {
+  igvRate: QUOTE_PRICING.igvRate,
+  /** Área mínima cobrada (m²). */
+  minAreaM2: 0.1,
+  /** Vidrio crudo, S/ por m². */
+  rawPerM2: 240,
+  /** Recargo del vidrio templado sobre el precio crudo (%). */
+  temperedSurchargePct: 30,
+  /** Arenado o laminado (opcional), S/ por m². Mismo precio para ambos. */
+  finishPerM2: 80,
+  /** Flete fuera de La Molina, S/ sin IGV, estándar para todo Lima. */
+  freightOutsideLaMolina: 120,
+  /** Comisión de tarjeta incluida en el precio de lista (%). El pago en efectivo o QR paga el total sin ella. */
+  cardSurchargePct: 5,
+  /** Espesor fijo del vidrio de ventana (mm): los perfiles están diseñados para 6 mm. */
+  glassMm: 6,
+  limits: {
+    widthMinM: 0.4, // por confirmar
+    widthMaxM: 2.8,
+    heightMinM: 0.4,
+    heightMaxM: 3.0, // por confirmar (spec §11, pregunta 10)
+  },
+  sash: {
+    minCm: 60,
+    maxCm: 80,
+    /** Margen por vanos no exactos. */
+    marginCm: 5,
+    minCount: 2,
+    maxCount: 4,
+  },
+  bodies: {
+    /** Sobre este alto la ventana se divide en cuerpos (m). */
+    splitAboveHeightM: 2.4,
+    /** Paño fijo inferior de seguridad (m). */
+    fixedBottomM: 1.1,
+    /** Cuerpo corredizo central (m). */
+    slidingM: 1.2,
+  },
+} as const;
