@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-12] - Cotizador de presupuestos: culminación total (Fases 0-7), render 2D SVG, medios de pago y catálogo de proveedores
+
+### Added
+- `entities/quote/ui/Window2DPreview.tsx`: componente de renderizado 2D vectorial en SVG dinámico según número de hojas (1 paño fijo, 2, 3 o 4 hojas corredizas con jalador y guías), división de cuerpos superior/inferior para alturas >1.80m y colores reales de perfilería y vidrio.
+- `apps/web/src/assets/branding/B1-Yape.svg` y `B2-plin.svg`: logotipos vectoriales oficiales de Yape y Plin integrados con `bbva.svg` en las hojas de presupuesto formal (`NovaQuoteSheet.tsx` y `QuoteSheet.tsx`).
+- `apps/web/src/shared/data/proveedores/catalogo-proveedores-servicios.ts` y `productos-proveedores.json`: catálogo estructurado con 435 productos de proveedores (Corporación Corrales, Eduhg, Favitem y HPD Glass) y matriz técnica vinculada a los 13 servicios de instalación de la empresa.
+- `docs/gemini/INFORME_TECNICO_VALIDACION_Y_MEJORAS_COTIZADOR.md`: informe técnico consolidado para Claude Code con análisis de proveedores, arquitectura de 2 fases (REST <5ms vs RAG para ahorro de tokens de API Key gratuita) y 5 propuestas de mejora.
+- `docs/proveedores/`: 5 documentos de base de conocimiento (1.8 MB) consolidados localmente para independencia del servidor de proveedores.
+- `apps/web/tests/e2e/generate-carolina-pdf.spec.ts` y `generate-4sashes-pdf.spec.ts`: pruebas de simulación E2E de usuario que emiten presupuestos membretados y generan PDFs A4 de alta fidelidad.
+
+### Changed
+- `screens/Presupuesto/PresupuestoWizardScreen.tsx`: flujo modernizado con captura inmediata de Nombre y Celular en el primer paso, render 2D en tiempo real, checkbox accesible para La Molina y botón "PREVISUALIZAR PRESUPUESTO".
+- `shared/config/nav-items.ts`: remoción de "Presupuesto" de todas las barras de navegación (`NAV_ITEMS` y `MOBILE_NAV_ITEMS`); reubicado exclusivamente en el Footer bajo "Servicios y Sitelinks".
+- `entities/window/model/index.ts` y `entities/quote/config/pricing.ts`: incorporación de las series de proveedores `ventana_serie20`, `ventana_serie35` y `mampara_serie62`.
+- `apps/web/src/features/presupuesto/components/QuoteCart.tsx`: actualización a Checkbox accesible y botón "PREVISUALIZAR PRESUPUESTO".
+
+### Verified
+- `pnpm run typecheck`: 0 errores.
+- `pnpm run lint`: 0 errores.
+- `pnpm run build`: 71/71 páginas estáticas compiladas exitosamente.
+- Tests E2E de Playwright: 100% aprobados.
+
 ## [2026-11-11] - Cotizador: motor de reglas de ventana Nova
 
 ### Added

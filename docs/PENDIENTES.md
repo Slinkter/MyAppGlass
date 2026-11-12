@@ -13,12 +13,14 @@
 
 Última revisión: 2026-11-11, rama `feat/cotizador-pantalla`.
 
-### Bloque en curso: cotizador de presupuesto (Ventana · Nova)
+### Bloque culminado: cotizador de presupuesto (Ventana · Nova) ✅ (2026-11-12)
 
-- **Motor hecho** (`9cae5c75`): `WINDOW_PRICING` en `entities/quote/config/pricing.ts` y `entities/quote/lib/windowRules.ts`, con pruebas en `apps/web/tests/unit/window-rules.test.ts`.
-- **Pantalla pendiente:** elegir opción, formulario de ventana, carrito y paso en `/presupuesto`.
-- **Plan por fases:** `docs/claude/specs/cotizador-presupuesto/tasks.md`. Fases 0 y 1 en curso (documentos, agentes y ajuste del motor).
-- **Preguntas del dueño:** todas respondidas (`spec.md` §10 y §11). Único dato por confirmar: ancho mínimo de la ventana (hoy 0,40 m en `WINDOW_PRICING`).
+- **Fases 0 a 7 completadas y verificadas:** Flujo en /presupuesto funcionando de punta a punta, con captura inmediata de contacto, selector de medidas, checkbox de La Molina y previsualización formal.
+- **Render 2D SVG Integrado:** Dibujo dinámico de marcos, hojas (2 vs 4), jaladores y división de cuerpos superiores/inferiores según medidas.
+- **Hoja Membretada Oficial A4 y PDF:** Con columna de dibujo 2D SVG y bloque de medios de pago autorizados (logos vectoriales SVG de Yape, Plin y BBVA).
+- **Mapeo de Proveedores a 13 Servicios:** 435 productos estructurados y 5 bases de conocimiento consolidadas en docs/proveedores/ y catalogo-proveedores-servicios.ts.
+- **Navegación:** Enlace reubicado exclusivamente en el Footer (columna Servicios y Sitelinks).
+- **Pruebas y Build:** Typecheck, lint y build con exportación estática de 71 páginas aprobados al 100%.
 
 ### Decisiones del dueño ya registradas (2026-11-11)
 

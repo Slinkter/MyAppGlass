@@ -17,8 +17,9 @@ Los comandos base, las reglas de negocio y las convenciones viven en `AGENTS.md`
 - `docs/01_ARCHITECTURE.md`: detalle de capas y módulos.
 - `docs/gya/catalogo/` y `docs/gya/data/`: catálogo, proveedores y presupuestos reales.
 - `docs/PENDIENTES.md` (trabajo abierto) y `docs/05_CHANGELOG.md` (lo terminado).
-- `docs/claude/`: especificaciones, planes y notas de trabajo con Claude.
+- `docs/claude/`: especificaciones, planes y notas de trabajo con Claude. El cotizador tiene `spec.md`, `plan.md` y `tasks.md` en `docs/claude/specs/cotizador-presupuesto/`.
 - `docs/api/`: contrato OpenAPI entre la web y las functions.
+- `.claude/agents/`: agentes del proyecto (auditorías de diseño, textos del rubro, `qa-gates` para los tres gates, `observador` para cerrar una fase).
 
 ## Comandos que AGENTS.md no cubre
 
@@ -29,8 +30,9 @@ Todo se ejecuta desde la raíz con `pnpm`. Las pruebas solo se corren cuando el 
 pnpm --filter @gya/web exec vitest run tests/unit/window-rules.test.ts
 pnpm --filter @gya/web exec vitest run -t "nombre del caso"
 
-# E2E (Playwright) contra el export estático: requiere `pnpm run build` antes
+# E2E (Playwright) contra el export estático en el puerto 3100: requiere `pnpm run build` antes
 pnpm --filter @gya/web test:e2e
+pnpm --filter @gya/web exec playwright test tests/e2e/navegacion.spec.ts
 
 # Una sola prueba de functions (node:test)
 cd apps/functions && node --test test/<archivo>.test.js
@@ -41,19 +43,25 @@ NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev
 
 # Regenerar docs/api/openapi.json desde los schemas Zod de las functions
 pnpm run contract:generate
+
+# Pruebas de reglas de Firestore: requieren el emulador de Firestore en el puerto 8081
+node tests/rules/firestore.rules.test.mjs
 ```
 
-- CI (`.github/workflows/ci.yml`) corre lint, `test:run`, `test:functions` y build en cada push o PR a `main`. El deploy a producción es manual (`workflow_dispatch` o `pnpm run deploy:hosting`).
-- Las reglas de Firestore tienen sus pruebas en `tests/rules/`.
+- CI (`.github/workflows/ci.yml`) corre `pnpm audit` (nivel crítico), lint, `test:run`, `test:functions`, build y typecheck en cada push o PR a `main` y `develop`. Los deploys son manuales: `deploy-preview.yml` y `deploy-prod.yml` (`workflow_dispatch`) o `pnpm run deploy:hosting`.
+- Tres specs E2E (`cotizador-simulacion`, `generate-4sashes-pdf`, `generate-carolina-pdf`) escriben PDF y capturas en `docs/presupuestos_generados/`: correr la suite completa regenera esos archivos.
 
 ## Arquitectura: lo que no se ve en un solo archivo
 
 - **Capas reales:** `app > screens > widgets > features > entities > shared`. La capa `entities` (`client`, `order`, `product`, `project`, `quote`, `service`, `store`, `window`) existe aunque AGENTS.md §2 no la dibuje: ahí va la lógica de dominio que comparten varias features.
-- **Una feature no puede importar otra feature**, y una pantalla no puede importar otra pantalla. Lo compartido baja a `entities` o `shared`. ESLint solo detecta imports por alias (`@/features/...`), así que no uses rutas relativas para cruzar capas.
-- **`src/app` es solo enrutado:** cada `page.tsx` renderiza una pantalla de `src/screens`. La lógica nunca va en `app`.
+- **Una feature no puede importar otra feature**, y una pantalla no puede importar otra pantalla. Lo compartido baja a `entities` o `shared`. ESLint solo detecta imports por alias (`@/features/...`), así que no uses rutas relativas para cruzar capas.- **`src/app` es solo enrutado:** cada `page.tsx` renderiza una pantalla de `src/screens`. La lógica nunca va en `app`.
 - **Export estático (`output: 'export'`, build con `--webpack`):** no hay servidor. Sin route handlers, server actions ni SSR; las imágenes pasan por un loader propio (`shared/utils/imageLoader.ts`). Las rutas dinámicas (`/servicios/[serviceSlug]`, `/proyectos/[projectId]`, `/vidrieria/[distrito]`, `/blog/[slug]`) salen de `generateStaticParams`; `/servicios/ver?slug=` y `/proyectos/ver?id=` cubren lo publicado después del build.
-- **Datos:** servicios, proyectos, tienda y pedidos se leen y escriben en Firestore desde el cliente (`shared/api`); `/admin` es un CRUD protegido con `AdminRouteGuard`. Las functions (`apps/functions`) solo atienden reclamos, contacto y consulta de estado, con correo por Resend.
-- **Cotizador (`/presupuesto`):** el motor está en `entities/quote` (`lib/windowRules.ts`, `lib/quoteCalculator.ts`, precios en `config/pricing.ts`); la feature `presupuesto` solo aporta formulario y servicio. Las reglas se cubren en `tests/unit/window-rules.test.ts` y `quote-calculator.test.ts`.
+- **Datos:** servicios, proyectos, tienda, pedidos y presupuestos se leen y escriben en Firestore desde el cliente (`shared/api`, repositorios en `entities/*/api`); `/admin` (servicios, proyectos, clientes, inventario, ventas, presupuestos, reportes) está protegido con `AdminRouteGuard`. Las functions (`apps/functions`) solo atienden reclamos, contacto y consulta de estado, con correo por Resend; cada endpoint pasa por `src/guards/withGuards.js` (CORS, captcha, anti-bot y rate limit).
+- **Cotizador (`/presupuesto`), repartido en tres capas:**
+  - `entities/quote`: el motor (`lib/windowRules.ts`, `lib/quoteCalculator.ts`, `lib/quoteSummary.ts`), los precios (`config/pricing.ts`), el correlativo (`lib/quoteNumber.ts`) y la hoja membretada que se imprime (`ui/QuoteSheet.tsx`, `ui/NovaQuoteSheet.tsx`, `ui/Window2DPreview.tsx`). Los sistemas cotizables son el tipo `SystemType` de `entities/window/model`; agregar uno exige tocar ese tipo y `QUOTE_PRICING.systems` a la vez.
+  - `features/presupuesto`: formulario, carrito de varias líneas (`hooks/useQuoteCart.ts`) y `services/quoteService.ts`, que reserva el número en `contadores/{año}` y guarda en `presupuestos_solicitados/{número}` dentro de una transacción.
+  - `screens/Presupuesto/PresupuestoWizardScreen.tsx`: arma el flujo; el PDF sale de `window.print()` sobre la hoja, no de una librería.
+  - Un sistema sin precio confirmado lleva `pricePending: true` y se muestra como "Precio a definir". Las reglas se cubren en `tests/unit/window-rules.test.ts`, `quote-calculator.test.ts` y los demás `quote-*.test.ts`.
 - **Paquetes:** `@gya/shared` (datos de empresa y schemas del contrato) lo consumen web y functions; `@gya/eslint-config` es la base de lint.
 
 ## Cómo trabajar
