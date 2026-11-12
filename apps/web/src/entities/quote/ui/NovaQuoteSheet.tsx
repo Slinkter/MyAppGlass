@@ -7,6 +7,7 @@ import { companyData } from "@/shared/config/company-data";
 import { computeSashes, priceWindow, quoteTotals, splitBodies } from "../lib/windowRules";
 import { formatSoles } from "../lib/formatSoles";
 import type { WindowQuoteItem } from "../model";
+import { Window2DPreview } from "./Window2DPreview";
 
 export interface NovaQuoteSheetProps {
   customer: {
@@ -150,6 +151,7 @@ export const NovaQuoteSheet: React.FC<NovaQuoteSheetProps> = ({
           <thead>
             <tr>
               <Th scope="col">Ítem</Th>
+              <Th scope="col">Esquema 2D</Th>
               <Th scope="col">Descripción técnica</Th>
               <Th scope="col" textAlign="center">Medidas</Th>
               <Th scope="col" textAlign="center">Hojas</Th>
@@ -161,6 +163,17 @@ export const NovaQuoteSheet: React.FC<NovaQuoteSheetProps> = ({
             {lineDetails.map(({ item, price, sashes, bodies }, idx) => (
               <tr key={item.id}>
                 <Td>{String(idx + 1).padStart(2, "0")}</Td>
+                <Td>
+                  <Window2DPreview
+                    compact
+                    sashesCount={sashes.count}
+                    bodiesCount={bodies.length}
+                    glassColor={item.glassColor}
+                    profileColor={item.profileColor}
+                    widthM={item.widthM}
+                    heightM={item.heightM}
+                  />
+                </Td>
                 <Td>
                   <Text fontWeight="semibold">Ventana Sistema Nova</Text>
                   <Text fontSize="xs" color="gray.600">

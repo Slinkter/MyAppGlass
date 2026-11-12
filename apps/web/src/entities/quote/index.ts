@@ -46,3 +46,4 @@ export type {
 // UI
 export { QuoteSheet } from "./ui/QuoteSheet";
 export { NovaQuoteSheet, type NovaQuoteSheetProps } from "./ui/NovaQuoteSheet";
+export { Window2DPreview, type Window2DPreviewProps } from "./ui/Window2DPreview";
