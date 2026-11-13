@@ -31,6 +31,23 @@ export const ServiceFaqSchema = z.object({
 
 export type ServiceFaq = z.infer<typeof ServiceFaqSchema>;
 
+export const ServiceSpecSchema = z.object({
+  grupo: z.string().optional(),
+  label: z.string().min(1),
+  value: z.string().min(1),
+});
+
+export type ServiceSpec = z.infer<typeof ServiceSpecSchema>;
+
+export const ServiceSystemSheetSchema = z.object({
+  nombre: z.string().min(1),
+  resumen: z.string().min(1),
+  specs: z.array(ServiceSpecSchema).default([]),
+  usos: z.array(z.string()).default([]),
+});
+
+export type ServiceSystemSheet = z.infer<typeof ServiceSystemSheetSchema>;
+
 export type ServiceGalleryItem = z.infer<typeof ServiceGalleryItemSchema>;
 
 /**
@@ -43,9 +60,11 @@ export const ServiceSchema = z.object({
   category: z.string().optional(),
   shortDescription: z.string().min(1, "La descripción corta es obligatoria"),
   fullDescription: z.string().min(1, "La descripción completa es obligatoria"),
+  specs: z.array(ServiceSpecSchema).optional().default([]),
   features: z.array(z.string()).default([]),
   systems: z.array(z.string()).optional().default([]),
   benefits: z.array(z.string()).optional().default([]),
+  systemSheets: z.array(ServiceSystemSheetSchema).optional().default([]),
   coverImage: z.string().min(1, "Ruta o URL de imagen de portada requerida"),
   gallery: z.array(ServiceGalleryItemSchema).default([]),
   faqs: z.array(ServiceFaqSchema).optional().default([]),

@@ -9,7 +9,12 @@ import type { ElementType } from "react";
 import type { ServiceFaq } from "@/shared/api/firebase/types";
 import type { GalleryItem } from "@/shared/types/gallery";
 
-export type { Service, ServiceFaq } from "@/shared/api/firebase/types";
+export type {
+  Service,
+  ServiceFaq,
+  ServiceSpec,
+  ServiceSystemSheet,
+} from "@/shared/api/firebase/types";
 
 export interface ServicePageSEO {
   title: string;
