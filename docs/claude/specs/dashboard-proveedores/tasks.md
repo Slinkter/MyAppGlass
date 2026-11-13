@@ -19,13 +19,13 @@
 
 ## Fase 1. Sincronización API → Firestore (en paralelo con la Fase 2)
 
-- [ ] **1.1** Crear `scripts/sync-proveedores.mjs` (patrón: `scripts/upload-project-photos.mjs`): comprueba `/salud` y sale sin escribir si la API está apagada; pagina `GET /productos`; escribe `proveedores_productos/{proveedor}_{cod}`; marca `activo: false` lo que ya no venga; emulador por defecto, `--prod` solo con visto bueno. Archivo principal: `scripts/sync-proveedores.mjs`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **1.2** En el mismo script, función aparte: subir imágenes de `/static/img/...` a Storage `proveedores/{proveedor}/{cod}.png` y refrescar `docs/proveedores/*.md` desde `GET /asistente/documentos/{proveedor}`. Se asigna después de 1.1 por compartir archivo. Archivo principal: `scripts/sync-proveedores.mjs`. Agente: general-purpose. Modelo: Haiku.
+- [x] **1.1** Crear `scripts/sync-proveedores.mjs` (patrón: `scripts/upload-project-photos.mjs`): comprueba `/salud` y sale sin escribir si la API está apagada; pagina `GET /productos`; escribe `proveedores_productos/{proveedor}_{cod}`; marca `activo: false` lo que ya no venga; emulador por defecto, `--prod` solo con visto bueno. Archivo principal: `scripts/sync-proveedores.mjs`. Agente: general-purpose. Modelo: Haiku.
+- [x] **1.2** En el mismo script, función aparte: subir imágenes de `/static/img/...` a Storage `proveedores/{proveedor}/{cod}.png` y refrescar `docs/proveedores/*.md` desde `GET /asistente/documentos/{proveedor}`. Se asigna después de 1.1 por compartir archivo. Archivo principal: `scripts/sync-proveedores.mjs`. Agente: general-purpose. Modelo: Haiku.
 - [ ] **1.3** `entities/supplier`: `model/index.ts`, `api/supplierProductsRepository.ts`, `api/useSupplierProducts.ts` (patrón: `entities/product/api/useRealtimeProducts.ts`). Desbloquea la Fase 3. Archivo principal: `apps/web/src/entities/supplier/model/index.ts`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **1.4** Reglas de Firestore y Storage: `proveedores_productos`, `sistemas`, `pedidos_proveedor` y `proveedores/**` solo `isAdmin()`; casos nuevos en `tests/rules/firestore.rules.test.mjs`. Archivo principal: `firestore.rules`. Agente: general-purpose. Modelo: Sonnet.
-- [ ] **1.5** Retirar `apps/web/src/shared/data/proveedores/` (sin uso); mover `catalogo-proveedores-servicios.ts` a `docs/gemini/data/`. Archivo principal: `apps/web/src/shared/data/proveedores/`. Agente: general-purpose. Modelo: Haiku.
+- [x] **1.4** Reglas de Firestore y Storage: `proveedores_productos`, `sistemas`, `pedidos_proveedor` y `proveedores/**` solo `isAdmin()`; casos nuevos en `tests/rules/firestore.rules.test.mjs`. Archivo principal: `firestore.rules`. Agente: general-purpose. Modelo: Sonnet.
+- [x] **1.5** Retirar `apps/web/src/shared/data/proveedores/` (sin uso); mover `catalogo-proveedores-servicios.ts` a `docs/gemini/data/`. Archivo principal: `apps/web/src/shared/data/proveedores/`. Agente: general-purpose. Modelo: Haiku.
 - [ ] **1.6** Gates con `qa-gates` y correr el script contra el emulador (435 documentos). Sin archivo principal (gate). Agente: qa-gates. Modelo: Haiku.
-- [ ] **Commit de control:** `feat(proveedores): sincronizar catálogo de la API a Firestore con acceso solo admin`
+- [x] **Commit de control:** `feat(proveedores): sincronizar catálogo de la API a Firestore con acceso solo admin`
 
 ## Fase 2. Estudio de catálogos y sistemas en borrador (en paralelo con la Fase 1)
 

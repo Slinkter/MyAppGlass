@@ -183,6 +183,27 @@ service cloud.firestore {
         && request.resource.data.seq == resource.data.seq + 1;
       allow read: if counterId.matches('^presupuesto-[0-9]{4}$');
       allow delete: if isAdmin();
+      // Correlativo de pedidos a proveedor (contadores/pedidos-AAAA): solo admin.
+      // Regla aparte (se combina por OR): no altera lo anterior de presupuesto-AAAA.
+      allow read, create, update: if counterId.matches('^pedidos-.*') && isAdmin();
+    }
+
+    // ---------------------------------------------------------------
+    // Datos internos de proveedores: nunca visibles para clientes ni anónimos.
+    // ---------------------------------------------------------------
+    match /proveedores_productos/{id} {
+      allow read, write: if isAdmin();
+    }
+
+    match /pedidos_proveedor/{id} {
+      allow read, write: if isAdmin();
+    }
+
+    // sistemas: los publicados se leen en páginas públicas; los borradores solo admin.
+    // Una consulta de lista de un cliente solo pasa si filtra por estado == 'publicado'.
+    match /sistemas/{id} {
+      allow read: if isAdmin() || resource.data.get('estado', '') == 'publicado';
+      allow write: if isAdmin();
     }
 
     // ---------------------------------------------------------------

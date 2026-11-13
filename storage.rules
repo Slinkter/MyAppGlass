@@ -32,6 +32,11 @@ service firebase.storage {
       allow delete: if isAdmin();
     }
 
+    // Material interno de proveedores (fichas, planos, fotos): solo admin.
+    match /proveedores/{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+
     // Portadas y álbumes de servicios y proyectos (storageService.ts):
     // lectura pública; solo admin escribe imágenes de hasta 10 MB.
     match /{collection}/{entityId}/{allPaths=**} {

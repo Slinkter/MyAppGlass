@@ -73,6 +73,25 @@ await t("cliente read pedidos", false, () => getDoc(doc(clienteUser, "pedidos", 
 await t("cliente write pedidos", false, () => setDoc(doc(clienteUser, "pedidos", "ped2"), { total: 100 }));
 await t("cliente write services", false, () => setDoc(doc(clienteUser, "services", "s2"), { name: "Hack" }));
 
+// 5. Datos internos de proveedores y sistemas
+for (const col of ["proveedores_productos", "pedidos_proveedor"]) {
+  await t(`admin write ${col}`, true, () => setDoc(doc(adminWithClaim, col, "x1"), { nombre: "dato" }));
+  await t(`admin read ${col}`, true, () => getDoc(doc(adminWithClaim, col, "x1")));
+  await t(`cliente read ${col}`, false, () => getDoc(doc(clienteUser, col, "x1")));
+  await t(`cliente write ${col}`, false, () => setDoc(doc(clienteUser, col, "x2"), { nombre: "hack" }));
+  await t(`anon read ${col}`, false, () => getDoc(doc(anon, col, "x1")));
+  await t(`anon write ${col}`, false, () => setDoc(doc(anon, col, "x2"), { nombre: "hack" }));
+}
+await t("admin write sistema publicado", true, () => setDoc(doc(adminWithClaim, "sistemas", "sis-pub"), { estado: "publicado", nombre: "Serie 25" }));
+await t("admin write sistema borrador", true, () => setDoc(doc(adminWithClaim, "sistemas", "sis-bor"), { estado: "borrador", nombre: "Nuevo" }));
+await t("anon read sistema publicado", true, () => getDoc(doc(anon, "sistemas", "sis-pub")));
+await t("anon read sistema borrador", false, () => getDoc(doc(anon, "sistemas", "sis-bor")));
+await t("anon write sistemas", false, () => setDoc(doc(anon, "sistemas", "sis-x"), { estado: "publicado" }));
+await t("admin read sistema borrador", true, () => getDoc(doc(adminWithClaim, "sistemas", "sis-bor")));
+await t("contador pedidos anon read", false, () => getDoc(doc(anon, "contadores", `pedidos-${year}`)));
+await t("contador pedidos anon create", false, () => setDoc(doc(anon, "contadores", `pedidos-${year}`), { seq: 1 }));
+await t("contador pedidos admin create", true, () => setDoc(doc(adminWithClaim, "contadores", `pedidos-${year}`), { seq: 1 }));
+
 await env.cleanup();
 console.log(`${results.filter(Boolean).length}/${results.length} OK`);
 process.exit(results.every(Boolean) ? 0 : 1);
