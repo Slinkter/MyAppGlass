@@ -1,0 +1,127 @@
+{
+  "slug": "ventana",
+  "title": "Ventanas de aluminio y vidrio",
+  "shortDescription": "Ventanas a medida con perfilería de aluminio arquitectónico y vidrio templado, laminado o insulado para iluminar, ventilar y proteger su vivienda.",
+  "fullDescription": "Una ventana de aluminio y vidrio es un cerramiento arquitectónico que permite el ingreso de luz natural, regula la ventilación y resguarda los ambientes frente al viento, la lluvia y el polvo exterior. En nuestro taller seleccionamos perfilería de aleación 6063 con tratamiento térmico T5 y cristales cortados según las dimensiones exactas de su vano, para luego ensamblar e instalar cada unidad en obra.\n\nSegún la ubicación y el uso de cada ambiente, usted puede elegir entre ventanas corredizas, proyectantes o batientes. Las corredizas optimizan el espacio interior porque sus hojas se deslizan sobre rieles paralelos; son prácticas en dormitorios, salas y pasadizos. Las proyectantes abren hacia el exterior sobre brazos de acero inoxidable y ofrecen mayor hermeticidad frente a lluvias y vientos en pisos altos o baños. Las batientes permiten apertura total del vano mediante bisagras y burletes perimetrales.\n\nRespecto al acristalamiento, trabajamos con vidrio flotado crudo, vidrio laminado con interlámina de PVB, vidrio templado de seguridad y doble vidriado hermético (DVH). En carpintería de aluminio no utilizamos el término antirruido, ya que este aplica únicamente a sistemas de PVC; en aluminio ofrecemos una atenuación acústica estimada según la serie seleccionada y la composición del vidrio.\n\nNuestro servicio incluye asesoría técnica, toma de medidas en su propiedad en La Molina, Surco, San Borja, San Isidro o Miraflores, suministro de perfiles, cristales, accesorios e instalación completa. No incluye trabajos de albañilería, tarrajeo ni modificación estructural de vanos. Para cotizar, necesitamos medidas aproximadas de ancho y alto, fotografías del vano y conocer el piso de instalación. Recomendamos limpieza quincenal con franela seca y mantenimiento preventivo de rieles, felpas y garruchas para evitar desgastes prematuros.",
+  "specs": [
+    { "grupo": "Estructura", "label": "Aleación de perfiles", "value": "Aluminio arquitectónico 6063-T5 o T6" },
+    { "grupo": "Acabado", "label": "Anodizado", "value": "13 a 14 micras (mate, bronce o negro)" },
+    { "grupo": "Acabado", "label": "Pintura electrostática", "value": "50 a 70 micras (blanco, negro o madera)" },
+    { "grupo": "Vidrio", "label": "Vidrio flotado crudo", "value": "4 mm a 10 mm en incoloro, bronce o gris" },
+    { "grupo": "Vidrio", "label": "Vidrio laminado", "value": "Espesores de 6.38, 8.38 o 10.38 mm con interlámina PVB" },
+    { "grupo": "Vidrio", "label": "Vidrio templado", "value": "4 mm a 12 mm según dimensión del paño" },
+    { "grupo": "Vidrio", "label": "Vidrio insulado (DVH)", "value": "Espaciadores de 6.35 mm, 9.53 mm o 12.7 mm" },
+    { "grupo": "Herrajes", "label": "Tornillería de armado", "value": "Autorroscante en acero inoxidable o zincado" },
+    { "grupo": "Sellado", "label": "Burletes y felpas", "value": "Caucho EPDM y felpa siliconada perimetral" },
+    { "grupo": "Desempeño", "label": "Atenuación acústica", "value": "Estimada según serie y composición del vidrio" },
+    { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por metro cuadrado o por vano (Precio a definir)" }
+  ],
+  "features": [
+    "Perfilería de aluminio 6063-T5 resistente a la corrosión y de bajo mantenimiento.",
+    "Configuraciones corredizas, proyectantes, batientes y paños fijos a medida.",
+    "Compatibilidad con vidrio crudo, laminado con PVB, templado y termopanel DVH.",
+    "Sellado perimetral con burletes EPDM y felpas de alta densidad contra polvo y viento.",
+    "Rieles con sistema de desalojo de agua hacia el exterior en series intermedias y europeas.",
+    "Acabados anodizados o en pintura electrostática horneada en colores sobrios o madera."
+  ],
+  "benefits": [
+    "Aprovecha la luz natural y mejora la ventilación sin sacrificar la seguridad del cierre.",
+    "Reduce el ingreso de polvo, humedad y ruidos urbanos según la serie y el cristal elegido.",
+    "Brinda durabilidad frente al clima costero sin requerir repintado ni lijado periódico.",
+    "Se adapta con precisión a renovaciones o proyectos nuevos en vivienda y oficina."
+  ],
+  "systemSheets": [
+    {
+      "nombre": "Nova",
+      "resumen": "Sistema modular corredizo orientado a vanos residenciales funcionales. Utiliza garruchas simples o dobles y seguros pasantes o con aleta para un deslizamiento práctico en uso cotidiano.",
+      "specs": [
+        { "label": "Tipo de apertura", "value": "Corrediza modular" },
+        { "label": "Rodamiento", "value": "Garrucha simple o doble (aluminio o fierro)" },
+        { "label": "Cierre", "value": "Seguro pasante o con aleta" },
+        { "label": "Medidas máximas", "value": "Precio a definir según evaluación en obra" }
+      ],
+      "usos": ["Dormitorios interiores", "Cocinas y lavanderías", "Remodelaciones residenciales"]
+    },
+    {
+      "nombre": "Serie 25",
+      "resumen": "Sistema corredizo intermedio con marco de dos carriles de 66 mm de sección y perfiles de 1.20 mm de espesor. Ofrece mayor rigidez estructural que las series livianas para vanos amplios.",
+      "specs": [
+        { "label": "Sección de marco", "value": "66 mm en dos carriles" },
+        { "label": "Espesor de vidrio", "value": "6 mm monolítico" },
+        { "label": "Dimensión máxima de hoja", "value": "1.50 m de ancho por 2.20 m de alto" },
+        { "label": "Herrajes", "value": "Garrucha armada, felpa 5.5 mm y cierre automático" }
+      ],
+      "usos": ["Salas y comedores", "Ventanales de mediana altura", "Oficinas administrativas"]
+    },
+    {
+      "nombre": "Serie 35",
+      "resumen": "Sistema batiente hermético con felpa perimetral y burlete de cuña para cierre ajustado. Resulta adecuado cuando se requiere apertura completa del vano hacia el interior.",
+      "specs": [
+        { "label": "Tipo de apertura", "value": "Batiente con 4 bisagras de aluminio" },
+        { "label": "Espesor de vidrio", "value": "4 mm con burlete cuña" },
+        { "label": "Dimensión recomendada", "value": "Hasta 0.80 m de ancho por 2.10 m de alto" },
+        { "label": "Ensamblaje", "value": "Cortes de marco a 45° o 90° con escuadras" }
+      ],
+      "usos": ["Vanos de ventilación total", "Pasadizos y áreas de servicio", "Accesos secundarios"]
+    },
+    {
+      "nombre": "Serie 62",
+      "resumen": "Ventana corrediza perimetral de línea europea con marco doble de 100 mm y cierre multipunto por cremona. Está pensada para vanos de gran formato que exigen mayor hermeticidad.",
+      "specs": [
+        { "label": "Sección de marco", "value": "100 mm (perfil de 1.3 mm de espesor)" },
+        { "label": "Espesor de vidrio", "value": "6 mm a 8 mm con burlete EPDM" },
+        { "label": "Dimensión máxima de hoja", "value": "1.30 m de ancho por 2.30 m de alto" },
+        { "label": "Capacidad de rodamiento", "value": "20 kg a 50 kg por rueda con felpa F-15" }
+      ],
+      "usos": ["Fachadas residenciales expuestas", "Dormitorios principales", "Proyectos con mayor exigencia acústica"]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "¿Cuál es la diferencia entre una ventana corrediza, una proyectante y una batiente?",
+      "answer": "La ventana corrediza desplaza sus hojas horizontalmente sobre rieles sin invadir el espacio interior ni exterior. La ventana proyectante pivota hacia afuera mediante brazos de acero inoxidable, lo que permite ventilar incluso con llovizna y mejora la hermeticidad. La batiente gira sobre bisagras laterales ofreciendo apertura total del vano y un sellado perimetral continuo con burletes."
+    },
+    {
+      "question": "¿Las ventanas de aluminio son completamente antirruido?",
+      "answer": "No. En carpintería reservamos el término antirruido exclusivamente para sistemas de PVC con sellado por fusión. Las ventanas de aluminio ofrecen una atenuación acústica estimada que depende de la serie elegida, el espesor de los perfiles, la calidad de las felpas y la composición del cristal, logrando mejores resultados cuando se combinan series perimetrales con vidrio laminado o insulado."
+    },
+    {
+      "question": "¿Qué vidrio conviene elegir para reducir el ruido de la calle y mejorar el confort?",
+      "answer": "Para disminuir la transmisión sonora exterior se recomienda vidrio laminado con interlámina de PVB, disponible en 6.38 mm, 8.38 mm o 10.38 mm, o bien vidrio insulado DVH con cámara de aire deshidratado. Si además su ambiente recibe sol directo durante la tarde, puede incorporar vidrio reflectivo para atenuar la ganancia de calor sin oscurecer por completo la vista."
+    },
+    {
+      "question": "¿Qué serie de aluminio se recomienda según el tamaño del vano y el piso?",
+      "answer": "En vanos pequeños e interiores protegidos funcionan bien las series livianas de 4 mm. Para ventanas amplias de sala o dormitorio conviene pasar a Serie 25, que admite hojas de hasta 1.50 por 2.20 metros con vidrio de 6 mm. En pisos altos o fachadas expuestas al viento recomendamos sistemas proyectantes o la Serie 62 con cierre multipunto."
+    },
+    {
+      "question": "¿Cuándo no conviene instalar una ventana corrediza convencional?",
+      "answer": "Una corrediza básica no es la mejor opción en pisos altos muy expuestos a ráfagas de viento ni en ambientes donde se requiere hermeticidad superior frente al ruido o lluvia intensa, ya que el deslizamiento sobre felpas deja una mínima holgura mecánica. En esos casos conviene evaluar una ventana proyectante o una corrediza perimetral de mayor sección."
+    },
+    {
+      "question": "¿Qué incluye el servicio de instalación de ventanas y qué trabajos no cubre?",
+      "answer": "Nuestro servicio comprende la toma de medidas rectificadas en obra, la selección de perfiles y cristales, el ensamblaje en taller, el transporte, el montaje de marcos y hojas, el sellado perimetral con silicona y la regulación de herrajes. No ejecutamos obras civiles como picado de muros, tarrajeo, resane de pintura ni retiro de rejas metálicas soldadas."
+    },
+    {
+      "question": "¿Qué información necesitan para preparar una cotización de ventanas?",
+      "answer": "Para emitir un presupuesto referencial necesitamos las medidas aproximadas de ancho y alto de cada vano, fotografías del espacio actual, el distrito donde se ubica el inmueble y el tipo de apertura que prefiere. Si busca mejorar la atenuación acústica o controlar el ingreso solar, indíquenos también hacia qué orientación da la fachada."
+    },
+    {
+      "question": "¿Cómo se deben limpiar y mantener las ventanas de aluminio y vidrio?",
+      "answer": "Limpie los perfiles de aluminio al menos dos veces al mes con una franela seca y suave; para manchas puntuales use agua con jabón neutro y seque bien. Mantenga los rieles libres de polvo para proteger las garruchas, retire la suciedad de las felpas con una espátula sin filo y evite siempre limpiadores abrasivos para metales."
+    },
+    {
+      "question": "¿Qué fallas pueden presentarse con el uso y cómo se solucionan?",
+      "answer": "Con el tiempo pueden acumularse partículas en los rieles que endurecen el deslizamiento o desgastan las garruchas, provocar vibraciones por felpas secas o desajustar los seguros de cierre. En ventanas proyectantes, cerrar sin levantar el pestillo regulador puede descuadrar los brazos. Estas incidencias se corrigen mediante limpieza técnica, lubricación o reemplazo puntual de accesorios."
+    },
+    {
+      "question": "¿Cuál es el precio y el plazo de entrega de las ventanas a medida?",
+      "answer": "El valor final depende de la serie seleccionada, el tipo y espesor del vidrio, el acabado del aluminio y la cantidad de hojas del proyecto, por lo que figura como Precio a definir hasta evaluar su vano. Atendemos proyectos en La Molina, Surco, San Borja, San Isidro y Miraflores previa coordinación de visita técnica."
+    }
+  ],
+  "notasInternas": [
+    "Fuentes de matriz-hechos.md utilizadas: H-001 a H-016 (vidrios), H-017 a H-024 (reflectivo y aluminio 6063-T5/T6, anodizado, pintura), H-025 a H-031 (tornillería, burletes, felpas, garruchas, cremona, traslape), H-041 a H-043 (Serie 62), H-050 (Sistema Nova), H-058 a H-059 (Serie 25), H-085 a H-087 (Serie 35), H-122 a H-131 (mantenimiento).",
+    "[POR CONFIRMAR] Medidas máximas, espesores de vidrio admitidos y ficha de despiece del Sistema Nova (nivel de confianza bajo en H-050).",
+    "[POR CONFIRMAR] Unificación de criterio de espesor de vidrio en Serie 62 (catálogos difieren entre 4 mm a más y 6 a 8 mm según H-043).",
+    "[POR CONFIRMAR] Precio referencial por m², plazo de entrega en días hábiles y condiciones de garantía escrita."
+  ]
+}

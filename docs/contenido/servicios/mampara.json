@@ -1,0 +1,87 @@
+{
+  "slug": "mampara",
+  "title": "Mamparas de aluminio y vidrio",
+  "shortDescription": "Mamparas corredizas y batientes de piso a techo para integrar salas con terrazas o dividir oficinas con seguridad, amplitud visual y hermeticidad.",
+  "fullDescription": "Una mampara de aluminio y vidrio es un cerramiento o puerta de piso a techo que conecta ambientes interiores con terrazas, jardines o patios, o bien divide espacios de trabajo manteniendo la continuidad visual y el paso de luz natural. En nuestro taller seleccionamos perfilería de aleación 6063-T5 y cristales de seguridad cortados a medida para ensamblar e instalar cada sistema según las exigencias de su proyecto.\n\nEn mamparas residenciales y de oficina trabajamos configuraciones corredizas y batientes. Las corredizas permiten abrir amplios paños sin ocupar área útil al girar, apoyándose en zócalos inferiores diseñados para alojar garruchas de carga y cabezales superiores que guían el desplazamiento. Las opciones batientes resultan útiles cuando se busca un acceso definido con bisagras laterales o pivotes y cierre perimetral.\n\nPara garantizar seguridad frente al tránsito diario, en mamparas de gran altura empleamos vidrio templado de 8 mm o 10 mm —y 12 mm en vanos especiales—, o vidrio laminado con PVB de 8.38 mm y 10.76 mm, además de soluciones en Serie 25 con cristal de 6 mm en hojas de hasta 1.50 por 2.20 metros. Cuando se requiere privacidad parcial, podemos incorporar vinil arenado mate o escarchado.\n\nEl servicio incluye visita de medición en La Molina, Surco, San Borja, San Isidro o Miraflores, suministro de aluminio y vidrio, montaje, sellado perimetral y ajuste de cerraduras pico loro o cierres automáticos. No incluye picado de pisos, nivelación de contrapisos ni obras de albañilería. Para cotizar requerimos ancho, alto aproximado y fotos del vano. Con limpieza quincenal de rieles y lubricación periódica de rodamientos se evitan descarrilamientos y ruidos al deslizar.",
+  "specs": [
+    { "grupo": "Estructura", "label": "Aleación de perfiles", "value": "Aluminio arquitectónico 6063-T5 o T6" },
+    { "grupo": "Vidrio", "label": "Vidrio templado estándar", "value": "8 mm y 10 mm (12 mm en gran altura)" },
+    { "grupo": "Vidrio", "label": "Vidrio laminado", "value": "8.38 mm y 10.76 mm con PVB" },
+    { "grupo": "Vidrio", "label": "Vidrio en Serie 25", "value": "6 mm monolítico para hojas hasta 1.50 x 2.20 m" },
+    { "grupo": "Acabado", "label": "Anodizado y pintura", "value": "Mate, bronce, negro, blanco o madera" },
+    { "grupo": "Herrajes", "label": "Rodamiento corredizo", "value": "Garruchas armadas o dobles alojadas en zócalo" },
+    { "grupo": "Seguridad", "label": "Cerraduras disponibles", "value": "Chapa pico loro, cierre automático o cremona" },
+    { "grupo": "Sellado", "label": "Burletes y felpas", "value": "EPDM y felpa siliconada de 5.5 mm o F-15" },
+    { "grupo": "Desempeño", "label": "Atenuación acústica", "value": "Estimada según serie y composición del vidrio" },
+    { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por metro cuadrado o por vano (Precio a definir)" }
+  ],
+  "features": [
+    "Cerramientos de piso a techo para conectar salas con terrazas, balcones y patios.",
+    "Zócalo inferior reforzado para soportar el peso del cristal y alojar garruchas.",
+    "Opciones en vidrio templado de 8 mm y 10 mm o laminado de seguridad.",
+    "Cabezal superior con guía y tope vertical que estabiliza el recorrido de las hojas.",
+    "Alternativas de privacidad mediante vinil arenado mate o escarchado brillante.",
+    "Acabados de aluminio resistentes a la intemperie y humedad costera."
+  ],
+  "benefits": [
+    "Amplía visualmente sus ambientes al integrar el interior con áreas exteriores.",
+    "Maximiza el ingreso de luz natural reduciendo la necesidad de iluminación artificial.",
+    "Resiste el tránsito frecuente gracias a herrajes y rodamientos dimensionados por peso.",
+    "Permite elegir entre apertura corrediza sin invasión de espacio o paso batiente definido."
+  ],
+  "systemSheets": [
+    {
+      "nombre": "Nova",
+      "resumen": "Sistema modular corredizo adaptado para divisiones interiores y vanos residenciales livianos. Emplea garruchas simples o dobles con seguros pasantes o de aleta para una operación práctica.",
+      "specs": [
+        { "label": "Tipo de sistema", "value": "Corredizo modular" },
+        { "label": "Rodamiento", "value": "Garrucha simple o doble (aluminio o fierro)" },
+        { "label": "Seguros", "value": "Pasante o con aleta" },
+        { "label": "Dimensiones límite", "value": "Precio a definir según evaluación técnica" }
+      ],
+      "usos": ["Divisiones interiores ligeras", "Salidas protegidas a patio", "Oficinas pequeñas"]
+    },
+    {
+      "nombre": "Serie 25",
+      "resumen": "Sistema corredizo intermedio con marco de dos carriles de 66 mm y perfil de 1.20 mm de espesor. Incorpora zócalo inferior robusto, chapa pico loro y cierre automático para tránsito frecuente.",
+      "specs": [
+        { "label": "Sección de marco", "value": "66 mm en dos carriles (1.20 mm de espesor)" },
+        { "label": "Espesor de vidrio", "value": "6 mm con felpa de 5.5 mm" },
+        { "label": "Dimensión máxima de hoja", "value": "1.50 m de ancho por 2.20 m de alto" },
+        { "label": "Seguridad", "value": "Chapa pico loro y cierre automático" }
+      ],
+      "usos": ["Conexión sala-terraza", "Divisiones de oficina", "Mamparas de mediana altura"]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "¿Qué espesor de vidrio templado se recomienda para una mampara de terraza?",
+      "answer": "En mamparas de piso a techo o salidas a terraza se recomiendan espesores estándar de 8 mm y 10 mm en cristal templado, pudiendo requerirse 12 mm en vanos de gran altura o expuestos a fuertes corrientes de viento. Para formatos intermedios en Serie 25, con hojas de hasta 1.50 por 2.20 metros, también se trabaja con cristal de 6 mm."
+    },
+    {
+      "question": "¿Conviene elegir una mampara corrediza o una mampara batiente?",
+      "answer": "La mampara corrediza es la opción más práctica en salas, terrazas y balcones porque las hojas se deslizan sobre rieles paralelos sin invadir muebles ni circulaciones. La mampara batiente conviene cuando el vano es estrecho y se necesita aprovechar todo el ancho libre de paso, o en accesos comerciales y oficinas con tránsito puntual."
+    },
+    {
+      "question": "¿En qué casos no es recomendable instalar una mampara de Serie 25?",
+      "answer": "No conviene utilizar Serie 25 cuando las hojas superan los 1.50 metros de ancho o los 2.20 metros de alto, ni en frentes muy expuestos al viento donde se exige cristal de 8 mm a 10 mm o doble vidriado hermético. En esos escenarios evaluamos series perimetrales de mayor sección y rodamientos de carga pesada."
+    },
+    {
+      "question": "¿Qué incluye la instalación de una mampara y qué requiere el vano antes de empezar?",
+      "answer": "Incluimos toma de medidas en obra, suministro de perfiles, cristales, zócalos, garruchas, cerraduras, montaje completo y sellado perimetral. No realizamos picado de pisos para embutir rieles ni resanes de albañilería. Antes de instalar, el vano debe contar con piso terminado, derrames nivelados y pintura de base lista."
+    },
+    {
+      "question": "¿Cómo se mantiene una mampara para que siga deslizando con suavidad?",
+      "answer": "Aspire o limpie semanalmente el riel inferior para retirar arena, tierra o pelusas que traban las ruedas. Limpie los perfiles de aluminio con franela seca dos veces al mes y lubrique periódicamente las billas de las garruchas y los mecanismos de la chapa pico loro. Nunca fuerce una hoja trabada para evitar descarrilamientos."
+    },
+    {
+      "question": "¿Qué datos necesito enviar para cotizar una mampara y cuál es su costo?",
+      "answer": "Necesitamos las medidas aproximadas de ancho y alto del vano, fotografías del piso y techo del espacio, el distrito y si desea configuración fija-corrediza o doble corrediza. El costo se muestra como Precio a definir porque varía según serie, espesor del cristal y acabado del aluminio, y se confirma tras la visita técnica."
+    }
+  ],
+  "notasInternas": [
+    "Fuentes de matriz-hechos.md utilizadas: H-002 a H-012 (templado y laminado), H-022 a H-031 (aluminio 6063, burletes, felpas, garruchas, traslape), H-050 (Sistema Nova), H-056 a H-060 (definición mampara, 8-10-12 mm, Serie 25), H-070 a H-071 (zócalo y cabezal), H-103 (vinil arenado/escarchado), H-122 a H-131 (mantenimiento).",
+    "[POR CONFIRMAR] Ficha dimensional, espesores de vidrio admitidos y alcance de uso del Sistema Nova en mamparas (H-050).",
+    "[POR CONFIRMAR] Precio por m², plazo de fabricación/entrega en taller y garantía de herrajes."
+  ]
+}

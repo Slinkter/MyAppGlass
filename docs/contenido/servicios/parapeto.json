@@ -1,0 +1,90 @@
+{
+  "slug": "parapeto",
+  "title": "Parapetos de vidrio y muros cortina",
+  "shortDescription": "Cerramientos acristalados de seguridad para antepechos, terrazas y fachadas continuas con perfilería de aluminio y cálculo técnico por proyecto.",
+  "fullDescription": "Un parapeto acristalado es un cerramiento vertical de seguridad instalado sobre un antepecho o borde de losa para proteger contra caídas sin bloquear la vista ni la entrada de luz natural. Cuando la envolvente cubre varios niveles por delante de la estructura de concreto mediante montantes, travesaños y paños de cristal, el sistema corresponde a un muro cortina o fachada flotante.\n\nA diferencia de una baranda liviana sobre murete bajo, el parapeto y la fachada flotante responden a exigencias estructurales y climáticas más altas. En Glass & Aluminum Company S.A.C. seleccionamos, calculamos, ensamblamos e instalamos soluciones con aleación de aluminio 6063-T5 o T6, cristal templado de seguridad, vidrio laminado con PVB o ionoplasto termoplástico y unidades insuladas (DVH) con espaciadores de 6.35 a 12.7 mm.\n\nPara fachadas continuas trabajamos con tres configuraciones: sistema Stick (MCS-034), donde montantes y travesaños se fijan en obra para recibir los cristales enmarcados con silicona estructural; sistema Frame (MCF-034), con módulos preensamblados en taller para montaje ágil; y sistema unitizado (MCF-045), orientado a frentes modulados de mayor escala. No ejecutamos fachadas con arañas de acero ni asumimos proyectos sin planos arquitectónicos y evaluación de cargas de viento, juntas y anclajes.\n\nEl servicio incluye levantamiento técnico en Lima (La Molina, Surco, San Borja, San Isidro y Miraflores), selección de perfilería Serie 45 o envolvente correspondiente, cristales de seguridad, sellado perimetral e instalación. Para cotizar con precisión, necesitamos planos de elevación, medidas del vano, estado del antepecho y fotografías del frente. El mantenimiento consiste en limpieza periódica del aluminio con paño suave y revisión de sellos de silicona estructural.",
+  "specs": [
+    { "grupo": "Estructura", "label": "Aleación de aluminio", "value": "6063-T5 o T6 según cálculo estructural" },
+    { "grupo": "Estructura", "label": "Serie de fachada", "value": "Serie 45 y sistemas Stick / Frame (MCS-034, MCF-034, MCF-045)" },
+    { "grupo": "Cristal", "label": "Vidrio laminado", "value": "10.76 mm (dos hojas de 5 mm con 0.76 mm de PVB) o ionoplasto" },
+    { "grupo": "Cristal", "label": "Vidrio templado", "value": "10 mm a 12 mm según altura libre y fijación" },
+    { "grupo": "Cristal", "label": "Vidrio insulado (DVH)", "value": "Espaciadores de 6.35 mm, 9.53 mm o 12.7 mm con sellado bicomponente" },
+    { "grupo": "Control solar", "label": "Vidrio reflectivo", "value": "Capas metálicas en bronce, azul claro o azul oscuro" },
+    { "grupo": "Sellado", "label": "Burlete perimetral", "value": "EPDM de doble contacto en juntas y encuentros" },
+    { "grupo": "Tolerancia", "label": "Vidrio laminado 2 capas", "value": "+4.0/-1.6 mm hasta 6.4 mm; +6.4/-1.6 mm hasta 12.7 mm" },
+    { "grupo": "Condición", "label": "Requisito previo", "value": "Planos de elevación y verificación de losa o antepecho" },
+    { "grupo": "Comercial", "label": "Precio y plazo", "value": "Precio a definir según metraje y complejidad de anclaje" }
+  ],
+  "features": [
+    "Protección de bordes elevados y fachadas con cristal templado, laminado o DVH.",
+    "Sistemas Stick (MCS-034), Frame (MCF-034) y unitizado (MCF-045) con silicona estructural.",
+    "Integración opcional de ventanas proyectantes y paneles de aluminio compuesto (ACM) de 4 mm.",
+    "Sellado hermético con burletes EPDM y silicona estructural bicomponente.",
+    "Perfilería de aluminio 6063-T5/T6 resistente a la intemperie urbana.",
+    "Evaluación previa de anclajes a losa, dilatación de juntas y presión de viento."
+  ],
+  "benefits": [
+    "Amplía la iluminación natural y mantiene la continuidad visual de terrazas y frentes.",
+    "Reduce la transmisión térmica y ofrece atenuación acústica estimada según serie y composición del vidrio.",
+    "Aporta seguridad pasiva ante impactos gracias a la retención de fragmentos en vidrio laminado.",
+    "Disminuye tiempos en obra al optar por módulos preensamblados en sistemas Frame."
+  ],
+  "systemSheets": [
+    {
+      "nombre": "Sistema Parapeto Panorámico",
+      "resumen": "Solución acristalada para antepechos elevados, azoteas y bordes de losa donde se busca seguridad continua sin obstrucción visual. Combina cristal templado o laminado de seguridad con perfiles de aluminio, pasamanos adaptables y fijaciones mecánicas verificadas en obra.",
+      "specs": [
+        { "label": "Cristal recomendado", "value": "10.76 mm laminado o 10–12 mm templado" },
+        { "label": "Perfilería", "value": "Aluminio 6063-T5 con accesorios de fijación" },
+        { "label": "Unidad de medida", "value": "Metro lineal (ml) o metro cuadrado (m²) según proyecto" }
+      ],
+      "usos": ["Antepechos de terrazas", "Azoteas transitables", "Mezzanines y bordes de losa"]
+    },
+    {
+      "nombre": "Sistema Muro Cortina Stick (MCS-034)",
+      "resumen": "Fachada flotante ensamblada por etapas en obra mediante montantes verticales y travesaños horizontales anclados a las losas. Los cristales llegan enmarcados con silicona estructural desde taller para lograr un frente exterior continuo de vidrio.",
+      "specs": [
+        { "label": "Montaje", "value": "Armado de retícula en obra + acristalamiento posterior" },
+        { "label": "Cristal compatible", "value": "Templado, laminado, reflectivo o insulado (DVH)" },
+        { "label": "Integración", "value": "Admite hojas proyectantes y paneles ACM de 4 mm" }
+      ],
+      "usos": ["Fachadas comerciales", "Edificios corporativos", "Remodelación de frentes"]
+    },
+    {
+      "nombre": "Sistema Muro Cortina Frame / Unitizado (MCF-034 / MCF-045)",
+      "resumen": "Sistema modular en el que los paneles completos de aluminio y cristal se ensamblan en taller y se izan para anclarse directamente a los bordes de losa. Reduce la exposición en obra y agiliza el cierre de envolventes repetitivas.",
+      "specs": [
+        { "label": "Montaje", "value": "Módulos preensamblados fijados a anclajes de losa" },
+        { "label": "Estanqueidad", "value": "Juntas perimetrales con burlete EPDM y silicona estructural" },
+        { "label": "Acabado exterior", "value": "Vista limpia de cristal sin perfilería expuesta" }
+      ],
+      "usos": ["Edificios de mediana altura", "Frentes modulares estandarizados", "Proyectos con plazo acotado en obra"]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "¿Cuál es la diferencia entre un parapeto de vidrio, una baranda y un muro cortina?",
+      "answer": "La baranda protege escaleras o balcones mediante paños livianos con pasamanos; el parapeto es un cerramiento continuo de mayor exigencia sobre antepechos o losas; y el muro cortina es una fachada flotante que cuelga por delante de varios pisos sin cargar peso estructural del edificio. En todos los casos evaluamos altura, viento y tipo de losa antes de definir el sistema."
+    },
+    {
+      "question": "¿En qué se diferencian los sistemas Stick, Frame y unitizado en muro cortina?",
+      "answer": "En el sistema Stick instalamos primero montantes y travesaños en obra y luego colocamos los cristales enmarcados. En el sistema Frame y en el unitizado, los módulos completos llegan ensamblados desde taller para anclarse a la losa, lo que reduce el trabajo en altura y acelera el cierre cuando la fachada tiene modulación repetitiva."
+    },
+    {
+      "question": "¿Se puede cotizar un parapeto o muro cortina sin planos previos?",
+      "answer": "No es recomendable, porque una fachada flotante o un parapeto en altura requiere verificar cargas de viento, ubicación de juntas de dilatación y capacidad de anclaje en la losa de concreto. Para preparar su presupuesto le solicitamos planos de elevación, medidas aproximadas y fotografías del frente; luego realizamos una inspección técnica en obra."
+    },
+    {
+      "question": "¿Qué cristal conviene usar y qué mantenimiento requiere?",
+      "answer": "Para mayor seguridad pasiva recomendamos vidrio laminado de 10.76 mm o con interlámina de ionoplasto, ya que retiene los fragmentos en caso de rotura; si busca control térmico y atenuación acústica estimada según composición, puede optar por vidrio insulado (DVH). El mantenimiento consiste en limpiar perfiles con paño suave y revisar periódicamente los sellos de silicona."
+    }
+  ],
+  "notasInternas": [
+    "Fuentes: matriz-hechos.md H-002, H-007, H-008, H-011, H-013, H-014, H-015, H-016, H-017, H-018, H-022, H-090 a H-096, H-109, H-132.",
+    "H-095: No existe un catálogo único con el nombre 'parapeto'; se resuelve combinando perfilería adaptable o sistemas de fachada según el antepecho.",
+    "H-096: Fachadas con arañas (spider) excluidas por falta de respaldo en catálogos locales.",
+    "[POR CONFIRMAR]: Precio referencial por m² o ml para parapeto y muro cortina.",
+    "[POR CONFIRMAR]: Plazo de ejecución y alcance exacto de garantía escrita para envolventes.",
+    "[POR CONFIRMAR]: Forma estándar de medición comercial (m² vs ml) en parapetos bajos."
+  ]
+}

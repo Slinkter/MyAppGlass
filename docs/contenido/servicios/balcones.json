@@ -1,0 +1,62 @@
+{
+  "slug": "balcones",
+  "title": "Cerramientos y barandas para balcones",
+  "shortDescription": "Soluciones en vidrio de seguridad y aluminio para cerrar o proteger balcones con privacidad, control solar y respeto a las normas del edificio.",
+  "fullDescription": "Un proyecto de balcón en vidrio y aluminio puede resolverse de dos maneras distintas: como una baranda abierta de protección en el borde de la losa o como un cerramiento acristalado de piso a techo que incorpora el balcón al ambiente interior. Dado que no existe un sistema prediseñado único llamado \"balcón\", en Glass & Aluminum Company S.A.C. seleccionamos, calculamos, ensamblamos e instalamos la combinación adecuada de perfilería de ventana, mampara o baranda con cristal de seguridad.\n\nPara protección perimetral abierta utilizamos vidrio templado de 10 mm o superior, o vidrio laminado de seguridad (como 8.38 mm y 10.38 mm), cuya película intermedia de PVB retiene los fragmentos ante un impacto accidental. Si usted busca un cerramiento total contra viento, polvo o lluvia ligera, integramos hojas corredizas o fijas con vidrio laminado o reflectivo, además de láminas polarizadas de control solar que rechazan entre 37 % y 55 % de la energía solar total.\n\nTambién ofrecemos opciones de privacidad mediante vinil arenado mate (en paños continuos o franjas decorativas) o vinil escarchado brillante, así como láminas adhesivas de seguridad en 4, 8 y 12 micras con 98 % de protección frente a radiación UV. No recomendamos instalar vidrio crudo en balcones por el riesgo de fragmentos cortantes, ni iniciar un cerramiento completo en edificios sin autorización previa de la junta de propietarios.\n\nNuestro servicio incluye asesoría técnica en obra, selección de perfiles de aluminio, cristales de seguridad, sellado perimetral e instalación en nuestra zona de cobertura en Lima. Para cotizar necesitamos medidas de ancho y alto, fotos del balcón y confirmar si el reglamento de su edificio permite cerramiento total o solo baranda. El mantenimiento requiere limpieza periódica de rieles, felpas y cristales sin productos abrasivos.",
+  "specs": [
+    { "grupo": "Cristal", "label": "Vidrio laminado", "value": "6.38 mm, 8.38 mm o 10.38 mm con interlámina de PVB" },
+    { "grupo": "Cristal", "label": "Vidrio templado", "value": "10 mm, 12 mm o templado-laminado en barandas abiertas" },
+    { "grupo": "Privacidad", "label": "Vinil decorativo", "value": "Arenado mate (1.22 m y 1.52 m de ancho) o escarchado brillante" },
+    { "grupo": "Seguridad", "label": "Lámina adhesiva", "value": "4, 8 y 12 micras anti-rayaduras con 98 % de protección UV" },
+    { "grupo": "Control solar", "label": "Lámina polarizada", "value": "Rechazo de 37 % a 55 % de energía solar (VLT 1 % a 50 %)" },
+    { "grupo": "Estructura", "label": "Perfilería adaptable", "value": "Aluminio arquitectónico 6063-T5 de ventana, mampara o baranda" },
+    { "grupo": "Fijación", "label": "Uniones de soporte", "value": "Uniones en esquina, en T y piso a techo para 6 a 8 mm" },
+    { "grupo": "Condición", "label": "Copropiedad", "value": "Sujeto a reglamento interno de fachada del edificio" },
+    { "grupo": "Comercial", "label": "Precio y plazo", "value": "Precio a definir según cerramiento o baranda y metraje" }
+  ],
+  "features": [
+    "Dos enfoques a medida: baranda de seguridad abierta o cerramiento panorámico completo.",
+    "Vidrio laminado y templado que evitan el desprendimiento de trozos peligrosos ante rotura.",
+    "Privacidad graduable con vinil arenado mate, franjas decorativas o vinil escarchado.",
+    "Control térmico opcional mediante vidrio reflectivo o láminas polarizadas solares.",
+    "Combinación de paños fijos y hojas corredizas para ventilar cuando usted lo necesite.",
+    "Sellado perimetral con felpas y burletes que reducen vibraciones y entrada de polvo."
+  ],
+  "benefits": [
+    "Convierte su balcón en un espacio más aprovechable frente al viento y el polvo urbano.",
+    "Aporta atenuación acústica estimada según la serie de aluminio y el espesor del vidrio laminado.",
+    "Mantiene la estética de la fachada del edificio gracias a acabados neutros y arenado limpio."
+  ],
+  "systemSheets": [
+    {
+      "nombre": "Sistema Panorámico",
+      "resumen": "Configuración híbrida que combina perfilería corrediza o fija de ventana y mampara con vidrio de seguridad para cerrar balcones sin sacrificar iluminación. Permite integrar vidrio laminado, control solar y láminas de privacidad según la orientación del departamento.",
+      "specs": [
+        { "label": "Vidrio recomendado", "value": "8.38 mm o 10.38 mm laminado (o templado según altura)" },
+        { "label": "Acabado privacidad", "value": "Vinil arenado mate o escarchado brillante" },
+        { "label": "Unidad de medida", "value": "Metro cuadrado (m²) en cerramientos o metro lineal (ml) en barandas" }
+      ],
+      "usos": ["Cerramiento de balcones en departamentos", "Terrazas cubiertas", "Antepechos con privacidad parcial"]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "¿Conviene cerrar el balcón por completo o instalar solo una baranda de vidrio?",
+      "answer": "Depende del uso que desee darle y de las reglas de su edificio. Una baranda abierta mantiene la ventilación natural y suele tener menor exigencia de autorización en fachada, mientras que un cerramiento corredizo protege del viento, el polvo y aporta atenuación acústica estimada según la serie y el vidrio elegido."
+    },
+    {
+      "question": "¿Se puede agregar privacidad en un balcón sin perder luz natural?",
+      "answer": "Sí. Aplicamos vinil arenado mate o vinil escarchado brillante en todo el paño o en franjas horizontales a la altura deseada. Esta solución difumina la vista desde el exterior manteniendo el ingreso de luz natural y puede complementarse con vidrio reflectivo o láminas polarizadas de control solar."
+    },
+    {
+      "question": "¿Qué debo verificar con el edificio antes de cotizar un cerramiento de balcón?",
+      "answer": "Antes de iniciar un cerramiento completo, conviene revisar el reglamento interno de copropiedad o consultar con la junta de propietarios sobre el color de aluminio, el tono del vidrio y si se permiten hojas corredizas en fachada. Con esa confirmación, medidas aproximadas y fotos del balcón preparamos su cotización."
+    }
+  ],
+  "notasInternas": [
+    "Fuentes: matriz-hechos.md H-001, H-007 a H-010, H-012, H-017, H-097, H-100 a H-103, H-133, H-134, H-138.",
+    "H-102: No existe sistema exclusivo llamado 'balcón'; se resuelve combinando perfilería de ventana/mampara o baranda.",
+    "[POR CONFIRMAR]: Precio referencial por m² / ml y plazo de entrega.",
+    "[POR CONFIRMAR]: Alcance de garantía por filtración en cerramientos de balcón expuestos a lluvia directa."
+  ]
+}
