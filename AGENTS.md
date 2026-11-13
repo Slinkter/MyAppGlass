@@ -1,137 +1,195 @@
-# AGENTS.md - MyAppGlass (Glass & Aluminum Company S.A.C.)
+# AGENTS.md — MyAppGlass (Glass & Aluminum Company S.A.C.)
 
-> Guía de contexto obligatoria para Agentes de IA. Contiene reglas de negocio, flujos de trabajo y comandos que un agente probablemente omitiría sin esta referencia.
+> Contexto obligatorio para agentes. Recoge lo que no se deduce leyendo un archivo suelto: orden
+> real de los gates, fronteras FSD, trampas del export estático y reglas de negocio del dueño.
 
 ---
 
-## 1. Comandos Esenciales y Flujo de Trabajo
+## 1. Comandos (siempre desde la raíz, siempre `pnpm`)
 
-**Package Manager:** Usar exclusivamente `pnpm`. Monorepo pnpm workspace: ejecutar **siempre desde la raíz** del repo (`apps/*` y `packages/*`).
+Monorepo pnpm (`apps/*`, `packages/*`). No usar npm/yarn en la raíz.
 
-| Comando                     | Acción                                                                                                                                                   |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm run dev`              | Inicia servidor Next.js (`@gya/web`, Port: 3000)                                                                                                         |
-| `pnpm run typecheck`        | Typecheck de todos los paquetes (`pnpm -r --if-present typecheck`; web: `tsc --noEmit -p tsconfig.build.json`) **(SIEMPRE ejecutar para validar tipos)** |
-| `pnpm run lint`             | ESLint de `apps/web/src/`                                                                                                                                |
-| `pnpm run build`            | Compila `@gya/web` para **exportación estática** (`next build` → `apps/web/out/`)                                                                        |
-| `pnpm run deploy:hosting`   | Ejecuta `build` + despliega `apps/web/out/` a Firebase Hosting                                                                                           |
-| `pnpm run deploy:functions` | Despliega Firebase Functions v2 (`apps/functions`)                                                                                                       |
-| `pnpm run test`             | Vitest (watch mode, `@gya/web`)                                                                                                                          |
-| `pnpm run test:run`         | Vitest (single run, `@gya/web`)                                                                                                                          |
-| `pnpm run test:functions`   | Pruebas de `@gya/functions`                                                                                                                              |
+| Comando                     | Acción                                                                        |
+| --------------------------- | ----------------------------------------------------------------------------- |
+| `pnpm run dev`              | Next.js en `0.0.0.0:3000` (`@gya/web`)                                        |
+| `pnpm run build`            | Export estático → `apps/web/out/` (`next build --webpack`)                     |
+| `pnpm run typecheck`        | `pnpm -r --if-present` (web: `tsc --noEmit -p tsconfig.build.json`)            |
+| `pnpm run lint`             | ESLint **solo de `apps/web/src/`**                                            |
+| `pnpm run test` / `test:run`| Vitest watch / una pasada (jsdom, specs en `apps/web/tests`)                   |
+| `pnpm run test:functions`   | `node --test` de `apps/functions/test`                                         |
+| `pnpm run contract:generate`| Regenera `docs/api/openapi.json` desde los schemas Zod de functions            |
+| `pnpm run deploy:hosting`   | `build` + `firebase deploy --only hosting`                                     |
+| `pnpm run deploy:functions` | `firebase deploy --only functions`                                             |
 
-**⚠️ Token-saving rule:** NO ejecutar `pnpm run test:run` a menos que el usuario lo pida. Siempre validar con `pnpm run typecheck` y `pnpm run build`.
+**Gotchas que cuestan tiempo:**
 
-**Required commit order:**
+- **En un clon limpio, `build` va antes de `typecheck`.** `next-env.d.ts` está en `.gitignore` pero
+  figura en el `include` de `tsconfig.json`; sin él `tsc` falla con los tipos de `*.svg`. CI hace
+  exactamente `build` → `typecheck` por esto.
+- **`pnpm run lint` no cubre `apps/functions`.** Ahí el lint es ESLint 8 con `eslint-config-google`
+  y `ESLINT_USE_FLAT_CONFIG=false`; no hay script raíz que lo ejecute.
+- **No correr `test:run` salvo que el usuario lo pida.** La validación habitual es
+  `typecheck && lint && build` (ahorra tokens; CI ya corre los tests).
+- **E2E:** requiere `pnpm run build` previo; Playwright sirve `apps/web/out` en el puerto **3100**.
+  Tres specs (`cotizador-simulacion`, `generate-4sashes-pdf`, `generate-carolina-pdf`) escriben PDFs
+  y capturas en `docs/presupuestos_generados/`.
+- **Contrato:** `apps/functions/test/openapi.test.js` falla si `docs/api/openapi.json` no coincide con
+  los schemas. Si tocas un schema, corre `pnpm run contract:generate` y actualiza
+  `packages/shared/src/schemas/`.
+- **Reglas Firestore:** `node tests/rules/firestore.rules.test.mjs` necesita el emulador en `:8081`.
+- **Emuladores:** `firebase emulators:start --only auth,firestore,storage --project gya-app-4c8a9`
+  y, en otra terminal, `NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev`.
+
+**Orden antes de commit / deploy:**
 
 ```bash
-pnpm run typecheck && pnpm run build
+pnpm run typecheck && pnpm run lint && pnpm run build
 git commit -m "feat(modulo): descripción clara"
-pnpm run deploy:hosting
+pnpm run deploy:hosting   # solo si el usuario lo pide
+```
+
+**Prueba individual** (no correr toda la suite):
+
+```bash
+pnpm --filter @gya/web exec vitest run tests/unit/window-rules.test.ts
+pnpm --filter @gya/web exec vitest run -t "nombre del caso"
+pnpm --filter @gya/web exec playwright test tests/e2e/navegacion.spec.ts
+cd apps/functions && node --test test/<archivo>.test.js
 ```
 
 ---
 
-## 2. Arquitectura (Feature-Sliced Design)
+## 2. Arquitectura
 
 ```
-apps/
-├── web/                      # @gya/web (Next.js export estático → apps/web/out/)
-│   └── src/
-│       ├── app/              # Next.js App Router - wrappers ligeros (page.tsx, layout.tsx)
-│       ├── screens/          # Vistas compuestas por página (Home, Services, Projects, Admin, Tienda, Presupuesto, etc.)
-│       ├── widgets/          # Componentes globales: Navbar, Footer, FloatingActions, AdminNav
-│       ├── features/         # Dominios de negocio: services/, home/, projects/, blog/, admin/, tienda/, etc.
-│       ├── shared/           # Capa base: ui/ (primitivas Chakra v3), api/firebase, components, hooks, constants, theme
-├── functions/                # @gya/functions: Firebase Functions v2 (Node.js 22 - CONGELADO; migrado desde Node.js 20 el 2026-10-29 por retiro del runtime)
-packages/
-└── shared/                   # @gya/shared: companyData, SITE_URL, CompanyInfo (importar desde @gya/shared; en web, `@/shared/config/company-data` reexporta)
+apps/web/          @gya/web — Next.js 16, export estático
+  src/   app > screens > widgets > features > entities > shared
+apps/functions/    @gya/functions — Firebase Functions v2, Node.js 22 (CommonJS)
+packages/shared/   @gya/shared — companyData, SITE_URL, schemas del contrato
+packages/eslint-config/  @gya/eslint-config — base del lint
 ```
 
-**Archivos clave:**
+- **`src/app` es solo enrutado:** cada `page.tsx` renderiza una pantalla de `src/screens`. La lógica
+  nunca va en `app`.
+- **`entities/` existe** (la capa que más se olvida): `client`, `order`, `product`, `project`, `quote`,
+  `service`, `store`, `supplier`, `system`, `window`. Ahí va el dominio compartido entre features.
+- **`src/app` incluye rutas de laboratorio** (`/design-system`, `/design-system-2`, `/navbarmobil-1…4`);
+  `/design-system` es donde se valida el design system. No borres ese directorio sin pedido.
 
-- `apps/web/src/features/services/components/ServicePageLayout.tsx` — Layout maestro página de servicio
-- `apps/web/src/shared/utils/seo-utils.ts` — Motor central de Metadata (`buildPageMetadata`, `cleanSeoTitle`, `resolveSeoImageUrl`) y generadores Schema.org JSON-LD (`getCompanyJsonLd` con `SiteNavigationElement` `#sitelinks`, `Service`, `CreativeWork`, `WebApplication`, `BreadcrumbList`, `FAQPage`, `serializeJsonLd`)
-- `apps/web/src/app/sitemap.ts` y `apps/web/src/app/robots.ts` — Sitemap dinámico con Image Sitemap (escapando entidades XML en URLs de Firebase Storage) y reglas de rastreo (Googlebot + bots IA)
-- `apps/web/src/shared/lib/analytics.ts` y `apps/web/src/shared/components/Analytics/GoogleMetricsProvider.tsx` — Telemetría GA4 (`G-TY0NJP1S81`) y GTM opcional (`NEXT_PUBLIC_GTM_ID`)
-- `docs/14_PLAN_ESTRATEGICO_SEO_Y_METRICAS.md` — Plan maestro SEO, arquitectura de Sitelinks y guía de contexto para auditoría cruzada entre modelos de IA
-  > Nota: `VentanaConfigurador3DCard.tsx`, `ventanas-catalogo.json` y `three` eliminados en `2ca4f3e`; el simulador vigente es `/simulador-ai`. Reglas de negocio vigentes: 6 sistemas, tipos y colores (sección 3).
+**Archivos que explican el sistema:**
 
----
-
-## 3. Reglas de Negocio Inmutables
-
-**Identidad:**
-
-- Razón Social: `"GLASS & ALUMINUM COMPANY S.A.C."` → usar `companyData` de `@/shared/config/company-data`
-- Datos vigentes: dirección **Av. Los Fresnos 1250 - La Molina**, WhatsApp **974 278 303**, correo **acueva@gyacompany.com**. La Ficha RUC de SUNAT (2022) está desactualizada: no usarla como fuente de dirección, teléfonos ni correo.
-
-**Negocio decidido por el dueño (2026-11-09, `docs/marca/MANUAL-DE-MARCA.md`):**
-
-- Nombre completo siempre: "Glass & Aluminum Company S.A.C."; sin nombre corto.
-- Trato de **usted** al cliente.
-- Empresa fundada en 2021. Equipo: 4 personas (1 vendedor, 2 técnicos, 1 contador).
-- Ofrece boleta o factura; tiene taller grande y un show room pequeño para ver productos.
-- Zona de atención con proyectos: **La Molina, Surco, San Borja, San Isidro y Miraflores**. Fuera de esa zona, los precios aplican solo a casos cercanos; no se aceptan proyectos en otros distritos.
-- Redes: Facebook e Instagram sin contenido desde 2023; TikTok creado, sin contenido. Tiene ficha de Google Maps.
-- Manual de marca **v1.0 cerrado**: `docs/marca/MANUAL-DE-MARCA.md` (versión legible: `docs/marca/MANUAL-DE-MARCA.html`). El dueño eligió un solo rojo: coral `#FF5A5F` como único acento (logo, una palabra de un título y "PRESUPUESTO" impreso), solo en texto grande por contraste. `apps/web/DESIGN.md` y `/design-system` ya usan `brand.coral`; `#D62828`, `#FF5A5A`, `brand.quoteRed`, `brand.logoCoral` y `brand.red` están retirados. Las páginas siguen congeladas hasta aprobar cada lote.
-
-**Ortografía (siempre en español):**
-
-- `"antirruido"` (doble 'r', NO 'antiruido')
-- `"vidrio y aluminio"` (en singular)
-
-**Catálogo Oficial de Ventanas:**
-
-- Solo existen 6 sistemas: `Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`, `Acústica` y `PVC abatible` (los dos últimos se incorporaron el 2026-11-08 por decisión del dueño; sus precios y % antirruido están por confirmar)
-- Desde el 2026-11-13 el catálogo de sistemas por servicio vive en Firestore (colección `sistemas`, entidad `entities/system`). Se arma con los catálogos de los proveedores y cada sistema entra como **borrador**; solo cuenta como oficial el que el dueño publica en `/admin/sistemas` (`estado = 'publicado'`). Los 6 de arriba siguen siendo los únicos del cotizador hasta que el dueño publique otros y confirme sus precios.
-- NO inventar series: un sistema nuevo solo se agrega si aparece en un catálogo de proveedor, con su fuente (`docs/claude/specs/dashboard-proveedores/sistemas-*.md`).
-- Tipos de ventana: `Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`
-- Tipos de vidrio (3): `Crudo`, `Laminado`, `Templado` (sin sufijo de grosor)
-- Colores de vidrio: `Incoloro`, `Bronce`, `Gris`
-- Colores de aluminio: `Negro`, `Mate`, `Blanco`, `Madera`, `Champagne`
-- Adicionales: `Arenado`, `Diseño según cliente`
-
-**Simulador 3D (histórico, pendiente de re-implementación):**
-
-- El simulador vigente es `/simulador-ai`; el visor 3D anterior fue eliminado (`2ca4f3e`) y no debe reactivarse sin pedido explícito
-- NO es cotizador individual de precios — es simulador visual de características técnicas
-- Proporción: **65%** Visor 3D (izq) / **35%** Panel de configuración (der)
-- Altura estándar desktop: **`460px`**
+- `apps/web/src/features/services/components/ServicePageLayout.tsx` — layout maestro de página de servicio.
+- `apps/web/src/shared/utils/seo-utils.ts` — Metadata (`buildPageMetadata`) y JSON-LD (`getCompanyJsonLd`,
+  `Service`, `BreadcrumbList`, `FAQPage`, `serializeJsonLd`).
+- `apps/web/src/app/sitemap.ts` y `robots.ts` — sitemap con image sitemap (escapa entidades XML de
+  Firebase Storage) y reglas para Googlebot + bots de IA.
+- `apps/web/src/shared/providers/theme/index.ts` — tokens del tema.
+- `apps/web/src/entities/quote/` — motor del cotizador (ver §4).
 
 ---
 
-## 4. Convenciones de Código
+## 3. Reglas de negocio (decididas por el dueño)
 
-- **Static Export:** El proyecto usa `output: 'export'`. Rutas dinámicas requieren `generateStaticParams`.
-- **UI y design system:** marca, tokens, botones, responsive, transiciones, tarjetas con foto y estados están en **`apps/web/DESIGN.md`** (§3 reglas de UI). Resumen mínimo: componentes de `@/shared/ui` con `variant` del tema (sin `colorPalette` ni `bg`/`_hover` a mano), tokens de Chakra v3 (sin hex, `rgba` ni `px` sueltos), targets táctiles ≥ 44 px, `dvh` en lugar de `100vh`, máximo 2 propiedades en `transition`.
-- **Fronteras FSD:** las aplica ESLint (`apps/web/eslint.config.js`, regla `no-restricted-imports`) con el orden `app > screens > widgets > features > shared`. `shared` no puede importar capas superiores, `features` no puede importar `widgets/screens/app`, una pantalla no puede importar otra pantalla. `pnpm run lint` falla si se rompe.
-- **Logger:** Usar `@/shared/utils/logger.ts`. NO usar `console.log` en producción.
+**Identidad y contacto** — fuente única: `companyData` de `@/shared/config/company-data` (reexporta
+`@gya/shared`). Razón social literal: `"GLASS & ALUMINUM COMPANY S.A.C."`. Dirección
+**Av. Los Fresnos 1250 - La Molina**; WhatsApp **974 278 303**; correo **acueva@gyacompany.com**.
+La Ficha RUC de SUNAT (2022) está desactualizada: no la uses como fuente.
+
+- Nombre completo siempre; sin nombre corto.
+- Trato de **usted** al cliente. Fundada en 2021; 4 personas. Emite boleta o factura.
+- Zona con proyectos: **La Molina, Surco, San Borja, San Isidro y Miraflores**. Fuera de ahí solo casos
+  cercanos; no se aceptan proyectos en otros distritos.
+- La empresa **no fabrica** perfiles ni vidrio: compra a proveedores y ensambla/instala. El cliente no
+  ve proveedores, sus fotos ni sus planos.
+
+**Marca (v1.0 cerrada)** — `docs/marca/MANUAL-DE-MARCA.md`, `apps/web/DESIGN.md`:
+
+- Un solo acento: coral `#FF5A5F` (`brand.coral`), solo en texto grande por contraste.
+- Retirados: `#D62828`, `#FF5A5A`, `brand.quoteRed`, `brand.logoCoral`, `brand.red`.
+- Manual → componentes de `/design-system` → páginas. Antes de cambiar el diseño de páginas públicas,
+  confirma con el dueño.
+
+**Ortografía:** `"antirruido"` (doble r) y `"vidrio y aluminio"` (singular).
+
+**Catálogo del cotizador** (la implementación manda):
+
+- `SystemType` en `entities/window/model` tiene **9 valores**: `ventana_nova`, `ventana_serie20`,
+  `mampara_serie25`, `ventana_serie35`, `mampara_serie62`, `ducha_cristal`, `techo_policarbonato`,
+  `ventana_acustica`, `ventana_pvc_abatible`.
+- `ventana_acustica` y `ventana_pvc_abatible` llevan `pricePending: true` → la UI muestra
+  "Precio a definir". No inventes su precio ni su % antirruido.
+- Agregar un sistema exige tocar **a la vez** `SystemType` y `QUOTE_PRICING.systems`
+  (`entities/quote/config/pricing.ts`); el `satisfies Record<SystemType, …>` rompe el typecheck si falta uno.
+- Solo se agrega un sistema si aparece en un catálogo de proveedor y queda **borrador** hasta que el
+  dueño lo publique en `/admin/sistemas` (`estado = 'publicado'`). Fuente:
+  `docs/claude/specs/dashboard-proveedores/sistemas-*.md`.
+- Tipos de ventana: `Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`.
+- Vidrio: `Crudo`, `Laminado`, `Templado` (sin grosor en el nombre). Colores de vidrio: `Incoloro`,
+  `Bronce`, `Gris`. Aluminio: `Negro`, `Mate`, `Blanco`, `Madera`, `Champagne`. Adicionales: `Arenado`,
+  `Diseño según cliente`.
+- **Si falta un dato (precio, plazo, garantía, medida, serie), deja un marcador visible y pregunta.**
+  Prioridad de datos: proveedores > datos locales > suposiciones.
+
+**Simulador:** el vigente es `/simulador-ai` (100% local, sin IA ni APIs externas). El visor 3D anterior
+se eliminó en `2ca4f3e`; no lo reactives sin pedido explícito. No es cotizador individual de precios.
 
 ---
 
-## 5. Backend (Firebase Functions)
+## 4. Convenciones de código
 
-<!-- **⚠️ CÓDIGO CONGELAD:O** NO modificar `apps/functions/`, `firestore.rules` ni `firebase.json` a menos que sea explícitamente solicitado. -->
-
-**⚠️ Despliegue de functions:** `apps/functions/.env` (local) repite los 3 secretos que las funciones leen de Secret Manager y hace fallar `firebase deploy` ("Secret environment variable overlaps non secret environment variable"). Apártalo durante el despliegue y restáuralo después (o renómbralo a `.env.local`). Detalle en `apps/functions/README.md` sección 9. Desplegar solo cuando el usuario lo pida: primero `functions`, luego `hosting`.
-
-**Contrato frontend ↔ backend:** el backend manda. Los campos y límites de `submitReclamo`/`submitContacto`/`checkStatus` están en `docs/api/openapi.json`, generado con `pnpm run contract:generate` desde los schemas Zod de `apps/functions/src/schemas/`. Si cambias un campo, sigue `docs/api/README.md` (regenerar, actualizar `packages/shared/src/schemas/reclamation-schema.ts` y pasar los tests de contrato).
+- **Export estático:** `output: 'export'`. Nada de route handlers, server actions, SSR ni
+  `force-dynamic`. Rutas dinámicas vía `generateStaticParams` (`/servicios/[serviceSlug]`,
+  `/proyectos/[projectId]`, `/vidrieria/[distrito]`, `/blog/[slug]`); lo publicado después del build se
+  cubre con `/servicios/ver?slug=` y `/proyectos/ver?id=`. Imágenes por loader propio
+  (`shared/utils/imageLoader.ts`).
+- **Fronteras FSD las aplica ESLint** (`apps/web/eslint.config.js`, `no-restricted-imports`): una capa
+  solo importa hacia abajo; `shared` no importa capas superiores; una feature no importa otra feature;
+  una pantalla no importa otra pantalla. **Solo detecta alias** (`@/features/...`): usa siempre el alias
+  y nunca rutas relativas que crucen capas, porque el lint no las ve.
+- **UI:** primitivas en `@/shared/ui` (no existe `src/components/`). Usa `variant` del tema; nada de
+  `colorPalette` ni `bg`/`_hover` a mano; tokens de Chakra v3 (sin hex, `rgba` ni `px` sueltos); targets
+  táctiles ≥ 44 px; `dvh` en vez de `100vh`; máximo 2 propiedades en `transition`. Detalle:
+  `apps/web/DESIGN.md` §3.
+- **Logger:** `@/shared/utils/logger.ts`; nunca `console.log` en producción.
+- **Datos:** servicios, proyectos, tienda, pedidos y presupuestos se leen/escriben en Firestore desde el
+  cliente (`shared/api`, repositorios en `entities/*/api`). `/admin` está protegido con `AdminRouteGuard`.
+- **Cotizador, en tres capas:** motor y precios en `entities/quote` (`lib/windowRules.ts`,
+  `lib/quoteCalculator.ts`, `config/pricing.ts`, `ui/QuoteSheet.tsx`); formulario y carrito en
+  `features/presupuesto`; flujo en `screens/Presupuesto/PresupuestoWizardScreen.tsx`. El PDF sale de
+  `window.print()`, no de una librería. El número se reserva en `contadores/{año}` y se guarda en
+  `presupuestos_solicitados/{número}` dentro de una transacción.
+- **Next.js 16:** no asumas APIs de tu entrenamiento. Antes de escribir código de framework, lee
+  `apps/web/node_modules/next/dist/docs/`. `apps/web/AGENTS.md` lo escribe y reescribe `next dev`; no lo
+  borres.
 
 ---
 
-## 6. Organización de la raíz
+## 5. Backend (Firebase Functions) — tocar solo si se pide
 
-- **No saturar la raíz del repo.** En la raíz solo van `AGENTS.md`, `README.md` y `CHANGELOG.md` (el historial real está en `docs/05_CHANGELOG.md`).
-- Los demás `.md`, planes y documentos de trabajo van en `docs/` (o una subcarpeta).
-- **Excepción:** archivos que las herramientas leen desde la raíz no se mueven sin confirmar: `firebase.json`, `firestore.rules`, `storage.rules` y `.firebaserc` (Firebase CLI; `firebase.json` referencia las reglas con rutas relativas a la raíz), `.mcp.json` (MCP), `package.json`, `pnpm-workspace.yaml` y configs de Next/TS. Si un movimiento puede romper un comando, avisar antes.
+- Solo tres endpoints HTTP: `submitReclamo`, `submitContacto` y `checkStatus`; cada uno pasa por
+  `src/guards/withGuards.js` (método, IP, rate limit) más anti-bot y captcha. Correo con Resend.
+- Las functions **mandan** en el contrato; la web se adapta. Detalle en `docs/api/README.md`.
+- **Despliegue:** un archivo `apps/functions/.env` con `RESEND_API_KEY`, `ADMIN_EMAIL` o
+  `RECAPTCHA_SECRET_KEY` choca con los secretos de Secret Manager y rompe `firebase deploy`
+  ("Secret environment variable overlaps non secret environment variable"). El repo ya usa
+  `.env.local` (solo emuladores), así que no crees un `.env` ahí. Desplegar solo cuando se pida:
+  primero functions, luego hosting. Ver `apps/functions/README.md` §9.
 
-<!-- BEGIN:nextjs-agent-rules -->
+---
 
-# This is NOT the Next.js you know
+## 6. Organización del repo
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+- **No saturar la raíz.** En la raíz solo `AGENTS.md`, `README.md`, `CHANGELOG.md` y `claude.md`.
+  Planes y notas van en `docs/` (`docs/claude/` para specs y planes; el historial real está en
+  `docs/05_CHANGELOG.md`, lo abierto en `docs/PENDIENTES.md`).
+- No muevas sin confirmar: `firebase.json`, `firestore.rules`, `storage.rules`, `.firebaserc`,
+  `.mcp.json`, `package.json`, `pnpm-workspace.yaml` y configs de Next/TS (las herramientas los leen
+  desde la raíz).
+- `scripts/*.mjs` son utilidades de mantenimiento (auditorías, migración a Firebase, optimización de
+  fotos, sync de proveedores). No las ejecutes contra producción sin pedido.
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+## 7. Dónde mirar
 
-<!-- END:nextjs-agent-rules -->
+`docs/01_ARCHITECTURE.md` (capas y módulos) · `apps/web/PRODUCT.md` y `apps/web/DESIGN.md` ·
+`docs/marca/MANUAL-DE-MARCA.md` · `docs/PENDIENTES.md` y `docs/05_CHANGELOG.md` ·
+`docs/claude/` (specs/planes) · `docs/api/` (contrato) · `apps/functions/README.md` (operación).
