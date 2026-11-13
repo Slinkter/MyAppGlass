@@ -24,7 +24,7 @@
 - [x] **1.3** `entities/supplier`: `model/index.ts`, `api/supplierProductsRepository.ts`, `api/useSupplierProducts.ts` (patrón: `entities/product/api/useRealtimeProducts.ts`). Desbloquea la Fase 3. Archivo principal: `apps/web/src/entities/supplier/model/index.ts`. Agente: general-purpose. Modelo: Haiku.
 - [x] **1.4** Reglas de Firestore y Storage: `proveedores_productos`, `sistemas`, `pedidos_proveedor` y `proveedores/**` solo `isAdmin()`; casos nuevos en `tests/rules/firestore.rules.test.mjs`. Archivo principal: `firestore.rules`. Agente: general-purpose. Modelo: Sonnet.
 - [x] **1.5** Retirar `apps/web/src/shared/data/proveedores/` (sin uso); mover `catalogo-proveedores-servicios.ts` a `docs/gemini/data/`. Archivo principal: `apps/web/src/shared/data/proveedores/`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **1.6** Gates con `qa-gates` y correr el script contra el emulador (435 documentos). Sin archivo principal (gate). Agente: qa-gates. Modelo: Haiku.
+- [x] **1.6** Gates con `qa-gates` y correr el script contra el emulador (435 documentos). Sin archivo principal (gate). Agente: qa-gates. Modelo: Haiku.
 - [x] **Commit de control:** `feat(proveedores): sincronizar catálogo de la API a Firestore con acceso solo admin`
 
 ## Fase 2. Estudio de catálogos y sistemas en borrador (en paralelo con la Fase 1)
@@ -70,7 +70,7 @@ Las páginas públicas y el cotizador no cambian en este plan.
 
 ## Pendiente al cierre del 2026-11-13
 
-- **1.6** Correr `node scripts/sync-proveedores.mjs` y `node tests/rules/firestore.rules.test.mjs` con los emuladores encendidos (requiere Java).
+- **1.6** Hecho el 2026-11-13 en el emulador: 435 productos y 360 fotos sincronizados; reglas 45 de 46 (la que falla, "contador read anon", ya fallaba antes de este trabajo). Flujo de pedido y carga de 52 sistemas probados en el navegador a 1280 px.
 - **2.6** Revisar los textos de los 52 sistemas con `copy-vidrieria`.
 - **4.3** Revisión a 360 px con `espaciado-360` y prueba en navegador de `/admin/pedidos` y `/admin/sistemas`.
 - Aplicar las respuestas del dueño en `entrevista.md` y las dudas de los tres estudios `sistemas-*.md`.

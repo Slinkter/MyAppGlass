@@ -55,7 +55,8 @@ export const PurchaseSummaryCard: React.FC<PurchaseSummaryCardProps> = ({
           Resumen del pedido
         </Heading>
         <Text fontSize="xs" color="text.muted">
-          {lines.length} productos de {groups.length} proveedores
+          {lines.length} {lines.length === 1 ? "producto" : "productos"} de {groups.length}{" "}
+          {groups.length === 1 ? "proveedor" : "proveedores"}
         </Text>
       </VStack>
 
@@ -75,12 +76,12 @@ export const PurchaseSummaryCard: React.FC<PurchaseSummaryCardProps> = ({
 
               <VStack align="stretch" gap="2">
                 {group.lineas.map((line) => (
-                  <HStack key={line.productId} gap="3" p="2" borderRadius="lg" bg="surface.card" border="1px solid" borderColor="border.default" align="center">
+                  <HStack key={line.productId} gap="3" p="2" borderRadius="lg" bg="surface.card" border="1px solid" borderColor="border.default" align="center" wrap="wrap" justify="flex-end">
                     <Box w="10" h="10" flexShrink={0} borderRadius="md" overflow="hidden">
                       <SupplierProductImage path={line.imagenPath} alt={line.descripcion} size="10" />
                     </Box>
 
-                    <VStack align="start" gap="0" flex="1" minW="0">
+                    <VStack align="start" gap="0" flex="1" minW="36">
                       <Text fontSize="xs" fontWeight="bold" color="text.heading">
                         {line.cod}
                       </Text>

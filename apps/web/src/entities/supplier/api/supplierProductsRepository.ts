@@ -17,6 +17,7 @@ function mapDocToSupplierProduct(id: string, data: Record<string, unknown>): Sup
     categoria: typeof data.categoria === "string" ? data.categoria : null,
     precio: typeof data.precio === "number" ? data.precio : null,
     imagenApi: typeof data.imagenApi === "string" ? data.imagenApi : null,
+    imagenPath: typeof data.imagenPath === "string" ? data.imagenPath : null,
     imagenUrl: typeof data.imagenUrl === "string" ? data.imagenUrl : null,
     url: typeof data.url === "string" ? data.url : null,
     activo: data.activo === true,

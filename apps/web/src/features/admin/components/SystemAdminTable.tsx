@@ -1,5 +1,6 @@
 "use client";
 
+import { SUPPLIER_LABELS } from "@/entities/supplier";
 import React from "react";
 import { Box, HStack, Stack, Text, VStack } from "@chakra-ui/react";
 import { Button } from "@/shared/ui/button";
@@ -25,7 +26,7 @@ const HEADER_CELL = {
 
 /** Etiqueta de alias por proveedor: "Proveedor: denominación". */
 const aliasLabel = (proveedor: string, denominacion: string): string =>
-  `${proveedor}: ${denominacion}`;
+  `${(SUPPLIER_LABELS as Record<string, string>)[proveedor] ?? proveedor}: ${denominacion}`;
 
 const StatusBadge: React.FC<{ publicado: boolean }> = ({ publicado }) =>
   publicado ? (
