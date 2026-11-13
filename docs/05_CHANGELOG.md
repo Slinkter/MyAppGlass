@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-13] - Catálogo de 13 servicios, fichas técnicas y blog en Firestore
+
+Rama `feat/catalogo-13-servicios` (Fases 0–4). Sin deploy.
+
+### Added
+- Reglas de contenido editorial y 4 perfiles de agente para redacción técnica, verificación de marca y QA.
+- 13 placeholders de servicio y matriz técnica de 145 hechos verificados.
+- 13 fichas técnicas JSON auditadas en `docs/contenido/servicios/*.json` y revisión consolidada en `docs/contenido/servicios/REVISION.md`.
+- `scripts/apply-service-catalog.mjs`: aplica el catálogo de 13 servicios en Firestore (emulador por defecto; `--apply --prod` explícito).
+- Editores `SpecsEditor`, `SystemSheetsEditor` y `FaqsEditor` en `/admin/servicios`, más `ServiceSpecsSection` en las páginas públicas de servicio.
+- Blog en Firestore: panel `/admin/blog` con sanitización, ruta `/blog/ver` para posts publicados tras el build, 6 artículos nuevos + 1 reescrito y `scripts/migrate-blog-to-firestore.mjs`.
+
+### Changed
+- Ampliación de `ServiceSchema` y `approvedNewServices.ts` para las 13 fichas técnicas (`specs`, `features`, `benefits`, `systemSheets`, `faqs`).
+- `ServiceFormModal`: fix para conservar `gallery[].system` al guardar servicios.
+- Home (`/#servicios`) y Navbar actualizados con las 13 tarjetas de servicio.
+- Limpieza de `"antirruido"` en sistemas de aluminio (aclarado como exclusivo de PVC).
+
+### Notes
+- Pendiente de ejecución/autorización: responder `[POR CONFIRMAR]` en `docs/contenido/servicios/REVISION.md`, agregar `blogPosts` en `firestore.rules`, correr `--apply --prod` de ambos scripts con rebuild para `sitemap.xml`, subir fotos reales de los 3 servicios nuevos y verificar en navegador / 360 px.
+
 ## [2026-11-13] - Panel admin: catálogo de proveedores, sistemas en borrador y pedido de compra
 
 Rama `feat/dashboard-proveedores`, un commit de control por fase (`d2487419`, `59a40cff`, `cdcf2a69`, `ddc8303d` y el de cierre). Sin deploy.

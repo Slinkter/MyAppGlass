@@ -11,7 +11,16 @@
 
 ## PARTE 1: Trabajo técnico (Claude)
 
-Última revisión: 2026-11-11, rama `feat/cotizador-pantalla`.
+Última revisión: 2026-11-13, rama `feat/catalogo-13-servicios`.
+
+### Bloque en curso: catálogo de 13 servicios y blog en Firestore (2026-11-13)
+
+- Rama `feat/catalogo-13-servicios` (Fases 0–4 completadas). Pendiente antes de publicar:
+  - Responder los `[POR CONFIRMAR]` consolidados en `docs/contenido/servicios/REVISION.md` (precios de espejos, frenos hidráulicos y mantenimiento, plazos de entrega, garantías escritas, etc.).
+  - Agregar la colección `blogPosts` en `firestore.rules` (lectura pública si `published == true`, escritura `isAdmin()`) antes de desplegar.
+  - Ejecutar `node scripts/apply-service-catalog.mjs --apply --prod` y `node scripts/migrate-blog-to-firestore.mjs --apply --prod` cuando el dueño autorice escribir en producción (y luego hacer rebuild para que los 13 servicios y 16 posts entren al `sitemap.xml`).
+  - Subir fotos reales para `espejos`, `frenos-hidraulicos` y `mantenimiento` (actualmente placeholders) desde `/admin/servicios`.
+  - Ejecutar la verificación visual en navegador / 360 px de la Tarea 5.2 de `docs/claude/specs/catalogo-13-servicios/06-FASE-5-qa-publicacion.md`.
 
 ### Bloque culminado: cotizador de presupuesto (Ventana · Nova) ✅ (2026-11-12)
 
