@@ -18,6 +18,8 @@ export interface ImageUploadZoneProps {
   onChange: (url: string) => void;
   entity: StorageEntity;
   entityId: string;
+  fileName?: string;
+  exactFileName?: boolean;
   label?: string;
   helperText?: string;
   aspectRatio?: string | number;
@@ -30,6 +32,8 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
   onChange,
   entity,
   entityId,
+  fileName,
+  exactFileName = false,
   label = "Imagen de portada",
   helperText = "Arrastra un archivo aquí o haz clic para seleccionar (PNG, JPG, WebP hasta 5MB)",
   aspectRatio = "16/9",
@@ -62,13 +66,14 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({
       setUploadProgress(20);
 
       const targetEntityId = entityId || "temp_" + Date.now();
-      const sanitizedName = `cover_${Date.now()}_${file.name}`;
+      const targetFileName = fileName || `cover_${Date.now()}_${file.name}`;
 
       const res = await uploadFile({
         entity,
         entityId: targetEntityId,
         file,
-        fileName: sanitizedName,
+        fileName: targetFileName,
+        exactFileName,
         contentType: file.type,
       });
 

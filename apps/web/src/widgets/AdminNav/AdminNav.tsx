@@ -18,6 +18,7 @@ import {
   Boxes,
   Truck,
   FileText,
+  BookOpen,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 
@@ -30,6 +31,7 @@ export const AdminNav: React.FC = () => {
     { label: "Servicios", href: "/admin/servicios", icon: Layers },
     { label: "Proyectos", href: "/admin/proyectos", icon: Building2 },
     { label: "Sistemas", href: "/admin/sistemas", icon: Boxes },
+    { label: "Blog", href: "/admin/blog", icon: BookOpen },
     { label: "Inventario", href: "/admin/inventario", icon: Package },
     { label: "Pedidos", href: "/admin/pedidos", icon: Truck },
     { label: "Ventas", href: "/admin/ventas", icon: ShoppingCart },

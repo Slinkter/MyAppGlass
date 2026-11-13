@@ -155,3 +155,47 @@ export type CreateProjectInput = z.infer<typeof CreateProjectSchema>;
 export const UpdateProjectSchema = CreateProjectSchema.partial();
 
 export type UpdateProjectInput = z.infer<typeof UpdateProjectSchema>;
+
+/**
+ * Esquema completo de un Artículo de Blog
+ */
+export const BlogPostSchema = z.object({
+  id: z.string().min(1, "El ID del artículo es obligatorio"),
+  slug: z
+    .string()
+    .min(1, "El slug del artículo es obligatorio")
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "El slug debe usar minúsculas y guiones"),
+  title: z.string().min(1, "El título es obligatorio"),
+  description: z.string().min(1, "La meta descripción es obligatoria"),
+  excerpt: z.string().min(1, "El extracto es obligatorio"),
+  date: z.string().min(1, "La fecha es obligatoria"),
+  author: z.string().min(1, "El autor es obligatorio"),
+  image: z.string().min(1, "La imagen de portada es obligatoria"),
+  content: z.string().min(1, "El contenido es obligatorio"),
+  tags: z.array(z.string()).default([]),
+  published: z.boolean().default(true),
+  createdAt: z.unknown().optional(),
+  updatedAt: z.unknown().optional(),
+});
+
+export type BlogPost = z.infer<typeof BlogPostSchema>;
+
+/**
+ * Esquema para crear un nuevo Artículo de Blog
+ */
+export const CreateBlogPostSchema = BlogPostSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  id: z.string().min(1).optional(),
+});
+
+export type CreateBlogPostInput = z.infer<typeof CreateBlogPostSchema>;
+
+/**
+ * Esquema para actualizar un Artículo de Blog existente
+ */
+export const UpdateBlogPostSchema = CreateBlogPostSchema.partial();
+
+export type UpdateBlogPostInput = z.infer<typeof UpdateBlogPostSchema>;

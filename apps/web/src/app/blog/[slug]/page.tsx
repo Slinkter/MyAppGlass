@@ -1,7 +1,10 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getPosts } from "@/features/blog/services/blogService";
+import { findPostBySlug } from "@/features/blog/services/blogService";
+import { getBuildBlogPosts } from "@/shared/api/firebase/publicRest";
+import type { BlogPost } from "@/shared/api/firebase/types";
+import BLOG_POSTS from "@/features/blog/data/blog-posts";
 import BlogPostView from "@/screens/Blog/ui/BlogPostView";
 import {
   buildPageMetadata,
@@ -16,8 +19,14 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+async function getBuildOrSeedPosts(): Promise<BlogPost[]> {
+  const remotePosts = await getBuildBlogPosts();
+  if (remotePosts.length > 0) return remotePosts;
+  return BLOG_POSTS.map((post) => ({ ...post, published: true }));
+}
+
 export async function generateStaticParams() {
-  const posts = getPosts();
+  const posts = await getBuildOrSeedPosts();
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -29,7 +38,8 @@ export async function generateStaticParams() {
  */
 async function resolvePostData(params: Promise<{ slug: string }>) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const posts = await getBuildOrSeedPosts();
+  const post = findPostBySlug(posts, slug);
   return { slug, post };
 }
 

@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import { Box, Container, Heading, Text, VStack, HStack, Separator, Flex } from "@chakra-ui/react";
 import { Badge } from "@/shared/ui/badge";
-import { BlogPost } from "@/features/blog/data/blog-posts";
+import type { BlogPost } from "@/shared/api/firebase/types";
 import { LucideCalendar, LucideUser, LucideChevronRight, LucideClock, LucideArrowRight } from "lucide-react";
 import Link from "next/link";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";

@@ -1,17 +1,30 @@
 /**
  * @file blogService.ts
- * @description Servicio de datos para el blog de autoridad SEO.
- * Utiliza los datos centralizados de blog-posts.ts.
+ * @description Servicio de dominio para el blog técnico.
+ * Opera sobre colecciones recibidas por parámetro o delega en el repositorio de Firestore.
  */
 
-import BLOG_POSTS, { BlogPost } from "@/features/blog/data/blog-posts";
+import type { BlogPost } from "@/shared/api/firebase/types";
+import {
+  getBlogPostBySlug,
+  getBlogPosts,
+} from "@/features/blog/api/blogRepository";
 
-export const getPosts = (): BlogPost[] => BLOG_POSTS;
+export const sortPostsByDate = (posts: BlogPost[]): BlogPost[] =>
+  [...posts].sort((a, b) => b.date.localeCompare(a.date));
 
-// O(1) Lookup Map para Blog Posts
-const blogPostsBySlugMap = new Map<string, BlogPost>(
-  BLOG_POSTS.map(post => [post.slug, post])
-);
+export const findPostBySlug = (
+  posts: BlogPost[],
+  slug: string
+): BlogPost | undefined => posts.find((post) => post.slug === slug);
 
-export const getPostBySlug = (slug: string): BlogPost | undefined => 
-  blogPostsBySlugMap.get(slug);
+export const getPublishedPosts = async (): Promise<BlogPost[]> =>
+  getBlogPosts({ publishedOnly: true });
+
+export const getPublishedPostBySlug = async (
+  slug: string
+): Promise<BlogPost | null> => {
+  const post = await getBlogPostBySlug(slug);
+  if (!post || !post.published) return null;
+  return post;
+};
