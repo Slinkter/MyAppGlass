@@ -25,15 +25,17 @@ const outlineButton = {
   borderWidth: "1.5px",
   borderColor: "brand.ink",
   color: "brand.ink",
-  _hover: { bg: "blackAlpha.50" },
-  _dark: { borderColor: "white", color: "white", _hover: { bg: "whiteAlpha.100" } },
+  _hover: { bg: "state.hover" },
+  _active: { bg: "state.pressed" },
+  _dark: { borderColor: "white", color: "white", _hover: { bg: "state.hover" }, _active: { bg: "state.pressed" } },
 } as const;
 
 const ghostButton = {
   bg: "transparent",
   color: "text.body",
-  _hover: { bg: "blackAlpha.50" },
-  _dark: { color: "gray.300", _hover: { bg: "whiteAlpha.100", color: "white" } },
+  _hover: { bg: "state.hover" },
+  _active: { bg: "state.pressed" },
+  _dark: { color: "gray.300", _hover: { bg: "state.hover", color: "white" }, _active: { bg: "state.pressed" } },
 } as const;
 
 export const buttonRecipe = defineRecipe({

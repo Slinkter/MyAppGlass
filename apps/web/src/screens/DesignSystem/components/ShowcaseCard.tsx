@@ -8,7 +8,8 @@
  */
 
 import React from "react";
-import { Badge, Box, Card, HStack } from "@chakra-ui/react";
+import { Box, Card, HStack } from "@chakra-ui/react";
+import { Badge } from "@/shared/ui/badge";
 import { Reveal } from "@shared/components/motion/Reveal";
 import { DrawLine } from "./Motion";
 
@@ -26,7 +27,7 @@ export const ShowcaseCard: React.FC<ShowcaseCardProps> = ({
   children,
 }) => (
   <Reveal h="full">
-  <Card.Root variant="outline" p={{ base: "5", md: "8" }} h="full">
+  <Card.Root variant={"flat" as never} p={{ base: "5", md: "8" }} h="full">
     <Card.Header p="0" pb={{ base: "5", md: "6" }}>
       <HStack justify="space-between" align="start" wrap="wrap" gap="3">
         <Box flex={{ base: "1 1 100%", sm: "1" }} minW="0">
@@ -40,7 +41,7 @@ export const ShowcaseCard: React.FC<ShowcaseCardProps> = ({
             </Card.Description>
           )}
         </Box>
-        {badge && <Badge variant={"neutral" as never}>{badge}</Badge>}
+        {badge && <Badge variant={"chip" as never}>{badge}</Badge>}
       </HStack>
     </Card.Header>
     <Card.Body p="0">{children}</Card.Body>

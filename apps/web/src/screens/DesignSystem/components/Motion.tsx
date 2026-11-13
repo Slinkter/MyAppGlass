@@ -12,7 +12,7 @@ import { Box, type BoxProps } from "@chakra-ui/react";
 import { DUR_MS, EASE_SOFT, EASE_TEXT } from "@/shared/constants/motion";
 import { useMotionBudget } from "@/shared/hooks/ui/useMotionBudget";
 
-/** Fundido corto al montar el contenido de una pestaña (solo `opacity`, 150 ms, una vez). */
+/** Fade-Through MD3 al montar el contenido de una pestaña (`opacity` + `translateY`, 200 ms, una vez). */
 export const TabFade: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const level = useMotionBudget();
   const [on, setOn] = React.useState(false);
@@ -26,7 +26,10 @@ export const TabFade: React.FC<{ children: React.ReactNode }> = ({ children }) =
     <Box
       style={{
         opacity: skip || on ? 1 : 0,
-        transition: skip ? undefined : `opacity ${DUR_MS.reducedFade}ms ${EASE_SOFT}`,
+        transform: skip || on ? "translateY(0)" : "translateY(0.375rem)",
+        transition: skip
+          ? undefined
+          : `opacity ${DUR_MS.fast}ms ${EASE_SOFT}, transform ${DUR_MS.fast}ms ${EASE_SOFT}`,
       }}
     >
       {children}

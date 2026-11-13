@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
-import { Badge, Box, Flex, Heading, HStack, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import Gallery from "@/shared/components/common/Gallery";
 import { TOUCH_MIN } from "@/shared/constants/layout";
+import { DUR_CSS, EASE_SOFT } from "@/shared/constants/motion";
 import type { GalleryItem } from "@/shared/types/gallery";
 import { ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel } from "../components";
 
@@ -264,7 +266,7 @@ const MosaicCell: React.FC<MosaicCellProps> = ({ item, ratio, large }) => (
       w="100%"
       h="100%"
       objectFit="cover"
-      transition="transform 0.4s ease"
+      transition={`transform ${DUR_CSS.toggle} ${EASE_SOFT}`}
       _groupHover={{ transform: "scale(1.04)" }}
     />
     <Box

@@ -8,11 +8,11 @@ import {
   Text,
   VStack,
   HStack,
-  Badge,
   Tabs,
 } from "@chakra-ui/react";
 import { MapPin } from "lucide-react";
 import RouterLink from "next/link";
+import { Badge } from "@/shared/ui/badge";
 import { ColorModeButton } from "@/shared/ui/color-mode";
 import { Button } from "@/shared/ui/button";
 import { TabFade } from "./components";
@@ -47,11 +47,11 @@ export const DesignSystemScreen: React.FC = () => {
         <HStack justify="space-between" align="flex-start" wrap="wrap" gap={{ base: "4", md: "6" }} mb={{ base: "6", md: "10" }}>
           <VStack gap={{ base: "3", md: "4" }} align="flex-start" maxW="3xl">
             <HStack wrap="wrap" gap="2">
-              <Badge variant={"inkSolid" as never}>Sistema de diseño</Badge>
-              <Badge variant={"neutral" as never}>
+              <Badge variant={"chipInk" as never}>Sistema de diseño</Badge>
+              <Badge variant={"chip" as never}>
                 Chakra UI v3 · 360 / 768 / 1280
               </Badge>
-              <Badge variant={"neutral" as never}>Manual de marca v1.0</Badge>
+              <Badge variant={"chip" as never}>Manual de marca v1.0</Badge>
             </HStack>
             <Heading as="h1" fontFamily="heading" fontWeight="700" fontSize={{ base: "4xl", md: "6xl" }} lineHeight="display" letterSpacing="display" color="text.heading">
               Sistema de diseño: catálogo de componentes

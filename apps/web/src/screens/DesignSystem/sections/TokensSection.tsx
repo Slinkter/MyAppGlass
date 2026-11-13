@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import {
-  Badge,
   Box,
   Heading,
   Text,
@@ -11,9 +10,12 @@ import {
   SimpleGrid,
   Separator,
   Tabs,
+  Table,
 } from "@chakra-ui/react";
 import { Copy } from "lucide-react";
+import { Badge } from "@/shared/ui/badge";
 import { RESPONSIVE_GRIDS } from "@/shared/constants/layout";
+import { DUR_CSS, EASE_SOFT } from "@/shared/constants/motion";
 import { ShowcaseCard, ShowcaseStack, SubsectionLabel } from "../components";
 
 interface ColorToken {
@@ -132,12 +134,21 @@ const SwatchGrid: React.FC<SwatchGridProps> = ({ items, copiedToken, onCopy }) =
           tabIndex={0}
           aria-label={`Copiar token ${item.token}`}
           minW={0}
+          minH="11"
           p="3"
           borderRadius="card"
           borderWidth="1px"
           borderColor="border.subtle"
           cursor="pointer"
-          transition="border-color 0.2s ease"
+          transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, border-color ${DUR_CSS.fast} ${EASE_SOFT}`}
+          _hover={{ bg: "state.hover", borderColor: "border.warmStrong" }}
+          _active={{ bg: "state.pressed" }}
+          _focusVisible={{
+            outline: "2px solid",
+            outlineColor: "ring.primary",
+            outlineOffset: "2px",
+            bg: "state.focus",
+          }}
           onClick={() => onCopy(item.token)}
           onKeyDown={(e) => onKey(e, item.token)}
         >
@@ -161,7 +172,7 @@ const SwatchGrid: React.FC<SwatchGridProps> = ({ items, copiedToken, onCopy }) =
               {item.label}
             </Text>
             {copiedToken === item.token ? (
-              <Badge variant={"success" as never} size="xs">Copiado</Badge>
+              <Badge variant={"chipSuccess" as never}>Copiado</Badge>
             ) : (
               <Box color="text.muted">
                 <Copy size={12} style={{ flexShrink: 0 }} aria-hidden="true" />
@@ -423,7 +434,7 @@ export const TokensSection: React.FC = () => {
             <SubsectionLabel mb="3">Acabados de aluminio reglamentarios</SubsectionLabel>
             <HStack gap="2" wrap="wrap">
               {["Negro", "Mate", "Blanco", "Madera", "Champagne"].map((color) => (
-                <Badge key={color} variant={"neutral" as never}>
+                <Badge key={color} variant={"chip" as never}>
                   {color}
                 </Badge>
               ))}
@@ -453,6 +464,46 @@ export const TokensSection: React.FC = () => {
             </Text>
           </Tabs.Content>
         </Tabs.Root>
+      </ShowcaseCard>
+
+      {/* 10. Matriz de cumplimiento MD3 + Marca */}
+      <ShowcaseCard
+        title="Matriz de cumplimiento MD3 + Marca"
+        description="Auditoría de los componentes del catálogo frente a Material Design 3 (ergonomía, capas de estado, áreas táctiles >= 44 px, foco y movimiento corto) y apps/web/DESIGN.md."
+        badge="Auditoría MD3"
+      >
+        <Box overflowX="auto">
+          <Table.Root size="sm" variant="outline">
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader>Grupo / Componente</Table.ColumnHeader>
+                <Table.ColumnHeader>Criterios MD3 aplicados</Table.ColumnHeader>
+                <Table.ColumnHeader>Estado</Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {[
+                { name: "Recetas base (Button, Card, Tabs)", criteria: "State layers (8%/10%), foco 2 px, minH 44 px", status: "Refactorizado" },
+                { name: "Tokens y muestras (TokensSection)", criteria: "Swatch interactivo con state layers y tokens de movimiento", status: "Refactorizado" },
+                { name: "Botones y estados (FormStatesSection)", criteria: "Tarjetas demo con Card flatInteractive y DUR_CSS", status: "Refactorizado" },
+                { name: "UX móvil (MobileUxSection)", criteria: "48 px táctil, zona del pulgar, hoja inferior, 200 ms", status: "Cumple" },
+                { name: "Modales, Drawers y Diálogos", criteria: "maxH 90dvh, scrim oficial, cierre Escape/X (>= 44 px)", status: "Cumple" },
+                { name: "Navegación, Galería y Tablas", criteria: "Tokens semánticos, controles >= 44 px, contraste WCAG", status: "Refactorizado" },
+                { name: "Modelos v2 y Transiciones", criteria: "Primitivas @/shared/ui y respeto a useMotionBudget()", status: "Refactorizado" },
+              ].map((row) => (
+                <Table.Row key={row.name}>
+                  <Table.Cell fontWeight="600" color="text.heading">{row.name}</Table.Cell>
+                  <Table.Cell color="text.muted">{row.criteria}</Table.Cell>
+                  <Table.Cell>
+                    <Badge variant={(row.status === "Cumple" ? "chipSuccess" : "chipInfo") as never}>
+                      {row.status}
+                    </Badge>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
+        </Box>
       </ShowcaseCard>
     </ShowcaseStack>
   );

@@ -9,10 +9,14 @@ export const tabsRecipe = defineSlotRecipe({
   base: {
     trigger: {
       minH: "11",
+      transition: `background-color ${DUR_CSS.fast} ${EASE_SOFT}, color ${DUR_CSS.fast} ${EASE_SOFT}`,
+      _hover: { bg: "state.hover" },
+      _active: { bg: "state.pressed" },
       _focusVisible: {
         outline: "2px solid",
         outlineColor: "ring.primary",
         outlineOffset: "-2px",
+        bg: "state.focus",
       },
     },
   },

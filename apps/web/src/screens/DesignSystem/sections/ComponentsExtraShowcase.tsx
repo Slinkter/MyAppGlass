@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Badge, Box, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Box, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ArrowUpRight } from "lucide-react";
+import { Badge } from "@/shared/ui/badge";
 import MediaCard from "@/shared/components/Card/MediaCard";
 import AuraHeader from "@/shared/components/aura/AuraHeader";
 import { CopyButton } from "@/shared/components/CopyButton";

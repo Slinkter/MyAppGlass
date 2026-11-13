@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import {
-  Badge,
   Box,
   HStack,
   SimpleGrid,
@@ -14,8 +13,10 @@ import {
   FileText,
   Check,
 } from "lucide-react";
+import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { companyData } from "@/shared/config/company-data";
+import { DUR_CSS, EASE_SOFT } from "@/shared/constants/motion";
 import {
   ShowcaseCard,
   ShowcasePanel,
@@ -336,6 +337,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                     return (
                       <Box
                         as="button"
+                        aria-pressed={isSelected}
                         key={system.name}
                         onClick={() => setSelectedSystemName(system.name)}
                         minH="11"
@@ -354,7 +356,10 @@ export const BrandModulesV2Showcase: React.FC = () => {
                         gap="2"
                         flexShrink={0}
                         cursor="pointer"
-                        transition="background-color 0.2s ease, border-color 0.2s ease"
+                        transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, border-color ${DUR_CSS.fast} ${EASE_SOFT}`}
+                        _hover={isSelected ? undefined : { bg: "state.hover" }}
+                        _active={isSelected ? undefined : { bg: "state.pressed" }}
+                        _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
                       >
                         <Layers size={14} style={{ flexShrink: 0 }} />
                         {system.name}
@@ -459,6 +464,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                           return (
                             <Box
                               as="button"
+                              aria-pressed={isSelected}
                               key={glass.name}
                               onClick={() => setSelectedGlassName(glass.name)}
                               minH="11"
@@ -476,7 +482,10 @@ export const BrandModulesV2Showcase: React.FC = () => {
                               alignItems="center"
                               flexShrink={0}
                               cursor="pointer"
-                              transition="background-color 0.2s ease, border-color 0.2s ease"
+                              transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, border-color ${DUR_CSS.fast} ${EASE_SOFT}`}
+                              _hover={isSelected ? undefined : { bg: "state.hover" }}
+                              _active={isSelected ? undefined : { bg: "state.pressed" }}
+                              _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
                             >
                               {glass.name}
                             </Box>
@@ -507,6 +516,7 @@ export const BrandModulesV2Showcase: React.FC = () => {
                           return (
                             <Box
                               as="button"
+                              aria-pressed={isSelected}
                               key={finish.name}
                               onClick={() => setSelectedFinishName(finish.name)}
                               minH="11"
@@ -525,7 +535,10 @@ export const BrandModulesV2Showcase: React.FC = () => {
                               gap="2"
                               flexShrink={0}
                               cursor="pointer"
-                              transition="background-color 0.2s ease, border-color 0.2s ease"
+                              transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, border-color ${DUR_CSS.fast} ${EASE_SOFT}`}
+                              _hover={isSelected ? undefined : { bg: "state.hover" }}
+                              _active={isSelected ? undefined : { bg: "state.pressed" }}
+                              _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px" }}
                             >
                               <Box
                                 w="3"

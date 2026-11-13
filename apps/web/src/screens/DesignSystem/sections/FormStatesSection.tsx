@@ -17,6 +17,7 @@ import { EmptyState } from "@/shared/ui/empty-state";
 import { Field } from "@/shared/ui/field";
 import { NativeSelectField, NativeSelectRoot } from "@/shared/ui/native-select";
 import { Skeleton } from "@/shared/ui/skeleton";
+import { DUR_CSS, EASE_SOFT } from "@/shared/constants/motion";
 import { ShowcaseCard, SubsectionLabel } from "../components";
 import { DockPill } from "../components/PatternB";
 
@@ -67,14 +68,19 @@ const ButtonsBlock: React.FC = () => {
         <SubsectionLabel>Capas de estado tonales MD3 (Hover 8%, Focus 10%, Pressed 10%) en componentes</SubsectionLabel>
         <SimpleGrid columns={{ base: 1, sm: 3 }} gap="4">
           <Box
+            as="button"
+            minH="12"
             p="4"
-            borderRadius="md"
+            borderRadius="card"
             borderWidth="1px"
             borderColor="border.default"
             bg="bg.surface"
+            textAlign="left"
             cursor="pointer"
-            transition="background-color 0.15s ease"
-            _hover={{ bg: "state.hover" }}
+            transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, border-color ${DUR_CSS.fast} ${EASE_SOFT}`}
+            _hover={{ bg: "state.hover", borderColor: "border.warmStrong" }}
+            _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px", bg: "state.focus" }}
+            _active={{ bg: "state.pressed" }}
             aria-label="Ejemplo interactivo de hover"
           >
             <Text fontWeight="600" fontSize="sm" color="text.heading">Hover tonal</Text>
@@ -82,14 +88,17 @@ const ButtonsBlock: React.FC = () => {
           </Box>
           <Box
             as="button"
+            minH="12"
             p="4"
-            borderRadius="md"
+            borderRadius="card"
             borderWidth="1px"
             borderColor="border.default"
             bg="bg.surface"
             textAlign="left"
-            transition="background-color 0.15s ease, outline-color 0.15s ease"
-            _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", bg: "state.focus" }}
+            cursor="pointer"
+            transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, outline-color ${DUR_CSS.fast} ${EASE_SOFT}`}
+            _hover={{ bg: "state.hover" }}
+            _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px", bg: "state.focus" }}
             _active={{ bg: "state.pressed" }}
           >
             <Text fontWeight="600" fontSize="sm" color="text.heading">Foco accesible</Text>
@@ -97,13 +106,17 @@ const ButtonsBlock: React.FC = () => {
           </Box>
           <Box
             as="button"
+            minH="12"
             p="4"
-            borderRadius="md"
+            borderRadius="card"
             borderWidth="1px"
             borderColor="border.default"
             bg="bg.surface"
             textAlign="left"
-            transition="background-color 0.1s ease, transform 0.1s ease"
+            cursor="pointer"
+            transition={`background-color ${DUR_CSS.fast} ${EASE_SOFT}, transform ${DUR_CSS.fast} ${EASE_SOFT}`}
+            _hover={{ bg: "state.hover" }}
+            _focusVisible={{ outline: "2px solid", outlineColor: "ring.primary", outlineOffset: "2px", bg: "state.focus" }}
             _active={{ bg: "state.pressed", transform: "scale(0.98)" }}
           >
             <Text fontWeight="600" fontSize="sm" color="text.heading">Presionado (Active)</Text>

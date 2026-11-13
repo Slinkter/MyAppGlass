@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Box, Heading, VStack, HStack, Table, Badge, Skeleton, Text } from "@chakra-ui/react";
+import { Box, Heading, VStack, HStack, Table, Skeleton, Text } from "@chakra-ui/react";
+import { Badge } from "@/shared/ui/badge";
 import { ShowcaseCard, ShowcasePanel, ShowcaseStack } from "../components";
 import { EmptyState } from "@/shared/ui/empty-state";
 import { DataListRoot, DataListItem } from "@/shared/ui/data-list";

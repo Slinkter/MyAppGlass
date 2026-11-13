@@ -7,8 +7,10 @@
  */
 
 import React from "react";
-import { Box, Button as ChakraButton, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { ChevronDown } from "lucide-react";
+import { Box, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Check, ChevronDown, Copy, X } from "lucide-react";
+import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
 import { Reveal } from "@shared/components/motion/Reveal";
 import { NewClientModal } from "@/features/admin/components/clients/NewClientModal";
 import { EMPTY_NEW_CLIENT } from "@/features/admin/components/clients/newClientForm";
@@ -17,6 +19,7 @@ import { ReplenishStockModal } from "@/features/admin/components/inventory/Reple
 import { EMPTY_PRODUCT_FORM } from "@/features/admin/components/inventory/productForm";
 import { PrintOrderModal } from "@/features/admin/components/reports/PrintOrderModal";
 import { DUR_CSS, EASE_SOFT, EASE_TEXT } from "@/shared/constants/motion";
+import { useMotionBudget } from "@/shared/hooks/ui/useMotionBudget";
 import { DrawLine, ShowcaseCard, ShowcasePanel, ShowcaseStack, SubsectionLabel, TabFade } from "../../components";
 
 const TABS = ["Ventanas", "Mamparas", "Techos"] as const;
@@ -28,7 +31,7 @@ const SlidingTabs: React.FC = () => {
     <Box position="relative" borderBottomWidth="1px" borderColor="border.default" role="tablist" aria-label="Servicios de ejemplo">
       <HStack gap="0" align="stretch">
         {TABS.map((label, i) => (
-          <ChakraButton
+          <Button
             key={label}
             role="tab"
             aria-selected={active === i}
@@ -41,7 +44,7 @@ const SlidingTabs: React.FC = () => {
             onClick={() => setActive(i)}
           >
             {label}
-          </ChakraButton>
+          </Button>
         ))}
       </HStack>
       <Box
@@ -66,7 +69,7 @@ const GridAccordion: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   return (
     <Box borderWidth="1px" borderColor="border.default" borderRadius="xl" overflow="hidden">
-      <ChakraButton
+      <Button
         variant="ghost"
         w="full"
         minH="11"
@@ -86,7 +89,7 @@ const GridAccordion: React.FC = () => {
             transition: `transform ${DUR_CSS.toggle} ${EASE_SOFT}`,
           }}
         />
-      </ChakraButton>
+      </Button>
       <Box
         id="acc-demo"
         display="grid"
@@ -130,8 +133,10 @@ export const TransitionsV2Showcase: React.FC = () => (
           ]}
         />
       </ShowcasePanel>
-      <SubsectionLabel>Cambio de pestaña con fundido corto (TabFade)</SubsectionLabel>
+      <SubsectionLabel>Cambio de pestaña con Fade-Through MD3 (TabFade)</SubsectionLabel>
       <TabFadeDemo />
+      <SubsectionLabel>Micro-interacciones MD3 (confirmación de copia y hoja inferior)</SubsectionLabel>
+      <Md3MicroInteractionsDemo />
       <SubsectionLabel>Pestañas con indicador deslizante</SubsectionLabel>
       <SlidingTabs />
       <SubsectionLabel>Acordeón (0fr → 1fr)</SubsectionLabel>
@@ -159,10 +164,127 @@ const LineDemo: React.FC = () => {
       <Box flex="1" key={run}>
         <DrawLine />
       </Box>
-      <ChakraButton variant="outline" minH="11" onClick={() => setRun((n) => n + 1)}>
+      <Button variant="outline" minH="11" onClick={() => setRun((n) => n + 1)}>
         Repetir línea
-      </ChakraButton>
+      </Button>
     </HStack>
+  );
+};
+
+const Md3MicroInteractionsDemo: React.FC = () => {
+  const level = useMotionBudget();
+  const skip = level !== "full";
+  const [copied, setCopied] = React.useState(false);
+  const [sheetOpen, setSheetOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!copied) return;
+    const id = window.setTimeout(() => setCopied(false), 1800);
+    return () => window.clearTimeout(id);
+  }, [copied]);
+
+  React.useEffect(() => {
+    if (!sheetOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSheetOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [sheetOpen]);
+
+  return (
+    <SimpleGrid columns={{ base: 1, md: 2 }} gap="4">
+      <ShowcasePanel>
+        <VStack align="start" gap="3">
+          <Text fontWeight="600" color="text.heading" fontSize="sm">
+            Confirmación de copia (scale + opacity)
+          </Text>
+          <HStack gap="3" wrap="wrap">
+            <Button variant="outline" minH="11" onClick={() => setCopied(true)}>
+              <Copy size={16} aria-hidden="true" />
+              Copiar código
+            </Button>
+            <Box
+              role="status"
+              aria-live="polite"
+              style={{
+                opacity: copied ? 1 : 0,
+                transform: copied || skip ? "scale(1)" : "scale(0.95)",
+                transition: skip
+                  ? undefined
+                  : `opacity ${DUR_CSS.fast} ${EASE_SOFT}, transform ${DUR_CSS.fast} ${EASE_SOFT}`,
+              }}
+            >
+              {copied && (
+                <Badge variant={"chipSuccess" as never}>
+                  <Check size={12} aria-hidden="true" />
+                  Copiado
+                </Badge>
+              )}
+            </Box>
+          </HStack>
+        </VStack>
+      </ShowcasePanel>
+
+      <ShowcasePanel position="relative" overflow="hidden" minH="44">
+        <VStack align="start" gap="3">
+          <Text fontWeight="600" color="text.heading" fontSize="sm">
+            Hoja inferior MD3 (translateY, 300 ms / 200 ms)
+          </Text>
+          <Button variant="primary" minH="11" onClick={() => setSheetOpen(true)}>
+            Abrir hoja inferior
+          </Button>
+        </VStack>
+        <Box
+          position="absolute"
+          inset="0"
+          bg="overlay.scrim"
+          pointerEvents={sheetOpen ? "auto" : "none"}
+          onClick={() => setSheetOpen(false)}
+          style={{
+            opacity: sheetOpen ? 1 : 0,
+            transition: skip ? undefined : `opacity ${DUR_CSS.fast} ${EASE_SOFT}`,
+          }}
+          aria-hidden={!sheetOpen}
+        />
+        <Box
+          role="dialog"
+          aria-label="Ejemplo de hoja inferior"
+          aria-modal="false"
+          position="absolute"
+          left="0"
+          right="0"
+          bottom="0"
+          p="4"
+          bg="bg.surface"
+          borderTopWidth="1px"
+          borderColor="border.warm"
+          borderTopRadius="card"
+          style={{
+            transform: sheetOpen ? "translateY(0)" : "translateY(100%)",
+            transition: skip
+              ? undefined
+              : `transform ${sheetOpen ? DUR_CSS.toggle : DUR_CSS.fast} ${sheetOpen ? EASE_TEXT : EASE_SOFT}`,
+          }}
+        >
+          <HStack justify="space-between" align="center" gap="3">
+            <Text fontSize="sm" fontWeight="600" color="text.heading">
+              Opciones rápidas (Escape para cerrar)
+            </Text>
+            <Button
+              variant="ghost"
+              size="sm"
+              minH="11"
+              minW="11"
+              aria-label="Cerrar hoja inferior"
+              onClick={() => setSheetOpen(false)}
+            >
+              <X size={16} aria-hidden="true" />
+            </Button>
+          </HStack>
+        </Box>
+      </ShowcasePanel>
+    </SimpleGrid>
   );
 };
 
@@ -172,9 +294,9 @@ const TabFadeDemo: React.FC = () => {
     <VStack align="stretch" gap="3">
       <HStack gap="2" wrap="wrap">
         {["Tokens", "Tarjetas", "Navegación"].map((label, i) => (
-          <ChakraButton key={label} variant={tab === i ? "solid" : "outline"} minH="11" onClick={() => setTab(i)}>
+          <Button key={label} variant={tab === i ? "primary" : "outline"} minH="11" onClick={() => setTab(i)}>
             {label}
-          </ChakraButton>
+          </Button>
         ))}
       </HStack>
       <ShowcasePanel minH="20">
@@ -184,8 +306,8 @@ const TabFadeDemo: React.FC = () => {
       </ShowcasePanel>
       <RuleList
         rules={[
-          "Solo opacity, 150 ms, al montar el contenido (el catálogo desmonta la pestaña anterior).",
-          "No mueve nada: el cambio de pestaña no debe producir saltos de diseño.",
+          "Fade-Through MD3: opacity + translateY(6 px → 0) en 200 ms (EASE_SOFT) al montar el contenido.",
+          "Sin movimiento en dispositivos lite o con prefers-reduced-motion activo.",
         ]}
       />
     </VStack>
@@ -207,9 +329,9 @@ const RevealDemo: React.FC = () => {
           </Reveal>
         ))}
       </SimpleGrid>
-      <ChakraButton variant="outline" alignSelf="start" minH="11" onClick={() => setRun((n) => n + 1)}>
+      <Button variant="outline" alignSelf="start" minH="11" onClick={() => setRun((n) => n + 1)}>
         Reiniciar
-      </ChakraButton>
+      </Button>
     </VStack>
   );
 };
@@ -257,9 +379,9 @@ const DialogDemo: React.FC = () => {
     <>
       <HStack gap="2" wrap="wrap">
         {items.map(([key, label]) => (
-          <ChakraButton key={key} id={"modal-demo-" + key} variant="outline" minH="11" onClick={() => setOpen(key)}>
+          <Button key={key} id={"modal-demo-" + key} variant="outline" minH="11" onClick={() => setOpen(key)}>
             {label}
-          </ChakraButton>
+          </Button>
         ))}
       </HStack>
       {open === "cliente" && (
