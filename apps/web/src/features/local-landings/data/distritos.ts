@@ -33,7 +33,7 @@ export const LOCAL_LANDING_DISTRITOS: LocalLandingDistrito[] = [
       "Ventanas de aluminio a medida",
       "Mamparas y puertas de vidrio",
       "Techos y cerramientos de vidrio",
-      "Vidrio antirruido",
+      "Vidrio laminado acústico",
     ],
   },
   {

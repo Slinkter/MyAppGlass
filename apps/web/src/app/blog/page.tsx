@@ -8,7 +8,7 @@ import { PageTransition } from "@/shared/components/motion/PageTransition";
 export const metadata: Metadata = buildPageMetadata({
   title: "Blog Técnico de Vidriería, Aluminio y Aislamiento Acústico",
   description:
-    "Artículos técnicos y guías sobre ventanas antirruido, vidrio templado, laminado y carpintería de aluminio en Lima por especialistas de GYA Company.",
+    "Artículos técnicos y guías sobre ventanas de aluminio, atenuación acústica, vidrio templado, laminado y carpintería de aluminio en Lima por especialistas de GYA Company.",
   path: "/blog",
 });
 

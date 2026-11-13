@@ -20,13 +20,15 @@ export interface ServiceListProps {
     headingAs?: "h1" | "h2";
     /** Movimiento de entrada del grid (`cine` en la home). */
     motion?: "default" | "cine";
+    /** Cantidad inicial de tarjetas por página / incremento de scroll. */
+    pageSize?: number;
 }
 
 /**
  * @component ServiceList
  * @description Renderiza la lista de servicios con filtro por categoría e Infinite Scroll.
  */
-const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headingAs = "h1", motion = "default" }) => {
+const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headingAs = "h1", motion = "default", pageSize }) => {
     // Primer render con los datos de build; Firestore en cliente los refresca (ver useServices).
     const { data, isLoading, error } = useServices(initialData);
     const allServices = useMemo<ServiceData[]>(() => data ?? [], [data]);
@@ -43,6 +45,7 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
     } = useFilterableList({
         items: allServices,
         filterFn,
+        pageSize,
     });
 
 

@@ -65,7 +65,7 @@ export const QUOTE_PRICING = {
       kitDescription: "Kit de Accesorios Ventana Acústica (Serie 3831 / 42)",
       kitCost: 0,
       pricePending: true,
-      noiseReductionPct: 80,
+      noiseReductionPct: 80, // [POR CONFIRMAR] atenuación estimada sin ficha de respaldo
     },
     ventana_pvc_abatible: {
       label: "Ventana PVC Abatible",
@@ -82,7 +82,7 @@ export const QUOTE_PRICING = {
       kitCost: number;
       /** true = precio aún no definido por el negocio; la UI muestra "Precio a definir". */
       pricePending?: boolean;
-      /** % de reducción de ruido (insignia antirruido de la hoja). Solo si está confirmado. */
+      /** % de atenuación estimada interna (no mostrar como garantía). Solo si está confirmado. */
       noiseReductionPct?: number;
     }
   >,

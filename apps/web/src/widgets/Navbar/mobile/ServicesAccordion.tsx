@@ -3,7 +3,7 @@
 /**
  * @file ServicesAccordion.tsx
  * @description Acordeón desplegable de servicios para el menú móvil v2.
- * - Renderiza los 6 servicios principales + "Ver todos los servicios" (el array de 10 se mantiene intacto).
+ * - Renderiza los 6 servicios principales + "Ver todos los servicios" (el catálogo completo tiene 13 servicios).
  * - Transición con gridTemplateRows: 0fr -> 1fr y respeto a reduced-motion.
  * - Guía vertical en x=56 (`ml="8"`), texto alineado en x=72 (`pl="4"`), ambos sobre el gutter de 24.
  * - Ítems `minH="11"` (44 px), `fontSize="sm"`, hover/pressed de fila con `mx="-2" px="2"`.
@@ -23,14 +23,12 @@ export interface ServiceItemDef {
 }
 
 /**
- * Lista canónica de los 10 servicios oficiales vigentes en /servicios/[serviceSlug].
+ * Lista canónica de los 13 servicios oficiales vigentes en /servicios/[serviceSlug].
  * Fuente de verdad: serviceMappers.ts (SERVICE_SEO_FALLBACKS).
- * Nota: Los 3 servicios proyectados (espejos, frenos hidráulicos, mantenimiento)
- * están pendientes de alta en Firestore y no deben crearse como slugs fijos aquí.
  */
 // eslint-disable-next-line react-refresh/only-export-components
 export const OFFICIAL_SERVICE_SLUGS: readonly ServiceItemDef[] = [
-  { slug: "ventana", name: "Ventanas antirruido", category: "Sistema Nova · Series 25/35/62" },
+  { slug: "ventana", name: "Ventanas de aluminio", category: "Sistema Nova · Series 20/25/62 y europea" },
   { slug: "mampara", name: "Mamparas de vidrio templado", category: "Divisiones y terrazas" },
   { slug: "ducha", name: "Boxes y puertas de ducha", category: "Vidrio templado a medida" },
   { slug: "parapeto", name: "Parapetos y muros cortina", category: "Fachadas arquitectónicas" },
@@ -38,8 +36,11 @@ export const OFFICIAL_SERVICE_SLUGS: readonly ServiceItemDef[] = [
   { slug: "balcones", name: "Cerramientos de balcones", category: "Protección y confort" },
   { slug: "techo", name: "Techos de policarbonato", category: "Coberturas sol y sombra" },
   { slug: "pvidrio", name: "Puertas de vidrio templado", category: "Interiores y mamparas" },
-  { slug: "pserie", name: "Puertas de aluminio serie", category: "Series 25, 35 y 62" },
+  { slug: "pserie", name: "Puertas de aluminio serie", category: "Series 35, 36 y 62" },
   { slug: "celosias", name: "Celosías de ventilación", category: "Ventilación natural y lamas" },
+  { slug: "espejos", name: "Espejos a medida", category: "Biselados, LED y decorativos" },
+  { slug: "frenos-hidraulicos", name: "Frenos hidráulicos y accesorios", category: "Puertas de vidrio templado" },
+  { slug: "mantenimiento", name: "Mantenimiento y calibración", category: "Vidrio y aluminio" },
 ] as const;
 
 /** Servicios destacados en el menú móvil (el resto vive en /servicios/ver). */
@@ -47,9 +48,9 @@ const FEATURED_SERVICE_SLUGS = [
   "ventana",
   "mampara",
   "ducha",
+  "pvidrio",
+  "pserie",
   "parapeto",
-  "baranda",
-  "techo",
 ] as const;
 
 const FEATURED_SERVICES = OFFICIAL_SERVICE_SLUGS.filter((svc) =>

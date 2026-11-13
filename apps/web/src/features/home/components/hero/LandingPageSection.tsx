@@ -149,7 +149,7 @@ const LandingPageSection: React.FC = React.memo(() => {
           lineHeight="relaxed"
           animation={anim(animated, "heroRise", 800, 1100)}
         >
-          Suministro, ensamblaje en taller e instalación de ventanas antirruido, mamparas y carpintería de
+          Suministro, ensamblaje en taller e instalación de ventanas de aluminio, mamparas y carpintería de
           aluminio en Lima.
         </Text>
       </VStack>

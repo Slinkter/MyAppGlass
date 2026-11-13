@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Box, Button, HStack, Input, SimpleGrid, Text, Textarea, VStack } from "@chakra-ui/react";
+import { Accordion, Box, Button, HStack, Input, SimpleGrid, Text, Textarea, VStack } from "@chakra-ui/react";
 import { Field } from "@/shared/ui/field";
 import { Sparkles } from "lucide-react";
 import { FeaturesEditor } from "./form/FeaturesEditor";
+import { SpecsEditor } from "./form/SpecsEditor";
+import { SystemSheetsEditor } from "./form/SystemSheetsEditor";
+import { FaqsEditor } from "./form/FaqsEditor";
 import { type GalleryPhotoItem } from "./AlbumGalleryUploader";
 import { AdminDialog } from "./form/AdminDialog";
 import { TitleSlugFields } from "./form/TitleSlugFields";
@@ -13,6 +16,9 @@ import { PublishedCheckbox } from "./form/PublishedCheckbox";
 import { useAutoSlug } from "../hooks/useAutoSlug";
 import type {
   Service,
+  ServiceFaq,
+  ServiceSpec,
+  ServiceSystemSheet,
   CreateServiceInput,
   UpdateServiceInput,
 } from "@/shared/api/firebase/types";
@@ -43,6 +49,9 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
   const [published, setPublished] = useState(true);
   const [coverImage, setCoverImage] = useState("");
   const [features, setFeatures] = useState<string[]>([]);
+  const [specs, setSpecs] = useState<ServiceSpec[]>([]);
+  const [systemSheets, setSystemSheets] = useState<ServiceSystemSheet[]>([]);
+  const [faqs, setFaqs] = useState<ServiceFaq[]>([]);
   const [galleryItems, setGalleryItems] = useState<GalleryPhotoItem[]>([]);
   const [formError, setFormError] = useState<string | null>(null);
 
@@ -58,11 +67,15 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
       setPublished(service.published ?? true);
       setCoverImage(service.coverImage || "");
       setFeatures(service.features || []);
+      setSpecs(service.specs || []);
+      setSystemSheets(service.systemSheets || []);
+      setFaqs(service.faqs || []);
       setGalleryItems(
         (service.gallery || []).map((g) => ({
           id: g.id,
           url: g.url,
           alt: g.alt || "",
+          system: g.system,
         }))
       );
       resetSlug(service.slug || "", false);
@@ -75,6 +88,9 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
       setPublished(true);
       setCoverImage("");
       setFeatures([]);
+      setSpecs([]);
+      setSystemSheets([]);
+      setFaqs([]);
       setGalleryItems([]);
       resetSlug("", true);
     }
@@ -121,10 +137,38 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
       published,
       coverImage: coverImage.trim(),
       features,
+      specs: specs
+        .filter((s) => s.label.trim() && s.value.trim())
+        .map((s) => ({
+          ...(s.grupo?.trim() ? { grupo: s.grupo.trim() } : {}),
+          label: s.label.trim(),
+          value: s.value.trim(),
+        })),
+      systemSheets: systemSheets
+        .filter((s) => s.nombre.trim() && s.resumen.trim())
+        .map((s) => ({
+          nombre: s.nombre.trim(),
+          resumen: s.resumen.trim(),
+          specs: s.specs
+            .filter((sp) => sp.label.trim() && sp.value.trim())
+            .map((sp) => ({
+              ...(sp.grupo?.trim() ? { grupo: sp.grupo.trim() } : {}),
+              label: sp.label.trim(),
+              value: sp.value.trim(),
+            })),
+          usos: s.usos.map((u) => u.trim()).filter(Boolean),
+        })),
+      faqs: faqs
+        .filter((f) => f.question.trim() && f.answer.trim())
+        .map((f) => ({
+          question: f.question.trim(),
+          answer: f.answer.trim(),
+        })),
       gallery: galleryItems.map((item) => ({
         id: item.id,
         url: item.url,
         alt: item.alt || item.caption || "",
+        system: item.system || undefined,
       })),
     };
 
@@ -223,6 +267,69 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
           captionFieldLabel="Texto alternativo (Alt)"
           maxFiles={15}
         />
+
+        <Accordion.Root multiple variant="outline" borderRadius="xl" borderColor="border.default">
+          <Accordion.Item value="ficha-tecnica">
+            <Accordion.ItemTrigger minH="11" px="4" py="3" cursor="pointer">
+              <HStack flex="1" justify="space-between">
+                <Text fontSize="sm" fontWeight="semibold" color="text.heading">
+                  Ficha técnica
+                </Text>
+                <Text fontSize="xs" color="text.muted">
+                  {specs.length} specs · {systemSheets.length} sistemas
+                </Text>
+              </HStack>
+              <Accordion.ItemIndicator />
+            </Accordion.ItemTrigger>
+            <Accordion.ItemContent>
+              <Accordion.ItemBody px="4" pb="4">
+                <VStack align="stretch" gap="5">
+                  <VStack align="stretch" gap="2">
+                    <Text fontSize="xs" fontWeight="semibold" color="text.heading">
+                      Especificaciones generales
+                    </Text>
+                    <SpecsEditor specs={specs} onChange={setSpecs} />
+                  </VStack>
+                  <VStack align="stretch" gap="2">
+                    <Text fontSize="xs" fontWeight="semibold" color="text.heading">
+                      Fichas por sistema
+                    </Text>
+                    <SystemSheetsEditor
+                      systemSheets={systemSheets}
+                      onChange={setSystemSheets}
+                      availableSystems={Array.from(
+                        new Set(
+                          galleryItems
+                            .map((g) => g.system?.trim())
+                            .filter((s): s is string => Boolean(s))
+                        )
+                      )}
+                    />
+                  </VStack>
+                </VStack>
+              </Accordion.ItemBody>
+            </Accordion.ItemContent>
+          </Accordion.Item>
+
+          <Accordion.Item value="preguntas-frecuentes">
+            <Accordion.ItemTrigger minH="11" px="4" py="3" cursor="pointer">
+              <HStack flex="1" justify="space-between">
+                <Text fontSize="sm" fontWeight="semibold" color="text.heading">
+                  Preguntas frecuentes
+                </Text>
+                <Text fontSize="xs" color="text.muted">
+                  {faqs.length} preguntas
+                </Text>
+              </HStack>
+              <Accordion.ItemIndicator />
+            </Accordion.ItemTrigger>
+            <Accordion.ItemContent>
+              <Accordion.ItemBody px="4" pb="4">
+                <FaqsEditor faqs={faqs} onChange={setFaqs} />
+              </Accordion.ItemBody>
+            </Accordion.ItemContent>
+          </Accordion.Item>
+        </Accordion.Root>
 
         {/* Orden y Publicación */}
         <SimpleGrid columns={{ base: 1, sm: 2 }} gap="4" pt="3" borderTop="1px solid" borderColor="border.subtle">

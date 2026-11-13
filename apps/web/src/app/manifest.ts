@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Glass & Aluminum Company S.A.C.",
     short_name: "GYA Company",
     description:
-      "Especialistas en vidriería, ventanas antirruido, mamparas de vidrio templado y estructuras de aluminio en La Molina, Lima.",
+      "Especialistas en vidriería, ventanas de aluminio, mamparas de vidrio templado y estructuras de aluminio en La Molina, Lima.",
     start_url: "/",
     display: "standalone",
     background_color: "#FFFFFF",

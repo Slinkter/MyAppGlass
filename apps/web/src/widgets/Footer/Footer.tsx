@@ -47,7 +47,7 @@ interface FooterRowProps {
 }
 
 const SITELINKS_ITEMS = [
-    { label: "Ventanas Antirruido", href: "/servicios/ventana" },
+    { label: "Ventanas de aluminio", href: "/servicios/ventana" },
     { label: "Mamparas de Vidrio Templado", href: "/servicios/mampara" },
     { label: "Barandas de Vidrio y Acero", href: "/servicios/baranda" },
     { label: "Techos de Policarbonato", href: "/servicios/techo" },

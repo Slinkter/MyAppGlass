@@ -7,11 +7,11 @@ import { PageTransition } from "@/shared/components/motion/PageTransition";
 export const metadata: Metadata = buildPageMetadata({
   title: "Cotizaciones y Contacto en La Molina, Lima",
   description:
-    "Solicita tu presupuesto sin compromiso para ventanas antirruido, mamparas y estructuras de vidrio y aluminio. Visítanos en Av. Los Fresnos 1250 - La Molina o escríbenos al WhatsApp 974 278 303.",
+    "Solicita tu presupuesto sin compromiso para ventanas de aluminio, mamparas y estructuras de vidrio y aluminio. Visítanos en Av. Los Fresnos 1250 - La Molina o escríbenos al WhatsApp 974 278 303.",
   path: "/contacto",
   keywords: [
     "contacto vidriería la molina",
-    "cotización ventanas antirruido",
+    "cotización ventanas de aluminio",
     "mamparas de vidrio lima",
     "vidrio y aluminio la molina",
     "Av. Los Fresnos 1250",

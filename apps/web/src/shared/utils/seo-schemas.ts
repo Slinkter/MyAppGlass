@@ -62,15 +62,19 @@ export const getCompanyJsonLd = () => ({
         }
       ],
       "knowsAbout": [
-        "Ventanas antirruido",
+        "Ventanas de aluminio",
         "Sistema Nova",
+        "Serie 20",
         "Serie 25",
         "Serie 35",
         "Serie 62",
         "Mamparas de vidrio templado",
         "Boxes de ducha",
         "Barandas de vidrio y acero",
-        "Techos de policarbonato"
+        "Techos de policarbonato",
+        "Espejos a medida",
+        "Frenos hidráulicos",
+        "Mantenimiento de vidriería y aluminio"
       ],
       "areaServed": [
         { "@type": "AdministrativeArea", "name": "La Molina, Lima" },
@@ -122,8 +126,8 @@ export const getCompanyJsonLd = () => ({
         {
           "@type": "SiteNavigationElement",
           "position": 1,
-          "name": "Ventanas Antirruido",
-          "description": "Ventanas acústicas e insonorizadas en Sistema Nova, Serie 25, Serie 35 y Serie 62 con vidrio laminado y templado.",
+          "name": "Ventanas de aluminio",
+          "description": "Ventanas de aluminio en Sistema Nova, Serie 20, Serie 25, Serie 62 y línea europea con vidrio crudo, laminado o templado y atenuación acústica según serie y composición del vidrio.",
           "url": `${SITE_URL}/servicios/ventana`
         },
         {
