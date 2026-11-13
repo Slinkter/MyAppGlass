@@ -21,7 +21,7 @@
 
 - [x] **1.1** Crear `scripts/sync-proveedores.mjs` (patrón: `scripts/upload-project-photos.mjs`): comprueba `/salud` y sale sin escribir si la API está apagada; pagina `GET /productos`; escribe `proveedores_productos/{proveedor}_{cod}`; marca `activo: false` lo que ya no venga; emulador por defecto, `--prod` solo con visto bueno. Archivo principal: `scripts/sync-proveedores.mjs`. Agente: general-purpose. Modelo: Haiku.
 - [x] **1.2** En el mismo script, función aparte: subir imágenes de `/static/img/...` a Storage `proveedores/{proveedor}/{cod}.png` y refrescar `docs/proveedores/*.md` desde `GET /asistente/documentos/{proveedor}`. Se asigna después de 1.1 por compartir archivo. Archivo principal: `scripts/sync-proveedores.mjs`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **1.3** `entities/supplier`: `model/index.ts`, `api/supplierProductsRepository.ts`, `api/useSupplierProducts.ts` (patrón: `entities/product/api/useRealtimeProducts.ts`). Desbloquea la Fase 3. Archivo principal: `apps/web/src/entities/supplier/model/index.ts`. Agente: general-purpose. Modelo: Haiku.
+- [x] **1.3** `entities/supplier`: `model/index.ts`, `api/supplierProductsRepository.ts`, `api/useSupplierProducts.ts` (patrón: `entities/product/api/useRealtimeProducts.ts`). Desbloquea la Fase 3. Archivo principal: `apps/web/src/entities/supplier/model/index.ts`. Agente: general-purpose. Modelo: Haiku.
 - [x] **1.4** Reglas de Firestore y Storage: `proveedores_productos`, `sistemas`, `pedidos_proveedor` y `proveedores/**` solo `isAdmin()`; casos nuevos en `tests/rules/firestore.rules.test.mjs`. Archivo principal: `firestore.rules`. Agente: general-purpose. Modelo: Sonnet.
 - [x] **1.5** Retirar `apps/web/src/shared/data/proveedores/` (sin uso); mover `catalogo-proveedores-servicios.ts` a `docs/gemini/data/`. Archivo principal: `apps/web/src/shared/data/proveedores/`. Agente: general-purpose. Modelo: Haiku.
 - [ ] **1.6** Gates con `qa-gates` y correr el script contra el emulador (435 documentos). Sin archivo principal (gate). Agente: qa-gates. Modelo: Haiku.
@@ -44,15 +44,15 @@ Las páginas públicas y el cotizador no cambian en este plan.
 
 ## Fase 3. Pedido de compra (`/admin/pedidos`) (arranca al terminar 1.3)
 
-- [ ] **3.1** `groupBySupplier.ts`: agrupa líneas por proveedor y calcula subtotal o `null` si falta un precio (misma lógica que `POST /cotizar`, sin depender de la API). Archivo principal: `apps/web/src/entities/supplier/lib/groupBySupplier.ts`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **3.2** `SupplierProductPicker.tsx`: búsqueda por código, nombre, categoría y proveedor, con foto (patrón: `screens/Admin/sales/ProductPickerCard.tsx`). Archivo principal: `apps/web/src/features/admin/components/purchase/SupplierProductPicker.tsx`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **3.3** `PurchaseSummaryCard.tsx`: un bloque por proveedor; sin precio muestra "Sin información de precio" (patrón: `sales/OrderSummaryCard.tsx`). Archivo principal: `apps/web/src/features/admin/components/purchase/PurchaseSummaryCard.tsx`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **3.4** `purchaseOrderService.ts`: guarda `pedidos_proveedor/{número}` con `createdBy`, `estado` (`borrador` → `por aprobar` → `aprobado`), líneas y fecha; correlativo con el patrón de `entities/quote/lib/quoteNumber.ts`. Archivo principal: `apps/web/src/entities/supplier/api/purchaseOrderService.ts`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **3.5** `PurchaseOrderSheet.tsx`: hoja A4 con una sección por proveedor, `window.print()`, estructura de `entities/quote/ui/QuoteSheet.tsx` y datos de `companyData`. Archivo principal: `apps/web/src/entities/supplier/ui/PurchaseOrderSheet.tsx`. Agente: general-purpose. Modelo: Sonnet.
-- [ ] **3.6** `PurchaseOrderScreen.tsx` y `app/admin/pedidos/page.tsx`: une 3.2 a 3.5 (patrón: `SalesOrderScreen.tsx`). Archivo principal: `apps/web/src/screens/Admin/PurchaseOrderScreen.tsx`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **3.7** `PurchaseOrdersList.tsx`: lista con estado y botón Aprobar (patrón: `screens/Admin/reports/OrdersList.tsx`). Archivo principal: `apps/web/src/features/admin/components/purchase/PurchaseOrdersList.tsx`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **3.8** Gates. Sin archivo principal (gate). Agente: qa-gates. Modelo: Haiku.
-- [ ] **Commit de control:** `feat(pedidos): pedido de compra por proveedor con vista A4 y aprobación`
+- [x] **3.1** `groupBySupplier.ts`: agrupa líneas por proveedor y calcula subtotal o `null` si falta un precio (misma lógica que `POST /cotizar`, sin depender de la API). Archivo principal: `apps/web/src/entities/supplier/lib/groupBySupplier.ts`. Agente: general-purpose. Modelo: Haiku.
+- [x] **3.2** `SupplierProductPicker.tsx`: búsqueda por código, nombre, categoría y proveedor, con foto (patrón: `screens/Admin/sales/ProductPickerCard.tsx`). Archivo principal: `apps/web/src/features/admin/components/purchase/SupplierProductPicker.tsx`. Agente: general-purpose. Modelo: Haiku.
+- [x] **3.3** `PurchaseSummaryCard.tsx`: un bloque por proveedor; sin precio muestra "Sin información de precio" (patrón: `sales/OrderSummaryCard.tsx`). Archivo principal: `apps/web/src/features/admin/components/purchase/PurchaseSummaryCard.tsx`. Agente: general-purpose. Modelo: Haiku.
+- [x] **3.4** `purchaseOrderService.ts`: guarda `pedidos_proveedor/{número}` con `createdBy`, `estado` (`borrador` → `por aprobar` → `aprobado`), líneas y fecha; correlativo con el patrón de `entities/quote/lib/quoteNumber.ts`. Archivo principal: `apps/web/src/entities/supplier/api/purchaseOrderService.ts`. Agente: general-purpose. Modelo: Haiku.
+- [x] **3.5** `PurchaseOrderSheet.tsx`: hoja A4 con una sección por proveedor, `window.print()`, estructura de `entities/quote/ui/QuoteSheet.tsx` y datos de `companyData`. Archivo principal: `apps/web/src/entities/supplier/ui/PurchaseOrderSheet.tsx`. Agente: general-purpose. Modelo: Sonnet.
+- [x] **3.6** `PurchaseOrderScreen.tsx` y `app/admin/pedidos/page.tsx`: une 3.2 a 3.5 (patrón: `SalesOrderScreen.tsx`). Archivo principal: `apps/web/src/screens/Admin/PurchaseOrderScreen.tsx`. Agente: general-purpose. Modelo: Haiku.
+- [x] **3.7** `PurchaseOrdersList.tsx`: lista con estado y botón Aprobar (patrón: `screens/Admin/reports/OrdersList.tsx`). Archivo principal: `apps/web/src/features/admin/components/purchase/PurchaseOrdersList.tsx`. Agente: general-purpose. Modelo: Haiku.
+- [x] **3.8** Gates. Sin archivo principal (gate). Agente: qa-gates. Modelo: Haiku.
+- [x] **Commit de control:** `feat(pedidos): pedido de compra por proveedor con vista A4 y aprobación`
 
 ## Fase 4. Menú y cierre
 
