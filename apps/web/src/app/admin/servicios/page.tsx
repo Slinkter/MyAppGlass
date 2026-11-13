@@ -124,10 +124,20 @@ export default function AdminServiciosPage() {
           type: "info",
         });
       }
-    } catch {
+    } catch (err) {
+      const code =
+        err && typeof err === "object" && "code" in err && typeof (err as { code?: unknown }).code === "string"
+          ? (err as { code: string }).code
+          : "";
+      const description =
+        code === "permission-denied"
+          ? "Permiso denegado en Firestore. Verifique que su usuario tenga role: 'admin' en users/{uid}."
+          : err instanceof Error && err.message
+            ? err.message
+            : "No se pudieron dar de alta los servicios aprobados.";
       toaster.create({
         title: "Error al sincronizar",
-        description: "No se pudieron dar de alta los servicios aprobados.",
+        description,
         type: "error",
       });
     } finally {

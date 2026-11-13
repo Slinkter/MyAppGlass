@@ -12,6 +12,14 @@ const pinoLogger = pino({
   level: isProd ? 'info' : 'debug',
   browser: {
     asObject: true,
+    write: {
+      // En navegador, Next.js toma el 1er argumento de console.error como título del overlay;
+      // pasar un objeto primero hace que se muestre "{}" en lugar del mensaje real.
+      error: (o: object) => {
+        const { msg, ...rest } = o as Record<string, unknown>;
+        console.error(typeof msg === "string" ? msg : "[GYA-ERROR]", rest);
+      },
+    },
   },
   base: {
     env: env.NODE_ENV,
@@ -29,15 +37,29 @@ function safeClone(value: unknown): unknown {
 
 export const logger = {
   error: (message: string, error?: unknown, context?: Record<string, unknown>) => {
+    const errCode =
+      error && typeof error === "object" && "code" in error && typeof (error as { code?: unknown }).code === "string"
+        ? (error as { code: string }).code
+        : undefined;
+
     const errorDetails =
       error instanceof Error
-        ? { message: error.message, stack: error.stack, name: error.name, ...(error as unknown as Record<string, unknown>) }
+        ? {
+            message: error.message,
+            stack: error.stack,
+            name: error.name,
+            ...(errCode ? { code: errCode } : {}),
+            ...(error as unknown as Record<string, unknown>),
+          }
         : error && typeof error === "object"
           ? safeClone(error)
           : error;
 
     const errMsg = error instanceof Error ? error.message : typeof error === "string" ? error : "";
-    const logTitle = errMsg ? `[GYA-ERROR] ${message}: ${errMsg}` : `[GYA-ERROR] ${message}`;
+    const codePrefix = errCode ? ` (${errCode})` : "";
+    const logTitle = errMsg
+      ? `[GYA-ERROR] ${message}${codePrefix}: ${errMsg}`
+      : `[GYA-ERROR] ${message}${codePrefix}`;
 
     pinoLogger.error(
       {

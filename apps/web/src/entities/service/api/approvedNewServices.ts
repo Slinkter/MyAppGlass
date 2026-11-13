@@ -172,7 +172,9 @@ export async function seedApprovedNewServices(): Promise<{
         logger.info(`Servicio nuevo dado de alta en Firestore: ${service.id}`);
       }
     } catch (err) {
-      logger.error(`Error al dar de alta servicio ${service.id} en Firestore`, err);
+      logger.error(`Error al dar de alta servicio ${service.id} en Firestore`, err, {
+        serviceId: service.id,
+      });
       throw err;
     }
   }
