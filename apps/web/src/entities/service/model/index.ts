@@ -19,6 +19,8 @@ export interface ServicePageSEO {
 export interface ServicePageSystem {
   label: string;
   icon: ElementType;
+  /** Descripción propia del sistema (sistemas publicados desde el panel). */
+  description?: string;
 }
 
 export interface ServicePageFeature {

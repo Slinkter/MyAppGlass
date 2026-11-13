@@ -51,3 +51,18 @@ export interface CatalogSystem {
 
 /** Datos para crear o reemplazar un sistema (el id es la clave del documento). */
 export type CatalogSystemInput = Omit<CatalogSystem, "id">;
+
+/**
+ * Copia pública de un sistema publicado (colección `sistemas_publicos`).
+ * Solo lleva lo que puede ver el cliente: sin alias, accesorios ni fuente de proveedor.
+ */
+export interface PublicSystem {
+  id: string;
+  serviceSlug: string;
+  nombre: string;
+  descripcion: string;
+  tipoApertura: SystemOpening;
+  vidrio: string[];
+  pricePending: boolean;
+  order?: number;
+}

@@ -8,6 +8,7 @@
 export type {
   CatalogSystem,
   CatalogSystemInput,
+  PublicSystem,
   SystemAccessory,
   SystemAlias,
   SystemOpening,
@@ -25,3 +26,4 @@ export {
 export { useSystems } from "./api/useSystems";
 export type { UseSystemsResult } from "./api/useSystems";
 export { seedSystems, SEED_SYSTEMS } from "./api/seedSystems";
+export { usePublishedSystems } from "./api/usePublishedSystems";

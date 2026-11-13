@@ -106,7 +106,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({ pageData, service
             <GridItem colSpan={{ base: 1, lg: 5 }} order={{ base: 2, lg: 1 }} display="flex" flexDirection="column" minW={0} h={{ lg: "460px" }}>
               {about && (
                 <UnifiedTechnicalCard 
-                  description={about.description} 
+                  description={activeSystem?.description || about.description} 
                   features={pageData.features} 
                   systemName={activeSystem?.label || seo.title}
                   quoteHref={quoteEntryHref(serviceSlug, activeSystem?.label)}

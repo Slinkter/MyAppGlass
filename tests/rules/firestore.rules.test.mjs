@@ -84,7 +84,10 @@ for (const col of ["proveedores_productos", "pedidos_proveedor"]) {
 }
 await t("admin write sistema publicado", true, () => setDoc(doc(adminWithClaim, "sistemas", "sis-pub"), { estado: "publicado", nombre: "Serie 25" }));
 await t("admin write sistema borrador", true, () => setDoc(doc(adminWithClaim, "sistemas", "sis-bor"), { estado: "borrador", nombre: "Nuevo" }));
-await t("anon read sistema publicado", true, () => getDoc(doc(anon, "sistemas", "sis-pub")));
+await t("anon read sistema publicado (interno)", false, () => getDoc(doc(anon, "sistemas", "sis-pub")));
+await t("admin write sistema publico", true, () => setDoc(doc(adminWithClaim, "sistemas_publicos", "sis-pub"), { serviceSlug: "ventana", nombre: "Serie 25" }));
+await t("anon read sistema publico", true, () => getDoc(doc(anon, "sistemas_publicos", "sis-pub")));
+await t("anon write sistema publico", false, () => setDoc(doc(anon, "sistemas_publicos", "sis-x"), { nombre: "x" }));
 await t("anon read sistema borrador", false, () => getDoc(doc(anon, "sistemas", "sis-bor")));
 await t("anon write sistemas", false, () => setDoc(doc(anon, "sistemas", "sis-x"), { estado: "publicado" }));
 await t("admin read sistema borrador", true, () => getDoc(doc(adminWithClaim, "sistemas", "sis-bor")));

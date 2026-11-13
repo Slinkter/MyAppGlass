@@ -199,10 +199,16 @@ service cloud.firestore {
       allow read, write: if isAdmin();
     }
 
-    // sistemas: los publicados se leen en páginas públicas; los borradores solo admin.
-    // Una consulta de lista de un cliente solo pasa si filtra por estado == 'publicado'.
+    // sistemas: catálogo interno con alias, accesorios y fuente de cada proveedor.
+    // Solo admin, publicado o no: el cliente nunca debe poder leer datos de proveedores.
     match /sistemas/{id} {
-      allow read: if isAdmin() || resource.data.get('estado', '') == 'publicado';
+      allow read, write: if isAdmin();
+    }
+
+    // sistemas_publicos: copia sin datos de proveedor que se crea al publicar un sistema.
+    // Es lo único que leen las páginas públicas.
+    match /sistemas_publicos/{id} {
+      allow read: if true;
       allow write: if isAdmin();
     }
 

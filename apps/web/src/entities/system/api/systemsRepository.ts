@@ -24,10 +24,24 @@ import { logger } from "@/shared/utils/logger";
 import type {
   CatalogSystem,
   CatalogSystemInput,
+  PublicSystem,
   SystemStatus,
 } from "../model";
 
 const COLLECTION_NAME = "sistemas";
+/** Copia pública: lo único que lee la web del cliente. */
+const PUBLIC_COLLECTION_NAME = "sistemas_publicos";
+
+/** Deja solo los campos que puede ver el cliente (sin datos de proveedor). */
+const toPublic = (data: CatalogSystemInput): Omit<PublicSystem, "id"> => ({
+  serviceSlug: data.serviceSlug,
+  nombre: data.nombre,
+  descripcion: data.descripcion,
+  tipoApertura: data.tipoApertura,
+  vidrio: data.vidrio ?? [],
+  pricePending: data.pricePending !== false,
+  ...(typeof data.order === "number" ? { order: data.order } : {}),
+});
 
 /** Convierte un documento de Firestore en `CatalogSystem`. */
 const mapDoc = (docSnap: QueryDocumentSnapshot<DocumentData>): CatalogSystem => {
@@ -58,20 +72,21 @@ export const listenAll = (
 };
 
 /**
- * Obtiene los sistemas publicados de un servicio.
+ * Sistemas publicados de un servicio, para las páginas públicas.
+ * Lee la copia pública, que no contiene datos de proveedores.
  */
 export const getPublishedByService = async (
   serviceSlug: string
-): Promise<CatalogSystem[]> => {
+): Promise<PublicSystem[]> => {
   try {
-    const colRef = collection(db, COLLECTION_NAME);
     const q = query(
-      colRef,
-      where("estado", "==", "publicado" satisfies SystemStatus),
+      collection(db, PUBLIC_COLLECTION_NAME),
       where("serviceSlug", "==", serviceSlug)
     );
     const snapshot = await getDocs(q);
-    return mapSnapshot(snapshot);
+    return snapshot.docs
+      .map((d) => ({ ...(d.data() as Omit<PublicSystem, "id">), id: d.id }))
+      .sort((x, y) => (x.order ?? 999) - (y.order ?? 999));
   } catch (error) {
     logger.error("Error al obtener sistemas publicados de Firestore", error, {
       serviceSlug,
@@ -107,7 +122,17 @@ export const createIfMissing = async (
  */
 export const setStatus = async (id: string, estado: SystemStatus): Promise<void> => {
   try {
-    await updateDoc(doc(db, COLLECTION_NAME, id), { estado });
+    const ref = doc(db, COLLECTION_NAME, id);
+    const publicRef = doc(db, PUBLIC_COLLECTION_NAME, id);
+    if (estado === "publicado") {
+      const snap = await getDoc(ref);
+      if (!snap.exists()) throw new Error("El sistema no existe.");
+      await setDoc(publicRef, toPublic(snap.data() as CatalogSystemInput));
+      await updateDoc(ref, { estado });
+    } else {
+      await updateDoc(ref, { estado });
+      await deleteDoc(publicRef);
+    }
   } catch (error) {
     logger.error("Error al cambiar estado del sistema en Firestore", error, { id, estado });
     throw error;
@@ -119,6 +144,7 @@ export const setStatus = async (id: string, estado: SystemStatus): Promise<void>
  */
 export const remove = async (id: string): Promise<void> => {
   try {
+    await deleteDoc(doc(db, PUBLIC_COLLECTION_NAME, id));
     await deleteDoc(doc(db, COLLECTION_NAME, id));
   } catch (error) {
     logger.error("Error al eliminar sistema de Firestore", error, { id });
