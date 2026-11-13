@@ -1,0 +1,63 @@
+{
+  "slug": "espejos",
+  "title": "Espejos a medida para interiores",
+  "shortDescription": "Espejos de vidrio flotado con recubrimiento de plata cortados a medida en 3, 4 y 6 mm para baños, vestidores, salas y locales comerciales.",
+  "fullDescription": "Un espejo a medida es una lámina de vidrio flotado con recubrimiento reflectante de plata cortada exactamente a las dimensiones de su muro, baño o mobiliario para ampliar la percepción espacial y multiplicar la luz interior. En nuestro taller seleccionamos espejos comerciales de buena fidelidad óptica, los dimensionamos según el proyecto y los instalamos con fijación segura.\n\nLos espesores habituales disponibles en el mercado local abarcan 2, 3 y 4 mm para formatos pequeños o medianos, y llegan hasta 6 mm en paños de gran formato o superiores a dos metros de lado donde se requiere mayor rigidez para evitar distorsiones visuales. Un espejo delgado sobre un muro irregular puede deformar el reflejo si no se instala sobre una superficie plana.\n\nOfrecemos instalación en formato flotante —adherido directamente al muro o sobre bastidor con cinta doble contacto de espuma acrílica de celda cerrada y silicona neutra— o integrado en carpintería de aluminio cuando se busca protección perimetral en zonas húmedas. Para baños con poca ventilación, recomendamos mantener los bordes bien sellados y limpiar el cristal sin exceso de humedad en los cantos.\n\nNuestro servicio incluye asesoría, toma de medidas en La Molina, Surco, San Borja, San Isidro o Miraflores, corte, transporte y montaje en obra. No incluye trabajos eléctricos ni preparación o nivelación de paredes con humedad activa. Para cotizar, necesitamos ancho y alto deseados, fotografía de la pared (indicando si es cemento, drywall o porcelanato) y confirmación de la zona. Acabados especiales como biselado, formas curvas o retroiluminación LED se evalúan según disponibilidad al momento de su consulta.",
+  "specs": [
+    { "grupo": "Material", "label": "Sustrato base", "value": "Vidrio flotado con recubrimiento de plata" },
+    { "grupo": "Dimensiones", "label": "Espesores en catálogo local", "value": "2 mm, 3 mm y 4 mm (6 mm en formato comercial)" },
+    { "grupo": "Dimensiones", "label": "Espesor para paños amplios", "value": "6 mm recomendado sobre 2.00 m de largo" },
+    { "grupo": "Montaje", "label": "Fijación adherida", "value": "Cinta doble contacto acrílica + silicona neutra" },
+    { "grupo": "Montaje", "label": "Opciones de soporte", "value": "Flotante directo a muro o con marco de aluminio" },
+    { "grupo": "Acabado", "label": "Biselado y retroiluminación", "value": "Precio a definir según disponibilidad en taller" },
+    { "grupo": "Mantenimiento", "label": "Limpieza recomendada", "value": "Paño suave seco o limpiavidrios sin amoníaco" },
+    { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por metro cuadrado o unidad (Precio a definir)" }
+  ],
+  "features": [
+    "Corte a la medida exacta de su muro, vano o mueble de baño.",
+    "Vidrio flotado con recubrimiento de plata de alta nitidez y reflejo fiel.",
+    "Espesores de 3 mm, 4 mm y 6 mm elegidos según el área total del paño.",
+    "Montaje flotante con cinta doble contacto de espuma acrílica y adhesivo neutro.",
+    "Alternativa con marco perimetral de aluminio para proteger los bordes.",
+    "Instalación cuidadosa sobre cerámica, porcelanato, drywall o muro tarrajeado."
+  ],
+  "benefits": [
+    "Multiplica la sensación de amplitud y profundidad en baños, pasadizos y salas.",
+    "Aprovecha mejor la iluminación natural y artificial del ambiente.",
+    "Evita distorsiones ópticas al seleccionar el espesor adecuado según el tamaño.",
+    "Se integra limpiamente al diseño interior sin elementos de fijación invasivos."
+  ],
+  "systemSheets": [
+    {
+      "nombre": "Espejo Flotante a Medida",
+      "resumen": "Solución limpia sin marco visible donde el espejo se fija directamente al muro o sobre un bastidor nivelado. Permite aprovechar toda la superficie reflectante en baños, vestidores y áreas sociales.",
+      "specs": [
+        { "label": "Espesores de trabajo", "value": "3 mm, 4 mm y 6 mm según formato" },
+        { "label": "Sistema de fijación", "value": "Cinta doble contacto de celda cerrada + silicona neutra" },
+        { "label": "Superficies aptas", "value": "Porcelanato, mayólica, drywall o muro pintado firme" },
+        { "label": "Acabado de bordes", "value": "Precio a definir para biselado o canto pulido" }
+      ],
+      "usos": ["Baños principales y de visita", "Vestidores y clósets", "Salas, comedores y gimnasios"]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "¿Qué espesor de espejo conviene elegir según el tamaño de la pared?",
+      "answer": "Para espejos pequeños o de formato mediano —como tocadores o baños de visita— funcionan bien los espesores de 3 mm y 4 mm. Cuando el espejo supera los 2 metros de largo o cubre muros completos de sala y vestidor, se recomienda usar 6 mm para mantener la planitud y evitar distorsiones en el reflejo."
+    },
+    {
+      "question": "¿Es mejor instalar un espejo flotante o con marco de aluminio?",
+      "answer": "El espejo flotante ofrece una estética minimalista y continua, ideal para baños modernos y muros amplios donde no se desean bordes visibles. El marco de aluminio conviene cuando la pared presenta ligeras irregularidades, en zonas con humedad constante que pueden afectar los cantos o cuando se requiere desmontar el espejo en el futuro."
+    },
+    {
+      "question": "¿Cómo se protege un espejo contra la humedad del baño y cómo se cotiza?",
+      "answer": "Para evitar manchas oscuras en los bordes por humedad, utilizamos silicona neutra compatible con el recubrimiento de plata y recomendamos no rociar limpiadores directamente sobre las orillas. Para cotizar envíenos medidas aproximadas y foto de la pared; el costo figura como Precio a definir según espesor, área y tipo de montaje."
+    }
+  ],
+  "notasInternas": [
+    "Fuentes de matriz-hechos.md utilizadas: H-114 (espejos comerciales 2, 3, 4 y 6 mm con plata sobre flotado), H-115 (catálogo local 2, 3, 4 mm), H-116 (catálogos locales no detallan biselado, cantos pulidos, formas geométricas ni retroiluminación), H-145 (cinta doble contacto de espuma acrílica de celda cerrada).",
+    "[POR CONFIRMAR] Disponibilidad real y precio de espejo de 6 mm en distribuidores locales (en H-115 solo figuran 2, 3 y 4 mm).",
+    "[POR CONFIRMAR] Alcance, maquinaria y precios para biselado, cantos pulidos, formas geométricas y retroiluminación LED (H-116).",
+    "[POR CONFIRMAR] Precio por m², mínimo cobrable y plazo de entrega."
+  ]
+}

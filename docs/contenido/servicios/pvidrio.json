@@ -1,0 +1,74 @@
+{
+  "slug": "pvidrio",
+  "title": "Puertas de Vidrio Templado",
+  "shortDescription": "Puertas de cristal templado de 8 a 10 mm con herrajes pivotantes o batientes para viviendas, baños y locales en Lima, ensambladas e instaladas a medida.",
+  "fullDescription": "Las puertas de vidrio templado ofrecen acceso luminoso y limpio para interiores de viviendas, oficinas y locales comerciales. El cristal se somete a tratamiento térmico cercano a los 650 °C seguido de enfriamiento controlado, logrando entre cuatro y cinco veces más resistencia mecánica que un vidrio recocido. Ante una eventual rotura, el panel se fragmenta en gránulos pequeños sin aristas cortantes, reduciendo riesgos para las personas.\n\nEn nuestro taller técnico seleccionamos el espesor, el tipo de herraje y la configuración de paños fijos según el ancho del vano, la altura libre y la frecuencia de tránsito. Para puertas de paso habituales recomendamos cristal templado de 8 mm o 10 mm en acabado incoloro, bronce o gris, con opción de lámina arenada o vidrio satinado cuando su ambiente requiere privacidad. No recomendamos este sistema en vanos con desniveles pronunciados de piso sin rectificación previa ni en accesos que exijan cierre hermético perimetral contra lluvia intensa.\n\nEl servicio incluye toma de medidas en obra, verificación de plomos, suministro del cristal procesado, herrajes de giro o bisagras, jalador, cerradura o cerrojo, e instalación y nivelación completa. No incluye obras de albañilería, picado de piso estructural sin autorización ni demolición de marcos existentes. Como referencia comercial, el presupuesto se calcula por unidad instalada según dimensiones y herrajes elegidos; Precio a definir tras inspección técnica.\n\nAntes de cotizar necesitamos medidas aproximadas del vano, fotografías del piso y dintel, e indicar si la puerta abrirá hacia adentro, hacia afuera o en doble sentido. Para conservar la suavidad de giro, recomendamos limpiar los herrajes metálicos con paño suave y silicona neutra. Si con el uso la hoja roza el piso o pierde alineación, un ajuste de herrajes o regulación del punto de pivote corrige el descuadre.",
+  "specs": [
+    { "grupo": "Cristal", "label": "Tipo de vidrio", "value": "Templado de seguridad (tratamiento a ~650 °C)" },
+    { "grupo": "Cristal", "label": "Espesor estándar", "value": "10 mm en puertas de paso; 8 mm en hojas livianas" },
+    { "grupo": "Cristal", "label": "Espesores comerciales", "value": "6, 8, 10 y 12 mm según dimensión del vano" },
+    { "grupo": "Cristal", "label": "Colores disponibles", "value": "Incoloro, gris, bronce y reflectante" },
+    { "grupo": "Herrajes", "label": "Sistema pivotante", "value": "Herraje con base de rotación o freno de piso a 90°" },
+    { "grupo": "Herrajes", "label": "Sistema batiente", "value": "Bisagras de alta o baja rotación para 6 a 8 mm" },
+    { "grupo": "Herrajes", "label": "Jaladores", "value": "Circulares en acabado mate o negro (variantes hasta 10 mm)" },
+    { "grupo": "Seguridad", "label": "Cerraduras y cerrojos", "value": "Cerrojo al concreto o zócalo; placa adaptadora para pomo" },
+    { "grupo": "Paños fijos", "label": "Uniones estructurales", "value": "Fijación piso-techo, esquina y en T para 6 a 8 mm" },
+    { "grupo": "Servicio", "label": "Modalidad de cotización", "value": "Precio a definir por unidad instalada" }
+  ],
+  "features": [
+    "Cristal templado con resistencia mecánica de 4 a 5 veces superior al vidrio crudo.",
+    "Cortes, destajes y perforaciones ejecutados con precisión antes del proceso térmico.",
+    "Configuración pivotante con retención a 90° o batiente sobre muro o paño fijo.",
+    "Herrajes en acabado mate o negro compatibles con espesores de 6 a 10 mm.",
+    "Opciones de privacidad mediante cristal satinado o lámina arenada mate.",
+    "Instalación con verificación de niveles, plomos y calibración de holguras."
+  ],
+  "benefits": [
+    "Mayor seguridad para su vivienda o local gracias a la fragmentación granular del templado.",
+    "Continuidad visual e ingreso de luz natural entre ambientes sin recargar el espacio.",
+    "Operación suave y duradera mediante herrajes dimensionados para el peso de la hoja.",
+    "Asesoría técnica en La Molina, Surco, San Borja, San Isidro y Miraflores."
+  ],
+  "systemSheets": [
+    {
+      "nombre": "Sistema Pivotante con Freno de Piso",
+      "resumen": "Conjunto de cristal templado suspendido sobre pivote superior y mecanismo hidráulico inferior empotrado en el suelo. Permite apertura fluida, cierre amortiguado en dos velocidades y retención a 90° para accesos frecuentes.",
+      "specs": [
+        { "label": "Espesor de cristal", "value": "8 mm a 10 mm templado" },
+        { "label": "Mecanismo inferior", "value": "Freno hidráulico empotrado con retención a 90°" },
+        { "label": "Accesorios de sujeción", "value": "Herrajes superior e inferior en acabado mate" },
+        { "label": "Cierre y seguridad", "value": "Cerrojo al piso o chapa según requerimiento" }
+      ],
+      "usos": [
+        "Ingresos principales de oficinas y locales",
+        "Puertas interiores de paso frecuente en viviendas",
+        "Divisiones con paños fijos laterales o superiores"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "¿Se puede cortar o perforar una puerta de vidrio templado después de instalada?",
+      "answer": "No es posible cortar, perforar ni desbastar un cristal templado una vez salido del horno. Su resistencia proviene de tensiones internas equilibradas que se liberan de golpe si se altera el borde o la superficie, provocando que la hoja estalle en fragmentos pequeños. Por esa razón, todos los destajes para bisagras, cerraduras y jaladores se definen en plano sobre vidrio crudo antes de templar."
+    },
+    {
+      "question": "¿Qué espesor de vidrio conviene para una puerta de vivienda o local?",
+      "answer": "Para puertas de paso frecuente en viviendas, oficinas o comercios recomendamos cristal templado de 10 mm, ya que aporta mayor rigidez frente al uso diario y admite jaladores robustos. En hojas de dimensiones reducidas, baños interiores o paños con menor exigencia mecánica puede evaluarse 8 mm. Durante la visita técnica verificamos el ancho, la altura y el tipo de apoyo antes de definir el espesor final."
+    },
+    {
+      "question": "¿Qué mantenimiento requieren los herrajes de una puerta de vidrio templado?",
+      "answer": "La limpieza habitual del cristal se realiza con paño limpio y limpiavidrios no abrasivo, mientras que los herrajes metálicos se protegen pasando un paño suave con silicona para evitar oxidación superficial. Si la puerta presenta roce contra el piso, cierre brusco o desalineación en el marco, no fuerce la hoja; solicite una calibración técnica de bisagras o del eje pivotante para recuperar la holgura correcta."
+    },
+    {
+      "question": "¿Qué información necesitan para cotizar una puerta de vidrio en mi proyecto?",
+      "answer": "Para preparar una cotización preliminar necesitamos el ancho y alto aproximado del vano, fotografías del piso y del techo o dintel donde apoyará la puerta, y saber si llevará paños fijos adicionales. También conviene indicar si prefiere apertura batiente o pivotante y si requiere acabado transparente o con privacidad. Con esos datos programamos la verificación exacta en obra dentro de nuestra zona de atención."
+    }
+  ],
+  "notasInternas": [
+    "Fuentes matriz-hechos.md: H-002 a H-006 (vidrio templado y espesores), H-020 y H-103 (satinado y arenado), H-078 a H-084 (herrajes pivotantes, bisagras, cerrojos, cerraduras, jaladores, uniones), H-117 y H-119 (freno de piso y sujeción), H-128 (mantenimiento de accesorios metálicos), H-142 (familias de chapas).",
+    "[POR CONFIRMAR] Precio referencial por unidad instalada y rango comercial vigente.",
+    "[POR CONFIRMAR] Plazo estándar de entrega e instalación desde la aprobación de medidas.",
+    "[POR CONFIRMAR] Condiciones de garantía escrita sobre herrajes y mano de obra.",
+    "[POR CONFIRMAR] Espesor mínimo (8 mm vs 10 mm) para herraje pivotante simple cuando no se usa freno de piso, dado que H-078 registra 6 a 8 mm en catálogo de herrajes y la especificación de puerta de paso indica 10 mm."
+  ]
+}

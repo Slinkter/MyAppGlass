@@ -12,7 +12,7 @@ import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 const PRESUPUESTO_TITLE = "Cotizador de Presupuestos de Vidrio y Aluminio Online";
 const PRESUPUESTO_DESCRIPTION =
-  "Calcula tu presupuesto formal al instante para ventanas antirruido, mamparas de vidrio templado, techos y puertas de ducha en La Molina y Lima.";
+  "Calcula tu presupuesto formal al instante para ventanas de aluminio, mamparas de vidrio templado, techos y boxes de ducha en La Molina y Lima.";
 
 export const metadata: Metadata = buildPageMetadata({
   title: PRESUPUESTO_TITLE,
@@ -20,7 +20,7 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/presupuesto",
   keywords: [
     "cotizador de presupuestos vidrio y aluminio",
-    "calcular presupuesto ventanas antirruido",
+    "calcular presupuesto ventanas de aluminio",
     "cotizar mamparas online lima",
     "precios vidriería la molina",
   ],

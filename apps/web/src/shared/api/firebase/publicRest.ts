@@ -12,8 +12,10 @@
 
 import { logger } from "@/shared/utils/logger";
 import {
+  BlogPostSchema,
   ProjectSchema,
   ServiceSchema,
+  type BlogPost,
   type Project,
   type Service,
 } from "./types";
@@ -180,4 +182,15 @@ export const getBuildProjects = memoize(async (): Promise<Project[]> => {
       const nb = Number(b.id);
       return !Number.isNaN(na) && !Number.isNaN(nb) ? nb - na : 0;
     });
+});
+
+/** Artículos del blog publicados, más recientes primero (`date` descendente). `[]` si falla. */
+export const getBuildBlogPosts = memoize(async (): Promise<BlogPost[]> => {
+  const posts = await readCollection<BlogPost>("blogPosts", (raw) => {
+    const result = BlogPostSchema.safeParse(raw);
+    return result.success ? result.data : null;
+  });
+  return posts
+    .filter((p) => p.published)
+    .sort((a, b) => b.date.localeCompare(a.date));
 });

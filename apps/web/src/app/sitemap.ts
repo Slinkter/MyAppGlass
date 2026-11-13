@@ -1,7 +1,7 @@
 import { SITE_URL } from "@/shared/config/company-data";
 import { MetadataRoute } from "next";
 import BLOG_POSTS from "@/features/blog/data/blog-posts";
-import { getBuildProjects, getBuildServices } from "@/shared/api/firebase/publicRest";
+import { getBuildBlogPosts, getBuildProjects, getBuildServices } from "@/shared/api/firebase/publicRest";
 
 export const dynamic = "force-static";
 
@@ -46,8 +46,13 @@ const resolveLastModified = (value: unknown, fallback: Date): Date => {
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Servicios y proyectos salen de Firestore (lectura REST en build); si falla, quedan solo las páginas fijas.
-  const [services, projects] = await Promise.all([getBuildServices(), getBuildProjects()]);
+  // Servicios, proyectos y artículos salen de Firestore (REST en build); blog hace fallback a semilla si está vacío.
+  const [services, projects, remotePosts] = await Promise.all([
+    getBuildServices(),
+    getBuildProjects(),
+    getBuildBlogPosts(),
+  ]);
+  const posts = remotePosts.length > 0 ? remotePosts : BLOG_POSTS;
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: BUILD_DATE, changeFrequency: "weekly", priority: 1.0 },
@@ -68,7 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     images: service.coverImage ? [toSitemapImageUrl(service.coverImage)] : undefined,
   }));
 
-  const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+  const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${SITE_URL}/blog/${post.slug}`,
     lastModified: resolveLastModified(post.date, DEFAULT_LAST_MODIFIED),
     changeFrequency: "monthly",

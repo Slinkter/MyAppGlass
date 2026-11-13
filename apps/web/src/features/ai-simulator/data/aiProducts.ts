@@ -24,10 +24,10 @@ export const AI_SIMULATOR_PRODUCTS: AISimulatorProduct[] = [
     quoteSystemType: "mampara_serie25",
   },
   {
-    id: "ventana-antirruido-nova",
-    name: "Ventana Antirruido Sistema Nova Hermética",
+    id: "ventana-nova",
+    name: "Ventana de aluminio Sistema Nova",
     category: "ventanas",
-    description: "Ventana acústica de doble contacto con vidrio Laminado antirruido para dormitorios y oficinas.",
+    description: "Ventana hermética de doble contacto con vidrio Laminado con atenuación acústica para dormitorios y oficinas.",
     previewImage: "/images/services-products-01.Ventanas-nova-a10.webp",
     recommendedSpace: "Dormitorio, fachada a la calle o estudio",
     aiPromptSnippet: "high-end acoustic hermetic window Nova system with dark bronze framing and soundproof laminated glass",

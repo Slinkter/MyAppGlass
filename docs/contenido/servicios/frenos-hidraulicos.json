@@ -1,0 +1,86 @@
+{
+  "slug": "frenos-hidraulicos",
+  "title": "Frenos Hidráulicos y Cierrapuertas",
+  "shortDescription": "Suministro, instalación y regulación de frenos de piso y bisagras aéreas hidráulicas para fachadas de edificios, oficinas, hoteles y puertas de cristal.",
+  "fullDescription": "Los frenos hidráulicos son mecanismos de control de cierre que soportan y regulan el retorno de puertas batientes o pivotantes, evitando golpes bruscos contra el marco o el cristal contiguo. En fachadas de edificios, recepciones de oficinas, hoteles y locales comerciales de alto tránsito, un freno hidráulico de piso empotrado soporta el peso de la puerta de vidrio templado, amortigua el recorrido en dos velocidades independientes y permite retener la hoja abierta a 90°.\n\nEvaluamos si su puerta requiere un freno de piso estándar, un modelo reforzado con pin, tapa y perno para hojas pesadas, o un cierrapuertas aéreo hidráulico. La bisagra aérea resulta recomendable en puertas interiores o de menor peso (hasta 65 kg), mientras que los ingresos principales de cristal templado exigen freno de piso con herrajes superior e inferior dimensionados. No recomendamos instalar un cierrapuertas aéreo estándar en portones que superen su capacidad nominal de carga ni empotrar cajas en pisos con tuberías o losas postensadas sin verificación previa.\n\nEl servicio incluye evaluación del peso y ancho de la hoja, suministro del freno o cierrapuertas con accesorios de sujeción en acabado mate, negro o blanco según modelo, picado o adecuación del alojamiento cuando corresponda, montaje y calibración de las válvulas de barrido y golpe final. No incluye reposición de cristales fracturados ni reconstrucción mayor de pisos de mármol o porcelanato. El presupuesto se cotiza por unidad instalada o por mantenimiento correctivo; Precio a definir tras inspección.\n\nPara cotizar solicitamos fotografías de la puerta completa, del piso o dintel, medidas aproximadas de la hoja y espesor del vidrio. El mantenimiento preventivo periódico evita desajustes prematuros. Si nota cierre violento, hoja descolgada o fuga de aceite en la caja del piso, suspenda el uso intensivo y solicite revisión técnica para regular válvulas o reemplazar el mecanismo.",
+  "specs": [
+    { "grupo": "Freno de piso", "label": "Control de cierre", "value": "Doble velocidad regulable (barrido y golpe final)" },
+    { "grupo": "Freno de piso", "label": "Ángulo de retención", "value": "Retención abierta a 90° en posición fija" },
+    { "grupo": "Freno de piso", "label": "Variantes disponibles", "value": "Estándar y reforzado con pin, tapa y perno" },
+    { "grupo": "Freno de piso", "label": "Accesorios de sujeción", "value": "Herrajes superior e inferior en acabado mate" },
+    { "grupo": "Cierrapuertas aéreo", "label": "Capacidad máxima", "value": "Hasta 65 kg de peso de hoja" },
+    { "grupo": "Cierrapuertas aéreo", "label": "Acabados disponibles", "value": "Mate, negro y blanco" },
+    { "grupo": "Compatibilidad", "label": "Aplicaciones principales", "value": "Puertas de vidrio templado y carpintería liviana" },
+    { "grupo": "Servicio", "label": "Modalidad de cotización", "value": "Precio a definir por unidad instalada o servicio" }
+  ],
+  "features": [
+    "Regulación independiente de velocidad de barrido y tramo de golpe final.",
+    "Retención automática a 90° para facilitar el paso en mudanzas o ventilación.",
+    "Modelos de piso estándar y reforzados para puertas de tránsito intenso.",
+    "Alternativa de cierrapuertas aéreo hidráulico de hasta 65 kg en tres acabados.",
+    "Calibración de nivel, eje vertical y holguras perimetrales tras el montaje.",
+    "Diagnóstico técnico ante fugas de aceite, golpeteo o descuelgue de hoja."
+  ],
+  "benefits": [
+    "Protege el cristal templado frente a impactos por cierre violento o ráfagas de viento.",
+    "Prolonga la vida útil de cerraduras y herrajes en fachadas de edificios y hoteles.",
+    "Mejora la seguridad y comodidad de acceso en oficinas y locales comerciales.",
+    "Permite recuperar puertas desalineadas mediante regulación o recambio oportuno."
+  ],
+  "systemSheets": [
+    {
+      "nombre": "Freno Hidráulico de Piso",
+      "resumen": "Mecanismo hidráulico alojado dentro de una caja empotrada en el suelo que carga el peso de la puerta de cristal templado, suaviza el cierre en dos etapas y retiene la hoja a 90°. Disponible en versiones estándar y reforzadas.",
+      "specs": [
+        { "label": "Velocidades", "value": "2 válvulas independientes (barrido y golpe final)" },
+        { "label": "Retención", "value": "90° de apertura" },
+        { "label": "Configuraciones", "value": "Estándar y reforzado con pin, tapa y perno" },
+        { "label": "Sujeción", "value": "Herrajes superior e inferior en acabado mate" }
+      ],
+      "usos": [
+        "Fachadas de edificios corporativos y condominios",
+        "Ingresos principales de oficinas, bancos y hoteles",
+        "Locales comerciales con puertas batientes de cristal templado"
+      ]
+    },
+    {
+      "nombre": "Bisagra Aérea Hidráulica",
+      "resumen": "Cierrapuertas hidráulico instalado en la parte superior del marco y la hoja para controlar el retorno de puertas más livianas sin picar el piso. Ofrece regulación hidráulica y acabados discretos.",
+      "specs": [
+        { "label": "Capacidad de carga", "value": "Hasta 65 kg" },
+        { "label": "Montaje", "value": "Aéreo en cabezal superior sin caja en piso" },
+        { "label": "Acabados", "value": "Mate, negro y blanco" }
+      ],
+      "usos": [
+        "Puertas interiores de aluminio en serie o madera liviana",
+        "Accesos de oficinas secundarias con tránsito moderado",
+        "Vanos donde no es posible perforar la losa del piso"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "¿Cuál es la diferencia entre un freno hidráulico de piso y una bisagra aérea?",
+      "answer": "El freno hidráulico de piso se empotra bajo el nivel del suelo, soporta directamente el peso de puertas de vidrio templado y ofrece retención a 90° para fachadas y accesos exigentes. La bisagra aérea hidráulica se monta en la parte superior del marco sin picar el piso y está pensada para puertas más livianas de hasta 65 kg."
+    },
+    {
+      "question": "¿Por qué una puerta con freno hidráulico empieza a golpear al cerrar?",
+      "answer": "El golpe al cerrar suele deberse al desajuste de la válvula de segunda velocidad, desgaste por uso intenso o pérdida del fluido hidráulico interno. En una revisión técnica regulamos ambas velocidades (barrido y golpe final) y verificamos la alineación de los herrajes; si el mecanismo presenta fuga de aceite en el piso, corresponde reemplazar la unidad."
+    },
+    {
+      "question": "¿Qué síntomas indican que un freno de piso necesita mantenimiento o cambio?",
+      "answer": "Las señales más claras son manchas o filtración de aceite alrededor de la tapa metálica del suelo, puerta descolgada que roza el piso, pérdida de la retención a 90° o cierre acelerado sin amortiguación. Atender estos síntomas a tiempo evita esfuerzos indebidos sobre las perforaciones del cristal templado."
+    },
+    {
+      "question": "¿Qué datos necesitan para cotizar la instalación o el cambio de un freno hidráulico?",
+      "answer": "Necesitamos conocer las medidas aproximadas de la puerta (ancho y alto), el espesor del vidrio o material de la hoja, y recibir fotografías de la tapa actual del piso o del cabezal superior. Con esa información evaluamos si basta una regulación, un recambio en la caja existente o una instalación completa."
+    }
+  ],
+  "notasInternas": [
+    "Fuentes matriz-hechos.md: H-117 (definición de freno de piso, dos velocidades, 90°), H-118 (modelos estándar y reforzados con pin, tapa y perno), H-119 (accesorios de sujeción mate), H-120 (cierrapuertas aéreo hasta 65 kg en mate, negro y blanco), H-121 (falta capacidad exacta en kg por modelo de freno de piso).",
+    "Fuentes 02-FASE-1-fichas-tecnicas.md §1.3 y §1.5: aplicaciones en fachadas de edificios, oficinas y hoteles; síntomas de falla (golpe al cerrar, puerta descolgada, aceite en el piso).",
+    "[POR CONFIRMAR] Capacidad máxima exacta en kilogramos y espesor máximo de vidrio para cada modelo de freno de piso (estándar vs reforzado).",
+    "[POR CONFIRMAR] Precio referencial por unidad instalada, recambio de caja y tarifa de regulación/mantenimiento.",
+    "[POR CONFIRMAR] Plazo de atención e instalación y cobertura de garantía."
+  ]
+}

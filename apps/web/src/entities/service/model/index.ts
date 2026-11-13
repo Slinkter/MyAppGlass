@@ -6,10 +6,19 @@
  */
 
 import type { ElementType } from "react";
-import type { ServiceFaq } from "@/shared/api/firebase/types";
+import type {
+  ServiceFaq,
+  ServiceSpec,
+  ServiceSystemSheet,
+} from "@/shared/api/firebase/types";
 import type { GalleryItem } from "@/shared/types/gallery";
 
-export type { Service, ServiceFaq } from "@/shared/api/firebase/types";
+export type {
+  Service,
+  ServiceFaq,
+  ServiceSpec,
+  ServiceSystemSheet,
+} from "@/shared/api/firebase/types";
 
 export interface ServicePageSEO {
   title: string;
@@ -38,6 +47,10 @@ export interface ServicePageData {
   imageLists: GalleryItem[][];
   /** Preguntas frecuentes del servicio (vacío = no se muestra la sección). */
   faqs: ServiceFaq[];
+  /** Especificaciones técnicas del servicio (vacío = no se muestra la sección). */
+  specs: ServiceSpec[];
+  /** Fichas técnicas por sistema (vacío = se mantiene el comportamiento estándar). */
+  systemSheets: ServiceSystemSheet[];
 }
 
 /** Modelo mínimo que consumen las tarjetas de la lista pública. */

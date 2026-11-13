@@ -1,6 +1,8 @@
 /**
  * @file blog-posts.ts
- * @description Centralized data for blog posts with SEO-optimized content, E-E-A-T authority, and technical interlinking.
+ * @description Semilla de migración para la colección `blogPosts` en Firestore.
+ * Se conserva SOLO como semilla y fallback de build; la fuente principal de artículos
+ * es Firestore (gestionado desde `/admin/blog`). No importar directamente desde la UI ni el sitemap.
  */
 
 export interface BlogPost {
@@ -192,32 +194,44 @@ const BLOG_POSTS: BlogPost[] = [
   {
     id: "9",
     slug: "ventanas-antirruido-lima-guia-aislamiento-acustico",
-    title: "Guía Definitiva de Ventanas Antirruido en Lima: Aislamiento Acústico y Confort",
-    description: "Aprende cómo funcionan las ventanas antirruido en Lima. Cristales insulados DVH y perfiles herméticos para eliminar el ruido del tráfico.",
-    excerpt: "¿Cansado del ruido vehicular en La Molina o Surco? Descubre cómo las ventanas acústicas de aluminio reducen hasta un 80% del ruido exterior.",
+    title: "Guía sobre Ventanas de Aluminio y Atenuación Acústica en Lima",
+    description: "Guía técnica sobre ventanas de aluminio con atenuación acústica en Lima: qué influye en el confort sonoro según serie, vidrio y sellado.",
+    excerpt: "¿El ruido del tráfico afecta el descanso en su vivienda? Conozca cómo funcionan las ventanas de aluminio con atenuación estimada según serie y composición del vidrio.",
     date: "2026-08-01",
-    author: "GYA Company",
+    author: "Glass & Aluminum Company S.A.C.",
     image: "/images/services-general-init01.webp",
-    tags: ["Ventanas Antirruido", "Aislamiento Acústico", "La Molina"],
+    tags: ["Atenuación Acústica", "Ventanas de Aluminio", "Vidrio Laminado", "La Molina"],
     content: `
-      <h2>Cómo Lograr un Aislamiento Acústico Total en tu Hogar</h2>
-      <p>El ruido del tráfico vehicular, bocinazos y construcciones en avenidas como Javier Prado, Raúl Ferrero o El Polo es uno de los principales factores que afectan la calidad del sueño y el bienestar en Lima. Las <strong>ventanas antirruido</strong> son la solución técnica definitiva para recuperar la tranquilidad de tu hogar.</p>
+      <h2>¿Cómo reducir el ruido exterior en su vivienda sin promesas irreales?</h2>
+      <p>Si su departamento o casa en La Molina, Surco, San Borja, San Isidro o Miraflores colinda con una avenida transitada, es habitual preguntarse qué tipo de cerramiento ofrece un resultado real frente al tráfico, las bocinas y el bullicio urbano. En el mercado local suele emplearse de forma genérica el término comercial "antirruido", aunque en sentido técnico estricto ese calificativo corresponde a sistemas de PVC con cámara múltiple; en carpintería de aluminio, lo correcto y honesto es hablar de <strong>atenuación estimada según serie y composición del vidrio</strong>.</p>
+      <p>Comprender esta diferencia le permitirá tomar una decisión informada, evitar expectativas exageradas y elegir una solución acorde al nivel de ruido de su entorno y a las características del vano existente.</p>
 
-      <h3>1. ¿Cómo Funciona una Ventana Acústica Hermética?</h3>
-      <p>Una ventana verdaderamente antirruido no depende únicamente del grosor del vidrio; requiere de un sistema integral compuesto por:</p>
+      <h2>¿De qué depende realmente la atenuación acústica de una ventana?</h2>
+      <p>El sonido se transmite tanto por vibración directa a través del cristal como por las rendijas de aire entre la hoja y el marco. Por eso, cambiar únicamente el espesor del vidrio sin revisar la perfilería ni los empaques rara vez resuelve el problema. El desempeño sonoro de una <a href="/servicios/ventana">ventana de aluminio</a> responde a la interacción de tres componentes principales:</p>
       <ul>
-        <li><strong>Doble Vidriado Hermético (DVH / Insulado):</strong> Dos hojas de vidrio templado o laminado separadas por una cámara de aire seco o gas argón con sales deshidratantes que absorben la onda sonora.</li>
-        <li><strong>Perfilería de Aluminio Hermética:</strong> Perfiles diseñados con felpas de alta densidad y empaques EPDM perimetrales que eliminan cualquier fisura por donde pueda filtrarse el sonido.</li>
-        <li><strong>Accesorios y Cierres Multipunto:</strong> Mecanismos de presión que ajustan las hojas con fuerza milimétrica contra el marco.</li>
+        <li><strong>Composición del vidrio:</strong> Un vidrio crudo monolítico delgado transmite con facilidad las frecuencias graves y medias del tráfico. En cambio, un <strong>vidrio laminado</strong> une dos hojas mediante una interlámina de polivinil butiral (PVB) que amortigua la vibración mecánica del cristal. Otra alternativa es el <strong>vidrio insulado o DVH</strong>, formado por dos hojas separadas por una cámara de aire deshidratado con sellado perimetral hermético, que combina desempeño térmico y atenuación acústica.</li>
+        <li><strong>Tipo de apertura y serie de aluminio:</strong> Las ventanas corredizas convencionales dependen de felpas para sellar el perímetro de las hojas móviles, lo que deja una mínima holgura necesaria para el deslizamiento. Las series proyectantes y batientes con burlete de doble contacto perimetral presionan la hoja contra el marco al cerrar, logrando un cierre más hermético frente al aire y al sonido.</li>
+        <li><strong>Sellado perimetral e instalación:</strong> Incluso un buen perfil con cristal laminado o insulado pierde eficacia si quedan fisuras entre el marco de aluminio y el muro de concreto, o si los burletes de EPDM y felpas siliconadas están mal ajustados.</li>
       </ul>
 
-      <h3>2. Reducción de Ruido Medible en Decibeles (dB)</h3>
-      <p>Una ventana tradicional de vidrio crudo simple apenas atenúa entre 15 y 18 dB. En cambio, nuestras <a href="/servicios/ventana">ventanas acústicas de aluminio</a> logran reducir entre <strong>32 y 42 decibeles</strong>, transformando un ambiente ruidoso de 80 dB (equivalente al tráfico pesado) en un interior silencioso de 38 dB, ideal para descansar y concentrarse.</p>
+      <h3>Vidrio laminado frente a doble vidriado hermético (DVH)</h3>
+      <p>Cada composición responde a una necesidad distinta. El vidrio laminado en espesores como 6.38 mm, 8.38 mm o 10.76 mm aporta masa y amortiguamiento interno gracias a su película de PVB, además de retener los fragmentos en caso de rotura. Por su parte, el DVH destaca cuando se busca controlar simultáneamente la transferencia térmica y el ruido, y su espesor total exige series de aluminio con canal o junquillo compatible, como las proyectantes de serie intermedia o las líneas europeas disponibles en el mercado peruano.</p>
 
-      <blockquote>"El aislamiento acústico de calidad no es un gasto, es una inversión directa en salud, descanso y plusvalía inmobiliaria."</blockquote>
+      <h3>El papel de la hermeticidad en puertas y mamparas</h3>
+      <p>En ambientes integrados hacia terrazas o balcones, no basta con mejorar solo las ventanas del dormitorio si una <a href="/servicios/mampara">mampara de vidrio y aluminio</a> contigua tiene holguras en el traslape central o felpas desgastadas. Evaluar todo el frente expuesto hacia la fuente sonora evita que el ruido ingrese por el punto más débil de la fachada.</p>
 
-      <h3>3. Asesoría Técnica a Domicilio en La Molina y Surco</h3>
-      <p>En Glass & Aluminum Company S.A.C., fabricamos cada ventana con medidas exactas al vano de tu obra. <a href="/contacto">Haz clic aquí para solicitar una cotización técnica personalizada</a> o escríbenos directamente por WhatsApp.</p>
+      <h2>Cómo decidir la mejor configuración para su proyecto</h2>
+      <p>Antes de solicitar un presupuesto, conviene analizar tres variables concretas de su inmueble:</p>
+      <ul>
+        <li><strong>Exposición al ruido:</strong> No es lo mismo una calle residencial tranquila que un dormitorio orientado hacia una vía rápida o zona comercial. En frentes de baja exposición, una serie corrediza bien sellada con vidrio laminado puede resultar suficiente; en frentes muy expuestos, conviene priorizar sistemas proyectantes, batientes o corredizos perimetrales de mayor sección.</li>
+        <li><strong>Capacidad estructural del marco:</strong> Las series livianas para vidrio de 4 mm no admiten cristales laminados gruesos ni paneles insulados. Seleccionar la serie adecuada garantiza que las garruchas, brazos proyectantes y burletes trabajen dentro de su rango nominal sin descuadrarse.</li>
+        <li><strong>Ventilación y uso diario:</strong> Una ventana proyectante ofrece mayor presión de cierre, pero abre hacia el exterior en un ángulo acotado. Una corrediza facilita el paso de aire en mayor porcentaje del vano y no invade el espacio interior ni exterior.</li>
+      </ul>
+      <p>En Glass &amp; Aluminum Company S.A.C. seleccionamos, calculamos, ensamblamos e instalamos cada cerramiento a la medida del vano existente, sin prometer cifras absolutas sin ensayo acústico en obra, sino explicando con claridad qué mejora puede esperar usted según la serie y el cristal elegidos.</p>
+
+      <h2>¿Cuándo llamar a un especialista para evaluar su vivienda?</h2>
+      <p>Es recomendable coordinar una visita técnica cuando percibe filtraciones de ruido acompañadas de corrientes de aire, vibración del cristal al paso de vehículos pesados o dificultad para cerrar los seguros. Un especialista revisará la escuadra del vano, el estado del muro, las medidas máximas recomendadas por serie y la compatibilidad de espesores de vidrio antes de definir el despiece.</p>
+      <p>Si desea evaluar una renovación de ventanas en La Molina, Surco, San Borja, San Isidro o Miraflores, puede revisar nuestras opciones en <a href="/servicios/ventana">ventanas de aluminio</a> o escribirnos desde nuestra página de <a href="/contacto">contacto</a> para coordinar una inspección técnica a domicilio.</p>
     `,
   },
   {

@@ -11,13 +11,14 @@ import { logger } from "@/shared/utils/logger";
 /**
  * Entidades admitidas para almacenamiento estructurado
  */
-export type StorageEntity = "services" | "projects" | "products";
+export type StorageEntity = "services" | "projects" | "products" | "blog";
 
 export interface UploadFileOptions {
   entity: StorageEntity;
   entityId: string;
   file: Blob | Uint8Array | ArrayBuffer;
   fileName: string;
+  exactFileName?: boolean;
   contentType?: string;
   customMetadata?: Record<string, string>;
 }
@@ -43,10 +44,12 @@ export const uploadFile = async ({
   entityId,
   file,
   fileName,
+  exactFileName = false,
   contentType,
   customMetadata,
 }: UploadFileOptions): Promise<UploadResult> => {
-  const safeName = `${Date.now()}_${sanitizeFileName(fileName)}`;
+  const sanitized = sanitizeFileName(fileName);
+  const safeName = exactFileName ? sanitized : `${Date.now()}_${sanitized}`;
   const fullPath = `${entity}/${entityId}/${safeName}`;
 
   try {

@@ -4,7 +4,7 @@ import React, { useMemo } from "react";
 import { Box, Heading, Text, VStack, HStack, Flex } from "@chakra-ui/react";
 import { Badge } from "@/shared/ui/badge";
 import Link from "next/link";
-import { BlogPost } from "@/features/blog/data/blog-posts";
+import type { BlogPost } from "@/shared/api/firebase/types";
 import { LucideCalendar, LucideUser, LucideArrowRight } from "lucide-react";
 import ResponsiveImage from "@shared/components/Image/ResponsiveImage";
 import { ImageRevealSkeleton } from "@shared/components/Image/ImageReveal";

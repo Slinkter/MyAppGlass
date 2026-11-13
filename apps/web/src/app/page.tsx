@@ -6,16 +6,16 @@ import { getBuildProjects, getBuildServices } from "@/shared/api/firebase/public
 import { PageTransition } from "@/shared/components/motion/PageTransition";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Vidriería en La Molina | Ventanas Antirruido y Mamparas",
+  title: "Vidriería en La Molina | Ventanas de aluminio y mamparas",
   description:
-    "Especialistas en suministro, ensamblaje e instalación de ventanas antirruido (Sistema Nova, Serie 25, Serie 35, Serie 62), mamparas de vidrio templado, boxes de ducha y estructuras de aluminio en La Molina y Lima.",
+    "Vidriería y carpintería en La Molina: ventanas de aluminio, mamparas, boxes y puertas de vidrio, puertas en serie, parapetos, techos, espejos, muro cortina, celosías, vitrinas, frenos hidráulicos y mantenimiento.",
   path: "/",
   useAbsoluteTitle: true,
   keywords: [
     "vidriería la molina",
     "Glass & Aluminum Company S.A.C.",
     "GYA Company",
-    "ventanas antirruido la molina",
+    "ventanas de aluminio la molina",
     "mamparas de vidrio templado",
     "aluminio la molina",
   ],

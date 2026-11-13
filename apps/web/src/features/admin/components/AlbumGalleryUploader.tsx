@@ -20,6 +20,7 @@ export interface GalleryPhotoItem {
   url: string;
   caption?: string; // Para proyectos
   alt?: string;     // Para servicios
+  system?: string;  // Para servicios (agrupación por sistema)
 }
 
 export interface AlbumGalleryUploaderProps {

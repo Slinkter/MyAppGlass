@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return buildPageMetadata({
     title: `Vidriería y aluminio en ${distrito.nombre}`,
-    description: `Vidriería y aluminio a medida en ${distrito.nombre}: ventanas, mamparas, barandas y vidrio laminado, templado y antirruido. Cotiza con GYA Company.`,
+    description: `Vidriería y aluminio a medida en ${distrito.nombre}: ventanas, mamparas, barandas y vidrio laminado y templado. Cotiza con GYA Company.`,
     path: `/vidrieria/${distrito.slug}`,
   });
 }

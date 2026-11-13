@@ -52,11 +52,11 @@ export const metadata: Metadata = {
         template: "%s | Glass & Aluminum Company S.A.C.",
     },
     description:
-        "Especialistas en vidriería, instalación de ventanas antirruido, mamparas de vidrio templado y aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
+        "Especialistas en vidriería, instalación de ventanas de aluminio, mamparas de vidrio templado y carpintería de aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
     keywords: [
         "vidriería la molina",
         "vidrio y aluminio",
-        "ventanas antirruido lima",
+        "ventanas de aluminio lima",
         "mamparas para baño",
         "vidrio templado precio",
     ],
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",
         description:
-            "Especialistas en vidriería, instalación de ventanas antirruido, mamparas de vidrio templado y aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
+            "Especialistas en vidriería, instalación de ventanas de aluminio, mamparas de vidrio templado y carpintería de aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
         url: SITE_URL,
         siteName: "Glass & Aluminum Company S.A.C.",
         locale: "es_PE",
@@ -100,7 +100,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Vidriería en La Molina | Glass & Aluminum Company S.A.C.",
         description:
-            "Especialistas en vidriería, instalación de ventanas antirruido, mamparas de vidrio templado y aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
+            "Especialistas en vidriería, instalación de ventanas de aluminio, mamparas de vidrio templado y carpintería de aluminio en La Molina, Surco y Lima. ¡Cotiza a domicilio!",
         images: ["/logovcr.png"],
     },
 };

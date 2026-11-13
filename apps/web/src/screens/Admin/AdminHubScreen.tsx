@@ -26,6 +26,7 @@ import {
   Circle,
   Truck,
   Boxes,
+  BookOpen,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { useRealtimeProducts } from "@/entities/product/api/useRealtimeProducts";
@@ -130,6 +131,17 @@ export const AdminHubScreen: React.FC = () => {
       href: "/admin/sistemas",
       stat: "Borradores",
       statDetail: "Publicar o eliminar",
+      accentColor: "var(--chakra-colors-status-info)",
+      accentBg: "var(--chakra-colors-status-info-soft)",
+    },
+    {
+      title: "Blog Corporativo",
+      subtitle: "Contenido & SEO",
+      desc: "Redacte, previsualice y publique artículos técnicos sobre vidrio y aluminio con sanitización HTML y portada en Storage.",
+      icon: BookOpen,
+      href: "/admin/blog",
+      stat: "Artículos",
+      statDetail: "Publicación y vista previa",
       accentColor: "var(--chakra-colors-status-info)",
       accentBg: "var(--chakra-colors-status-info-soft)",
     },

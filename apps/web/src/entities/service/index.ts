@@ -30,4 +30,6 @@ export type {
   ServicePageFeature,
   ServicePageSEO,
   ServicePageSystem,
+  ServiceSpec,
+  ServiceSystemSheet,
 } from "./model";

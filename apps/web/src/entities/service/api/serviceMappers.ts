@@ -17,15 +17,15 @@ export { getServiceHref };
 
 /**
  * Diccionario canónico de respaldo SEO para servicios oficiales.
- * Respeta reglas de catálogo: Sistema Nova, Serie 25, Serie 35, Serie 62;
- * tipos de vidrio (Crudo, Laminado, Templado), ortografía "antirruido" y "vidrio y aluminio",
+ * Respeta reglas de catálogo: Sistema Nova, Serie 20, Serie 25, Serie 35/36, Serie 62;
+ * tipos de vidrio (Crudo, Laminado, Templado), ortografía "vidrio y aluminio",
  * y descripciones persuasivas optimizadas de 135 a 158 caracteres para La Molina y Lima.
  */
 export const SERVICE_SEO_FALLBACKS: Record<string, { title: string; description: string }> = {
   ventana: {
-    title: "Ventanas Antirruido en La Molina y Lima",
+    title: "Ventanas de Aluminio en La Molina y Lima",
     description:
-      "Ventanas antirruido en Sistema Nova, Serie 25, Serie 35 y Serie 62 con vidrio laminado o templado. Reduce el ruido en La Molina y Lima. ¡Cotiza tu proyecto!",
+      "Ventanas de aluminio en Sistema Nova, Serie 20, Serie 25 y Serie 62 con vidrio laminado o templado. Atenuación acústica estimada en La Molina y Lima. ¡Cotiza!",
   },
   mampara: {
     title: "Mamparas de Vidrio Templado y Aluminio",
@@ -63,9 +63,9 @@ export const SERVICE_SEO_FALLBACKS: Record<string, { title: string; description:
       "Puertas de vidrio templado batientes y corredizas con perfiles de aluminio. Soluciones modernas y elegantes para residencias y locales en Lima. ¡Cotiza hoy!",
   },
   pserie: {
-    title: "Puertas de Aluminio Serie 25, 35 y 62",
+    title: "Puertas de Aluminio Batientes Serie 35 y 36",
     description:
-      "Puertas de aluminio Serie 25, Serie 35 y Serie 62 con vidrio templado o crudo. Alta durabilidad y aislamiento hermético en La Molina y Lima. ¡Contáctanos hoy!",
+      "Puertas batientes de aluminio Serie 35 y Serie 36 con vidrio templado o laminado. Alta durabilidad y cierre hermético en La Molina y Lima. ¡Contáctanos hoy!",
   },
   celosias: {
     title: "Celosías de Vidrio y Aluminio para Ventilación",
@@ -163,6 +163,8 @@ export const toServicePageData = (service: FirestoreService): ServicePageData =>
     features: service.features.map((label) => ({ label, icon: Check })),
     systems: systems.map((label) => ({ label, icon: ChevronRight })),
     imageLists: imageLists.length > 0 ? imageLists : [[]],
-    faqs: service.faqs,
+    faqs: service.faqs ?? [],
+    specs: service.specs ?? [],
+    systemSheets: service.systemSheets ?? [],
   };
 };
