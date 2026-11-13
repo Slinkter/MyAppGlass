@@ -29,16 +29,16 @@
 
 ## Fase 2. Estudio de catálogos y sistemas en borrador (en paralelo con la Fase 1)
 
-- [ ] **2.1** Estudio de ventanas, mamparas y puertas de aluminio: sistemas, alias por proveedor, perfiles y accesorios, con documento y página de origen. Archivo principal: `docs/claude/specs/dashboard-proveedores/sistemas-aluminio.md`. Agente: general-purpose. Modelo: Sonnet.
-- [ ] **2.2** Estudio de ducha, parapeto, baranda, puerta de vidrio y frenos (Corrales y Favitem, más lo descrito en `docs/claude/tareas.md`). Archivo principal: `docs/claude/specs/dashboard-proveedores/sistemas-templado-acero.md`. Agente: general-purpose. Modelo: Sonnet.
-- [ ] **2.3** Estudio de techos, celosías, espejos y vidrios (Eduhg y fichas de HPD Glass). Archivo principal: `docs/claude/specs/dashboard-proveedores/sistemas-otros.md`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **2.4** Modelo y repositorio de sistemas: `serviceSlug`, `nombre`, `aliases`, `tipoApertura`, `perfiles`, `accesorios`, `vidrio`, `descripcion`, `fuente`, `estado: 'borrador' | 'publicado'`, `pricePending: true`; más `api/systemsRepository.ts` y `api/useSystems.ts`. Archivo principal: `apps/web/src/entities/system/model/index.ts`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **2.5** Carga de sistemas en borrador con los resultados de 2.1 a 2.3; crea solo los que no existan (patrón: `entities/service/api/approvedNewServices.ts`). Un archivo de datos por estudio. Archivo principal: `apps/web/src/entities/system/api/seedSystems.ts`. Agente: general-purpose. Modelo: Haiku.
+- [x] **2.1** Estudio de ventanas, mamparas y puertas de aluminio: sistemas, alias por proveedor, perfiles y accesorios, con documento y página de origen. Archivo principal: `docs/claude/specs/dashboard-proveedores/sistemas-aluminio.md`. Agente: general-purpose. Modelo: Sonnet.
+- [x] **2.2** Estudio de ducha, parapeto, baranda, puerta de vidrio y frenos (Corrales y Favitem, más lo descrito en `docs/claude/tareas.md`). Archivo principal: `docs/claude/specs/dashboard-proveedores/sistemas-templado-acero.md`. Agente: general-purpose. Modelo: Sonnet.
+- [x] **2.3** Estudio de techos, celosías, espejos y vidrios (Eduhg y fichas de HPD Glass). Archivo principal: `docs/claude/specs/dashboard-proveedores/sistemas-otros.md`. Agente: general-purpose. Modelo: Haiku.
+- [x] **2.4** Modelo y repositorio de sistemas: `serviceSlug`, `nombre`, `aliases`, `tipoApertura`, `perfiles`, `accesorios`, `vidrio`, `descripcion`, `fuente`, `estado: 'borrador' | 'publicado'`, `pricePending: true`; más `api/systemsRepository.ts` y `api/useSystems.ts`. Archivo principal: `apps/web/src/entities/system/model/index.ts`. Agente: general-purpose. Modelo: Haiku.
+- [x] **2.5** Carga de sistemas en borrador con los resultados de 2.1 a 2.3; crea solo los que no existan (patrón: `entities/service/api/approvedNewServices.ts`). Un archivo de datos por estudio. Archivo principal: `apps/web/src/entities/system/api/seedSystems.ts`. Agente: general-purpose. Modelo: Haiku.
 - [ ] **2.6** Textos de los sistemas con `copy-vidrieria`: ensambla e instala, sin garantías ni porcentajes inventados; marcador visible donde falte un dato. Archivo principal: `apps/web/src/entities/system/api/seedSystems.ts`. Agente: copy-vidrieria. Modelo: Haiku.
-- [ ] **2.7** `SystemAdminTable.tsx` con Publicar y Eliminar (`AdminRowActions`, `ConfirmDeleteDialog`); patrón `ServiceAdminTable.tsx`. Archivo principal: `apps/web/src/features/admin/components/SystemAdminTable.tsx`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **2.8** `SystemsScreen.tsx` y `app/admin/sistemas/page.tsx`, con botón "Cargar sistemas". Archivo principal: `apps/web/src/screens/Admin/SystemsScreen.tsx`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **2.9** Actualizar `AGENTS.md` §3 (catálogo oficial = `sistemas` con `estado = 'publicado'`) y gates. Archivo principal: `AGENTS.md`. Agente: qa-gates. Modelo: Haiku.
-- [ ] **Commit de control:** `feat(sistemas): catálogo de sistemas por servicio en borrador desde los proveedores`
+- [x] **2.7** `SystemAdminTable.tsx` con Publicar y Eliminar (`AdminRowActions`, `ConfirmDeleteDialog`); patrón `ServiceAdminTable.tsx`. Archivo principal: `apps/web/src/features/admin/components/SystemAdminTable.tsx`. Agente: general-purpose. Modelo: Haiku.
+- [x] **2.8** `SystemsScreen.tsx` y `app/admin/sistemas/page.tsx`, con botón "Cargar sistemas". Archivo principal: `apps/web/src/screens/Admin/SystemsScreen.tsx`. Agente: general-purpose. Modelo: Haiku.
+- [x] **2.9** Actualizar `AGENTS.md` §3 (catálogo oficial = `sistemas` con `estado = 'publicado'`) y gates. Archivo principal: `AGENTS.md`. Agente: qa-gates. Modelo: Haiku.
+- [x] **Commit de control:** `feat(sistemas): catálogo de sistemas por servicio en borrador desde los proveedores`
 
 Las páginas públicas y el cotizador no cambian en este plan.
 

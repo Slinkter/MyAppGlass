@@ -84,7 +84,8 @@ packages/
 **Catálogo Oficial de Ventanas:**
 
 - Solo existen 6 sistemas: `Sistema Nova`, `Serie 25`, `Serie 35`, `Serie 62`, `Acústica` y `PVC abatible` (los dos últimos se incorporaron el 2026-11-08 por decisión del dueño; sus precios y % antirruido están por confirmar)
-- NO inventar series inexistentes (Serie 31, Serie 20, etc.)
+- Desde el 2026-11-13 el catálogo de sistemas por servicio vive en Firestore (colección `sistemas`, entidad `entities/system`). Se arma con los catálogos de los proveedores y cada sistema entra como **borrador**; solo cuenta como oficial el que el dueño publica en `/admin/sistemas` (`estado = 'publicado'`). Los 6 de arriba siguen siendo los únicos del cotizador hasta que el dueño publique otros y confirme sus precios.
+- NO inventar series: un sistema nuevo solo se agrega si aparece en un catálogo de proveedor, con su fuente (`docs/claude/specs/dashboard-proveedores/sistemas-*.md`).
 - Tipos de ventana: `Corrediza`, `Proyectante`, `Batiente`, `Luz Fija`
 - Tipos de vidrio (3): `Crudo`, `Laminado`, `Templado` (sin sufijo de grosor)
 - Colores de vidrio: `Incoloro`, `Bronce`, `Gris`
