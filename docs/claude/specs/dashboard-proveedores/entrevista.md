@@ -128,3 +128,11 @@ _Ejemplo: "Cuando termine las pruebas en el emulador; avísame antes de publicar
 Por qué importa: si es semanal, el catálogo se mantiene al día sin intervención. Si es a pedido, la lista puede quedar desactualizada.
 _Ejemplo: "A pedido; yo lo actualizo cuando quiera revisar precios."_
 **Respuesta:**
+
+## Dudas que salieron del estudio de catálogos
+
+Cada estudio termina con una sección "Dudas para el dueño". Puede responder ahí mismo, debajo de cada duda:
+
+- `sistemas-aluminio.md`: 22 dudas (por ejemplo, si los códigos VCO, MCO, VPR y MBT de un proveedor equivalen a las Series 20, 25, 35 y 42 de otro, y qué perfiles lleva el Sistema Nova).
+- `sistemas-templado-acero.md`: cuál kit de ducha es el "europeo" y cuál el "español", qué piezas arman el parapeto y la baranda, dónde se compra la chapa de bola y el zócalo de la puerta de vidrio.
+- `sistemas-otros.md`: 7 dudas sobre techos, espejos, vidrios y celosías.

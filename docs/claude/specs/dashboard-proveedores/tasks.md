@@ -56,14 +56,21 @@ Las páginas públicas y el cotizador no cambian en este plan.
 
 ## Fase 4. Menú y cierre
 
-- [ ] **4.1** `AdminNav.tsx`: agregar Pedidos, Sistemas y Presupuestos. Archivo principal: `apps/web/src/widgets/AdminNav/AdminNav.tsx`. Agente: general-purpose. Modelo: Haiku.
-- [ ] **4.2** `AdminHubScreen.tsx`: tarjetas de Pedidos y Sistemas. Archivo principal: `apps/web/src/screens/Admin/AdminHubScreen.tsx`. Agente: general-purpose. Modelo: Haiku.
+- [x] **4.1** `AdminNav.tsx`: agregar Pedidos, Sistemas y Presupuestos. Archivo principal: `apps/web/src/widgets/AdminNav/AdminNav.tsx`. Agente: general-purpose. Modelo: Haiku.
+- [x] **4.2** `AdminHubScreen.tsx`: tarjetas de Pedidos y Sistemas. Archivo principal: `apps/web/src/screens/Admin/AdminHubScreen.tsx`. Agente: general-purpose. Modelo: Haiku.
 - [ ] **4.3** Revisión a 360 px de las pantallas nuevas con `espaciado-360` (solo reporta); una tarea Haiku aplica los ajustes. Archivo principal: según el reporte. Agente: espaciado-360 y general-purpose. Modelo: Haiku.
-- [ ] **4.4** `docs/05_CHANGELOG.md`, `docs/PENDIENTES.md` y `tasks.md` al día; gates finales. Archivo principal: `docs/05_CHANGELOG.md`. Agente: general-purpose y qa-gates. Modelo: Haiku.
-- [ ] **Commit de control:** `feat(admin): enlazar pedidos, sistemas y presupuestos en el panel`
+- [x] **4.4** `docs/05_CHANGELOG.md`, `docs/PENDIENTES.md` y `tasks.md` al día; gates finales. Archivo principal: `docs/05_CHANGELOG.md`. Agente: general-purpose y qa-gates. Modelo: Haiku.
+- [x] **Commit de control:** `feat(admin): enlazar pedidos, sistemas y presupuestos en el panel`
 
 ## Reglas de cierre
 
 - Sin push, sin merge a `main` y sin deploy hasta que el dueño lo pida.
 - Si la fase queda a medias al terminar la sesión: commit `wip(admin): ...` con los checks de este archivo actualizados.
 - El commit de cada fase incluye el código de la fase y este `tasks.md` con sus casillas marcadas.
+
+## Pendiente al cierre del 2026-11-13
+
+- **1.6** Correr `node scripts/sync-proveedores.mjs` y `node tests/rules/firestore.rules.test.mjs` con los emuladores encendidos (requiere Java).
+- **2.6** Revisar los textos de los 52 sistemas con `copy-vidrieria`.
+- **4.3** Revisión a 360 px con `espaciado-360` y prueba en navegador de `/admin/pedidos` y `/admin/sistemas`.
+- Aplicar las respuestas del dueño en `entrevista.md` y las dudas de los tres estudios `sistemas-*.md`.

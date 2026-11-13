@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-13] - Panel admin: catálogo de proveedores, sistemas en borrador y pedido de compra
+
+Rama `feat/dashboard-proveedores`, un commit de control por fase (`d2487419`, `59a40cff`, `cdcf2a69`, `ddc8303d` y el de cierre). Sin deploy.
+
+### Added
+- `scripts/sync-proveedores.mjs`: copia el catálogo de la API de proveedores (`localhost:8000`) a Firestore (`proveedores_productos`). Emulador por defecto; `--prod`, `--dry-run`, `--imagenes` y `--docs`. Si la API está apagada, no cambia nada.
+- `entities/supplier`: productos de proveedor, pedido de compra (`purchaseOrderService`, correlativo `PC-AAAA-0001`), agrupado por proveedor y hoja A4 (`PurchaseOrderSheet`).
+- `entities/system`: sistemas por servicio con alias por proveedor y estado borrador o publicado. 52 sistemas propuestos (25 de aluminio, 12 de templado y acero, 15 de techos, espejos y vidrios).
+- `/admin/pedidos` (`PurchaseOrderScreen`) y `/admin/sistemas` (`SystemsScreen`).
+- `docs/claude/specs/dashboard-proveedores/`: spec, plan, tareas, entrevista al dueño, flujos, pantallas y tres estudios de catálogos.
+
+### Changed
+- `firestore.rules` y `storage.rules`: `proveedores_productos`, `pedidos_proveedor`, `contadores/pedidos-*` y `proveedores/**` solo admin; `sistemas` legible por el público solo si está publicado.
+- `AdminNav` y `AdminHubScreen`: enlaces a Sistemas, Pedidos y Presupuestos.
+- `AGENTS.md` §3: el catálogo de sistemas pasa a Firestore; los 6 sistemas del cotizador no cambian.
+- La copia de datos de proveedores sale de `apps/web/src/shared/data/proveedores/` y queda en `docs/gemini/data/proveedores/`.
+
+### Verified
+- `pnpm run typecheck`, `pnpm run lint` y `pnpm run build` en verde. Ninguna página pública carga los chunks con datos de proveedores.
+
+### Notes
+- Sin ejecutar: el script contra el emulador, las pruebas de reglas (27 casos nuevos), la prueba en navegador, la revisión de textos con `copy-vidrieria` y la revisión a 360 px.
+- Ningún producto trae precio y Favitem no tiene productos en la API.
+
 ## [2026-11-12] - Cotizador de presupuestos: culminación total (Fases 0-7), render 2D SVG, medios de pago y catálogo de proveedores
 
 ### Added

@@ -24,6 +24,8 @@ import {
   CircleAlert,
   CircleCheck,
   Circle,
+  Truck,
+  Boxes,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { useRealtimeProducts } from "@/entities/product/api/useRealtimeProducts";
@@ -108,6 +110,28 @@ export const AdminHubScreen: React.FC = () => {
       statDetail: "Gestión comercial y obras",
       accentColor: "var(--chakra-colors-status-warning)",
       accentBg: "var(--chakra-colors-status-warning-soft)",
+    },
+    {
+      title: "Pedidos a Proveedores",
+      subtitle: "Compras",
+      desc: "Arme el pedido con el catálogo de los proveedores, separado por proveedor, con vista previa en A4 y aprobación.",
+      icon: Truck,
+      href: "/admin/pedidos",
+      stat: "Pedido de compra",
+      statDetail: "Catálogo de proveedores",
+      accentColor: "var(--chakra-colors-status-info)",
+      accentBg: "var(--chakra-colors-status-info-soft)",
+    },
+    {
+      title: "Sistemas por Servicio",
+      subtitle: "Catálogo",
+      desc: "Revise los sistemas armados a partir de los catálogos de proveedores. Publique los que ofrece y elimine los que no.",
+      icon: Boxes,
+      href: "/admin/sistemas",
+      stat: "Borradores",
+      statDetail: "Publicar o eliminar",
+      accentColor: "var(--chakra-colors-status-info)",
+      accentBg: "var(--chakra-colors-status-info-soft)",
     },
   ];
 
