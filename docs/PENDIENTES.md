@@ -45,6 +45,14 @@ Pedido del dueño (P7 y P10): editar servicios y proyectos en línea, como un Wo
 - Orden propuesto: (1) revisar el panel actual en `/admin` y qué falta de CRUD, (2) confirmar el control de acceso por rol en reglas y en el frontend, (3) completar el CRUD de servicios y proyectos con subida de imágenes, (4) probar todo en el emulador antes de cualquier deploy.
 - Dudas D1 a D4 resueltas y cerradas por el dueño: solo los 3 correos con `role = 'admin'` en Firestore son admin; AR en pausa; blog auditado sin publicar artículos nuevos.
 
+### Bloque en curso: catálogo de proveedores y pedido de compra (2026-11-13)
+
+- Rama `feat/dashboard-proveedores`. Objetivo: pedido de compra para los 4 proveedores (Corrales, Eduhg, HPD Glass y Favitem) y sistemas por servicio en borrador.
+- Documentos en `docs/claude/specs/dashboard-proveedores/`: spec, plan, tasks, entrevista, flujos y pantallas.
+- El dueño debe responder `docs/claude/specs/dashboard-proveedores/entrevista.md` (líneas **Respuesta:**).
+- Hallazgos: 435 registros sin precio; Favitem sin productos en la API.
+- Nada se despliega ni se sube a la base real hasta que el dueño lo autorice.
+
 ### Nivel 1. Verificar (sin riesgo)
 
 | Ítem                                         | Resultado de la revisión                                                                                                                                                             |
