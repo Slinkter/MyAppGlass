@@ -11,12 +11,16 @@ const normalizeKey = (value: string): string =>
     .replace(/[\u0300-\u036f]/g, "");
 
 const WINDOW_RENDERS: Record<string, string> = {
+  nova: "/images/renders/ventana/nova.webp",
   "serie 20": "/images/renders/ventana/serie-20.webp",
+  "serie 25": "/images/renders/ventana/serie-25.webp",
   "serie 28": "/images/renders/ventana/serie-28.webp",
   "serie 29": "/images/renders/ventana/serie-29.webp",
+  "serie 35": "/images/renders/ventana/serie-35.webp",
   "serie 3825": "/images/renders/ventana/serie-3825.webp",
   "serie 3831": "/images/renders/ventana/serie-3831.webp",
   "serie 42": "/images/renders/ventana/serie-42.webp",
+  "serie 62": "/images/renders/ventana/serie-62.webp",
   "serie 80": "/images/renders/ventana/serie-80.webp",
   "corrediza vco 031": "/images/renders/ventana/vco-031.webp",
   "corrediza vco 036": "/images/renders/ventana/vco-036.webp",
@@ -26,10 +30,16 @@ const WINDOW_RENDERS: Record<string, string> = {
 const SERVICE_RENDERS: Record<string, Record<string, string>> = {
   ventana: WINDOW_RENDERS,
   mampara: {
+    nova: "/images/renders/mampara/nova.webp",
     "serie 80": "/images/lab/mampara-europea-serie80.webp",
   },
   ducha: {
     "kit de ducha de 1 hoja": "/images/lab/box-ducha-kit-frontal.webp",
+    "kit de ducha esquinero": "/images/renders/ducha/kit-esquinero.webp",
+  },
+  mantenimiento: {
+    "mantenimiento preventivo y correctivo":
+      "/images/renders/mantenimiento/mantenimiento-preventivo.webp",
   },
 };
 

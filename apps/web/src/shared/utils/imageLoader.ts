@@ -37,5 +37,17 @@ export default function gyaImageLoader({
     return src;
   }
 
+  // Case 3: Local service renders in /images/renders/<servicio>/<archivo>.webp
+  const renderImageRegex = /^\/images\/renders\/[a-z0-9-]+\/[a-z0-9-]+\.webp$/;
+  if (renderImageRegex.test(src)) {
+    if (width <= 640) {
+      return src.replace(/\.webp$/, '-480w.webp');
+    }
+    if (width <= 1080) {
+      return src.replace(/\.webp$/, '-960w.webp');
+    }
+    return src;
+  }
+
   return src;
 }
