@@ -8,6 +8,35 @@ export interface DraftRenderProps {
   arrowId: string;
   finish: FinishSwatch;
   tint: GlassTintOption;
+  widthCm?: number;
+  heightCm?: number;
+  frameThicknessPx?: number;
+}
+
+function fitSvgRect(
+  widthCm: number | undefined,
+  heightCm: number | undefined,
+  maxW: number,
+  maxH: number,
+) {
+  const w = widthCm && widthCm > 0 ? widthCm : 150;
+  const h = heightCm && heightCm > 0 ? heightCm : 120;
+  const ratio = w / h;
+  let drawW = maxW;
+  let drawH = Math.round(maxW / ratio);
+  if (drawH > maxH) {
+    drawH = maxH;
+    drawW = Math.round(maxH * ratio);
+  }
+  drawW = Math.max(120, Math.min(maxW, drawW));
+  drawH = Math.max(110, Math.min(maxH, drawH));
+  return {
+    drawW,
+    drawH,
+    offsetX: Math.round((maxW - drawW) / 2),
+    offsetY: Math.round((maxH - drawH) / 2),
+    hasUpperBody: h > 180,
+  };
 }
 
 export function ProyectanteDraft({
@@ -18,7 +47,24 @@ export function ProyectanteDraft({
   arrowId,
   finish,
   tint,
+  widthCm,
+  heightCm,
+  frameThicknessPx = 14,
 }: DraftRenderProps) {
+  const { drawW, drawH, offsetX, offsetY, hasUpperBody } = fitSvgRect(
+    widthCm,
+    heightCm,
+    250,
+    310,
+  );
+  const fw = Math.max(10, Math.min(18, frameThicknessPx));
+  const innerW = Math.max(60, drawW - fw * 2);
+  const innerH = Math.max(60, drawH - fw * 2);
+  const glassW = Math.max(40, innerW - fw * 1.6);
+  const glassH = Math.max(40, innerH - fw * 1.6);
+  const glassX = Math.round((drawW - glassW) / 2);
+  const glassY = Math.round((drawH - glassH) / 2);
+
   return (
     <g>
       <text
@@ -32,37 +78,36 @@ export function ProyectanteDraft({
         {`${systemTitle.toUpperCase()} · ALZADO Y CORTE LATERAL PROYECTANTE`}
       </text>
 
-      <g transform="translate(92, 86)">
+      <g transform={`translate(${92 + offsetX}, ${92 + offsetY})`}>
         <line
           x1="0"
-          y1="-18"
-          x2="250"
-          y2="-18"
+          y1="-14"
+          x2={drawW}
+          y2="-14"
           stroke="#111111"
           strokeWidth="1"
           markerStart={`url(#${arrowId})`}
           markerEnd={`url(#${arrowId})`}
         />
-        <line x1="0" y1="-26" x2="0" y2="-6" stroke="#78716C" strokeWidth="0.9" />
-        <line x1="250" y1="-26" x2="250" y2="-6" stroke="#78716C" strokeWidth="0.9" />
-        <rect x="78" y="-29" width="94" height="18" fill="#FAF9F6" />
+        <line x1="0" y1="-22" x2="0" y2="-4" stroke="#78716C" strokeWidth="0.9" />
+        <line x1={drawW} y1="-22" x2={drawW} y2="-4" stroke="#78716C" strokeWidth="0.9" />
         <text
-          x="125"
-          y="-15"
+          x={drawW / 2}
+          y="-22"
           textAnchor="middle"
           fontFamily="ui-monospace, monospace"
           fontSize="11"
           fontWeight="600"
           fill="#111111"
         >
-          ancho a medida
+          {widthCm ? `Ancho: ${widthCm} cm` : "ancho a medida"}
         </text>
 
         <line
-          x1="-22"
+          x1="-20"
           y1="0"
-          x2="-22"
-          y2="310"
+          x2="-20"
+          y2={drawH}
           stroke="#111111"
           strokeWidth="1"
           markerStart={`url(#${arrowId})`}
@@ -70,57 +115,71 @@ export function ProyectanteDraft({
         />
         <text
           x="-32"
-          y="155"
+          y={drawH / 2}
           textAnchor="middle"
-          transform="rotate(-90, -32, 155)"
+          transform={`rotate(-90, -32, ${drawH / 2})`}
           fontFamily="ui-monospace, monospace"
           fontSize="11"
           fontWeight="600"
           fill="#111111"
         >
-          apertura exterior controlada
+          {heightCm ? `Alto: ${heightCm} cm` : "apertura exterior"}
         </text>
 
         <rect
           x="0"
           y="0"
-          width="250"
-          height="310"
+          width={drawW}
+          height={drawH}
           rx="2"
           fill={`url(#${frameGradId})`}
           stroke={finish.stroke}
           strokeWidth="1.5"
         />
-        <rect x="14" y="14" width="222" height="282" fill="none" stroke="#18181B" strokeWidth="2.5" />
+        <rect x={fw} y={fw} width={innerW} height={innerH} fill="none" stroke="#18181B" strokeWidth="2.2" />
         <rect
-          x="19"
-          y="19"
-          width="212"
-          height="272"
+          x={fw + 3}
+          y={fw + 3}
+          width={Math.max(48, innerW - 6)}
+          height={Math.max(48, innerH - 6)}
           fill={`url(#${frameGradId})`}
           stroke={finish.stroke}
           strokeWidth="1.2"
         />
         <rect
-          x="33"
-          y="33"
-          width="184"
-          height="244"
+          x={glassX}
+          y={glassY}
+          width={glassW}
+          height={glassH}
           fill={`url(#${glassGradId})`}
           stroke={tint.edgeStroke}
           strokeWidth="1.2"
         />
-        <polygon points="52,34 94,34 34,126 34,82" fill={tint.reflection} />
+        {hasUpperBody && (
+          <rect
+            x={fw}
+            y={Math.round(drawH * 0.28)}
+            width={innerW}
+            height="10"
+            fill={`url(#${frameGradId})`}
+            stroke={finish.stroke}
+            strokeWidth="1.1"
+          />
+        )}
+        <polygon
+          points={`${glassX + 12},${glassY + 2} ${glassX + 44},${glassY + 2} ${glassX + 2},${glassY + 68} ${glassX + 2},${glassY + 34}`}
+          fill={tint.reflection}
+        />
         <polyline
-          points="33,33 125,277 217,33"
+          points={`${glassX},${glassY} ${drawW / 2},${glassY + glassH} ${glassX + glassW},${glassY}`}
           fill="none"
           stroke="#FF5A5F"
           strokeWidth="1.6"
           strokeDasharray="6 4"
         />
-        <rect x="20" y="72" width="10" height="82" rx="1.5" fill={`url(#${steelGradId})`} stroke="#475569" strokeWidth="0.9" />
-        <rect x="220" y="72" width="10" height="82" rx="1.5" fill={`url(#${steelGradId})`} stroke="#475569" strokeWidth="0.9" />
-        <rect x="105" y="278" width="40" height="10" rx="3" fill="#111111" stroke="#52525B" strokeWidth="1" />
+        <rect x={fw + 2} y={Math.round(drawH * 0.24)} width="9" height={Math.round(drawH * 0.25)} rx="1.5" fill={`url(#${steelGradId})`} stroke="#475569" strokeWidth="0.9" />
+        <rect x={drawW - fw - 11} y={Math.round(drawH * 0.24)} width="9" height={Math.round(drawH * 0.25)} rx="1.5" fill={`url(#${steelGradId})`} stroke="#475569" strokeWidth="0.9" />
+        <rect x={Math.round(drawW / 2) - 20} y={drawH - fw - 10} width="40" height="9" rx="3" fill="#111111" stroke="#52525B" strokeWidth="1" />
       </g>
 
       <g transform="translate(458, 92)">
@@ -149,12 +208,12 @@ export function ProyectanteDraft({
         </text>
 
         <g fontFamily="Inter, system-ui, sans-serif" fontSize="11" fill="#111111">
-          <line x1="48" y1="36" x2="195" y2="20" stroke="#78716C" strokeWidth="0.9" />
-          <text x="200" y="24" fontWeight="600">Doble burlete EPDM</text>
-          <line x1="102" y1="142" x2="195" y2="128" stroke="#78716C" strokeWidth="0.9" />
-          <text x="200" y="132" fontWeight="600">Brazos acero inox</text>
-          <line x1="138" y1="192" x2="195" y2="192" stroke="#78716C" strokeWidth="0.9" />
-          <text x="200" y="196" fontWeight="600">Manija de cierre</text>
+          <line x1="48" y1="36" x2="155" y2="20" stroke="#78716C" strokeWidth="0.9" />
+          <text x="160" y="24" fontWeight="600">Doble sello EPDM</text>
+          <line x1="102" y1="142" x2="155" y2="128" stroke="#78716C" strokeWidth="0.9" />
+          <text x="160" y="132" fontWeight="600">Brazos acero inox</text>
+          <line x1="138" y1="192" x2="155" y2="192" stroke="#78716C" strokeWidth="0.9" />
+          <text x="160" y="196" fontWeight="600">Manija de cierre</text>
         </g>
       </g>
     </g>
@@ -169,8 +228,32 @@ export function CorredizaDraft({
   arrowId,
   finish,
   tint,
+  widthCm,
+  heightCm,
+  frameThicknessPx = 12,
   tracks = 2,
 }: DraftRenderProps & { tracks?: 2 | 3 | 4 }) {
+  const effectiveTracks: 2 | 3 | 4 =
+    widthCm && widthCm > 260 ? 4 : widthCm && widthCm > 195 ? 3 : tracks;
+
+  const { drawW, drawH, offsetX, offsetY, hasUpperBody } = fitSvgRect(
+    widthCm,
+    heightCm,
+    456,
+    312,
+  );
+  const fw = Math.max(8, Math.min(16, frameThicknessPx));
+  const bodyTop = hasUpperBody ? Math.round(drawH * 0.26) : 0;
+  const leafH = Math.max(60, drawH - bodyTop - fw * 2 - 4);
+  const innerW = Math.max(96, drawW - fw * 2);
+
+  const layoutLabel =
+    effectiveTracks === 4
+      ? "fija - corr - corr - fija"
+      : effectiveTracks === 3
+        ? "3 hojas corredizas"
+        : "1 fija + 1 corrediza";
+
   return (
     <g>
       <text
@@ -181,109 +264,181 @@ export function CorredizaDraft({
         fontWeight="700"
         fill="#111111"
       >
-        {`${systemTitle.toUpperCase()} · ALZADO CORREDIZO (${tracks === 4 ? "4 HOJAS OXXO" : `${tracks} RIELES`})`}
+        {`${systemTitle.toUpperCase()} · ALZADO CORREDIZO (${effectiveTracks === 4 ? "4 HOJAS" : `${effectiveTracks} HOJAS`})`}
       </text>
 
-      <g transform="translate(80, 86)">
+      <g transform={`translate(${80 + offsetX}, ${92 + offsetY})`}>
         <line
           x1="0"
-          y1="-18"
-          x2="456"
-          y2="-18"
+          y1="-14"
+          x2={drawW}
+          y2="-14"
           stroke="#111111"
           strokeWidth="1"
           markerStart={`url(#${arrowId})`}
           markerEnd={`url(#${arrowId})`}
         />
-        <rect x="164" y="-29" width="128" height="18" fill="#FAF9F6" />
+        <line x1="0" y1="-22" x2="0" y2="-4" stroke="#78716C" strokeWidth="0.9" />
+        <line x1={drawW} y1="-22" x2={drawW} y2="-4" stroke="#78716C" strokeWidth="0.9" />
         <text
-          x="228"
-          y="-15"
+          x={drawW / 2}
+          y="-22"
           textAnchor="middle"
           fontFamily="ui-monospace, monospace"
           fontSize="11"
           fontWeight="600"
           fill="#111111"
         >
-          {tracks === 4 ? "fija - corr - corr - fija" : tracks === 3 ? "triple corrediza" : "1 fija + 1 corrediza"}
+          {widthCm ? `${widthCm} cm · ${layoutLabel}` : layoutLabel}
+        </text>
+
+        <line
+          x1="-20"
+          y1="0"
+          x2="-20"
+          y2={drawH}
+          stroke="#111111"
+          strokeWidth="1"
+          markerStart={`url(#${arrowId})`}
+          markerEnd={`url(#${arrowId})`}
+        />
+        <text
+          x="-32"
+          y={drawH / 2}
+          textAnchor="middle"
+          transform={`rotate(-90, -32, ${drawH / 2})`}
+          fontFamily="ui-monospace, monospace"
+          fontSize="11"
+          fontWeight="600"
+          fill="#111111"
+        >
+          {heightCm ? `Alto: ${heightCm} cm` : "alto a medida"}
         </text>
 
         <rect
           x="0"
           y="0"
-          width="456"
-          height="312"
+          width={drawW}
+          height={drawH}
           rx="2"
           fill={`url(#${frameGradId})`}
           stroke={finish.stroke}
           strokeWidth="1.5"
         />
 
-        {tracks === 2 && (
-          <>
-            <rect x="14" y="14" width="218" height="280" fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.1" />
-            <rect x="28" y="28" width="190" height="252" fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1" />
-            <polygon points="48,29 90,29 29,122 29,76" fill={tint.reflection} />
-            <line x1="113" y1="154" x2="133" y2="154" stroke="#475569" strokeWidth="1.8" />
-            <line x1="123" y1="144" x2="123" y2="164" stroke="#475569" strokeWidth="1.8" />
-
-            <rect x="214" y="12" width="228" height="284" fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.3" />
-            <rect x="228" y="26" width="200" height="256" fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1.1" />
-            <polygon points="248,27 294,27 229,130 229,82" fill={tint.reflection} />
-            <line x1="400" y1="154" x2="262" y2="154" stroke="#FF5A5F" strokeWidth="2.4" markerEnd={`url(#${arrowId})`} />
-            <rect x="430" y="124" width="8" height="58" rx="3" fill="#111111" stroke="#71717A" strokeWidth="0.9" />
-          </>
+        {hasUpperBody && (
+          <g>
+            <rect
+              x={fw}
+              y={fw}
+              width={innerW}
+              height={Math.max(22, bodyTop - fw)}
+              fill={`url(#${glassGradId})`}
+              stroke={tint.edgeStroke}
+              strokeWidth="1"
+            />
+            <rect
+              x={fw}
+              y={bodyTop}
+              width={innerW}
+              height="8"
+              fill={`url(#${frameGradId})`}
+              stroke={finish.stroke}
+              strokeWidth="1.1"
+            />
+          </g>
         )}
 
-        {tracks === 3 && (
+        {effectiveTracks === 2 && (
           <>
-            {[0, 1, 2].map((col) => {
-              const x = 14 + col * 142;
+            {(() => {
+              const leafW = Math.round(innerW / 2) + 4;
+              const leafY = (hasUpperBody ? bodyTop + 8 : fw);
+              const gPad = Math.max(8, fw - 2);
+              const gW = Math.max(24, leafW - gPad * 2);
+              const gH = Math.max(30, leafH - gPad * 2);
+              const leaf2X = fw + innerW - leafW;
+              const midY = leafY + Math.round(leafH / 2);
               return (
-                <g key={col}>
-                  <rect x={x} y={14} width={144} height={282} fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.2" />
-                  <rect x={x + 12} y={26} width={120} height={258} fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1" />
-                  <polygon points={`${x + 26},27 ${x + 58},27 ${x + 13},106 ${x + 13},68`} fill={tint.reflection} />
-                </g>
+                <>
+                  <rect x={fw} y={leafY} width={leafW} height={leafH} fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.1" />
+                  <rect x={fw + gPad} y={leafY + gPad} width={gW} height={gH} fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1" />
+                  <line x1={fw + leafW / 2 - 8} y1={midY} x2={fw + leafW / 2 + 8} y2={midY} stroke="#475569" strokeWidth="1.6" />
+                  <line x1={fw + leafW / 2} y1={midY - 8} x2={fw + leafW / 2} y2={midY + 8} stroke="#475569" strokeWidth="1.6" />
+
+                  <rect x={leaf2X} y={leafY - 2} width={leafW} height={leafH + 2} fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.3" />
+                  <rect x={leaf2X + gPad} y={leafY + gPad - 2} width={gW} height={gH + 2} fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1.1" />
+                  <line
+                    x1={leaf2X + gW - 10}
+                    y1={midY}
+                    x2={leaf2X + gPad + 16}
+                    y2={midY}
+                    stroke="#FF5A5F"
+                    strokeWidth="2.2"
+                    markerEnd={`url(#${arrowId})`}
+                  />
+                  <rect x={leaf2X + leafW - 10} y={midY - 24} width="7" height="48" rx="3" fill="#111111" stroke="#71717A" strokeWidth="0.9" />
+                </>
               );
-            })}
-            <line x1="398" y1="154" x2="190" y2="154" stroke="#FF5A5F" strokeWidth="2.4" markerEnd={`url(#${arrowId})`} />
+            })()}
           </>
         )}
 
-        {tracks === 4 && (
+        {effectiveTracks === 3 && (
           <>
-            {[0, 1, 2, 3].map((col) => {
-              const x = 12 + col * 108;
+            {(() => {
+              const colW = Math.round(innerW / 3);
+              const leafY = hasUpperBody ? bodyTop + 8 : fw;
+              const gPad = Math.max(6, fw - 4);
+              const midY = leafY + Math.round(leafH / 2);
               return (
-                <g key={col}>
-                  <rect x={x} y={14} width={108} height={282} fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.2" />
-                  <rect x={x + 10} y={26} width={88} height={258} fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1" />
-                  <polygon points={`${x + 22},27 ${x + 48},27 ${x + 11},92 ${x + 11},60`} fill={tint.reflection} />
-                </g>
+                <>
+                  {[0, 1, 2].map((col) => {
+                    const x = fw + col * colW;
+                    return (
+                      <g key={col}>
+                        <rect x={x} y={leafY} width={colW + 2} height={leafH} fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.2" />
+                        <rect x={x + gPad} y={leafY + gPad} width={Math.max(18, colW - gPad * 2 + 2)} height={Math.max(24, leafH - gPad * 2)} fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1" />
+                      </g>
+                    );
+                  })}
+                  <line x1={fw + innerW - 20} y1={midY} x2={fw + colW + 14} y2={midY} stroke="#FF5A5F" strokeWidth="2.2" markerEnd={`url(#${arrowId})`} />
+                </>
               );
-            })}
-            <line x1="214" y1="154" x2="128" y2="154" stroke="#FF5A5F" strokeWidth="2.4" markerEnd={`url(#${arrowId})`} />
-            <line x1="242" y1="154" x2="328" y2="154" stroke="#FF5A5F" strokeWidth="2.4" markerEnd={`url(#${arrowId})`} />
+            })()}
           </>
         )}
 
-        <circle cx="250" cy="291" r="6" fill={`url(#${steelGradId})`} stroke="#334155" strokeWidth="1.1" />
-        <circle cx="404" cy="291" r="6" fill={`url(#${steelGradId})`} stroke="#334155" strokeWidth="1.1" />
-        <rect x="4" y="298" width="448" height="12" fill="#27272A" stroke="#111111" strokeWidth="1" />
-      </g>
+        {effectiveTracks === 4 && (
+          <>
+            {(() => {
+              const colW = Math.round(innerW / 4);
+              const leafY = hasUpperBody ? bodyTop + 8 : fw;
+              const gPad = Math.max(6, fw - 4);
+              const midY = leafY + Math.round(leafH / 2);
+              const centerX = fw + Math.round(innerW / 2);
+              return (
+                <>
+                  {[0, 1, 2, 3].map((col) => {
+                    const x = fw + col * colW;
+                    return (
+                      <g key={col}>
+                        <rect x={x} y={leafY} width={colW + 1} height={leafH} fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.2" />
+                        <rect x={x + gPad} y={leafY + gPad} width={Math.max(14, colW - gPad * 2)} height={Math.max(24, leafH - gPad * 2)} fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1" />
+                      </g>
+                    );
+                  })}
+                  <line x1={centerX - 8} y1={midY} x2={fw + Math.round(colW * 0.7)} y2={midY} stroke="#FF5A5F" strokeWidth="2.2" markerEnd={`url(#${arrowId})`} />
+                  <line x1={centerX + 8} y1={midY} x2={fw + innerW - Math.round(colW * 0.7)} y2={midY} stroke="#FF5A5F" strokeWidth="2.2" markerEnd={`url(#${arrowId})`} />
+                </>
+              );
+            })()}
+          </>
+        )}
 
-      <g transform="translate(566, 92)" fontFamily="Inter, system-ui, sans-serif" fontSize="11" fill="#111111">
-        <rect x="0" y="0" width="198" height="298" rx="8" fill="#FFFFFF" stroke="#D8D3CA" strokeWidth="1" />
-        <text x="16" y="26" fontWeight="700" fontSize="12">DETALLE DEL SISTEMA</text>
-        <text x="16" y="58" fontWeight="600">1. Desplazamiento</text>
-        <text x="16" y="74" fill="#4A4A4A" fontSize="10.5">Garruchas regulables de baja fricción.</text>
-        <text x="16" y="110" fontWeight="600">2. Cierre hermético</text>
-        <text x="16" y="126" fill="#4A4A4A" fontSize="10.5">Seguro lateral / multipunto según serie.</text>
-        <text x="16" y="162" fontWeight="600">3. Riel inferior</text>
-        <text x="16" y="178" fill="#4A4A4A" fontSize="10.5">Canal continuo con evacuación pluvial.</text>
-        <text x="16" y="214" fontWeight="600">4. Sellado perimetral</text>
-        <text x="16" y="230" fill="#4A4A4A" fontSize="10.5">Felpa siliconada + burlete EPDM.</text>
+        <circle cx={Math.round(drawW * 0.56)} cy={drawH - 15} r="5" fill={`url(#${steelGradId})`} stroke="#334155" strokeWidth="1.1" />
+        <circle cx={Math.round(drawW * 0.88)} cy={drawH - 15} r="5" fill={`url(#${steelGradId})`} stroke="#334155" strokeWidth="1.1" />
+        <rect x="4" y={drawH - 10} width={drawW - 8} height="10" fill="#27272A" stroke="#111111" strokeWidth="1" />
       </g>
     </g>
   );
@@ -297,7 +452,19 @@ export function BatienteDraft({
   arrowId,
   finish,
   tint,
+  widthCm,
+  heightCm,
+  frameThicknessPx = 14,
 }: DraftRenderProps) {
+  const { drawW, drawH, offsetX, offsetY } = fitSvgRect(widthCm, heightCm, 210, 316);
+  const fw = Math.max(10, Math.min(18, frameThicknessPx));
+  const innerW = Math.max(60, drawW - fw * 2);
+  const innerH = Math.max(60, drawH - fw * 2);
+  const glassW = Math.max(40, innerW - fw * 1.6);
+  const glassH = Math.max(40, innerH - fw * 1.6);
+  const glassX = Math.round((drawW - glassW) / 2);
+  const glassY = Math.round((drawH - glassH) / 2);
+
   return (
     <g>
       <text
@@ -311,22 +478,78 @@ export function BatienteDraft({
         {`${systemTitle.toUpperCase()} · ALZADO BATIENTE Y RADIO DE GIRO EN PLANTA`}
       </text>
 
-      <g transform="translate(106, 86)">
-        <rect x="0" y="0" width="210" height="316" rx="2" fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.5" />
-        <rect x="16" y="16" width="178" height="284" fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.2" />
-        <rect x="30" y="30" width="150" height="256" fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1.2" />
-        <polygon points="48,31 92,31 31,128 31,82" fill={tint.reflection} />
+      <g transform={`translate(${106 + offsetX}, ${92 + offsetY})`}>
+        <line
+          x1="0"
+          y1="-14"
+          x2={drawW}
+          y2="-14"
+          stroke="#111111"
+          strokeWidth="1"
+          markerStart={`url(#${arrowId})`}
+          markerEnd={`url(#${arrowId})`}
+        />
+        <text
+          x={drawW / 2}
+          y="-22"
+          textAnchor="middle"
+          fontFamily="ui-monospace, monospace"
+          fontSize="11"
+          fontWeight="600"
+          fill="#111111"
+        >
+          {widthCm ? `Ancho: ${widthCm} cm` : "ancho a medida"}
+        </text>
+        <line
+          x1="-20"
+          y1="0"
+          x2="-20"
+          y2={drawH}
+          stroke="#111111"
+          strokeWidth="1"
+          markerStart={`url(#${arrowId})`}
+          markerEnd={`url(#${arrowId})`}
+        />
+        <text
+          x="-32"
+          y={drawH / 2}
+          textAnchor="middle"
+          transform={`rotate(-90, -32, ${drawH / 2})`}
+          fontFamily="ui-monospace, monospace"
+          fontSize="11"
+          fontWeight="600"
+          fill="#111111"
+        >
+          {heightCm ? `Alto: ${heightCm} cm` : "alto a medida"}
+        </text>
+        <rect x="0" y="0" width={drawW} height={drawH} rx="2" fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.5" />
+        <rect x={fw} y={fw} width={innerW} height={innerH} fill={`url(#${frameGradId})`} stroke={finish.stroke} strokeWidth="1.2" />
+        <rect x={glassX} y={glassY} width={glassW} height={glassH} fill={`url(#${glassGradId})`} stroke={tint.edgeStroke} strokeWidth="1.2" />
+        <polygon points={`${glassX + 12},${glassY + 2} ${glassX + 42},${glassY + 2} ${glassX + 2},${glassY + 64} ${glassX + 2},${glassY + 32}`} fill={tint.reflection} />
 
-        {/* Línea normativa de giro lateral */}
-        <polyline points="178,24 22,158 178,292" fill="none" stroke="#FF5A5F" strokeWidth="1.6" strokeDasharray="6 4" />
+        <polyline
+          points={`${drawW - fw - 4},${fw + 6} ${fw + 6},${drawH / 2} ${drawW - fw - 4},${drawH - fw - 6}`}
+          fill="none"
+          stroke="#FF5A5F"
+          strokeWidth="1.6"
+          strokeDasharray="6 4"
+        />
 
-        {/* 4 bisagras laterales */}
-        {[40, 108, 198, 266].map((y) => (
-          <rect key={y} x="4" y={y} width="12" height="22" rx="2" fill={`url(#${steelGradId})`} stroke="#334155" strokeWidth="1" />
+        {[0.14, 0.36, 0.62, 0.84].map((ratio) => (
+          <rect
+            key={ratio}
+            x="4"
+            y={Math.round(drawH * ratio)}
+            width="10"
+            height="18"
+            rx="2"
+            fill={`url(#${steelGradId})`}
+            stroke="#334155"
+            strokeWidth="1"
+          />
         ))}
-        {/* Manija + chapa */}
-        <rect x="166" y="142" width="12" height="38" rx="3" fill="#111111" />
-        <rect x="150" y="148" width="22" height="8" rx="3" fill={`url(#${steelGradId})`} stroke="#334155" strokeWidth="0.9" />
+        <rect x={drawW - fw - 12} y={Math.round(drawH / 2) - 18} width="10" height="36" rx="3" fill="#111111" />
+        <rect x={drawW - fw - 26} y={Math.round(drawH / 2) - 10} width="20" height="7" rx="3" fill={`url(#${steelGradId})`} stroke="#334155" strokeWidth="0.9" />
       </g>
 
       {/* Vista en planta giro 90° */}
@@ -352,7 +575,7 @@ export function BatienteDraft({
           • 4 bisagras reforzadas + chapa o cerradura
         </text>
         <text x="20" y="284" fontFamily="Inter, sans-serif" fontSize="11" fill="#4A4A4A">
-          • Burlete perimetral continuo contra corrientes
+          • Sello perimetral contra viento y polvo
         </text>
       </g>
     </g>

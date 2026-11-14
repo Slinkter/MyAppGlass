@@ -4,6 +4,7 @@ import React from "react";
 import { Box, Flex, Heading, HStack, VStack } from "@chakra-ui/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/shared/ui/button";
+import { TRANSITIONS } from "@/shared/constants/motion";
 import BackButton from "@shared/components/navigation/BackButton";
 import type { ServicePageSystem } from "@/entities/service/model";
 
@@ -139,7 +140,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
         <HStack
           ref={containerRef}
           onScroll={updateScrollButtons}
-          bg="bg.subtle"
+          bg="surface.container"
           p="1.5"
           borderRadius="full"
           borderWidth="1px"
@@ -169,6 +170,7 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
                 px="4"
                 flexShrink={0}
                 fontWeight={isActive ? "700" : "500"}
+                transition={TRANSITIONS.interactive}
               >
                 {system.label}
               </Button>
@@ -212,28 +214,39 @@ const ServiceHeader: React.FC<ServiceHeaderProps> = ({
 }) => {
   return (
     <Box w="full">
-      <VStack gap="3.5" align="stretch">
+      <VStack gap="2.5" align="stretch">
         <HStack justify="space-between" align="center" gap="3" flexWrap="wrap">
           <BackButton to="/#servicios" />
         </HStack>
 
-        <Heading
-          as="h1"
-          fontFamily="heading"
-          fontWeight="700"
-          fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-          lineHeight="1.1"
-          letterSpacing="-0.02em"
-          color="text.heading"
+        <Flex
+          direction={{ base: "column", lg: "row" }}
+          justify="space-between"
+          align={{ base: "stretch", lg: "center" }}
+          gap={{ base: "3", lg: "4" }}
+          w="full"
         >
-          {title}
-        </Heading>
+          <Heading
+            as="h1"
+            fontFamily="heading"
+            fontWeight="700"
+            fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+            lineHeight="1.1"
+            letterSpacing="-0.02em"
+            color="text.heading"
+            flexShrink={0}
+          >
+            {title}
+          </Heading>
 
-        <SystemSelector
-          systems={systems}
-          activeIndex={activeIndex}
-          onSelect={onSelect}
-        />
+          <Box minW={0} maxW={{ base: "full", lg: "65%" }}>
+            <SystemSelector
+              systems={systems}
+              activeIndex={activeIndex}
+              onSelect={onSelect}
+            />
+          </Box>
+        </Flex>
       </VStack>
     </Box>
   );

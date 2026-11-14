@@ -1,12 +1,11 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import {
   Box,
   Flex,
+  Grid,
   HStack,
-  Stack,
   Text,
   VStack,
   chakra,
@@ -14,11 +13,9 @@ import {
 import {
   ChevronLeft,
   ChevronRight,
-  Image as ImageIcon,
   Layers,
   Maximize2,
   Palette,
-  Ruler,
   ShieldCheck,
   SlidersHorizontal,
 } from "lucide-react";
@@ -30,8 +27,8 @@ import {
   DialogRoot,
 } from "@/shared/ui/dialog";
 import ResponsiveImage from "@/shared/components/Image/ResponsiveImage";
-import { companyData } from "@/shared/config/company-data";
 import { glassLightOnPhoto, glassSurface } from "@/shared/constants/glass";
+import { TRANSITIONS } from "@/shared/constants/motion";
 import type { ServiceSystemSheet } from "@/entities/service/model";
 import {
   ALUMINUM_FINISHES,
@@ -93,7 +90,6 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
   images,
   coverImage,
   activeSystemSheet,
-  quoteHref,
 }) => {
   const dedicatedRender = React.useMemo(
     () => (serviceSlug ? resolveSystemRenderUrl(serviceSlug, systemLabel) : undefined),
@@ -102,7 +98,6 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
   const hasOwnPhotos = images.length > 0;
   const hasDedicatedRender = !hasOwnPhotos && Boolean(dedicatedRender);
   const canExpandPhoto = hasOwnPhotos || hasDedicatedRender;
-  const hasAnyPhoto = canExpandPhoto || Boolean(coverImage);
 
   const [viewMode, setViewMode] = React.useState<"photo" | "svg">(
     canExpandPhoto ? "photo" : "svg",
@@ -133,7 +128,7 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
   const archetype = resolveSystemSvgArchetype(serviceSlug, systemLabel);
   const supportsAluminum = archetypeSupportsAluminumFinish(archetype);
 
-  // Descripción única y breve (sin caer al párrafo largo de 470 caracteres ni duplicar título)
+  // Descripción única y breve sin truncar a mitad de frase con puntos suspensivos
   const conciseSummary = React.useMemo(() => {
     const firstSentence = fullDescription.split(".")[0] || fullDescription;
     const normTitle = systemLabel.trim().toLowerCase();
@@ -143,7 +138,12 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
       shortDescription?.trim(),
       firstSentence.trim(),
     ].filter((val): val is string => Boolean(val && val.toLowerCase() !== normTitle));
-    return truncateConcise(candidates[0] || firstSentence, 150);
+    const chosen = candidates[0] || firstSentence;
+    const completeSentence = chosen.split(".")[0]?.trim();
+    if (completeSentence && completeSentence.length >= 40 && completeSentence.length <= 220) {
+      return `${completeSentence}.`;
+    }
+    return truncateConcise(chosen, 220);
   }, [systemDescription, activeSystemSheet, shortDescription, fullDescription, systemLabel]);
 
   // Separa la última palabra para resaltar 1 palabra en brand.coral (DESIGN.md)
@@ -157,38 +157,36 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
     return { leadingTitle: `${parts.join(" ")} `, accentWord: last };
   }, [serviceTitle, systemLabel]);
 
-  const whatsappUrl = React.useMemo(
-    () =>
-      `https://wa.me/${companyData.whatsappNumber}?text=${encodeURIComponent(
-        `Hola, quisiera solicitar presupuesto para ${serviceTitle} (${systemLabel}).`,
-      )}`,
-    [serviceTitle, systemLabel],
-  );
-
   // 4 hechos reales para el Dock inferior
   const dockFacts = React.useMemo(() => {
-    const apertura =
+    const aperturaRaw =
       pickSpecValue(activeSystemSheet, ["apertura", "sección", "tipo", "configuración"]) ||
       systemLabel;
-    const vidrio =
+    const apertura = aperturaRaw.split(",")[0]?.split("·")[0]?.trim() || aperturaRaw;
+    const vidrioRaw =
       pickSpecValue(activeSystemSheet, ["vidrio", "espesor", "cristal", "cobertura"]) ||
       "Crudo, laminado o templado";
+    const vidrio =
+      serviceSlug === "ventana"
+        ? "Vidrio de 6 mm"
+        : vidrioRaw.split("(")[0]?.split("·")[0]?.trim() || vidrioRaw;
     const acabados = supportsAluminum
-      ? "Negro, mate, blanco, madera, champagne"
-      : "Acero inox, mate o negro";
+      ? "5 tonos de aluminio"
+      : "3 acabados herraje";
     return [
       { icon: SlidersHorizontal, title: "Sistema", text: apertura },
       { icon: Layers, title: "Vidrio", text: vidrio },
       { icon: Palette, title: "Acabados", text: acabados },
-      { icon: ShieldCheck, title: "Cobertura", text: "5 distritos · Boleta o factura" },
+      { icon: ShieldCheck, title: "Cobertura", text: "Solo La Molina" },
     ];
-  }, [activeSystemSheet, systemLabel, supportsAluminum]);
+  }, [activeSystemSheet, serviceSlug, systemLabel, supportsAluminum]);
 
   const isSvgActive = viewMode === "svg" || !activePhoto;
 
   const mediaControls = (
     <>
       <HStack
+        display={{ base: "none", md: !isSvgActive && canExpandPhoto ? "flex" : "none" }}
         position="absolute"
         top={{ base: "2", md: "3" }}
         right={{ base: "2", md: "3" }}
@@ -198,33 +196,6 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
         borderRadius="full"
         {...glassLightOnPhoto}
       >
-        {hasAnyPhoto && (
-          <Button
-            variant={!isSvgActive ? "primary" : "ghost"}
-            size="xs"
-            minH="11"
-            px="3"
-            borderRadius="full"
-            aria-pressed={!isSvgActive}
-            onClick={() => setViewMode("photo")}
-          >
-            <ImageIcon size={15} aria-hidden="true" />
-            {hasOwnPhotos ? "Foto" : hasDedicatedRender ? "Render" : "Ref."}
-          </Button>
-        )}
-        <Button
-          variant={isSvgActive ? "primary" : "ghost"}
-          size="xs"
-          minH="11"
-          px="3"
-          borderRadius="full"
-          aria-pressed={isSvgActive}
-          onClick={() => setViewMode("svg")}
-        >
-          <Ruler size={15} aria-hidden="true" />
-          Plano SVG
-        </Button>
-
         {!isSvgActive && hasOwnPhotos && images.length > 1 && (
           <HStack display={{ base: "none", md: "flex" }} gap="0.5">
             <Button
@@ -357,7 +328,7 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
       position={{ base: "relative", md: "absolute" }}
       top={{ md: "4", lg: "5" }}
       left={{ md: "4", lg: "5" }}
-      w={{ base: "full", md: "23rem", lg: "26rem" }}
+      w={{ base: "full", md: "17.5rem", lg: "26rem" }}
       zIndex={2}
       p={{ base: "4", md: "5" }}
       borderRadius={{ base: "none", md: "card" }}
@@ -414,51 +385,7 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
         {conciseSummary}
       </Text>
 
-      <Stack
-        direction={{ base: "column", sm: "row" }}
-        gap="2"
-        pt="3.5"
-        mt="3.5"
-        borderTopWidth="1px"
-        borderColor="border.subtle"
-      >
-        {quoteHref ? (
-          <Button
-            asChild
-            variant="primary"
-            size="sm"
-            minH="11"
-            borderRadius="full"
-            flex={{ sm: "1" }}
-          >
-            <Link href={quoteHref}>Cotizar {systemLabel}</Link>
-          </Button>
-        ) : (
-          <Button
-            asChild
-            variant="primary"
-            size="sm"
-            minH="11"
-            borderRadius="full"
-            flex={{ sm: "1" }}
-          >
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              Pedir presupuesto
-            </a>
-          </Button>
-        )}
-
-        <Button
-          asChild
-          variant="outline"
-          size="sm"
-          minH="11"
-          borderRadius="full"
-          px="4"
-        >
-          <a href="#ficha-tecnica">Ficha técnica</a>
-        </Button>
-      </Stack>
+      {/* Botones de acción removidos para mantener el hero limpio dentro del viewport */}
     </Box>
   );
 
@@ -474,27 +401,20 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
       aria-label="Resumen técnico rápido"
       {...glassSurface}
     >
-      <HStack
-        gap={{ base: "2", md: "1" }}
-        overflowX="auto"
-        css={{
-          scrollSnapType: "x proximity",
-          "&::-webkit-scrollbar": { display: "none" },
-          scrollbarWidth: "none",
-        }}
+      <Grid
+        templateColumns={{ base: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
+        gap={{ base: "2", lg: "1" }}
       >
         {dockFacts.map((fact) => {
           const IconComp = fact.icon;
           return (
             <HStack
               key={fact.title}
-              flexShrink={0}
               gap="2.5"
               minH="11"
               p="1.5"
-              pr="3"
-              w={{ base: "14rem", md: "auto" }}
-              flex={{ md: "1" }}
+              pr={{ base: "1.5", md: "3" }}
+              minW={0}
             >
               <Box
                 w="9"
@@ -509,33 +429,51 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
               >
                 <IconComp size={16} aria-hidden="true" />
               </Box>
-              <VStack align="flex-start" gap="0" minW={0} flex="1">
-                <Text fontSize="xs" fontWeight="700" color="text.heading" truncate maxW="full">
+              <VStack align="flex-start" gap="0.5" minW={0} flex="1">
+                <Text fontSize="xs" fontWeight="700" color="text.heading" lineHeight="1.2">
                   {fact.title}
                 </Text>
-                <Text fontSize="xs" fontWeight="400" color="text.muted" truncate maxW="full">
+                <Text
+                  fontSize="xs"
+                  fontWeight="400"
+                  color="text.muted"
+                  lineHeight="1.35"
+                  maxW="full"
+                >
                   {fact.text}
                 </Text>
               </VStack>
             </HStack>
           );
         })}
-      </HStack>
+      </Grid>
     </Box>
   );
 
+  const hasThumbnailStrip = !isSvgActive && hasOwnPhotos && images.length > 1;
+
   return (
     <VStack align="stretch" gap="3" w="full">
-      {/* Escenario Pattern B */}
-      <Box
-        position="relative"
-        overflow="hidden"
-        minH={{ base: "auto", md: "38.75rem", lg: "42.5rem" }}
-        borderRadius="modal"
-        borderWidth="1px"
-        borderColor="border.default"
-        bg="bg.subtle"
+      <Grid
+        templateColumns={{
+          base: "1fr",
+          md: hasThumbnailStrip ? "1fr 6.5rem" : "1fr",
+        }}
+        gap="3"
+        alignItems="stretch"
+        w="full"
       >
+        {/* Escenario Pattern B: ocupa todo el alto útil del viewport en md+ */}
+        <Box
+          position="relative"
+          overflow="hidden"
+          minH={{ base: "auto", md: "max(26rem, calc(100dvh - 10.75rem))" }}
+          h={{ md: "max(26rem, calc(100dvh - 10.75rem))" }}
+          borderRadius="modal"
+          borderWidth="1px"
+          borderColor="border.default"
+          bg="bg.subtle"
+        >
         {/* Escenario visual: fondo completo en md+, bloque superior 240px en base */}
         <Box
           position={{ base: "relative", md: "absolute" }}
@@ -580,6 +518,66 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
         {floatingPlaceCard}
         {dockBar}
       </Box>
+
+        {/* Tira de miniaturas: fila horizontal en móvil y columna vertical a la derecha en md+ */}
+        {hasThumbnailStrip && (
+          <Flex
+            direction={{ base: "row", md: "column" }}
+            gap="2"
+            overflowX={{ base: "auto", md: "hidden" }}
+            overflowY={{ base: "hidden", md: "auto" }}
+            maxH={{ md: "max(26rem, calc(100dvh - 10.75rem))" }}
+            w={{ base: "full", md: "6.5rem" }}
+            py={{ base: "1", md: "0.5" }}
+            pr={{ md: "0.5" }}
+            aria-label="Galería de miniaturas"
+            css={{
+              "&::-webkit-scrollbar": { display: "none" },
+              scrollbarWidth: "none",
+            }}
+          >
+            {images.map((img, idx) => {
+              const isSelected = idx === photoIndex;
+              return (
+                <chakra.button
+                  key={`${img.id}-${idx}`}
+                  type="button"
+                  minW={{ base: "24", md: "full" }}
+                  w={{ base: "24", md: "full" }}
+                  h={{ base: "14", md: "14" }}
+                  borderRadius="lg"
+                  overflow="hidden"
+                  borderWidth="2px"
+                  borderColor={isSelected ? "brand.ink" : "border.default"}
+                  opacity={isSelected ? 1 : 0.72}
+                  flexShrink={0}
+                  cursor="pointer"
+                  aria-label={`Ver foto ${idx + 1} de ${systemLabel}`}
+                  aria-pressed={isSelected}
+                  onClick={() => setPhotoIndex(idx)}
+                  transition={TRANSITIONS.fadeTransform}
+                  _hover={{ opacity: 1 }}
+                  _focusVisible={{
+                    outline: "2px solid",
+                    outlineColor: "ring.primary",
+                    outlineOffset: "2px",
+                  }}
+                  _motionReduce={{ transition: "none" }}
+                >
+                  <ResponsiveImage
+                    src={img.src}
+                    alt={img.title || `${systemLabel} foto ${idx + 1}`}
+                    w="full"
+                    h="full"
+                    objectFit="cover"
+                    sizes="104px"
+                  />
+                </chakra.button>
+              );
+            })}
+          </Flex>
+        )}
+      </Grid>
 
       {/* Selector rápido de acabado y vidrio cuando se visualiza el plano SVG */}
       {isSvgActive && (
@@ -646,54 +644,6 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
         </Flex>
       )}
 
-      {/* Tira compacta de miniaturas fuera del escenario (solo escritorio/tablet y >1 foto real) */}
-      {!isSvgActive && hasOwnPhotos && images.length > 1 && (
-        <HStack
-          gap="2"
-          overflowX="auto"
-          py="1"
-          aria-label="Galería de miniaturas"
-          css={{
-            "&::-webkit-scrollbar": { display: "none" },
-            scrollbarWidth: "none",
-          }}
-        >
-          {images.map((img, idx) => {
-            const isSelected = idx === photoIndex;
-            return (
-              <chakra.button
-                key={`${img.id}-${idx}`}
-                type="button"
-                minW="24"
-                h="14"
-                borderRadius="lg"
-                overflow="hidden"
-                borderWidth="2px"
-                borderColor={isSelected ? "brand.ink" : "border.default"}
-                opacity={isSelected ? 1 : 0.72}
-                flexShrink={0}
-                cursor="pointer"
-                aria-label={`Ver foto ${idx + 1} de ${systemLabel}`}
-                aria-pressed={isSelected}
-                onClick={() => setPhotoIndex(idx)}
-                transition="opacity 0.15s ease"
-                _hover={{ opacity: 1 }}
-                _motionReduce={{ transition: "none" }}
-              >
-                <ResponsiveImage
-                  src={img.src}
-                  alt={img.title || `${systemLabel} foto ${idx + 1}`}
-                  w="full"
-                  h="full"
-                  objectFit="cover"
-                  sizes="96px"
-                />
-              </chakra.button>
-            );
-          })}
-        </HStack>
-      )}
-
       {/* Visor ampliado fullscreen (dvh seguro) */}
       {activePhoto && (
         <DialogRoot
@@ -710,7 +660,7 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
               p={{ base: "4", md: "8" }}
               h="100dvh"
             >
-              <Box position="relative" w="full" h="full" maxW="6xl" maxH="85dvh">
+              <Box position="relative" w="full" h="85dvh" maxW="6xl">
                 <ResponsiveImage
                   src={activePhoto.src}
                   alt={activePhoto.title || `${serviceTitle} ${systemLabel}`}

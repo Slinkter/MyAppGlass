@@ -37,6 +37,7 @@ export {
   GLASS_TINTS,
   archetypeSupportsAluminumFinish,
   resolveSystemSvgArchetype,
+  resolveSystemSvgTechSpec,
 } from "./ui/svgPresets";
 export type {
   AluminumFinishId,
@@ -44,4 +45,5 @@ export type {
   GlassTintId,
   GlassTintOption,
   SystemSvgArchetype,
+  SystemSvgTechSpec,
 } from "./ui/svgPresets";

@@ -89,6 +89,22 @@ export const SERVICE_SEO_FALLBACKS: Record<string, { title: string; description:
   },
 };
 
+const SERVICE_CARD_SHORT_DESCRIPTIONS: Record<string, string> = {
+  ventana: "Ventanas corredizas, proyectantes y batientes a medida en aluminio y vidrio.",
+  mampara: "Mamparas corredizas de piso a techo para terrazas, patios y salas.",
+  ducha: "Boxes de ducha en vidrio templado frontal, corredizo o esquinero.",
+  pvidrio: "Puertas de vidrio templado con freno hidráulico y herrajes a medida.",
+  pserie: "Puertas batientes de aluminio con vidrio y cerradura instalada.",
+  parapeto: "Parapetos de vidrio templado y muros cortina para fachadas.",
+  baranda: "Barandas de vidrio templado con aluminio o acero para escaleras y terrazas.",
+  balcones: "Cerramientos y barandas de vidrio para balcones con mayor privacidad.",
+  techo: "Techos sol y sombra en estructura de aluminio y policarbonato.",
+  celosias: "Celosías fijas o móviles en aluminio y vidrio para ventilación.",
+  espejos: "Espejos a medida con montaje flotante o marco de aluminio.",
+  "frenos-hidraulicos": "Suministro, instalación y calibración de frenos para puertas de vidrio.",
+  mantenimiento: "Mantenimiento, ajuste y cambio de accesorios para ventanas y mamparas.",
+};
+
 export const toServiceListItem = (
   service: FirestoreService,
   prerenderedSlugs?: ReadonlySet<string>
@@ -98,7 +114,7 @@ export const toServiceListItem = (
   image: service.coverImage,
   name: service.title,
   category: service.category ?? "",
-  description: service.shortDescription,
+  description: SERVICE_CARD_SHORT_DESCRIPTIONS[service.slug] ?? service.shortDescription,
   plink: getServiceHref(service.slug, prerenderedSlugs),
 });
 

@@ -190,6 +190,84 @@ export function resolveSystemSvgArchetype(
   return "corrediza";
 }
 
+export interface SystemSvgTechSpec {
+  badge: string;
+  glass: string;
+  maxLeaf: string;
+  hardware: string;
+  frameThicknessPx: number;
+}
+
+const WINDOW_SVG_SPECS: Array<{ match: string; spec: SystemSvgTechSpec }> = [
+  {
+    match: "nova",
+    spec: {
+      badge: "VENTANA CORREDIZA · SISTEMA DE CASA",
+      glass: "Vidrio 6 mm",
+      maxLeaf: "Hojas a medida",
+      hardware: "Seguro pasante o aleta · Fácil deslizamiento",
+      frameThicknessPx: 8,
+    },
+  },
+  {
+    match: "serie 20",
+    spec: {
+      badge: "VENTANA CORREDIZA LIVIANA",
+      glass: "Vidrio 6 mm",
+      maxLeaf: "Hoja máx. 0.95 × 1.50 m",
+      hardware: "Cierre automático · Uso residencial",
+      frameThicknessPx: 10,
+    },
+  },
+  {
+    match: "serie 25",
+    spec: {
+      badge: "VENTANA Y MAMPARA CORREDIZA",
+      glass: "Vidrio 6 mm",
+      maxLeaf: "Hoja máx. 1.50 × 2.20 m",
+      hardware: "Chapa pico loro · Mayor altura",
+      frameThicknessPx: 14,
+    },
+  },
+  {
+    match: "serie 35",
+    spec: {
+      badge: "PUERTA / VENTANA BATIENTE",
+      glass: "Vidrio 6 mm",
+      maxLeaf: "Apertura lateral",
+      hardware: "4 bisagras · Chapa con picaporte",
+      frameThicknessPx: 14,
+    },
+  },
+  {
+    match: "serie 62",
+    spec: {
+      badge: "VENTANA CORREDIZA HERMÉTICA",
+      glass: "Vidrio 6 mm",
+      maxLeaf: "Hoja máx. 1.30 × 2.30 m",
+      hardware: "Cierre multipunto · Mayor aislamiento",
+      frameThicknessPx: 18,
+    },
+  },
+  {
+    match: "3831",
+    spec: {
+      badge: "VENTANA PROYECTANTE",
+      glass: "Vidrio 6 mm",
+      maxLeaf: "Apertura hacia afuera",
+      hardware: "Brazo extensor · Ventilación segura",
+      frameThicknessPx: 12,
+    },
+  },
+];
+
+export function resolveSystemSvgTechSpec(
+  systemName: string,
+): SystemSvgTechSpec | undefined {
+  const name = systemName.trim().toLowerCase();
+  return WINDOW_SVG_SPECS.find((entry) => name.includes(entry.match))?.spec;
+}
+
 export function archetypeSupportsAluminumFinish(archetype: SystemSvgArchetype): boolean {
   return (
     archetype !== "ducha_frontal" &&

@@ -6,6 +6,7 @@ import {
   GLASS_TINTS,
   archetypeSupportsAluminumFinish,
   resolveSystemSvgArchetype,
+  resolveSystemSvgTechSpec,
   type AluminumFinishId,
   type GlassTintId,
 } from "./svgPresets";
@@ -21,11 +22,22 @@ import {
   FrenoHidraulicoDraft,
 } from "./svgDraftsB";
 
+const fitWordSlice = (value: string, maxLen: number): string => {
+  const clean = value.trim();
+  if (clean.length <= maxLen) return clean;
+  const separatorCut = clean.lastIndexOf(" · ", maxLen);
+  if (separatorCut >= 12) return clean.slice(0, separatorCut).trim();
+  const wordCut = clean.lastIndexOf(" ", maxLen);
+  return (wordCut >= 12 ? clean.slice(0, wordCut) : clean.slice(0, maxLen)).trim();
+};
+
 export interface SystemArchitecturalSvgProps {
   serviceSlug?: string;
   systemName: string;
   finishId?: AluminumFinishId;
   tintId?: GlassTintId;
+  widthCm?: number;
+  heightCm?: number;
   onSvgMount?: (el: SVGSVGElement | null) => void;
 }
 
@@ -37,6 +49,8 @@ export function SystemArchitecturalSvg({
   systemName,
   finishId = "negro",
   tintId = "incoloro",
+  widthCm,
+  heightCm,
   onSvgMount,
 }: SystemArchitecturalSvgProps) {
   const uid = React.useId().replace(/:/g, "");
@@ -47,6 +61,7 @@ export function SystemArchitecturalSvg({
   const arrowId = `arrow-${uid}`;
 
   const archetype = resolveSystemSvgArchetype(serviceSlug, systemName);
+  const techSpec = resolveSystemSvgTechSpec(systemName);
   const finish =
     ALUMINUM_FINISHES.find((item) => item.id === finishId) ?? ALUMINUM_FINISHES[0];
   const tint = GLASS_TINTS.find((item) => item.id === tintId) ?? GLASS_TINTS[0];
@@ -60,6 +75,9 @@ export function SystemArchitecturalSvg({
     arrowId,
     finish,
     tint,
+    widthCm,
+    heightCm,
+    frameThicknessPx: techSpec?.frameThicknessPx,
   };
 
   return (
@@ -154,13 +172,13 @@ export function SystemArchitecturalSvg({
         <ArchitecturalSpecialtyDraft {...sharedProps} mode={archetype} />
       )}
 
-      <g transform="translate(36, 444)">
+      <g transform="translate(36, 430)">
         <rect
           width="728"
-          height="28"
+          height="50"
           rx="4"
           fill="#FFFFFF"
-          fillOpacity="0.92"
+          fillOpacity="0.94"
           stroke="#D8D3CA"
           strokeWidth="1"
         />
@@ -169,10 +187,10 @@ export function SystemArchitecturalSvg({
           y="18"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           fontSize="10"
-          fontWeight="600"
+          fontWeight="700"
           fill="#111111"
         >
-          {`${systemName.slice(0, 34).toUpperCase()} · ${hasAluminumFinish ? finish.label.toUpperCase() : "HERRAJE"}`}
+          {`${systemName.slice(0, 22).toUpperCase()} · ${hasAluminumFinish ? finish.label.toUpperCase() : "HERRAJE"} · VIDRIO ${tint.label.toUpperCase()}`}
         </text>
         <text
           x="714"
@@ -180,9 +198,31 @@ export function SystemArchitecturalSvg({
           textAnchor="end"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           fontSize="10"
+          fontWeight="600"
+          fill="#111111"
+        >
+          {widthCm && heightCm ? `MEDIDA: ${widthCm} × ${heightCm} CM` : "MEDIDA A FABRICAR"}
+        </text>
+        <text
+          x="14"
+          y="38"
+          fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
+          fontSize="9.5"
           fill="#4A4A4A"
         >
-          {`VIDRIO ${tint.label.toUpperCase()} · REF.`}
+          {techSpec
+            ? `${techSpec.glass.toUpperCase()} · ${techSpec.maxLeaf.toUpperCase()}`
+            : "ESPECIFICACIÓN REFERENCIAL"}
+        </text>
+        <text
+          x="714"
+          y="38"
+          textAnchor="end"
+          fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
+          fontSize="9.5"
+          fill="#4A4A4A"
+        >
+          {techSpec ? fitWordSlice(techSpec.hardware, 34).toUpperCase() : "PLANO REFERENCIAL"}
         </text>
       </g>
     </svg>

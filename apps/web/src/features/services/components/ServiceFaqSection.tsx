@@ -4,6 +4,7 @@ import React, { useState, useCallback } from "react";
 import { Box, Heading, Text, VStack, HStack, chakra } from "@chakra-ui/react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import type { ServiceFaq } from "@/entities/service/model";
+import { TRANSITIONS } from "@/shared/constants/motion";
 
 interface ServiceFaqSectionProps {
   faqs: ServiceFaq[];
@@ -69,8 +70,14 @@ const ServiceFaqSectionInner: React.FC<ServiceFaqSectionProps> = ({
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() => toggleFaq(idx)}
-                  transition="background-color 0.15s ease"
-                  _hover={{ bg: "bg.subtle" }}
+                  transition={TRANSITIONS.interactive}
+                  _hover={{ bg: "state.hover" }}
+                  _active={{ bg: "state.pressed" }}
+                  _focusVisible={{
+                    outline: "2px solid",
+                    outlineColor: "ring.primary",
+                    outlineOffset: "-2px",
+                  }}
                   _motionReduce={{ transition: "none" }}
                 >
                   <Heading as="h3" fontSize={{ base: "sm", md: "md" }} fontWeight="700" color="text.heading">
@@ -79,7 +86,7 @@ const ServiceFaqSectionInner: React.FC<ServiceFaqSectionProps> = ({
                   <Box
                     color="text.heading"
                     transform={isOpen ? "rotate(180deg)" : "rotate(0deg)"}
-                    transition="transform 0.2s ease"
+                    transition={TRANSITIONS.fadeTransform}
                     _motionReduce={{ transition: "none" }}
                     flexShrink={0}
                     aria-hidden="true"

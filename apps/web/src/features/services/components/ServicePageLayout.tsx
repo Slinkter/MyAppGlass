@@ -88,11 +88,11 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
     >
       <Container
         maxW="7xl"
-        px={{ base: "3", sm: "4", lg: "0" }}
-        pt={{ base: "3", md: "5" }}
+        px={{ base: "0", sm: "2", lg: "0" }}
+        pt={{ base: "2", md: "3" }}
         pb={{ base: "12", lg: "10" }}
       >
-        <VStack gap={{ base: "5", md: "7" }} align="stretch">
+        <VStack gap={{ base: "4", md: "5" }} align="stretch">
           <ServiceHeader
             title={pageTitle}
             systems={systems}
@@ -201,11 +201,44 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
                       </Grid>
                     </VStack>
                   )}
+
+                  <Flex
+                    direction={{ base: "column", sm: "row" }}
+                    justify="space-between"
+                    align={{ base: "flex-start", sm: "center" }}
+                    gap="3"
+                    pt="3"
+                    borderTopWidth="1px"
+                    borderColor="border.subtle"
+                  >
+                    <Text fontSize="xs" color="text.muted">
+                      ¿Te interesa {activeSystemSheet.nombre}? Solicita medidas y cotización sin compromiso.
+                    </Text>
+                    <Button
+                      asChild
+                      variant="primary"
+                      size="sm"
+                      minH="11"
+                      px="5"
+                      borderRadius="full"
+                      flexShrink={0}
+                    >
+                      <a href={ctaWhatsappUrl} target="_blank" rel="noopener noreferrer">
+                        <MessageCircle size={16} aria-hidden="true" />
+                        Cotizar {activeSystemSheet.nombre}
+                      </a>
+                    </Button>
+                  </Flex>
                 </VStack>
               </Box>
             )}
 
-          <ServiceSpecsSection specs={specs} serviceTitle={pageTitle} />
+          <ServiceSpecsSection
+            specs={specs}
+            serviceTitle={pageTitle}
+            serviceSlug={serviceSlug}
+            activeSystemName={activeSystemLabel}
+          />
 
           <ServiceFaqSection faqs={faqs} serviceTitle={pageTitle} />
 
