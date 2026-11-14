@@ -1,127 +1,496 @@
 {
   "slug": "ventana",
-  "title": "Ventanas de aluminio y vidrio",
-  "shortDescription": "Ventanas a medida con perfilería de aluminio arquitectónico y vidrio templado, laminado o insulado para iluminar, ventilar y proteger su vivienda.",
-  "fullDescription": "Una ventana de aluminio y vidrio es un cerramiento arquitectónico que permite el ingreso de luz natural, regula la ventilación y resguarda los ambientes frente al viento, la lluvia y el polvo exterior. En nuestro taller seleccionamos perfilería de aleación 6063 con tratamiento térmico T5 y cristales cortados según las dimensiones exactas de su vano, para luego ensamblar e instalar cada unidad en obra.\n\nSegún la ubicación y el uso de cada ambiente, usted puede elegir entre ventanas corredizas, proyectantes o batientes. Las corredizas optimizan el espacio interior porque sus hojas se deslizan sobre rieles paralelos; son prácticas en dormitorios, salas y pasadizos. Las proyectantes abren hacia el exterior sobre brazos de acero inoxidable y ofrecen mayor hermeticidad frente a lluvias y vientos en pisos altos o baños. Las batientes permiten apertura total del vano mediante bisagras y burletes perimetrales.\n\nRespecto al acristalamiento, trabajamos con vidrio flotado crudo, vidrio laminado con interlámina de PVB, vidrio templado de seguridad y doble vidriado hermético (DVH). En carpintería de aluminio no utilizamos el término antirruido, ya que este aplica únicamente a sistemas de PVC; en aluminio ofrecemos una atenuación acústica estimada según la serie seleccionada y la composición del vidrio.\n\nNuestro servicio incluye asesoría técnica, toma de medidas en su propiedad en La Molina, Surco, San Borja, San Isidro o Miraflores, suministro de perfiles, cristales, accesorios e instalación completa. No incluye trabajos de albañilería, tarrajeo ni modificación estructural de vanos. Para cotizar, necesitamos medidas aproximadas de ancho y alto, fotografías del vano y conocer el piso de instalación. Recomendamos limpieza quincenal con franela seca y mantenimiento preventivo de rieles, felpas y garruchas para evitar desgastes prematuros.",
+  "title": "Ventana",
+  "seoTitle": "Ventana de Aluminio y Vidrio | GYA",
+  "shortDescription": "Ventana a medida en perfiles de aluminio 6063-T5 y vidrio crudo, laminado, templado o insulado DVH, ensamblada e instalada.",
+  "fullDescription": "Ventana arquitectónica a medida en perfilería de aluminio 6063-T5 y vidrio flotado crudo (4–10 mm), laminado (6.38–10.38 mm), templado (4–12 mm) o insulado DVH, en configuración corrediza, proyectante, batiente o paño fijo.\n\nIncluye perfiles, cristal, garruchas, guías, brazos o bisagras según sistema, seguros o cremonas, burletes EPDM, felpas, sellado perimetral e instalación en La Molina, Surco, San Borja, San Isidro y Miraflores. No incluye albañilería ni tarrajeo.",
   "specs": [
-    { "grupo": "Estructura", "label": "Aleación de perfiles", "value": "Aluminio arquitectónico 6063-T5 o T6" },
-    { "grupo": "Acabado", "label": "Anodizado", "value": "13 a 14 micras (mate, bronce o negro)" },
-    { "grupo": "Acabado", "label": "Pintura electrostática", "value": "50 a 70 micras (blanco, negro o madera)" },
-    { "grupo": "Vidrio", "label": "Vidrio flotado crudo", "value": "4 mm a 10 mm en incoloro, bronce o gris" },
-    { "grupo": "Vidrio", "label": "Vidrio laminado", "value": "Espesores de 6.38, 8.38 o 10.38 mm con interlámina PVB" },
-    { "grupo": "Vidrio", "label": "Vidrio templado", "value": "4 mm a 12 mm según dimensión del paño" },
-    { "grupo": "Vidrio", "label": "Vidrio insulado (DVH)", "value": "Espaciadores de 6.35 mm, 9.53 mm o 12.7 mm" },
-    { "grupo": "Herrajes", "label": "Tornillería de armado", "value": "Autorroscante en acero inoxidable o zincado" },
-    { "grupo": "Sellado", "label": "Burletes y felpas", "value": "Caucho EPDM y felpa siliconada perimetral" },
-    { "grupo": "Desempeño", "label": "Atenuación acústica", "value": "Estimada según serie y composición del vidrio" },
-    { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por metro cuadrado o por vano (Precio a definir)" }
+    {
+      "grupo": "Estructura",
+      "label": "Aleación de perfiles",
+      "value": "Aluminio arquitectónico 6063-T5 o T6"
+    },
+    {
+      "grupo": "Acabado",
+      "label": "Anodizado y pintura",
+      "value": "Anodizado 13–14 micras (mate, bronce, negro) o pintura 50–70 micras (blanco, negro, madera)"
+    },
+    {
+      "grupo": "Vidrio",
+      "label": "Vidrio flotado crudo",
+      "value": "4 mm a 10 mm en incoloro, bronce o gris"
+    },
+    {
+      "grupo": "Vidrio",
+      "label": "Vidrio laminado",
+      "value": "6.38, 8.38 o 10.38 mm con interlámina PVB"
+    },
+    {
+      "grupo": "Vidrio",
+      "label": "Vidrio templado",
+      "value": "4 mm a 12 mm según dimensión del paño"
+    },
+    {
+      "grupo": "Vidrio",
+      "label": "Vidrio insulado (DVH)",
+      "value": "Espaciadores de 6.35, 9.53 o 12.7 mm"
+    },
+    {
+      "grupo": "Accesorios",
+      "label": "Herrajes corredizos",
+      "value": "Garruchas simples/dobles o armadas, guías plásticas, seguros caracol/automáticos o cremona"
+    },
+    {
+      "grupo": "Accesorios",
+      "label": "Herrajes proyectantes/batientes",
+      "value": "Brazos de extensión o acero inoxidable, bisagras de aluminio, manijas y escuadras"
+    },
+    {
+      "grupo": "Sellado",
+      "label": "Burletes, felpas y fijación",
+      "value": "Caucho EPDM, felpa siliconada (F-10 / F-15 / 5.5 mm), tapones de jebe y tornillería inoxidable/zincada"
+    },
+    {
+      "grupo": "Desempeño",
+      "label": "Atenuación acústica",
+      "value": "Estimada según serie y composición del vidrio"
+    },
+    {
+      "grupo": "Comercial",
+      "label": "Unidad de cotización",
+      "value": "Por metro cuadrado o por vano (Precio a definir)"
+    }
   ],
   "features": [
-    "Perfilería de aluminio 6063-T5 resistente a la corrosión y de bajo mantenimiento.",
-    "Configuraciones corredizas, proyectantes, batientes y paños fijos a medida.",
-    "Compatibilidad con vidrio crudo, laminado con PVB, templado y termopanel DVH.",
-    "Sellado perimetral con burletes EPDM y felpas de alta densidad contra polvo y viento.",
-    "Rieles con sistema de desalojo de agua hacia el exterior en series intermedias y europeas.",
-    "Acabados anodizados o en pintura electrostática horneada en colores sobrios o madera."
+    "Perfilería 6063-T5 resistente a la corrosión costera.",
+    "Configuraciones corrediza, proyectante, batiente y paño fijo.",
+    "Compatible con vidrio crudo, laminado, templado o DVH.",
+    "Sellado perimetral con burletes EPDM y felpa siliconada.",
+    "Desalojo de agua en riel inferior en series intermedias y europeas."
   ],
   "benefits": [
-    "Aprovecha la luz natural y mejora la ventilación sin sacrificar la seguridad del cierre.",
-    "Reduce el ingreso de polvo, humedad y ruidos urbanos según la serie y el cristal elegido.",
-    "Brinda durabilidad frente al clima costero sin requerir repintado ni lijado periódico.",
-    "Se adapta con precisión a renovaciones o proyectos nuevos en vivienda y oficina."
+    "Ingreso de luz y ventilación regulada con cierre preciso.",
+    "Menor paso de polvo, humedad y ruido urbano según serie y cristal.",
+    "Sin repintado periódico ni deformación por humedad."
   ],
   "systemSheets": [
     {
       "nombre": "Nova",
-      "resumen": "Sistema modular corredizo orientado a vanos residenciales funcionales. Utiliza garruchas simples o dobles y seguros pasantes o con aleta para un deslizamiento práctico en uso cotidiano.",
+      "resumen": "Sistema modular corredizo para vanos residenciales pequeños o medianos. Hojas deslizantes con cierre pasante o de aleta.",
       "specs": [
-        { "label": "Tipo de apertura", "value": "Corrediza modular" },
-        { "label": "Rodamiento", "value": "Garrucha simple o doble (aluminio o fierro)" },
-        { "label": "Cierre", "value": "Seguro pasante o con aleta" },
-        { "label": "Medidas máximas", "value": "Precio a definir según evaluación en obra" }
+        {
+          "label": "Apertura",
+          "value": "Corrediza modular"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Garrucha simple o doble (aluminio o fierro), seguro pasante o con aleta y tornillería"
+        },
+        {
+          "label": "Sellado",
+          "value": "Felpa perimetral y silicona de acabado"
+        },
+        {
+          "label": "Medidas y precio",
+          "value": "Precio a definir según evaluación en obra"
+        }
       ],
-      "usos": ["Dormitorios interiores", "Cocinas y lavanderías", "Remodelaciones residenciales"]
+      "usos": [
+        "Dormitorios interiores",
+        "Cocinas y lavanderías",
+        "Remodelaciones residenciales"
+      ]
+    },
+    {
+      "nombre": "Serie 20",
+      "resumen": "Ventana corrediza liviana y económica para vanos pequeños. Rieles superior/inferior, jamba, zócalos y traslape con escuadras y felpa.",
+      "specs": [
+        {
+          "label": "Apertura",
+          "value": "Corrediza liviana (marco y hojas con traslape)"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "4 mm (tipo de vidrio a definir)"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Garrucha armada, guía superior, cierre automático con placa o llave, felpa F-10, burlete EPDM 4 mm y tapones de jebe"
+        }
+      ],
+      "usos": [
+        "Baños y pasadizos",
+        "Vanos interiores pequeños",
+        "Viviendas residenciales"
+      ]
     },
     {
       "nombre": "Serie 25",
-      "resumen": "Sistema corredizo intermedio con marco de dos carriles de 66 mm de sección y perfiles de 1.20 mm de espesor. Ofrece mayor rigidez estructural que las series livianas para vanos amplios.",
+      "resumen": "Corrediza intermedia de marco en dos carriles de 66 mm y perfiles de 1.20 mm. Mayor rigidez estructural que la Serie 20.",
       "specs": [
-        { "label": "Sección de marco", "value": "66 mm en dos carriles" },
-        { "label": "Espesor de vidrio", "value": "6 mm monolítico" },
-        { "label": "Dimensión máxima de hoja", "value": "1.50 m de ancho por 2.20 m de alto" },
-        { "label": "Herrajes", "value": "Garrucha armada, felpa 5.5 mm y cierre automático" }
+        {
+          "label": "Sección y dimensión máxima",
+          "value": "Marco de 66 mm; hoja hasta 1.50 m x 2.20 m"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "6 mm monolítico"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Garrucha armada, cierre automático, chapa pico loro, jalador de nylon, felpa siliconada, burlete y tapones de jebe"
+        }
       ],
-      "usos": ["Salas y comedores", "Ventanales de mediana altura", "Oficinas administrativas"]
+      "usos": [
+        "Salas y comedores",
+        "Ventanales de mediana altura",
+        "Oficinas administrativas"
+      ]
     },
     {
-      "nombre": "Serie 35",
-      "resumen": "Sistema batiente hermético con felpa perimetral y burlete de cuña para cierre ajustado. Resulta adecuado cuando se requiere apertura completa del vano hacia el interior.",
+      "nombre": "Serie 28",
+      "resumen": "Corrediza hermética con desalojo de agua al exterior y cierre lateral y central para vanos expuestos.",
       "specs": [
-        { "label": "Tipo de apertura", "value": "Batiente con 4 bisagras de aluminio" },
-        { "label": "Espesor de vidrio", "value": "4 mm con burlete cuña" },
-        { "label": "Dimensión recomendada", "value": "Hasta 0.80 m de ancho por 2.10 m de alto" },
-        { "label": "Ensamblaje", "value": "Cortes de marco a 45° o 90° con escuadras" }
+        {
+          "label": "Apertura",
+          "value": "Corrediza hermética con drenaje exterior"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "6 mm a más"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Garrucha de nylon para ventana, guía plástica superior, seguro caracol de aluminio, felpa F-10, burlete EPDM 6 mm y tapones de jebe"
+        }
       ],
-      "usos": ["Vanos de ventilación total", "Pasadizos y áreas de servicio", "Accesos secundarios"]
+      "usos": [
+        "Fachadas con exposición a lluvia",
+        "Dormitorios y salas",
+        "Viviendas multifamiliares"
+      ]
+    },
+    {
+      "nombre": "Serie 29",
+      "resumen": "Ventana corrediza económica y hermética pensada para viviendas modulares y proyectos multifamiliares.",
+      "specs": [
+        {
+          "label": "Apertura",
+          "value": "Corrediza económica modular"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "4 mm"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Rodamiento de 2 ruedas, seguro caracol de aluminio, burlete EPDM 4 mm, felpa F-10 y tapones de jebe"
+        }
+      ],
+      "usos": [
+        "Viviendas modulares",
+        "Departamentos multifamiliares",
+        "Ambientes interiores"
+      ]
+    },
+    {
+      "nombre": "Serie 3825",
+      "resumen": "Corrediza económica para edificaciones de mediana altura con alféizar de desalojo de agua; armada en riel doble o riel sencillo.",
+      "specs": [
+        {
+          "label": "Apertura",
+          "value": "Corrediza doble o fija + corrediza con alféizar drenante"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "3 mm y 4 mm"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Garrucha doble de nylon, guías superior e inferior, seguro caracol derecho con placa, burlete 4 mm, felpa F-10 y tapones de jebe"
+        }
+      ],
+      "usos": [
+        "Edificios de mediana altura",
+        "Patios y cocinas",
+        "Vanos con exposición moderada"
+      ]
     },
     {
       "nombre": "Serie 62",
-      "resumen": "Ventana corrediza perimetral de línea europea con marco doble de 100 mm y cierre multipunto por cremona. Está pensada para vanos de gran formato que exigen mayor hermeticidad.",
+      "resumen": "Corrediza perimetral de línea europea con marco doble de 100 mm, cierre embutido y funcionamiento silencioso para vanos amplios.",
       "specs": [
-        { "label": "Sección de marco", "value": "100 mm (perfil de 1.3 mm de espesor)" },
-        { "label": "Espesor de vidrio", "value": "6 mm a 8 mm con burlete EPDM" },
-        { "label": "Dimensión máxima de hoja", "value": "1.30 m de ancho por 2.30 m de alto" },
-        { "label": "Capacidad de rodamiento", "value": "20 kg a 50 kg por rueda con felpa F-15" }
+        {
+          "label": "Sección y dimensión máx.",
+          "value": "Marco de 100 mm (perfil 1.3 mm); hoja hasta 1.30 x 2.30 m"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "6 mm a 8 mm con burlete EPDM"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Garruchas de nylon (20–50 kg), kit multipunto y cremona, set de calzos, manija, cierre automático, felpa F-15 y burlete EPDM cuña"
+        }
       ],
-      "usos": ["Fachadas residenciales expuestas", "Dormitorios principales", "Proyectos con mayor exigencia acústica"]
+      "usos": [
+        "Fachadas residenciales expuestas",
+        "Dormitorios principales",
+        "Vanos con exigencia acústica"
+      ]
+    },
+    {
+      "nombre": "Serie 80",
+      "resumen": "Ventana corrediza perimetral europea con marco de hoja de 80 mm, cortaviento y cierre multipunto para vanos de gran altura.",
+      "specs": [
+        {
+          "label": "Sección y dimensión máx.",
+          "value": "Marco doble o triple corrediza; hoja hasta 1.50 m x 3.00 m"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "6 mm y 8 mm"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Garrucha doble de nylon de carga, guía plástica, cortaviento, manija, cremona (40/60/80 cm) con kit multipunto y calzos, felpa F-15 y burlete EPDM"
+        }
+      ],
+      "usos": [
+        "Fachadas con exposición acústica",
+        "Ventanales de piso a techo",
+        "Dormitorios y salas amplias"
+      ]
+    },
+    {
+      "nombre": "Corrediza VCO 031",
+      "resumen": "Ventana corrediza económica de 37.60 mm de sección con doble línea de felpa para controlar la vibración de hojas.",
+      "specs": [
+        {
+          "label": "Sección de marco",
+          "value": "37.60 mm (doble corrediza o corrediza-fija)"
+        },
+        {
+          "label": "Vidrio compatible",
+          "value": "Tipo y espesor a definir según vano"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Garruchas corredizas, cierres laterales, felpas superior e inferior y tornillería de armado"
+        }
+      ],
+      "usos": [
+        "Viviendas modulares",
+        "Multifamiliares",
+        "Divisiones interiores"
+      ]
+    },
+    {
+      "nombre": "Corrediza VCO 036",
+      "resumen": "Ventana corrediza de 63.00 mm de sección para hojas mayores, con riel inferior inclinado para evacuación de agua.",
+      "specs": [
+        {
+          "label": "Sección de marco",
+          "value": "63.00 mm con riel inferior inclinado"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "4 mm y 6 mm"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Adaptadores de hoja, garruchas, contrachapa Stz13, seguro automático Stg34B, burlete EPDM (4 y 6 mm) y felpas perimetrales"
+        }
+      ],
+      "usos": [
+        "Dormitorios y salas",
+        "Vanos medianos con lluvia ligera",
+        "Edificios residenciales"
+      ]
+    },
+    {
+      "nombre": "Corrediza VCO 042",
+      "resumen": "Ventana corrediza de 67.10 mm de sección armada con traslape reforzado y rodamientos con billas de acero.",
+      "specs": [
+        {
+          "label": "Sección de marco",
+          "value": "67.10 mm"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "6 mm"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Garruchas con billas de acero, contrachapa Stz13, seguro automático Stg34B, felpas y burlete EPDM para 6 mm"
+        }
+      ],
+      "usos": [
+        "Vanos residenciales amplios",
+        "Oficinas administrativas",
+        "Salas con vista exterior"
+      ]
+    },
+    {
+      "nombre": "Corrediza VCO 043",
+      "resumen": "Ventana corrediza de 60.00 mm en configuración triple corrediza, compatible con vidrio monolítico o insulado.",
+      "specs": [
+        {
+          "label": "Sección y diseño",
+          "value": "60.00 mm (corrediza-corrediza-corrediza)"
+        },
+        {
+          "label": "Vidrio compatible",
+          "value": "Monolítico o insulado (espesor según proyecto)"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Kit de ventana VCO 043, rodamiento doble rueda, escuadra de marco, contrachapa Stz13, seguro automático Stg34B y burletes EPDM"
+        }
+      ],
+      "usos": [
+        "Aperturas de 2/3 del vano",
+        "Fachadas con control térmico",
+        "Proyectos residenciales"
+      ]
+    },
+    {
+      "nombre": "Serie 3831",
+      "resumen": "Ventana proyectante económica con burlete de doble contacto perimetral; combina paños fijos y hojas proyectantes compactas.",
+      "specs": [
+        {
+          "label": "Apertura",
+          "value": "Proyectante exterior con cuerpos fijos opcionales"
+        },
+        {
+          "label": "Vidrio compatible",
+          "value": "4 mm monolítico o laminado"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Brazos de extensión de aluminio (40/60/95 cm) o acero inoxidable (12\"/24\"), manija izquierda/derecha o con llave, burlete cuña 4 mm y doble contacto"
+        }
+      ],
+      "usos": [
+        "Baños y pasadizos",
+        "Edificios y pisos altos",
+        "Vanos que ventilan bajo llovizna"
+      ]
+    },
+    {
+      "nombre": "Serie 42",
+      "resumen": "Ventana proyectante hermética de alto desempeño para dimensiones y pesos superiores a la Serie 3831 (hoja hasta 1.00 m x 1.30 m), apta para termopanel.",
+      "specs": [
+        {
+          "label": "Apertura y dimensión máx.",
+          "value": "Proyectante de alta hermeticidad (hasta 1.00 m x 1.30 m / 10 pisos)"
+        },
+        {
+          "label": "Vidrio compatible",
+          "value": "Monolítico, laminado o termopanel (espesor a definir según hoja)"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Manija especial de serie, brazos de extensión de aluminio (40/60/95 cm), burlete cuña 6 mm y burlete de doble contacto"
+        }
+      ],
+      "usos": [
+        "Fachadas con viento intenso",
+        "Hojas proyectantes amplias",
+        "Proyectos con doble vidriado"
+      ]
+    },
+    {
+      "nombre": "Proyectante VPR 036",
+      "resumen": "Ventana proyectante hermética de 49.20 mm de sección con contramarco, travesaño y junquillo para vidrio simple o insulado.",
+      "specs": [
+        {
+          "label": "Sección de marco",
+          "value": "49.20 mm con opción de contramarco para muro cortina"
+        },
+        {
+          "label": "Vidrio compatible",
+          "value": "6 mm monolítico o insulado hasta 24 mm"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Brazos de proyección, manija de cierre, junquillos y burletes de doble contacto"
+        }
+      ],
+      "usos": [
+        "Edificios corporativos",
+        "Hospitales y clínicas",
+        "Oficinas en pisos altos"
+      ]
+    },
+    {
+      "nombre": "Proyectante VPR 042",
+      "resumen": "Ventana proyectante hermética de 49.20 mm con marco de hoja dedicado y junquillos intercambiables para vidrio simple o insulado.",
+      "specs": [
+        {
+          "label": "Sección de marco",
+          "value": "49.20 mm con marco de hoja"
+        },
+        {
+          "label": "Vidrio compatible",
+          "value": "6 mm monolítico o insulado hasta 24 mm"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "Brazos de proyección, manija, junquillos para 6 mm o insulado y burletes EPDM"
+        }
+      ],
+      "usos": [
+        "Edificios residenciales y oficinas",
+        "Hospitales",
+        "Vanos expuestos al viento"
+      ]
+    },
+    {
+      "nombre": "Serie 35",
+      "resumen": "Sistema batiente hermético con felpa perimetral y burlete de cuña para cierre ajustado y apertura total del vano.",
+      "specs": [
+        {
+          "label": "Apertura y dimensión máx.",
+          "value": "Batiente a 45° o 90°; recomendada hasta 0.80 x 2.10 m"
+        },
+        {
+          "label": "Espesor de vidrio",
+          "value": "4 mm con burlete cuña y junquillo"
+        },
+        {
+          "label": "Accesorios incluidos",
+          "value": "4 bisagras de aluminio, chapa, picaporte, escuadras de armado, felpa F-10 y burlete cuña"
+        }
+      ],
+      "usos": [
+        "Vanos de ventilación total",
+        "Pasadizos y servicio",
+        "Accesos secundarios"
+      ]
     }
   ],
   "faqs": [
     {
       "question": "¿Cuál es la diferencia entre una ventana corrediza, una proyectante y una batiente?",
-      "answer": "La ventana corrediza desplaza sus hojas horizontalmente sobre rieles sin invadir el espacio interior ni exterior. La ventana proyectante pivota hacia afuera mediante brazos de acero inoxidable, lo que permite ventilar incluso con llovizna y mejora la hermeticidad. La batiente gira sobre bisagras laterales ofreciendo apertura total del vano y un sellado perimetral continuo con burletes."
+      "answer": "La corrediza desliza sus hojas sobre rieles sin ocupar espacio interior. La proyectante pivota hacia afuera con brazos de acero inoxidable para ventilar incluso con llovizna. La batiente gira sobre bisagras laterales con apertura total del vano y cierre perimetral."
     },
     {
-      "question": "¿Las ventanas de aluminio son completamente antirruido?",
-      "answer": "No. En carpintería reservamos el término antirruido exclusivamente para sistemas de PVC con sellado por fusión. Las ventanas de aluminio ofrecen una atenuación acústica estimada que depende de la serie elegida, el espesor de los perfiles, la calidad de las felpas y la composición del cristal, logrando mejores resultados cuando se combinan series perimetrales con vidrio laminado o insulado."
+      "question": "¿Las ventanas de aluminio son antirruido?",
+      "answer": "No: el término antirruido aplica a sistemas de PVC con sellado por fusión. En aluminio ofrecemos atenuación acústica estimada según la serie, las felpas/burletes y el uso de vidrio laminado (6.38–10.38 mm) o insulado DVH."
     },
     {
-      "question": "¿Qué vidrio conviene elegir para reducir el ruido de la calle y mejorar el confort?",
-      "answer": "Para disminuir la transmisión sonora exterior se recomienda vidrio laminado con interlámina de PVB, disponible en 6.38 mm, 8.38 mm o 10.38 mm, o bien vidrio insulado DVH con cámara de aire deshidratado. Si además su ambiente recibe sol directo durante la tarde, puede incorporar vidrio reflectivo para atenuar la ganancia de calor sin oscurecer por completo la vista."
+      "question": "¿Qué serie se recomienda según el tamaño del vano y el piso?",
+      "answer": "En vanos pequeños e interiores funcionan bien Nova, Serie 20, Serie 29, Serie 3825 o VCO 031 con vidrio de 4 mm. Para hojas medianas/grandes se recomiendan Serie 25, Serie 28 o VCO 036/042 en 6 mm; en pisos altos o con viento fuerte, Serie 62, Serie 3831, Serie 42 o proyectantes VPR."
     },
     {
-      "question": "¿Qué serie de aluminio se recomienda según el tamaño del vano y el piso?",
-      "answer": "En vanos pequeños e interiores protegidos funcionan bien las series livianas de 4 mm. Para ventanas amplias de sala o dormitorio conviene pasar a Serie 25, que admite hojas de hasta 1.50 por 2.20 metros con vidrio de 6 mm. En pisos altos o fachadas expuestas al viento recomendamos sistemas proyectantes o la Serie 62 con cierre multipunto."
-    },
-    {
-      "question": "¿Cuándo no conviene instalar una ventana corrediza convencional?",
-      "answer": "Una corrediza básica no es la mejor opción en pisos altos muy expuestos a ráfagas de viento ni en ambientes donde se requiere hermeticidad superior frente al ruido o lluvia intensa, ya que el deslizamiento sobre felpas deja una mínima holgura mecánica. En esos casos conviene evaluar una ventana proyectante o una corrediza perimetral de mayor sección."
-    },
-    {
-      "question": "¿Qué incluye el servicio de instalación de ventanas y qué trabajos no cubre?",
-      "answer": "Nuestro servicio comprende la toma de medidas rectificadas en obra, la selección de perfiles y cristales, el ensamblaje en taller, el transporte, el montaje de marcos y hojas, el sellado perimetral con silicona y la regulación de herrajes. No ejecutamos obras civiles como picado de muros, tarrajeo, resane de pintura ni retiro de rejas metálicas soldadas."
-    },
-    {
-      "question": "¿Qué información necesitan para preparar una cotización de ventanas?",
-      "answer": "Para emitir un presupuesto referencial necesitamos las medidas aproximadas de ancho y alto de cada vano, fotografías del espacio actual, el distrito donde se ubica el inmueble y el tipo de apertura que prefiere. Si busca mejorar la atenuación acústica o controlar el ingreso solar, indíquenos también hacia qué orientación da la fachada."
-    },
-    {
-      "question": "¿Cómo se deben limpiar y mantener las ventanas de aluminio y vidrio?",
-      "answer": "Limpie los perfiles de aluminio al menos dos veces al mes con una franela seca y suave; para manchas puntuales use agua con jabón neutro y seque bien. Mantenga los rieles libres de polvo para proteger las garruchas, retire la suciedad de las felpas con una espátula sin filo y evite siempre limpiadores abrasivos para metales."
-    },
-    {
-      "question": "¿Qué fallas pueden presentarse con el uso y cómo se solucionan?",
-      "answer": "Con el tiempo pueden acumularse partículas en los rieles que endurecen el deslizamiento o desgastan las garruchas, provocar vibraciones por felpas secas o desajustar los seguros de cierre. En ventanas proyectantes, cerrar sin levantar el pestillo regulador puede descuadrar los brazos. Estas incidencias se corrigen mediante limpieza técnica, lubricación o reemplazo puntual de accesorios."
-    },
-    {
-      "question": "¿Cuál es el precio y el plazo de entrega de las ventanas a medida?",
-      "answer": "El valor final depende de la serie seleccionada, el tipo y espesor del vidrio, el acabado del aluminio y la cantidad de hojas del proyecto, por lo que figura como Precio a definir hasta evaluar su vano. Atendemos proyectos en La Molina, Surco, San Borja, San Isidro y Miraflores previa coordinación de visita técnica."
+      "question": "¿Qué incluye el servicio y qué datos necesitan para cotizar?",
+      "answer": "Incluye toma de medidas en obra, perfiles, cristales, herrajes, ensamblaje, montaje y sellado perimetral en La Molina, Surco, San Borja, San Isidro y Miraflores. No incluye albañilería ni tarrajeo. Para cotizar envíe ancho, alto aproximado, piso y fotos del vano (Precio a definir según visita)."
     }
   ],
   "notasInternas": [
-    "Fuentes de matriz-hechos.md utilizadas: H-001 a H-016 (vidrios), H-017 a H-024 (reflectivo y aluminio 6063-T5/T6, anodizado, pintura), H-025 a H-031 (tornillería, burletes, felpas, garruchas, cremona, traslape), H-041 a H-043 (Serie 62), H-050 (Sistema Nova), H-058 a H-059 (Serie 25), H-085 a H-087 (Serie 35), H-122 a H-131 (mantenimiento).",
-    "[POR CONFIRMAR] Medidas máximas, espesores de vidrio admitidos y ficha de despiece del Sistema Nova (nivel de confianza bajo en H-050).",
-    "[POR CONFIRMAR] Unificación de criterio de espesor de vidrio en Serie 62 (catálogos difieren entre 4 mm a más y 6 a 8 mm según H-043).",
-    "[POR CONFIRMAR] Precio referencial por m², plazo de entrega en días hábiles y condiciones de garantía escrita."
+    "Título mínimo singular aplicado: Ventana.",
+    "Incluye las 16 fichas técnicas de ventana (4 de galería + 12 series adicionales de SEED_SYSTEMS) con accesorios genéricos sin marcas ni SKUs.",
+    "[POR CONFIRMAR]: Precio referencial por m² según serie y composición de vidrio."
   ]
 }

@@ -2,16 +2,12 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
 
-    // Admin en Storage: claim role=admin, o correo @gyacompany.com verificado.
+    // Admin en Storage: requiere custom claim role=admin (sin excepción por dominio).
     // NO se consulta users/{uid} de Firestore (firestore.get): esa vía exige
     // conceder permisos IAM a la cuenta de servicio de Storage al desplegar. Si se
     // necesita, añadirla en una decisión aparte.
     function isAdmin() {
-      return request.auth != null && (
-        request.auth.token.get('role', '') == 'admin' ||
-        (request.auth.token.get('email_verified', false) == true &&
-         request.auth.token.get('email', '').matches('^[^@]+@gyacompany[.]com$'))
-      );
+      return request.auth != null && request.auth.token.get('role', '') == 'admin';
     }
 
     // Imágenes y assets estáticos del frontend: lectura pública, sin escritura.
@@ -37,16 +33,16 @@ service firebase.storage {
       allow read, write: if isAdmin();
     }
 
-    // Portadas y álbumes de servicios y proyectos (storageService.ts):
+    // Portadas y álbumes de servicios, proyectos y blog (storageService.ts):
     // lectura pública; solo admin escribe imágenes de hasta 10 MB.
     match /{collection}/{entityId}/{allPaths=**} {
-      allow read: if collection in ['services', 'projects'];
-      allow write: if collection in ['services', 'projects']
+      allow read: if collection in ['services', 'projects', 'blog'];
+      allow write: if collection in ['services', 'projects', 'blog']
         && isAdmin()
         && request.resource != null
         && request.resource.size < 10 * 1024 * 1024
         && request.resource.contentType.matches('image/.*');
-      allow delete: if collection in ['services', 'projects'] && isAdmin();
+      allow delete: if collection in ['services', 'projects', 'blog'] && isAdmin();
     }
 
     // Denegar todo lo demás por defecto.

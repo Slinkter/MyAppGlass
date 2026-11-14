@@ -28,19 +28,19 @@ export interface ServiceItemDef {
  */
 // eslint-disable-next-line react-refresh/only-export-components
 export const OFFICIAL_SERVICE_SLUGS: readonly ServiceItemDef[] = [
-  { slug: "ventana", name: "Ventanas de aluminio", category: "Sistema Nova · Series 20/25/62 y europea" },
-  { slug: "mampara", name: "Mamparas de vidrio templado", category: "Divisiones y terrazas" },
-  { slug: "ducha", name: "Boxes y puertas de ducha", category: "Vidrio templado a medida" },
-  { slug: "parapeto", name: "Parapetos y muros cortina", category: "Fachadas arquitectónicas" },
-  { slug: "baranda", name: "Barandas de vidrio y acero", category: "Escaleras y balcones" },
-  { slug: "balcones", name: "Cerramientos de balcones", category: "Protección y confort" },
-  { slug: "techo", name: "Techos de policarbonato", category: "Coberturas sol y sombra" },
-  { slug: "pvidrio", name: "Puertas de vidrio templado", category: "Interiores y mamparas" },
-  { slug: "pserie", name: "Puertas de aluminio serie", category: "Series 35, 36 y 62" },
-  { slug: "celosias", name: "Celosías de ventilación", category: "Ventilación natural y lamas" },
-  { slug: "espejos", name: "Espejos a medida", category: "Biselados, LED y decorativos" },
-  { slug: "frenos-hidraulicos", name: "Frenos hidráulicos y accesorios", category: "Puertas de vidrio templado" },
-  { slug: "mantenimiento", name: "Mantenimiento y calibración", category: "Vidrio y aluminio" },
+  { slug: "ventana", name: "Ventana", category: "Sistema Nova · Series 20, 25, 62 y proyectantes" },
+  { slug: "mampara", name: "Mampara", category: "Corredizas y batientes" },
+  { slug: "ducha", name: "Box de Ducha", category: "Vidrio templado 6, 8 y 10 mm" },
+  { slug: "parapeto", name: "Parapeto", category: "Antepechos y muro cortina" },
+  { slug: "baranda", name: "Baranda", category: "Vidrio templado y accesorios" },
+  { slug: "balcones", name: "Balcón", category: "Cerramiento y baranda" },
+  { slug: "techo", name: "Techo", category: "Aluminio y policarbonato" },
+  { slug: "pvidrio", name: "Puerta de Vidrio", category: "Templado 8 y 10 mm" },
+  { slug: "pserie", name: "Puerta en Serie", category: "Series 35 y 36" },
+  { slug: "celosias", name: "Celosía", category: "Lamas fijas y móviles" },
+  { slug: "espejos", name: "Espejo", category: "Flotante y marco aluminio" },
+  { slug: "frenos-hidraulicos", name: "Freno Hidráulico", category: "Freno de piso y bisagra aérea" },
+  { slug: "mantenimiento", name: "Mantenimiento", category: "Garruchas, felpas y calibración" },
 ] as const;
 
 /** Servicios destacados en el menú móvil (el resto vive en /servicios/ver). */

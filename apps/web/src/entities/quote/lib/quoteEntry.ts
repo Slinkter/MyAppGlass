@@ -23,6 +23,8 @@ interface QuoteEntryRoute {
 /** Servicios y sistemas que ya tienen cotizador. El resto sigue por WhatsApp. */
 export const QUOTE_ENTRY_ROUTES: readonly QuoteEntryRoute[] = [
   { serviceSlug: "ventana", systemMatch: "nova", entry: { categoria: "ventana", sistema: "ventana_nova" } },
+  { serviceSlug: "ventana", systemMatch: "serie 20", entry: { categoria: "ventana", sistema: "ventana_serie20" } },
+  { serviceSlug: "ventana", systemMatch: "serie 35", entry: { categoria: "ventana", sistema: "ventana_serie35" } },
 ];
 
 const normalize = (value: string) =>

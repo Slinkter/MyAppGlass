@@ -1,87 +1,139 @@
 {
   "slug": "mampara",
-  "title": "Mamparas de aluminio y vidrio",
-  "shortDescription": "Mamparas corredizas y batientes de piso a techo para integrar salas con terrazas o dividir oficinas con seguridad, amplitud visual y hermeticidad.",
-  "fullDescription": "Una mampara de aluminio y vidrio es un cerramiento o puerta de piso a techo que conecta ambientes interiores con terrazas, jardines o patios, o bien divide espacios de trabajo manteniendo la continuidad visual y el paso de luz natural. En nuestro taller seleccionamos perfilería de aleación 6063-T5 y cristales de seguridad cortados a medida para ensamblar e instalar cada sistema según las exigencias de su proyecto.\n\nEn mamparas residenciales y de oficina trabajamos configuraciones corredizas y batientes. Las corredizas permiten abrir amplios paños sin ocupar área útil al girar, apoyándose en zócalos inferiores diseñados para alojar garruchas de carga y cabezales superiores que guían el desplazamiento. Las opciones batientes resultan útiles cuando se busca un acceso definido con bisagras laterales o pivotes y cierre perimetral.\n\nPara garantizar seguridad frente al tránsito diario, en mamparas de gran altura empleamos vidrio templado de 8 mm o 10 mm —y 12 mm en vanos especiales—, o vidrio laminado con PVB de 8.38 mm y 10.76 mm, además de soluciones en Serie 25 con cristal de 6 mm en hojas de hasta 1.50 por 2.20 metros. Cuando se requiere privacidad parcial, podemos incorporar vinil arenado mate o escarchado.\n\nEl servicio incluye visita de medición en La Molina, Surco, San Borja, San Isidro o Miraflores, suministro de aluminio y vidrio, montaje, sellado perimetral y ajuste de cerraduras pico loro o cierres automáticos. No incluye picado de pisos, nivelación de contrapisos ni obras de albañilería. Para cotizar requerimos ancho, alto aproximado y fotos del vano. Con limpieza quincenal de rieles y lubricación periódica de rodamientos se evitan descarrilamientos y ruidos al deslizar.",
+  "title": "Mampara",
+  "seoTitle": "Mampara de Aluminio y Vidrio | GYA",
+  "shortDescription": "Mampara corrediza o batiente de piso a techo en aluminio 6063-T5 y vidrio templado o laminado para terrazas y divisiones.",
+  "fullDescription": "Mampara corrediza o batiente ensamblada con perfilería de aluminio 6063-T5, zócalo inferior, cabezal superior y vidrio templado (6, 8, 10 o 12 mm), laminado (8.38 o 10.76 mm) o insulado.\n\nIncluye perfiles, vidrio, garruchas o bisagras, chapa pico loro, cierre automático o cremona, felpas siliconadas, burletes EPDM, sellado perimetral e instalación en La Molina, Surco, San Borja, San Isidro y Miraflores. No incluye picado de pisos ni albañilería.",
   "specs": [
     { "grupo": "Estructura", "label": "Aleación de perfiles", "value": "Aluminio arquitectónico 6063-T5 o T6" },
-    { "grupo": "Vidrio", "label": "Vidrio templado estándar", "value": "8 mm y 10 mm (12 mm en gran altura)" },
-    { "grupo": "Vidrio", "label": "Vidrio laminado", "value": "8.38 mm y 10.76 mm con PVB" },
-    { "grupo": "Vidrio", "label": "Vidrio en Serie 25", "value": "6 mm monolítico para hojas hasta 1.50 x 2.20 m" },
+    { "grupo": "Vidrio", "label": "Vidrio templado", "value": "8 mm y 10 mm estándar (6 mm en Serie 25; 12 mm en gran altura)" },
+    { "grupo": "Vidrio", "label": "Vidrio laminado e insulado", "value": "8.38 y 10.76 mm laminado con PVB; insulado hasta 20 mm según serie" },
     { "grupo": "Acabado", "label": "Anodizado y pintura", "value": "Mate, bronce, negro, blanco o madera" },
-    { "grupo": "Herrajes", "label": "Rodamiento corredizo", "value": "Garruchas armadas o dobles alojadas en zócalo" },
-    { "grupo": "Seguridad", "label": "Cerraduras disponibles", "value": "Chapa pico loro, cierre automático o cremona" },
-    { "grupo": "Sellado", "label": "Burletes y felpas", "value": "EPDM y felpa siliconada de 5.5 mm o F-15" },
-    { "grupo": "Desempeño", "label": "Atenuación acústica", "value": "Estimada según serie y composición del vidrio" },
+    { "grupo": "Accesorios", "label": "Rodamientos y cierres", "value": "Garruchas armadas/pesadas con aguja o nylon, guía superior, chapa pico loro, cierre automático o kit multipunto/cremona" },
+    { "grupo": "Sellado", "label": "Burletes y felpas", "value": "Caucho EPDM 6–8 mm y felpa siliconada (5.5 mm o F-15)" },
+    { "grupo": "Privacidad", "label": "Opciones sobre vidrio", "value": "Vinil arenado mate o escarchado brillante opcional" },
     { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por metro cuadrado o por vano (Precio a definir)" }
   ],
   "features": [
-    "Cerramientos de piso a techo para conectar salas con terrazas, balcones y patios.",
-    "Zócalo inferior reforzado para soportar el peso del cristal y alojar garruchas.",
-    "Opciones en vidrio templado de 8 mm y 10 mm o laminado de seguridad.",
-    "Cabezal superior con guía y tope vertical que estabiliza el recorrido de las hojas.",
-    "Alternativas de privacidad mediante vinil arenado mate o escarchado brillante.",
-    "Acabados de aluminio resistentes a la intemperie y humedad costera."
+    "Zócalo inferior reforzado para soportar peso y alojar garruchas.",
+    "Cabezal superior con guía para estabilizar el recorrido.",
+    "Vidrio templado de 6 a 12 mm o laminado de seguridad.",
+    "Sellado con burletes EPDM, traslape y felpa siliconada.",
+    "Cierre con chapa pico loro, cierre automático o cremona."
   ],
   "benefits": [
-    "Amplía visualmente sus ambientes al integrar el interior con áreas exteriores.",
-    "Maximiza el ingreso de luz natural reduciendo la necesidad de iluminación artificial.",
-    "Resiste el tránsito frecuente gracias a herrajes y rodamientos dimensionados por peso.",
-    "Permite elegir entre apertura corrediza sin invasión de espacio o paso batiente definido."
+    "Conecta salas y terrazas sin invadir espacio útil.",
+    "Atenuación de polvo y ruido urbano según serie y cristal.",
+    "Deslizamiento suave en tránsito frecuente diario."
   ],
   "systemSheets": [
     {
       "nombre": "Nova",
-      "resumen": "Sistema modular corredizo adaptado para divisiones interiores y vanos residenciales livianos. Emplea garruchas simples o dobles con seguros pasantes o de aleta para una operación práctica.",
+      "resumen": "Sistema modular corredizo para divisiones interiores y vanos livianos protegidos.",
       "specs": [
-        { "label": "Tipo de sistema", "value": "Corredizo modular" },
-        { "label": "Rodamiento", "value": "Garrucha simple o doble (aluminio o fierro)" },
-        { "label": "Seguros", "value": "Pasante o con aleta" },
-        { "label": "Dimensiones límite", "value": "Precio a definir según evaluación técnica" }
+        { "label": "Apertura", "value": "Corrediza modular" },
+        { "label": "Accesorios incluidos", "value": "Garrucha simple o doble (aluminio/fierro), seguro pasante o con aleta y tornillería" },
+        { "label": "Medidas y precio", "value": "Precio a definir según evaluación técnica" }
       ],
-      "usos": ["Divisiones interiores ligeras", "Salidas protegidas a patio", "Oficinas pequeñas"]
+      "usos": ["Divisiones interiores", "Salidas protegidas a patio", "Oficinas pequeñas"]
     },
     {
       "nombre": "Serie 25",
-      "resumen": "Sistema corredizo intermedio con marco de dos carriles de 66 mm y perfil de 1.20 mm de espesor. Incorpora zócalo inferior robusto, chapa pico loro y cierre automático para tránsito frecuente.",
+      "resumen": "Corrediza intermedia de 66 mm en dos carriles (perfil 1.20 mm) con zócalo inferior robusto para hojas medianas.",
       "specs": [
-        { "label": "Sección de marco", "value": "66 mm en dos carriles (1.20 mm de espesor)" },
-        { "label": "Espesor de vidrio", "value": "6 mm con felpa de 5.5 mm" },
-        { "label": "Dimensión máxima de hoja", "value": "1.50 m de ancho por 2.20 m de alto" },
-        { "label": "Seguridad", "value": "Chapa pico loro y cierre automático" }
+        { "label": "Sección y dimensión máx.", "value": "Marco de 66 mm; hoja hasta 1.50 m x 2.20 m" },
+        { "label": "Espesor de vidrio", "value": "6 mm monolítico" },
+        { "label": "Accesorios incluidos", "value": "Garrucha armada Serie 25, cierre automático, chapa pico loro, jalador de nylon, felpa 5.5 mm y tapones de jebe" }
       ],
       "usos": ["Conexión sala-terraza", "Divisiones de oficina", "Mamparas de mediana altura"]
+    },
+    {
+      "nombre": "Serie 7038",
+      "resumen": "Mampara corrediza perimetral con hojas tubulares de mayor tamaño, en configuración doble corrediza o fijo-corrediza.",
+      "specs": [
+        { "label": "Apertura y dimensión máx.", "value": "Corrediza perimetral tubular (fijo-corrediza o doble corrediza; hasta 2.00 m x 2.80 m)" },
+        { "label": "Espesor de vidrio", "value": "6 mm a más (espesor final a definir según paño)" },
+        { "label": "Accesorios incluidos", "value": "Garrucha pesada doble con aguja, guía superior, cierre automático con placa o llave y burlete negro 6 mm" }
+      ],
+      "usos": ["Terrazas amplias", "Salidas de sala con hojas altas", "Vanos expuestos"]
+    },
+    {
+      "nombre": "Serie 80",
+      "resumen": "Mampara corrediza de diseño europeo con desplazamiento silencioso y cierre hermético para hojas de gran formato.",
+      "specs": [
+        { "label": "Apertura y dimensión máx.", "value": "Corrediza europea de carga pesada (hasta 1.50 m x 3.00 m por hoja)" },
+        { "label": "Espesor de vidrio", "value": "6 mm y 8 mm" },
+        { "label": "Accesorios incluidos", "value": "Garrucha doble de nylon de carga, guía plástica, cortaviento, cierre automático o kit multipunto/cremona, manija, set de calzos, felpa F-15 y burlete EPDM" }
+      ],
+      "usos": ["Terrazas principales", "Fachadas con exigencia acústica", "Vanos de piso a techo"]
+    },
+    {
+      "nombre": "Corrediza MCO 042",
+      "resumen": "Mampara corrediza de 67.10 mm de sección adaptable desde paños fijos y 2 hojas hasta 4 hojas (fija-corrediza-corrediza-fija).",
+      "specs": [
+        { "label": "Sección de marco", "value": "67.10 mm con traslape y hoja inferior reforzada" },
+        { "label": "Espesor de vidrio", "value": "6 mm" },
+        { "label": "Accesorios incluidos", "value": "Rodamientos de carga, seguro manual Stg34, contrachapa Stz13 (gris/negro/blanco), riel y traslapes reforzados, felpas y burletes EPDM" }
+      ],
+      "usos": ["Salas y terrazas medianas", "Vanos de 2 a 4 hojas", "Divisiones comerciales"]
+    },
+    {
+      "nombre": "Corrediza MCO 043",
+      "resumen": "Mampara corrediza robusta y hermética de 90.00 mm de sección con adaptador de marco triple y hoja para vidrio grueso.",
+      "specs": [
+        { "label": "Sección de marco", "value": "90.00 mm (admite triple corrediza)" },
+        { "label": "Vidrio compatible", "value": "Monolítico 8–10 mm o insulado" },
+        { "label": "Accesorios incluidos", "value": "Kit completo de mampara 2 hojas, rodamientos doble rueda, adaptadores de riel, seguro manual Stg34, felpas y burletes EPDM" }
+      ],
+      "usos": ["Vanos de gran ancho", "Terrazas con vidrio 10 mm o DVH", "Oficinas corporativas"]
+    },
+    {
+      "nombre": "Corrediza MCO 044",
+      "resumen": "Mampara corrediza de gran sección (109.80 mm) diseñada para hojas de grandes dimensiones.",
+      "specs": [
+        { "label": "Sección de marco", "value": "109.80 mm" },
+        { "label": "Espesor de vidrio", "value": "6 mm u 8 mm" },
+        { "label": "Accesorios incluidos", "value": "Rodamientos de alta carga, adaptador de hoja, cierres, felpa perimetral y burlete EPDM 6–8 mm" }
+      ],
+      "usos": ["Terrazas de gran altura", "Residencia con paños amplios", "Frentes panorámicos"]
+    },
+    {
+      "nombre": "Batiente MBT 035",
+      "resumen": "Mampara batiente de 41.30 mm con junquillos a 45° por ambos lados para vanos de poco espesor.",
+      "specs": [
+        { "label": "Sección de marco", "value": "41.30 mm (hoja liviana o pesada)" },
+        { "label": "Vidrio compatible", "value": "Tipo y espesor a definir según vano" },
+        { "label": "Accesorios incluidos", "value": "Soporte de armado, junquillos a 45°, tapas/topes con portafelpa, bisagras, chapa y burlete EPDM" }
+      ],
+      "usos": ["Accesos batientes compactos", "Oficinas interiores", "Pasos secundarios"]
+    },
+    {
+      "nombre": "Batiente MBT 036",
+      "resumen": "Mampara batiente de 80.00 mm con bordes redondeados compatible con vidrio simple o insulado.",
+      "specs": [
+        { "label": "Sección de marco", "value": "80.00 mm con tope central y bordes redondeados" },
+        { "label": "Vidrio compatible", "value": "6 mm simple o insulado hasta 20 mm" },
+        { "label": "Accesorios incluidos", "value": "Junquillos para vidrio simple o insulado, adaptador, bisagras reforzadas, cerradura, felpas y burlete EPDM" }
+      ],
+      "usos": ["Ingresos residenciales o de oficina", "Vanos que requieren control térmico", "Puertas batientes dobles"]
     }
   ],
   "faqs": [
     {
-      "question": "¿Qué espesor de vidrio templado se recomienda para una mampara de terraza?",
-      "answer": "En mamparas de piso a techo o salidas a terraza se recomiendan espesores estándar de 8 mm y 10 mm en cristal templado, pudiendo requerirse 12 mm en vanos de gran altura o expuestos a fuertes corrientes de viento. Para formatos intermedios en Serie 25, con hojas de hasta 1.50 por 2.20 metros, también se trabaja con cristal de 6 mm."
+      "question": "¿Qué espesor de vidrio se recomienda para una mampara de terraza?",
+      "answer": "Para piso a techo se recomienda vidrio templado de 8 mm o 10 mm (12 mm en vanos muy altos o con viento fuerte). Para hojas de hasta 1.50 x 2.20 m en Serie 25 se trabaja con 6 mm."
     },
     {
-      "question": "¿Conviene elegir una mampara corrediza o una mampara batiente?",
-      "answer": "La mampara corrediza es la opción más práctica en salas, terrazas y balcones porque las hojas se deslizan sobre rieles paralelos sin invadir muebles ni circulaciones. La mampara batiente conviene cuando el vano es estrecho y se necesita aprovechar todo el ancho libre de paso, o en accesos comerciales y oficinas con tránsito puntual."
+      "question": "¿Conviene mampara corrediza o batiente?",
+      "answer": "La corrediza optimiza el espacio en terrazas y salas al deslizar sin invadir muebles. La batiente conviene en vanos estrechos donde se requiere el 100 % del ancho libre de paso."
     },
     {
-      "question": "¿En qué casos no es recomendable instalar una mampara de Serie 25?",
-      "answer": "No conviene utilizar Serie 25 cuando las hojas superan los 1.50 metros de ancho o los 2.20 metros de alto, ni en frentes muy expuestos al viento donde se exige cristal de 8 mm a 10 mm o doble vidriado hermético. En esos escenarios evaluamos series perimetrales de mayor sección y rodamientos de carga pesada."
-    },
-    {
-      "question": "¿Qué incluye la instalación de una mampara y qué requiere el vano antes de empezar?",
-      "answer": "Incluimos toma de medidas en obra, suministro de perfiles, cristales, zócalos, garruchas, cerraduras, montaje completo y sellado perimetral. No realizamos picado de pisos para embutir rieles ni resanes de albañilería. Antes de instalar, el vano debe contar con piso terminado, derrames nivelados y pintura de base lista."
-    },
-    {
-      "question": "¿Cómo se mantiene una mampara para que siga deslizando con suavidad?",
-      "answer": "Aspire o limpie semanalmente el riel inferior para retirar arena, tierra o pelusas que traban las ruedas. Limpie los perfiles de aluminio con franela seca dos veces al mes y lubrique periódicamente las billas de las garruchas y los mecanismos de la chapa pico loro. Nunca fuerce una hoja trabada para evitar descarrilamientos."
-    },
-    {
-      "question": "¿Qué datos necesito enviar para cotizar una mampara y cuál es su costo?",
-      "answer": "Necesitamos las medidas aproximadas de ancho y alto del vano, fotografías del piso y techo del espacio, el distrito y si desea configuración fija-corrediza o doble corrediza. El costo se muestra como Precio a definir porque varía según serie, espesor del cristal y acabado del aluminio, y se confirma tras la visita técnica."
+      "question": "¿Qué requiere el vano antes de instalar y cómo se cotiza?",
+      "answer": "El vano debe tener piso terminado, derrames nivelados y pintura base lista. Para cotizar envíe ancho, alto aproximado y fotos del piso/techo (Precio a definir según serie, cristal y acabado)."
     }
   ],
   "notasInternas": [
-    "Fuentes de matriz-hechos.md utilizadas: H-002 a H-012 (templado y laminado), H-022 a H-031 (aluminio 6063, burletes, felpas, garruchas, traslape), H-050 (Sistema Nova), H-056 a H-060 (definición mampara, 8-10-12 mm, Serie 25), H-070 a H-071 (zócalo y cabezal), H-103 (vinil arenado/escarchado), H-122 a H-131 (mantenimiento).",
-    "[POR CONFIRMAR] Ficha dimensional, espesores de vidrio admitidos y alcance de uso del Sistema Nova en mamparas (H-050).",
-    "[POR CONFIRMAR] Precio por m², plazo de fabricación/entrega en taller y garantía de herrajes."
+    "Título mínimo singular aplicado: Mampara.",
+    "Incluye las 9 fichas técnicas (Nova, Serie 25 + 7 sistemas publicados de SEED_SYSTEMS) con accesorios genéricos sin marcas ni SKUs."
   ]
 }

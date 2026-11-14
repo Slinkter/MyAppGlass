@@ -41,7 +41,8 @@ export interface GetBlogPostsFilter {
 
 /**
  * Obtiene los artículos del blog ordenados por fecha descendente.
- * Filtra `publishedOnly` en memoria para no depender de un índice compuesto en Firestore.
+ * Cuando `publishedOnly` es `true`, filtra en Firestore (`published == true`) y ordena en memoria
+ * para cumplir la regla de seguridad sin requerir índice compuesto.
  */
 export const getBlogPosts = async (
   filter: GetBlogPostsFilter = {}
@@ -50,7 +51,9 @@ export const getBlogPosts = async (
 
   try {
     const postsRef = collection(db, COLLECTION_NAME);
-    const q = query(postsRef, orderBy("date", "desc"));
+    const q = publishedOnly
+      ? query(postsRef, where("published", "==", true))
+      : query(postsRef, orderBy("date", "desc"));
     const snapshot = await getDocsFromServer(q);
 
     const items: BlogPost[] = [];
@@ -67,6 +70,10 @@ export const getBlogPosts = async (
       }
     });
 
+    if (publishedOnly) {
+      items.sort((a, b) => b.date.localeCompare(a.date));
+    }
+
     return items;
   } catch (error) {
     logger.error("Error al obtener artículos del blog de Firestore", error);
@@ -80,7 +87,7 @@ export const getBlogPosts = async (
 export const getBlogPostBySlug = async (slug: string): Promise<BlogPost | null> => {
   try {
     const postsRef = collection(db, COLLECTION_NAME);
-    const q = query(postsRef, where("slug", "==", slug));
+    const q = query(postsRef, where("slug", "==", slug), where("published", "==", true));
     const snapshot = await getDocsFromServer(q);
 
     if (snapshot.empty) {

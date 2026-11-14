@@ -40,6 +40,10 @@ interface RestListResponse {
   nextPageToken?: string;
 }
 
+interface RestRunQueryEntry {
+  document?: RestDocument;
+}
+
 const getBaseUrl = (): string =>
   process.env.NEXT_PUBLIC_USE_EMULATORS === "true"
     ? `http://127.0.0.1:8081/v1/projects/${PROJECT_ID}/databases/(default)/documents`
@@ -186,11 +190,57 @@ export const getBuildProjects = memoize(async (): Promise<Project[]> => {
 
 /** Artículos del blog publicados, más recientes primero (`date` descendente). `[]` si falla. */
 export const getBuildBlogPosts = memoize(async (): Promise<BlogPost[]> => {
-  const posts = await readCollection<BlogPost>("blogPosts", (raw) => {
-    const result = BlogPostSchema.safeParse(raw);
-    return result.success ? result.data : null;
-  });
-  return posts
-    .filter((p) => p.published)
-    .sort((a, b) => b.date.localeCompare(a.date));
+  // Solo servidor: en el navegador se usa el SDK de Firebase.
+  if (typeof window !== "undefined") return [];
+  try {
+    // Sin `cache: "no-store"`: forzaría la ruta a dinámica y rompería `output: 'export'`.
+    const response = await fetch(`${getBaseUrl()}:runQuery`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      body: JSON.stringify({
+        structuredQuery: {
+          from: [{ collectionId: "blogPosts" }],
+          where: {
+            fieldFilter: {
+              field: { fieldPath: "published" },
+              op: "EQUAL",
+              value: { booleanValue: true },
+            },
+          },
+        },
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`Firestore REST respondió ${response.status} al consultar /blogPosts`);
+    }
+    const entries = (await response.json()) as RestRunQueryEntry[];
+    const posts: BlogPost[] = [];
+    for (const entry of Array.isArray(entries) ? entries : []) {
+      const document = entry.document;
+      if (!document) continue;
+      const id = document.name.split("/").pop() ?? "";
+      const raw = { ...fromRestFields(document.fields ?? {}) };
+      raw.id = typeof raw.id === "string" && raw.id ? raw.id : id;
+      const result = BlogPostSchema.safeParse(raw);
+      if (result.success) {
+        if (result.data.published) posts.push(result.data);
+      } else {
+        logger.warn("Documento de Firestore inválido omitido en la lectura de build", {
+          collection: "blogPosts",
+          id,
+        });
+      }
+    }
+    return posts.sort((a, b) => b.date.localeCompare(a.date));
+  } catch (error) {
+    logger.warn(
+      "No se pudo leer Firestore por REST durante el build; se continúa sin datos remotos",
+      {
+        collection: "blogPosts",
+        error: error instanceof Error ? error.message : String(error),
+      }
+    );
+    return [];
+  }
 });

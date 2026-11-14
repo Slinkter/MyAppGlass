@@ -1,5 +1,5 @@
 import { initializeTestEnvironment, assertSucceeds, assertFails } from "@firebase/rules-unit-testing";
-import { doc, setDoc, getDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, deleteDoc, collection, query, where, getDocs, serverTimestamp } from "firebase/firestore";
 import { readFileSync } from "node:fs";
 
 const env = await initializeTestEnvironment({
@@ -94,6 +94,22 @@ await t("admin read sistema borrador", true, () => getDoc(doc(adminWithClaim, "s
 await t("contador pedidos anon read", false, () => getDoc(doc(anon, "contadores", `pedidos-${year}`)));
 await t("contador pedidos anon create", false, () => setDoc(doc(anon, "contadores", `pedidos-${year}`), { seq: 1 }));
 await t("contador pedidos admin create", true, () => setDoc(doc(adminWithClaim, "contadores", `pedidos-${year}`), { seq: 1 }));
+
+// 6. blogPosts: lectura pública solo para publicados; borradores y escritura solo admin
+await t("admin create blogPost publicado", true, () => setDoc(doc(adminWithClaim, "blogPosts", "post-pub"), { title: "Publicado", published: true }));
+await t("admin create blogPost borrador", true, () => setDoc(doc(adminWithClaim, "blogPosts", "post-bor"), { title: "Borrador", published: false }));
+await t("admin read blogPost publicado", true, () => getDoc(doc(adminWithClaim, "blogPosts", "post-pub")));
+await t("admin read blogPost borrador", true, () => getDoc(doc(adminWithClaim, "blogPosts", "post-bor")));
+
+for (const [label, ctx] of [["anon", anon], ["cliente", clienteUser]]) {
+  await t(`${label} getDoc blogPost publicado`, true, () => getDoc(doc(ctx, "blogPosts", "post-pub")));
+  await t(`${label} getDocs blogPosts published == true`, true, () => getDocs(query(collection(ctx, "blogPosts"), where("published", "==", true))));
+  await t(`${label} getDoc blogPost borrador`, false, () => getDoc(doc(ctx, "blogPosts", "post-bor")));
+  await t(`${label} getDocs blogPosts sin filtro`, false, () => getDocs(collection(ctx, "blogPosts")));
+  await t(`${label} setDoc blogPosts`, false, () => setDoc(doc(ctx, "blogPosts", "post-hack"), { title: "Hack", published: true }));
+  await t(`${label} updateDoc blogPosts`, false, () => updateDoc(doc(ctx, "blogPosts", "post-pub"), { title: "Editado" }));
+  await t(`${label} deleteDoc blogPosts`, false, () => deleteDoc(doc(ctx, "blogPosts", "post-pub")));
+}
 
 await env.cleanup();
 console.log(`${results.filter(Boolean).length}/${results.length} OK`);

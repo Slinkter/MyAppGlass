@@ -1,70 +1,77 @@
 {
   "slug": "pserie",
-  "title": "Puertas de Aluminio en Serie",
-  "shortDescription": "Puertas batientes de aluminio Serie 35 y Serie 36 para interiores y exteriores, con felpa perimetral, vidrio de 4 a 6 mm y herrajes duraderos.",
-  "fullDescription": "Las puertas de aluminio en serie son hojas batientes armadas con perfiles de aleación arquitectónica 6063 T5 o T6, marco perimetral y sellado con felpa y burlete. A diferencia de una puerta de vidrio templado sin marco, este sistema enmarca todo el perímetro del cristal o panel, ofreciendo mayor ligereza de hoja, cierre hermético contra polvo y corrientes de aire, y facilidad para incorporar cerraduras mecánicas estándar.\n\nSeleccionamos entre Serie 35 y Serie 36 según la ubicación y exigencia del vano. La Serie 35 resulta adecuada para accesos interiores, lavanderías o divisiones con hojas hasta 0.80 x 2.10 m y vidrio de 4 mm; la Serie 36, de bordes redondeados, admite vanos de mayor exigencia de hasta 1.00 m por 2.40 m, vidrio de 6 mm y configuraciones de dos a cuatro hojas para interiores o exteriores. No recomendamos estas series en accesos comerciales de tránsito masivo que requieran freno hidráulico de piso ni cuando usted busque una hoja totalmente transparente sin perfilería.\n\nNuestro servicio incluye verificación de medidas, ensamblaje con escuadras internas, tornillería inoxidable o zincada, colocación de vidrio flotado, catedral o laminado según diseño, bisagras, chapa, picaporte e instalación en obra. No incluye trabajos de albañilería ni resane de vanos húmedos. La cotización se calcula por unidad según medidas y acabado; Precio a definir tras evaluación.\n\nPara cotizar requerimos ancho, alto, fotos del vano y confirmar si la puerta dará al exterior. El mantenimiento consiste en limpiar los perfiles con franela seca cada quince días o paño húmedo con jabón neutro si hay manchas. Si la hoja roza o pierde ajuste, se corrige regulando bisagras o reemplazando felpas y burletes desgastados.",
+  "title": "Puerta en Serie",
+  "seoTitle": "Puerta de Aluminio en Serie | GYA",
+  "shortDescription": "Puerta batiente de aluminio Serie 35 y Serie 36 con marco perimetral, vidrio de 4 a 6 mm, bisagras, chapa, picaporte y felpa.",
+  "fullDescription": "Puerta batiente armada en perfilería de aluminio 6063-T5/T6 (Serie 35 y Serie 36) con bastidor, junquillos desmontables y vidrio flotado, catedral o laminado de 4 a 6 mm.\n\nIncluye marco, hoja, escuadras internas, tornillería inoxidable o zincada, bisagras, chapa, picaporte, felpa perimetral, burlete EPDM e instalación en La Molina, Surco, San Borja, San Isidro y Miraflores. No incluye albañilería ni resane de vanos.",
   "specs": [
-    { "grupo": "Perfilería", "label": "Aleación estructural", "value": "Aluminio arquitectónico 6063 tratamiento T5 o T6" },
-    { "grupo": "Serie 35", "label": "Dimensión máxima de hoja", "value": "0.80 m de ancho x 2.10 m de alto" },
-    { "grupo": "Serie 35", "label": "Espesor de vidrio", "value": "4 mm con burlete cuña y felpa F-10" },
-    { "grupo": "Serie 35", "label": "Herrajes", "value": "4 bisagras de aluminio y picaporte de 10 pulgadas" },
-    { "grupo": "Serie 36", "label": "Dimensión máxima de hoja", "value": "1.00 m de ancho x 2.40 m de alto" },
-    { "grupo": "Serie 36", "label": "Espesor de vidrio", "value": "6 mm en configuraciones de 2 a 4 hojas" },
-    { "grupo": "Serie 36", "label": "Bisagras", "value": "Capuchina de 4 x 4 pulgadas" },
-    { "grupo": "Acabados", "label": "Anodizado", "value": "13 a 14 micras (mate, bronce o negro)" },
-    { "grupo": "Acabados", "label": "Pintura electrostática", "value": "50 a 70 micras a ~200 °C (blanco, negro o madera)" },
-    { "grupo": "Servicio", "label": "Modalidad de cotización", "value": "Precio a definir por unidad instalada" }
+    { "grupo": "Estructura", "label": "Aleación y acabado", "value": "Aluminio 6063-T5/T6 anodizado (13–14 micras) o pintura electrostática (50–70 micras)" },
+    { "grupo": "Serie 35", "label": "Capacidad y vidrio", "value": "Hoja hasta 0.80 x 2.10 m; vidrio de 4 mm" },
+    { "grupo": "Serie 36", "label": "Capacidad y vidrio", "value": "Hoja hasta 1.00 x 2.40 m (2 a 4 hojas); vidrio de 6 mm" },
+    { "grupo": "Accesorios", "label": "Herrajes incluidos", "value": "4 bisagras de aluminio o capuchinas, chapa de puerta, picaporte de 10\", escuadras de armado y tornillería" },
+    { "grupo": "Sellado", "label": "Burletes y felpas", "value": "Felpa F-10 perimetral y burlete EPDM / cuña según serie" },
+    { "grupo": "Opcional", "label": "Control de cierre", "value": "Cierrapuertas aéreo hidráulico hasta 65 kg" },
+    { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por unidad instalada (Precio a definir)" }
   ],
   "features": [
-    "Ensamblaje con cortes a 45° o 90° mediante escuadras internas de armado.",
-    "Sellado perimetral con felpa y burlete EPDM para amortiguar vibraciones.",
-    "Tornillería autorroscante inoxidable o zincada resistente a la corrosión.",
-    "Compatibilidad con vidrio flotado, catedral translúcido o paneles mixtos.",
-    "Acabados en anodizado mate, negro, bronce o pintura electrostática tipo madera.",
-    "Opción de incorporar cierrapuertas aéreo hasta 65 kg en hojas livianas."
+    "Ensamblaje a 45° o 90° con escuadras internas rígidas.",
+    "Marco perimetral con felpa F-10 y burlete EPDM contra polvo.",
+    "Compatible con vidrio crudo, catedral translúcido o laminado.",
+    "Acabados anodizado mate/negro/bronce o pintura blanca/madera."
   ],
   "benefits": [
-    "Cierre perimetral más hermético frente a polvo y viento que una hoja sin marco.",
-    "Resistencia a la humedad y bajo deterioro en cocinas, lavanderías y patios.",
-    "Posibilidad de elegir vidrio catedral para privacidad sin perder iluminación.",
-    "Mantenimiento sencillo sin necesidad de repintado periódico."
+    "Resiste humedad y uso en cocinas, patios y lavanderías.",
+    "Admite chapas mecánicas convencionales de fácil reposición.",
+    "Bajo mantenimiento sin repintado ni lijado."
   ],
   "systemSheets": [
     {
       "nombre": "Sistema Puerta Serie",
-      "resumen": "Sistema de puertas batientes en aluminio Serie 35 y Serie 36 ensambladas con bastidor, junquillos desmontables a presión y sellos flexibles. Permite adaptar espesores de 4 a 6 mm y múltiples configuraciones de apertura según la exigencia del vano.",
+      "resumen": "Puerta batiente enmarcadada en Serie 35 o Serie 36 con junquillos a presión y sellado perimetral completo.",
       "specs": [
         { "label": "Series disponibles", "value": "Serie 35 (hasta 0.80 x 2.10 m) y Serie 36 (hasta 1.00 x 2.40 m)" },
         { "label": "Vidrio compatible", "value": "4 mm en Serie 35; 6 mm en Serie 36" },
-        { "label": "Unión de marco", "value": "Cortes a 45° o 90° con escuadras internas" },
-        { "label": "Fijación de cristal", "value": "Junquillo a presión con burlete EPDM o vinil" }
+        { "label": "Accesorios incluidos", "value": "Escuadras internas, junquillos, 4 bisagras, chapa, picaporte, felpa F-10 y burlete EPDM" }
       ],
-      "usos": [
-        "Puertas de cocina, lavandería y áreas de servicio",
-        "Accesos a patios, jardines y terrazas secundarias",
-        "Divisiones interiores de oficinas y consultorios"
-      ]
+      "usos": ["Cocinas y lavanderías", "Accesos a patio o terraza", "Divisiones de oficina"]
+    },
+    {
+      "nombre": "Serie 35",
+      "resumen": "Puerta batiente de aluminio con marco, bastidor y junquillo a presión para vanos interiores estándar.",
+      "specs": [
+        { "label": "Dimensión máxima", "value": "Hasta 0.80 m de ancho x 2.10 m de alto" },
+        { "label": "Espesor de vidrio", "value": "4 mm (crudo, catedral o según pedido)" },
+        { "label": "Accesorios incluidos", "value": "Chapa Serie 35, 4 bisagras de aluminio (mate/blanco/negro/champagne), picaporte empotrado 10\", escuadras de armado, felpa F-10 y burlete cuña" }
+      ],
+      "usos": ["Lavanderías y áreas de servicio", "Pasadizos interiores", "Baños o depósitos"]
+    },
+    {
+      "nombre": "Serie 36",
+      "resumen": "Puerta o mampara batiente clásica de bordes redondeados, de 2 a 4 hojas y resistente a intemperie.",
+      "specs": [
+        { "label": "Dimensión y hojas", "value": "Hoja hasta 1.00 x 2.40 m en configuraciones de 2 a 4 hojas" },
+        { "label": "Espesor de vidrio", "value": "6 mm" },
+        { "label": "Accesorios incluidos", "value": "Chapa de puerta, bisagras capuchinas 4\"x4\", felpa F-10 perimetral, burlete EPDM negro 6 mm y escuadras" }
+      ],
+      "usos": ["Accesos a jardín o terraza", "Divisiones amplias de oficina", "Exteriores residenciales"]
     }
   ],
   "faqs": [
     {
-      "question": "¿Cuál es la diferencia entre una puerta de aluminio en serie y una puerta de vidrio templado?",
-      "answer": "La puerta en serie rodea todo el cristal con un bastidor de aluminio, felpa perimetral y junquillos, lo que permite usar chapas convencionales, controlar mejor el paso de polvo y lograr una hoja más liviana. En cambio, la puerta de vidrio templado carece de marco metálico completo, prioriza la transparencia total y requiere herrajes estructurales específicos."
+      "question": "¿Cuándo elegir Serie 35 y cuándo Serie 36?",
+      "answer": "La Serie 35 es ideal para vanos interiores hasta 0.80 x 2.10 m con vidrio de 4 mm. La Serie 36 admite hasta 1.00 x 2.40 m, vidrio de 6 mm, 2 a 4 hojas y mejor desempeño al exterior."
     },
     {
-      "question": "¿Cuándo conviene elegir la Serie 35 y cuándo la Serie 36 para su vivienda?",
-      "answer": "La Serie 35 funciona muy bien en vanos interiores estándar que no superen 0.80 x 2.10 m con vidrio de 4 mm, como lavanderías o pasadizos. Cuando el vano es más alto o ancho, llega hasta 1.00 m por 2.40 m, da al exterior o requiere dos a cuatro hojas con vidrio de 6 mm, conviene optar por la Serie 36."
+      "question": "¿Qué diferencia tiene frente a una puerta de vidrio templado sin marco?",
+      "answer": "La puerta en serie rodea todo el vidrio con aluminio y felpa, logrando cierre más hermético contra polvo y viento, hoja más liviana y compatibilidad con chapas estándar."
     },
     {
-      "question": "¿Cómo se mantiene una puerta de aluminio y qué hacer si empieza a rozar?",
-      "answer": "Limpie los perfiles con una franela seca y suave al menos dos veces al mes, y retire manchas puntuales con agua, jabón neutro y paño húmedo sin usar abrasivos. Si con el tiempo la puerta roza el marco o cierra con holgura irregular, se corrige ajustando o reemplazando las bisagras y renovando la felpa o el burlete fatigado."
+      "question": "¿Qué datos necesitan para cotizar?",
+      "answer": "Ancho, alto, fotos del vano y si da a interior o exterior. El precio se define según serie, acabado y vidrio elegido."
     }
   ],
   "notasInternas": [
-    "Fuentes matriz-hechos.md: H-019 y H-021 (vidrio catedral y flotado), H-022 a H-026 y H-029 (aleación 6063, anodizado, pintura electrostática, tornillos, burlete, junquillo), H-085 a H-089 y H-137 (Serie 35 y Serie 36), H-120 (cierrapuertas hasta 65 kg), H-122 y H-123 (mantenimiento de aluminio), H-144 (acabado madera).",
-    "[POR CONFIRMAR] Precio referencial por unidad instalada según serie y acabado.",
-    "[POR CONFIRMAR] Plazo estándar de ensamblaje e instalación en obra.",
-    "[POR CONFIRMAR] Garantía de perfiles, pintura y cerrajería.",
-    "[POR CONFIRMAR] Uso habitual de perfiles batientes MBT 035 / MBT 036 (H-068, H-069) frente a Serie 35 y Serie 36 en este servicio."
+    "Título mínimo singular aplicado: Puerta en Serie.",
+    "Incluye fichas para Sistema Puerta Serie, Serie 35 y Serie 36 con accesorios genéricos de SEED_SYSTEMS."
   ]
 }

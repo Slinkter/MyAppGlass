@@ -62,19 +62,19 @@ export const getCompanyJsonLd = () => ({
         }
       ],
       "knowsAbout": [
-        "Ventanas de aluminio",
+        "Ventana de aluminio y vidrio",
         "Sistema Nova",
         "Serie 20",
         "Serie 25",
         "Serie 35",
         "Serie 62",
-        "Mamparas de vidrio templado",
-        "Boxes de ducha",
-        "Barandas de vidrio y acero",
-        "Techos de policarbonato",
-        "Espejos a medida",
-        "Frenos hidráulicos",
-        "Mantenimiento de vidriería y aluminio"
+        "Mampara de aluminio y vidrio",
+        "Box de Ducha",
+        "Baranda de vidrio y acero",
+        "Techo de policarbonato y aluminio",
+        "Espejo a medida",
+        "Freno Hidráulico",
+        "Mantenimiento de vidrio y aluminio"
       ],
       "areaServed": [
         { "@type": "AdministrativeArea", "name": "La Molina, Lima" },
@@ -126,36 +126,36 @@ export const getCompanyJsonLd = () => ({
         {
           "@type": "SiteNavigationElement",
           "position": 1,
-          "name": "Ventanas de aluminio",
-          "description": "Ventanas de aluminio en Sistema Nova, Serie 20, Serie 25, Serie 62 y línea europea con vidrio crudo, laminado o templado y atenuación acústica según serie y composición del vidrio.",
+          "name": "Ventana",
+          "description": "Ventana en aluminio 6063-T5 (Nova, Series 20, 25, 35, 62) con vidrio crudo, laminado, templado o insulado DVH.",
           "url": `${SITE_URL}/servicios/ventana`
         },
         {
           "@type": "SiteNavigationElement",
           "position": 2,
-          "name": "Mamparas de Vidrio Templado",
-          "description": "Mamparas corredizas, batientes y plegables en vidrio templado de seguridad y perfilería de aluminio.",
+          "name": "Mampara",
+          "description": "Mampara corrediza y batiente en aluminio 6063-T5 y vidrio templado o laminado.",
           "url": `${SITE_URL}/servicios/mampara`
         },
         {
           "@type": "SiteNavigationElement",
           "position": 3,
-          "name": "Barandas de Vidrio y Acero",
-          "description": "Barandas arquitectónicas de vidrio templado y acero inoxidable para escaleras, balcones y terrazas.",
+          "name": "Baranda",
+          "description": "Baranda en vidrio templado o laminado con perfil de aluminio o accesorios tubulares metálicos.",
           "url": `${SITE_URL}/servicios/baranda`
         },
         {
           "@type": "SiteNavigationElement",
           "position": 4,
-          "name": "Techos de Policarbonato y Cristal",
-          "description": "Coberturas y techos sol y sombra en aluminio, policarbonato alveolar y vidrio laminado.",
+          "name": "Techo",
+          "description": "Techo sol y sombra en estructura de aluminio 6063-T5 y policarbonato con protección UV.",
           "url": `${SITE_URL}/servicios/techo`
         },
         {
           "@type": "SiteNavigationElement",
           "position": 5,
-          "name": "Boxes y Puertas de Ducha",
-          "description": "Puertas y boxes de ducha a medida en vidrio templado de 8mm y 10mm con accesorios de acero inoxidable.",
+          "name": "Box de Ducha",
+          "description": "Box de ducha frontal y esquinero en vidrio templado de 6, 8 y 10 mm con herrajes cromados y sellado.",
           "url": `${SITE_URL}/servicios/ducha`
         },
         {

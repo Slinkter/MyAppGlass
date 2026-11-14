@@ -210,7 +210,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
           helperText="Detalla los sistemas empleados (ej. Serie 35 con vidrio laminado 8mm incoloro, muro cortina, etc.)"
         >
           <Textarea
-            placeholder="Instalación integral de mamparas corredizas Serie 35 y ventanas herméticas antirruido con herrajes importados..."
+            placeholder="Instalación de mamparas corredizas Serie 25 y ventanas Serie 62 con vidrio laminado y herrajes..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={4}

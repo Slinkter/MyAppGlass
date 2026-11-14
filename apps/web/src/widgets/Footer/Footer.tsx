@@ -47,11 +47,11 @@ interface FooterRowProps {
 }
 
 const SITELINKS_ITEMS = [
-    { label: "Ventanas de aluminio", href: "/servicios/ventana" },
-    { label: "Mamparas de Vidrio Templado", href: "/servicios/mampara" },
-    { label: "Barandas de Vidrio y Acero", href: "/servicios/baranda" },
-    { label: "Techos de Policarbonato", href: "/servicios/techo" },
-    { label: "Boxes y Puertas de Ducha", href: "/servicios/ducha" },
+    { label: "Ventana", href: "/servicios/ventana" },
+    { label: "Mampara", href: "/servicios/mampara" },
+    { label: "Baranda", href: "/servicios/baranda" },
+    { label: "Techo", href: "/servicios/techo" },
+    { label: "Box de Ducha", href: "/servicios/ducha" },
     { label: "Cotizador de Presupuestos", href: "/presupuesto" },
     { label: "Blog Técnico", href: "/blog" },
     { label: "Cotizaciones y Contacto", href: "/contacto" },

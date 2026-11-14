@@ -11,87 +11,49 @@ export const APPROVED_NEW_SERVICES: readonly ApprovedNewServiceDefinition[] = [
   {
     id: "espejos",
     slug: "espejos",
-    title: "Espejos a medida para interiores",
+    title: "Espejo",
     category: "Vidrio procesado",
     shortDescription:
-      "Espejos de vidrio flotado con recubrimiento de plata cortados a medida en 3, 4 y 6 mm para baños, vestidores, salas y locales comerciales.",
+      "Espejo de vidrio flotado con recubrimiento de plata a medida en 3, 4 y 6 mm en montaje flotante o con marco de aluminio.",
     fullDescription:
-      "Un espejo a medida es una lámina de vidrio flotado con recubrimiento reflectante de plata cortada exactamente a las dimensiones de su muro, baño o mobiliario para ampliar la percepción espacial y multiplicar la luz interior. En nuestro taller seleccionamos espejos comerciales de buena fidelidad óptica, los dimensionamos según el proyecto y los instalamos con fijación segura.\n\nLos espesores habituales disponibles en el mercado local abarcan 2, 3 y 4 mm para formatos pequeños o medianos, y llegan hasta 6 mm en paños de gran formato o superiores a dos metros de lado donde se requiere mayor rigidez para evitar distorsiones visuales. Un espejo delgado sobre un muro irregular puede deformar el reflejo si no se instala sobre una superficie plana.\n\nOfrecemos instalación en formato flotante —adherido directamente al muro o sobre bastidor con cinta doble contacto de espuma acrílica de celda cerrada y silicona neutra— o integrado en carpintería de aluminio cuando se busca protección perimetral en zonas húmedas. Para baños con poca ventilación, recomendamos mantener los bordes bien sellados y limpiar el cristal sin exceso de humedad en los cantos.\n\nNuestro servicio incluye asesoría, toma de medidas en La Molina, Surco, San Borja, San Isidro o Miraflores, corte, transporte y montaje en obra. No incluye trabajos eléctricos ni preparación o nivelación de paredes con humedad activa. Para cotizar, necesitamos ancho y alto deseados, fotografía de la pared (indicando si es cemento, drywall o porcelanato) y confirmación de la zona. Acabados especiales como biselado, formas curvas o retroiluminación LED se evalúan según disponibilidad al momento de su consulta.",
+      "Espejo a medida de vidrio flotado con recubrimiento de plata en espesores de 2, 3 y 4 mm (6 mm recomendado en paños mayores a 2.00 m), en montaje flotante directo o con marco de aluminio.\n\nIncluye corte exacto, cinta doble contacto de espuma acrílica de celda cerrada, silicona neutra antimancha, perfiles de marco opcionales e instalación en La Molina, Surco, San Borja, San Isidro y Miraflores. No incluye obra eléctrica ni nivelación de muro húmedo.",
     specs: [
+      { grupo: "Material", label: "Sustrato", value: "Vidrio flotado con recubrimiento reflectante de plata" },
+      { grupo: "Dimensiones", label: "Espesores", value: "2, 3 y 4 mm estándar; 6 mm comercial para paños > 2.00 m" },
       {
-        grupo: "Material",
-        label: "Sustrato base",
-        value: "Vidrio flotado con recubrimiento de plata",
-      },
-      {
-        grupo: "Dimensiones",
-        label: "Espesores en catálogo local",
-        value: "2 mm, 3 mm y 4 mm (6 mm en formato comercial)",
-      },
-      {
-        grupo: "Dimensiones",
-        label: "Espesor para paños amplios",
-        value: "6 mm recomendado sobre 2.00 m de largo",
-      },
-      {
-        grupo: "Montaje",
-        label: "Fijación adherida",
-        value: "Cinta doble contacto acrílica + silicona neutra",
-      },
-      {
-        grupo: "Montaje",
-        label: "Opciones de soporte",
-        value: "Flotante directo a muro o con marco de aluminio",
+        grupo: "Accesorios",
+        label: "Fijación incluida",
+        value: "Cinta doble contacto de espuma acrílica de celda cerrada + silicona neutra; marco de aluminio opcional",
       },
       {
         grupo: "Acabado",
-        label: "Biselado y retroiluminación",
-        value: "Precio a definir según disponibilidad en taller",
+        label: "Biselado y LED",
+        value: "Biselado, canto pulido o LED: Precio a definir según disponibilidad",
       },
-      {
-        grupo: "Mantenimiento",
-        label: "Limpieza recomendada",
-        value: "Paño suave seco o limpiavidrios sin amoníaco",
-      },
-      {
-        grupo: "Comercial",
-        label: "Unidad de cotización",
-        value: "Por metro cuadrado o unidad (Precio a definir)",
-      },
+      { grupo: "Comercial", label: "Unidad de cotización", value: "Por m² o unidad instalada (Precio a definir)" },
     ],
     features: [
-      "Corte a la medida exacta de su muro, vano o mueble de baño.",
-      "Vidrio flotado con recubrimiento de plata de alta nitidez y reflejo fiel.",
-      "Espesores de 3 mm, 4 mm y 6 mm elegidos según el área total del paño.",
-      "Montaje flotante con cinta doble contacto de espuma acrílica y adhesivo neutro.",
-      "Alternativa con marco perimetral de aluminio para proteger los bordes.",
-      "Instalación cuidadosa sobre cerámica, porcelanato, drywall o muro tarrajeado.",
+      "Corte a la medida exacta del muro o mobiliario.",
+      "Fijación con cinta acrílica y silicona neutra (no oxida la plata).",
+      "Opción flotante sin borde o con marco perimetral de aluminio.",
+      "Selección de espesor según tamaño para evitar distorsiones.",
     ],
     systems: ["Espejo biselado", "Marco de aluminio", "Retroiluminado LED", "Flotante pegado"],
     benefits: [
-      "Multiplica la sensación de amplitud y profundidad en baños, pasadizos y salas.",
-      "Aprovecha mejor la iluminación natural y artificial del ambiente.",
-      "Evita distorsiones ópticas al seleccionar el espesor adecuado según el tamaño.",
-      "Se integra limpiamente al diseño interior sin elementos de fijación invasivos.",
+      "Amplía luz y profundidad en baños, vestidores y salas.",
+      "Protege los cantos frente a humedad cuando usa marco o sellado neutro.",
+      "Instalación limpia sobre porcelanato, mayólica, drywall o muro.",
     ],
     systemSheets: [
       {
         nombre: "Espejo Flotante a Medida",
-        resumen:
-          "Solución limpia sin marco visible donde el espejo se fija directamente al muro o sobre un bastidor nivelado. Permite aprovechar toda la superficie reflectante en baños, vestidores y áreas sociales.",
+        resumen: "Espejo adherido directamente al muro o bastidor nivelado sin marco visible.",
         specs: [
           { label: "Espesores de trabajo", value: "3 mm, 4 mm y 6 mm según formato" },
+          { label: "Superficies aptas", value: "Porcelanato, mayólica, drywall o muro plano firme" },
           {
-            label: "Sistema de fijación",
-            value: "Cinta doble contacto de celda cerrada + silicona neutra",
-          },
-          {
-            label: "Superficies aptas",
-            value: "Porcelanato, mayólica, drywall o muro pintado firme",
-          },
-          {
-            label: "Acabado de bordes",
-            value: "Precio a definir para biselado o canto pulido",
+            label: "Accesorios incluidos",
+            value: "Cinta doble contacto de espuma acrílica de celda cerrada + silicona neutra compatible con plata",
           },
         ],
         usos: [
@@ -105,19 +67,14 @@ export const APPROVED_NEW_SERVICES: readonly ApprovedNewServiceDefinition[] = [
     gallery: [],
     faqs: [
       {
-        question: "¿Qué espesor de espejo conviene elegir según el tamaño de la pared?",
+        question: "¿Qué espesor de espejo conviene según el tamaño?",
         answer:
-          "Para espejos pequeños o de formato mediano —como tocadores o baños de visita— funcionan bien los espesores de 3 mm y 4 mm. Cuando el espejo supera los 2 metros de largo o cubre muros completos de sala y vestidor, se recomienda usar 6 mm para mantener la planitud y evitar distorsiones en el reflejo.",
+          "En formatos pequeños o medianos funcionan bien 3 mm y 4 mm. Sobre los 2.00 m de largo conviene 6 mm para mantener la planitud sin deformar el reflejo.",
       },
       {
-        question: "¿Es mejor instalar un espejo flotante o con marco de aluminio?",
+        question: "¿Cómo se evitan manchas en los bordes en baños?",
         answer:
-          "El espejo flotante ofrece una estética minimalista y continua, ideal para baños modernos y muros amplios donde no se desean bordes visibles. El marco de aluminio conviene cuando la pared presenta ligeras irregularidades, en zonas con humedad constante que pueden afectar los cantos o cuando se requiere desmontar el espejo en el futuro.",
-      },
-      {
-        question: "¿Cómo se protege un espejo contra la humedad del baño y cómo se cotiza?",
-        answer:
-          "Para evitar manchas oscuras en los bordes por humedad, utilizamos silicona neutra compatible con el recubrimiento de plata y recomendamos no rociar limpiadores directamente sobre las orillas. Para cotizar envíenos medidas aproximadas y foto de la pared; el costo figura como Precio a definir según espesor, área y tipo de montaje.",
+          "Usando silicona neutra compatible con plata en el montaje y limpiando el cristal con paño suave sin rociar líquido directo sobre los cantos.",
       },
     ],
     order: 11,
@@ -126,108 +83,120 @@ export const APPROVED_NEW_SERVICES: readonly ApprovedNewServiceDefinition[] = [
   {
     id: "frenos-hidraulicos",
     slug: "frenos-hidraulicos",
-    title: "Frenos Hidráulicos y Cierrapuertas",
+    title: "Freno Hidráulico",
     category: "Herrajes y calibración",
     shortDescription:
-      "Suministro, instalación y regulación de frenos de piso y bisagras aéreas hidráulicas para fachadas de edificios, oficinas, hoteles y puertas de cristal.",
+      "Freno hidráulico de piso y bisagra aérea para puertas de vidrio templado: suministro, montaje, accesorios de sujeción y calibración.",
     fullDescription:
-      "Los frenos hidráulicos son mecanismos de control de cierre que soportan y regulan el retorno de puertas batientes o pivotantes, evitando golpes bruscos contra el marco o el cristal contiguo. En fachadas de edificios, recepciones de oficinas, hoteles y locales comerciales de alto tránsito, un freno hidráulico de piso empotrado soporta el peso de la puerta de vidrio templado, amortigua el recorrido en dos velocidades independientes y permite retener la hoja abierta a 90°.\n\nEvaluamos si su puerta requiere un freno de piso estándar, un modelo reforzado con pin, tapa y perno para hojas pesadas, o un cierrapuertas aéreo hidráulico. La bisagra aérea resulta recomendable en puertas interiores o de menor peso (hasta 65 kg), mientras que los ingresos principales de cristal templado exigen freno de piso con herrajes superior e inferior dimensionados. No recomendamos instalar un cierrapuertas aéreo estándar en portones que superen su capacidad nominal de carga ni empotrar cajas en pisos con tuberías o losas postensadas sin verificación previa.\n\nEl servicio incluye evaluación del peso y ancho de la hoja, suministro del freno o cierrapuertas con accesorios de sujeción en acabado mate, negro o blanco según modelo, picado o adecuación del alojamiento cuando corresponda, montaje y calibración de las válvulas de barrido y golpe final. No incluye reposición de cristales fracturados ni reconstrucción mayor de pisos de mármol o porcelanato. El presupuesto se cotiza por unidad instalada o por mantenimiento correctivo; Precio a definir tras inspección.\n\nPara cotizar solicitamos fotografías de la puerta completa, del piso o dintel, medidas aproximadas de la hoja y espesor del vidrio. El mantenimiento preventivo periódico evita desajustes prematuros. Si nota cierre violento, hoja descolgada o fuga de aceite en la caja del piso, suspenda el uso intensivo y solicite revisión técnica para regular válvulas o reemplazar el mecanismo.",
+      "Suministro, instalación y calibración de frenos hidráulicos de piso (con cierre en dos velocidades y retención a 90°) y bisagras aéreas hidráulicas (hasta 65 kg) para puertas de vidrio templado en edificios, oficinas y locales.\n\nIncluye caja hidráulica, pin, tapa, perno y herrajes superior e inferior según modelo, adecuación de alojamiento, nivelación de hoja y regulación de válvulas en La Molina, Surco, San Borja, San Isidro y Miraflores. No incluye reposición de vidrios rotos ni picado mayor de mármol.",
     specs: [
       {
         grupo: "Freno de piso",
-        label: "Control de cierre",
-        value: "Doble velocidad regulable (barrido y golpe final)",
+        label: "Control y retención",
+        value: "Doble velocidad regulable (barrido y golpe final) con retención fija a 90°",
       },
+      { grupo: "Freno de piso", label: "Variantes disponibles", value: "Estándar y reforzado con pin, tapa y perno" },
       {
-        grupo: "Freno de piso",
-        label: "Ángulo de retención",
-        value: "Retención abierta a 90° en posición fija",
-      },
-      {
-        grupo: "Freno de piso",
-        label: "Variantes disponibles",
-        value: "Estándar y reforzado con pin, tapa y perno",
-      },
-      {
-        grupo: "Freno de piso",
-        label: "Accesorios de sujeción",
-        value: "Herrajes superior e inferior en acabado mate",
+        grupo: "Accesorios",
+        label: "Sujeción inferior y superior",
+        value: "Herrajes superior e inferior en acabado mate (estándar o reforzado)",
       },
       {
         grupo: "Cierrapuertas aéreo",
-        label: "Capacidad máxima",
-        value: "Hasta 65 kg de peso de hoja",
+        label: "Capacidad y acabados",
+        value: "Hasta 65 kg de peso de hoja; acabados mate, negro y blanco",
       },
+      { grupo: "Compatibilidad", label: "Aplicaciones", value: "Puertas de vidrio templado y carpintería liviana" },
       {
-        grupo: "Cierrapuertas aéreo",
-        label: "Acabados disponibles",
-        value: "Mate, negro y blanco",
-      },
-      {
-        grupo: "Compatibilidad",
-        label: "Aplicaciones principales",
-        value: "Puertas de vidrio templado y carpintería liviana",
-      },
-      {
-        grupo: "Servicio",
-        label: "Modalidad de cotización",
-        value: "Precio a definir por unidad instalada o servicio",
+        grupo: "Comercial",
+        label: "Unidad de cotización",
+        value: "Por unidad instalada o servicio de calibración (Precio a definir)",
       },
     ],
     features: [
-      "Regulación independiente de velocidad de barrido y tramo de golpe final.",
-      "Retención automática a 90° para facilitar el paso en mudanzas o ventilación.",
-      "Modelos de piso estándar y reforzados para puertas de tránsito intenso.",
-      "Alternativa de cierrapuertas aéreo hidráulico de hasta 65 kg en tres acabados.",
-      "Calibración de nivel, eje vertical y holguras perimetrales tras el montaje.",
-      "Diagnóstico técnico ante fugas de aceite, golpeteo o descuelgue de hoja.",
+      "Regulación independiente de velocidad de barrido y golpe final.",
+      "Retención abierta a 90° para paso continuo o mudanzas.",
+      "Versiones estándar y reforzadas con pin, tapa y perno.",
+      "Opción de bisagra aérea hasta 65 kg cuando no se pica el piso.",
+      "Calibración de eje, nivel y holguras tras el montaje.",
     ],
     systems: ["Freno de piso estándar", "Freno de tráfico pesado", "Bisagra aérea hidráulica"],
     benefits: [
-      "Protege el cristal templado frente a impactos por cierre violento o ráfagas de viento.",
-      "Prolonga la vida útil de cerraduras y herrajes en fachadas de edificios y hoteles.",
-      "Mejora la seguridad y comodidad de acceso en oficinas y locales comerciales.",
-      "Permite recuperar puertas desalineadas mediante regulación o recambio oportuno.",
+      "Evita golpes bruscos del cristal templado al cerrar.",
+      "Prolonga la vida útil de herrajes y cerraduras en alto tránsito.",
+      "Corrige puertas descolgadas o frenos desregulados.",
     ],
     systemSheets: [
       {
         nombre: "Freno Hidráulico de Piso",
         resumen:
-          "Mecanismo hidráulico alojado dentro de una caja empotrada en el suelo que carga el peso de la puerta de cristal templado, suaviza el cierre en dos etapas y retiene la hoja a 90°. Disponible en versiones estándar y reforzadas.",
+          "Mecanismo empotrado en piso que soporta la puerta de vidrio templado, amortigua el cierre en dos velocidades y retiene la hoja a 90°.",
         specs: [
+          { label: "Regulación", value: "2 válvulas independientes (barrido y golpe final) + retención 90°" },
+          { label: "Versiones", value: "Estándar y reforzado para tránsito intenso" },
           {
-            label: "Velocidades",
-            value: "2 válvulas independientes (barrido y golpe final)",
-          },
-          { label: "Retención", value: "90° de apertura" },
-          {
-            label: "Configuraciones",
-            value: "Estándar y reforzado con pin, tapa y perno",
-          },
-          {
-            label: "Sujeción",
-            value: "Herrajes superior e inferior en acabado mate",
+            label: "Accesorios incluidos",
+            value: "Caja hidráulica, pin, tapa superior, perno de fijación y herrajes superior e inferior acabado mate",
           },
         ],
         usos: [
-          "Fachadas de edificios corporativos y condominios",
-          "Ingresos principales de oficinas, bancos y hoteles",
-          "Locales comerciales con puertas batientes de cristal templado",
+          "Fachadas de edificios",
+          "Recepciones de oficinas y hoteles",
+          "Ingresos comerciales en vidrio templado",
         ],
       },
       {
         nombre: "Bisagra Aérea Hidráulica",
         resumen:
-          "Cierrapuertas hidráulico instalado en la parte superior del marco y la hoja para controlar el retorno de puertas más livianas sin picar el piso. Ofrece regulación hidráulica y acabados discretos.",
+          "Cierrapuertas superior instalado en cabezal y hoja para puertas de hasta 65 kg sin perforar el piso.",
         specs: [
           { label: "Capacidad de carga", value: "Hasta 65 kg" },
-          { label: "Montaje", value: "Aéreo en cabezal superior sin caja en piso" },
-          { label: "Acabados", value: "Mate, negro y blanco" },
+          { label: "Acabados disponibles", value: "Mate, negro y blanco" },
+          {
+            label: "Accesorios incluidos",
+            value: "Cuerpo hidráulico aéreo, brazo articulado/guía, placas de montaje y tornillería de fijación",
+          },
         ],
         usos: [
-          "Puertas interiores de aluminio en serie o madera liviana",
-          "Accesos de oficinas secundarias con tránsito moderado",
-          "Vanos donde no es posible perforar la losa del piso",
+          "Puertas interiores en aluminio en serie",
+          "Oficinas de tránsito moderado",
+          "Vanos con losa que no admite picado",
+        ],
+      },
+      {
+        nombre: "Freno hidráulico de piso Sevax",
+        resumen:
+          "Freno hidráulico de piso para puertas de vidrio con herraje inferior reforzado en acabado mate.",
+        specs: [
+          { label: "Tipo", value: "Freno hidráulico de piso (estándar / tránsito alto)" },
+          { label: "Acabado de herraje", value: "Mate reforzado" },
+          {
+            label: "Accesorios incluidos",
+            value: "Caja de piso, tapa y accesorio de puerta inferior reforzado en acabado mate",
+          },
+        ],
+        usos: [
+          "Puertas de cristal templado comerciales",
+          "Ingresos de condominios",
+          "Reemplazo en caja existente",
+        ],
+      },
+      {
+        nombre: "Freno hidráulico de piso Dorma",
+        resumen:
+          "Freno hidráulico de piso reforzado para puertas de vidrio de uso continuo con juego completo de fijación.",
+        specs: [
+          { label: "Tipo", value: "Freno hidráulico de piso reforzado (BTS-75R)" },
+          { label: "Acabado de herrajes", value: "Mate" },
+          {
+            label: "Accesorios incluidos",
+            value: "Mecanismo de piso reforzado, pin, tapa, perno y accesorios de puerta superior e inferior mate",
+          },
+        ],
+        usos: [
+          "Fachadas corporativas",
+          "Edificios y hoteles de alto tránsito",
+          "Puertas pesadas de cristal templado",
         ],
       },
     ],
@@ -235,25 +204,19 @@ export const APPROVED_NEW_SERVICES: readonly ApprovedNewServiceDefinition[] = [
     gallery: [],
     faqs: [
       {
-        question: "¿Cuál es la diferencia entre un freno hidráulico de piso y una bisagra aérea?",
+        question: "¿Cuál es la diferencia entre freno de piso y bisagra aérea?",
         answer:
-          "El freno hidráulico de piso se empotra bajo el nivel del suelo, soporta directamente el peso de puertas de vidrio templado y ofrece retención a 90° para fachadas y accesos exigentes. La bisagra aérea hidráulica se monta en la parte superior del marco sin picar el piso y está pensada para puertas más livianas de hasta 65 kg.",
+          "El freno de piso va empotrado en el suelo, soporta puertas pesadas de vidrio templado y ofrece retención a 90°. La bisagra aérea se fija arriba del marco sin picar piso y soporta hasta 65 kg.",
       },
       {
-        question: "¿Por qué una puerta con freno hidráulico empieza a golpear al cerrar?",
+        question: "¿Cuándo un freno hidráulico requiere calibración o reemplazo?",
         answer:
-          "El golpe al cerrar suele deberse al desajuste de la válvula de segunda velocidad, desgaste por uso intenso o pérdida del fluido hidráulico interno. En una revisión técnica regulamos ambas velocidades (barrido y golpe final) y verificamos la alineación de los herrajes; si el mecanismo presenta fuga de aceite en el piso, corresponde reemplazar la unidad.",
+          "Si la puerta golpea al cerrar o está descolgada suele bastar calibración de válvulas y herrajes; si presenta fuga de aceite en la caja de piso corresponde reemplazar la unidad.",
       },
       {
-        question: "¿Qué síntomas indican que un freno de piso necesita mantenimiento o cambio?",
+        question: "¿Qué datos se necesitan para cotizar?",
         answer:
-          "Las señales más claras son manchas o filtración de aceite alrededor de la tapa metálica del suelo, puerta descolgada que roza el piso, pérdida de la retención a 90° o cierre acelerado sin amortiguación. Atender estos síntomas a tiempo evita esfuerzos indebidos sobre las perforaciones del cristal templado.",
-      },
-      {
-        question:
-          "¿Qué datos necesitan para cotizar la instalación o el cambio de un freno hidráulico?",
-        answer:
-          "Necesitamos conocer las medidas aproximadas de la puerta (ancho y alto), el espesor del vidrio o material de la hoja, y recibir fotografías de la tapa actual del piso o del cabezal superior. Con esa información evaluamos si basta una regulación, un recambio en la caja existente o una instalación completa.",
+          "Medidas aproximadas de la puerta, espesor del cristal y fotos de la caja actual en piso o cabezal superior. Precio a definir tras evaluación técnica.",
       },
     ],
     order: 12,
@@ -262,92 +225,58 @@ export const APPROVED_NEW_SERVICES: readonly ApprovedNewServiceDefinition[] = [
   {
     id: "mantenimiento",
     slug: "mantenimiento",
-    title: "Mantenimiento de vidrio y aluminio",
+    title: "Mantenimiento",
     category: "Servicio técnico",
     shortDescription:
-      "Servicio técnico preventivo y correctivo para ventanas, mamparas, puertas y boxes de ducha: cambio de garruchas, felpas, burletes, brazos y sellado.",
+      "Servicio técnico preventivo y correctivo para ventana, mampara, puerta y box de ducha: cambio de garruchas, felpas, burletes, brazos y sellado.",
     fullDescription:
-      "El servicio de mantenimiento de vidrio y aluminio consiste en la revisión, limpieza técnica, lubricación, regulación y reemplazo de piezas de desgaste en cerramientos ya instalados, con el fin de recuperar su deslizamiento suave, cierre seguro y hermeticidad original. Atendemos viviendas, oficinas y locales comerciales en La Molina, Surco, San Borja, San Isidro y Miraflores.\n\nDiferenciamos dos modalidades de atención. El mantenimiento preventivo se recomienda cada 12 a 18 meses para limpiar rieles y felpas, lubricar las billas de las garruchas, ajustar tornillos autorroscantes, revisar seguros y verificar el estado del sellado perimetral antes de que aparezcan fallas mayores. El mantenimiento correctivo interviene cuando una hoja ya presenta roce, descarrilamiento, filtración de agua, vibración por felpa seca o descuadre en ventanas proyectantes y puertas batientes.\n\nNo conviene aplicar mantenimiento sobre perfiles estructuralmente doblados por golpes severos ni sobre cristales fisurados o astillados; en esos casos corresponde evaluar el reemplazo del paño o del sistema completo. Asimismo, si usted realiza limpieza doméstica, evite productos abrasivos para pulir metales y limpie el aluminio al menos dos veces al mes con franela suave y seca de color claro.\n\nEl servicio incluye diagnóstico en obra, mano de obra especializada, limpieza de mecanismos, regulación de herrajes y provisión de repuestos compatibles (garruchas, felpas, burletes EPDM, brazos proyectantes, guías o vinil sellador) según evaluación. No incluye trabajos de albañilería ni pintura de muros. Para cotizar, envíenos fotografías o un breve video de la falla, el distrito y la cantidad de unidades a revisar; el costo figura como Precio a definir tras la inspección.",
+      "Mantenimiento preventivo (cada 12–18 meses) y correctivo para recuperar el deslizamiento, cierre y estanqueidad en ventanas, mamparas, puertas y boxes de ducha instalados.\n\nIncluye diagnóstico, limpieza técnica de rieles, lubricación, regulación y reposición de repuestos (garruchas, felpas F-10/F-15, burletes EPDM, guías plásticas, vinil sellador, brazos o seguros) en La Molina, Surco, San Borja, San Isidro y Miraflores. No repara cristales fisurados ni perfiles doblados.",
     specs: [
       {
         grupo: "Periodicidad",
-        label: "Mantenimiento preventivo",
-        value: "Cada 12 a 18 meses según exposición al polvo o humedad",
+        label: "Preventivo y cuidado",
+        value: "Revisión técnica cada 12–18 meses; limpieza en casa con franela seca 2 veces/mes",
       },
       {
-        grupo: "Periodicidad",
-        label: "Limpieza superficial en casa",
-        value: "Mínimo 2 veces al mes con franela seca de color claro",
+        grupo: "Accesorios",
+        label: "Rodamientos y guías",
+        value: "Garruchas simples/dobles o triangulares (nylon, teflón o latón) y guías plásticas",
       },
       {
-        grupo: "Rodamientos",
-        label: "Garruchas de reemplazo",
-        value: "Ruedas de nylon, teflón o latón con billas lubricadas",
-      },
-      {
-        grupo: "Sellado",
-        label: "Felpas y burletes",
-        value: "Felpa siliconada (F-10 / F-15) y caucho EPDM de 4 a 8 mm",
-      },
-      {
-        grupo: "Proyectantes",
-        label: "Brazos de fricción",
-        value: "Aluminio (40, 60, 95 cm) o acero inoxidable (12 y 24 pulgadas)",
-      },
-      {
-        grupo: "Boxes de ducha",
-        label: "Repuestos específicos",
-        value: "Garruchas simples/triangulares, guías plásticas y vinil",
-      },
-      {
-        grupo: "Fijación",
-        label: "Tornillería técnica",
-        value: "Autorroscantes en acero inoxidable o zincado",
-      },
-      {
-        grupo: "Cuidado",
-        label: "Protección de herrajes",
-        value: "Limpieza con silicona en paño suave contra corrosión",
+        grupo: "Accesorios",
+        label: "Sellado y herrajes",
+        value: "Felpa siliconada (F-10/F-15), burlete EPDM 4–8 mm, vinil de ducha, brazos proyectantes, seguros y tornillería",
       },
       {
         grupo: "Comercial",
-        label: "Unidad de cotización",
-        value: "Por visita técnica o por unidad (Precio a definir)",
+        label: "Modalidad de cotización",
+        value: "Por visita técnica o unidad atendida (Precio a definir)",
       },
     ],
     features: [
-      "Diagnóstico técnico en obra para ventanas, mamparas, puertas y boxes de ducha.",
-      "Limpieza profunda de rieles inferiores y retiro de suciedad acumulada en felpas.",
-      "Lubricación de billas en garruchas y mecanismo interno de seguros y cerraduras.",
-      "Reemplazo de burletes EPDM resecos, felpas desgastadas y vinil sellador.",
-      "Regulación de hojas desniveladas y ajuste de brazos en ventanas proyectantes.",
-      "Resellado perimetral con silicona para controlar filtraciones de agua y viento.",
+      "Limpieza técnica de rieles y extracción de suciedad en felpas.",
+      "Lubricación de billas en garruchas, seguros y cerraduras.",
+      "Cambio puntual de felpas, burletes EPDM y vinil de ducha.",
+      "Regulación de hojas desniveladas y brazos proyectantes.",
+      "Resellado perimetral con silicona en juntas con filtración.",
     ],
     systems: ["Mantenimiento preventivo", "Cambio de garruchas", "Sellado hermético y felpas"],
     benefits: [
-      "Prolonga la vida útil de sus cerramientos evitando reemplazos costosos completos.",
-      "Elimina ruidos molestos por vibración de vidrios y esfuerzo excesivo al deslizar hojas.",
-      "Previene filtraciones de lluvia y acumulación de polvo en dormitorios y salas.",
-      "Restablece la seguridad de cierre en seguros caracol, pico loro y cremonas.",
+      "Extiende la vida útil evitando cambiar cerramientos completos.",
+      "Elimina roces, vibraciones por viento y silbidos.",
+      "Recupera cierre seguro en seguros, cremonas y puertas.",
     ],
     systemSheets: [
       {
         nombre: "Mantenimiento Preventivo y Correctivo",
         resumen:
-          "Intervención integral orientada a conservar o recuperar el funcionamiento mecánico y hermético de carpintería en vidrio y aluminio. Combina limpieza técnica, lubricación específica y cambio puntual de accesorios de desgaste.",
+          "Revisión mecánica, limpieza técnica, regulación de herrajes y reemplazo de piezas de desgaste.",
         specs: [
-          { label: "Frecuencia preventiva", value: "Cada 12 a 18 meses" },
+          { label: "Frecuencia recomendada", value: "Cada 12 a 18 meses" },
+          { label: "Cobertura", value: "La Molina, Surco, San Borja, San Isidro y Miraflores" },
           {
-            label: "Componentes atendidos",
-            value: "Garruchas, felpas, burletes, seguros, brazos y frenos",
-          },
-          {
-            label: "Cobertura distrital",
-            value: "La Molina, Surco, San Borja, San Isidro y Miraflores",
-          },
-          {
-            label: "Tarifa de visita",
-            value: "Precio a definir según cantidad de unidades y repuestos",
+            label: "Accesorios incluidos",
+            value: "Garruchas, guías plásticas, felpas F-10/F-15, burletes EPDM, vinil sellador, tornillería y sellado según diagnóstico",
           },
         ],
         usos: [
@@ -361,24 +290,14 @@ export const APPROVED_NEW_SERVICES: readonly ApprovedNewServiceDefinition[] = [
     gallery: [],
     faqs: [
       {
-        question: "¿Cuál es la diferencia entre mantenimiento preventivo y correctivo?",
+        question: "¿Por qué vibran las ventanas con el viento o se ponen duras al deslizar?",
         answer:
-          "El mantenimiento preventivo se programa cada 12 a 18 meses cuando los sistemas aún funcionan bien, con el objetivo de limpiar rieles, lubricar garruchas, ajustar tornillos y conservar felpas y burletes. El mantenimiento correctivo se realiza cuando ya existe una falla visible, como hojas trabadas, filtraciones de lluvia, seguros rotos o brazos proyectantes descuadrados.",
+          "Ocurre cuando el polvo traba las garruchas o las felpas y burletes EPDM pierden espesor o elasticidad. Se corrige limpiando rieles, lubricando rodamientos y renovando felpas o burletes.",
       },
       {
-        question: "¿Por qué vibran o silban las ventanas con el viento y cómo se corrige?",
+        question: "¿Qué datos se necesitan para cotizar un mantenimiento?",
         answer:
-          "La vibración y el silbido suelen aparecer cuando las felpas perimetrales se resecan, se aplastan o acumulan polvo endurecido, dejando holgura entre el cristal y el marco, o cuando los burletes de caucho EPDM pierden elasticidad. La solución consiste en limpiar la guía con una herramienta sin filo o reemplazar las felpas y burletes por medidas calibradas.",
-      },
-      {
-        question: "¿Qué causa las filtraciones de agua en ventanas o boxes de ducha?",
-        answer:
-          "En ventanas y mamparas, las filtraciones ocurren por obstrucción de los orificios de desalojo de agua en el riel inferior, sellado perimetral de silicona deteriorado o burletes vencidos. En boxes de ducha, suelen deberse a viniles selladores desgastados o guías plásticas vencidas. Revisamos los puntos de ingreso, limpiamos drenajes y renovamos los sellos.",
-      },
-      {
-        question: "¿Qué información necesitan para cotizar un servicio de mantenimiento?",
-        answer:
-          "Para preparar una estimación necesitamos el distrito de su inmueble, la cantidad aproximada de ventanas, mamparas o boxes de ducha a revisar y fotografías o un video corto mostrando la falla. El costo figura como Precio a definir porque depende de los repuestos requeridos y el tiempo de intervención en obra.",
+          "Distrito del inmueble, cantidad aproximada de unidades a revisar y fotos o video corto de la falla (Precio a definir según diagnóstico y repuestos).",
       },
     ],
     order: 13,

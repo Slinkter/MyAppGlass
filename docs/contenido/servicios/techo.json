@@ -1,68 +1,51 @@
 {
   "slug": "techo",
-  "title": "Techos sol y sombra de aluminio",
-  "shortDescription": "Coberturas ligeras en estructura de aluminio y policarbonato con protección UV para terrazas, patios y cocheras con desagüe pluvial.",
-  "fullDescription": "Un techo \"sol y sombra\" de aluminio es una cobertura ligera diseñada para proteger terrazas, patios, lavanderías y cocheras contra la lluvia y la radiación solar sin oscurecer los ambientes contiguos. A diferencia de una losa de concreto o una pérgola de madera que exige lijado y barniz frecuente, combina tubos rectangulares de aluminio de bajo mantenimiento con planchas traslúcidas de policarbonato.\n\nEn Glass & Aluminum Company S.A.C. seleccionamos, calculamos, ensamblamos e instalamos coberturas con tubos rectangulares convencionales de aluminio (disponibles en anodizado, pintura electrostática y acabado sublimado tacto madera) y planchas de policarbonato 100 % virgen de 6 u 8 mm con una capa protectora de 50 micras contra rayos UV. La fijación emplea perfiles U, H y F de aluminio junto con tornillos autoperforantes hexagonales de 12 mm con arandela selladora para evitar filtraciones en las uniones.\n\nSegún su necesidad, podemos proyectar variantes fijas, corredizas o con tensores, además de alternar con lamas o celosías cuando se busca ventilación constante en lugar de techo cerrado. Todo techo traslúcido debe contemplar una inclinación mínima y canaleta de evacuación para evitar empozamientos; además, el policarbonato bloquea la radiación UV pero puede acumular calor y generar condensación interna en zonas poco ventiladas. No utilizamos paneles de aluminio compuesto (ACM) como cubierta traslúcida, ya que son exclusivos para revestimiento de muros y fachadas.\n\nEl servicio incluye estructura, cobertura, perfilería de unión, sellado e instalación. Para cotizar necesitamos ancho, fondo, altura libre, ubicación de muros de apoyo y fotografías del área. El mantenimiento consiste en lavar las planchas con agua y jabón neutro sin solventes abrasivos y limpiar periódicamente canaletas y bajantes.",
+  "title": "Techo",
+  "seoTitle": "Techo de Policarbonato y Aluminio | GYA",
+  "shortDescription": "Techo sol y sombra en estructura de aluminio 6063-T5 y policarbonato de 6 u 8 mm con protección UV, perfiles de unión y desagüe pluvial.",
+  "fullDescription": "Cobertura sol y sombra en tubos rectangulares de aluminio 6063-T5 (anodizado, pintura electrostática o sublimado madera) y planchas de policarbonato de 6 u 8 mm con capa UV de 50 micras, en versión fija, corrediza o con tensores.\n\nIncluye estructura, policarbonato, perfiles U, H y F de remate, tornillos autoperforantes hexagonales con arandela selladora, canaleta con pendiente mínima e instalación en La Molina, Surco, San Borja, San Isidro y Miraflores. No incluye albañilería.",
   "specs": [
-    { "grupo": "Estructura", "label": "Perfilería portante", "value": "Tubos rectangulares convencionales de aluminio 6063-T5" },
-    { "grupo": "Acabado", "label": "Opciones de perfil", "value": "Anodizado, pintura electrostática o sublimado tacto madera" },
-    { "grupo": "Cobertura", "label": "Policarbonato comercial", "value": "Plancha alveolar 100 % virgen de 6 mm u 8 mm" },
-    { "grupo": "Protección", "label": "Capa anti-UV", "value": "50 micras de protección contra radiación ultravioleta" },
-    { "grupo": "Transmisión", "label": "Ejemplo en bronce", "value": "19 % de transmisión de luz en policarbonato bronce" },
-    { "grupo": "Uniones", "label": "Perfiles de remate", "value": "Perfiles U (6–8 mm x 2.10 m), F (6–10 mm) y H (6–8 mm)" },
-    { "grupo": "Fijación", "label": "Tornillería sellada", "value": "Autoperforantes hexagonales de 12 mm x 1\" y 1 1/2\" con arandela" },
-    { "grupo": "Drenaje", "label": "Pendiente y desagüe", "value": "Inclinación mínima hacia canaleta de evacuación pluvial" },
-    { "grupo": "Comercial", "label": "Precio y plazo", "value": "Precio a definir según luz libre, variante y metraje (m²)" }
+    { "grupo": "Estructura", "label": "Perfilería portante", "value": "Tubos rectangulares de aluminio 6063-T5 (anodizado, pintura o sublimado madera)" },
+    { "grupo": "Cobertura", "label": "Policarbonato 100 % virgen", "value": "Planchas de 6 mm u 8 mm con 50 micras anti-UV (bronce 19 % transmisión)" },
+    { "grupo": "Accesorios", "label": "Perfiles y tornillería", "value": "Perfiles U (6–8 mm x 2.10 m), F (6–10 mm base y tapa) y H (6–8 mm), más autoperforantes 12 mm x 1\" y 1 1/2\" con arandela selladora" },
+    { "grupo": "Drenaje", "label": "Pendiente y canaleta", "value": "Inclinación mínima hacia canaleta de evacuación pluvial" },
+    { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por m² según luz libre y variante (Precio a definir)" }
   ],
   "features": [
-    "Nombre comercial \"sol y sombra\" en estructura de aluminio libre de polillas y óxido.",
-    "Cobertura de policarbonato alveolar de 6 u 8 mm con barrera UV de 50 micras.",
-    "Variantes constructivas fija, corrediza o con tensores según el diseño del patio.",
-    "Uniones herméticas con perfiles U, H, F y tornillos con arandela selladora.",
-    "Acabado opcional tacto madera para conservar la calidez estética sin mantenimiento intenso.",
-    "Diseño con pendiente y canaleta para conducir el agua de lluvia sin empozamientos."
+    "Estructura de aluminio libre de polillas y óxido.",
+    "Policarbonato de 6 u 8 mm con barrera UV de 50 micras.",
+    "Variantes fija, corrediza o con tensores según diseño.",
+    "Uniones selladas con perfiles U, H, F y arandelas impermeables.",
+    "Pendiente y canaleta pluvial para evitar empozamientos."
   ],
   "benefits": [
-    "Protege terrazas, muebles exteriores y cocheras de la lluvia y los rayos UV.",
-    "Mantiene el paso de luz natural hacia los ambientes interiores contiguos.",
-    "Reduce el costo y esfuerzo de mantenimiento frente a pérgolas de madera natural."
+    "Protege terrazas, patios y cocheras sin oscurecer el interior.",
+    "Menor mantenimiento frente a pérgolas de madera.",
+    "Acabado tacto madera opcional resistente al exterior."
   ],
   "systemSheets": [
     {
       "nombre": "Sistema Cobertura Aluminio",
-      "resumen": "Estructura ligera armada con tubos rectangulares de aluminio y cobertura de policarbonato alveolar de 8 mm o 6 mm, fijada con perfiles F, H y U con arandelas selladoras. Puede configurarse fija, corrediza o con tensores, incorporando pendiente mínima y canaleta.",
+      "resumen": "Cobertura en tubos rectangulares de aluminio y policarbonato de 6 u 8 mm fijado con perfiles de remate y canaleta pluvial.",
       "specs": [
-        { "label": "Cobertura", "value": "Policarbonato alveolar 6 mm u 8 mm con capa UV de 50 micras" },
-        { "label": "Estructura", "value": "Tubos rectangulares de aluminio (anodizado, pintado o madera)" },
-        { "label": "Unidad de medida", "value": "Metro cuadrado (m²) de área cubierta" }
+        { "label": "Cobertura y estructura", "value": "Policarbonato 6–8 mm con capa UV 50 micras sobre aluminio 6063-T5" },
+        { "label": "Unidad de medida", "value": "Metro cuadrado (m²) de área cubierta" },
+        { "label": "Accesorios incluidos", "value": "Perfiles U, F (base y tapa) y H, tornillos autoperforantes 12 mm con arandela selladora y canaleta de desagüe" }
       ],
       "usos": ["Terrazas y jardines", "Patios de lavandería", "Cocheras residenciales"]
     }
   ],
   "faqs": [
     {
-      "question": "¿Qué diferencia hay entre policarbonato alveolar y policarbonato compacto en un techo sol y sombra?",
-      "answer": "El policarbonato alveolar tiene celdas internas que lo hacen más liviano y económico para coberturas de terrazas y patios, siendo el estándar en 6 u 8 mm. El policarbonato compacto es una lámina maciza de aspecto similar al vidrio y mayor resistencia al impacto, pero resulta más pesado y requiere mayor soporte estructural."
+      "question": "¿Qué espesor de policarbonato se usa y por qué requiere pendiente?",
+      "answer": "Se trabaja en 6 mm u 8 mm con protección UV de 50 micras. Requiere pendiente mínima y canaleta para drenar lluvia y agua de limpieza sin filtrarse por los empalmes H ni empozarse."
     },
     {
-      "question": "¿El techo de policarbonato acumula calor o genera condensación?",
-      "answer": "Sí puede ocurrir si el ambiente queda muy cerrado. Aunque las planchas incorporan 50 micras de protección UV y tonos como bronce reducen la luminosidad, el policarbonato retiene parte del calor y puede presentar condensación dentro de sus alvéolos si no se sellan bien los extremos con perfil U y cinta adecuada, o si falta ventilación lateral."
-    },
-    {
-      "question": "¿Por qué es indispensable dejar inclinación mínima y canaleta?",
-      "answer": "La pendiente mínima permite que el agua de lluvia y de limpieza escurra hacia la canaleta sin empozarse sobre las uniones de perfiles H o tornillos. Sin una inclinación adecuada y sin drenaje libre, la suciedad se acumula en los empalmes y aumenta el riesgo de filtraciones con el tiempo."
-    },
-    {
-      "question": "¿Qué información necesita para cotizar un techo sol y sombra en mi terraza?",
-      "answer": "Necesitamos las medidas aproximadas de ancho y fondo en metros, saber si existen muros laterales para apoyar vigas o si se requieren columnas, la altura deseada y fotografías del espacio. También le consultaremos si prefiere acabado en aluminio anodizado, pintura negra o blanca, o sublimado tacto madera."
+      "question": "¿Qué datos se necesitan para cotizar?",
+      "answer": "Ancho, fondo en metros, altura libre, ubicación de muros o necesidad de columnas, y fotos del espacio. Precio a definir según visita."
     }
   ],
   "notasInternas": [
-    "Fuentes: matriz-hechos.md H-104 a H-109, H-138, H-144 y 02-FASE-1-fichas-tecnicas.md §1.5.",
-    "H-108: No existe perfil de catálogo exclusivo llamado 'sol y sombra'; se usan tubos rectangulares convencionales de aluminio.",
-    "H-109: ACM descartado como cobertura traslúcida de techo.",
-    "[POR CONFIRMAR]: Disponibilidad exacta y espesor de policarbonato compacto en proveedores locales si el cliente lo solicita.",
-    "[POR CONFIRMAR]: Precio referencial por m² según variante (fijo, corredizo o con tensores) y canaleta incluida.",
-    "[POR CONFIRMAR]: Plazo de ensamblaje en taller e instalación, y condiciones de garantía contra filtraciones."
+    "Título mínimo singular aplicado: Techo."
   ]
 }

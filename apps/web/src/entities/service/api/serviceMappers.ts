@@ -23,69 +23,69 @@ export { getServiceHref };
  */
 export const SERVICE_SEO_FALLBACKS: Record<string, { title: string; description: string }> = {
   ventana: {
-    title: "Ventanas de Aluminio en La Molina y Lima",
+    title: "Ventana de Aluminio y Vidrio | GYA",
     description:
-      "Ventanas de aluminio en Sistema Nova, Serie 20, Serie 25 y Serie 62 con vidrio laminado o templado. Atenuación acústica estimada en La Molina y Lima. ¡Cotiza!",
+      "Ventana de aluminio 6063-T5 en Sistema Nova, Series 20, 25, 28, 29, 3825, 3831, 42 y 62 con vidrio crudo, laminado, templado o DVH en La Molina y Lima.",
   },
   mampara: {
-    title: "Mamparas de Vidrio Templado y Aluminio",
+    title: "Mampara de Aluminio y Vidrio | GYA",
     description:
-      "Mamparas de vidrio templado y aluminio para terrazas, oficinas y salas. Fabricación a medida con seguridad y diseño moderno en Lima y La Molina. ¡Cotiza hoy!",
+      "Mampara corrediza y batiente en aluminio y vidrio templado o laminado. Ensamblaje e instalación a medida en La Molina, Surco, San Borja, San Isidro y Miraflores.",
   },
   ducha: {
-    title: "Boxes y Puertas de Ducha en Vidrio Templado",
+    title: "Box de Ducha en Vidrio Templado | GYA",
     description:
-      "Boxes y puertas de ducha en vidrio templado y perfiles de aluminio. Diseños elegantes y herméticos a medida para baños en La Molina y Lima. ¡Pide tu visita!",
+      "Box de ducha frontal y esquinero en vidrio templado de 6, 8 y 10 mm con herrajes cromados y sellado perimetral en La Molina y Lima.",
   },
   parapeto: {
-    title: "Parapetos de Vidrio y Muros Cortina de Aluminio",
+    title: "Parapeto de Vidrio y Muro Cortina | GYA",
     description:
-      "Parapetos y muros cortina en vidrio templado y laminado con perfiles de aluminio reforzado. Resistencia y elegancia para edificios en todo Lima. ¡Cotiza ya!",
+      "Parapeto de vidrio templado o laminado y muro cortina Stick o Frame en aluminio 6063-T5/T6 para terrazas y fachadas en Lima.",
   },
   baranda: {
-    title: "Barandas de Vidrio y Acero Inoxidable",
+    title: "Baranda de Vidrio y Acero | GYA",
     description:
-      "Barandas de vidrio templado y acero inoxidable para escaleras, terrazas y balcones. Máxima seguridad y estilo arquitectónico en La Molina y Lima. ¡Escríbenos!",
+      "Baranda de vidrio templado o laminado con perfilería de aluminio o accesorios tubulares para escaleras, balcones y terrazas en La Molina y Lima.",
   },
   balcones: {
-    title: "Cerramientos de Balcones en Vidrio y Aluminio",
+    title: "Balcón en Vidrio y Aluminio | GYA",
     description:
-      "Cerramientos y barandas de vidrio y aluminio para balcones residenciales. Mayor luminosidad, protección y diseño contemporáneo en La Molina y Lima. ¡Cotiza ya!",
+      "Cerramiento y baranda para balcón en vidrio laminado o templado y perfilería de aluminio con privacidad arenada y control solar en Lima.",
   },
   techo: {
-    title: "Techos de Policarbonato y Vidrio Laminado",
+    title: "Techo de Policarbonato y Aluminio | GYA",
     description:
-      "Techos de policarbonato y vidrio laminado con perfiles de aluminio. Coberturas sol y sombra resistentes en La Molina y Lima. ¡Solicita tu presupuesto!",
+      "Techo sol y sombra en estructura de aluminio 6063-T5 y policarbonato con capa UV, perfiles U, F, H y desagüe pluvial en La Molina y Lima.",
   },
   pvidrio: {
-    title: "Puertas de Vidrio Templado a Medida",
+    title: "Puerta de Vidrio Templado | GYA",
     description:
-      "Puertas de vidrio templado batientes y corredizas con perfiles de aluminio. Soluciones modernas y elegantes para residencias y locales en Lima. ¡Cotiza hoy!",
+      "Puerta de vidrio templado de 8 y 10 mm con herrajes pivotantes o batientes, freno hidráulico, cerradura y jalador en La Molina y Lima.",
   },
   pserie: {
-    title: "Puertas de Aluminio Batientes Serie 35 y 36",
+    title: "Puerta de Aluminio en Serie | GYA",
     description:
-      "Puertas batientes de aluminio Serie 35 y Serie 36 con vidrio templado o laminado. Alta durabilidad y cierre hermético en La Molina y Lima. ¡Contáctanos hoy!",
+      "Puerta batiente de aluminio Serie 35 y Serie 36 con vidrio de 4 a 6 mm, bisagras, chapa, felpa y burlete EPDM en La Molina y Lima.",
   },
   celosias: {
-    title: "Celosías de Vidrio y Aluminio para Ventilación",
+    title: "Celosía de Aluminio y Vidrio | GYA",
     description:
-      "Celosías de vidrio y aluminio para ventilación natural, privacidad y protección solar en residencias y oficinas de La Molina y Lima. ¡Pide asesoría técnica!",
+      "Celosía fija o móvil en lamas de aluminio 6063-T5/T6 o paletas de vidrio con clips para control solar y ventilación en La Molina y Lima.",
   },
   espejos: {
-    title: "Espejos a Medida y Decorativos",
+    title: "Espejo a Medida | GYA",
     description:
-      "Venta e instalación de espejos a medida, biselados, con marco de aluminio o iluminación LED para baños, salas y dormitorios en La Molina y Lima. ¡Cotiza hoy!",
+      "Espejo de vidrio flotado con recubrimiento de plata a medida en 3, 4 y 6 mm con montaje flotante o marco de aluminio en La Molina y Lima.",
   },
   "frenos-hidraulicos": {
-    title: "Frenos Hidráulicos y Accesorios para Puertas de Vidrio",
+    title: "Freno Hidráulico para Puerta de Vidrio | GYA",
     description:
-      "Suministro, cambio y calibración de frenos hidráulicos de piso y accesorios para puertas de vidrio templado en La Molina y Lima. Garantía y ajuste técnico.",
+      "Freno hidráulico de piso y bisagra aérea para puertas de vidrio templado: suministro, instalación y calibración en La Molina y Lima.",
   },
   mantenimiento: {
-    title: "Mantenimiento y Calibración de Vidrio y Aluminio",
+    title: "Mantenimiento de Vidrio y Aluminio | GYA",
     description:
-      "Servicio técnico especializado en mantenimiento preventivo y correctivo de mamparas, ventanas, puertas y sistemas de vidrio y aluminio en Lima y La Molina.",
+      "Mantenimiento preventivo y correctivo para ventana, mampara, puerta y box de ducha: garruchas, felpas, burletes EPDM, brazos y sellado en Lima.",
   },
 };
 
@@ -158,7 +158,12 @@ export const toServicePageData = (service: FirestoreService): ServicePageData =>
 
   return {
     seo: getServiceSeo(service),
-    about: { title: service.title, description: service.fullDescription },
+    about: {
+      title: service.title,
+      description: service.fullDescription,
+      shortDescription: service.shortDescription,
+    },
+    coverImage: service.coverImage,
     benefits: service.benefits.map((label) => ({ label, icon: Check })),
     features: service.features.map((label) => ({ label, icon: Check })),
     systems: systems.map((label) => ({ label, icon: ChevronRight })),

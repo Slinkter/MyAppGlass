@@ -40,7 +40,9 @@ export interface ServicePageFeature {
 /** Datos de la página de detalle de un servicio, derivados de un documento de Firestore. */
 export interface ServicePageData {
   seo: ServicePageSEO;
-  about: { title: string; description: string };
+  about: { title: string; description: string; shortDescription?: string };
+  /** Imagen principal verificada del servicio (respaldo cuando un sistema aún no tiene galería propia). */
+  coverImage?: string;
   benefits: ServicePageFeature[];
   systems: ServicePageSystem[];
   features: ServicePageFeature[];

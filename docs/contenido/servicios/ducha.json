@@ -1,71 +1,88 @@
 {
   "slug": "ducha",
-  "title": "Boxes de ducha en vidrio templado",
-  "shortDescription": "Boxes de ducha frontales y esquineros en cristal templado de 6, 8 o 10 mm con herrajes cromados y sellado hermético contra salpicaduras.",
-  "fullDescription": "Un box de ducha es un cerramiento de vidrio templado diseñado para delimitar la zona húmeda del baño, contener las salpicaduras de agua y aportar luminosidad y amplitud visual. En nuestro taller seleccionamos cristales sometidos a proceso térmico de templado —entre cuatro y cinco veces más resistentes al impacto que el vidrio común— y los instalamos a la medida exacta de su sardineles o plato de ducha.\n\nOfrecemos configuraciones frontales (de muro a muro) y esquineras (en L), con kits corredizos de una hoja fija y una corrediza en rieles de hasta 1.80 metros, o de dos fijas y dos corredizas hasta 2.00 metros en frontales y 1.20 o 1.50 metros en esquineros. Los espesores estándar en boxes de ducha son 6 mm y 8 mm, reservando el cristal de 10 mm para paños de mayor altura o ancho.\n\nTodas las perforaciones, destajes y cortes se realizan antes del templado, ya que el cristal templado no puede modificarse después de salir del horno. Si llegara a fracturarse, el cristal se disgrega en trozos diminutos de bordes romos, disminuyendo el peligro de cortes. Completamos el cierre con vinil sellador entre hojas y silicona antihongos en las juntas fijas.\n\nEl servicio incluye medición en su vivienda en La Molina, Surco, San Borja, San Isidro o Miraflores, suministro de cristal y accesorios cromados, montaje e impermeabilización perimetral. No incluye enchapes, sardineles ni trabajos de gasfitería. Para cotizar, envíenos las medidas del espacio, fotos del baño y si la ducha es frontal o esquinera. Conviene limpiar rieles y garruchas periódicamente para evitar acumulación de sarro.",
+  "title": "Box de Ducha",
+  "seoTitle": "Box de Ducha en Vidrio Templado | GYA",
+  "shortDescription": "Box de ducha frontal o esquinero en vidrio templado de 6, 8 o 10 mm con riel superior, herrajes cromados y sellado antihumedad.",
+  "fullDescription": "Box de ducha a medida en vidrio templado de seguridad (6, 8 o 10 mm) en acabado incoloro, bronce, gris o satinado al ácido, para baños con configuración frontal o esquinera.\n\nIncluye riel superior cromado, garruchas simples o triangulares, guías plásticas, perillas, vinil sellador entre hojas, silicona neutra antihongos e instalación en La Molina, Surco, San Borja, San Isidro y Miraflores. No incluye enchapes, sardineles ni gasfitería.",
   "specs": [
-    { "grupo": "Vidrio", "label": "Tipo de cristal", "value": "Vidrio templado de seguridad (calentado a ~650 °C)" },
-    { "grupo": "Vidrio", "label": "Espesores estándar", "value": "6 mm y 8 mm (10 mm en paños grandes)" },
-    { "grupo": "Vidrio", "label": "Acabados disponibles", "value": "Incoloro, bronce, gris o satinado al ácido" },
-    { "grupo": "Configuración", "label": "Box frontal", "value": "1 fija + 1 corrediza (riel 1.80 m) o 2+2 (2.00 m)" },
-    { "grupo": "Configuración", "label": "Box esquinero", "value": "2 fijas + 2 corredizas en 1.20 m o 1.50 m" },
-    { "grupo": "Herrajes", "label": "Acabado de kit", "value": "Cromado con garruchas simples o triangulares" },
-    { "grupo": "Sellado", "label": "Estanqueidad", "value": "Vinil sellador entre hojas y guías plásticas 6-8 mm" },
-    { "grupo": "Seguridad", "label": "Rotura del templado", "value": "Fragmentación granular sin bordes cortantes" },
+    { "grupo": "Cristal", "label": "Vidrio templado", "value": "6 mm y 8 mm estándar; 10 mm en paños grandes o batientes" },
+    { "grupo": "Cristal", "label": "Acabados", "value": "Incoloro, bronce, gris o satinado al ácido" },
+    { "grupo": "Configuración", "label": "Frontal y esquinero", "value": "Frontal 1F+1C (riel 1.80 m) o 2F+2C (2.00 m); esquinero 2F+2C (1.20 / 1.50 m)" },
+    { "grupo": "Accesorios", "label": "Kit cromado", "value": "Riel aéreo, garruchas simples o triangulares, guías plásticas 6–8 mm y perillas cromadas" },
+    { "grupo": "Sellado", "label": "Estanqueidad", "value": "Vinil sellador vertical en encuentro de hojas y silicona neutra en muros y sardinel" },
+    { "grupo": "Seguridad", "label": "Mecanizado previo", "value": "Perforaciones y destajes realizados antes del temple a ~650 °C" },
     { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por unidad instalada (Precio a definir)" }
   ],
   "features": [
-    "Cristal templado de 6 mm, 8 mm o 10 mm resistente a impactos y choques térmicos.",
-    "Configuraciones frontales entre muros y esquineras en escuadra según distribución del baño.",
-    "Kits corredizos en acabado cromado con garruchas de deslizamiento suave.",
-    "Vinil sellador perimetral y guías plásticas calibradas para evitar filtraciones de agua.",
-    "Opción de cristal incoloro o satinado translúcido para mayor privacidad en la ducha.",
-    "Instalación limpia con silicona neutra en encuentros con muro y sardinel."
+    "Vidrio templado 4–5 veces más resistente que el vidrio común.",
+    "Formatos frontales de muro a muro y esquineros en L.",
+    "Kits cromados con riel aéreo y deslizamiento suave.",
+    "Vinil sellador y guías inferiores calibradas contra filtración.",
+    "Fragmentación granular segura ante una eventual rotura."
   ],
   "benefits": [
-    "Mantiene seco el resto del baño y evita resbalones por humedad fuera de la ducha.",
-    "Aporta sensación de amplitud y limpieza visual frente a cortinas textiles tradicionales.",
-    "Brinda tranquilidad familiar gracias al comportamiento seguro del vidrio templado.",
-    "Facilita la limpieza diaria sin marcos inferiores propensos a retener suciedad."
+    "Mantiene seco el resto del baño evitando resbalones.",
+    "Mayor luminosidad y limpieza visual que una cortina.",
+    "Fácil limpieza diaria sin riel inferior cerrado."
   ],
   "systemSheets": [
     {
       "nombre": "Sistema Corredizo",
-      "resumen": "Sistema de riel superior aéreo con kit de herrajes cromados para boxes de ducha frontales o esquineros. Permite deslizar una o dos hojas sin ocupar espacio en el baño y se adapta a cristales de 6 mm u 8 mm.",
+      "resumen": "Riel superior aéreo cromado con hojas en vidrio templado de 6 u 8 mm para baños frontales o esquineros.",
       "specs": [
-        { "label": "Riel frontal disponible", "value": "1.80 m (6-8 mm) y 2.00 m (6 mm)" },
-        { "label": "Medidas esquineras", "value": "1.20 m y 1.50 m para vidrio de 6 mm" },
-        { "label": "Accesorios incluidos", "value": "Garruchas, guías plásticas, perillas y vinil sellador" },
-        { "label": "Espesor en paños grandes", "value": "10 mm templado (según evaluación de vano)" }
+        { "label": "Medidas de kit", "value": "Frontal 1.80 m / 2.00 m; esquinero 1.20 m / 1.50 m" },
+        { "label": "Vidrio compatible", "value": "Templado de 6 mm u 8 mm (10 mm en paños altos)" },
+        { "label": "Accesorios incluidos", "value": "Riel superior cromado, garruchas/ruedas triangulares, guías int./ext. (negro o transparente), perillas simple/doble cromadas y vinil de ducha" }
       ],
-      "usos": ["Baños principales y secundarios", "Duchas frontales entre muros", "Duchas esquineras con sardinel"]
+      "usos": ["Duchas frontales entre muros", "Duchas esquineras con sardinel", "Baños principales y de visita"]
+    },
+    {
+      "nombre": "Kit de ducha de 1 hoja",
+      "resumen": "Box frontal de 1 paño fijo y 1 hoja corrediza sobre riel de 1.80 m en acabado cromado.",
+      "specs": [
+        { "label": "Configuración y medida", "value": "1 fija + 1 corrediza hasta 1.80 m" },
+        { "label": "Vidrio compatible", "value": "Templado de 6 mm u 8 mm" },
+        { "label": "Accesorios incluidos", "value": "Riel superior cromado, juego de garruchas, guía inferior, tope, perilla cromada y vinil sellador" }
+      ],
+      "usos": ["Duchas frontales estándar", "Baños secundarios", "Remodelación de bañera a ducha"]
+    },
+    {
+      "nombre": "Kit de ducha corredizo",
+      "resumen": "Box frontal con 2 hojas corredizas en riel de 1.80 m y acabado cromado para vanos que requieren acceso amplio.",
+      "specs": [
+        { "label": "Configuración y medida", "value": "2 hojas corredizas (1.80 m)" },
+        { "label": "Vidrio compatible", "value": "Templado de 8 mm" },
+        { "label": "Accesorios incluidos", "value": "Riel cromado, garruchas dobles, guías plásticas, 2 perillas de acero cromado y vinil sellador" }
+      ],
+      "usos": ["Vanos frontales con grifería lateral", "Baños principales", "Accesos amplios de ducha"]
+    },
+    {
+      "nombre": "Kit de ducha esquinero",
+      "resumen": "Box en escuadra de 2 paños fijos y 2 hojas corredizas en 1.20 m o 1.50 m con acabado cromado.",
+      "specs": [
+        { "label": "Configuración y medida", "value": "2 fijas + 2 corredizas en 1.20 m o 1.50 m" },
+        { "label": "Vidrio compatible", "value": "Templado de 6 mm" },
+        { "label": "Accesorios incluidos", "value": "Riel esquinero cromado, garruchas, escuadras/fijaciones, guías plásticas, perillas cromadas y vinil sellador" }
+      ],
+      "usos": ["Duchas en L o esquina", "Platos esquineros", "Baños compactos sin muros laterales"]
     }
   ],
   "faqs": [
     {
-      "question": "¿Conviene elegir vidrio templado de 8 mm o de 10 mm para un box de ducha?",
-      "answer": "En la mayoría de boxes de ducha residenciales, los espesores estándar de 6 mm y 8 mm en vidrio templado funcionan con total seguridad y ligereza sobre las garruchas. El espesor de 10 mm se recomienda únicamente para paños muy altos, hojas de gran ancho o puertas batientes sin riel superior que requieren mayor rigidez estructural."
+      "question": "¿Conviene vidrio templado de 6, 8 o 10 mm para un box de ducha?",
+      "answer": "En kits corredizos residenciales el estándar seguro es 6 mm u 8 mm templado. El espesor de 10 mm se reserva para paños muy altos o puertas batientes sin riel superior."
     },
     {
-      "question": "¿Cuál es la diferencia entre un box de ducha frontal y uno esquinero?",
-      "answer": "El box frontal cierra un vano recto entre dos paredes enfrentadas, habitualmente en configuraciones de una hoja fija y una corrediza hasta 1.80 metros o dos fijas y dos corredizas hasta 2.00 metros. El box esquinero forma una escuadra de noventa grados sobre el ángulo del baño, con medidas comerciales de 1.20 y 1.50 metros."
+      "question": "¿Cómo se evita la salida de agua por los bordes?",
+      "answer": "Instalamos vinil sellador vertical entre hojas, guías inferiores calibradas y sellado de silicona neutra en muros y sardinel. El piso de la ducha debe tener pendiente hacia el desagüe."
     },
     {
-      "question": "¿Por qué es obligatorio usar vidrio templado en los boxes de ducha?",
-      "answer": "El vidrio templado recibe un tratamiento térmico a unos 650 °C que multiplica por cuatro o cinco su resistencia frente a golpes y cambios de temperatura del agua caliente. Si llegara a romperse, se fragmenta en trozos pequeños y granulares sin filos cortantes, evitando accidentes graves en un espacio húmedo y reducido."
-    },
-    {
-      "question": "¿Cómo se evita que salga agua por los bordes del box de ducha?",
-      "answer": "Instalamos perfiles de vinil sellador en el encuentro vertical entre la hoja fija y la corrediza, además de guías plásticas inferiores y sellado con silicona en las uniones contra pared y sardinel. Es indispensable que el sardinel o piso de la ducha tenga una ligera pendiente hacia el desagüe para evitar empozamientos."
-    },
-    {
-      "question": "¿Qué se necesita para cotizar un box de ducha y cuánto cuesta?",
-      "answer": "Para cotizar necesitamos el ancho y alto del espacio, fotografías del baño ya enchapado, si la ducha es frontal o esquinera y el espesor de cristal deseado. El costo figura como Precio a definir porque varía según dimensiones, configuración y herrajes; realizamos medición exacta en La Molina, Surco, San Borja, San Isidro y Miraflores."
+      "question": "¿Qué datos necesitan para cotizar?",
+      "answer": "Ancho y alto aproximado del vano ya enchapado, fotos de la ducha y si es frontal o esquinera. El precio se define según medidas, espesor y modelo de kit."
     }
   ],
   "notasInternas": [
-    "Fuentes de matriz-hechos.md utilizadas: H-002 a H-006 (vidrio templado 650 °C, 4-5x resistencia, fragmentación, no cortar post-templado, espesores), H-020 (vidrio ácido/satinado), H-072 a H-077 (espesores 6-8-10 mm en ducha, kits frontales 1.80/2.00 m, esquineros 1.20/1.50 m, accesorios de reposición), H-125 y H-131 (mantenimiento de rieles y deslizamiento).",
-    "[POR CONFIRMAR] El catálogo local no registra sistemas llamados 'europeo' o 'español' (H-077); se consolida bajo 'Sistema Corredizo'.",
-    "[POR CONFIRMAR] Precio referencial por unidad o m², disponibilidad de acabados negro mate/dorado en kits de ducha y plazo de entrega."
+    "Título mínimo singular aplicado: Box de Ducha.",
+    "Incluye ficha del Sistema Corredizo más los 3 kits publicados de SEED_SYSTEMS."
   ]
 }

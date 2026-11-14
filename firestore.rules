@@ -119,6 +119,13 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin();
     }
 
+    // blogPosts: artículos del blog gestionados desde /admin/blog.
+    // Lectura pública solo para posts publicados; borradores y escritura, solo admin.
+    match /blogPosts/{postId} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
     // ---------------------------------------------------------------
     // pedidos y listOrden: órdenes de venta emitidas por el admin
     // (orderService.ts). No hay flujo de cliente: solo admin.

@@ -1,58 +1,50 @@
 {
   "slug": "celosias",
-  "title": "Celosías de aluminio y vidrio",
-  "shortDescription": "Lamas arquitectónicas y celosías fijas o móviles para control solar, ventilación natural y privacidad en fachadas, patios y lavanderías.",
-  "fullDescription": "Una celosía es un cerramiento compuesto por lamas paralelas de aluminio o paletas de vidrio dispuestas con inclinación controlada para dejar circular el aire y filtrar la luz solar, bloqueando al mismo tiempo la vista directa desde el exterior. Es una solución arquitectónica práctica para fachadas expuestas al sol, patios de servicio, lavanderías, ductos técnicos y divisiones de terrazas.\n\nEn Glass & Aluminum Company S.A.C. seleccionamos, calculamos, ensamblamos e instalamos dos familias principales: celosías con lamas decorativas y perfiles de aluminio en aleación 6063-T5/T6 (disponibles en acabados anodizados de 13 a 14 micras, pintura electrostática de 50 a 70 micras o acabado sublimado tacto madera), y celosías de vidrio tipo vitroven montadas con clips de aluminio en acabado mate para paños móviles regulables.\n\nPodemos proyectar celosías fijas, ideales cuando se requiere protección solar constante y una barrera visual estable sin piezas móviles, o celosías móviles, recomendadas cuando usted necesita regular la entrada de aire o cerrar el paso de lluvia ligera girando las paletas. No conviene instalar celosías si el ambiente exige hermeticidad total contra polvo fino o ruido exterior; en esos casos resulta más adecuado optar por ventanas proyectantes o corredizas.\n\nEl servicio incluye levantamiento en nuestra zona de cobertura en Lima, perfiles de marco, lamas o clips de sujeción, tornillería autorroscante inoxidable o zincada e instalación en obra. Para cotizar requerimos el ancho y alto del vano, fotografías de la ubicación y definir si prefiere lama fija o sistema móvil. El mantenimiento consiste en limpiar las lamas con paño suave húmedo y lubricar periódicamente los mecanismos móviles si corresponde.",
+  "title": "Celosía",
+  "seoTitle": "Celosía de Aluminio y Vidrio | GYA",
+  "shortDescription": "Celosía fija o móvil en lamas de aluminio 6063-T5/T6 o paletas de vidrio con clips para ventilación, control solar y privacidad.",
+  "fullDescription": "Cerramiento de ventilación y sombra con lamas de aluminio 6063-T5/T6 (anodizado 13–14 micras, pintura 50–70 micras o sublimado madera) o paletas de vidrio tipo vitroven sobre clips de aluminio mate.\n\nIncluye marco, lamas o paletas, clips o soportes, tornillería inoxidable/zincada e instalación en La Molina, Surco, San Borja, San Isidro y Miraflores. No ofrece hermeticidad total contra polvo o ruido; no incluye albañilería.",
   "specs": [
-    { "grupo": "Material", "label": "Aleación de aluminio", "value": "6063-T5 o T6 en lamas decorativas y perfiles convencionales" },
-    { "grupo": "Acabados", "label": "Opciones de color", "value": "Mate, negro, blanco, bronce o sublimado tacto madera" },
-    { "grupo": "Acabados", "label": "Espesor de recubrimiento", "value": "Anodizado de 13 a 14 micras o pintura poliéster de 50 a 70 micras" },
-    { "grupo": "Vidrio", "label": "Celosía tipo vitroven", "value": "Clips de aluminio en acabado mate para paletas regulables" },
-    { "grupo": "Configuración", "label": "Tipos de apertura", "value": "Fija (inclinación constante) o móvil (regulación de paso)" },
-    { "grupo": "Fijación", "label": "Tornillería", "value": "Autorroscantes de acero inoxidable o zincados anticorrosión" },
-    { "grupo": "Función", "label": "Control ambiental", "value": "Ventilación continua, privacidad visual y tamizado solar" },
-    { "grupo": "Limitación", "label": "Estanqueidad", "value": "No ofrece cierre hermético contra lluvia intensa o polvo fino" },
-    { "grupo": "Comercial", "label": "Precio y plazo", "value": "Precio a definir según diseño, dimensiones y tipo de lama" }
+    { "grupo": "Material", "label": "Aleación y acabado", "value": "Aluminio 6063-T5/T6 (mate, negro, blanco, bronce o sublimado madera)" },
+    { "grupo": "Configuración", "label": "Tipos disponibles", "value": "Lama fija de aluminio o celosía móvil tipo vitroven en vidrio" },
+    { "grupo": "Accesorios", "label": "Fijación y herrajes", "value": "Clips de aluminio acabado mate para paletas regulables, perfiles de marco y tornillería autorroscante inoxidable o zincada" },
+    { "grupo": "Limitación", "label": "Estanqueidad", "value": "Permite circulación de aire; no es hermética contra lluvia fuerte, polvo fino ni ruido" },
+    { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por m² o vano medido en obra (Precio a definir)" }
   ],
   "features": [
-    "Control solar pasivo que reduce la incidencia directa del sol sobre fachadas y ventanas.",
-    "Ventilación natural permanente en lavanderías, cuartos técnicos y patios interiores.",
-    "Privacidad visual sin bloquear la circulación de aire ni oscurecer por completo el espacio.",
-    "Disponibilidad en configuración fija o móvil según la necesidad de regulación.",
-    "Opciones en lamas de aluminio 6063-T5/T6 o paletas de vidrio con clips acabado mate.",
-    "Acabados resistentes a la intemperie, incluida la alternativa sublimada tacto madera."
+    "Control solar pasivo que reduce ganancia de calor.",
+    "Ventilación continua en lavanderías, patios y ductos.",
+    "Privacidad visual sin bloquear el paso de aire.",
+    "Versión fija de aluminio o móvil tipo vitroven."
   ],
   "benefits": [
-    "Mejora el confort térmico interior al sombrear paños expuestos antes de que el calor ingrese.",
-    "Aporta una lectura arquitectónica ordenada para ocultar tendederos, equipos o ductos.",
-    "Requiere mantenimiento mínimo frente a persianas o celosías de madera natural."
+    "Ordena fachadas de servicio ocultando tendederos o equipos.",
+    "Acabado anticorrosivo resistente a humedad exterior.",
+    "Sin repintado ni deterioro como la madera natural."
   ],
   "systemSheets": [
     {
       "nombre": "Sistema Celosía Fija y Móvil",
-      "resumen": "Sistema configurable con lamas de aluminio arquitectónicas en posición fija o con paletas móviles de vidrio sobre clips de aluminio mate. Permite equilibrar ventilación, sombra y privacidad en fachadas, lavanderías y divisiones exteriores.",
+      "resumen": "Celosía de lamas fijas de aluminio 6063-T5/T6 (natural, anodizado o pintado) o paletas móviles de vidrio con clips de aluminio mate.",
       "specs": [
-        { "label": "Alternativa aluminio", "value": "Lamas y perfiles de celosía en aleación 6063-T5/T6" },
-        { "label": "Alternativa vidrio", "value": "Clips de aluminio acabado mate para celosía tipo vitroven" },
-        { "label": "Unidad de medida", "value": "Metro cuadrado (m²) o por vano medido en obra" }
+        { "label": "Alternativas", "value": "Lamas arquitectónicas de aluminio (fija) o paletas de vidrio tipo vitroven (móvil)" },
+        { "label": "Unidad de medida", "value": "Metro cuadrado (m²) o por vano" },
+        { "label": "Accesorios incluidos", "value": "Perfiles de celosía y tope de celosía, clips de aluminio acabado mate (móvil), perfiles perimetrales y tornillería inoxidable/zincada" }
       ],
-      "usos": ["Lavanderías y patios de servicio", "Fachadas con control solar", "Cercos y divisiones ventiladas"]
+      "usos": ["Lavanderías y patios de servicio", "Fachadas con control solar", "Ductos y cercos ventilados"]
     }
   ],
   "faqs": [
     {
-      "question": "¿Cuándo conviene elegir una celosía fija frente a una celosía móvil?",
-      "answer": "La celosía fija conviene cuando usted busca privacidad constante, sombra y ventilación permanente sin necesidad de manipular el cerramiento, como en ductos, fachadas o áreas técnicas. La celosía móvil resulta más útil en lavanderías o terrazas donde desea abrir las paletas para ventilar más o cerrarlas ante lluvia ligera."
+      "question": "¿Cuándo elegir celosía fija frente a móvil?",
+      "answer": "La fija brinda sombra y privacidad continua sin partes móviles en ductos o fachadas. La móvil permite abrir o cerrar paletas para regular ventilación en lavanderías."
     },
     {
-      "question": "¿Una celosía protege por completo contra la lluvia, el polvo o el ruido?",
-      "answer": "No. Por su diseño pensado para dejar circular el aire, la celosía filtra el sol, oculta la vista directa y frena salpicaduras leves, pero no es un cerramiento hermético. Si usted necesita aislamiento frente a lluvia directa, polvo fino o atenuación acústica, le recomendamos evaluar ventanas proyectantes o corredizas."
+      "question": "¿Aísla del polvo fino o ruido exterior?",
+      "answer": "No: está diseñada para dejar circular el aire. Si requiere hermeticidad frente a polvo o ruido se recomiendan ventanas proyectantes o corredizas."
     }
   ],
   "notasInternas": [
-    "Fuentes: matriz-hechos.md H-022, H-025, H-110 a H-113, H-138, H-144.",
-    "H-113 [POR CONFIRMAR]: Los catálogos locales no detallan dimensiones ni fichas técnicas específicas de lamas orientadas a ventilación/persianas; confirmar medidas exactas de perfil con proveedor antes de ensamblar.",
-    "[POR CONFIRMAR]: Precio referencial por m² y plazo de entrega.",
-    "[POR CONFIRMAR]: Condiciones de garantía para mecanismos móviles."
+    "Título mínimo singular aplicado: Celosía."
   ]
 }

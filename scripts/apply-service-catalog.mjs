@@ -77,6 +77,7 @@ const NEW_SERVICE_SLUGS = new Set(["espejos", "frenos-hidraulicos", "mantenimien
 
 const ALLOWED_FIELDS = [
   "title",
+  "seoTitle",
   "shortDescription",
   "fullDescription",
   "specs",
@@ -247,8 +248,10 @@ async function loadCatalogJsonFiles() {
 
 function buildAllowedPayload(slug, rawJson, existingDoc) {
   const category = rawJson.category ?? existingDoc?.category ?? DEFAULT_CATEGORIES[slug];
+  const seoTitle = rawJson.seoTitle ?? existingDoc?.seoTitle ?? `${rawJson.title} | GYA`;
   return {
     title: rawJson.title,
+    seoTitle,
     shortDescription: rawJson.shortDescription,
     fullDescription: rawJson.fullDescription,
     specs: Array.isArray(rawJson.specs) ? rawJson.specs : [],

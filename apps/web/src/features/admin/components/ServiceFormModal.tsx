@@ -213,11 +213,11 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
 
         <TitleSlugFields
           titleLabel="Título del Servicio"
-          titlePlaceholder="Ej. Ventanas de Aluminio Antirruido"
+          titlePlaceholder="Ej. Ventana"
           title={title}
           onTitleChange={handleTitleChange}
           slugLabel="Slug (URL amigable)"
-          slugPlaceholder="ej. ventanas-antirruido"
+          slugPlaceholder="ej. ventana"
           slug={slug}
           onSlugChange={setManualSlug}
           routePrefix="/servicios/"
@@ -231,7 +231,7 @@ export const ServiceFormModal: React.FC<ServiceFormModalProps> = ({
           helperText="Máximo 160 caracteres recomendado para previsualización"
         >
           <Input
-            placeholder="Sistemas herméticos en vidrio templado y aluminio para aislamiento acústico..."
+            placeholder="Ventana corrediza o proyectante en aluminio 6063-T5 y vidrio a medida..."
             value={shortDescription}
             onChange={(e) => setShortDescription(e.target.value)}
             maxLength={250}

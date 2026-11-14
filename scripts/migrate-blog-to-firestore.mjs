@@ -117,6 +117,37 @@ async function fetchPostsViaRest(baseUrl, timeoutMs = 10000) {
   try {
     const url = `${baseUrl}/v1/projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION}?pageSize=300`;
     const res = await fetch(url, { signal: controller.signal });
+    if (res.status === 403) {
+      const queryUrl = `${baseUrl}/v1/projects/${PROJECT_ID}/databases/(default)/documents:runQuery`;
+      const queryRes = await fetch(queryUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({
+          structuredQuery: {
+            from: [{ collectionId: COLLECTION }],
+            where: {
+              fieldFilter: {
+                field: { fieldPath: "published" },
+                op: "EQUAL",
+                value: { booleanValue: true },
+              },
+            },
+          },
+        }),
+      });
+      if (!queryRes.ok) {
+        throw new Error(`REST ${queryUrl} respondió ${queryRes.status}`);
+      }
+      const rows = await queryRes.json();
+      const map = new Map();
+      for (const row of Array.isArray(rows) ? rows : []) {
+        if (!row?.document) continue;
+        const { id, data } = decodeRestDocument(row.document);
+        map.set(id, data);
+      }
+      return map;
+    }
     if (!res.ok) {
       throw new Error(`REST ${url} respondió ${res.status}`);
     }

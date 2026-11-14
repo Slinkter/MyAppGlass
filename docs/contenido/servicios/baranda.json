@@ -1,77 +1,77 @@
 {
   "slug": "baranda",
-  "title": "Barandas de vidrio, aluminio y acero",
-  "shortDescription": "Barandas de cristal templado y laminado con perfilería de aluminio o accesorios tubulares para escaleras, terrazas y mezzanines.",
-  "fullDescription": "Una baranda de vidrio es una protección anticaídas ligera que delimita escaleras, balcones, terrazas y mezzanines conservando la amplitud visual y el paso de luz en el ambiente. A diferencia de un muro cortina o un cerramiento completo de piso a techo, trabaja como un antepecho abierto que requiere anclaje firme al piso o a la estructura lateral.\n\nEn Glass & Aluminum Company S.A.C. seleccionamos, calculamos, ensamblamos e instalamos barandas con cristal templado de seguridad (calentado a ~650 °C para multiplicar de 4 a 5 veces su resistencia al impacto) o con vidrio laminado de 10.76 mm y variantes con ionoplasto termoplástico cuando se exige mayor rigidez estructural. Todos los cortes y perforaciones del cristal templado se ejecutan antes del temple, porque cualquier mecanizado posterior provocaría su estallido.\n\nOfrecemos dos soluciones principales según el diseño de su vivienda o local: barandas con estructura de aluminio en aleación 6063-T5/T6 (incluyendo perfil circular específico para baranda y canales convencionales), o barandas con accesorios tubulares metálicos como bridas, codos, tricodos, tees, terminales y canoplas, además de uniones de esquina y en T para paños de 6 a 8 mm cuando llevan soporte tubular.\n\nNo recomendamos instalar vidrio crudo ni piezas sin anclaje firme en bordes elevados. El servicio abarca evaluación técnica en nuestra zona de cobertura en Lima, selección de cristales y herrajes, ensamblaje e instalación. Para cotizar necesitamos medidas lineales, altura requerida, fotos del borde de losa o escalera y confirmar si prefiere pasamanos superior. El mantenimiento consiste en limpiar los cristales y perfiles con paño suave no abrasivo y revisar periódicamente el ajuste de bridas y fijaciones.",
+  "title": "Baranda",
+  "seoTitle": "Baranda de Vidrio y Acero | GYA",
+  "shortDescription": "Baranda anticaídas en vidrio templado o laminado con perfilería de aluminio 6063-T5/T6 o accesorios tubulares para escaleras y terrazas.",
+  "fullDescription": "Baranda anticaídas para escaleras, mezzanines, balcones y terrazas, armada en vidrio templado (8–15 mm) o laminado (10.76 mm / ionoplasto) con perfilería de aluminio 6063-T5/T6 o estructura tubular.\n\nIncluye cristal mecanizado antes del temple, canal o parantes, bridas, codos, tricodos, tees, pasantes, terminales, canoplas y uniones de cristal según diseño, más instalación en La Molina, Surco, San Borja, San Isidro y Miraflores. No incluye albañilería.",
   "specs": [
-    { "grupo": "Cristal", "label": "Templado típico", "value": "10 mm estándar (8 mm en tramos cortos con soporte)" },
-    { "grupo": "Cristal", "label": "Templado estructural", "value": "12 mm, 15 mm o templado-laminado (10+10 mm) autoportante" },
-    { "grupo": "Cristal", "label": "Laminado con PVB", "value": "10.76 mm (dos hojas de 5 mm con 0.76 mm de PVB)" },
-    { "grupo": "Cristal", "label": "Laminado rígido", "value": "Interlámina de ionoplasto termoplástico para uso estructural" },
-    { "grupo": "Estructura", "label": "Aluminio arquitectónico", "value": "Aleación 6063-T5/T6 con perfil circular y canales en U" },
-    { "grupo": "Accesorios", "label": "Componentes tubulares", "value": "Bridas de 5/8\" a 2\" y 30–32 mm, codos, tricodos, tees y canoplas" },
-    { "grupo": "Uniones", "label": "Paños con soporte", "value": "Uniones en esquina, en T, 2 cristales y piso a techo (6 a 8 mm)" },
-    { "grupo": "Mecanizado", "label": "Cortes y perforaciones", "value": "Ejecutados en crudo antes del temple a ~650 °C" },
-    { "grupo": "Comercial", "label": "Precio y plazo", "value": "Precio a definir según diseño, espesor y metraje lineal" }
+    { "grupo": "Cristal", "label": "Templado estándar y estructural", "value": "10 mm típico (8 mm en tramos cortos); 12 mm, 15 mm o 10+10 mm autoportante" },
+    { "grupo": "Cristal", "label": "Laminado de seguridad", "value": "10.76 mm con PVB o con interlámina rígida de ionoplasto" },
+    { "grupo": "Estructura", "label": "Aluminio arquitectónico", "value": "Aleación 6063-T5/T6 con perfil circular de baranda y canales U" },
+    { "grupo": "Accesorios", "label": "Componentes tubulares", "value": "Bridas (5/8\" a 2\" y 30–32 mm), codos, tricodos, tees, pasantes, terminales y canoplas" },
+    { "grupo": "Accesorios", "label": "Uniones de cristal", "value": "Uniones de esquina, en T, unión de 2 cristales y fijación piso-techo (6–8 mm en soporte tubular)" },
+    { "grupo": "Mecanizado", "label": "Cortes y perforaciones", "value": "Ejecutados antes del proceso de temple (~650 °C)" },
+    { "grupo": "Comercial", "label": "Unidad de cotización", "value": "Por metro lineal según diseño y espesor (Precio a definir)" }
   ],
   "features": [
-    "Cristal templado de 8 a 15 mm o laminado de seguridad según nivel de exigencia.",
-    "Opciones con pasamanos de aluminio 6063-T5/T6 o accesorios tubulares metálicos.",
-    "Alternativa autoportante empotrada o con fijaciones mecánicas de piso a techo.",
-    "Rotura segura: el templado se fragmenta en gránulos pequeños y el laminado queda adherido.",
-    "Perforaciones y destajes realizados con precisión antes del proceso térmico.",
-    "Adaptable a tramos rectos, descansos y pendientes de escaleras interiores o exteriores."
+    "Cristal templado de 8 a 15 mm o laminado de seguridad.",
+    "Opciones con pasamanos de aluminio o estructura tubular.",
+    "Montaje autoportante en canal base o con parantes y bridas.",
+    "Perforaciones y destajes precisos previos al templado."
   ],
   "benefits": [
-    "Mantiene la continuidad visual y aporta sensación de amplitud en escaleras y terrazas.",
-    "Evita la corrosión de barandas convencionales al combinar vidrio de seguridad con aluminio o acero.",
-    "Permite elegir entre estética minimalista sin parantes o mayor apoyo con pasamanos superior."
+    "Protege desniveles y escaleras sin bloquear la luz.",
+    "Materiales anticorrosivos aptos para interior o terraza.",
+    "Adaptable a tramos rectos, descansos y pendientes."
   ],
   "systemSheets": [
     {
       "nombre": "Sistema Baranda Minimalista",
-      "resumen": "Sistema limpio pensado para privilegiar la transparencia del cristal en escaleras, balcones y mezzanines. Emplea vidrio templado de 10 a 12 mm o vidrio laminado con ionoplasto sujeto mediante canal base o fijaciones puntuales, con pasamanos opcional.",
+      "resumen": "Baranda con mínima obstrucción visual en vidrio templado de 10 a 12 mm o laminado, fijada en canal base o anclajes mecánicos.",
       "specs": [
-        { "label": "Espesor de cristal", "value": "10 mm a 12 mm templado o templado-laminado" },
-        { "label": "Fijación", "value": "Empotrada en canal U de aluminio o anclajes mecánicos" },
-        { "label": "Pasamanos", "value": "Opcional en aluminio circular o perfil tubular" }
+        { "label": "Cristal compatible", "value": "10–12 mm templado o 10.76 mm / templado-laminado" },
+        { "label": "Pasamanos", "value": "Opcional en aluminio circular o perfil tubular" },
+        { "label": "Accesorios incluidos", "value": "Canal U de aluminio o fijaciones simples piso/techo/muro, bases de rotación, empaquetaduras y pernería a losa" }
       ],
-      "usos": ["Escaleras interiores", "Mezzanines residenciales", "Terrazas y balcones"]
+      "usos": ["Escaleras interiores", "Mezzanines residenciales", "Terrazas modernas"]
     },
     {
       "nombre": "Sistema Baranda con Pasamanos Tubular",
-      "resumen": "Configuración robusta que combina parantes y pasamanos tubulares con paños de vidrio de seguridad sujetos mediante uniones de esquina, en T o bridas. Ideal para zonas de alto tránsito donde se requiere apoyo manual continuo.",
+      "resumen": "Baranda con parantes y pasamanos tubulares continuos más paños de vidrio sujetos mediante accesorios mecánicos.",
       "specs": [
-        { "label": "Accesorios tubulares", "value": "Bridas de 5/8\" a 2\" (30–32 mm), codos, tricodos y canoplas" },
-        { "label": "Cristal compatible", "value": "6 a 8 mm con estructura tubular o 10 mm templado" },
-        { "label": "Acabado", "value": "Aluminio anodizado/pintado o accesorios metálicos tubulares" }
+        { "label": "Cristal compatible", "value": "6–8 mm con estructura tubular o 10 mm templado" },
+        { "label": "Fijación", "value": "Anclaje a losa o lateral de escalera" },
+        { "label": "Accesorios incluidos", "value": "Bridas (5/8\"–2\" o 30–32 mm), codos, tricodos, tees, pasantes, terminales, canoplas y uniones para cristal" }
       ],
       "usos": ["Escaleras de edificios", "Pasarelas y rampas", "Locales comerciales"]
+    },
+    {
+      "nombre": "Baranda de acero inoxidable",
+      "resumen": "Baranda armada con accesorios tubulares (bridas, codos, tees, pasantes, terminales y canoplas) y paños de cristal templado.",
+      "specs": [
+        { "label": "Cristal compatible", "value": "Templado de 6 mm y 8 mm (acabado mate en uniones)" },
+        { "label": "Diámetros disponibles", "value": "Tubos y bridas de 5/8\", 3/4\", 7/8\", 1\", 1 1/2\", 2\", 30 mm y 32 mm" },
+        { "label": "Accesorios incluidos", "value": "Bridas, codos, tricodos, tees, pasantes, terminales, canoplas cuadradas/balaustre y uniones de esquina, en T, 2 cristales o piso-techo" }
+      ],
+      "usos": ["Escaleras de viviendas y edificios", "Balcones y descansos", "Entrepisos con paños de cristal"]
     }
   ],
   "faqs": [
     {
-      "question": "¿Conviene elegir baranda de aluminio o de accesorios tubulares de acero?",
-      "answer": "El aluminio en aleación 6063-T5/T6 ofrece gran ligereza, acabados anodizados o pintados y excelente resistencia a la corrosión urbana. Los accesorios tubulares metálicos brindan un estilo industrial con bridas, codos y canoplas, aunque su grado exacto de acero inoxidable debe confirmarse según la exposición a humedad o brisa marina de su proyecto."
+      "question": "¿Qué espesor de vidrio es seguro para una baranda?",
+      "answer": "En tramos cortos con parantes se usa desde 8 mm templado; el estándar residencial es 10 mm templado. Para barandas autoportantes sin pasamanos se recomienda 12–15 mm templado o vidrio laminado."
     },
     {
-      "question": "¿Qué espesor de vidrio es seguro para una baranda residencial?",
-      "answer": "En tramos cortos con parantes y pasamanos se puede trabajar desde 8 mm templado, pero el estándar recomendado para barandas residenciales es 10 mm templado. Si la baranda será autoportante sin pasamanos o estará en altura elevada, recomendamos cristal templado de 12 mm o 15 mm, o bien vidrio templado-laminado para evitar desprendimientos ante una eventual rotura."
+      "question": "¿Conviene perfil de aluminio o estructura tubular?",
+      "answer": "El aluminio 6063-T5/T6 ofrece acabados anodizados o pintados ligeros; el sistema tubular aporta estética metálica continua con bridas, codos y canoplas."
     },
     {
-      "question": "¿Qué necesita revisar antes de cotizar una baranda para su vivienda?",
-      "answer": "Necesitamos conocer la longitud aproximada en metros lineales, si el tramo es recto o en pendiente de escalera, el tipo de piso donde se anclará (concreto, porcelanato o estructura metálica) y fotografías del espacio. Con esos datos preparamos una propuesta preliminar y coordinamos la verificación de medidas en obra."
-    },
-    {
-      "question": "¿Se puede perforar o recortar un vidrio templado si cambian las medidas en obra?",
-      "answer": "No. Una vez que el cristal pasa por el horno a unos 650 °C y se enfría bruscamente, queda sometido a tensiones internas que lo harían estallar ante cualquier corte o perforación. Por eso tomamos medidas exactas en obra antes de enviar las piezas al proceso de temple."
+      "question": "¿Qué datos se necesitan para cotizar?",
+      "answer": "Metros lineales aproximados, si el tramo es recto o en pendiente, tipo de piso de anclaje y fotos del borde. Precio a definir tras evaluación en obra."
     }
   ],
   "notasInternas": [
-    "Fuentes: matriz-hechos.md H-002 a H-008, H-011, H-013, H-022, H-096 a H-101, H-138 y 02-FASE-1-fichas-tecnicas.md (10 mm típico, 8 mm tramos cortos).",
-    "H-096: No se ofertan barandas con arañas (spider) por ausencia en catálogos locales.",
-    "H-099 [POR CONFIRMAR]: Grado exacto del acero inoxidable (AISI 304 vs AISI 316) y acabado superficial de los accesorios tubulares.",
-    "[POR CONFIRMAR]: Precio por metro lineal según sistema (minimalista empotrada vs tubular).",
-    "[POR CONFIRMAR]: Plazo de entrega y condiciones de garantía escrita."
+    "Título mínimo singular aplicado: Baranda.",
+    "Incluye Baranda de acero inoxidable publicada en SEED_SYSTEMS más las 2 fichas originales con todos sus accesorios."
   ]
 }

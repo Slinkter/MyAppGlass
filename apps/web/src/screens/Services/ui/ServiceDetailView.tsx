@@ -9,6 +9,7 @@ import ServicePageLayout from "@/features/services/components/ServicePageLayout"
 import { ServiceDetailSkeleton } from "@/entities/service/ui/ServiceSkeletons";
 import { useService } from "@/entities/service/api/useServices";
 import type { ServicePageData } from "@/entities/service/model";
+import { sortServiceSystemsAndImages } from "@/entities/service";
 import { usePublishedSystems } from "@/entities/system";
 import { ChevronRight } from "lucide-react";
 import ErrorPage from "@/shared/components/ErrorView";
@@ -36,7 +37,7 @@ const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({ serviceSlug, init
   // Sistemas publicados desde /admin/sistemas: se suman a los que ya tiene el servicio.
   // Si uno coincide por nombre, solo aporta su descripción; si es nuevo, entra sin fotos.
   const pageData = React.useMemo<ServicePageData | null | undefined>(() => {
-    if (!baseData || publishedSystems.length === 0) return baseData;
+    if (!baseData) return baseData;
     const norm = (v: string) => v.trim().toLowerCase();
     const systems = baseData.systems.map((s) => {
       const match = publishedSystems.find((p) => norm(p.nombre) === norm(s.label));
@@ -48,8 +49,14 @@ const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({ serviceSlug, init
       systems.push({ label: p.nombre, icon: ChevronRight, description: p.descripcion });
       imageLists.push([]);
     }
-    return { ...baseData, systems, imageLists };
-  }, [baseData, publishedSystems]);
+    const sorted = sortServiceSystemsAndImages(
+      systems,
+      imageLists,
+      slug,
+      baseData.systemSheets,
+    );
+    return { ...baseData, ...sorted };
+  }, [baseData, publishedSystems, slug]);
 
   if (!slug || slug === BUILD_SENTINEL) return <ErrorPage />;
   if (isLoading) return <ServiceDetailSkeleton />;

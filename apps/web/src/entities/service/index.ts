@@ -20,6 +20,7 @@ export {
 
 // Lib
 export { getServiceHref } from "./lib/getServiceHref";
+export { sortServiceSystemsAndImages } from "./lib/sortServiceSystems";
 
 // Model
 export type {
