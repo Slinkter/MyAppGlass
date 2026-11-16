@@ -29,7 +29,11 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({
   loading = "lazy",
   isLCP = false,
 }) => (
-  <RouterLink href={plink} style={{ width: "100%", height: "100%", textDecoration: "none" }}>
+  <RouterLink
+    href={plink}
+    transitionTypes={["nav-forward"]}
+    style={{ width: "100%", height: "100%", textDecoration: "none" }}
+  >
     <MediaCard
       image={image}
       imageAlt={`Servicio de ${name} - GYA Glass & Aluminum`}

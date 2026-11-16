@@ -53,6 +53,9 @@ export interface ServiceHeroStageProps {
   coverImage?: string;
   activeSystemSheet?: ServiceSystemSheet;
   quoteHref: string | null;
+  totalSystems?: number;
+  onPrevSystem?: () => void;
+  onNextSystem?: () => void;
 }
 
 const truncateConcise = (text: string, maxLen = 148): string => {
@@ -90,7 +93,34 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
   images,
   coverImage,
   activeSystemSheet,
+  totalSystems = 1,
+  onPrevSystem,
+  onNextSystem,
 }) => {
+  const touchStartRef = React.useRef<{ x: number; y: number } | null>(null);
+  const canSwitchSystems = totalSystems > 1 && Boolean(onPrevSystem && onNextSystem);
+
+  const handleTouchStart = React.useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      if (!canSwitchSystems || e.touches.length !== 1) return;
+      touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    },
+    [canSwitchSystems],
+  );
+
+  const handleTouchEnd = React.useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      if (!canSwitchSystems || !touchStartRef.current || e.changedTouches.length !== 1) return;
+      const dx = e.changedTouches[0].clientX - touchStartRef.current.x;
+      const dy = e.changedTouches[0].clientY - touchStartRef.current.y;
+      touchStartRef.current = null;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) onNextSystem?.();
+        else onPrevSystem?.();
+      }
+    },
+    [canSwitchSystems, onNextSystem, onPrevSystem],
+  );
   const dedicatedRender = React.useMemo(
     () => (serviceSlug ? resolveSystemRenderUrl(serviceSlug, systemLabel) : undefined),
     [serviceSlug, systemLabel],
@@ -182,6 +212,9 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
   }, [activeSystemSheet, serviceSlug, systemLabel, supportsAluminum]);
 
   const isSvgActive = viewMode === "svg" || !activePhoto;
+  const totalPhotos = hasOwnPhotos ? images.length : 1;
+  const currentPhotoNumber = hasOwnPhotos ? Math.min(photoIndex + 1, totalPhotos) : 1;
+  const canNavigatePhotos = hasOwnPhotos && totalPhotos > 1;
 
   const mediaControls = (
     <>
@@ -196,7 +229,7 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
         borderRadius="full"
         {...glassLightOnPhoto}
       >
-        {!isSvgActive && hasOwnPhotos && images.length > 1 && (
+        {!isSvgActive && canExpandPhoto && (
           <HStack display={{ base: "none", md: "flex" }} gap="0.5">
             <Button
               variant="ghost"
@@ -206,6 +239,7 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
               px="0"
               borderRadius="full"
               aria-label="Foto anterior"
+              disabled={!canNavigatePhotos}
               onClick={() =>
                 setPhotoIndex((prev) => (prev - 1 + images.length) % images.length)
               }
@@ -216,10 +250,11 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
               fontSize="xs"
               fontWeight="700"
               color="text.heading"
-              px="1"
+              minW="10"
+              textAlign="center"
               fontVariantNumeric="tabular-nums"
             >
-              {photoIndex + 1}/{images.length}
+              {currentPhotoNumber}/{totalPhotos}
             </Text>
             <Button
               variant="ghost"
@@ -229,6 +264,7 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
               px="0"
               borderRadius="full"
               aria-label="Siguiente foto"
+              disabled={!canNavigatePhotos}
               onClick={() => setPhotoIndex((prev) => (prev + 1) % images.length)}
             >
               <ChevronRight size={16} aria-hidden="true" />
@@ -265,45 +301,44 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
           borderRadius="full"
           {...glassLightOnPhoto}
         >
-          {images.length > 1 && (
-            <>
-              <Button
-                variant="ghost"
-                size="xs"
-                minW="11"
-                minH="11"
-                px="0"
-                borderRadius="full"
-                aria-label="Foto anterior"
-                onClick={() =>
-                  setPhotoIndex((prev) => (prev - 1 + images.length) % images.length)
-                }
-              >
-                <ChevronLeft size={16} aria-hidden="true" />
-              </Button>
-              <Text
-                fontSize="xs"
-                fontWeight="700"
-                color="text.heading"
-                px="1"
-                fontVariantNumeric="tabular-nums"
-              >
-                {photoIndex + 1}/{images.length}
-              </Text>
-              <Button
-                variant="ghost"
-                size="xs"
-                minW="11"
-                minH="11"
-                px="0"
-                borderRadius="full"
-                aria-label="Siguiente foto"
-                onClick={() => setPhotoIndex((prev) => (prev + 1) % images.length)}
-              >
-                <ChevronRight size={16} aria-hidden="true" />
-              </Button>
-            </>
-          )}
+          <Button
+            variant="ghost"
+            size="xs"
+            minW="11"
+            minH="11"
+            px="0"
+            borderRadius="full"
+            aria-label="Foto anterior"
+            disabled={!canNavigatePhotos}
+            onClick={() =>
+              setPhotoIndex((prev) => (prev - 1 + images.length) % images.length)
+            }
+          >
+            <ChevronLeft size={16} aria-hidden="true" />
+          </Button>
+          <Text
+            fontSize="xs"
+            fontWeight="700"
+            color="text.heading"
+            minW="10"
+            textAlign="center"
+            fontVariantNumeric="tabular-nums"
+          >
+            {currentPhotoNumber}/{totalPhotos}
+          </Text>
+          <Button
+            variant="ghost"
+            size="xs"
+            minW="11"
+            minH="11"
+            px="0"
+            borderRadius="full"
+            aria-label="Siguiente foto"
+            disabled={!canNavigatePhotos}
+            onClick={() => setPhotoIndex((prev) => (prev + 1) % images.length)}
+          >
+            <ChevronRight size={16} aria-hidden="true" />
+          </Button>
           <Button
             variant="ghost"
             size="xs"
@@ -324,11 +359,13 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
   const floatingPlaceCard = (
     <Box
       as="section"
+      className="service-stage-card"
       aria-label={`Resumen de ${systemLabel}`}
       position={{ base: "relative", md: "absolute" }}
       top={{ md: "4", lg: "5" }}
       left={{ md: "4", lg: "5" }}
       w={{ base: "full", md: "17.5rem", lg: "26rem" }}
+      minH={{ base: "11.5rem", md: "auto" }}
       zIndex={2}
       p={{ base: "4", md: "5" }}
       borderRadius={{ base: "none", md: "card" }}
@@ -391,6 +428,7 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
 
   const dockBar = (
     <Box
+      className="service-stage-dock"
       position={{ base: "relative", md: "absolute" }}
       left={{ md: "4", lg: "5" }}
       right={{ md: "4", lg: "5" }}
@@ -439,6 +477,8 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
                   color="text.muted"
                   lineHeight="1.35"
                   maxW="full"
+                  minH={{ base: "2.25rem", md: "auto" }}
+                  lineClamp={{ base: 2, md: undefined }}
                 >
                   {fact.text}
                 </Text>
@@ -473,6 +513,8 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
           borderWidth="1px"
           borderColor="border.default"
           bg="bg.subtle"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
         {/* Escenario visual: fondo completo en md+, bloque superior 240px en base */}
         <Box
@@ -485,6 +527,7 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
 
           {isSvgActive ? (
             <Box
+              className="service-stage-photo"
               w="full"
               h="full"
               pl={{ md: "24.5rem", lg: "28rem" }}
@@ -502,15 +545,17 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
             </Box>
           ) : (
             activePhoto && (
-              <ResponsiveImage
-                src={activePhoto.src}
-                alt={activePhoto.title || `${serviceTitle} ${systemLabel}`}
-                isLCP
-                w="full"
-                h="full"
-                objectFit="cover"
-                sizes="(min-width: 1280px) 1280px, 100vw"
-              />
+              <Box className="service-stage-photo" w="full" h="full">
+                <ResponsiveImage
+                  src={activePhoto.src}
+                  alt={activePhoto.title || `${serviceTitle} ${systemLabel}`}
+                  isLCP
+                  w="full"
+                  h="full"
+                  objectFit="cover"
+                  sizes="(min-width: 1280px) 1280px, 100vw"
+                />
+              </Box>
             )
           )}
         </Box>
@@ -519,10 +564,11 @@ export const ServiceHeroStage: React.FC<ServiceHeroStageProps> = ({
         {dockBar}
       </Box>
 
-        {/* Tira de miniaturas: fila horizontal en móvil y columna vertical a la derecha en md+ */}
+        {/* Tira de miniaturas: oculta en móvil, columna vertical a la derecha en md+ */}
         {hasThumbnailStrip && (
           <Flex
-            direction={{ base: "row", md: "column" }}
+            display={{ base: "none", md: "flex" }}
+            direction="column"
             gap="2"
             overflowX={{ base: "auto", md: "hidden" }}
             overflowY={{ base: "hidden", md: "auto" }}

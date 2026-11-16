@@ -90,18 +90,17 @@ const ServiceList: React.FC<ServiceListProps> = React.memo(({ initialData, headi
                     transition="opacity 0.2s ease"
                 >
                     {preparedServices.map((service, index) => (
-                        // Sin animación de montaje: cada ServiceCard se revela sola cuando
-                        // su imagen termina de cargar (ver ServiceCard).
-                        <ItemGridLayout.Item key={service.id}>
+                        // Sin descripción en la card: solo título protagonista sobre la foto.
+                        // Las 6 primeras cargan eager para evitar parpadeo al llegar a #servicios.
+                        <ItemGridLayout.Item key={service.id} index={index}>
                             <ServiceCard
                                 image={service.image}
                                 name={service.name}
                                 category={service.category}
-                                description={service.description}
                                 plink={service.plink}
                                 index={index}
                                 isLCP={headingAs === "h1" && index === 0}
-                                loading={headingAs === "h1" && index < 2 ? "eager" : "lazy"}
+                                loading={index < 6 ? "eager" : "lazy"}
                             />
                         </ItemGridLayout.Item>
                     ))}

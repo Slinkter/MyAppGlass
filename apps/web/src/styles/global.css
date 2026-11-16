@@ -101,6 +101,72 @@ body.light-mode {
     var(--vt-move) var(--vt-ease) both vtSlide;
 }
 
+/* Opción 3: Cortina de vidrio (Glass Wipe) para #servicios <-> /servicios/[slug]. */
+@keyframes glassWipeIn {
+  from {
+    clip-path: inset(0 0 0 100%);
+    opacity: 0.92;
+    transform: translateX(18px);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes glassWipeBack {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.92;
+    transform: translateX(-18px);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+::view-transition-old(.glass-wipe) {
+  animation: 0.24s ease-in both vtFade reverse;
+}
+::view-transition-new(.glass-wipe) {
+  animation: 0.38s cubic-bezier(0.22, 1, 0.36, 1) both glassWipeIn;
+}
+::view-transition-old(.glass-wipe-back) {
+  animation: 0.24s ease-in both vtFade reverse;
+}
+::view-transition-new(.glass-wipe-back) {
+  animation: 0.38s cubic-bezier(0.22, 1, 0.36, 1) both glassWipeBack;
+}
+
+/* Cascada arquitectónica al entrar en /servicios/[slug] (solo transform y opacity). */
+@keyframes serviceStageRise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.service-stage-photo {
+  animation: heroSettle 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.service-stage-card {
+  animation: serviceStageRise 0.36s cubic-bezier(0.22, 1, 0.36, 1) 60ms both;
+}
+.service-stage-dock {
+  animation: serviceStageRise 0.36s cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-stage-photo,
+  .service-stage-card,
+  .service-stage-dock {
+    animation: none;
+  }
+}
+
 /* Los clics pasan a la página viva mientras dura la transición. */
 ::view-transition {
   pointer-events: none;

@@ -61,6 +61,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
         transform="translateZ(0)"
         boxShadow="none"
         bg="brand.ink"
+        css={{ contentVisibility: "auto", containIntrinsicSize: "auto 310px" }}
         {...cardMotion}
         {...rootProps}
       >
@@ -124,7 +125,7 @@ export const MediaCard: React.FC<MediaCardProps> = React.memo(
           {...glassLightOnPhoto}
           p={{ base: "3", md: "4" }}
           justify="space-between"
-          align="flex-end"
+          align={description ? "flex-end" : "center"}
           minW={0}
         >
           <VStack align="flex-start" gap="1" minW={0} maxW={actionIcon ? "calc(100% - 56px)" : "full"}>

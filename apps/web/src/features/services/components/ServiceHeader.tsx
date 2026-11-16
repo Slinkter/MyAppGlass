@@ -27,7 +27,7 @@ interface SystemSelectorProps {
   onSelect: (index: number) => void;
 }
 
-const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSelectorProps) => {
+export const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSelectorProps) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [openingFilter, setOpeningFilter] = React.useState<OpeningFilter>("todos");
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
@@ -61,9 +61,14 @@ const SystemSelector = React.memo(({ systems, activeIndex, onSelect }: SystemSel
   }, [indexedSystems.length, updateScrollButtons]);
 
   React.useEffect(() => {
-    if (!containerRef.current) return;
-    const activeBtn = containerRef.current.querySelector<HTMLElement>(`[data-index="${activeIndex}"]`);
-    activeBtn?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    const container = containerRef.current;
+    if (!container) return;
+    const activeBtn = container.querySelector<HTMLElement>(`[data-index="${activeIndex}"]`);
+    if (!activeBtn) return;
+    // Desplaza solo el carril horizontal sin mover el scroll vertical de la ventana.
+    const targetLeft =
+      activeBtn.offsetLeft - (container.clientWidth - activeBtn.clientWidth) / 2;
+    container.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
   }, [activeIndex, openingFilter]);
 
   const scrollStrip = (direction: -1 | 1) => {
@@ -201,17 +206,9 @@ SystemSelector.displayName = "SystemSelector";
 
 interface ServiceHeaderProps {
   title: string;
-  systems: ServicePageSystem[];
-  activeIndex: number;
-  onSelect: (index: number) => void;
 }
 
-const ServiceHeader: React.FC<ServiceHeaderProps> = ({
-  title,
-  systems,
-  activeIndex,
-  onSelect,
-}) => {
+const ServiceHeader: React.FC<ServiceHeaderProps> = ({ title }) => {
   return (
     <Box w="full">
       <VStack gap="2.5" align="stretch">
@@ -219,34 +216,17 @@ const ServiceHeader: React.FC<ServiceHeaderProps> = ({
           <BackButton to="/#servicios" />
         </HStack>
 
-        <Flex
-          direction={{ base: "column", lg: "row" }}
-          justify="space-between"
-          align={{ base: "stretch", lg: "center" }}
-          gap={{ base: "3", lg: "4" }}
-          w="full"
+        <Heading
+          as="h1"
+          fontFamily="heading"
+          fontWeight="700"
+          fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+          lineHeight="1.1"
+          letterSpacing="-0.02em"
+          color="text.heading"
         >
-          <Heading
-            as="h1"
-            fontFamily="heading"
-            fontWeight="700"
-            fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-            lineHeight="1.1"
-            letterSpacing="-0.02em"
-            color="text.heading"
-            flexShrink={0}
-          >
-            {title}
-          </Heading>
-
-          <Box minW={0} maxW={{ base: "full", lg: "65%" }}>
-            <SystemSelector
-              systems={systems}
-              activeIndex={activeIndex}
-              onSelect={onSelect}
-            />
-          </Box>
-        </Flex>
+          {title}
+        </Heading>
       </VStack>
     </Box>
   );

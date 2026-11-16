@@ -14,6 +14,8 @@ import { ViewTransition, type ReactNode } from "react";
 const PAGE_TRANSITION = {
   "nav-forward": "nav-forward",
   "nav-back": "nav-back",
+  "glass-wipe": "glass-wipe",
+  "glass-wipe-back": "glass-wipe-back",
   default: "page-fade",
 } as const;
 

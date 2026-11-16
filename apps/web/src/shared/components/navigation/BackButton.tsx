@@ -4,6 +4,7 @@
  * @module shared/components/navigation
  */
 import React from "react";
+import RouterLink from "next/link";
 import { Button } from "@/shared/ui/button";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -18,21 +19,30 @@ interface BackButtonProps {
  */
 const BackButton: React.FC<BackButtonProps> = ({ to }) => {
   const router = useRouter();
-  
-  const handleClick = () => {
-    if (to) {
-      router.push(to);
-    } else {
-      router.back();
-    }
-  };
+
+  if (to) {
+    return (
+      <Button
+        asChild
+        variant="ghost"
+        size="sm"
+        color="text.muted"
+        fontWeight="600"
+        _hover={{ color: "text.accent" }}
+      >
+        <RouterLink href={to} transitionTypes={["nav-back"]}>
+          <ArrowLeft size={16} style={{ flexShrink: 0 }} /> Regresar
+        </RouterLink>
+      </Button>
+    );
+  }
 
   return (
     <Button
       variant="ghost"
       size="sm"
       color="text.muted"
-      onClick={handleClick}
+      onClick={() => router.back()}
       fontWeight="600"
       _hover={{ color: "text.accent" }}
     >

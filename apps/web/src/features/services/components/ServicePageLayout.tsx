@@ -17,7 +17,7 @@ import { Button } from "@/shared/ui/button";
 import { companyData } from "@/shared/config/company-data";
 import { quoteEntryHref } from "@/entities/quote";
 import type { ServicePageData } from "@/entities/service/model";
-import ServiceHeader from "./ServiceHeader";
+import ServiceHeader, { SystemSelector } from "./ServiceHeader";
 import { ServiceHeroStage } from "./ServiceHeroStage";
 import { ServiceSpecsSection } from "./ServiceSpecsSection";
 import { ServiceFaqSection } from "./ServiceFaqSection";
@@ -81,11 +81,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
   )}`;
 
   return (
-    <Box
-      bg="bg.page"
-      animation="fadeIn 0.4s ease-out"
-      _motionReduce={{ animation: "none", transition: "none" }}
-    >
+    <Box bg="bg.page">
       <Container
         maxW="7xl"
         px={{ base: "0", sm: "2", lg: "0" }}
@@ -93,12 +89,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
         pb={{ base: "12", lg: "10" }}
       >
         <VStack gap={{ base: "4", md: "5" }} align="stretch">
-          <ServiceHeader
-            title={pageTitle}
-            systems={systems}
-            activeIndex={activeIndex}
-            onSelect={handleSelect}
-          />
+          <ServiceHeader title={pageTitle} />
 
           <ServiceHeroStage
             serviceSlug={serviceSlug}
@@ -111,6 +102,17 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
             coverImage={coverImage}
             activeSystemSheet={activeSystemSheet}
             quoteHref={quoteEntryHref(serviceSlug, activeSystem?.label)}
+            totalSystems={systems.length}
+            onPrevSystem={() =>
+              handleSelect((activeIndex - 1 + systems.length) % systems.length)
+            }
+            onNextSystem={() => handleSelect((activeIndex + 1) % systems.length)}
+          />
+
+          <SystemSelector
+            systems={systems}
+            activeIndex={activeIndex}
+            onSelect={handleSelect}
           />
 
           {/* Ficha técnica del sistema activo: sin repetir el párrafo resumen ya mostrado arriba */}
