@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import type { Auth } from "firebase/auth";
+import type { Functions } from "firebase/functions";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { getStorage, connectStorageEmulator } from "firebase/storage";
 
@@ -43,6 +44,26 @@ export async function getFirebaseAuth(): Promise<Auth> {
     })();
   }
   return _authPromise;
+}
+
+let _functionsPromise: Promise<Functions> | null = null;
+
+/**
+ * Instancia de Cloud Functions (callables del panel /admin), cargada de forma diferida
+ * para no sumar `firebase/functions` al bundle de las páginas públicas.
+ */
+export function getFirebaseFunctions(): Promise<Functions> {
+  if (!_functionsPromise) {
+    _functionsPromise = (async () => {
+      const { getFunctions, connectFunctionsEmulator } = await import("firebase/functions");
+      const functions = getFunctions(app, "us-central1");
+      if (env.NEXT_PUBLIC_USE_EMULATORS === "true") {
+        connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+      }
+      return functions;
+    })();
+  }
+  return _functionsPromise;
 }
 
 export const db = getFirestore(app);

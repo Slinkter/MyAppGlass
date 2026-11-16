@@ -11,7 +11,18 @@
 
 ## PARTE 1: Trabajo técnico (Claude)
 
-Última revisión: 2026-11-13, rama `feat/catalogo-13-servicios`.
+Última revisión: 2026-11-16, rama `feat/crm-presupuestos`.
+
+### Bloque en curso: CRM y presupuestos formales (2026-11-16)
+
+Rama `feat/crm-presupuestos`, código de las Fases 0 a 7 de `docs/plan-crm-presupuestos.md` escrito. Pasan typecheck, lint y build. Falta:
+
+- **Probar en el emulador** (no se hizo: el equipo de trabajo no tenía `firebase-tools` ni Java). Recorrido: asignar el claim con `node scripts/set-admin-claim.mjs <correo> --apply`, crear producto, servicio y cliente, armar un presupuesto, enviarlo, aprobarlo y generar el PDF. Correr también `node tests/rules/firestore.rules.test.mjs`.
+- **Comprobar la descarga del PDF** contra Storage real: el enlace sale de `getDownloadURL` con un token que la function escribe en los metadatos.
+- **Desplegar, solo con autorización, en este orden:** functions → claims en producción (`--apply --prod`) → hosting → `firestore.rules` y `storage.rules`.
+- **Decisiones del dueño (D1 a D7 del plan):** si los precios de `productos` están sin IGV (el presupuesto asume que sí), recargo del 5 % por tarjeta, anular o vencer presupuestos, y el texto de condiciones del PDF (forma de pago, cuentas, plazo y garantía: hoy el PDF no las incluye).
+- `productos` es de lectura pública e incluye `costPrice`: mover el costo a una colección solo admin.
+- Tarjeta de "Presupuestos" en `AdminHubScreen` (hoy se llega por la barra del panel).
 
 ### Bloque en curso: catálogo de 13 servicios y blog en Firestore (2026-11-13)
 

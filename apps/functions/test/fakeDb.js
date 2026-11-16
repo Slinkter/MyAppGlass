@@ -50,6 +50,8 @@ function crearFakeDb({ fallaTransaccion = false, fallaLectura = false } = {}) {
     };
   }
 
+  let cola = Promise.resolve();
+
   const db = {
     almacen,
     escrituras,
@@ -57,7 +59,14 @@ function crearFakeDb({ fallaTransaccion = false, fallaLectura = false } = {}) {
     collection(coleccion) {
       return { doc: (id) => referencia(coleccion, id) };
     },
-    async runTransaction(fn) {
+    // Las transacciones se ejecutan de una en una: Firestore garantiza aislamiento serializable,
+    // así que dos transacciones concurrentes nunca leen el mismo estado previo.
+    runTransaction(fn) {
+      const turno = cola.then(() => db.ejecutarTransaccion(fn));
+      cola = turno.catch(() => {});
+      return turno;
+    },
+    async ejecutarTransaccion(fn) {
       estado.transacciones += 1;
       if (estado.fallaTransaccion) throw errorFalso("runTransaction");
       const pendientes = [];

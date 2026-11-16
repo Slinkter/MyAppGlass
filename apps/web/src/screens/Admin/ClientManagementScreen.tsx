@@ -17,7 +17,8 @@ import {
   UserPlus,
   FileSpreadsheet,
 } from "lucide-react";
-import { subscribeToClients, addClient } from "@/entities/client/api/clientsRepository";
+import { subscribeToClients, addClient, updateClient, setClientActive } from "@/entities/client/api/clientsRepository";
+import { clienteCrmSchema } from "@/shared/schemas/presupuesto-schema";
 import { ClientCard } from "@/entities/client/ui/ClientCard";
 import { NewClientModal } from "@/features/admin/components/clients/NewClientModal";
 import { EMPTY_NEW_CLIENT, type NewClientForm } from "@/features/admin/components/clients/newClientForm";
@@ -41,6 +42,8 @@ export const ClientManagementScreen: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const [newClient, setNewClient] = useState<NewClientForm>(EMPTY_NEW_CLIENT);
+  // Cliente en edición (null = alta)
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -74,7 +77,8 @@ export const ClientManagementScreen: React.FC = () => {
         c.fullName.toLowerCase().includes(q) ||
         c.dniRuc.includes(q) ||
         c.phone.includes(q) ||
-        c.email.toLowerCase().includes(q) ||
+        (c.email || "").toLowerCase().includes(q) ||
+        (c.contactName || "").toLowerCase().includes(q) ||
         c.district.toLowerCase().includes(q)
       );
     });
@@ -85,28 +89,71 @@ export const ClientManagementScreen: React.FC = () => {
     setActionLoading(true);
     setStatusMessage(null);
 
+    const parsed = clienteCrmSchema.safeParse(newClient);
+    if (!parsed.success) {
+      setStatusMessage({ type: "error", text: parsed.error.issues[0]?.message ?? "Revise los datos del cliente." });
+      setActionLoading(false);
+      return;
+    }
+    const { fullName, dniRuc, contactName, phone, email, address, district, notes } = parsed.data;
+    const fields = { fullName, dniRuc, contactName, phone, email, address, district, notes };
+
     try {
-      const created = await addClient({
-        fullName: newClient.fullName,
-        dniRuc: newClient.dniRuc,
-        phone: newClient.phone,
-        email: newClient.email || `cliente_${newClient.dniRuc}@gyacompany.com`,
-        address: newClient.address,
-        district: newClient.district,
-        role: "cliente" as const,
-      });
-      setStatusMessage({ type: "success", text: "Cliente registrado con éxito en Firestore." });
-      setClients([...clients, created]);
+      if (editingId) {
+        await updateClient(editingId, fields);
+        setStatusMessage({ type: "success", text: "Datos del cliente actualizados." });
+      } else {
+        await addClient({ ...fields, role: "cliente" as const, isActive: true });
+        setStatusMessage({ type: "success", text: "Cliente registrado." });
+      }
       setTimeout(() => {
         setIsModalOpen(false);
+        setEditingId(null);
         setNewClient(EMPTY_NEW_CLIENT);
-      }, 1000);
+      }, 800);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Error al registrar cliente";
       setStatusMessage({ type: "error", text: msg });
     } finally {
       setActionLoading(false);
     }
+  };
+
+  const openCreateModal = () => {
+    setEditingId(null);
+    setNewClient(EMPTY_NEW_CLIENT);
+    setStatusMessage(null);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (client: ClientProfile) => {
+    setEditingId(client.userId);
+    setNewClient({
+      fullName: client.fullName,
+      dniRuc: client.dniRuc,
+      phone: client.phone,
+      // El correo de relleno del panel anterior no se muestra ni se vuelve a guardar.
+      email: /^cliente_\d+@gyacompany\.com$/i.test(client.email || "") ? "" : client.email || "",
+      address: client.address,
+      district: client.district,
+      contactName: client.contactName || "",
+      notes: client.notes || "",
+    });
+    setStatusMessage(null);
+    setIsModalOpen(true);
+  };
+
+  const handleToggleActive = async (client: ClientProfile) => {
+    try {
+      await setClientActive(client.userId, client.isActive === false);
+    } catch (err: unknown) {
+      logger.warn("No se pudo cambiar el estado del cliente", err);
+      setStatusMessage({ type: "error", text: "No se pudo cambiar el estado del cliente. Inténtelo nuevamente." });
+    }
+  };
+
+  const handleCreateBudgetForClient = (client: ClientProfile) => {
+    router.push(`/admin/presupuestos/editor?clienteId=${encodeURIComponent(client.userId)}`);
   };
 
   const handleCreateSaleForClient = (client: ClientProfile) => {
@@ -124,6 +171,8 @@ export const ClientManagementScreen: React.FC = () => {
   const handleExportClients = () => {
     const formatted = clients.map((c) => ({
       "Nombre Completo / Empresa": c.fullName,
+      "Contacto": c.contactName || "",
+      "Estado": c.isActive === false ? "Inactivo" : "Activo",
       "DNI / RUC": c.dniRuc,
       "Teléfono Celular": c.phone,
       "Correo Electrónico": c.email,
@@ -153,7 +202,7 @@ export const ClientManagementScreen: React.FC = () => {
             <FileSpreadsheet size={16} style={{ flexShrink: 0, marginRight: 6 }} />
             Exportar Excel
           </Button>
-          <Button borderRadius="xl" onClick={() => setIsModalOpen(true)} size="md">
+          <Button borderRadius="xl" onClick={openCreateModal} size="md">
             <UserPlus size={16} style={{ flexShrink: 0, marginRight: 6 }} />
             Registrar Cliente
           </Button>
@@ -167,7 +216,7 @@ export const ClientManagementScreen: React.FC = () => {
             <Search size={18} style={{ flexShrink: 0 }} />
           </Box>
           <Input
-            placeholder="Buscar cliente por nombre, DNI/RUC, teléfono o distrito..."
+            placeholder="Buscar por nombre, DNI o RUC, contacto, teléfono o distrito..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             variant="subtle"
@@ -192,7 +241,14 @@ export const ClientManagementScreen: React.FC = () => {
       ) : (
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={{ base: "4", md: "6" }}>
           {filteredClients.map((c) => (
-            <ClientCard key={c.userId || c.dniRuc} client={c} onCreateSale={handleCreateSaleForClient} />
+            <ClientCard
+              key={c.userId || c.dniRuc}
+              client={c}
+              onCreateSale={handleCreateSaleForClient}
+              onCreateBudget={handleCreateBudgetForClient}
+              onEdit={openEditModal}
+              onToggleActive={handleToggleActive}
+            />
           ))}
         </SimpleGrid>
       )}
@@ -206,6 +262,7 @@ export const ClientManagementScreen: React.FC = () => {
           onClose={() => setIsModalOpen(false)}
           actionLoading={actionLoading}
           statusMessage={statusMessage}
+          isEditing={Boolean(editingId)}
         />
       )}
     </Box>

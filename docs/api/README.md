@@ -4,6 +4,19 @@
 
 **El backend manda.** El archivo se genera desde los schemas Zod de `apps/functions/src/schemas/` y no se edita a mano.
 
+## Functions callables del panel (fuera de OpenAPI)
+
+`guardarPresupuesto`, `cambiarEstadoPresupuesto`, `generarPresupuestoPdf` y `setAdminRole` son callables (`onCall`), no endpoints REST, y no figuran en `openapi.json`. Su contrato son los schemas Zod de `packages/shared/src/schemas/presupuesto-schema.ts`:
+
+| Function | Entrada | Salida |
+| --- | --- | --- |
+| `guardarPresupuesto` | `guardarPresupuestoInputSchema` | `{ numero, estado, subtotal, igv, total }` |
+| `cambiarEstadoPresupuesto` | `cambiarEstadoInputSchema` | `{ numero, estado, venceEl? }` |
+| `generarPresupuestoPdf` | `generarPdfInputSchema` | `{ path, version }` |
+| `setAdminRole` | `setAdminRoleInputSchema` | `{ uid, role }` |
+
+Todas exigen sesión con el custom claim `role: 'admin'`. Errores: `unauthenticated`, `permission-denied`, `invalid-argument`, `not-found` y `failed-precondition`, con un mensaje listo para mostrar. Las functions leen una copia generada del contrato (`apps/functions/src/shared/`): tras cambiar un schema, corra `pnpm run shared:sync`.
+
 ## Cómo consumirlo (frontend)
 
 - **Endpoints, métodos y respuestas:** ver `paths` en `openapi.json`. Éxito: `{ success: true, data: { id, createdAt } }`. Error: `{ success: false, message }`.

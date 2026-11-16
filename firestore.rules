@@ -10,17 +10,12 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Administrador = (a) claim role=admin, o (b) users/{uid}.role == 'admin' (evaluado al final
-    // por cortocircuito para ahorrar lecturas). Decisión del dueño (2026-11-11): ya no basta
-    // un correo @gyacompany.com; el rol se asigna a mano en Firestore.
-    // Se eliminó el criterio "el correo contiene admin" (cualquiera podía
-    // registrarse con ese correo y obtener privilegios).
+    // Administrador = custom claim role=admin, y nada más. Decisión del dueño (2026-11-16):
+    // se retira la vía users/{uid}.role == 'admin'; ese campo queda como dato informativo.
+    // El claim lo asigna la function `setAdminRole` (o `scripts/set-admin-claim.mjs` para el primero).
+    // DESPLIEGUE: asignar los claims ANTES de publicar estas reglas, o los admin pierden el acceso.
     function isAdmin() {
-      return isSignedIn() && (
-        request.auth.token.get('role', '') == 'admin' ||
-        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
-         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', '') == 'admin')
-      );
+      return isSignedIn() && request.auth.token.get('role', '') == 'admin';
     }
 
     function isOwner(userId) {
@@ -100,9 +95,18 @@ service cloud.firestore {
     // (productService.ts y orderService.ts, que descuenta stock, se usan
     // únicamente desde /admin/*).
     // ---------------------------------------------------------------
+    // Validación mínima de los campos que usa el presupuesto formal. Solo se revisan si vienen
+    // en el documento resultante: orderService descuenta stock con escrituras parciales (merge).
+    function productoValido(d) {
+      return (!('unit' in d) || d.unit in ['m2', 'ml', 'unidad', 'barra', 'plancha', 'kg', 'servicio'])
+        && (!('unitPrice' in d) || (d.unitPrice is number && d.unitPrice > 0))
+        && (!('isActive' in d) || d.isActive is bool);
+    }
+
     match /productos/{productId} {
       allow read: if true;
-      allow create, update, delete: if isAdmin();
+      allow create, update: if isAdmin() && productoValido(request.resource.data);
+      allow delete: if isAdmin();
     }
 
     // ---------------------------------------------------------------
@@ -139,17 +143,15 @@ service cloud.firestore {
     }
 
     // ---------------------------------------------------------------
-    // presupuestos y presupuestos_solicitados: HOY NINGÚN CÓDIGO de src/ los
-    // usa. Acceso mínimo: la creación está cerrada; el dueño (campo userId) o un
-    // admin leen; update/delete solo admin. Ajustar con hasOnly([...]) cuando exista el flujo.
+    // presupuestos/{PRES-0001}: presupuesto formal que arma el admin en /admin/presupuestos.
+    // Solo lo escriben las Cloud Functions (Admin SDK): `guardarPresupuesto` calcula totales y
+    // correlativo en una transacción, `cambiarEstadoPresupuesto` y `generarPresupuestoPdf` lo
+    // actualizan. Desde el cliente: lectura solo admin, ninguna escritura.
+    // El contador `contadores/presupuestos-formales` queda cerrado por el cierre por defecto.
     // ---------------------------------------------------------------
     match /presupuestos/{budgetId} {
-      // Creación cerrada hasta que exista el flujo (ningún código de src/ la usa). Al implementarlo,
-      // reabrir con hasOnly([...]), validación de tipos y tamaños.
-      allow create: if false;
-      allow read: if isAdmin()
-        || (isSignedIn() && resource.data.get('userId', '') == request.auth.uid);
-      allow update, delete: if isAdmin();
+      allow read: if isAdmin();
+      allow create, update, delete: if false;
     }
 
     // F5.4: solicitud de presupuesto desde /presupuesto. El id del documento es el

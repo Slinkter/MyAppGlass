@@ -33,6 +33,13 @@ service firebase.storage {
       allow read, write: if isAdmin();
     }
 
+    // PDF de presupuestos formales (presupuestos/PRES-0001/PRES-0001-v1.pdf): los genera la
+    // function `generarPresupuestoPdf` con Admin SDK. Solo un admin los lee; nadie escribe desde el cliente.
+    match /presupuestos/{presupuestoId}/{archivo} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
     // Portadas y álbumes de servicios, proyectos y blog (storageService.ts):
     // lectura pública; solo admin escribe imágenes de hasta 10 MB.
     match /{collection}/{entityId}/{allPaths=**} {

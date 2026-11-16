@@ -13,6 +13,8 @@ interface NewClientModalProps {
   onClose: () => void;
   actionLoading: boolean;
   statusMessage: { type: "success" | "error"; text: string } | null;
+  /** true cuando se edita un cliente existente. */
+  isEditing?: boolean;
 }
 
 export const NewClientModal: React.FC<NewClientModalProps> = ({
@@ -22,9 +24,16 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
   onClose,
   actionLoading,
   statusMessage,
+  isEditing = false,
 }) => {
   return (
-    <AdminDialog eyebrow="Clientes" title="Registrar nuevo cliente o empresa" maxW="lg" onClose={onClose} onSubmit={onSubmit}>
+    <AdminDialog
+      eyebrow="Clientes"
+      title={isEditing ? "Editar datos del cliente" : "Registrar nuevo cliente o empresa"}
+      maxW="lg"
+      onClose={onClose}
+      onSubmit={onSubmit}
+    >
 
       <VStack align="stretch" gap="3.5">
         <VStack align="start" gap="1">
@@ -70,6 +79,18 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
 
         <VStack align="start" gap="1">
           <Text fontSize="xs" fontWeight="bold" color="text.heading">
+            Persona de contacto:
+          </Text>
+          <Input
+            borderRadius="xl"
+            placeholder="ej. Ing. residente o encargado de compras"
+            value={newClient.contactName}
+            onChange={(e) => onChange({ ...newClient, contactName: e.target.value })}
+          />
+        </VStack>
+
+        <VStack align="start" gap="1">
+          <Text fontSize="xs" fontWeight="bold" color="text.heading">
             Correo Electrónico:
           </Text>
           <Input
@@ -109,6 +130,19 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
           </VStack>
         </SimpleGrid>
 
+        <VStack align="start" gap="1">
+          <Text fontSize="xs" fontWeight="bold" color="text.heading">
+            Notas internas:
+          </Text>
+          <Input
+            borderRadius="xl"
+            maxLength={500}
+            placeholder="ej. Prefiere coordinar por WhatsApp en la tarde"
+            value={newClient.notes}
+            onChange={(e) => onChange({ ...newClient, notes: e.target.value })}
+          />
+        </VStack>
+
         {statusMessage && (
           <Box
             p="3"
@@ -129,7 +163,7 @@ export const NewClientModal: React.FC<NewClientModalProps> = ({
           </Button>
           <Button size="sm" borderRadius="xl" flex={{ base: "1 1 100%", sm: "0 0 auto" }} type="submit" loading={actionLoading}>
             <CheckCircle2 size={16} style={{ flexShrink: 0, marginRight: 6 }} />
-            Guardar Cliente
+            {isEditing ? "Guardar cambios" : "Guardar cliente"}
           </Button>
         </HStack>
       </VStack>

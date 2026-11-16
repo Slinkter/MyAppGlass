@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-11-16] - CRM y presupuestos formales (PRES-0001)
+
+Rama `feat/crm-presupuestos`. Plan en `docs/plan-crm-presupuestos.md`. Sin commit ni deploy. Sin probar en el emulador (ver `docs/PENDIENTES.md`).
+
+### Added
+- Presupuesto formal en `/admin/presupuestos`: listado con búsqueda y filtro por estado, editor (`/admin/presupuestos/editor`) y detalle (`/admin/presupuestos/ver?numero=`). Entidad nueva `entities/budget`.
+- Cuatro Cloud Functions callables, todas con custom claim `role=admin`: `guardarPresupuesto` (totales, IGV 18 % y correlativo `PRES-0001` en una transacción), `cambiarEstadoPresupuesto` (borrador → enviado → aprobado | rechazado), `generarPresupuestoPdf` (hoja A4 con `pdfkit`, archivada en Storage) y `setAdminRole`.
+- Contrato compartido en `@gya/shared`: `presupuesto-schema.ts`, `cliente-crm-schema.ts` y `lib/presupuesto-totales.ts` (cálculo en céntimos, usado por la function y por la vista previa de la web).
+- `scripts/sync-shared-to-functions.mjs` (`pnpm run shared:sync`): copia esos módulos a `apps/functions/src/shared/` transpilados a CommonJS. Un test de functions falla si la copia queda desactualizada.
+- `scripts/set-admin-claim.mjs`: asigna el primer claim de admin (emulador por defecto; `--apply --prod` explícito).
+- Productos y servicios: unidad `ml` y activar/desactivar desde `/admin/inventario`.
+- Clientes: editar, activar/desactivar, persona de contacto y notas en `/admin/clientes`; acceso directo "Armar presupuesto".
+- Pruebas: 24 casos nuevos de functions (`presupuesto`, `adminRole`, `presupuestoPdf`, `sharedSync`), 11 de web (`presupuesto-totales.test.ts`) y casos nuevos en `tests/rules/firestore.rules.test.mjs`.
+
+### Changed
+- **Admin solo por custom claim.** `isAdmin()` en `firestore.rules` ya no acepta `users/{uid}.role`; `AuthContext` toma el rol de `getIdTokenResult()`.
+- `firestore.rules`: `presupuestos` es de solo lectura para admin (escriben las functions); validación mínima de `unit`, `unitPrice` e `isActive` en `productos`.
+- `storage.rules`: `presupuestos/{numero}/*` legible solo por admin, sin escritura desde el cliente.
+- El alta de clientes del panel ya no inventa el correo `cliente_{dni}@gyacompany.com`.
+- `/admin/presupuestos` pasa a tener dos vistas; las solicitudes del cotizador web quedan en la pestaña "Solicitudes de la web".
+
+### Notes
+- Orden de despliegue obligatorio: functions → claims (`set-admin-claim.mjs`) → hosting → reglas. Con las reglas antes que los claims, los admin pierden el acceso.
+- `apps/functions/test/openapi.test.js` falla en este equipo por saltos de línea CRLF de `docs/api/openapi.json`; no lo causa este trabajo.
+
 ## [2026-11-13] - Catálogo de 13 servicios, fichas técnicas y blog en Firestore
 
 Rama `feat/catalogo-13-servicios` (Fases 0–4). Sin deploy.

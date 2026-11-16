@@ -5,6 +5,8 @@ export interface NewClientForm {
   email: string;
   address: string;
   district: string;
+  contactName: string;
+  notes: string;
 }
 
 export const EMPTY_NEW_CLIENT: NewClientForm = {
@@ -14,4 +16,6 @@ export const EMPTY_NEW_CLIENT: NewClientForm = {
   email: "",
   address: "",
   district: "La Molina",
+  contactName: "",
+  notes: "",
 };

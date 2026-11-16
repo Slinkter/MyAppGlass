@@ -109,6 +109,7 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
                   onChange={(e) => onChange({ ...formData, unit: e.target.value as Product["unit"] })}
                 >
                   <option value="m2">m²</option>
+                  <option value="ml">Metro lineal (ml)</option>
                   <option value="barra">Barra (6m)</option>
                   <option value="unidad">Unidad</option>
                   <option value="kg">Kilogramo</option>

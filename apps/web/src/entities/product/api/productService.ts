@@ -175,6 +175,14 @@ export const productService = {
     }
   },
 
+  /**
+   * Activa o desactiva un producto o servicio. Un ítem inactivo no se puede cotizar.
+   * A diferencia de los métodos tolerantes de arriba, propaga el error para que la pantalla lo muestre.
+   */
+  async setProductActive(id: string, isActive: boolean): Promise<void> {
+    await updateDoc(doc(db, PRODUCTS_COLL, id), { isActive, updatedAt: serverTimestamp() });
+  },
+
   async deleteProduct(id: string): Promise<void> {
     try {
       const docRef = doc(db, PRODUCTS_COLL, id);

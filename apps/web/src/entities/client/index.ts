@@ -13,6 +13,8 @@ export {
   getClientProfile,
   setClientProfile,
   subscribeToClients,
+  updateClient,
+  setClientActive,
 } from "./api/clientsRepository";
 export {
   createClientUserDoc,

@@ -56,16 +56,41 @@ await t("admin with token claim write productos", true, () => setDoc(doc(adminWi
 await t("admin with token claim write services", true, () => setDoc(doc(adminWithClaim, "services", "s1"), { name: "Ventanas Acusticas" }));
 await t("admin with token claim write pedidos", true, () => setDoc(doc(adminWithClaim, "pedidos", "ped1"), { total: 500 }));
 
-// 3. Usuario admin mediante documento users/{uid}.role == 'admin' -> SÍ puede escribir
+// 3. Usuario con documento users/{uid}.role == 'admin' pero SIN claim -> ya NO es admin
+// (decisión del dueño 2026-11-16: el acceso sale solo del custom claim).
 await env.withSecurityRulesDisabled(async (context) => {
   await setDoc(doc(context.firestore(), "users", "adminDocUser"), {
     uid: "adminDocUser",
-    email: "luis.j.cueva@gmail.com",
+    email: "sin-claim@example.com",
     role: "admin"
   });
 });
-const adminWithDoc = env.authenticatedContext("adminDocUser", { email: "luis.j.cueva@gmail.com" }).firestore();
-await t("admin with users doc role=admin write productos", true, () => setDoc(doc(adminWithDoc, "productos", "p2"), { name: "Mampara" }));
+const adminWithDoc = env.authenticatedContext("adminDocUser", { email: "sin-claim@example.com" }).firestore();
+await t("users doc role=admin sin claim write productos", false, () => setDoc(doc(adminWithDoc, "productos", "p2"), { name: "Mampara" }));
+await t("users doc role=admin sin claim read pedidos", false, () => getDoc(doc(adminWithDoc, "pedidos", "ped1")));
+
+// 3b. productos: validación mínima de unidad, precio y estado
+const prod = (over = {}) => ({ sku: "VID-008", name: "Vidrio", category: "vidrio", unit: "m2", unitPrice: 120, isActive: true, ...over });
+await t("admin create producto unidad ml", true, () => setDoc(doc(adminWithClaim, "productos", "pv1"), prod({ unit: "ml" })));
+await t("admin create producto unidad desconocida", false, () => setDoc(doc(adminWithClaim, "productos", "pv2"), prod({ unit: "litros" })));
+await t("admin create producto precio 0", false, () => setDoc(doc(adminWithClaim, "productos", "pv3"), prod({ unitPrice: 0 })));
+await t("admin create producto isActive no booleano", false, () => setDoc(doc(adminWithClaim, "productos", "pv4"), prod({ isActive: "si" })));
+await t("admin desactiva producto", true, () => updateDoc(doc(adminWithClaim, "productos", "pv1"), { isActive: false }));
+
+// 3c. presupuestos formales (PRES-0001): solo los escriben las functions; lectura solo admin
+await env.withSecurityRulesDisabled(async (context) => {
+  await setDoc(doc(context.firestore(), "presupuestos", "PRES-0001"), { numero: "PRES-0001", estado: "borrador", total: 118, userId: "cli1" });
+  await setDoc(doc(context.firestore(), "contadores", "presupuestos-formales"), { seq: 1 });
+});
+await t("admin read presupuesto formal", true, () => getDoc(doc(adminWithClaim, "presupuestos", "PRES-0001")));
+await t("admin list presupuestos formales", true, () => getDocs(collection(adminWithClaim, "presupuestos")));
+await t("admin create presupuesto formal desde cliente", false, () => setDoc(doc(adminWithClaim, "presupuestos", "PRES-0002"), { numero: "PRES-0002", total: 1 }));
+await t("admin update total de presupuesto formal", false, () => updateDoc(doc(adminWithClaim, "presupuestos", "PRES-0001"), { total: 1 }));
+await t("admin delete presupuesto formal", false, () => deleteDoc(doc(adminWithClaim, "presupuestos", "PRES-0001")));
+await t("admin write contador presupuestos-formales", false, () => setDoc(doc(adminWithClaim, "contadores", "presupuestos-formales"), { seq: 2 }));
+await t("admin read contador presupuestos-formales", false, () => getDoc(doc(adminWithClaim, "contadores", "presupuestos-formales")));
+await t("users doc admin sin claim read presupuesto formal", false, () => getDoc(doc(adminWithDoc, "presupuestos", "PRES-0001")));
+await t("anon read presupuesto formal", false, () => getDoc(doc(anon, "presupuestos", "PRES-0001")));
 
 // 4. Cliente regular NO puede leer ni escribir colecciones exclusivas de admin (pedidos, libro_de_reclamaciones)
 const clienteUser = env.authenticatedContext("cli1", { email: "cliente@gmail.com" }).firestore();

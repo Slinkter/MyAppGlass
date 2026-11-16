@@ -18,6 +18,7 @@ Monorepo pnpm (`apps/*`, `packages/*`). No usar npm/yarn en la raíz.
 | `pnpm run test` / `test:run`| Vitest watch / una pasada (jsdom, specs en `apps/web/tests`)                   |
 | `pnpm run test:functions`   | `node --test` de `apps/functions/test`                                         |
 | `pnpm run contract:generate`| Regenera `docs/api/openapi.json` desde los schemas Zod de functions            |
+| `pnpm run shared:sync`      | Copia a `apps/functions/src/shared/` los módulos de `@gya/shared` que usan las functions |
 | `pnpm run deploy:hosting`   | `build` + `firebase deploy --only hosting`                                     |
 | `pnpm run deploy:functions` | `firebase deploy --only functions`                                             |
 
@@ -36,6 +37,11 @@ Monorepo pnpm (`apps/*`, `packages/*`). No usar npm/yarn en la raíz.
 - **Contrato:** `apps/functions/test/openapi.test.js` falla si `docs/api/openapi.json` no coincide con
   los schemas. Si tocas un schema, corre `pnpm run contract:generate` y actualiza
   `packages/shared/src/schemas/`.
+- **Copia de `@gya/shared` en functions:** `apps/functions/src/shared/*.js` se genera con
+  `pnpm run shared:sync` y no se edita a mano. Si cambias `presupuesto-schema.ts`,
+  `cliente-crm-schema.ts`, `lib/presupuesto-totales.ts` o `company-data.ts`, vuelve a correrlo:
+  `apps/functions/test/sharedSync.test.js` falla si quedó desactualizada. Esos archivos no usan
+  separadores numéricos (`1_000`): el lint de functions no los parsea.
 - **Reglas Firestore:** `node tests/rules/firestore.rules.test.mjs` necesita el emulador en `:8081`.
 - **Emuladores:** `firebase emulators:start --only auth,firestore,storage --project gya-app-4c8a9`
   y, en otra terminal, `NEXT_PUBLIC_USE_EMULATORS=true pnpm run dev`.
@@ -71,8 +77,9 @@ packages/eslint-config/  @gya/eslint-config — base del lint
 
 - **`src/app` es solo enrutado:** cada `page.tsx` renderiza una pantalla de `src/screens`. La lógica
   nunca va en `app`.
-- **`entities/` existe** (la capa que más se olvida): `client`, `order`, `product`, `project`, `quote`,
-  `service`, `store`, `supplier`, `system`, `window`. Ahí va el dominio compartido entre features.
+- **`entities/` existe** (la capa que más se olvida): `budget`, `client`, `order`, `product`, `project`,
+  `quote`, `service`, `store`, `supplier`, `system`, `window`. Ahí va el dominio compartido entre features.
+  `budget` es el presupuesto formal del admin (`PRES-0001`); `quote` es el cotizador público (`GYA-AAAA-XXXX`).
 - **`src/app` incluye rutas de laboratorio** (`/design-system`, `/design-system-2`, `/navbarmobil-1…4`);
   `/design-system` es donde se valida el design system. No borres ese directorio sin pedido.
 
@@ -166,8 +173,14 @@ se eliminó en `2ca4f3e`; no lo reactives sin pedido explícito. No es cotizador
 
 ## 5. Backend (Firebase Functions) — tocar solo si se pide
 
-- Solo tres endpoints HTTP: `submitReclamo`, `submitContacto` y `checkStatus`; cada uno pasa por
+- Tres endpoints HTTP: `submitReclamo`, `submitContacto` y `checkStatus`; cada uno pasa por
   `src/guards/withGuards.js` (método, IP, rate limit) más anti-bot y captcha. Correo con Resend.
+- Cuatro callables del panel (`src/callable/presupuestos.js`): `guardarPresupuesto`,
+  `cambiarEstadoPresupuesto`, `generarPresupuestoPdf` y `setAdminRole`. Todas empiezan con
+  `requireAdmin` (`src/guards/requireAdmin.js`): exigen el custom claim `role: 'admin'`.
+  Los totales y el correlativo `PRES-0001` se calculan ahí, nunca en el cliente.
+- **Admin = solo custom claim `role: 'admin'`** (reglas, functions y `AuthContext`).
+  `users/{uid}.role` es informativo. El primer admin se asigna con `scripts/set-admin-claim.mjs`.
 - Las functions **mandan** en el contrato; la web se adapta. Detalle en `docs/api/README.md`.
 - **Despliegue:** un archivo `apps/functions/.env` con `RESEND_API_KEY`, `ADMIN_EMAIL` o
   `RECAPTCHA_SECRET_KEY` choca con los secretos de Secret Manager y rompe `firebase deploy`

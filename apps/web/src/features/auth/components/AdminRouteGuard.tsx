@@ -60,7 +60,8 @@ export const AdminRouteGuard: React.FC<AdminRouteGuardProps> = ({ children }) =>
               </Button>
             ) : (
               <Text fontSize="xs" color="orange.400">
-                Sesión activa como: <strong>{user.email}</strong> (Rol: <strong>{role}</strong>). Solicite permisos al superadministrador.
+                Sesión activa como <strong>{user.email}</strong>, sin permiso de administrador. Si ya se lo asignaron, cierre
+                sesión y vuelva a ingresar para que se aplique.
               </Text>
             )}
             <Button asChild variant="outline" w="full">

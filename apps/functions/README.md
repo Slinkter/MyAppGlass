@@ -67,6 +67,19 @@ Notas de organización:
 
 Común a las tres: `memory: 256MiB`, `maxInstances: 10`, CORS con `ALLOWED_ORIGINS`. El rate limit es por función: cada una tiene su propio bucket.
 
+### Callables del panel /admin
+
+Definidas en `src/callable/presupuestos.js`. No usan `withGuards`: son `onCall` y exigen el custom claim `role: 'admin'` con `src/guards/requireAdmin.js`. No declaran secretos.
+
+| Función | Qué hace | Escribe en |
+|---|---|---|
+| `guardarPresupuesto` | Crea o edita un borrador; calcula subtotal, IGV y total y reserva el correlativo `PRES-0001` en una transacción | `presupuestos`, `contadores/presupuestos-formales` |
+| `cambiarEstadoPresupuesto` | borrador → enviado → aprobado \| rechazado; fija la fecha de vencimiento al enviar | `presupuestos` |
+| `generarPresupuestoPdf` | Arma la hoja A4 (`src/templates/presupuestoPdf.js`, `pdfkit`) y la archiva | Storage `presupuestos/{numero}/`, `presupuestos` |
+| `setAdminRole` | Asigna o retira el claim de admin a un correo | Auth, `users` |
+
+La lógica vive en `src/services/presupuestoService.js` y `adminRoleService.js` (probadas con `test/fakeDb.js`). Los schemas y el cálculo de totales vienen de `src/shared/`, que se genera desde `packages/shared` con `pnpm run shared:sync` (no editar a mano).
+
 ## 4. Flujo paso a paso de un reclamo (`submitReclamo`)
 
 Orden real del código (`src/http/submitReclamo.js` → `src/services/reclamoService.js`):

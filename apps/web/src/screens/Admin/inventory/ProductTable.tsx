@@ -12,8 +12,10 @@ import {
   PlusCircle,
   Edit2,
   Trash2,
+  Power,
 } from "lucide-react";
 import { Product } from "@/shared/schemas/ecommerce-schemas";
+import { UNIDAD_LABELS } from "@/shared/schemas/presupuesto-schema";
 
 interface ProductTableProps {
   products: Product[];
@@ -21,6 +23,7 @@ interface ProductTableProps {
   onEdit: (product: Product) => void;
   onReplenish: (product: Product) => void;
   onDelete: (id: string, name: string) => void;
+  onToggleActive: (product: Product) => void;
 }
 
 export const ProductTable: React.FC<ProductTableProps> = ({
@@ -29,6 +32,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
   onEdit,
   onReplenish,
   onDelete,
+  onToggleActive,
 }) => {
   return (
     <Box
@@ -94,6 +98,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                     borderColor="border.default"
                     _hover={{ bg: "bg.subtle" }}
                     transition="background-color 0.15s ease"
+                    opacity={p.isActive === false ? 0.6 : 1}
                   >
                     <Box as="td" p="4">
                       <VStack align="start" gap="0.5">
@@ -103,6 +108,11 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                         <Text fontSize="xs" color="text.muted" fontFamily="mono" letterSpacing="wider">
                           {p.sku}
                         </Text>
+                        {p.isActive === false && (
+                          <Badge bg="status.warningSoft" color="var(--chakra-colors-status-warning)" fontSize="xs" px="1.5" borderRadius="sm">
+                            Inactivo: no se cotiza
+                          </Badge>
+                        )}
                       </VStack>
                     </Box>
 
@@ -124,7 +134,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
 
                     <Box as="td" p="4">
                       <Text fontSize="xs" color="text.muted">
-                        {p.unit}
+                        {UNIDAD_LABELS[p.unit] ?? p.unit}
                       </Text>
                     </Box>
 
@@ -192,6 +202,20 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                         >
                           <Edit2 size={13} style={{ flexShrink: 0 }} />
                         </Button>
+                        {p.id && (
+                          <Button
+                            size="2xs"
+                            variant="ghost"
+                            borderRadius="md"
+                            onClick={() => onToggleActive(p)}
+                            title={p.isActive === false ? "Activar" : "Desactivar"}
+                            aria-label={p.isActive === false ? `Activar ${p.name}` : `Desactivar ${p.name}`}
+                            minW={{ base: "11", md: "auto" }}
+                            minH={{ base: "11", md: "auto" }}
+                          >
+                            <Power size={13} style={{ flexShrink: 0 }} />
+                          </Button>
+                        )}
                         {p.id && (
                           <Button
                             size="2xs"

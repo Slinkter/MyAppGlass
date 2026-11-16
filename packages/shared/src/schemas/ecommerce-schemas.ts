@@ -23,7 +23,7 @@ export const productSchema = z.object({
   category: z.enum(["vidrio", "aluminio", "accesorio", "servicio", "consumible"], {
     message: "Categoría no válida",
   }),
-  unit: z.enum(["m2", "barra", "unidad", "kg", "servicio", "plancha"], {
+  unit: z.enum(["m2", "ml", "barra", "unidad", "kg", "servicio", "plancha"], {
     message: "Unidad de medida no válida",
   }),
   stock: z.number().int().nonnegative("El stock no puede ser negativo").default(0),
@@ -56,6 +56,10 @@ export const clientProfileSchema = z.object({
   phone: z.string().min(9, "El teléfono celular debe tener al menos 9 dígitos"),
   address: z.string().min(5, "La dirección es requerida"),
   district: z.string().min(3, "El distrito es requerido"),
+  // Campos que solo escribe el admin desde /admin/clientes (ver cliente-crm-schema.ts).
+  contactName: z.string().optional(),
+  notes: z.string().optional(),
+  isActive: z.boolean().optional(),
   createdAt: z.any().optional(),
   updatedAt: z.any().optional(),
 });
@@ -83,6 +87,8 @@ export type BudgetItem = z.infer<typeof budgetItemSchema>;
 
 /**
  * Esquema Maestro de Presupuesto Formal
+ * @deprecated Modelo anterior (correlativo aleatorio). El presupuesto formal PRES-0001 usa
+ * `presupuestoSchema` de `presupuesto-schema.ts`.
  */
 export const budgetSchema = z.object({
   id: z.string().optional(),

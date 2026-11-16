@@ -4,6 +4,7 @@ import {
   getDoc,
   setDoc,
   addDoc,
+  updateDoc,
   query,
   serverTimestamp,
   onSnapshot,
@@ -41,6 +42,20 @@ export const subscribeToClients = (
     },
     onError
   );
+
+/** Campos que el admin puede editar de un cliente. */
+export type ClientEditableFields = Pick<
+  ClientProfile,
+  "fullName" | "dniRuc" | "contactName" | "phone" | "email" | "address" | "district" | "notes"
+>;
+
+/** Actualiza los datos de un cliente desde el panel. */
+export const updateClient = (id: string, data: ClientEditableFields): Promise<void> =>
+  updateDoc(doc(db, CLIENTS_COLLECTION, id), { ...data, updatedAt: serverTimestamp() });
+
+/** Activa o desactiva un cliente. A un cliente inactivo no se le puede cotizar. */
+export const setClientActive = (id: string, isActive: boolean): Promise<void> =>
+  updateDoc(doc(db, CLIENTS_COLLECTION, id), { isActive, updatedAt: serverTimestamp() });
 
 /** Agrega un cliente nuevo y devuelve el registro creado. */
 export const addClient = async (

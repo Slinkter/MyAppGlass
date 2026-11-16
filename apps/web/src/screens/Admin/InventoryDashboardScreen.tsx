@@ -151,6 +151,15 @@ export const InventoryDashboardScreen: React.FC = () => {
     }
   };
 
+  const handleToggleActive = async (product: Product) => {
+    if (!product.id) return;
+    try {
+      await productService.setProductActive(product.id, product.isActive === false);
+    } catch (err: unknown) {
+      alert("No se pudo cambiar el estado: " + (err instanceof Error ? err.message : String(err)));
+    }
+  };
+
   const handleDeleteProduct = async (id: string, name: string) => {
     if (!window.confirm(`¿Está seguro de eliminar "${name}" del catálogo?`)) return;
     try {
@@ -168,10 +177,10 @@ export const InventoryDashboardScreen: React.FC = () => {
       <HStack justify="space-between" align="center" wrap="wrap" gap="4" mb="8">
         <VStack align="start" gap="1">
           <Heading size="2xl" color="text.heading" letterSpacing="-0.02em">
-            Gestión y Control de Inventario
+Productos y servicios
           </Heading>
           <Text color="text.muted" fontSize="sm">
-            Catálogo en tiempo real de vidrios templados, perfiles de aluminio y accesorios con mutaciones atómicas.
+            Vidrios, perfiles, accesorios y servicios que se cotizan. Un ítem desactivado no aparece al armar un presupuesto.
           </Text>
         </VStack>
 
@@ -191,7 +200,7 @@ export const InventoryDashboardScreen: React.FC = () => {
             borderRadius="xl"
           >
             <Plus size={16} style={{ flexShrink: 0, marginRight: 6 }} />
-            Nuevo Producto
+            Nuevo ítem
           </Button>
         </HStack>
       </HStack>
@@ -211,6 +220,7 @@ export const InventoryDashboardScreen: React.FC = () => {
         onEdit={openCreateModal}
         onReplenish={openReplenishModal}
         onDelete={handleDeleteProduct}
+        onToggleActive={handleToggleActive}
       />
 
       {isReplenishModalOpen && selectedProduct && (

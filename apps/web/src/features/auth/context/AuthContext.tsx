@@ -94,7 +94,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           } catch {
             // ignore
           }
-          const isEmailAdmin = false;
+          // El rol sale solo del custom claim `role` del token (lo asigna la function
+          // `setAdminRole`). `users/{uid}.role` es informativo y no concede acceso.
+          try {
+            const tokenResult = await currentUser.getIdTokenResult();
+            setRole(tokenResult.claims.role === "admin" ? "admin" : "cliente");
+          } catch (err: unknown) {
+            logger.warn("No se pudo leer el token de sesión; se asume rol cliente", err);
+            setRole("cliente");
+          }
 
           try {
             const [
@@ -110,18 +118,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               getClientProfile(currentUser.uid),
             ]);
 
-            if (fetchedRoleRaw !== null) {
-              setRole(fetchedRoleRaw === "admin" ? "admin" : "cliente");
-            } else {
-              const determinedRole: UserRole = "cliente";
-              setRole(determinedRole);
-              await provisionUserDoc(currentUser.uid, currentUser.email, determinedRole);
+            if (fetchedRoleRaw === null) {
+              await provisionUserDoc(currentUser.uid, currentUser.email, "cliente");
             }
 
             setProfile(clientProfile);
           } catch (err: unknown) {
-            logger.warn("Consulta/aprovisionamiento de rol en Firestore en modo tolerante", err);
-            setRole(isEmailAdmin ? "admin" : "cliente");
+            logger.warn("Consulta/aprovisionamiento del usuario en Firestore en modo tolerante", err);
             setProfile(null);
           }
         } else {
