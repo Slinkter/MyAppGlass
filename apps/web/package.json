@@ -22,7 +22,7 @@
         "exceljs": "^4.4.0",
         "firebase": "^12.19.0",
         "lucide-react": "^1.64.0",
-        "next": "^16.4.3",
+        "next": "16.4.6",
         "next-themes": "^0.4.6",
         "pino": "^10.4.0",
         "react": "^19.2.4",
@@ -32,7 +32,7 @@
     "devDependencies": {
         "@eslint/js": "^9.39.4",
         "@gya/eslint-config": "workspace:*",
-        "@next/bundle-analyzer": "^16.4.3",
+        "@next/bundle-analyzer": "16.4.6",
         "@playwright/test": "^1.64.1",
         "@testing-library/jest-dom": "^7.0.1",
         "@testing-library/react": "^16.3.3",

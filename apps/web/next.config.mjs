@@ -28,6 +28,7 @@ const nextConfig = {
   },
   transpilePackages: ['@gya/shared'],
   experimental: {
+    agentUpgrade: 'security',
     optimizePackageImports: [
       '@chakra-ui/react',
       'lucide-react',
